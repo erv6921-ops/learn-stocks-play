@@ -1258,8 +1258,8 @@ export const structuredLessonContent: StructuredLessonContent[] = [
  * NEVER returns null — every lesson always has structured content.
  */
 export function getStructuredContent(lessonId: string): StructuredLessonContent | null {
-  // Try hand-written content first
-  const handWritten = structuredLessonContent.find(c => c.lessonId === lessonId)
+  const allContent = [...structuredLessonContent, ...investingFundamentalsContent]
+  const handWritten = allContent.find(c => c.lessonId === lessonId)
   if (handWritten) return handWritten
 
   // Generate content dynamically for lessons without hand-written content
