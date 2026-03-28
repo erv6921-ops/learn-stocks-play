@@ -341,6 +341,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   alternatives: { title: "Alternatives", icon: "Gem", description: "Beyond stocks and bonds", color: "accent" },
   "financial-planning": { title: "Financial Planning", icon: "Map", description: "Plan your financial future", color: "primary" },
   simulations: { title: "Simulations", icon: "Gamepad2", description: "Practice with market scenarios", color: "success" },
+  "investing-fundamentals": { title: "Investing Fundamentals", icon: "TrendingUp", description: "Core investing concepts", color: "success" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {
