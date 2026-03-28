@@ -38,6 +38,7 @@ const CATEGORY_TO_UNIT_CATEGORIES: Record<string, string[]> = {
   "alternatives": ["alternatives"],
   "financial-planning": ["financial-planning"],
   "simulations": ["simulations"],
+  "investing-fundamentals": ["investing-fundamentals"],
 }
 
 export interface BenchmarkScores {

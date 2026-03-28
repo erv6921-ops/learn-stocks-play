@@ -78,6 +78,7 @@ export type LessonCategory =
   | "alternatives"
   | "financial-planning"
   | "simulations"
+  | "investing-fundamentals"
 
 export interface UnitInfo {
   id: string
