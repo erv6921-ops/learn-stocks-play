@@ -37,6 +37,7 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-22", unitNumber: 22, title: "Alternative Investments",  level: 9, levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],        orderIndex: 22 },
   { id: "unit-23", unitNumber: 23, title: "10-Year Financial Plan",   level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"], orderIndex: 23 },
   { id: "unit-24", unitNumber: 24, title: "Market Simulations",       level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],        orderIndex: 24 },
+  { id: "unit-25", unitNumber: 25, title: "Investing Fundamentals",   level: 1,  levelTitle: LEVEL_TITLES[1],  categories: ["investing-fundamentals"], orderIndex: 3.5 },
 ]
 
 // ═══════════════════════════════════════════════
@@ -81,6 +82,18 @@ export const lessons: Lesson[] = [
   L("budget-8",  "Goal Budgeting",                     "Align your budget with your life goals",                     "budgeting", "builder",  "unit-3", "3.8",  450),
   L("budget-9",  "Zero-Based Budgeting",               "Learn strategies when every dollar has a purpose",            "budgeting", "builder",  "unit-3", "3.9",  500),
   L("budget-10", "Digital Budget Tools",               "Explore apps and tools that make budgeting easier",           "budgeting", "builder",  "unit-3", "3.10", 500),
+
+  // Unit 25: Investing Fundamentals (Level 1 — Foundational)
+  L("invfund-1",  "Why Investing Beats Saving",           "Learn why keeping cash in savings loses value over time",                  "investing-fundamentals", "explorer", "unit-25", "25.1",  250),
+  L("invfund-2",  "Compound Interest & the Rule of 72",   "Discover how interest earns interest and doubles your money",             "investing-fundamentals", "explorer", "unit-25", "25.2",  250),
+  L("invfund-3",  "Stocks: Owning a Piece of a Business", "Understand what it means to own shares in a company",                    "investing-fundamentals", "explorer", "unit-25", "25.3",  300),
+  L("invfund-4",  "Bonds: Lending Your Money",            "Learn how bonds work and why they're safer than stocks",                  "investing-fundamentals", "explorer", "unit-25", "25.4",  300),
+  L("invfund-5",  "Mutual Funds & ETFs",                  "Explore how pooled investing gives you instant diversification",          "investing-fundamentals", "explorer", "unit-25", "25.5",  300),
+  L("invfund-6",  "Risk vs Return",                       "Understand why higher potential gains come with higher risk",             "investing-fundamentals", "explorer", "unit-25", "25.6",  300),
+  L("invfund-7",  "Diversification",                      "Learn why spreading your investments protects your money",                "investing-fundamentals", "explorer", "unit-25", "25.7",  350),
+  L("invfund-8",  "Bull vs Bear Markets",                 "Understand market cycles and how to stay calm during downturns",          "investing-fundamentals", "explorer", "unit-25", "25.8",  350),
+  L("invfund-9",  "Reading a Stock Chart",                "Learn to interpret price history, volume, and key indicators",            "investing-fundamentals", "explorer", "unit-25", "25.9",  350),
+  L("invfund-10", "Building Your First Portfolio",        "Design a simple portfolio based on your age, goals, and risk tolerance",  "investing-fundamentals", "explorer", "unit-25", "25.10", 350),
 
   // ─── LEVEL 2: BANKING & CREDIT ───
 
@@ -328,6 +341,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   alternatives: { title: "Alternatives", icon: "Gem", description: "Beyond stocks and bonds", color: "accent" },
   "financial-planning": { title: "Financial Planning", icon: "Map", description: "Plan your financial future", color: "primary" },
   simulations: { title: "Simulations", icon: "Gamepad2", description: "Practice with market scenarios", color: "success" },
+  "investing-fundamentals": { title: "Investing Fundamentals", icon: "TrendingUp", description: "Core investing concepts", color: "success" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {
