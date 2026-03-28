@@ -1,6 +1,8 @@
 import { StructuredLessonContent } from "@/types"
 import { lessons } from "@/data/lessons"
 import { generateStructuredContent } from "@/lib/contentGenerator"
+import { investingFundamentalsContent } from "@/data/investingFundamentalsContent"
+import { generateStructuredContent } from "@/lib/contentGenerator"
 
 /**
  * Structured 6-section lesson content.
