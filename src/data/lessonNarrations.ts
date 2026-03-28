@@ -1,0 +1,233 @@
+// Narration scripts for each lesson - EXACT text as specified
+// These are read aloud by the TTS engine (friendly robot narrator)
+
+export const lessonNarrations: Record<string, string> = {
+  "budget-1": `Budgeting is one of the most important money skills you will ever learn.
+A budget is a plan for your money, and that plan helps you stay in control.
+
+Without a budget, money disappears quickly.
+Many people don't know where their money went because they never made a plan.
+
+A budget helps you decide where your money goes before you spend it.
+It helps you pay for what you need, enjoy what you want, and save for later.
+
+Two people can earn the same amount of money and end up very differently.
+The difference is not income.
+The difference is budgeting.
+
+Budgeting is not about restriction.
+It is about freedom and confidence with money.`,
+
+  "budget-2": `Creating a budget is simple.
+You only need to understand income, spending, and saving.
+
+Income is money you receive.
+This can come from allowance, a job, or gifts.
+
+Spending is how you use your money.
+Tracking spending shows where your money actually goes.
+
+Saving should happen before spending.
+Even small savings build strong habits over time.
+
+A simple budget gives you control over every dollar.`,
+
+  "budget-3": `Tracking your spending is the first step to financial awareness.
+Many people are surprised to learn where their money actually goes.
+
+Start by writing down every purchase for one week.
+Include small purchases like snacks and drinks.
+
+Look for patterns in your spending.
+Are there categories where you spend more than expected?
+
+Tracking reveals the truth about your money habits.
+Once you see the truth, you can make better choices.
+
+The goal is not to judge yourself.
+The goal is to understand your habits and improve them.`,
+
+  "budget-4": `The 50/30/20 rule is a simple way to divide your money.
+It works for people of all ages and income levels.
+
+Fifty percent goes to needs.
+These are things you must pay for, like food and housing.
+
+Thirty percent goes to wants.
+These are things you enjoy but don't require.
+
+Twenty percent goes to savings.
+This builds your future and protects against emergencies.
+
+You can adjust these percentages as needed.
+The key is having a clear plan for every dollar.`,
+
+  "budget-5": `Financial goals give your money a purpose.
+Without goals, saving feels pointless.
+
+Start with specific goals.
+Instead of saying save more, say save fifty dollars by next month.
+
+Short-term goals can be achieved in weeks or months.
+Long-term goals may take years to accomplish.
+
+Write your goals down and review them regularly.
+Visible goals are easier to achieve.
+
+Every time you save, you move closer to your dreams.
+Goals turn budgeting into an exciting journey.`,
+
+  "budget-6": `An emergency fund is money set aside for unexpected expenses.
+Life is unpredictable, and emergencies happen to everyone.
+
+Emergencies include car repairs, medical bills, and sudden job loss.
+Without savings, these events can cause serious financial stress.
+
+Start small if you need to.
+Even twenty dollars a month builds up over time.
+
+A good goal is three to six months of expenses saved.
+This may take years, and that is okay.
+
+An emergency fund provides peace of mind.
+It protects your other savings and prevents debt.`,
+
+  "budget-7": `Budget busters are spending traps that destroy your plan.
+Recognizing them helps you avoid financial trouble.
+
+Impulse buying is a major budget buster.
+This happens when you buy without thinking.
+
+Subscription services can quietly drain your money.
+Review your subscriptions and cancel what you don't use.
+
+Lifestyle creep occurs when spending rises with income.
+Just because you earn more doesn't mean you should spend more.
+
+Sales and discounts can trick you into overspending.
+A deal is only good if you needed the item anyway.
+
+Stay aware and protect your budget from these traps.`,
+
+  "budget-8": `Technology makes budgeting easier than ever before.
+Many apps and tools can help you track your money.
+
+Budgeting apps connect to your bank account.
+They automatically categorize your spending.
+
+Spreadsheets work well if you prefer manual control.
+You can customize them to fit your exact needs.
+
+Some people prefer simple pen and paper.
+The best tool is the one you will actually use.
+
+Experiment with different methods.
+Find what works for your personality and lifestyle.
+
+Consistency matters more than the tool you choose.`,
+
+  "budget-9": `Variable income makes budgeting more challenging.
+But it is still possible to stay in control.
+
+First, calculate your average monthly income.
+Look at the past six to twelve months.
+
+Build your budget around your lowest expected income.
+This ensures you can always cover essential expenses.
+
+When you earn more, save the extra amount.
+This prepares you for months when income is lower.
+
+Create separate accounts for different purposes.
+This prevents accidental overspending.
+
+Variable income requires flexibility and discipline.
+With practice, you can master this skill.`,
+
+  "budget-10": `Budgeting is the foundation of building wealth.
+Every wealthy person started with basic money management.
+
+Consistent budgeting creates surplus money.
+Surplus money can be invested for growth.
+
+Over time, investments compound and multiply.
+Small amounts today become large amounts tomorrow.
+
+Budgeting also prevents wealth-destroying debt.
+By spending less than you earn, you stay debt-free.
+
+The habits you build now will last a lifetime.
+Start today and watch your wealth grow over time.
+
+Budgeting is not about being cheap.
+It is about being smart and intentional with your money.`,
+
+  "econ-1": `Supply and demand are two of the most powerful forces in economics.
+They explain why prices rise, fall, and change over time.
+
+Supply is how much of something is available.
+When supply is low, items are harder to get.
+
+Demand is how much people want something.
+When demand is high, competition increases.
+
+Low supply and high demand push prices up.
+High supply and low demand push prices down.
+
+Every purchase you make is affected by supply and demand.`,
+
+  "econ-2": `Every financial decision involves a choice.
+Economics helps us understand those choices.
+
+Needs are things required for survival and basic living.
+
+Wants are things that are enjoyable but not required.
+
+Opportunity cost is what you give up when you choose one option over another.
+
+Smart decisions consider both gains and trade-offs.`,
+
+  "balance-1": `A balance sheet is a snapshot of your financial situation at one moment in time.
+
+Assets are things you own that have value, like cash or equipment.
+
+Liabilities are things you owe, such as loans or payments.
+
+Assets minus liabilities equals net worth.`,
+
+  "stocks-1": `Stocks allow people to own small pieces of companies.
+
+When you buy a stock, you become a partial owner of that business.
+
+Stocks connect everyday people to business success.`,
+
+  "stocks-2": `Stocks can make money in more than one way.
+
+When a company grows, its stock price may increase.
+
+Some companies pay dividends, which are cash payments to owners.
+
+Stocks reward patience and long-term thinking.`,
+
+  "stocks-3": `The stock market goes up and down.
+
+Short-term changes are normal and expected.
+
+Long-term investors focus on years, not days.
+
+Time is one of the most powerful investing tools.`,
+
+  "debt-1": `Debt is money you borrow and promise to pay back later.
+
+Most debt includes interest, which increases the total cost.
+
+Debt should always be handled carefully.`,
+
+  "debt-2": `Not all debt is the same.
+
+Good debt helps improve your future, like education.
+
+Bad debt is high-interest spending on things you don't need.
+
+Smart borrowers think before they borrow.`
+}

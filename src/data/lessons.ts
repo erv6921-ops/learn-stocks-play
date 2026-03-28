@@ -1,0 +1,343 @@
+import { Lesson, LessonCategory, MasteryTier, UnitInfo, LEVEL_TITLES } from "@/types"
+
+// Helper to create a lesson
+function L(
+  id: string, title: string, description: string, category: LessonCategory,
+  tier: MasteryTier, unitId: string, lessonNum: string, reward: number
+): Lesson {
+  return { id, title, description, category, level: tier, unitId, lessonNumber: lessonNum, reward, content: "", duration: 2, completed: false }
+}
+
+// ═══════════════════════════════════════════════
+// UNIT DEFINITIONS
+// ═══════════════════════════════════════════════
+
+export const unitInfo: UnitInfo[] = [
+  { id: "unit-1",  unitNumber: 1,  title: "The Psychology of Money",  level: 1, levelTitle: LEVEL_TITLES[1],  categories: ["psychology-of-money"], orderIndex: 1 },
+  { id: "unit-2",  unitNumber: 2,  title: "Income & Earning Power",   level: 1, levelTitle: LEVEL_TITLES[1],  categories: ["income-earning"],      orderIndex: 2 },
+  { id: "unit-3",  unitNumber: 3,  title: "Budgeting Mastery",        level: 1, levelTitle: LEVEL_TITLES[1],  categories: ["budgeting"],           orderIndex: 3 },
+  { id: "unit-4",  unitNumber: 4,  title: "Banking Systems",          level: 2, levelTitle: LEVEL_TITLES[2],  categories: ["banking"],             orderIndex: 4 },
+  { id: "unit-5",  unitNumber: 5,  title: "Credit & Debt",            level: 2, levelTitle: LEVEL_TITLES[2],  categories: ["credit-debt"],         orderIndex: 5 },
+  { id: "unit-6",  unitNumber: 6,  title: "Introduction to Investing", level: 3, levelTitle: LEVEL_TITLES[3], categories: ["investing-intro"],     orderIndex: 6 },
+  { id: "unit-7",  unitNumber: 7,  title: "Stocks Explained",         level: 3, levelTitle: LEVEL_TITLES[3],  categories: ["stocks"],              orderIndex: 7 },
+  { id: "unit-8",  unitNumber: 8,  title: "Stock Market System",      level: 3, levelTitle: LEVEL_TITLES[3],  categories: ["stock-market"],        orderIndex: 8 },
+  { id: "unit-9",  unitNumber: 9,  title: "Portfolio Construction",   level: 4, levelTitle: LEVEL_TITLES[4],  categories: ["portfolio"],           orderIndex: 9 },
+  { id: "unit-10", unitNumber: 10, title: "ETFs & Mutual Funds",      level: 4, levelTitle: LEVEL_TITLES[4],  categories: ["etfs-funds"],          orderIndex: 10 },
+  { id: "unit-11", unitNumber: 11, title: "Bonds & Fixed Income",     level: 4, levelTitle: LEVEL_TITLES[4],  categories: ["bonds"],               orderIndex: 11 },
+  { id: "unit-12", unitNumber: 12, title: "Financial Statements",     level: 5, levelTitle: LEVEL_TITLES[5],  categories: ["financial-statements"], orderIndex: 12 },
+  { id: "unit-13", unitNumber: 13, title: "Financial Ratios",         level: 5, levelTitle: LEVEL_TITLES[5],  categories: ["financial-ratios"],    orderIndex: 13 },
+  { id: "unit-14", unitNumber: 14, title: "Valuation",                level: 5, levelTitle: LEVEL_TITLES[5],  categories: ["valuation"],           orderIndex: 14 },
+  { id: "unit-15", unitNumber: 15, title: "Behavioral Economics",     level: 6, levelTitle: LEVEL_TITLES[6],  categories: ["behavioral-finance"],  orderIndex: 15 },
+  { id: "unit-16", unitNumber: 16, title: "Bubbles & Crashes",        level: 6, levelTitle: LEVEL_TITLES[6],  categories: ["bubbles-crashes"],     orderIndex: 16 },
+  { id: "unit-17", unitNumber: 17, title: "Inflation & Rates",        level: 7, levelTitle: LEVEL_TITLES[7],  categories: ["macro-economics"],     orderIndex: 17 },
+  { id: "unit-18", unitNumber: 18, title: "Economic Indicators",      level: 7, levelTitle: LEVEL_TITLES[7],  categories: ["economic-indicators"], orderIndex: 18 },
+  { id: "unit-19", unitNumber: 19, title: "Starting a Business",      level: 8, levelTitle: LEVEL_TITLES[8],  categories: ["entrepreneurship"],    orderIndex: 19 },
+  { id: "unit-20", unitNumber: 20, title: "Competitive Strategy",     level: 8, levelTitle: LEVEL_TITLES[8],  categories: ["competitive-strategy"], orderIndex: 20 },
+  { id: "unit-21", unitNumber: 21, title: "Options Basics",           level: 9, levelTitle: LEVEL_TITLES[9],  categories: ["options"],             orderIndex: 21 },
+  { id: "unit-22", unitNumber: 22, title: "Alternative Investments",  level: 9, levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],        orderIndex: 22 },
+  { id: "unit-23", unitNumber: 23, title: "10-Year Financial Plan",   level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"], orderIndex: 23 },
+  { id: "unit-24", unitNumber: 24, title: "Market Simulations",       level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],        orderIndex: 24 },
+]
+
+// ═══════════════════════════════════════════════
+// LESSONS (no videos — all use structured content)
+// ═══════════════════════════════════════════════
+
+export const lessons: Lesson[] = [
+  // ─── LEVEL 1: MONEY FOUNDATIONS ───
+
+  // Unit 1: Psychology of Money
+  L("psych-1",  "Why People Mismanage Money",         "Explore the common psychological traps that lead to poor financial decisions",   "psychology-of-money", "explorer", "unit-1", "1.1",  250),
+  L("psych-2",  "Delayed Gratification",              "Learn why waiting for rewards leads to better financial outcomes",              "psychology-of-money", "explorer", "unit-1", "1.2",  250),
+  L("psych-3",  "Instant vs Long-Term Reward",        "Understand the trade-offs between immediate and future benefits",              "psychology-of-money", "explorer", "unit-1", "1.3",  300),
+  L("psych-4",  "Scarcity vs Abundance Mindset",      "How your mindset about money shapes your financial future",                    "psychology-of-money", "explorer", "unit-1", "1.4",  300),
+  L("psych-5",  "Money & Emotions",                   "Discover how feelings influence spending and saving habits",                   "psychology-of-money", "explorer", "unit-1", "1.5",  300),
+  L("psych-6",  "Social Influence & Spending",        "Learn how peer pressure and social media affect your wallet",                  "psychology-of-money", "explorer", "unit-1", "1.6",  350),
+  L("psych-7",  "Advertising & Consumer Behavior",    "Understand how marketing tries to manipulate your spending",                   "psychology-of-money", "explorer", "unit-1", "1.7",  350),
+  L("psych-8",  "Behavioral Traps",                   "Identify cognitive biases that lead to bad financial choices",                 "psychology-of-money", "builder",  "unit-1", "1.8",  400),
+  L("psych-9",  "Identity & Money Habits",            "How your self-image shapes your relationship with money",                      "psychology-of-money", "builder",  "unit-1", "1.9",  400),
+  L("psych-10", "Healthy Financial Beliefs",          "Build a positive and productive money mindset",                                "psychology-of-money", "builder",  "unit-1", "1.10", 500),
+
+  // Unit 2: Income & Earning Power
+  L("income-1",  "Active vs Passive Income",   "Learn the two main ways to earn money",                        "income-earning", "explorer", "unit-2", "2.1",  250),
+  L("income-2",  "Wages vs Salary",            "Understand the difference between hourly and annual pay",      "income-earning", "explorer", "unit-2", "2.2",  250),
+  L("income-3",  "Hourly vs Commission",       "Compare different compensation structures",                   "income-earning", "explorer", "unit-2", "2.3",  300),
+  L("income-4",  "Gig Economy",                "Explore freelance and gig work opportunities",                "income-earning", "explorer", "unit-2", "2.4",  300),
+  L("income-5",  "Gross vs Net Pay",           "Learn what gets taken out of your paycheck",                  "income-earning", "explorer", "unit-2", "2.5",  300),
+  L("income-6",  "Taxes",                      "Understand how income taxes work",                            "income-earning", "builder",  "unit-2", "2.6",  400),
+  L("income-7",  "Career ROI",                 "Evaluate the financial return on career choices",             "income-earning", "builder",  "unit-2", "2.7",  400),
+  L("income-8",  "Education as Investment",    "Is college worth the cost? Analyze the data",                "income-earning", "builder",  "unit-2", "2.8",  400),
+  L("income-9",  "Skill Stacking",             "How combining skills multiplies your earning power",          "income-earning", "builder",  "unit-2", "2.9",  450),
+  L("income-10", "Entrepreneurship Income",    "Explore earning potential through starting a business",       "income-earning", "builder",  "unit-2", "2.10", 500),
+
+  // Unit 3: Budgeting Mastery
+  L("budget-1",  "What is a Budget & Why It Matters", "Learn why budgeting is the most important money skill you'll ever learn", "budgeting", "explorer", "unit-3", "3.1",  250),
+  L("budget-2",  "How to Make a Simple Budget",       "Master the basics of income, spending, and saving",           "budgeting", "explorer", "unit-3", "3.2",  250),
+  L("budget-3",  "Tracking Your Spending",             "Learn how to monitor where your money goes each day",         "budgeting", "explorer", "unit-3", "3.3",  300),
+  L("budget-4",  "The 50/30/20 Rule",                  "Discover a simple formula for dividing your money",           "budgeting", "explorer", "unit-3", "3.4",  300),
+  L("budget-5",  "Monthly Budget",                     "Create and maintain a complete monthly budget",               "budgeting", "builder",  "unit-3", "3.5",  400),
+  L("budget-6",  "Emergency Funds",                    "Understand why saving for emergencies is essential",          "budgeting", "builder",  "unit-3", "3.6",  400),
+  L("budget-7",  "Lifestyle Inflation",                "Avoid the trap of spending more as you earn more",            "budgeting", "builder",  "unit-3", "3.7",  400),
+  L("budget-8",  "Goal Budgeting",                     "Align your budget with your life goals",                     "budgeting", "builder",  "unit-3", "3.8",  450),
+  L("budget-9",  "Zero-Based Budgeting",               "Learn strategies when every dollar has a purpose",            "budgeting", "builder",  "unit-3", "3.9",  500),
+  L("budget-10", "Digital Budget Tools",               "Explore apps and tools that make budgeting easier",           "budgeting", "builder",  "unit-3", "3.10", 500),
+
+  // ─── LEVEL 2: BANKING & CREDIT ───
+
+  // Unit 4: Banking Systems
+  L("banking-1", "Checking vs Savings",    "Learn the difference between these key account types",  "banking", "explorer", "unit-4", "4.1",  300),
+  L("banking-2", "How Banks Make Money",   "Discover the business model behind banking",            "banking", "explorer", "unit-4", "4.2",  300),
+  L("banking-3", "FDIC",                   "Understand how your deposits are protected",            "banking", "explorer", "unit-4", "4.3",  350),
+  L("banking-4", "Interest",               "Learn how banks pay you for keeping your money",        "banking", "explorer", "unit-4", "4.4",  350),
+  L("banking-5", "Online vs Traditional",  "Compare digital and brick-and-mortar banking",          "banking", "builder",  "unit-4", "4.5",  500),
+  L("banking-6", "Direct Deposit",         "Automate your paycheck for efficiency",                 "banking", "builder",  "unit-4", "4.6",  500),
+  L("banking-7", "Overdrafts",             "Avoid costly overdraft fees and penalties",              "banking", "builder",  "unit-4", "4.7",  600),
+  L("banking-8", "Fraud & Security",       "Protect your accounts from theft and scams",            "banking", "builder",  "unit-4", "4.8",  750),
+
+  // Unit 5: Credit & Debt
+  L("credit-1",  "What Is Credit",              "Understand what credit means and why it matters",         "credit-debt", "explorer", "unit-5", "5.1",  400),
+  L("credit-2",  "Credit Scores",               "Learn how credit scores are calculated",                 "credit-debt", "explorer", "unit-5", "5.2",  400),
+  L("credit-3",  "FICO",                        "Dive deep into the FICO scoring model",                  "credit-debt", "builder",  "unit-5", "5.3",  600),
+  L("credit-4",  "Credit Cards",                "How credit cards work and how to use them wisely",        "credit-debt", "builder",  "unit-5", "5.4",  600),
+  L("credit-5",  "APR vs APY",                  "Understand the difference between these interest measures", "credit-debt", "builder",  "unit-5", "5.5",  750),
+  L("credit-6",  "Compound Interest on Debt",   "See how compounding works against you on debt",           "credit-debt", "builder",  "unit-5", "5.6",  750),
+  L("credit-7",  "Student Loans",               "Navigate the world of student loan debt",                "credit-debt", "strategist","unit-5", "5.7",  850),
+  L("credit-8",  "Mortgages",                   "Understand home loans and how they work",                 "credit-debt", "strategist","unit-5", "5.8",  900),
+  L("credit-9",  "Auto Loans",                  "Make smart decisions about car financing",                "credit-debt", "strategist","unit-5", "5.9",  950),
+  L("credit-10", "Snowball vs Avalanche",        "Compare two popular debt payoff strategies",              "credit-debt", "strategist","unit-5", "5.10", 1000),
+
+  // ─── LEVEL 3: INVESTING CORE ───
+
+  // Unit 6: Intro to Investing
+  L("invest-1",  "Why Investing Matters",  "Learn why investing is essential for building wealth",       "investing-intro", "builder",    "unit-6", "6.1",  750),
+  L("invest-2",  "Inflation",             "Understand how inflation erodes your purchasing power",      "investing-intro", "builder",    "unit-6", "6.2",  750),
+  L("invest-3",  "Simple vs Compound",    "Compare simple and compound interest",                      "investing-intro", "builder",    "unit-6", "6.3",  800),
+  L("invest-4",  "Time Value of Money",   "A dollar today is worth more than a dollar tomorrow",       "investing-intro", "builder",    "unit-6", "6.4",  850),
+  L("invest-5",  "Risk vs Return",        "Understand the fundamental investing trade-off",            "investing-intro", "builder",    "unit-6", "6.5",  900),
+  L("invest-6",  "Opportunity Cost",      "Every investment choice has a hidden cost",                 "investing-intro", "strategist", "unit-6", "6.6",  1000),
+  L("invest-7",  "Diversification",       "Don't put all your eggs in one basket",                     "investing-intro", "strategist", "unit-6", "6.7",  1000),
+  L("invest-8",  "Long vs Short Term",    "Different time horizons require different strategies",      "investing-intro", "strategist", "unit-6", "6.8",  1100),
+  L("invest-9",  "Accounts Overview",     "IRA, 401k, brokerage — what's what",                       "investing-intro", "strategist", "unit-6", "6.9",  1150),
+  L("invest-10", "First Portfolio",        "Build your very first investment portfolio",                "investing-intro", "strategist", "unit-6", "6.10", 1250),
+
+  // Unit 7: Stocks Explained
+  L("stocks-1",  "What Is a Share",        "Discover how stocks let you own pieces of companies",      "stocks", "builder",    "unit-7", "7.1",  750),
+  L("stocks-2",  "Public vs Private",      "Understand the difference between public and private",     "stocks", "builder",    "unit-7", "7.2",  800),
+  L("stocks-3",  "IPOs",                   "Learn how companies go public",                            "stocks", "builder",    "unit-7", "7.3",  850),
+  L("stocks-4",  "Market Cap",             "Size matters — understand market capitalization",           "stocks", "builder",    "unit-7", "7.4",  900),
+  L("stocks-5",  "Dividends",              "Learn how companies share profits with shareholders",      "stocks", "strategist", "unit-7", "7.5",  1000),
+  L("stocks-6",  "Why Prices Move",        "Discover what drives stock price changes",                 "stocks", "strategist", "unit-7", "7.6",  1000),
+  L("stocks-7",  "Supply & Demand",        "The market forces that set stock prices",                  "stocks", "strategist", "unit-7", "7.7",  1100),
+  L("stocks-8",  "Order Types",            "Market, limit, and stop orders explained",                 "stocks", "strategist", "unit-7", "7.8",  1100),
+  L("stocks-9",  "Volatility",             "Understand price swings and what they mean",               "stocks", "strategist", "unit-7", "7.9",  1200),
+  L("stocks-10", "Reading a Stock Page",   "Decode all the numbers on a stock detail page",            "stocks", "strategist", "unit-7", "7.10", 1250),
+
+  // Unit 8: Stock Market System
+  L("market-1",  "NYSE vs NASDAQ",     "Compare the two largest stock exchanges",           "stock-market", "builder",    "unit-8", "8.1",  800),
+  L("market-2",  "Market Makers",      "Learn who keeps the markets running smoothly",      "stock-market", "builder",    "unit-8", "8.2",  850),
+  L("market-3",  "Trading Hours",      "When can you buy and sell stocks?",                 "stock-market", "builder",    "unit-8", "8.3",  850),
+  L("market-4",  "Bull vs Bear",       "Understand market cycles and trends",               "stock-market", "builder",    "unit-8", "8.4",  900),
+  L("market-5",  "Liquidity",          "Why it matters how easily you can buy or sell",     "stock-market", "strategist", "unit-8", "8.5",  1000),
+  L("market-6",  "After-Hours",        "Trading outside regular market hours",              "stock-market", "strategist", "unit-8", "8.6",  1050),
+  L("market-7",  "Circuit Breakers",   "How markets protect against extreme crashes",       "stock-market", "strategist", "unit-8", "8.7",  1100),
+  L("market-8",  "Insider Trading",    "The illegal side of stock trading",                 "stock-market", "strategist", "unit-8", "8.8",  1100),
+  L("market-9",  "SEC Basics",         "The regulator that keeps markets fair",             "stock-market", "strategist", "unit-8", "8.9",  1200),
+  L("market-10", "Market Indexes",     "S&P 500, Dow, Nasdaq — what they track",            "stock-market", "strategist", "unit-8", "8.10", 1250),
+
+  // ─── LEVEL 4: PORTFOLIO STRATEGY ───
+
+  // Unit 9: Portfolio Construction
+  L("portfolio-1",  "Asset Allocation",       "How to divide your investments across categories",       "portfolio", "strategist", "unit-9", "9.1",  1500),
+  L("portfolio-2",  "Risk Tolerance",         "Assess how much risk you can handle",                   "portfolio", "strategist", "unit-9", "9.2",  1600),
+  L("portfolio-3",  "Diversification",        "Build a portfolio that weathers any storm",              "portfolio", "strategist", "unit-9", "9.3",  1700),
+  L("portfolio-4",  "Dollar-Cost Averaging",  "Invest consistently regardless of market conditions",   "portfolio", "strategist", "unit-9", "9.4",  1800),
+  L("portfolio-5",  "Rebalancing",            "Keep your portfolio aligned with your goals",            "portfolio", "strategist", "unit-9", "9.5",  1900),
+  L("portfolio-6",  "Index Investing",        "The simplest way to match the market",                  "portfolio", "strategist", "unit-9", "9.6",  2000),
+  L("portfolio-7",  "Active vs Passive",      "Is picking stocks worth the effort?",                   "portfolio", "investor",   "unit-9", "9.7",  2200),
+  L("portfolio-8",  "Performance Tracking",   "Measure how well your investments are doing",            "portfolio", "investor",   "unit-9", "9.8",  2300),
+  L("portfolio-9",  "Risk Management",        "Strategies to protect against big losses",               "portfolio", "investor",   "unit-9", "9.9",  2400),
+  L("portfolio-10", "Wealth Building",        "Long-term strategies for growing your net worth",        "portfolio", "investor",   "unit-9", "9.10", 2500),
+
+  // Unit 10: ETFs & Mutual Funds
+  L("funds-1",  "What Is an ETF",       "Exchange-traded funds explained simply",              "etfs-funds", "strategist", "unit-10", "10.1",  1500),
+  L("funds-2",  "Mutual Funds",         "How mutual funds pool investor money",                "etfs-funds", "strategist", "unit-10", "10.2",  1600),
+  L("funds-3",  "Expense Ratios",       "The hidden cost of fund investing",                   "etfs-funds", "strategist", "unit-10", "10.3",  1700),
+  L("funds-4",  "Index Funds",          "Low-cost funds that track the whole market",           "etfs-funds", "strategist", "unit-10", "10.4",  1800),
+  L("funds-5",  "S&P 500",             "The most popular index fund explained",               "etfs-funds", "strategist", "unit-10", "10.5",  1900),
+  L("funds-6",  "Sector ETFs",          "Invest in specific industries",                       "etfs-funds", "investor",   "unit-10", "10.6",  2000),
+  L("funds-7",  "Bond ETFs",            "Fixed income investing made easy",                    "etfs-funds", "investor",   "unit-10", "10.7",  2100),
+  L("funds-8",  "Target-Date Funds",    "Set it and forget it retirement investing",           "etfs-funds", "investor",   "unit-10", "10.8",  2200),
+  L("funds-9",  "Fund Comparison",      "How to evaluate and compare funds",                   "etfs-funds", "investor",   "unit-10", "10.9",  2400),
+  L("funds-10", "When to Use Funds",    "Choosing the right fund for your goals",              "etfs-funds", "investor",   "unit-10", "10.10", 2500),
+
+  // Unit 11: Bonds & Fixed Income
+  L("bonds-1", "What Is a Bond",       "Lending money to governments and companies",    "bonds", "strategist", "unit-11", "11.1", 1500),
+  L("bonds-2", "Gov vs Corporate",     "Compare government and corporate bonds",        "bonds", "strategist", "unit-11", "11.2", 1600),
+  L("bonds-3", "Yield",                "How bonds generate returns",                    "bonds", "strategist", "unit-11", "11.3", 1800),
+  L("bonds-4", "Ratings",              "Understanding bond credit ratings",             "bonds", "strategist", "unit-11", "11.4", 1900),
+  L("bonds-5", "Inflation Risk",       "How inflation affects bond returns",            "bonds", "investor",   "unit-11", "11.5", 2000),
+  L("bonds-6", "Interest Rate Risk",   "Bond prices and interest rates move inversely", "bonds", "investor",   "unit-11", "11.6", 2200),
+  L("bonds-7", "Duration",             "Measuring a bond's sensitivity to rate changes","bonds", "investor",   "unit-11", "11.7", 2300),
+  L("bonds-8", "Bond Funds",           "Diversified bond investing through funds",      "bonds", "investor",   "unit-11", "11.8", 2400),
+  L("bonds-9", "Fixed Income Role",    "How bonds fit in your overall portfolio",       "bonds", "investor",   "unit-11", "11.9", 2500),
+
+  // ─── LEVEL 5: COMPANY ANALYSIS ───
+
+  L("fin-stmt-1",  "Income Statement",     "Read a company's revenue and expenses",            "financial-statements", "investor", "unit-12", "12.1",  3000),
+  L("fin-stmt-2",  "Revenue vs Profit",    "Why revenue alone doesn't tell the whole story",   "financial-statements", "investor", "unit-12", "12.2",  3200),
+  L("fin-stmt-3",  "COGS",                 "Cost of goods sold explained",                     "financial-statements", "investor", "unit-12", "12.3",  3400),
+  L("fin-stmt-4",  "Gross Margin",          "How much money a company keeps after costs",       "financial-statements", "investor", "unit-12", "12.4",  3500),
+  L("fin-stmt-5",  "Operating Expenses",   "The costs of running a business day-to-day",       "financial-statements", "investor", "unit-12", "12.5",  3600),
+  L("fin-stmt-6",  "Net Income",            "The bottom line — a company's true profit",        "financial-statements", "investor", "unit-12", "12.6",  3800),
+  L("fin-stmt-7",  "Balance Sheet",         "Assets, liabilities, and equity explained",        "financial-statements", "capital-architect", "unit-12", "12.7",  4000),
+  L("fin-stmt-8",  "Assets vs Liabilities", "What a company owns vs what it owes",              "financial-statements", "capital-architect", "unit-12", "12.8",  4200),
+  L("fin-stmt-9",  "Cash Flow",             "Follow the money flowing in and out",              "financial-statements", "capital-architect", "unit-12", "12.9",  4500),
+  L("fin-stmt-10", "Free Cash Flow",        "The cash a company has left after investments",    "financial-statements", "capital-architect", "unit-12", "12.10", 5000),
+
+  L("ratios-1", "P/E",                  "Price-to-earnings ratio explained",           "financial-ratios", "investor",          "unit-13", "13.1", 3000),
+  L("ratios-2", "EPS",                  "Earnings per share and what it means",        "financial-ratios", "investor",          "unit-13", "13.2", 3200),
+  L("ratios-3", "Debt-to-Equity",       "How much a company relies on borrowed money", "financial-ratios", "investor",          "unit-13", "13.3", 3500),
+  L("ratios-4", "Profit Margin",        "Measuring a company's efficiency",            "financial-ratios", "investor",          "unit-13", "13.4", 3800),
+  L("ratios-5", "ROE",                  "Return on equity — shareholder value",        "financial-ratios", "capital-architect", "unit-13", "13.5", 4200),
+  L("ratios-6", "Price-to-Sales",       "Another way to value a company",              "financial-ratios", "capital-architect", "unit-13", "13.6", 4500),
+  L("ratios-7", "Valuation Multiples",  "Comparing companies using multiples",         "financial-ratios", "capital-architect", "unit-13", "13.7", 4800),
+  L("ratios-8", "Ratio Interpretation", "Putting all the ratios together",             "financial-ratios", "capital-architect", "unit-13", "13.8", 5000),
+
+  L("valuation-1", "Company Value Drivers", "What makes a company valuable",               "valuation", "investor",          "unit-14", "14.1", 3000),
+  L("valuation-2", "Growth vs Value",       "Two fundamental investing philosophies",       "valuation", "investor",          "unit-14", "14.2", 3500),
+  L("valuation-3", "Moats",                 "Competitive advantages that protect profits",  "valuation", "investor",          "unit-14", "14.3", 3800),
+  L("valuation-4", "Market Expectations",   "How expectations drive stock prices",          "valuation", "capital-architect", "unit-14", "14.4", 4200),
+  L("valuation-5", "Simplified DCF",        "Estimate a company's intrinsic value",         "valuation", "capital-architect", "unit-14", "14.5", 4500),
+  L("valuation-6", "Intrinsic vs Market",   "When market price doesn't match true value",   "valuation", "capital-architect", "unit-14", "14.6", 4800),
+  L("valuation-7", "Long-Term Investing",   "Building wealth through patient investing",    "valuation", "capital-architect", "unit-14", "14.7", 5000),
+
+  // ─── LEVEL 6: BEHAVIORAL FINANCE ───
+
+  L("behavior-1", "Loss Aversion",       "Why losses hurt more than gains feel good",      "behavioral-finance", "strategist", "unit-15", "15.1", 1500),
+  L("behavior-2", "Anchoring",           "How first impressions bias your decisions",      "behavioral-finance", "strategist", "unit-15", "15.2", 1700),
+  L("behavior-3", "Confirmation Bias",   "Only seeing what you want to see",              "behavioral-finance", "strategist", "unit-15", "15.3", 1900),
+  L("behavior-4", "Overconfidence",      "When too much confidence hurts your portfolio", "behavioral-finance", "strategist", "unit-15", "15.4", 2100),
+  L("behavior-5", "Herd Behavior",       "Following the crowd in investing",              "behavioral-finance", "investor",   "unit-15", "15.5", 2300),
+  L("behavior-6", "FOMO",                "Fear of missing out and reckless investing",     "behavioral-finance", "investor",   "unit-15", "15.6", 2500),
+  L("behavior-7", "Emotional Trading",   "Making decisions with your heart, not head",     "behavioral-finance", "investor",   "unit-15", "15.7", 2800),
+  L("behavior-8", "Avoiding Traps",      "Strategies to overcome behavioral biases",       "behavioral-finance", "investor",   "unit-15", "15.8", 3000),
+
+  L("bubble-1", "Tulip Mania",           "The world's first speculative bubble",          "bubbles-crashes", "strategist", "unit-16", "16.1", 1500),
+  L("bubble-2", "Dot-Com",               "The internet bubble of the late 1990s",         "bubbles-crashes", "strategist", "unit-16", "16.2", 1800),
+  L("bubble-3", "2008 Crisis",           "The housing crash that rocked the world",       "bubbles-crashes", "investor",   "unit-16", "16.3", 2200),
+  L("bubble-4", "COVID Crash",           "Markets during a global pandemic",              "bubbles-crashes", "investor",   "unit-16", "16.4", 2500),
+  L("bubble-5", "Speculation Cycles",    "Recognizing patterns in market manias",         "bubbles-crashes", "investor",   "unit-16", "16.5", 2700),
+  L("bubble-6", "Corrections",           "Normal market pullbacks vs crashes",            "bubbles-crashes", "investor",   "unit-16", "16.6", 2800),
+  L("bubble-7", "Unsustainable Growth",  "When growth is too good to be true",            "bubbles-crashes", "investor",   "unit-16", "16.7", 3000),
+
+  // ─── LEVEL 7: MACRO ECONOMICS ───
+
+  L("macro-1", "Inflation",         "How rising prices affect your money",               "macro-economics", "investor",          "unit-17", "17.1", 3000),
+  L("macro-2", "CPI",               "Measuring inflation with the consumer price index", "macro-economics", "investor",          "unit-17", "17.2", 3500),
+  L("macro-3", "Federal Reserve",   "The central bank that controls money supply",       "macro-economics", "investor",          "unit-17", "17.3", 3800),
+  L("macro-4", "Monetary Policy",   "How the Fed uses tools to manage the economy",      "macro-economics", "investor",          "unit-17", "17.4", 4000),
+  L("macro-5", "Rate Changes",      "What happens when interest rates go up or down",    "macro-economics", "capital-architect", "unit-17", "17.5", 4500),
+  L("macro-6", "Stock Impact",      "How macro conditions affect stock prices",           "macro-economics", "capital-architect", "unit-17", "17.6", 4800),
+  L("macro-7", "Bond Impact",       "How interest rates move bond prices",               "macro-economics", "capital-architect", "unit-17", "17.7", 5000),
+
+  L("indicators-1", "GDP",                   "Measuring the total output of an economy",     "economic-indicators", "investor",          "unit-18", "18.1", 3000),
+  L("indicators-2", "Unemployment",          "What the jobless rate tells us",                "economic-indicators", "investor",          "unit-18", "18.2", 3300),
+  L("indicators-3", "Consumer Confidence",   "How optimism drives the economy",              "economic-indicators", "investor",          "unit-18", "18.3", 3600),
+  L("indicators-4", "Retail Sales",          "Tracking consumer spending trends",             "economic-indicators", "investor",          "unit-18", "18.4", 3800),
+  L("indicators-5", "Housing",               "The real estate market as an economic indicator","economic-indicators", "investor",         "unit-18", "18.5", 4000),
+  L("indicators-6", "Recessions",            "When the economy shrinks — causes and effects", "economic-indicators", "capital-architect", "unit-18", "18.6", 4500),
+  L("indicators-7", "Leading vs Lagging",    "Predicting vs confirming economic trends",      "economic-indicators", "capital-architect", "unit-18", "18.7", 5000),
+
+  // ─── LEVEL 8: ENTREPRENEURSHIP ───
+
+  L("biz-1", "Revenue Models",      "How businesses make money",                          "entrepreneurship", "investor",          "unit-19", "19.1", 3000),
+  L("biz-2", "Cost Structure",      "Understanding fixed and variable business costs",    "entrepreneurship", "investor",          "unit-19", "19.2", 3500),
+  L("biz-3", "Break-Even",          "When a business starts making profit",               "entrepreneurship", "investor",          "unit-19", "19.3", 3800),
+  L("biz-4", "Margins",             "Measuring business profitability",                   "entrepreneurship", "investor",          "unit-19", "19.4", 4000),
+  L("biz-5", "Funding",             "How startups raise capital",                          "entrepreneurship", "capital-architect", "unit-19", "19.5", 4500),
+  L("biz-6", "Pricing",             "Setting the right price for products and services",  "entrepreneurship", "capital-architect", "unit-19", "19.6", 4800),
+  L("biz-7", "Business Planning",   "Creating a roadmap for business success",            "entrepreneurship", "capital-architect", "unit-19", "19.7", 5000),
+
+  L("strategy-1", "Market Share",          "Winning customers in a competitive market",         "competitive-strategy", "investor",          "unit-20", "20.1", 3500),
+  L("strategy-2", "Pricing Power",         "The ability to raise prices without losing customers","competitive-strategy", "investor",         "unit-20", "20.2", 3800),
+  L("strategy-3", "Economies of Scale",    "Getting cheaper as you get bigger",                 "competitive-strategy", "investor",          "unit-20", "20.3", 4000),
+  L("strategy-4", "Network Effects",       "Products that get better with more users",          "competitive-strategy", "capital-architect", "unit-20", "20.4", 4500),
+  L("strategy-5", "Brand Value",           "The power of a trusted brand",                     "competitive-strategy", "capital-architect", "unit-20", "20.5", 4800),
+  L("strategy-6", "Sustainable Advantage", "Building moats that last",                          "competitive-strategy", "capital-architect", "unit-20", "20.6", 5000),
+
+  // ─── LEVEL 9: ADVANCED INVESTING ───
+
+  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "21.1", 7500),
+  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "21.2", 8500),
+  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "21.3", 9500),
+  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "21.4", 11000),
+  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "21.5", 12000),
+
+  L("alt-1", "Real Estate",      "Investing in property for income and growth",        "alternatives", "capital-architect", "unit-22", "22.1", 7500),
+  L("alt-2", "REITs",            "Real estate investing without buying property",      "alternatives", "capital-architect", "unit-22", "22.2", 8500),
+  L("alt-3", "Commodities",      "Gold, oil, and other physical assets",               "alternatives", "capital-architect", "unit-22", "22.3", 10000),
+  L("alt-4", "Crypto (Educational)","Understanding cryptocurrency as an asset class", "alternatives", "capital-architect", "unit-22", "22.4", 11000),
+  L("alt-5", "Private Equity",   "Investing in non-public companies",                  "alternatives", "capital-architect", "unit-22", "22.5", 13000),
+  L("alt-6", "Liquidity Risk",   "The danger of investments you can't easily sell",    "alternatives", "capital-architect", "unit-22", "22.6", 15000),
+
+  // ─── LEVEL 10: REAL-WORLD APPLICATION ───
+
+  L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "23.1", 10000),
+  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth — choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "23.2", 11000),
+  L("plan-3", "Compounding",            "The magic of compound growth over decades",            "financial-planning", "capital-architect", "unit-23", "23.3", 12000),
+  L("plan-4", "Inflation Adjustments",  "Planning for rising costs over time",                  "financial-planning", "capital-architect", "unit-23", "23.4", 13000),
+  L("plan-5", "Lifestyle Planning",     "Aligning your finances with your life goals",          "financial-planning", "capital-architect", "unit-23", "23.5", 15000),
+
+  L("sim-1", "Bear Market Survival",    "Navigate a simulated market crash",                   "simulations", "capital-architect", "unit-24", "24.1", 10000),
+  L("sim-2", "Bull Run Strategy",       "Maximize gains in a rising market",                   "simulations", "capital-architect", "unit-24", "24.2", 11000),
+  L("sim-3", "Sector Rotation",         "Shift investments based on economic cycles",          "simulations", "capital-architect", "unit-24", "24.3", 12000),
+  L("sim-4", "Crisis Response",         "React to unexpected market events",                   "simulations", "capital-architect", "unit-24", "24.4", 13000),
+  L("sim-5", "Retirement Simulation",   "Plan withdrawals during a 30-year retirement",        "simulations", "capital-architect", "unit-24", "24.5", 14000),
+  L("sim-6", "Balanced Portfolio Build", "Create a well-diversified long-term portfolio",       "simulations", "capital-architect", "unit-24", "24.6", 15000),
+]
+
+// ═══════════════════════════════════════════════
+// CATEGORY INFO
+// ═══════════════════════════════════════════════
+
+export const categoryInfo: Record<LessonCategory, { title: string; icon: string; description: string; color: string }> = {
+  economics: { title: "Economics", icon: "TrendingUp", description: "Understand market forces", color: "accent" },
+  "balance-sheets": { title: "Balance Sheets", icon: "FileSpreadsheet", description: "Read financial statements", color: "warning" },
+  "debt-management": { title: "Debt Management", icon: "CreditCard", description: "Handle debt responsibly", color: "secondary" },
+  "psychology-of-money": { title: "Psychology of Money", icon: "Brain", description: "Understand your money mindset", color: "accent" },
+  "income-earning": { title: "Income & Earning", icon: "DollarSign", description: "Maximize your earning power", color: "primary" },
+  budgeting: { title: "Budgeting", icon: "Wallet", description: "Master personal finance planning", color: "primary" },
+  banking: { title: "Banking", icon: "Building", description: "Navigate the banking system", color: "secondary" },
+  "credit-debt": { title: "Credit & Debt", icon: "CreditCard", description: "Handle credit responsibly", color: "warning" },
+  "investing-intro": { title: "Investing Intro", icon: "Sprout", description: "Start your investing journey", color: "success" },
+  stocks: { title: "Stocks", icon: "LineChart", description: "Learn stock market basics", color: "success" },
+  "stock-market": { title: "Stock Market", icon: "BarChart3", description: "How markets work", color: "success" },
+  portfolio: { title: "Portfolio", icon: "PieChart", description: "Build and manage portfolios", color: "primary" },
+  "etfs-funds": { title: "ETFs & Funds", icon: "Layers", description: "Diversified fund investing", color: "accent" },
+  bonds: { title: "Bonds", icon: "Shield", description: "Fixed income investing", color: "secondary" },
+  "financial-statements": { title: "Financial Statements", icon: "FileSpreadsheet", description: "Read company financials", color: "warning" },
+  "financial-ratios": { title: "Financial Ratios", icon: "Calculator", description: "Analyze company performance", color: "warning" },
+  valuation: { title: "Valuation", icon: "Target", description: "Determine company value", color: "accent" },
+  "behavioral-finance": { title: "Behavioral Finance", icon: "Brain", description: "Psychology of investing", color: "accent" },
+  "bubbles-crashes": { title: "Bubbles & Crashes", icon: "AlertTriangle", description: "Learn from market history", color: "destructive" },
+  "macro-economics": { title: "Macro Economics", icon: "Globe", description: "Big-picture economic forces", color: "primary" },
+  "economic-indicators": { title: "Economic Indicators", icon: "Activity", description: "Track economic health", color: "primary" },
+  entrepreneurship: { title: "Entrepreneurship", icon: "Rocket", description: "Start and run a business", color: "success" },
+  "competitive-strategy": { title: "Competitive Strategy", icon: "Swords", description: "Win in the marketplace", color: "success" },
+  options: { title: "Options", icon: "ArrowUpDown", description: "Advanced derivatives trading", color: "warning" },
+  alternatives: { title: "Alternatives", icon: "Gem", description: "Beyond stocks and bonds", color: "accent" },
+  "financial-planning": { title: "Financial Planning", icon: "Map", description: "Plan your financial future", color: "primary" },
+  simulations: { title: "Simulations", icon: "Gamepad2", description: "Practice with market scenarios", color: "success" },
+}
+
+export function getLessonsByCategory(category: LessonCategory): Lesson[] {
+  return lessons.filter(lesson => lesson.category === category)
+}
+
+export function getLessonsByUnit(unitId: string): Lesson[] {
+  return lessons.filter(lesson => lesson.unitId === unitId)
+}
+
+export function getUnitRewardTotal(unitId: string): number {
+  return getLessonsByUnit(unitId).reduce((sum, l) => sum + l.reward, 0)
+}

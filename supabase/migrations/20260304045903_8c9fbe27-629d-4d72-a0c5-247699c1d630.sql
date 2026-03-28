@@ -1,0 +1,20 @@
+
+ALTER TABLE public.stock_fundamentals
+  ADD COLUMN IF NOT EXISTS revenue numeric,
+  ADD COLUMN IF NOT EXISTS ebitda numeric,
+  ADD COLUMN IF NOT EXISTS profit_margin numeric,
+  ADD COLUMN IF NOT EXISTS operating_margin numeric,
+  ADD COLUMN IF NOT EXISTS forward_pe numeric,
+  ADD COLUMN IF NOT EXISTS forward_eps numeric,
+  ADD COLUMN IF NOT EXISTS shares_outstanding numeric,
+  ADD COLUMN IF NOT EXISTS float_shares numeric,
+  ADD COLUMN IF NOT EXISTS price_to_book numeric,
+  ADD COLUMN IF NOT EXISTS price_to_sales numeric,
+  ADD COLUMN IF NOT EXISTS ex_dividend_date text,
+  ADD COLUMN IF NOT EXISTS dividend_rate numeric,
+  ADD COLUMN IF NOT EXISTS target_est numeric,
+  ADD COLUMN IF NOT EXISTS previous_close numeric,
+  ADD COLUMN IF NOT EXISTS open_price numeric,
+  ADD COLUMN IF NOT EXISTS day_high numeric,
+  ADD COLUMN IF NOT EXISTS day_low numeric,
+  ADD COLUMN IF NOT EXISTS security_type text DEFAULT 'stock';
