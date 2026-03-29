@@ -40,6 +40,13 @@ export default function Lessons() {
   const navigate = useNavigate();
   const multiplier = getRewardMultiplier();
 
+  const [apMode, setApMode] = useState(() => {
+    try { return localStorage.getItem("ap-mode") === "true"; } catch { return false; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem("ap-mode", String(apMode)); } catch {}
+  }, [apMode]);
+
   const isLessonCompleted = (lessonId: string) => lessonProgress.find((p) => p.lessonId === lessonId && p.completed);
   const unitTestPassed = (category: LessonCategory) => unitTestProgress.find((p) => p.category === category && p.completed);
 
