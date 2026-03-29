@@ -103,14 +103,19 @@ export default function Onboarding() {
   const { setUser } = useApp()
   const { toast } = useToast()
 
-  const [step, setStep] = useState<OnboardingStep>("about-you")
+  const [step, setStep] = useState<OnboardingStep>("role-select")
   const [loading, setLoading] = useState(false)
   const [showSkipDialog, setShowSkipDialog] = useState(false)
 
-  // About You fields
+  // Role & profile fields
+  const [selectedRole, setSelectedRole] = useState<UserRole | "">("")
   const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
   const [schoolName, setSchoolName] = useState("")
   const [grade, setGrade] = useState("")
+  const [age, setAge] = useState("")
+  const [classCode, setClassCode] = useState("")
   const [stateCourse, setStateCourse] = useState("")
 
   // Adaptive assessment state
