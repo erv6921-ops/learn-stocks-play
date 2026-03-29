@@ -20,6 +20,15 @@ import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarC
 
 type OnboardingStep = "about-you" | "welcome" | "assessment" | "results"
 
+const US_STATES = [
+  "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia",
+  "Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland",
+  "Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey",
+  "New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina",
+  "South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming",
+  "Washington D.C."
+]
+
 // ═══════════════════════════════════════════════════
 // ADAPTIVE BENCHMARK ENGINE
 // Start hard → adapt based on performance
@@ -101,6 +110,7 @@ export default function Onboarding() {
   const [firstName, setFirstName] = useState("")
   const [schoolName, setSchoolName] = useState("")
   const [grade, setGrade] = useState("")
+  const [stateCourse, setStateCourse] = useState("")
 
   // Adaptive assessment state
   const [questionPool] = useState<BenchmarkQuestion[]>(() => buildAdaptivePool())
@@ -306,6 +316,20 @@ export default function Onboarding() {
                   <SelectContent>
                     {[6,7,8,9,10,11,12].map(g => (
                       <SelectItem key={g} value={String(g)}>Grade {g}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">State / Course</label>
+                <Select value={stateCourse} onValueChange={setStateCourse}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your state or course" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="AP Financial Literacy">AP Financial Literacy</SelectItem>
+                    {US_STATES.map(s => (
+                      <SelectItem key={s} value={s}>{s}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
