@@ -2,6 +2,7 @@ import { StructuredLessonContent } from "@/types"
 import { lessons } from "@/data/lessons"
 import { generateStructuredContent } from "@/lib/contentGenerator"
 import { investingFundamentalsContent } from "@/data/investingFundamentalsContent"
+import { businessManagementContent } from "@/data/businessManagementContent"
 
 /**
  * Structured 6-section lesson content.
