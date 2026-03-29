@@ -308,6 +308,16 @@ export const lessons: Lesson[] = [
   L("sim-4", "Crisis Response",         "React to unexpected market events",                   "simulations", "capital-architect", "unit-24", "24.4", 13000),
   L("sim-5", "Retirement Simulation",   "Plan withdrawals during a 30-year retirement",        "simulations", "capital-architect", "unit-24", "24.5", 14000),
   L("sim-6", "Balanced Portfolio Build", "Create a well-diversified long-term portfolio",       "simulations", "capital-architect", "unit-24", "24.6", 15000),
+
+  // ─── Unit 26: Business Management & Strategy ───
+  L("mgmt-1", "What Managers Actually Do",           "Learn the four functions of management — planning, organizing, leading, controlling",       "business-management", "builder", "unit-26", "26.1", 400),
+  L("mgmt-2", "Leadership Styles",                   "Explore autocratic, democratic, and laissez-faire leadership and when each works",          "business-management", "builder", "unit-26", "26.2", 400),
+  L("mgmt-3", "Organizational Structure",            "Understand flat vs hierarchical structures, spans of control, and org charts",              "business-management", "builder", "unit-26", "26.3", 425),
+  L("mgmt-4", "SWOT Analysis",                       "Use strengths, weaknesses, opportunities, and threats as a decision framework",             "business-management", "builder", "unit-26", "26.4", 425),
+  L("mgmt-5", "Porter's Five Forces",                "Analyze competitive dynamics using Porter's framework",                                     "business-management", "strategist", "unit-26", "26.5", 450),
+  L("mgmt-6", "KPIs & Measuring Performance",        "Learn what key performance indicators are and how businesses choose them",                  "business-management", "strategist", "unit-26", "26.6", 450),
+  L("mgmt-7", "Human Resources & Hiring",            "Understand recruitment, onboarding, retention, and why hiring wrong costs more",            "business-management", "strategist", "unit-26", "26.7", 475),
+  L("mgmt-8", "Ethics in Business Decision-Making",  "Explore stakeholder theory, reputational risk, and long-term thinking",                    "business-management", "strategist", "unit-26", "26.8", 500),
 ]
 
 // ═══════════════════════════════════════════════
