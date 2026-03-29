@@ -310,6 +310,20 @@ export default function Onboarding() {
                   </SelectContent>
                 </Select>
               </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">State / Course</label>
+                <Select value={stateCourse} onValueChange={setStateCourse}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your state or course" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="AP Financial Literacy">AP Financial Literacy</SelectItem>
+                    {US_STATES.map(s => (
+                      <SelectItem key={s} value={s}>{s}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <Button
               size="xl"
