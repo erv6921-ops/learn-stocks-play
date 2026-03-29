@@ -229,5 +229,86 @@ Good debt helps improve your future, like education.
 
 Bad debt is high-interest spending on things you don't need.
 
-Smart borrowers think before they borrow.`
+Smart borrowers think before they borrow.`,
+
+  "mgmt-1": `Management is not about telling people what to do.
+It is about creating the conditions for a team to succeed.
+
+The best managers plan ahead, organize resources, lead with purpose, and control quality.
+
+Planning means setting goals and deciding how to achieve them.
+Organizing means arranging people, tasks, and resources.
+Leading means motivating and guiding your team.
+Controlling means monitoring performance and making corrections.
+
+These four functions work together as a cycle.
+Skip one, and the whole operation suffers.`,
+
+  "mgmt-2": `Leadership style is how a leader makes decisions and interacts with their team.
+
+Autocratic leaders make decisions alone.
+This works well in emergencies but can crush creativity.
+
+Democratic leaders involve the team in decisions.
+This builds buy-in but can be slow.
+
+Laissez-faire leaders give near-total freedom.
+This works with experts but can create chaos without direction.
+
+The best leaders adapt their style to the situation.`,
+
+  "mgmt-3": `Organizational structure defines how tasks are divided and who reports to whom.
+
+In a flat structure, there are few management layers.
+Communication is fast, but roles can be unclear at scale.
+
+In a hierarchical structure, there are clear chains of command.
+Roles are well-defined, but too many layers slow decisions.
+
+The right structure depends on company size, culture, and industry.`,
+
+  "mgmt-4": `SWOT analysis is a decision-making framework.
+It stands for Strengths, Weaknesses, Opportunities, and Threats.
+
+Strengths and weaknesses are internal factors you control.
+Opportunities and threats are external factors in the market.
+
+The power of SWOT is understanding how these factors interact.
+A strength can help you seize an opportunity.
+A weakness can amplify a threat.`,
+
+  "mgmt-5": `Porter's Five Forces help businesses understand competitive dynamics.
+
+The five forces are competitive rivalry, supplier power, buyer power, threat of substitutes, and threat of new entrants.
+
+When all five forces are strong, profits are thin.
+When forces are weak, companies can earn outsized returns.
+
+Understanding these forces helps businesses decide where to compete.`,
+
+  "mgmt-6": `Key Performance Indicators are the metrics that matter most.
+Not every number is a KPI, only the ones tied to strategic goals.
+
+Leading indicators predict future performance.
+Lagging indicators measure past results.
+
+The best businesses track both types.
+Relying on only one is like driving with only a rearview mirror.`,
+
+  "mgmt-7": `Hiring the right people is one of the most important business decisions.
+A bad hire costs roughly thirty percent of the position's annual salary.
+
+The process has three phases: recruitment, onboarding, and retention.
+
+Hire slow, fire fast.
+Taking time to find the right person is cheaper than hiring the wrong one.`,
+
+  "mgmt-8": `Every business faces ethical dilemmas.
+Stakeholder theory says businesses should consider impact on all groups.
+
+Short-term thinking leads to cutting corners.
+Long-term thinking considers how decisions affect the company years from now.
+
+Reputational risk from unethical behavior can destroy companies.
+Ethics is not just a moral issue. It is a strategic advantage.`
 }
