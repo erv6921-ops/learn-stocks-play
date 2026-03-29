@@ -2290,6 +2290,531 @@ export const lessonQuizzes: LessonQuiz[] = [
         explanation: "Net worth = Assets - Liabilities. $50,000 in assets with $30,000 debt = $20,000 net worth. Paying down debt increases net worth just like gaining assets does."
       }
     ]
+  },
+
+  // ═══════════════════════════════════════════════
+  // UNIT 26: BUSINESS MANAGEMENT & STRATEGY
+  // ═══════════════════════════════════════════════
+
+  {
+    lessonId: "mgmt-1",
+    questions: [
+      {
+        id: "mgmt1-q1",
+        question: "Which management function involves monitoring performance and making corrections?",
+        options: [
+          "Planning — setting objectives and creating roadmaps",
+          "Organizing — arranging people and allocating resources",
+          "Leading — inspiring and motivating team members",
+          "Controlling — tracking results and adjusting course"
+        ],
+        correctAnswer: 3,
+        explanation: "Controlling is about comparing actual performance to goals and taking corrective action when there's a gap. It closes the management cycle by feeding information back into planning."
+      },
+      {
+        id: "mgmt1-q2",
+        question: "A manager creates a weekly schedule assigning tasks to each team member. Which function is this?",
+        options: [
+          "Planning — deciding what goals to pursue this quarter",
+          "Organizing — structuring roles and allocating work",
+          "Leading — motivating team members to exceed targets",
+          "Controlling — reviewing last week's performance data"
+        ],
+        correctAnswer: 1,
+        explanation: "Assigning tasks and creating schedules is organizing — it's about structuring who does what and when so resources are used efficiently."
+      },
+      {
+        id: "mgmt1-q3",
+        question: "Why are the four management functions described as a cycle rather than a checklist?",
+        options: [
+          "Because managers should only perform one function per quarter",
+          "Because controlling provides feedback that informs the next round of planning",
+          "Because leading always comes before organizing in every situation",
+          "Because the cycle must be completed exactly once per fiscal year"
+        ],
+        correctAnswer: 1,
+        explanation: "The functions form a continuous loop: Plan → Organize → Lead → Control → learn from results → Plan again. Each round of controlling reveals what to adjust in the next planning phase."
+      },
+      {
+        id: "mgmt1-q4",
+        question: "A team leader gives a motivational speech before a product launch. Which function is she performing?",
+        options: [
+          "Planning — she's setting goals for the product launch",
+          "Organizing — she's assigning launch day responsibilities",
+          "Leading — she's inspiring and energizing her team",
+          "Controlling — she's evaluating the team's readiness"
+        ],
+        correctAnswer: 2,
+        explanation: "Motivating and inspiring the team is the leading function. It's about human connection, communication, and driving people toward a shared goal."
+      },
+      {
+        id: "mgmt1-q5",
+        question: "What happens when a manager skips the planning function entirely?",
+        options: [
+          "The team becomes more creative because they have total freedom",
+          "Organizing, leading, and controlling have no clear direction to follow",
+          "The controlling function automatically compensates for the missing plan",
+          "Employees prefer working without plans because it reduces their stress"
+        ],
+        correctAnswer: 1,
+        explanation: "Without planning, there are no goals to organize around, no vision to lead toward, and no benchmarks to control against. Planning provides the foundation for all other functions."
+      }
+    ]
+  },
+  {
+    lessonId: "mgmt-2",
+    questions: [
+      {
+        id: "mgmt2-q1",
+        question: "Which leadership style involves the leader making all decisions without team input?",
+        options: [
+          "Democratic — decisions are made through team voting",
+          "Laissez-faire — the team operates with minimal direction",
+          "Autocratic — the leader decides unilaterally for the group",
+          "Collaborative — decisions are shared equally among all members"
+        ],
+        correctAnswer: 2,
+        explanation: "Autocratic leaders centralize decision-making. This can be effective in urgent situations but can harm morale and creativity when used as the default."
+      },
+      {
+        id: "mgmt2-q2",
+        question: "A research lab director lets her PhD scientists choose their own projects. Which style is this?",
+        options: [
+          "Autocratic — the director is controlling through indirect means",
+          "Democratic — the team votes on which projects to prioritize",
+          "Laissez-faire — highly skilled team members self-direct their work",
+          "Transactional — scientists receive bonuses for completing projects"
+        ],
+        correctAnswer: 2,
+        explanation: "Giving highly skilled professionals autonomy to choose their own work is laissez-faire leadership. It works because PhD scientists are self-motivated experts who thrive with independence."
+      },
+      {
+        id: "mgmt2-q3",
+        question: "What is the PRIMARY disadvantage of democratic leadership?",
+        options: [
+          "Team members feel excluded from the decision-making process",
+          "It takes more time because gathering and weighing input is slower",
+          "It produces lower quality decisions than autocratic leadership",
+          "Democratic leaders cannot hold team members accountable for results"
+        ],
+        correctAnswer: 1,
+        explanation: "Democratic leadership produces better buy-in but requires more time for discussion and consensus-building. In fast-moving situations, this slower pace can be a competitive disadvantage."
+      },
+      {
+        id: "mgmt2-q4",
+        question: "A fire chief directs rescue operations with clear, immediate commands. Why is this leadership style appropriate?",
+        options: [
+          "Fire chiefs are required by law to use autocratic leadership",
+          "Emergency situations demand speed and clarity over group discussion",
+          "Firefighters prefer being told exactly what to do in every situation",
+          "Democratic decision-making has been proven ineffective in all emergencies"
+        ],
+        correctAnswer: 1,
+        explanation: "In emergencies, lives depend on swift action. Autocratic leadership provides the clear, immediate direction needed when there's no time for debate or consensus."
+      },
+      {
+        id: "mgmt2-q5",
+        question: "A leader uses different styles depending on the situation. What is this approach called?",
+        options: [
+          "Inconsistent leadership — changing approaches confuses teams",
+          "Situational leadership — adapting style to match the circumstance",
+          "Passive leadership — avoiding commitment to any single approach",
+          "Micromanagement — controlling every aspect of the team's work"
+        ],
+        correctAnswer: 1,
+        explanation: "Situational or adaptive leadership means matching your approach to the needs of the moment. Research shows this flexibility produces better outcomes than rigidly sticking to one style."
+      }
+    ]
+  },
+  {
+    lessonId: "mgmt-3",
+    questions: [
+      {
+        id: "mgmt3-q1",
+        question: "What is the main advantage of a flat organizational structure?",
+        options: [
+          "Clear promotion paths and well-defined career ladders for all employees",
+          "Faster communication and decision-making with fewer approval layers",
+          "Standardized processes that ensure consistency across all locations",
+          "Easy scalability from small teams to thousands of employees quickly"
+        ],
+        correctAnswer: 1,
+        explanation: "Flat structures minimize layers between employees and leadership, enabling faster communication and quicker decisions. The trade-off is less structure and potentially unclear roles at scale."
+      },
+      {
+        id: "mgmt3-q2",
+        question: "A manager oversees 25 direct reports. This describes a _______ span of control.",
+        options: [
+          "Narrow — because most managers have fewer direct reports",
+          "Wide — the manager oversees many people with less individual oversight",
+          "Hierarchical — this is the standard for all organizational structures",
+          "Flat — all organizations with 25 employees have this span of control"
+        ],
+        correctAnswer: 1,
+        explanation: "A wide span of control means one manager oversees many direct reports. This is common in flat organizations but means less time for individual attention."
+      },
+      {
+        id: "mgmt3-q3",
+        question: "Why do large restaurant chains typically use hierarchical structures?",
+        options: [
+          "Hierarchy is legally required for companies with more than 100 employees",
+          "Consistency across hundreds of locations requires standardized processes and clear authority",
+          "Flat structures are more expensive to operate for food service companies",
+          "Employees in the restaurant industry prefer having many layers of management"
+        ],
+        correctAnswer: 1,
+        explanation: "Chains like McDonald's need every location to deliver the same experience. Hierarchical structures enforce standards, training protocols, and quality control across thousands of sites."
+      },
+      {
+        id: "mgmt3-q4",
+        question: "What problem arises when a growing company maintains a flat structure too long?",
+        options: [
+          "Employee salaries automatically increase as the company grows larger",
+          "Decision-making becomes unclear and responsibilities start to overlap",
+          "The company loses its ability to hire new employees or contractors",
+          "Government regulators force the company to restructure immediately"
+        ],
+        correctAnswer: 1,
+        explanation: "As headcount grows, flat structures create ambiguity about authority, role boundaries, and accountability. What works for 10 people often breaks down at 50 or 100."
+      },
+      {
+        id: "mgmt3-q5",
+        question: "What is an org chart primarily used to show?",
+        options: [
+          "How much each employee earns compared to their department peers",
+          "The reporting relationships and hierarchy within an organization",
+          "Which employees are scheduled to receive promotions next quarter",
+          "The company's revenue broken down by department and cost center"
+        ],
+        correctAnswer: 1,
+        explanation: "An org chart visually maps reporting relationships — who reports to whom, how departments are structured, and where authority flows. It's a snapshot of organizational structure."
+      }
+    ]
+  },
+  {
+    lessonId: "mgmt-4",
+    questions: [
+      {
+        id: "mgmt4-q1",
+        question: "Which SWOT category would 'a trending social media platform your business can leverage' fall into?",
+        options: [
+          "Strength — it's something your business already possesses internally",
+          "Weakness — it highlights a gap in your current marketing strategy",
+          "Opportunity — it's an external condition you can capitalize on for growth",
+          "Threat — social media trends are unpredictable and therefore risky"
+        ],
+        correctAnswer: 2,
+        explanation: "A trending platform is an external factor that creates potential for growth — that's an opportunity. It's not something you control internally (strength/weakness) and it's positive, not a risk."
+      },
+      {
+        id: "mgmt4-q2",
+        question: "A business has strong brand loyalty but outdated technology. How should these be classified in SWOT?",
+        options: [
+          "Both are strengths because the company is established and operational",
+          "Brand loyalty is a strength; outdated technology is a weakness",
+          "Brand loyalty is an opportunity; outdated technology is a threat",
+          "Both are weaknesses because the company needs to modernize everything"
+        ],
+        correctAnswer: 1,
+        explanation: "Brand loyalty is an internal advantage (strength). Outdated technology is an internal limitation (weakness). Both are within the company's control to maintain or change."
+      },
+      {
+        id: "mgmt4-q3",
+        question: "What makes SWOT analysis more useful than simply listing pros and cons?",
+        options: [
+          "SWOT uses four categories instead of two, which is always more thorough",
+          "It separates internal factors from external factors, enabling targeted strategy",
+          "Pros and cons lists are outdated and no longer taught in business schools",
+          "SWOT analysis is required by law before launching any new business venture"
+        ],
+        correctAnswer: 1,
+        explanation: "By separating internal (strengths/weaknesses) from external (opportunities/threats), SWOT helps you distinguish between what you can control and what you must adapt to."
+      },
+      {
+        id: "mgmt4-q4",
+        question: "A small bakery's only supplier of organic flour raises prices by 30%. In the bakery's SWOT, this is:",
+        options: [
+          "A weakness — the bakery should have negotiated a better contract earlier",
+          "A strength — organic ingredients justify charging customers higher prices",
+          "An opportunity — the bakery can switch to conventional flour and save money",
+          "A threat — an external supplier decision that increases costs and squeezes margins"
+        ],
+        correctAnswer: 3,
+        explanation: "Supplier price increases are external factors outside the bakery's control — that's a threat. It puts pressure on margins and requires a strategic response."
+      },
+      {
+        id: "mgmt4-q5",
+        question: "How should a business respond to a SWOT analysis that reveals many threats and few strengths?",
+        options: [
+          "Ignore the analysis because SWOT is only useful for successful companies",
+          "Invest in building internal strengths while developing strategies to mitigate threats",
+          "Immediately close the business since the analysis shows it cannot succeed",
+          "Focus exclusively on threats and stop trying to develop any new strengths"
+        ],
+        correctAnswer: 1,
+        explanation: "SWOT reveals the current situation — it doesn't determine destiny. A business with many threats and few strengths should prioritize building capabilities while developing contingency plans."
+      }
+    ]
+  },
+  {
+    lessonId: "mgmt-5",
+    questions: [
+      {
+        id: "mgmt5-q1",
+        question: "In Porter's Five Forces, what does 'buyer power' refer to?",
+        options: [
+          "The ability of a company to buy competitors and expand market share",
+          "The ability of customers to influence prices and demand better terms",
+          "The financial power of investors to fund new business ventures",
+          "The ability of suppliers to set minimum order quantities for buyers"
+        ],
+        correctAnswer: 1,
+        explanation: "Buyer power is the leverage customers have to negotiate lower prices, better quality, or additional services. High buyer power pressures companies to compete harder."
+      },
+      {
+        id: "mgmt5-q2",
+        question: "Why is the threat of new entrants important to consider for existing businesses?",
+        options: [
+          "New entrants always have better products than established companies",
+          "The possibility of new competitors keeps existing companies from overpricing",
+          "New entrants are only relevant in technology industries, not traditional ones",
+          "Government agencies track new entrants and penalize existing companies"
+        ],
+        correctAnswer: 1,
+        explanation: "Even the threat of new competitors entering an industry disciplines existing players — they can't become complacent on price, quality, or innovation."
+      },
+      {
+        id: "mgmt5-q3",
+        question: "Which industry likely has the WEAKEST competitive rivalry?",
+        options: [
+          "Fast food — hundreds of chains compete for the same customers daily",
+          "Smartphone manufacturing — dozens of brands compete on features and price",
+          "Local water utility — typically a single provider with a geographic monopoly",
+          "E-commerce — thousands of online retailers sell similar products worldwide"
+        ],
+        correctAnswer: 2,
+        explanation: "Utility companies often operate as regulated monopolies — there's only one water provider in a given area. With no direct competition, rivalry is essentially nonexistent."
+      },
+      {
+        id: "mgmt5-q4",
+        question: "How do strong supplier relationships affect a company's competitive position?",
+        options: [
+          "Strong supplier relationships have no impact on competitive advantage",
+          "They reduce supplier power, potentially lowering costs and improving reliability",
+          "They always increase costs because loyal suppliers charge premium prices",
+          "They only matter for manufacturing companies, not service businesses"
+        ],
+        correctAnswer: 1,
+        explanation: "Good supplier relationships can reduce supplier power through loyalty and partnership. This can lead to better prices, priority during shortages, and more reliable supply — all competitive advantages."
+      },
+      {
+        id: "mgmt5-q5",
+        question: "What happens in an industry where ALL five forces are strong?",
+        options: [
+          "Companies earn exceptionally high profits due to competitive pressure",
+          "The industry becomes more attractive to new investors and entrepreneurs",
+          "Profit margins are compressed and it's difficult for any company to thrive",
+          "Strong forces cancel each other out, resulting in a perfectly balanced market"
+        ],
+        correctAnswer: 2,
+        explanation: "When all five forces are strong — intense rivalry, powerful suppliers and buyers, many substitutes, and easy entry — profits get squeezed from every direction. These industries are challenging."
+      }
+    ]
+  },
+  {
+    lessonId: "mgmt-6",
+    questions: [
+      {
+        id: "mgmt6-q1",
+        question: "What makes a metric qualify as a Key Performance Indicator rather than just a regular metric?",
+        options: [
+          "It must be reported to government regulatory agencies quarterly",
+          "It directly connects to the organization's strategic objectives and goals",
+          "It must be a financial number like revenue, profit, or cash flow",
+          "It needs to be tracked daily rather than weekly or monthly cycles"
+        ],
+        correctAnswer: 1,
+        explanation: "Not every number is a KPI. A KPI is specifically chosen because it measures progress toward a strategic goal. Employee count is a metric; employee retention rate tied to a growth goal is a KPI."
+      },
+      {
+        id: "mgmt6-q2",
+        question: "Which of the following is a leading indicator for a SaaS company?",
+        options: [
+          "Last quarter's total revenue from subscription payments received",
+          "The number of free trial signups this month compared to last month",
+          "Annual profit reported in the company's year-end financial statements",
+          "Total revenue from the previous fiscal year across all product lines"
+        ],
+        correctAnswer: 1,
+        explanation: "Free trial signups predict future revenue — more trials today likely means more paid subscriptions next month. Revenue and profit are lagging indicators that confirm past performance."
+      },
+      {
+        id: "mgmt6-q3",
+        question: "A company tracks 47 different KPIs. What is the likely problem?",
+        options: [
+          "They need to add at least 20 more KPIs for comprehensive tracking",
+          "Having too many KPIs dilutes focus and makes it hard to prioritize",
+          "47 KPIs is the industry standard recommended by business consultants",
+          "More KPIs always leads to better decision-making at every company level"
+        ],
+        correctAnswer: 1,
+        explanation: "When everything is a 'key' indicator, nothing is truly key. Too many KPIs create information overload and prevent teams from focusing on what matters most for strategic success."
+      },
+      {
+        id: "mgmt6-q4",
+        question: "Why should a subscription business track churn rate as a KPI alongside revenue?",
+        options: [
+          "Churn rate is required by accounting standards for subscription companies",
+          "Revenue can grow while churn rises — masking an unsustainable business model",
+          "Churn rate replaces the need to track revenue for subscription businesses",
+          "Investors only care about churn rate and ignore revenue during evaluations"
+        ],
+        correctAnswer: 1,
+        explanation: "A company can increase revenue through aggressive acquisition while losing existing customers at an alarming rate. Churn rate reveals whether growth is sustainable or masking a leaky bucket."
+      },
+      {
+        id: "mgmt6-q5",
+        question: "Net Promoter Score (NPS) measures how likely customers are to recommend a product. Is this a leading or lagging indicator?",
+        options: [
+          "Lagging — it only measures past customer satisfaction and experiences",
+          "Leading — high NPS predicts future growth through word-of-mouth referrals",
+          "Neither — NPS is a vanity metric with no connection to business outcomes",
+          "Both — NPS measures past experience and predicts future revenue equally"
+        ],
+        correctAnswer: 1,
+        explanation: "NPS is a leading indicator — satisfied customers who would recommend your product predict future organic growth through referrals. It signals future revenue before it materializes."
+      }
+    ]
+  },
+  {
+    lessonId: "mgmt-7",
+    questions: [
+      {
+        id: "mgmt7-q1",
+        question: "According to the U.S. Department of Labor, a bad hire costs approximately what percentage of the position's first-year salary?",
+        options: [
+          "About 5% — roughly the cost of posting the original job listing",
+          "About 15% — mainly the cost of interviewing replacement candidates",
+          "About 30% — including recruitment, training, and lost productivity",
+          "About 75% — most of the annual salary is wasted on a bad hire"
+        ],
+        correctAnswer: 2,
+        explanation: "The 30% estimate includes recruiting costs, training investment, lost productivity during the hire's tenure, team disruption, and the cost of finding a replacement."
+      },
+      {
+        id: "mgmt7-q2",
+        question: "Which phase of hiring is MOST responsible for preventing early turnover in the first 90 days?",
+        options: [
+          "Recruitment — finding candidates through job boards and referrals",
+          "Interviewing — asking behavioral questions during the selection process",
+          "Onboarding — integrating the new hire into the company culture and tools",
+          "Background checks — verifying the candidate's employment history and references"
+        ],
+        correctAnswer: 2,
+        explanation: "Studies show that strong onboarding programs reduce early turnover significantly. When new hires feel supported, understand expectations, and connect with their team, they're far more likely to stay."
+      },
+      {
+        id: "mgmt7-q3",
+        question: "A company offers competitive salaries but has 50% annual turnover. What should they investigate?",
+        options: [
+          "Whether salaries are high enough compared to industry competitors",
+          "Non-monetary factors like growth opportunities, culture, and management quality",
+          "Whether employees are leaving for companies with better office snack options",
+          "Government labor regulations that might be forcing employees to switch jobs"
+        ],
+        correctAnswer: 1,
+        explanation: "If pay is competitive but turnover is high, the issue is likely non-monetary: poor management, lack of career growth, toxic culture, or insufficient recognition. Money alone doesn't retain people."
+      },
+      {
+        id: "mgmt7-q4",
+        question: "What is the main benefit of structured interviews over unstructured conversations?",
+        options: [
+          "Structured interviews take less time to conduct than casual conversations",
+          "They ensure every candidate is evaluated on the same criteria consistently",
+          "Unstructured interviews are illegal in most states for hiring purposes",
+          "Structured interviews guarantee the best candidate is always selected"
+        ],
+        correctAnswer: 1,
+        explanation: "Structured interviews use the same questions and scoring criteria for every candidate, reducing bias and making comparisons fair. Unstructured conversations are more subjective and inconsistent."
+      },
+      {
+        id: "mgmt7-q5",
+        question: "Why is employee retention generally more cost-effective than constant hiring?",
+        options: [
+          "Retained employees accept lower salaries over time automatically",
+          "Existing employees accumulate institutional knowledge and require less training",
+          "Government tax incentives reward companies that never hire new employees",
+          "New employees are always less productive regardless of their experience level"
+        ],
+        correctAnswer: 1,
+        explanation: "Retained employees understand the company, its customers, and its processes. Replacing them means losing that knowledge and investing in recruiting, training, and ramp-up time for someone new."
+      }
+    ]
+  },
+  {
+    lessonId: "mgmt-8",
+    questions: [
+      {
+        id: "mgmt8-q1",
+        question: "What does stakeholder theory argue about business decision-making?",
+        options: [
+          "Only shareholders' financial interests should guide business decisions",
+          "Businesses should consider the impact on all affected groups, not just owners",
+          "Government regulators should make all major business decisions directly",
+          "Customers are the only stakeholder group that matters for profitability"
+        ],
+        correctAnswer: 1,
+        explanation: "Stakeholder theory holds that businesses affect many groups — employees, customers, communities, suppliers, and shareholders. Considering all stakeholders leads to more sustainable decisions."
+      },
+      {
+        id: "mgmt8-q2",
+        question: "A company discovers a minor safety defect in their product. Which response represents long-term ethical thinking?",
+        options: [
+          "Ignore it since no injuries have been reported and a recall is expensive",
+          "Wait for government regulators to notice the issue before taking action",
+          "Proactively disclose the issue and offer repairs before anyone is harmed",
+          "Quietly fix the defect in future production runs without notifying customers"
+        ],
+        correctAnswer: 2,
+        explanation: "Proactive disclosure builds trust and prevents the catastrophic consequences of a scandal. Companies that get ahead of problems earn customer loyalty; those that hide them risk everything."
+      },
+      {
+        id: "mgmt8-q3",
+        question: "Why is reputational risk often MORE costly than the original unethical decision?",
+        options: [
+          "Reputation damage is always temporary and easily repaired with advertising",
+          "Lost trust leads to customer exodus, lawsuits, and talent flight that compound over time",
+          "Reputational risk only affects small businesses, not large corporations",
+          "Companies can buy reputation insurance to cover any potential damages"
+        ],
+        correctAnswer: 1,
+        explanation: "When trust is broken, the cascade of consequences — lost customers, lawsuits, difficulty hiring, and regulatory scrutiny — typically costs far more than whatever short-term savings the unethical choice provided."
+      },
+      {
+        id: "mgmt8-q4",
+        question: "A CEO says 'Ethics are a luxury we can't afford right now.' What does this perspective overlook?",
+        options: [
+          "That ethics are only relevant for non-profit organizations and charities",
+          "That unethical shortcuts often create larger costs than the savings they generate",
+          "That profitable companies are automatically exempt from ethical considerations",
+          "That employees prefer working for companies with questionable ethical standards"
+        ],
+        correctAnswer: 1,
+        explanation: "Treating ethics as a 'luxury' ignores the evidence: unethical decisions create lawsuits, scandals, turnover, and brand damage that cost far more than doing the right thing would have."
+      },
+      {
+        id: "mgmt8-q5",
+        question: "How does building an ethical culture give a company a competitive advantage?",
+        options: [
+          "Ethical companies receive special government contracts and tax exemptions",
+          "It attracts better talent, builds customer loyalty, and prevents costly scandals",
+          "Ethical culture eliminates all business risks and guarantees profitability",
+          "Competitors are legally prohibited from copying ethical company practices"
+        ],
+        correctAnswer: 1,
+        explanation: "An ethical culture creates a virtuous cycle: top talent wants to work there, customers trust and stay loyal, and the company avoids the enormous costs of scandals and lawsuits."
+      }
+    ]
   }
 ]
 
