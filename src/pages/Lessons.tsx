@@ -154,7 +154,7 @@ export default function Lessons() {
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
-        <div className="flex items-start gap-4 mb-8">
+        <div className="flex items-start gap-4 mb-6">
           <div className="flex-1">
             <h1 className="font-display text-3xl md:text-4xl font-extrabold mb-2 tracking-tight">Financial Missions</h1>
             <p className="text-muted-foreground text-[15px]">
@@ -164,6 +164,11 @@ export default function Lessons() {
           <div className="hidden md:block">
             <img src={investiplayLogo} alt="InvestiPlay" className="h-10 object-contain" />
           </div>
+        </div>
+
+        {/* AP Mode Toggle */}
+        <div className="mb-8">
+          <APModeToggle apMode={apMode} onToggle={setApMode} />
         </div>
 
         {/* Recommended Next Mission */}
@@ -187,223 +192,218 @@ export default function Lessons() {
           </div>
         }
 
-        {/* Levels with Units */}
-        <div className="space-y-12">
-          {levels.map((level) => {
-            const levelUnits = unitInfo.filter((u) => u.level === level);
-            const levelTitle = LEVEL_TITLES[level] || `Level ${level}`;
+        {/* Content: AP Mode or Normal */}
+        {apMode ? (
+          <APModeSections allUnits={unitInfo} renderUnit={renderUnitCard} />
+        ) : (
+          <div className="space-y-12">
+            {levels.map((level) => {
+              const levelUnits = unitInfo.filter((u) => u.level === level);
+              const levelTitle = LEVEL_TITLES[level] || `Level ${level}`;
 
-            return (
-              <section key={level}>
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary font-extrabold text-base border border-primary/15">
-                    {level}
+              return (
+                <section key={level}>
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary font-extrabold text-base border border-primary/15">
+                      {level}
+                    </div>
+                    <div>
+                      <h2 className="font-display text-xl md:text-2xl font-bold tracking-tight">{levelTitle}</h2>
+                      <p className="text-xs text-muted-foreground">{levelUnits.length} unit{levelUnits.length > 1 ? 's' : ''}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="font-display text-xl md:text-2xl font-bold tracking-tight">{levelTitle}</h2>
-                    <p className="text-xs text-muted-foreground">{levelUnits.length} unit{levelUnits.length > 1 ? 's' : ''}</p>
-                  </div>
-                </div>
 
-                <Accordion type="multiple" className="space-y-4">
-                  {levelUnits.map((unit) => {
-                    const adaptive = adaptiveCurriculum.get(unit.id)!;
-                    const unitLessons = adaptive.lessons;
-                    const requiredLessons = unitLessons.filter((l) => l.status === "required");
-                    const validatedLessons = unitLessons.filter((l) => l.status === "validated");
-                    const completedCount = unitLessons.filter((l) =>
-                    l.status === "validated" || isLessonCompleted(l.lesson.id)
-                    ).length;
-                    const totalForProgress = unitLessons.length;
-                    const progress = totalForProgress > 0 ? Math.round(completedCount / totalForProgress * 100) : 0;
-
-                    const totalReward = getUnitRewardTotal(unit.id);
-                    const cat = unit.categories[0];
-                    const unitTest = getUnitTestByCategory(cat);
-                    const passed = unitTestPassed(cat);
-                    const depthCls = DEPTH_COLORS[adaptive.entryDepth] || DEPTH_COLORS["Foundational"];
-                    const tintClass = UNIT_ACCENT[unit.level] || "";
-
-                    const allRequired = requiredLessons.every((l) => isLessonCompleted(l.lesson.id));
-                    const allCompleted = allRequired && validatedLessons.length + requiredLessons.length === unitLessons.length;
-                    const unitIsLocked = !unlockedUnits.has(unit.id);
-
-                    return (
-                      <AccordionItem
-                        key={unit.id}
-                        value={unit.id}
-                        className={`border rounded-2xl overflow-hidden bg-card shadow-card border-l-4 ${tintClass} ${unitIsLocked ? 'opacity-60' : ''}`}>
-
-                        <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-muted/20 transition-colors">
-                          <div className="flex items-center gap-4 flex-1 min-w-0 text-left">
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.15em]">Unit {unit.unitNumber}</span>
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg border ${depthCls}`}>
-                                  Depth: {adaptive.entryDepth}
-                                </span>
-                                {unitIsLocked && (
-                                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg border bg-muted text-muted-foreground border-border flex items-center gap-1">
-                                    <Lock className="w-3 h-3" /> Locked
-                                  </span>
-                                )}
-                                {validatedLessons.length > 0 &&
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg border bg-success/10 text-success border-success/20 flex items-center gap-1">
-                                    <ShieldCheck className="w-3 h-3" />
-                                    {validatedLessons.length} validated
-                                  </span>
-                                }
-                                {passed && <Badge variant="success" className="text-[10px]">✓ Passed</Badge>}
-                              </div>
-                              <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{unit.title}</h3>
-                              <div className="flex items-center gap-4 mt-2">
-                                <span className="text-xs text-muted-foreground">{requiredLessons.length} lessons</span>
-                                {validatedLessons.length > 0 &&
-                                <span className="text-xs text-success">{validatedLessons.length} validated</span>
-                                }
-                                <span className="text-xs text-gold font-bold flex items-center gap-1">
-                                  <Coins className="w-3.5 h-3.5" />
-                                  {totalReward.toLocaleString()}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="w-20 shrink-0">
-                              <Progress value={progress} variant="success" className="h-2.5" />
-                              <p className="text-[10px] text-muted-foreground text-right mt-1 font-semibold">{progress}%</p>
-                            </div>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-0 pb-0">
-                          <div className="border-t divide-y divide-border/40">
-                            {/* Unit locked message */}
-                            {unitIsLocked && (
-                              <div className="bg-muted/30 px-8 py-4 flex items-center gap-3">
-                                <Lock className="w-4 h-4 text-muted-foreground shrink-0" />
-                                <div className="flex-1 min-w-0">
-                                  <span className="text-[13px] font-semibold text-muted-foreground">
-                                    Complete earlier units to unlock
-                                  </span>
-                                  <p className="text-xs text-muted-foreground/70 mt-0.5">
-                                    Finish at least 60% of previous unit lessons to continue
-                                  </p>
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Validated lessons grouped */}
-                            {validatedLessons.length > 0 &&
-                            <div className="bg-success/3 px-8 py-3 flex items-center gap-3">
-                                <ShieldCheck className="w-4 h-4 text-success shrink-0" />
-                                <div className="flex-1 min-w-0">
-                                  <span className="text-[13px] font-semibold text-success">
-                                    {validatedLessons.length} foundational lesson{validatedLessons.length > 1 ? 's' : ''} validated by Benchmark
-                                  </span>
-                                  <p className="text-xs text-muted-foreground mt-0.5">
-                                    Your assessment demonstrated mastery of these concepts
-                                  </p>
-                                </div>
-                              </div>
-                            }
-
-                            {/* Required lessons */}
-                            {requiredLessons.map((al) => {
-                              const lesson = al.lesson;
-                              const completed = isLessonCompleted(lesson.id);
-                              const unlocked = isLessonUnlocked(unit.id, lesson.id);
-
-                              if (!unlocked && !completed) {
-                                return (
-                                  <div
-                                    key={lesson.id}
-                                    className="flex items-center gap-3 pl-8 pr-6 py-3.5 opacity-40 cursor-not-allowed"
-                                  >
-                                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-muted/60 text-muted-foreground">
-                                      <Lock className="w-3 h-3" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                      <span className="font-semibold text-[14px] text-foreground/50 truncate">{lesson.title}</span>
-                                      <p className="text-xs text-muted-foreground/60 mt-0.5">Complete previous lesson to unlock</p>
-                                    </div>
-                                    <span className="text-muted-foreground/40 font-bold text-sm flex items-center gap-1 shrink-0">
-                                      <Coins className="w-3.5 h-3.5" />
-                                      +{Math.round(lesson.reward * multiplier).toLocaleString()}
-                                    </span>
-                                  </div>
-                                );
-                              }
-
-                              return (
-                                <Link
-                                  key={lesson.id}
-                                  to={`/lessons/${lesson.id}`}
-                                  className={`flex items-center gap-3 pl-8 pr-6 py-3.5 transition-all group press-scale ${
-                                  completed ? "bg-success/3 hover:bg-success/5" : "hover:bg-muted/20"}`
-                                  }>
-
-                                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold ${
-                                  completed ?
-                                  "bg-success/10 text-success" :
-                                  "bg-muted/60 text-muted-foreground"}`
-                                  }>
-                                    {completed ? <CheckCircle className="w-3.5 h-3.5" /> : lesson.lessonNumber}
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <span className="font-semibold text-[14px] text-foreground/80 group-hover:text-foreground truncate transition-colors">{lesson.title}</span>
-                                    <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{lesson.description}</p>
-                                  </div>
-                                  <div className="flex items-center gap-2 shrink-0">
-                                    <span className="text-gold font-bold text-sm flex items-center gap-1">
-                                      <Coins className="w-3.5 h-3.5" />
-                                      +{Math.round(lesson.reward * multiplier).toLocaleString()}
-                                    </span>
-                                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
-                                  </div>
-                                </Link>);
-
-                            })}
-
-                            {/* Unit Test row */}
-                            {unitTest &&
-                            <Link
-                              to={allCompleted ? `/unit-test/${cat}` : "#"}
-                              className={`flex items-center gap-3 pl-8 pr-6 py-3.5 transition-all press-scale ${
-                              allCompleted ?
-                              "hover:bg-gold/5 bg-gold/3" :
-                              "opacity-40 cursor-not-allowed"}`
-                              }>
-
-                                <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
-                              passed ? "bg-success/10 text-success" :
-                              allCompleted ? "bg-gold/10 text-gold" :
-                              "bg-muted/60 text-muted-foreground"}`
-                              }>
-                                  {passed ? <CheckCircle className="w-3.5 h-3.5" /> : <Trophy className="w-3.5 h-3.5" />}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <span className="font-bold text-[14px]">Unit Test</span>
-                                  <p className="text-xs text-muted-foreground">
-                                    {allCompleted ?
-                                  `${unitTest.questions.length} questions — prove your mastery` :
-                                  `Complete all required lessons to unlock`}
-                                  </p>
-                                </div>
-                                <span className="text-gold font-bold text-sm flex items-center gap-1 shrink-0">
-                                  <Coins className="w-3.5 h-3.5" />
-                                  +{unitTest.reward.toLocaleString()}
-                                </span>
-                              </Link>
-                            }
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>);
-
-                  })}
-                </Accordion>
-              </section>);
-
-          })}
-        </div>
+                  <Accordion type="multiple" className="space-y-4">
+                    {levelUnits.map((unit) => renderUnitCard(unit))}
+                  </Accordion>
+                </section>);
+            })}
+          </div>
+        )}
       </main>
     </div>);
 
+  // ── Reusable unit card renderer ──
+  function renderUnitCard(unit: typeof unitInfo[number]) {
+    const adaptive = adaptiveCurriculum.get(unit.id);
+    if (!adaptive) return null;
+    const unitLessons = adaptive.lessons;
+    const requiredLessons = unitLessons.filter((l) => l.status === "required");
+    const validatedLessons = unitLessons.filter((l) => l.status === "validated");
+    const completedCount = unitLessons.filter((l) =>
+      l.status === "validated" || isLessonCompleted(l.lesson.id)
+    ).length;
+    const totalForProgress = unitLessons.length;
+    const progress = totalForProgress > 0 ? Math.round(completedCount / totalForProgress * 100) : 0;
+
+    const totalReward = getUnitRewardTotal(unit.id);
+    const cat = unit.categories[0];
+    const unitTest = getUnitTestByCategory(cat);
+    const passed = unitTestPassed(cat);
+    const depthCls = DEPTH_COLORS[adaptive.entryDepth] || DEPTH_COLORS["Foundational"];
+    const tintClass = UNIT_ACCENT[unit.level] || "";
+
+    const allRequired = requiredLessons.every((l) => isLessonCompleted(l.lesson.id));
+    const allCompleted = allRequired && validatedLessons.length + requiredLessons.length === unitLessons.length;
+    const unitIsLocked = !unlockedUnits.has(unit.id);
+
+    return (
+      <AccordionItem
+        key={unit.id}
+        value={unit.id}
+        className={`border rounded-2xl overflow-hidden bg-card shadow-card border-l-4 ${tintClass} ${unitIsLocked ? 'opacity-60' : ''}`}>
+        <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-muted/20 transition-colors">
+          <div className="flex items-center gap-4 flex-1 min-w-0 text-left">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.15em]">Unit {unit.unitNumber}</span>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg border ${depthCls}`}>
+                  Depth: {adaptive.entryDepth}
+                </span>
+                {unitIsLocked && (
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg border bg-muted text-muted-foreground border-border flex items-center gap-1">
+                    <Lock className="w-3 h-3" /> Locked
+                  </span>
+                )}
+                {validatedLessons.length > 0 &&
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg border bg-success/10 text-success border-success/20 flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" />
+                    {validatedLessons.length} validated
+                  </span>
+                }
+                {passed && <Badge variant="success" className="text-[10px]">✓ Passed</Badge>}
+              </div>
+              <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{unit.title}</h3>
+              <div className="flex items-center gap-4 mt-2">
+                <span className="text-xs text-muted-foreground">{requiredLessons.length} lessons</span>
+                {validatedLessons.length > 0 &&
+                  <span className="text-xs text-success">{validatedLessons.length} validated</span>
+                }
+                <span className="text-xs text-gold font-bold flex items-center gap-1">
+                  <Coins className="w-3.5 h-3.5" />
+                  {totalReward.toLocaleString()}
+                </span>
+              </div>
+            </div>
+            <div className="w-20 shrink-0">
+              <Progress value={progress} variant="success" className="h-2.5" />
+              <p className="text-[10px] text-muted-foreground text-right mt-1 font-semibold">{progress}%</p>
+            </div>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent className="px-0 pb-0">
+          <div className="border-t divide-y divide-border/40">
+            {unitIsLocked && (
+              <div className="bg-muted/30 px-8 py-4 flex items-center gap-3">
+                <Lock className="w-4 h-4 text-muted-foreground shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <span className="text-[13px] font-semibold text-muted-foreground">
+                    Complete earlier units to unlock
+                  </span>
+                  <p className="text-xs text-muted-foreground/70 mt-0.5">
+                    Finish at least 60% of previous unit lessons to continue
+                  </p>
+                </div>
+              </div>
+            )}
+            {validatedLessons.length > 0 &&
+              <div className="bg-success/3 px-8 py-3 flex items-center gap-3">
+                <ShieldCheck className="w-4 h-4 text-success shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <span className="text-[13px] font-semibold text-success">
+                    {validatedLessons.length} foundational lesson{validatedLessons.length > 1 ? 's' : ''} validated by Benchmark
+                  </span>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    Your assessment demonstrated mastery of these concepts
+                  </p>
+                </div>
+              </div>
+            }
+            {requiredLessons.map((al) => {
+              const lesson = al.lesson;
+              const completed = isLessonCompleted(lesson.id);
+              const unlocked = isLessonUnlocked(unit.id, lesson.id);
+
+              if (!unlocked && !completed) {
+                return (
+                  <div
+                    key={lesson.id}
+                    className="flex items-center gap-3 pl-8 pr-6 py-3.5 opacity-40 cursor-not-allowed"
+                  >
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-muted/60 text-muted-foreground">
+                      <Lock className="w-3 h-3" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="font-semibold text-[14px] text-foreground/50 truncate">{lesson.title}</span>
+                      <p className="text-xs text-muted-foreground/60 mt-0.5">Complete previous lesson to unlock</p>
+                    </div>
+                    <span className="text-muted-foreground/40 font-bold text-sm flex items-center gap-1 shrink-0">
+                      <Coins className="w-3.5 h-3.5" />
+                      +{Math.round(lesson.reward * multiplier).toLocaleString()}
+                    </span>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={lesson.id}
+                  to={`/lessons/${lesson.id}`}
+                  className={`flex items-center gap-3 pl-8 pr-6 py-3.5 transition-all group press-scale ${
+                    completed ? "bg-success/3 hover:bg-success/5" : "hover:bg-muted/20"}`
+                  }>
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold ${
+                    completed ?
+                    "bg-success/10 text-success" :
+                    "bg-muted/60 text-muted-foreground"}`
+                  }>
+                    {completed ? <CheckCircle className="w-3.5 h-3.5" /> : lesson.lessonNumber}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="font-semibold text-[14px] text-foreground/80 group-hover:text-foreground truncate transition-colors">{lesson.title}</span>
+                    <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{lesson.description}</p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-gold font-bold text-sm flex items-center gap-1">
+                      <Coins className="w-3.5 h-3.5" />
+                      +{Math.round(lesson.reward * multiplier).toLocaleString()}
+                    </span>
+                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                </Link>);
+            })}
+            {unitTest &&
+              <Link
+                to={allCompleted ? `/unit-test/${cat}` : "#"}
+                className={`flex items-center gap-3 pl-8 pr-6 py-3.5 transition-all press-scale ${
+                  allCompleted ?
+                  "hover:bg-gold/5 bg-gold/3" :
+                  "opacity-40 cursor-not-allowed"}`
+                }>
+                <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
+                  passed ? "bg-success/10 text-success" :
+                  allCompleted ? "bg-gold/10 text-gold" :
+                  "bg-muted/60 text-muted-foreground"}`
+                }>
+                  {passed ? <CheckCircle className="w-3.5 h-3.5" /> : <Trophy className="w-3.5 h-3.5" />}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="font-bold text-[14px]">Unit Test</span>
+                  <p className="text-xs text-muted-foreground">
+                    {allCompleted ?
+                      `${unitTest.questions.length} questions — prove your mastery` :
+                      `Complete all required lessons to unlock`}
+                  </p>
+                </div>
+                <span className="text-gold font-bold text-sm flex items-center gap-1 shrink-0">
+                  <Coins className="w-3.5 h-3.5" />
+                  +{unitTest.reward.toLocaleString()}
+                </span>
+              </Link>
+            }
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    );
+  }
 }
