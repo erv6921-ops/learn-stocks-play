@@ -18,7 +18,8 @@ import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
 import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3 } from "lucide-react"
 
-type OnboardingStep = "about-you" | "welcome" | "assessment" | "results"
+type UserRole = "student" | "teacher"
+type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-details" | "welcome" | "assessment" | "results"
 
 const US_STATES = [
   "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia",
@@ -102,14 +103,19 @@ export default function Onboarding() {
   const { setUser } = useApp()
   const { toast } = useToast()
 
-  const [step, setStep] = useState<OnboardingStep>("about-you")
+  const [step, setStep] = useState<OnboardingStep>("role-select")
   const [loading, setLoading] = useState(false)
   const [showSkipDialog, setShowSkipDialog] = useState(false)
 
-  // About You fields
+  // Role & profile fields
+  const [selectedRole, setSelectedRole] = useState<UserRole | "">("")
   const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
   const [schoolName, setSchoolName] = useState("")
   const [grade, setGrade] = useState("")
+  const [age, setAge] = useState("")
+  const [classCode, setClassCode] = useState("")
   const [stateCourse, setStateCourse] = useState("")
 
   // Adaptive assessment state
@@ -193,7 +199,7 @@ export default function Onboarding() {
     const localUser = {
       id: `student-${Date.now()}`,
       firstName: firstName || "Student",
-      age: 14,
+      age: parseInt(age) || 14,
       schoolName: schoolName || "",
       grade: parseInt(grade) || 9,
       literacyLevel: litLevel,
@@ -218,7 +224,7 @@ export default function Onboarding() {
     const localUser = {
       id: `student-${Date.now()}`,
       firstName: firstName || "Student",
-      age: 14,
+      age: parseInt(age) || 14,
       schoolName: schoolName || "",
       grade: parseInt(grade) || 9,
       literacyLevel: "explorer" as const,
@@ -274,9 +280,10 @@ export default function Onboarding() {
       </div>
 
       <AnimatePresence mode="wait">
-        {step === "about-you" && (
+        {/* Step 1: Role Selection */}
+        {step === "role-select" && (
           <motion.div
-            key="about-you"
+            key="role-select"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -284,10 +291,45 @@ export default function Onboarding() {
           >
             <img src={investiplayLogo} alt="InvestiPlay" className="h-12 md:h-14 object-contain mb-8" />
             <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
-              About You
+              Welcome to InvestiPlay
+            </h1>
+            <p className="text-muted-foreground text-sm mb-8">
+              Let's get started — are you a student or a teacher?
+            </p>
+            <div className="w-full max-w-sm space-y-3">
+              <button
+                onClick={() => { setSelectedRole("student"); setStep("name") }}
+                className="w-full p-5 rounded-xl border-2 border-border hover:border-primary hover:bg-muted/50 transition-all text-left"
+              >
+                <div className="font-semibold text-lg">🎓 I'm a Student</div>
+                <p className="text-sm text-muted-foreground mt-1">Learn money skills through interactive lessons and simulations</p>
+              </button>
+              <button
+                onClick={() => { setSelectedRole("teacher"); setStep("name") }}
+                className="w-full p-5 rounded-xl border-2 border-border hover:border-primary hover:bg-muted/50 transition-all text-left"
+              >
+                <div className="font-semibold text-lg">📚 I'm a Teacher</div>
+                <p className="text-sm text-muted-foreground mt-1">Manage classes, assign lessons, and track student progress</p>
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Step 2: Name (both roles) */}
+        {step === "name" && (
+          <motion.div
+            key="name"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="flex flex-col items-center text-center max-w-lg"
+          >
+            <img src={investiplayLogo} alt="InvestiPlay" className="h-12 md:h-14 object-contain mb-8" />
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
+              What's your name?
             </h1>
             <p className="text-muted-foreground text-sm mb-6">
-              Just 3 quick things so we can personalize your experience
+              {selectedRole === "teacher" ? "We'll use this for your teacher profile" : "We'll use this to personalize your experience"}
             </p>
             <div className="w-full max-w-sm space-y-4 text-left">
               <div>
@@ -300,13 +342,113 @@ export default function Onboarding() {
                 />
               </div>
               <div>
+                <label className="text-sm font-medium mb-1.5 block">Last Name</label>
+                <Input
+                  placeholder="e.g. Johnson"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <Button variant="outline" onClick={() => setStep("role-select")}>
+                <ArrowLeft className="mr-2 w-4 h-4" /> Back
+              </Button>
+              <Button
+                size="xl"
+                variant="hero"
+                disabled={!firstName.trim()}
+                onClick={() => setStep(selectedRole === "teacher" ? "teacher-details" : "student-details")}
+              >
+                Continue <ArrowRight className="ml-2" />
+              </Button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Step 3a: Teacher Details */}
+        {step === "teacher-details" && (
+          <motion.div
+            key="teacher-details"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="flex flex-col items-center text-center max-w-lg"
+          >
+            <img src={investiplayLogo} alt="InvestiPlay" className="h-12 md:h-14 object-contain mb-8" />
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
+              Teacher Info
+            </h1>
+            <p className="text-muted-foreground text-sm mb-6">
+              Tell us a bit about your school
+            </p>
+            <div className="w-full max-w-sm space-y-4 text-left">
+              <div>
                 <label className="text-sm font-medium mb-1.5 block">School Name</label>
                 <Input
                   placeholder="e.g. Lincoln High School"
                   value={schoolName}
                   onChange={e => setSchoolName(e.target.value)}
+                  autoFocus
                 />
               </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Email</label>
+                <Input
+                  type="email"
+                  placeholder="e.g. emma@school.edu"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <Button variant="outline" onClick={() => setStep("name")}>
+                <ArrowLeft className="mr-2 w-4 h-4" /> Back
+              </Button>
+              <Button
+                size="xl"
+                variant="hero"
+                disabled={!schoolName.trim() || !email.trim()}
+                onClick={() => {
+                  const localUser = {
+                    id: `teacher-${Date.now()}`,
+                    firstName: firstName || "Teacher",
+                    age: 0,
+                    schoolName: schoolName || "",
+                    grade: 0,
+                    literacyLevel: "explorer" as const,
+                    onboardingComplete: true,
+                    assessmentScore: 0,
+                    createdAt: new Date()
+                  }
+                  setUser(localUser)
+                  navigate("/teacher-dashboard")
+                }}
+              >
+                Go to Dashboard <ArrowRight className="ml-2" />
+              </Button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Step 3b: Student Details */}
+        {step === "student-details" && (
+          <motion.div
+            key="student-details"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="flex flex-col items-center text-center max-w-lg"
+          >
+            <img src={investiplayLogo} alt="InvestiPlay" className="h-12 md:h-14 object-contain mb-8" />
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
+              Student Info
+            </h1>
+            <p className="text-muted-foreground text-sm mb-6">
+              A few details to personalize your learning
+            </p>
+            <div className="w-full max-w-sm space-y-4 text-left">
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Grade</label>
                 <Select value={grade} onValueChange={setGrade}>
@@ -316,6 +458,19 @@ export default function Onboarding() {
                   <SelectContent>
                     {[6,7,8,9,10,11,12].map(g => (
                       <SelectItem key={g} value={String(g)}>Grade {g}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Age</label>
+                <Select value={age} onValueChange={setAge}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your age" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[11,12,13,14,15,16,17,18,19].map(a => (
+                      <SelectItem key={a} value={String(a)}>{a} years old</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -334,16 +489,29 @@ export default function Onboarding() {
                   </SelectContent>
                 </Select>
               </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Class Code <span className="text-muted-foreground font-normal">(optional)</span></label>
+                <Input
+                  placeholder="e.g. ABC123"
+                  value={classCode}
+                  onChange={e => setClassCode(e.target.value.toUpperCase())}
+                  maxLength={6}
+                />
+              </div>
             </div>
-            <Button
-              size="xl"
-              variant="hero"
-              className="mt-6"
-              disabled={!firstName.trim()}
-              onClick={() => setStep("welcome")}
-            >
-              Continue <ArrowRight className="ml-2" />
-            </Button>
+            <div className="flex gap-3 mt-6">
+              <Button variant="outline" onClick={() => setStep("name")}>
+                <ArrowLeft className="mr-2 w-4 h-4" /> Back
+              </Button>
+              <Button
+                size="xl"
+                variant="hero"
+                disabled={!grade}
+                onClick={() => setStep("welcome")}
+              >
+                Continue <ArrowRight className="ml-2" />
+              </Button>
+            </div>
           </motion.div>
         )}
 
