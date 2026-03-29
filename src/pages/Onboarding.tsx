@@ -224,7 +224,7 @@ export default function Onboarding() {
     const localUser = {
       id: `student-${Date.now()}`,
       firstName: firstName || "Student",
-      age: 14,
+      age: parseInt(age) || 14,
       schoolName: schoolName || "",
       grade: parseInt(grade) || 9,
       literacyLevel: "explorer" as const,
