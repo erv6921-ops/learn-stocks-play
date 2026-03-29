@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import { lessons, categoryInfo, getLessonsByUnit, getUnitRewardTotal, unitInfo } from "@/data/lessons";
@@ -17,6 +17,8 @@ import {
   Coins, Trophy, ArrowRight, ShieldCheck, Lock } from
 "lucide-react";
 import { LessonCategory, LEVEL_TITLES } from "@/types";
+import APModeToggle from "@/components/APModeToggle";
+import APModeSections from "@/components/APModeSections";
 
 const DEPTH_COLORS: Record<string, string> = {
   "Foundational": "bg-success/10 text-success border-success/20",
