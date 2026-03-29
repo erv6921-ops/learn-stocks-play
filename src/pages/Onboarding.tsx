@@ -514,6 +514,8 @@ export default function Onboarding() {
             </div>
           </motion.div>
         )}
+
+        {step === "welcome" && (
           <motion.div
             key="welcome"
             initial={{ opacity: 0, y: 20 }}
