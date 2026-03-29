@@ -18,7 +18,8 @@ import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
 import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3 } from "lucide-react"
 
-type OnboardingStep = "about-you" | "welcome" | "assessment" | "results"
+type UserRole = "student" | "teacher"
+type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-details" | "welcome" | "assessment" | "results"
 
 const US_STATES = [
   "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia",
