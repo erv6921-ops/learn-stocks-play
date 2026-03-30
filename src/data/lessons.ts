@@ -39,6 +39,7 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-24", unitNumber: 24, title: "Market Simulations",       level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],        orderIndex: 24 },
   { id: "unit-25", unitNumber: 25, title: "Investing Fundamentals",   level: 1,  levelTitle: LEVEL_TITLES[1],  categories: ["investing-fundamentals"], orderIndex: 3.5 },
   { id: "unit-26", unitNumber: 26, title: "Business Management & Strategy", level: 8, levelTitle: LEVEL_TITLES[8], categories: ["business-management"], orderIndex: 20.5 },
+  { id: "unit-27", unitNumber: 27, title: "Marketing", level: 8, levelTitle: LEVEL_TITLES[8], categories: ["marketing"], orderIndex: 20.7 },
 ]
 
 // ═══════════════════════════════════════════════
