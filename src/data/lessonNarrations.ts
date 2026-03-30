@@ -310,5 +310,76 @@ Short-term thinking leads to cutting corners.
 Long-term thinking considers how decisions affect the company years from now.
 
 Reputational risk from unethical behavior can destroy companies.
-Ethics is not just a moral issue. It is a strategic advantage.`
+Ethics is not just a moral issue. It is a strategic advantage.`,
+
+  "mkt-1": `Most people confuse marketing with advertising.
+Advertising is just one small piece of marketing.
+
+Marketing is the full process of creating value and communicating it.
+It starts with understanding what people need before any ad is created.
+
+The best marketing does not feel like marketing at all.
+When a company delivers real value, the product almost sells itself.`,
+
+  "mkt-2": `The biggest mistake in marketing is trying to sell to everyone.
+When you try to appeal to everyone, you appeal to no one.
+
+Customer segmentation divides a broad market into smaller groups.
+Demographics tell you who your customer is.
+Psychographics tell you why they buy.
+
+The best marketers use both to create messages that truly resonate.`,
+
+  "mkt-3": `Market research is the difference between guessing and knowing.
+
+Primary research is data you collect yourself through surveys and interviews.
+Secondary research uses data that already exists from reports and studies.
+
+Smart businesses use both types.
+Skipping research is the most expensive mistake a business can make.`,
+
+  "mkt-4": `The four Ps of marketing are Product, Price, Place, and Promotion.
+
+Product is more than the physical item.
+It includes features, design, packaging, and the problem it solves.
+
+Pricing is one of the most powerful tools in marketing.
+Cost-plus pricing adds a markup to your costs.
+Value-based pricing charges what customers believe the product is worth.`,
+
+  "mkt-5": `Place is about making your product available where customers already are.
+The best product fails if customers cannot find it.
+
+Promotion is how you communicate your value to potential customers.
+It includes advertising, social media, and word of mouth.
+
+Organic promotion through content and community levels the playing field for small businesses.`,
+
+  "mkt-6": `A brand is not a logo.
+A brand is the total perception people have about your business.
+
+Brand consistency builds recognition and trust over time.
+Customers buy from brands they recognize, even when cheaper options exist.
+
+Brand voice is how your business speaks.
+The best brands have a consistent voice that matches their customers.`,
+
+  "mkt-7": `Customers do not just see a product and buy it.
+They go through a journey with four stages.
+
+Awareness is realizing you have a need.
+Consideration is researching and comparing options.
+Decision is choosing and purchasing.
+Loyalty is becoming a repeat customer.
+
+Different marketing tactics work at different stages.`,
+
+  "mkt-8": `The most expensive mistake in business is building something nobody wants.
+The solution is to test before you invest.
+
+A minimum viable product is the simplest version that lets you test real demand.
+Instead of building something perfect, launch a basic version and get feedback.
+
+A B testing compares two versions and lets data decide which is better.
+This replaces opinions with evidence.`
 }
