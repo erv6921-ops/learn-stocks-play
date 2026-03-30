@@ -80,6 +80,7 @@ export type LessonCategory =
   | "simulations"
   | "investing-fundamentals"
   | "business-management"
+  | "marketing"
 
 export interface UnitInfo {
   id: string
