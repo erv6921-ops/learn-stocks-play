@@ -39,6 +39,7 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-24", unitNumber: 24, title: "Market Simulations",       level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],        orderIndex: 24 },
   { id: "unit-25", unitNumber: 25, title: "Investing Fundamentals",   level: 1,  levelTitle: LEVEL_TITLES[1],  categories: ["investing-fundamentals"], orderIndex: 3.5 },
   { id: "unit-26", unitNumber: 26, title: "Business Management & Strategy", level: 8, levelTitle: LEVEL_TITLES[8], categories: ["business-management"], orderIndex: 20.5 },
+  { id: "unit-27", unitNumber: 27, title: "Marketing", level: 8, levelTitle: LEVEL_TITLES[8], categories: ["marketing"], orderIndex: 20.7 },
 ]
 
 // ═══════════════════════════════════════════════
@@ -318,6 +319,16 @@ export const lessons: Lesson[] = [
   L("mgmt-6", "KPIs & Measuring Performance",        "Learn what key performance indicators are and how businesses choose them",                  "business-management", "strategist", "unit-26", "26.6", 450),
   L("mgmt-7", "Human Resources & Hiring",            "Understand recruitment, onboarding, retention, and why hiring wrong costs more",            "business-management", "strategist", "unit-26", "26.7", 475),
   L("mgmt-8", "Ethics in Business Decision-Making",  "Explore stakeholder theory, reputational risk, and long-term thinking",                    "business-management", "strategist", "unit-26", "26.8", 500),
+
+  // ─── Unit 27: Marketing ───
+  L("mkt-1", "What Marketing Actually Is",           "Marketing vs advertising and the goal of creating and communicating value",                 "marketing", "explorer", "unit-27", "27.1", 300),
+  L("mkt-2", "Understanding Your Customer",          "Target markets, customer segmentation, demographics vs psychographics",                     "marketing", "explorer", "unit-27", "27.2", 300),
+  L("mkt-3", "Market Research",                      "Primary vs secondary research, surveys, focus groups, and reducing risk with data",         "marketing", "explorer", "unit-27", "27.3", 325),
+  L("mkt-4", "The 4 Ps: Product & Price",            "Product differentiation and pricing strategies — cost-plus, value-based, competitive",     "marketing", "explorer", "unit-27", "27.4", 325),
+  L("mkt-5", "The 4 Ps: Place & Promotion",          "Distribution channels, organic vs paid marketing, and reaching your audience",             "marketing", "explorer", "unit-27", "27.5", 350),
+  L("mkt-6", "Branding",                             "What a brand really is, brand voice, consistency, trust, and brand equity",                "marketing", "explorer", "unit-27", "27.6", 350),
+  L("mkt-7", "Consumer Decision-Making",             "The buyer journey — awareness, consideration, decision, and loyalty",                      "marketing", "explorer", "unit-27", "27.7", 375),
+  L("mkt-8", "Testing Your Ideas",                   "Hypothesis testing, A/B testing, MVPs, and using data to iterate",                         "marketing", "explorer", "unit-27", "27.8", 400),
 ]
 
 // ═══════════════════════════════════════════════
@@ -354,6 +365,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   simulations: { title: "Simulations", icon: "Gamepad2", description: "Practice with market scenarios", color: "success" },
   "investing-fundamentals": { title: "Investing Fundamentals", icon: "TrendingUp", description: "Core investing concepts", color: "success" },
   "business-management": { title: "Business Management", icon: "Briefcase", description: "Management and strategic thinking", color: "primary" },
+  marketing: { title: "Marketing", icon: "Megaphone", description: "Reach and persuade your audience", color: "success" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {

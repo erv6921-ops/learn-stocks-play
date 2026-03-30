@@ -2815,6 +2815,546 @@ export const lessonQuizzes: LessonQuiz[] = [
         explanation: "An ethical culture creates a virtuous cycle: top talent wants to work there, customers trust and stay loyal, and the company avoids the enormous costs of scandals and lawsuits."
       }
     ]
+  },
+
+  // ═══════════════════════════════════════════════
+  // UNIT 27: MARKETING
+  // ═══════════════════════════════════════════════
+
+  // MKT-1: What Marketing Actually Is
+  {
+    lessonId: "mkt-1",
+    questions: [
+      {
+        id: "mkt1-q1",
+        question: "What is the BEST definition of marketing?",
+        options: [
+          "The full process of creating, communicating, and delivering value to customers",
+          "The act of placing advertisements on television and social media platforms",
+          "A department within a company that designs logos and writes slogans",
+          "The strategy of offering the lowest price in every product category"
+        ],
+        correctAnswer: 0,
+        explanation: "Marketing encompasses everything from understanding customer needs to designing products, setting prices, choosing distribution, and promoting — not just the ads people see."
+      },
+      {
+        id: "mkt1-q2",
+        question: "In the lemonade stand scenario, what was the PRIMARY reason Mia outsold Jake?",
+        options: [
+          "Mia used a better lemonade recipe with premium ingredients that tasted superior",
+          "Mia strategically communicated value, chose a better location, and actively engaged customers",
+          "Jake charged too much money for lemonade compared to Mia's lower pricing",
+          "Mia had more friends at the festival who bought lemonade out of loyalty"
+        ],
+        correctAnswer: 1,
+        explanation: "Mia applied marketing principles: clear branding (colorful banner with tagline), strategic placement (busiest intersection), and active promotion (free samples). Same product, completely different strategy."
+      },
+      {
+        id: "mkt1-q3",
+        question: "Why does marketing begin BEFORE any advertisement is created?",
+        options: [
+          "Because advertisements are the last step in a required regulatory approval process",
+          "Because marketing starts with understanding customer needs and designing solutions for them",
+          "Because businesses must spend their full budget on product development before marketing",
+          "Because advertising agencies require a six-month lead time before any campaign launch"
+        ],
+        correctAnswer: 1,
+        explanation: "Marketing starts with research: What do customers need? What problems do they have? The product, pricing, and distribution decisions all come before promotion. Ads without this foundation waste money."
+      },
+      {
+        id: "mkt1-q4",
+        question: "What does it mean when 'the best marketing doesn't feel like marketing'?",
+        options: [
+          "That companies should hide their marketing efforts so customers never suspect promotion",
+          "That genuine value creation generates organic interest without feeling like a sales pitch",
+          "That subliminal advertising techniques are the most effective marketing approach available",
+          "That marketing is unnecessary when a product is of sufficiently high quality"
+        ],
+        correctAnswer: 1,
+        explanation: "When a company truly solves customer problems and delivers real value, customers naturally share their experience. The marketing is embedded in the product experience itself — no hard sell required."
+      },
+      {
+        id: "mkt1-q5",
+        question: "A student opens an Etsy shop selling handmade cards but gets zero sales. What should they do FIRST?",
+        options: [
+          "Spend money on Instagram and Facebook ads to drive more traffic to the shop",
+          "Research who buys handmade cards, what occasions they buy for, and what designs they prefer",
+          "Lower prices to the minimum possible to undercut every other card seller on Etsy",
+          "Create fifty more card designs to offer the widest possible selection to potential buyers"
+        ],
+        correctAnswer: 1,
+        explanation: "Before spending on ads or creating more inventory, understand your customer. Marketing starts with knowing WHO wants your product and WHY — then you can design, price, and promote effectively."
+      }
+    ]
+  },
+
+  // MKT-2: Understanding Your Customer
+  {
+    lessonId: "mkt-2",
+    questions: [
+      {
+        id: "mkt2-q1",
+        question: "What is customer segmentation and why is it important?",
+        options: [
+          "Dividing a broad market into specific groups so you can serve each one more effectively",
+          "Ranking customers by how much money they spend and focusing only on the biggest spenders",
+          "Separating customers into online and in-store groups based on where they make purchases",
+          "Categorizing products by price point so customers can easily find items in their budget"
+        ],
+        correctAnswer: 0,
+        explanation: "Segmentation divides a large market into smaller, more specific groups based on shared characteristics. This lets you tailor your product, message, and channels to resonate powerfully with each group."
+      },
+      {
+        id: "mkt2-q2",
+        question: "Two students share the same age, grade, and neighborhood. How could psychographics reveal they need DIFFERENT marketing?",
+        options: [
+          "Psychographics cannot distinguish between people with similar demographics in any situation",
+          "Their values, interests, and lifestyle motivations may drive completely different purchasing decisions",
+          "Psychographic data only applies to adult consumers over the age of twenty-five",
+          "Demographics always override psychographics when determining which products people will buy"
+        ],
+        correctAnswer: 1,
+        explanation: "Demographics are identical, but one might value sustainability while the other values convenience. These psychographic differences — values, interests, lifestyle — mean they respond to completely different messages and products."
+      },
+      {
+        id: "mkt2-q3",
+        question: "In the phone case scenario, why did Zara outsell Aiden by nearly 30x?",
+        options: [
+          "Zara used higher quality materials that justified a premium price point for her cases",
+          "Zara identified a specific target customer and aligned her product, brand, and channels to that audience",
+          "Aiden's phone cases were poorly made and broke easily compared to Zara's durable products",
+          "Zara spent significantly more money on paid advertising than Aiden could afford"
+        ],
+        correctAnswer: 1,
+        explanation: "Zara's success came from focus: one specific customer (minimalist college women), one aligned brand (Pebble Cases), and one strategic channel (Pinterest/Instagram). Everything worked together because everything was designed for one audience."
+      },
+      {
+        id: "mkt2-q4",
+        question: "A clothing brand discovers their demographic data shows customers aged 18-24. What additional information would psychographics provide?",
+        options: [
+          "The exact number of customers in this age range who live in each geographic region",
+          "Whether these customers value sustainability, fashion trends, comfort, or status when choosing clothes",
+          "The average annual income and education level of people in this age range nationally",
+          "How many competitors also target the same eighteen to twenty-four age demographic group"
+        ],
+        correctAnswer: 1,
+        explanation: "Psychographics reveal the WHY behind purchases — values, motivations, and lifestyle. Knowing your customers value sustainability vs. trendiness vs. comfort completely changes how you design and market your products."
+      },
+      {
+        id: "mkt2-q5",
+        question: "Why does trying to appeal to 'everyone' typically result in appealing to no one?",
+        options: [
+          "Because marketing budgets are never large enough to reach every single potential customer",
+          "Because a broad generic message lacks the specificity to resonate powerfully with any particular group",
+          "Because government regulations limit the number of customer segments a company can target",
+          "Because products designed for everyone are always lower quality than products designed for specialists"
+        ],
+        correctAnswer: 1,
+        explanation: "A message for everyone is too vague to make anyone feel understood. 'Great shoes for everyone' is forgettable. 'Lightweight trail runners for hikers who hate blisters' speaks directly to someone who will feel seen and respond."
+      }
+    ]
+  },
+
+  // MKT-3: Market Research
+  {
+    lessonId: "mkt-3",
+    questions: [
+      {
+        id: "mkt3-q1",
+        question: "What is the key difference between primary and secondary research?",
+        options: [
+          "Primary research collects original data directly from your market; secondary research uses existing published data",
+          "Primary research is more accurate while secondary research is always outdated and unreliable",
+          "Primary research applies only to new businesses while secondary research is for established companies",
+          "Primary research is free while secondary research always requires purchasing expensive industry reports"
+        ],
+        correctAnswer: 0,
+        explanation: "Primary research (surveys, interviews, observation) gives you original data specific to your question. Secondary research (industry reports, census data) provides context from existing sources. Smart businesses use both."
+      },
+      {
+        id: "mkt3-q2",
+        question: "In the food truck scenario, what specific insight did Diana's research reveal that Carlos missed?",
+        options: [
+          "That food trucks were illegal in the neighborhood and required special operating permits",
+          "That residents wanted quick healthy lunch options — a gap no existing restaurant was filling",
+          "That Korean food was more popular than grain bowls in every neighborhood nationwide",
+          "That Carlos's truck was parked too far from the main road to be visible to customers"
+        ],
+        correctAnswer: 1,
+        explanation: "Diana's survey of 50 residents revealed unmet demand for healthy lunch options. This primary research insight shaped her entire business model — menu, pricing, and location — giving her a clear competitive advantage."
+      },
+      {
+        id: "mkt3-q3",
+        question: "A student wants to launch a tutoring app. Which is an example of PRIMARY research?",
+        options: [
+          "Reading an article about the growing online tutoring industry published by a business magazine",
+          "Interviewing 25 students about their biggest study frustrations and what they would pay for help",
+          "Looking up Census Bureau data on the number of high school students in the United States",
+          "Analyzing the features and pricing of the top five existing tutoring apps on the market"
+        ],
+        correctAnswer: 1,
+        explanation: "Interviewing students directly is primary research — you're collecting original data from your exact target market. Reading articles and analyzing competitors is secondary research (useful, but not primary)."
+      },
+      {
+        id: "mkt3-q4",
+        question: "Why is skipping market research considered the most expensive mistake a business can make?",
+        options: [
+          "Because competitors will outperform you if they have more research data in their files",
+          "Because you risk investing significant time and money into products or services nobody actually wants",
+          "Because investors and banks require completed research reports before granting any business loans",
+          "Because market research provides the legal documentation required to register a new business"
+        ],
+        correctAnswer: 1,
+        explanation: "Without research, you're guessing. Building a product nobody wants wastes all the time, money, and effort invested. A simple survey costing nothing can reveal critical insights that save thousands of dollars."
+      },
+      {
+        id: "mkt3-q5",
+        question: "What type of research would BEST reveal WHY customers choose one coffee shop over another?",
+        options: [
+          "A published industry report on national coffee consumption trends and average spending",
+          "Focus groups where customers discuss what influences their choice of coffee shop in detail",
+          "Census data showing the demographics of people living near each coffee shop location",
+          "Sales data from the cash register showing which menu items are ordered most frequently"
+        ],
+        correctAnswer: 1,
+        explanation: "Focus groups — a form of primary research — let you hear customers explain their motivations in their own words. They reveal the WHY behind choices, not just the WHAT. Published data and sales figures show patterns but not motivations."
+      }
+    ]
+  },
+
+  // MKT-4: The 4 Ps — Product & Price
+  {
+    lessonId: "mkt-4",
+    questions: [
+      {
+        id: "mkt4-q1",
+        question: "What does 'product differentiation' mean in marketing?",
+        options: [
+          "What makes your product unique and worth choosing over competitors' alternatives",
+          "The process of manufacturing products in different sizes and colors for variety",
+          "Selling the same product at different prices depending on the customer's income level",
+          "Creating separate marketing campaigns for each individual product in your lineup"
+        ],
+        correctAnswer: 0,
+        explanation: "Differentiation is your competitive edge — the specific features, quality, design, or experience that make customers choose YOUR product over similar alternatives. Without it, you compete only on price."
+      },
+      {
+        id: "mkt4-q2",
+        question: "In the bracelet scenario, why did Marcus earn nearly 3x Ella's profit with fewer sales?",
+        options: [
+          "Marcus used significantly more expensive materials that justified his higher selling price",
+          "Marcus created perceived value through branding and packaging, enabling value-based pricing",
+          "Ella intentionally priced her bracelets low because she did not want to make a large profit",
+          "Marcus had a better location at the holiday market with more foot traffic near his table"
+        ],
+        correctAnswer: 1,
+        explanation: "Marcus's brand (Thread & Stone), packaging (gift boxes), and positioning transformed a $2 product into a $15 gift. The materials were the same — the perceived value was completely different."
+      },
+      {
+        id: "mkt4-q3",
+        question: "A coffee shop charges $5 for a latte that costs $0.60 to make. Which pricing strategy is this?",
+        options: [
+          "Cost-plus pricing, because the shop added a standard markup above production cost",
+          "Competitive pricing, because the shop matched the average latte price in the area",
+          "Value-based pricing, because the price reflects what customers believe the experience is worth",
+          "Penetration pricing, because the shop set a low price to attract customers from competitors"
+        ],
+        correctAnswer: 2,
+        explanation: "An 8x markup over cost isn't cost-plus — it's value-based. Customers pay for the experience, ambiance, convenience, and brand — not just the liquid. The price reflects perceived value, not production cost."
+      },
+      {
+        id: "mkt4-q4",
+        question: "When would cost-plus pricing be the MOST appropriate strategy for a business?",
+        options: [
+          "When the product is a luxury item with strong brand recognition and emotional appeal",
+          "When the product is a commodity with low differentiation and many similar competitors",
+          "When customers have no way to compare prices with any alternative products or services",
+          "When the business wants to maximize profit margins on every single unit they sell"
+        ],
+        correctAnswer: 1,
+        explanation: "Cost-plus works well for commodities where customers can easily compare prices and there's little differentiation. For unique or branded products, value-based pricing captures more of what customers are willing to pay."
+      },
+      {
+        id: "mkt4-q5",
+        question: "A student sells digital art prints online. Why might 'free' be the WORST price even though production cost is nearly zero?",
+        options: [
+          "Because free products violate online marketplace terms of service and licensing agreements",
+          "Because a zero price signals zero value, undermining the perceived quality and effort behind the work",
+          "Because free products always attract more customers than the student can handle alone",
+          "Because digital products must legally be sold above their production cost in most countries"
+        ],
+        correctAnswer: 1,
+        explanation: "Price is a signal. Free tells customers the product has no value. Even a small price ($2-5) communicates that the work has worth and effort behind it. Pricing too low can actually hurt sales by undermining perceived quality."
+      }
+    ]
+  },
+
+  // MKT-5: The 4 Ps — Place & Promotion
+  {
+    lessonId: "mkt-5",
+    questions: [
+      {
+        id: "mkt5-q1",
+        question: "Why is 'Place' considered as important as the product itself?",
+        options: [
+          "Because even excellent products fail when customers cannot find or access them easily",
+          "Because the physical appearance of a store determines the quality of products inside it",
+          "Because distribution is always the most expensive part of running any type of business",
+          "Because customers always buy from the nearest location regardless of product quality"
+        ],
+        correctAnswer: 0,
+        explanation: "Place ensures accessibility. The best product in the world generates zero revenue if customers don't know where to find it or can't purchase it conveniently. Distribution bridges the gap between product and customer."
+      },
+      {
+        id: "mkt5-q2",
+        question: "In the candle scenario, what was the MOST significant advantage of Nadia's multi-channel approach?",
+        options: [
+          "Nadia's candles were higher quality because she invested in better wax and fragrances",
+          "Nadia could reach customers and generate revenue beyond the constraints of market hours and location",
+          "Kai's farmers market had fewer visitors because it was in a less popular neighborhood",
+          "Nadia offered lower prices online which attracted more budget-conscious shoppers"
+        ],
+        correctAnswer: 1,
+        explanation: "Nadia's multi-channel strategy removed the constraints of time (market hours) and place (market location). Her online store operated 24/7, and her Instagram reached people beyond the local area."
+      },
+      {
+        id: "mkt5-q3",
+        question: "What is 'organic marketing' and why is it important for small businesses?",
+        options: [
+          "Marketing exclusively through farmers markets and organic food channels to health-conscious customers",
+          "Building audience and awareness through content and community without paying for advertisements",
+          "A marketing strategy that only works for businesses selling organic and natural products",
+          "Using environmentally friendly printing materials for all physical marketing brochures and flyers"
+        ],
+        correctAnswer: 1,
+        explanation: "Organic marketing — social media content, word-of-mouth, community building — costs time but not money. This levels the playing field for small businesses and student entrepreneurs who can't afford ad budgets."
+      },
+      {
+        id: "mkt5-q4",
+        question: "A student sells artwork only at monthly school events. What single change would most increase sales?",
+        options: [
+          "Raise prices at school events to signal premium quality to buyers walking by the booth",
+          "Add an online store and social media presence to reach customers beyond school events",
+          "Move the booth to a different hallway within the school to capture more student foot traffic",
+          "Reduce the number of art pieces displayed to create a sense of scarcity and exclusivity"
+        ],
+        correctAnswer: 1,
+        explanation: "Adding online distribution and social media removes time and location constraints. The student can now reach customers 24/7 and beyond the school community — dramatically expanding their addressable market."
+      },
+      {
+        id: "mkt5-q5",
+        question: "How did Glossier build a successful beauty brand without traditional TV advertising?",
+        options: [
+          "They offered the lowest prices in the beauty industry to attract price-sensitive customers",
+          "They used government subsidies for small businesses to fund their entire marketing budget",
+          "They built a community of real customers who shared authentic experiences on social media",
+          "They paid celebrities millions of dollars for exclusive endorsement deals and appearances"
+        ],
+        correctAnswer: 2,
+        explanation: "Glossier's Instagram-first strategy focused on real customer stories and community building — organic promotion that generated more trust than traditional ads at a fraction of the cost."
+      }
+    ]
+  },
+
+  // MKT-6: Branding
+  {
+    lessonId: "mkt-6",
+    questions: [
+      {
+        id: "mkt6-q1",
+        question: "What is a brand, according to marketing professionals?",
+        options: [
+          "The total perception customers have about a business — the feeling, trust, and story they associate with it",
+          "The official logo, color palette, and font selections registered with government trademark offices",
+          "The physical products a company manufactures and sells through retail and online channels",
+          "The advertising budget a company allocates to television commercials and social media posts"
+        ],
+        correctAnswer: 0,
+        explanation: "A brand lives in customers' minds — it's the sum total of every interaction, experience, and impression they have. The logo is just a visual shortcut to that deeper perception."
+      },
+      {
+        id: "mkt6-q2",
+        question: "In the tutoring scenario, why could Sarah charge $10 more per hour than Jamal?",
+        options: [
+          "Sarah had verified teaching credentials and a higher GPA that justified premium pricing",
+          "Sarah's consistent branding created perceived professionalism and trust that parents valued",
+          "Jamal intentionally charged less because he wanted to serve lower-income families exclusively",
+          "Sarah tutored more subjects than Jamal which justified her higher hourly rate"
+        ],
+        correctAnswer: 1,
+        explanation: "Sarah's brand — Apex Tutoring with consistent name, colors, tagline, and professional presence — created a perception of quality and reliability. Parents paid more because the brand signaled professionalism."
+      },
+      {
+        id: "mkt6-q3",
+        question: "What is brand equity and why does it matter for pricing?",
+        options: [
+          "The financial investment a company makes in creating logos and visual design materials",
+          "The additional value a strong brand adds beyond the product's functional benefits, enabling premium pricing",
+          "The total number of customers who recognize a company's logo when shown in market research",
+          "The legal protection that trademarks provide against competitors copying product designs"
+        ],
+        correctAnswer: 1,
+        explanation: "Brand equity is the premium customers will pay BECAUSE of the brand — beyond what the product functionally delivers. Strong brands command higher prices, earn more loyalty, and are more resilient during tough times."
+      },
+      {
+        id: "mkt6-q4",
+        question: "Why is brand CONSISTENCY more important than brand creativity?",
+        options: [
+          "Because creative branding is always more expensive than using the same designs repeatedly",
+          "Because repetition builds recognition and trust, which are the foundations of brand equity",
+          "Because customers dislike any changes to visual design and will stop buying if logos change",
+          "Because consistent brands are automatically protected from competitor imitation by trademark law"
+        ],
+        correctAnswer: 1,
+        explanation: "Consistency across every touchpoint — website, packaging, social media, interactions — builds the recognition and trust that creates brand equity. Creativity without consistency creates confusion, not connection."
+      },
+      {
+        id: "mkt6-q5",
+        question: "How did Patagonia's 'Don't Buy This Jacket' campaign strengthen their brand?",
+        options: [
+          "It confused competitors who could not figure out the strategy behind discouraging purchases",
+          "It demonstrated radical consistency between their environmental values and their marketing actions",
+          "It was a reverse psychology trick that actually made people buy more jackets than usual",
+          "It lowered their advertising costs because the campaign required only one simple printed ad"
+        ],
+        correctAnswer: 1,
+        explanation: "Patagonia's campaign was authentic — their brand IS environmental activism. Telling customers to repair instead of replace proved their values were real, not marketing spin. This authenticity deepened customer loyalty and trust."
+      }
+    ]
+  },
+
+  // MKT-7: Consumer Decision-Making
+  {
+    lessonId: "mkt-7",
+    questions: [
+      {
+        id: "mkt7-q1",
+        question: "What are the four stages of the buyer journey in order?",
+        options: [
+          "Awareness, Consideration, Decision, Loyalty — from first recognizing a need to becoming a repeat customer",
+          "Research, Comparison, Purchase, Return — from gathering data to potentially returning the product",
+          "Interest, Desire, Action, Satisfaction — from initial curiosity to post-purchase evaluation",
+          "Discovery, Evaluation, Transaction, Feedback — from finding products to rating them online"
+        ],
+        correctAnswer: 0,
+        explanation: "The buyer journey moves through Awareness (realizing a need), Consideration (researching options), Decision (choosing and buying), and Loyalty (returning and recommending). Each stage requires different marketing approaches."
+      },
+      {
+        id: "mkt7-q2",
+        question: "In Maya's laptop purchase, which stage did the classmate's recommendation primarily influence?",
+        options: [
+          "Awareness — Maya didn't know laptops existed until her friend mentioned one specific model",
+          "Consideration — the personal recommendation helped Maya evaluate and narrow her options",
+          "Decision — the recommendation had no effect since Maya based her choice solely on price",
+          "Loyalty — the friend's recommendation only matters after Maya already owned the laptop"
+        ],
+        correctAnswer: 1,
+        explanation: "Maya was already aware she needed a laptop. The classmate's enthusiastic recommendation influenced her consideration stage — helping her evaluate options and lean toward the MacBook Air during comparison."
+      },
+      {
+        id: "mkt7-q3",
+        question: "Why is the loyalty stage often the most PROFITABLE stage for businesses?",
+        options: [
+          "Because loyal customers accept automatic price increases without comparing competitor prices",
+          "Because retaining customers costs less than acquiring new ones, and loyal customers refer others for free",
+          "Because loyalty programs generate more revenue than the products themselves through membership fees",
+          "Because loyal customers never experience problems, so they require zero customer service costs"
+        ],
+        correctAnswer: 1,
+        explanation: "Acquiring a new customer costs 5-7x more than retaining an existing one. Plus, loyal customers become free marketing channels through word-of-mouth referrals — the most trusted form of promotion."
+      },
+      {
+        id: "mkt7-q4",
+        question: "A baking business has many Instagram followers but few orders. Which buyer journey stage is the likely bottleneck?",
+        options: [
+          "Awareness — people do not know the business exists or what products are available",
+          "Consideration — followers cannot find reviews or information to feel confident ordering",
+          "Decision — followers want to buy but the purchasing process is unclear or too difficult",
+          "Loyalty — the business needs to focus on getting past customers to reorder more frequently"
+        ],
+        correctAnswer: 2,
+        explanation: "Many followers means awareness isn't the problem. The bottleneck is likely at the Decision stage — no clear ordering process, no visible pricing, or no easy way to actually complete a purchase."
+      },
+      {
+        id: "mkt7-q5",
+        question: "Which marketing tactic is MOST effective during the Awareness stage of the buyer journey?",
+        options: [
+          "Offering a thirty-day money-back guarantee to reduce the perceived risk of purchasing",
+          "Creating visible content like social media posts, blog articles, and search engine results",
+          "Sending personalized discount codes to customers who abandoned their shopping carts",
+          "Requesting five-star reviews from satisfied customers to build social proof and credibility"
+        ],
+        correctAnswer: 1,
+        explanation: "Awareness is about being SEEN — customers need to discover you exist and understand what you offer. Content, social media, and search visibility put your brand in front of people who don't know about you yet."
+      }
+    ]
+  },
+
+  // MKT-8: Testing Your Ideas
+  {
+    lessonId: "mkt-8",
+    questions: [
+      {
+        id: "mkt8-q1",
+        question: "What is a Minimum Viable Product (MVP)?",
+        options: [
+          "The simplest version of your product that lets you test real customer demand before investing heavily",
+          "A low-quality prototype that companies show investors to raise funding for the full version",
+          "The minimum number of products a business must manufacture to qualify for wholesale pricing",
+          "A product that meets only the minimum legal safety requirements for sale in retail stores"
+        ],
+        correctAnswer: 0,
+        explanation: "An MVP isn't about poor quality — it's about speed and learning. Build the simplest thing that tests your core assumption, get real feedback, then decide whether to invest more based on evidence."
+      },
+      {
+        id: "mkt8-q2",
+        question: "In the study guide scenario, what was Riley's key advantage over Jordan?",
+        options: [
+          "Riley had more academic knowledge and could write better study guides than Jordan could",
+          "Riley tested her hypothesis cheaply with real customers before committing significant resources",
+          "Jordan's printing costs were unreasonably high because he chose a premium printing service",
+          "Riley's friends agreed to buy from her before she started, guaranteeing her initial sales"
+        ],
+        correctAnswer: 1,
+        explanation: "Riley spent $0 testing two sample guides with 20 classmates. She learned critical insights (students wanted digital, not printed) before investing. Jordan assumed and lost $340. Testing beats assuming."
+      },
+      {
+        id: "mkt8-q3",
+        question: "How does A/B testing improve business decisions compared to relying on intuition?",
+        options: [
+          "A/B testing is cheaper than any other form of market research including surveys and interviews",
+          "It replaces subjective opinions with objective data from real customer behavior and responses",
+          "A/B testing guarantees that the winning version will succeed permanently in all future scenarios",
+          "It eliminates the need for any other marketing strategy once the optimal version is identified"
+        ],
+        correctAnswer: 1,
+        explanation: "A/B testing lets data decide instead of opinions. Instead of debating which headline or price is better, you test both with real customers and their actual behavior reveals the winner."
+      },
+      {
+        id: "mkt8-q4",
+        question: "Why did Dropbox create a video instead of building their full product first?",
+        options: [
+          "Because video production was cheaper than software development at the time they launched",
+          "Because the video served as an MVP to validate demand — 75,000 signups proved people wanted the product",
+          "Because investors required a promotional video before they would agree to fund the company",
+          "Because the founders did not have the technical skills to build the actual software product"
+        ],
+        correctAnswer: 1,
+        explanation: "The video was Dropbox's MVP — the simplest way to test their core assumption (do people want easy file syncing?). 75,000 overnight signups proved massive demand before they spent millions building it."
+      },
+      {
+        id: "mkt8-q5",
+        question: "What is the biggest risk of skipping the testing phase and launching a full product immediately?",
+        options: [
+          "That competitors will copy your idea before you can establish market dominance and brand loyalty",
+          "That you invest significant time and money into something before knowing if customers actually want it",
+          "That your product will be too high quality for the target market you originally intended to serve",
+          "That government product safety testing requirements will delay your launch by several months"
+        ],
+        correctAnswer: 1,
+        explanation: "Without testing, every dollar and hour invested is a gamble. An MVP lets you validate demand cheaply. Failing fast and cheap is infinitely better than failing slowly and expensively."
+      }
+    ]
   }
 ]
 
