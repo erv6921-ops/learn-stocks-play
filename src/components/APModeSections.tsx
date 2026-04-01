@@ -26,7 +26,7 @@ const AP_SECTIONS: APSection[] = [
   {
     title: "Business Finance & Investing",
     apRef: "Corresponds to AP Unit 3 — 45 class periods",
-    unitIds: ["unit-6", "unit-7", "unit-8", "unit-9", "unit-10", "unit-11", "unit-12", "unit-13", "unit-14"],
+    unitIds: ["unit-6", "unit-7", "unit-8", "unit-9", "unit-10", "unit-11", "unit-12", "unit-13", "unit-14", "unit-27"],
   },
   {
     title: "Entrepreneurship & Business Foundations",
