@@ -396,6 +396,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "investing-fundamentals": { title: "Investing Fundamentals", icon: "TrendingUp", description: "Core investing concepts", color: "success" },
   "business-management": { title: "Business Management", icon: "Briefcase", description: "Management and strategic thinking", color: "primary" },
   marketing: { title: "Marketing", icon: "Megaphone", description: "Reach and persuade your audience", color: "success" },
+  "consumer-behavior": { title: "Consumer Behavior", icon: "Users", description: "Understand how and why people buy", color: "accent" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {
