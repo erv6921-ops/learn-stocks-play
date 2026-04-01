@@ -81,6 +81,7 @@ export type LessonCategory =
   | "investing-fundamentals"
   | "business-management"
   | "marketing"
+  | "consumer-behavior"
 
 export interface UnitInfo {
   id: string
