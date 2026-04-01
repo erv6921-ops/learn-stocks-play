@@ -54,10 +54,11 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-28", unitNumber: 24, title: "Consumer Behavior",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["consumer-behavior"],        orderIndex: 24 },
   { id: "unit-29", unitNumber: 25, title: "The Marketing Mix — 4 Ps",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing-mix"],            orderIndex: 25 },
   { id: "unit-30", unitNumber: 26, title: "Market Research",                level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["market-research"],          orderIndex: 26 },
+  { id: "unit-31", unitNumber: 27, title: "Leadership & Management",       level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["leadership-management"],    orderIndex: 27 },
 
   // Level 9: Advanced Investing
-  { id: "unit-21", unitNumber: 27, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 27 },
-  { id: "unit-22", unitNumber: 28, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 28 },
+  { id: "unit-21", unitNumber: 28, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 28 },
+  { id: "unit-22", unitNumber: 29, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 29 },
 
   // Level 10: Real-World Application
   { id: "unit-23", unitNumber: 29, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 29 },
