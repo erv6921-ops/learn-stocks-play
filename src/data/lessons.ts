@@ -54,14 +54,15 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-28", unitNumber: 24, title: "Consumer Behavior",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["consumer-behavior"],        orderIndex: 24 },
   { id: "unit-29", unitNumber: 25, title: "The Marketing Mix — 4 Ps",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing-mix"],            orderIndex: 25 },
   { id: "unit-30", unitNumber: 26, title: "Market Research",                level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["market-research"],          orderIndex: 26 },
+  { id: "unit-31", unitNumber: 27, title: "Leadership & Management",       level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["leadership-management"],    orderIndex: 27 },
 
   // Level 9: Advanced Investing
-  { id: "unit-21", unitNumber: 27, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 27 },
-  { id: "unit-22", unitNumber: 28, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 28 },
+  { id: "unit-21", unitNumber: 28, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 28 },
+  { id: "unit-22", unitNumber: 29, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 29 },
 
   // Level 10: Real-World Application
-  { id: "unit-23", unitNumber: 29, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 29 },
-  { id: "unit-24", unitNumber: 30, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 30 },
+  { id: "unit-23", unitNumber: 30, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 30 },
+  { id: "unit-24", unitNumber: 31, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 31 },
 ]
 
 // ═══════════════════════════════════════════════
@@ -351,35 +352,44 @@ export const lessons: Lesson[] = [
   L("mr-6", "Market Sizing — TAM, SAM, SOM",          "Total addressable market, serviceable market, and obtainable market explained simply",      "market-research", "explorer", "unit-30", "26.6", 2400),
   L("mr-7", "Case Study: Research-Driven Launch",      "How a company used market research to successfully launch or pivot a product",              "market-research", "explorer", "unit-30", "26.7", 2500),
 
+  // Unit 27: Leadership & Management
+  L("lm-1", "Leadership vs Management",            "The difference between leadership and management and why both matter",                    "leadership-management", "explorer", "unit-31", "27.1", 2200),
+  L("lm-2", "Leadership Styles",                   "Autocratic, democratic, laissez-faire, and transformational approaches",                  "leadership-management", "explorer", "unit-31", "27.2", 2300),
+  L("lm-3", "Motivation Theories",                 "Maslow's hierarchy of needs and Herzberg's two-factor theory explained",                  "leadership-management", "explorer", "unit-31", "27.3", 2400),
+  L("lm-4", "Organizational Structures",           "Flat vs hierarchical, functional vs divisional — how companies organize",                "leadership-management", "explorer", "unit-31", "27.4", 2500),
+  L("lm-5", "Human Resources Basics",              "Hiring, training, performance reviews, and keeping great employees",                      "leadership-management", "explorer", "unit-31", "27.5", 2500),
+  L("lm-6", "Conflict Resolution & Communication", "Managing disagreements and building healthy team communication",                          "leadership-management", "explorer", "unit-31", "27.6", 2600),
+  L("lm-7", "Case Study: Satya Nadella at Microsoft", "How one leader transformed Microsoft's culture, strategy, and market value",           "leadership-management", "explorer", "unit-31", "27.7", 2500),
+
   // ─── LEVEL 9: ADVANCED INVESTING ───
 
-  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "27.1", 7500),
-  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "27.2", 8500),
-  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "27.3", 9500),
-  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "27.4", 11000),
-  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "27.5", 12000),
+  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "28.1", 7500),
+  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "28.2", 8500),
+  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "28.3", 9500),
+  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "28.4", 11000),
+  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "28.5", 12000),
 
-  L("alt-1", "Real Estate",      "Investing in property for income and growth",        "alternatives", "capital-architect", "unit-22", "28.1", 7500),
-  L("alt-2", "REITs",            "Real estate investing without buying property",      "alternatives", "capital-architect", "unit-22", "28.2", 8500),
-  L("alt-3", "Commodities",      "Gold, oil, and other physical assets",               "alternatives", "capital-architect", "unit-22", "28.3", 10000),
-  L("alt-4", "Crypto (Educational)","Understanding cryptocurrency as an asset class", "alternatives", "capital-architect", "unit-22", "28.4", 11000),
-  L("alt-5", "Private Equity",   "Investing in non-public companies",                  "alternatives", "capital-architect", "unit-22", "28.5", 13000),
-  L("alt-6", "Liquidity Risk",   "The danger of investments you can't easily sell",    "alternatives", "capital-architect", "unit-22", "28.6", 15000),
+  L("alt-1", "Real Estate",      "Investing in property for income and growth",        "alternatives", "capital-architect", "unit-22", "29.1", 7500),
+  L("alt-2", "REITs",            "Real estate investing without buying property",      "alternatives", "capital-architect", "unit-22", "29.2", 8500),
+  L("alt-3", "Commodities",      "Gold, oil, and other physical assets",               "alternatives", "capital-architect", "unit-22", "29.3", 10000),
+  L("alt-4", "Crypto (Educational)","Understanding cryptocurrency as an asset class", "alternatives", "capital-architect", "unit-22", "29.4", 11000),
+  L("alt-5", "Private Equity",   "Investing in non-public companies",                  "alternatives", "capital-architect", "unit-22", "29.5", 13000),
+  L("alt-6", "Liquidity Risk",   "The danger of investments you can't easily sell",    "alternatives", "capital-architect", "unit-22", "29.6", 15000),
 
   // ─── LEVEL 10: REAL-WORLD APPLICATION ───
 
-  L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "29.1", 10000),
-  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth — choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "29.2", 11000),
-  L("plan-3", "Compounding",            "The magic of compound growth over decades",            "financial-planning", "capital-architect", "unit-23", "29.3", 12000),
-  L("plan-4", "Inflation Adjustments",  "Planning for rising costs over time",                  "financial-planning", "capital-architect", "unit-23", "29.4", 13000),
-  L("plan-5", "Lifestyle Planning",     "Aligning your finances with your life goals",          "financial-planning", "capital-architect", "unit-23", "29.5", 15000),
+  L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "30.1", 10000),
+  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth — choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "30.2", 11000),
+  L("plan-3", "Compounding",            "The magic of compound growth over decades",            "financial-planning", "capital-architect", "unit-23", "30.3", 12000),
+  L("plan-4", "Inflation Adjustments",  "Planning for rising costs over time",                  "financial-planning", "capital-architect", "unit-23", "30.4", 13000),
+  L("plan-5", "Lifestyle Planning",     "Aligning your finances with your life goals",          "financial-planning", "capital-architect", "unit-23", "30.5", 15000),
 
-  L("sim-1", "Bear Market Survival",    "Navigate a simulated market crash",                   "simulations", "capital-architect", "unit-24", "30.1", 10000),
-  L("sim-2", "Bull Run Strategy",       "Maximize gains in a rising market",                   "simulations", "capital-architect", "unit-24", "30.2", 11000),
-  L("sim-3", "Sector Rotation",         "Shift investments based on economic cycles",          "simulations", "capital-architect", "unit-24", "30.3", 12000),
-  L("sim-4", "Crisis Response",         "React to unexpected market events",                   "simulations", "capital-architect", "unit-24", "30.4", 13000),
-  L("sim-5", "Retirement Simulation",   "Plan withdrawals during a 30-year retirement",        "simulations", "capital-architect", "unit-24", "30.5", 14000),
-  L("sim-6", "Balanced Portfolio Build", "Create a well-diversified long-term portfolio",       "simulations", "capital-architect", "unit-24", "30.6", 15000),
+  L("sim-1", "Bear Market Survival",    "Navigate a simulated market crash",                   "simulations", "capital-architect", "unit-24", "31.1", 10000),
+  L("sim-2", "Bull Run Strategy",       "Maximize gains in a rising market",                   "simulations", "capital-architect", "unit-24", "31.2", 11000),
+  L("sim-3", "Sector Rotation",         "Shift investments based on economic cycles",          "simulations", "capital-architect", "unit-24", "31.3", 12000),
+  L("sim-4", "Crisis Response",         "React to unexpected market events",                   "simulations", "capital-architect", "unit-24", "31.4", 13000),
+  L("sim-5", "Retirement Simulation",   "Plan withdrawals during a 30-year retirement",        "simulations", "capital-architect", "unit-24", "31.5", 14000),
+  L("sim-6", "Balanced Portfolio Build", "Create a well-diversified long-term portfolio",       "simulations", "capital-architect", "unit-24", "31.6", 15000),
 ]
 
 // ═══════════════════════════════════════════════
@@ -420,6 +430,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "consumer-behavior": { title: "Consumer Behavior", icon: "Users", description: "Understand how and why people buy", color: "accent" },
   "marketing-mix": { title: "The Marketing Mix", icon: "Combine", description: "Master the 4 Ps of marketing strategy", color: "success" },
   "market-research": { title: "Market Research", icon: "Search", description: "Data-driven decisions for business strategy", color: "primary" },
+  "leadership-management": { title: "Leadership & Management", icon: "Crown", description: "Lead teams and build effective organizations", color: "primary" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {
