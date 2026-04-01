@@ -144,7 +144,7 @@ export default function Onboarding() {
     }
   }, [])
 
-  const BENCHMARK_TOTAL = 50
+  const BENCHMARK_TOTAL = 25
   const totalQuestions = BENCHMARK_TOTAL
   const answeredCount = answers.length
 

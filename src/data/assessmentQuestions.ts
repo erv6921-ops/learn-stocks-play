@@ -22,7 +22,7 @@ export interface AssessmentQuestion {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 50 HIGH-QUALITY, SCENARIO-BASED BENCHMARK QUESTIONS
+// 25 ADAPTIVE BENCHMARK QUESTIONS (selected from pool of 50)
 // All answer choices are LENGTH-NORMALIZED:
 //   - Similar word count across A/B/C/D
 //   - Parallel grammatical structure
