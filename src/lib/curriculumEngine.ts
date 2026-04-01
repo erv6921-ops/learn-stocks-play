@@ -142,7 +142,7 @@ export function getAdaptiveUnit(
   categoryScores: Record<string, CategoryScore> | null,
   benchmarkScores: BenchmarkScores | null,
   overallAssessmentScore: number | null,
-  totalQuestions: number = 50
+  totalQuestions: number = 25
 ): AdaptiveUnitInfo {
   const unit = unitInfo.find(u => u.id === unitId)
   if (!unit) {
@@ -186,7 +186,7 @@ export function getAdaptiveCurriculum(
   categoryScores: Record<string, CategoryScore> | null,
   benchmarkScores: BenchmarkScores | null,
   overallAssessmentScore: number | null,
-  totalQuestions: number = 50
+  totalQuestions: number = 25
 ): Map<string, AdaptiveUnitInfo> {
   const map = new Map<string, AdaptiveUnitInfo>()
   for (const unit of unitInfo) {
