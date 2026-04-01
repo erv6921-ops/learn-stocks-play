@@ -342,13 +342,22 @@ export const lessons: Lesson[] = [
   L("mix-7", "Startup vs Established Brand",           "Applying the 4 Ps differently depending on company stage and resources",                  "marketing-mix", "explorer", "unit-29", "25.7", 2700),
   L("mix-8", "Build Your Own Marketing Mix",           "Design a complete marketing mix for a fictional product from scratch",                     "marketing-mix", "explorer", "unit-29", "25.8", 2700),
 
+  // Unit 26: Market Research
+  L("mr-1", "Why Market Research Matters",             "What market research is and why businesses cannot afford to skip it",                       "market-research", "explorer", "unit-30", "26.1", 2000),
+  L("mr-2", "Primary Research Methods",                "Surveys, interviews, focus groups, and observations — collecting your own data",            "market-research", "explorer", "unit-30", "26.2", 2200),
+  L("mr-3", "Secondary Research",                      "Using existing data, government sources, and industry reports to understand markets",       "market-research", "explorer", "unit-30", "26.3", 2200),
+  L("mr-4", "Qualitative vs Quantitative",             "When to use open-ended exploration versus numerical data — and how to combine both",        "market-research", "explorer", "unit-30", "26.4", 2300),
+  L("mr-5", "Reading & Interpreting Data",             "How to read charts, spot trends, identify outliers, and avoid common data mistakes",        "market-research", "explorer", "unit-30", "26.5", 2400),
+  L("mr-6", "Market Sizing — TAM, SAM, SOM",          "Total addressable market, serviceable market, and obtainable market explained simply",      "market-research", "explorer", "unit-30", "26.6", 2400),
+  L("mr-7", "Case Study: Research-Driven Launch",      "How a company used market research to successfully launch or pivot a product",              "market-research", "explorer", "unit-30", "26.7", 2500),
+
   // ─── LEVEL 9: ADVANCED INVESTING ───
 
-  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "26.1", 7500),
-  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "26.2", 8500),
-  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "26.3", 9500),
-  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "26.4", 11000),
-  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "26.5", 12000),
+  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "27.1", 7500),
+  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "27.2", 8500),
+  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "27.3", 9500),
+  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "27.4", 11000),
+  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "27.5", 12000),
 
   L("alt-1", "Real Estate",      "Investing in property for income and growth",        "alternatives", "capital-architect", "unit-22", "27.1", 7500),
   L("alt-2", "REITs",            "Real estate investing without buying property",      "alternatives", "capital-architect", "unit-22", "27.2", 8500),
