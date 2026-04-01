@@ -4,6 +4,7 @@ import { generateStructuredContent } from "@/lib/contentGenerator"
 import { investingFundamentalsContent } from "@/data/investingFundamentalsContent"
 import { businessManagementContent } from "@/data/businessManagementContent"
 import { marketingContent } from "@/data/marketingContent"
+import { consumerBehaviorContent } from "@/data/consumerBehaviorContent"
 
 /**
  * Structured 6-section lesson content.
