@@ -381,5 +381,82 @@ A minimum viable product is the simplest version that lets you test real demand.
 Instead of building something perfect, launch a basic version and get feedback.
 
 A B testing compares two versions and lets data decide which is better.
-This replaces opinions with evidence.`
+This replaces opinions with evidence.`,
+
+  "cb-1": `Consumer behavior is the study of how people decide what to buy, when to buy it, and why.
+It covers the entire journey from realizing a need to long after making a purchase.
+
+Businesses that understand consumer behavior can design better products, set smarter prices, and build stronger relationships.
+Companies that ignore it are essentially guessing, and guessing is expensive.
+
+Consumer behavior draws from psychology, sociology, economics, and neuroscience.
+It explains why two people with the same income can make completely different purchasing decisions.`,
+
+  "cb-2": `Every purchase follows a predictable path with five stages.
+Need recognition, information search, evaluation of alternatives, purchase decision, and post-purchase behavior.
+
+Need recognition happens when you realize there is a gap between where you are and where you want to be.
+After that, you search for information, compare your options, make a choice, and then live with the results.
+
+Post-purchase behavior is critical for businesses.
+A satisfied customer becomes a loyal advocate. A dissatisfied customer becomes a vocal critic.`,
+
+  "cb-3": `Four psychological factors shape every purchase decision.
+Motivation, perception, learning, and attitudes.
+
+Motivation is the internal drive to fulfill a need.
+Perception is how you interpret what you see and hear about a product.
+
+Learning changes your behavior based on past experiences.
+Attitudes are consistent evaluations that are very hard to change once formed.
+
+These factors work together beneath the surface, often without you even realizing it.`,
+
+  "cb-4": `People do not make purchasing decisions in isolation.
+Family, friends, social class, culture, and reference groups all influence what you buy.
+
+Reference groups include people you belong to, people you aspire to be like, and people you want to distance yourself from.
+A teenager might buy a brand because their favorite athlete wears it.
+
+Culture is the broadest influence, shaping what entire societies consider desirable or appropriate.
+Family is often the strongest influence, creating lifelong spending habits.`,
+
+  "cb-5": `Market segmentation divides a broad market into smaller groups of consumers who share similar characteristics.
+Instead of trying to sell to everyone, businesses focus on groups where their product fits best.
+
+There are four primary methods.
+Demographic segmentation uses age, gender, and income.
+Psychographic segmentation uses lifestyle, values, and personality.
+Geographic segmentation uses location.
+Behavioral segmentation uses purchase patterns and brand loyalty.
+
+The most effective approach combines multiple methods for precise targeting.`,
+
+  "cb-6": `After segmenting the market, the next step is selecting a target market.
+Not every segment is worth pursuing.
+
+A good target market is large enough to be profitable, reachable through available channels, and aligned with your strengths.
+
+A buyer persona is a detailed profile of your ideal customer.
+It includes goals, pain points, decision-making patterns, and common objections.
+When every team shares the same picture of who they serve, every decision becomes clearer.`,
+
+  "cb-7": `Brand loyalty means a customer consistently chooses the same brand over competitors.
+Loyal customers are incredibly valuable because they buy more, pay more, and recommend you to others.
+
+Brand switching happens when customers leave for a competitor.
+Common triggers include dissatisfaction, better deals, changing needs, or negative publicity.
+
+Acquiring a new customer costs five to seven times more than keeping an existing one.
+A five percent increase in retention can boost profits by twenty-five to ninety-five percent.`,
+
+  "cb-8": `Nike is one of the world's most valuable brands, and consumer behavior research is the foundation of their success.
+
+They use all four segmentation methods simultaneously.
+Demographically, they target multiple age groups. Psychographically, they connect with people who see themselves as athletes.
+Geographically, they customize products for different markets. Behaviorally, they track purchases through the Nike app.
+
+Most powerfully, Nike leverages aspirational reference groups.
+By signing elite athletes, Nike connects their products to the identity customers want to achieve.
+Customers are not just buying shoes. They are buying a piece of who they want to be.`
 }

@@ -51,14 +51,15 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-20", unitNumber: 21, title: "Competitive Strategy",          level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["competitive-strategy"],    orderIndex: 21 },
   { id: "unit-26", unitNumber: 22, title: "Business Management & Strategy",level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["business-management"],     orderIndex: 22 },
   { id: "unit-27", unitNumber: 23, title: "Marketing",                     level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing"],               orderIndex: 23 },
+  { id: "unit-28", unitNumber: 24, title: "Consumer Behavior",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["consumer-behavior"],        orderIndex: 24 },
 
   // Level 9: Advanced Investing
-  { id: "unit-21", unitNumber: 24, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 24 },
-  { id: "unit-22", unitNumber: 25, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 25 },
+  { id: "unit-21", unitNumber: 25, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 25 },
+  { id: "unit-22", unitNumber: 26, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 26 },
 
   // Level 10: Real-World Application
-  { id: "unit-23", unitNumber: 26, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 26 },
-  { id: "unit-24", unitNumber: 27, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 27 },
+  { id: "unit-23", unitNumber: 27, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 27 },
+  { id: "unit-24", unitNumber: 28, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 28 },
 ]
 
 // ═══════════════════════════════════════════════
@@ -319,35 +320,45 @@ export const lessons: Lesson[] = [
   L("mkt-7", "Consumer Decision-Making",             "The buyer journey — awareness, consideration, decision, and loyalty",                      "marketing", "explorer", "unit-27", "23.7", 375),
   L("mkt-8", "Testing Your Ideas",                   "Hypothesis testing, A/B testing, MVPs, and using data to iterate",                         "marketing", "explorer", "unit-27", "23.8", 400),
 
+  // Unit 24: Consumer Behavior
+  L("cb-1", "What Is Consumer Behavior",              "Why understanding how people buy is the foundation of every successful business",           "consumer-behavior", "explorer", "unit-28", "24.1", 2000),
+  L("cb-2", "The Decision-Making Process",            "The five stages every buyer goes through — from need recognition to post-purchase",         "consumer-behavior", "explorer", "unit-28", "24.2", 2100),
+  L("cb-3", "Psychological Factors",                  "How motivation, perception, learning, and attitudes drive purchase decisions",              "consumer-behavior", "explorer", "unit-28", "24.3", 2200),
+  L("cb-4", "Social & Cultural Influences",           "Family, friends, culture, and social class shape what and why people buy",                  "consumer-behavior", "explorer", "unit-28", "24.4", 2200),
+  L("cb-5", "Market Segmentation",                    "Dividing markets by demographics, psychographics, geography, and behavior",                "consumer-behavior", "explorer", "unit-28", "24.5", 2300),
+  L("cb-6", "Target Markets & Buyer Personas",        "Selecting the right audience and building detailed profiles of ideal customers",            "consumer-behavior", "explorer", "unit-28", "24.6", 2300),
+  L("cb-7", "Brand Loyalty vs Brand Switching",       "What makes customers stay loyal and what pushes them to switch brands",                     "consumer-behavior", "explorer", "unit-28", "24.7", 2400),
+  L("cb-8", "Case Study: How Nike Uses Consumer Research", "How a real brand applies consumer behavior insights to dominate its market",           "consumer-behavior", "explorer", "unit-28", "24.8", 2500),
+
   // ─── LEVEL 9: ADVANCED INVESTING ───
 
-  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "24.1", 7500),
-  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "24.2", 8500),
-  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "24.3", 9500),
-  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "24.4", 11000),
-  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "24.5", 12000),
+  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "25.1", 7500),
+  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "25.2", 8500),
+  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "25.3", 9500),
+  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "25.4", 11000),
+  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "25.5", 12000),
 
-  L("alt-1", "Real Estate",      "Investing in property for income and growth",        "alternatives", "capital-architect", "unit-22", "25.1", 7500),
-  L("alt-2", "REITs",            "Real estate investing without buying property",      "alternatives", "capital-architect", "unit-22", "25.2", 8500),
-  L("alt-3", "Commodities",      "Gold, oil, and other physical assets",               "alternatives", "capital-architect", "unit-22", "25.3", 10000),
-  L("alt-4", "Crypto (Educational)","Understanding cryptocurrency as an asset class", "alternatives", "capital-architect", "unit-22", "25.4", 11000),
-  L("alt-5", "Private Equity",   "Investing in non-public companies",                  "alternatives", "capital-architect", "unit-22", "25.5", 13000),
-  L("alt-6", "Liquidity Risk",   "The danger of investments you can't easily sell",    "alternatives", "capital-architect", "unit-22", "25.6", 15000),
+  L("alt-1", "Real Estate",      "Investing in property for income and growth",        "alternatives", "capital-architect", "unit-22", "26.1", 7500),
+  L("alt-2", "REITs",            "Real estate investing without buying property",      "alternatives", "capital-architect", "unit-22", "26.2", 8500),
+  L("alt-3", "Commodities",      "Gold, oil, and other physical assets",               "alternatives", "capital-architect", "unit-22", "26.3", 10000),
+  L("alt-4", "Crypto (Educational)","Understanding cryptocurrency as an asset class", "alternatives", "capital-architect", "unit-22", "26.4", 11000),
+  L("alt-5", "Private Equity",   "Investing in non-public companies",                  "alternatives", "capital-architect", "unit-22", "26.5", 13000),
+  L("alt-6", "Liquidity Risk",   "The danger of investments you can't easily sell",    "alternatives", "capital-architect", "unit-22", "26.6", 15000),
 
   // ─── LEVEL 10: REAL-WORLD APPLICATION ───
 
-  L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "26.1", 10000),
-  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth — choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "26.2", 11000),
-  L("plan-3", "Compounding",            "The magic of compound growth over decades",            "financial-planning", "capital-architect", "unit-23", "26.3", 12000),
-  L("plan-4", "Inflation Adjustments",  "Planning for rising costs over time",                  "financial-planning", "capital-architect", "unit-23", "26.4", 13000),
-  L("plan-5", "Lifestyle Planning",     "Aligning your finances with your life goals",          "financial-planning", "capital-architect", "unit-23", "26.5", 15000),
+  L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "27.1", 10000),
+  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth — choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "27.2", 11000),
+  L("plan-3", "Compounding",            "The magic of compound growth over decades",            "financial-planning", "capital-architect", "unit-23", "27.3", 12000),
+  L("plan-4", "Inflation Adjustments",  "Planning for rising costs over time",                  "financial-planning", "capital-architect", "unit-23", "27.4", 13000),
+  L("plan-5", "Lifestyle Planning",     "Aligning your finances with your life goals",          "financial-planning", "capital-architect", "unit-23", "27.5", 15000),
 
-  L("sim-1", "Bear Market Survival",    "Navigate a simulated market crash",                   "simulations", "capital-architect", "unit-24", "27.1", 10000),
-  L("sim-2", "Bull Run Strategy",       "Maximize gains in a rising market",                   "simulations", "capital-architect", "unit-24", "27.2", 11000),
-  L("sim-3", "Sector Rotation",         "Shift investments based on economic cycles",          "simulations", "capital-architect", "unit-24", "27.3", 12000),
-  L("sim-4", "Crisis Response",         "React to unexpected market events",                   "simulations", "capital-architect", "unit-24", "27.4", 13000),
-  L("sim-5", "Retirement Simulation",   "Plan withdrawals during a 30-year retirement",        "simulations", "capital-architect", "unit-24", "27.5", 14000),
-  L("sim-6", "Balanced Portfolio Build", "Create a well-diversified long-term portfolio",       "simulations", "capital-architect", "unit-24", "27.6", 15000),
+  L("sim-1", "Bear Market Survival",    "Navigate a simulated market crash",                   "simulations", "capital-architect", "unit-24", "28.1", 10000),
+  L("sim-2", "Bull Run Strategy",       "Maximize gains in a rising market",                   "simulations", "capital-architect", "unit-24", "28.2", 11000),
+  L("sim-3", "Sector Rotation",         "Shift investments based on economic cycles",          "simulations", "capital-architect", "unit-24", "28.3", 12000),
+  L("sim-4", "Crisis Response",         "React to unexpected market events",                   "simulations", "capital-architect", "unit-24", "28.4", 13000),
+  L("sim-5", "Retirement Simulation",   "Plan withdrawals during a 30-year retirement",        "simulations", "capital-architect", "unit-24", "28.5", 14000),
+  L("sim-6", "Balanced Portfolio Build", "Create a well-diversified long-term portfolio",       "simulations", "capital-architect", "unit-24", "28.6", 15000),
 ]
 
 // ═══════════════════════════════════════════════
@@ -385,6 +396,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "investing-fundamentals": { title: "Investing Fundamentals", icon: "TrendingUp", description: "Core investing concepts", color: "success" },
   "business-management": { title: "Business Management", icon: "Briefcase", description: "Management and strategic thinking", color: "primary" },
   marketing: { title: "Marketing", icon: "Megaphone", description: "Reach and persuade your audience", color: "success" },
+  "consumer-behavior": { title: "Consumer Behavior", icon: "Users", description: "Understand how and why people buy", color: "accent" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {
