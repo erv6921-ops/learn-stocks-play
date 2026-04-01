@@ -54,8 +54,8 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-28", unitNumber: 24, title: "Consumer Behavior",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["consumer-behavior"],        orderIndex: 24 },
 
   // Level 9: Advanced Investing
-  { id: "unit-21", unitNumber: 24, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 24 },
-  { id: "unit-22", unitNumber: 25, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 25 },
+  { id: "unit-21", unitNumber: 25, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 25 },
+  { id: "unit-22", unitNumber: 26, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 26 },
 
   // Level 10: Real-World Application
   { id: "unit-23", unitNumber: 26, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 26 },
