@@ -340,25 +340,25 @@ export const lessons: Lesson[] = [
 
   L("alt-1", "Real Estate",      "Investing in property for income and growth",        "alternatives", "capital-architect", "unit-22", "26.1", 7500),
   L("alt-2", "REITs",            "Real estate investing without buying property",      "alternatives", "capital-architect", "unit-22", "26.2", 8500),
-  L("alt-3", "Commodities",      "Gold, oil, and other physical assets",               "alternatives", "capital-architect", "unit-22", "25.3", 10000),
-  L("alt-4", "Crypto (Educational)","Understanding cryptocurrency as an asset class", "alternatives", "capital-architect", "unit-22", "25.4", 11000),
-  L("alt-5", "Private Equity",   "Investing in non-public companies",                  "alternatives", "capital-architect", "unit-22", "25.5", 13000),
-  L("alt-6", "Liquidity Risk",   "The danger of investments you can't easily sell",    "alternatives", "capital-architect", "unit-22", "25.6", 15000),
+  L("alt-3", "Commodities",      "Gold, oil, and other physical assets",               "alternatives", "capital-architect", "unit-22", "26.3", 10000),
+  L("alt-4", "Crypto (Educational)","Understanding cryptocurrency as an asset class", "alternatives", "capital-architect", "unit-22", "26.4", 11000),
+  L("alt-5", "Private Equity",   "Investing in non-public companies",                  "alternatives", "capital-architect", "unit-22", "26.5", 13000),
+  L("alt-6", "Liquidity Risk",   "The danger of investments you can't easily sell",    "alternatives", "capital-architect", "unit-22", "26.6", 15000),
 
   // ─── LEVEL 10: REAL-WORLD APPLICATION ───
 
-  L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "26.1", 10000),
-  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth — choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "26.2", 11000),
-  L("plan-3", "Compounding",            "The magic of compound growth over decades",            "financial-planning", "capital-architect", "unit-23", "26.3", 12000),
-  L("plan-4", "Inflation Adjustments",  "Planning for rising costs over time",                  "financial-planning", "capital-architect", "unit-23", "26.4", 13000),
-  L("plan-5", "Lifestyle Planning",     "Aligning your finances with your life goals",          "financial-planning", "capital-architect", "unit-23", "26.5", 15000),
+  L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "27.1", 10000),
+  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth — choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "27.2", 11000),
+  L("plan-3", "Compounding",            "The magic of compound growth over decades",            "financial-planning", "capital-architect", "unit-23", "27.3", 12000),
+  L("plan-4", "Inflation Adjustments",  "Planning for rising costs over time",                  "financial-planning", "capital-architect", "unit-23", "27.4", 13000),
+  L("plan-5", "Lifestyle Planning",     "Aligning your finances with your life goals",          "financial-planning", "capital-architect", "unit-23", "27.5", 15000),
 
-  L("sim-1", "Bear Market Survival",    "Navigate a simulated market crash",                   "simulations", "capital-architect", "unit-24", "27.1", 10000),
-  L("sim-2", "Bull Run Strategy",       "Maximize gains in a rising market",                   "simulations", "capital-architect", "unit-24", "27.2", 11000),
-  L("sim-3", "Sector Rotation",         "Shift investments based on economic cycles",          "simulations", "capital-architect", "unit-24", "27.3", 12000),
-  L("sim-4", "Crisis Response",         "React to unexpected market events",                   "simulations", "capital-architect", "unit-24", "27.4", 13000),
-  L("sim-5", "Retirement Simulation",   "Plan withdrawals during a 30-year retirement",        "simulations", "capital-architect", "unit-24", "27.5", 14000),
-  L("sim-6", "Balanced Portfolio Build", "Create a well-diversified long-term portfolio",       "simulations", "capital-architect", "unit-24", "27.6", 15000),
+  L("sim-1", "Bear Market Survival",    "Navigate a simulated market crash",                   "simulations", "capital-architect", "unit-24", "28.1", 10000),
+  L("sim-2", "Bull Run Strategy",       "Maximize gains in a rising market",                   "simulations", "capital-architect", "unit-24", "28.2", 11000),
+  L("sim-3", "Sector Rotation",         "Shift investments based on economic cycles",          "simulations", "capital-architect", "unit-24", "28.3", 12000),
+  L("sim-4", "Crisis Response",         "React to unexpected market events",                   "simulations", "capital-architect", "unit-24", "28.4", 13000),
+  L("sim-5", "Retirement Simulation",   "Plan withdrawals during a 30-year retirement",        "simulations", "capital-architect", "unit-24", "28.5", 14000),
+  L("sim-6", "Balanced Portfolio Build", "Create a well-diversified long-term portfolio",       "simulations", "capital-architect", "unit-24", "28.6", 15000),
 ]
 
 // ═══════════════════════════════════════════════
