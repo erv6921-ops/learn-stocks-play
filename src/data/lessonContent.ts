@@ -6,6 +6,7 @@ import { businessManagementContent } from "@/data/businessManagementContent"
 import { marketingContent } from "@/data/marketingContent"
 import { consumerBehaviorContent } from "@/data/consumerBehaviorContent"
 import { marketingMixContent } from "@/data/marketingMixContent"
+import { marketResearchContent } from "@/data/marketResearchContent"
 
 /**
  * Structured 6-section lesson content.
