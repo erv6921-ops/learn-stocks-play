@@ -612,5 +612,54 @@ Interviews with companies revealed universal frustration with email and existing
 Quantitative research confirmed that seventy-eight percent of workers felt overwhelmed.
 Secondary research showed the enterprise collaboration market was eight billion dollars.
 
-By combining qualitative insights with quantitative validation, Slack launched with confidence and reached one billion in annual revenue within five years.`
+By combining qualitative insights with quantitative validation, Slack launched with confidence and reached one billion in annual revenue within five years.`,
+
+  "lm-1": `Many people use leadership and management interchangeably, but they describe fundamentally different roles.
+Management is about organizing, planning, and controlling resources to achieve specific objectives.
+Leadership is about inspiring, motivating, and guiding people toward a shared vision.
+
+A manager ensures the trains run on time. A leader decides where the trains should go.
+Both roles are essential. The best professionals learn to do both.`,
+
+  "lm-2": `Not all leaders lead the same way. Research has identified several distinct leadership styles.
+Autocratic leaders make decisions alone. Democratic leaders involve the team.
+Laissez-faire leaders give almost total freedom. Transformational leaders inspire through vision.
+
+Each style has strengths and weaknesses. The best leaders adapt their style to the situation.`,
+
+  "lm-3": `Understanding what motivates people is one of the most important skills a leader can develop.
+Maslow argued that people have five levels of needs, from basic survival to fulfilling their potential.
+Herzberg found that salary and conditions prevent dissatisfaction, but achievement and recognition create true motivation.
+
+Both theories suggest that money alone is not enough to truly motivate people.`,
+
+  "lm-4": `Organizational structure determines how roles, responsibilities, and authority are arranged.
+Flat organizations have few management layers and make decisions quickly.
+Hierarchical organizations have many layers with clear chains of command.
+
+Functional structures group by department. Divisional structures organize by product or region.
+Most large companies use a hybrid approach combining elements of each.`,
+
+  "lm-5": `Human resources manages everything related to a company's people.
+The hiring process follows a pipeline: job analysis, posting, screening, interviews, and offer.
+A bad hire can cost thirty to fifty percent of that person's annual salary.
+
+Training, performance reviews, and retention strategies keep employees growing and engaged.
+Investing in people is one of the highest-return decisions a company can make.`,
+
+  "lm-6": `Conflict in the workplace is inevitable, and it is not always bad.
+Healthy conflict about ideas leads to better decisions. Unhealthy conflict destroys teams.
+
+There are five conflict resolution styles: competing, accommodating, avoiding, compromising, and collaborating.
+Collaboration produces the best outcomes but requires time and skill.
+
+Active listening and regular feedback prevent most conflicts from escalating.`,
+
+  "lm-7": `When Satya Nadella became CEO of Microsoft in 2014, the company was struggling.
+His first major move was cultural. He replaced the toxic stack ranking system with a growth mindset culture.
+
+He then shifted strategy from Windows first to cloud first, embracing open source and partnerships with former rivals.
+Under his leadership, Microsoft grew from three hundred billion to over three trillion dollars in market value.
+
+Nadella proved that culture change must come before strategy change.`
 }
