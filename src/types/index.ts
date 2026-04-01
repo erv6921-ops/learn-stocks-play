@@ -83,6 +83,7 @@ export type LessonCategory =
   | "marketing"
   | "consumer-behavior"
   | "marketing-mix"
+  | "market-research"
 
 export interface UnitInfo {
   id: string

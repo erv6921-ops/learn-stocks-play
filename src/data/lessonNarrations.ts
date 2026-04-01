@@ -541,5 +541,76 @@ Step three: choose where customers will find and buy it.
 Step four: plan how you will communicate value to your audience.
 
 After building all four Ps, step back and ask: do they tell the same story?
-That alignment check separates good marketing from great marketing.`
+That alignment check separates good marketing from great marketing.`,
+
+  "mr-1": `Market research is the systematic process of gathering and analyzing information about a market.
+It answers critical questions. Who are your customers? What do they need? How big is the opportunity?
+
+Without research, every business decision is a guess.
+Forty-two percent of startups fail because there is no market need for their product.
+
+Market research is not just for large corporations.
+Any business benefits from understanding demand and competition before investing time and money.`,
+
+  "mr-2": `Primary research is original data that you collect yourself.
+The four main methods are surveys, interviews, focus groups, and observations.
+
+Surveys collect standardized data from many respondents efficiently.
+Interviews go deeper with one-on-one conversations that reveal motivations.
+
+Focus groups bring people together for guided discussion.
+Observation means watching how people actually behave rather than asking them.
+
+People often say one thing and do another. Observation reveals the truth.`,
+
+  "mr-3": `Secondary research uses data that already exists.
+It includes government statistics, industry reports, academic studies, and competitor filings.
+
+Secondary research is faster and cheaper than primary research.
+It is the ideal starting point before investing in custom data collection.
+
+The limitation is that it was not designed for your specific question.
+Smart researchers start with secondary data, then use primary research to fill the gaps.`,
+
+  "mr-4": `All market research falls into two categories.
+Qualitative explores ideas and understands why.
+Quantitative measures numbers and proves how much.
+
+Qualitative research uses interviews and observation with small samples.
+It reveals motivations, feelings, and experiences.
+
+Quantitative research uses surveys and analytics with large samples.
+It measures frequency, magnitude, and statistical significance.
+
+The best approach uses qualitative first to explore, then quantitative to confirm.`,
+
+  "mr-5": `Collecting data is only half the job.
+Interpreting it correctly is where real business insight happens.
+
+Key skills include reading charts, identifying trends, spotting outliers, and understanding correlation versus causation.
+Two things moving together does not mean one causes the other.
+
+Common mistakes include cherry-picking data that supports your belief and ignoring sample size.
+Good analysts question their data before trusting it.`,
+
+  "mr-6": `Market sizing estimates how big a business opportunity is in dollar terms.
+It uses three levels: TAM, SAM, and SOM.
+
+TAM is the total addressable market — the entire global demand.
+SAM is the serviceable addressable market — the portion you can realistically reach.
+SOM is the serviceable obtainable market — what you can capture in the near term.
+
+Think of them as concentric circles.
+SOM is the most actionable number for immediate business planning.`,
+
+  "mr-7": `Slack was never supposed to exist.
+It started as an internal tool built by a gaming company while developing a game that failed.
+
+The team noticed their communication tool was better than anything else on the market.
+Interviews with companies revealed universal frustration with email and existing chat tools.
+
+Quantitative research confirmed that seventy-eight percent of workers felt overwhelmed.
+Secondary research showed the enterprise collaboration market was eight billion dollars.
+
+By combining qualitative insights with quantitative validation, Slack launched with confidence and reached one billion in annual revenue within five years.`
 }
