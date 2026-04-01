@@ -51,6 +51,7 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-20", unitNumber: 21, title: "Competitive Strategy",          level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["competitive-strategy"],    orderIndex: 21 },
   { id: "unit-26", unitNumber: 22, title: "Business Management & Strategy",level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["business-management"],     orderIndex: 22 },
   { id: "unit-27", unitNumber: 23, title: "Marketing",                     level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing"],               orderIndex: 23 },
+  { id: "unit-28", unitNumber: 24, title: "Consumer Behavior",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["consumer-behavior"],        orderIndex: 24 },
 
   // Level 9: Advanced Investing
   { id: "unit-21", unitNumber: 24, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 24 },
