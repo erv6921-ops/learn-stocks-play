@@ -331,13 +331,23 @@ export const lessons: Lesson[] = [
   L("cb-7", "Brand Loyalty vs Brand Switching",       "What makes customers stay loyal and what pushes them to switch brands",                     "consumer-behavior", "explorer", "unit-28", "24.7", 2400),
   L("cb-8", "Case Study: How Nike Uses Consumer Research", "How a real brand applies consumer behavior insights to dominate its market",           "consumer-behavior", "explorer", "unit-28", "24.8", 2500),
 
+  // Unit 25: The Marketing Mix — 4 Ps
+  L("mix-1", "What Is the Marketing Mix",              "Why businesses use the 4 Ps framework to plan and execute their strategy",                 "marketing-mix", "explorer", "unit-29", "25.1", 2200),
+  L("mix-2", "Product",                                "Features, branding, packaging, and the product life cycle",                                "marketing-mix", "explorer", "unit-29", "25.2", 2300),
+  L("mix-3", "Price",                                  "Cost-based, value-based, competitive, and penetration pricing strategies",                 "marketing-mix", "explorer", "unit-29", "25.3", 2400),
+  L("mix-4", "Place",                                  "Distribution channels, supply chain basics, and physical vs digital channels",             "marketing-mix", "explorer", "unit-29", "25.4", 2500),
+  L("mix-5", "Promotion",                              "Advertising, social media, PR, and integrated marketing communication",                    "marketing-mix", "explorer", "unit-29", "25.5", 2600),
+  L("mix-6", "How the 4 Ps Work Together",             "Trade-offs, interdependencies, and balancing the marketing mix",                           "marketing-mix", "explorer", "unit-29", "25.6", 2600),
+  L("mix-7", "Startup vs Established Brand",           "Applying the 4 Ps differently depending on company stage and resources",                  "marketing-mix", "explorer", "unit-29", "25.7", 2700),
+  L("mix-8", "Build Your Own Marketing Mix",           "Design a complete marketing mix for a fictional product from scratch",                     "marketing-mix", "explorer", "unit-29", "25.8", 2700),
+
   // ─── LEVEL 9: ADVANCED INVESTING ───
 
-  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "25.1", 7500),
-  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "25.2", 8500),
-  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "25.3", 9500),
-  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "25.4", 11000),
-  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "25.5", 12000),
+  L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "26.1", 7500),
+  L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "26.2", 8500),
+  L("options-3", "Expiration",      "When options contracts expire",           "options", "capital-architect", "unit-21", "26.3", 9500),
+  L("options-4", "Hedging",         "Using options to protect your portfolio", "options", "capital-architect", "unit-21", "26.4", 11000),
+  L("options-5", "Risk",            "Understanding the risks of options trading","options","capital-architect","unit-21", "26.5", 12000),
 
   L("alt-1", "Real Estate",      "Investing in property for income and growth",        "alternatives", "capital-architect", "unit-22", "26.1", 7500),
   L("alt-2", "REITs",            "Real estate investing without buying property",      "alternatives", "capital-architect", "unit-22", "26.2", 8500),
