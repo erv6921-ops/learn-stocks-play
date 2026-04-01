@@ -5,6 +5,7 @@ import { investingFundamentalsContent } from "@/data/investingFundamentalsConten
 import { businessManagementContent } from "@/data/businessManagementContent"
 import { marketingContent } from "@/data/marketingContent"
 import { consumerBehaviorContent } from "@/data/consumerBehaviorContent"
+import { marketingMixContent } from "@/data/marketingMixContent"
 
 /**
  * Structured 6-section lesson content.
@@ -1260,7 +1261,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
  * NEVER returns null — every lesson always has structured content.
  */
 export function getStructuredContent(lessonId: string): StructuredLessonContent | null {
-  const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent]
+  const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent]
   const handWritten = allContent.find(c => c.lessonId === lessonId)
   if (handWritten) return handWritten
 

@@ -82,6 +82,7 @@ export type LessonCategory =
   | "business-management"
   | "marketing"
   | "consumer-behavior"
+  | "marketing-mix"
 
 export interface UnitInfo {
   id: string
