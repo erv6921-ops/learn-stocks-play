@@ -458,5 +458,88 @@ Geographically, they customize products for different markets. Behaviorally, the
 
 Most powerfully, Nike leverages aspirational reference groups.
 By signing elite athletes, Nike connects their products to the identity customers want to achieve.
-Customers are not just buying shoes. They are buying a piece of who they want to be.`
+Customers are not just buying shoes. They are buying a piece of who they want to be.`,
+
+  "mix-1": `The marketing mix is a framework that helps businesses plan how to bring a product to market.
+It breaks the strategy into four elements known as the 4 Ps: Product, Price, Place, and Promotion.
+
+Every marketing decision fits into one of these four categories.
+The power of the framework is that the 4 Ps are interdependent.
+Changing one affects the others.
+
+When all four are aligned, the strategy is coherent and effective.
+When they conflict, even a great product can fail.`,
+
+  "mix-2": `In the marketing mix, product means far more than the physical item.
+It includes features, quality, design, branding, packaging, and the problem it solves.
+
+Every product goes through a life cycle with four stages.
+Introduction, growth, maturity, and decline.
+Understanding where a product sits in its life cycle helps businesses make better decisions.
+
+Branding creates recognition and trust.
+Packaging is the first physical interaction a customer has with your product.
+Together, they can justify premium prices.`,
+
+  "mix-3": `Price is the only element of the marketing mix that generates revenue.
+The other three are costs.
+
+Four major pricing strategies are cost-based, value-based, competitive, and penetration pricing.
+Cost-based adds a markup to your costs.
+Value-based charges what customers believe the product is worth.
+Competitive pricing matches your rivals.
+Penetration pricing starts low to gain market share quickly.
+
+Price communicates value. It is not just a number.`,
+
+  "mix-4": `Place refers to how and where customers can access your product.
+The best product in the world fails if customers cannot find it.
+
+Distribution can be direct, selling straight to customers, or indirect, using retailers and distributors.
+Direct channels give more control. Indirect channels provide wider reach.
+
+The digital revolution has transformed place strategy.
+E-commerce enables direct-to-consumer models.
+Omnichannel strategies combine physical and digital presence into one seamless experience.`,
+
+  "mix-5": `Promotion is how businesses communicate value to potential customers.
+It includes advertising, public relations, social media, content marketing, and word of mouth.
+
+Integrated Marketing Communication means all channels deliver a consistent message.
+When a customer sees your ad, visits your website, and talks to a salesperson, the story should feel unified.
+
+The promotional mix should match your target audience.
+Reaching the right people on the wrong platform wastes budget.`,
+
+  "mix-6": `The real power of the marketing mix is how all four Ps work together as a system.
+When aligned, they amplify each other. When they conflict, even a strong product can fail.
+
+Trade-offs are inevitable.
+A premium product demands premium pricing, selective distribution, and sophisticated promotion.
+A mass-market product needs competitive pricing and wide distribution.
+
+The most common mistake is misalignment.
+All four Ps must tell the same story.`,
+
+  "mix-7": `The same marketing mix framework applies to both startups and established brands.
+But the strategies within each P look very different.
+
+Startups focus on solving one problem well with limited budgets.
+They use penetration pricing, direct channels, and organic promotion.
+
+Established brands leverage recognized names and larger budgets.
+They use premium pricing, wide distribution, and mass media campaigns.
+
+Copying a larger competitor's strategy without matching their resources is a common mistake.`,
+
+  "mix-8": `The ultimate test of understanding the marketing mix is applying it.
+Building a complete strategy starts with identifying a customer need.
+
+Step one: define the product and what makes it different.
+Step two: set the price based on your customer, competitors, and positioning.
+Step three: choose where customers will find and buy it.
+Step four: plan how you will communicate value to your audience.
+
+After building all four Ps, step back and ask: do they tell the same story?
+That alignment check separates good marketing from great marketing.`
 }
