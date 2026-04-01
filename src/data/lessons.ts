@@ -320,6 +320,16 @@ export const lessons: Lesson[] = [
   L("mkt-7", "Consumer Decision-Making",             "The buyer journey — awareness, consideration, decision, and loyalty",                      "marketing", "explorer", "unit-27", "23.7", 375),
   L("mkt-8", "Testing Your Ideas",                   "Hypothesis testing, A/B testing, MVPs, and using data to iterate",                         "marketing", "explorer", "unit-27", "23.8", 400),
 
+  // Unit 24: Consumer Behavior
+  L("cb-1", "What Is Consumer Behavior",              "Why understanding how people buy is the foundation of every successful business",           "consumer-behavior", "explorer", "unit-28", "24.1", 2000),
+  L("cb-2", "The Decision-Making Process",            "The five stages every buyer goes through — from need recognition to post-purchase",         "consumer-behavior", "explorer", "unit-28", "24.2", 2100),
+  L("cb-3", "Psychological Factors",                  "How motivation, perception, learning, and attitudes drive purchase decisions",              "consumer-behavior", "explorer", "unit-28", "24.3", 2200),
+  L("cb-4", "Social & Cultural Influences",           "Family, friends, culture, and social class shape what and why people buy",                  "consumer-behavior", "explorer", "unit-28", "24.4", 2200),
+  L("cb-5", "Market Segmentation",                    "Dividing markets by demographics, psychographics, geography, and behavior",                "consumer-behavior", "explorer", "unit-28", "24.5", 2300),
+  L("cb-6", "Target Markets & Buyer Personas",        "Selecting the right audience and building detailed profiles of ideal customers",            "consumer-behavior", "explorer", "unit-28", "24.6", 2300),
+  L("cb-7", "Brand Loyalty vs Brand Switching",       "What makes customers stay loyal and what pushes them to switch brands",                     "consumer-behavior", "explorer", "unit-28", "24.7", 2400),
+  L("cb-8", "Case Study: How Nike Uses Consumer Research", "How a real brand applies consumer behavior insights to dominate its market",           "consumer-behavior", "explorer", "unit-28", "24.8", 2500),
+
   // ─── LEVEL 9: ADVANCED INVESTING ───
 
   L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "24.1", 7500),
