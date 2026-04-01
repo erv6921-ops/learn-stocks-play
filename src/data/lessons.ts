@@ -419,6 +419,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   marketing: { title: "Marketing", icon: "Megaphone", description: "Reach and persuade your audience", color: "success" },
   "consumer-behavior": { title: "Consumer Behavior", icon: "Users", description: "Understand how and why people buy", color: "accent" },
   "marketing-mix": { title: "The Marketing Mix", icon: "Combine", description: "Master the 4 Ps of marketing strategy", color: "success" },
+  "market-research": { title: "Market Research", icon: "Search", description: "Data-driven decisions for business strategy", color: "primary" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {

@@ -44,7 +44,7 @@ const AP_SECTIONS: APSection[] = [
   {
     title: "Unit 2: Marketing",
     subtitle: "Consumer behavior, market research, the 4 Ps — 25 class periods",
-    unitIds: ["unit-15", "unit-16", "unit-28", "unit-29"],
+    unitIds: ["unit-15", "unit-16", "unit-28", "unit-29", "unit-30"],
   },
   {
     title: "Unit 3: Finance & Accounting",
