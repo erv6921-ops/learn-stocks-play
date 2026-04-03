@@ -362,7 +362,18 @@ export const lessons: Lesson[] = [
   L("lm-6", "Conflict Resolution & Communication", "Managing disagreements and building healthy team communication",                          "leadership-management", "explorer", "unit-31", "27.6", 2600),
   L("lm-7", "Case Study: Satya Nadella at Microsoft", "How one leader transformed Microsoft's culture, strategy, and market value",           "leadership-management", "explorer", "unit-31", "27.7", 2500),
 
+  // Unit 28: Strategic Analysis Tools
+  L("sa-1", "What Is Business Strategy?",              "Learn why strategy matters and how companies use it to win",                          "strategic-analysis", "explorer", "unit-32", "28.1", 2500),
+  L("sa-2", "KPIs — Measuring What Matters",           "Understand key performance indicators and how to choose the right ones",              "strategic-analysis", "explorer", "unit-32", "28.2", 2500),
+  L("sa-3", "SWOT Analysis",                           "Learn to evaluate strengths, weaknesses, opportunities, and threats",                "strategic-analysis", "explorer", "unit-32", "28.3", 2750),
+  L("sa-4", "Porter's Five Forces",                    "Analyze industry competition through five structural forces",                        "strategic-analysis", "explorer", "unit-32", "28.4", 2750),
+  L("sa-5", "Applying SWOT to a Business Opportunity", "Use SWOT to make real go/no-go strategic decisions",                                "strategic-analysis", "explorer", "unit-32", "28.5", 2750),
+  L("sa-6", "Porter's Five Forces in Practice",        "Apply Porter's framework to the streaming and fast food industries",                 "strategic-analysis", "explorer", "unit-32", "28.6", 2750),
+  L("sa-7", "Using Frameworks for Real Decisions",     "Learn how companies combine SWOT and Porter's to guide strategy",                    "strategic-analysis", "explorer", "unit-32", "28.7", 3000),
+  L("sa-8", "Mini-Project: Your Own Strategic Analysis","Run a full SWOT and Porter's analysis on a business of your choice",                "strategic-analysis", "explorer", "unit-32", "28.8", 3000),
+
   // ─── LEVEL 9: ADVANCED INVESTING ───
+
 
   L("options-1", "Calls vs Puts",   "The two types of options contracts",      "options", "capital-architect", "unit-21", "28.1", 7500),
   L("options-2", "Strike Price",    "The price at which you can buy or sell",  "options", "capital-architect", "unit-21", "28.2", 8500),
