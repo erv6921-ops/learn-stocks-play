@@ -661,5 +661,73 @@ His first major move was cultural. He replaced the toxic stack ranking system wi
 He then shifted strategy from Windows first to cloud first, embracing open source and partnerships with former rivals.
 Under his leadership, Microsoft grew from three hundred billion to over three trillion dollars in market value.
 
-Nadella proved that culture change must come before strategy change.`
+Nadella proved that culture change must come before strategy change.`,
+
+  "sa-1": `Business strategy is a plan for how a company will achieve its goals and outperform competitors.
+Without strategy, a business is just reacting to whatever happens rather than building toward a clear future.
+
+Strategy answers three core questions. Where are we now? Where do we want to be? How do we get there?
+Good strategy involves trade-offs. You cannot be everything to everyone.
+
+In-N-Out Burger keeps a small menu, uses fresh ingredients, and refuses to franchise.
+By saying no to overexpansion, they built one of the most profitable fast-food chains per location in America.`,
+
+  "sa-2": `Key Performance Indicators, or KPIs, are specific measurable values that show whether a business is achieving its most important objectives.
+Think of KPIs as the dashboard in a car. You cannot drive well without knowing your speed and fuel level.
+
+Not every number is a KPI. Only metrics directly tied to strategic goals qualify.
+The best KPIs are SMART: Specific, Measurable, Achievable, Relevant, and Time-bound.
+
+Netflix tracks viewing hours per subscriber, not just total subscribers.
+A subscriber who watches twenty hours a month is far less likely to cancel than one who watches two.`,
+
+  "sa-3": `SWOT analysis helps you evaluate a company by examining four categories: Strengths, Weaknesses, Opportunities, and Threats.
+Strengths and Weaknesses are internal. Opportunities and Threats are external.
+
+The real value comes from connecting the dots. Use strengths to capture opportunities and address weaknesses before threats exploit them.
+
+When Starbucks analyzed their position in 2008, they found overexpansion was diluting the customer experience.
+They closed 600 stores and doubled down on quality. The stock recovered from eight dollars to over one hundred.`,
+
+  "sa-4": `Porter's Five Forces analyzes the competitive dynamics of an entire industry.
+The five forces are: threat of new entrants, bargaining power of buyers, bargaining power of suppliers, threat of substitutes, and industry rivalry.
+
+When all five forces are strong, the industry tends to be less profitable.
+The airline industry is a classic example where every force works against profitability.
+
+Companies succeed by finding ways to weaken the strongest forces working against them.
+Apple created ecosystem lock-in to reduce buyer power in the smartphone market.`,
+
+  "sa-5": `SWOT analysis is not just academic. It is a practical tool for evaluating whether to pursue a business opportunity.
+The key is being brutally honest in each category and then using the results to make clear decisions.
+
+The most valuable step is the so what analysis. Can our strengths capture this opportunity? Will our weaknesses prevent success?
+
+Before launching Disney Plus, Disney matched their content library strength to the cord-cutting opportunity.
+They launched at six ninety-nine per month and hit one hundred million subscribers in just sixteen months.`,
+
+  "sa-6": `Applying Porter's Five Forces to real industries makes the framework concrete and practical.
+The streaming industry shows how strong buyer power, intense rivalry, and substitute threats squeeze profits.
+
+The fast food industry has different dynamics. Brand loyalty and massive scale help companies succeed despite high rivalry.
+
+Chick-fil-A weakened several forces brilliantly. Being closed on Sundays creates scarcity and brand identity.
+They generate more revenue per restaurant than any other fast-food chain, even with one fewer operating day.`,
+
+  "sa-7": `SWOT and Porter's Five Forces are only valuable if they lead to action.
+The most powerful approach combines both tools. Use Porter's to understand the industry, then SWOT to evaluate your company within it.
+
+Companies must revisit these analyses regularly because markets change constantly.
+Amazon's SWOT from 2010 looks completely different from today.
+
+When Microsoft acquired LinkedIn, Porter's showed strong industry barriers and SWOT showed a unique capability match.
+The acquisition now generates over fifteen billion dollars in annual revenue.`,
+
+  "sa-8": `Now it is time to apply everything you have learned. You will conduct both a SWOT and Porter's Five Forces analysis on a business of your choice.
+
+Start with Porter's to understand the industry. Then do SWOT for the specific company.
+Connect the two and identify where strengths align with weak forces and where weaknesses align with strong forces.
+
+McKinsey and Company charges millions for analyses that follow this exact process.
+The skills you are learning are the same ones used by professionals advising Fortune 500 companies.`
 }

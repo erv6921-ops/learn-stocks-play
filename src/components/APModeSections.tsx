@@ -67,7 +67,7 @@ const AP_SECTIONS: APSection[] = [
   {
     title: "Unit 4: Management & Strategy",
     subtitle: "Leadership, KPIs, SWOT analysis, Porter's Five Forces — 25 class periods",
-    unitIds: ["unit-26", "unit-31"],
+    unitIds: ["unit-26", "unit-31", "unit-32"],
   },
   {
     title: "Unit 5: Personal Goals & Investing",
