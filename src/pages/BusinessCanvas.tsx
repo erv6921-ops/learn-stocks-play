@@ -449,7 +449,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
             {block.guidePrompts.map((prompt, pIdx) => (
               <div key={pIdx}>
                 <label className="text-sm font-semibold text-foreground block mb-2">
-                  {prompt}
+                  <VocabText text={prompt} />
                 </label>
                 <Textarea
                   placeholder="Type your answer…"
@@ -464,7 +464,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
           {/* Reflection */}
           <Card className="mt-6 p-5 rounded-2xl border-primary/20 bg-primary/3 shadow-card">
             <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">💡 Reflection</p>
-            <p className="text-sm text-foreground/80 mb-3">{block.reflectionPrompt}</p>
+            <p className="text-sm text-foreground/80 mb-3"><VocabText text={block.reflectionPrompt} /></p>
             <Textarea
               placeholder="Share your thoughts…"
               value={data.reflection}
