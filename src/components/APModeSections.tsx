@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { UnitInfo } from "@/types";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
-import { BookOpen, Briefcase, TrendingUp, Info } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { BookOpen, Briefcase, TrendingUp, Info, FileText } from "lucide-react";
 
 interface APExtra {
   label: string;
@@ -142,6 +143,27 @@ export default function APModeSections({ allUnits, renderUnit }: APModeSectionsP
           Aligned to the official College Board 5-unit framework · Launching fall 2026
         </p>
       </div>
+
+      {/* Business Canvas Project — AP Required */}
+      <Link to="/business-canvas">
+        <Card className="flex items-center gap-4 px-6 py-5 border-2 border-primary/20 rounded-2xl bg-primary/3 shadow-card hover:bg-primary/5 transition-colors press-scale">
+          <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+            <Briefcase className="w-6 h-6" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-0.5">
+              <p className="font-display font-bold text-[15px] text-foreground">Business Canvas Project</p>
+              <Badge variant="outline" className="text-[10px] font-bold border-primary/30 text-primary">AP Required</Badge>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Build a complete Business Model Canvas for your own business idea — 9 guided blocks + submission
+            </p>
+          </div>
+          <div className="text-primary shrink-0">
+            <FileText className="w-5 h-5" />
+          </div>
+        </Card>
+      </Link>
 
       {/* AP Sections */}
       {AP_SECTIONS.map((section, idx) => (
