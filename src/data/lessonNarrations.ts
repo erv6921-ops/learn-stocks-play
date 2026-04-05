@@ -729,5 +729,66 @@ Start with Porter's to understand the industry. Then do SWOT for the specific co
 Connect the two and identify where strengths align with weak forces and where weaknesses align with strong forces.
 
 McKinsey and Company charges millions for analyses that follow this exact process.
-The skills you are learning are the same ones used by professionals advising Fortune 500 companies.`
+The skills you are learning are the same ones used by professionals advising Fortune 500 companies.`,
+
+  "pestel-1": `Every business operates inside a larger world it cannot fully control.
+Interest rates change. New laws get passed. Technology disrupts entire industries overnight.
+PESTEL analysis is a framework that helps businesses systematically scan these external forces.
+
+PESTEL stands for Political, Economic, Social, Technological, Environmental, and Legal.
+Together, these six categories cover the major forces that shape whether a business thrives or struggles.
+
+Companies use PESTEL before entering new markets, launching products, or making strategic decisions.
+It forces leaders to look beyond their own company and ask: what is happening in the world that could affect us?`,
+
+  "pestel-2": `Political factors include everything related to how governments interact with business.
+Regulations, tax policies, trade agreements, and political stability all play a role.
+
+Trade agreements between countries can open or close markets overnight.
+Tax incentives can make certain industries boom.
+Political instability in a region can make it too risky to operate.
+
+When the US imposed tariffs on Chinese goods, Apple began diversifying manufacturing to India and Vietnam.
+A single political decision can reshape an entire industry's competitive landscape.`,
+
+  "pestel-3": `Economic factors are the macro financial conditions that affect consumer spending and business costs.
+These include GDP growth, inflation rates, interest rates, unemployment, and exchange rates.
+
+When the economy is growing, consumers spend more and businesses hire.
+During recessions, spending drops, layoffs increase, and many businesses struggle.
+
+Interest rates are particularly powerful. When rates are low, borrowing is cheap.
+When rates rise, borrowing becomes expensive, slowing economic activity across the board.`,
+
+  "pestel-4": `Social factors examine how demographics, cultural values, and consumer attitudes shape demand.
+These are the people forces of PESTEL analysis.
+
+An aging population creates demand for healthcare. A younger population drives demand for technology.
+Cultural attitudes evolve constantly. Health consciousness created the wellness industry.
+Environmental awareness pushed companies toward sustainability.
+
+Nike's Kaepernick campaign succeeded because Nike read the social moment correctly.
+Their target demographic valued brands that took stands on social issues.`,
+
+  "pestel-5": `Technological factors examine how innovation, automation, and digital transformation affect business.
+Technology can create entirely new industries and destroy existing ones.
+
+Kodak invented the digital camera in 1975 but suppressed it to protect their film business.
+By the time smartphones arrived, it was too late. Kodak filed for bankruptcy in 2012.
+
+Companies that embrace technology early gain massive competitive advantages.
+Those that resist change risk becoming obsolete.
+The speed of technological change is only accelerating.`,
+
+  "pestel-6": `Environmental factors include climate change, sustainability pressures, and natural resource availability.
+Legal factors cover the laws businesses must comply with.
+
+These two often overlap. Environmental concerns lead to new environmental laws.
+Growing awareness of climate change leads to emissions regulations.
+
+Volkswagen was caught cheating emissions tests in 2015.
+The scandal cost over 33 billion dollars in fines and destroyed trust.
+
+When conducting a complete PESTEL analysis, the most important thing is to analyze all six factors together.
+They interconnect. A political change can trigger economic effects, which drive social shifts, which create legal responses.`
 }
