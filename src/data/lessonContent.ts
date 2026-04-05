@@ -1266,7 +1266,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
  * NEVER returns null — every lesson always has structured content.
  */
 export function getStructuredContent(lessonId: string): StructuredLessonContent | null {
-  const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent]
+  const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent]
   const handWritten = allContent.find(c => c.lessonId === lessonId)
   if (handWritten) return handWritten
 
