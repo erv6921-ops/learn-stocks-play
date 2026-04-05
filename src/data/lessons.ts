@@ -56,14 +56,15 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-30", unitNumber: 26, title: "Market Research",                level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["market-research"],          orderIndex: 26 },
   { id: "unit-31", unitNumber: 27, title: "Leadership & Management",       level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["leadership-management"],    orderIndex: 27 },
   { id: "unit-32", unitNumber: 28, title: "Strategic Analysis Tools",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["strategic-analysis"],       orderIndex: 28 },
+  { id: "unit-33", unitNumber: 29, title: "PESTEL Analysis",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["pestel-analysis"],          orderIndex: 29 },
 
   // Level 9: Advanced Investing
-  { id: "unit-21", unitNumber: 29, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 29 },
-  { id: "unit-22", unitNumber: 30, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 30 },
+  { id: "unit-21", unitNumber: 30, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 30 },
+  { id: "unit-22", unitNumber: 31, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 31 },
 
   // Level 10: Real-World Application
-  { id: "unit-23", unitNumber: 31, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 31 },
-  { id: "unit-24", unitNumber: 32, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 32 },
+  { id: "unit-23", unitNumber: 32, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 32 },
+  { id: "unit-24", unitNumber: 33, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 33 },
 ]
 
 // ═══════════════════════════════════════════════
@@ -388,6 +389,14 @@ export const lessons: Lesson[] = [
   L("alt-5", "Private Equity",   "Investing in non-public companies",                  "alternatives", "capital-architect", "unit-22", "30.5", 13000),
   L("alt-6", "Liquidity Risk",   "The danger of investments you can't easily sell",    "alternatives", "capital-architect", "unit-22", "30.6", 15000),
 
+  // ─── PESTEL Analysis (Unit 33) ───
+  L("pestel-1", "What is PESTEL Analysis",      "Learn how businesses scan their external environment using the PESTEL framework",           "pestel-analysis", "explorer", "unit-33", "29.1", 2000),
+  L("pestel-2", "Political Factors",             "How government policy, regulation, and trade agreements shape business strategy",           "pestel-analysis", "explorer", "unit-33", "29.2", 2200),
+  L("pestel-3", "Economic Factors",              "GDP, interest rates, inflation, and business cycles — the financial climate around business","pestel-analysis", "explorer", "unit-33", "29.3", 2400),
+  L("pestel-4", "Social Factors",                "Demographics, culture, and consumer attitudes that drive market demand",                   "pestel-analysis", "explorer", "unit-33", "29.4", 2400),
+  L("pestel-5", "Technological Factors",         "Innovation, automation, and digital disruption — how technology transforms industries",     "pestel-analysis", "explorer", "unit-33", "29.5", 2500),
+  L("pestel-6", "Environmental & Legal Factors", "Sustainability, climate risk, employment law, and consumer protection",                    "pestel-analysis", "explorer", "unit-33", "29.6", 2500),
+
   // ─── LEVEL 10: REAL-WORLD APPLICATION ───
 
   L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "31.1", 10000),
@@ -444,6 +453,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "market-research": { title: "Market Research", icon: "Search", description: "Data-driven decisions for business strategy", color: "primary" },
   "leadership-management": { title: "Leadership & Management", icon: "Crown", description: "Lead teams and build effective organizations", color: "primary" },
   "strategic-analysis": { title: "Strategic Analysis", icon: "Crosshair", description: "SWOT, Porter's Five Forces, and KPI frameworks", color: "primary" },
+  "pestel-analysis": { title: "PESTEL Analysis", icon: "Globe", description: "Political, Economic, Social, Technological, Environmental & Legal factors", color: "primary" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {
