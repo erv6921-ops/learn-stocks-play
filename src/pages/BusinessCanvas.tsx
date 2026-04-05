@@ -16,15 +16,28 @@ import {
 } from "lucide-react";
 import { useApp } from "@/contexts/AppContext";
 
-/* ── Vocab tooltips for difficult terms ── */
+/* ── Vocab tooltips for difficult terms (used in titles + inline in prompts) ── */
 const VOCAB_TIPS: Record<string, string> = {
-  "Value Proposition": "The unique benefit or solution your business promises to deliver to customers — why they should choose you.",
-  "Customer Segments": "The specific groups of people or organizations your business aims to serve.",
-  "Revenue Streams": "The different ways your business earns money from customers.",
-  "Key Resources": "The most important assets (physical, intellectual, human, financial) your business needs to operate.",
-  "Key Activities": "The most critical things your business must do to make its model work.",
-  "Key Partnerships": "The network of suppliers and partners that help your business succeed.",
-  "Cost Structure": "All the costs and expenses your business incurs to operate.",
+  "value proposition": "The unique benefit or solution your business promises to deliver to customers — why they should choose you.",
+  "customer segments": "The specific groups of people or organizations your business aims to serve.",
+  "revenue stream": "A way your business earns money from customers (e.g., sales, subscriptions, ads).",
+  "revenue streams": "The different ways your business earns money from customers.",
+  "key resources": "The most important assets (physical, intellectual, human, financial) your business needs to operate.",
+  "key activities": "The most critical things your business must do to make its model work.",
+  "key partnerships": "The network of suppliers and partners that help your business succeed.",
+  "cost structure": "All the costs and expenses your business incurs to operate.",
+  "intellectual property": "Creations of the mind (inventions, brand names, designs) that are legally protected.",
+  "fixed costs": "Expenses that stay the same no matter how much you sell (e.g., rent, salaries).",
+  "variable costs": "Expenses that go up or down depending on how much you produce or sell.",
+  "cost-driven": "A business model focused on minimizing costs wherever possible to offer lower prices.",
+  "value-driven": "A business model focused on creating premium value, even if costs are higher.",
+  "strategic alliances": "Partnerships between companies that combine strengths for mutual benefit.",
+  "competitive edge": "Something that makes your business better than competitors in a way that's hard to copy.",
+  "loyalty programs": "Reward systems that encourage customers to keep buying from the same business.",
+  "freemium": "A pricing model where the basic version is free, but premium features cost money.",
+  "outsource": "Hiring an outside company or person to handle tasks instead of doing them in-house.",
+  "starting capital": "The money needed to launch a business before it starts earning revenue.",
+  "channels": "The ways a business reaches, communicates with, and delivers products to its customers.",
 };
 
 /* ── Canvas block definitions ── */
