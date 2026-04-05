@@ -57,14 +57,15 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-31", unitNumber: 27, title: "Leadership & Management",       level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["leadership-management"],    orderIndex: 27 },
   { id: "unit-32", unitNumber: 28, title: "Strategic Analysis Tools",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["strategic-analysis"],       orderIndex: 28 },
   { id: "unit-33", unitNumber: 29, title: "PESTEL Analysis",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["pestel-analysis"],          orderIndex: 29 },
+  { id: "unit-34", unitNumber: 30, title: "Business Ethics & Social Responsibility", level: 8, levelTitle: LEVEL_TITLES[8], categories: ["business-ethics"],  orderIndex: 30 },
 
   // Level 9: Advanced Investing
-  { id: "unit-21", unitNumber: 30, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 30 },
-  { id: "unit-22", unitNumber: 31, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 31 },
+  { id: "unit-21", unitNumber: 31, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 31 },
+  { id: "unit-22", unitNumber: 32, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 32 },
 
   // Level 10: Real-World Application
-  { id: "unit-23", unitNumber: 32, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 32 },
-  { id: "unit-24", unitNumber: 33, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 33 },
+  { id: "unit-23", unitNumber: 33, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 33 },
+  { id: "unit-24", unitNumber: 34, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 34 },
 ]
 
 // ═══════════════════════════════════════════════
@@ -396,6 +397,14 @@ export const lessons: Lesson[] = [
   L("pestel-4", "Social Factors",                "Demographics, culture, and consumer attitudes that drive market demand",                   "pestel-analysis", "explorer", "unit-33", "29.4", 2400),
   L("pestel-5", "Technological Factors",         "Innovation, automation, and digital disruption — how technology transforms industries",     "pestel-analysis", "explorer", "unit-33", "29.5", 2500),
   L("pestel-6", "Environmental & Legal Factors", "Sustainability, climate risk, employment law, and consumer protection",                    "pestel-analysis", "explorer", "unit-33", "29.6", 2500),
+
+  // ─── Business Ethics & Social Responsibility (Unit 34) ───
+  L("ethics-1", "What is Business Ethics",                 "Why ethics matters beyond just following the law",                              "business-ethics", "explorer", "unit-34", "30.1", 1800),
+  L("ethics-2", "Corporate Social Responsibility",         "CSR — definition, examples, and the trade-offs businesses face",               "business-ethics", "explorer", "unit-34", "30.2", 2000),
+  L("ethics-3", "Stakeholder Theory",                      "Who businesses are responsible to beyond shareholders",                         "business-ethics", "explorer", "unit-34", "30.3", 2000),
+  L("ethics-4", "Ethical Dilemmas in Business",            "How to reason through hard decisions using ethical frameworks",                 "business-ethics", "explorer", "unit-34", "30.4", 2000),
+  L("ethics-5", "Business Ethics and the Law",             "Where ethics and legal requirements overlap or diverge",                        "business-ethics", "explorer", "unit-34", "30.5", 2200),
+  L("ethics-6", "Case Study: Enron & Volkswagen",         "Major ethical failures and what we can learn from them",                         "business-ethics", "explorer", "unit-34", "30.6", 2000),
 
   // ─── LEVEL 10: REAL-WORLD APPLICATION ───
 
