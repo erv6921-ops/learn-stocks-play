@@ -8,12 +8,24 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import BackButton from "@/components/BackButton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Briefcase, Users, Lightbulb, Megaphone, Heart, DollarSign,
   Box, Cog, Handshake, Receipt, ArrowRight, ArrowLeft,
-  CheckCircle, FileText, Send, RotateCcw
+  CheckCircle, FileText, Send, RotateCcw, HelpCircle
 } from "lucide-react";
 import { useApp } from "@/contexts/AppContext";
+
+/* ── Vocab tooltips for difficult terms ── */
+const VOCAB_TIPS: Record<string, string> = {
+  "Value Proposition": "The unique benefit or solution your business promises to deliver to customers — why they should choose you.",
+  "Customer Segments": "The specific groups of people or organizations your business aims to serve.",
+  "Revenue Streams": "The different ways your business earns money from customers.",
+  "Key Resources": "The most important assets (physical, intellectual, human, financial) your business needs to operate.",
+  "Key Activities": "The most critical things your business must do to make its model work.",
+  "Key Partnerships": "The network of suppliers and partners that help your business succeed.",
+  "Cost Structure": "All the costs and expenses your business incurs to operate.",
+};
 
 /* ── Canvas block definitions ── */
 interface CanvasBlock {
