@@ -497,7 +497,7 @@ function VocabTitle({ title, className = "" }: { title: string; className?: stri
                   }`}>
                     {hasContent ? <CheckCircle className="w-4 h-4" /> : block.icon}
                   </div>
-                  <h3 className="font-bold text-sm">{block.number}. {block.title}</h3>
+                  <h3 className="font-bold text-sm">{block.number}. <VocabTitle title={block.title} /></h3>
                 </div>
                 <div className="space-y-1.5">
                   {data.answers.map((ans, aIdx) => (
