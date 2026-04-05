@@ -16,15 +16,28 @@ import {
 } from "lucide-react";
 import { useApp } from "@/contexts/AppContext";
 
-/* ── Vocab tooltips for difficult terms ── */
+/* ── Vocab tooltips for difficult terms (used in titles + inline in prompts) ── */
 const VOCAB_TIPS: Record<string, string> = {
-  "Value Proposition": "The unique benefit or solution your business promises to deliver to customers — why they should choose you.",
-  "Customer Segments": "The specific groups of people or organizations your business aims to serve.",
-  "Revenue Streams": "The different ways your business earns money from customers.",
-  "Key Resources": "The most important assets (physical, intellectual, human, financial) your business needs to operate.",
-  "Key Activities": "The most critical things your business must do to make its model work.",
-  "Key Partnerships": "The network of suppliers and partners that help your business succeed.",
-  "Cost Structure": "All the costs and expenses your business incurs to operate.",
+  "value proposition": "The unique benefit or solution your business promises to deliver to customers — why they should choose you.",
+  "customer segments": "The specific groups of people or organizations your business aims to serve.",
+  "revenue stream": "A way your business earns money from customers (e.g., sales, subscriptions, ads).",
+  "revenue streams": "The different ways your business earns money from customers.",
+  "key resources": "The most important assets (physical, intellectual, human, financial) your business needs to operate.",
+  "key activities": "The most critical things your business must do to make its model work.",
+  "key partnerships": "The network of suppliers and partners that help your business succeed.",
+  "cost structure": "All the costs and expenses your business incurs to operate.",
+  "intellectual property": "Creations of the mind (inventions, brand names, designs) that are legally protected.",
+  "fixed costs": "Expenses that stay the same no matter how much you sell (e.g., rent, salaries).",
+  "variable costs": "Expenses that go up or down depending on how much you produce or sell.",
+  "cost-driven": "A business model focused on minimizing costs wherever possible to offer lower prices.",
+  "value-driven": "A business model focused on creating premium value, even if costs are higher.",
+  "strategic alliances": "Partnerships between companies that combine strengths for mutual benefit.",
+  "competitive edge": "Something that makes your business better than competitors in a way that's hard to copy.",
+  "loyalty programs": "Reward systems that encourage customers to keep buying from the same business.",
+  "freemium": "A pricing model where the basic version is free, but premium features cost money.",
+  "outsource": "Hiring an outside company or person to handle tasks instead of doing them in-house.",
+  "starting capital": "The money needed to launch a business before it starts earning revenue.",
+  "channels": "The ways a business reaches, communicates with, and delivers products to its customers.",
 };
 
 /* ── Canvas block definitions ── */
@@ -196,8 +209,12 @@ function saveCanvas(data: CanvasData) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
 }
 
+// Sorted by length descending so longer phrases match first
+const VOCAB_KEYS = Object.keys(VOCAB_TIPS).sort((a, b) => b.length - a.length);
+const VOCAB_REGEX = new RegExp(`(${VOCAB_KEYS.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+
 function VocabTitle({ title, className = "" }: { title: string; className?: string }) {
-  const tip = VOCAB_TIPS[title];
+  const tip = VOCAB_TIPS[title.toLowerCase()];
   if (!tip) return <span className={className}>{title}</span>;
   return (
     <span className={`inline-flex items-center gap-1 ${className}`}>
@@ -210,6 +227,34 @@ function VocabTitle({ title, className = "" }: { title: string; className?: stri
           {tip}
         </TooltipContent>
       </Tooltip>
+    </span>
+  );
+}
+
+/** Renders text with inline vocab tooltips for difficult terms */
+function VocabText({ text, className = "" }: { text: string; className?: string }) {
+  const parts = text.split(VOCAB_REGEX);
+  if (parts.length <= 1) return <span className={className}>{text}</span>;
+
+  return (
+    <span className={className}>
+      {parts.map((part, i) => {
+        const tip = VOCAB_TIPS[part.toLowerCase()];
+        if (!tip) return <React.Fragment key={i}>{part}</React.Fragment>;
+        return (
+          <span key={i} className="inline-flex items-baseline gap-0.5">
+            <span className="underline decoration-dotted decoration-muted-foreground/40 underline-offset-2">{part}</span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <HelpCircle className="w-3 h-3 text-muted-foreground/50 hover:text-primary cursor-help shrink-0 inline-block relative -top-0.5" />
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-[240px] text-xs">
+                {tip}
+              </TooltipContent>
+            </Tooltip>
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -404,7 +449,7 @@ function VocabTitle({ title, className = "" }: { title: string; className?: stri
             {block.guidePrompts.map((prompt, pIdx) => (
               <div key={pIdx}>
                 <label className="text-sm font-semibold text-foreground block mb-2">
-                  {prompt}
+                  <VocabText text={prompt} />
                 </label>
                 <Textarea
                   placeholder="Type your answer…"
@@ -419,7 +464,7 @@ function VocabTitle({ title, className = "" }: { title: string; className?: stri
           {/* Reflection */}
           <Card className="mt-6 p-5 rounded-2xl border-primary/20 bg-primary/3 shadow-card">
             <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">💡 Reflection</p>
-            <p className="text-sm text-foreground/80 mb-3">{block.reflectionPrompt}</p>
+            <p className="text-sm text-foreground/80 mb-3"><VocabText text={block.reflectionPrompt} /></p>
             <Textarea
               placeholder="Share your thoughts…"
               value={data.reflection}
