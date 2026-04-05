@@ -21,6 +21,7 @@ import Leaderboard from "./pages/Leaderboard";
 import AppliedFinanceLab from "./pages/AppliedFinanceLab";
 import LabDocument from "./pages/LabDocument";
 import BusinessCanvas from "./pages/BusinessCanvas";
+import FinancialAdvisor from "./pages/FinancialAdvisor";
 import { AssignmentNotifications } from "./components/AssignmentNotifications";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ function AppRoutes() {
       <Route path="/lab" element={<AppliedFinanceLab />} />
       <Route path="/lab/:docId" element={<LabDocument />} />
       <Route path="/business-canvas" element={<BusinessCanvas />} />
+      <Route path="/financial-advisor" element={<FinancialAdvisor />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
