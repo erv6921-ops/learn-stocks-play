@@ -214,7 +214,7 @@ function VocabTitle({ title, className = "" }: { title: string; className?: stri
   );
 }
 
-  const navigate = useNavigate();
+  export default function BusinessCanvas() {
   const { earnJeffs } = useApp();
   const [canvas, setCanvas] = useState<CanvasData>(loadCanvas);
   const [step, setStep] = useState(0); // 0 = intro, 1-9 = blocks, 10 = review
