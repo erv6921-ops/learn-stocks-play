@@ -8,12 +8,24 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import BackButton from "@/components/BackButton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Briefcase, Users, Lightbulb, Megaphone, Heart, DollarSign,
   Box, Cog, Handshake, Receipt, ArrowRight, ArrowLeft,
-  CheckCircle, FileText, Send, RotateCcw
+  CheckCircle, FileText, Send, RotateCcw, HelpCircle
 } from "lucide-react";
 import { useApp } from "@/contexts/AppContext";
+
+/* ── Vocab tooltips for difficult terms ── */
+const VOCAB_TIPS: Record<string, string> = {
+  "Value Proposition": "The unique benefit or solution your business promises to deliver to customers — why they should choose you.",
+  "Customer Segments": "The specific groups of people or organizations your business aims to serve.",
+  "Revenue Streams": "The different ways your business earns money from customers.",
+  "Key Resources": "The most important assets (physical, intellectual, human, financial) your business needs to operate.",
+  "Key Activities": "The most critical things your business must do to make its model work.",
+  "Key Partnerships": "The network of suppliers and partners that help your business succeed.",
+  "Cost Structure": "All the costs and expenses your business incurs to operate.",
+};
 
 /* ── Canvas block definitions ── */
 interface CanvasBlock {
@@ -184,8 +196,25 @@ function saveCanvas(data: CanvasData) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
 }
 
-export default function BusinessCanvas() {
-  const navigate = useNavigate();
+function VocabTitle({ title, className = "" }: { title: string; className?: string }) {
+  const tip = VOCAB_TIPS[title];
+  if (!tip) return <span className={className}>{title}</span>;
+  return (
+    <span className={`inline-flex items-center gap-1 ${className}`}>
+      {title}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <HelpCircle className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-primary cursor-help shrink-0" />
+        </TooltipTrigger>
+        <TooltipContent side="top" className="max-w-[240px] text-xs">
+          {tip}
+        </TooltipContent>
+      </Tooltip>
+    </span>
+  );
+}
+
+  export default function BusinessCanvas() {
   const { earnJeffs } = useApp();
   const [canvas, setCanvas] = useState<CanvasData>(loadCanvas);
   const [step, setStep] = useState(0); // 0 = intro, 1-9 = blocks, 10 = review
@@ -291,7 +320,7 @@ export default function BusinessCanvas() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-[14px] text-foreground">
-                    {block.number}. {block.title}
+                    {block.number}. <VocabTitle title={block.title} />
                   </p>
                   <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
                     {block.guidePrompts[0]}
@@ -360,7 +389,7 @@ export default function BusinessCanvas() {
             </div>
             <div>
               <h1 className="font-display text-2xl font-extrabold tracking-tight">
-                {block.number}. {block.title}
+                {block.number}. <VocabTitle title={block.title} />
               </h1>
             </div>
           </div>
@@ -468,7 +497,7 @@ export default function BusinessCanvas() {
                   }`}>
                     {hasContent ? <CheckCircle className="w-4 h-4" /> : block.icon}
                   </div>
-                  <h3 className="font-bold text-sm">{block.number}. {block.title}</h3>
+                  <h3 className="font-bold text-sm">{block.number}. <VocabTitle title={block.title} /></h3>
                 </div>
                 <div className="space-y-1.5">
                   {data.answers.map((ans, aIdx) => (
