@@ -196,7 +196,24 @@ function saveCanvas(data: CanvasData) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
 }
 
-export default function BusinessCanvas() {
+function VocabTitle({ title, className = "" }: { title: string; className?: string }) {
+  const tip = VOCAB_TIPS[title];
+  if (!tip) return <span className={className}>{title}</span>;
+  return (
+    <span className={`inline-flex items-center gap-1 ${className}`}>
+      {title}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <HelpCircle className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-primary cursor-help shrink-0" />
+        </TooltipTrigger>
+        <TooltipContent side="top" className="max-w-[240px] text-xs">
+          {tip}
+        </TooltipContent>
+      </Tooltip>
+    </span>
+  );
+}
+
   const navigate = useNavigate();
   const { earnJeffs } = useApp();
   const [canvas, setCanvas] = useState<CanvasData>(loadCanvas);
