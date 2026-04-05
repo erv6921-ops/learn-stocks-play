@@ -244,7 +244,7 @@ export default function BusinessCanvas() {
       <div className="min-h-screen bg-background pb-24 md:pb-8">
         <GameNav />
         <main className="container mx-auto px-4 py-8 max-w-3xl">
-          <BackButton to="/lessons" label="Back to Missions" />
+          <BackButton fallback="/lessons" label="Back to Missions" />
 
           <div className="mt-6 text-center space-y-4">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
