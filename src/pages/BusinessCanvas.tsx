@@ -209,8 +209,12 @@ function saveCanvas(data: CanvasData) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
 }
 
+// Sorted by length descending so longer phrases match first
+const VOCAB_KEYS = Object.keys(VOCAB_TIPS).sort((a, b) => b.length - a.length);
+const VOCAB_REGEX = new RegExp(`(${VOCAB_KEYS.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+
 function VocabTitle({ title, className = "" }: { title: string; className?: string }) {
-  const tip = VOCAB_TIPS[title];
+  const tip = VOCAB_TIPS[title.toLowerCase()];
   if (!tip) return <span className={className}>{title}</span>;
   return (
     <span className={`inline-flex items-center gap-1 ${className}`}>
@@ -223,6 +227,34 @@ function VocabTitle({ title, className = "" }: { title: string; className?: stri
           {tip}
         </TooltipContent>
       </Tooltip>
+    </span>
+  );
+}
+
+/** Renders text with inline vocab tooltips for difficult terms */
+function VocabText({ text, className = "" }: { text: string; className?: string }) {
+  const parts = text.split(VOCAB_REGEX);
+  if (parts.length <= 1) return <span className={className}>{text}</span>;
+
+  return (
+    <span className={className}>
+      {parts.map((part, i) => {
+        const tip = VOCAB_TIPS[part.toLowerCase()];
+        if (!tip) return <React.Fragment key={i}>{part}</React.Fragment>;
+        return (
+          <span key={i} className="inline-flex items-baseline gap-0.5">
+            <span className="underline decoration-dotted decoration-muted-foreground/40 underline-offset-2">{part}</span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <HelpCircle className="w-3 h-3 text-muted-foreground/50 hover:text-primary cursor-help shrink-0 inline-block relative -top-0.5" />
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-[240px] text-xs">
+                {tip}
+              </TooltipContent>
+            </Tooltip>
+          </span>
+        );
+      })}
     </span>
   );
 }
