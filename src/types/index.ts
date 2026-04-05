@@ -86,6 +86,7 @@ export type LessonCategory =
   | "market-research"
   | "leadership-management"
   | "strategic-analysis"
+  | "pestel-analysis"
 
 export interface UnitInfo {
   id: string
