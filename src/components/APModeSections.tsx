@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { UnitInfo } from "@/types";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
-import { BookOpen, Briefcase, TrendingUp, Info } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { BookOpen, Briefcase, TrendingUp, Info, FileText } from "lucide-react";
 
 interface APExtra {
   label: string;
