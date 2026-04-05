@@ -389,7 +389,7 @@ function VocabTitle({ title, className = "" }: { title: string; className?: stri
             </div>
             <div>
               <h1 className="font-display text-2xl font-extrabold tracking-tight">
-                {block.number}. {block.title}
+                {block.number}. <VocabTitle title={block.title} />
               </h1>
             </div>
           </div>
