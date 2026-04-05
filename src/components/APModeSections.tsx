@@ -37,7 +37,7 @@ const AP_SECTIONS: APSection[] = [
   {
     title: "Unit 1: Businesses, Competition & New Ideas",
     subtitle: "Markets, competitive advantage, PESTEL, business ethics, supply chains — 25 class periods",
-    unitIds: ["unit-19", "unit-20", "unit-26", "unit-33"],
+    unitIds: ["unit-19", "unit-20", "unit-26", "unit-33", "unit-34"],
     extras: [
       { label: "Micro Business Simulator", description: "Apply what you've learned — run your own business", link: "/micro-business", icon: <Briefcase className="w-4 h-4" /> },
     ],

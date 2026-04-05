@@ -463,6 +463,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "leadership-management": { title: "Leadership & Management", icon: "Crown", description: "Lead teams and build effective organizations", color: "primary" },
   "strategic-analysis": { title: "Strategic Analysis", icon: "Crosshair", description: "SWOT, Porter's Five Forces, and KPI frameworks", color: "primary" },
   "pestel-analysis": { title: "PESTEL Analysis", icon: "Globe", description: "Political, Economic, Social, Technological, Environmental & Legal factors", color: "primary" },
+  "business-ethics": { title: "Business Ethics", icon: "Scale", description: "Ethics, CSR, and responsible business decision-making", color: "accent" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {

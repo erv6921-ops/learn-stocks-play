@@ -10,6 +10,7 @@ import { marketResearchContent } from "@/data/marketResearchContent"
 import { leadershipManagementContent } from "@/data/leadershipManagementContent"
 import { strategicAnalysisContent } from "@/data/strategicAnalysisContent"
 import { pestelAnalysisContent } from "@/data/pestelAnalysisContent"
+import { businessEthicsContent } from "@/data/businessEthicsContent"
 
 /**
  * Structured 6-section lesson content.
