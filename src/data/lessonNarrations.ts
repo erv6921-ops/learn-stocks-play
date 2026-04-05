@@ -790,5 +790,87 @@ Volkswagen was caught cheating emissions tests in 2015.
 The scandal cost over 33 billion dollars in fines and destroyed trust.
 
 When conducting a complete PESTEL analysis, the most important thing is to analyze all six factors together.
-They interconnect. A political change can trigger economic effects, which drive social shifts, which create legal responses.`
+They interconnect. A political change can trigger economic effects, which drive social shifts, which create legal responses.`,
+
+  "ethics-1": `Business ethics is about what is right and wrong in business decisions.
+It goes beyond just following the law.
+Many things that are technically legal can still be harmful, unfair, or dishonest.
+
+Ethics matters because businesses affect people.
+Employees, customers, communities, and the environment are all impacted by business decisions.
+
+When companies cut ethical corners, the consequences can be devastating.
+Lost jobs, environmental damage, broken trust, and even economic crises.
+
+Wells Fargo employees opened millions of fake accounts to meet sales targets.
+The practice eventually broke laws, but it started as an ethical failure.
+Leadership created incentives that rewarded dishonesty.
+The scandal cost over three billion dollars in fines.`,
+
+  "ethics-2": `Corporate Social Responsibility, or CSR, is the idea that businesses have obligations beyond making profit.
+They should also contribute positively to society and the environment.
+
+CSR is not just charity. It is a strategic approach where companies integrate social and environmental concerns into their operations.
+Companies with strong CSR programs often see improved brand reputation, higher employee engagement, and customer loyalty.
+
+However, CSR involves real trade-offs. Sustainable materials cost more. Fair wages reduce margins.
+The question businesses face is how much responsibility they owe beyond profit.
+
+Patagonia donates one percent of all sales to environmental causes and uses recycled materials.
+They even ran an ad saying Do Not Buy This Jacket to discourage overconsumption.
+Their commitment to CSR has made them one of the most respected brands in the world.`,
+
+  "ethics-3": `Stakeholder theory argues that businesses have responsibilities to all groups affected by their decisions.
+Not just shareholders, meaning owners, but also employees, customers, suppliers, communities, and the environment.
+
+This contrasts with shareholder theory, which says a company's only responsibility is to maximize profit for its owners.
+
+In 2019, 181 CEOs of major corporations signed the Business Roundtable statement.
+They committed to serving all stakeholders, not just shareholders.
+
+When Johnson and Johnson discovered contaminated Tylenol bottles in 1982, they recalled 31 million bottles at a cost of 100 million dollars.
+They prioritized customer safety over short-term profit.
+This decision is considered one of the greatest examples of stakeholder-first thinking.`,
+
+  "ethics-4": `An ethical dilemma is a situation where there is no clearly right answer.
+Every option involves a trade-off between competing values.
+
+Ethical frameworks help structure thinking.
+Utilitarianism asks what produces the greatest good for the greatest number.
+Rights-based ethics asks does this respect everyone's fundamental rights.
+Virtue ethics asks what would a person of good character do.
+
+During COVID-19, companies faced impossible dilemmas.
+Should factories stay open, protecting jobs but risking worker health?
+Should they raise prices on essential goods?
+Should they lay off workers or cut executive pay first?
+
+The companies that communicated transparently and shared sacrifices across all levels earned the most public trust.`,
+
+  "ethics-5": `Laws set the minimum standard of behavior that society requires.
+Ethics sets a higher bar, what we should do even when the law does not require it.
+
+Key areas where business ethics and law intersect include employment law, consumer protection, environmental regulation, and corporate governance.
+
+The gap between ethics and law creates both risk and opportunity.
+Companies that merely comply with the law face reputational risks when laws are weak.
+Companies that exceed legal requirements often build stronger brands and attract better talent.
+
+Before child labor laws existed, employing children in factories was legal.
+Ethical businesses chose not to exploit child labor even before it became illegal.
+Today, similar gaps exist globally.`,
+
+  "ethics-6": `Two of the most infamous ethical failures in business history are Enron and Volkswagen.
+
+Enron was an energy company that used fraudulent accounting to hide billions in debt and inflate profits.
+Executives enriched themselves while employees and investors lost everything.
+The collapse destroyed 74 billion dollars in shareholder value.
+
+Volkswagen installed software in 11 million diesel vehicles that detected emissions tests.
+The software temporarily reduced emissions during testing while polluting up to 40 times the legal limit during normal driving.
+The scandal cost VW over 33 billion dollars in fines.
+
+Sherron Watkins, an Enron VP, warned CEO Ken Lay that the company could implode in a wave of accounting scandals.
+Her warnings were ignored, but she later testified before Congress.
+Both cases teach us that ethical culture must come from the top. Incentives shape behavior.`
 }

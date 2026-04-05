@@ -40,6 +40,7 @@ const CATEGORY_TO_UNIT_CATEGORIES: Record<string, string[]> = {
   "simulations": ["simulations"],
   "investing-fundamentals": ["investing-fundamentals"],
   "pestel-analysis": ["pestel-analysis"],
+  "business-ethics": ["business-ethics"],
 }
 
 export interface BenchmarkScores {
