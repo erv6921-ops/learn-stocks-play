@@ -4,7 +4,7 @@ import { UnitInfo } from "@/types";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Briefcase, TrendingUp, Info, FileText } from "lucide-react";
+import { BookOpen, Briefcase, TrendingUp, Info, FileText, ClipboardList } from "lucide-react";
 
 interface APExtra {
   label: string;
@@ -77,6 +77,7 @@ const AP_SECTIONS: APSection[] = [
     unitIds: ["unit-9", "unit-10", "unit-11", "unit-17", "unit-18", "unit-23", "unit-24"],
     extras: [
       { label: "Stock Market Simulator", description: "Trade stocks with virtual money in real-time", link: "/stocks", icon: <TrendingUp className="w-4 h-4" /> },
+      { label: "Financial Advisor Project — AP Culminating", description: "Advise a fictional household on budgeting, education, home buying & retirement", link: "/financial-advisor", icon: <ClipboardList className="w-4 h-4" /> },
     ],
   },
 ];
