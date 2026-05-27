@@ -87,6 +87,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
         new Promise<null>(resolve => setTimeout(() => resolve(null), ms)),
       ])
 
+    const safeQuery = async <T,>(p: PromiseLike<T>, ms = 5000): Promise<T | null> => {
+      try {
+        return await withTimeout(p, ms)
+      } catch (error) {
+        console.error("[AppContext] Hydration query failed", error)
+        return null
+      }
+    }
+
     const hydrate = async (uid: string) => {
       userIdRef.current = uid
 
@@ -108,13 +117,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
 
       const [profileRes, lessonsRes, unitTestsRes, historyRes, portfolioRes, watchlistRes, tokensRes] = await Promise.all([
-        withTimeout(supabase.from("profiles").select("*").eq("id", uid).maybeSingle()),
-        withTimeout(supabase.from("lesson_progress").select("*").eq("user_id", uid)),
-        withTimeout(supabase.from("unit_test_progress").select("*").eq("user_id", uid)),
-        withTimeout(supabase.from("jeffs_history").select("*").eq("user_id", uid).order("created_at", { ascending: true })),
-        withTimeout(supabase.from("portfolio").select("*").eq("user_id", uid)),
-        withTimeout(supabase.from("watchlist").select("*").eq("user_id", uid)),
-        withTimeout(supabase.from("user_tokens").select("*").eq("user_id", uid)),
+        safeQuery(supabase.from("profiles").select("*").eq("id", uid).maybeSingle()),
+        safeQuery(supabase.from("lesson_progress").select("*").eq("user_id", uid)),
+        safeQuery(supabase.from("unit_test_progress").select("*").eq("user_id", uid)),
+        safeQuery(supabase.from("jeffs_history").select("*").eq("user_id", uid).order("created_at", { ascending: true })),
+        safeQuery(supabase.from("portfolio").select("*").eq("user_id", uid)),
+        safeQuery(supabase.from("watchlist").select("*").eq("user_id", uid)),
+        safeQuery(supabase.from("user_tokens").select("*").eq("user_id", uid)),
       ])
 
       const profile = profileRes?.data
@@ -204,6 +213,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
+        authReadyRef.current = true
+        setAuthReady(true)
         userIdRef.current = session.user.id
         if (!ls.get<UserProfile | null>("investiplay_user", null)) {
           setUser({
@@ -221,7 +232,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           })
         }
         // Defer to avoid deadlocks inside the listener
-        setTimeout(() => { hydrate(session.user.id) }, 0)
+        setTimeout(() => { void hydrate(session.user.id) }, 0)
       } else if (authReadyRef.current) {
         userIdRef.current = null
         setUserState(null)
@@ -229,13 +240,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     })
 
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session?.user) await hydrate(session.user.id)
+    withTimeout(supabase.auth.getSession(), 4000).then((result) => {
+      const session = result?.data.session
       if (!session?.user) {
         userIdRef.current = null
         setUserState(null)
         ls.del("investiplay_user")
+      } else {
+        userIdRef.current = session.user.id
+        void hydrate(session.user.id)
       }
+      authReadyRef.current = true
+      setAuthReady(true)
+    }).catch((error) => {
+      console.error("[AppContext] Auth session restore failed", error)
+      userIdRef.current = null
+      setUserState(null)
+      ls.del("investiplay_user")
       authReadyRef.current = true
       setAuthReady(true)
     })
