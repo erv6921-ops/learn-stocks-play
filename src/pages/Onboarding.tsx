@@ -307,7 +307,7 @@ export default function Onboarding() {
       firstName: firstName || "Student",
       age: parseInt(age) || 14,
       schoolName: schoolName || "",
-      grade: parseInt(grade) || 9,
+      grade: grade ? GRADE_MAP[grade] ?? 9 : 9,
       literacyLevel: "explorer" as const,
       onboardingComplete: true,
       assessmentScore: 0,
