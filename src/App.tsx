@@ -27,11 +27,12 @@ import { AssignmentNotifications } from "./components/AssignmentNotifications";
 const queryClient = new QueryClient();
 
 function AppRoutes() {
-  const { user } = useApp();
+  const { user, authReady } = useApp();
+  const homeTarget = !authReady && !user ? "/auth" : user?.onboardingComplete ? "/dashboard" : "/onboarding";
   
   return (
     <Routes>
-      <Route path="/" element={<Navigate to={user?.onboardingComplete ? "/dashboard" : "/onboarding"} />} />
+      <Route path="/" element={<Navigate to={homeTarget} replace />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/onboarding" element={<Onboarding />} />
