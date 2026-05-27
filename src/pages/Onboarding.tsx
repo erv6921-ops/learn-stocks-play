@@ -555,24 +555,24 @@ export default function Onboarding() {
                     <SelectValue placeholder="Select your grade" />
                   </SelectTrigger>
                   <SelectContent>
-                    {[6,7,8,9,10,11,12].map(g => (
-                      <SelectItem key={g} value={String(g)}>Grade {g}</SelectItem>
-                    ))}
+                    <SelectItem value="freshman">Freshman</SelectItem>
+                    <SelectItem value="sophomore">Sophomore</SelectItem>
+                    <SelectItem value="junior">Junior</SelectItem>
+                    <SelectItem value="senior">Senior</SelectItem>
+                    <SelectItem value="adult">Adult</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Age</label>
-                <Select value={age} onValueChange={setAge}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your age" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[11,12,13,14,15,16,17,18,19].map(a => (
-                      <SelectItem key={a} value={String(a)}>{a} years old</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Input
+                  type="number"
+                  min={8}
+                  max={99}
+                  placeholder="e.g. 16"
+                  value={age}
+                  onChange={e => setAge(e.target.value)}
+                />
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">State / Course</label>
