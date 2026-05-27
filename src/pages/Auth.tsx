@@ -102,7 +102,8 @@ export default function Auth() {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+    console.log("[Auth] handleSignup fired", { email, role, hasPassword: !!password })
+
     if (password !== confirmPassword) {
       toast({
         title: "Passwords don't match",
@@ -130,7 +131,12 @@ export default function Auth() {
       return
     }
 
-
+    // If a session is already active, sign out first so signUp can succeed
+    const { data: existing } = await supabase.auth.getSession()
+    if (existing.session) {
+      console.log("[Auth] Existing session detected — signing out before signup")
+      await supabase.auth.signOut()
+    }
 
     setLoading(true)
 
