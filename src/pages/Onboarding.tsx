@@ -132,9 +132,12 @@ export default function Onboarding() {
 
   useEffect(() => {
     // Prefill email from the authenticated session so the user sees it's linked
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user?.email) setEmail(data.user.email)
+    supabase.auth.getSession().then(({ data }) => {
+      const e = data.session?.user?.email
+      console.log("[Onboarding] session email:", e)
+      if (e) setEmail(e)
     })
+
 
     // If user already has a local profile, skip to dashboard
     const stored = localStorage.getItem("investiplay_user")
