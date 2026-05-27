@@ -92,6 +92,12 @@ function getAdaptiveNextQuestion(
   return remaining[Math.floor(Math.random() * remaining.length)]
 }
 
+// Ensure we cover all categories — pick at least 1 per category
+function buildAdaptivePool(): BenchmarkQuestion[] {
+  // Start with all questions shuffled by difficulty (hardest first)
+  return buildAdaptiveQuestionOrder()
+}
+
 const GRADE_MAP: Record<string, number> = {
   freshman: 9,
   sophomore: 10,
