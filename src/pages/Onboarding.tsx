@@ -192,6 +192,29 @@ export default function Onboarding() {
     }
   }
 
+  const persistProfile = async (extra: Record<string, any>) => {
+    const { data } = await supabase.auth.getSession()
+    const uid = data.session?.user?.id
+    if (!uid) return // not signed in — local-only fallback
+
+    const payload = {
+      id: uid,
+      email: data.session?.user?.email ?? email,
+      first_name: firstName || null,
+      last_name: lastName || null,
+      school_name: schoolName || null,
+      grade: grade ? parseInt(grade) : null,
+      age: age ? parseInt(age) : null,
+      state_course: stateCourse || null,
+      class_code: classCode || null,
+      onboarding_complete: true,
+      ...extra,
+    }
+
+    const { error } = await supabase.from("profiles").upsert(payload, { onConflict: "id" })
+    if (error) console.error("[Onboarding] Failed to save profile", error)
+  }
+
   const handleComplete = async () => {
     setLoading(true)
 
@@ -206,8 +229,18 @@ export default function Onboarding() {
     const overallPercent = Math.round((score / totalQuestions) * 100)
     const rewardMultiplier = Math.min(1 + overallPercent / 200, 1.5)
 
+    // Save to the database so the profile follows the user across devices.
+    await persistProfile({
+      literacy_level: litLevel,
+      assessment_score: overallPercent,
+      reward_multiplier: rewardMultiplier,
+      benchmark_scores: benchmarkScoresLegacy,
+      benchmark_category_scores: categoryScores,
+    })
+
+    const { data: session } = await supabase.auth.getSession()
     const localUser = {
-      id: `student-${Date.now()}`,
+      id: session.session?.user?.id ?? `student-${Date.now()}`,
       firstName: firstName || "Student",
       age: parseInt(age) || 14,
       schoolName: schoolName || "",
@@ -229,10 +262,18 @@ export default function Onboarding() {
   const handleSkip = async () => {
     setShowSkipDialog(false)
     setLoading(true)
-    
-    // Build local user immediately
+
+    await persistProfile({
+      literacy_level: "explorer",
+      assessment_score: 0,
+      reward_multiplier: 1,
+      benchmark_scores: {},
+      benchmark_category_scores: {},
+    })
+
+    const { data: session } = await supabase.auth.getSession()
     const localUser = {
-      id: `student-${Date.now()}`,
+      id: session.session?.user?.id ?? `student-${Date.now()}`,
       firstName: firstName || "Student",
       age: parseInt(age) || 14,
       schoolName: schoolName || "",

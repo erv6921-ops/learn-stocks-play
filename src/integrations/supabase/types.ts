@@ -390,41 +390,62 @@ export type Database = {
       profiles: {
         Row: {
           age: number | null
+          assessment_score: number | null
+          benchmark_category_scores: Json | null
+          benchmark_scores: Json | null
+          class_code: string | null
           created_at: string | null
           email: string
           first_name: string | null
           grade: number | null
           id: string
           last_name: string | null
+          literacy_level: string | null
           onboarding_complete: boolean | null
+          reward_multiplier: number | null
           role: Database["public"]["Enums"]["app_role"] | null
           school_name: string | null
+          state_course: string | null
           updated_at: string | null
         }
         Insert: {
           age?: number | null
+          assessment_score?: number | null
+          benchmark_category_scores?: Json | null
+          benchmark_scores?: Json | null
+          class_code?: string | null
           created_at?: string | null
           email: string
           first_name?: string | null
           grade?: number | null
           id: string
           last_name?: string | null
+          literacy_level?: string | null
           onboarding_complete?: boolean | null
+          reward_multiplier?: number | null
           role?: Database["public"]["Enums"]["app_role"] | null
           school_name?: string | null
+          state_course?: string | null
           updated_at?: string | null
         }
         Update: {
           age?: number | null
+          assessment_score?: number | null
+          benchmark_category_scores?: Json | null
+          benchmark_scores?: Json | null
+          class_code?: string | null
           created_at?: string | null
           email?: string
           first_name?: string | null
           grade?: number | null
           id?: string
           last_name?: string | null
+          literacy_level?: string | null
           onboarding_complete?: boolean | null
+          reward_multiplier?: number | null
           role?: Database["public"]["Enums"]["app_role"] | null
           school_name?: string | null
+          state_course?: string | null
           updated_at?: string | null
         }
         Relationships: []
