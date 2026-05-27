@@ -119,6 +119,17 @@ export default function Auth() {
       return
     }
 
+    if (role === "teacher") {
+      toast({
+        title: "Teacher accounts require approval",
+        description: "For security, teacher accounts must be provisioned by an administrator. Please contact your school admin.",
+        variant: "destructive",
+      })
+      return
+    }
+
+
+
     setLoading(true)
 
     try {
@@ -153,12 +164,8 @@ export default function Auth() {
           description: "Please check your email to verify your account.",
         })
 
-        // If teacher, redirect to teacher dashboard
-        if (role === "teacher") {
-          navigate("/teacher-dashboard")
-        } else {
-          navigate("/onboarding")
-        }
+        navigate("/onboarding")
+
       }
     } catch (error: any) {
       toast({
