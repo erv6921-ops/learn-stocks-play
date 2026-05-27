@@ -98,6 +98,14 @@ function buildAdaptivePool(): BenchmarkQuestion[] {
   return buildAdaptiveQuestionOrder()
 }
 
+const GRADE_MAP: Record<string, number> = {
+  freshman: 9,
+  sophomore: 10,
+  junior: 11,
+  senior: 12,
+  adult: 0,
+}
+
 export default function Onboarding() {
   const navigate = useNavigate()
   const { setUser } = useApp()
@@ -211,7 +219,7 @@ export default function Onboarding() {
       first_name: firstName || null,
       last_name: lastName || null,
       school_name: schoolName || null,
-      grade: grade ? parseInt(grade) : null,
+      grade: grade ? GRADE_MAP[grade] ?? null : null,
       age: age ? parseInt(age) : null,
       state_course: stateCourse || null,
       class_code: classCode || null,
@@ -262,7 +270,7 @@ export default function Onboarding() {
       firstName: firstName || "Student",
       age: parseInt(age) || 14,
       schoolName: schoolName || "",
-      grade: parseInt(grade) || 9,
+      grade: grade ? GRADE_MAP[grade] ?? 9 : 9,
       literacyLevel: litLevel,
       onboardingComplete: true,
       assessmentScore: overallPercent,
@@ -299,7 +307,7 @@ export default function Onboarding() {
       firstName: firstName || "Student",
       age: parseInt(age) || 14,
       schoolName: schoolName || "",
-      grade: parseInt(grade) || 9,
+      grade: grade ? GRADE_MAP[grade] ?? 9 : 9,
       literacyLevel: "explorer" as const,
       onboardingComplete: true,
       assessmentScore: 0,
@@ -555,24 +563,24 @@ export default function Onboarding() {
                     <SelectValue placeholder="Select your grade" />
                   </SelectTrigger>
                   <SelectContent>
-                    {[6,7,8,9,10,11,12].map(g => (
-                      <SelectItem key={g} value={String(g)}>Grade {g}</SelectItem>
-                    ))}
+                    <SelectItem value="freshman">Freshman</SelectItem>
+                    <SelectItem value="sophomore">Sophomore</SelectItem>
+                    <SelectItem value="junior">Junior</SelectItem>
+                    <SelectItem value="senior">Senior</SelectItem>
+                    <SelectItem value="adult">Adult</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Age</label>
-                <Select value={age} onValueChange={setAge}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your age" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[11,12,13,14,15,16,17,18,19].map(a => (
-                      <SelectItem key={a} value={String(a)}>{a} years old</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Input
+                  type="number"
+                  min={8}
+                  max={99}
+                  placeholder="e.g. 16"
+                  value={age}
+                  onChange={e => setAge(e.target.value)}
+                />
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">State / Course</label>
