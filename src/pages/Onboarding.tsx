@@ -219,7 +219,7 @@ export default function Onboarding() {
       first_name: firstName || null,
       last_name: lastName || null,
       school_name: schoolName || null,
-      grade: grade ? parseInt(grade) : null,
+      grade: grade ? GRADE_MAP[grade] ?? null : null,
       age: age ? parseInt(age) : null,
       state_course: stateCourse || null,
       class_code: classCode || null,
