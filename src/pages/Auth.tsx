@@ -48,22 +48,14 @@ export default function Auth() {
       setLoading(false)
       navigate("/dashboard", { replace: true })
 
-      const [roleRes, profileRes] = await Promise.all([
-        withTimeout(
-          supabase.from("user_roles").select("role").eq("user_id", data.user.id).maybeSingle()
-        ),
-        withTimeout(
-          supabase.from("profiles").select("onboarding_complete").eq("id", data.user.id).maybeSingle()
-        ),
-      ])
-
+      // Only re-route teachers. Returning students stay on the dashboard —
+      // they already have an account, so don't bounce them back to onboarding.
+      const roleRes = await withTimeout(
+        supabase.from("user_roles").select("role").eq("user_id", data.user.id).maybeSingle()
+      )
       const role = (roleRes as any)?.data?.role
-      const onboardingComplete = (profileRes as any)?.data?.onboarding_complete
-
       if (role === "teacher") {
         navigate("/teacher-dashboard", { replace: true })
-      } else if (onboardingComplete === false) {
-        navigate("/onboarding", { replace: true })
       }
     } catch (error: any) {
       toast({
