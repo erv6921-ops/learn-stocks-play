@@ -321,6 +321,39 @@ export type Database = {
         }
         Relationships: []
       }
+      lesson_progress: {
+        Row: {
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          id: string
+          lesson_id: string
+          quiz_score: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          lesson_id: string
+          quiz_score?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          lesson_id?: string
+          quiz_score?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       marketplace_listings: {
         Row: {
           category: string
