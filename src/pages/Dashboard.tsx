@@ -97,7 +97,7 @@ function getStreak(history: { amount: number; reason: string; date: Date }[]) {
 }
 
 export default function Dashboard() {
-  const { user, lessonProgress, watchlist, jeffsBalance, portfolio, jeffsHistory, earnJeffs, getRewardMultiplier } = useApp();
+  const { user, authReady, lessonProgress, watchlist, jeffsBalance, portfolio, jeffsHistory, earnJeffs, getRewardMultiplier } = useApp();
   const { netWorth, portfolioValue, holdings, livePrices } = useNetWorth();
   const navigate = useNavigate();
 
@@ -212,6 +212,10 @@ export default function Dashboard() {
   // Streak ring: 7-day cycle
   const streakDayInCycle = streak % 7;
   const streakRingProgress = streakDayInCycle / 7 * 100;
+
+  if (!authReady && !user) {
+    return null;
+  }
 
   if (!user) {
     navigate("/onboarding");
