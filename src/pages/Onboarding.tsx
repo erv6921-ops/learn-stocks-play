@@ -322,6 +322,15 @@ export default function Onboarding() {
                 <p className="text-sm text-muted-foreground mt-1">Manage classes, assign lessons, and track student progress</p>
               </button>
             </div>
+            <p className="text-sm text-muted-foreground mt-6">
+              Already have an account?{" "}
+              <button
+                onClick={() => navigate("/auth")}
+                className="text-primary font-medium hover:underline"
+              >
+                Log in
+              </button>
+            </p>
           </motion.div>
         )}
 
