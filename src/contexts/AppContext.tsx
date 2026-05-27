@@ -78,20 +78,43 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Auth → hydrate all per-user data from the database
   // ───────────────────────────────────────────────────────────
   useEffect(() => {
+    const withTimeout = <T,>(p: PromiseLike<T>, ms = 5000): Promise<T | null> =>
+      Promise.race([
+        Promise.resolve(p),
+        new Promise<null>(resolve => setTimeout(() => resolve(null), ms)),
+      ])
+
     const hydrate = async (uid: string) => {
       userIdRef.current = uid
 
+      const cachedUser = ls.get<UserProfile | null>("investiplay_user", null)
+      if (!cachedUser) {
+        setUser({
+          id: uid,
+          age: 14,
+          schoolName: "",
+          grade: 9,
+          literacyLevel: "explorer",
+          onboardingComplete: false,
+          assessmentScore: 0,
+          benchmarkScores: {},
+          benchmarkCategoryScores: {},
+          rewardMultiplier: 1,
+          createdAt: new Date(),
+        })
+      }
+
       const [profileRes, lessonsRes, unitTestsRes, historyRes, portfolioRes, watchlistRes, tokensRes] = await Promise.all([
-        supabase.from("profiles").select("*").eq("id", uid).maybeSingle(),
-        supabase.from("lesson_progress").select("*").eq("user_id", uid),
-        supabase.from("unit_test_progress").select("*").eq("user_id", uid),
-        supabase.from("jeffs_history").select("*").eq("user_id", uid).order("created_at", { ascending: true }),
-        supabase.from("portfolio").select("*").eq("user_id", uid),
-        supabase.from("watchlist").select("*").eq("user_id", uid),
-        supabase.from("user_tokens").select("*").eq("user_id", uid),
+        withTimeout(supabase.from("profiles").select("*").eq("id", uid).maybeSingle()),
+        withTimeout(supabase.from("lesson_progress").select("*").eq("user_id", uid)),
+        withTimeout(supabase.from("unit_test_progress").select("*").eq("user_id", uid)),
+        withTimeout(supabase.from("jeffs_history").select("*").eq("user_id", uid).order("created_at", { ascending: true })),
+        withTimeout(supabase.from("portfolio").select("*").eq("user_id", uid)),
+        withTimeout(supabase.from("watchlist").select("*").eq("user_id", uid)),
+        withTimeout(supabase.from("user_tokens").select("*").eq("user_id", uid)),
       ])
 
-      const profile = profileRes.data
+      const profile = profileRes?.data
       if (profile) {
         const hydrated: UserProfile = {
           id: profile.id,
@@ -112,7 +135,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ls.set("investiplay_jeffs_balance", profile.jeffs_balance ?? 0)
       }
 
-      if (lessonsRes.data) {
+      if (lessonsRes?.data) {
         const lp: LessonProgress[] = lessonsRes.data.map((r: any) => ({
           lessonId: r.lesson_id,
           completed: r.completed,
@@ -123,7 +146,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ls.set("investiplay_progress", lp)
       }
 
-      if (unitTestsRes.data) {
+      if (unitTestsRes?.data) {
         const ut: UnitTestProgress[] = unitTestsRes.data.map((r: any) => ({
           category: r.category,
           completed: r.completed,
@@ -134,7 +157,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ls.set("investiplay_unit_tests", ut)
       }
 
-      if (historyRes.data) {
+      if (historyRes?.data) {
         const h: JeffsHistoryEntry[] = historyRes.data.map((r: any) => ({
           amount: r.amount,
           reason: r.reason,
@@ -144,7 +167,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ls.set("investiplay_jeffs_history", h)
       }
 
-      if (portfolioRes.data) {
+      if (portfolioRes?.data) {
         const pf: StockHolding[] = portfolioRes.data.map((r: any) => ({
           symbol: r.symbol,
           shares: Number(r.shares),
@@ -155,13 +178,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ls.set("investiplay_portfolio", pf)
       }
 
-      if (watchlistRes.data) {
+      if (watchlistRes?.data) {
         const wl = watchlistRes.data.map((r: any) => r.symbol)
         setWatchlist(wl)
         ls.set("investiplay_watchlist", wl)
       }
 
-      if (tokensRes.data) {
+      if (tokensRes?.data) {
         const tk: Token[] = tokensRes.data.map((r: any) => ({
           id: r.id,
           name: r.name,
