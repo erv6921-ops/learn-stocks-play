@@ -569,7 +569,14 @@ export default function Onboarding() {
                   <SelectTrigger>
                     <SelectValue placeholder="Select your grade" />
                   </SelectTrigger>
-                  <SelectContent>
+                <SelectContent>
+                    <SelectItem value="6">6th Grade</SelectItem>
+                    <SelectItem value="7">7th Grade</SelectItem>
+                    <SelectItem value="8">8th Grade</SelectItem>
+                    <SelectItem value="9">9th Grade</SelectItem>
+                    <SelectItem value="10">10th Grade</SelectItem>
+                    <SelectItem value="11">11th Grade</SelectItem>
+                    <SelectItem value="12">12th Grade</SelectItem>
                     <SelectItem value="freshman">Freshman</SelectItem>
                     <SelectItem value="sophomore">Sophomore</SelectItem>
                     <SelectItem value="junior">Junior</SelectItem>
