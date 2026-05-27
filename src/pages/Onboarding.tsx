@@ -473,6 +473,19 @@ export default function Onboarding() {
                 <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
               </div>
               <div>
+                <label className="text-sm font-medium mb-1.5 block">Password</label>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="At least 6 characters"
+                  minLength={6}
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  You'll use this with your email to log back in from any device.
+                </p>
+              </div>
+              <div>
                 <label className="text-sm font-medium mb-1.5 block">Grade</label>
                 <Select value={grade} onValueChange={setGrade}>
                   <SelectTrigger>
