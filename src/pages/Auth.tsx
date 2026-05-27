@@ -119,6 +119,17 @@ export default function Auth() {
       return
     }
 
+    if (role === "teacher") {
+      toast({
+        title: "Teacher accounts require approval",
+        description: "For security, teacher accounts must be provisioned by an administrator. Please contact your school admin.",
+        variant: "destructive",
+      })
+      return
+    }
+
+
+
     setLoading(true)
 
     try {
