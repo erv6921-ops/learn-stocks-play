@@ -321,6 +321,30 @@ export type Database = {
         }
         Relationships: []
       }
+      jeffs_history: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          reason: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          reason: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          reason?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       lesson_progress: {
         Row: {
           completed: boolean
@@ -387,6 +411,36 @@ export type Database = {
         }
         Relationships: []
       }
+      portfolio: {
+        Row: {
+          id: string
+          purchase_price: number
+          purchased_at: string
+          shares: number
+          symbol: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          purchase_price: number
+          purchased_at?: string
+          shares: number
+          symbol: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          purchase_price?: number
+          purchased_at?: string
+          shares?: number
+          symbol?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number | null
@@ -399,6 +453,7 @@ export type Database = {
           first_name: string | null
           grade: number | null
           id: string
+          jeffs_balance: number
           last_name: string | null
           literacy_level: string | null
           onboarding_complete: boolean | null
@@ -419,6 +474,7 @@ export type Database = {
           first_name?: string | null
           grade?: number | null
           id: string
+          jeffs_balance?: number
           last_name?: string | null
           literacy_level?: string | null
           onboarding_complete?: boolean | null
@@ -439,6 +495,7 @@ export type Database = {
           first_name?: string | null
           grade?: number | null
           id?: string
+          jeffs_balance?: number
           last_name?: string | null
           literacy_level?: string | null
           onboarding_complete?: boolean | null
@@ -638,6 +695,39 @@ export type Database = {
         }
         Relationships: []
       }
+      unit_test_progress: {
+        Row: {
+          category: string
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          id: string
+          score: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          score?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          score?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_avatar_inventory: {
         Row: {
           id: string
@@ -681,6 +771,60 @@ export type Database = {
         Update: {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_tokens: {
+        Row: {
+          created_at: string
+          id: string
+          market_cap: number
+          name: string
+          price_simulation: number
+          symbol: string
+          total_supply: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          market_cap: number
+          name: string
+          price_simulation: number
+          symbol: string
+          total_supply: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          market_cap?: number
+          name?: string
+          price_simulation?: number
+          symbol?: string
+          total_supply?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      watchlist: {
+        Row: {
+          created_at: string
+          id: string
+          symbol: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          symbol: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          symbol?: string
           user_id?: string
         }
         Relationships: []
