@@ -117,6 +117,8 @@ export default function Onboarding() {
   const [age, setAge] = useState("")
   const [classCode, setClassCode] = useState("")
   const [stateCourse, setStateCourse] = useState("")
+  const [password, setPassword] = useState("")
+  const [signupLoading, setSignupLoading] = useState(false)
 
   // Adaptive assessment state
   const [questionPool] = useState<BenchmarkQuestion[]>(() => buildAdaptivePool())
