@@ -28,7 +28,9 @@ const queryClient = new QueryClient();
 
 function AppRoutes() {
   const { user, authReady } = useApp();
-  const homeTarget = !authReady && !user ? "/auth" : user?.onboardingComplete ? "/dashboard" : "/onboarding";
+  const homeTarget = user?.onboardingComplete ? "/dashboard" : "/onboarding";
+
+  if (!authReady && !user) return null;
   
   return (
     <Routes>
