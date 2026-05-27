@@ -536,16 +536,61 @@ export default function Onboarding() {
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <Button variant="outline" onClick={() => setStep("name")}>
+              <Button variant="outline" onClick={() => setStep("name")} disabled={signupLoading}>
                 <ArrowLeft className="mr-2 w-4 h-4" /> Back
               </Button>
               <Button
                 size="xl"
                 variant="hero"
-                disabled={!grade}
-                onClick={() => setStep("welcome")}
+                disabled={!grade || !email.trim() || password.length < 6 || signupLoading}
+                onClick={async () => {
+                  setSignupLoading(true)
+                  try {
+                    // If already signed in with a different account, sign out first
+                    const { data: existing } = await supabase.auth.getSession()
+                    if (existing.session && existing.session.user.email !== email.trim()) {
+                      await supabase.auth.signOut()
+                    }
+
+                    const { data, error } = await supabase.auth.signUp({
+                      email: email.trim(),
+                      password,
+                      options: { emailRedirectTo: window.location.origin },
+                    })
+
+                    if (error) {
+                      // If user already exists, let them know to log in
+                      if (error.message.toLowerCase().includes("registered") || error.message.toLowerCase().includes("already")) {
+                        toast({
+                          title: "Account already exists",
+                          description: "Use the Log in link to sign back into your progress.",
+                          variant: "destructive",
+                        })
+                        setSignupLoading(false)
+                        return
+                      }
+                      throw error
+                    }
+
+                    toast({
+                      title: "Account created!",
+                      description: data.session
+                        ? "You can log back in any time with your email and password."
+                        : "Check your email to confirm your account. You'll be able to log in from any device after.",
+                    })
+                    setStep("welcome")
+                  } catch (err: any) {
+                    toast({
+                      title: "Couldn't create account",
+                      description: err.message,
+                      variant: "destructive",
+                    })
+                  } finally {
+                    setSignupLoading(false)
+                  }
+                }}
               >
-                Continue <ArrowRight className="ml-2" />
+                {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : <>Continue <ArrowRight className="ml-2" /></>}
               </Button>
             </div>
           </motion.div>
