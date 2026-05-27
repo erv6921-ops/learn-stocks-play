@@ -31,36 +31,37 @@ export default function Auth() {
     e.preventDefault()
     setLoading(true)
 
+    // Hard timeout so the button never spins forever if a query stalls.
+    const withTimeout = <T,>(p: PromiseLike<T>, ms = 4000): Promise<T | null> =>
+      Promise.race([
+        Promise.resolve(p),
+        new Promise<null>(resolve => setTimeout(() => resolve(null), ms)),
+      ])
+
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
+      if (!data.user) throw new Error("No user returned")
 
-      // Check user role and redirect accordingly
-      const { data: userRoles } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", data.user.id)
-        .single()
+      // Fetch role + onboarding flag in parallel with maybeSingle (won't throw on 0 rows).
+      const [roleRes, profileRes] = await Promise.all([
+        withTimeout(
+          supabase.from("user_roles").select("role").eq("user_id", data.user.id).maybeSingle()
+        ),
+        withTimeout(
+          supabase.from("profiles").select("onboarding_complete").eq("id", data.user.id).maybeSingle()
+        ),
+      ])
 
-      if (userRoles?.role === "teacher") {
+      const role = (roleRes as any)?.data?.role
+      const onboardingComplete = (profileRes as any)?.data?.onboarding_complete
+
+      if (role === "teacher") {
         navigate("/teacher-dashboard")
+      } else if (onboardingComplete) {
+        navigate("/dashboard")
       } else {
-        // Check if onboarding is complete
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("onboarding_complete")
-          .eq("id", data.user.id)
-          .single()
-
-        if (profile?.onboarding_complete) {
-          navigate("/dashboard")
-        } else {
-          navigate("/onboarding")
-        }
+        navigate("/onboarding")
       }
     } catch (error: any) {
       toast({
