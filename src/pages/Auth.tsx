@@ -145,30 +145,19 @@ export default function Auth() {
 
       if (error) throw error
 
-      if (data.user) {
-        // Add user role
-        const { error: roleError } = await supabase
-          .from("user_roles")
-          .insert({ user_id: data.user.id, role })
-
-        if (roleError) throw roleError
-
-        // Update profile with role
-        const { error: profileError } = await supabase
-          .from("profiles")
-          .update({ role })
-          .eq("id", data.user.id)
-
-        if (profileError) throw profileError
-
+      // Role + profile are auto-created by the on_auth_user_created trigger
+      // (defaults to 'student'). If a session exists (email confirmation off),
+      // route into onboarding; otherwise show the "check your email" screen.
+      if (data.session) {
         toast({
           title: "Account created!",
-          description: "Please check your email to verify your account.",
+          description: "You're signed in.",
         })
-
         navigate("/onboarding")
-
+      } else {
+        setVerificationSent(true)
       }
+
     } catch (error: any) {
       toast({
         title: "Signup failed",
