@@ -24,6 +24,8 @@ export default function Auth() {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const [resetSent, setResetSent] = useState(false)
+  const [verificationSent, setVerificationSent] = useState(false)
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
