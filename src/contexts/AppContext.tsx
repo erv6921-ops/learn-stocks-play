@@ -17,6 +17,7 @@ interface JeffsHistoryEntry {
 
 interface AppContextType {
   user: UserProfile | null
+  authReady: boolean
   setUser: (user: UserProfile | null) => void
   lessonProgress: LessonProgress[]
   updateLessonProgress: (lessonId: string, completed: boolean, quizScore?: number) => void
@@ -57,6 +58,7 @@ const ls = {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  const [authReady, setAuthReady] = useState(false)
   const [user, setUserState] = useState<UserProfile | null>(() => ls.get("investiplay_user", null))
   const [lessonProgress, setLessonProgress] = useState<LessonProgress[]>(() => ls.get("investiplay_progress", []))
   const [tokens, setTokens] = useState<Token[]>(() => ls.get("investiplay_tokens", []))
@@ -68,6 +70,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Track the currently-signed-in user id so writes can target the right rows.
   const userIdRef = useRef<string | null>(null)
+  const authReadyRef = useRef(false)
 
   const setUser = (newUser: UserProfile | null) => {
     setUserState(newUser)
@@ -201,9 +204,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
+        userIdRef.current = session.user.id
+        if (!ls.get<UserProfile | null>("investiplay_user", null)) {
+          setUser({
+            id: session.user.id,
+            age: 14,
+            schoolName: "",
+            grade: 9,
+            literacyLevel: "explorer",
+            onboardingComplete: true,
+            assessmentScore: 0,
+            benchmarkScores: {},
+            benchmarkCategoryScores: {},
+            rewardMultiplier: 1,
+            createdAt: new Date(),
+          })
+        }
         // Defer to avoid deadlocks inside the listener
         setTimeout(() => { hydrate(session.user.id) }, 0)
-      } else {
+      } else if (authReadyRef.current) {
         userIdRef.current = null
         setUserState(null)
         ls.del("investiplay_user")
@@ -212,6 +231,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) hydrate(session.user.id)
+      if (!session?.user) {
+        userIdRef.current = null
+        setUserState(null)
+        ls.del("investiplay_user")
+      }
+      authReadyRef.current = true
+      setAuthReady(true)
     })
 
     return () => subscription.unsubscribe()
@@ -474,7 +500,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   return (
     <AppContext.Provider
       value={{
-        user, setUser,
+        user, authReady, setUser,
         lessonProgress, updateLessonProgress,
         tokens, addToken,
         watchlist, addToWatchlist, removeFromWatchlist,
