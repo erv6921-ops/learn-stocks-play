@@ -458,8 +458,8 @@ export default function Onboarding() {
             </p>
             <div className="w-full max-w-sm space-y-4 text-left">
               <div>
-                <label className="text-sm font-medium mb-1.5 block">Email <span className="text-muted-foreground font-normal">(from your account)</span></label>
-                <Input value={email} readOnly disabled placeholder="Loading your email…" className="bg-muted/50" />
+                <label className="text-sm font-medium mb-1.5 block">Email</label>
+                <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Grade</label>
