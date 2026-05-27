@@ -99,6 +99,13 @@ function buildAdaptivePool(): BenchmarkQuestion[] {
 }
 
 const GRADE_MAP: Record<string, number> = {
+  "6": 6,
+  "7": 7,
+  "8": 8,
+  "9": 9,
+  "10": 10,
+  "11": 11,
+  "12": 12,
   freshman: 9,
   sophomore: 10,
   junior: 11,
