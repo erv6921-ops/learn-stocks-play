@@ -43,7 +43,11 @@ export default function Auth() {
       if (error) throw error
       if (!data.user) throw new Error("No user returned")
 
-      // Fetch role + onboarding flag in parallel with maybeSingle (won't throw on 0 rows).
+      // Don't block the login button on profile/progress reads. Route students in immediately,
+      // then quietly correct the route if this account is a teacher or still needs onboarding.
+      setLoading(false)
+      navigate("/dashboard", { replace: true })
+
       const [roleRes, profileRes] = await Promise.all([
         withTimeout(
           supabase.from("user_roles").select("role").eq("user_id", data.user.id).maybeSingle()
@@ -57,11 +61,9 @@ export default function Auth() {
       const onboardingComplete = (profileRes as any)?.data?.onboarding_complete
 
       if (role === "teacher") {
-        navigate("/teacher-dashboard")
-      } else if (onboardingComplete) {
-        navigate("/dashboard")
-      } else {
-        navigate("/onboarding")
+        navigate("/teacher-dashboard", { replace: true })
+      } else if (onboardingComplete === false) {
+        navigate("/onboarding", { replace: true })
       }
     } catch (error: any) {
       toast({
