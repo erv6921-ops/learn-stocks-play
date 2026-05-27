@@ -89,6 +89,50 @@ export default function TeacherDashboard() {
   const [newClassDescription, setNewClassDescription] = useState("")
   const [dialogOpen, setDialogOpen] = useState(false)
   const [assigning, setAssigning] = useState<string | null>(null) // user_id currently being assigned
+  const [classWideLessonId, setClassWideLessonId] = useState<string>("")
+  const [assigningAll, setAssigningAll] = useState(false)
+
+  const assignLessonToClass = async () => {
+    if (!selectedClass || !classWideLessonId) return
+    if (classMembers.length === 0) {
+      toast({ title: "No students in this class yet", variant: "destructive" })
+      return
+    }
+    setAssigningAll(true)
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error("Not authenticated")
+
+      const rows = classMembers.map(m => ({
+        class_id: selectedClass.id,
+        student_user_id: m.user_id,
+        lesson_id: classWideLessonId,
+        assigned_by: user.id,
+      }))
+
+      // Insert each — ignore duplicates (unique violations)
+      const results = await Promise.all(
+        rows.map(r =>
+          supabase.from("assigned_lessons").insert(r).then(res => res)
+        )
+      )
+      const inserted = results.filter(r => !r.error).length
+      const dupes = results.filter(r => r.error?.code === "23505").length
+      const failed = results.length - inserted - dupes
+
+      const title = lessons.find(l => l.id === classWideLessonId)?.title
+      toast({
+        title: `Assigned "${title}" to class`,
+        description: `${inserted} new · ${dupes} already had it${failed ? ` · ${failed} failed` : ""}`,
+      })
+      setClassWideLessonId("")
+      await loadClassMembers(selectedClass.id)
+    } catch (error: any) {
+      toast({ title: "Failed to assign", description: error.message, variant: "destructive" })
+    } finally {
+      setAssigningAll(false)
+    }
+  }
 
   useEffect(() => {
     checkAuthAndLoadClasses()
@@ -582,6 +626,42 @@ export default function TeacherDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
+                  {/* Class-wide assign */}
+                  <div className="mb-6 p-4 rounded-lg border bg-muted/30">
+                    <p className="text-sm font-semibold mb-2 flex items-center gap-2">
+                      <BookOpen className="w-4 h-4" />
+                      Assign a lesson to the entire class
+                    </p>
+                    <p className="text-xs text-muted-foreground mb-3">
+                      Pick any lesson — every student in this class will be required to complete it.
+                    </p>
+                    <div className="flex gap-2">
+                      <Select value={classWideLessonId} onValueChange={setClassWideLessonId} disabled={assigningAll}>
+                        <SelectTrigger className="flex-1">
+                          <SelectValue placeholder="Choose a lesson..." />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[400px]">
+                          {lessons.map((lesson) => (
+                            <SelectItem key={lesson.id} value={lesson.id}>
+                              {lesson.title}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        onClick={assignLessonToClass}
+                        disabled={!classWideLessonId || assigningAll || classMembers.length === 0}
+                      >
+                        {assigningAll ? (
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        ) : (
+                          <Plus className="w-4 h-4 mr-2" />
+                        )}
+                        Assign to Class
+                      </Button>
+                    </div>
+                  </div>
+
                   {classMembers.length === 0 ? (
                     <div className="text-center py-8">
                       <Users className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
