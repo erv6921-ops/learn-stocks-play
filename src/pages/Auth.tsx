@@ -164,12 +164,8 @@ export default function Auth() {
           description: "Please check your email to verify your account.",
         })
 
-        // If teacher, redirect to teacher dashboard
-        if (role === "teacher") {
-          navigate("/teacher-dashboard")
-        } else {
-          navigate("/onboarding")
-        }
+        navigate("/onboarding")
+
       }
     } catch (error: any) {
       toast({
