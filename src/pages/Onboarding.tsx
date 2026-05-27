@@ -454,6 +454,12 @@ export default function Onboarding() {
               A few details to personalize your learning
             </p>
             <div className="w-full max-w-sm space-y-4 text-left">
+              {email && (
+                <div>
+                  <label className="text-sm font-medium mb-1.5 block">Email <span className="text-muted-foreground font-normal">(from your account)</span></label>
+                  <Input value={email} readOnly disabled className="bg-muted/50" />
+                </div>
+              )}
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Grade</label>
                 <Select value={grade} onValueChange={setGrade}>
