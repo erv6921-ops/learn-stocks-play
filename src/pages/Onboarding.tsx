@@ -641,7 +641,20 @@ export default function Onboarding() {
                         ? "You can log back in any time with your email and password."
                         : "Check your email to confirm your account. You'll be able to log in from any device after.",
                     })
-                    setStep("welcome")
+                    if (!data.session) {
+                      navigate("/auth")
+                      return
+                    }
+
+                    const saved = await persistProfile({
+                      literacy_level: "explorer",
+                      assessment_score: 0,
+                      reward_multiplier: 1,
+                      benchmark_scores: {},
+                      benchmark_category_scores: {},
+                      onboarding_complete: false,
+                    })
+                    if (saved) setStep("welcome")
                   } catch (err: any) {
                     toast({
                       title: "Couldn't create account",
