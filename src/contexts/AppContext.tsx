@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from "react"
-import { UserProfile, LessonProgress, Token, StockHolding } from "@/types"
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react"
+import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier } from "@/types"
+import { supabase } from "@/integrations/supabase/client"
 
 interface UnitTestProgress {
   category: string
@@ -87,6 +88,59 @@ export function AppProvider({ children }: { children: ReactNode }) {
       localStorage.removeItem("investiplay_user")
     }
   }
+
+  // Hydrate user profile from the database whenever the auth session changes.
+  // This is what makes login work across devices: even with no localStorage,
+  // we rebuild the user from the `profiles` row.
+  useEffect(() => {
+    const hydrateFromProfile = async (userId: string, email?: string) => {
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
+        .maybeSingle()
+
+      if (error) {
+        console.error("[AppContext] Failed to load profile", error)
+        return
+      }
+      if (!profile) return
+
+      const hydrated: UserProfile = {
+        id: profile.id,
+        firstName: profile.first_name ?? undefined,
+        age: profile.age ?? 14,
+        schoolName: profile.school_name ?? "",
+        grade: profile.grade ?? 9,
+        literacyLevel: (profile.literacy_level as MasteryTier) ?? "explorer",
+        onboardingComplete: !!profile.onboarding_complete,
+        assessmentScore: profile.assessment_score ?? 0,
+        benchmarkScores: (profile.benchmark_scores as any) ?? {},
+        benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
+        rewardMultiplier: profile.reward_multiplier ?? 1,
+        createdAt: new Date(profile.created_at ?? Date.now()),
+      }
+
+      setUser(hydrated)
+    }
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        // Defer Supabase call to avoid deadlocks inside the listener
+        setTimeout(() => hydrateFromProfile(session.user.id, session.user.email), 0)
+      } else {
+        // Signed out — clear in-memory user so guards redirect properly
+        setUserState(null)
+        localStorage.removeItem("investiplay_user")
+      }
+    })
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) hydrateFromProfile(session.user.id, session.user.email)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
 
   const updateLessonProgress = (lessonId: string, completed: boolean, quizScore?: number) => {
     setLessonProgress(prev => {
