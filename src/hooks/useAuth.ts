@@ -19,31 +19,50 @@ export function useAuth() {
     profile: null,
   })
 
+  const withTimeout = <T,>(p: PromiseLike<T>, ms = 3000): Promise<T | null> =>
+    Promise.race([
+      Promise.resolve(p),
+      new Promise<null>(resolve => setTimeout(() => resolve(null), ms)),
+    ])
+
+  const loadUserData = async (user: User) => {
+    const [roleResult, profileResult] = await Promise.all([
+      withTimeout(
+        supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", user.id)
+          .maybeSingle()
+      ),
+      withTimeout(
+        supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .maybeSingle()
+      ),
+    ])
+
+    setAuthState({
+      user,
+      loading: false,
+      role: (roleResult as any)?.data?.role || null,
+      profile: (profileResult as any)?.data || null,
+    })
+  }
+
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (_event, session) => {
         if (session?.user) {
-          // Fetch user role and profile
-          const [roleResult, profileResult] = await Promise.all([
-            supabase
-              .from("user_roles")
-              .select("role")
-              .eq("user_id", session.user.id)
-              .single(),
-            supabase
-              .from("profiles")
-              .select("*")
-              .eq("id", session.user.id)
-              .single(),
-          ])
-
           setAuthState({
             user: session.user,
             loading: false,
-            role: roleResult.data?.role || null,
-            profile: profileResult.data,
+            role: null,
+            profile: null,
           })
+          setTimeout(() => { loadUserData(session.user) }, 0)
         } else {
           setAuthState({
             user: null,
@@ -58,25 +77,13 @@ export function useAuth() {
     // Then check for existing session
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user) {
-        const [roleResult, profileResult] = await Promise.all([
-          supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", session.user.id)
-            .single(),
-          supabase
-            .from("profiles")
-            .select("*")
-            .eq("id", session.user.id)
-            .single(),
-        ])
-
         setAuthState({
           user: session.user,
           loading: false,
-          role: roleResult.data?.role || null,
-          profile: profileResult.data,
+          role: null,
+          profile: null,
         })
+        loadUserData(session.user)
       } else {
         setAuthState({
           user: null,
