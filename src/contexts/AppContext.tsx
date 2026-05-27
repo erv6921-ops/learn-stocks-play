@@ -212,7 +212,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
             schoolName: "",
             grade: 9,
             literacyLevel: "explorer",
-            onboardingComplete: true,
+            onboardingComplete: false,
             assessmentScore: 0,
             benchmarkScores: {},
             benchmarkCategoryScores: {},
@@ -229,8 +229,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     })
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) hydrate(session.user.id)
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) await hydrate(session.user.id)
       if (!session?.user) {
         userIdRef.current = null
         setUserState(null)
