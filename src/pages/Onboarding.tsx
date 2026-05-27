@@ -195,7 +195,15 @@ export default function Onboarding() {
   const persistProfile = async (extra: Record<string, any>) => {
     const { data } = await supabase.auth.getSession()
     const uid = data.session?.user?.id
-    if (!uid) return // not signed in — local-only fallback
+    if (!uid) {
+      toast({
+        title: "Log in to save progress",
+        description: "Your account needs to be signed in before progress can save across devices.",
+        variant: "destructive",
+      })
+      navigate("/auth")
+      return false
+    }
 
     const payload = {
       id: uid,
@@ -212,7 +220,13 @@ export default function Onboarding() {
     }
 
     const { error } = await supabase.from("profiles").upsert(payload, { onConflict: "id" })
-    if (error) console.error("[Onboarding] Failed to save profile", error)
+    if (error) {
+      console.error("[Onboarding] Failed to save profile", error)
+      toast({ title: "Couldn't save progress", description: error.message, variant: "destructive" })
+      return false
+    }
+
+    return true
   }
 
   const handleComplete = async () => {
@@ -230,13 +244,17 @@ export default function Onboarding() {
     const rewardMultiplier = Math.min(1 + overallPercent / 200, 1.5)
 
     // Save to the database so the profile follows the user across devices.
-    await persistProfile({
+    const saved = await persistProfile({
       literacy_level: litLevel,
       assessment_score: overallPercent,
       reward_multiplier: rewardMultiplier,
       benchmark_scores: benchmarkScoresLegacy,
       benchmark_category_scores: categoryScores,
     })
+    if (!saved) {
+      setLoading(false)
+      return
+    }
 
     const { data: session } = await supabase.auth.getSession()
     const localUser = {
@@ -263,13 +281,17 @@ export default function Onboarding() {
     setShowSkipDialog(false)
     setLoading(true)
 
-    await persistProfile({
+    const saved = await persistProfile({
       literacy_level: "explorer",
       assessment_score: 0,
       reward_multiplier: 1,
       benchmark_scores: {},
       benchmark_category_scores: {},
     })
+    if (!saved) {
+      setLoading(false)
+      return
+    }
 
     const { data: session } = await supabase.auth.getSession()
     const localUser = {
@@ -619,7 +641,20 @@ export default function Onboarding() {
                         ? "You can log back in any time with your email and password."
                         : "Check your email to confirm your account. You'll be able to log in from any device after.",
                     })
-                    setStep("welcome")
+                    if (!data.session) {
+                      navigate("/auth")
+                      return
+                    }
+
+                    const saved = await persistProfile({
+                      literacy_level: "explorer",
+                      assessment_score: 0,
+                      reward_multiplier: 1,
+                      benchmark_scores: {},
+                      benchmark_category_scores: {},
+                      onboarding_complete: false,
+                    })
+                    if (saved) setStep("welcome")
                   } catch (err: any) {
                     toast({
                       title: "Couldn't create account",
