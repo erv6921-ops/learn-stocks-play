@@ -172,7 +172,69 @@ export default function Auth() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <AnimatePresence mode="wait">
-        {mode === "forgot" ? (
+        {verificationSent ? (
+          <motion.div
+            key="verify-email"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="w-full max-w-md"
+          >
+            <div className="text-center mb-6">
+              <JeffMascot
+                size="sm"
+                message="Almost there! Check your inbox to verify your email."
+              />
+            </div>
+            <Card variant="elevated">
+              <CardHeader>
+                <CardTitle>Verify your email</CardTitle>
+                <CardDescription>
+                  We sent a confirmation link to <span className="font-medium">{email}</span>. Click it to activate your account, then come back and log in.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Didn't get it? Check your spam folder, or resend below.
+                </p>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  disabled={loading}
+                  onClick={async () => {
+                    setLoading(true)
+                    const { error } = await supabase.auth.resend({
+                      type: "signup",
+                      email,
+                      options: { emailRedirectTo: window.location.origin },
+                    })
+                    setLoading(false)
+                    if (error) {
+                      toast({ title: "Couldn't resend", description: error.message, variant: "destructive" })
+                    } else {
+                      toast({ title: "Confirmation email resent", description: "Check your inbox." })
+                    }
+                  }}
+                >
+                  {loading ? <Loader2 className="mr-2 animate-spin" /> : "Resend confirmation email"}
+                </Button>
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    setVerificationSent(false)
+                    setMode("login")
+                    setPassword("")
+                    setConfirmPassword("")
+                    setRole(null)
+                  }}
+                >
+                  Back to log in
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ) : mode === "forgot" ? (
+
           <motion.div
             key="forgot-form"
             initial={{ opacity: 0, y: 20 }}
