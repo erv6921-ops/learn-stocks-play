@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -213,14 +213,8 @@ export default function Dashboard() {
   const streakDayInCycle = streak % 7;
   const streakRingProgress = streakDayInCycle / 7 * 100;
 
-  if (!authReady && !user) {
-    return null;
-  }
-
-  if (!user) {
-    navigate("/onboarding");
-    return null;
-  }
+  if (!authReady) return null;
+  if (!user) return <Navigate to="/auth" replace />;
 
   const getGreeting = () => {
     const hour = new Date().getHours();
