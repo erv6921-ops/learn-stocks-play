@@ -131,6 +131,11 @@ export default function Onboarding() {
   const [currentQuestion, setCurrentQuestion] = useState<BenchmarkQuestion>(() => shuffleQuestion(questionPool[0]) as BenchmarkQuestion)
 
   useEffect(() => {
+    // Prefill email from the authenticated session so the user sees it's linked
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user?.email) setEmail(data.user.email)
+    })
+
     // If user already has a local profile, skip to dashboard
     const stored = localStorage.getItem("investiplay_user")
     if (stored) {
