@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react"
+import React, { createContext, useContext, useState, ReactNode, useEffect, useRef } from "react"
 import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier } from "@/types"
 import { supabase } from "@/integrations/supabase/client"
 
@@ -7,6 +7,12 @@ interface UnitTestProgress {
   completed: boolean
   score: number
   completedAt?: Date
+}
+
+interface JeffsHistoryEntry {
+  amount: number
+  reason: string
+  date: Date
 }
 
 interface AppContextType {
@@ -20,155 +26,253 @@ interface AppContextType {
   addToWatchlist: (symbol: string) => void
   removeFromWatchlist: (symbol: string) => void
   resetOnboarding: () => void
-  // InvestiCoins system
   jeffsBalance: number
   earnJeffs: (amount: number, reason: string) => void
   spendJeffs: (amount: number, reason: string) => boolean
-  jeffsHistory: { amount: number; reason: string; date: Date }[]
-  // Unit test progress
+  jeffsHistory: JeffsHistoryEntry[]
   unitTestProgress: UnitTestProgress[]
   updateUnitTestProgress: (category: string, completed: boolean, score: number) => void
-  // Stock portfolio
   portfolio: StockHolding[]
   buyStock: (symbol: string, shares: number, pricePerShare: number) => boolean
   sellStock: (symbol: string, shares: number, pricePerShare: number) => boolean
   getHolding: (symbol: string) => StockHolding | undefined
-  // Reward multiplier from benchmark
   getRewardMultiplier: () => number
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
 
+// Small helper: localStorage cache (used for guests / quick reload before
+// the DB hydrate completes). Once authenticated, DB is the source of truth.
+const ls = {
+  get<T>(key: string, fallback: T): T {
+    try {
+      const v = localStorage.getItem(key)
+      return v ? (JSON.parse(v) as T) : fallback
+    } catch { return fallback }
+  },
+  set(key: string, value: unknown) {
+    try { localStorage.setItem(key, JSON.stringify(value)) } catch {}
+  },
+  del(key: string) { try { localStorage.removeItem(key) } catch {} },
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [user, setUserState] = useState<UserProfile | null>(() => {
-    const stored = localStorage.getItem("investiplay_user")
-    return stored ? JSON.parse(stored) : null
-  })
+  const [user, setUserState] = useState<UserProfile | null>(() => ls.get("investiplay_user", null))
+  const [lessonProgress, setLessonProgress] = useState<LessonProgress[]>(() => ls.get("investiplay_progress", []))
+  const [tokens, setTokens] = useState<Token[]>(() => ls.get("investiplay_tokens", []))
+  const [watchlist, setWatchlist] = useState<string[]>(() => ls.get("investiplay_watchlist", []))
+  const [jeffsBalance, setJeffsBalance] = useState<number>(() => ls.get("investiplay_jeffs_balance", 0))
+  const [jeffsHistory, setJeffsHistory] = useState<JeffsHistoryEntry[]>(() => ls.get("investiplay_jeffs_history", []))
+  const [unitTestProgress, setUnitTestProgress] = useState<UnitTestProgress[]>(() => ls.get("investiplay_unit_tests", []))
+  const [portfolio, setPortfolio] = useState<StockHolding[]>(() => ls.get("investiplay_portfolio", []))
 
-  const [lessonProgress, setLessonProgress] = useState<LessonProgress[]>(() => {
-    const stored = localStorage.getItem("investiplay_progress")
-    return stored ? JSON.parse(stored) : []
-  })
-
-  const [tokens, setTokens] = useState<Token[]>(() => {
-    const stored = localStorage.getItem("investiplay_tokens")
-    return stored ? JSON.parse(stored) : []
-  })
-
-  const [watchlist, setWatchlist] = useState<string[]>(() => {
-    const stored = localStorage.getItem("investiplay_watchlist")
-    return stored ? JSON.parse(stored) : []
-  })
-
-  const [jeffsBalance, setJeffsBalance] = useState<number>(() => {
-    const stored = localStorage.getItem("investiplay_jeffs_balance")
-    return stored ? JSON.parse(stored) : 0
-  })
-
-  const [jeffsHistory, setJeffsHistory] = useState<{ amount: number; reason: string; date: Date }[]>(() => {
-    const stored = localStorage.getItem("investiplay_jeffs_history")
-    return stored ? JSON.parse(stored) : []
-  })
-
-  const [unitTestProgress, setUnitTestProgress] = useState<UnitTestProgress[]>(() => {
-    const stored = localStorage.getItem("investiplay_unit_tests")
-    return stored ? JSON.parse(stored) : []
-  })
-
-  const [portfolio, setPortfolio] = useState<StockHolding[]>(() => {
-    const stored = localStorage.getItem("investiplay_portfolio")
-    return stored ? JSON.parse(stored) : []
-  })
+  // Track the currently-signed-in user id so writes can target the right rows.
+  const userIdRef = useRef<string | null>(null)
 
   const setUser = (newUser: UserProfile | null) => {
     setUserState(newUser)
-    if (newUser) {
-      localStorage.setItem("investiplay_user", JSON.stringify(newUser))
-    } else {
-      localStorage.removeItem("investiplay_user")
-    }
+    if (newUser) ls.set("investiplay_user", newUser); else ls.del("investiplay_user")
   }
 
-  // Hydrate user profile from the database whenever the auth session changes.
-  // This is what makes login work across devices: even with no localStorage,
-  // we rebuild the user from the `profiles` row.
+  // ───────────────────────────────────────────────────────────
+  // Auth → hydrate all per-user data from the database
+  // ───────────────────────────────────────────────────────────
   useEffect(() => {
-    const hydrateFromProfile = async (userId: string, email?: string) => {
-      const { data: profile, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", userId)
-        .maybeSingle()
+    const hydrate = async (uid: string) => {
+      userIdRef.current = uid
 
-      if (error) {
-        console.error("[AppContext] Failed to load profile", error)
-        return
+      const [profileRes, lessonsRes, unitTestsRes, historyRes, portfolioRes, watchlistRes, tokensRes] = await Promise.all([
+        supabase.from("profiles").select("*").eq("id", uid).maybeSingle(),
+        supabase.from("lesson_progress").select("*").eq("user_id", uid),
+        supabase.from("unit_test_progress").select("*").eq("user_id", uid),
+        supabase.from("jeffs_history").select("*").eq("user_id", uid).order("created_at", { ascending: true }),
+        supabase.from("portfolio").select("*").eq("user_id", uid),
+        supabase.from("watchlist").select("*").eq("user_id", uid),
+        supabase.from("user_tokens").select("*").eq("user_id", uid),
+      ])
+
+      const profile = profileRes.data
+      if (profile) {
+        const hydrated: UserProfile = {
+          id: profile.id,
+          firstName: profile.first_name ?? undefined,
+          age: profile.age ?? 14,
+          schoolName: profile.school_name ?? "",
+          grade: profile.grade ?? 9,
+          literacyLevel: (profile.literacy_level as MasteryTier) ?? "explorer",
+          onboardingComplete: !!profile.onboarding_complete,
+          assessmentScore: profile.assessment_score ?? 0,
+          benchmarkScores: (profile.benchmark_scores as any) ?? {},
+          benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
+          rewardMultiplier: profile.reward_multiplier ?? 1,
+          createdAt: new Date(profile.created_at ?? Date.now()),
+        }
+        setUser(hydrated)
+        setJeffsBalance(profile.jeffs_balance ?? 0)
+        ls.set("investiplay_jeffs_balance", profile.jeffs_balance ?? 0)
       }
-      if (!profile) return
 
-      const hydrated: UserProfile = {
-        id: profile.id,
-        firstName: profile.first_name ?? undefined,
-        age: profile.age ?? 14,
-        schoolName: profile.school_name ?? "",
-        grade: profile.grade ?? 9,
-        literacyLevel: (profile.literacy_level as MasteryTier) ?? "explorer",
-        onboardingComplete: !!profile.onboarding_complete,
-        assessmentScore: profile.assessment_score ?? 0,
-        benchmarkScores: (profile.benchmark_scores as any) ?? {},
-        benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
-        rewardMultiplier: profile.reward_multiplier ?? 1,
-        createdAt: new Date(profile.created_at ?? Date.now()),
+      if (lessonsRes.data) {
+        const lp: LessonProgress[] = lessonsRes.data.map((r: any) => ({
+          lessonId: r.lesson_id,
+          completed: r.completed,
+          quizScore: r.quiz_score ?? undefined,
+          completedAt: r.completed_at ? new Date(r.completed_at) : undefined,
+        }))
+        setLessonProgress(lp)
+        ls.set("investiplay_progress", lp)
       }
 
-      setUser(hydrated)
+      if (unitTestsRes.data) {
+        const ut: UnitTestProgress[] = unitTestsRes.data.map((r: any) => ({
+          category: r.category,
+          completed: r.completed,
+          score: r.score,
+          completedAt: r.completed_at ? new Date(r.completed_at) : undefined,
+        }))
+        setUnitTestProgress(ut)
+        ls.set("investiplay_unit_tests", ut)
+      }
+
+      if (historyRes.data) {
+        const h: JeffsHistoryEntry[] = historyRes.data.map((r: any) => ({
+          amount: r.amount,
+          reason: r.reason,
+          date: new Date(r.created_at),
+        }))
+        setJeffsHistory(h)
+        ls.set("investiplay_jeffs_history", h)
+      }
+
+      if (portfolioRes.data) {
+        const pf: StockHolding[] = portfolioRes.data.map((r: any) => ({
+          symbol: r.symbol,
+          shares: Number(r.shares),
+          purchasePrice: Number(r.purchase_price),
+          purchasedAt: new Date(r.purchased_at),
+        }))
+        setPortfolio(pf)
+        ls.set("investiplay_portfolio", pf)
+      }
+
+      if (watchlistRes.data) {
+        const wl = watchlistRes.data.map((r: any) => r.symbol)
+        setWatchlist(wl)
+        ls.set("investiplay_watchlist", wl)
+      }
+
+      if (tokensRes.data) {
+        const tk: Token[] = tokensRes.data.map((r: any) => ({
+          id: r.id,
+          name: r.name,
+          symbol: r.symbol,
+          totalSupply: Number(r.total_supply),
+          createdAt: new Date(r.created_at),
+          priceSimulation: Number(r.price_simulation),
+          marketCap: Number(r.market_cap),
+        }))
+        setTokens(tk)
+        ls.set("investiplay_tokens", tk)
+      }
     }
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
-        // Defer Supabase call to avoid deadlocks inside the listener
-        setTimeout(() => hydrateFromProfile(session.user.id, session.user.email), 0)
+        // Defer to avoid deadlocks inside the listener
+        setTimeout(() => { hydrate(session.user.id) }, 0)
       } else {
-        // Signed out — clear in-memory user so guards redirect properly
+        userIdRef.current = null
         setUserState(null)
-        localStorage.removeItem("investiplay_user")
+        ls.del("investiplay_user")
       }
     })
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) hydrateFromProfile(session.user.id, session.user.email)
+      if (session?.user) hydrate(session.user.id)
     })
 
     return () => subscription.unsubscribe()
   }, [])
 
+  // ───────────────────────────────────────────────────────────
+  // Mutations: update local state immediately, persist to DB
+  // ───────────────────────────────────────────────────────────
+
   const updateLessonProgress = (lessonId: string, completed: boolean, quizScore?: number) => {
+    const now = completed ? new Date() : undefined
     setLessonProgress(prev => {
       const existing = prev.find(p => p.lessonId === lessonId)
       const updated = existing
-        ? prev.map(p =>
-            p.lessonId === lessonId
-              ? { ...p, completed, quizScore, completedAt: completed ? new Date() : undefined }
-              : p
-          )
-        : [...prev, { lessonId, completed, quizScore, completedAt: completed ? new Date() : undefined }]
-      
-      localStorage.setItem("investiplay_progress", JSON.stringify(updated))
+        ? prev.map(p => p.lessonId === lessonId ? { ...p, completed, quizScore, completedAt: now } : p)
+        : [...prev, { lessonId, completed, quizScore, completedAt: now }]
+      ls.set("investiplay_progress", updated)
       return updated
     })
+    const uid = userIdRef.current
+    if (uid) {
+      supabase.from("lesson_progress").upsert({
+        user_id: uid,
+        lesson_id: lessonId,
+        completed,
+        quiz_score: quizScore ?? null,
+        completed_at: now?.toISOString() ?? null,
+      }, { onConflict: "user_id,lesson_id" }).then(({ error }) => {
+        if (error) console.error("[lesson_progress upsert]", error)
+      })
+    }
   }
 
-  // Reward multiplier: 1.0 to 1.5 based on benchmark percentage
+  const updateUnitTestProgress = (category: string, completed: boolean, score: number) => {
+    const now = completed ? new Date() : undefined
+    setUnitTestProgress(prev => {
+      const existing = prev.find(p => p.category === category)
+      const updated = existing
+        ? prev.map(p => p.category === category ? { ...p, completed, score, completedAt: now } : p)
+        : [...prev, { category, completed, score, completedAt: now }]
+      ls.set("investiplay_unit_tests", updated)
+      return updated
+    })
+    const uid = userIdRef.current
+    if (uid) {
+      supabase.from("unit_test_progress").upsert({
+        user_id: uid, category, completed, score,
+        completed_at: now?.toISOString() ?? null,
+      }, { onConflict: "user_id,category" }).then(({ error }) => {
+        if (error) console.error("[unit_test_progress upsert]", error)
+      })
+    }
+  }
+
   const getRewardMultiplier = (): number => {
     if (!user) return 1.0
     if (typeof user.rewardMultiplier === "number") return user.rewardMultiplier
     if (typeof user.assessmentScore !== "number") return 1.0
-
-    const normalizedScore = user.assessmentScore > 1.5
-      ? Math.min(user.assessmentScore, 100)
-      : user.assessmentScore * 100
-
+    const normalizedScore = user.assessmentScore > 1.5 ? Math.min(user.assessmentScore, 100) : user.assessmentScore * 100
     return Math.min(1 + normalizedScore / 200, 1.5)
+  }
+
+  const persistBalance = (newBalance: number) => {
+    ls.set("investiplay_jeffs_balance", newBalance)
+    const uid = userIdRef.current
+    if (uid) {
+      supabase.from("profiles").update({ jeffs_balance: newBalance }).eq("id", uid).then(({ error }) => {
+        if (error) console.error("[jeffs_balance update]", error)
+      })
+    }
+  }
+
+  const recordHistory = (entry: JeffsHistoryEntry) => {
+    setJeffsHistory(prev => {
+      const next = [...prev, entry]
+      ls.set("investiplay_jeffs_history", next)
+      return next
+    })
+    const uid = userIdRef.current
+    if (uid) {
+      supabase.from("jeffs_history").insert({
+        user_id: uid, amount: entry.amount, reason: entry.reason,
+      }).then(({ error }) => { if (error) console.error("[jeffs_history insert]", error) })
+    }
   }
 
   const earnJeffs = (amount: number, reason: string) => {
@@ -176,55 +280,52 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const scaledAmount = Math.round(amount * multiplier)
     setJeffsBalance(prev => {
       const newBalance = prev + scaledAmount
-      localStorage.setItem("investiplay_jeffs_balance", JSON.stringify(newBalance))
+      persistBalance(newBalance)
       return newBalance
     })
-    setJeffsHistory(prev => {
-      const newHistory = [...prev, { amount: scaledAmount, reason, date: new Date() }]
-      localStorage.setItem("investiplay_jeffs_history", JSON.stringify(newHistory))
-      return newHistory
-    })
+    recordHistory({ amount: scaledAmount, reason, date: new Date() })
   }
 
   const spendJeffs = (amount: number, reason: string): boolean => {
     if (jeffsBalance < amount) return false
     setJeffsBalance(prev => {
       const newBalance = prev - amount
-      localStorage.setItem("investiplay_jeffs_balance", JSON.stringify(newBalance))
+      persistBalance(newBalance)
       return newBalance
     })
-    setJeffsHistory(prev => {
-      const newHistory = [...prev, { amount: -amount, reason, date: new Date() }]
-      localStorage.setItem("investiplay_jeffs_history", JSON.stringify(newHistory))
-      return newHistory
-    })
+    recordHistory({ amount: -amount, reason, date: new Date() })
     return true
   }
 
   const buyStock = (symbol: string, shares: number, pricePerShare: number): boolean => {
     const totalCost = Math.round(shares * pricePerShare * 100) / 100
     if (jeffsBalance < totalCost) return false
-    
-    // Spend the InvestiCoins
     spendJeffs(totalCost, `Bought ${shares} shares of ${symbol}`)
-    
-    // Add to portfolio
+
     setPortfolio(prev => {
       const existing = prev.find(h => h.symbol === symbol)
       let updated: StockHolding[]
+      let newShares: number
+      let newAvg: number
       if (existing) {
-        // Average the purchase price
-        const totalShares = existing.shares + shares
-        const avgPrice = ((existing.purchasePrice * existing.shares) + (pricePerShare * shares)) / totalShares
-        updated = prev.map(h => 
-          h.symbol === symbol 
-            ? { ...h, shares: totalShares, purchasePrice: avgPrice }
-            : h
-        )
+        newShares = existing.shares + shares
+        newAvg = ((existing.purchasePrice * existing.shares) + (pricePerShare * shares)) / newShares
+        updated = prev.map(h => h.symbol === symbol ? { ...h, shares: newShares, purchasePrice: newAvg } : h)
       } else {
+        newShares = shares
+        newAvg = pricePerShare
         updated = [...prev, { symbol, shares, purchasePrice: pricePerShare, purchasedAt: new Date() }]
       }
-      localStorage.setItem("investiplay_portfolio", JSON.stringify(updated))
+      ls.set("investiplay_portfolio", updated)
+
+      const uid = userIdRef.current
+      if (uid) {
+        supabase.from("portfolio").upsert({
+          user_id: uid, symbol, shares: newShares, purchase_price: newAvg,
+        }, { onConflict: "user_id,symbol" }).then(({ error }) => {
+          if (error) console.error("[portfolio upsert]", error)
+        })
+      }
       return updated
     })
     return true
@@ -233,65 +334,83 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const sellStock = (symbol: string, shares: number, pricePerShare: number): boolean => {
     const holding = portfolio.find(h => h.symbol === symbol)
     if (!holding || holding.shares < shares) return false
-    
+
     const totalValue = Math.round(shares * pricePerShare * 100) / 100
     earnJeffs(totalValue, `Sold ${shares} shares of ${symbol}`)
-    
+
     setPortfolio(prev => {
+      let removeRow = false
       const updated = prev.map(h => {
         if (h.symbol === symbol) {
           const remainingShares = h.shares - shares
-          return remainingShares > 0 ? { ...h, shares: remainingShares } : null
+          if (remainingShares <= 0) { removeRow = true; return null }
+          return { ...h, shares: remainingShares }
         }
         return h
       }).filter((h): h is StockHolding => h !== null)
-      localStorage.setItem("investiplay_portfolio", JSON.stringify(updated))
+      ls.set("investiplay_portfolio", updated)
+
+      const uid = userIdRef.current
+      if (uid) {
+        if (removeRow) {
+          supabase.from("portfolio").delete().eq("user_id", uid).eq("symbol", symbol).then(({ error }) => {
+            if (error) console.error("[portfolio delete]", error)
+          })
+        } else {
+          const row = updated.find(h => h.symbol === symbol)!
+          supabase.from("portfolio").upsert({
+            user_id: uid, symbol, shares: row.shares, purchase_price: row.purchasePrice,
+          }, { onConflict: "user_id,symbol" }).then(({ error }) => {
+            if (error) console.error("[portfolio upsert]", error)
+          })
+        }
+      }
       return updated
     })
     return true
   }
 
-  const getHolding = (symbol: string): StockHolding | undefined => {
-    return portfolio.find(h => h.symbol === symbol)
-  }
-
-  const updateUnitTestProgress = (category: string, completed: boolean, score: number) => {
-    setUnitTestProgress(prev => {
-      const existing = prev.find(p => p.category === category)
-      const updated = existing
-        ? prev.map(p =>
-            p.category === category
-              ? { ...p, completed, score, completedAt: completed ? new Date() : undefined }
-              : p
-          )
-        : [...prev, { category, completed, score, completedAt: completed ? new Date() : undefined }]
-      
-      localStorage.setItem("investiplay_unit_tests", JSON.stringify(updated))
-      return updated
-    })
-  }
+  const getHolding = (symbol: string): StockHolding | undefined => portfolio.find(h => h.symbol === symbol)
 
   const addToken = (tokenData: Omit<Token, "id" | "createdAt" | "priceSimulation" | "marketCap">) => {
+    const priceSimulation = Math.random() * 10 + 0.1
+    const marketCap = tokenData.totalSupply * priceSimulation
     const newToken: Token = {
       ...tokenData,
       id: crypto.randomUUID(),
       createdAt: new Date(),
-      priceSimulation: Math.random() * 10 + 0.1,
-      marketCap: tokenData.totalSupply * (Math.random() * 10 + 0.1)
+      priceSimulation,
+      marketCap,
     }
     setTokens(prev => {
       const updated = [...prev, newToken]
-      localStorage.setItem("investiplay_tokens", JSON.stringify(updated))
+      ls.set("investiplay_tokens", updated)
       return updated
     })
+    const uid = userIdRef.current
+    if (uid) {
+      supabase.from("user_tokens").insert({
+        user_id: uid,
+        name: newToken.name,
+        symbol: newToken.symbol,
+        total_supply: newToken.totalSupply,
+        price_simulation: priceSimulation,
+        market_cap: marketCap,
+      }).then(({ error }) => { if (error) console.error("[user_tokens insert]", error) })
+    }
   }
 
   const addToWatchlist = (symbol: string) => {
-    if (!watchlist.includes(symbol)) {
-      setWatchlist(prev => {
-        const updated = [...prev, symbol]
-        localStorage.setItem("investiplay_watchlist", JSON.stringify(updated))
-        return updated
+    if (watchlist.includes(symbol)) return
+    setWatchlist(prev => {
+      const updated = [...prev, symbol]
+      ls.set("investiplay_watchlist", updated)
+      return updated
+    })
+    const uid = userIdRef.current
+    if (uid) {
+      supabase.from("watchlist").insert({ user_id: uid, symbol }).then(({ error }) => {
+        if (error && !error.message.includes("duplicate")) console.error("[watchlist insert]", error)
       })
     }
   }
@@ -299,9 +418,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const removeFromWatchlist = (symbol: string) => {
     setWatchlist(prev => {
       const updated = prev.filter(s => s !== symbol)
-      localStorage.setItem("investiplay_watchlist", JSON.stringify(updated))
+      ls.set("investiplay_watchlist", updated)
       return updated
     })
+    const uid = userIdRef.current
+    if (uid) {
+      supabase.from("watchlist").delete().eq("user_id", uid).eq("symbol", symbol).then(({ error }) => {
+        if (error) console.error("[watchlist delete]", error)
+      })
+    }
   }
 
   const resetOnboarding = () => {
@@ -313,40 +438,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setJeffsHistory([])
     setUnitTestProgress([])
     setPortfolio([])
-    localStorage.removeItem("investiplay_user")
-    localStorage.removeItem("investiplay_progress")
-    localStorage.removeItem("investiplay_tokens")
-    localStorage.removeItem("investiplay_watchlist")
-    localStorage.removeItem("investiplay_jeffs_balance")
-    localStorage.removeItem("investiplay_jeffs_history")
-    localStorage.removeItem("investiplay_unit_tests")
-    localStorage.removeItem("investiplay_portfolio")
+    ls.del("investiplay_user")
+    ls.del("investiplay_progress")
+    ls.del("investiplay_tokens")
+    ls.del("investiplay_watchlist")
+    ls.del("investiplay_jeffs_balance")
+    ls.del("investiplay_jeffs_history")
+    ls.del("investiplay_unit_tests")
+    ls.del("investiplay_portfolio")
   }
 
   return (
     <AppContext.Provider
       value={{
-        user,
-        setUser,
-        lessonProgress,
-        updateLessonProgress,
-        tokens,
-        addToken,
-        watchlist,
-        addToWatchlist,
-        removeFromWatchlist,
+        user, setUser,
+        lessonProgress, updateLessonProgress,
+        tokens, addToken,
+        watchlist, addToWatchlist, removeFromWatchlist,
         resetOnboarding,
-        jeffsBalance,
-        earnJeffs,
-        spendJeffs,
-        jeffsHistory,
-        unitTestProgress,
-        updateUnitTestProgress,
-        portfolio,
-        buyStock,
-        sellStock,
-        getHolding,
-        getRewardMultiplier
+        jeffsBalance, earnJeffs, spendJeffs, jeffsHistory,
+        unitTestProgress, updateUnitTestProgress,
+        portfolio, buyStock, sellStock, getHolding,
+        getRewardMultiplier,
       }}
     >
       {children}
