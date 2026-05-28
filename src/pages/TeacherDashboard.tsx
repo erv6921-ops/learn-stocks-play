@@ -146,22 +146,6 @@ export default function TeacherDashboard() {
         return
       }
 
-      // Prototype bypass: ?bypass=true skips teacher role check
-      const bypass = new URLSearchParams(window.location.search).get("bypass") === "true"
-
-      if (!bypass) {
-        const { data: userRole } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", user.id)
-          .single()
-
-        if (userRole?.role !== "teacher") {
-          navigate("/dashboard")
-          return
-        }
-      }
-
       await loadClasses()
     } catch (error) {
       console.error("Auth check failed:", error)
