@@ -27,6 +27,7 @@ interface AppContextType {
   addToWatchlist: (symbol: string) => void
   removeFromWatchlist: (symbol: string) => void
   resetOnboarding: () => void
+  logout: () => Promise<void>
   jeffsBalance: number
   earnJeffs: (amount: number, reason: string) => void
   spendJeffs: (amount: number, reason: string) => boolean
@@ -57,6 +58,19 @@ const ls = {
   del(key: string) { try { localStorage.removeItem(key) } catch {} },
 }
 
+// Every per-user localStorage key. Cleared on logout / sign-out so one
+// account's cached data never bleeds into the next session on a shared device.
+const USER_KEYS = [
+  "investiplay_user",
+  "investiplay_progress",
+  "investiplay_tokens",
+  "investiplay_watchlist",
+  "investiplay_jeffs_balance",
+  "investiplay_jeffs_history",
+  "investiplay_unit_tests",
+  "investiplay_portfolio",
+]
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const [authReady, setAuthReady] = useState(false)
   const [user, setUserState] = useState<UserProfile | null>(() => ls.get("investiplay_user", null))
@@ -75,6 +89,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setUser = (newUser: UserProfile | null) => {
     setUserState(newUser)
     if (newUser) ls.set("investiplay_user", newUser); else ls.del("investiplay_user")
+  }
+
+  // Wipe all in-memory + cached per-user state. Used on logout and whenever
+  // the Supabase session ends (including sign-out from another tab).
+  const clearLocalData = () => {
+    userIdRef.current = null
+    setUserState(null)
+    setLessonProgress([])
+    setTokens([])
+    setWatchlist([])
+    setJeffsBalance(0)
+    setJeffsHistory([])
+    setUnitTestProgress([])
+    setPortfolio([])
+    USER_KEYS.forEach(k => ls.del(k))
+  }
+
+  // Real logout: end the Supabase session first (so a refresh can't restore
+  // it), then clear local state. Callers should redirect to /auth after.
+  const logout = async () => {
+    try {
+      await supabase.auth.signOut()
+    } catch (error) {
+      console.error("[AppContext] signOut failed", error)
+    }
+    clearLocalData()
   }
 
   // ───────────────────────────────────────────────────────────
@@ -234,9 +274,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         // Defer to avoid deadlocks inside the listener
         setTimeout(() => { void hydrate(session.user.id) }, 0)
       } else if (authReadyRef.current) {
-        userIdRef.current = null
-        setUserState(null)
-        ls.del("investiplay_user")
+        clearLocalData()
       }
     })
 
@@ -500,22 +538,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   const resetOnboarding = () => {
-    setUserState(null)
-    setLessonProgress([])
-    setTokens([])
-    setWatchlist([])
-    setJeffsBalance(0)
-    setJeffsHistory([])
-    setUnitTestProgress([])
-    setPortfolio([])
-    ls.del("investiplay_user")
-    ls.del("investiplay_progress")
-    ls.del("investiplay_tokens")
-    ls.del("investiplay_watchlist")
-    ls.del("investiplay_jeffs_balance")
-    ls.del("investiplay_jeffs_history")
-    ls.del("investiplay_unit_tests")
-    ls.del("investiplay_portfolio")
+    clearLocalData()
   }
 
   return (
@@ -525,7 +548,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         lessonProgress, updateLessonProgress,
         tokens, addToken,
         watchlist, addToWatchlist, removeFromWatchlist,
-        resetOnboarding,
+        resetOnboarding, logout,
         jeffsBalance, earnJeffs, spendJeffs, jeffsHistory,
         unitTestProgress, updateUnitTestProgress,
         portfolio, buyStock, sellStock, getHolding,

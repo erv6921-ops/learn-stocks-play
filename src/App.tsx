@@ -14,7 +14,6 @@ import UnitTest from "./pages/UnitTest";
 import Stocks from "./pages/Stocks";
 import StockDetail from "./pages/StockDetail";
 import MicroBusiness from "./pages/MicroBusiness";
-import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import ProgressPage from "./pages/Progress";
 import Leaderboard from "./pages/Leaderboard";
@@ -36,7 +35,6 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Navigate to={homeTarget} replace />} />
       <Route path="/auth" element={<Auth />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/teacher-dashboard" element={<TeacherDashboard />} />

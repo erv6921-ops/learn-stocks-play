@@ -23,7 +23,9 @@ export default function Auth() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [loading, setLoading] = useState(false)
-  const [resetSent, setResetSent] = useState(false)
+  // Password reset is a 3-step OTP flow: enter email → enter 6-digit code → set new password.
+  const [resetStep, setResetStep] = useState<"email" | "otp" | "password">("email")
+  const [otpCode, setOtpCode] = useState("")
   const [verificationSent, setVerificationSent] = useState(false)
 
 
@@ -48,14 +50,23 @@ export default function Auth() {
       setLoading(false)
       navigate("/dashboard", { replace: true })
 
-      // Only re-route teachers. Returning students stay on the dashboard —
-      // they already have an account, so don't bounce them back to onboarding.
-      const roleRes = await withTimeout(
-        supabase.from("user_roles").select("role").eq("user_id", data.user.id).maybeSingle()
-      )
+      // Correct the route once we know the account's role + onboarding state:
+      // teachers go to their dashboard; students who never finished onboarding
+      // are sent there instead of a half-empty dashboard.
+      const [roleRes, profileRes] = await Promise.all([
+        withTimeout(
+          supabase.from("user_roles").select("role").eq("user_id", data.user.id).maybeSingle()
+        ),
+        withTimeout(
+          supabase.from("profiles").select("onboarding_complete").eq("id", data.user.id).maybeSingle()
+        ),
+      ])
       const role = (roleRes as any)?.data?.role
+      const onboardingComplete = (profileRes as any)?.data?.onboarding_complete
       if (role === "teacher") {
         navigate("/teacher-dashboard", { replace: true })
+      } else if (onboardingComplete === false) {
+        navigate("/onboarding", { replace: true })
       }
     } catch (error: any) {
       toast({
@@ -68,25 +79,108 @@ export default function Auth() {
     }
   }
 
-  const handleForgotPassword = async (e: React.FormEvent) => {
+  // Step 1: send a 6-digit recovery code to the user's email.
+  // (Supabase emails the {{ .Token }} for type=recovery; no redirect link is used.)
+  const handleSendResetCode = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
+      const { error } = await supabase.auth.resetPasswordForEmail(email)
+
+      if (error) throw error
+
+      setResetStep("otp")
+      toast({
+        title: "Code sent!",
+        description: "Check your email for a 6-digit verification code.",
+      })
+    } catch (error: any) {
+      toast({
+        title: "Failed to send code",
+        description: error.message,
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Step 2: verify the 6-digit code. A successful verifyOtp establishes a
+  // recovery session, which is what lets updateUser change the password.
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const { error } = await supabase.auth.verifyOtp({
+        email,
+        token: otpCode.trim(),
+        type: "recovery",
       })
 
       if (error) throw error
 
-      setResetSent(true)
+      setResetStep("password")
       toast({
-        title: "Reset link sent!",
-        description: "Check your email for a password reset link.",
+        title: "Code verified!",
+        description: "Now choose a new password.",
       })
     } catch (error: any) {
       toast({
-        title: "Failed to send reset link",
+        title: "Invalid or expired code",
+        description: error.message,
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Step 3: set the new password using the recovery session from step 2,
+  // then sign out and return to login.
+  const handleSetNewPassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (password !== confirmPassword) {
+      toast({
+        title: "Passwords don't match",
+        description: "Please make sure both passwords are the same.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    if (password.length < 6) {
+      toast({
+        title: "Password too short",
+        description: "Password must be at least 6 characters.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    setLoading(true)
+
+    try {
+      const { error } = await supabase.auth.updateUser({ password })
+      if (error) throw error
+
+      await supabase.auth.signOut()
+
+      toast({
+        title: "Password updated!",
+        description: "You can now log in with your new password.",
+      })
+
+      setMode("login")
+      setResetStep("email")
+      setOtpCode("")
+      setPassword("")
+      setConfirmPassword("")
+    } catch (error: any) {
+      toast({
+        title: "Failed to reset password",
         description: error.message,
         variant: "destructive",
       })
@@ -117,15 +211,6 @@ export default function Auth() {
       return
     }
 
-    if (role === "teacher") {
-      toast({
-        title: "Teacher accounts require approval",
-        description: "For security, teacher accounts must be provisioned by an administrator. Please contact your school admin.",
-        variant: "destructive",
-      })
-      return
-    }
-
     // If a session is already active, sign out first so signUp can succeed
     const { data: existing } = await supabase.auth.getSession()
     if (existing.session) {
@@ -141,20 +226,23 @@ export default function Auth() {
         password,
         options: {
           emailRedirectTo: window.location.origin,
+          // The on_auth_user_created trigger reads this to provision the
+          // profile + user_roles row with the chosen role.
+          data: { role },
         },
       })
 
       if (error) throw error
 
-      // Role + profile are auto-created by the on_auth_user_created trigger
-      // (defaults to 'student'). If a session exists (email confirmation off),
-      // route into onboarding; otherwise show the "check your email" screen.
+      // Profile + role are auto-created by the on_auth_user_created trigger
+      // from the role metadata above. If a session exists (email confirmation
+      // off), route in; otherwise show the "check your email" screen.
       if (data.session) {
         toast({
           title: "Account created!",
           description: "You're signed in.",
         })
-        navigate("/onboarding")
+        navigate(role === "teacher" ? "/teacher-dashboard" : "/onboarding")
       } else {
         setVerificationSent(true)
       }
@@ -244,9 +332,15 @@ export default function Auth() {
             className="w-full max-w-md"
           >
             <div className="text-center mb-6">
-              <JeffMascot 
-                size="sm" 
-                message={resetSent ? "Check your email for the reset link!" : "No worries! Let's reset your password."}
+              <JeffMascot
+                size="sm"
+                message={
+                  resetStep === "otp"
+                    ? "Check your email for the 6-digit code!"
+                    : resetStep === "password"
+                    ? "Almost done! Pick a new password."
+                    : "No worries! Let's reset your password."
+                }
               />
             </div>
 
@@ -254,23 +348,16 @@ export default function Auth() {
               <CardHeader>
                 <CardTitle>Reset Password</CardTitle>
                 <CardDescription>
-                  {resetSent 
-                    ? "We've sent a reset link to your email" 
-                    : "Enter your email to receive a reset link"}
+                  {resetStep === "otp"
+                    ? `Enter the 6-digit code we sent to ${email}`
+                    : resetStep === "password"
+                    ? "Choose a new password for your account"
+                    : "Enter your email to receive a verification code"}
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {resetSent ? (
-                  <div className="text-center space-y-4">
-                    <p className="text-sm text-muted-foreground">
-                      Didn't receive the email? Check your spam folder or try again.
-                    </p>
-                    <Button variant="outline" onClick={() => setResetSent(false)} className="w-full">
-                      Send Again
-                    </Button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleForgotPassword} className="space-y-4">
+                {resetStep === "email" && (
+                  <form onSubmit={handleSendResetCode} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="resetEmail">Email</Label>
                       <Input
@@ -283,15 +370,89 @@ export default function Auth() {
                       />
                     </div>
                     <Button type="submit" className="w-full" size="lg" disabled={loading}>
-                      {loading ? <Loader2 className="mr-2 animate-spin" /> : "Send Reset Link"}
+                      {loading ? <Loader2 className="mr-2 animate-spin" /> : "Send Code"}
+                    </Button>
+                  </form>
+                )}
+
+                {resetStep === "otp" && (
+                  <form onSubmit={handleVerifyCode} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="otpCode">Verification Code</Label>
+                      <Input
+                        id="otpCode"
+                        type="text"
+                        inputMode="numeric"
+                        autoComplete="one-time-code"
+                        placeholder="000000"
+                        value={otpCode}
+                        onChange={e => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                        required
+                        maxLength={6}
+                        className="text-center text-2xl tracking-[0.5em] font-mono"
+                      />
+                    </div>
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      size="lg"
+                      disabled={loading || otpCode.length !== 6}
+                    >
+                      {loading ? <Loader2 className="mr-2 animate-spin" /> : "Verify Code"}
+                    </Button>
+                    <p className="text-center text-sm text-muted-foreground">
+                      Didn't get it?{" "}
+                      <button
+                        type="button"
+                        onClick={() => { setResetStep("email"); setOtpCode("") }}
+                        className="text-primary hover:underline"
+                      >
+                        Resend code
+                      </button>
+                    </p>
+                  </form>
+                )}
+
+                {resetStep === "password" && (
+                  <form onSubmit={handleSetNewPassword} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="newPassword">New Password</Label>
+                      <Input
+                        id="newPassword"
+                        type="password"
+                        placeholder="Enter new password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        required
+                        minLength={6}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="confirmNewPassword">Confirm New Password</Label>
+                      <Input
+                        id="confirmNewPassword"
+                        type="password"
+                        placeholder="Confirm new password"
+                        value={confirmPassword}
+                        onChange={e => setConfirmPassword(e.target.value)}
+                        required
+                        minLength={6}
+                      />
+                    </div>
+                    <Button type="submit" className="w-full" size="lg" disabled={loading}>
+                      {loading ? <Loader2 className="mr-2 animate-spin" /> : "Update Password"}
                     </Button>
                   </form>
                 )}
 
                 <p className="text-center mt-4 text-sm text-muted-foreground">
                   Remember your password?{" "}
-                  <button 
-                    onClick={() => { setMode("login"); setResetSent(false); }} 
+                  <button
+                    onClick={() => {
+                      setMode("login")
+                      setResetStep("email")
+                      setOtpCode("")
+                    }}
                     className="text-primary hover:underline"
                   >
                     Back to login
@@ -401,7 +562,7 @@ export default function Auth() {
                       {mode === "login" && (
                         <button
                           type="button"
-                          onClick={() => setMode("forgot")}
+                          onClick={() => { setMode("forgot"); setResetStep("email"); setOtpCode("") }}
                           className="text-xs text-primary hover:underline"
                         >
                           Forgot password?

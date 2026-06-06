@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Button } from "@/components/ui/button";
@@ -65,7 +65,13 @@ const NAV_ITEMS = [
 
 
 export default function GameNav() {
-  const { jeffsHistory, lessonProgress, resetOnboarding } = useApp();
+  const { jeffsHistory, lessonProgress, logout } = useApp();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/auth", { replace: true });
+  };
   const { netWorth } = useNetWorth();
   const location = useLocation();
 
@@ -130,7 +136,7 @@ export default function GameNav() {
                 <Star className="w-3.5 h-3.5" />
                 <span>Lv {level}</span>
               </div>
-              <Button variant="ghost" size="icon" onClick={resetOnboarding} className="text-muted-foreground w-8 h-8">
+              <Button variant="ghost" size="icon" onClick={handleLogout} className="text-muted-foreground w-8 h-8">
                 <LogOut className="w-4 h-4" />
               </Button>
             </div>

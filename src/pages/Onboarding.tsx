@@ -498,32 +498,90 @@ export default function Onboarding() {
                   onChange={e => setEmail(e.target.value)}
                 />
               </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Password</label>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="At least 6 characters"
+                  minLength={6}
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  You'll use this with your email to log back in from any device.
+                </p>
+              </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <Button variant="outline" onClick={() => setStep("name")}>
+              <Button variant="outline" onClick={() => setStep("name")} disabled={signupLoading}>
                 <ArrowLeft className="mr-2 w-4 h-4" /> Back
               </Button>
               <Button
                 size="xl"
                 variant="hero"
-                disabled={!schoolName.trim() || !email.trim()}
-                onClick={() => {
-                  const localUser = {
-                    id: `teacher-${Date.now()}`,
-                    firstName: firstName || "Teacher",
-                    age: 0,
-                    schoolName: schoolName || "",
-                    grade: 0,
-                    literacyLevel: "explorer" as const,
-                    onboardingComplete: true,
-                    assessmentScore: 0,
-                    createdAt: new Date()
+                disabled={!schoolName.trim() || !email.trim() || password.length < 6 || signupLoading}
+                onClick={async () => {
+                  setSignupLoading(true)
+                  try {
+                    // If already signed in with a different account, sign out first
+                    const { data: existing } = await supabase.auth.getSession()
+                    if (existing.session && existing.session.user.email !== email.trim()) {
+                      await supabase.auth.signOut()
+                    }
+
+                    const { data, error } = await supabase.auth.signUp({
+                      email: email.trim(),
+                      password,
+                      options: {
+                        emailRedirectTo: window.location.origin,
+                        // Provisions the profile + 'teacher' role server-side.
+                        data: { role: "teacher" },
+                      },
+                    })
+
+                    if (error) {
+                      if (error.message.toLowerCase().includes("registered") || error.message.toLowerCase().includes("already")) {
+                        toast({
+                          title: "Account already exists",
+                          description: "Use the Log in link to sign back into your account.",
+                          variant: "destructive",
+                        })
+                        setSignupLoading(false)
+                        return
+                      }
+                      throw error
+                    }
+
+                    // Email confirmation on → no session yet. The account +
+                    // teacher role are already saved by the trigger; finish
+                    // after they confirm and log in.
+                    if (!data.session) {
+                      toast({
+                        title: "Account created!",
+                        description: "Check your email to confirm, then log in from any device.",
+                      })
+                      navigate("/auth")
+                      return
+                    }
+
+                    // Session active — save the rest of the teacher profile.
+                    const saved = await persistProfile({})
+                    if (saved) {
+                      toast({ title: "Welcome aboard!", description: "Your teacher account is ready." })
+                      navigate("/teacher-dashboard")
+                    }
+                  } catch (err: any) {
+                    toast({
+                      title: "Couldn't create account",
+                      description: err.message,
+                      variant: "destructive",
+                    })
+                  } finally {
+                    setSignupLoading(false)
                   }
-                  setUser(localUser)
-                  navigate("/teacher-dashboard")
                 }}
               >
-                Go to Dashboard <ArrowRight className="ml-2" />
+                {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : <>Create Teacher Account <ArrowRight className="ml-2" /></>}
               </Button>
             </div>
           </motion.div>
@@ -640,7 +698,10 @@ export default function Onboarding() {
                     const { data, error } = await supabase.auth.signUp({
                       email: email.trim(),
                       password,
-                      options: { emailRedirectTo: window.location.origin },
+                      options: {
+                        emailRedirectTo: window.location.origin,
+                        data: { role: "student" },
+                      },
                     })
 
                     if (error) {
