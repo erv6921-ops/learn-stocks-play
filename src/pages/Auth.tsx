@@ -86,7 +86,9 @@ export default function Auth() {
     setLoading(true)
 
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email)
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        options: { type: 'recovery' }
+      })
 
       if (error) throw error
 
@@ -166,11 +168,10 @@ export default function Auth() {
       const { error } = await supabase.auth.updateUser({ password })
       if (error) throw error
 
-      await supabase.auth.signOut()
+      navigate("/auth")
 
       toast({
-        title: "Password updated!",
-        description: "You can now log in with your new password.",
+        title: "Password updated! Please log in with your new password.",
       })
 
       setMode("login")

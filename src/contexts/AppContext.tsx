@@ -256,21 +256,43 @@ export function AppProvider({ children }: { children: ReactNode }) {
         authReadyRef.current = true
         setAuthReady(true)
         userIdRef.current = session.user.id
-        if (!ls.get<UserProfile | null>("investiplay_user", null)) {
-          setUser({
-            id: session.user.id,
-            age: 14,
-            schoolName: "",
-            grade: 9,
-            literacyLevel: "explorer",
-            onboardingComplete: false,
-            assessmentScore: 0,
-            benchmarkScores: {},
-            benchmarkCategoryScores: {},
-            rewardMultiplier: 1,
-            createdAt: new Date(),
-          })
-        }
+        void (async () => {
+          const { data: existingUser } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", session.user.id)
+            .maybeSingle()
+          if (existingUser) {
+            setUser({
+              id: existingUser.id,
+              firstName: existingUser.first_name ?? undefined,
+              age: existingUser.age ?? 14,
+              schoolName: existingUser.school_name ?? "",
+              grade: existingUser.grade ?? 9,
+              literacyLevel: (existingUser.literacy_level as MasteryTier) ?? "explorer",
+              onboardingComplete: true,
+              assessmentScore: existingUser.assessment_score ?? 0,
+              benchmarkScores: (existingUser.benchmark_scores as any) ?? {},
+              benchmarkCategoryScores: (existingUser.benchmark_category_scores as any) ?? {},
+              rewardMultiplier: existingUser.reward_multiplier ?? 1,
+              createdAt: new Date(existingUser.created_at ?? Date.now()),
+            })
+          } else {
+            setUser({
+              id: session.user.id,
+              age: 14,
+              schoolName: "",
+              grade: 9,
+              literacyLevel: "explorer",
+              onboardingComplete: false,
+              assessmentScore: 0,
+              benchmarkScores: {},
+              benchmarkCategoryScores: {},
+              rewardMultiplier: 1,
+              createdAt: new Date(),
+            })
+          }
+        })()
         // Defer to avoid deadlocks inside the listener
         setTimeout(() => { void hydrate(session.user.id) }, 0)
       } else if (authReadyRef.current) {
