@@ -12,32 +12,28 @@ function safeNum(val: unknown): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-// Polygon fetch with retry for 429 rate limiting
-async function polygonGet(url: string, maxRetries = 3): Promise<any> {
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    try {
-      const res = await fetch(url);
-      if (res.status === 429) {
-        if (attempt < maxRetries) {
-          const waitMs = 13000 * (attempt + 1); // 13s, 26s, 39s
-          console.warn(`[Polygon] 429 rate limited, retry ${attempt + 1}/${maxRetries} in ${waitMs}ms`);
-          await new Promise(r => setTimeout(r, waitMs));
-          continue;
-        }
-        console.error(`[Polygon] 429 after ${maxRetries} retries for ${url.split("?")[0]}`);
-        return null;
-      }
-      if (!res.ok) {
-        console.error(`[Polygon] ${res.status} for ${url.split("?")[0]}`);
-        return null;
-      }
-      return res.json();
-    } catch (err) {
-      console.error(`[Polygon] fetch error:`, err);
+// Yahoo Finance fetch (free chart endpoint, no API key required)
+async function yahooGet(url: string): Promise<any> {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      },
+    });
+    if (!res.ok) {
+      console.error(`[Yahoo] ${res.status} for ${url.split("?")[0]}`);
       return null;
     }
+    return res.json();
+  } catch (err) {
+    console.error(`[Yahoo] fetch error:`, err);
+    return null;
   }
-  return null;
+}
+
+function yahooChartUrl(symbol: string, interval: string, range: string) {
+  return `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=${interval}&range=${range}`;
 }
 
 function computeSessionFromTime() {
@@ -60,80 +56,57 @@ interface HistoricalPoint {
   price: number;
 }
 
-function formatDateYMD(d: Date): string {
-  return d.toISOString().split("T")[0];
-}
-
+// Map app ranges to Yahoo interval/range params.
 function getAggParams(range: string) {
-  const now = new Date();
-  const to = formatDateYMD(now);
-
   switch (range) {
-    case "1d": {
-      // "Recent" — last 30 days daily (free tier has no intraday)
-      const from = new Date(now);
-      from.setDate(from.getDate() - 30);
-      return { multiplier: 1, timespan: "day", from: formatDateYMD(from), to };
-    }
-    case "5d": {
-      const from = new Date(now);
-      from.setDate(from.getDate() - 10);
-      return { multiplier: 1, timespan: "day", from: formatDateYMD(from), to };
-    }
-    case "1m": {
-      const from = new Date(now);
-      from.setDate(from.getDate() - 30);
-      return { multiplier: 1, timespan: "day", from: formatDateYMD(from), to };
-    }
-    case "6m": {
-      const from = new Date(now);
-      from.setDate(from.getDate() - 190);
-      return { multiplier: 1, timespan: "day", from: formatDateYMD(from), to };
-    }
-    case "1y": {
-      const from = new Date(now);
-      from.setFullYear(from.getFullYear() - 1);
-      return { multiplier: 1, timespan: "week", from: formatDateYMD(from), to };
-    }
-    case "5y": {
-      const from = new Date(now);
-      from.setFullYear(from.getFullYear() - 5);
-      return { multiplier: 1, timespan: "month", from: formatDateYMD(from), to };
-    }
-    default: {
-      const from = new Date(now);
-      from.setDate(from.getDate() - 30);
-      return { multiplier: 1, timespan: "day", from: formatDateYMD(from), to };
-    }
+    case "1d":
+      // "Recent" — last month daily (free tier has no intraday)
+      return { interval: "1d", range: "1mo" };
+    case "5d":
+      return { interval: "1d", range: "5d" };
+    case "1m":
+      return { interval: "1d", range: "1mo" };
+    case "6m":
+      return { interval: "1d", range: "6mo" };
+    case "1y":
+      return { interval: "1wk", range: "1y" };
+    case "5y":
+      return { interval: "1mo", range: "5y" };
+    default:
+      return { interval: "1d", range: "1mo" };
   }
 }
 
-async function fetchCandles(symbol: string, range: string, apiKey: string) {
-  const params = getAggParams(range);
-  const url = `https://api.polygon.io/v2/aggs/ticker/${encodeURIComponent(symbol)}/range/${params.multiplier}/${params.timespan}/${params.from}/${params.to}?adjusted=true&sort=asc&limit=5000&apiKey=${apiKey}`;
-  const data = await polygonGet(url);
-
-  if (!data?.results?.length) {
-    console.warn(`[Candles] No data for ${symbol} range=${range}`);
-    return null;
-  }
+function buildPoints(result: any): HistoricalPoint[] {
+  const timestamps: unknown[] = result?.timestamp ?? [];
+  const closes: unknown[] = result?.indicators?.quote?.[0]?.close ?? [];
 
   const historicalData: HistoricalPoint[] = [];
-  for (const bar of data.results) {
-    const price = safeNum(bar.c);
-    const tsMs = safeNum(bar.t);
-    if (price == null || tsMs == null) continue;
-    const tsSec = Math.floor(tsMs / 1000);
-    const d = new Date(tsMs);
+  for (let i = 0; i < timestamps.length; i++) {
+    const price = safeNum(closes[i]);
+    const tsSec = safeNum(timestamps[i]);
+    if (price == null || tsSec == null) continue;
+    const d = new Date(tsSec * 1000);
     historicalData.push({
-      timestamp: tsSec,
+      timestamp: Math.floor(tsSec),
       date: d.toISOString().split("T")[0],
       price,
     });
   }
+  return historicalData;
+}
 
-  if (historicalData.length === 0) return null;
-  return { historicalData, interval: `${params.multiplier}${params.timespan}`, range };
+async function fetchCandles(symbol: string, range: string) {
+  const params = getAggParams(range);
+  const data = await yahooGet(yahooChartUrl(symbol, params.interval, params.range));
+  const result = data?.chart?.result?.[0];
+
+  const historicalData = buildPoints(result);
+  if (historicalData.length === 0) {
+    console.warn(`[Candles] No data for ${symbol} range=${range}`);
+    return null;
+  }
+  return { historicalData, interval: params.interval, range };
 }
 
 serve(async (req) => {
@@ -142,14 +115,6 @@ serve(async (req) => {
   }
 
   try {
-    const POLYGON_API_KEY = Deno.env.get("POLYGON_API_KEY");
-    if (!POLYGON_API_KEY) {
-      return new Response(
-        JSON.stringify({ error: "POLYGON_API_KEY not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-      );
-    }
-
     const body = await req.json();
     const { symbols, includeHistory = false, historyRange = "1m", chartOnly = false } = body;
 
@@ -174,39 +139,58 @@ serve(async (req) => {
 
       // Fetch quote unless chartOnly mode
       if (!chartOnly) {
-        const prevUrl = `https://api.polygon.io/v2/aggs/ticker/${encodeURIComponent(sym)}/prev?adjusted=true&apiKey=${POLYGON_API_KEY}`;
-        const prevData = await polygonGet(prevUrl);
+        // Current price comes from the most recent close in a 5d/1d chart.
+        const quoteJson = await yahooGet(yahooChartUrl(sym, "1d", "5d"));
+        const result = quoteJson?.chart?.result?.[0];
+        const meta = result?.meta ?? {};
+        const q = result?.indicators?.quote?.[0] ?? {};
+        const timestamps: unknown[] = result?.timestamp ?? [];
 
-        if (prevData?.results?.length) {
-          const bar = prevData.results[0];
-          const closePrice = safeNum(bar.c) ?? 0;
-          const openPrice = safeNum(bar.o) ?? 0;
-          const tMs = safeNum(bar.t) ?? Date.now();
-          const tSec = Math.floor(tMs / 1000);
+        // Find the most recent bar with a valid close.
+        let li = -1;
+        for (let i = timestamps.length - 1; i >= 0; i--) {
+          if (safeNum(q.close?.[i]) != null) { li = i; break; }
+        }
+
+        if (li !== -1) {
+          const closePrice = safeNum(q.close?.[li]) ?? 0;
+          const tSec = safeNum(timestamps[li]) ?? Math.floor(Date.now() / 1000);
+
+          // Previous close: the prior valid bar, falling back to chart meta.
+          let prevClose: number | null = null;
+          for (let i = li - 1; i >= 0; i--) {
+            const c = safeNum(q.close?.[i]);
+            if (c != null) { prevClose = c; break; }
+          }
+          if (prevClose == null) prevClose = safeNum(meta.chartPreviousClose) ?? safeNum(meta.previousClose);
+
+          const openPrice = safeNum(q.open?.[li]) ?? 0;
+          const change = prevClose != null ? closePrice - prevClose : 0;
+          const changePercent = prevClose != null && prevClose > 0 ? (change / prevClose) * 100 : 0;
 
           quoteData = {
             symbol: sym,
             requestedSymbol: sym,
             returnedSymbol: sym,
             quoteType: null,
-            currency: "USD",
+            currency: meta.currency ?? "USD",
             marketState: sessionMap[marketStatus.session] ?? "CLOSED",
             session: marketStatus.session,
             regularMarketTime: tSec,
             quoteTimestamp: tSec,
             price: closePrice,
-            change: closePrice - openPrice,
-            changePercent: openPrice > 0 ? ((closePrice - openPrice) / openPrice) * 100 : 0,
-            volume: safeNum(bar.v) ?? 0,
+            change,
+            changePercent,
+            volume: safeNum(q.volume?.[li]) ?? 0,
             marketCap: null,
-            high52Week: null,
-            low52Week: null,
+            high52Week: safeNum(meta.fiftyTwoWeekHigh),
+            low52Week: safeNum(meta.fiftyTwoWeekLow),
             timestamp: tSec,
-            provider: "polygon-prev",
+            provider: "yahoo-finance",
             open: openPrice,
-            dayHigh: safeNum(bar.h) ?? 0,
-            dayLow: safeNum(bar.l) ?? 0,
-            previousClose: openPrice,
+            dayHigh: safeNum(q.high?.[li]) ?? 0,
+            dayLow: safeNum(q.low?.[li]) ?? 0,
+            previousClose: prevClose,
             dividendYield: null,
             eps: null,
             beta: null,
@@ -219,7 +203,7 @@ serve(async (req) => {
 
       // Fetch chart data if requested
       if (includeHistory || chartOnly) {
-        const candle = await fetchCandles(sym, resolvedRange, POLYGON_API_KEY);
+        const candle = await fetchCandles(sym, resolvedRange);
         if (candle) {
           if (quoteData) {
             quoteData.historicalData = candle.historicalData;
@@ -246,7 +230,7 @@ serve(async (req) => {
               high52Week: null,
               low52Week: null,
               timestamp: latest.timestamp,
-              provider: "polygon-prev",
+              provider: "yahoo-finance",
               open: null,
               dayHigh: null,
               dayLow: null,
