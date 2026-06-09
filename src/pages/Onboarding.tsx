@@ -360,13 +360,6 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      {/* Exit button */}
-      <div className="fixed top-4 right-4 z-50">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="text-muted-foreground gap-1.5">
-          <X className="w-4 h-4" /> Exit
-        </Button>
-      </div>
-
       <AnimatePresence mode="wait">
         {/* Step 1: Role Selection */}
         {step === "role-select" && (
