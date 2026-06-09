@@ -612,8 +612,8 @@ export default function Auth() {
                   {mode === "login" ? (
                     <p>
                       Don't have an account?{" "}
-                      <button 
-                        onClick={() => { setMode("signup"); setRole(null); }} 
+                      <button
+                        onClick={() => navigate("/onboarding")}
                         className="text-primary hover:underline"
                       >
                         Sign up
