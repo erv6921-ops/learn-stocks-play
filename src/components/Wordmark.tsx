@@ -21,8 +21,16 @@ export function Wordmark({ className }: WordmarkProps) {
       aria-label="InvestiPlay"
     >
       <span aria-hidden="true">Invest</span>
-      {/* lowercase dotless "i" (U+0131) whose dot is a green "$" circle */}
-      <span aria-hidden="true" className="relative inline-block">
+      {/* lowercase dotless "i" (U+0131) whose dot is a green "$" circle.
+          line-height is pinned to 1 here (inline style, so the placement's
+          text-* class can't change it) — that keeps this container exactly 1em
+          tall at every font size, so the em-based dot offset lands at the same
+          height everywhere instead of drifting with the text-size's line-height. */}
+      <span
+        aria-hidden="true"
+        className="relative inline-block align-baseline"
+        style={{ lineHeight: 1 }}
+      >
         ı
         <span
           className="absolute left-1/2 -translate-x-1/2 -top-[0.02em] inline-flex items-center justify-center rounded-full"
