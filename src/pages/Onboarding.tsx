@@ -551,7 +551,7 @@ export default function Onboarding() {
                       email: email.trim(),
                       password,
                       options: {
-                        emailRedirectTo: window.location.origin,
+                        emailRedirectTo: "https://investiplay.app/auth",
                         // Provisions the profile + 'teacher' role server-side.
                         data: { role: "teacher" },
                       },
@@ -717,7 +717,7 @@ export default function Onboarding() {
                       email: email.trim(),
                       password,
                       options: {
-                        emailRedirectTo: window.location.origin,
+                        emailRedirectTo: "https://investiplay.app/auth",
                         data: { role: "student" },
                       },
                     })

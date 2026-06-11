@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/integrations/supabase/client"
@@ -27,6 +27,37 @@ export default function Auth() {
   const [resetStep, setResetStep] = useState<"email" | "otp" | "password">("email")
   const [otpCode, setOtpCode] = useState("")
   const [verificationSent, setVerificationSent] = useState(false)
+
+  // Handle the session established when a user clicks their email-confirmation
+  // link (Supabase redirects back here with auth tokens, which the client
+  // exchanges into a session and emits SIGNED_IN). Route by role instead of
+  // dropping everyone at /onboarding: teachers → /teacher-dashboard,
+  // students who already finished onboarding → /dashboard, otherwise onboarding.
+  // We only act on SIGNED_IN, so the password-reset recovery session
+  // (PASSWORD_RECOVERY) doesn't yank the user off the reset screen.
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event !== "SIGNED_IN" || !session?.user) return
+      const uid = session.user.id
+      // Defer DB reads out of the auth callback to avoid client deadlocks.
+      setTimeout(async () => {
+        const [roleRes, profileRes] = await Promise.all([
+          supabase.from("user_roles").select("role").eq("user_id", uid).maybeSingle(),
+          supabase.from("profiles").select("onboarding_complete").eq("id", uid).maybeSingle(),
+        ])
+        const role = (roleRes as any)?.data?.role
+        const onboardingComplete = (profileRes as any)?.data?.onboarding_complete
+        if (role === "teacher") {
+          navigate("/teacher-dashboard", { replace: true })
+        } else if (onboardingComplete) {
+          navigate("/dashboard", { replace: true })
+        } else {
+          navigate("/onboarding", { replace: true })
+        }
+      }, 0)
+    })
+    return () => subscription.unsubscribe()
+  }, [navigate])
 
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -226,7 +257,7 @@ export default function Auth() {
         email,
         password,
         options: {
-          emailRedirectTo: window.location.origin,
+          emailRedirectTo: "https://investiplay.app/auth",
           // The on_auth_user_created trigger reads this to provision the
           // profile + user_roles row with the chosen role.
           data: { role },
@@ -296,7 +327,7 @@ export default function Auth() {
                     const { error } = await supabase.auth.resend({
                       type: "signup",
                       email,
-                      options: { emailRedirectTo: window.location.origin },
+                      options: { emailRedirectTo: "https://investiplay.app/auth" },
                     })
                     setLoading(false)
                     if (error) {
