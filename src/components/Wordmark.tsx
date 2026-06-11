@@ -23,7 +23,7 @@ export function Wordmark({ className }: WordmarkProps) {
       <span aria-hidden="true" className="relative inline-block">
         ı
         <span
-          className="absolute left-1/2 -translate-x-1/2 -top-[0.30em] box-border inline-flex items-center justify-center rounded-full"
+          className="absolute left-1/2 -translate-x-1/2 -top-[0.10em] rotate-[18deg] box-border inline-flex items-center justify-center rounded-full"
           style={{
             width: "0.5em",
             height: "0.5em",
