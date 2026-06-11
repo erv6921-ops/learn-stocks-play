@@ -241,6 +241,31 @@ export default function Onboarding() {
       return false
     }
 
+    // If a join code was entered, look up the class and enroll the student.
+    const trimmedCode = classCode.trim().toUpperCase()
+    if (trimmedCode) {
+      const { data: classData, error: lookupError } = await supabase
+        .rpc("lookup_class_by_join_code", { _code: trimmedCode })
+        .single()
+
+      if (lookupError || !classData) {
+        toast({
+          title: "Invalid class code",
+          description: `No class found for code "${trimmedCode}". You can add it later from the Leaderboard.`,
+          variant: "destructive",
+        })
+      } else {
+        const { error: joinError } = await supabase
+          .from("class_members")
+          .insert({ class_id: (classData as { id: string }).id, user_id: uid })
+
+        // 23505 = already a member; treat as success.
+        if (joinError && joinError.code !== "23505") {
+          toast({ title: "Couldn't join class", description: joinError.message, variant: "destructive" })
+        }
+      }
+    }
+
     return true
   }
 

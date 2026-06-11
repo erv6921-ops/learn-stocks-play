@@ -543,13 +543,18 @@ export default function StockDetail() {
   const stock = stockData
   const displayStockName = getDisplayStockName(stock.symbol, stock.name)
   const isInWatchlist = watchlist.includes(stock.symbol)
+  const hasValidPrice = Number.isFinite(stock.price) && stock.price > 0
   const totalCost = Math.round(shares * stock.price * 100) / 100
-  const canAfford = jeffsBalance >= totalCost
-  const canSell = holding && holding.shares >= shares
+  const canAfford = hasValidPrice && jeffsBalance >= totalCost
+  const canSell = hasValidPrice && holding && holding.shares >= shares
   const profitLoss = holding ? (stock.price - holding.purchasePrice) * holding.shares : 0
   const profitLossPercent = holding ? ((stock.price - holding.purchasePrice) / holding.purchasePrice) * 100 : 0
 
   const handleBuy = () => {
+    if (!hasValidPrice) {
+      toast.error("Live price unavailable", { description: "We couldn't load a price for this stock. Try again in a moment." })
+      return
+    }
     if (!canAfford) {
       toast.error("Not enough InvestiCoins!", { description: `You need ${totalCost.toFixed(2)} but have ${jeffsBalance.toFixed(2)}.` })
       return
@@ -562,6 +567,10 @@ export default function StockDetail() {
   }
 
   const handleSell = () => {
+    if (!hasValidPrice) {
+      toast.error("Live price unavailable", { description: "We couldn't load a price for this stock. Try again in a moment." })
+      return
+    }
     if (!canSell) {
       toast.error("Not enough shares!", { description: `You only have ${holding?.shares || 0} shares.` })
       return
@@ -856,19 +865,24 @@ export default function StockDetail() {
                   )}
                 </div>
 
-                {buyMode === "buy" && !canAfford && (
+                {!hasValidPrice && (
+                  <div className="flex items-center gap-2 text-destructive text-xs">
+                    <AlertCircle className="w-3.5 h-3.5" /><span>Live price unavailable right now — trading is disabled.</span>
+                  </div>
+                )}
+                {hasValidPrice && buyMode === "buy" && !canAfford && (
                   <div className="flex items-center gap-2 text-destructive text-xs">
                     <AlertCircle className="w-3.5 h-3.5" /><span>You need {(totalCost - jeffsBalance).toFixed(2)} more InvestiCoins.</span>
                   </div>
                 )}
-                {buyMode === "sell" && !canSell && (
+                {hasValidPrice && buyMode === "sell" && !canSell && (
                   <div className="flex items-center gap-2 text-destructive text-xs">
                     <AlertCircle className="w-3.5 h-3.5" /><span>You only own {holding?.shares || 0} shares.</span>
                   </div>
                 )}
 
                 {!showConfirm ? (
-                  <Button className="w-full press-scale" onClick={() => setShowConfirm(true)} disabled={buyMode === "buy" ? !canAfford : !canSell}>
+                  <Button className="w-full press-scale" onClick={() => setShowConfirm(true)} disabled={!hasValidPrice || (buyMode === "buy" ? !canAfford : !canSell)}>
                     {buyMode === "buy" ? "Buy" : "Sell"} {shares} Share{shares > 1 ? "s" : ""}
                   </Button>
                 ) : (

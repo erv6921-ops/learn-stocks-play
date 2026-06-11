@@ -5,6 +5,8 @@ import { useNetWorth } from "@/hooks/useNetWorth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import GameNav from "@/components/GameNav";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
 import { supabase } from "@/integrations/supabase/client";
@@ -127,6 +129,62 @@ export default function Dashboard() {
   }, [watchlist]);
 
   useEffect(() => {fetchWatchlistPrices();}, [fetchWatchlistPrices]);
+
+  // ── Join a class ──
+  // inClass: null = unknown/loading, false = not yet in any class, true = enrolled.
+  const [inClass, setInClass] = useState<boolean | null>(null);
+  const [joinCode, setJoinCode] = useState("");
+  const [joining, setJoining] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!user?.id) return;
+      const { data, error } = await supabase.
+      from("class_members").
+      select("id").
+      eq("user_id", user.id).
+      limit(1);
+      if (!cancelled && !error) setInClass((data?.length ?? 0) > 0);
+    })();
+    return () => {cancelled = true;};
+  }, [user?.id]);
+
+  const handleJoinClass = async () => {
+    const code = joinCode.trim().toUpperCase();
+    if (!code) return;
+    setJoining(true);
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) throw new Error("Not authenticated");
+
+      const { data: classData, error: classError } = await supabase.
+      rpc("lookup_class_by_join_code", { _code: code }).
+      single();
+
+      if (classError || !classData) {
+        toast.error("Invalid code", { description: "No class found with this join code." });
+        return;
+      }
+
+      const { error: joinError } = await supabase.
+      from("class_members").
+      insert({ class_id: (classData as {id: string;name: string;}).id, user_id: authUser.id });
+
+      // 23505 = already a member; treat as success.
+      if (joinError && joinError.code !== "23505") throw joinError;
+
+      toast.success(joinError?.code === "23505" ? "Already joined" : "Joined!", {
+        description: `You're in ${(classData as {name: string;}).name}.`
+      });
+      setJoinCode("");
+      setInClass(true);
+    } catch (error: any) {
+      toast.error("Couldn't join class", { description: error.message });
+    } finally {
+      setJoining(false);
+    }
+  };
 
   const totalXp = useMemo(() =>
   jeffsHistory.filter((h) => h.amount > 0).reduce((sum, h) => sum + h.amount, 0),
@@ -420,6 +478,36 @@ export default function Dashboard() {
             </div>
           }
         </div>
+
+        {/* ──── JOIN A CLASS (shown to students not yet in a class) ──── */}
+        {inClass === false &&
+        <Card variant="elevated" className="mb-4 md:mb-8 border-primary/30">
+          <CardContent className="p-4 md:p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+            <div className="flex items-start gap-3 flex-1">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <GraduationCap className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-bold">Join a class</p>
+                <p className="text-sm text-muted-foreground">Got a class code from your teacher? Enter it to join.</p>
+              </div>
+            </div>
+            <form
+              className="flex gap-2 w-full sm:w-auto"
+              onSubmit={(e) => {e.preventDefault();handleJoinClass();}}>
+              <Input
+                value={joinCode}
+                onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
+                placeholder="e.g. ABC123"
+                maxLength={6}
+                className="uppercase font-mono w-full sm:w-36" />
+              <Button type="submit" disabled={!joinCode.trim() || joining}>
+                {joining ? "Joining…" : "Join"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+        }
 
         {/* ──── MOBILE CONTINUE CARD (separate from hero) ──── */}
         {nextLesson &&

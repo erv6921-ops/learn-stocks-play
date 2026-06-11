@@ -428,6 +428,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   const buyStock = (symbol: string, shares: number, pricePerShare: number): boolean => {
+    // Reject trades with no valid live price or non-positive share count —
+    // otherwise a failed quote (price 0/NaN) would grant free shares.
+    if (!Number.isFinite(pricePerShare) || pricePerShare <= 0 || !Number.isFinite(shares) || shares <= 0) return false
     const totalCost = Math.round(shares * pricePerShare * 100) / 100
     if (jeffsBalance < totalCost) return false
     spendJeffs(totalCost, `Bought ${shares} shares of ${symbol}`)
@@ -462,6 +465,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   const sellStock = (symbol: string, shares: number, pricePerShare: number): boolean => {
+    if (!Number.isFinite(pricePerShare) || pricePerShare <= 0 || !Number.isFinite(shares) || shares <= 0) return false
     const holding = portfolio.find(h => h.symbol === symbol)
     if (!holding || holding.shares < shares) return false
 
