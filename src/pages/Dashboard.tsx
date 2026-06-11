@@ -457,7 +457,7 @@ export default function Dashboard() {
           {nextLesson &&
           <div className="hidden min-[641px]:flex mt-6 pt-5 border-t border-white/10 items-center justify-between gap-4">
               <div className="flex items-center gap-3 min-w-0">
-                <Wordmark className="text-base shrink-0 !text-accent" />
+                <Wordmark className="text-base shrink-0 !text-white" />
                 <div className="min-w-0">
                   <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-0.5">Continue Your Journey</p>
                   <p className="text-sm font-bold text-white truncate">{nextLesson.title}</p>
