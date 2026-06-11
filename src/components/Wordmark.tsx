@@ -33,7 +33,7 @@ export function Wordmark({ className }: WordmarkProps) {
       >
         ı
         <span
-          className="absolute left-1/2 -translate-x-1/2 -top-[0.02em] inline-flex items-center justify-center rounded-full"
+          className="absolute left-1/2 -translate-x-1/2 -top-[0.12em] inline-flex items-center justify-center rounded-full"
           style={{ width: "0.34em", height: "0.34em", backgroundColor: "#1D9E75" }}
         >
           <span style={{ color: "#FFFFFF", fontSize: "0.22em", fontWeight: 800, lineHeight: 1 }}>
