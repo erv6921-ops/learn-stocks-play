@@ -19,31 +19,22 @@ export type Database = {
           assigned_at: string
           assigned_by: string
           class_id: string
-          completed: boolean
-          completed_at: string | null
           id: string
           lesson_id: string
-          student_user_id: string
         }
         Insert: {
           assigned_at?: string
           assigned_by: string
           class_id: string
-          completed?: boolean
-          completed_at?: string | null
           id?: string
           lesson_id: string
-          student_user_id: string
         }
         Update: {
           assigned_at?: string
           assigned_by?: string
           class_id?: string
-          completed?: boolean
-          completed_at?: string | null
           id?: string
           lesson_id?: string
-          student_user_id?: string
         }
         Relationships: [
           {

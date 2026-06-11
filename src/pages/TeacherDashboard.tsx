@@ -58,8 +58,7 @@ interface Class {
 interface AssignedLesson {
   id: string
   lesson_id: string
-  completed: boolean
-  completed_at: string | null
+  assigned_at: string
 }
 
 interface ClassMember {
@@ -74,6 +73,7 @@ interface ClassMember {
     grade: number | null
   }
   assignedLessons: AssignedLesson[]
+  completedLessonIds: string[]
 }
 
 export default function TeacherDashboard() {
@@ -94,36 +94,29 @@ export default function TeacherDashboard() {
 
   const assignLessonToClass = async () => {
     if (!selectedClass || !classWideLessonId) return
-    if (classMembers.length === 0) {
-      toast({ title: "No students in this class yet", variant: "destructive" })
-      return
-    }
     setAssigningAll(true)
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error("Not authenticated")
 
-      const rows = classMembers.map(m => ({
-        class_id: selectedClass.id,
-        student_user_id: m.user_id,
-        lesson_id: classWideLessonId,
-        assigned_by: user.id,
-      }))
-
-      // Insert each — ignore duplicates (unique violations)
-      const results = await Promise.all(
-        rows.map(r =>
-          supabase.from("assigned_lessons").insert(r).then(res => res)
-        )
-      )
-      const inserted = results.filter(r => !r.error).length
-      const dupes = results.filter(r => r.error?.code === "23505").length
-      const failed = results.length - inserted - dupes
-
       const title = lessons.find(l => l.id === classWideLessonId)?.title
+
+      // One class-level assignment — every member (current and future) inherits it.
+      const { error } = await supabase
+        .from("assigned_lessons")
+        .insert({
+          class_id: selectedClass.id,
+          lesson_id: classWideLessonId,
+          assigned_by: user.id,
+        })
+
+      if (error && error.code !== "23505") throw error
+
       toast({
-        title: `Assigned "${title}" to class`,
-        description: `${inserted} new · ${dupes} already had it${failed ? ` · ${failed} failed` : ""}`,
+        title: error?.code === "23505" ? "Already assigned" : `Assigned "${title}" to class`,
+        description: error?.code === "23505"
+          ? "This lesson is already assigned to the class."
+          : "Every student in this class now has this lesson.",
       })
       setClassWideLessonId("")
       await loadClassMembers(selectedClass.id)
@@ -201,25 +194,34 @@ export default function TeacherDashboard() {
 
       if (error) throw error
 
+      // Assignments are class-level — load once and share across members.
+      const { data: assignmentData } = await supabase
+        .from("assigned_lessons")
+        .select("id, lesson_id, assigned_at")
+        .eq("class_id", classId)
+        .order("assigned_at", { ascending: false })
+      const classAssignments = (assignmentData || []) as AssignedLesson[]
+
       const membersWithProfiles = await Promise.all(
         (data || []).map(async (member) => {
-          const [profileRes, assignmentsRes] = await Promise.all([
+          const [profileRes, progressRes] = await Promise.all([
             supabase
               .from("profiles")
               .select("first_name, last_name, email, school_name, grade")
               .eq("id", member.user_id)
               .single(),
             supabase
-              .from("assigned_lessons")
-              .select("id, lesson_id, completed, completed_at")
-              .eq("class_id", classId)
-              .eq("student_user_id", member.user_id)
+              .from("lesson_progress")
+              .select("lesson_id")
+              .eq("user_id", member.user_id)
+              .eq("completed", true)
           ])
 
           return {
             ...member,
             profile: profileRes.data,
-            assignedLessons: (assignmentsRes.data || []) as AssignedLesson[]
+            assignedLessons: classAssignments,
+            completedLessonIds: (progressRes.data || []).map((p: any) => p.lesson_id),
           }
         })
       )
@@ -246,7 +248,6 @@ export default function TeacherDashboard() {
         .from("assigned_lessons")
         .insert({
           class_id: selectedClass.id,
-          student_user_id: studentUserId,
           lesson_id: lessonId,
           assigned_by: user.id,
         })
@@ -255,7 +256,7 @@ export default function TeacherDashboard() {
         if (error.code === "23505") {
           toast({
             title: "Already assigned",
-            description: "This lesson is already assigned to this student.",
+            description: "This lesson is already assigned to the class.",
             variant: "destructive",
           })
           return
@@ -265,7 +266,7 @@ export default function TeacherDashboard() {
 
       toast({
         title: "Lesson assigned!",
-        description: `Assigned "${lessons.find(l => l.id === lessonId)?.title}" successfully.`,
+        description: `Assigned "${lessons.find(l => l.id === lessonId)?.title}" to the class.`,
       })
 
       await loadClassMembers(selectedClass.id)
@@ -431,7 +432,7 @@ export default function TeacherDashboard() {
   }
 
   const getStudentProgress = (member: ClassMember) => {
-    const completed = member.assignedLessons.filter(a => a.completed).length
+    const completed = member.assignedLessons.filter(a => member.completedLessonIds.includes(a.lesson_id)).length
     const total = member.assignedLessons.length
     return { completed, total, percent: total > 0 ? Math.round((completed / total) * 100) : 0 }
   }
@@ -638,7 +639,7 @@ export default function TeacherDashboard() {
                       </Select>
                       <Button
                         onClick={assignLessonToClass}
-                        disabled={!classWideLessonId || assigningAll || classMembers.length === 0}
+                        disabled={!classWideLessonId || assigningAll}
                       >
                         {assigningAll ? (
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -712,15 +713,16 @@ export default function TeacherDashboard() {
                                   <div className="flex flex-wrap gap-2">
                                     {member.assignedLessons.map((assignment) => {
                                       const lesson = lessons.find(l => l.id === assignment.lesson_id)
+                                      const done = member.completedLessonIds.includes(assignment.lesson_id)
                                       return (
                                         <Badge
                                           key={assignment.id}
-                                          variant={assignment.completed ? "default" : "secondary"}
+                                          variant={done ? "default" : "secondary"}
                                           className="flex items-center gap-1 cursor-pointer"
                                           onClick={() => removeAssignment(assignment.id)}
-                                          title="Click to remove assignment"
+                                          title="Click to remove assignment from class"
                                         >
-                                          {assignment.completed && <CheckCircle2 className="w-3 h-3" />}
+                                          {done && <CheckCircle2 className="w-3 h-3" />}
                                           {lesson?.title || assignment.lesson_id}
                                           <Trash2 className="w-3 h-3 ml-1 opacity-50 hover:opacity-100" />
                                         </Badge>

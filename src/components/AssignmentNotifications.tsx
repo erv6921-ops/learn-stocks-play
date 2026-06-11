@@ -33,15 +33,40 @@ export function AssignmentNotifications() {
     let cancelled = false
 
     async function checkAssignments() {
-      const { data, error } = await supabase
+      // Classes the student belongs to.
+      const { data: memberships } = await supabase
+        .from("class_members")
+        .select("class_id")
+        .eq("user_id", user!.id)
+      const classIds = (memberships || []).map((m) => m.class_id)
+      if (cancelled || classIds.length === 0) return
+
+      // Class-level assignments for those classes.
+      const { data: assignments, error } = await supabase
         .from("assigned_lessons")
         .select("id, lesson_id, assigned_at")
-        .eq("student_user_id", user!.id)
-        .eq("completed", false)
+        .in("class_id", classIds)
         .order("assigned_at", { ascending: false })
+      if (cancelled || error || !assignments || assignments.length === 0) return
 
-      if (cancelled || error || !data || data.length === 0) return
-      setPending(data)
+      // Lessons this student has already completed.
+      const { data: progress } = await supabase
+        .from("lesson_progress")
+        .select("lesson_id")
+        .eq("user_id", user!.id)
+        .eq("completed", true)
+      const done = new Set((progress || []).map((p) => p.lesson_id))
+
+      // Unique, not-yet-completed assignments.
+      const seen = new Set<string>()
+      const pendingList = assignments.filter((a) => {
+        if (done.has(a.lesson_id) || seen.has(a.lesson_id)) return false
+        seen.add(a.lesson_id)
+        return true
+      })
+
+      if (cancelled || pendingList.length === 0) return
+      setPending(pendingList)
       setOpen(true)
     }
 
