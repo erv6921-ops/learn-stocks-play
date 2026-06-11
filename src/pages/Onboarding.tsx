@@ -8,7 +8,7 @@ import { benchmarkQuestions, BenchmarkQuestion, calculateLiteracyLevel, getLevel
 import { computeBenchmarkScores } from "@/lib/curriculumEngine"
 import { shuffleQuestion } from "@/lib/mcqEngine"
 import { JeffMascot } from "@/components/JeffMascot"
-import investiplayLogo from "@/assets/investiplay-logo-full.png"
+import { Wordmark } from "@/components/Wordmark"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -395,7 +395,7 @@ export default function Onboarding() {
             exit={{ opacity: 0, y: -20 }}
             className="flex flex-col items-center text-center max-w-lg"
           >
-            <img src={investiplayLogo} alt="InvestiPlay" className="h-12 md:h-14 object-contain mb-8" />
+            <Wordmark className="text-4xl md:text-5xl mb-8" />
             <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
               Welcome to InvestiPlay
             </h1>
@@ -439,7 +439,7 @@ export default function Onboarding() {
             exit={{ opacity: 0, y: -20 }}
             className="flex flex-col items-center text-center max-w-lg"
           >
-            <img src={investiplayLogo} alt="InvestiPlay" className="h-12 md:h-14 object-contain mb-8" />
+            <Wordmark className="text-4xl md:text-5xl mb-8" />
             <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
               What's your name?
             </h1>
@@ -490,7 +490,7 @@ export default function Onboarding() {
             exit={{ opacity: 0, y: -20 }}
             className="flex flex-col items-center text-center max-w-lg"
           >
-            <img src={investiplayLogo} alt="InvestiPlay" className="h-12 md:h-14 object-contain mb-8" />
+            <Wordmark className="text-4xl md:text-5xl mb-8" />
             <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
               Teacher Info
             </h1>
@@ -614,7 +614,7 @@ export default function Onboarding() {
             exit={{ opacity: 0, y: -20 }}
             className="flex flex-col items-center text-center max-w-lg"
           >
-            <img src={investiplayLogo} alt="InvestiPlay" className="h-12 md:h-14 object-contain mb-8" />
+            <Wordmark className="text-4xl md:text-5xl mb-8" />
             <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
               Student Info
             </h1>

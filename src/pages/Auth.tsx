@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/integrations/supabase/client"
 import { JeffMascot } from "@/components/JeffMascot"
+import { Wordmark } from "@/components/Wordmark"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -231,7 +232,8 @@ export default function Auth() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="relative min-h-screen bg-background flex items-center justify-center p-4">
+      <Wordmark className="absolute top-6 left-1/2 -translate-x-1/2 text-2xl md:text-3xl" />
       <AnimatePresence mode="wait">
         {verificationSent ? (
           <motion.div

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Button } from "@/components/ui/button";
+import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
@@ -97,11 +98,7 @@ export default function GameNav() {
           <div className="flex items-center justify-between h-16">
             {/* InvestiPlay Wordmark */}
             <Link to="/dashboard" className="flex items-center group">
-              <img
-                alt="InvestiPlay"
-                src="/brand/logo.png"
-                className="h-7 md:h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
-              />
+              <Wordmark className="text-xl md:text-2xl transition-transform duration-200 group-hover:scale-[1.02]" />
             </Link>
 
             {/* Nav items */}
