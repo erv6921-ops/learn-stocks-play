@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier } from "@/types"
 import { supabase } from "@/integrations/supabase/client"
 
@@ -72,6 +73,7 @@ const USER_KEYS = [
 ]
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  const navigate = useNavigate()
   const [authReady, setAuthReady] = useState(false)
   const [user, setUserState] = useState<UserProfile | null>(() => ls.get("investiplay_user", null))
   const [lessonProgress, setLessonProgress] = useState<LessonProgress[]>(() => ls.get("investiplay_progress", []))
@@ -251,7 +253,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
         authReadyRef.current = true
         setAuthReady(true)
@@ -291,6 +293,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
               rewardMultiplier: 1,
               createdAt: new Date(),
             })
+          }
+
+          // Single source of truth for post-login routing. Do not add routing
+          // logic in Auth.tsx, Onboarding.tsx, or any other file.
+          //
+          // Only on a fresh sign-in (login or email-confirmation), never on
+          // page-refresh session restore, so it doesn't yank users off their
+          // current page. Teachers go to their dashboard; otherwise
+          // onboarding_complete decides between /dashboard and /onboarding.
+          if (event === "SIGNED_IN") {
+            if (existingUser?.role === "teacher") {
+              navigate("/teacher-dashboard", { replace: true })
+            } else if (existingUser?.onboarding_complete) {
+              navigate("/dashboard", { replace: true })
+            } else {
+              navigate("/onboarding", { replace: true })
+            }
           }
         })()
         // Defer to avoid deadlocks inside the listener

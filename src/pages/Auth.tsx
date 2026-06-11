@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/integrations/supabase/client"
@@ -28,77 +28,17 @@ export default function Auth() {
   const [otpCode, setOtpCode] = useState("")
   const [verificationSent, setVerificationSent] = useState(false)
 
-  // Handle the session established when a user clicks their email-confirmation
-  // link (Supabase redirects back here with auth tokens, which the client
-  // exchanges into a session and emits SIGNED_IN). Route by role instead of
-  // dropping everyone at /onboarding: teachers → /teacher-dashboard,
-  // students who already finished onboarding → /dashboard, otherwise onboarding.
-  // We only act on SIGNED_IN, so the password-reset recovery session
-  // (PASSWORD_RECOVERY) doesn't yank the user off the reset screen.
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event !== "SIGNED_IN" || !session?.user) return
-      const uid = session.user.id
-      // Defer DB reads out of the auth callback to avoid client deadlocks.
-      setTimeout(async () => {
-        const [roleRes, profileRes] = await Promise.all([
-          supabase.from("user_roles").select("role").eq("user_id", uid).maybeSingle(),
-          supabase.from("profiles").select("onboarding_complete").eq("id", uid).maybeSingle(),
-        ])
-        const role = (roleRes as any)?.data?.role
-        const onboardingComplete = (profileRes as any)?.data?.onboarding_complete
-        if (role === "teacher") {
-          navigate("/teacher-dashboard", { replace: true })
-        } else if (onboardingComplete) {
-          navigate("/dashboard", { replace: true })
-        } else {
-          navigate("/onboarding", { replace: true })
-        }
-      }, 0)
-    })
-    return () => subscription.unsubscribe()
-  }, [navigate])
-
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-
-    // Hard timeout so the button never spins forever if a query stalls.
-    const withTimeout = <T,>(p: PromiseLike<T>, ms = 4000): Promise<T | null> =>
-      Promise.race([
-        Promise.resolve(p),
-        new Promise<null>(resolve => setTimeout(() => resolve(null), ms)),
-      ])
 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
       if (!data.user) throw new Error("No user returned")
 
-      // Don't block the login button on profile/progress reads. Route students in immediately,
-      // then quietly correct the route if this account is a teacher or still needs onboarding.
-      setLoading(false)
-      navigate("/dashboard", { replace: true })
-
-      // Correct the route once we know the account's role + onboarding state:
-      // teachers go to their dashboard; students who never finished onboarding
-      // are sent there instead of a half-empty dashboard.
-      const [roleRes, profileRes] = await Promise.all([
-        withTimeout(
-          supabase.from("user_roles").select("role").eq("user_id", data.user.id).maybeSingle()
-        ),
-        withTimeout(
-          supabase.from("profiles").select("onboarding_complete").eq("id", data.user.id).maybeSingle()
-        ),
-      ])
-      const role = (roleRes as any)?.data?.role
-      const onboardingComplete = (profileRes as any)?.data?.onboarding_complete
-      if (role === "teacher") {
-        navigate("/teacher-dashboard", { replace: true })
-      } else if (onboardingComplete === false) {
-        navigate("/onboarding", { replace: true })
-      }
+      // Post-login routing is handled centrally in AppContext on the
+      // SIGNED_IN event — keep it as the single source of truth.
     } catch (error: any) {
       toast({
         title: "Login failed",
