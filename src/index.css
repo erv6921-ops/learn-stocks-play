@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    /* Warm off-white background */
-    --background: 48 20% 97%;
+    /* Soft mint-tinted background (brand green family) */
+    --background: 152 33% 95%;
     --foreground: 220 30% 10%;
 
     --card: 0 0% 100%;
@@ -56,7 +56,7 @@
     --gradient-secondary: linear-gradient(135deg, hsl(162 52% 42%), hsl(162 52% 50%));
     --gradient-accent: linear-gradient(135deg, hsl(152 62% 46%), hsl(152 58% 52%));
     --gradient-hero: linear-gradient(135deg, hsl(170 72% 12%) 0%, hsl(170 72% 18%) 40%, hsl(168 50% 26%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(48 20% 97%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(152 33% 95%) 100%);
     --gradient-hud: linear-gradient(135deg, hsl(170 60% 10%) 0%, hsl(220 30% 8%) 100%);
 
     /* Stronger shadows */
@@ -68,7 +68,7 @@
     --shadow-accent: 0 4px 16px hsl(152 62% 46% / 0.12);
     --shadow-gold: 0 4px 16px hsl(42 85% 48% / 0.15);
 
-    --sidebar-background: 48 20% 97%;
+    --sidebar-background: 152 33% 95%;
     --sidebar-foreground: 220 30% 14%;
     --sidebar-primary: 170 72% 21%;
     --sidebar-primary-foreground: 0 0% 100%;
