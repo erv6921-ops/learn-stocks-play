@@ -116,7 +116,21 @@ serve(async (req) => {
 
   try {
     const body = await req.json();
-    const { symbols, includeHistory = false, historyRange = "1m", chartOnly = false } = body;
+    const { symbols, includeHistory = false, historyRange = "1m", chartOnly = false, searchQuery } = body;
+
+    // Search branch: proxy the Yahoo Finance search endpoint server-side
+    // (avoids browser CORS) so users can look up by company name or ticker.
+    // Returns Yahoo's `quotes` shape unchanged so the client can map it the
+    // same way whether it called Yahoo directly or via this proxy.
+    if (typeof searchQuery === "string" && searchQuery.trim()) {
+      const q = searchQuery.trim();
+      const searchUrl = `https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&quotesCount=6&newsCount=0`;
+      const data = await yahooGet(searchUrl);
+      const quotes = Array.isArray(data?.quotes) ? data.quotes : [];
+      return new Response(JSON.stringify({ quotes }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json", "Cache-Control": "no-store" },
+      });
+    }
 
     if (!symbols || !Array.isArray(symbols) || symbols.length === 0) {
       return new Response(

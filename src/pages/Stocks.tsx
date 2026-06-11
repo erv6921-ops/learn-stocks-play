@@ -156,20 +156,46 @@ export default function Stocks() {
     return () => obs.disconnect()
   }, [hasMore, listLoading, loadingMore])
 
-  // Search
+  // Search — autocomplete by ticker OR company name via the free Yahoo
+  // Finance search endpoint. Debounced 300ms to limit requests.
   useEffect(() => {
-    if (!searchQuery.trim()) { setSearchResults([]); return }
+    const q = searchQuery.trim()
+    if (!q) { setSearchResults([]); return }
+
+    const mapQuotes = (quotes: any): SymbolRow[] =>
+      (Array.isArray(quotes) ? quotes : [])
+        .filter((x: any) => x?.symbol)
+        .map((x: any) => ({
+          symbol: x.symbol,
+          name: x.shortname || x.longname || x.symbol,
+          exchange: x.exchange || '',
+          type: x.quoteType || 'EQUITY',
+        }))
+
     const timer = setTimeout(async () => {
       setSearching(true)
       try {
-        const { data } = await supabase.rpc('search_symbols', {
-          query_text: searchQuery.trim(),
-          result_limit: 20,
-          result_offset: 0,
-        })
-        setSearchResults((data || []) as SymbolRow[])
+        let results: SymbolRow[] = []
+        try {
+          // Direct Yahoo Finance search.
+          const res = await fetch(
+            `https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&quotesCount=6&newsCount=0`
+          )
+          if (!res.ok) throw new Error(`status ${res.status}`)
+          const data = await res.json()
+          results = mapQuotes(data?.quotes)
+        } catch {
+          // Fall back to the edge-function proxy (avoids browser CORS).
+          const { data } = await supabase.functions.invoke('get-stock-quote', {
+            body: { searchQuery: q },
+          })
+          results = mapQuotes(data?.quotes)
+        }
+        setSearchResults(results)
+      } catch {
+        setSearchResults([])
       } finally { setSearching(false) }
-    }, 250)
+    }, 300)
     return () => clearTimeout(timer)
   }, [searchQuery])
 
@@ -226,7 +252,7 @@ export default function Stocks() {
               {searchResults.slice(0, 8).map(sr => (
                 <button
                   key={sr.symbol}
-                  onClick={() => handleStockClick(sr.symbol)}
+                  onClick={() => { setSearchQuery(sr.symbol); handleStockClick(sr.symbol) }}
                   className="w-full flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors text-left border-b border-border/50 last:border-b-0"
                 >
                   <span className="font-bold text-sm min-w-[60px]">{sr.symbol}</span>
