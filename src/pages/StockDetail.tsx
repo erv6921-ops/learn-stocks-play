@@ -433,17 +433,39 @@ export default function StockDetail() {
   }, [symbol, selectedRange, fetchSingleChart, applyChart, stockData?.price])
 
   // ── When user switches timeframe ──
+  // Always (re)fetch the selected range so every period button fires a request
+  // to get-stock-quote with the correct historyRange. fetchSingleChart returns
+  // a cached payload instantly when available, otherwise hits the edge function.
   useEffect(() => {
-    if (!allChartsFetched || !symbol) return
-    const cached = allChartsRef.current[selectedRange]
-    if (cached) {
-      applyChart(cached, selectedRange)
+    if (!symbol) return
+    let cancelled = false
+
+    // Show what we already have for this range instantly; otherwise show loading.
+    const existing = allChartsRef.current[selectedRange]
+    if (existing) {
+      applyChart(existing, selectedRange)
     } else {
-      // No data for this range — show empty
-      setHistory(null)
-      setHistoryLoading(false)
+      setHistoryLoading(true)
     }
-  }, [selectedRange, allChartsFetched, applyChart, symbol])
+
+    void (async () => {
+      const result = await fetchSingleChart(symbol, selectedRange)
+      if (cancelled) return
+      if (result) {
+        allChartsRef.current = {
+          ...allChartsRef.current,
+          [result.range]: { history: result.history, meta: result.meta, lastTs: result.lastTs },
+        }
+        applyChart(allChartsRef.current[result.range], selectedRange)
+      } else if (!allChartsRef.current[selectedRange]) {
+        // No data for this range — show empty
+        setHistory(null)
+        setHistoryLoading(false)
+      }
+    })()
+
+    return () => { cancelled = true }
+  }, [selectedRange, symbol, fetchSingleChart, applyChart, allChartsFetched])
 
   // ── Initial load: show cached data instantly if available, otherwise loading state ──
   useEffect(() => {
