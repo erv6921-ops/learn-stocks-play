@@ -59,6 +59,10 @@ interface HistoricalPoint {
 // Map app ranges to Yahoo interval/range params.
 function getAggParams(range: string) {
   switch (range) {
+    case "intraday":
+      // True intraday: today's 15-minute bars. Used by the Stocks page
+      // sparklines. Yahoo's chart endpoint serves these without an API key.
+      return { interval: "15m", range: "1d" };
     case "1d":
       // "Recent" — last month daily (free tier has no intraday)
       return { interval: "1d", range: "1mo" };

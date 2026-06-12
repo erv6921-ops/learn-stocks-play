@@ -18,18 +18,9 @@ interface SymbolRow {
   type: string
 }
 
-interface LivePrice {
-  price: number
-  change: number | null
+interface Quote {
+  price: number | null
   changePercent: number | null
-}
-
-const PRICE_CACHE_PREFIX = 'investiplay:stock-price:'
-
-const HARDCODED_PRICES: Record<string, number> = {
-  SPY: 655.46, DIA: 462.08, QQQ: 548.57, IWM: 202.22,
-  AAPL: 250.96, MSFT: 382.30, GOOGL: 301.73, AMZN: 210.56,
-  TSLA: 377.68, NVDA: 175.32, META: 601.93,
 }
 
 const MAJOR_INDEXES = [
@@ -39,94 +30,63 @@ const MAJOR_INDEXES = [
   { symbol: 'IWM', name: 'Russell 2000 (IWM)' },
 ]
 
-// HARDCODED - replace with live data
-// Scrolling ticker tape items shown at the very top of the page.
-const TICKER_ITEMS = [
-  { symbol: 'AAPL', changePct: 1.2 },
-  { symbol: 'TSLA', changePct: -0.8 },
-  { symbol: 'NVDA', changePct: 3.1 },
-  { symbol: 'MSFT', changePct: 0.4 },
-  { symbol: 'AMZN', changePct: -0.3 },
-  { symbol: 'META', changePct: 2.1 },
-  { symbol: 'GOOGL', changePct: 0.6 },
-  { symbol: 'JPM', changePct: -0.2 },
-  { symbol: 'SPY', changePct: 1.1 },
-  { symbol: 'QQQ', changePct: 0.9 },
-]
+// Which symbols each section displays. Values (price/% change/sparkline) are all
+// fetched live from Yahoo Finance via the get-stock-quote proxy — nothing here
+// is hardcoded.
+const TICKER_SYMBOLS = ['AAPL', 'TSLA', 'NVDA', 'MSFT', 'AMZN', 'META', 'GOOGL', 'JPM', 'SPY', 'QQQ']
+const MOST_ACTIVE_SYMBOLS = ['NVDA', 'AAPL', 'TSLA', 'META', 'AMZN', 'GOOGL']
+const MOVER_SYMBOLS = ['NVDA', 'META', 'AAPL', 'GOOGL', 'SPY', 'TSLA', 'AMZN', 'IWM', 'DIA']
 
-// HARDCODED - replace with live data
-// Per-index change % + 8-point sparkline (values normalized to 0–30 height).
-const INDEX_META: Record<string, { changePct: number; spark: number[] }> = {
-  SPY: { changePct: 1.2, spark: [20, 18, 22, 19, 24, 21, 26, 28] },
-  DIA: { changePct: 0.9, spark: [15, 17, 16, 18, 20, 19, 21, 22] },
-  QQQ: { changePct: 0.8, spark: [18, 20, 19, 22, 21, 23, 22, 24] },
-  IWM: { changePct: -0.3, spark: [22, 21, 20, 19, 18, 20, 17, 16] },
-}
+// Every distinct symbol that needs a live quote, fetched in one proxy call.
+const QUOTE_SYMBOLS = Array.from(new Set([
+  ...TICKER_SYMBOLS,
+  ...MOST_ACTIVE_SYMBOLS,
+  ...MOVER_SYMBOLS,
+  ...MAJOR_INDEXES.map(i => i.symbol),
+]))
 
-// HARDCODED - replace with live data
-const MOST_ACTIVE = [
-  { symbol: 'NVDA', price: '$875', changePct: 3.1 },
-  { symbol: 'AAPL', price: '$213', changePct: 1.2 },
-  { symbol: 'TSLA', price: '$248', changePct: -0.8 },
-  { symbol: 'META', price: '$520', changePct: 2.1 },
-  { symbol: 'AMZN', price: '$185', changePct: -0.3 },
-  { symbol: 'GOOGL', price: '$175', changePct: 0.6 },
-]
+const REFRESH_MS = 60_000
 
-// HARDCODED - replace with live data
-const TOP_GAINERS = [
-  { symbol: 'NVDA', changePct: 3.1, price: '$875' },
-  { symbol: 'META', changePct: 2.1, price: '$520' },
-  { symbol: 'AAPL', changePct: 1.2, price: '$213' },
-  { symbol: 'GOOGL', changePct: 0.6, price: '$175' },
-  { symbol: 'SPY', changePct: 1.1, price: '$548' },
-]
-
-// HARDCODED - replace with live data
-const TOP_LOSERS = [
-  { symbol: 'TSLA', changePct: -0.8, price: '$248' },
-  { symbol: 'AMZN', changePct: -0.3, price: '$185' },
-  { symbol: 'IWM', changePct: -0.3, price: '$202' },
-  { symbol: 'DIA', changePct: 0.9, price: '$462' },
-]
-
-function readCachedPrice(symbol: string): LivePrice | null {
+// Fetch live quotes (price + % change) for many symbols in a single proxy call.
+// Reuses the exact same method as the stock detail page. Returns {} on failure.
+async function fetchQuotes(symbols: string[]): Promise<Record<string, Quote>> {
   try {
-    const raw = localStorage.getItem(`${PRICE_CACHE_PREFIX}${symbol}`)
-    if (!raw) return null
-    const parsed = JSON.parse(raw)
-    if (typeof parsed?.price !== 'number' || parsed.price <= 0) return null
-    return { price: parsed.price, change: parsed.change ?? null, changePercent: parsed.changePercent ?? null }
-  } catch { return null }
-}
-
-function writeCachedPrice(symbol: string, lp: LivePrice) {
-  try { localStorage.setItem(`${PRICE_CACHE_PREFIX}${symbol}`, JSON.stringify({ ...lp, cachedAt: Date.now() })) } catch {}
-}
-
-async function fetchPrice(symbol: string, timeoutMs = 8000): Promise<LivePrice | null> {
-  const cached = readCachedPrice(symbol)
-  const hardcoded = HARDCODED_PRICES[symbol]
-  try {
-    const result = await Promise.race([
-      supabase.functions.invoke('get-stock-quote', { body: { symbols: [symbol] } }),
-      new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), timeoutMs))
-    ])
-    const { data, error } = result as any
-    if (error || !data?.stocks?.[0]?.price) {
-      return cached || (hardcoded ? { price: hardcoded, change: null, changePercent: null } : null)
+    const { data, error } = await supabase.functions.invoke('get-stock-quote', {
+      body: { symbols },
+    })
+    if (error || !Array.isArray(data?.stocks)) return {}
+    const out: Record<string, Quote> = {}
+    for (const s of data.stocks) {
+      out[String(s.symbol).toUpperCase()] = {
+        price: typeof s.price === 'number' && s.price > 0 ? s.price : null,
+        changePercent: typeof s.changePercent === 'number' ? s.changePercent : null,
+      }
     }
-    const s = data.stocks[0]
-    const lp: LivePrice = { price: s.price, change: s.change ?? null, changePercent: s.changePercent ?? null }
-    writeCachedPrice(symbol, lp)
-    return lp
+    return out
   } catch {
-    return cached || (hardcoded ? { price: hardcoded, change: null, changePercent: null } : null)
+    return {}
   }
 }
 
-// True when the US market is open (9:30am–4pm ET on a weekday). Uses the
-// browser clock converted to America/New_York so it works in any timezone.
+// Fetch today's intraday closes (15-minute bars) for a sparkline. Returns [] on
+// failure so the caller can fall back to a flat "—" state.
+async function fetchSparkline(symbol: string): Promise<number[]> {
+  try {
+    const { data, error } = await supabase.functions.invoke('get-stock-quote', {
+      body: { symbols: [symbol], chartOnly: true, includeHistory: true, historyRange: 'intraday' },
+    })
+    const hd = data?.stocks?.[0]?.historicalData as Array<{ price?: unknown }> | undefined
+    if (error || !Array.isArray(hd)) return []
+    return hd
+      .map((p) => p?.price)
+      .filter((n): n is number => typeof n === 'number' && Number.isFinite(n))
+  } catch {
+    return []
+  }
+}
+
+// True when the US market is open (9:30am–4pm ET on a weekday). Converts the
+// browser clock to America/New_York so it's correct in any local timezone.
 function isMarketOpen(now: Date = new Date()): boolean {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/New_York',
@@ -144,15 +104,37 @@ function isMarketOpen(now: Date = new Date()): boolean {
   return isWeekday && minutes >= 9 * 60 + 30 && minutes < 16 * 60
 }
 
-// Tiny SVG polyline points string for a sparkline (values 0–30, y inverted).
+// SVG polyline points for a sparkline, normalized to the viewBox (y inverted).
 function sparkPoints(data: number[], width = 96, height = 30): string {
+  if (data.length < 2) return ''
+  const min = Math.min(...data)
+  const max = Math.max(...data)
+  const span = max - min || 1
+  const pad = 2
   const n = data.length
   return data
-    .map((v, i) => `${((i / (n - 1)) * width).toFixed(1)},${(height - v).toFixed(1)}`)
+    .map((v, i) => {
+      const x = (i / (n - 1)) * width
+      const y = pad + (1 - (v - min) / span) * (height - pad * 2)
+      return `${x.toFixed(1)},${y.toFixed(1)}`
+    })
     .join(' ')
 }
 
-function ChangeBadge({ pct }: { pct: number }) {
+const fmtPrice = (p: number | null | undefined) => (p == null ? '—' : `$${p.toFixed(2)}`)
+const fmtPlainPrice = (p: number | null | undefined) => (p == null ? '—' : p.toFixed(2))
+const fmtPct = (c: number | null | undefined) =>
+  c == null ? '—' : `${c >= 0 ? '+' : ''}${c.toFixed(1)}%`
+
+// Small loading shimmer block.
+const Sk = ({ className = '' }: { className?: string }) => (
+  <div className={`animate-pulse rounded bg-muted ${className}`} />
+)
+
+function ChangeBadge({ pct }: { pct: number | null | undefined }) {
+  if (pct == null) {
+    return <span className="text-xs font-bold px-2 py-0.5 rounded-full shrink-0 bg-muted text-muted-foreground">—</span>
+  }
   const positive = pct >= 0
   return (
     <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${positive ? 'bg-success/10 text-success' : 'bg-destructive/10 text-destructive'}`}>
@@ -169,8 +151,10 @@ export default function Stocks() {
   const [searchResults, setSearchResults] = useState<SymbolRow[]>([])
   const [searching, setSearching] = useState(false)
 
-  // Index prices
-  const [indexPrices, setIndexPrices] = useState<Map<string, LivePrice>>(new Map())
+  // Live data
+  const [quotes, setQuotes] = useState<Record<string, Quote>>({})
+  const [quotesLoading, setQuotesLoading] = useState(true)
+  const [sparks, setSparks] = useState<Record<string, number[]>>({})
 
   // Market open/closed status — refreshed each minute.
   const [marketOpen, setMarketOpen] = useState(isMarketOpen)
@@ -179,28 +163,43 @@ export default function Stocks() {
   const [moverTab, setMoverTab] = useState<'gainers' | 'losers'>('gainers')
 
   useEffect(() => {
-    const t = setInterval(() => setMarketOpen(isMarketOpen()), 60_000)
+    const t = setInterval(() => setMarketOpen(isMarketOpen()), REFRESH_MS)
     return () => clearInterval(t)
   }, [])
 
-  // Fetch 4 indexes on mount — show cached instantly, fetch real in background
+  // Live quotes for the ticker tape, index cards, most active strip, and top
+  // movers — all from one proxy call, refreshed every 60s.
   useEffect(() => {
-    const instant = new Map<string, LivePrice>()
-    MAJOR_INDEXES.forEach(idx => {
-      const c = readCachedPrice(idx.symbol)
-      instant.set(idx.symbol, c || { price: HARDCODED_PRICES[idx.symbol] || 0, change: null, changePercent: null })
-    })
-    setIndexPrices(instant)
+    let active = true
+    const load = async () => {
+      const q = await fetchQuotes(QUOTE_SYMBOLS)
+      if (!active) return
+      // Keep prior values if a refresh fails (don't blank the page).
+      if (Object.keys(q).length > 0) setQuotes(q)
+      setQuotesLoading(false)
+    }
+    load()
+    const id = setInterval(load, REFRESH_MS)
+    return () => { active = false; clearInterval(id) }
+  }, [])
 
-    Promise.all(MAJOR_INDEXES.map(idx => fetchPrice(idx.symbol, 8000)))
-      .then(results => {
-        const next = new Map<string, LivePrice>(instant)
-        MAJOR_INDEXES.forEach((idx, i) => {
-          const r = results[i]
-          if (r) next.set(idx.symbol, r)
-        })
-        setIndexPrices(next)
+  // Live intraday sparklines for the 4 index cards — refreshed every 60s.
+  useEffect(() => {
+    let active = true
+    const load = async () => {
+      const entries = await Promise.all(
+        MAJOR_INDEXES.map(async idx => [idx.symbol, await fetchSparkline(idx.symbol)] as const)
+      )
+      if (!active) return
+      setSparks(prev => {
+        const next = { ...prev }
+        for (const [sym, pts] of entries) if (pts.length > 0) next[sym] = pts
+        return next
       })
+    }
+    load()
+    const id = setInterval(load, REFRESH_MS)
+    return () => { active = false; clearInterval(id) }
   }, [])
 
   // Search — autocomplete by ticker OR company name via the free Yahoo
@@ -209,8 +208,8 @@ export default function Stocks() {
     const q = searchQuery.trim()
     if (!q) { setSearchResults([]); return }
 
-    const mapQuotes = (quotes: any): SymbolRow[] =>
-      (Array.isArray(quotes) ? quotes : [])
+    const mapQuotes = (quoteList: any): SymbolRow[] =>
+      (Array.isArray(quoteList) ? quoteList : [])
         .filter((x: any) => x?.symbol)
         .map((x: any) => ({
           symbol: x.symbol,
@@ -264,27 +263,44 @@ export default function Stocks() {
     else { addToWatchlist(sym); toast.success("Added to Watchlist") }
   }
 
-  const movers = moverTab === 'gainers' ? TOP_GAINERS : TOP_LOSERS
+  // Derive top movers from live quotes: gainers high→low, losers low→high.
+  const moverQuotes = MOVER_SYMBOLS
+    .map(sym => ({ symbol: sym, ...quotes[sym] }))
+    .filter(q => q.changePercent != null)
+  const gainers = moverQuotes
+    .filter(q => (q.changePercent ?? 0) >= 0)
+    .sort((a, b) => (b.changePercent ?? 0) - (a.changePercent ?? 0))
+  const losers = moverQuotes
+    .filter(q => (q.changePercent ?? 0) < 0)
+    .sort((a, b) => (a.changePercent ?? 0) - (b.changePercent ?? 0))
+  const movers = moverTab === 'gainers' ? gainers : losers
+
+  // Page tint follows live market direction (SPY): green up-day, red down-day.
+  const spyChange = quotes['SPY']?.changePercent
+  const pageTint = (spyChange ?? 0) >= 0 ? '#f0f7f3' : '#f7f0f0'
 
   return (
-    // PAGE BACKGROUND TINT — barely-perceptible green (positive market day).
-    // HARDCODED - replace with live data (use #f7f0f0 on negative days).
-    <div className="min-h-screen pb-24 md:pb-8" style={{ backgroundColor: '#f0f7f3' }}>
-      {/* 1. ANIMATED TICKER TAPE — at the very top, above everything else */}
+    <div className="min-h-screen pb-24 md:pb-8" style={{ backgroundColor: pageTint }}>
+      {/* 1. ANIMATED TICKER TAPE — live quotes, at the very top */}
       <div className="overflow-hidden" style={{ backgroundColor: '#0f2d1e' }}>
         <div className="ticker-track py-1.5 text-[12px] font-medium">
-          {/* Two identical copies → seamless loop. HARDCODED - replace with live data */}
+          {/* Two identical copies → seamless loop. */}
           {[0, 1].map(copy => (
             <div key={copy} className="flex items-center" aria-hidden={copy === 1}>
-              {TICKER_ITEMS.map((t, i) => (
-                <span key={`${copy}-${i}`} className="flex items-center px-4">
-                  <span className="text-white/70 font-semibold mr-1.5">{t.symbol}</span>
-                  <span className={t.changePct >= 0 ? 'text-emerald-400' : 'text-red-400'}>
-                    {t.changePct >= 0 ? '+' : ''}{t.changePct.toFixed(1)}%
+              {TICKER_SYMBOLS.map((sym, i) => {
+                const c = quotes[sym]?.changePercent
+                const p = quotes[sym]?.price
+                return (
+                  <span key={`${copy}-${i}`} className="flex items-center px-4">
+                    <span className="text-white/70 font-semibold mr-1.5">{sym}</span>
+                    <span className="text-white/50 mr-1.5">{fmtPrice(p)}</span>
+                    <span className={c == null ? 'text-white/40' : c >= 0 ? 'text-emerald-400' : 'text-red-400'}>
+                      {fmtPct(c)}
+                    </span>
+                    <span className="text-white/20 ml-4">·</span>
                   </span>
-                  <span className="text-white/20 ml-4">·</span>
-                </span>
-              ))}
+                )
+              })}
             </div>
           ))}
         </div>
@@ -295,7 +311,7 @@ export default function Stocks() {
         <div className="flex items-start justify-between gap-4 mb-8">
           <div>
             <h1 className="font-display text-[28px] md:text-[32px] font-bold mb-1.5 tracking-tight">Stock Market</h1>
-            {/* 2. MARKET STATUS BADGE — replaces "X symbols available" */}
+            {/* 2. MARKET STATUS BADGE */}
             <div className="flex items-center gap-2 text-sm">
               <span
                 className={`w-2 h-2 rounded-full ${marketOpen ? 'bg-success market-dot-breathe' : 'bg-muted-foreground/50'}`}
@@ -348,38 +364,45 @@ export default function Stocks() {
         {/* The rest of the page is hidden while the user is actively searching. */}
         {!searchQuery.trim() && (
           <>
-            {/* 5. MOST ACTIVE STRIP */}
+            {/* 5. MOST ACTIVE STRIP — live */}
             <div className="mb-10">
               <h2 className="font-display text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Most active today</h2>
               <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
-                {/* HARDCODED - replace with live data */}
-                {MOST_ACTIVE.map(m => (
-                  <button
-                    key={m.symbol}
-                    onClick={() => handleStockClick(m.symbol)}
-                    className="shrink-0 w-[140px] text-left rounded-2xl border border-border bg-card p-3 hover:shadow-card transition-all hover:-translate-y-px"
-                  >
-                    <p className="font-bold text-sm">{m.symbol}</p>
-                    <p className="text-base font-mono mt-1">{m.price}</p>
-                    <p className={`text-xs font-bold mt-0.5 ${m.changePct >= 0 ? 'text-success' : 'text-destructive'}`}>
-                      {m.changePct >= 0 ? '+' : ''}{m.changePct.toFixed(1)}%
-                    </p>
-                  </button>
-                ))}
+                {MOST_ACTIVE_SYMBOLS.map(sym => {
+                  const c = quotes[sym]?.changePercent
+                  const p = quotes[sym]?.price
+                  return (
+                    <button
+                      key={sym}
+                      onClick={() => handleStockClick(sym)}
+                      className="shrink-0 w-[140px] text-left rounded-2xl border border-border bg-card p-3 hover:shadow-card transition-all hover:-translate-y-px"
+                    >
+                      <p className="font-bold text-sm">{sym}</p>
+                      {quotesLoading && p == null ? (
+                        <Sk className="h-5 w-16 mt-1" />
+                      ) : (
+                        <p className="text-base font-mono mt-1">{fmtPrice(p)}</p>
+                      )}
+                      <p className={`text-xs font-bold mt-0.5 ${c == null ? 'text-muted-foreground' : c >= 0 ? 'text-success' : 'text-destructive'}`}>
+                        {fmtPct(c)}
+                      </p>
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
-            {/* 3. MAJOR INDEXES — upgraded cards */}
+            {/* 3. MAJOR INDEXES — live price, % change, intraday sparkline */}
             <div className="mb-10">
               <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" /> Major Indexes
               </h2>
               <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
                 {MAJOR_INDEXES.map(idx => {
-                  // HARDCODED - replace with live data (change % + sparkline)
-                  const meta = INDEX_META[idx.symbol]
-                  const positive = meta.changePct >= 0
-                  const price = indexPrices.get(idx.symbol)?.price ?? HARDCODED_PRICES[idx.symbol] ?? 0
+                  const q = quotes[idx.symbol]
+                  const change = q?.changePercent
+                  const positive = (change ?? 0) >= 0
+                  const points = sparks[idx.symbol] || []
                   return (
                     <button
                       key={idx.symbol}
@@ -389,26 +412,36 @@ export default function Stocks() {
                       <div className="p-5">
                         {/* % change badge — top right */}
                         <span
-                          className={`absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full ${positive ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}
+                          className={`absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full ${change == null ? 'bg-white/10 text-white/50' : positive ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}
                         >
-                          {positive ? '+' : ''}{meta.changePct.toFixed(1)}%
+                          {fmtPct(change)}
                         </span>
                         <p className="text-[11px] text-white/50 mb-0.5 font-medium uppercase tracking-wider">{idx.name}</p>
                         <p className="text-xs font-mono text-white/30">{idx.symbol}</p>
-                        <p className={`text-[28px] font-bold mt-2 tracking-tight leading-none ${positive ? 'price-flash-up' : 'price-flash-down'}`}>
-                          {price.toFixed(2)}
-                        </p>
-                        {/* Sparkline */}
-                        <svg viewBox="0 0 96 30" className="w-full h-8 mt-3" preserveAspectRatio="none">
-                          <polyline
-                            points={sparkPoints(meta.spark)}
-                            fill="none"
-                            stroke={positive ? '#22c55e' : '#ef4444'}
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        {quotesLoading && q?.price == null ? (
+                          <Sk className="h-7 w-24 mt-2 bg-white/10" />
+                        ) : (
+                          <p className={`text-[28px] font-bold mt-2 tracking-tight leading-none ${q?.price == null ? 'text-white' : positive ? 'price-flash-up' : 'price-flash-down'}`}>
+                            {fmtPlainPrice(q?.price)}
+                          </p>
+                        )}
+                        {/* Intraday sparkline */}
+                        <div className="h-8 mt-3">
+                          {points.length >= 2 ? (
+                            <svg viewBox="0 0 96 30" className="w-full h-8" preserveAspectRatio="none">
+                              <polyline
+                                points={sparkPoints(points)}
+                                fill="none"
+                                stroke={positive ? '#22c55e' : '#ef4444'}
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          ) : (
+                            <Sk className="h-full w-full bg-white/5" />
+                          )}
+                        </div>
                       </div>
                     </button>
                   )
@@ -428,25 +461,30 @@ export default function Stocks() {
                 </div>
               ) : (
                 <div className="grid gap-2">
-                  {watchlist.map(sym => (
-                    <Card key={sym} variant="elevated" className="card-tier-3 hover:shadow-card transition-all hover:-translate-y-px cursor-pointer"
-                      onClick={() => handleStockClick(sym)}>
-                      <CardContent className="p-3">
-                        <div className="flex items-center gap-4">
-                          <button onClick={(e) => toggleWatchlist(sym, e)} className="shrink-0">
-                            <Star className="w-4 h-4 text-warning fill-warning" />
-                          </button>
-                          <span className="font-bold text-sm flex-1">{sym}</span>
-                          <span className="text-xs text-muted-foreground">→</span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                  {watchlist.map(sym => {
+                    const c = quotes[sym]?.changePercent
+                    const p = quotes[sym]?.price
+                    return (
+                      <Card key={sym} variant="elevated" className="card-tier-3 hover:shadow-card transition-all hover:-translate-y-px cursor-pointer"
+                        onClick={() => handleStockClick(sym)}>
+                        <CardContent className="p-3">
+                          <div className="flex items-center gap-4">
+                            <button onClick={(e) => toggleWatchlist(sym, e)} className="shrink-0">
+                              <Star className="w-4 h-4 text-warning fill-warning" />
+                            </button>
+                            <span className="font-bold text-sm flex-1">{sym}</span>
+                            <span className="text-sm font-mono text-muted-foreground">{fmtPrice(p)}</span>
+                            <ChangeBadge pct={c} />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )
+                  })}
                 </div>
               )}
             </div>
 
-            {/* 7. TOP MOVERS — replaces All Symbols */}
+            {/* 7. TOP MOVERS — live, sorted */}
             <div className="mb-10">
               <div className="flex items-center gap-2 mb-4">
                 <h2 className="font-display text-lg font-semibold mr-2">Top movers</h2>
@@ -463,26 +501,35 @@ export default function Stocks() {
                   <TrendingDown className="w-4 h-4" /> Losers
                 </button>
               </div>
-              <div className="grid gap-2">
-                {/* HARDCODED - replace with live data */}
-                {movers.map(row => (
-                  <Card key={row.symbol} variant="elevated" className="card-tier-3 hover:shadow-card transition-all hover:-translate-y-px cursor-pointer"
-                    onClick={() => handleStockClick(row.symbol)}>
-                    <CardContent className="p-3">
-                      <div className="flex items-center gap-4">
-                        <button onClick={(e) => toggleWatchlist(row.symbol, e)} className="shrink-0">
-                          {watchlist.includes(row.symbol)
-                            ? <Star className="w-4 h-4 text-warning fill-warning" />
-                            : <StarOff className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" />}
-                        </button>
-                        <span className="font-bold text-sm flex-1">{row.symbol}</span>
-                        <span className="text-sm font-mono text-muted-foreground">{row.price}</span>
-                        <ChangeBadge pct={row.changePct} />
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              {quotesLoading && moverQuotes.length === 0 ? (
+                <div className="grid gap-2">
+                  {[0, 1, 2, 3, 4].map(i => <Sk key={i} className="h-[58px] w-full" />)}
+                </div>
+              ) : movers.length === 0 ? (
+                <p className="text-sm text-muted-foreground py-6 text-center">
+                  No {moverTab} right now.
+                </p>
+              ) : (
+                <div className="grid gap-2">
+                  {movers.map(row => (
+                    <Card key={row.symbol} variant="elevated" className="card-tier-3 hover:shadow-card transition-all hover:-translate-y-px cursor-pointer"
+                      onClick={() => handleStockClick(row.symbol)}>
+                      <CardContent className="p-3">
+                        <div className="flex items-center gap-4">
+                          <button onClick={(e) => toggleWatchlist(row.symbol, e)} className="shrink-0">
+                            {watchlist.includes(row.symbol)
+                              ? <Star className="w-4 h-4 text-warning fill-warning" />
+                              : <StarOff className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" />}
+                          </button>
+                          <span className="font-bold text-sm flex-1">{row.symbol}</span>
+                          <span className="text-sm font-mono text-muted-foreground">{fmtPrice(row.price)}</span>
+                          <ChangeBadge pct={row.changePercent} />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* 8. ANALYST REPORT BANNER */}
