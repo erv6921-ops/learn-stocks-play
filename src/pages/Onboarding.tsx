@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { supabase } from "@/integrations/supabase/client"
@@ -115,12 +115,16 @@ const GRADE_MAP: Record<string, number> = {
 
 export default function Onboarding() {
   const navigate = useNavigate()
-  const { setUser } = useApp()
+  const [searchParams] = useSearchParams()
+  const { user, setUser } = useApp()
   const { toast } = useToast()
 
   const [step, setStep] = useState<OnboardingStep>("role-select")
   const [loading, setLoading] = useState(false)
   const [showSkipDialog, setShowSkipDialog] = useState(false)
+  // True when an already-authenticated user lands here just to (re)take the
+  // benchmark — we skip the role/signup steps and preserve their profile.
+  const [benchmarkOnly, setBenchmarkOnly] = useState(false)
 
   // Role & profile fields
   const [selectedRole, setSelectedRole] = useState<UserRole | "">("")
@@ -148,25 +152,33 @@ export default function Onboarding() {
   const [currentQuestion, setCurrentQuestion] = useState<BenchmarkQuestion>(() => shuffleQuestion(questionPool[0]) as BenchmarkQuestion)
 
   useEffect(() => {
-    // Prefill email from the authenticated session so the user sees it's linked
+    const wantsBenchmark = searchParams.get("benchmark") === "1"
+
     supabase.auth.getSession().then(({ data }) => {
+      // Prefill email from the authenticated session so the user sees it's linked
       const e = data.session?.user?.email
       console.log("[Onboarding] session email:", e)
       if (e) setEmail(e)
+
+      // An authenticated user clicking "Take Benchmark" goes straight to the
+      // assessment — no login/signup, no dashboard bounce.
+      if (wantsBenchmark && data.session) {
+        setBenchmarkOnly(true)
+        setStep("assessment")
+        return
+      }
+
+      // Otherwise, if the user already finished onboarding, send them home.
+      const stored = localStorage.getItem("investiplay_user")
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored)
+          if (parsed?.onboardingComplete) {
+            navigate("/dashboard")
+          }
+        } catch {}
+      }
     })
-
-
-    // If user already has a local profile, skip to dashboard
-    const stored = localStorage.getItem("investiplay_user")
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored)
-        if (parsed?.onboardingComplete) {
-          navigate("/dashboard")
-          return
-        }
-      } catch {}
-    }
   }, [])
 
   const BENCHMARK_TOTAL = 25
@@ -220,19 +232,29 @@ export default function Onboarding() {
       return false
     }
 
-    const payload = {
-      id: uid,
-      email: data.session?.user?.email ?? email,
-      first_name: firstName || null,
-      last_name: lastName || null,
-      school_name: schoolName || null,
-      grade: grade ? GRADE_MAP[grade] ?? null : null,
-      age: age ? parseInt(age) : null,
-      state_course: stateCourse || null,
-      class_code: classCode || null,
-      onboarding_complete: true,
-      ...extra,
-    }
+    // In benchmark-only mode we only touch the assessment-related columns so
+    // the user's existing name/school/grade/etc. are preserved (an upsert only
+    // updates the columns it's given).
+    const payload = benchmarkOnly
+      ? {
+          id: uid,
+          email: data.session?.user?.email ?? email,
+          onboarding_complete: true,
+          ...extra,
+        }
+      : {
+          id: uid,
+          email: data.session?.user?.email ?? email,
+          first_name: firstName || null,
+          last_name: lastName || null,
+          school_name: schoolName || null,
+          grade: grade ? GRADE_MAP[grade] ?? null : null,
+          age: age ? parseInt(age) : null,
+          state_course: stateCourse || null,
+          class_code: classCode || null,
+          onboarding_complete: true,
+          ...extra,
+        }
 
     const { error } = await supabase.from("profiles").upsert(payload, { onConflict: "id" })
     if (error) {
@@ -297,19 +319,26 @@ export default function Onboarding() {
     }
 
     const { data: session } = await supabase.auth.getSession()
+    // For a benchmark-only retake, keep the existing profile and just refresh
+    // the assessment results; otherwise build the profile from the form fields.
+    const base = benchmarkOnly && user
+      ? user
+      : {
+          id: session.session?.user?.id ?? `student-${Date.now()}`,
+          firstName: firstName || "Student",
+          age: parseInt(age) || 14,
+          schoolName: schoolName || "",
+          grade: grade ? GRADE_MAP[grade] ?? 9 : 9,
+          createdAt: new Date(),
+        }
     const localUser = {
-      id: session.session?.user?.id ?? `student-${Date.now()}`,
-      firstName: firstName || "Student",
-      age: parseInt(age) || 14,
-      schoolName: schoolName || "",
-      grade: grade ? GRADE_MAP[grade] ?? 9 : 9,
+      ...base,
       literacyLevel: litLevel,
       onboardingComplete: true,
       assessmentScore: overallPercent,
       benchmarkScores: benchmarkScoresLegacy,
       benchmarkCategoryScores: categoryScores,
       rewardMultiplier,
-      createdAt: new Date()
     }
 
     setUser(localUser)
