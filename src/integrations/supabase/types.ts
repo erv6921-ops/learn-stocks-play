@@ -14,6 +14,35 @@ export type Database = {
   }
   public: {
     Tables: {
+      assignment_dismissals: {
+        Row: {
+          assignment_id: string
+          dismissed_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          assignment_id: string
+          dismissed_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          assignment_id?: string
+          dismissed_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assignment_dismissals_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: false
+            referencedRelation: "assigned_lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       assigned_lessons: {
         Row: {
           assigned_at: string

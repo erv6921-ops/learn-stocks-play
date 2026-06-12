@@ -22,13 +22,17 @@ interface PendingAssignment {
 }
 
 export function AssignmentNotifications() {
-  const { user, isStudent } = useAuth()
+  // Gate on isTeacher (a confirmed teacher), NOT isStudent. A student whose
+  // user_roles lookup is missing/slow resolves to role=null; requiring a
+  // confirmed "student" role silently hid assignments from them. Class
+  // membership (queried below) is the real signal that this is a student.
+  const { user, isTeacher } = useAuth()
   const navigate = useNavigate()
   const [pending, setPending] = useState<PendingAssignment[]>([])
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    if (!user || !isStudent) return
+    if (!user || isTeacher) return
 
     let cancelled = false
 
@@ -66,15 +70,44 @@ export function AssignmentNotifications() {
       })
 
       if (cancelled || pendingList.length === 0) return
+
+      // Which of these assignments has this user already been shown? Stored in
+      // the DB keyed to user_id, so "show once" holds across browsers/devices
+      // (not per-localStorage). RLS scopes rows to the current user.
+      const { data: dismissals, error: dismissErr } = await supabase
+        .from("assignment_dismissals")
+        .select("assignment_id")
+        .eq("user_id", user!.id)
+        .in("assignment_id", pendingList.map((a) => a.id))
+      if (cancelled) return
+      if (dismissErr) {
+        // If the dismissals table is unreachable we still show the dialog
+        // rather than swallow the assignment — better to over-remind than to
+        // silently hide a teacher's assignment.
+        console.error("[assignment dismissals fetch]", dismissErr)
+      }
+      const dismissed = new Set((dismissals || []).map((d) => d.assignment_id))
+      const unseen = pendingList.filter((a) => !dismissed.has(a.id))
+
       setPending(pendingList)
+      if (unseen.length === 0) return
+
       setOpen(true)
+      // Record that these assignments have now been shown to this user.
+      const { error: insertErr } = await supabase
+        .from("assignment_dismissals")
+        .upsert(
+          unseen.map((a) => ({ user_id: user!.id, assignment_id: a.id })),
+          { onConflict: "user_id,assignment_id", ignoreDuplicates: true }
+        )
+      if (insertErr) console.error("[assignment dismissals insert]", insertErr)
     }
 
     checkAssignments()
     return () => {
       cancelled = true
     }
-  }, [user, isStudent])
+  }, [user, isTeacher])
 
   const startLesson = (lessonId: string) => {
     setOpen(false)
