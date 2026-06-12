@@ -76,6 +76,36 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_game_completions: {
+        Row: {
+          coins_earned: number | null
+          completed_at: string | null
+          game_date: string
+          game_type: string
+          id: string
+          score: number | null
+          user_id: string | null
+        }
+        Insert: {
+          coins_earned?: number | null
+          completed_at?: string | null
+          game_date: string
+          game_type: string
+          id?: string
+          score?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          coins_earned?: number | null
+          completed_at?: string | null
+          game_date?: string
+          game_type?: string
+          id?: string
+          score?: number | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       benchmark_attempts: {
         Row: {
           completed_at: string | null

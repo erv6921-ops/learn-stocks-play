@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import ProgressPage from "./pages/Progress";
 import Leaderboard from "./pages/Leaderboard";
 import AppliedFinanceLab from "./pages/AppliedFinanceLab";
+import Daily from "./pages/Daily";
 import LabDocument from "./pages/LabDocument";
 import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
@@ -48,6 +49,7 @@ function AppRoutes() {
       <Route path="/tokens" element={<MicroBusiness />} />
       <Route path="/progress" element={<ProgressPage />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/daily" element={<Daily />} />
       <Route path="/lab" element={<AppliedFinanceLab />} />
       <Route path="/lab/:docId" element={<LabDocument />} />
       <Route path="/business-canvas" element={<BusinessCanvas />} />
