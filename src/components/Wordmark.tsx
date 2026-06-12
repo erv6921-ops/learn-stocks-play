@@ -23,9 +23,13 @@ export function Wordmark({ className }: WordmarkProps) {
       <span aria-hidden="true">Invest</span>
       {/* lowercase dotless "i" (U+0131) whose dot is a green "$" circle.
           line-height is pinned to 1 here (inline style, so the placement's
-          text-* class can't change it) — that keeps this container exactly 1em
-          tall at every font size, so the em-based dot offset lands at the same
-          height everywhere instead of drifting with the text-size's line-height. */}
+          text-* class can't change it) so the container stays a predictable 1em
+          box at every font size. The dot is anchored from the *baseline* side
+          (`bottom`, an em above the box bottom which sits just past the
+          baseline) rather than the top edge: with line-height 1 the font's
+          ascent overflows the box top, so a top offset drifts as the font size
+          grows, whereas the descent at the bottom is small and stable — keeping
+          the dot at the same height above the stem everywhere. */}
       <span
         aria-hidden="true"
         className="relative inline-block align-baseline"
@@ -33,8 +37,8 @@ export function Wordmark({ className }: WordmarkProps) {
       >
         ı
         <span
-          className="absolute left-1/2 -translate-x-1/2 -top-[0.12em] inline-flex items-center justify-center rounded-full"
-          style={{ width: "0.34em", height: "0.34em", backgroundColor: "#1D9E75" }}
+          className="absolute left-1/2 -translate-x-1/2 inline-flex items-center justify-center rounded-full"
+          style={{ bottom: "0.65em", width: "0.34em", height: "0.34em", backgroundColor: "#1D9E75" }}
         >
           <span style={{ color: "#FFFFFF", fontSize: "0.22em", fontWeight: 800, lineHeight: 1 }}>
             $

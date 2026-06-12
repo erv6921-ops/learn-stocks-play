@@ -217,11 +217,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
         }))
         setJeffsHistory(h)
         ls.set("investiplay_jeffs_history", h)
-        // InvestiCoins balance is the jeffs_history ledger sum (source of truth),
-        // read from the database on login rather than trusting localStorage.
-        const balance = h.length > 0
-          ? h.reduce((sum, e) => sum + e.amount, 0)
-          : (profile?.jeffs_balance ?? 0)
+        // Restore the InvestiCoins balance from the jeffs_history ledger sum.
+        // jeffs_history is the table that actually persists in Supabase (every
+        // earn/spend is inserted there); profiles has no jeffs_balance column,
+        // so the ledger sum is the source of truth and the balance survives
+        // logout instead of resetting to zero.
+        const balance = h.reduce((sum, e) => sum + e.amount, 0)
         setJeffsBalance(balance)
         ls.set("investiplay_jeffs_balance", balance)
       }
