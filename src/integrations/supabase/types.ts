@@ -826,6 +826,15 @@ export type Database = {
     }
     Functions: {
       generate_join_code: { Args: never; Returns: string }
+      get_class_leaderboard: {
+        Args: { _class_id: string }
+        Returns: {
+          user_id: string
+          first_name: string
+          last_name: string
+          xp: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

@@ -185,8 +185,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
           createdAt: new Date(profile.created_at ?? Date.now()),
         }
         setUser(hydrated)
-        setJeffsBalance(profile.jeffs_balance ?? 0)
-        ls.set("investiplay_jeffs_balance", profile.jeffs_balance ?? 0)
       }
 
       if (lessonsRes?.data) {
@@ -219,6 +217,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
         }))
         setJeffsHistory(h)
         ls.set("investiplay_jeffs_history", h)
+        // InvestiCoins balance is the jeffs_history ledger sum (source of truth),
+        // read from the database on login rather than trusting localStorage.
+        const balance = h.length > 0
+          ? h.reduce((sum, e) => sum + e.amount, 0)
+          : (profile?.jeffs_balance ?? 0)
+        setJeffsBalance(balance)
+        ls.set("investiplay_jeffs_balance", balance)
       }
 
       if (portfolioRes?.data) {

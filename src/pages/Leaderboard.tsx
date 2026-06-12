@@ -37,7 +37,7 @@ const DEMO_NATIONAL = [
 type Scope = "class" | "friends" | "national"
 
 export default function Leaderboard() {
-  const { jeffsBalance, portfolio, jeffsHistory } = useApp()
+  const { jeffsBalance, portfolio, jeffsHistory, lessonProgress } = useApp()
   const { netWorth: myNetWorth, portfolioValue } = useNetWorth()
   const { toast } = useToast()
   const [scope, setScope] = useState<Scope>("class")
@@ -45,18 +45,13 @@ export default function Leaderboard() {
   const [joinCode, setJoinCode] = useState("")
   const [joiningClass, setJoiningClass] = useState(false)
   const [myClasses, setMyClasses] = useState<{ id: string; name: string; joinCode: string }[]>([])
-  const [classMembers, setClassMembers] = useState<{ name: string; userId: string }[]>([])
+  const [classMembers, setClassMembers] = useState<{ name: string; userId: string; xp: number }[]>([])
   const [loadingClasses, setLoadingClasses] = useState(true)
 
   const totalXp = useMemo(() =>
     jeffsHistory.filter(h => h.amount > 0).reduce((sum, h) => sum + h.amount, 0),
     [jeffsHistory]
   )
-
-  // Load user's classes
-  useEffect(() => {
-    loadMyClasses()
-  }, [])
 
   const loadMyClasses = useCallback(async () => {
     try {
@@ -78,29 +73,20 @@ export default function Leaderboard() {
         if (classes) {
           setMyClasses(classes.map(c => ({ id: c.id, name: c.name, joinCode: c.join_code })))
 
-          // Load class members for the first class
+          // Load class members + their real XP for the first class. Classmates'
+          // profiles/jeffs_history aren't readable under RLS, so this goes through
+          // the get_class_leaderboard security-definer RPC.
           const firstClassId = classes[0]?.id
           if (firstClassId) {
-            const { data: members } = await supabase
-              .from("class_members")
-              .select("user_id")
-              .eq("class_id", firstClassId)
-
-            if (members) {
-              const memberIds = members.map(m => m.user_id)
-              const { data: profiles } = await supabase
-                .from("profiles")
-                .select("id, first_name, last_name")
-                .in("id", memberIds)
-
-              if (profiles) {
-                setClassMembers(profiles
-                  .filter(p => p.id !== user.id)
-                  .map(p => ({
-                    name: `${p.first_name || ''} ${(p.last_name || '').charAt(0)}.`.trim() || 'Student',
-                    userId: p.id
-                  })))
-              }
+            const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: firstClassId })
+            if (lb) {
+              setClassMembers(lb
+                .filter(r => r.user_id !== user.id)
+                .map(r => ({
+                  name: `${r.first_name || ''} ${(r.last_name || '').charAt(0)}.`.trim() || 'Student',
+                  userId: r.user_id,
+                  xp: Number(r.xp) || 0,
+                })))
             }
           }
         }
@@ -111,6 +97,24 @@ export default function Leaderboard() {
       setLoadingClasses(false)
     }
   }, [])
+
+  // Load on mount, and refetch from the database whenever a lesson is completed
+  // (lessonProgress changes) so leaderboard rankings reflect newly earned XP.
+  useEffect(() => {
+    loadMyClasses()
+  }, [lessonProgress, loadMyClasses])
+
+  // Always pull a fresh roster when the tab/window regains focus, so classmates
+  // who joined elsewhere appear instead of stale cached state.
+  useEffect(() => {
+    const refresh = () => { if (!document.hidden) loadMyClasses() }
+    window.addEventListener("focus", refresh)
+    document.addEventListener("visibilitychange", refresh)
+    return () => {
+      window.removeEventListener("focus", refresh)
+      document.removeEventListener("visibilitychange", refresh)
+    }
+  }, [loadMyClasses])
 
   const handleJoinClass = async () => {
     if (!joinCode.trim()) return
@@ -156,39 +160,32 @@ export default function Leaderboard() {
     toast({ title: "Link copied!", description: "Share this with friends to invite them." })
   }
 
-  const myEntry = {
-    name: "You",
-    netWorth: myNetWorth,
-    level: getLevel(totalXp),
-    streak: 0,
-    isMe: true
-  }
-
-  // Build entries based on scope
+  // Build entries based on scope. The class leaderboard ranks by real XP
+  // (total InvestiCoins earned, fetched per member); demo/national rank by net worth.
   const allEntries = useMemo(() => {
     if (scope === "class" && classMembers.length > 0) {
-      // Real class members (net worth not available yet for others — show them with placeholder)
-      const classMemberEntries = classMembers.map(m => ({
-        name: m.name,
-        netWorth: 0, // We don't have other users' real-time portfolio data yet
-        level: 1,
-        streak: 0,
-        isMe: false
-      }))
-      const entries = [...classMemberEntries, myEntry]
-      entries.sort((a, b) => b.netWorth - a.netWorth)
+      const entries = [
+        ...classMembers.map(m => ({
+          name: m.name, score: m.xp, scoreLabel: "XP", level: getLevel(m.xp), streak: 0, isMe: false,
+        })),
+        { name: "You", score: totalXp, scoreLabel: "XP", level: getLevel(totalXp), streak: 0, isMe: true },
+      ]
+      entries.sort((a, b) => b.score - a.score)
       return entries
     }
 
     if (showDemo) {
       const demoData = scope === "national" ? DEMO_NATIONAL : DEMO_NATIONAL.slice(0, 5)
-      const entries = [...demoData.map(d => ({ ...d, isMe: false })), myEntry]
-      entries.sort((a, b) => b.netWorth - a.netWorth)
+      const entries = [
+        ...demoData.map(d => ({ name: d.name, score: d.netWorth, scoreLabel: "Net Worth", level: d.level, streak: d.streak, isMe: false })),
+        { name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true },
+      ]
+      entries.sort((a, b) => b.score - a.score)
       return entries
     }
 
-    return [myEntry]
-  }, [scope, myNetWorth, showDemo, classMembers])
+    return [{ name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true }]
+  }, [scope, myNetWorth, showDemo, classMembers, totalXp])
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
 
@@ -379,9 +376,9 @@ export default function Leaderboard() {
                     <div className="text-right shrink-0">
                       <p className="font-bold text-sm flex items-center gap-1 justify-end">
                         <Coins className="w-3.5 h-3.5 text-warning" />
-                        {entry.netWorth.toLocaleString()}
+                        {entry.score.toLocaleString()}
                       </p>
-                      <p className="text-[10px] text-muted-foreground">Net Worth</p>
+                      <p className="text-[10px] text-muted-foreground">{entry.scoreLabel}</p>
                     </div>
                   </div>
                 )
