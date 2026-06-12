@@ -433,3 +433,46 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.22);
 }
+
+/* ── Stocks page (/stocks) helpers ── */
+
+/* Horizontally scrolling ticker tape. The track holds two identical copies of
+   the content side by side and translates -50%, so the loop is seamless. */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: ticker-scroll 40s linear infinite;
+}
+
+/* Breathing dot used by the "Market open" status badge. */
+@keyframes market-breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.82); }
+}
+.market-dot-breathe {
+  animation: market-breathe 2s ease-in-out infinite;
+}
+
+/* Single-frame color flash on index prices every 8s. The keyframe spends most
+   of its cycle at white, briefly flashing to the card's direction color. */
+@keyframes price-flash-up {
+  0%, 100% { color: #ffffff; }
+  2% { color: #22c55e; }
+  6% { color: #ffffff; }
+}
+@keyframes price-flash-down {
+  0%, 100% { color: #ffffff; }
+  2% { color: #ef4444; }
+  6% { color: #ffffff; }
+}
+.price-flash-up { animation: price-flash-up 8s ease-in-out infinite; }
+.price-flash-down { animation: price-flash-down 8s ease-in-out infinite; }
+
+/* Horizontal scroll strips with no visible scrollbar. */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
