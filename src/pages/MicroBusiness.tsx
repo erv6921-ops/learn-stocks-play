@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,8 @@ import {
   DollarSign, ClipboardList, TrendingUp, ArrowUpRight, ArrowDownRight,
   Package, Loader2, Megaphone, Users, Tag, BarChart3,
   Sparkles, Target, Briefcase, Palette, Utensils, Monitor,
-  BookOpen, Gamepad2, ShoppingCart, Wrench, Layers
+  BookOpen, Gamepad2, ShoppingCart, Wrench, Layers,
+  Rocket, Lightbulb, PenLine, ArrowRight, PartyPopper, Wallet, AlertCircle, Trophy
 } from "lucide-react";
 
 // ─── Data Definitions ───────────────────────────────────────────────
@@ -108,6 +110,28 @@ const GROWTH_UPGRADES = [
 
 const BUSINESS_START_COST = 500;
 
+// Metadata for grouping tasks into realistic "departments".
+const TASK_CATEGORY_META: Record<string, { label: string; icon: React.ComponentType<{ className?: string }>; color: string }> = {
+  legal:     { label: "Legal & Setup", icon: Briefcase,    color: "#6366f1" },
+  finance:   { label: "Finance",       icon: DollarSign,   color: "#1D9E75" },
+  marketing: { label: "Marketing",     icon: Megaphone,    color: "#EF9F27" },
+  product:   { label: "Product",       icon: Package,      color: "#0ea5e9" },
+  growth:    { label: "Growth",        icon: TrendingUp,   color: "#ec4899" },
+};
+const TASK_CATEGORY_ORDER = ["legal", "finance", "marketing", "product", "growth"];
+
+// Minimum reflection length required before a task can be marked complete.
+const MIN_REFLECTION = 15;
+
+// Task reflections are persisted client-side (there's no DB column for them).
+const REFLECTIONS_KEY = "investiplay_task_reflections";
+function loadReflections(): Record<string, string> {
+  try { return JSON.parse(localStorage.getItem(REFLECTIONS_KEY) || "{}"); } catch { return {}; }
+}
+function persistReflections(r: Record<string, string>) {
+  try { localStorage.setItem(REFLECTIONS_KEY, JSON.stringify(r)); } catch { /* storage unavailable */ }
+}
+
 // ─── Component ──────────────────────────────────────────────────────
 
 export default function MicroBusiness() {
@@ -134,6 +158,13 @@ export default function MicroBusiness() {
   const [bizFirstProductPrice, setBizFirstProductPrice] = useState("10");
   const [bizBudget, setBizBudget] = useState<Record<string, number>>({ product: 40, marketing: 30, operations: 30 });
   const [creatingBusiness, setCreatingBusiness] = useState(false);
+
+  // Task completion flow — reflections persisted client-side, plus the
+  // currently-open reflection editor and its draft text.
+  const [taskReflections, setTaskReflections] = useState<Record<string, string>>(() => loadReflections());
+  const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
+  const [reflectionDraft, setReflectionDraft] = useState("");
+  const [savingTask, setSavingTask] = useState(false);
 
   // Marketplace listing state
   const [showListItem, setShowListItem] = useState(false);
@@ -377,14 +408,46 @@ export default function MicroBusiness() {
 
   // ─── Task Management ──────────────────────────────────────────────
 
-  const toggleTask = async (task: BusinessTask) => {
-    const newStatus = task.status === 'completed' ? 'pending' : 'completed';
+  // Tasks grouped into departments for a more business-like task board.
+  const tasksByCategory = (() => {
+    const groups: Record<string, BusinessTask[]> = {};
+    for (const t of tasks) (groups[t.category] ||= []).push(t);
+    const ordered = [
+      ...TASK_CATEGORY_ORDER.filter(c => groups[c]),
+      ...Object.keys(groups).filter(c => !TASK_CATEGORY_ORDER.includes(c)),
+    ];
+    return ordered.map(cat => ({ category: cat, items: groups[cat] }));
+  })();
 
-    if (!useLocalMode) {
-      await supabase.from('business_tasks').update({ status: newStatus }).eq('id', task.id);
+  // Open / cancel the reflection editor for a task.
+  const openTaskEditor = (task: BusinessTask) => {
+    setActiveTaskId(task.id);
+    setReflectionDraft(taskReflections[task.id] || "");
+  };
+  const cancelTaskEditor = () => {
+    setActiveTaskId(null);
+    setReflectionDraft("");
+  };
+
+  // Mark a task complete — requires a written reflection (proof of work).
+  const completeTask = async (task: BusinessTask) => {
+    if (savingTask) return;
+    const text = reflectionDraft.trim();
+    if (text.length < MIN_REFLECTION) {
+      toast.error(`Add a bit more detail`, { description: `Describe what you did (at least ${MIN_REFLECTION} characters).` });
+      return;
     }
+    setSavingTask(true);
+    try {
+      const nextReflections = { ...taskReflections, [task.id]: text };
+      setTaskReflections(nextReflections);
+      persistReflections(nextReflections);
 
-    if (newStatus === 'completed') {
+      if (!useLocalMode) {
+        await supabase.from('business_tasks').update({ status: 'completed' }).eq('id', task.id);
+      }
+      setTasks(prev => prev.map(t => t.id === task.id ? { ...t, status: 'completed' } : t));
+
       earnJeffs(5, `Completed task: ${task.title}`);
       toast.success("+5 InvestiCoins!", { description: `Completed: ${task.title}` });
 
@@ -398,8 +461,20 @@ export default function MicroBusiness() {
         earnJeffs(50, `Business leveled up to ${newLevel}!`);
         toast.success(`🎉 Business Level ${newLevel}!`, { description: "+50 bonus InvestiCoins" });
       }
+
+      setActiveTaskId(null);
+      setReflectionDraft("");
+    } finally {
+      setSavingTask(false);
     }
-    setTasks(prev => prev.map(t => t.id === task.id ? { ...t, status: newStatus } : t));
+  };
+
+  // Reopen a completed task (its saved reflection is kept).
+  const reopenTask = async (task: BusinessTask) => {
+    if (!useLocalMode) {
+      await supabase.from('business_tasks').update({ status: 'pending' }).eq('id', task.id);
+    }
+    setTasks(prev => prev.map(t => t.id === task.id ? { ...t, status: 'pending' } : t));
   };
 
   // ─── Marketplace ──────────────────────────────────────────────────
@@ -552,6 +627,11 @@ export default function MicroBusiness() {
     : "Aspiring Founder";
   const taskProgress = tasks.length > 0 ? (completedTasks / tasks.length) * 100 : 0;
 
+  // Budget allocation totals (must sum to exactly 100% to launch).
+  const totalBudget = BUDGET_AREAS.reduce((s, a) => s + (bizBudget[a.key] || 0), 0);
+  const remainingBudget = 100 - totalBudget;
+  const budgetBalanced = totalBudget === 100;
+
   // ─── Render ───────────────────────────────────────────────────────
 
   return (
@@ -610,19 +690,62 @@ export default function MicroBusiness() {
           </div>
         ) : !business ? (
           /* ─── Creation Wizard ─────────────────────────────────── */
-          <div className="max-w-2xl mx-auto">
+          <motion.div
+            className="max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            {/* Hero */}
+            <div className="relative overflow-hidden rounded-3xl p-7 md:p-8 mb-5 text-center"
+              style={{ background: "linear-gradient(135deg,#0f2d1e 0%,#14432e 55%,#1D9E75 140%)" }}>
+              <div className="absolute inset-0 opacity-[0.06]"
+                style={{ backgroundImage: "radial-gradient(circle at 25% 30%, white 1.5px, transparent 1.5px)", backgroundSize: "22px 22px" }} />
+              <div className="relative z-10">
+                <motion.div
+                  initial={{ scale: 0.6, rotate: -12, opacity: 0 }}
+                  animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.1 }}
+                  className="w-16 h-16 mx-auto mb-3 rounded-2xl flex items-center justify-center"
+                  style={{ background: "rgba(245,159,39,0.18)", border: "1px solid rgba(245,159,39,0.3)" }}
+                >
+                  <Rocket className="w-8 h-8 text-gold" />
+                </motion.div>
+                <h2 className="font-display text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                  Launch your own business
+                </h2>
+                <p className="text-white/55 text-sm mt-1.5 max-w-md mx-auto">
+                  Pick an industry, design your first product, set a budget, and start selling to other students.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
+                  {[
+                    { icon: Coins, text: "Earn InvestiCoins" },
+                    { icon: Trophy, text: "Level up your rank" },
+                    { icon: ShoppingBag, text: "Sell on the marketplace" },
+                  ].map(vp => (
+                    <span key={vp.text} className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold text-white/90"
+                      style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)" }}>
+                      <vp.icon className="w-3.5 h-3.5 text-gold" /> {vp.text}
+                    </span>
+                  ))}
+                </div>
+                <span className="inline-block mt-4 text-gold font-bold text-sm">
+                  Startup cost: {BUSINESS_START_COST.toLocaleString()} InvestiCoins
+                </span>
+              </div>
+            </div>
+
             <Card variant="elevated">
-              <CardHeader className="text-center">
-                <Store className="w-14 h-14 mx-auto text-primary/30 mb-2" />
-                <CardTitle className="text-2xl">Start Your Business</CardTitle>
-                <CardDescription>
-                  Build your entrepreneurial empire step by step
-                  <span className="block mt-1 text-gold font-semibold">Startup cost: {BUSINESS_START_COST.toLocaleString()} InvestiCoins</span>
-                </CardDescription>
-                {/* Progress */}
-                <div className="flex items-center gap-2 mt-4">
-                  {[0, 1, 2, 3].map(s => (
-                    <div key={s} className={`h-1.5 flex-1 rounded-full transition-colors ${s <= createStep ? "bg-primary" : "bg-muted"}`} />
+              <CardHeader>
+                {/* Stepper with labels */}
+                <div className="flex items-center gap-2">
+                  {["Industry", "Details", "Product", "Budget"].map((label, s) => (
+                    <div key={label} className="flex-1">
+                      <div className={`h-1.5 rounded-full transition-colors ${s <= createStep ? "bg-primary" : "bg-muted"}`} />
+                      <p className={`text-[10px] font-semibold mt-1.5 text-center transition-colors ${s === createStep ? "text-primary" : s < createStep ? "text-foreground/60" : "text-muted-foreground"}`}>
+                        {label}
+                      </p>
+                    </div>
                   ))}
                 </div>
               </CardHeader>
@@ -705,22 +828,47 @@ export default function MicroBusiness() {
                   <div className="space-y-4">
                     <h3 className="font-semibold text-lg">Budget Allocation</h3>
                     <p className="text-sm text-muted-foreground">
-                      How would you allocate your startup budget across these areas? This decision shapes your strategy.
+                      Split 100% of your startup budget across these areas. This decision shapes your strategy.
                     </p>
+
+                    {/* Live allocation tracker */}
+                    <div className={`rounded-xl border p-3 transition-colors ${budgetBalanced ? "border-success/40 bg-success/5" : "border-warning/40 bg-warning/5"}`}>
+                      <div className="flex items-center justify-between text-sm mb-2">
+                        <span className="font-semibold flex items-center gap-1.5">
+                          <Wallet className="w-4 h-4" /> Allocated: {totalBudget}%
+                        </span>
+                        <span className={`font-bold ${budgetBalanced ? "text-success" : "text-warning"}`}>
+                          {budgetBalanced ? "Fully allocated ✓" : `${remainingBudget > 0 ? remainingBudget + "% left" : "Over by " + Math.abs(remainingBudget) + "%"}`}
+                        </span>
+                      </div>
+                      <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+                        <div className="h-full rounded-full transition-all"
+                          style={{ width: `${Math.min(100, totalBudget)}%`, background: budgetBalanced ? "#1D9E75" : "#EF9F27" }} />
+                      </div>
+                    </div>
+
                     {BUDGET_AREAS.map(area => {
                       const Icon = area.icon;
+                      // Cap each slider so the three can never exceed 100% total.
+                      const others = BUDGET_AREAS.filter(a => a.key !== area.key)
+                        .reduce((s, a) => s + (bizBudget[a.key] || 0), 0);
+                      const maxForThis = 100 - others;
                       return (
                         <div key={area.key} className="flex items-center gap-3">
                           <Icon className="w-5 h-5 text-muted-foreground shrink-0" />
                           <div className="flex-1">
                             <div className="flex justify-between text-sm mb-1">
                               <span className="font-medium">{area.label}</span>
-                              <span className="text-muted-foreground">{bizBudget[area.key]}%</span>
+                              <span className="font-semibold tabular-nums">{bizBudget[area.key]}%</span>
                             </div>
                             <input
                               type="range" min="0" max="100" step="5"
                               value={bizBudget[area.key]}
-                              onChange={e => setBizBudget(prev => ({ ...prev, [area.key]: Number(e.target.value) }))}
+                              onChange={e => {
+                                const requested = Number(e.target.value);
+                                const clamped = Math.min(requested, maxForThis);
+                                setBizBudget(prev => ({ ...prev, [area.key]: clamped }));
+                              }}
                               className="w-full accent-primary"
                             />
                           </div>
@@ -736,9 +884,16 @@ export default function MicroBusiness() {
                       <div className="flex justify-between"><span className="text-muted-foreground">Startup Cost</span><span className="text-gold font-bold">{BUSINESS_START_COST.toLocaleString()} IC</span></div>
                     </div>
 
+                    {!budgetBalanced && (
+                      <p className="text-xs text-warning flex items-center gap-1.5">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                        Allocate exactly 100% to launch ({remainingBudget > 0 ? `${remainingBudget}% remaining` : `reduce by ${Math.abs(remainingBudget)}%`}).
+                      </p>
+                    )}
+
                     <div className="flex gap-2">
                       <Button variant="outline" className="flex-1" onClick={() => setCreateStep(2)}>Back</Button>
-                      <Button className="flex-1" disabled={creatingBusiness} onClick={handleCreateBusiness}>
+                      <Button className="flex-1" disabled={creatingBusiness || !budgetBalanced} onClick={handleCreateBusiness}>
                         {creatingBusiness ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
                         {creatingBusiness ? "Launching..." : "Launch Business"}
                       </Button>
@@ -747,7 +902,7 @@ export default function MicroBusiness() {
                 )}
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
         ) : (
           /* ─── Business Dashboard ─────────────────────────────── */
           <Tabs defaultValue="overview" className="space-y-6">
@@ -836,32 +991,133 @@ export default function MicroBusiness() {
 
             {/* ─── Tasks Tab ──────────────────────────────────── */}
             <TabsContent value="tasks">
-              <Card variant="elevated">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2"><ClipboardList className="w-5 h-5 text-primary" />Business Tasks</CardTitle>
-                  <CardDescription>Complete tasks to earn InvestiCoins and level up</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-2">
-                    {tasks.map(task => (
-                      <button
-                        key={task.id}
-                        onClick={() => toggleTask(task)}
-                        className={`flex items-center gap-3 p-3 rounded-xl text-left transition-all hover:bg-muted/40 press-scale ${task.status === 'completed' ? 'opacity-60' : ''}`}
-                      >
-                        {task.status === 'completed'
-                          ? <CheckCircle2 className="w-5 h-5 text-success shrink-0" />
-                          : <Circle className="w-5 h-5 text-muted-foreground shrink-0" />}
-                        <div className="flex-1">
-                          <p className={`text-sm font-semibold ${task.status === 'completed' ? 'line-through' : ''}`}>{task.title}</p>
-                          {task.description && <p className="text-xs text-muted-foreground">{task.description}</p>}
-                        </div>
-                        <Badge variant="outline" className="text-[10px]">{task.category}</Badge>
-                      </button>
-                    ))}
+              {/* Header: business operations board with live progress */}
+              <Card variant="elevated" className="mb-4">
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between gap-4 flex-wrap">
+                    <div>
+                      <h3 className="font-display text-lg font-extrabold flex items-center gap-2">
+                        <ClipboardList className="w-5 h-5 text-primary" /> Operations board
+                      </h3>
+                      <p className="text-sm text-muted-foreground mt-0.5">
+                        Real founders show their work. Each task needs a short note on what you actually did.
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-extrabold text-primary leading-none">{completedTasks}<span className="text-base text-muted-foreground font-bold">/{tasks.length}</span></p>
+                      <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider mt-0.5">done</p>
+                    </div>
                   </div>
+                  <Progress value={taskProgress} className="h-2 mt-4" />
+                  {completedTasks === tasks.length && tasks.length > 0 && (
+                    <p className="text-sm font-semibold text-success flex items-center gap-1.5 mt-3">
+                      <PartyPopper className="w-4 h-4" /> All tasks complete — you're running a real operation!
+                    </p>
+                  )}
                 </CardContent>
               </Card>
+
+              {/* Task groups by department */}
+              <div className="space-y-5">
+                {tasksByCategory.map(group => {
+                  const meta = TASK_CATEGORY_META[group.category] || { label: group.category, icon: ClipboardList, color: "#888" };
+                  const MetaIcon = meta.icon;
+                  const groupDone = group.items.filter(t => t.status === 'completed').length;
+                  return (
+                    <div key={group.category}>
+                      <div className="flex items-center gap-2 mb-2 px-1">
+                        <span className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: `${meta.color}1a` }}>
+                          <MetaIcon className="w-3.5 h-3.5" />
+                        </span>
+                        <h4 className="text-sm font-bold" style={{ color: meta.color }}>{meta.label}</h4>
+                        <span className="text-xs text-muted-foreground font-semibold">{groupDone}/{group.items.length}</span>
+                      </div>
+                      <div className="grid gap-2">
+                        {group.items.map(task => {
+                          const completed = task.status === 'completed';
+                          const editing = activeTaskId === task.id;
+                          const reflection = taskReflections[task.id];
+                          return (
+                            <div
+                              key={task.id}
+                              className="rounded-xl border bg-card overflow-hidden transition-colors"
+                              style={{ borderColor: completed ? "rgba(29,158,117,0.3)" : "hsl(45 10% 86%)" }}
+                            >
+                              <div className="flex items-start gap-3 p-3">
+                                <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${completed ? "bg-success/15" : "bg-muted"}`}>
+                                  {completed
+                                    ? <CheckCircle2 className="w-4 h-4 text-success" />
+                                    : <Circle className="w-4 h-4 text-muted-foreground" />}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className={`text-sm font-semibold ${completed ? "text-muted-foreground" : ""}`}>{task.title}</p>
+                                  {task.description && <p className="text-xs text-muted-foreground mt-0.5">{task.description}</p>}
+
+                                  {/* Completed: show the saved reflection as proof of work */}
+                                  {completed && reflection && (
+                                    <div className="mt-2 rounded-lg bg-success/5 border border-success/15 p-2.5">
+                                      <p className="text-[10px] font-bold uppercase tracking-wider text-success/80 flex items-center gap-1 mb-1">
+                                        <PenLine className="w-3 h-3" /> Your work
+                                      </p>
+                                      <p className="text-xs text-foreground/80 whitespace-pre-wrap">{reflection}</p>
+                                    </div>
+                                  )}
+
+                                  {/* Pending + editing: reflection required before completing */}
+                                  {!completed && editing && (
+                                    <div className="mt-2.5 space-y-2">
+                                      <div className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                                        <Lightbulb className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" />
+                                        <span>What did you do to complete this? Be specific — this is your record.</span>
+                                      </div>
+                                      <Textarea
+                                        autoFocus
+                                        rows={3}
+                                        placeholder="e.g. I chose 'Pixel Studio LLC' and registered it because an LLC protects my personal savings…"
+                                        value={reflectionDraft}
+                                        onChange={e => setReflectionDraft(e.target.value)}
+                                      />
+                                      <div className="flex items-center justify-between">
+                                        <span className={`text-[11px] font-semibold ${reflectionDraft.trim().length >= MIN_REFLECTION ? "text-success" : "text-muted-foreground"}`}>
+                                          {reflectionDraft.trim().length}/{MIN_REFLECTION} min
+                                        </span>
+                                        <div className="flex gap-2">
+                                          <Button size="sm" variant="outline" onClick={cancelTaskEditor}>Cancel</Button>
+                                          <Button
+                                            size="sm"
+                                            disabled={savingTask || reflectionDraft.trim().length < MIN_REFLECTION}
+                                            onClick={() => completeTask(task)}
+                                          >
+                                            {savingTask ? <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />}
+                                            Mark done
+                                          </Button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Right-side action / status */}
+                                <div className="shrink-0">
+                                  {completed ? (
+                                    <Button size="sm" variant="ghost" className="text-xs text-muted-foreground h-7 px-2" onClick={() => reopenTask(task)}>
+                                      Reopen
+                                    </Button>
+                                  ) : !editing ? (
+                                    <Button size="sm" variant="outline" className="press-scale gap-1" onClick={() => openTaskEditor(task)}>
+                                      Complete <ArrowRight className="w-3.5 h-3.5" />
+                                    </Button>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </TabsContent>
 
             {/* ─── Marketplace Tab ────────────────────────────── */}
