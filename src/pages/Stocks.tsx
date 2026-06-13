@@ -167,6 +167,15 @@ export default function Stocks() {
     return () => clearInterval(t)
   }, [])
 
+  // Count visits to the Stocks page (powers the "Market Watcher" badge on the
+  // Missions page). Once per mount.
+  useEffect(() => {
+    try {
+      const n = parseInt(localStorage.getItem('investiplay_stocks_visits') || '0', 10) || 0
+      localStorage.setItem('investiplay_stocks_visits', String(n + 1))
+    } catch { /* localStorage unavailable */ }
+  }, [])
+
   // Live quotes for the ticker tape, index cards, most active strip, and top
   // movers — all from one proxy call, refreshed every 60s.
   useEffect(() => {

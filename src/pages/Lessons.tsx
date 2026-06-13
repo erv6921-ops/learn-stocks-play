@@ -1,16 +1,56 @@
 import React, { useMemo, useState, useEffect, useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
-import { lessons, unitInfo, getUnitRewardTotal } from "@/data/lessons";
-import { getUnitTestByCategory } from "@/data/unitTestQuestions";
+import { supabase } from "@/integrations/supabase/client";
+import { lessons, unitInfo, getUnitRewardTotal, getLessonsByUnit } from "@/data/lessons";
 import { getAdaptiveCurriculum, AdaptiveLessonInfo } from "@/lib/curriculumEngine";
+import {
+  getStreak, getBestStreak, getCurriculumLevel, getTotalEarned, getCoinsThisWeek,
+} from "@/lib/playerStats";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import GameNav from "@/components/GameNav";
-import { ArrowRight, Lock, CheckCircle, Coins } from "lucide-react";
-import { LessonCategory, LEVEL_TITLES } from "@/types";
+import {
+  ArrowRight, Lock, CheckCircle, Coins, Flame, Star, Trophy,
+  Award, Footprints, Zap, Crown, LineChart, Coins as CoinsIcon,
+} from "lucide-react";
+import { LessonCategory } from "@/types";
 import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
+
+// ── #4 Next-lesson one-line descriptions, keyed L<unit>.<lesson> ──
+const lessonDescriptions: Record<string, string> = {
+  "L1.1": "Why our brains make terrible money decisions",
+  "L1.2": "How waiting pays off — literally",
+  "L1.3": "The trap of wanting what others have",
+  "L1.4": "Why you spend more than you think",
+  "L2.1": "What your time is actually worth per hour",
+  "L2.2": "Salary vs. hourly — which is really better?",
+  "L2.3": "How taxes shrink your paycheck",
+  "L2.4": "Side hustles that actually make money",
+  "L3.1": "Build a budget that doesn't feel like a punishment",
+  "L3.2": "The 50/30/20 rule explained",
+  "L3.3": "Needs vs. wants — drawing the line",
+  "L3.4": "Tracking spending without losing your mind",
+};
+const FALLBACK_LESSON_DESC = "Master this concept to unlock the next level.";
+const lessonDescFor = (unitNumber?: number, lessonNumber?: number) =>
+  lessonDescriptions[`L${unitNumber}.${lessonNumber}`] || FALLBACK_LESSON_DESC;
+
+// ── #8 One-sentence unit summaries (by unit number) ──
+const unitSummaries: Record<number, string> = {
+  1: "Understand why we make bad money decisions and how to rewire your thinking.",
+  2: "Learn how income works, what affects your earning power, and how to grow it.",
+  3: "Master budgeting so your money goes where you actually want it to go.",
+  4: "Understand debt, credit scores, and how to use borrowing without getting trapped.",
+  5: "Learn to invest early and let compound interest do the heavy lifting.",
+  6: "Understand taxes — what you owe, why, and how to keep more of what you earn.",
+  7: "Protect yourself and your assets with the right insurance strategies.",
+  8: "Plan for retirement now, even if it feels impossibly far away.",
+};
+const unitSummaryFor = (unitNumber: number, title: string) =>
+  unitSummaries[unitNumber] || `Dive into ${title} and level up your financial skills.`;
 
 // ── Pulse animation for current dot (injected once) ──
 const PULSE_STYLE_ID = "chart-pulse-keyframe";
@@ -23,7 +63,7 @@ function ensurePulseStyle() {
 }
 
 export default function Lessons() {
-  const { user, lessonProgress, unitTestProgress, getRewardMultiplier, jeffsBalance } = useApp();
+  const { user, lessonProgress, unitTestProgress, getRewardMultiplier, jeffsBalance, jeffsHistory } = useApp();
   const navigate = useNavigate();
   const multiplier = getRewardMultiplier();
   const stripRef = useRef<HTMLDivElement>(null);
@@ -143,12 +183,6 @@ export default function Lessons() {
 
   const unitIsComplete = completedCount >= totalLessons && totalLessons > 0;
 
-  // Level info for the active unit
-  const activeLevel = activeUnit?.level ?? 1;
-  const activeLevelTitle = LEVEL_TITLES[activeLevel] || `Level ${activeLevel}`;
-
-  // Units in same level (for the strip)
-  const levelUnits = unitInfo.filter(u => u.level === activeLevel);
 
   // Find current lesson index for chart
   const currentLessonIdx = useMemo(() => {
@@ -164,6 +198,81 @@ export default function Lessons() {
     if (!activeUnit) return null;
     return unitInfo.find(u => u.orderIndex === activeUnit.orderIndex + 1) || null;
   }, [activeUnit]);
+
+  // ── Player-wide stats (same sources the navbar HUD uses) ──
+  const completedLessonsAll = lessonProgress.filter(p => p.completed).length;
+  const unitScores = useMemo(() =>
+    unitInfo.map(u => {
+      const ul = getLessonsByUnit(u.id);
+      return {
+        done: ul.filter(l => lessonProgress.find(p => p.lessonId === l.id && p.completed)).length,
+        total: ul.length,
+      };
+    }), [lessonProgress]);
+  const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
+  const bestStreak = useMemo(() => getBestStreak(jeffsHistory), [jeffsHistory]);
+  const level = useMemo(() => getCurriculumLevel(completedLessonsAll, lessons.length, unitScores),
+    [completedLessonsAll, unitScores]);
+  const totalEarned = useMemo(() => getTotalEarned(jeffsHistory), [jeffsHistory]);
+  const coinsThisWeek = useMemo(() => getCoinsThisWeek(jeffsHistory), [jeffsHistory]);
+  const anyUnitComplete = unitScores.some(u => u.total > 0 && u.done >= u.total);
+  const timeSpentMins = completedLessonsAll * 3;
+
+  // ── #5 Badges (derived from milestones; no badges table exists) ──
+  const stocksVisits = useMemo(() => {
+    try { return parseInt(localStorage.getItem('investiplay_stocks_visits') || '0', 10) || 0; } catch { return 0; }
+  }, []);
+  const badges = useMemo(() => [
+    { id: 'first-step',     name: 'First Step',     Icon: Footprints, earned: completedLessonsAll >= 1 },
+    { id: 'on-a-roll',      name: 'On a Roll',      Icon: Flame,      earned: bestStreak >= 3 },
+    { id: 'week-warrior',   name: 'Week Warrior',   Icon: Zap,        earned: bestStreak >= 7 },
+    { id: 'unit-master',    name: 'Unit Master',    Icon: Crown,      earned: anyUnitComplete },
+    { id: 'market-watcher', name: 'Market Watcher', Icon: LineChart,  earned: stocksVisits >= 5 },
+    { id: 'coin-collector', name: 'Coin Collector', Icon: CoinsIcon,  earned: totalEarned >= 500 },
+  ], [completedLessonsAll, bestStreak, anyUnitComplete, stocksVisits, totalEarned]);
+  const earnedBadgeCount = badges.filter(b => b.earned).length;
+
+  // ── #9 Class rank (same query the Leaderboard page uses) ──
+  const [classRank, setClassRank] = useState<number | null>(null);
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      try {
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (!authUser) return;
+        const { data: memberships } = await supabase
+          .from('class_members').select('class_id').eq('user_id', authUser.id);
+        if (!memberships || memberships.length === 0) return;
+        const { data: lb } = await supabase.rpc('get_class_leaderboard', { _class_id: memberships[0].class_id });
+        if (!active || !lb || lb.length === 0) return;
+        const sorted = [...lb].sort((a, b) => (Number(b.xp) || 0) - (Number(a.xp) || 0));
+        const idx = sorted.findIndex(r => r.user_id === authUser.id);
+        if (idx >= 0) setClassRank(idx + 1);
+      } catch { /* leaderboard unavailable — leave rank hidden */ }
+    })();
+    return () => { active = false; };
+  }, [lessonProgress]);
+
+  // ── #8 Locked-unit preview panel state ──
+  const [previewUnitId, setPreviewUnitId] = useState<string | null>(null);
+  const previewUnit = previewUnitId ? unitInfo.find(u => u.id === previewUnitId) : null;
+
+  // ── #10 Brief skeleton frame to avoid layout shift on first paint ──
+  const [statsReady, setStatsReady] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setStatsReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  // Handle a unit-tab click: unlocked → switch active; locked → show preview.
+  const handleUnitTabClick = (unitId: string) => {
+    if (unlockedUnits.has(unitId)) {
+      setActiveUnitId(unitId);
+      setPreviewUnitId(null);
+    } else {
+      setPreviewUnitId(prev => prev === unitId ? null : unitId);
+    }
+  };
 
   if (!user) { navigate("/onboarding"); return null; }
 
@@ -233,47 +342,82 @@ export default function Lessons() {
         {apMode ? renderAPMode() : (
           <>
             {/* 1. Page header */}
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em] mb-1">
-                  Your knowledge portfolio
-                </p>
+            <div className="mb-6">
+              <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em] mb-1">
+                Your knowledge portfolio
+              </p>
+
+              {/* #1 Stat row */}
+              {statsReady ? (
+                <div className="flex flex-wrap items-center gap-2 my-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
+                    <Flame className="w-3.5 h-3.5 text-orange-400" /> {streak} day streak
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
+                    <Coins className="w-3.5 h-3.5 text-gold" /> {jeffsBalance.toLocaleString()}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
+                    <Star className="w-3.5 h-3.5 text-yellow-300" /> Lv {level}
+                  </span>
+                </div>
+              ) : (
+                <div className="flex gap-2 my-3">
+                  {[0, 1, 2].map(i => <div key={i} className="h-[26px] w-24 rounded-full animate-pulse bg-muted" />)}
+                </div>
+              )}
+
+              <div className="flex items-start justify-between gap-4">
                 <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight">
                   {activeUnit ? `Unit ${activeUnit.unitNumber} — ${activeUnit.title}` : "Curriculum"}
                 </h1>
-              </div>
-              <div className="bg-foreground/5 border border-border rounded-full px-4 py-1.5 shrink-0">
-                <span className="font-mono text-sm font-bold text-foreground">
-                  {jeffsBalance.toLocaleString()} pts
-                </span>
+                <div className="flex flex-col items-end gap-1.5 shrink-0">
+                  <div className="bg-foreground/5 border border-border rounded-full px-4 py-1.5">
+                    <span className="font-mono text-sm font-bold text-foreground">
+                      {jeffsBalance.toLocaleString()} pts
+                    </span>
+                  </div>
+                  {/* #9 Class rank — hidden entirely when no class/leaderboard */}
+                  {classRank != null && (
+                    <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold"
+                      style={{ background: "rgba(239,159,39,0.12)", color: "#C77F12" }}>
+                      <Trophy className="w-3.5 h-3.5" /> #{classRank} in your class
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* 2. Stock chart card */}
-            <div className="rounded-[20px] bg-card overflow-hidden mb-4"
+            {/* 2. Progress card — circular ring hero + chart */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="rounded-[20px] bg-card overflow-hidden mb-4"
               style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
-              {/* Card header */}
-              <div className="px-5 pt-5 pb-3 flex items-start justify-between">
-                <div>
-                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.12em]">
+              {/* #2 Circular progress ring hero */}
+              <div className="px-5 pt-5 pb-3 flex items-center gap-5">
+                <ProgressRing completed={completedCount} total={totalLessons} pct={pctComplete} />
+                <div className="min-w-0 flex-1">
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.12em] truncate">
                     {activeUnit?.title ?? "—"}
                   </p>
-                  <p className="text-lg font-extrabold text-foreground tracking-tight mt-0.5">
+                  {/* #10 Prominent lessons-done line (16px / 500) */}
+                  <p className="text-foreground tracking-tight mt-0.5" style={{ fontSize: 16, fontWeight: 500 }}>
                     {completedCount} of {totalLessons} lessons done
                   </p>
-                </div>
-                <div className="text-right flex items-center gap-2">
-                  <span className="text-sm font-bold" style={{ color: "#1D9E75" }}>
-                    {earnedPts.toLocaleString()} pts
-                  </span>
-                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-full"
-                    style={{ background: "rgba(29,158,117,0.1)", color: "#1D9E75" }}>
-                    ▲ {pctComplete}%
-                  </span>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="text-sm font-bold" style={{ color: "#1D9E75" }}>
+                      {earnedPts.toLocaleString()} pts
+                    </span>
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full"
+                      style={{ background: "rgba(29,158,117,0.1)", color: "#1D9E75" }}>
+                      ▲ {pctComplete}%
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Chart SVG */}
+              {/* Chart SVG (kept below the ring) */}
               <ChartSVG
                 lessons={activeLessons}
                 currentIdx={currentLessonIdx}
@@ -290,53 +434,133 @@ export default function Lessons() {
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* 3. Unit strip */}
-            <div ref={stripRef} className="flex gap-2 overflow-x-auto pb-2 mb-4 scrollbar-hide">
-              {levelUnits.map((unit) => {
-                const adaptive = adaptiveCurriculum.get(unit.id);
-                const uLessons = adaptive?.lessons ?? [];
-                const done = uLessons.filter(l => l.status === "validated" || isLessonCompleted(l.lesson.id)).length;
-                const total = uLessons.length;
-                const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-                const isActive = unit.id === activeUnitId;
-                const isLocked = !unlockedUnits.has(unit.id);
-                const isComplete = done >= total && total > 0;
+            {/* #7 Mini stat grid (fills space between card and unit tabs) */}
+            {statsReady ? (
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                {[
+                  { label: "Best streak", value: `${bestStreak} day${bestStreak === 1 ? "" : "s"}` },
+                  { label: "Coins this week", value: coinsThisWeek.toLocaleString() },
+                  { label: "Time spent", value: `${timeSpentMins} mins` },
+                ].map(s => (
+                  <div key={s.label} className="rounded-2xl bg-muted/50 border border-border/40 px-3 py-3 text-center">
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider truncate">{s.label}</p>
+                    <p className="text-base font-extrabold text-foreground mt-0.5">{s.value}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                {[0, 1, 2].map(i => <div key={i} className="h-[58px] rounded-2xl animate-pulse bg-muted" />)}
+              </div>
+            )}
 
-                return (
-                  <button
-                    key={unit.id}
-                    data-unit={unit.id}
-                    onClick={() => !isLocked && setActiveUnitId(unit.id)}
-                    className="shrink-0 rounded-2xl px-4 py-3 text-left transition-colors min-w-[120px] relative overflow-hidden"
-                    style={{
-                      background: isActive ? "#2C2C2A" : isComplete ? "#E1F5EE" : "hsl(45 10% 91%)",
-                      opacity: isLocked ? 0.6 : 1,
-                      cursor: isLocked ? "not-allowed" : "pointer",
-                    }}
-                  >
-                    <span className="text-[9px] font-bold uppercase tracking-[0.12em] block"
-                      style={{ color: isActive ? "rgba(255,255,255,0.5)" : isComplete ? "#1D9E75" : "hsl(215 12% 56%)" }}>
-                      Unit {unit.unitNumber}
-                    </span>
-                    <span className="text-[12px] font-bold block mt-0.5 truncate"
-                      style={{ color: isActive ? "#fff" : isComplete ? "#1D9E75" : "hsl(215 12% 38%)" }}>
-                      {unit.title}
-                    </span>
-                    {/* Progress bar at bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 h-[3px]"
-                      style={{ background: isActive ? "rgba(255,255,255,0.1)" : isComplete ? "rgba(29,158,117,0.15)" : "transparent" }}>
-                      <div className="h-full transition-all duration-300"
-                        style={{
-                          width: `${pct}%`,
-                          background: isActive ? "#EF9F27" : isComplete ? "#1D9E75" : "transparent",
-                        }} />
+            {/* #5 Badges section */}
+            <div className="mb-5">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="font-display text-sm font-bold flex items-center gap-1.5">
+                  <Award className="w-4 h-4 text-gold" /> Your badges
+                </h2>
+                <span className="text-[11px] font-semibold text-muted-foreground">{earnedBadgeCount} earned</span>
+              </div>
+              {statsReady ? (
+                <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+                  {badges.map(b => (
+                    <div key={b.id} className="shrink-0 w-[72px] flex flex-col items-center gap-1.5 text-center">
+                      <div className={`relative w-12 h-12 rounded-full flex items-center justify-center ${b.earned ? "" : "grayscale opacity-50"}`}
+                        style={{ background: b.earned ? "linear-gradient(135deg,#1D9E75,#0f2d1e)" : "hsl(45 10% 88%)" }}>
+                        <b.Icon className={`w-5 h-5 ${b.earned ? "text-white" : "text-muted-foreground"}`} />
+                        {!b.earned && (
+                          <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-muted-foreground/80 flex items-center justify-center">
+                            <Lock className="w-2.5 h-2.5 text-white" />
+                          </span>
+                        )}
+                      </div>
+                      <span className={`text-[10px] leading-tight font-semibold ${b.earned ? "text-foreground" : "text-muted-foreground"}`}>{b.name}</span>
                     </div>
-                  </button>
-                );
-              })}
+                  ))}
+                </div>
+              ) : (
+                <div className="flex gap-3 pb-1">
+                  {[0, 1, 2, 3, 4, 5].map(i => <div key={i} className="shrink-0 w-12 h-12 rounded-full animate-pulse bg-muted" />)}
+                </div>
+              )}
             </div>
+
+            {/* 3. Unit strip — #3 scrollable, hidden scrollbar, right fade */}
+            <div className="relative mb-4">
+              <div ref={stripRef} className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                {unitInfo.map((unit) => {
+                  const adaptive = adaptiveCurriculum.get(unit.id);
+                  const uLessons = adaptive?.lessons ?? [];
+                  const done = uLessons.filter(l => l.status === "validated" || isLessonCompleted(l.lesson.id)).length;
+                  const total = uLessons.length;
+                  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+                  const isActive = unit.id === activeUnitId;
+                  const isLocked = !unlockedUnits.has(unit.id);
+                  const isComplete = done >= total && total > 0;
+
+                  return (
+                    <button
+                      key={unit.id}
+                      data-unit={unit.id}
+                      onClick={() => handleUnitTabClick(unit.id)}
+                      className="shrink-0 rounded-2xl px-4 py-3 text-left transition-colors min-w-[120px] relative overflow-hidden"
+                      style={{
+                        background: isActive ? "#2C2C2A" : isComplete ? "#E1F5EE" : "hsl(45 10% 91%)",
+                        opacity: isLocked ? 0.6 : 1,
+                      }}
+                    >
+                      <span className="text-[9px] font-bold uppercase tracking-[0.12em] flex items-center gap-1"
+                        style={{ color: isActive ? "rgba(255,255,255,0.5)" : isComplete ? "#1D9E75" : "hsl(215 12% 56%)" }}>
+                        Unit {unit.unitNumber}
+                        {isLocked && <Lock className="w-2.5 h-2.5" />}
+                      </span>
+                      <span className="text-[12px] font-bold block mt-0.5 truncate"
+                        style={{ color: isActive ? "#fff" : isComplete ? "#1D9E75" : "hsl(215 12% 38%)" }}>
+                        {unit.title}
+                      </span>
+                      {/* Progress bar at bottom */}
+                      <div className="absolute bottom-0 left-0 right-0 h-[3px]"
+                        style={{ background: isActive ? "rgba(255,255,255,0.1)" : isComplete ? "rgba(29,158,117,0.15)" : "transparent" }}>
+                        <div className="h-full transition-all duration-300"
+                          style={{
+                            width: `${pct}%`,
+                            background: isActive ? "#EF9F27" : isComplete ? "#1D9E75" : "transparent",
+                          }} />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+              {/* Right fade hint */}
+              <div className="pointer-events-none absolute right-0 top-0 bottom-2 w-12"
+                style={{ background: "linear-gradient(to right, transparent, hsl(var(--background)))" }} />
+            </div>
+
+            {/* #8 Locked-unit preview panel */}
+            {previewUnit && (
+              <div className="rounded-[20px] bg-card px-6 py-5 mb-4"
+                style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.15em]">
+                    Unit {previewUnit.unitNumber}
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg border bg-muted text-muted-foreground border-border flex items-center gap-1">
+                    <Lock className="w-3 h-3" /> Locked
+                  </span>
+                </div>
+                <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{previewUnit.title}</h3>
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                  {unitSummaryFor(previewUnit.unitNumber, previewUnit.title)}
+                </p>
+                <p className="text-[13px] font-semibold mt-3 flex items-center gap-1.5" style={{ color: "#C77F12" }}>
+                  <Lock className="w-3.5 h-3.5" />
+                  Complete Unit {Math.max(1, previewUnit.unitNumber - 1)} first to unlock
+                </p>
+              </div>
+            )}
 
             {/* 4. Next lesson CTA / Completion banner */}
             {unitIsComplete ? (
@@ -358,9 +582,13 @@ export default function Lessons() {
                 )}
               </div>
             ) : nextLessonInUnit ? (
-              <div className="rounded-[20px] px-6 py-5 flex items-center justify-between"
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.05 }}
+                className="rounded-[20px] px-6 py-5 flex items-center justify-between gap-4"
                 style={{ background: "#2C2C2A", border: "0.5px solid hsl(45 10% 25%)" }}>
-                <div>
+                <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.12em] mb-1"
                     style={{ color: "rgba(255,255,255,0.4)" }}>
                     Next lesson · L{nextLessonInUnit.lesson.lessonNumber}
@@ -368,16 +596,20 @@ export default function Lessons() {
                   <p className="text-white font-bold text-[15px]">
                     {nextLessonInUnit.lesson.title}
                   </p>
-                  <p className="text-sm font-bold mt-1" style={{ color: "#1D9E75" }}>
+                  {/* #4 One-line lesson description */}
+                  <p className="text-[13px] mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>
+                    {lessonDescFor(activeUnit?.unitNumber, nextLessonInUnit.lesson.lessonNumber)}
+                  </p>
+                  <p className="text-sm font-bold mt-1.5" style={{ color: "#1D9E75" }}>
                     +{Math.round(nextLessonInUnit.lesson.reward * multiplier).toLocaleString()} pts on completion
                   </p>
                 </div>
-                <Link to={`/lessons/${nextLessonInUnit.lesson.id}`}>
+                <Link to={`/lessons/${nextLessonInUnit.lesson.id}`} className="shrink-0">
                   <Button size="sm" className="bg-[#1D9E75] hover:bg-[#1a8f6a] text-white font-bold gap-1.5 press-scale">
                     Start <ArrowRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
-              </div>
+              </motion.div>
             ) : null}
 
             {/* Lesson list below chart (condensed) */}
@@ -433,6 +665,29 @@ export default function Lessons() {
           </>
         )}
       </main>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════
+   #2 CIRCULAR PROGRESS RING
+   ════════════════════════════════════════════════ */
+function ProgressRing({ completed, total, pct }: { completed: number; total: number; pct: number }) {
+  const R = 52;
+  const C = 2 * Math.PI * R;
+  const dash = (C * pct) / 100;
+  return (
+    <div className="relative shrink-0" style={{ width: 120, height: 120 }}>
+      <svg width={120} height={120} viewBox="0 0 120 120">
+        <circle cx={60} cy={60} r={R} fill="none" stroke="hsl(45 10% 90%)" strokeWidth={10} />
+        <circle cx={60} cy={60} r={R} fill="none" stroke="#1a5c41" strokeWidth={10} strokeLinecap="round"
+          strokeDasharray={`${dash} ${C}`} transform="rotate(-90 60 60)"
+          style={{ transition: "stroke-dasharray 0.5s ease" }} />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-xl font-extrabold text-foreground leading-none">{completed} of {total}</span>
+        <span className="text-[10px] text-muted-foreground mt-1">lessons done</span>
+      </div>
     </div>
   );
 }
