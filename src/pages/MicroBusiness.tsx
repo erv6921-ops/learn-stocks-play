@@ -111,7 +111,7 @@ const BUSINESS_START_COST = 500;
 // ─── Component ──────────────────────────────────────────────────────
 
 export default function MicroBusiness() {
-  const { user, jeffsBalance, spendJeffs, earnJeffs } = useApp();
+  const { user, authReady, jeffsBalance, spendJeffs, earnJeffs } = useApp();
   const navigate = useNavigate();
 
   // Data state
@@ -241,10 +241,33 @@ export default function MicroBusiness() {
 
   useEffect(() => { if (useLocalMode && business) saveLocalBusiness(); }, [saveLocalBusiness]);
 
-  if (!user) {
-    navigate("/onboarding");
-    return null;
+  // Redirect to onboarding ONLY once we're certain there's no authenticated
+  // session. Two conditions must both settle first:
+  //   - authReady: AppContext finished restoring the Supabase session
+  //   - authChecked: this page's own getUser() probe finished
+  // A logged-in user always keeps a real session (useLocalMode === false), even
+  // if AppContext's `user` is briefly null during a slow/transient auth restore
+  // (e.g. the getSession timeout on a slow network). Previously `if (!user)`
+  // ran during render and called navigate() on any such transient null, kicking
+  // the user out mid-setup. Now we only leave when there is genuinely no
+  // session, and we do it from an effect rather than during render.
+  const sessionResolved = authReady && authChecked;
+  const noSession = sessionResolved && !user && useLocalMode;
+
+  useEffect(() => {
+    if (noSession) navigate("/onboarding", { replace: true });
+  }, [noSession, navigate]);
+
+  // Hold the page (don't redirect) until auth has settled, so a slow restore
+  // never flashes the user out to onboarding.
+  if (!sessionResolved) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
   }
+  if (noSession) return null;
 
   // ─── Business Creation ────────────────────────────────────────────
 
