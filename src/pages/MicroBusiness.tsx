@@ -94,11 +94,13 @@ const DEFAULT_TASKS = [
   { category: "growth", title: "Reinvest profits", description: "Put earnings back into marketing or inventory" },
 ];
 
+// Campaigns are a gamble: on success they return revenueBoost (+up to 40%), but
+// they can flop and return almost nothing — so you can lose the money you spend.
 const MARKETING_CAMPAIGNS = [
-  { name: "Social Media Buzz", cost: 50, revenueBoost: 30, description: "Post about your products to attract attention" },
-  { name: "Flash Sale", cost: 25, revenueBoost: 60, description: "Discount items for a quick revenue boost" },
-  { name: "Referral Program", cost: 75, revenueBoost: 45, description: "Reward customers for bringing friends" },
-  { name: "Premium Ad Placement", cost: 150, revenueBoost: 100, description: "Featured listing in the marketplace" },
+  { name: "Social Media Buzz", cost: 50, revenueBoost: 90, successRate: 0.75, description: "Post about your products to attract attention" },
+  { name: "Flash Sale", cost: 25, revenueBoost: 70, successRate: 0.6, description: "Discount items for a quick revenue boost — high risk, high reward" },
+  { name: "Referral Program", cost: 75, revenueBoost: 140, successRate: 0.7, description: "Reward customers for bringing friends" },
+  { name: "Premium Ad Placement", cost: 150, revenueBoost: 280, successRate: 0.65, description: "Featured listing in the marketplace" },
 ];
 
 const GROWTH_UPGRADES = [
@@ -122,6 +124,136 @@ const TASK_CATEGORY_ORDER = ["legal", "finance", "marketing", "product", "growth
 
 // Minimum reflection length required before a task can be marked complete.
 const MIN_REFLECTION = 15;
+
+// Per-task guidance + fill-in-the-blank starter templates. Keyed by task title.
+// Students tap a template to drop it into their answer, then make it their own.
+const TASK_TEMPLATES: Record<string, { guide: string; placeholder: string; starters: string[] }> = {
+  "Register business name": {
+    guide: "Pick a name that's memorable, easy to spell, and hints at what you sell. Start from a template and make it yours.",
+    placeholder: "Business name: ___ — I chose it because ___",
+    starters: [
+      "Business name: [Adjective] [Noun] — e.g. \"Bright Threads\". I picked it because it's easy to remember and tells customers I sell quality clothing.",
+      "Business name: [Your Name] Co. — e.g. \"Rivera Co.\". It feels personal and trustworthy, which fits a service brand.",
+      "Business name: [Product] Hub — e.g. \"Study Hub\". It's instantly clear what I offer.",
+    ],
+  },
+  "Select business structure": {
+    guide: "Each structure trades simplicity for protection. Pick one and explain why it fits your business.",
+    placeholder: "Structure: ___ — I chose it because ___",
+    starters: [
+      "Structure: Sole Proprietorship. Cheapest and easiest to start, but my personal savings aren't protected if the business owes money. Fine while I'm small and low-risk.",
+      "Structure: LLC. Costs a little to set up, but it separates my personal money from the business — if it's sued or in debt, my savings are safe. Best balance for me.",
+      "Structure: Corporation. Most paperwork and taxes, but best for raising money and adding owners. Only worth it if I plan to grow big.",
+    ],
+  },
+  "Get business license": {
+    guide: "Most businesses need a license to operate legally. Note the type, where you'd apply, and the rough cost.",
+    placeholder: "License plan: ___ | Where: ___ | Est. cost: ___",
+    starters: [
+      "License plan: general business license from my city/county clerk. Estimated cost: 50–100 IC, renewed yearly.",
+      "License plan: my product needs a special permit (e.g. a food handler's permit). I'll get it before selling. Estimated cost ~75 IC.",
+    ],
+  },
+  "Open business bank account": {
+    guide: "Keeping business money separate from personal money makes taxes and tracking far easier. Pick an account and say why.",
+    placeholder: "Bank plan: ___",
+    starters: [
+      "Bank plan: open a free business checking account (no monthly fee). I'll run all sales and expenses through it so my records stay clean.",
+      "Bank plan: business checking + a debit card for expenses, and I'll move 20% of every sale into a separate savings bucket for taxes.",
+    ],
+  },
+  "Set up budget": {
+    guide: "A budget tells your money where to go. Split your funds across the areas below and explain your priorities.",
+    placeholder: "Monthly budget: Product __% · Marketing __% · Operations __% · Savings __%",
+    starters: [
+      "Monthly budget: Product/inventory 40%, Marketing 30%, Operations 20%, Savings/taxes 10%. I'll review and adjust each month based on what's working.",
+      "Monthly budget: Marketing 50% (I need customers first), Product 30%, Operations 20%. Heavy on marketing because I'm just launching.",
+    ],
+  },
+  "Track first expense": {
+    guide: "Real businesses log every expense. Record one using this format.",
+    placeholder: "Item: ___ | Category: ___ | Amount: ___ IC | Why: ___",
+    starters: [
+      "Expense — Item: [what you bought] | Category: [product/marketing/ops] | Amount: [X] IC | Why: [reason].",
+      "Expense — Item: design tool subscription | Category: Marketing | Amount: 30 IC | Why: to make a professional logo and ads.",
+    ],
+  },
+  "Create brand name & logo": {
+    guide: "Your brand is how customers recognize you. Choose a logo style, colors, and a slogan. Pick a template to start.",
+    placeholder: "Logo style: ___ | Colors: ___ | Slogan: \"___\"",
+    starters: [
+      "Logo: minimalist wordmark (just my name in a clean bold font). Colors: deep green + gold. Slogan: \"[Benefit], made simple.\"",
+      "Logo: a friendly mascot/character with personality. Colors: bright and bold. Slogan: \"[Do the thing] like never before.\"",
+      "Logo: emblem/badge (icon inside a circle). Colors: black + one accent. Slogan: \"Built for [your customer].\"",
+    ],
+  },
+  "Write elevator pitch": {
+    guide: "A great pitch explains who you help and why you're different in one breath. Fill in the template.",
+    placeholder: "We help ___ do ___ with ___, unlike ___ because ___",
+    starters: [
+      "Pitch: \"We help [target customer] [achieve benefit] with [your product], unlike [competitor] because [your edge].\"",
+      "Pitch: \"[Customers] struggle with [problem]. My business fixes it by [solution], so they can [result].\"",
+    ],
+  },
+  "Create first ad": {
+    guide: "Good ads grab attention, show the benefit, and tell people what to do next. Use an ad template.",
+    placeholder: "Headline: \"___\" | Body: \"___\" | Call to action: \"___\"",
+    starters: [
+      "Ad — Headline: \"[Bold promise]!\" Body: \"[Who it's for] can now [benefit].\" CTA: \"[Shop now / DM me / Link in bio]\".",
+      "Ad — Hook: \"Tired of [problem]?\" Offer: \"Get [product] for just [price].\" CTA: \"Limited spots — order today!\"",
+    ],
+  },
+  "Define your first product": {
+    guide: "Be specific about what you're selling and the value it gives. Use the product-spec template.",
+    placeholder: "Name: ___ | What it is: ___ | For: ___ | Benefit: ___ | Price: ___ IC",
+    starters: [
+      "Product — Name: [product] | What it is: [1 sentence] | For: [customer] | Benefit: [outcome] | Price: [X] IC.",
+      "Product — Name: Study Guide Pack | What it is: a 20-page exam prep bundle | For: classmates | Benefit: higher scores, less stress | Price: 25 IC.",
+    ],
+  },
+  "Set launch pricing": {
+    guide: "Price too high and no one buys; too low and you lose money. Research competitors, then justify your price.",
+    placeholder: "My cost: ___ | Competitors: ___ | My price: ___ | Profit per sale: ___",
+    starters: [
+      "Pricing — My cost to make it: [X] IC. Competitor prices: [range]. My price: [Y] IC, which covers cost and leaves [Z] IC profit per sale.",
+      "Pricing — Cost-plus: it costs me 6 IC to make, I add a 60% markup, so I'll charge ~10 IC. I checked 3 competitors charging 8–14 IC.",
+    ],
+  },
+  "Get your first customer": {
+    guide: "Your first sale is the hardest. Plan how you'll reach someone and exactly what you'll say.",
+    placeholder: "Who I'll reach: ___ | My message: \"___\"",
+    starters: [
+      "Outreach: I'll message 10 classmates: \"Hey! I just launched [product] that helps with [benefit]. Want to be one of my first customers for [intro price]?\"",
+      "Outreach: post in [group/page] with a launch offer — first 5 buyers get [bonus] — then ask happy buyers for a review.",
+    ],
+  },
+  "Reinvest profits": {
+    guide: "Smart founders put profits back in to grow. Decide where your earnings go next.",
+    placeholder: "I'll reinvest ___% into ___ and keep ___% as a cushion.",
+    starters: [
+      "Reinvest plan: take [X]% of profit and put it into [marketing / more inventory / a better tool]; keep the rest as a safety cushion.",
+      "Reinvest plan: profit so far is [Y] IC — I'll spend half on a Flash Sale campaign to get more customers and save half for slow weeks.",
+    ],
+  },
+};
+
+// Daily operating cost charged whenever the student "runs a business day".
+const DAILY_OVERHEAD = 20;
+
+// Random events from running a business day. Negatives outweigh positives, and
+// every day also costs overhead — so running your business carries real risk.
+const BUSINESS_EVENTS: { type: "gain" | "loss" | "neutral"; weight: number; label: string; desc: string; min: number; max: number }[] = [
+  { type: "loss",    weight: 3, label: "Customer refund",    desc: "A customer wasn't happy and demanded their money back.", min: 30, max: 80 },
+  { type: "loss",    weight: 2, label: "Equipment broke",    desc: "Your gear broke and needed an emergency repair.",         min: 40, max: 120 },
+  { type: "loss",    weight: 2, label: "Supplier price hike", desc: "Your supplier raised prices on materials.",              min: 25, max: 70 },
+  { type: "loss",    weight: 2, label: "Late-payment fee",   desc: "You missed a bill's due date and got charged a penalty.", min: 20, max: 60 },
+  { type: "loss",    weight: 2, label: "Bad review",         desc: "A harsh review scared off some customers.",                min: 20, max: 90 },
+  { type: "loss",    weight: 1, label: "Surprise tax bill",  desc: "The taxes you forgot to set aside came due.",             min: 50, max: 150 },
+  { type: "gain",    weight: 3, label: "Word of mouth",      desc: "A happy customer told their friends.",                    min: 30, max: 90 },
+  { type: "gain",    weight: 2, label: "Repeat order",       desc: "A loyal customer placed a big repeat order.",             min: 40, max: 120 },
+  { type: "gain",    weight: 1, label: "Went viral",         desc: "One of your posts blew up online!",                       min: 80, max: 200 },
+  { type: "neutral", weight: 2, label: "Slow day",           desc: "Quiet day — no big wins, no big losses.",                 min: 0,  max: 0 },
+];
 
 // Task reflections are persisted client-side (there's no DB column for them).
 const REFLECTIONS_KEY = "investiplay_task_reflections";
@@ -165,6 +297,7 @@ export default function MicroBusiness() {
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
   const [reflectionDraft, setReflectionDraft] = useState("");
   const [savingTask, setSavingTask] = useState(false);
+  const [runningDay, setRunningDay] = useState(false);
 
   // Marketplace listing state
   const [showListItem, setShowListItem] = useState(false);
@@ -557,24 +690,80 @@ export default function MicroBusiness() {
     const spent = spendJeffs(campaign.cost, `Marketing: ${campaign.name}`);
     if (!spent) return;
 
-    // Simulate revenue boost
-    const boostedRevenue = campaign.revenueBoost + Math.round(Math.random() * campaign.revenueBoost * 0.5);
-    earnJeffs(boostedRevenue, `Campaign revenue: ${campaign.name}`);
+    // Campaigns are a gamble — they can succeed or flop.
+    const success = Math.random() < (campaign.successRate ?? 0.7);
+    const boostedRevenue = success
+      ? campaign.revenueBoost + Math.round(Math.random() * campaign.revenueBoost * 0.4)
+      : Math.round(campaign.revenueBoost * Math.random() * 0.2); // flop: 0–20% returned
+    if (boostedRevenue > 0) earnJeffs(boostedRevenue, `Campaign revenue: ${campaign.name}`);
 
     if (!useLocalMode) {
       await supabase.from('business_finances').insert({
         business_id: business.id,
         revenue: boostedRevenue,
         expenses: campaign.cost,
-        notes: `Campaign: ${campaign.name}`
+        notes: `Campaign: ${campaign.name}${success ? '' : ' (flop)'}`
       });
     }
 
     setTotalRevenue(prev => prev + boostedRevenue);
     setTotalExpenses(prev => prev + campaign.cost);
-    toast.success(`${campaign.name} complete!`, {
-      description: `Spent ${campaign.cost} · Earned ${boostedRevenue} InvestiCoins`
-    });
+    const net = boostedRevenue - campaign.cost;
+    if (success && net >= 0) {
+      toast.success(`${campaign.name} paid off!`, {
+        description: `Spent ${campaign.cost} · Earned ${boostedRevenue} · Net +${net} IC`
+      });
+    } else {
+      toast.error(`${campaign.name} underperformed`, {
+        description: `Spent ${campaign.cost} · Earned ${boostedRevenue} · Net ${net} IC`
+      });
+    }
+  };
+
+  // ─── Business Day (random gains and losses) ───────────────────────
+  const pickBusinessEvent = () => {
+    const total = BUSINESS_EVENTS.reduce((s, e) => s + e.weight, 0);
+    let r = Math.random() * total;
+    for (const e of BUSINESS_EVENTS) { if ((r -= e.weight) <= 0) return e; }
+    return BUSINESS_EVENTS[BUSINESS_EVENTS.length - 1];
+  };
+
+  const runBusinessDay = async () => {
+    if (!business || runningDay) return;
+    if (jeffsBalance < DAILY_OVERHEAD) {
+      toast.error("You can't cover today's overhead", { description: `A business day costs ${DAILY_OVERHEAD} IC in overhead. Earn more first.` });
+      return;
+    }
+    setRunningDay(true);
+    try {
+      const ev = pickBusinessEvent();
+      const amount = ev.max > 0 ? Math.floor(ev.min + Math.random() * (ev.max - ev.min + 1)) : 0;
+      const revenue = ev.type === "gain" ? amount : 0;
+      const expense = DAILY_OVERHEAD + (ev.type === "loss" ? amount : 0);
+      const net = revenue - expense;
+
+      // Single coin operation to avoid stale-balance issues.
+      if (net >= 0) earnJeffs(net, `Business day: ${ev.label}`);
+      else spendJeffs(Math.min(-net, jeffsBalance), `Business day: ${ev.label}`);
+
+      if (!useLocalMode) {
+        await supabase.from('business_finances').insert({
+          business_id: business.id, revenue, expenses: expense, notes: `Day: ${ev.label}`
+        });
+      }
+      setTotalRevenue(prev => prev + revenue);
+      setTotalExpenses(prev => prev + expense);
+
+      if (ev.type === "gain") {
+        toast.success(`📈 ${ev.label}`, { description: `${ev.desc} +${amount} IC (net ${net >= 0 ? "+" : ""}${net} after overhead).` });
+      } else if (ev.type === "loss") {
+        toast.error(`📉 ${ev.label}`, { description: `${ev.desc} −${amount} IC, plus ${DAILY_OVERHEAD} overhead (net ${net} IC).` });
+      } else {
+        toast(`${ev.label}`, { description: `${ev.desc} Overhead −${DAILY_OVERHEAD} IC.` });
+      }
+    } finally {
+      setRunningDay(false);
+    }
   };
 
   const buyUpgrade = async (upgrade: typeof GROWTH_UPGRADES[0]) => {
@@ -947,6 +1136,26 @@ export default function MicroBusiness() {
                 </Card>
               </div>
 
+              {/* Open for business — run a day of operations (risk!) */}
+              <Card variant="elevated" className="mt-4 overflow-hidden">
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between gap-4 flex-wrap">
+                    <div className="max-w-md">
+                      <h3 className="font-display text-base font-extrabold flex items-center gap-2">
+                        <Store className="w-4 h-4 text-primary" /> Open for business
+                      </h3>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Run a day of operations. Daily overhead costs <span className="font-semibold text-foreground">{DAILY_OVERHEAD} IC</span>, and anything can happen — a viral post, a refund, a broken laptop, a surprise tax bill. Real business means real risk.
+                      </p>
+                    </div>
+                    <Button onClick={runBusinessDay} disabled={runningDay} className="press-scale gap-1.5 shrink-0">
+                      {runningDay ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                      Run a business day
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Task progress */}
               <Card variant="elevated" className="mt-4">
                 <CardContent className="pt-6">
@@ -1063,17 +1272,34 @@ export default function MicroBusiness() {
                                     </div>
                                   )}
 
-                                  {/* Pending + editing: reflection required before completing */}
-                                  {!completed && editing && (
-                                    <div className="mt-2.5 space-y-2">
+                                  {/* Pending + editing: templated worksheet required before completing */}
+                                  {!completed && editing && (() => {
+                                    const tpl = TASK_TEMPLATES[task.title];
+                                    return (
+                                    <div className="mt-2.5 space-y-2.5">
                                       <div className="flex items-start gap-1.5 text-xs text-muted-foreground">
                                         <Lightbulb className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" />
-                                        <span>What did you do to complete this? Be specific — this is your record.</span>
+                                        <span>{tpl?.guide || "Describe what you did to complete this — be specific. This is your record."}</span>
                                       </div>
+                                      {tpl && tpl.starters.length > 0 && (
+                                        <div className="space-y-1.5">
+                                          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Templates — tap one, then make it yours</p>
+                                          {tpl.starters.map((s, si) => (
+                                            <button
+                                              key={si}
+                                              type="button"
+                                              onClick={() => setReflectionDraft(s)}
+                                              className="w-full text-left rounded-lg border border-border bg-muted/40 hover:bg-muted px-3 py-2 transition-colors press-scale"
+                                            >
+                                              <span className="text-xs text-foreground/75 leading-snug">{s}</span>
+                                            </button>
+                                          ))}
+                                        </div>
+                                      )}
                                       <Textarea
                                         autoFocus
-                                        rows={3}
-                                        placeholder="e.g. I chose 'Pixel Studio LLC' and registered it because an LLC protects my personal savings…"
+                                        rows={4}
+                                        placeholder={tpl?.placeholder || "Fill in your plan…"}
                                         value={reflectionDraft}
                                         onChange={e => setReflectionDraft(e.target.value)}
                                       />
@@ -1094,7 +1320,7 @@ export default function MicroBusiness() {
                                         </div>
                                       </div>
                                     </div>
-                                  )}
+                                  ); })()}
                                 </div>
 
                                 {/* Right-side action / status */}
@@ -1204,8 +1430,13 @@ export default function MicroBusiness() {
                           <span className="text-xs text-gold font-bold flex items-center gap-0.5"><Coins className="w-3 h-3" />{c.cost}</span>
                         </div>
                         <p className="text-xs text-muted-foreground">{c.description}</p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-success">Est. return: ~{c.revenueBoost}+ IC</span>
+                        <div className="flex items-center gap-3 text-xs">
+                          <span className="text-success">~{c.revenueBoost} IC if it lands</span>
+                          <span className="text-muted-foreground flex items-center gap-1">
+                            <AlertCircle className="w-3 h-3" />{Math.round(c.successRate * 100)}% success · can flop
+                          </span>
+                        </div>
+                        <div className="flex justify-end">
                           <Button size="sm" variant="outline" className="press-scale" onClick={() => runCampaign(c)}>Run Campaign</Button>
                         </div>
                       </div>
