@@ -1,6 +1,7 @@
 import { StructuredLessonContent } from "@/types"
 import { lessons } from "@/data/lessons"
 import { generateStructuredContent } from "@/lib/contentGenerator"
+import { AP_MICRO_QUIZZES } from "@/data/apMicro"
 import { investingFundamentalsContent } from "@/data/investingFundamentalsContent"
 import { businessManagementContent } from "@/data/businessManagementContent"
 import { marketingContent } from "@/data/marketingContent"
@@ -1272,7 +1273,23 @@ export function getStructuredContent(lessonId: string): StructuredLessonContent 
 
   // Generate content dynamically for lessons without hand-written content
   const lesson = lessons.find((l) => l.id === lessonId)
-  if (lesson) return generateStructuredContent(lesson)
+  if (lesson) {
+    const generated = generateStructuredContent(lesson)
+    // AP Micro lessons: keep the auto-generated prose but overlay the
+    // hand-authored 3-question quiz as the end-of-lesson mastery check.
+    const authoredQuiz = AP_MICRO_QUIZZES[lessonId]
+    if (authoredQuiz && authoredQuiz.length > 0) {
+      return {
+        ...generated,
+        sections: generated.sections.map((s) =>
+          s.type === "mastery-check"
+            ? { ...s, questions: authoredQuiz, requiredCorrect: Math.min(2, authoredQuiz.length) }
+            : s
+        ),
+      }
+    }
+    return generated
+  }
 
   return null
 }

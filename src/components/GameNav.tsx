@@ -77,14 +77,21 @@ export default function GameNav() {
   const { netWorth } = useNetWorth();
   const location = useLocation();
 
-  const completedLessons = lessonProgress.filter(p => p.completed).length;
-  const totalLessons = lessons.length;
+  // Player level reflects the core (Florida) curriculum only, so the optional
+  // AP Micro elective track never changes a student's level.
+  const floridaUnits = useMemo(() => unitInfo.filter(u => (u.track ?? "florida") === "florida"), []);
+  const floridaLessonIds = useMemo(
+    () => new Set(floridaUnits.flatMap(u => getLessonsByUnit(u.id).map(l => l.id))),
+    [floridaUnits]
+  );
+  const completedLessons = lessonProgress.filter(p => p.completed && floridaLessonIds.has(p.lessonId)).length;
+  const totalLessons = floridaLessonIds.size;
   const unitScores = useMemo(() =>
-    unitInfo.map(u => {
+    floridaUnits.map(u => {
       const ul = getLessonsByUnit(u.id);
       return { done: ul.filter(l => lessonProgress.find(p => p.lessonId === l.id && p.completed)).length, total: ul.length };
     }),
-  [lessonProgress]);
+  [lessonProgress, floridaUnits]);
   const level = useMemo(() => getCurriculumLevel(completedLessons, totalLessons, unitScores), [completedLessons, totalLessons, unitScores]);
   const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
 

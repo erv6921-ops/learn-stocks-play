@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
 import { supabase } from "@/integrations/supabase/client";
 import { lessons, unitInfo, getUnitRewardTotal, getLessonsByUnit } from "@/data/lessons";
+import { AP_UNIT_CHALLENGES } from "@/data/apMicro";
 import { getAdaptiveCurriculum, AdaptiveLessonInfo } from "@/lib/curriculumEngine";
 import {
   getStreak, getBestStreak, getCurriculumLevel, getTotalEarned, getCoinsThisWeek,
@@ -14,8 +15,9 @@ import GameNav from "@/components/GameNav";
 import {
   ArrowRight, Lock, CheckCircle, Coins, Flame, Star, Trophy,
   Award, Footprints, Zap, Crown, LineChart, Coins as CoinsIcon,
+  GraduationCap, Target,
 } from "lucide-react";
-import { LessonCategory } from "@/types";
+import { LessonCategory, CourseTrack } from "@/types";
 import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
 
@@ -78,6 +80,18 @@ export default function Lessons() {
     try { localStorage.setItem("ap-mode", String(apMode)); } catch {}
   }, [apMode]);
 
+  // Course track: Florida Personal Finance (default) or the AP Micro elective.
+  const [activeTrack, setActiveTrack] = useState<CourseTrack>(() => {
+    try { return (localStorage.getItem("investiplay_active_track") as CourseTrack) || "florida"; } catch { return "florida"; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem("investiplay_active_track", activeTrack); } catch { /* storage unavailable */ }
+  }, [activeTrack]);
+  const trackUnits = useMemo(
+    () => unitInfo.filter(u => (u.track ?? "florida") === activeTrack).sort((a, b) => a.orderIndex - b.orderIndex),
+    [activeTrack]
+  );
+
   const isLessonCompleted = useCallback(
     (lessonId: string) => lessonProgress.find((p) => p.lessonId === lessonId && p.completed),
     [lessonProgress]
@@ -95,12 +109,13 @@ export default function Lessons() {
     );
   }, [user?.benchmarkCategoryScores, user?.benchmarkScores, user?.assessmentScore]);
 
-  // Prerequisite gating
+  // Prerequisite gating — scoped to the units of the active track.
   const unlockedUnits = useMemo(() => {
     const unlocked = new Set<string>();
-    for (const unit of unitInfo) {
-      if (unit.orderIndex === 1) { unlocked.add(unit.id); continue; }
-      const previousUnits = unitInfo.filter(u => u.orderIndex < unit.orderIndex);
+    const firstOrder = trackUnits[0]?.orderIndex;
+    for (const unit of trackUnits) {
+      if (unit.orderIndex === firstOrder) { unlocked.add(unit.id); continue; }
+      const previousUnits = trackUnits.filter(u => u.orderIndex < unit.orderIndex);
       const allPreviousComplete = previousUnits.every(prevUnit => {
         const adaptive = adaptiveCurriculum.get(prevUnit.id);
         if (!adaptive) return false;
@@ -112,7 +127,7 @@ export default function Lessons() {
       if (allPreviousComplete) unlocked.add(unit.id);
     }
     return unlocked;
-  }, [adaptiveCurriculum, lessonProgress]);
+  }, [adaptiveCurriculum, lessonProgress, trackUnits]);
 
   const isLessonUnlocked = (unitId: string, lessonId: string): boolean => {
     if (!unlockedUnits.has(unitId)) return false;
@@ -127,9 +142,9 @@ export default function Lessons() {
     return !!isLessonCompleted(requiredLessons[lessonIndex - 1].lesson.id);
   };
 
-  // Find the first unit with incomplete lessons (active unit)
+  // Find the first unit with incomplete lessons (active unit) within the track.
   const firstActiveUnitId = useMemo(() => {
-    for (const unit of unitInfo) {
+    for (const unit of trackUnits) {
       if (!unlockedUnits.has(unit.id)) continue;
       const adaptive = adaptiveCurriculum.get(unit.id);
       if (!adaptive) continue;
@@ -138,8 +153,8 @@ export default function Lessons() {
       );
       if (!allDone) return unit.id;
     }
-    return unitInfo[0]?.id || "";
-  }, [adaptiveCurriculum, lessonProgress, unlockedUnits]);
+    return trackUnits[0]?.id || "";
+  }, [adaptiveCurriculum, lessonProgress, unlockedUnits, trackUnits]);
 
   const [activeUnitId, setActiveUnitId] = useState(firstActiveUnitId);
   useEffect(() => { setActiveUnitId(firstActiveUnitId); }, [firstActiveUnitId]);
@@ -196,23 +211,29 @@ export default function Lessons() {
   // Next unit after current
   const nextUnit = useMemo(() => {
     if (!activeUnit) return null;
-    return unitInfo.find(u => u.orderIndex === activeUnit.orderIndex + 1) || null;
-  }, [activeUnit]);
+    return trackUnits.find(u => u.orderIndex === activeUnit.orderIndex + 1) || null;
+  }, [activeUnit, trackUnits]);
 
-  // ── Player-wide stats (same sources the navbar HUD uses) ──
+  // ── Player-wide stats (level mirrors the Florida-scoped navbar HUD) ──
+  const floridaUnits = useMemo(() => unitInfo.filter(u => (u.track ?? "florida") === "florida"), []);
+  const floridaLessonIds = useMemo(
+    () => new Set(floridaUnits.flatMap(u => getLessonsByUnit(u.id).map(l => l.id))),
+    [floridaUnits]
+  );
   const completedLessonsAll = lessonProgress.filter(p => p.completed).length;
+  const completedFloridaLessons = lessonProgress.filter(p => p.completed && floridaLessonIds.has(p.lessonId)).length;
   const unitScores = useMemo(() =>
-    unitInfo.map(u => {
+    floridaUnits.map(u => {
       const ul = getLessonsByUnit(u.id);
       return {
         done: ul.filter(l => lessonProgress.find(p => p.lessonId === l.id && p.completed)).length,
         total: ul.length,
       };
-    }), [lessonProgress]);
+    }), [lessonProgress, floridaUnits]);
   const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
   const bestStreak = useMemo(() => getBestStreak(jeffsHistory), [jeffsHistory]);
-  const level = useMemo(() => getCurriculumLevel(completedLessonsAll, lessons.length, unitScores),
-    [completedLessonsAll, unitScores]);
+  const level = useMemo(() => getCurriculumLevel(completedFloridaLessons, floridaLessonIds.size, unitScores),
+    [completedFloridaLessons, floridaLessonIds, unitScores]);
   const totalEarned = useMemo(() => getTotalEarned(jeffsHistory), [jeffsHistory]);
   const coinsThisWeek = useMemo(() => getCoinsThisWeek(jeffsHistory), [jeffsHistory]);
   const anyUnitComplete = unitScores.some(u => u.total > 0 && u.done >= u.total);
@@ -334,12 +355,40 @@ export default function Lessons() {
       <GameNav />
 
       <main className="container mx-auto px-4 md:px-6 py-6 max-w-5xl">
-        {/* AP Mode Toggle */}
-        <div className="mb-6">
-          <APModeToggle apMode={apMode} onToggle={setApMode} />
+        {/* Course track switcher */}
+        <div className="mb-4 inline-flex items-center rounded-full bg-muted/60 p-1 border border-border/40">
+          {([
+            { key: "florida" as CourseTrack, label: "Personal Finance" },
+            { key: "ap-micro" as CourseTrack, label: "AP Microeconomics" },
+          ]).map(t => (
+            <button
+              key={t.key}
+              onClick={() => setActiveTrack(t.key)}
+              className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${activeTrack === t.key ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              {t.label}
+            </button>
+          ))}
         </div>
 
-        {apMode ? renderAPMode() : (
+        {/* AP Mode Toggle (business AP tracks — Florida only) */}
+        {activeTrack === "florida" && (
+          <div className="mb-6">
+            <APModeToggle apMode={apMode} onToggle={setApMode} />
+          </div>
+        )}
+
+        {/* AP Micro elective banner */}
+        {activeTrack === "ap-micro" && (
+          <div className="rounded-2xl p-4 mb-5 text-white" style={{ background: "linear-gradient(135deg,#0f2d1e,#1D9E75)" }}>
+            <p className="text-sm font-bold flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-gold" /> AP Microeconomics — College Board aligned
+            </p>
+            <p className="text-white/60 text-xs mt-0.5">An elective track. Your required curriculum and level are unaffected.</p>
+          </div>
+        )}
+
+        {apMode && activeTrack === "florida" ? renderAPMode() : (
           <>
             {/* 1. Page header */}
             <div className="mb-6">
@@ -491,7 +540,7 @@ export default function Lessons() {
             {/* 3. Unit strip — #3 scrollable, hidden scrollbar, right fade */}
             <div className="relative mb-4">
               <div ref={stripRef} className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-                {unitInfo.map((unit) => {
+                {trackUnits.map((unit) => {
                   const adaptive = adaptiveCurriculum.get(unit.id);
                   const uLessons = adaptive?.lessons ?? [];
                   const done = uLessons.filter(l => l.status === "validated" || isLessonCompleted(l.lesson.id)).length;
@@ -559,6 +608,16 @@ export default function Lessons() {
                   <Lock className="w-3.5 h-3.5" />
                   Complete Unit {Math.max(1, previewUnit.unitNumber - 1)} first to unlock
                 </p>
+              </div>
+            )}
+
+            {/* AP Micro: unit challenge tie-in (simulator / lab / business mode) */}
+            {activeTrack === "ap-micro" && AP_UNIT_CHALLENGES[activeUnitId] && (
+              <div className="rounded-[20px] px-5 py-4 mb-4 border" style={{ borderColor: "hsl(45 10% 82%)", background: "rgba(29,158,117,0.06)" }}>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#1D9E75] flex items-center gap-1.5 mb-1">
+                  <Target className="w-3.5 h-3.5" /> Apply it — challenge
+                </p>
+                <p className="text-sm text-foreground/80">{AP_UNIT_CHALLENGES[activeUnitId]}</p>
               </div>
             )}
 

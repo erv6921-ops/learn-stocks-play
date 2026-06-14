@@ -48,6 +48,7 @@ export interface Lesson {
   duration: number
   completed: boolean
   quizScore?: number
+  track?: CourseTrack
 }
 
 export type LessonCategory = 
@@ -88,6 +89,16 @@ export type LessonCategory =
   | "strategic-analysis"
   | "pestel-analysis"
   | "business-ethics"
+  // AP Microeconomics elective track
+  | "micro-basics"
+  | "micro-supply-demand"
+  | "micro-production"
+  | "micro-imperfect"
+  | "micro-factor-markets"
+  | "micro-market-failure"
+
+// Curriculum track. Defaults to the state-required Florida track when omitted.
+export type CourseTrack = "florida" | "ap-micro"
 
 export interface UnitInfo {
   id: string
@@ -97,6 +108,7 @@ export interface UnitInfo {
   levelTitle: string
   categories: LessonCategory[]
   orderIndex: number
+  track?: CourseTrack
 }
 
 export interface Token {

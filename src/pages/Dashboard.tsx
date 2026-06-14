@@ -104,9 +104,15 @@ export default function Dashboard() {
   const { netWorth, portfolioValue, holdings, livePrices } = useNetWorth();
   const navigate = useNavigate();
 
-  const completedLessons = lessonProgress.filter((p) => p.completed).length;
-  const totalLessons = lessons.length;
-  const progressPercent = Math.round(completedLessons / totalLessons * 100);
+  // The dashboard reflects the core (Florida) curriculum only; the optional AP
+  // Micro elective has its own card + track and never affects these stats.
+  const floridaUnits = useMemo(() => unitInfo.filter((u) => (u.track ?? "florida") === "florida"), []);
+  const floridaLessons = useMemo(() => lessons.filter((l) => (l.track ?? "florida") === "florida"), []);
+  const floridaLessonIds = useMemo(() => new Set(floridaLessons.map((l) => l.id)), [floridaLessons]);
+
+  const completedLessons = lessonProgress.filter((p) => p.completed && floridaLessonIds.has(p.lessonId)).length;
+  const totalLessons = floridaLessonIds.size;
+  const progressPercent = totalLessons > 0 ? Math.round(completedLessons / totalLessons * 100) : 0;
 
   // ── Live watchlist prices ──
   const [watchlistPrices, setWatchlistPrices] = useState<Map<string, {price: number;change: number | null;changePercent: number | null;name?: string;}>>(new Map());
@@ -195,11 +201,11 @@ export default function Dashboard() {
   // Curriculum-based level
   const unitScoresForLevel = useMemo(() => {
     const check = (id: string) => lessonProgress.some((p) => p.lessonId === id && p.completed);
-    return unitInfo.map(u => {
+    return floridaUnits.map(u => {
       const ul = getLessonsByUnit(u.id);
       return { done: ul.filter(l => check(l.id)).length, total: ul.length };
     });
-  }, [lessonProgress]);
+  }, [lessonProgress, floridaUnits]);
   const currLevel = useMemo(() => getCurriculumLevel(completedLessons, totalLessons, unitScoresForLevel), [completedLessons, totalLessons, unitScoresForLevel]);
   // Progress within current level band
   const levelProgressPct = useMemo(() => {
@@ -235,14 +241,14 @@ export default function Dashboard() {
   // Find next incomplete lesson (same logic as Missions page)
   const nextLesson = useMemo(() => {
     const check = (id: string) => lessonProgress.some((p) => p.lessonId === id && p.completed);
-    return lessons.find((l) => !check(l.id));
-  }, [lessonProgress]);
+    return floridaLessons.find((l) => !check(l.id));
+  }, [lessonProgress, floridaLessons]);
 
   // Find the unit the next lesson belongs to
   const currentUnit = useMemo(() => {
-    if (!nextLesson) return unitInfo[unitInfo.length - 1];
-    return unitInfo.find((u) => u.id === nextLesson.unitId) || unitInfo[0];
-  }, [nextLesson]);
+    if (!nextLesson) return floridaUnits[floridaUnits.length - 1];
+    return floridaUnits.find((u) => u.id === nextLesson.unitId) || floridaUnits[0];
+  }, [nextLesson, floridaUnits]);
 
   // Current unit progress
   const currentUnitLessons = useMemo(() => getLessonsByUnit(currentUnit.id), [currentUnit]);
@@ -255,7 +261,7 @@ export default function Dashboard() {
   // Unit overview cards (show current + next 3 units with incomplete lessons)
   const unitOverviewCards = useMemo(() => {
     const check = (id: string) => lessonProgress.some((p) => p.lessonId === id && p.completed);
-    return unitInfo
+    return floridaUnits
       .map((unit) => {
         const ul = getLessonsByUnit(unit.id);
         const done = ul.filter((l) => check(l.id)).length;
@@ -266,7 +272,7 @@ export default function Dashboard() {
       })
       .filter((u) => u.progress < 100)
       .slice(0, 4);
-  }, [lessonProgress]);
+  }, [lessonProgress, floridaUnits]);
 
   // Streak ring: 7-day cycle
   const streakDayInCycle = streak % 7;
@@ -613,6 +619,27 @@ export default function Dashboard() {
             )}
           </div>
         </div>
+
+        {/* ──── AP MICROECONOMICS ELECTIVE ──── */}
+        <button
+          onClick={() => {
+            try { localStorage.setItem("investiplay_active_track", "ap-micro"); } catch { /* ignore */ }
+            navigate("/lessons");
+          }}
+          className="w-full text-left rounded-2xl p-5 mb-4 md:mb-8 relative overflow-hidden press-scale"
+          style={{ background: "linear-gradient(135deg,#0f2d1e 0%,#14432e 55%,#1D9E75 140%)" }}
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div className="min-w-0">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gold mb-1">Elective course</p>
+              <h3 className="font-display text-lg font-extrabold text-white tracking-tight">AP Microeconomics</h3>
+              <p className="text-white/55 text-sm mt-0.5">6 College Board–aligned units. Available in any state — your required curriculum is unaffected.</p>
+            </div>
+            <span className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-white/10 border border-white/15 px-3 py-2 text-sm font-bold text-white">
+              Start <ChevronRight className="w-4 h-4" />
+            </span>
+          </div>
+        </button>
 
         {/* ──── DAILY MISSIONS ──── */}
         <DailyMissions

@@ -1,4 +1,5 @@
-import { Lesson, LessonCategory, MasteryTier, UnitInfo, LEVEL_TITLES } from "@/types"
+import { Lesson, LessonCategory, MasteryTier, UnitInfo, LEVEL_TITLES, CourseTrack } from "@/types"
+import { AP_MICRO_UNITS, AP_MICRO_LESSONS } from "@/data/apMicro"
 
 // Helper to create a lesson
 function L(
@@ -476,4 +477,22 @@ export function getLessonsByUnit(unitId: string): Lesson[] {
 
 export function getUnitRewardTotal(unitId: string): number {
   return getLessonsByUnit(unitId).reduce((sum, l) => sum + l.reward, 0)
+}
+
+// ═══════════════════════════════════════════════
+// AP MICROECONOMICS — additive elective track
+// Appended to the shared arrays so the existing lesson UI, routing, and
+// gamification work unchanged. Everything else filters by `track`, so the
+// Florida (default) track is unaffected.
+// ═══════════════════════════════════════════════
+unitInfo.push(...AP_MICRO_UNITS)
+lessons.push(...AP_MICRO_LESSONS)
+
+// Units belonging to a given track. Treats untagged units as the Florida track.
+export function getUnitsByTrack(track: CourseTrack = "florida"): UnitInfo[] {
+  return unitInfo.filter(u => (u.track ?? "florida") === track)
+}
+
+export function getUnitTrack(unitId: string): CourseTrack {
+  return unitInfo.find(u => u.id === unitId)?.track ?? "florida"
 }
