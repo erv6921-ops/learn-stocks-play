@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import {
   Loader2, CheckCircle2, AlertTriangle, FileText, Package, Tag, MessageSquare,
   Users, Handshake, Truck, Megaphone, Palette, Rocket, Star, ArrowRight, Plus,
-  Briefcase, ClipboardList, DollarSign, Lightbulb, Trophy, Pencil, type LucideIcon,
+  Briefcase, ClipboardList, DollarSign, Lightbulb, Trophy, Pencil, Activity, Skull, type LucideIcon,
 } from "lucide-react";
 import {
   BUSINESS_TYPES, bizDef, BETA_REVIEWS, PARTNERS, PARTNER_PROBLEMS, VENDOR_OFFERS,
@@ -22,6 +22,10 @@ import {
   loadActivities, saveActivities, defaultActivities,
   type ActivitiesState, type BusinessType, type Partner,
 } from "@/lib/businessActivities";
+import {
+  type BizState, defaultBizState, pickSituation, resolveSituation, addProduct,
+  applyEffect, ACTIVITY_EFFECTS, monthlyRevenue, statusLabel,
+} from "@/lib/businessSim";
 
 const NEON = "#00ff88";
 type Fields = Record<string, unknown>;
@@ -90,17 +94,21 @@ export default function MicroBusinessStudio() {
   const complete: Complete = useCallback((id, fields, xp) => {
     setA((prev) => {
       if (!prev) return prev;
+      const firstTime = !prev.xpAwarded.includes(id);
+      const prevSim = (prev.sim as BizState) || defaultBizState();
       const next: ActivitiesState = {
         ...prev,
         data: { ...prev.data, [id]: fields },
         done: prev.done.includes(id) ? prev.done : [...prev.done, id],
-        xpAwarded: prev.xpAwarded.includes(id) ? prev.xpAwarded : [...prev.xpAwarded, id],
+        xpAwarded: firstTime ? [...prev.xpAwarded, id] : prev.xpAwarded,
+        sim: firstTime ? applyEffect(prevSim, id) : prev.sim,
       };
-      if (!prev.xpAwarded.includes(id)) earnJeffs(xp, `Completed: ${ACTIVITY_TITLES[id] || id}`);
+      if (firstTime) earnJeffs(xp, `Completed: ${ACTIVITY_TITLES[id] || id}`);
       saveActivities(next);
       return next;
     });
-    toast.success(`${ACTIVITY_TITLES[id] || "Activity"} submitted`, { description: `Saved · +${xp} XP` });
+    const eff = ACTIVITY_EFFECTS[id];
+    toast.success(`${ACTIVITY_TITLES[id] || "Activity"} submitted`, { description: `+${xp} XP${eff ? ` · ${eff.msg}` : ""}` });
   }, [earnJeffs]);
 
   if (!a) return (<div className="min-h-screen bg-background"><GameNav /><div className="flex items-center justify-center py-24"><Loader2 className="w-7 h-7 animate-spin text-primary" /></div></div>);
@@ -136,6 +144,23 @@ export default function MicroBusinessStudio() {
   const doneCount = ALL_ACTIVITIES.filter((id) => a.done.includes(id)).length;
   const allDone = doneCount === ALL_ACTIVITIES.length;
 
+  // ── living-business state + handlers ──
+  const sim: BizState = (a.sim as BizState) || defaultBizState();
+  const setSim = (next: BizState) => persist({ ...a, sim: next });
+  const generateMonth = () => { if (sim.pending || sim.status === "failed") return; setSim({ ...sim, pending: pickSituation(sim) }); };
+  const resolveMonth = (optIndex: number, words: number) => {
+    const { next, revenue } = resolveSituation(sim, optIndex, words);
+    setSim(next);
+    earnJeffs(40, `Business month ${sim.month}`);
+    toast.success(`Month ${sim.month} resolved`, { description: `Revenue +${revenue} IC · +40 XP` });
+    if (next.status === "failed") toast.error("Your business ran out of road", { description: "Review what happened, then rebuild." });
+  };
+  const rebuild = () => setSim(defaultBizState());
+  const addProductHandler = (p: { name: string; price: number; pitch: string }) => {
+    setSim(addProduct(sim, p)); earnJeffs(75, "Launched a new product");
+    toast.success(`"${p.name}" added to your product line`, { description: "Customers +60 · Brand +5 · +75 XP" });
+  };
+
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
@@ -157,6 +182,10 @@ export default function MicroBusinessStudio() {
           <div className="h-1.5 mt-3 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${(doneCount / ALL_ACTIVITIES.length) * 100}%`, background: NEON }} /></div>
         </div>
 
+        {/* Living business — metrics + a monthly operations loop that runs over months */}
+        <BusinessDashboard sim={sim} />
+        <MonthlyOps sim={sim} onGenerate={generateMonth} onResolve={resolveMonth} onRebuild={rebuild} />
+
         <Tabs defaultValue="product" className="space-y-4">
           <TabsList className={cn("grid w-full", allDone ? "grid-cols-5" : "grid-cols-4")}>
             <TabsTrigger value="product" className="text-xs"><Package className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Product</TabsTrigger>
@@ -167,6 +196,7 @@ export default function MicroBusinessStudio() {
           </TabsList>
 
           <TabsContent value="product" className="space-y-4">
+            <ProductLine sim={sim} onAdd={addProductHandler} />
             <ProductDoc a={a} bt={bt} complete={complete} />
             <Pricing a={a} bt={bt} complete={complete} />
             <Feedback a={a} bt={bt} complete={complete} />
@@ -690,5 +720,109 @@ function SummaryReport({ a, bt }: { a: ActivitiesState; bt: BusinessType }) {
       ))}
       <p className="text-xs text-muted-foreground text-center">All responses are saved to your business record for teacher review.</p>
     </div>
+  );
+}
+
+/* ════════════════════════ LIVING BUSINESS (runs over months) ════════════════════════ */
+function MetricBar({ label, value }: { label: string; value: number }) {
+  const color = value >= 66 ? "#1D9E75" : value >= 33 ? "#EF9F27" : "#dc2626";
+  return (
+    <div>
+      <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-white/40"><span>{label}</span><span style={{ color }}>{Math.round(value)}</span></div>
+      <div className="h-1.5 mt-1 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${value}%`, background: color }} /></div>
+    </div>
+  );
+}
+function BusinessDashboard({ sim }: { sim: BizState }) {
+  const st = statusLabel(sim);
+  return (
+    <div className="hud-panel p-4 mb-4 relative z-10">
+      <div className="relative z-10">
+        <div className="flex items-center justify-between mb-3">
+          <p className="font-display text-base font-extrabold text-white flex items-center gap-2"><Activity className="w-4 h-4" style={{ color: NEON }} /> Business status · Month {sim.month}</p>
+          <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: `${st.color}22`, color: st.color }}>{st.label}</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+          {([["Customers", sim.customers.toLocaleString()], ["Cash", `${sim.cash.toLocaleString()} IC`], ["Products", String(sim.products.length)], ["Revenue/mo", `${monthlyRevenue(sim).toLocaleString()} IC`]] as const).map(([l, v]) => (
+            <div key={l} className="bg-white/5 rounded-lg px-2 py-1.5 text-center"><p className="text-[9px] text-white/40 uppercase font-bold">{l}</p><p className="text-sm font-extrabold text-white">{v}</p></div>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-3"><MetricBar label="Reputation" value={sim.reputation} /><MetricBar label="Brand" value={sim.brand} /></div>
+      </div>
+    </div>
+  );
+}
+function MonthlyOps({ sim, onGenerate, onResolve, onRebuild }: { sim: BizState; onGenerate: () => void; onResolve: (i: number, w: number) => void; onRebuild: () => void }) {
+  const [opt, setOpt] = useState<number | null>(null);
+  const [react, setReact] = useState("");
+  const s = sim.pending;
+  if (sim.status === "failed") {
+    return (
+      <Card variant="elevated"><CardContent className="pt-5 text-center space-y-3">
+        <Skull className="w-12 h-12 mx-auto text-destructive" />
+        <div><p className="font-display text-xl font-extrabold">Your business folded in month {sim.month}.</p><p className="text-sm text-muted-foreground">Cash, customers, or reputation hit zero. The lessons are in the wreckage.</p></div>
+        <div className="rounded-xl bg-muted p-3 space-y-1 text-left">{sim.log.slice(-3).reverse().map((l, i) => <p key={i} className="text-xs text-muted-foreground">M{l.month}: {l.text}</p>)}</div>
+        <Button className="press-scale" onClick={onRebuild}><Rocket className="w-4 h-4 mr-1.5" /> Rebuild from scratch</Button>
+      </CardContent></Card>
+    );
+  }
+  return (
+    <Card variant="elevated"><CardContent className="pt-5 space-y-3">
+      <h3 className="font-display text-lg font-extrabold flex items-center gap-2"><Activity className="w-5 h-5" style={{ color: NEON }} /> Run the business — Month {sim.month}</h3>
+      {!s ? (
+        <>
+          <p className="text-sm text-muted-foreground">A new situation hits every month and demands a decision. Keep your business alive and growing — for months.</p>
+          <Button className="w-full press-scale" onClick={onGenerate}><ArrowRight className="w-4 h-4 mr-1.5" /> Start month {sim.month}</Button>
+          {sim.log.length > 0 && <div className="rounded-xl bg-muted p-3 space-y-1">{sim.log.slice(-4).reverse().map((l, i) => <p key={i} className="text-xs text-foreground/70">M{l.month}: {l.text}</p>)}</div>}
+        </>
+      ) : (
+        <>
+          <div className="rounded-2xl border p-4" style={{ borderColor: `${NEON}55`, background: `${NEON}0d` }}>
+            <div className="flex items-start gap-3"><span className="text-3xl leading-none">{s.emoji}</span><div><p className="font-display font-extrabold text-lg">{s.title}</p><p className="text-sm text-muted-foreground">{s.prompt}</p></div></div>
+          </div>
+          <div>
+            <p className="text-sm font-semibold mb-1">Choose your move</p>
+            <div className="grid gap-2">{s.options.map((o, i) => (
+              <button key={i} onClick={() => setOpt(i)} className={cn("text-left px-3 py-2 rounded-xl border text-sm font-medium transition-all press-scale", opt === i ? "border-primary bg-primary/10" : "border-border bg-muted hover:bg-muted/70")}>{o.label}</button>
+            ))}</div>
+          </div>
+          <WField label={s.reactLabel} value={react} onChange={setReact} min={s.reactMin} rows={3} />
+          <Incomplete items={[{ label: "Pick a move", ok: opt != null }, { label: `Write your reaction (${s.reactMin}+ words)`, ok: wc(react) >= s.reactMin }]} />
+          <Button className="w-full press-scale" disabled={opt == null || wc(react) < s.reactMin} onClick={() => { onResolve(opt as number, wc(react)); setOpt(null); setReact(""); }}><CheckCircle2 className="w-4 h-4 mr-1.5" /> Resolve month {sim.month}</Button>
+        </>
+      )}
+    </CardContent></Card>
+  );
+}
+function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string; price: number; pitch: string }) => void }) {
+  const [name, setName] = useState(""); const [price, setPrice] = useState(""); const [pitch, setPitch] = useState(""); const [open, setOpen] = useState(false);
+  const ready = name.trim().length >= 2 && num(price) > 0 && wc(pitch) >= 25;
+  const submit = () => { onAdd({ name: name.trim(), price: num(price), pitch: pitch.trim() }); setName(""); setPrice(""); setPitch(""); setOpen(false); };
+  return (
+    <Card variant="elevated"><CardContent className="pt-5 space-y-3">
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="font-display text-lg font-extrabold flex items-center gap-2"><Package className="w-5 h-5 text-primary" /> Your product line</h3>
+          <p className="text-sm text-muted-foreground">Keep adding items — a bigger catalog grows your customer base.</p>
+        </div>
+        <Badge variant="outline" className="shrink-0">{sim.products.length} items</Badge>
+      </div>
+      {sim.products.length > 0 && (
+        <div className="grid sm:grid-cols-2 gap-2">{sim.products.map((p) => (
+          <div key={p.id} className="rounded-xl bg-muted p-3"><div className="flex items-center justify-between"><p className="font-bold text-sm">{p.name}</p><span className="text-sm font-bold text-gold">{p.price} IC</span></div><p className="text-xs text-muted-foreground">added month {p.month}</p><p className="text-xs text-foreground/70 mt-1">{p.pitch}</p></div>
+        ))}</div>
+      )}
+      {open ? (
+        <div className="space-y-2 rounded-xl border border-border p-3">
+          <Input placeholder="Product name" value={name} onChange={(e) => setName(e.target.value)} />
+          <Input type="number" placeholder="Price (IC)" value={price} onChange={(e) => setPrice(e.target.value)} />
+          <WField label="Pitch — what it is and who it's for (25+ words)" value={pitch} onChange={setPitch} min={25} rows={2} />
+          <Incomplete items={[{ label: "Name", ok: name.trim().length >= 2 }, { label: "Price greater than 0", ok: num(price) > 0 }, { label: "Pitch (25+ words)", ok: wc(pitch) >= 25 }]} />
+          <div className="flex gap-2"><Button variant="outline" className="flex-1" onClick={() => setOpen(false)}>Cancel</Button><Button className="flex-1 press-scale" disabled={!ready} onClick={submit}><Plus className="w-4 h-4 mr-1" /> Add product (+75 XP)</Button></div>
+        </div>
+      ) : (
+        <Button variant="outline" className="w-full press-scale" onClick={() => setOpen(true)}><Plus className="w-4 h-4 mr-1.5" /> Add a product to your line</Button>
+      )}
+    </CardContent></Card>
   );
 }

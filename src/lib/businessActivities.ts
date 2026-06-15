@@ -142,6 +142,7 @@ export interface ActivitiesState {
   done: string[];
   xpAwarded: string[];
   data: Record<string, Record<string, unknown>>;
+  sim?: unknown; // living-business state (see businessSim.ts BizState)
 }
 export function defaultActivities(): ActivitiesState {
   return { version: 1, businessType: null, done: [], xpAwarded: [], data: {} };
