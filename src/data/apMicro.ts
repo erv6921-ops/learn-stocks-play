@@ -12,7 +12,9 @@ interface ApLessonSpec {
   num: string
   title: string
   description: string
-  quiz: [QuizQuestion, QuizQuestion, QuizQuestion]
+  // Optional inline quiz overlaid onto auto-generated content. Lessons with
+  // fully hand-authored StructuredLessonContent (e.g. Unit 1) omit this.
+  quiz?: QuizQuestion[]
 }
 
 interface ApUnitSpec {
@@ -34,62 +36,17 @@ const AP_MICRO_SPEC: ApUnitSpec[] = [
   {
     unitNumber: 1, id: "apm-1", title: "Basic Economic Concepts", examWeight: "12–15%",
     category: "micro-basics",
-    challenge: "Open Micro-Business mode and list the trade-offs and opportunity cost of your next budget decision.",
+    challenge: "After the PPC lesson, find a company in the Stock simulator that expanded its production possibilities by investing in new technology or capacity.",
+    // Unit 1 ships fully hand-authored content (3 sub-lessons + 5-question quiz +
+    // per-lesson challenge) in apMicroUnit1.ts — these specs just define the
+    // lesson objects and ordering; quizzes/content come from that file.
     lessons: [
-      {
-        num: "1.1", title: "Scarcity and Economic Thinking",
-        description: "Limited resources vs. unlimited wants, the three economic questions, factors of production, and opportunity cost.",
-        quiz: [
-          q("apm-1-1-q1", "What is the fundamental economic problem that forces every society to make choices?", ["Inflation", "Scarcity", "Unemployment", "Taxation"], 1, "Scarcity — unlimited wants but limited resources — is why choices and trade-offs exist."),
-          q("apm-1-1-q2", "Which of the following is a factor of production?", ["Money", "Stocks", "Labor", "Profit"], 2, "The four factors of production are land, labor, capital, and entrepreneurship. Money is not a factor — it buys them."),
-          q("apm-1-1-q3", "You spend Saturday working a $60 shift instead of going to a free concert you'd value at $40. What is the opportunity cost of working?", ["$60", "$40 (the concert you gave up)", "$100", "$20"], 1, "Opportunity cost is the value of the next-best alternative given up — the concert worth $40."),
-        ],
-      },
-      {
-        num: "1.2", title: "Resource Allocation and Economic Systems",
-        description: "Market, command, and mixed economies, how each answers the three questions, and the role of prices.",
-        quiz: [
-          q("apm-1-2-q1", "In a market economy, what mainly decides what gets produced?", ["Government planners", "Prices and the profit motive", "Random chance", "International law"], 1, "Markets use prices and profit signals to allocate resources, not central planners."),
-          q("apm-1-2-q2", "A command economy is best described as one where…", ["consumers vote with their dollars", "the government owns resources and plans production", "there is no government at all", "prices are set by supply and demand"], 1, "In a command economy the government owns resources and centrally plans the answers to the three economic questions."),
-          q("apm-1-2-q3", "Prices in a market act primarily as…", ["a tax on consumers", "signals that allocate resources", "a government tool only", "a barrier to trade"], 1, "Prices signal scarcity and value, guiding resources toward their most-valued uses."),
-        ],
-      },
-      {
-        num: "1.3", title: "The Production Possibilities Curve (PPC)",
-        description: "Trade-offs between two goods, efficiency, points on/inside/outside the curve, growth, and increasing opportunity cost.",
-        quiz: [
-          q("apm-1-3-q1", "A point INSIDE the production possibilities curve represents…", ["efficient production", "unattainable production", "inefficient or underused resources", "economic growth"], 2, "Points inside the PPC mean resources are idle or used inefficiently."),
-          q("apm-1-3-q2", "What does a point OUTSIDE the current PPC represent?", ["A recession", "Currently unattainable production", "Productive efficiency", "Zero opportunity cost"], 1, "Points beyond the curve are unattainable with current resources/technology — until the curve shifts out."),
-          q("apm-1-3-q3", "A PPC that bows outward (concave) reflects…", ["constant opportunity cost", "increasing opportunity cost", "decreasing opportunity cost", "zero scarcity"], 1, "A concave PPC shows increasing opportunity cost because resources aren't equally suited to both goods."),
-        ],
-      },
-      {
-        num: "1.4", title: "Comparative Advantage and Gains from Trade",
-        description: "Absolute vs. comparative advantage, opportunity cost per unit, specialization, and the terms of trade.",
-        quiz: [
-          q("apm-1-4-q1", "A country should specialize in the good for which it has…", ["the absolute advantage", "the lower opportunity cost (comparative advantage)", "the highest price", "the most workers"], 1, "Specialization follows comparative advantage — the lower opportunity cost — not absolute advantage."),
-          q("apm-1-4-q2", "Ana makes 10 bracelets OR 5 necklaces per hour. Her opportunity cost of 1 necklace is…", ["2 bracelets", "5 bracelets", "0.5 bracelets", "10 bracelets"], 0, "Giving up 5 necklaces frees 10 bracelets, so 1 necklace costs 10/5 = 2 bracelets."),
-          q("apm-1-4-q3", "Mutually beneficial trade occurs when the terms of trade are…", ["always equal to one", "between the two parties' opportunity costs", "set by the government", "higher than both costs"], 1, "Both parties gain when the trading ratio falls between their individual opportunity costs."),
-        ],
-      },
-      {
-        num: "1.5", title: "Cost-Benefit Analysis",
-        description: "Explicit vs. implicit costs, economic vs. accounting profit, and why sunk costs shouldn't affect decisions.",
-        quiz: [
-          q("apm-1-5-q1", "Economic profit differs from accounting profit because it also subtracts…", ["explicit costs", "implicit (opportunity) costs", "taxes", "fixed costs"], 1, "Economic profit subtracts BOTH explicit and implicit costs; accounting profit subtracts only explicit costs."),
-          q("apm-1-5-q2", "A sunk cost is one that…", ["can be recovered later", "has already been incurred and cannot be recovered", "only appears in the long run", "equals marginal cost"], 1, "Sunk costs are already spent and unrecoverable, so they should not influence current decisions."),
-          q("apm-1-5-q3", "You already bought a $15 movie ticket (non-refundable) but now feel sick. The $15 should…", ["force you to attend anyway", "be ignored — it's a sunk cost", "be doubled in your decision", "be added to your benefit"], 1, "The $15 is sunk; the rational choice depends only on remaining costs and benefits."),
-        ],
-      },
-      {
-        num: "1.6", title: "Marginal Analysis and Consumer Choice",
-        description: "Marginal benefit vs. marginal cost, the MB ≥ MC decision rule, and diminishing marginal utility.",
-        quiz: [
-          q("apm-1-6-q1", "A rational decision-maker keeps doing an activity as long as…", ["marginal benefit ≥ marginal cost", "total benefit is positive", "marginal cost is zero", "average cost falls"], 0, "Act while MB ≥ MC; stop where MB = MC to maximize net benefit."),
-          q("apm-1-6-q2", "Diminishing marginal utility means that each additional unit consumed…", ["adds more satisfaction than the last", "adds less additional satisfaction than the last", "has zero cost", "raises the price"], 1, "Marginal utility falls as you consume more of the same good."),
-          q("apm-1-6-q3", "The optimal quantity to consume or produce is where…", ["MB = MC", "total cost = 0", "MB is highest", "price = 0"], 0, "Net benefit is maximized at the quantity where marginal benefit equals marginal cost."),
-        ],
-      },
+      { num: "1.1", title: "Scarcity", description: "Economics and scarcity, economic choice, free goods, and positive vs. normative statements." },
+      { num: "1.2", title: "Resource Allocation and Economic Systems", description: "Market, command, and mixed economies, property rights, the factors of production (CELL), opportunity cost, and micro vs. macro." },
+      { num: "1.3", title: "The Production Possibilities Curve (PPC)", description: "Trade-offs, efficiency (productive & allocative), constant vs. increasing opportunity cost, and economic growth." },
+      { num: "1.4", title: "Comparative Advantage and Trade", description: "Absolute vs. comparative advantage, calculating opportunity cost from tables, terms of trade, and the gains from trade." },
+      { num: "1.5", title: "Cost-Benefit Analysis", description: "Explicit vs. implicit costs, accounting vs. economic profit, normal profit, sunk costs, capital vs. consumer goods, and net benefit." },
+      { num: "1.6", title: "Marginal Analysis and Consumer Choice", description: "Marginal benefit vs. marginal cost, the decision rule, diminishing marginal utility, and the utility-maximizing rule." },
     ],
   },
 
@@ -394,10 +351,13 @@ export const AP_MICRO_LESSONS: Lesson[] = AP_MICRO_SPEC.flatMap((u) =>
   }))
 )
 
-// lessonId -> authored 3-question quiz, overlaid onto auto-generated content.
+// lessonId -> authored quiz, overlaid onto auto-generated content. Only for
+// lessons that define an inline quiz (Unit 1 ships full content instead).
 export const AP_MICRO_QUIZZES: Record<string, QuizQuestion[]> = Object.fromEntries(
   AP_MICRO_SPEC.flatMap((u) =>
-    u.lessons.map((l, i) => [`${u.id}-${i + 1}`, l.quiz] as const)
+    u.lessons
+      .map((l, i) => [`${u.id}-${i + 1}`, l.quiz] as const)
+      .filter((entry): entry is readonly [string, QuizQuestion[]] => Array.isArray(entry[1]) && entry[1].length > 0)
   )
 )
 

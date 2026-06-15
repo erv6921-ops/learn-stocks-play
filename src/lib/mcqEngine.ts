@@ -67,7 +67,8 @@ function hasWeakDistractor(question: QuizQuestion): boolean {
 }
 
 function validateQuestion(question: QuizQuestion): boolean {
-  if (question.options.length !== 4) return false
+  // Support standard 4-option and AP-style 5-option (A–E) questions.
+  if (question.options.length < 4 || question.options.length > 5) return false
   if (hasLengthBias(question)) return false
   if (hasWeakDistractor(question)) return false
   return true
@@ -86,7 +87,8 @@ export function shuffleQuestion(q: QuizQuestion): QuizQuestion {
   let fallback: QuizQuestion | null = null
 
   for (let attempt = 0; attempt < MAX_SINGLE_ATTEMPTS; attempt++) {
-    const indices = fisherYates([0, 1, 2, 3])
+    // Shuffle however many options the question has (supports 4- and 5-option MCQs).
+    const indices = fisherYates(q.options.map((_, i) => i))
     const shuffled: QuizQuestion = {
       ...q,
       options: indices.map(i => q.options[i]),
@@ -104,15 +106,17 @@ function evaluateDistribution(questions: QuizQuestion[]): number {
   if (questions.length === 0) return 0
 
   let score = 100
-  const counts = [0, 0, 0, 0]
+  // Size the position-balance tally to the largest option set (4 or 5).
+  const numOptions = Math.max(4, ...questions.map(q => q.options.length))
+  const counts = new Array(numOptions).fill(0)
   let invalidQuestions = 0
 
   questions.forEach(question => {
-    counts[question.correctAnswer]++
+    counts[question.correctAnswer] = (counts[question.correctAnswer] ?? 0) + 1
     if (!validateQuestion(question)) invalidQuestions++
   })
 
-  const expected = questions.length / 4
+  const expected = questions.length / numOptions
   const maxDeviation = expected > 0
     ? Math.max(...counts.map(count => Math.abs(count - expected) / expected))
     : 0
