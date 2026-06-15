@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GameNav from "@/components/GameNav";
+import MicroBusinessOffice from "@/components/MicroBusinessOffice";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import {
@@ -16,7 +17,7 @@ import {
   TrendingUp, TrendingDown, Newspaper, Target, Skull, Heart, CheckCircle2,
   DollarSign, Users, Megaphone, Building2, Lightbulb, Wallet, Package,
   Monitor, Wrench, ChevronRight, Crown, Zap, PenLine, BarChart3, Loader2,
-  Clock, Plus, Tag, ShoppingBag, Handshake, Calendar, Flame, Timer,
+  Clock, Plus, Tag, ShoppingBag, Handshake, Calendar, Flame, Timer, Briefcase,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -788,11 +789,12 @@ export default function MicroBusiness() {
           {phase === "hq" && sim && (
             <motion.div key="hq" {...screenAnim}>
               <Tabs defaultValue="operate" className="space-y-5">
-                <TabsList className="grid grid-cols-4 w-full">
+                <TabsList className="grid grid-cols-5 w-full">
                   <TabsTrigger value="operate"><Store className="w-4 h-4 mr-1.5 hidden sm:inline" />Operate</TabsTrigger>
                   <TabsTrigger value="market"><ShoppingBag className="w-4 h-4 mr-1.5 hidden sm:inline" />Market</TabsTrigger>
                   <TabsTrigger value="compete"><Trophy className="w-4 h-4 mr-1.5 hidden sm:inline" />Compete</TabsTrigger>
                   <TabsTrigger value="collab"><Handshake className="w-4 h-4 mr-1.5 hidden sm:inline" />Collab</TabsTrigger>
+                  <TabsTrigger value="office"><Briefcase className="w-4 h-4 mr-1.5 hidden sm:inline" />Office</TabsTrigger>
                 </TabsList>
 
                 {/* OPERATE */}
@@ -906,6 +908,11 @@ export default function MicroBusiness() {
                           <div className="flex-1 min-w-0 mr-3"><p className="text-sm font-semibold truncate">{l.title}</p><p className="text-xs text-success font-semibold">−{p.disc}% cost of goods · {p.days} days</p></div>
                           <div className="flex items-center gap-2 shrink-0"><span className="text-sm font-bold flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" />{l.price}</span><Button size="sm" variant="outline" className="press-scale" onClick={() => buySupply(l)}>Strike deal</Button></div></div>); })}</div>
                   </CardContent></Card>
+                </TabsContent>
+
+                {/* OFFICE — back-office "Pro" features (P&L, payroll, taxes, hiring, etc.) */}
+                <TabsContent value="office">
+                  <MicroBusinessOffice />
                 </TabsContent>
               </Tabs>
             </motion.div>
