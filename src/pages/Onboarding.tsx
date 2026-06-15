@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
-import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3 } from "lucide-react"
+import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight } from "lucide-react"
 
 type UserRole = "student" | "teacher"
 type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-details" | "welcome" | "assessment" | "results"
@@ -413,7 +413,31 @@ export default function Onboarding() {
   }, [correctHistory])
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div
+      className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(circle at 18% 18%, hsl(var(--primary) / 0.10), transparent 42%)," +
+          "radial-gradient(circle at 85% 82%, hsl(var(--gold) / 0.08), transparent 42%)," +
+          "hsl(var(--background))",
+      }}
+    >
+      {/* soft decorative blobs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-40"
+          style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.30), transparent 70%)" }}
+        />
+        <div
+          className="absolute -bottom-32 -left-24 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-30"
+          style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.22), transparent 70%)" }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)", backgroundSize: "26px 26px" }}
+        />
+      </div>
+      <div className="relative z-10 w-full flex items-center justify-center">
       <AnimatePresence mode="wait">
         {/* Step 1: Role Selection */}
         {step === "role-select" && (
@@ -434,17 +458,29 @@ export default function Onboarding() {
             <div className="w-full max-w-sm space-y-3">
               <button
                 onClick={() => { setSelectedRole("student"); setStep("name") }}
-                className="w-full p-5 rounded-xl border-2 border-border hover:border-primary hover:bg-muted/50 transition-all text-left"
+                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
               >
-                <div className="font-semibold text-lg">🎓 I'm a Student</div>
-                <p className="text-sm text-muted-foreground mt-1">Learn money skills through interactive lessons and simulations</p>
+                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg">I'm a Student</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">Learn money skills through interactive lessons and simulations</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
               <button
                 onClick={() => { setSelectedRole("teacher"); setStep("name") }}
-                className="w-full p-5 rounded-xl border-2 border-border hover:border-primary hover:bg-muted/50 transition-all text-left"
+                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
               >
-                <div className="font-semibold text-lg">📚 I'm a Teacher</div>
-                <p className="text-sm text-muted-foreground mt-1">Manage classes, assign lessons, and track student progress</p>
+                <div className="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg">I'm a Teacher</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">Manage classes, assign lessons, and track student progress</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
             </div>
             <p className="text-sm text-muted-foreground mt-6">
@@ -1078,6 +1114,7 @@ export default function Onboarding() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </div>
   )
 }
