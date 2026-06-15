@@ -23,6 +23,8 @@ import LabDocument from "./pages/LabDocument";
 import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
 import { AssignmentNotifications } from "./components/AssignmentNotifications";
+import { JeffProvider } from "@/contexts/JeffContext";
+import { JeffWidget } from "@/components/Jeff";
 
 const queryClient = new QueryClient();
 
@@ -66,8 +68,13 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AppProvider>
-          <AssignmentNotifications />
-          <AppRoutes />
+          <JeffProvider>
+            <AssignmentNotifications />
+            <AppRoutes />
+            {/* Persistent animated mascot — z-40 (below modals). Hides itself on
+                auth/onboarding routes and when signed out. */}
+            <JeffWidget />
+          </JeffProvider>
         </AppProvider>
       </BrowserRouter>
     </TooltipProvider>
