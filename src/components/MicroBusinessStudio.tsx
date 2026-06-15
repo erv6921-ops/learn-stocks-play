@@ -108,7 +108,7 @@ export default function MicroBusinessStudio() {
   // ── Business-type gate ──
   if (!a.businessType) {
     return (
-      <div className="min-h-screen bg-background pb-24 md:pb-8" style={{ background: "#0a0f0d" }}>
+      <div className="min-h-screen bg-background pb-24 md:pb-8">
         <GameNav />
         <main className="container mx-auto px-4 py-8 max-w-3xl">
           <div className="text-center mb-6">
@@ -137,7 +137,7 @@ export default function MicroBusinessStudio() {
   const allDone = doneCount === ALL_ACTIVITIES.length;
 
   return (
-    <div className="min-h-screen bg-background pb-24 md:pb-8" style={{ background: "#0a0f0d" }}>
+    <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 py-6 max-w-3xl">
         {/* HUD */}
