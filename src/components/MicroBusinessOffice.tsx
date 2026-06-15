@@ -13,17 +13,18 @@ import {
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip as RTooltip,
 } from "recharts";
 import {
-  Loader2, Download, FileSpreadsheet, Users, Megaphone, Gauge, Newspaper,
+  Loader2, Download, FileSpreadsheet, Users, Gauge, Newspaper,
   ClipboardList, Star, Handshake, FileText, UserPlus, TrendingUp, TrendingDown,
   CheckCircle2, Circle, Coins, Sparkles, AlertTriangle, ArrowRight, CalendarDays,
   Briefcase, Lightbulb, Building2, type LucideIcon,
 } from "lucide-react";
-import { businessAI, parseAIJson } from "@/lib/businessAI";
 import {
-  type BusinessGameState, type Employee, defaultState, loadGameState, saveGameState,
+  type BusinessGameState, type Employee, loadGameState, saveGameState,
   computePnL, pnlToCSV, computeCreditScore, creditTier, productivityFactor,
   PAYROLL_TAX_RATE, SUPPLIER_PERIOD, TAX_PERIOD, PITCH_UNLOCK_WEEK,
 } from "@/lib/businessGameState";
+
+// NOTE: These features use smart rule-based logic (no external AI calls).
 
 type Update = (fn: (s: BusinessGameState) => BusinessGameState) => void;
 const money = (n: number) => `${n < 0 ? "−" : ""}${Math.abs(Math.round(n)).toLocaleString()}`;
@@ -43,23 +44,21 @@ export default function MicroBusinessOffice() {
 
   if (!s) return <div className="flex items-center justify-center py-20"><Loader2 className="w-7 h-7 animate-spin text-primary" /></div>;
 
-  // ── Feature 6 gate: a scored business plan is required before the office unlocks
-  if (!s.planApproved) return <BusinessPlanGate s={s} update={update} awardXP={awardXP} />;
+  // ── Feature 6 gate: a validated business plan is required before the office unlocks
+  if (!s.planApproved) return <BusinessPlanGate update={update} awardXP={awardXP} />;
 
-  const pnl = computePnL(s);
   const tier = creditTier(s.creditScore);
   const payrollDue = s.employees.length > 0 && s.lastPayrollWeek < s.week;
   const taxDue = s.week % TAX_PERIOD === 0 && !s.taxFiledWeeks.includes(s.week);
   const supplierDue = s.week % SUPPLIER_PERIOD === 0 && s.lastSupplierWeek < s.week;
 
   // ── End the week: simulate a week of business, then fire weekly events ──
-  const endWeek = async () => {
+  const endWeek = () => {
     if (advancing) return;
     setAdvancing(true);
     try {
       // 1. Payroll consequence: unpaid employees quit + reputation hit.
-      let quit = false;
-      if (s.employees.length > 0 && s.lastPayrollWeek < s.week) quit = true;
+      const quit = s.employees.length > 0 && s.lastPayrollWeek < s.week;
 
       // 2. Simulate the week's revenue/expenses.
       const prod = productivityFactor(s);
@@ -67,15 +66,16 @@ export default function MicroBusinessOffice() {
       const newCogs = Math.round(rev * 0.4);
       const rent = 80, marketing = 45, other = 25;
 
-      // 3. Generate the AI weekly-report insight (best effort).
-      let insight = "";
-      try {
-        insight = (await businessAI(
-          "You are a sharp small-business advisor. Reply with ONE specific, actionable sentence (max 30 words).",
-          `This week revenue was ${rev} (forecast ${s.weekForecast || rev}). Cost of goods ${newCogs}. Payroll ${s.expenses.payroll}, employees ${s.employees.length}, star rating ${s.starRating.toFixed(1)}/5, credit score ${s.creditScore}. Give one concrete recommendation for next week.`,
-          120,
-        )).trim();
-      } catch { insight = "Watch your margins — keep cost of goods under 40% of revenue and pay bills on time."; }
+      // 3. Rule-based weekly-report insight — pick the most relevant rule from the P&L.
+      const weekExpenses = newCogs + marketing + rent + other;
+      const weekNet = rev - weekExpenses;
+      const margin = rev > 0 ? weekNet / rev : 0;
+      const prevRev = s.history.length ? s.history[s.history.length - 1].revenue : 0;
+      let insight: string;
+      if (weekNet < 0) insight = "Your expenses exceeded revenue this week — review your largest cost category.";
+      else if (margin < 0.1) insight = "Thin margins — consider raising prices or cutting COGS.";
+      else if (rev > prevRev) insight = "Strong week — keep your top revenue stream consistent.";
+      else insight = "Steady week — trim one cost and push one revenue stream next week.";
 
       update((st) => {
         const employees = quit ? [] : st.employees;
@@ -90,7 +90,7 @@ export default function MicroBusinessOffice() {
         const cogs = st.cogs + newCogs;
         const history = [...st.history, {
           week: st.week, revenue: rev, payroll: 0, forecast: st.weekForecast || rev,
-          expenses: newCogs + marketing + rent + other, insight,
+          expenses: weekExpenses, insight,
         }].slice(-12);
         const next: BusinessGameState = {
           ...st, employees, week, revenue, expenses, cogs, history,
@@ -291,7 +291,7 @@ function PayrollPanel({ s, update, awardXP, spend, balance, payrollDue }: { s: B
   );
 }
 
-/* ═══ FEATURE 5 — WEEKLY BUSINESS REVIEW REPORT (Recharts + AI) ═══ */
+/* ═══ FEATURE 5 — WEEKLY BUSINESS REVIEW REPORT (Recharts + rule-based insight) ═══ */
 function WeeklyReports({ s }: { s: BusinessGameState }) {
   const last = s.history[s.history.length - 1];
   const chartData = s.history.map((h) => ({ name: `W${h.week}`, profit: h.revenue - h.expenses, revenue: h.revenue }));
@@ -323,14 +323,14 @@ function WeeklyReports({ s }: { s: BusinessGameState }) {
           {last.insight && (
             <div className="mt-3 rounded-xl border p-3 flex items-start gap-2" style={{ borderColor: `${NEON}55`, background: `${NEON}0d` }}>
               <Lightbulb className="w-4 h-4 shrink-0 mt-0.5" style={{ color: NEON }} />
-              <div><p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: NEON }}>AI advisor · recommendation</p><p className="text-sm text-foreground/90 mt-0.5">{last.insight}</p></div>
+              <div><p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: NEON }}>Advisor · recommendation</p><p className="text-sm text-foreground/90 mt-0.5">{last.insight}</p></div>
             </div>
           )}
         </CardContent>
       </Card>
       <Card variant="elevated">
         <CardContent className="pt-5">
-          <p className="text-sm font-bold flex items-center gap-1.5 mb-3"><BarChartIcon /> Cash flow by week</p>
+          <p className="text-sm font-bold flex items-center gap-1.5 mb-3"><Newspaper className="w-4 h-4 text-primary" /> Cash flow by week</p>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={chartData} margin={{ top: 4, right: 8, left: -16, bottom: 0 }}>
               <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
@@ -346,7 +346,6 @@ function WeeklyReports({ s }: { s: BusinessGameState }) {
     </div>
   );
 }
-function BarChartIcon() { return <Newspaper className="w-4 h-4 text-primary" />; }
 
 /* ═══ FEATURE 3 — INVESTOR PITCH MODE ═══ */
 function InvestorPitch({ s, update, earn }: { s: BusinessGameState; update: Update; earn: (n: number, r: string) => void }) {
@@ -398,7 +397,7 @@ function InvestorPitch({ s, update, earn }: { s: BusinessGameState; update: Upda
   );
 }
 
-/* ═══ FEATURE 7 — CUSTOMER COMPLAINT RESPONSES (AI-graded) ═══ */
+/* ═══ FEATURE 7 — CUSTOMER COMPLAINT RESPONSES (rule-based: length + keywords) ═══ */
 const COMPLAINTS = [
   "My order arrived two days late and the packaging was crushed. This is unacceptable for the price I paid.",
   "I was charged twice for the same item and nobody has responded to my emails for a week.",
@@ -406,79 +405,84 @@ const COMPLAINTS = [
   "Your staff were rude when I asked a simple question. I won't be coming back.",
   "I've been a loyal customer for months and you won't even honor a small discount. Disappointing.",
 ];
+const COMPLAINT_KEYWORDS = ["sorry", "apologize", "refund", "fix", "help"];
 function ComplaintPanel({ s, update, awardXP }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void }) {
   const alreadyThisWeek = s.complaints.some((c) => c.week === s.week);
   const complaint = useMemo(() => COMPLAINTS[(s.week * 7) % COMPLAINTS.length], [s.week]);
   const [resp, setResp] = useState("");
-  const [busy, setBusy] = useState(false);
   const last = s.complaints[s.complaints.length - 1];
   if (alreadyThisWeek) {
     return (
       <Card variant="elevated"><CardContent className="pt-5">
         <Head icon={Star} title="Customer Complaint" sub="One per week — already handled this week." />
-        {last && <div className="rounded-xl bg-muted p-3 mt-2"><p className="text-xs text-muted-foreground">Your reply scored</p><p className="font-extrabold">{last.score}/10 · rating now</p><Stars value={s.starRating} /></div>}
+        {last && <div className="rounded-xl bg-muted p-3 mt-2"><p className="text-xs text-muted-foreground">Your reply scored {last.score}/10 · rating now</p><Stars value={s.starRating} /></div>}
       </CardContent></Card>
     );
   }
-  const submit = async () => {
-    if (resp.trim().length < 15) { toast.error("Write a fuller response (15+ chars)"); return; }
-    setBusy(true);
-    try {
-      const out = await businessAI(
-        "You grade a small-business owner's reply to a customer complaint on professionalism and empathy. Return ONLY JSON: {\"score\": <1-10 integer>, \"feedback\": \"<one sentence>\"}.",
-        `Complaint: "${complaint}"\nOwner's reply: "${resp.trim()}"\nScore professionalism and empathy 1-10.`,
-        200,
-      );
-      const { score, feedback } = parseAIJson<{ score: number; feedback: string }>(out, { score: 5, feedback: "Reasonable response." });
-      const clamped = Math.max(1, Math.min(10, Math.round(score)));
-      update((st) => {
-        const newStar = Math.max(1, Math.min(5, st.starRating * 0.7 + (clamped / 2) * 0.3));
-        return { ...st, starRating: Math.round(newStar * 10) / 10, complaints: [...st.complaints, { week: st.week, complaint, response: resp.trim(), score: clamped }] };
-      });
-      awardXP(5, "Handled a customer complaint");
-      toast.success(`Scored ${clamped}/10 — ${feedback}`);
-      setResp("");
-    } catch { toast.error("Couldn't reach the AI grader — try again."); } finally { setBusy(false); }
+  const submit = () => {
+    const text = resp.trim();
+    if (text.length < 5) { toast.error("Write a response first"); return; }
+    const words = text.split(/\s+/).filter(Boolean).length;
+    const lower = text.toLowerCase();
+    const present = COMPLAINT_KEYWORDS.filter((k) => lower.includes(k));
+    let score: number; let note: string;
+    if (present.length === COMPLAINT_KEYWORDS.length && words > 50) { score = 9; note = "Thorough, empathetic, and solution-focused."; }
+    else if (present.length > 0) { score = 7; note = `Good — you acknowledged it (${present.join(", ")}).`; }
+    else if (words < 30) { score = 3; note = "Too short and impersonal — apologize and offer a fix."; }
+    else { score = 5; note = "Add empathy words like 'sorry' and offer a concrete fix."; }
+    update((st) => {
+      const newStar = Math.max(1, Math.min(5, st.starRating * 0.7 + (score / 2) * 0.3));
+      return { ...st, starRating: Math.round(newStar * 10) / 10, complaints: [...st.complaints, { week: st.week, complaint, response: text, score }] };
+    });
+    awardXP(5, "Handled a customer complaint");
+    toast.success(`Scored ${score}/10 — ${note}`);
+    setResp("");
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
       <Head icon={Star} title="Customer Complaint" sub="Respond well — it moves your star rating." />
       <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3"><p className="text-xs font-bold uppercase tracking-wider text-destructive mb-1">Angry customer</p><p className="text-sm">"{complaint}"</p></div>
+      <p className="text-xs text-muted-foreground">Tip: apologize and offer a real fix — words like "sorry", "refund", "fix", "help" and a longer reply score higher.</p>
       <Textarea rows={3} placeholder="Write a professional, empathetic response…" value={resp} onChange={(e) => setResp(e.target.value)} />
-      <Button className="w-full press-scale" onClick={submit} disabled={busy}>{busy ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <ArrowRight className="w-4 h-4 mr-1.5" />} Send response</Button>
+      <Button className="w-full press-scale" onClick={submit}><ArrowRight className="w-4 h-4 mr-1.5" /> Send response</Button>
     </CardContent></Card>
   );
 }
 
-/* ═══ FEATURE 8 — SUPPLIER NEGOTIATION (AI plays the supplier) ═══ */
+/* ═══ FEATURE 8 — SUPPLIER NEGOTIATION (3 rotating hardcoded personalities) ═══ */
+interface Supplier { name: string; emoji: string; keywords?: string[]; discount: number; win: string; lose: string }
+const SUPPLIERS: Supplier[] = [
+  { name: "Firm Frank", emoji: "🧱", discount: 0,
+    win: "", lose: "I hear you, but a deal's a deal. The new price stands — take it or leave it." },
+  { name: "Flexible Maria", emoji: "🤝", keywords: ["loyal", "loyalty", "volume", "bulk", "regular", "long-term", "long term"], discount: 0.10,
+    win: "You've been a loyal, high-volume customer — I'll take 10% off the increase for you.", lose: "Commit to loyalty or bigger volume and I can work with you. Otherwise the price holds." },
+  { name: "Deal-Seeker Dave", emoji: "💸", keywords: ["competitor", "rival", "another supplier", "other supplier", "shop around", "elsewhere", "cheaper"], discount: 0.15,
+    win: "Going to a competitor, huh? Fine — I'll beat them. 15% off the increase, just don't tell the others.", lose: "I'm not worried about losing you. Bring me a real competing quote and we'll talk." },
+];
 function SupplierNegotiation({ s, update, awardXP }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void }) {
   const [msg, setMsg] = useState("");
-  const [busy, setBusy] = useState(false);
   const [reply, setReply] = useState("");
   const increase = useMemo(() => 1.15 + ((s.week % 4) * 0.03), [s.week]);
-  const negotiate = async () => {
-    if (msg.trim().length < 15) { toast.error("Make your case (15+ chars)"); return; }
-    setBusy(true);
-    try {
-      const out = await businessAI(
-        `You ROLE-PLAY as a supplier who just raised prices by ${Math.round((increase - 1) * 100)}%. A small-business owner is negotiating. Decide realistically whether to reduce the increase based on how persuasive/professional they are. Return ONLY JSON: {"reduced": <boolean>, "newIncreasePct": <number 0-${Math.round((increase - 1) * 100)}>, "reply": "<2-3 sentence in-character reply>"}.`,
-        `Owner says: "${msg.trim()}"`,
-        300,
-      );
-      const r = parseAIJson<{ reduced: boolean; newIncreasePct: number; reply: string }>(out, { reduced: false, newIncreasePct: Math.round((increase - 1) * 100), reply: "Prices stand as quoted." });
-      const newMult = 1 + Math.max(0, Math.min((increase - 1), (r.newIncreasePct || 0) / 100));
-      update((st) => ({ ...st, supplierCostMultiplier: Math.round(newMult * 100) / 100, lastSupplierWeek: st.week }));
-      setReply(r.reply);
-      awardXP(6, "Negotiated with a supplier");
-      toast[r.reduced ? "success" : "message"](r.reduced ? `Deal! Cost multiplier now ×${newMult.toFixed(2)}` : "Supplier held firm", { description: `COGS multiplier ×${newMult.toFixed(2)} applied to your P&L.` });
-    } catch { toast.error("Supplier unreachable — try again."); } finally { setBusy(false); }
+  const supplier = SUPPLIERS[Math.floor(s.week / SUPPLIER_PERIOD) % SUPPLIERS.length];
+  const negotiate = () => {
+    const text = msg.trim();
+    if (text.length < 15) { toast.error("Make your case (15+ chars)"); return; }
+    const lower = text.toLowerCase();
+    const matched = (supplier.keywords || []).some((k) => lower.includes(k));
+    const reduction = matched ? supplier.discount : 0;
+    const newMult = Math.max(1, Math.round((increase - reduction) * 100) / 100);
+    update((st) => ({ ...st, supplierCostMultiplier: newMult, lastSupplierWeek: st.week }));
+    setReply(matched ? supplier.win : supplier.lose);
+    awardXP(6, "Negotiated with a supplier");
+    if (matched) toast.success(`Deal! Cost multiplier now ×${newMult.toFixed(2)}`, { description: `${supplier.name} gave you ${Math.round(reduction * 100)}% off the increase.` });
+    else toast(`${supplier.name} held firm`, { description: `COGS multiplier ×${newMult.toFixed(2)} applied.` });
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={Handshake} title="Supplier Negotiation" sub={`Your supplier raised prices ${Math.round((increase - 1) * 100)}%. Talk them down — it affects your COGS.`} />
-      {reply && <div className="rounded-xl bg-muted p-3"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Supplier</p><p className="text-sm italic">"{reply}"</p></div>}
-      <Textarea rows={3} placeholder="Make your negotiation case…" value={msg} onChange={(e) => setMsg(e.target.value)} />
-      <Button className="w-full press-scale" onClick={negotiate} disabled={busy}>{busy ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Handshake className="w-4 h-4 mr-1.5" />} Negotiate</Button>
+      <Head icon={Handshake} title="Supplier Negotiation" sub={`${supplier.emoji} ${supplier.name} raised prices ${Math.round((increase - 1) * 100)}%. Talk them down — it affects your COGS.`} />
+      {reply && <div className="rounded-xl bg-muted p-3"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">{supplier.name}</p><p className="text-sm italic">"{reply}"</p></div>}
+      <Textarea rows={3} placeholder="Make your negotiation case… (hint: mention loyalty/volume, or a competitor)" value={msg} onChange={(e) => setMsg(e.target.value)} />
+      <Button className="w-full press-scale" onClick={negotiate}><Handshake className="w-4 h-4 mr-1.5" /> Negotiate</Button>
     </CardContent></Card>
   );
 }
@@ -526,44 +530,50 @@ function TaxForm({ s, update, awardXP, spend, taxDue }: { s: BusinessGameState; 
   );
 }
 
-/* ═══ FEATURE 10 — JOB POSTING + AI INTERVIEW ═══ */
-interface Candidate { name: string; summary: string; quality: number }
+/* ═══ FEATURE 10 — JOB POSTING + 5 PRE-WRITTEN CANDIDATE PROFILES ═══ */
+const INTERVIEW_QUESTIONS = [
+  "Why do you want this role?",
+  "Tell me about a time you solved a problem.",
+  "How do you handle a busy day with competing priorities?",
+];
+interface Candidate { name: string; background: string; quality: number; answers: [string, string, string] }
+const CANDIDATES: Candidate[] = [
+  { name: "Maya Chen", quality: 9, background: "Ran a profitable Etsy shop for two years while in school.",
+    answers: [
+      "I've run my own small shop, so I know what it takes to keep customers happy and the books balanced — I want to do that at a bigger scale here.",
+      "When my supplier flaked right before a holiday rush, I found two backups in a day and still shipped every order on time.",
+      "I batch similar tasks, knock out the highest-impact one first, and keep a running list so nothing slips."] },
+  { name: "Priya Nair", quality: 8, background: "Treasurer of two school clubs; strong with numbers.",
+    answers: [
+      "I love the operations side — budgets, scheduling, and making things actually run smoothly.",
+      "Our club's budget was a mess; I rebuilt the spreadsheet line by line and we ended the year in surplus.",
+      "I prioritize by deadline and impact, and I'm not afraid to ask for help early instead of falling behind."] },
+  { name: "Jordan Blake", quality: 7, background: "Worked two summers in retail customer service.",
+    answers: [
+      "I'm good with customers and reliable, and I want to grow into more responsibility than a register.",
+      "A customer was furious about a refund; I stayed calm, listened, and got it sorted within policy.",
+      "I make a quick to-do list and ask which thing matters most if I'm unsure."] },
+  { name: "Sam Rivera", quality: 4, background: "Recent grad, no direct experience but eager.",
+    answers: [
+      "It seems like a cool opportunity and I could really use a job right now.",
+      "Um… I helped a friend move once? I'm pretty reliable I guess.",
+      "I just kind of do whatever's in front of me until it's done."] },
+  { name: "Tyler Hood", quality: 3, background: "Lists a lot of hobbies, vague on actual work.",
+    answers: [
+      "Honestly I'm not totally sure — a friend told me to apply.",
+      "I can't really think of one right now, sorry.",
+      "I usually just wing it and hope it works out."] },
+];
 function HiringPanel({ s, update, awardXP }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void }) {
-  const [step, setStep] = useState<"post" | "interview" | "decide">("post");
+  const [step, setStep] = useState<"post" | "interview">("post");
   const [role, setRole] = useState(""); const [resp, setResp] = useState(""); const [skills, setSkills] = useState("");
-  const [busy, setBusy] = useState(false);
   const [cand, setCand] = useState<Candidate | null>(null);
-  const [qa, setQa] = useState<{ q: string; a: string }[]>([]);
-  const [draftQ, setDraftQ] = useState("");
 
-  const postJob = async () => {
+  const postJob = () => {
     if (!role.trim() || resp.trim().length < 10 || skills.trim().length < 5) { toast.error("Fill in role, responsibilities, and required skills"); return; }
-    setBusy(true);
-    try {
-      const out = await businessAI(
-        "Generate a fictional job candidate applying to a small student-run business. Return ONLY JSON: {\"name\":\"<full name>\",\"summary\":\"<2 sentence background>\",\"quality\":<1-10 integer how strong a fit they actually are>}. Vary the quality realistically.",
-        `Job posting:\nRole: ${role.trim()}\nResponsibilities: ${resp.trim()}\nRequired skills: ${skills.trim()}`,
-        300,
-      );
-      const c = parseAIJson<Candidate>(out, { name: "Alex Carter", summary: "A recent grad eager to learn.", quality: 5 });
-      setCand({ ...c, quality: Math.max(1, Math.min(10, Math.round(c.quality))) });
-      setStep("interview");
-      awardXP(4, "Posted a job and sourced a candidate");
-    } catch { toast.error("Couldn't source a candidate — try again."); } finally { setBusy(false); }
-  };
-  const askQuestion = async () => {
-    if (!cand || draftQ.trim().length < 5 || qa.length >= 3) return;
-    setBusy(true);
-    try {
-      const a = await businessAI(
-        `You ARE a job candidate named ${cand.name}. Background: ${cand.summary}. Your true competence is ${cand.quality}/10 — answer in-character so a sharp interviewer could tell (stronger candidates give specific, confident answers; weaker ones are vague). 1-3 sentences.`,
-        `Interview question: "${draftQ.trim()}"`,
-        200,
-      );
-      setQa((prev) => [...prev, { q: draftQ.trim(), a: a.trim() }]);
-      setDraftQ("");
-      if (qa.length + 1 >= 3) setStep("decide");
-    } catch { toast.error("Candidate didn't respond — try again."); } finally { setBusy(false); }
+    setCand(CANDIDATES[Math.floor(Math.random() * CANDIDATES.length)]);
+    setStep("interview");
+    awardXP(4, "Posted a job and sourced a candidate");
   };
   const decide = (hire: boolean) => {
     if (!cand) return;
@@ -576,31 +586,23 @@ function HiringPanel({ s, update, awardXP }: { s: BusinessGameState; update: Upd
     else toast.success(`Hired ${cand.name}! A strong addition to the team.`);
     reset();
   };
-  const reset = () => { setStep("post"); setRole(""); setResp(""); setSkills(""); setCand(null); setQa([]); setDraftQ(""); };
+  const reset = () => { setStep("post"); setRole(""); setResp(""); setSkills(""); setCand(null); };
 
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={UserPlus} title="Hire (write a posting, then interview)" sub="Source an AI candidate and interview before you commit." />
+      <Head icon={UserPlus} title="Hire (write a posting, then interview)" sub="Post the role, then read the candidate's interview answers before you commit." />
       {step === "post" && (<>
         <Input placeholder="Role / title (e.g. Marketing Assistant)" value={role} onChange={(e) => setRole(e.target.value)} />
         <Textarea rows={2} placeholder="Responsibilities…" value={resp} onChange={(e) => setResp(e.target.value)} />
         <Input placeholder="Required skills (comma-separated)" value={skills} onChange={(e) => setSkills(e.target.value)} />
-        <Button className="w-full press-scale" onClick={postJob} disabled={busy}>{busy ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Briefcase className="w-4 h-4 mr-1.5" />} Post job & source candidate</Button>
+        <Button className="w-full press-scale" onClick={postJob}><Briefcase className="w-4 h-4 mr-1.5" /> Post job & get applicant</Button>
       </>)}
       {step === "interview" && cand && (<>
-        <div className="rounded-xl bg-muted p-3"><p className="font-bold">{cand.name}</p><p className="text-sm text-muted-foreground">{cand.summary}</p></div>
-        {qa.map((x, i) => (<div key={i} className="rounded-xl border border-border p-3"><p className="text-sm font-semibold">Q: {x.q}</p><p className="text-sm text-muted-foreground mt-1">A: {x.a}</p></div>))}
-        {qa.length < 3 && (<>
-          <Textarea rows={2} placeholder={`Interview question ${qa.length + 1} of 3…`} value={draftQ} onChange={(e) => setDraftQ(e.target.value)} />
-          <Button className="w-full press-scale" onClick={askQuestion} disabled={busy}>{busy ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <ArrowRight className="w-4 h-4 mr-1.5" />} Ask</Button>
-        </>)}
-      </>)}
-      {step === "decide" && cand && (<>
-        <div className="rounded-xl bg-muted p-3 space-y-2">
-          <p className="font-bold">{cand.name}</p>
-          {qa.map((x, i) => (<div key={i}><p className="text-xs font-semibold">Q: {x.q}</p><p className="text-xs text-muted-foreground">A: {x.a}</p></div>))}
-          <p className="text-xs text-muted-foreground italic">Trust the interview — a vague candidate is a risky hire.</p>
-        </div>
+        <div className="rounded-xl bg-muted p-3"><p className="font-bold">{cand.name}</p><p className="text-sm text-muted-foreground">{cand.background}</p></div>
+        {INTERVIEW_QUESTIONS.map((q, i) => (
+          <div key={i} className="rounded-xl border border-border p-3"><p className="text-sm font-semibold">Q: {q}</p><p className="text-sm text-muted-foreground mt-1">A: {cand.answers[i]}</p></div>
+        ))}
+        <p className="text-xs text-muted-foreground italic">Read the answers carefully — a vague candidate is a risky hire (−20% productivity for 2 weeks).</p>
         <div className="flex gap-2">
           <Button variant="outline" className="flex-1 press-scale" onClick={() => decide(false)}>Pass</Button>
           <Button className="flex-1 press-scale" onClick={() => decide(true)}><UserPlus className="w-4 h-4 mr-1.5" /> Hire</Button>
@@ -610,27 +612,25 @@ function HiringPanel({ s, update, awardXP }: { s: BusinessGameState; update: Upd
   );
 }
 
-/* ═══ FEATURE 6 — BUSINESS PLAN (required before launch, AI-scored) ═══ */
-function BusinessPlanGate({ s, update, awardXP }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void }) {
+/* ═══ FEATURE 6 — BUSINESS PLAN (required before launch, rule-based validator) ═══ */
+function BusinessPlanGate({ update, awardXP }: { update: Update; awardXP: (n: number, r: string) => void }) {
   const [f, setF] = useState({ name: "", market: "", pricing: "", startup: "", goal: "" });
-  const [busy, setBusy] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setF((p) => ({ ...p, [k]: e.target.value }));
-  const ready = f.name.trim() && f.market.trim().length >= 10 && f.pricing.trim().length >= 10 && f.startup.trim().length >= 5 && f.goal.trim();
-  const submit = async () => {
-    if (!ready) { toast.error("Complete every field (target market & pricing need detail)"); return; }
-    setBusy(true);
-    try {
-      const out = await businessAI(
-        "You are a business-school instructor grading a student's one-page business plan. Return ONLY JSON: {\"score\": <1-10 integer>, \"feedback\": \"<2 sentences: what's strong, what to improve>\"}. A 5+ means viable enough to launch.",
-        `Business name: ${f.name}\nTarget market: ${f.market}\nPricing strategy: ${f.pricing}\nStartup costs: ${f.startup}\n3-month revenue goal: ${f.goal}`,
-        300,
-      );
-      const { score, feedback } = parseAIJson<{ score: number; feedback: string }>(out, { score: 6, feedback: "Solid start — add more detail on your customer and pricing." });
-      const clamped = Math.max(1, Math.min(10, Math.round(score)));
-      update((st) => ({ ...st, planScore: clamped, planFeedback: feedback, planApproved: clamped >= 5 }));
-      if (clamped >= 5) { awardXP(15, "Business plan approved"); toast.success(`Plan scored ${clamped}/10 — approved! +15 XP`, { description: feedback }); }
-      else toast.error(`Plan scored ${clamped}/10 — needs work`, { description: feedback });
-    } catch { toast.error("Couldn't reach the grader — try again."); } finally { setBusy(false); }
+  const submit = () => {
+    const errs: string[] = [];
+    if (f.name.trim().length < 3) errs.push("Business name: give it a real name.");
+    if (f.market.trim().length < 50) errs.push(`Target market: needs at least 50 characters (${f.market.trim().length}/50).`);
+    if (f.pricing.trim().length < 50) errs.push(`Pricing strategy: needs at least 50 characters (${f.pricing.trim().length}/50).`);
+    if (!/\d/.test(f.startup)) errs.push("Startup costs: include the actual numbers (e.g. 200 supplies, 100 marketing).");
+    const goalNum = parseFloat(f.goal.replace(/[^0-9.]/g, ""));
+    if (!(goalNum > 0)) errs.push("3-month revenue goal: enter a number greater than 0.");
+    setErrors(errs);
+    if (errs.length) { toast.error("Fix the highlighted fields", { description: `${errs.length} item${errs.length > 1 ? "s" : ""} need attention.` }); return; }
+    const feedback = "Your plan covers the essentials — a defined market, a pricing rationale, real startup costs, and a clear goal. Approved!";
+    update((st) => ({ ...st, planScore: 7, planFeedback: feedback, planApproved: true }));
+    awardXP(15, "Business plan approved");
+    toast.success("Plan scored 7/10 — approved! +15 XP", { description: feedback });
   };
   return (
     <Card variant="elevated">
@@ -638,17 +638,20 @@ function BusinessPlanGate({ s, update, awardXP }: { s: BusinessGameState; update
         <div className="rounded-2xl p-5 text-center" style={{ background: "linear-gradient(135deg,#0f2d1e,#06291f)" }}>
           <Building2 className="w-10 h-10 mx-auto mb-1" style={{ color: NEON }} />
           <p className="font-display text-xl font-extrabold text-white">Write your business plan</p>
-          <p className="text-white/55 text-sm mt-1">An AI instructor scores it 1–10. Score 5+ to unlock The Office.</p>
+          <p className="text-white/55 text-sm mt-1">Complete every field to score 7/10 and unlock The Office.</p>
         </div>
         <div><label className="text-sm font-semibold">Business name</label><Input value={f.name} onChange={set("name")} className="mt-1" /></div>
-        <div><label className="text-sm font-semibold">Target market</label><Textarea rows={2} value={f.market} onChange={set("market")} className="mt-1" placeholder="Who exactly are your customers?" /></div>
-        <div><label className="text-sm font-semibold">Pricing strategy</label><Textarea rows={2} value={f.pricing} onChange={set("pricing")} className="mt-1" placeholder="How will you price, and why?" /></div>
+        <div><label className="text-sm font-semibold">Target market <span className="text-muted-foreground font-normal">({f.market.trim().length}/50)</span></label><Textarea rows={2} value={f.market} onChange={set("market")} className="mt-1" placeholder="Who exactly are your customers? Be specific (50+ chars)." /></div>
+        <div><label className="text-sm font-semibold">Pricing strategy <span className="text-muted-foreground font-normal">({f.pricing.trim().length}/50)</span></label><Textarea rows={2} value={f.pricing} onChange={set("pricing")} className="mt-1" placeholder="How will you price, and why? (50+ chars)" /></div>
         <div><label className="text-sm font-semibold">Startup costs breakdown</label><Input value={f.startup} onChange={set("startup")} className="mt-1" placeholder="e.g. 200 supplies, 100 marketing, 50 tools" /></div>
-        <div><label className="text-sm font-semibold">3-month revenue goal</label><Input value={f.goal} onChange={set("goal")} className="mt-1" placeholder="e.g. 5,000 IC" /></div>
-        {s.planScore > 0 && !s.planApproved && (
-          <div className="rounded-xl border border-warning/40 bg-warning/5 p-3 flex items-start gap-2"><AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" /><div><p className="text-sm font-bold">Scored {s.planScore}/10</p><p className="text-xs text-muted-foreground">{s.planFeedback}</p></div></div>
+        <div><label className="text-sm font-semibold">3-month revenue goal</label><Input value={f.goal} onChange={set("goal")} className="mt-1" placeholder="e.g. 5000" /></div>
+        {errors.length > 0 && (
+          <div className="rounded-xl border border-destructive/40 bg-destructive/5 p-3">
+            <p className="text-sm font-bold text-destructive flex items-center gap-1.5 mb-1"><AlertTriangle className="w-4 h-4" /> Fix these:</p>
+            <ul className="space-y-1">{errors.map((e, i) => <li key={i} className="text-xs text-foreground/80">• {e}</li>)}</ul>
+          </div>
         )}
-        <Button className="w-full press-scale" onClick={submit} disabled={busy}>{busy ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <ClipboardList className="w-4 h-4 mr-1.5" />} Submit for scoring</Button>
+        <Button className="w-full press-scale" onClick={submit}><ClipboardList className="w-4 h-4 mr-1.5" /> Submit plan</Button>
       </CardContent>
     </Card>
   );
