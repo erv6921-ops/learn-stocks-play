@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useLocation } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
@@ -13,6 +13,7 @@ export function JeffWidget() {
   const location = useLocation()
   const { user } = useApp()
   const { mood, message, visible, nudge, dismiss } = useJeff()
+  const [hovered, setHovered] = useState(false)
 
   // Only on authenticated app pages.
   if (!user) return null
@@ -32,13 +33,15 @@ export function JeffWidget() {
         type="button"
         aria-label="Jeff says hi"
         onClick={nudge}
-        whileHover={{ rotate: [0, -5, 5, -5, 0] }}
-        whileTap={{ scale: 0.92 }}
-        transition={{ duration: 0.3 }}
-        className="pointer-events-auto w-14 md:w-20 h-14 md:h-20 cursor-pointer select-none"
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
+        whileHover={{ scale: 1.06, y: -2 }}
+        whileTap={{ scale: 0.92, rotate: -3 }}
+        transition={{ type: "spring", stiffness: 300, damping: 18 }}
+        className="pointer-events-auto w-16 md:w-24 h-16 md:h-24 cursor-pointer select-none"
         style={{ filter: "drop-shadow(0 6px 14px rgba(6,41,31,0.25))" }}
       >
-        <JeffMascot mood={mood} />
+        <JeffMascot mood={mood} waving={hovered} />
       </motion.button>
     </div>
   )

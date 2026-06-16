@@ -123,6 +123,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Auth → hydrate all per-user data from the database
   // ───────────────────────────────────────────────────────────
   useEffect(() => {
+    // ─── DEV-ONLY: skip auth + onboarding for local testing ───
+    // import.meta.env.DEV is true under `npm run dev` and FALSE in every
+    // production build, so this can never affect the deployed app. Signs you in
+    // as a throwaway, already-onboarded local user. To use real auth on the dev
+    // server, set localStorage.investiplay_dev_real_auth = "1".
+    if (import.meta.env.DEV && localStorage.getItem("investiplay_dev_real_auth") !== "1") {
+      userIdRef.current = "dev-local-user"
+      authReadyRef.current = true
+      setUser({
+        id: "dev-local-user",
+        firstName: "Dev",
+        age: 16,
+        schoolName: "Localhost High",
+        grade: 11,
+        literacyLevel: "explorer",
+        onboardingComplete: true,
+        assessmentScore: 0,
+        benchmarkScores: {},
+        benchmarkCategoryScores: {},
+        rewardMultiplier: 1,
+        createdAt: new Date(),
+      })
+      setAuthReady(true)
+      return
+    }
+
     const withTimeout = <T,>(p: PromiseLike<T>, ms = 5000): Promise<T | null> =>
       Promise.race([
         Promise.resolve(p),
