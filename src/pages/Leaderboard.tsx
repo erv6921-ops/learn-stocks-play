@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
+import { motion } from "framer-motion"
 import { Trophy, Coins, Star, Flame, Crown, Medal, Users, UserPlus, Copy, Link2 } from "lucide-react"
 
 const LEVEL_THRESHOLDS = [0, 1000, 3000, 7000, 15000, 30000, 60000, 100000]
@@ -35,6 +36,15 @@ const DEMO_NATIONAL = [
 ]
 
 type Scope = "class" | "friends" | "national"
+
+interface Entry {
+  name: string
+  score: number
+  scoreLabel: string
+  level: number
+  streak: number
+  isMe: boolean
+}
 
 export default function Leaderboard() {
   const { jeffsBalance, portfolio, jeffsHistory, lessonProgress } = useApp()
@@ -162,9 +172,9 @@ export default function Leaderboard() {
 
   // Build entries based on scope. The class leaderboard ranks by real XP
   // (total InvestiCoins earned, fetched per member); demo/national rank by net worth.
-  const allEntries = useMemo(() => {
+  const allEntries = useMemo<Entry[]>(() => {
     if (scope === "class" && classMembers.length > 0) {
-      const entries = [
+      const entries: Entry[] = [
         ...classMembers.map(m => ({
           name: m.name, score: m.xp, scoreLabel: "XP", level: getLevel(m.xp), streak: 0, isMe: false,
         })),
@@ -176,7 +186,7 @@ export default function Leaderboard() {
 
     if (showDemo) {
       const demoData = scope === "national" ? DEMO_NATIONAL : DEMO_NATIONAL.slice(0, 5)
-      const entries = [
+      const entries: Entry[] = [
         ...demoData.map(d => ({ name: d.name, score: d.netWorth, scoreLabel: "Net Worth", level: d.level, streak: d.streak, isMe: false })),
         { name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true },
       ]
@@ -188,6 +198,12 @@ export default function Leaderboard() {
   }, [scope, myNetWorth, showDemo, classMembers, totalXp])
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
+  const myRank = allEntries.findIndex(e => e.isMe) + 1
+  const scoreLabel = allEntries[0]?.scoreLabel ?? "Net Worth"
+
+  // Top 3 get a podium; everyone else falls into the ranked list below it.
+  const podium = hasOtherUsers ? allEntries.slice(0, 3) : []
+  const restEntries = hasOtherUsers ? allEntries.slice(3) : allEntries
 
   const getRankIcon = (rank: number) => {
     if (rank === 1) return <Crown className="w-5 h-5 text-warning" />
@@ -199,45 +215,59 @@ export default function Leaderboard() {
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
-      <main className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="font-display text-[28px] md:text-[32px] font-bold tracking-tight flex items-center gap-3">
-              <Trophy className="w-7 h-7 text-warning" />
-              Leaderboard
-            </h1>
-            <p className="text-muted-foreground text-sm mt-1">Compete by total Net Worth</p>
+      <main className="container mx-auto px-4 py-8 max-w-3xl">
+        {/* Hero header — your standing at a glance */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="relative overflow-hidden rounded-3xl bg-gradient-hero text-primary-foreground p-6 md:p-8 mb-6 shadow-card"
+        >
+          {/* decorative glow */}
+          <div className="absolute -top-16 -right-10 w-48 h-48 rounded-full bg-warning/20 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-20 -left-8 w-48 h-48 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
+
+          <div className="relative flex items-start justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-warning mb-2">
+                <Trophy className="w-5 h-5" />
+                <span className="text-xs font-bold uppercase tracking-widest">Leaderboard</span>
+              </div>
+              <p className="text-xs text-primary-foreground/70 font-semibold uppercase tracking-wider">Your Net Worth</p>
+              <p className="font-display text-4xl md:text-5xl font-extrabold flex items-center gap-2 mt-1">
+                <Coins className="w-7 h-7 md:w-8 md:h-8 text-warning" />
+                {myNetWorth.toLocaleString()}
+              </p>
+              <p className="text-[11px] text-primary-foreground/60 mt-1.5">
+                InvestiCoins {jeffsBalance.toLocaleString()} + Portfolio {Math.round(portfolioValue).toLocaleString()}
+              </p>
+            </div>
+
+            {/* Rank badge */}
+            {(hasOtherUsers || showDemo) && (
+              <div className="text-center shrink-0 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 px-4 py-3">
+                <p className="text-[10px] uppercase tracking-wider text-primary-foreground/70 font-semibold">Rank</p>
+                <p className="font-display text-3xl md:text-4xl font-extrabold leading-none mt-1">#{myRank}</p>
+                <p className="text-[10px] text-primary-foreground/60 mt-1">of {allEntries.length}</p>
+              </div>
+            )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Scope toggle */}
-        <div className="flex gap-1 p-1 bg-muted rounded-xl w-fit mb-6">
+        <div className="flex gap-1 p-1 bg-muted rounded-xl w-full sm:w-fit mb-6">
           {(["class", "friends", "national"] as Scope[]).map(s => (
             <Button
               key={s}
               variant={scope === s ? "default" : "ghost"}
               size="sm"
               onClick={() => setScope(s)}
-              className="press-scale capitalize"
+              className="press-scale capitalize flex-1 sm:flex-none"
             >
               {s === "class" ? "My Class" : s === "friends" ? "Friends" : "National"}
             </Button>
           ))}
         </div>
-
-        {/* Net Worth formula */}
-        <Card variant="glass" className="mb-6">
-          <CardContent className="p-4">
-            <p className="text-xs text-muted-foreground mb-1 font-semibold uppercase tracking-wider">Your Net Worth</p>
-            <p className="text-2xl font-extrabold flex items-center gap-2">
-              <Coins className="w-5 h-5 text-warning" />
-              {myNetWorth.toLocaleString()}
-            </p>
-            <p className="text-[11px] text-muted-foreground mt-1">
-              = InvestiCoins ({jeffsBalance.toLocaleString()}) + Portfolio ({Math.round(portfolioValue).toLocaleString()})
-            </p>
-          </CardContent>
-        </Card>
 
         {/* Class/Friends empty state with CTAs */}
         {(scope === "class" || scope === "friends") && !hasOtherUsers && !showDemo ? (
@@ -333,57 +363,112 @@ export default function Leaderboard() {
               </div>
             )}
 
-            {/* Leaderboard rows */}
-            <div className="space-y-2">
-              {allEntries.map((entry, idx) => {
-                const rank = idx + 1
-                const isTop3 = rank <= 3
-                return (
-                  <div
-                    key={`${entry.name}-${idx}`}
-                    className={`flex items-center gap-4 p-4 rounded-2xl transition-all ${
-                      entry.isMe
-                        ? "bg-primary/10 border-2 border-primary/30 shadow-glow"
-                        : isTop3
-                        ? "bg-gradient-to-r from-card to-muted/50 border border-warning/20"
-                        : "bg-card border border-border/40"
-                    }`}
-                  >
-                    <div className="w-8 flex justify-center shrink-0">
-                      {getRankIcon(rank)}
-                    </div>
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
-                      entry.isMe ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-                    }`}>
-                      {entry.name.charAt(0)}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-bold truncate ${entry.isMe ? "text-primary" : ""}`}>
-                        {entry.name}
-                        {entry.isMe && <span className="ml-1.5 text-[10px] text-primary/60">(You)</span>}
-                      </p>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-[11px] text-muted-foreground flex items-center gap-1">
-                          <Star className="w-3 h-3" /> Lv {entry.level}
+            {/* Podium — top 3, arranged 2 · 1 · 3 with the champion centered */}
+            {podium.length >= 3 && (
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 items-end mb-6">
+                {[podium[1], podium[0], podium[2]].map((entry, i) => {
+                  // Render order is 2nd, 1st, 3rd — map back to real rank.
+                  const rank = i === 0 ? 2 : i === 1 ? 1 : 3
+                  const isChampion = rank === 1
+                  const accent =
+                    rank === 1 ? "text-warning border-warning/40 from-warning/15"
+                    : rank === 2 ? "text-muted-foreground border-border from-muted/60"
+                    : "text-warning/70 border-warning/20 from-warning/5"
+                  return (
+                    <motion.div
+                      key={`podium-${rank}`}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.35, delay: 0.05 * i }}
+                      className={`relative flex flex-col items-center rounded-2xl border bg-gradient-to-b to-card p-3 sm:p-4 ${accent} ${
+                        isChampion ? "pt-5 shadow-card" : "mt-4"
+                      } ${entry.isMe ? "ring-2 ring-primary/40" : ""}`}
+                    >
+                      {isChampion && (
+                        <Crown className="absolute -top-3 w-6 h-6 text-warning drop-shadow" fill="currentColor" />
+                      )}
+                      <div className={`relative ${isChampion ? "w-16 h-16" : "w-12 h-12"} rounded-full flex items-center justify-center font-bold ${
+                        entry.isMe ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
+                      }`}>
+                        {entry.name.charAt(0)}
+                        <span className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-card border flex items-center justify-center text-[11px] font-extrabold ${accent}`}>
+                          {rank}
                         </span>
-                        {entry.streak > 0 && (
-                          <span className="text-[11px] text-orange-500 flex items-center gap-1">
-                            <Flame className="w-3 h-3" /> {entry.streak}d
-                          </span>
-                        )}
                       </div>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <p className="font-bold text-sm flex items-center gap-1 justify-end">
-                        <Coins className="w-3.5 h-3.5 text-warning" />
+                      <p className={`mt-3 text-xs sm:text-sm font-bold text-center truncate max-w-full text-foreground ${entry.isMe ? "text-primary" : ""}`}>
+                        {entry.name}
+                      </p>
+                      <p className="text-[11px] sm:text-xs font-extrabold flex items-center gap-1 text-foreground mt-0.5">
+                        <Coins className="w-3 h-3 text-warning" />
                         {entry.score.toLocaleString()}
                       </p>
-                      <p className="text-[10px] text-muted-foreground">{entry.scoreLabel}</p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+                      <span className="text-[10px] text-muted-foreground flex items-center gap-1 mt-0.5">
+                        <Star className="w-2.5 h-2.5" /> Lv {entry.level}
+                      </span>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            )}
+
+            {/* Ranked list */}
+            {restEntries.length > 0 && (
+              <div className="space-y-2">
+                {podium.length >= 3 && (
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground px-1 mb-1">
+                    Rankings
+                  </p>
+                )}
+                {restEntries.map((entry, idx) => {
+                  const rank = (podium.length >= 3 ? 3 : 0) + idx + 1
+                  return (
+                    <motion.div
+                      key={`${entry.name}-${idx}`}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.25, delay: Math.min(idx * 0.03, 0.3) }}
+                      className={`flex items-center gap-3 sm:gap-4 p-3.5 rounded-2xl transition-all ${
+                        entry.isMe
+                          ? "bg-primary/10 border-2 border-primary/30 shadow-glow"
+                          : "bg-card border border-border/40 hover:border-border"
+                      }`}
+                    >
+                      <div className="w-7 flex justify-center shrink-0">
+                        {getRankIcon(rank)}
+                      </div>
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
+                        entry.isMe ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                      }`}>
+                        {entry.name.charAt(0)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm font-bold truncate ${entry.isMe ? "text-primary" : ""}`}>
+                          {entry.name}
+                          {entry.isMe && <span className="ml-1.5 text-[10px] text-primary/60">(You)</span>}
+                        </p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[11px] text-muted-foreground flex items-center gap-1">
+                            <Star className="w-3 h-3" /> Lv {entry.level}
+                          </span>
+                          {entry.streak > 0 && (
+                            <span className="text-[11px] text-orange-500 flex items-center gap-1">
+                              <Flame className="w-3 h-3" /> {entry.streak}d
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className="font-bold text-sm flex items-center gap-1 justify-end">
+                          <Coins className="w-3.5 h-3.5 text-warning" />
+                          {entry.score.toLocaleString()}
+                        </p>
+                        <p className="text-[10px] text-muted-foreground">{entry.scoreLabel}</p>
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            )}
           </>
         )}
       </main>
