@@ -157,33 +157,38 @@ serve(async (req) => {
 
       // Fetch quote unless chartOnly mode
       if (!chartOnly) {
-        // Current price comes from the most recent close in a 5d/1d chart.
+        // Use a 1d/5d chart: its `meta` carries Yahoo's latest (regularMarket*)
+        // values, and the daily bars are a fallback.
         const quoteJson = await yahooGet(yahooChartUrl(sym, "1d", "5d"));
         const result = quoteJson?.chart?.result?.[0];
         const meta = result?.meta ?? {};
         const q = result?.indicators?.quote?.[0] ?? {};
         const timestamps: unknown[] = result?.timestamp ?? [];
 
-        // Find the most recent bar with a valid close.
+        // Find the most recent bar with a valid close (fallback source).
         let li = -1;
         for (let i = timestamps.length - 1; i >= 0; i--) {
           if (safeNum(q.close?.[i]) != null) { li = i; break; }
         }
+        const lastClose = li !== -1 ? safeNum(q.close?.[li]) : null;
 
-        if (li !== -1) {
-          const closePrice = safeNum(q.close?.[li]) ?? 0;
-          const tSec = safeNum(timestamps[li]) ?? Math.floor(Date.now() / 1000);
+        // PREFER Yahoo's live/latest price from chart meta — the daily close
+        // bar can lag a full day, which is what made quotes look stale.
+        const price = safeNum(meta.regularMarketPrice) ?? lastClose;
 
-          // Previous close: the prior valid bar, falling back to chart meta.
-          let prevClose: number | null = null;
-          for (let i = li - 1; i >= 0; i--) {
-            const c = safeNum(q.close?.[i]);
-            if (c != null) { prevClose = c; break; }
+        if (price != null) {
+          // Previous close from meta first, else the prior valid daily bar.
+          let prevClose = safeNum(meta.chartPreviousClose) ?? safeNum(meta.previousClose);
+          if (prevClose == null && li > 0) {
+            for (let i = li - 1; i >= 0; i--) {
+              const cc = safeNum(q.close?.[i]);
+              if (cc != null) { prevClose = cc; break; }
+            }
           }
-          if (prevClose == null) prevClose = safeNum(meta.chartPreviousClose) ?? safeNum(meta.previousClose);
 
+          const tSec = safeNum(meta.regularMarketTime) ?? (li !== -1 ? safeNum(timestamps[li]) : null) ?? Math.floor(Date.now() / 1000);
           const openPrice = safeNum(q.open?.[li]) ?? 0;
-          const change = prevClose != null ? closePrice - prevClose : 0;
+          const change = prevClose != null ? price - prevClose : 0;
           const changePercent = prevClose != null && prevClose > 0 ? (change / prevClose) * 100 : 0;
 
           quoteData = {
@@ -196,18 +201,18 @@ serve(async (req) => {
             session: marketStatus.session,
             regularMarketTime: tSec,
             quoteTimestamp: tSec,
-            price: closePrice,
+            price,
             change,
             changePercent,
-            volume: safeNum(q.volume?.[li]) ?? 0,
+            volume: safeNum(meta.regularMarketVolume) ?? safeNum(q.volume?.[li]) ?? 0,
             marketCap: null,
             high52Week: safeNum(meta.fiftyTwoWeekHigh),
             low52Week: safeNum(meta.fiftyTwoWeekLow),
             timestamp: tSec,
             provider: "yahoo-finance",
             open: openPrice,
-            dayHigh: safeNum(q.high?.[li]) ?? 0,
-            dayLow: safeNum(q.low?.[li]) ?? 0,
+            dayHigh: safeNum(meta.regularMarketDayHigh) ?? safeNum(q.high?.[li]) ?? 0,
+            dayLow: safeNum(meta.regularMarketDayLow) ?? safeNum(q.low?.[li]) ?? 0,
             previousClose: prevClose,
             dividendYield: null,
             eps: null,
