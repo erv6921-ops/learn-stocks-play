@@ -560,12 +560,8 @@ export default function Dashboard() {
         </div>
         }
 
-        {/* ──── DAILY SIGNAL ──── */}
-        <div className="mb-4 md:mb-8">
-          <DailySignal />
-        </div>
-
-        {/* ──── STATS GRID ──── */}
+        {/* ──── OVERVIEW ──── */}
+        <SectionHeader icon={Wallet} title="Overview" subtitle="Your money & progress at a glance" />
         <div className="grid grid-cols-1 min-[420px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 mb-4 md:mb-8">
           <StatCard
             title="Total Value"
@@ -586,49 +582,49 @@ export default function Dashboard() {
           <StatCard title="Stocks Owned" value={portfolio.length.toString()} icon={TrendingUp} accentColor="primary" />
         </div>
 
-        {/* ──── DAILY CHALLENGE ──── */}
-        <Card
-          className={`mb-4 md:mb-8 border-0 overflow-hidden ${dailyDone ? "opacity-70" : ""}`}
-          style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
-          <CardContent className="p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "rgba(43,182,115,0.18)" }}>
-                <Flame className="w-5 h-5 text-success" />
+        {/* ──── TODAY ──── */}
+        <SectionHeader icon={Flame} title="Today" subtitle="Daily games, signals & missions — earn coins every day" />
+        <div className="space-y-4 mb-4 md:mb-8">
+          <Card
+            className={`border-0 overflow-hidden ${dailyDone ? "opacity-70" : ""}`}
+            style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
+            <CardContent className="p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "rgba(43,182,115,0.18)" }}>
+                  <Flame className="w-5 h-5 text-success" />
+                </div>
+                <div>
+                  <p className="font-display text-base md:text-lg font-extrabold text-white">Daily Challenge</p>
+                  <p className="text-sm text-white/70">
+                    Today: <span className="font-bold text-white">{dailyGameName}</span>
+                    <span className="mx-1.5">·</span>
+                    <span className="font-bold text-gold">🪙 75 InvestiCoins</span>
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="font-display text-base md:text-lg font-extrabold text-white">Daily Challenge</p>
-                <p className="text-sm text-white/70">
-                  Today: <span className="font-bold text-white">{dailyGameName}</span>
-                  <span className="mx-1.5">·</span>
-                  <span className="font-bold text-gold">🪙 75 InvestiCoins</span>
-                </p>
-              </div>
-            </div>
-            {dailyDone ?
-            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-success/20 text-success font-bold text-sm border border-success/30 self-start sm:self-auto">
-                Completed ✓
-              </span> :
+              {dailyDone ?
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-success/20 text-success font-bold text-sm border border-success/30 self-start sm:self-auto">
+                  Completed ✓
+                </span> :
 
-            <Link to="/daily" className="self-start sm:self-auto">
-                <Button className="press-scale gap-1.5">Play Now <ArrowRight className="w-4 h-4" /></Button>
-              </Link>
-            }
-          </CardContent>
-        </Card>
+              <Link to="/daily" className="self-start sm:self-auto">
+                  <Button className="press-scale gap-1.5">Play Now <ArrowRight className="w-4 h-4" /></Button>
+                </Link>
+              }
+            </CardContent>
+          </Card>
 
-        {/* ──── MISSION PREVIEW SECTION ──── */}
+          <DailySignal />
+
+          <DailyMissions
+            lessonProgress={lessonProgress}
+            portfolio={portfolio}
+            earnJeffs={earnJeffs} />
+        </div>
+
+        {/* ──── MISSION PROGRESS ──── */}
         <div className="mb-4 md:mb-8">
-          <div className="flex items-center justify-between mb-3 md:mb-4">
-            <h3 className="font-display text-sm md:text-base font-bold flex items-center gap-2">
-              <Target className="w-4 h-4 text-primary" />
-              Mission Progress
-            </h3>
-            <Link to="/lessons">
-              <Button variant="ghost" size="sm" className="press-scale text-xs min-h-[44px] md:min-h-0">
-                View All Missions <ChevronRight className="w-3.5 h-3.5 ml-1" />
-              </Button>
-            </Link>
-          </div>
+          <SectionHeader icon={Target} title="Mission Progress" action={{ label: "View all", to: "/lessons" }} />
 
           {/* Overall progress */}
           <div className="mb-4">
@@ -691,27 +687,16 @@ export default function Dashboard() {
           </div>
         </button>
 
-        {/* ──── DAILY MISSIONS ──── */}
-        <DailyMissions
-          lessonProgress={lessonProgress}
-          portfolio={portfolio}
-          earnJeffs={earnJeffs}
-        />
-
-        {/* ──── BADGES STRIP ──── */}
+        {/* ──── BADGES ──── */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display text-base font-bold flex items-center gap-2">
-              <Award className="w-4 h-4 text-gold" />
-              Badges
-            </h3>
-            <div className="flex items-center gap-2">
+          <SectionHeader icon={Award} title="Badges" right={
+          <div className="flex items-center gap-2">
               <span className="text-xs text-muted-foreground font-semibold">{unlockedBadgeCount}/{BADGES.length} unlocked</span>
               <div className="w-16 h-1.5 rounded-full bg-muted overflow-hidden">
                 <div className="h-full rounded-full bg-gold transition-all" style={{ width: `${unlockedBadgeCount / BADGES.length * 100}%` }} />
               </div>
             </div>
-          </div>
+          } />
           <div className="flex gap-3 overflow-x-auto pb-2">
             {BADGES.map((badge) => {
               const unlocked = completedLessons >= badge.unlockAt;
@@ -740,7 +725,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* ──── THREE COLUMN LAYOUT ──── */}
+        {/* ──── YOUR MONEY ──── */}
+        <SectionHeader icon={Coins} title="Your Money" subtitle="Portfolio, watchlist & your business" />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Portfolio */}
           <Card variant="elevated" className="card-tier-1 hover-lift">
@@ -873,6 +859,30 @@ export default function Dashboard() {
 }
 
 /* ──── Sub-components ──── */
+
+// Unified section header used across the dashboard for a cohesive look.
+function SectionHeader({ icon: Icon, title, subtitle, action, right }: {icon: React.ComponentType<{className?: string;}>;title: string;subtitle?: string;action?: {label: string;to: string;};right?: React.ReactNode;}) {
+  return (
+    <div className="flex items-end justify-between gap-3 mb-3 md:mb-4">
+      <div className="flex items-center gap-2.5">
+        <span className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+          <Icon className="w-4 h-4 text-primary" />
+        </span>
+        <div>
+          <h3 className="font-display text-base font-extrabold leading-none tracking-tight">{title}</h3>
+          {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
+        </div>
+      </div>
+      {right ? right : action ?
+      <Link to={action.to}>
+          <Button variant="ghost" size="sm" className="press-scale text-xs shrink-0">
+            {action.label}<ChevronRight className="w-3.5 h-3.5 ml-1" />
+          </Button>
+        </Link> :
+      null}
+    </div>);
+
+}
 
 function EmptyState({ icon: Icon, label, cta, to }: {icon: React.ComponentType<{className?: string;}>;label: string;cta: string;to: string;}) {
   return (
