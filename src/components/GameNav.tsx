@@ -7,7 +7,7 @@ import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
-  Star, Flame, Store, BarChart3, Trophy, FlaskConical, Gamepad2 } from
+  Star, Flame, Store, BarChart3, Trophy, FlaskConical } from
 "lucide-react";
 
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
@@ -58,7 +58,6 @@ function getStreak(history: { amount: number; reason: string; date: Date }[]) {
 const NAV_ITEMS = [
 { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
 { to: "/lessons", icon: BookOpen, label: "Missions" },
-{ to: "/daily", icon: Gamepad2, label: "Daily" },
 { to: "/lab", icon: FlaskConical, label: "Lab" },
 { to: "/stocks", icon: LineChart, label: "Stocks" },
 { to: "/micro-business", icon: Store, label: "Business" },

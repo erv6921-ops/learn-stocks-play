@@ -157,6 +157,26 @@ export default function Dashboard() {
     return () => {cancelled = true;};
   }, [user?.id]);
 
+  // ── Daily Challenge: today's game + whether it's already been completed ──
+  const dailyDate = new Date();
+  const dailyToday = `${dailyDate.getFullYear()}-${String(dailyDate.getMonth() + 1).padStart(2, "0")}-${String(dailyDate.getDate()).padStart(2, "0")}`;
+  const dailyGameName = dailyDate.getDate() % 2 === 0 ? "Higher or Lower" : "Daily Scenario";
+  const [dailyDone, setDailyDone] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!user?.id) return;
+      const { data } = await supabase.
+      from("daily_game_completions").
+      select("id").
+      eq("user_id", user.id).
+      eq("game_date", dailyToday).
+      maybeSingle();
+      if (!cancelled) setDailyDone(!!data);
+    })();
+    return () => {cancelled = true;};
+  }, [user?.id, dailyToday]);
+
   const handleJoinClass = async () => {
     const code = joinCode.trim().toUpperCase();
     if (!code) return;
@@ -565,6 +585,36 @@ export default function Dashboard() {
           <StatCard title="Missions Done" value={`${completedLessons}/${totalLessons}`} icon={BookOpen} accentColor="primary" />
           <StatCard title="Stocks Owned" value={portfolio.length.toString()} icon={TrendingUp} accentColor="primary" />
         </div>
+
+        {/* ──── DAILY CHALLENGE ──── */}
+        <Card
+          className={`mb-4 md:mb-8 border-0 overflow-hidden ${dailyDone ? "opacity-70" : ""}`}
+          style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
+          <CardContent className="p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "rgba(43,182,115,0.18)" }}>
+                <Flame className="w-5 h-5 text-success" />
+              </div>
+              <div>
+                <p className="font-display text-base md:text-lg font-extrabold text-white">Daily Challenge</p>
+                <p className="text-sm text-white/70">
+                  Today: <span className="font-bold text-white">{dailyGameName}</span>
+                  <span className="mx-1.5">·</span>
+                  <span className="font-bold text-gold">🪙 75 InvestiCoins</span>
+                </p>
+              </div>
+            </div>
+            {dailyDone ?
+            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-success/20 text-success font-bold text-sm border border-success/30 self-start sm:self-auto">
+                Completed ✓
+              </span> :
+
+            <Link to="/daily" className="self-start sm:self-auto">
+                <Button className="press-scale gap-1.5">Play Now <ArrowRight className="w-4 h-4" /></Button>
+              </Link>
+            }
+          </CardContent>
+        </Card>
 
         {/* ──── MISSION PREVIEW SECTION ──── */}
         <div className="mb-4 md:mb-8">
