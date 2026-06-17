@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect, useRe
 import { useNavigate } from "react-router-dom"
 import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier } from "@/types"
 import { supabase } from "@/integrations/supabase/client"
+import { recordMoneyEvent } from "@/lib/notifications"
 
 interface UnitTestProgress {
   category: string
@@ -443,6 +444,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   const recordHistory = (entry: JeffsHistoryEntry) => {
+    // Surface this coin movement in the notification center (bell in the nav).
+    // entry.amount is already signed: positive = gained, negative = spent/lost.
+    recordMoneyEvent(entry.amount, entry.reason)
     setJeffsHistory(prev => {
       const next = [...prev, entry]
       ls.set("investiplay_jeffs_history", next)

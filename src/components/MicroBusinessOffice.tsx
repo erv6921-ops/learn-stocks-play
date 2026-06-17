@@ -254,7 +254,7 @@ function PayrollPanel({ s, update, awardXP, spend, balance, payrollDue }: { s: B
     if (!spend(total, `Payroll week ${s.week}`)) return;
     update((st) => ({ ...st, lastPayrollWeek: st.week, billsOnTime: st.billsOnTime + 1, expenses: { ...st.expenses, payroll: st.expenses.payroll + total } }));
     awardXP(6, "Ran payroll on time");
-    toast.success(`Payroll paid — net cash impact −${total.toLocaleString()} IC`, { description: `Wages ${gross.toLocaleString()} + 15.3% payroll tax ${tax.toLocaleString()}` });
+    toast.error(`Payroll paid — net cash impact −${total.toLocaleString()} IC`, { description: `Wages ${gross.toLocaleString()} + 15.3% payroll tax ${tax.toLocaleString()}`, icon: <TrendingDown className="w-4 h-4" /> });
   };
   return (
     <Card variant="elevated">

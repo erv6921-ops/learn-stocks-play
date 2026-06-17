@@ -4,6 +4,7 @@ import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/Wordmark";
+import NotificationBell from "@/components/NotificationBell";
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
@@ -140,6 +141,7 @@ export default function GameNav() {
                 <Star className="w-3.5 h-3.5" />
                 <span>Lv {level}</span>
               </div>
+              <NotificationBell />
               <Button variant="ghost" size="icon" onClick={handleLogout} className="text-muted-foreground w-8 h-8">
                 <LogOut className="w-4 h-4" />
               </Button>

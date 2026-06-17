@@ -583,7 +583,7 @@ export default function StockDetail() {
     }
     const success = buyStock(stock.symbol, shares, stock.price)
     if (success) {
-      toast.success(`Bought ${shares} shares of ${stock.symbol}!`, { description: `Spent ${totalCost.toFixed(2)} InvestiCoins.` })
+      toast.error(`Bought ${shares} shares of ${stock.symbol}`, { description: `Spent ${totalCost.toFixed(2)} InvestiCoins.`, icon: <TrendingDown className="w-4 h-4" /> })
       setShares(1); setShowConfirm(false)
     }
   }
