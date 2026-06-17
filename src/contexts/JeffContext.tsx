@@ -5,7 +5,7 @@ import { useApp } from "@/contexts/AppContext"
 export type JeffMoodType = "idle" | "celebrate" | "encourage" | "think" | "sleep"
 export type JeffEvent = "coins_earned" | "lesson_complete" | "level_up" | "streak_update" | "page_change"
 // Autonomous "alive" behaviours that play out when Jeff is left alone.
-export type JeffActivity = "none" | "walkAcross" | "walkSide" | "jump" | "cook" | "pack" | "nap"
+export type JeffActivity = "none" | "walkAcross" | "walkSide" | "jump" | "cook" | "pack" | "nap" | "flip" | "party"
 
 interface JeffState {
   mood: JeffMoodType
@@ -18,11 +18,14 @@ interface JeffContextValue extends JeffState {
   triggerJeff: (event: JeffEvent) => void
   nudge: () => void
   dismiss: () => void
+  // Fire a custom reaction (used by quizzes for clutch/celebrate moments).
+  react: (mood: JeffMoodType, message: string | null, activity?: JeffActivity) => void
 }
 
 const JeffContext = createContext<JeffContextValue | undefined>(undefined)
 
 const MESSAGE_MS = 4000
+const PARTY_MS = 4200 // center-stage lesson celebration length
 
 // Random roaming/vignette pool + how long each plays.
 const ACTIVITIES: { a: Exclude<JeffActivity, "none">; dur: number }[] = [
@@ -100,6 +103,19 @@ export function JeffProvider({ children }: { children: ReactNode }) {
     }, MESSAGE_MS)
   }, [interruptActivity])
 
+  // Center-stage celebration: Jeff parades to the middle of the screen and goes
+  // jolly (dance + backflip), then heads back to his corner. Used on lesson wins.
+  const party = useCallback((message: string) => {
+    if (resetTimer.current) clearTimeout(resetTimer.current)
+    if (roamTimer.current) clearTimeout(roamTimer.current)
+    if (actTimer.current) clearTimeout(actTimer.current)
+    setState(s => ({ ...s, mood: "celebrate", message, visible: true, activity: "party" }))
+    resetTimer.current = setTimeout(() => {
+      setState(s => ({ ...s, mood: "idle", message: null, visible: false, activity: "none" }))
+      scheduleRoam()
+    }, PARTY_MS)
+  }, [scheduleRoam])
+
   const triggerJeff = useCallback((event: JeffEvent) => {
     if (event === "page_change") {
       const pm = pageMessage(location.pathname)
@@ -107,9 +123,10 @@ export function JeffProvider({ children }: { children: ReactNode }) {
       else { interruptActivity(); setState(s => ({ ...s, mood: "idle", message: null, visible: false })) }
       return
     }
+    if (event === "lesson_complete") { party(EVENT_MAP.lesson_complete.message); return }
     const cfg = EVENT_MAP[event]
     if (cfg) show(cfg.mood, cfg.message)
-  }, [location.pathname, show, interruptActivity])
+  }, [location.pathname, show, interruptActivity, party])
 
   const nudge = useCallback(() => {
     // Clicking Jeff: half the time he hops, otherwise he cheers you on.
@@ -129,6 +146,22 @@ export function JeffProvider({ children }: { children: ReactNode }) {
     if (resetTimer.current) clearTimeout(resetTimer.current)
     setState(s => ({ ...s, message: null, visible: false }))
   }, [])
+
+  // Custom on-demand reaction with an optional one-shot activity (e.g. a backflip
+  // for a clutch correct answer). Cancels roaming, plays, then settles back to idle.
+  const react = useCallback((mood: JeffMoodType, message: string | null, activity: JeffActivity = "none") => {
+    if (resetTimer.current) clearTimeout(resetTimer.current)
+    if (roamTimer.current) clearTimeout(roamTimer.current)
+    if (actTimer.current) clearTimeout(actTimer.current)
+    setState(s => ({ ...s, mood, message, visible: message != null, activity }))
+    if (activity !== "none") {
+      actTimer.current = setTimeout(() => setState(s => ({ ...s, activity: "none" })), activity === "flip" ? 1300 : 1400)
+    }
+    resetTimer.current = setTimeout(() => {
+      setState(s => ({ ...s, mood: "idle", message: null, visible: false, activity: "none" }))
+      scheduleRoam()
+    }, MESSAGE_MS)
+  }, [scheduleRoam])
 
   // Greet on route change.
   useEffect(() => {
@@ -169,7 +202,7 @@ export function JeffProvider({ children }: { children: ReactNode }) {
   }, [jeffsHistory, lessonProgress, triggerJeff])
 
   return (
-    <JeffContext.Provider value={{ ...state, triggerJeff, nudge, dismiss }}>
+    <JeffContext.Provider value={{ ...state, triggerJeff, nudge, dismiss, react }}>
       {children}
     </JeffContext.Provider>
   )

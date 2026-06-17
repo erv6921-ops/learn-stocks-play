@@ -96,15 +96,33 @@ export function JeffWidget() {
   if (HIDDEN_ROUTES.some(r => location.pathname.startsWith(r))) return null
 
   const cont = containerAnim(activity, dims.w, dims.h)
+  const isFlip = activity === "flip"
+  const isParty = activity === "party"
   const facing = activity === "walkAcross"
     ? { animate: { scaleX: [-1, -1, 1, 1] }, transition: { duration: 8, times: [0, 0.48, 0.52, 1] } }
     : { animate: { scaleX: 1 }, transition: { duration: 0.3 } }
+  // Backflip: a quick jump + full backward rotation on the mascot itself (the
+  // speech bubble, above, stays upright).
+  const flipAnim = { animate: { y: [0, -64, -64, 0], rotate: [0, -360, -360, 0], scaleX: 1 }, transition: { duration: 1.2, times: [0, 0.45, 0.55, 1], ease: "easeInOut" as const } }
+  // Party: a jolly bounce-dance with a backflip in the middle and a couple of
+  // facing flips, played while he's parked center-stage.
+  const danceAnim = { animate: { y: [0, -26, 0, -18, 0, -34, 0], rotate: [0, -10, 10, -360, 0, 10, 0], scaleX: [1, -1, 1, 1, -1, 1, 1] }, transition: { duration: 3.4, times: [0, 0.14, 0.28, 0.55, 0.7, 0.86, 1], ease: "easeInOut" as const } }
+  const innerAnim = isParty ? danceAnim : isFlip ? flipAnim : facing
+  // When Jeff is actively reacting (talking or flipping) he scales up so he
+  // pops off the corner and grabs attention.
+  const prominent = (visible && message != null) || isFlip
+  // Center-stage: translate from the bottom-right anchor to the viewport middle.
+  const partyTx = 72 - dims.w / 2
+  const partyTy = 72 - dims.h / 2
+  const containerAnimate = isParty ? { x: partyTx, y: partyTy } : cont.animate
+  const containerTransition = isParty ? ({ type: "spring" as const, stiffness: 80, damping: 14 }) : cont.transition
+  const boxScale = isParty ? 2.1 : prominent ? 1.3 : 1
 
   return (
     <motion.div
-      className="fixed bottom-6 right-6 z-40 flex flex-col items-end pointer-events-none"
-      animate={cont.animate}
-      transition={cont.transition}
+      className={`fixed bottom-6 right-6 flex flex-col items-end pointer-events-none ${isParty ? "z-50" : "z-40"}`}
+      animate={containerAnimate}
+      transition={containerTransition}
     >
       {/* Speech bubble above */}
       <div className="pointer-events-auto">
@@ -114,7 +132,12 @@ export function JeffWidget() {
       </div>
 
       {/* Scene + Jeff */}
-      <div className="relative w-16 md:w-24 h-16 md:h-24">
+      <motion.div
+        className="relative w-16 md:w-24 h-16 md:h-24"
+        animate={{ scale: boxScale }}
+        transition={{ type: "spring", stiffness: 260, damping: 18 }}
+        style={{ transformOrigin: isParty ? "center" : "bottom right" }}
+      >
         <JeffScene activity={activity} />
         <motion.button
           type="button"
@@ -128,11 +151,11 @@ export function JeffWidget() {
           className="absolute inset-0 pointer-events-auto cursor-pointer select-none"
           style={{ filter: "drop-shadow(0 6px 14px rgba(6,41,31,0.25))" }}
         >
-          <motion.div className="w-full h-full" animate={facing.animate} transition={facing.transition}>
+          <motion.div className="w-full h-full" animate={innerAnim.animate} transition={innerAnim.transition}>
             <JeffMascot mood={mood} waving={hovered} activity={activity} />
           </motion.div>
         </motion.button>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }

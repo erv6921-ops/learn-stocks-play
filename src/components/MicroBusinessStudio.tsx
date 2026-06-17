@@ -24,12 +24,16 @@ import {
 } from "@/lib/businessActivities";
 import {
   type BizState, defaultBizState, pickSituation, resolveSituation, addProduct,
-  applyEffect, ACTIVITY_EFFECTS, monthlyRevenue, statusLabel,
+  applyEffect, applyDelta, ACTIVITY_EFFECTS, monthlyRevenue, statusLabel, quarterOf,
 } from "@/lib/businessSim";
+import {
+  briefsForCategory, allBriefIdsForQuarter, type QuarterlyBrief,
+} from "@/lib/quarterlyBriefs";
 
 const NEON = "#00ff88";
 type Fields = Record<string, unknown>;
 type Complete = (id: string, fields: Fields, xp: number) => void;
+type BriefComplete = (brief: QuarterlyBrief, fields: Fields) => void;
 
 /* ════════════════════════════ shared bits ════════════════════════════ */
 function Counter({ n, min, max }: { n: number; min?: number; max?: number }) {
@@ -111,6 +115,27 @@ export default function MicroBusinessStudio() {
     toast.success(`${ACTIVITY_TITLES[id] || "Activity"} submitted`, { description: `+${xp} XP${eff ? ` · ${eff.msg}` : ""}` });
   }, [earnJeffs]);
 
+  // Completion for rotating quarterly briefs — same flow as `complete`, but the
+  // metric effect and title come from the brief definition rather than a fixed map.
+  const completeBrief: BriefComplete = useCallback((brief, fields) => {
+    setA((prev) => {
+      if (!prev) return prev;
+      const firstTime = !prev.xpAwarded.includes(brief.id);
+      const prevSim = (prev.sim as BizState) || defaultBizState();
+      const next: ActivitiesState = {
+        ...prev,
+        data: { ...prev.data, [brief.id]: fields },
+        done: prev.done.includes(brief.id) ? prev.done : [...prev.done, brief.id],
+        xpAwarded: firstTime ? [...prev.xpAwarded, brief.id] : prev.xpAwarded,
+        sim: firstTime ? applyDelta(prevSim, brief.effect) : prev.sim,
+      };
+      if (firstTime) earnJeffs(brief.xp, `Completed: ${brief.title}`);
+      saveActivities(next);
+      return next;
+    });
+    toast.success(`${brief.title} submitted`, { description: `+${brief.xp} XP · ${brief.effect.msg}` });
+  }, [earnJeffs]);
+
   if (!a) return (<div className="min-h-screen bg-background"><GameNav /><div className="flex items-center justify-center py-24"><Loader2 className="w-7 h-7 animate-spin text-primary" /></div></div>);
 
   // ── Business-type gate ──
@@ -141,21 +166,29 @@ export default function MicroBusinessStudio() {
 
   const bt = a.businessType;
   const def = bizDef(bt);
-  const doneCount = ALL_ACTIVITIES.filter((id) => a.done.includes(id)).length;
-  const allDone = doneCount === ALL_ACTIVITIES.length;
 
   // ── living-business state + handlers ──
   const sim: BizState = (a.sim as BizState) || defaultBizState();
+  // Quarter 1 (qi 0) = the founding bespoke activities; quarter 2+ = a fresh
+  // rotating set of operations briefs, so each quarter brings different work.
+  const qi = quarterOf(sim.month);
+  const currentIds = qi === 0 ? ALL_ACTIVITIES : allBriefIdsForQuarter(qi);
+  const doneCount = currentIds.filter((id) => a.done.includes(id)).length;
+  const allDone = currentIds.length > 0 && doneCount === currentIds.length;
   const setSim = (next: BizState) => persist({ ...a, sim: next });
   const generateMonth = () => { if (sim.pending || sim.status === "failed") return; setSim({ ...sim, pending: pickSituation(sim) }); };
   const resolveMonth = (optIndex: number, words: number) => {
     const { next, revenue } = resolveSituation(sim, optIndex, words);
-    setSim(next);
+    // Crossing into a new quarter refreshes the operations activities so running
+    // the business stays an ongoing job rather than a one-time 9-item checklist.
+    const newQuarter = quarterOf(next.month) !== quarterOf(sim.month) && next.status !== "failed";
+    persist({ ...a, sim: next, ...(newQuarter ? { done: [], xpAwarded: [] } : {}) });
     earnJeffs(40, `Business month ${sim.month}`);
     toast.success(`Month ${sim.month} resolved`, { description: `Revenue +${revenue} IC · +40 XP` });
+    if (newQuarter) toast.success(`Quarter ${quarterOf(next.month) + 1} begins`, { description: "Your operations activities have refreshed — run them again." });
     if (next.status === "failed") toast.error("Your business ran out of road", { description: "Review what happened, then rebuild." });
   };
-  const rebuild = () => setSim(defaultBizState());
+  const rebuild = () => persist({ ...a, sim: defaultBizState(), done: [], xpAwarded: [] });
   const addProductHandler = (p: { name: string; price: number; pitch: string }) => {
     setSim(addProduct(sim, p)); earnJeffs(75, "Launched a new product");
     toast.success(`"${p.name}" added to your product line`, { description: "Customers +60 · Brand +5 · +75 XP" });
@@ -174,12 +207,17 @@ export default function MicroBusinessStudio() {
             </div>
             <div className="flex items-center gap-2">
               <div className="bg-white/5 rounded-lg px-3 py-1.5 text-center">
-                <p className="text-[9px] text-white/40 uppercase font-bold">Activities</p>
-                <p className="text-sm font-extrabold" style={{ color: NEON }}>{doneCount}/{ALL_ACTIVITIES.length}</p>
+                <p className="text-[9px] text-white/40 uppercase font-bold">Quarter</p>
+                <p className="text-sm font-extrabold text-white">Q{quarterOf(sim.month) + 1}</p>
+              </div>
+              <div className="bg-white/5 rounded-lg px-3 py-1.5 text-center">
+                <p className="text-[9px] text-white/40 uppercase font-bold">This quarter</p>
+                <p className="text-sm font-extrabold" style={{ color: NEON }}>{doneCount}/{ALL_ACTIVITIES.length} ops</p>
               </div>
             </div>
           </div>
           <div className="h-1.5 mt-3 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${(doneCount / ALL_ACTIVITIES.length) * 100}%`, background: NEON }} /></div>
+          <p className="text-[10px] text-white/35 mt-1.5">Operations refresh every quarter — there's always more to run.</p>
         </div>
 
         {/* Living business — metrics + a monthly operations loop that runs over months */}
@@ -197,27 +235,45 @@ export default function MicroBusinessStudio() {
 
           <TabsContent value="product" className="space-y-4">
             <ProductLine sim={sim} onAdd={addProductHandler} />
-            <ProductDoc a={a} bt={bt} complete={complete} />
-            <Pricing a={a} bt={bt} complete={complete} />
-            <Feedback a={a} bt={bt} complete={complete} />
+            {qi === 0 ? (
+              <>
+                <ProductDoc a={a} bt={bt} complete={complete} />
+                <Pricing a={a} bt={bt} complete={complete} />
+                <Feedback a={a} bt={bt} complete={complete} />
+              </>
+            ) : (
+              briefsForCategory("product", qi).map((b, i) => <BriefActivity key={b.id} a={a} bt={bt} brief={b} n={i + 1} complete={completeBrief} />)
+            )}
           </TabsContent>
 
           {/* Office tab — untouched existing component */}
           <TabsContent value="office"><MicroBusinessOffice /></TabsContent>
 
           <TabsContent value="collab" className="space-y-4">
-            <FindPartner a={a} bt={bt} complete={complete} />
-            <PartnerProblem a={a} bt={bt} complete={complete} />
-            <VendorNegotiation a={a} bt={bt} complete={complete} />
+            {qi === 0 ? (
+              <>
+                <FindPartner a={a} bt={bt} complete={complete} />
+                <PartnerProblem a={a} bt={bt} complete={complete} />
+                <VendorNegotiation a={a} bt={bt} complete={complete} />
+              </>
+            ) : (
+              briefsForCategory("collab", qi).map((b, i) => <BriefActivity key={b.id} a={a} bt={bt} brief={b} n={i + 1} complete={completeBrief} />)
+            )}
           </TabsContent>
 
           <TabsContent value="marketing" className="space-y-4">
-            <BrandIdentity a={a} bt={bt} complete={complete} />
-            <MarketingPlan a={a} bt={bt} complete={complete} />
-            <AdCampaign a={a} bt={bt} complete={complete} />
+            {qi === 0 ? (
+              <>
+                <BrandIdentity a={a} bt={bt} complete={complete} />
+                <MarketingPlan a={a} bt={bt} complete={complete} />
+                <AdCampaign a={a} bt={bt} complete={complete} />
+              </>
+            ) : (
+              briefsForCategory("marketing", qi).map((b, i) => <BriefActivity key={b.id} a={a} bt={bt} brief={b} n={i + 1} complete={completeBrief} />)
+            )}
           </TabsContent>
 
-          {allDone && <TabsContent value="summary"><SummaryReport a={a} bt={bt} /></TabsContent>}
+          {allDone && <TabsContent value="summary"><SummaryReport a={a} bt={bt} qi={qi} /></TabsContent>}
         </Tabs>
       </main>
     </div>
@@ -696,17 +752,90 @@ function AdCampaign({ a, complete }: AProps) {
 }
 
 /* ═══ BUSINESS SUMMARY REPORT ═══ */
-function SummaryReport({ a, bt }: { a: ActivitiesState; bt: BusinessType }) {
+/* ═══ Generic renderer for a rotating quarterly operations brief ═══ */
+function BriefActivity({ a, bt, brief, n, complete }: { a: ActivitiesState; bt: BusinessType; brief: QuarterlyBrief; n: number; complete: BriefComplete }) {
+  const id = brief.id;
+  const done = a.done.includes(id);
+  const saved = a.data[id] || {};
+  const defaults: Fields = { __choice: "" };
+  brief.fields.forEach((f) => { defaults[f.key] = ""; });
+  const [f, set] = useForm(saved, defaults);
+  const scenario = brief.scenario.replace("{biz}", bizDef(bt).label);
+  const checks = [
+    ...(brief.choice ? [{ label: `Choose: ${brief.choice.label}`, ok: !!str(f.__choice) }] : []),
+    ...brief.fields.map((fl) => ({ label: `${fl.label} (${fl.min}+ words)`, ok: wc(str(f[fl.key])) >= fl.min })),
+  ];
+  const ready = checks.every((c) => c.ok);
+  const Icon = brief.icon;
+  if (done) {
+    return (
+      <ActivityCard icon={Icon} n={n} title={brief.title} desc="Submitted this quarter." xp={brief.xp} done>
+        <div className="rounded-xl bg-muted p-4">
+          {brief.choice && str(saved.__choice) && <ResultRow label={brief.choice.label}>{str(saved.__choice)}</ResultRow>}
+          {brief.fields.map((fl) => <ResultRow key={fl.key} label={fl.label}>{str(saved[fl.key])}</ResultRow>)}
+        </div>
+      </ActivityCard>
+    );
+  }
+  return (
+    <ActivityCard icon={Icon} n={n} title={brief.title} desc="A fresh operations brief for this quarter." xp={brief.xp} done={false}>
+      <div className="space-y-3">
+        <div className="rounded-2xl border p-3" style={{ borderColor: `${NEON}55`, background: `${NEON}0d` }}>
+          <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: NEON }}>Scenario</p>
+          <p className="text-sm">{scenario}</p>
+        </div>
+        {brief.choice && (
+          <div>
+            <label className="text-sm font-semibold">{brief.choice.label}</label>
+            <div className="flex flex-wrap gap-2 mt-1">{brief.choice.options.map((o) => (
+              <button key={o} onClick={() => set("__choice", o)} className={cn("px-3 py-1.5 rounded-lg text-xs font-bold border press-scale", f.__choice === o ? "border-primary bg-primary/10" : "border-border bg-muted")}>{o}</button>
+            ))}</div>
+          </div>
+        )}
+        {brief.fields.map((fl) => <WField key={fl.key} label={fl.label} value={str(f[fl.key])} onChange={(v) => set(fl.key, v)} min={fl.min} rows={fl.rows} placeholder={fl.placeholder} />)}
+        <Incomplete items={checks} />
+        <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(brief, f)}><ArrowRight className="w-4 h-4 mr-1.5" /> Submit brief</Button>
+      </div>
+    </ActivityCard>
+  );
+}
+
+function SummaryReport({ a, bt, qi }: { a: ActivitiesState; bt: BusinessType; qi: number }) {
   const d = a.data;
   const def = bizDef(bt);
   const S = (id: string, k: string) => str((d[id] as Record<string, unknown>)?.[k]);
   const totalXP = a.xpAwarded.reduce((sum, id) => sum + (["partner", "partnerProblem", "vendor"].includes(id) ? XP.collab : XP.pd), 0);
+  const quarter = qi + 1;
+  // Quarter 2+ runs rotating briefs, so summarize whichever ones were submitted.
+  if (qi > 0) {
+    const cats: { t: string; cat: "product" | "collab" | "marketing" }[] = [
+      { t: "Product", cat: "product" }, { t: "Collaboration", cat: "collab" }, { t: "Marketing", cat: "marketing" },
+    ];
+    return (
+      <div className="space-y-4">
+        <div className="rounded-3xl p-6 text-center" style={{ background: "linear-gradient(135deg,#0f2d1e,#06291f)" }}>
+          <Trophy className="w-12 h-12 mx-auto mb-1" style={{ color: NEON }} />
+          <p className="font-display text-2xl font-extrabold text-white">Quarter {quarter} Operations Report</p>
+          <p className="text-white/55 text-sm">{def.label} · all {ALL_ACTIVITIES.length} ops run this quarter</p>
+        </div>
+        {cats.map(({ t, cat }) => (
+          <Card key={t} variant="elevated"><CardContent className="pt-5">
+            <p className="font-display text-lg font-extrabold mb-2" style={{ color: NEON }}>{t}</p>
+            {briefsForCategory(cat, qi).map((b) => (
+              <ResultRow key={b.id} label={b.title}>{b.fields.map((fl) => S(b.id, fl.key)).filter(Boolean).join(" — ") || "—"}</ResultRow>
+            ))}
+          </CardContent></Card>
+        ))}
+        <p className="text-xs text-muted-foreground text-center">All responses are saved to your business record for teacher review.</p>
+      </div>
+    );
+  }
   return (
     <div className="space-y-4">
       <div className="rounded-3xl p-6 text-center" style={{ background: "linear-gradient(135deg,#0f2d1e,#06291f)" }}>
         <Trophy className="w-12 h-12 mx-auto mb-1" style={{ color: NEON }} />
-        <p className="font-display text-2xl font-extrabold text-white">Business Summary Report</p>
-        <p className="text-white/55 text-sm">{def.label} · all 9 activities complete · {totalXP} XP earned</p>
+        <p className="font-display text-2xl font-extrabold text-white">Quarter {quarter} Operations Report</p>
+        <p className="text-white/55 text-sm">{def.label} · all {ALL_ACTIVITIES.length} ops run this quarter · {totalXP} XP this quarter</p>
       </div>
       {[
         { t: "Product", items: [["Product brief", S("productDoc", "name")], ["Problem", S("productDoc", "problem")], ["Pricing", `${num(d.pricing?.["price"])} IC (${str(d.pricing?.["ptype"])})`], ["Feedback v2 plan", S("feedback", "v2")]] },

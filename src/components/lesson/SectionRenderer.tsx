@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useJeff } from "@/contexts/JeffContext"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -274,6 +275,7 @@ export function MasteryCheckRenderer({
   onComplete: (correctCount: number, totalAttempts: number) => void
   onFail: () => void
 }) {
+  const { react } = useJeff()
   const [currentQ, setCurrentQ] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
   const [totalAttempts, setTotalAttempts] = useState(0)
@@ -282,17 +284,36 @@ export function MasteryCheckRenderer({
   const total = section.questions.length
   const required = section.requiredCorrect
 
+  const CORRECT_CHEERS = [
+    "Boom! Nailed it. 💥",
+    "Yes! You've got this. ⭐",
+    "Sharp! Keep it rolling. 📈",
+    "That's the way! 🙌",
+  ]
+
   const handleCorrect = () => {
-    setCorrectCount(prev => prev + 1)
+    const nc = correctCount + 1
+    setCorrectCount(nc)
     setTotalAttempts(prev => prev + 1)
+    if (nc >= required) {
+      // The one that secures the pass — Jeff does a backflip.
+      react("celebrate", "YESSS! That's the one — you passed! 🎉", "flip")
+    } else {
+      react("celebrate", CORRECT_CHEERS[nc % CORRECT_CHEERS.length], "jump")
+    }
   }
   const handleIncorrect = () => {
     setTotalAttempts(prev => prev + 1)
+    react("encourage", "Shake it off — lock in on the next one. 💪")
   }
 
   const handleNext = () => {
     if (currentQ < total - 1) {
       setCurrentQ(currentQ + 1)
+      // Clutch moment: one correct answer away from passing.
+      if (required > 1 && correctCount === required - 1) {
+        react("think", "Focus up — get this one and you pass. It's for all the marbles! 🎯")
+      }
     } else {
       setFinished(true)
       const finalCorrect = correctCount // already updated
@@ -321,6 +342,7 @@ export function MasteryCheckRenderer({
             setCorrectCount(0)
             setTotalAttempts(0)
             setFinished(false)
+            react("encourage", "No sweat — we run it back and get it this time. 🔁")
             onFail()
           }}>
             Retry Mastery Check

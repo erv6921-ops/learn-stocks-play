@@ -19,11 +19,17 @@ export interface BizState {
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 
+// A business "quarter" is QUARTER_MONTHS monthly cycles. Operations activities
+// refresh each quarter so running the business is an ongoing job, not a one-time
+// checklist. quarterOf(1..3) === 0, quarterOf(4..6) === 1, …
+export const QUARTER_MONTHS = 3;
+export const quarterOf = (month: number) => Math.floor((Math.max(1, month) - 1) / QUARTER_MONTHS);
+
 export function defaultBizState(): BizState {
   return { month: 1, reputation: 55, customers: 120, brand: 40, cash: 500, products: [], log: [], pending: null, lastType: null, status: "active" };
 }
 
-interface Delta { reputation?: number; customers?: number; brand?: number; cash?: number }
+export interface Delta { reputation?: number; customers?: number; brand?: number; cash?: number }
 export interface SitOption { label: string; delta: Delta; outcome: string }
 export interface Situation {
   type: string; emoji: string; title: string; prompt: string;
@@ -130,6 +136,246 @@ const SITUATIONS: SitTemplate[] = [
     ],
     when: (s) => s.customers > 900 && s.cash > 300,
   },
+  {
+    type: "marketing", emoji: "📣", title: "Your ad budget is up for grabs",
+    prompt: "You have some cash to put behind marketing this month. Where it goes shapes who shows up.",
+    reactLabel: "Write the campaign brief — audience, message, channel (40+ words)", reactMin: 40,
+    options: [
+      { label: "Pour it into paid social ads", delta: { cash: -200, customers: 320, brand: 3 }, outcome: "A flood of new visitors — pricey but effective." },
+      { label: "Build slow with content + SEO", delta: { cash: -60, customers: 120, brand: 7 }, outcome: "Cheaper, slower, and it compounds." },
+      { label: "Sponsor a local creator", delta: { cash: -150, customers: 240, brand: 6 }, outcome: "Trusted reach to a real audience." },
+    ],
+  },
+  {
+    type: "hiring", emoji: "🧑‍🔧", title: "A star applicant just walked in",
+    prompt: "Someone talented wants to join — but they want above-market pay. Hiring them stretches the budget.",
+    reactLabel: "Decision memo: do you hire, and on what terms? (45+ words)", reactMin: 45,
+    options: [
+      { label: "Hire at full pay", delta: { cash: -300, customers: 260, brand: 5 }, outcome: "Capacity and quality jump — at a cost." },
+      { label: "Offer less + profit share", delta: { cash: -120, customers: 150, reputation: 3 }, outcome: "They buy in for upside." },
+      { label: "Pass for now", delta: { brand: -2 }, outcome: "You stay lean, but you'll feel the gap." },
+    ],
+    when: (s) => s.customers > 500,
+  },
+  {
+    type: "legal", emoji: "⚖️", title: "A cease-and-desist letter arrives",
+    prompt: "A bigger company says your name is too close to theirs and threatens to sue.",
+    reactLabel: "Write your response and your plan (50+ words)", reactMin: 50,
+    options: [
+      { label: "Rebrand to be safe", delta: { cash: -220, customers: -120, brand: -4 }, outcome: "Painful reset, but no legal risk." },
+      { label: "Lawyer up and fight it", delta: { cash: -300, reputation: 4 }, outcome: "Expensive, but you stand your ground." },
+      { label: "Negotiate a small tweak", delta: { cash: -90, brand: -1 }, outcome: "A minor change settles it quietly." },
+    ],
+  },
+  {
+    type: "inventory", emoji: "📦", title: "You misjudged demand",
+    prompt: "You're sitting on stock that isn't moving — and it's tying up your cash.",
+    reactLabel: "Write your plan to free up the cash (40+ words)", reactMin: 40,
+    options: [
+      { label: "Run a clearance sale", delta: { cash: 240, brand: -4, customers: 120 }, outcome: "Cash back, but you trained buyers to wait for deals." },
+      { label: "Bundle it with bestsellers", delta: { cash: 120, customers: 80 }, outcome: "Moves slowly without cheapening the brand." },
+      { label: "Donate it for goodwill", delta: { cash: -40, brand: 6, reputation: 6 }, outcome: "No cash, but real community love." },
+    ],
+    when: (s) => s.cash < 600,
+  },
+  {
+    type: "seasonal", emoji: "🎄", title: "The holiday rush is coming",
+    prompt: "Your busiest season is weeks away. Prepare well and it's your biggest month — or scramble and miss it.",
+    reactLabel: "Write your seasonal game plan (45+ words)", reactMin: 45,
+    options: [
+      { label: "Stock up and staff up", delta: { cash: -260, customers: 460, brand: 4 }, outcome: "You're ready — and it pays off big." },
+      { label: "Run a limited-edition drop", delta: { cash: -120, customers: 280, brand: 8 }, outcome: "Scarcity drives hype and orders." },
+      { label: "Play it safe, stay small", delta: { customers: 90 }, outcome: "Steady, but you left money on the table." },
+    ],
+  },
+  {
+    type: "tech", emoji: "💻", title: "Your systems are creaking",
+    prompt: "Orders are piling up faster than your tools can handle. Things are starting to slip through the cracks.",
+    reactLabel: "Write your fix and why it's worth it (40+ words)", reactMin: 40,
+    options: [
+      { label: "Invest in better software", delta: { cash: -180, customers: 140, reputation: 5 }, outcome: "Fewer mistakes, happier customers." },
+      { label: "Patch it with a part-timer", delta: { cash: -90, customers: 60 }, outcome: "A band-aid that holds for now." },
+      { label: "Ignore it and push on", delta: { reputation: -8, customers: -130 }, outcome: "Errors mount and people notice." },
+    ],
+    when: (s) => s.customers > 800,
+  },
+  {
+    type: "social", emoji: "📱", title: "A post of yours is blowing up",
+    prompt: "Something you posted is going viral. The window to capitalize is tiny.",
+    reactLabel: "Write what you post next to ride the wave (40+ words)", reactMin: 40,
+    options: [
+      { label: "Drop a flash promo immediately", delta: { customers: 520, cash: -100, brand: 5 }, outcome: "You caught the wave perfectly." },
+      { label: "Engage and build the audience", delta: { customers: 240, brand: 9 }, outcome: "Followers now, customers later." },
+      { label: "Stay quiet — don't look thirsty", delta: { brand: 2 }, outcome: "The moment passes." },
+    ],
+    when: (s) => s.brand >= 45,
+  },
+  {
+    type: "ethics", emoji: "🤔", title: "A shortcut would save real money",
+    prompt: "You could quietly cut a corner on quality to boost margins. No one would know — yet.",
+    reactLabel: "Write your decision and reasoning (50+ words)", reactMin: 50,
+    options: [
+      { label: "Keep your standards", delta: { cash: -60, reputation: 8, brand: 4 }, outcome: "Costs you now, builds trust for years." },
+      { label: "Cut the corner this once", delta: { cash: 260, reputation: -10 }, outcome: "Cash today — but it'll come back around." },
+      { label: "Find an honest middle path", delta: { cash: 80, reputation: 2 }, outcome: "A smarter saving with no shame." },
+    ],
+  },
+  {
+    type: "sustainability", emoji: "🌱", title: "Go green — or stay cheap?",
+    prompt: "Switching to sustainable materials costs more but customers increasingly care.",
+    reactLabel: "Write your stance and the business case (45+ words)", reactMin: 45,
+    options: [
+      { label: "Go fully sustainable", delta: { cash: -200, brand: 12, customers: 180 }, outcome: "A values-driven crowd rallies to you." },
+      { label: "Switch a few key items", delta: { cash: -80, brand: 5, customers: 70 }, outcome: "A credible start without the full cost." },
+      { label: "Stay with cheaper materials", delta: { cash: 60, brand: -3 }, outcome: "Margins up, but some buyers cool off." },
+    ],
+  },
+  {
+    type: "logistics", emoji: "🚚", title: "Your delivery partner failed you",
+    prompt: "A shipping mix-up left a wave of customers waiting and angry.",
+    reactLabel: "Write your recovery plan and customer message (45+ words)", reactMin: 45,
+    options: [
+      { label: "Refund shipping + apologize", delta: { cash: -160, reputation: 9 }, outcome: "You ate the cost and kept their trust." },
+      { label: "Switch carriers immediately", delta: { cash: -110, reputation: 4 }, outcome: "Disruptive, but it won't happen again." },
+      { label: "Blame the carrier publicly", delta: { reputation: -7, brand: -3 }, outcome: "Customers don't care whose fault it was." },
+    ],
+  },
+  {
+    type: "pricing", emoji: "🏷️", title: "Time to revisit your prices",
+    prompt: "Costs have crept up. Your prices haven't moved in a while. Something has to give.",
+    reactLabel: "Write your pricing decision and how you'll explain it (45+ words)", reactMin: 45,
+    options: [
+      { label: "Raise prices and own it", delta: { cash: 220, customers: -110, brand: 2 }, outcome: "Honest increase; a few churn, most stay." },
+      { label: "Add a premium tier", delta: { cash: 180, brand: 6, customers: 40 }, outcome: "Big spenders opt up; everyone else stays." },
+      { label: "Hold prices, cut costs instead", delta: { cash: 60, reputation: 3 }, outcome: "Customers happy; you do the hard work." },
+    ],
+  },
+  {
+    type: "partnership", emoji: "🤝", title: "A bigger brand wants to collaborate",
+    prompt: "An established company proposes a co-branded product. Great exposure — but they'll want control.",
+    reactLabel: "Write your negotiating position (50+ words)", reactMin: 50,
+    options: [
+      { label: "Sign the deal as offered", delta: { customers: 600, cash: 150, brand: 4 }, outcome: "Huge reach — on their terms." },
+      { label: "Counter for a fairer split", delta: { customers: 380, cash: 260, brand: 7 }, outcome: "You held your value and still won." },
+      { label: "Decline — protect your brand", delta: { brand: 5, reputation: 3 }, outcome: "Independent, but the door closes." },
+    ],
+    when: (s) => s.brand >= 50,
+  },
+  {
+    type: "talent", emoji: "🚪", title: "A key person is thinking of leaving",
+    prompt: "Someone important to the business hinted they might quit. Losing them would hurt.",
+    reactLabel: "Write what you say to them (45+ words)", reactMin: 45,
+    options: [
+      { label: "Give a raise and more ownership", delta: { cash: -200, customers: 120, reputation: 5 }, outcome: "They recommit and double down." },
+      { label: "Improve the culture, not the pay", delta: { cash: -40, reputation: 6, brand: 3 }, outcome: "Sometimes people just want to be valued." },
+      { label: "Let them go gracefully", delta: { customers: -160, brand: -2 }, outcome: "A real loss, handled with class." },
+    ],
+    when: (s) => s.customers > 600,
+  },
+  {
+    type: "pr", emoji: "🎤", title: "A reporter wants a comment — today",
+    prompt: "A journalist is writing about your industry and asked you for a quote on a hot, slightly controversial topic.",
+    reactLabel: "Write the quote you'd give them (40+ words)", reactMin: 40,
+    options: [
+      { label: "Give a bold, honest take", delta: { customers: 240, brand: 8, reputation: -2 }, outcome: "It gets shared widely — love it or hate it." },
+      { label: "Stay safe and diplomatic", delta: { brand: 3, reputation: 4 }, outcome: "Forgettable, but nobody's mad." },
+      { label: "Decline to comment", delta: { brand: -2 }, outcome: "A missed spotlight." },
+    ],
+    when: (s) => s.brand >= 40,
+  },
+  {
+    type: "customer", emoji: "💬", title: "A wave of feature requests",
+    prompt: "Customers keep asking for the same new thing. Building it means pausing other plans.",
+    reactLabel: "Write your roadmap decision and why (40+ words)", reactMin: 40,
+    options: [
+      { label: "Build exactly what they asked", delta: { cash: -150, customers: 300, reputation: 6 }, outcome: "Customers feel heard and tell others." },
+      { label: "Build a simpler version fast", delta: { cash: -60, customers: 180, reputation: 3 }, outcome: "Most of the value, a fraction of the cost." },
+      { label: "Stick to your own roadmap", delta: { customers: -90, brand: 2 }, outcome: "Focused — but some feel ignored." },
+    ],
+  },
+  {
+    type: "finance", emoji: "🏦", title: "The bank offers a credit line",
+    prompt: "You qualify for a loan that could fund a real growth push — but debt is debt.",
+    reactLabel: "Write your decision and your repayment thinking (50+ words)", reactMin: 50,
+    options: [
+      { label: "Take it and invest in growth", delta: { cash: 500, customers: 220, reputation: -2 }, outcome: "Fuel for growth — now you owe it back." },
+      { label: "Take a small, safe amount", delta: { cash: 220, customers: 90 }, outcome: "A cushion without betting the company." },
+      { label: "Stay debt-free", delta: { reputation: 4, brand: 2 }, outcome: "Slower, but you sleep at night." },
+    ],
+  },
+  {
+    type: "quality", emoji: "🔬", title: "A defect slipped through",
+    prompt: "A batch went out with a flaw. Some customers already have it in hand.",
+    reactLabel: "Write your recall/response plan (50+ words)", reactMin: 50,
+    options: [
+      { label: "Full recall + replacements", delta: { cash: -300, reputation: 12 }, outcome: "Costly, but customers trust you more after." },
+      { label: "Quietly fix on request", delta: { cash: -100, reputation: -2 }, outcome: "Cheaper, but word gets around." },
+      { label: "Hope nobody notices", delta: { reputation: -14, customers: -180 }, outcome: "They noticed. It spread." },
+    ],
+  },
+  {
+    type: "community", emoji: "❤️", title: "A local cause asks for support",
+    prompt: "A community group wants you to sponsor their event. It costs money and time.",
+    reactLabel: "Write your decision and how you'll involve customers (40+ words)", reactMin: 40,
+    options: [
+      { label: "Sponsor generously", delta: { cash: -180, brand: 9, reputation: 7 }, outcome: "Real goodwill that money can't usually buy." },
+      { label: "Donate a little + spread the word", delta: { cash: -60, brand: 5, reputation: 4 }, outcome: "Meaningful without overcommitting." },
+      { label: "Politely decline", delta: { brand: -3 }, outcome: "Understandable, but a chance missed." },
+    ],
+  },
+  {
+    type: "data", emoji: "📊", title: "Your numbers reveal a surprise",
+    prompt: "Analytics show most of your profit comes from a small slice of customers you'd been ignoring.",
+    reactLabel: "Write how you'll act on this insight (40+ words)", reactMin: 40,
+    options: [
+      { label: "Double down on your best customers", delta: { cash: 180, customers: 100, brand: 4 }, outcome: "Focus pays off fast." },
+      { label: "Try to convert the rest", delta: { cash: -120, customers: 260 }, outcome: "A gamble on growth over focus." },
+      { label: "Keep everything as-is", delta: { reputation: 1 }, outcome: "Safe, but you ignored the signal." },
+    ],
+    when: (s) => s.customers > 700,
+  },
+  {
+    type: "competitor", emoji: "🏃", title: "A rival just shut down",
+    prompt: "Your closest competitor folded. Their customers are suddenly looking for a new home.",
+    reactLabel: "Write your plan to win them over (45+ words)", reactMin: 45,
+    options: [
+      { label: "Aggressive switch-over offer", delta: { cash: -160, customers: 480, brand: 3 }, outcome: "You scoop up most of their crowd." },
+      { label: "Welcome them with great service", delta: { customers: 300, reputation: 6 }, outcome: "Slower, but they stay loyal." },
+      { label: "Raise prices — less competition", delta: { cash: 200, customers: -80 }, outcome: "More margin, fewer new faces." },
+    ],
+  },
+  {
+    type: "burnout", emoji: "😮‍💨", title: "You're running on empty",
+    prompt: "You've been grinding non-stop and it's catching up with you. Mistakes are creeping in.",
+    reactLabel: "Write your plan to keep yourself and the business healthy (40+ words)", reactMin: 40,
+    options: [
+      { label: "Take real time to recharge", delta: { cash: -80, reputation: 4, brand: 2 }, outcome: "You come back sharper and steadier." },
+      { label: "Delegate and step back a bit", delta: { cash: -150, customers: 140 }, outcome: "Letting go grows the business." },
+      { label: "Power through anyway", delta: { reputation: -6, customers: -90 }, outcome: "Quality slips while you're fried." },
+    ],
+  },
+  {
+    type: "opportunity", emoji: "🌍", title: "A chance to sell in a new region",
+    prompt: "Interest is coming in from customers in a whole new area. Serving them means new logistics.",
+    reactLabel: "Write your market-entry plan and the risk (50+ words)", reactMin: 50,
+    options: [
+      { label: "Launch there properly", delta: { cash: -320, customers: 540, brand: 6 }, outcome: "A bold new market opens up." },
+      { label: "Test with shipping only", delta: { cash: -100, customers: 200 }, outcome: "Low-risk way to learn the demand." },
+      { label: "Stay focused on home turf", delta: { reputation: 3, cash: 40 }, outcome: "Disciplined — for now." },
+    ],
+    when: (s) => s.customers > 1000 && s.cash > 400,
+  },
+  {
+    type: "subscription", emoji: "🔁", title: "Should you launch a membership?",
+    prompt: "You could turn one-time buyers into recurring members — steady income, but you owe them ongoing value.",
+    reactLabel: "Write your membership concept and what's included (45+ words)", reactMin: 45,
+    options: [
+      { label: "Launch a paid membership", delta: { cash: 280, customers: -60, brand: 5 }, outcome: "Predictable revenue from your superfans." },
+      { label: "Free loyalty program", delta: { cash: -80, customers: 240, reputation: 6 }, outcome: "Retention up, no paywall friction." },
+      { label: "Not yet — keep it simple", delta: { reputation: 1 }, outcome: "One less thing to maintain." },
+    ],
+    when: (s) => s.customers > 600,
+  },
 ];
 
 export function pickSituation(s: BizState): Situation {
@@ -195,13 +441,18 @@ export const ACTIVITY_EFFECTS: Record<string, Delta & { msg: string }> = {
 export function applyEffect(s: BizState, id: string): BizState {
   const e = ACTIVITY_EFFECTS[id];
   if (!e) return s;
+  return applyDelta(s, e);
+}
+
+// Apply an arbitrary metric change (used by rotating quarterly operations briefs).
+export function applyDelta(s: BizState, e: Delta & { msg: string }): BizState {
   return {
     ...s,
     reputation: clamp(s.reputation + (e.reputation || 0), 0, 100),
     brand: clamp(s.brand + (e.brand || 0), 0, 100),
     customers: Math.max(0, s.customers + (e.customers || 0)),
     cash: s.cash + (e.cash || 0),
-    log: [...s.log, { month: s.month, text: `✅ Activity complete → ${e.msg}` }].slice(-30),
+    log: [...s.log, { month: s.month, text: `✅ ${e.msg}` }].slice(-30),
   };
 }
 
