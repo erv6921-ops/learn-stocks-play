@@ -56,6 +56,7 @@ export default function Leaderboard() {
   const [joiningClass, setJoiningClass] = useState(false)
   const [myClasses, setMyClasses] = useState<{ id: string; name: string; joinCode: string }[]>([])
   const [classMembers, setClassMembers] = useState<{ name: string; userId: string; xp: number }[]>([])
+  const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
   const [loadingClasses, setLoadingClasses] = useState(true)
 
   const totalXp = useMemo(() =>
@@ -83,12 +84,16 @@ export default function Leaderboard() {
         if (classes) {
           setMyClasses(classes.map(c => ({ id: c.id, name: c.name, joinCode: c.join_code })))
 
-          // Load class members + their real XP for the first class. Classmates'
-          // profiles/jeffs_history aren't readable under RLS, so this goes through
-          // the get_class_leaderboard security-definer RPC.
-          const firstClassId = classes[0]?.id
-          if (firstClassId) {
-            const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: firstClassId })
+          // Load members + real XP for the active class (current selection if it's
+          // still valid, otherwise the first). Classmates' profiles/jeffs_history
+          // aren't readable under RLS, so this goes through the get_class_leaderboard
+          // security-definer RPC.
+          const activeId = (selectedClassId && classes.some(c => c.id === selectedClassId))
+            ? selectedClassId
+            : classes[0]?.id
+          if (activeId && activeId !== selectedClassId) setSelectedClassId(activeId)
+          if (activeId) {
+            const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: activeId })
             if (lb) {
               setClassMembers(lb
                 .filter(r => r.user_id !== user.id)
@@ -106,7 +111,7 @@ export default function Leaderboard() {
     } finally {
       setLoadingClasses(false)
     }
-  }, [])
+  }, [selectedClassId])
 
   // Load on mount, and refetch from the database whenever a lesson is completed
   // (lessonProgress changes) so leaderboard rankings reflect newly earned XP.
@@ -200,6 +205,15 @@ export default function Leaderboard() {
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
   const myRank = allEntries.findIndex(e => e.isMe) + 1
   const scoreLabel = allEntries[0]?.scoreLabel ?? "Net Worth"
+  const maxScore = allEntries[0]?.score || 1
+
+  // How far behind the person directly above you — drives the motivational chip.
+  const gapToNext = myRank > 1 ? allEntries[myRank - 2].score - allEntries[myRank - 1].score : 0
+
+  const activeClassName = myClasses.find(c => c.id === selectedClassId)?.name
+
+  // Relative bar width (6–100%) for the score fill behind each entry.
+  const barPct = (score: number) => `${Math.max(6, Math.round((score / maxScore) * 100))}%`
 
   // Top 3 get a podium; everyone else falls into the ranked list below it.
   const podium = hasOtherUsers ? allEntries.slice(0, 3) : []
@@ -252,6 +266,17 @@ export default function Leaderboard() {
               </div>
             )}
           </div>
+
+          {/* Motivational standing chip */}
+          {(hasOtherUsers || showDemo) && (
+            <div className="relative mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/15 px-3 py-1.5 text-xs font-medium">
+              {myRank === 1 ? (
+                <><Crown className="w-3.5 h-3.5 text-warning" /> You're in the lead — keep it up!</>
+              ) : (
+                <><Flame className="w-3.5 h-3.5 text-warning" /> {gapToNext.toLocaleString()} {scoreLabel} to reach #{myRank - 1}</>
+              )}
+            </div>
+          )}
         </motion.div>
 
         {/* Scope toggle */}
@@ -269,8 +294,49 @@ export default function Leaderboard() {
           ))}
         </div>
 
-        {/* Class/Friends empty state with CTAs */}
-        {(scope === "class" || scope === "friends") && !hasOtherUsers && !showDemo ? (
+        {/* Active class header — name, member count, and switcher for multiple classes */}
+        {scope === "class" && myClasses.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2 mb-5">
+            <span className="inline-flex items-center gap-1.5 text-sm font-bold">
+              <Users className="w-4 h-4 text-primary" />
+              {activeClassName ?? "My Class"}
+            </span>
+            {hasOtherUsers && (
+              <Badge variant="outline" className="text-[11px]">{allEntries.length} members</Badge>
+            )}
+            {myClasses.length > 1 && (
+              <div className="flex flex-wrap gap-1.5 ml-auto">
+                {myClasses.map(c => (
+                  <button
+                    key={c.id}
+                    onClick={() => setSelectedClassId(c.id)}
+                    className={`press-scale text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
+                      c.id === selectedClassId
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "bg-card text-muted-foreground border-border/60 hover:border-primary/40"
+                    }`}
+                  >
+                    {c.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Loading skeleton — avoids flashing the empty state before the roster loads */}
+        {loadingClasses && scope === "class" && !hasOtherUsers && !showDemo ? (
+          <div className="space-y-2 animate-pulse">
+            <div className="grid grid-cols-3 gap-3 items-end mb-6">
+              <div className="h-28 rounded-2xl bg-muted/60 mt-4" />
+              <div className="h-36 rounded-2xl bg-muted/60" />
+              <div className="h-24 rounded-2xl bg-muted/60 mt-4" />
+            </div>
+            {[0, 1, 2, 3].map(i => (
+              <div key={i} className="h-16 rounded-2xl bg-muted/50" />
+            ))}
+          </div>
+        ) : (scope === "class" || scope === "friends") && !hasOtherUsers && !showDemo ? (
           <div className="space-y-4">
             <div className="text-center py-10 px-6">
               <Users className="w-14 h-14 mx-auto text-muted-foreground/30 mb-4" />
@@ -427,21 +493,28 @@ export default function Leaderboard() {
                       initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.25, delay: Math.min(idx * 0.03, 0.3) }}
-                      className={`flex items-center gap-3 sm:gap-4 p-3.5 rounded-2xl transition-all ${
+                      className={`relative flex items-center gap-3 sm:gap-4 p-3.5 rounded-2xl transition-all overflow-hidden ${
                         entry.isMe
                           ? "bg-primary/10 border-2 border-primary/30 shadow-glow"
                           : "bg-card border border-border/40 hover:border-border"
                       }`}
                     >
-                      <div className="w-7 flex justify-center shrink-0">
+                      {/* Relative score fill */}
+                      <div
+                        className={`absolute inset-y-0 left-0 rounded-2xl pointer-events-none ${
+                          entry.isMe ? "bg-primary/10" : "bg-muted/40"
+                        }`}
+                        style={{ width: barPct(entry.score) }}
+                      />
+                      <div className="relative w-7 flex justify-center shrink-0">
                         {getRankIcon(rank)}
                       </div>
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
+                      <div className={`relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
                         entry.isMe ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
                       }`}>
                         {entry.name.charAt(0)}
                       </div>
-                      <div className="flex-1 min-w-0">
+                      <div className="relative flex-1 min-w-0">
                         <p className={`text-sm font-bold truncate ${entry.isMe ? "text-primary" : ""}`}>
                           {entry.name}
                           {entry.isMe && <span className="ml-1.5 text-[10px] text-primary/60">(You)</span>}
@@ -457,7 +530,7 @@ export default function Leaderboard() {
                           )}
                         </div>
                       </div>
-                      <div className="text-right shrink-0">
+                      <div className="relative text-right shrink-0">
                         <p className="font-bold text-sm flex items-center gap-1 justify-end">
                           <Coins className="w-3.5 h-3.5 text-warning" />
                           {entry.score.toLocaleString()}
