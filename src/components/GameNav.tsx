@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, type TargetAndTransition } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Button } from "@/components/ui/button";
@@ -11,8 +11,33 @@ import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
   Star, Flame, Store, BarChart3, Trophy, FlaskConical } from
 "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
+
+// Per-icon hover motion, Resend-style. Maps a lucide icon to its whileHover
+// animation; everything not specially handled gets a subtle scale-up.
+function getIconHover(Icon: LucideIcon): { whileHover: TargetAndTransition; transformOrigin: string } {
+  const name = (Icon as { displayName?: string }).displayName ?? "";
+  if (name === "Globe") return { whileHover: { rotate: 360 }, transformOrigin: "center" };
+  if (/Bar/.test(name)) return { whileHover: { scaleY: 1.25 }, transformOrigin: "bottom" }; // bars grow up
+  if (name === "Mail" || name === "Inbox") return { whileHover: { rotate: [0, -15, 0] }, transformOrigin: "center" }; // tilt & back
+  if (name === "Settings") return { whileHover: { rotate: 90 }, transformOrigin: "center" };
+  return { whileHover: { scale: 1.15 }, transformOrigin: "center" }; // default
+}
+
+function NavIcon({ Icon, className, wrapperClassName }: { Icon: LucideIcon; className?: string; wrapperClassName?: string }) {
+  const { whileHover, transformOrigin } = getIconHover(Icon);
+  return (
+    <motion.div
+      className={`inline-flex ${wrapperClassName ?? ""}`}
+      style={{ transformOrigin }}
+      whileHover={whileHover}
+      transition={{ duration: 0.3, ease: "easeInOut" }}>
+      <Icon className={className} />
+    </motion.div>
+  );
+}
 
 function getCurriculumLevel(completedLessons: number, totalLessons: number, unitScores: { done: number; total: number }[]) {
   const completionPct = totalLessons > 0 ? completedLessons / totalLessons : 0;
@@ -144,7 +169,7 @@ export default function GameNav() {
                       active ? "text-primary-foreground" : "text-foreground/80"}`
                       }>
 
-                      <item.icon className="w-4 h-4" />
+                      <NavIcon Icon={item.icon} className="w-4 h-4" />
                       {item.label}
                     </span>
                   </Link>);
@@ -191,7 +216,7 @@ export default function GameNav() {
                     className="absolute inset-0 rounded-xl bg-primary shadow-glow"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.5 }} />
                   }
-                  <item.icon className="relative z-10 w-5 h-5" />
+                  <NavIcon Icon={item.icon} className="w-5 h-5" wrapperClassName="relative z-10" />
                 </div>
                 <span className={`text-[10px] ${active ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
                   {item.label}
