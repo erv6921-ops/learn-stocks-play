@@ -260,6 +260,11 @@ const MARKETING: QuarterlyBrief[] = [
 const BY_CAT: Record<BriefCategory, QuarterlyBrief[]> = { product: PRODUCT, collab: COLLAB, marketing: MARKETING };
 export const BRIEFS_PER_CATEGORY = 3;
 
+// Lookup by id — used by the teacher dashboard to label submitted brief work.
+export const BRIEF_BY_ID: Record<string, QuarterlyBrief> = Object.fromEntries(
+  [...PRODUCT, ...COLLAB, ...MARKETING].map((b) => [b.id, b]),
+);
+
 // Pick a fresh set for a category. `qi` is the 0-based quarter index; the founding
 // quarter (qi 0) uses the bespoke activities, so briefs start at qi 1. Because the
 // pool is 8 and we take 3 with a stride of 3, the set is distinct for 8 quarters

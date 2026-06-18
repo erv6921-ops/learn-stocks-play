@@ -5,6 +5,7 @@ import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
@@ -43,8 +44,12 @@ import {
   Loader2,
   RefreshCw,
   BookOpen,
-  CheckCircle2
+  CheckCircle2,
+  FileText,
+  Save,
 } from "lucide-react"
+import { ACTIVITY_TITLES } from "@/lib/businessActivities"
+import { BRIEF_BY_ID } from "@/lib/quarterlyBriefs"
 
 interface Class {
   id: string
@@ -76,6 +81,40 @@ interface ClassMember {
   completedLessonIds: string[]
 }
 
+// ── Pull readable written submissions out of a student's business activities ──
+interface WorkField { label: string; value: string }
+interface WorkSection { id: string; title: string; fields: WorkField[] }
+
+const humanize = (key: string) =>
+  key.replace(/^__/, "").replace(/([A-Z])/g, " $1").replace(/^./, (c) => c.toUpperCase()).trim()
+
+const activityTitle = (id: string): string =>
+  ACTIVITY_TITLES[id] || BRIEF_BY_ID[id]?.title || humanize(id)
+
+function fieldLabel(id: string, key: string): string {
+  if (key === "__choice") return BRIEF_BY_ID[id]?.choice?.label || "Choice"
+  const bf = BRIEF_BY_ID[id]?.fields.find((f) => f.key === key)
+  return bf?.label || humanize(key)
+}
+
+// `data` maps activityId -> { fieldKey: response }. Skip internal keys (prompt
+// text, outcome objects) but keep the meaningful written answers.
+function extractWork(activitiesData: Record<string, unknown> | undefined): WorkSection[] {
+  if (!activitiesData) return []
+  const sections: WorkSection[] = []
+  for (const [id, fields] of Object.entries(activitiesData)) {
+    if (!fields || typeof fields !== "object") continue
+    const wf: WorkField[] = []
+    for (const [key, val] of Object.entries(fields as Record<string, unknown>)) {
+      if (key.startsWith("__") && key !== "__choice") continue
+      if (typeof val === "string" && val.trim()) wf.push({ label: fieldLabel(id, key), value: val })
+      else if (typeof val === "number") wf.push({ label: fieldLabel(id, key), value: String(val) })
+    }
+    if (wf.length) sections.push({ id, title: activityTitle(id), fields: wf })
+  }
+  return sections
+}
+
 export default function TeacherDashboard() {
   const navigate = useNavigate()
   const { toast } = useToast()
@@ -91,6 +130,57 @@ export default function TeacherDashboard() {
   const [assigning, setAssigning] = useState<string | null>(null) // user_id currently being assigned
   const [classWideLessonId, setClassWideLessonId] = useState<string>("")
   const [assigningAll, setAssigningAll] = useState(false)
+
+  // Student written-work viewer + grading.
+  const [workMember, setWorkMember] = useState<ClassMember | null>(null)
+  const [workSections, setWorkSections] = useState<WorkSection[]>([])
+  const [workLoading, setWorkLoading] = useState(false)
+  const [gradeValue, setGradeValue] = useState("")
+  const [feedbackValue, setFeedbackValue] = useState("")
+  const [savingGrade, setSavingGrade] = useState(false)
+
+  const openWork = async (member: ClassMember) => {
+    setWorkMember(member)
+    setWorkSections([])
+    setGradeValue("")
+    setFeedbackValue("")
+    setWorkLoading(true)
+    try {
+      const [gsRes, grRes] = await Promise.all([
+        (supabase as any).from("business_game_state").select("activities").eq("user_id", member.user_id).maybeSingle(),
+        (supabase as any).from("business_grades").select("grade, feedback").eq("user_id", member.user_id).maybeSingle(),
+      ])
+      setWorkSections(extractWork(gsRes?.data?.activities?.data))
+      if (grRes?.data) { setGradeValue(grRes.data.grade || ""); setFeedbackValue(grRes.data.feedback || "") }
+    } catch (e) {
+      console.error("[openWork]", e)
+      toast({ title: "Couldn't load student work", variant: "destructive" })
+    } finally {
+      setWorkLoading(false)
+    }
+  }
+
+  const saveGrade = async () => {
+    if (!workMember) return
+    setSavingGrade(true)
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      const { error } = await (supabase as any).from("business_grades").upsert({
+        user_id: workMember.user_id,
+        grade: gradeValue.trim() || null,
+        feedback: feedbackValue.trim() || null,
+        graded_by: user?.id,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "user_id" })
+      if (error) throw error
+      toast({ title: "Grade saved", description: "The student can see your feedback." })
+    } catch (e) {
+      console.error("[saveGrade]", e)
+      toast({ title: "Failed to save grade", variant: "destructive" })
+    } finally {
+      setSavingGrade(false)
+    }
+  }
 
   const assignLessonToClass = async () => {
     if (!selectedClass || !classWideLessonId) return
@@ -683,13 +773,24 @@ export default function TeacherDashboard() {
                                     </p>
                                   </div>
                                 </div>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => removeStudent(member.id)}
-                                >
-                                  <Trash2 className="w-4 h-4 text-destructive" />
-                                </Button>
+                                <div className="flex items-center gap-1">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="gap-1.5"
+                                    onClick={() => openWork(member)}
+                                  >
+                                    <FileText className="w-3.5 h-3.5" />
+                                    View work
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => removeStudent(member.id)}
+                                  >
+                                    <Trash2 className="w-4 h-4 text-destructive" />
+                                  </Button>
+                                </div>
                               </div>
 
                               {/* Progress */}
@@ -779,6 +880,65 @@ export default function TeacherDashboard() {
           </div>
         </div>
       </main>
+
+      {/* Student written-work viewer + grading */}
+      <Dialog open={!!workMember} onOpenChange={(o) => { if (!o) setWorkMember(null) }}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              {workMember?.profile?.first_name || workMember?.profile?.last_name
+                ? `${workMember?.profile?.first_name || ""} ${workMember?.profile?.last_name || ""}`.trim()
+                : "Student"} — Business work
+            </DialogTitle>
+            <DialogDescription>Review every written submission, then leave a grade and feedback.</DialogDescription>
+          </DialogHeader>
+
+          {workLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {workSections.length === 0 ? (
+                <p className="text-sm text-muted-foreground italic py-4 text-center">
+                  No written work submitted yet.
+                </p>
+              ) : (
+                workSections.map((sec) => (
+                  <div key={sec.id} className="rounded-xl border border-border p-4">
+                    <p className="font-semibold text-sm mb-2">{sec.title}</p>
+                    <div className="space-y-2">
+                      {sec.fields.map((f, i) => (
+                        <div key={i}>
+                          <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{f.label}</p>
+                          <p className="text-sm whitespace-pre-wrap">{f.value}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              )}
+
+              {/* Grade + feedback */}
+              <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-3">
+                <div>
+                  <Label htmlFor="grade">Grade</Label>
+                  <Input id="grade" value={gradeValue} onChange={(e) => setGradeValue(e.target.value)} placeholder="e.g. A, 90, 8/10" className="mt-1" />
+                </div>
+                <div>
+                  <Label htmlFor="feedback">Feedback for the student</Label>
+                  <Textarea id="feedback" value={feedbackValue} onChange={(e) => setFeedbackValue(e.target.value)} rows={4} placeholder="What they did well and what to improve…" className="mt-1" />
+                </div>
+                <Button onClick={saveGrade} disabled={savingGrade} className="gap-1.5">
+                  {savingGrade ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                  Save grade
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
