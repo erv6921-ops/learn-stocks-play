@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import {
   Loader2, CheckCircle2, AlertTriangle, FileText, Package, Tag, MessageSquare,
   Users, Handshake, Truck, Megaphone, Palette, Rocket, Star, ArrowRight, Plus,
-  Briefcase, ClipboardList, DollarSign, Lightbulb, Trophy, Pencil, Activity, Skull, type LucideIcon,
+  Briefcase, ClipboardList, DollarSign, Lightbulb, Trophy, Pencil, Activity, Skull, Lock, type LucideIcon,
 } from "lucide-react";
 import {
   BUSINESS_TYPES, bizDef, BETA_REVIEWS, PARTNERS, PARTNER_PROBLEMS, VENDOR_OFFERS,
@@ -85,6 +85,56 @@ function useForm<T extends Record<string, unknown>>(saved: Fields, defaults: T) 
 }
 const str = (v: unknown) => (typeof v === "string" ? v : "");
 const num = (v: unknown) => { const n = parseFloat(String(v).replace(/[^0-9.]/g, "")); return isNaN(n) ? 0 : n; };
+
+/* ──────────────── one-at-a-time activity flow ────────────────
+   Instead of dumping all 3 written activities on screen at once, show the
+   completed ones, the single one you're working on now, and lock the rest
+   until the one before is submitted. Keeps each tab focused. */
+type Step = { id: string; title: string; icon: LucideIcon; render: () => React.ReactNode };
+
+function StepRail({ total, done }: { total: number; done: number }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground whitespace-nowrap">
+        {done >= total ? "All done" : `Step ${done + 1} of ${total}`}
+      </span>
+      <div className="flex items-center gap-1.5 flex-1">
+        {Array.from({ length: total }).map((_, i) => (
+          <span key={i} className={cn("h-1.5 flex-1 rounded-full", i > done && "bg-muted")}
+            style={i <= done ? { background: i < done ? NEON : `${NEON}66` } : undefined} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LockedStep({ n, title }: { n: number; title: string }) {
+  return (
+    <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-4 flex items-center gap-3">
+      <span className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center shrink-0"><Lock className="w-4 h-4 text-muted-foreground" /></span>
+      <div className="min-w-0">
+        <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">Activity {n} · Locked</p>
+        <h3 className="font-display text-base font-bold text-muted-foreground/90 truncate">{title}</h3>
+        <p className="text-xs text-muted-foreground">Finish the activity above to unlock this.</p>
+      </div>
+    </div>
+  );
+}
+
+function SequentialSteps({ a, steps }: { a: ActivitiesState; steps: Step[] }) {
+  const doneCount = steps.filter((s) => a.done.includes(s.id)).length;
+  let activeShown = false;
+  return (
+    <div className="space-y-4">
+      <StepRail total={steps.length} done={doneCount} />
+      {steps.map((s, i) => {
+        if (a.done.includes(s.id)) return <React.Fragment key={s.id}>{s.render()}</React.Fragment>;
+        if (!activeShown) { activeShown = true; return <React.Fragment key={s.id}>{s.render()}</React.Fragment>; }
+        return <LockedStep key={s.id} n={i + 1} title={s.title} />;
+      })}
+    </div>
+  );
+}
 
 /* ════════════════════════════ ORCHESTRATOR ════════════════════════════ */
 export default function MicroBusinessStudio() {
@@ -194,10 +244,33 @@ export default function MicroBusinessStudio() {
     toast.success(`"${p.name}" added to your product line`, { description: "Customers +60 · Brand +5 · +75 XP" });
   };
 
+  // Build each tab's ordered step list. Q1 uses the bespoke founding activities;
+  // later quarters use the rotating briefs. Either way they flow one-at-a-time.
+  const briefSteps = (cat: "product" | "collab" | "marketing"): Step[] =>
+    briefsForCategory(cat, qi).map((b, i) => ({
+      id: b.id, title: b.title, icon: b.icon,
+      render: () => <BriefActivity a={a} bt={bt} brief={b} n={i + 1} complete={completeBrief} />,
+    }));
+  const productSteps: Step[] = qi === 0 ? [
+    { id: "productDoc", title: "Product Design Document", icon: FileText, render: () => <ProductDoc a={a} bt={bt} complete={complete} /> },
+    { id: "pricing", title: "Pricing Strategy", icon: Tag, render: () => <Pricing a={a} bt={bt} complete={complete} /> },
+    { id: "feedback", title: "Product Feedback Response", icon: MessageSquare, render: () => <Feedback a={a} bt={bt} complete={complete} /> },
+  ] : briefSteps("product");
+  const collabSteps: Step[] = qi === 0 ? [
+    { id: "partner", title: "Find a Partner", icon: Users, render: () => <FindPartner a={a} bt={bt} complete={complete} /> },
+    { id: "partnerProblem", title: "Partnership Problem", icon: AlertTriangle, render: () => <PartnerProblem a={a} bt={bt} complete={complete} /> },
+    { id: "vendor", title: "Vendor Negotiation", icon: Truck, render: () => <VendorNegotiation a={a} bt={bt} complete={complete} /> },
+  ] : briefSteps("collab");
+  const marketingSteps: Step[] = qi === 0 ? [
+    { id: "brand", title: "Brand Identity", icon: Palette, render: () => <BrandIdentity a={a} bt={bt} complete={complete} /> },
+    { id: "marketingPlan", title: "Marketing Plan", icon: ClipboardList, render: () => <MarketingPlan a={a} bt={bt} complete={complete} /> },
+    { id: "adCampaign", title: "Ad Campaign", icon: Rocket, render: () => <AdCampaign a={a} bt={bt} complete={complete} /> },
+  ] : briefSteps("marketing");
+
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
-      <main className="container mx-auto px-4 py-6 max-w-3xl">
+      <main className="container mx-auto px-4 py-6 max-w-6xl">
         {/* HUD */}
         <div className="hud-panel p-4 mb-5 relative z-10">
           <div className="relative z-10 flex items-center justify-between gap-3 flex-wrap">
@@ -220,61 +293,47 @@ export default function MicroBusinessStudio() {
           <p className="text-[10px] text-white/35 mt-1.5">Operations refresh every quarter — there's always more to run.</p>
         </div>
 
-        {/* Living business — metrics + a monthly operations loop that runs over months */}
-        <BusinessDashboard sim={sim} />
-        <MonthlyOps sim={sim} onGenerate={generateMonth} onResolve={resolveMonth} onRebuild={rebuild} />
-
-        <Tabs defaultValue="product" className="space-y-4">
-          <TabsList className={cn("grid w-full", allDone ? "grid-cols-5" : "grid-cols-4")}>
-            <TabsTrigger value="product" className="text-xs"><Package className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Product</TabsTrigger>
-            <TabsTrigger value="office" className="text-xs"><Briefcase className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Office</TabsTrigger>
-            <TabsTrigger value="collab" className="text-xs"><Handshake className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Collab</TabsTrigger>
-            <TabsTrigger value="marketing" className="text-xs"><Megaphone className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Marketing</TabsTrigger>
-            {allDone && <TabsTrigger value="summary" className="text-xs"><Trophy className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Report</TabsTrigger>}
-          </TabsList>
-
-          <TabsContent value="product" className="space-y-4">
+        {/* Two columns on desktop: the running-business cockpit on the left,
+            the quarter's activities on the right — fills the page and keeps the
+            "manage" and "do the work" jobs visually separate. */}
+        <div className="grid lg:grid-cols-5 gap-5 items-start">
+          {/* Cockpit — your live business */}
+          <div className="lg:col-span-2 space-y-4">
+            <BusinessDashboard sim={sim} />
+            <MonthlyOps sim={sim} onGenerate={generateMonth} onResolve={resolveMonth} onRebuild={rebuild} />
             <ProductLine sim={sim} onAdd={addProductHandler} />
-            {qi === 0 ? (
-              <>
-                <ProductDoc a={a} bt={bt} complete={complete} />
-                <Pricing a={a} bt={bt} complete={complete} />
-                <Feedback a={a} bt={bt} complete={complete} />
-              </>
-            ) : (
-              briefsForCategory("product", qi).map((b, i) => <BriefActivity key={b.id} a={a} bt={bt} brief={b} n={i + 1} complete={completeBrief} />)
-            )}
-          </TabsContent>
+          </div>
 
-          {/* Office tab — untouched existing component */}
-          <TabsContent value="office"><MicroBusinessOffice /></TabsContent>
+          {/* Workbench — this quarter's activities, one at a time */}
+          <div className="lg:col-span-3">
+            <Tabs defaultValue="product" className="space-y-4">
+              <TabsList className={cn("grid w-full", allDone ? "grid-cols-5" : "grid-cols-4")}>
+                <TabsTrigger value="product" className="text-xs"><Package className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Product</TabsTrigger>
+                <TabsTrigger value="office" className="text-xs"><Briefcase className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Office</TabsTrigger>
+                <TabsTrigger value="collab" className="text-xs"><Handshake className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Collab</TabsTrigger>
+                <TabsTrigger value="marketing" className="text-xs"><Megaphone className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Marketing</TabsTrigger>
+                {allDone && <TabsTrigger value="summary" className="text-xs"><Trophy className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Report</TabsTrigger>}
+              </TabsList>
 
-          <TabsContent value="collab" className="space-y-4">
-            {qi === 0 ? (
-              <>
-                <FindPartner a={a} bt={bt} complete={complete} />
-                <PartnerProblem a={a} bt={bt} complete={complete} />
-                <VendorNegotiation a={a} bt={bt} complete={complete} />
-              </>
-            ) : (
-              briefsForCategory("collab", qi).map((b, i) => <BriefActivity key={b.id} a={a} bt={bt} brief={b} n={i + 1} complete={completeBrief} />)
-            )}
-          </TabsContent>
+              <TabsContent value="product">
+                <SequentialSteps a={a} steps={productSteps} />
+              </TabsContent>
 
-          <TabsContent value="marketing" className="space-y-4">
-            {qi === 0 ? (
-              <>
-                <BrandIdentity a={a} bt={bt} complete={complete} />
-                <MarketingPlan a={a} bt={bt} complete={complete} />
-                <AdCampaign a={a} bt={bt} complete={complete} />
-              </>
-            ) : (
-              briefsForCategory("marketing", qi).map((b, i) => <BriefActivity key={b.id} a={a} bt={bt} brief={b} n={i + 1} complete={completeBrief} />)
-            )}
-          </TabsContent>
+              {/* Office tab — untouched existing component */}
+              <TabsContent value="office"><MicroBusinessOffice /></TabsContent>
 
-          {allDone && <TabsContent value="summary"><SummaryReport a={a} bt={bt} qi={qi} /></TabsContent>}
-        </Tabs>
+              <TabsContent value="collab">
+                <SequentialSteps a={a} steps={collabSteps} />
+              </TabsContent>
+
+              <TabsContent value="marketing">
+                <SequentialSteps a={a} steps={marketingSteps} />
+              </TabsContent>
+
+              {allDone && <TabsContent value="summary"><SummaryReport a={a} bt={bt} qi={qi} /></TabsContent>}
+            </Tabs>
+          </div>
+        </div>
       </main>
     </div>
   );
