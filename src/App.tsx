@@ -23,6 +23,7 @@ import LabDocument from "./pages/LabDocument";
 import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
 import { AssignmentNotifications } from "./components/AssignmentNotifications";
+import { GradeNotifications } from "./components/GradeNotifications";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 
@@ -70,6 +71,7 @@ const App = () => (
         <AppProvider>
           <JeffProvider>
             <AssignmentNotifications />
+            <GradeNotifications />
             <AppRoutes />
             {/* Persistent animated mascot — z-40 (below modals). Hides itself on
                 auth/onboarding routes and when signed out. */}

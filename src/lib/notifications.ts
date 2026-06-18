@@ -10,15 +10,18 @@
 // without a provider. Persists to localStorage so the history survives reloads.
 // ───────────────────────────────────────────────────────────
 
-export type NotificationType = "gain" | "loss"
+export type NotificationType = "gain" | "loss" | "grade"
 
 export interface AppNotification {
   id: string
   title: string
-  amount: number // signed: positive = gained, negative = lost
+  amount?: number // signed: positive = gained, negative = lost (money events only)
   type: NotificationType
   date: number // epoch ms
   read: boolean
+  // Grade events only: the teacher's grade + written feedback.
+  grade?: string
+  body?: string
 }
 
 const STORAGE_KEY = "investiplay_notifications"
@@ -70,6 +73,25 @@ export function recordMoneyEvent(amount: number, reason: string) {
       title: reason,
       amount,
       type: amount >= 0 ? "gain" : "loss",
+      date: Date.now(),
+      read: false,
+    },
+    ...notifications,
+  ].slice(0, MAX)
+  emit()
+}
+
+// Log a teacher's grade + feedback on the student's business work. Pushed into
+// the bell when the student closes the grade pop-up, so it stays re-readable.
+export function recordGradeFeedback(grade: string | null, feedback: string | null) {
+  if (!grade && !feedback) return
+  notifications = [
+    {
+      id: crypto.randomUUID(),
+      title: grade ? `Your business work was graded: ${grade}` : "Your teacher left feedback",
+      type: "grade",
+      grade: grade || undefined,
+      body: feedback || undefined,
       date: Date.now(),
       read: false,
     },
