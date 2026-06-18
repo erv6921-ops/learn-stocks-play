@@ -313,14 +313,14 @@ export default function Profile() {
           <Card variant="elevated" className="overflow-hidden">
             <div className="bg-gradient-hero h-20 md:h-24" />
             <CardContent className="pt-0">
-              <div className="flex flex-col md:flex-row md:items-end gap-4 -mt-10 md:-mt-12">
-                <Avatar className="w-20 h-20 md:w-24 md:h-24 border-4 border-card shadow-lg">
+              <div className="flex flex-col md:flex-row md:items-end gap-4">
+                <Avatar className="w-20 h-20 md:w-24 md:h-24 -mt-14 md:-mt-16 border-4 border-card shadow-lg">
                   <AvatarFallback className="bg-primary text-primary-foreground text-2xl md:text-3xl font-bold">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
-                <div className="flex-1 md:pb-2">
-                  <h1 className="text-2xl md:text-3xl font-display font-bold">{fullName}</h1>
+                <div className="flex-1 md:pb-2 min-w-0">
+                  <h1 className="text-2xl md:text-3xl font-display font-bold leading-tight break-words">{fullName}</h1>
                   <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
                     {user?.schoolName && (
                       <span className="flex items-center gap-1.5"><School className="w-4 h-4" />{user.schoolName}</span>
