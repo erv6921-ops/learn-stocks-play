@@ -1,5 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Button } from "@/components/ui/button";
@@ -76,6 +77,7 @@ export default function GameNav() {
   };
   const { netWorth } = useNetWorth();
   const location = useLocation();
+  const [hovered, setHovered] = useState<string | null>(null);
 
   // Player level reflects the core (Florida) curriculum only, so the optional
   // AP Micro elective track never changes a student's level.
@@ -109,40 +111,65 @@ export default function GameNav() {
               <Wordmark className="text-xl md:text-2xl transition-transform duration-200 group-hover:scale-[1.02]" />
             </Link>
 
-            {/* Nav items */}
-            <div className="hidden md:flex items-center gap-1">
-              {NAV_ITEMS.map((item) =>
-              <Link key={item.to} to={item.to}>
-                  <Button
-                  variant={isActive(item.to) ? "default" : "ghost"}
-                  size="sm"
-                  className={`gap-2 nav-bounce ${isActive(item.to) ? "shadow-glow" : "hover:bg-muted/70"}`}>
+            {/* Nav items — Resend-style sliding highlight */}
+            <div
+              className="hidden md:flex items-center gap-1"
+              onMouseLeave={() => setHovered(null)}>
 
-                    <item.icon className="w-4 h-4" />
-                    {item.label}
-                  </Button>
-                </Link>
-              )}
+              {NAV_ITEMS.map((item) => {
+                const active = isActive(item.to);
+                return (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onMouseEnter={() => setHovered(item.to)}
+                    className="relative px-3 py-1.5 rounded-lg press-scale">
+
+                    {/* Hover pill slides between non-active tabs */}
+                    {hovered === item.to && !active &&
+                    <motion.span
+                      layoutId="nav-hover-pill"
+                      className="absolute inset-0 rounded-lg bg-muted/70"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.4 }} />
+                    }
+                    {/* Active pill slides to the current tab on navigation */}
+                    {active &&
+                    <motion.span
+                      layoutId="nav-active-pill"
+                      className="absolute inset-0 rounded-lg bg-primary shadow-glow"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }} />
+                    }
+                    <span
+                      className={`relative z-10 flex items-center gap-2 text-sm font-medium transition-colors ${
+                      active ? "text-primary-foreground" : "text-foreground/80"}`
+                      }>
+
+                      <item.icon className="w-4 h-4" />
+                      {item.label}
+                    </span>
+                  </Link>);
+
+              })}
             </div>
 
             {/* HUD pills */}
             <div className="flex items-center gap-2">
               {streak > 0 &&
-              <div className="flex items-center gap-1 bg-orange-500/10 text-orange-500 px-2.5 py-1.5 rounded-xl text-xs font-bold border border-orange-500/15 shadow-sm nav-bounce cursor-default">
+              <div className="flex items-center gap-1 bg-orange-500/10 text-orange-500 px-2.5 py-1.5 rounded-xl text-xs font-bold border border-orange-500/15 shadow-sm press-scale cursor-default">
                   <Flame className="w-3.5 h-3.5" style={{ animation: 'streak-pulse 2s ease-in-out infinite' }} />
                   <span>{streak}d</span>
                 </div>
               }
-              <div className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
+              <div className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm press-scale cursor-default">
                 <Coins className="w-3.5 h-3.5" />
                 <span>{Math.floor(netWorth).toLocaleString()}</span>
               </div>
-              <div className="hidden sm:flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1.5 rounded-xl text-xs font-bold border border-primary/15 shadow-sm nav-bounce cursor-default">
+              <div className="hidden sm:flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1.5 rounded-xl text-xs font-bold border border-primary/15 shadow-sm press-scale cursor-default">
                 <Star className="w-3.5 h-3.5" />
                 <span>Lv {level}</span>
               </div>
               <NotificationBell />
-              <Button variant="ghost" size="icon" onClick={handleLogout} className="text-muted-foreground w-8 h-8 nav-bounce">
+              <Button variant="ghost" size="icon" onClick={handleLogout} className="text-muted-foreground w-8 h-8 press-scale">
                 <LogOut className="w-4 h-4" />
               </Button>
             </div>
@@ -157,8 +184,14 @@ export default function GameNav() {
             const active = isActive(item.to);
             return (
               <Link key={item.to} to={item.to} className="flex flex-col items-center gap-0.5">
-                <div className={`p-2 rounded-xl nav-bounce ${active ? "bg-primary text-primary-foreground shadow-glow" : "text-muted-foreground hover:text-foreground"}`}>
-                  <item.icon className="w-5 h-5" />
+                <div className={`relative p-2 rounded-xl press-scale transition-colors ${active ? "text-primary-foreground" : "text-muted-foreground"}`}>
+                  {active &&
+                  <motion.span
+                    layoutId="mobile-nav-pill"
+                    className="absolute inset-0 rounded-xl bg-primary shadow-glow"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.5 }} />
+                  }
+                  <item.icon className="relative z-10 w-5 h-5" />
                 </div>
                 <span className={`text-[10px] ${active ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
                   {item.label}
