@@ -290,6 +290,18 @@
     transform: scale(0.97);
   }
 
+  /* Nav buttons / HUD pills bounce up & down on hover, dip on click */
+  .nav-bounce {
+    @apply transition-transform duration-150 ease-out;
+  }
+  .nav-bounce:hover {
+    animation: nav-bounce 0.55s ease-in-out infinite;
+  }
+  .nav-bounce:active {
+    animation: none;
+    transform: translateY(2px) scale(0.96);
+  }
+
   /* Coach tip bubble */
   .coach-tip {
     position: relative;
@@ -367,6 +379,11 @@
 @keyframes bounce-gentle {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-2px); }
+}
+
+@keyframes nav-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 @keyframes pulse-glow {

@@ -116,7 +116,7 @@ export default function GameNav() {
                   <Button
                   variant={isActive(item.to) ? "default" : "ghost"}
                   size="sm"
-                  className={`gap-2 press-scale ${isActive(item.to) ? "shadow-glow" : "hover:bg-muted/70"}`}>
+                  className={`gap-2 nav-bounce ${isActive(item.to) ? "shadow-glow" : "hover:bg-muted/70"}`}>
 
                     <item.icon className="w-4 h-4" />
                     {item.label}
@@ -128,21 +128,21 @@ export default function GameNav() {
             {/* HUD pills */}
             <div className="flex items-center gap-2">
               {streak > 0 &&
-              <div className="flex items-center gap-1 bg-orange-500/10 text-orange-500 px-2.5 py-1.5 rounded-xl text-xs font-bold border border-orange-500/15 shadow-sm press-scale cursor-default">
+              <div className="flex items-center gap-1 bg-orange-500/10 text-orange-500 px-2.5 py-1.5 rounded-xl text-xs font-bold border border-orange-500/15 shadow-sm nav-bounce cursor-default">
                   <Flame className="w-3.5 h-3.5" style={{ animation: 'streak-pulse 2s ease-in-out infinite' }} />
                   <span>{streak}d</span>
                 </div>
               }
-              <div className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm press-scale cursor-default">
+              <div className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
                 <Coins className="w-3.5 h-3.5" />
                 <span>{Math.floor(netWorth).toLocaleString()}</span>
               </div>
-              <div className="hidden sm:flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1.5 rounded-xl text-xs font-bold border border-primary/15 shadow-sm press-scale cursor-default">
+              <div className="hidden sm:flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1.5 rounded-xl text-xs font-bold border border-primary/15 shadow-sm nav-bounce cursor-default">
                 <Star className="w-3.5 h-3.5" />
                 <span>Lv {level}</span>
               </div>
               <NotificationBell />
-              <Button variant="ghost" size="icon" onClick={handleLogout} className="text-muted-foreground w-8 h-8">
+              <Button variant="ghost" size="icon" onClick={handleLogout} className="text-muted-foreground w-8 h-8 nav-bounce">
                 <LogOut className="w-4 h-4" />
               </Button>
             </div>
@@ -157,7 +157,7 @@ export default function GameNav() {
             const active = isActive(item.to);
             return (
               <Link key={item.to} to={item.to} className="flex flex-col items-center gap-0.5">
-                <div className={`p-2 rounded-xl transition-all duration-200 ${active ? "bg-primary text-primary-foreground shadow-glow" : "text-muted-foreground hover:text-foreground"}`}>
+                <div className={`p-2 rounded-xl nav-bounce ${active ? "bg-primary text-primary-foreground shadow-glow" : "text-muted-foreground hover:text-foreground"}`}>
                   <item.icon className="w-5 h-5" />
                 </div>
                 <span className={`text-[10px] ${active ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
