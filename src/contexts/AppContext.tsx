@@ -294,8 +294,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
         // on a real login. Track the previous user so we only run post-login
         // routing when the signed-in user actually changes — otherwise leaving
         // and returning to the app would yank people back to the dashboard.
+        //
+        // But an explicit login from the /auth page must always route, even when
+        // a session for that same user was still persisted (so userIdRef already
+        // matches and isNewSignIn would be false). Capture that synchronously
+        // here, before the async profile lookup, since the route is still /auth.
         const previousUserId = userIdRef.current
-        const isNewSignIn = previousUserId !== session.user.id
+        const onAuthPage = window.location.pathname.startsWith("/auth")
+        const shouldRoute = previousUserId !== session.user.id || onAuthPage
         authReadyRef.current = true
         setAuthReady(true)
         userIdRef.current = session.user.id
@@ -345,7 +351,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           // page-refresh session restore, so it doesn't yank users off their
           // current page. Teachers go to their dashboard; otherwise
           // onboarding_complete decides between /dashboard and /onboarding.
-          if (event === "SIGNED_IN" && isNewSignIn) {
+          if (event === "SIGNED_IN" && shouldRoute) {
             if (existingUser?.role === "teacher") {
               navigate("/teacher-dashboard", { replace: true })
             } else if (existingUser?.onboarding_complete) {
