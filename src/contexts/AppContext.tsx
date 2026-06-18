@@ -200,6 +200,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const hydrated: UserProfile = {
           id: profile.id,
           firstName: profile.first_name ?? undefined,
+          lastName: profile.last_name ?? undefined,
+          classCode: profile.class_code ?? undefined,
           age: profile.age ?? 14,
           schoolName: profile.school_name ?? "",
           grade: profile.grade ?? 9,
@@ -307,6 +309,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
             setUser({
               id: existingUser.id,
               firstName: existingUser.first_name ?? undefined,
+              lastName: existingUser.last_name ?? undefined,
+              classCode: existingUser.class_code ?? undefined,
               age: existingUser.age ?? 14,
               schoolName: existingUser.school_name ?? "",
               grade: existingUser.grade ?? 9,

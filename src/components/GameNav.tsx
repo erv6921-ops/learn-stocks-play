@@ -3,8 +3,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Wordmark } from "@/components/Wordmark";
 import NotificationBell from "@/components/NotificationBell";
+import { getInitials } from "@/lib/playerStats";
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
@@ -67,7 +69,7 @@ const NAV_ITEMS = [
 
 
 export default function GameNav() {
-  const { jeffsHistory, lessonProgress, logout } = useApp();
+  const { jeffsHistory, lessonProgress, logout, user } = useApp();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -142,6 +144,13 @@ export default function GameNav() {
                 <span>Lv {level}</span>
               </div>
               <NotificationBell />
+              <Link to="/profile" aria-label="Your profile" title="Your profile">
+                <Avatar className="w-8 h-8 border border-border nav-bounce cursor-pointer ring-offset-background hover:ring-2 hover:ring-primary/40 transition-shadow">
+                  <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                    {getInitials(user?.firstName, user?.lastName)}
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
               <Button variant="ghost" size="icon" onClick={handleLogout} className="text-muted-foreground w-8 h-8 nav-bounce">
                 <LogOut className="w-4 h-4" />
               </Button>

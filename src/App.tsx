@@ -22,6 +22,7 @@ import Daily from "./pages/Daily";
 import LabDocument from "./pages/LabDocument";
 import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
+import Profile from "./pages/Profile";
 import { AssignmentNotifications } from "./components/AssignmentNotifications";
 import { GradeNotifications } from "./components/GradeNotifications";
 import { JeffProvider } from "@/contexts/JeffContext";
@@ -57,6 +58,7 @@ function AppRoutes() {
       <Route path="/lab/:docId" element={<LabDocument />} />
       <Route path="/business-canvas" element={<BusinessCanvas />} />
       <Route path="/financial-advisor" element={<FinancialAdvisor />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

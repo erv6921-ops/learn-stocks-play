@@ -12,6 +12,8 @@ export interface BenchmarkCategoryScore {
 export interface UserProfile {
   id: string
   firstName?: string
+  lastName?: string
+  classCode?: string
   age: number
   schoolName: string
   grade: number

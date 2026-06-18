@@ -1,6 +1,24 @@
 // Shared player-stat helpers. These mirror the logic GameNav uses for the
 // navbar HUD so the Missions page shows identical streak/level/coin values.
 
+// Two-letter avatar initials, e.g. "Eduardo" + "Valle" -> "EV".
+export function getInitials(firstName?: string, lastName?: string): string {
+  const f = (firstName ?? "").trim()
+  const l = (lastName ?? "").trim()
+  if (f && l) return (f[0] + l[0]).toUpperCase()
+  if (f) {
+    const parts = f.split(/\s+/)
+    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase()
+    return f.slice(0, 2).toUpperCase()
+  }
+  return "?"
+}
+
+// Friendly display name, falling back gracefully.
+export function getDisplayName(firstName?: string, lastName?: string): string {
+  return [firstName, lastName].filter(Boolean).join(" ").trim() || "Student"
+}
+
 export interface HistoryEntry {
   amount: number
   reason: string
