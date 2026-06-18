@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "next-themes";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AppProvider, useApp } from "@/contexts/AppContext";
 import Auth from "./pages/Auth";
@@ -66,22 +67,24 @@ function AppRoutes() {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AppProvider>
-          <JeffProvider>
-            <AssignmentNotifications />
-            <GradeNotifications />
-            <AppRoutes />
-            {/* Persistent animated mascot — z-40 (below modals). Hides itself on
-                auth/onboarding routes and when signed out. */}
-            <JeffWidget />
-          </JeffProvider>
-        </AppProvider>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppProvider>
+            <JeffProvider>
+              <AssignmentNotifications />
+              <GradeNotifications />
+              <AppRoutes />
+              {/* Persistent animated mascot — z-40 (below modals). Hides itself on
+                  auth/onboarding routes and when signed out. */}
+              <JeffWidget />
+            </JeffProvider>
+          </AppProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

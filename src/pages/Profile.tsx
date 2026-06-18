@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { motion, type Variants } from "framer-motion"
+import { useTheme } from "next-themes"
+import { toast } from "sonner"
 import { useApp } from "@/contexts/AppContext"
 import { useNetWorth } from "@/hooks/useNetWorth"
 import GameNav from "@/components/GameNav"
@@ -8,6 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Progress as ProgressBar } from "@/components/ui/progress"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription,
+} from "@/components/ui/dialog"
 import { supabase } from "@/integrations/supabase/client"
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons"
 import {
@@ -17,6 +24,7 @@ import {
   Coins, Zap, Flame, BookOpen, Layers, Award, Star, GraduationCap,
   School, KeyRound, CalendarDays, Sparkles, Store, TrendingUp, TrendingDown,
   Gamepad2, Lock, CheckCircle2, ChevronRight, Trophy, Rocket,
+  Pencil, Sun, Moon, Monitor, Palette,
 } from "lucide-react"
 
 // ── Curriculum level + progress to next level ─────────────────────────────
@@ -92,8 +100,50 @@ const item: Variants = {
 }
 
 export default function Profile() {
-  const { user, lessonProgress, jeffsHistory, portfolio } = useApp()
+  const { user, setUser, lessonProgress, jeffsHistory, portfolio } = useApp()
   const { netWorth } = useNetWorth()
+  const { theme, setTheme } = useTheme()
+
+  // ── Edit-name dialog ──
+  const [editOpen, setEditOpen] = useState(false)
+  const [firstNameInput, setFirstNameInput] = useState("")
+  const [lastNameInput, setLastNameInput] = useState("")
+  const [saving, setSaving] = useState(false)
+
+  const openEdit = () => {
+    setFirstNameInput(user?.firstName ?? "")
+    setLastNameInput(user?.lastName ?? "")
+    setEditOpen(true)
+  }
+
+  const saveName = async () => {
+    if (!user?.id) return
+    const first = firstNameInput.trim()
+    const last = lastNameInput.trim()
+    if (!first) {
+      toast.error("First name can't be empty")
+      return
+    }
+    setSaving(true)
+    const { error } = await supabase
+      .from("profiles")
+      .update({ first_name: first, last_name: last || null })
+      .eq("id", user.id)
+    setSaving(false)
+    if (error) {
+      toast.error("Couldn't save your name. Please try again.")
+      return
+    }
+    setUser({ ...user, firstName: first, lastName: last || undefined })
+    setEditOpen(false)
+    toast.success("Profile updated")
+  }
+
+  const THEME_OPTIONS = [
+    { value: "light", label: "Light", icon: Sun },
+    { value: "dark", label: "Dark", icon: Moon },
+    { value: "system", label: "System", icon: Monitor },
+  ] as const
 
   const [dailyGames, setDailyGames] = useState<{ game_type: string; coins_earned: number | null; completed_at: string | null }[]>([])
   const [business, setBusiness] = useState<BusinessSnapshot | null>(null)
@@ -284,6 +334,9 @@ export default function Profile() {
                     <span className="flex items-center gap-1.5"><CalendarDays className="w-4 h-4" />Member since {memberSince}</span>
                   </div>
                 </div>
+                <Button variant="outline" size="sm" onClick={openEdit} className="md:pb-0 self-start md:self-end gap-1.5 press-scale">
+                  <Pencil className="w-3.5 h-3.5" /> Edit
+                </Button>
               </div>
 
               {/* Level + XP to next level */}
@@ -297,6 +350,40 @@ export default function Profile() {
                   </span>
                 </div>
                 <ProgressBar value={levelPct} className="h-2.5" />
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* ── APPEARANCE ── */}
+        <motion.div variants={item}>
+          <Card variant="elevated">
+            <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Palette className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <p className="font-semibold text-sm">Appearance</p>
+                  <p className="text-xs text-muted-foreground">Choose how InvestiPlay looks</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 bg-muted/60 rounded-xl p-1 self-start sm:self-auto">
+                {THEME_OPTIONS.map(opt => {
+                  const activeTheme = (theme ?? "system") === opt.value
+                  return (
+                    <button
+                      key={opt.value}
+                      onClick={() => setTheme(opt.value)}
+                      aria-pressed={activeTheme}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors press-scale ${
+                        activeTheme ? "bg-card text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <opt.icon className="w-3.5 h-3.5" /> {opt.label}
+                    </button>
+                  )
+                })}
               </div>
             </CardContent>
           </Card>
@@ -476,6 +563,42 @@ export default function Profile() {
           </Card>
         </motion.div>
       </motion.main>
+
+      {/* Edit name dialog */}
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>Update the name shown across InvestiPlay.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-1.5">
+              <Label htmlFor="first-name">First name</Label>
+              <Input
+                id="first-name"
+                value={firstNameInput}
+                onChange={e => setFirstNameInput(e.target.value)}
+                placeholder="First name"
+                maxLength={40}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="last-name">Last name</Label>
+              <Input
+                id="last-name"
+                value={lastNameInput}
+                onChange={e => setLastNameInput(e.target.value)}
+                placeholder="Last name"
+                maxLength={40}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setEditOpen(false)} disabled={saving}>Cancel</Button>
+            <Button onClick={saveName} disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
