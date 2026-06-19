@@ -356,7 +356,7 @@ export default function Lessons() {
 
       <main className="container mx-auto px-4 md:px-6 py-6 max-w-5xl">
         {/* Course track switcher */}
-        <div className="mb-4 inline-flex items-center rounded-full bg-muted/60 p-1 border border-border/40">
+        <div className="mb-5 inline-flex items-center rounded-full bg-muted/60 p-1 border border-border/40">
           {([
             { key: "florida" as CourseTrack, label: "Personal Finance" },
             { key: "ap-micro" as CourseTrack, label: "AP Microeconomics" },
@@ -373,7 +373,7 @@ export default function Lessons() {
 
         {/* AP Mode Toggle (business AP tracks — Florida only) */}
         {activeTrack === "florida" && (
-          <div className="mb-6">
+          <div className="mb-5">
             <APModeToggle apMode={apMode} onToggle={setApMode} />
           </div>
         )}
@@ -391,49 +391,42 @@ export default function Lessons() {
         {apMode && activeTrack === "florida" ? renderAPMode() : (
           <>
             {/* 1. Page header */}
-            <div className="mb-6">
-              <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em] mb-1">
+            <div className="mb-5">
+              <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">
                 Your knowledge portfolio
               </p>
 
-              {/* #1 Stat row */}
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight leading-tight min-w-0">
+                  {activeUnit ? `Unit ${activeUnit.unitNumber} — ${activeUnit.title}` : "Curriculum"}
+                </h1>
+                {/* Class rank — hidden entirely when no class/leaderboard */}
+                {classRank != null && (
+                  <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold shrink-0"
+                    style={{ background: "rgba(239,159,39,0.12)", color: "#C77F12" }}>
+                    <Trophy className="w-3.5 h-3.5" /> #{classRank} in your class
+                  </div>
+                )}
+              </div>
+
+              {/* Stat pills */}
               {statsReady ? (
-                <div className="flex flex-wrap items-center gap-2 my-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
+                <div className="flex flex-wrap items-center gap-2 mt-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
                     <Flame className="w-3.5 h-3.5 text-orange-400" /> {streak} day streak
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
-                    <Coins className="w-3.5 h-3.5 text-gold" /> {jeffsBalance.toLocaleString()}
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
+                    <Coins className="w-3.5 h-3.5 text-gold" /> {jeffsBalance.toLocaleString()} pts
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
                     <Star className="w-3.5 h-3.5 text-yellow-300" /> Lv {level}
                   </span>
                 </div>
               ) : (
-                <div className="flex gap-2 my-3">
-                  {[0, 1, 2].map(i => <div key={i} className="h-[26px] w-24 rounded-full animate-pulse bg-muted" />)}
+                <div className="flex gap-2 mt-3">
+                  {[0, 1, 2].map(i => <div key={i} className="h-[30px] w-28 rounded-full animate-pulse bg-muted" />)}
                 </div>
               )}
-
-              <div className="flex items-start justify-between gap-4">
-                <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight">
-                  {activeUnit ? `Unit ${activeUnit.unitNumber} — ${activeUnit.title}` : "Curriculum"}
-                </h1>
-                <div className="flex flex-col items-end gap-1.5 shrink-0">
-                  <div className="bg-foreground/5 border border-border rounded-full px-4 py-1.5">
-                    <span className="font-mono text-sm font-bold text-foreground">
-                      {jeffsBalance.toLocaleString()} pts
-                    </span>
-                  </div>
-                  {/* #9 Class rank — hidden entirely when no class/leaderboard */}
-                  {classRank != null && (
-                    <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold"
-                      style={{ background: "rgba(239,159,39,0.12)", color: "#C77F12" }}>
-                      <Trophy className="w-3.5 h-3.5" /> #{classRank} in your class
-                    </div>
-                  )}
-                </div>
-              </div>
             </div>
 
             {/* 2. Progress card — circular ring hero + chart */}
