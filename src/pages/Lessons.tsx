@@ -502,10 +502,10 @@ export default function Lessons() {
                 </div>
 
                 {/* Overall progress pie — every lesson in this track */}
-                <div className="flex-1 flex flex-col items-center justify-center gap-1.5 pl-4 border-l" style={{ borderColor: "hsl(45 10% 90%)" }}>
+                <div className="flex-[1.6] flex flex-col items-center justify-center gap-2 pl-4 border-l" style={{ borderColor: "hsl(45 10% 90%)" }}>
                   <ProgressPie done={trackDoneLessons} total={trackTotalLessons} />
-                  <p className="text-sm font-extrabold leading-none" style={{ color: "#1D9E75" }}>{trackPct}%</p>
-                  <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground text-center leading-tight">
+                  <p className="text-lg font-extrabold leading-none" style={{ color: "#1D9E75" }}>{trackPct}%</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground text-center leading-tight">
                     All lessons<br />{trackDoneLessons}/{trackTotalLessons}
                   </p>
                 </div>
@@ -776,7 +776,7 @@ export default function Lessons() {
    ════════════════════════════════════════════════ */
 function ProgressPie({ done, total }: { done: number; total: number }) {
   const pct = total > 0 ? done / total : 0;
-  const R = 34, cx = 40, cy = 40;
+  const cx = 50, cy = 50, R = 46;
   // Slice starts at 12 o'clock and sweeps clockwise.
   const angle = pct * 2 * Math.PI;
   const x = cx + R * Math.sin(angle);
@@ -788,13 +788,13 @@ function ProgressPie({ done, total }: { done: number; total: number }) {
       ? null
       : `M${cx},${cy} L${cx},${cy - R} A${R},${R} 0 ${largeArc},1 ${x.toFixed(3)},${y.toFixed(3)} Z`;
   return (
-    <svg width={80} height={80} viewBox="0 0 80 80">
+    <svg viewBox="0 0 100 100" className="w-full max-w-[150px]">
       {/* Remaining (or full when complete) */}
       <circle cx={cx} cy={cy} r={R} fill={pct >= 1 ? "#1D9E75" : "hsl(45 10% 89%)"} />
       {/* Completed slice */}
       {slice && <path d={slice} fill="#1D9E75" />}
       {/* Crisp white edge */}
-      <circle cx={cx} cy={cy} r={R} fill="none" stroke="#fff" strokeWidth={1.5} />
+      <circle cx={cx} cy={cy} r={R} fill="none" stroke="#fff" strokeWidth={2} />
     </svg>
   );
 }
