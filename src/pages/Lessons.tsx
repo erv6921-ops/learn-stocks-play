@@ -390,43 +390,52 @@ export default function Lessons() {
 
         {apMode && activeTrack === "florida" ? renderAPMode() : (
           <>
-            {/* 1. Page header */}
-            <div className="mb-5">
-              <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">
-                Your knowledge portfolio
-              </p>
-
-              <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight leading-tight min-w-0">
-                  {activeUnit ? `Unit ${activeUnit.unitNumber} — ${activeUnit.title}` : "Curriculum"}
-                </h1>
-                {/* Class rank — hidden entirely when no class/leaderboard */}
-                {classRank != null && (
-                  <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold shrink-0"
-                    style={{ background: "rgba(239,159,39,0.12)", color: "#C77F12" }}>
-                    <Trophy className="w-3.5 h-3.5" /> #{classRank} in your class
+            {/* 1. Page header — unit hero + unified stat strip */}
+            <div className="relative overflow-hidden rounded-[20px] mb-4 p-5 md:p-6 text-white"
+              style={{ background: "linear-gradient(135deg, #0f2d1e 0%, #143d29 55%, #1d6b4d 135%)" }}>
+              {/* subtle dotted texture */}
+              <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
+                style={{ backgroundImage: "radial-gradient(circle at 25% 15%, white 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
+              <div className="relative">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/45">
+                      Your knowledge portfolio
+                    </p>
+                    <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight leading-tight mt-1 break-words">
+                      {activeUnit ? `Unit ${activeUnit.unitNumber} — ${activeUnit.title}` : "Curriculum"}
+                    </h1>
                   </div>
+                  {/* Class rank — hidden entirely when no class/leaderboard */}
+                  {classRank != null && (
+                    <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold shrink-0"
+                      style={{ background: "rgba(239,159,39,0.18)", color: "#F5C26B" }}>
+                      <Trophy className="w-3.5 h-3.5" /> #{classRank} in class
+                    </div>
+                  )}
+                </div>
+
+                {/* Stat strip — same info, one cohesive panel */}
+                {statsReady ? (
+                  <div className="mt-4 grid grid-cols-3 rounded-2xl bg-white/[0.06] border border-white/10 divide-x divide-white/10">
+                    {[
+                      { Icon: Flame, tint: "text-orange-400", value: String(streak), label: "Day streak" },
+                      { Icon: Coins, tint: "text-gold", value: jeffsBalance.toLocaleString(), label: "Points" },
+                      { Icon: Star, tint: "text-yellow-300", value: `Lv ${level}`, label: "Level" },
+                    ].map(({ Icon, tint, value, label }) => (
+                      <div key={label} className="px-3 py-3 sm:px-4 flex items-center gap-2.5 min-w-0">
+                        <Icon className={`w-4 h-4 shrink-0 ${tint}`} />
+                        <div className="min-w-0">
+                          <p className="text-base md:text-lg font-extrabold leading-none tabular-nums">{value}</p>
+                          <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 truncate">{label}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-4 h-[60px] rounded-2xl bg-white/[0.06] border border-white/10 animate-pulse" />
                 )}
               </div>
-
-              {/* Stat pills */}
-              {statsReady ? (
-                <div className="flex flex-wrap items-center gap-2 mt-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
-                    <Flame className="w-3.5 h-3.5 text-orange-400" /> {streak} day streak
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
-                    <Coins className="w-3.5 h-3.5 text-gold" /> {jeffsBalance.toLocaleString()} pts
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold text-white" style={{ backgroundColor: "#0f2d1e" }}>
-                    <Star className="w-3.5 h-3.5 text-yellow-300" /> Lv {level}
-                  </span>
-                </div>
-              ) : (
-                <div className="flex gap-2 mt-3">
-                  {[0, 1, 2].map(i => <div key={i} className="h-[30px] w-28 rounded-full animate-pulse bg-muted" />)}
-                </div>
-              )}
             </div>
 
             {/* 2. Progress card — circular ring hero + chart */}
