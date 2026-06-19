@@ -239,6 +239,18 @@ export default function Lessons() {
   const anyUnitComplete = unitScores.some(u => u.total > 0 && u.done >= u.total);
   const timeSpentMins = completedLessonsAll * 3;
 
+  // ── Overall progress across every lesson in the active track (for the pie) ──
+  const trackLessonIds = useMemo(
+    () => trackUnits.flatMap(u => getLessonsByUnit(u.id).map(l => l.id)),
+    [trackUnits]
+  );
+  const trackTotalLessons = trackLessonIds.length;
+  const trackDoneLessons = useMemo(
+    () => trackLessonIds.filter(id => lessonProgress.some(p => p.lessonId === id && p.completed)).length,
+    [trackLessonIds, lessonProgress]
+  );
+  const trackPct = trackTotalLessons > 0 ? Math.round((trackDoneLessons / trackTotalLessons) * 100) : 0;
+
   // ── #5 Badges (derived from milestones; no badges table exists) ──
   const stocksVisits = useMemo(() => {
     try { return parseInt(localStorage.getItem('investiplay_stocks_visits') || '0', 10) || 0; } catch { return 0; }
@@ -468,22 +480,35 @@ export default function Lessons() {
                 </div>
               </div>
 
-              {/* Chart SVG (kept below the ring) */}
-              <ChartSVG
-                lessons={activeLessons}
-                currentIdx={currentLessonIdx}
-                multiplier={multiplier}
-                unitTotalPts={Math.round(unitTotalPts * multiplier)}
-              />
+              {/* Chart row — line chart (~75%) + overall-progress pie on the side */}
+              <div className="px-5 pb-4 flex items-center gap-4">
+                {/* Line chart column (unchanged chart, just at 75% width) */}
+                <div className="flex-[3] min-w-0">
+                  <ChartSVG
+                    lessons={activeLessons}
+                    currentIdx={currentLessonIdx}
+                    multiplier={multiplier}
+                    unitTotalPts={Math.round(unitTotalPts * multiplier)}
+                  />
+                  {/* X-axis labels */}
+                  <div className="flex justify-between mt-1">
+                    {["start", "25%", "now", "75%", "done"].map((label) => (
+                      <span key={label} className="text-[10px] font-semibold"
+                        style={{ color: label === "now" ? "#EF9F27" : "hsl(215 12% 56%)" }}>
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-              {/* X-axis labels */}
-              <div className="px-5 pb-4 flex justify-between">
-                {["start", "25%", "now", "75%", "done"].map((label) => (
-                  <span key={label} className="text-[10px] font-semibold"
-                    style={{ color: label === "now" ? "#EF9F27" : "hsl(215 12% 56%)" }}>
-                    {label}
-                  </span>
-                ))}
+                {/* Overall progress pie — every lesson in this track */}
+                <div className="flex-1 flex flex-col items-center justify-center gap-1.5 pl-4 border-l" style={{ borderColor: "hsl(45 10% 90%)" }}>
+                  <ProgressPie done={trackDoneLessons} total={trackTotalLessons} />
+                  <p className="text-sm font-extrabold leading-none" style={{ color: "#1D9E75" }}>{trackPct}%</p>
+                  <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground text-center leading-tight">
+                    All lessons<br />{trackDoneLessons}/{trackTotalLessons}
+                  </p>
+                </div>
               </div>
             </motion.div>
 
@@ -743,6 +768,34 @@ export default function Lessons() {
         )}
       </main>
     </div>
+  );
+}
+
+/* ════════════════════════════════════════════════
+   OVERALL-PROGRESS PIE (all lessons in the track)
+   ════════════════════════════════════════════════ */
+function ProgressPie({ done, total }: { done: number; total: number }) {
+  const pct = total > 0 ? done / total : 0;
+  const R = 34, cx = 40, cy = 40;
+  // Slice starts at 12 o'clock and sweeps clockwise.
+  const angle = pct * 2 * Math.PI;
+  const x = cx + R * Math.sin(angle);
+  const y = cy - R * Math.cos(angle);
+  const largeArc = pct > 0.5 ? 1 : 0;
+  const slice = pct >= 1
+    ? null // full circle handled by the base fill below
+    : pct <= 0
+      ? null
+      : `M${cx},${cy} L${cx},${cy - R} A${R},${R} 0 ${largeArc},1 ${x.toFixed(3)},${y.toFixed(3)} Z`;
+  return (
+    <svg width={80} height={80} viewBox="0 0 80 80">
+      {/* Remaining (or full when complete) */}
+      <circle cx={cx} cy={cy} r={R} fill={pct >= 1 ? "#1D9E75" : "hsl(45 10% 89%)"} />
+      {/* Completed slice */}
+      {slice && <path d={slice} fill="#1D9E75" />}
+      {/* Crisp white edge */}
+      <circle cx={cx} cy={cy} r={R} fill="none" stroke="#fff" strokeWidth={1.5} />
+    </svg>
   );
 }
 
