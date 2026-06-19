@@ -64,6 +64,9 @@ function ensurePulseStyle() {
   document.head.appendChild(style);
 }
 
+// Distinct per-unit colours for the overall-progress pie. Assigned by unit order.
+const UNIT_COLORS = ["#1D9E75", "#EF9F27", "#3B82C4", "#9B59B6", "#E5734E", "#16A0A0", "#C2487E", "#6B8E23", "#D4A017", "#5B6CDB"];
+
 export default function Lessons() {
   const { user, lessonProgress, unitTestProgress, getRewardMultiplier, jeffsBalance, jeffsHistory } = useApp();
   const navigate = useNavigate();
@@ -250,6 +253,18 @@ export default function Lessons() {
     [trackLessonIds, lessonProgress]
   );
   const trackPct = trackTotalLessons > 0 ? Math.round((trackDoneLessons / trackTotalLessons) * 100) : 0;
+  const lessonsLeft = Math.max(0, trackTotalLessons - trackDoneLessons);
+
+  // Per-unit slices for the pie: each unit is a wedge sized by its lesson count
+  // and coloured in as its lessons get completed.
+  const unitPie = useMemo(
+    () => trackUnits.map((u, idx) => {
+      const ul = getLessonsByUnit(u.id);
+      const done = ul.filter(l => lessonProgress.some(p => p.lessonId === l.id && p.completed)).length;
+      return { id: u.id, total: ul.length, done, color: UNIT_COLORS[idx % UNIT_COLORS.length] };
+    }),
+    [trackUnits, lessonProgress]
+  );
 
   // ── #5 Badges (derived from milestones; no badges table exists) ──
   const stocksVisits = useMemo(() => {
@@ -501,12 +516,15 @@ export default function Lessons() {
                   </div>
                 </div>
 
-                {/* Overall progress pie — every lesson in this track */}
+                {/* Overall progress pie — one wedge per unit, fills as you go */}
                 <div className="flex-[1.6] flex flex-col items-center justify-center gap-2 pl-4 border-l" style={{ borderColor: "hsl(45 10% 90%)" }}>
-                  <ProgressPie done={trackDoneLessons} total={trackTotalLessons} />
-                  <p className="text-lg font-extrabold leading-none" style={{ color: "#1D9E75" }}>{trackPct}%</p>
+                  <ProgressPie units={unitPie} />
+                  <p className="text-2xl font-extrabold leading-none" style={{ color: "#1D9E75" }}>{trackPct}%</p>
+                  <p className="text-base font-extrabold text-foreground leading-none">
+                    {lessonsLeft} {lessonsLeft === 1 ? "lesson" : "lessons"} left
+                  </p>
                   <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground text-center leading-tight">
-                    All lessons<br />{trackDoneLessons}/{trackTotalLessons}
+                    to finish all units
                   </p>
                 </div>
               </div>
@@ -772,28 +790,53 @@ export default function Lessons() {
 }
 
 /* ════════════════════════════════════════════════
-   OVERALL-PROGRESS PIE (all lessons in the track)
+   OVERALL-PROGRESS PIE — one wedge per unit
+   The whole pie is grey and pre-cut into per-unit slices (bigger unit = bigger
+   slice); each slice fills with its unit colour as those lessons get done.
    ════════════════════════════════════════════════ */
-function ProgressPie({ done, total }: { done: number; total: number }) {
-  const pct = total > 0 ? done / total : 0;
+interface PieUnit { id: string; total: number; done: number; color: string }
+function polar(cx: number, cy: number, R: number, a: number): [number, number] {
+  return [cx + R * Math.sin(a), cy - R * Math.cos(a)];
+}
+function wedgePath(cx: number, cy: number, R: number, a0: number, a1: number): string {
+  if (a1 - a0 <= 0) return "";
+  const [x0, y0] = polar(cx, cy, R, a0);
+  const [x1, y1] = polar(cx, cy, R, a1);
+  const large = a1 - a0 > Math.PI ? 1 : 0;
+  return `M${cx},${cy} L${x0.toFixed(3)},${y0.toFixed(3)} A${R},${R} 0 ${large},1 ${x1.toFixed(3)},${y1.toFixed(3)} Z`;
+}
+function ProgressPie({ units }: { units: PieUnit[] }) {
   const cx = 50, cy = 50, R = 46;
-  // Slice starts at 12 o'clock and sweeps clockwise.
-  const angle = pct * 2 * Math.PI;
-  const x = cx + R * Math.sin(angle);
-  const y = cy - R * Math.cos(angle);
-  const largeArc = pct > 0.5 ? 1 : 0;
-  const slice = pct >= 1
-    ? null // full circle handled by the base fill below
-    : pct <= 0
-      ? null
-      : `M${cx},${cy} L${cx},${cy - R} A${R},${R} 0 ${largeArc},1 ${x.toFixed(3)},${y.toFixed(3)} Z`;
+  const totalLessons = units.reduce((s, u) => s + u.total, 0);
+  const slices = units.filter(u => u.total > 0);
+
+  if (totalLessons === 0) {
+    return (
+      <svg viewBox="0 0 100 100" className="w-full max-w-[170px]">
+        <circle cx={cx} cy={cy} r={R} fill="hsl(45 10% 88%)" stroke="#fff" strokeWidth={2} />
+      </svg>
+    );
+  }
+
+  let a = 0;
+  const segs = slices.map((u) => {
+    const span = (u.total / totalLessons) * 2 * Math.PI;
+    const seg = { ...u, a0: a, a1: a + span, fillA1: a + span * (u.done / u.total) };
+    a += span;
+    return seg;
+  });
+
   return (
-    <svg viewBox="0 0 100 100" className="w-full max-w-[150px]">
-      {/* Remaining (or full when complete) */}
-      <circle cx={cx} cy={cy} r={R} fill={pct >= 1 ? "#1D9E75" : "hsl(45 10% 89%)"} />
-      {/* Completed slice */}
-      {slice && <path d={slice} fill="#1D9E75" />}
-      {/* Crisp white edge */}
+    <svg viewBox="0 0 100 100" className="w-full max-w-[170px]">
+      {/* Grey base wedge per unit */}
+      {segs.map((s) => <path key={`g${s.id}`} d={wedgePath(cx, cy, R, s.a0, s.a1)} fill="hsl(45 10% 88%)" />)}
+      {/* Completed colour fill per unit */}
+      {segs.map((s) => (s.fillA1 > s.a0 ? <path key={`c${s.id}`} d={wedgePath(cx, cy, R, s.a0, s.fillA1)} fill={s.color} /> : null))}
+      {/* White separators between units */}
+      {segs.map((s) => {
+        const [x, y] = polar(cx, cy, R, s.a0);
+        return <line key={`s${s.id}`} x1={cx} y1={cy} x2={x.toFixed(3)} y2={y.toFixed(3)} stroke="#fff" strokeWidth={1.5} />;
+      })}
       <circle cx={cx} cy={cy} r={R} fill="none" stroke="#fff" strokeWidth={2} />
     </svg>
   );
