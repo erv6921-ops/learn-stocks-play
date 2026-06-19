@@ -537,55 +537,71 @@ export default function Lessons() {
               )}
             </div>
 
-            {/* 3. Unit strip — #3 scrollable, hidden scrollbar, right fade */}
-            <div className="relative mb-4">
-              <div ref={stripRef} className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-                {trackUnits.map((unit) => {
-                  const adaptive = adaptiveCurriculum.get(unit.id);
-                  const uLessons = adaptive?.lessons ?? [];
-                  const done = uLessons.filter(l => l.status === "validated" || isLessonCompleted(l.lesson.id)).length;
-                  const total = uLessons.length;
-                  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-                  const isActive = unit.id === activeUnitId;
-                  const isLocked = !unlockedUnits.has(unit.id);
-                  const isComplete = done >= total && total > 0;
-
-                  return (
-                    <button
-                      key={unit.id}
-                      data-unit={unit.id}
-                      onClick={() => handleUnitTabClick(unit.id)}
-                      className="shrink-0 rounded-2xl px-4 py-3 text-left transition-colors min-w-[120px] relative overflow-hidden"
-                      style={{
-                        background: isActive ? "#2C2C2A" : isComplete ? "#E1F5EE" : "hsl(45 10% 91%)",
-                        opacity: isLocked ? 0.6 : 1,
-                      }}
-                    >
-                      <span className="text-[9px] font-bold uppercase tracking-[0.12em] flex items-center gap-1"
-                        style={{ color: isActive ? "rgba(255,255,255,0.5)" : isComplete ? "#1D9E75" : "hsl(215 12% 56%)" }}>
-                        Unit {unit.unitNumber}
-                        {isLocked && <Lock className="w-2.5 h-2.5" />}
-                      </span>
-                      <span className="text-[12px] font-bold block mt-0.5 truncate"
-                        style={{ color: isActive ? "#fff" : isComplete ? "#1D9E75" : "hsl(215 12% 38%)" }}>
-                        {unit.title}
-                      </span>
-                      {/* Progress bar at bottom */}
-                      <div className="absolute bottom-0 left-0 right-0 h-[3px]"
-                        style={{ background: isActive ? "rgba(255,255,255,0.1)" : isComplete ? "rgba(29,158,117,0.15)" : "transparent" }}>
-                        <div className="h-full transition-all duration-300"
-                          style={{
-                            width: `${pct}%`,
-                            background: isActive ? "#EF9F27" : isComplete ? "#1D9E75" : "transparent",
-                          }} />
-                      </div>
-                    </button>
-                  );
-                })}
+            {/* 3. Unit strip — scrollable "mission" tabs */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Units</p>
+                <span className="text-[11px] font-semibold text-muted-foreground">{trackUnits.length} in this track</span>
               </div>
-              {/* Right fade hint */}
-              <div className="pointer-events-none absolute right-0 top-0 bottom-2 w-12"
-                style={{ background: "linear-gradient(to right, transparent, hsl(var(--background)))" }} />
+              <div className="relative">
+                <div ref={stripRef} className="flex gap-2.5 overflow-x-auto pb-2 no-scrollbar">
+                  {trackUnits.map((unit) => {
+                    const adaptive = adaptiveCurriculum.get(unit.id);
+                    const uLessons = adaptive?.lessons ?? [];
+                    const done = uLessons.filter(l => l.status === "validated" || isLessonCompleted(l.lesson.id)).length;
+                    const total = uLessons.length;
+                    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+                    const isActive = unit.id === activeUnitId;
+                    const isLocked = !unlockedUnits.has(unit.id);
+                    const isComplete = done >= total && total > 0;
+
+                    // Same palette as the rest of the page: charcoal active,
+                    // light-green complete, warm-grey default; gold/green accents.
+                    const labelColor = isActive ? "rgba(255,255,255,0.55)" : isComplete ? "#1D9E75" : "hsl(215 12% 52%)";
+                    const titleColor = isActive ? "#fff" : isComplete ? "#0f6b4f" : "hsl(215 12% 28%)";
+                    const fill = isActive ? "#EF9F27" : "#1D9E75";
+                    const track = isActive ? "rgba(255,255,255,0.16)" : isComplete ? "rgba(29,158,117,0.18)" : "hsl(45 10% 84%)";
+
+                    return (
+                      <button
+                        key={unit.id}
+                        data-unit={unit.id}
+                        onClick={() => handleUnitTabClick(unit.id)}
+                        className="shrink-0 rounded-2xl p-3 text-left transition-all duration-200 w-[160px] press-scale hover:-translate-y-0.5"
+                        style={{
+                          background: isActive ? "#2C2C2A" : isComplete ? "#E1F5EE" : "hsl(45 10% 93%)",
+                          opacity: isLocked ? 0.55 : 1,
+                          boxShadow: isActive ? "0 8px 20px rgba(44,44,42,0.22)" : "none",
+                          border: isActive ? "1px solid #2C2C2A" : isComplete ? "1px solid rgba(29,158,117,0.22)" : "1px solid hsl(45 10% 86%)",
+                        }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: labelColor }}>
+                            Unit {unit.unitNumber}
+                          </span>
+                          <span className="shrink-0 flex items-center">
+                            {isLocked ? <Lock className="w-3 h-3" style={{ color: labelColor }} />
+                              : isComplete ? <CheckCircle className="w-4 h-4" style={{ color: "#1D9E75" }} />
+                              : <span className="text-[10px] font-extrabold tabular-nums" style={{ color: labelColor }}>{pct}%</span>}
+                          </span>
+                        </div>
+                        <span className="text-[12.5px] font-bold block mt-1 leading-snug line-clamp-2 min-h-[2.4em]" style={{ color: titleColor }}>
+                          {unit.title}
+                        </span>
+                        <div className="mt-2.5 flex items-center gap-2">
+                          <div className="h-1.5 flex-1 rounded-full overflow-hidden" style={{ background: track }}>
+                            <div className="h-full rounded-full transition-all duration-300" style={{ width: `${pct}%`, background: fill }} />
+                          </div>
+                          <span className="text-[10px] font-bold tabular-nums" style={{ color: labelColor }}>{done}/{total}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                {/* Right fade hint */}
+                <div className="pointer-events-none absolute right-0 top-0 bottom-2 w-12"
+                  style={{ background: "linear-gradient(to right, transparent, hsl(var(--background)))" }} />
+              </div>
             </div>
 
             {/* #8 Locked-unit preview panel */}
