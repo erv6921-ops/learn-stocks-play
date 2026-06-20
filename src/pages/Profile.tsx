@@ -25,6 +25,8 @@ import {
   School, KeyRound, CalendarDays, Sparkles, Store, TrendingUp, TrendingDown,
   Gamepad2, Lock, CheckCircle2, ChevronRight, Trophy, Rocket,
   Pencil, Sun, Moon, Monitor, Palette,
+  Crown, Medal, Target, Gem, PiggyBank, Briefcase, LineChart, Brain,
+  Shield, Banknote, Diamond, BarChart3, Wallet, Compass,
 } from "lucide-react"
 
 // ── Curriculum level + progress to next level ─────────────────────────────
@@ -230,22 +232,60 @@ export default function Profile() {
   // ── Badges ─────────────────────────────────────────────────────────────
   const badges = useMemo(() => {
     const lc = completedLessons.length
+    const totalLessons = lessons.length
+    const totalUnits = unitInfo.length
+    const holdings = portfolio.length
+    const gamesPlayed = dailyGames.length
+    const nw = Math.floor(netWorth)
+    const xp = Math.floor(totalXP)
     const defs = [
+      // ── Lessons ──
       { id: "first-steps", name: "First Steps", desc: "Complete your first lesson", icon: BookOpen, earned: lc >= 1, need: "Complete 1 lesson" },
       { id: "bookworm", name: "Bookworm", desc: "Complete 10 lessons", icon: GraduationCap, earned: lc >= 10, need: `Complete 10 lessons (${lc}/10)` },
       { id: "scholar", name: "Scholar", desc: "Complete 25 lessons", icon: Star, earned: lc >= 25, need: `Complete 25 lessons (${lc}/25)` },
+      { id: "dedicated", name: "Dedicated", desc: "Complete 50 lessons", icon: Brain, earned: lc >= 50, need: `Complete 50 lessons (${lc}/50)` },
+      { id: "centurion", name: "Centurion", desc: "Complete 100 lessons", icon: Medal, earned: lc >= 100, need: `Complete 100 lessons (${lc}/100)` },
+      { id: "completionist", name: "Completionist", desc: "Complete every lesson", icon: CheckCircle2, earned: totalLessons > 0 && lc >= totalLessons, need: `Complete all lessons (${lc}/${totalLessons})` },
+      // ── Units ──
       { id: "unit-master", name: "Unit Master", desc: "Finish a full unit", icon: Layers, earned: unitsCompleted >= 1, need: "Finish every lesson in a unit" },
+      { id: "trailblazer", name: "Trailblazer", desc: "Finish 3 units", icon: Compass, earned: unitsCompleted >= 3, need: `Finish 3 units (${unitsCompleted}/3)` },
+      { id: "unit-champion", name: "Unit Champion", desc: "Finish 5 units", icon: Crown, earned: unitsCompleted >= 5, need: `Finish 5 units (${unitsCompleted}/5)` },
+      { id: "graduate", name: "Graduate", desc: "Finish every unit", icon: Shield, earned: totalUnits > 0 && unitsCompleted >= totalUnits, need: `Finish all units (${unitsCompleted}/${totalUnits})` },
+      // ── Levels ──
+      { id: "rising-star", name: "Rising Star", desc: "Reach Level 3", icon: Sparkles, earned: level >= 3, need: `Reach Level 3 (Lv ${level})` },
       { id: "halfway", name: "Halfway Hero", desc: "Reach Level 5", icon: Trophy, earned: level >= 5, need: `Reach Level 5 (Lv ${level})` },
+      { id: "expert", name: "Expert", desc: "Reach Level 8", icon: Target, earned: level >= 8, need: `Reach Level 8 (Lv ${level})` },
+      { id: "maxed", name: "Maxed Out", desc: "Reach Level 10", icon: Crown, earned: level >= 10, need: `Reach Level 10 (Lv ${level})` },
+      // ── Streaks ──
       { id: "streak-3", name: "Streak Starter", desc: "Hit a 3-day streak", icon: Flame, earned: bestStreak >= 3, need: `Reach a 3-day streak (best ${bestStreak})` },
-      { id: "streak-7", name: "On Fire", desc: "Hit a 7-day streak", icon: Sparkles, earned: bestStreak >= 7, need: `Reach a 7-day streak (best ${bestStreak})` },
-      { id: "coin-1k", name: "Coin Collector", desc: "Earn 1,000 coins", icon: Coins, earned: totalXP >= 1000, need: `Earn 1,000 coins (${Math.floor(totalXP)}/1,000)` },
-      { id: "coin-10k", name: "Big Earner", desc: "Earn 10,000 coins", icon: Zap, earned: totalXP >= 10000, need: `Earn 10,000 coins (${Math.floor(totalXP)}/10,000)` },
-      { id: "investor", name: "Market Player", desc: "Buy your first stock", icon: TrendingUp, earned: portfolio.length >= 1, need: "Buy a stock in the market" },
+      { id: "streak-7", name: "On Fire", desc: "Hit a 7-day streak", icon: Zap, earned: bestStreak >= 7, need: `Reach a 7-day streak (best ${bestStreak})` },
+      { id: "streak-14", name: "Fortnight Focus", desc: "Hit a 14-day streak", icon: Sparkles, earned: bestStreak >= 14, need: `Reach a 14-day streak (best ${bestStreak})` },
+      { id: "streak-30", name: "Unstoppable", desc: "Hit a 30-day streak", icon: Rocket, earned: bestStreak >= 30, need: `Reach a 30-day streak (best ${bestStreak})` },
+      // ── Coins earned ──
+      { id: "coin-500", name: "Pocket Change", desc: "Earn 500 coins", icon: Coins, earned: xp >= 500, need: `Earn 500 coins (${xp.toLocaleString()}/500)` },
+      { id: "coin-1k", name: "Coin Collector", desc: "Earn 1,000 coins", icon: PiggyBank, earned: xp >= 1000, need: `Earn 1,000 coins (${xp.toLocaleString()}/1,000)` },
+      { id: "coin-5k", name: "Money Maker", desc: "Earn 5,000 coins", icon: Banknote, earned: xp >= 5000, need: `Earn 5,000 coins (${xp.toLocaleString()}/5,000)` },
+      { id: "coin-10k", name: "Big Earner", desc: "Earn 10,000 coins", icon: Wallet, earned: xp >= 10000, need: `Earn 10,000 coins (${xp.toLocaleString()}/10,000)` },
+      { id: "coin-50k", name: "Wealthy", desc: "Earn 50,000 coins", icon: Gem, earned: xp >= 50000, need: `Earn 50,000 coins (${xp.toLocaleString()}/50,000)` },
+      { id: "coin-100k", name: "Tycoon", desc: "Earn 100,000 coins", icon: Diamond, earned: xp >= 100000, need: `Earn 100,000 coins (${xp.toLocaleString()}/100,000)` },
+      // ── Net worth ──
+      { id: "networth-5k", name: "Saver", desc: "Reach 5,000 net worth", icon: TrendingUp, earned: nw >= 5000, need: `Reach 5,000 net worth (${nw.toLocaleString()}/5,000)` },
+      { id: "networth-25k", name: "High Roller", desc: "Reach 25,000 net worth", icon: BarChart3, earned: nw >= 25000, need: `Reach 25,000 net worth (${nw.toLocaleString()}/25,000)` },
+      // ── Stocks ──
+      { id: "investor", name: "Market Player", desc: "Buy your first stock", icon: TrendingUp, earned: holdings >= 1, need: "Buy a stock in the market" },
+      { id: "diversified", name: "Diversified", desc: "Hold 3 different stocks", icon: LineChart, earned: holdings >= 3, need: `Hold 3 stocks (${holdings}/3)` },
+      { id: "portfolio-pro", name: "Portfolio Pro", desc: "Hold 5 different stocks", icon: Briefcase, earned: holdings >= 5, need: `Hold 5 stocks (${holdings}/5)` },
+      // ── Business ──
       { id: "entrepreneur", name: "Entrepreneur", desc: "Start a business", icon: Store, earned: !!business, need: "Launch a micro-business" },
-      { id: "gamer", name: "Game On", desc: "Play a daily game", icon: Gamepad2, earned: dailyGames.length >= 1, need: "Play a daily game" },
+      { id: "profitable", name: "In the Black", desc: "Run a profitable business", icon: TrendingUp, earned: !!business && (business.pnl ?? 0) > 0, need: "Reach positive business profit" },
+      { id: "business-boss", name: "Business Boss", desc: "Grow your business to level 3", icon: Rocket, earned: !!business && (business.level ?? 0) >= 3, need: "Reach business level 3" },
+      // ── Daily games ──
+      { id: "gamer", name: "Game On", desc: "Play a daily game", icon: Gamepad2, earned: gamesPlayed >= 1, need: "Play a daily game" },
+      { id: "game-regular", name: "Regular Player", desc: "Play 10 daily games", icon: Target, earned: gamesPlayed >= 10, need: `Play 10 games (${gamesPlayed}/10)` },
+      { id: "game-master", name: "Game Master", desc: "Play 25 daily games", icon: Medal, earned: gamesPlayed >= 25, need: `Play 25 games (${gamesPlayed}/25)` },
     ]
     return defs
-  }, [completedLessons.length, unitsCompleted, level, bestStreak, totalXP, portfolio.length, business, dailyGames.length])
+  }, [completedLessons.length, unitsCompleted, level, bestStreak, totalXP, portfolio.length, business, dailyGames.length, netWorth])
 
   const earnedBadges = badges.filter(b => b.earned)
 

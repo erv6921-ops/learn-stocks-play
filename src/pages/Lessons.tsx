@@ -15,7 +15,7 @@ import GameNav from "@/components/GameNav";
 import {
   ArrowRight, Lock, CheckCircle, Coins, Flame, Star, Trophy,
   Award, Footprints, Zap, Crown, LineChart, Coins as CoinsIcon,
-  GraduationCap, Target,
+  GraduationCap, Target, BookOpen, Medal, Rocket, Compass, Shield, Sparkles, Gem,
 } from "lucide-react";
 import { LessonCategory, CourseTrack } from "@/types";
 import APModeToggle from "@/components/APModeToggle";
@@ -270,14 +270,24 @@ export default function Lessons() {
   const stocksVisits = useMemo(() => {
     try { return parseInt(localStorage.getItem('investiplay_stocks_visits') || '0', 10) || 0; } catch { return 0; }
   }, []);
+  const unitsDone = unitScores.filter(u => u.total > 0 && u.done >= u.total).length;
   const badges = useMemo(() => [
-    { id: 'first-step',     name: 'First Step',     Icon: Footprints, earned: completedLessonsAll >= 1 },
-    { id: 'on-a-roll',      name: 'On a Roll',      Icon: Flame,      earned: bestStreak >= 3 },
-    { id: 'week-warrior',   name: 'Week Warrior',   Icon: Zap,        earned: bestStreak >= 7 },
-    { id: 'unit-master',    name: 'Unit Master',    Icon: Crown,      earned: anyUnitComplete },
-    { id: 'market-watcher', name: 'Market Watcher', Icon: LineChart,  earned: stocksVisits >= 5 },
-    { id: 'coin-collector', name: 'Coin Collector', Icon: CoinsIcon,  earned: totalEarned >= 500 },
-  ], [completedLessonsAll, bestStreak, anyUnitComplete, stocksVisits, totalEarned]);
+    { id: 'first-step',     name: 'First Step',     Icon: Footprints,    earned: completedLessonsAll >= 1 },
+    { id: 'getting-going',  name: 'Getting Going',  Icon: BookOpen,      earned: completedLessonsAll >= 10 },
+    { id: 'scholar',        name: 'Scholar',        Icon: GraduationCap, earned: completedLessonsAll >= 25 },
+    { id: 'centurion',      name: 'Centurion',      Icon: Medal,         earned: completedLessonsAll >= 100 },
+    { id: 'on-a-roll',      name: 'On a Roll',      Icon: Flame,         earned: bestStreak >= 3 },
+    { id: 'week-warrior',   name: 'Week Warrior',   Icon: Zap,           earned: bestStreak >= 7 },
+    { id: 'unstoppable',    name: 'Unstoppable',    Icon: Rocket,        earned: bestStreak >= 30 },
+    { id: 'unit-master',    name: 'Unit Master',    Icon: Crown,         earned: anyUnitComplete },
+    { id: 'trailblazer',    name: 'Trailblazer',    Icon: Compass,       earned: unitsDone >= 3 },
+    { id: 'graduate',       name: 'Graduate',       Icon: Shield,        earned: unitsDone >= 5 },
+    { id: 'rising-star',    name: 'Rising Star',    Icon: Sparkles,      earned: level >= 5 },
+    { id: 'maxed-out',      name: 'Maxed Out',      Icon: Star,          earned: level >= 10 },
+    { id: 'market-watcher', name: 'Market Watcher', Icon: LineChart,     earned: stocksVisits >= 5 },
+    { id: 'coin-collector', name: 'Coin Collector', Icon: CoinsIcon,     earned: totalEarned >= 500 },
+    { id: 'big-earner',     name: 'Big Earner',     Icon: Gem,           earned: totalEarned >= 10000 },
+  ], [completedLessonsAll, bestStreak, anyUnitComplete, unitsDone, level, stocksVisits, totalEarned]);
   const earnedBadgeCount = badges.filter(b => b.earned).length;
 
   // ── #9 Class rank (same query the Leaderboard page uses) ──
