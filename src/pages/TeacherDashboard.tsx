@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { supabase } from "@/integrations/supabase/client"
 import { JeffMascot } from "@/components/JeffMascot"
@@ -18,28 +18,33 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts"
 import { useToast } from "@/hooks/use-toast"
 import { lessons } from "@/data/lessons"
-import { 
-  Plus, 
-  Users, 
-  Copy, 
-  Trash2, 
-  LogOut, 
+import {
+  Plus,
+  Users,
+  Copy,
+  Trash2,
+  LogOut,
   GraduationCap,
   Loader2,
   RefreshCw,
@@ -47,9 +52,23 @@ import {
   CheckCircle2,
   FileText,
   Save,
+  Percent,
+  ClipboardList,
+  BarChart3,
+  TrendingUp,
 } from "lucide-react"
 import { ACTIVITY_TITLES } from "@/lib/businessActivities"
 import { BRIEF_BY_ID } from "@/lib/quarterlyBriefs"
+
+// ── Chart palette (kept in the app's teal / gold / green family) ──
+const C = {
+  green: "#1D9E75",
+  blue: "#3B82C4",
+  gold: "#EF9F27",
+  purple: "#9B59B6",
+  grey: "#E5E1D8",
+  grid: "#EFECE4",
+}
 
 interface Class {
   id: string
@@ -115,10 +134,17 @@ function extractWork(activitiesData: Record<string, unknown> | undefined): WorkS
   return sections
 }
 
+const shorten = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "…" : s)
+const memberName = (m: ClassMember) => {
+  const f = m.profile?.first_name?.trim()
+  const l = m.profile?.last_name?.trim()
+  return f || l ? `${f || ""} ${l || ""}`.trim() : "Unknown Student"
+}
+
 export default function TeacherDashboard() {
   const navigate = useNavigate()
   const { toast } = useToast()
-  
+
   const [classes, setClasses] = useState<Class[]>([])
   const [selectedClass, setSelectedClass] = useState<Class | null>(null)
   const [classMembers, setClassMembers] = useState<ClassMember[]>([])
@@ -532,6 +558,47 @@ export default function TeacherDashboard() {
     return lessons.filter(l => !assignedIds.has(l.id))
   }
 
+  // ── Derived analytics for the charts ──
+  const totalStudents = classes.reduce((s, c) => s + (c.student_count || 0), 0)
+  const assignments = classMembers[0]?.assignedLessons ?? []
+
+  const studentChartData = useMemo(
+    () => classMembers
+      .map((m) => {
+        const p = getStudentProgress(m)
+        return { name: shorten(memberName(m), 12), percent: p.percent, completed: p.completed, total: p.total }
+      })
+      .sort((a, b) => b.percent - a.percent),
+    [classMembers]
+  )
+
+  const lessonChartData = useMemo(
+    () => assignments.map((a) => {
+      const lesson = lessons.find(l => l.id === a.lesson_id)
+      const title = lesson?.title ?? a.lesson_id
+      const done = classMembers.filter(m => m.completedLessonIds.includes(a.lesson_id)).length
+      return { name: shorten(title, 14), full: title, Completed: done, Remaining: Math.max(0, classMembers.length - done) }
+    }),
+    [assignments, classMembers]
+  )
+
+  const classCompletion = useMemo(() => {
+    let done = 0, total = 0
+    classMembers.forEach((m) => { const p = getStudentProgress(m); done += p.completed; total += p.total })
+    return { done, total, remaining: Math.max(0, total - done), pct: total > 0 ? Math.round((done / total) * 100) : 0 }
+  }, [classMembers])
+
+  const avgCompletion = useMemo(() => {
+    const withWork = studentChartData.filter((s) => s.total > 0)
+    if (!withWork.length) return 0
+    return Math.round(withWork.reduce((s, x) => s + x.percent, 0) / withWork.length)
+  }, [studentChartData])
+
+  const studentsPerClass = useMemo(
+    () => classes.map((c) => ({ name: shorten(c.name, 16), students: c.student_count || 0 })),
+    [classes]
+  )
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -540,81 +607,105 @@ export default function TeacherDashboard() {
     )
   }
 
+  const kpis = [
+    { label: "Classes", value: String(classes.length), icon: GraduationCap, color: C.green },
+    { label: "Students", value: String(totalStudents), icon: Users, color: C.blue },
+    { label: "Avg completion", value: selectedClass ? `${avgCompletion}%` : "—", icon: Percent, color: C.gold },
+    { label: "Assignments", value: selectedClass ? String(assignments.length) : "—", icon: ClipboardList, color: C.purple },
+  ]
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b bg-card/60 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <JeffMascot size="sm" mood="happy" />
             <div>
               <h1 className="font-display text-xl font-bold">Teacher Dashboard</h1>
-              <p className="text-sm text-muted-foreground">Manage your classes</p>
+              <p className="text-sm text-muted-foreground">{selectedClass ? selectedClass.name : "Manage your classes"}</p>
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout}>
-            <LogOut className="w-4 h-4 mr-2" />
-            Log Out
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="icon" onClick={loadClasses} title="Refresh">
+              <RefreshCw className="w-4 h-4" />
+            </Button>
+            <Button variant="outline" onClick={handleLogout}>
+              <LogOut className="w-4 h-4 mr-2" />
+              Log Out
+            </Button>
+          </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-6">
+      <main className="container mx-auto px-4 py-8 space-y-6">
+        {/* KPI row */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {kpis.map((k) => (
+            <Card key={k.label} variant="elevated">
+              <CardContent className="p-4 flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${k.color}1a` }}>
+                  <k.icon className="w-5 h-5" style={{ color: k.color }} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-2xl font-extrabold leading-none tabular-nums">{k.value}</p>
+                  <p className="text-xs text-muted-foreground mt-1 truncate">{k.label}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-6 items-start">
           {/* Classes List */}
           <div className="lg:col-span-1">
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-display text-lg font-bold">Your Classes</h2>
-              <div className="flex gap-2">
-                <Button variant="outline" size="icon" onClick={loadClasses}>
-                  <RefreshCw className="w-4 h-4" />
-                </Button>
-                <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button size="sm">
-                      <Plus className="w-4 h-4 mr-2" />
-                      New Class
+              <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button size="sm">
+                    <Plus className="w-4 h-4 mr-2" />
+                    New Class
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Create a New Class</DialogTitle>
+                    <DialogDescription>
+                      Create a class and share the join code with your students.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={createClass} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="className">Class Name</Label>
+                      <Input
+                        id="className"
+                        placeholder="e.g., Finance 101 - Period 3"
+                        value={newClassName}
+                        onChange={e => setNewClassName(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="classDescription">Description (optional)</Label>
+                      <Input
+                        id="classDescription"
+                        placeholder="Brief description of the class"
+                        value={newClassDescription}
+                        onChange={e => setNewClassDescription(e.target.value)}
+                      />
+                    </div>
+                    <Button type="submit" className="w-full" disabled={creating}>
+                      {creating ? (
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      ) : (
+                        <Plus className="w-4 h-4 mr-2" />
+                      )}
+                      Create Class
                     </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Create a New Class</DialogTitle>
-                      <DialogDescription>
-                        Create a class and share the join code with your students.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <form onSubmit={createClass} className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="className">Class Name</Label>
-                        <Input
-                          id="className"
-                          placeholder="e.g., Finance 101 - Period 3"
-                          value={newClassName}
-                          onChange={e => setNewClassName(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="classDescription">Description (optional)</Label>
-                        <Input
-                          id="classDescription"
-                          placeholder="Brief description of the class"
-                          value={newClassDescription}
-                          onChange={e => setNewClassDescription(e.target.value)}
-                        />
-                      </div>
-                      <Button type="submit" className="w-full" disabled={creating}>
-                        {creating ? (
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        ) : (
-                          <Plus className="w-4 h-4 mr-2" />
-                        )}
-                        Create Class
-                      </Button>
-                    </form>
-                  </DialogContent>
-                </Dialog>
-              </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </div>
 
             {classes.length === 0 ? (
@@ -628,254 +719,379 @@ export default function TeacherDashboard() {
               </Card>
             ) : (
               <div className="space-y-3">
-                {classes.map((cls) => (
-                  <Card
-                    key={cls.id}
-                    variant={selectedClass?.id === cls.id ? "elevated" : "default"}
-                    className={`cursor-pointer transition-all hover:shadow-md ${
-                      selectedClass?.id === cls.id ? "ring-2 ring-primary" : ""
-                    }`}
-                    onClick={() => selectClass(cls)}
-                  >
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <h3 className="font-semibold">{cls.name}</h3>
-                          {cls.description && (
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {cls.description}
-                            </p>
-                          )}
-                          <div className="flex items-center gap-3 mt-2">
-                            <Badge variant="secondary" className="font-mono">
-                              {cls.join_code}
-                            </Badge>
-                            <span className="text-sm text-muted-foreground flex items-center gap-1">
-                              <Users className="w-3 h-3" />
-                              {cls.student_count} students
-                            </span>
+                {classes.map((cls) => {
+                  const active = selectedClass?.id === cls.id
+                  return (
+                    <Card
+                      key={cls.id}
+                      variant={active ? "elevated" : "default"}
+                      className={`cursor-pointer transition-all hover:shadow-md ${active ? "ring-2 ring-primary" : ""}`}
+                      onClick={() => selectClass(cls)}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold truncate">{cls.name}</h3>
+                            {cls.description && (
+                              <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
+                                {cls.description}
+                              </p>
+                            )}
+                            <div className="flex items-center gap-3 mt-2">
+                              <Badge variant="secondary" className="font-mono">
+                                {cls.join_code}
+                              </Badge>
+                              <span className="text-sm text-muted-foreground flex items-center gap-1">
+                                <Users className="w-3 h-3" />
+                                {cls.student_count} students
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex gap-1">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                copyJoinCode(cls.join_code)
+                              }}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                deleteClass(cls.id)
+                              }}
+                            >
+                              <Trash2 className="w-4 h-4 text-destructive" />
+                            </Button>
                           </div>
                         </div>
-                        <div className="flex gap-1">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              copyJoinCode(cls.join_code)
-                            }}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              deleteClass(cls.id)
-                            }}
-                          >
-                            <Trash2 className="w-4 h-4 text-destructive" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      </CardContent>
+                    </Card>
+                  )
+                })}
               </div>
             )}
           </div>
 
-          {/* Student List */}
-          <div className="lg:col-span-2">
-            {selectedClass ? (
-              <Card variant="elevated">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle>{selectedClass.name}</CardTitle>
-                      <CardDescription>
-                        Share code <strong className="font-mono text-primary">{selectedClass.join_code}</strong> with students to join
-                      </CardDescription>
-                    </div>
-                    <Button variant="outline" onClick={() => copyJoinCode(selectedClass.join_code)}>
-                      <Copy className="w-4 h-4 mr-2" />
-                      Copy Code
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  {/* Class-wide assign */}
-                  <div className="mb-6 p-4 rounded-lg border bg-muted/30">
-                    <p className="text-sm font-semibold mb-2 flex items-center gap-2">
-                      <BookOpen className="w-4 h-4" />
-                      Assign a lesson to the entire class
-                    </p>
-                    <p className="text-xs text-muted-foreground mb-3">
-                      Pick any lesson — every student in this class will be required to complete it.
-                    </p>
-                    <div className="flex gap-2">
-                      <Select value={classWideLessonId} onValueChange={setClassWideLessonId} disabled={assigningAll}>
-                        <SelectTrigger className="flex-1">
-                          <SelectValue placeholder="Choose a lesson..." />
-                        </SelectTrigger>
-                        <SelectContent className="max-h-[400px]">
-                          {lessons.map((lesson) => (
-                            <SelectItem key={lesson.id} value={lesson.id}>
-                              {lesson.title}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <Button
-                        onClick={assignLessonToClass}
-                        disabled={!classWideLessonId || assigningAll}
-                      >
-                        {assigningAll ? (
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        ) : (
-                          <Plus className="w-4 h-4 mr-2" />
-                        )}
-                        Assign to Class
+          {/* Right column */}
+          <div className="lg:col-span-2 space-y-6">
+            {!selectedClass ? (
+              <>
+                {classes.length > 0 && (
+                  <Card variant="elevated">
+                    <CardHeader>
+                      <CardTitle className="text-base flex items-center gap-2">
+                        <BarChart3 className="w-4 h-4 text-primary" /> Students per class
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={Math.max(180, studentsPerClass.length * 42)}>
+                        <BarChart data={studentsPerClass} layout="vertical" margin={{ left: 8, right: 16, top: 4, bottom: 4 }}>
+                          <CartesianGrid horizontal={false} stroke={C.grid} />
+                          <XAxis type="number" allowDecimals={false} tick={{ fontSize: 11 }} />
+                          <YAxis type="category" dataKey="name" width={100} tick={{ fontSize: 11 }} />
+                          <Tooltip cursor={{ fill: "rgba(0,0,0,0.03)" }} contentStyle={{ borderRadius: 12, border: "1px solid #eee", fontSize: 12 }} />
+                          <Bar dataKey="students" fill={C.blue} radius={[0, 6, 6, 0]} barSize={18} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                )}
+                <Card variant="elevated">
+                  <CardContent className="p-12 text-center">
+                    <JeffMascot size="lg" mood="teaching" message="Select a class to view students & analytics" />
+                  </CardContent>
+                </Card>
+              </>
+            ) : (
+              <>
+                {/* Class header + class-wide assign */}
+                <Card variant="elevated">
+                  <CardHeader>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="min-w-0">
+                        <CardTitle className="truncate">{selectedClass.name}</CardTitle>
+                        <CardDescription>
+                          Share code <strong className="font-mono text-primary">{selectedClass.join_code}</strong> with students to join
+                        </CardDescription>
+                      </div>
+                      <Button variant="outline" onClick={() => copyJoinCode(selectedClass.join_code)} className="shrink-0">
+                        <Copy className="w-4 h-4 mr-2" />
+                        Copy Code
                       </Button>
                     </div>
-                  </div>
-
-                  {classMembers.length === 0 ? (
-                    <div className="text-center py-8">
-                      <Users className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-                      <p className="text-muted-foreground">
-                        No students have joined yet. Share the join code with your students!
+                  </CardHeader>
+                  <CardContent>
+                    <div className="p-4 rounded-lg border bg-muted/30">
+                      <p className="text-sm font-semibold mb-2 flex items-center gap-2">
+                        <BookOpen className="w-4 h-4" />
+                        Assign a lesson to the entire class
                       </p>
+                      <p className="text-xs text-muted-foreground mb-3">
+                        Pick any lesson — every student in this class will be required to complete it.
+                      </p>
+                      <div className="flex gap-2">
+                        <Select value={classWideLessonId} onValueChange={setClassWideLessonId} disabled={assigningAll}>
+                          <SelectTrigger className="flex-1">
+                            <SelectValue placeholder="Choose a lesson..." />
+                          </SelectTrigger>
+                          <SelectContent className="max-h-[400px]">
+                            {lessons.map((lesson) => (
+                              <SelectItem key={lesson.id} value={lesson.id}>
+                                {lesson.title}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <Button onClick={assignLessonToClass} disabled={!classWideLessonId || assigningAll}>
+                          {assigningAll ? (
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          ) : (
+                            <Plus className="w-4 h-4 mr-2" />
+                          )}
+                          Assign to Class
+                        </Button>
+                      </div>
                     </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {classMembers.map((member) => {
-                        const progress = getStudentProgress(member)
-                        const unassigned = getUnassignedLessons(member)
-                        const name = member.profile?.first_name || member.profile?.last_name
-                          ? `${member.profile.first_name || ""} ${member.profile.last_name || ""}`.trim()
-                          : "Unknown Student"
+                  </CardContent>
+                </Card>
 
-                        return (
-                          <Card key={member.id} className="border">
-                            <CardContent className="p-4">
-                              {/* Student Info Row */}
-                              <div className="flex items-center justify-between mb-3">
-                                <div className="flex items-center gap-3">
-                                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                                    <GraduationCap className="w-5 h-5 text-primary" />
-                                  </div>
-                                  <div>
-                                    <h4 className="font-semibold">{name}</h4>
-                                    <p className="text-sm text-muted-foreground">
-                                      {member.profile?.grade ? `Grade ${member.profile.grade}` : "No grade set"}
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="gap-1.5"
-                                    onClick={() => openWork(member)}
+                {/* Analytics */}
+                {classMembers.length > 0 && (
+                  <>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {/* Completion donut */}
+                      <Card variant="elevated">
+                        <CardHeader className="pb-0">
+                          <CardTitle className="text-base flex items-center gap-2">
+                            <Percent className="w-4 h-4 text-primary" /> Class completion
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          {classCompletion.total === 0 ? (
+                            <p className="text-sm text-muted-foreground text-center py-12">
+                              Assign a lesson to start tracking completion.
+                            </p>
+                          ) : (
+                            <div className="relative">
+                              <ResponsiveContainer width="100%" height={190}>
+                                <PieChart>
+                                  <Pie
+                                    data={[
+                                      { name: "Completed", value: classCompletion.done },
+                                      { name: "Remaining", value: classCompletion.remaining },
+                                    ]}
+                                    dataKey="value"
+                                    innerRadius={58}
+                                    outerRadius={82}
+                                    startAngle={90}
+                                    endAngle={-270}
+                                    stroke="none"
                                   >
-                                    <FileText className="w-3.5 h-3.5" />
-                                    View work
-                                  </Button>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    onClick={() => removeStudent(member.id)}
-                                  >
-                                    <Trash2 className="w-4 h-4 text-destructive" />
-                                  </Button>
-                                </div>
+                                    <Cell fill={C.green} />
+                                    <Cell fill={C.grey} />
+                                  </Pie>
+                                  <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #eee", fontSize: 12 }} />
+                                </PieChart>
+                              </ResponsiveContainer>
+                              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                                <span className="text-3xl font-extrabold" style={{ color: C.green }}>{classCompletion.pct}%</span>
+                                <span className="text-xs text-muted-foreground">{classCompletion.done}/{classCompletion.total} done</span>
                               </div>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
 
-                              {/* Progress */}
-                              {progress.total > 0 && (
-                                <div className="mb-3">
-                                  <div className="flex items-center justify-between text-sm mb-1">
-                                    <span className="text-muted-foreground">Lesson Progress</span>
-                                    <span className="font-medium">{progress.completed}/{progress.total} completed</span>
-                                  </div>
-                                  <Progress value={progress.percent} variant={progress.percent === 100 ? "success" : "default"} />
-                                </div>
-                              )}
-
-                              {/* Assigned Lessons */}
-                              {member.assignedLessons.length > 0 && (
-                                <div className="mb-3">
-                                  <p className="text-sm font-medium mb-2 flex items-center gap-1">
-                                    <BookOpen className="w-3.5 h-3.5" />
-                                    Assigned Lessons
-                                  </p>
-                                  <div className="flex flex-wrap gap-2">
-                                    {member.assignedLessons.map((assignment) => {
-                                      const lesson = lessons.find(l => l.id === assignment.lesson_id)
-                                      const done = member.completedLessonIds.includes(assignment.lesson_id)
-                                      return (
-                                        <Badge
-                                          key={assignment.id}
-                                          variant={done ? "default" : "secondary"}
-                                          className="flex items-center gap-1 cursor-pointer"
-                                          onClick={() => removeAssignment(assignment.id)}
-                                          title="Click to remove assignment from class"
-                                        >
-                                          {done && <CheckCircle2 className="w-3 h-3" />}
-                                          {lesson?.title || assignment.lesson_id}
-                                          <Trash2 className="w-3 h-3 ml-1 opacity-50 hover:opacity-100" />
-                                        </Badge>
-                                      )
-                                    })}
-                                  </div>
-                                </div>
-                              )}
-
-                              {/* Assign Lesson Dropdown */}
-                              {unassigned.length > 0 && (
-                                <div className="flex items-center gap-2">
-                                  <Select
-                                    onValueChange={(lessonId) => assignLesson(member.user_id, lessonId)}
-                                    disabled={assigning === member.user_id}
-                                  >
-                                    <SelectTrigger className="flex-1">
-                                      <SelectValue placeholder="Assign a lesson..." />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      {unassigned.map((lesson) => (
-                                        <SelectItem key={lesson.id} value={lesson.id}>
-                                          {lesson.title}
-                                        </SelectItem>
-                                      ))}
-                                    </SelectContent>
-                                  </Select>
-                                  {assigning === member.user_id && (
-                                    <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
-                                  )}
-                                </div>
-                              )}
-
-                              {member.assignedLessons.length === 0 && (
-                                <p className="text-sm text-muted-foreground italic">
-                                  No lessons assigned yet
-                                </p>
-                              )}
-                            </CardContent>
-                          </Card>
-                        )
-                      })}
+                      {/* Per-student progress */}
+                      <Card variant="elevated">
+                        <CardHeader className="pb-0">
+                          <CardTitle className="text-base flex items-center gap-2">
+                            <Users className="w-4 h-4 text-primary" /> Per-student progress
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <ResponsiveContainer width="100%" height={Math.max(150, studentChartData.length * 34)}>
+                            <BarChart data={studentChartData} layout="vertical" margin={{ left: 8, right: 16, top: 4, bottom: 4 }}>
+                              <CartesianGrid horizontal={false} stroke={C.grid} />
+                              <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} tick={{ fontSize: 11 }} />
+                              <YAxis type="category" dataKey="name" width={74} tick={{ fontSize: 11 }} />
+                              <Tooltip formatter={(v: number) => [`${v}%`, "Complete"]} contentStyle={{ borderRadius: 12, border: "1px solid #eee", fontSize: 12 }} />
+                              <Bar dataKey="percent" fill={C.green} radius={[0, 6, 6, 0]} barSize={16} />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </CardContent>
+                      </Card>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
-            ) : (
-              <Card variant="elevated">
-                <CardContent className="p-12 text-center">
-                  <JeffMascot size="lg" mood="teaching" message="Select a class to view students" />
-                </CardContent>
-              </Card>
+
+                    {/* Lesson completion */}
+                    {lessonChartData.length > 0 && (
+                      <Card variant="elevated">
+                        <CardHeader className="pb-0">
+                          <CardTitle className="text-base flex items-center gap-2">
+                            <TrendingUp className="w-4 h-4 text-primary" /> Lesson completion across the class
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <ResponsiveContainer width="100%" height={260}>
+                            <BarChart data={lessonChartData} margin={{ top: 8, right: 8, left: -16, bottom: 8 }}>
+                              <CartesianGrid vertical={false} stroke={C.grid} />
+                              <XAxis dataKey="name" tick={{ fontSize: 10 }} interval={0} angle={-18} textAnchor="end" height={56} />
+                              <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
+                              <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #eee", fontSize: 12 }} />
+                              <Legend wrapperStyle={{ fontSize: 12 }} />
+                              <Bar dataKey="Completed" stackId="a" fill={C.green} radius={[0, 0, 0, 0]} />
+                              <Bar dataKey="Remaining" stackId="a" fill={C.grey} radius={[4, 4, 0, 0]} />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </>
+                )}
+
+                {/* Students roster */}
+                <Card variant="elevated">
+                  <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <GraduationCap className="w-4 h-4 text-primary" /> Students
+                      <Badge variant="secondary" className="ml-1">{classMembers.length}</Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {classMembers.length === 0 ? (
+                      <div className="text-center py-8">
+                        <Users className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+                        <p className="text-muted-foreground">
+                          No students have joined yet. Share the join code with your students!
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {classMembers.map((member) => {
+                          const progress = getStudentProgress(member)
+                          const unassigned = getUnassignedLessons(member)
+                          const name = memberName(member)
+
+                          return (
+                            <Card key={member.id} className="border">
+                              <CardContent className="p-4">
+                                {/* Student Info Row */}
+                                <div className="flex items-center justify-between mb-3">
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                      <GraduationCap className="w-5 h-5 text-primary" />
+                                    </div>
+                                    <div>
+                                      <h4 className="font-semibold">{name}</h4>
+                                      <p className="text-sm text-muted-foreground">
+                                        {member.profile?.grade ? `Grade ${member.profile.grade}` : "No grade set"}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      className="gap-1.5"
+                                      onClick={() => openWork(member)}
+                                    >
+                                      <FileText className="w-3.5 h-3.5" />
+                                      View work
+                                    </Button>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => removeStudent(member.id)}
+                                    >
+                                      <Trash2 className="w-4 h-4 text-destructive" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {/* Progress */}
+                                {progress.total > 0 && (
+                                  <div className="mb-3">
+                                    <div className="flex items-center justify-between text-sm mb-1">
+                                      <span className="text-muted-foreground">Lesson Progress</span>
+                                      <span className="font-medium">{progress.completed}/{progress.total} completed</span>
+                                    </div>
+                                    <Progress value={progress.percent} variant={progress.percent === 100 ? "success" : "default"} />
+                                  </div>
+                                )}
+
+                                {/* Assigned Lessons */}
+                                {member.assignedLessons.length > 0 && (
+                                  <div className="mb-3">
+                                    <p className="text-sm font-medium mb-2 flex items-center gap-1">
+                                      <BookOpen className="w-3.5 h-3.5" />
+                                      Assigned Lessons
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                      {member.assignedLessons.map((assignment) => {
+                                        const lesson = lessons.find(l => l.id === assignment.lesson_id)
+                                        const done = member.completedLessonIds.includes(assignment.lesson_id)
+                                        return (
+                                          <Badge
+                                            key={assignment.id}
+                                            variant={done ? "default" : "secondary"}
+                                            className="flex items-center gap-1 cursor-pointer"
+                                            onClick={() => removeAssignment(assignment.id)}
+                                            title="Click to remove assignment from class"
+                                          >
+                                            {done && <CheckCircle2 className="w-3 h-3" />}
+                                            {lesson?.title || assignment.lesson_id}
+                                            <Trash2 className="w-3 h-3 ml-1 opacity-50 hover:opacity-100" />
+                                          </Badge>
+                                        )
+                                      })}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Assign Lesson Dropdown */}
+                                {unassigned.length > 0 && (
+                                  <div className="flex items-center gap-2">
+                                    <Select
+                                      onValueChange={(lessonId) => assignLesson(member.user_id, lessonId)}
+                                      disabled={assigning === member.user_id}
+                                    >
+                                      <SelectTrigger className="flex-1">
+                                        <SelectValue placeholder="Assign a lesson..." />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        {unassigned.map((lesson) => (
+                                          <SelectItem key={lesson.id} value={lesson.id}>
+                                            {lesson.title}
+                                          </SelectItem>
+                                        ))}
+                                      </SelectContent>
+                                    </Select>
+                                    {assigning === member.user_id && (
+                                      <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+                                    )}
+                                  </div>
+                                )}
+
+                                {member.assignedLessons.length === 0 && (
+                                  <p className="text-sm text-muted-foreground italic">
+                                    No lessons assigned yet
+                                  </p>
+                                )}
+                              </CardContent>
+                            </Card>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </>
             )}
           </div>
         </div>
