@@ -32,6 +32,7 @@ interface AppContextType {
   logout: () => Promise<void>
   jeffsBalance: number
   earnJeffs: (amount: number, reason: string) => void
+  awardJeffs: (amount: number, reason: string) => void
   spendJeffs: (amount: number, reason: string) => boolean
   jeffsHistory: JeffsHistoryEntry[]
   unitTestProgress: UnitTestProgress[]
@@ -487,6 +488,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     recordHistory({ amount: scaledAmount, reason, date: new Date() })
   }
 
+  // Credit an exact coin amount with no reward-multiplier scaling. Used for
+  // fixed payouts like challenge pots and refunds, where the amount is final.
+  const awardJeffs = (amount: number, reason: string) => {
+    if (!Number.isFinite(amount) || amount === 0) return
+    setJeffsBalance(prev => {
+      const newBalance = prev + amount
+      persistBalance(newBalance)
+      return newBalance
+    })
+    recordHistory({ amount, reason, date: new Date() })
+  }
+
   const spendJeffs = (amount: number, reason: string): boolean => {
     if (jeffsBalance < amount) return false
     setJeffsBalance(prev => {
@@ -646,7 +659,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         tokens, addToken,
         watchlist, addToWatchlist, removeFromWatchlist,
         resetOnboarding, logout,
-        jeffsBalance, earnJeffs, spendJeffs, jeffsHistory,
+        jeffsBalance, earnJeffs, awardJeffs, spendJeffs, jeffsHistory,
         unitTestProgress, updateUnitTestProgress,
         portfolio, buyStock, sellStock, getHolding,
         getRewardMultiplier,

@@ -14,6 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
+      class_challenges: {
+        Row: {
+          id: string
+          class_id: string | null
+          created_by: string | null
+          created_by_role: string
+          title: string
+          description: string
+          metric: string
+          entry_fee: number
+          pot: number
+          teacher_bonus: number
+          starts_at: string
+          ends_at: string
+          status: string
+          winner_user_id: string | null
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          class_id?: string | null
+          created_by?: string | null
+          created_by_role: string
+          title: string
+          description: string
+          metric: string
+          entry_fee?: number
+          pot?: number
+          teacher_bonus?: number
+          starts_at: string
+          ends_at: string
+          status?: string
+          winner_user_id?: string | null
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          class_id?: string | null
+          created_by?: string | null
+          created_by_role?: string
+          title?: string
+          description?: string
+          metric?: string
+          entry_fee?: number
+          pot?: number
+          teacher_bonus?: number
+          starts_at?: string
+          ends_at?: string
+          status?: string
+          winner_user_id?: string | null
+          created_at?: string | null
+        }
+        Relationships: []
+      }
+      challenge_entries: {
+        Row: {
+          id: string
+          challenge_id: string | null
+          user_id: string | null
+          coins_contributed: number
+          score: number
+          joined_at: string | null
+        }
+        Insert: {
+          id?: string
+          challenge_id?: string | null
+          user_id?: string | null
+          coins_contributed: number
+          score?: number
+          joined_at?: string | null
+        }
+        Update: {
+          id?: string
+          challenge_id?: string | null
+          user_id?: string | null
+          coins_contributed?: number
+          score?: number
+          joined_at?: string | null
+        }
+        Relationships: []
+      }
       assignment_dismissals: {
         Row: {
           assignment_id: string
