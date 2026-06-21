@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect, useMemo, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { supabase } from "@/integrations/supabase/client"
 import { JeffMascot } from "@/components/JeffMascot"
@@ -56,6 +56,7 @@ import {
   ClipboardList,
   BarChart3,
   TrendingUp,
+  Sparkles,
 } from "lucide-react"
 import { ACTIVITY_TITLES } from "@/lib/businessActivities"
 import { BRIEF_BY_ID } from "@/lib/quarterlyBriefs"
@@ -165,6 +166,49 @@ export default function TeacherDashboard() {
   const [feedbackValue, setFeedbackValue] = useState("")
   const [savingGrade, setSavingGrade] = useState(false)
 
+  // ── Demo mode: load sample classes/students into local state so the
+  //    dashboard and its charts can be shown off without real data. Nothing is
+  //    written to the database; data-changing actions are disabled while on. ──
+  const [sampleMode, setSampleMode] = useState(false)
+  const sampleMembersRef = useRef<Record<string, ClassMember[]>>({})
+
+  const loadDemoData = () => {
+    const aLessons = lessons.slice(0, 4)
+    const firstNames = ["Ava", "Liam", "Maya", "Noah", "Sofia", "Ethan", "Zoe", "Lucas", "Emma", "Diego"]
+    const mkMembers = (classId: string, n: number): ClassMember[] =>
+      Array.from({ length: n }, (_, i) => {
+        const assigned: AssignedLesson[] = aLessons.map((l) => ({ id: `${classId}-a-${l.id}`, lesson_id: l.id, assigned_at: new Date().toISOString() }))
+        const k = Math.floor(Math.random() * (assigned.length + 1))
+        return {
+          id: `${classId}-m${i}`,
+          user_id: `${classId}-u${i}`,
+          joined_at: new Date().toISOString(),
+          profile: { first_name: firstNames[i % firstNames.length], last_name: `${String.fromCharCode(65 + i)}.`, email: "", school_name: "Demo High", grade: 10 },
+          assignedLessons: assigned,
+          completedLessonIds: assigned.slice(0, k).map((a) => a.lesson_id),
+        }
+      })
+    const cls: Class[] = [
+      { id: "c1", name: "Finance 101 — Period 3", description: "Intro personal finance", join_code: "ABC123", created_at: new Date().toISOString(), student_count: 6 },
+      { id: "c2", name: "Economics — Period 5", description: "AP Micro elective", join_code: "XYZ789", created_at: new Date().toISOString(), student_count: 4 },
+      { id: "c3", name: "Money Club", description: null, join_code: "MNY555", created_at: new Date().toISOString(), student_count: 8 },
+    ]
+    sampleMembersRef.current = { c1: mkMembers("c1", 6), c2: mkMembers("c2", 4), c3: mkMembers("c3", 8) }
+    setSampleMode(true)
+    setClasses(cls)
+    setSelectedClass(cls[0])
+    setClassMembers(sampleMembersRef.current["c1"])
+    setLoading(false)
+    toast({ title: "Demo mode on", description: "Showing sample classes & students. Refresh to exit." })
+  }
+
+  // Guard for data-changing actions while demo data is loaded.
+  const blockedInDemo = (): boolean => {
+    if (!sampleMode) return false
+    toast({ title: "Demo mode", description: "This is sample data — exit demo to make changes." })
+    return true
+  }
+
   const openWork = async (member: ClassMember) => {
     setWorkMember(member)
     setWorkSections([])
@@ -188,6 +232,7 @@ export default function TeacherDashboard() {
 
   const saveGrade = async () => {
     if (!workMember) return
+    if (blockedInDemo()) return
     setSavingGrade(true)
     try {
       const { data: { user } } = await supabase.auth.getUser()
@@ -210,6 +255,7 @@ export default function TeacherDashboard() {
 
   const assignLessonToClass = async () => {
     if (!selectedClass || !classWideLessonId) return
+    if (blockedInDemo()) return
     setAssigningAll(true)
     try {
       const { data: { user } } = await supabase.auth.getUser()
@@ -263,6 +309,7 @@ export default function TeacherDashboard() {
   }
 
   const loadClasses = async () => {
+    setSampleMode(false) // leaving demo (or initial real load)
     setLoading(true)
     try {
       const { data: { user } } = await supabase.auth.getUser()
@@ -354,6 +401,7 @@ export default function TeacherDashboard() {
 
   const assignLesson = async (studentUserId: string, lessonId: string) => {
     if (!selectedClass) return
+    if (blockedInDemo()) return
     setAssigning(studentUserId)
 
     try {
@@ -399,6 +447,7 @@ export default function TeacherDashboard() {
 
   const removeAssignment = async (assignmentId: string) => {
     if (!selectedClass) return
+    if (blockedInDemo()) return
 
     try {
       const { error } = await supabase
@@ -430,6 +479,7 @@ export default function TeacherDashboard() {
 
   const createClass = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (blockedInDemo()) return
     setCreating(true)
 
     try {
@@ -472,6 +522,7 @@ export default function TeacherDashboard() {
   }
 
   const deleteClass = async (classId: string) => {
+    if (blockedInDemo()) return
     if (!confirm("Are you sure you want to delete this class? All students will be removed.")) {
       return
     }
@@ -502,6 +553,7 @@ export default function TeacherDashboard() {
   }
 
   const removeStudent = async (memberId: string) => {
+    if (blockedInDemo()) return
     if (!confirm("Remove this student from the class?")) {
       return
     }
@@ -543,6 +595,11 @@ export default function TeacherDashboard() {
   }
 
   const selectClass = async (cls: Class) => {
+    if (sampleMode) {
+      setSelectedClass(cls)
+      setClassMembers(sampleMembersRef.current[cls.id] || [])
+      return
+    }
     setSelectedClass(cls)
     await loadClassMembers(cls.id)
   }
@@ -622,11 +679,22 @@ export default function TeacherDashboard() {
           <div className="flex items-center gap-3">
             <JeffMascot size="sm" mood="happy" />
             <div>
-              <h1 className="font-display text-xl font-bold">Teacher Dashboard</h1>
+              <h1 className="font-display text-xl font-bold flex items-center gap-2">
+                Teacher Dashboard
+                {sampleMode && <Badge variant="secondary" className="gap-1"><Sparkles className="w-3 h-3" /> Demo</Badge>}
+              </h1>
               <p className="text-sm text-muted-foreground">{selectedClass ? selectedClass.name : "Manage your classes"}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Button
+              variant={sampleMode ? "default" : "outline"}
+              onClick={sampleMode ? loadClasses : loadDemoData}
+              title={sampleMode ? "Exit demo and load your real classes" : "Preview the dashboard with sample data"}
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              {sampleMode ? "Exit demo" : "Demo"}
+            </Button>
             <Button variant="outline" size="icon" onClick={loadClasses} title="Refresh">
               <RefreshCw className="w-4 h-4" />
             </Button>
