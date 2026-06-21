@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react"
-import { Link } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { useNetWorth } from "@/hooks/useNetWorth"
 import { supabase } from "@/integrations/supabase/client"
@@ -293,11 +292,6 @@ export default function Leaderboard() {
               {s === "class" ? "My Class" : s === "friends" ? "Friends" : "National"}
             </Button>
           ))}
-          <Link to="/challenges" className="flex-1 sm:flex-none">
-            <Button variant="ghost" size="sm" className="press-scale w-full gap-1.5">
-              <Trophy className="w-4 h-4" /> Challenges
-            </Button>
-          </Link>
         </div>
 
         {/* Active class header — name, member count, and switcher for multiple classes */}

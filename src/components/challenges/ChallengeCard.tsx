@@ -8,12 +8,12 @@ interface Props {
   challenge: ClassChallenge
   entries: RankedEntry[]   // already sorted desc by score
   entered: boolean
-  isTeacher: boolean
+  canManage: boolean       // teacher, or the challenge's creator
   onEnter: (challenge: ClassChallenge) => void
   onCancel: (challenge: ClassChallenge) => void
 }
 
-export default function ChallengeCard({ challenge, entries, entered, isTeacher, onEnter, onCancel }: Props) {
+export default function ChallengeCard({ challenge, entries, entered, canManage, onEnter, onCancel }: Props) {
   const meta = metricMeta(challenge.metric)
   const top5 = entries.slice(0, 5)
 
@@ -89,7 +89,7 @@ export default function ChallengeCard({ challenge, entries, entered, isTeacher, 
             Enter Challenge · {challenge.entry_fee} <Coins className="w-4 h-4 ml-1" />
           </Button>
         )}
-        {isTeacher && (
+        {canManage && (
           <Button variant="ghost" size="sm" className="w-full text-destructive hover:text-destructive press-scale" onClick={() => onCancel(challenge)}>
             <X className="w-4 h-4 mr-1" /> Cancel & refund
           </Button>

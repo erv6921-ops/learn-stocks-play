@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Trophy, Plus, Coins, Users, ChevronLeft, Sparkles } from "lucide-react"
+import { Trophy, Plus, Coins, Users, Sparkles } from "lucide-react"
 import GameNav from "@/components/GameNav"
 import { Button } from "@/components/ui/button"
 import { useApp } from "@/contexts/AppContext"
@@ -50,6 +50,7 @@ export default function Challenges() {
     const { user, lessonProgress, jeffsHistory, awardJeffs } = ctx.current
     if (!user?.id) { setLoading(false); return }
     const myId = user.id
+    try {
 
     // 1. Classes the user belongs to (enrolled student) or owns (teacher).
     const [memRes, teachRes] = await Promise.all([
@@ -171,7 +172,12 @@ export default function Challenges() {
     setEntriesByChallenge(byChallenge)
     setEnteredIds(entered)
     setBanners(newBanners)
-    setLoading(false)
+    } catch (err) {
+      console.error("[challenges] failed to load", err)
+      toast.error("Couldn't load challenges. Please refresh.")
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   useEffect(() => { reload() }, [reload, user?.id, lessonProgress])
@@ -206,15 +212,20 @@ export default function Challenges() {
     const classId = myClassIds[0]
     if (!classId) { toast.error("No class found to post to."); return }
     setCreating(true)
+    const bonus = isTeacher ? payload.teacher_bonus : 0
     const { error } = await supabase.from("class_challenges").insert({
-      class_id: classId, created_by: user.id, created_by_role: "teacher",
+      class_id: classId, created_by: user.id, created_by_role: isTeacher ? "teacher" : "student",
       title: payload.title, description: payload.description, metric: payload.metric,
-      entry_fee: payload.entry_fee, teacher_bonus: payload.teacher_bonus,
-      pot: payload.teacher_bonus > 0 ? payload.teacher_bonus : 0,
+      entry_fee: payload.entry_fee, teacher_bonus: bonus,
+      pot: bonus > 0 ? bonus : 0,
       starts_at: payload.starts_at, ends_at: payload.ends_at, status: "active",
     })
     setCreating(false)
-    if (error) { toast.error("Couldn't create challenge."); return }
+    if (error) {
+      console.error("[challenges] create failed", error)
+      toast.error(`Couldn't create challenge: ${error.message}`)
+      return
+    }
     setCreateOpen(false)
     toast.success("Challenge created! Students can now enter.")
     reload()
@@ -238,10 +249,6 @@ export default function Challenges() {
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 py-8 max-w-5xl">
-        <Link to="/leaderboard" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4">
-          <ChevronLeft className="w-4 h-4" /> Back to Leaderboard
-        </Link>
-
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
           className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div>
@@ -254,7 +261,7 @@ export default function Challenges() {
             <span className="inline-flex items-center gap-1.5 bg-gold/10 text-gold px-3 py-1.5 rounded-xl text-sm font-bold border border-gold/15">
               <Coins className="w-4 h-4" /> {Math.floor(jeffsBalance).toLocaleString()}
             </span>
-            {isTeacher && hasClass && (
+            {hasClass && (
               <Button className="press-scale" onClick={() => setCreateOpen(true)}>
                 <Plus className="w-4 h-4 mr-1" /> Create Challenge
               </Button>
@@ -280,18 +287,11 @@ export default function Challenges() {
             <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center mx-auto mb-3">
               <Sparkles className="w-7 h-7 text-gold" />
             </div>
-            {isTeacher ? (
-              <>
-                <p className="font-semibold">No challenges yet</p>
-                <p className="text-sm text-muted-foreground mt-1 mb-4">Create one to get your class competing!</p>
-                <Button onClick={() => setCreateOpen(true)}><Plus className="w-4 h-4 mr-1" /> Create Challenge</Button>
-              </>
-            ) : (
-              <>
-                <p className="font-semibold">No active challenges right now</p>
-                <p className="text-sm text-muted-foreground mt-1">Check back soon!</p>
-              </>
-            )}
+            <p className="font-semibold">No active challenges right now</p>
+            <p className="text-sm text-muted-foreground mt-1 mb-4">
+              {isTeacher ? "Create one to get your class competing!" : "Start one and challenge your class!"}
+            </p>
+            <Button onClick={() => setCreateOpen(true)}><Plus className="w-4 h-4 mr-1" /> Create Challenge</Button>
           </div>
         ) : (
           <div className="grid gap-5 md:grid-cols-2">
@@ -301,7 +301,7 @@ export default function Challenges() {
                 challenge={ch}
                 entries={entriesByChallenge[ch.id] ?? []}
                 entered={enteredIds.has(ch.id)}
-                isTeacher={isTeacher}
+                canManage={isTeacher || ch.created_by === user?.id}
                 onEnter={(c) => { setEnterTarget(c); setEnterOpen(true) }}
                 onCancel={handleCancel}
               />
@@ -322,6 +322,7 @@ export default function Challenges() {
         open={createOpen}
         onOpenChange={setCreateOpen}
         submitting={creating}
+        isTeacher={isTeacher}
         onCreate={handleCreate}
       />
     </div>

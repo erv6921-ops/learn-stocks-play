@@ -27,6 +27,7 @@ interface Props {
   open: boolean
   onOpenChange: (open: boolean) => void
   submitting?: boolean
+  isTeacher?: boolean
   onCreate: (payload: NewChallengePayload) => void
 }
 
@@ -37,7 +38,7 @@ const addDaysStr = (base: string, days: number) => {
   return d.toISOString().slice(0, 10)
 }
 
-export default function CreateChallengeModal({ open, onOpenChange, submitting, onCreate }: Props) {
+export default function CreateChallengeModal({ open, onOpenChange, submitting, isTeacher = false, onCreate }: Props) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [metric, setMetric] = useState<ChallengeMetric>("lessons_completed")
@@ -98,17 +99,19 @@ export default function CreateChallengeModal({ open, onOpenChange, submitting, o
             </Select>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className={`grid gap-3 ${isTeacher ? "grid-cols-2" : "grid-cols-1"}`}>
             <div className="space-y-1.5">
               <Label htmlFor="ch-fee">Entry fee (coins)</Label>
               <Input id="ch-fee" type="number" min={10} max={200} value={entryFee} onChange={e => setEntryFee(Number(e.target.value))} />
             </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="ch-bonus" className="flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" /> Bonus coins</Label>
-              <Input id="ch-bonus" type="number" min={0} value={teacherBonus} onChange={e => setTeacherBonus(Number(e.target.value))} placeholder="0 (optional)" />
-            </div>
+            {isTeacher && (
+              <div className="space-y-1.5">
+                <Label htmlFor="ch-bonus" className="flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" /> Bonus coins</Label>
+                <Input id="ch-bonus" type="number" min={0} value={teacherBonus} onChange={e => setTeacherBonus(Number(e.target.value))} placeholder="0 (optional)" />
+              </div>
+            )}
           </div>
-          <p className="text-xs text-muted-foreground -mt-2">Add bonus coins to the pot (optional) — seeds it on top of student entries.</p>
+          {isTeacher && <p className="text-xs text-muted-foreground -mt-2">Add bonus coins to the pot (optional) — seeds it on top of student entries.</p>}
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">

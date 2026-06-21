@@ -10,7 +10,7 @@ import { getInitials } from "@/lib/playerStats";
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
-  Star, Flame, Store, BarChart3, Trophy, FlaskConical } from
+  Star, Flame, Store, BarChart3, Trophy, FlaskConical, Swords } from
 "lucide-react";
 
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
@@ -65,7 +65,8 @@ const NAV_ITEMS = [
 { to: "/stocks", icon: LineChart, label: "Stocks" },
 { to: "/micro-business", icon: Store, label: "Business" },
 { to: "/progress", icon: BarChart3, label: "Progress" },
-{ to: "/leaderboard", icon: Trophy, label: "Leaderboard" }];
+{ to: "/leaderboard", icon: Trophy, label: "Leaderboard" },
+{ to: "/challenges", icon: Swords, label: "Challenges" }];
 
 
 export default function GameNav() {
