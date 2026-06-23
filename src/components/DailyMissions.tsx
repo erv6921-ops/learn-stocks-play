@@ -20,9 +20,16 @@ interface DailyMissionsProps {
   earnJeffs: (amount: number, reason: string) => void
 }
 
-function getTodayKey() {
-  return new Date().toISOString().split("T")[0]
+// Local calendar day, e.g. "2026-06-23". Used both for the daily reset and to
+// decide whether an action actually happened *today*.
+function dayKey(d: Date = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
 }
+function getTodayKey() {
+  return dayKey()
+}
+
+const happenedToday = (d?: Date | string | null) => !!d && dayKey(new Date(d)) === dayKey()
 
 function getDailyState(): Record<string, boolean> {
   const stored = localStorage.getItem("investiplay_daily_missions")
@@ -50,11 +57,11 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
   const missions: Mission[] = [
     {
       id: "lesson",
-      label: "Open 1 lesson",
+      label: "Complete 1 lesson",
       icon: BookOpen,
       xp: 50,
       coins: 10,
-      check: () => lessonProgress.some(p => p.completed)
+      check: () => lessonProgress.some(p => p.completed && happenedToday(p.completedAt))
     },
     {
       id: "quiz",
@@ -62,7 +69,7 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
       icon: Target,
       xp: 75,
       coins: 15,
-      check: () => lessonProgress.some(p => p.quizScore != null && p.quizScore > 0)
+      check: () => lessonProgress.some(p => p.quizScore != null && p.quizScore > 0 && happenedToday(p.completedAt))
     },
     {
       id: "stock",
@@ -70,7 +77,8 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
       icon: Eye,
       xp: 25,
       coins: 5,
-      check: () => portfolio.length > 0 || lessonProgress.length > 0 // basic proxy
+      // Set when the student actually opens a stock's detail page today.
+      check: () => localStorage.getItem("investiplay_stock_viewed") === getTodayKey()
     },
   ]
 

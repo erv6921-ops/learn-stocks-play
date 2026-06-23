@@ -164,6 +164,14 @@ export default function StockDetail() {
   const { user, watchlist, addToWatchlist, removeFromWatchlist, jeffsBalance, buyStock, sellStock, getHolding } = useApp()
   const navigate = useNavigate()
 
+  // Mark that the student viewed a stock today, for the "View 1 stock" daily mission.
+  useEffect(() => {
+    if (!symbol) return
+    const d = new Date()
+    const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
+    try { localStorage.setItem("investiplay_stock_viewed", today) } catch { /* ignore */ }
+  }, [symbol])
+
   const [stockData, setStockData] = useState<StockData | null>(null)
   const [history, setHistory] = useState<HistoricalPoint[] | null>(null)
   const [loading, setLoading] = useState(true)
