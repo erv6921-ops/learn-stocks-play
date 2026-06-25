@@ -23,50 +23,51 @@ export const unitInfo: UnitInfo[] = [
   // Level 2: Banking & Credit
   { id: "unit-4",  unitNumber: 5,  title: "Banking Systems",               level: 2,  levelTitle: LEVEL_TITLES[2],  categories: ["banking"],                 orderIndex: 5 },
   { id: "unit-5",  unitNumber: 6,  title: "Credit & Debt",                 level: 2,  levelTitle: LEVEL_TITLES[2],  categories: ["credit-debt"],             orderIndex: 6 },
+  { id: "unit-35", unitNumber: 35, title: "Insurance & Protection",      level: 2,  levelTitle: LEVEL_TITLES[2],  categories: ["insurance-protection"],    orderIndex: 7 },
 
   // Level 3: Investing Core
-  { id: "unit-6",  unitNumber: 7,  title: "Introduction to Investing",     level: 3,  levelTitle: LEVEL_TITLES[3],  categories: ["investing-intro"],         orderIndex: 7 },
-  { id: "unit-7",  unitNumber: 8,  title: "Stocks Explained",              level: 3,  levelTitle: LEVEL_TITLES[3],  categories: ["stocks"],                  orderIndex: 8 },
-  { id: "unit-8",  unitNumber: 9,  title: "Stock Market System",           level: 3,  levelTitle: LEVEL_TITLES[3],  categories: ["stock-market"],            orderIndex: 9 },
+  { id: "unit-6",  unitNumber: 7,  title: "Introduction to Investing",     level: 3,  levelTitle: LEVEL_TITLES[3],  categories: ["investing-intro"],         orderIndex: 8 },
+  { id: "unit-7",  unitNumber: 8,  title: "Stocks Explained",              level: 3,  levelTitle: LEVEL_TITLES[3],  categories: ["stocks"],                  orderIndex: 9 },
+  { id: "unit-8",  unitNumber: 9,  title: "Stock Market System",           level: 3,  levelTitle: LEVEL_TITLES[3],  categories: ["stock-market"],            orderIndex: 10 },
 
   // Level 4: Portfolio Strategy
-  { id: "unit-9",  unitNumber: 10, title: "Portfolio Construction",        level: 4,  levelTitle: LEVEL_TITLES[4],  categories: ["portfolio"],               orderIndex: 10 },
-  { id: "unit-10", unitNumber: 11, title: "ETFs & Mutual Funds",           level: 4,  levelTitle: LEVEL_TITLES[4],  categories: ["etfs-funds"],              orderIndex: 11 },
-  { id: "unit-11", unitNumber: 12, title: "Bonds & Fixed Income",          level: 4,  levelTitle: LEVEL_TITLES[4],  categories: ["bonds"],                   orderIndex: 12 },
+  { id: "unit-9",  unitNumber: 10, title: "Portfolio Construction",        level: 4,  levelTitle: LEVEL_TITLES[4],  categories: ["portfolio"],               orderIndex: 11 },
+  { id: "unit-10", unitNumber: 11, title: "ETFs & Mutual Funds",           level: 4,  levelTitle: LEVEL_TITLES[4],  categories: ["etfs-funds"],              orderIndex: 12 },
+  { id: "unit-11", unitNumber: 12, title: "Bonds & Fixed Income",          level: 4,  levelTitle: LEVEL_TITLES[4],  categories: ["bonds"],                   orderIndex: 13 },
 
   // Level 5: Company Analysis
-  { id: "unit-12", unitNumber: 13, title: "Financial Statements",          level: 5,  levelTitle: LEVEL_TITLES[5],  categories: ["financial-statements"],    orderIndex: 13 },
-  { id: "unit-13", unitNumber: 14, title: "Financial Ratios",              level: 5,  levelTitle: LEVEL_TITLES[5],  categories: ["financial-ratios"],        orderIndex: 14 },
-  { id: "unit-14", unitNumber: 15, title: "Valuation",                     level: 5,  levelTitle: LEVEL_TITLES[5],  categories: ["valuation"],               orderIndex: 15 },
+  { id: "unit-12", unitNumber: 13, title: "Financial Statements",          level: 5,  levelTitle: LEVEL_TITLES[5],  categories: ["financial-statements"],    orderIndex: 14 },
+  { id: "unit-13", unitNumber: 14, title: "Financial Ratios",              level: 5,  levelTitle: LEVEL_TITLES[5],  categories: ["financial-ratios"],        orderIndex: 15 },
+  { id: "unit-14", unitNumber: 15, title: "Valuation",                     level: 5,  levelTitle: LEVEL_TITLES[5],  categories: ["valuation"],               orderIndex: 16 },
 
   // Level 6: Behavioral Finance
-  { id: "unit-15", unitNumber: 16, title: "Behavioral Economics",          level: 6,  levelTitle: LEVEL_TITLES[6],  categories: ["behavioral-finance"],      orderIndex: 16 },
-  { id: "unit-16", unitNumber: 17, title: "Bubbles & Crashes",             level: 6,  levelTitle: LEVEL_TITLES[6],  categories: ["bubbles-crashes"],         orderIndex: 17 },
+  { id: "unit-15", unitNumber: 16, title: "Behavioral Economics",          level: 6,  levelTitle: LEVEL_TITLES[6],  categories: ["behavioral-finance"],      orderIndex: 17 },
+  { id: "unit-16", unitNumber: 17, title: "Bubbles & Crashes",             level: 6,  levelTitle: LEVEL_TITLES[6],  categories: ["bubbles-crashes"],         orderIndex: 18 },
 
   // Level 7: Macro Economics
-  { id: "unit-17", unitNumber: 18, title: "Inflation & Rates",             level: 7,  levelTitle: LEVEL_TITLES[7],  categories: ["macro-economics"],         orderIndex: 18 },
-  { id: "unit-18", unitNumber: 19, title: "Economic Indicators",           level: 7,  levelTitle: LEVEL_TITLES[7],  categories: ["economic-indicators"],     orderIndex: 19 },
+  { id: "unit-17", unitNumber: 18, title: "Inflation & Rates",             level: 7,  levelTitle: LEVEL_TITLES[7],  categories: ["macro-economics"],         orderIndex: 19 },
+  { id: "unit-18", unitNumber: 19, title: "Economic Indicators",           level: 7,  levelTitle: LEVEL_TITLES[7],  categories: ["economic-indicators"],     orderIndex: 20 },
 
   // Level 8: Entrepreneurship
-  { id: "unit-19", unitNumber: 20, title: "Starting a Business",           level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["entrepreneurship"],        orderIndex: 20 },
-  { id: "unit-20", unitNumber: 21, title: "Competitive Strategy",          level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["competitive-strategy"],    orderIndex: 21 },
-  { id: "unit-26", unitNumber: 22, title: "Business Management & Strategy",level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["business-management"],     orderIndex: 22 },
-  { id: "unit-27", unitNumber: 23, title: "Marketing",                     level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing"],               orderIndex: 23 },
-  { id: "unit-28", unitNumber: 24, title: "Consumer Behavior",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["consumer-behavior"],        orderIndex: 24 },
-  { id: "unit-29", unitNumber: 25, title: "The Marketing Mix — 4 Ps",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing-mix"],            orderIndex: 25 },
-  { id: "unit-30", unitNumber: 26, title: "Market Research",                level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["market-research"],          orderIndex: 26 },
-  { id: "unit-31", unitNumber: 27, title: "Leadership & Management",       level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["leadership-management"],    orderIndex: 27 },
-  { id: "unit-32", unitNumber: 28, title: "Strategic Analysis Tools",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["strategic-analysis"],       orderIndex: 28 },
-  { id: "unit-33", unitNumber: 29, title: "PESTEL Analysis",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["pestel-analysis"],          orderIndex: 29 },
-  { id: "unit-34", unitNumber: 30, title: "Business Ethics & Social Responsibility", level: 8, levelTitle: LEVEL_TITLES[8], categories: ["business-ethics"],  orderIndex: 30 },
+  { id: "unit-19", unitNumber: 20, title: "Starting a Business",           level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["entrepreneurship"],        orderIndex: 21 },
+  { id: "unit-20", unitNumber: 21, title: "Competitive Strategy",          level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["competitive-strategy"],    orderIndex: 22 },
+  { id: "unit-26", unitNumber: 22, title: "Business Management & Strategy",level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["business-management"],     orderIndex: 23 },
+  { id: "unit-27", unitNumber: 23, title: "Marketing",                     level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing"],               orderIndex: 24 },
+  { id: "unit-28", unitNumber: 24, title: "Consumer Behavior",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["consumer-behavior"],        orderIndex: 25 },
+  { id: "unit-29", unitNumber: 25, title: "The Marketing Mix — 4 Ps",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing-mix"],            orderIndex: 26 },
+  { id: "unit-30", unitNumber: 26, title: "Market Research",                level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["market-research"],          orderIndex: 27 },
+  { id: "unit-31", unitNumber: 27, title: "Leadership & Management",       level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["leadership-management"],    orderIndex: 28 },
+  { id: "unit-32", unitNumber: 28, title: "Strategic Analysis Tools",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["strategic-analysis"],       orderIndex: 29 },
+  { id: "unit-33", unitNumber: 29, title: "PESTEL Analysis",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["pestel-analysis"],          orderIndex: 30 },
+  { id: "unit-34", unitNumber: 30, title: "Business Ethics & Social Responsibility", level: 8, levelTitle: LEVEL_TITLES[8], categories: ["business-ethics"],  orderIndex: 31 },
 
   // Level 9: Advanced Investing
-  { id: "unit-21", unitNumber: 31, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 31 },
-  { id: "unit-22", unitNumber: 32, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 32 },
+  { id: "unit-21", unitNumber: 31, title: "Options Basics",                level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["options"],                 orderIndex: 32 },
+  { id: "unit-22", unitNumber: 32, title: "Alternative Investments",       level: 9,  levelTitle: LEVEL_TITLES[9],  categories: ["alternatives"],            orderIndex: 33 },
 
   // Level 10: Real-World Application
-  { id: "unit-23", unitNumber: 33, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 33 },
-  { id: "unit-24", unitNumber: 34, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 34 },
+  { id: "unit-23", unitNumber: 33, title: "10-Year Financial Plan",        level: 10, levelTitle: LEVEL_TITLES[10], categories: ["financial-planning"],      orderIndex: 34 },
+  { id: "unit-24", unitNumber: 34, title: "Market Simulations",            level: 10, levelTitle: LEVEL_TITLES[10], categories: ["simulations"],             orderIndex: 35 },
 ]
 
 // ═══════════════════════════════════════════════
@@ -99,6 +100,11 @@ export const lessons: Lesson[] = [
   L("income-8",  "Education as Investment",    "Is college worth the cost? Analyze the data",                "income-earning", "builder",  "unit-2", "2.8",  400),
   L("income-9",  "Skill Stacking",             "How combining skills multiplies your earning power",          "income-earning", "builder",  "unit-2", "2.9",  450),
   L("income-10", "Entrepreneurship Income",    "Explore earning potential through starting a business",       "income-earning", "builder",  "unit-2", "2.10", 500),
+  L("income-11", "College vs Trade School: What's the ROI?",    "Compare the real financial return on different education paths",          "income-earning", "builder", "unit-2", "2.11", 450),
+  L("income-12", "How Labor Markets Set Your Pay",               "Understand why some jobs pay more and how supply/demand affects wages",   "income-earning", "builder", "unit-2", "2.12", 450),
+  L("income-13", "Recessions, Unemployment & Your Money",        "Learn how economic downturns affect jobs and how to protect yourself",   "income-earning", "builder", "unit-2", "2.13", 450),
+  L("income-14", "Social Security: The Basics",                  "Understand how Social Security is funded and what it pays",              "income-earning", "builder", "unit-2", "2.14", 400),
+  L("income-15", "Local Taxes: Property, Sales & Municipal",     "Learn how local governments tax residents and why rates differ",         "income-earning", "builder", "unit-2", "2.15", 400),
 
   // Unit 3: Budgeting Mastery
   L("budget-1",  "What is a Budget & Why It Matters", "Learn why budgeting is the most important money skill you'll ever learn", "budgeting", "explorer", "unit-3", "3.1",  250),
@@ -111,6 +117,12 @@ export const lessons: Lesson[] = [
   L("budget-8",  "Goal Budgeting",                     "Align your budget with your life goals",                     "budgeting", "builder",  "unit-3", "3.8",  450),
   L("budget-9",  "Zero-Based Budgeting",               "Learn strategies when every dollar has a purpose",            "budgeting", "builder",  "unit-3", "3.9",  500),
   L("budget-10", "Digital Budget Tools",               "Explore apps and tools that make budgeting easier",           "budgeting", "builder",  "unit-3", "3.10", 500),
+  L("budget-11", "Smart Buying: Evaluating Big Purchases",      "Learn to evaluate durability, total cost, and features before buying",     "budgeting", "builder", "unit-3", "3.11", 450),
+  L("budget-12", "The Psychology of Pricing",                    "Understand how stores manipulate prices to make you spend more",           "budgeting", "builder", "unit-3", "3.12", 400),
+  L("budget-13", "Giving Back: Charitable Donations & Nonprofits", "Learn how charitable giving works and how to give wisely",             "budgeting", "builder", "unit-3", "3.13", 350),
+  L("budget-14", "Consumer Protection: Your Rights & Agencies",  "Know the laws and agencies that protect you as a buyer",                  "budgeting", "builder", "unit-3", "3.14", 400),
+  L("budget-15", "Reading & Evaluating Contracts",               "Understand terms and conditions before you sign anything",                "budgeting", "builder", "unit-3", "3.15", 450),
+  L("budget-16", "Disputing Billing Errors",                     "Learn to identify and contest incorrect charges on any account",          "budgeting", "builder", "unit-3", "3.16", 400),
 
   // Unit 4 (Investing Fundamentals)
   L("invfund-1",  "Why Investing Beats Saving",           "Learn why keeping cash in savings loses value over time",                  "investing-fundamentals", "explorer", "unit-25", "4.1",  250),
@@ -135,6 +147,8 @@ export const lessons: Lesson[] = [
   L("banking-6", "Direct Deposit",         "Automate your paycheck for efficiency",                 "banking", "builder",  "unit-4", "5.6",  500),
   L("banking-7", "Overdrafts",             "Avoid costly overdraft fees and penalties",              "banking", "builder",  "unit-4", "5.7",  600),
   L("banking-8", "Fraud & Security",       "Protect your accounts from theft and scams",            "banking", "builder",  "unit-4", "5.8",  750),
+  L("banking-9",  "IRAs, Roth IRAs & 529 Plans",          "Master tax-advantaged savings accounts for retirement and college",        "banking", "strategist", "unit-4", "5.9",  750),
+  L("banking-10", "Your Employer's 401k & Benefits",       "Maximize employer match and understand how workplace benefits work",       "banking", "strategist", "unit-4", "5.10", 750),
 
   // Unit 6: Credit & Debt
   L("credit-1",  "What Is Credit",              "Understand what credit means and why it matters",         "credit-debt", "explorer", "unit-5", "6.1",  400),
@@ -147,6 +161,24 @@ export const lessons: Lesson[] = [
   L("credit-8",  "Mortgages",                   "Understand home loans and how they work",                 "credit-debt", "strategist","unit-5", "6.8",  900),
   L("credit-9",  "Auto Loans",                  "Make smart decisions about car financing",                "credit-debt", "strategist","unit-5", "6.9",  950),
   L("credit-10", "Snowball vs Avalanche",        "Compare two popular debt payoff strategies",              "credit-debt", "strategist","unit-5", "6.10", 1000),
+  L("credit-11", "Getting Out of Debt: Counseling & Negotiation",  "Learn how to get help when debt becomes overwhelming",                   "credit-debt", "strategist", "unit-5", "6.11", 900),
+  L("credit-12", "Bankruptcy: Last Resort or Fresh Start?",         "Understand when and how bankruptcy works and its long-term impact",       "credit-debt", "strategist", "unit-5", "6.12", 900),
+  L("credit-13", "Mortgages: Buying a Home",                        "Navigate home loans, fixed vs variable rates, and down payments",         "credit-debt", "strategist", "unit-5", "6.13", 950),
+  L("credit-14", "Your Rights as a Credit User",                    "Know the laws that protect you from predatory lending and collectors",    "credit-debt", "strategist", "unit-5", "6.14", 950),
+  L("credit-15", "Your Free Annual Credit Report",                  "Learn how to check, read, and dispute errors on your credit report",      "credit-debt", "strategist", "unit-5", "6.15", 800),
+  L("credit-16", "Paying for College: FAFSA, Grants & Loans",       "Navigate scholarships, grants, work-study, Bright Futures, and loans",   "credit-debt", "strategist", "unit-5", "6.16", 1000),
+  L("credit-17", "How to Apply for a Loan",                         "Walk through a real loan application step by step",                      "credit-debt", "strategist", "unit-5", "6.17", 850),
+  L("credit-18", "Federal vs Private Student Loans",                 "Compare subsidized, unsubsidized, PLUS, and private loans",              "credit-debt", "strategist", "unit-5", "6.18", 900),
+
+  // Unit 35: Insurance & Protection
+  L("ins-1",  "What Is Insurance & Why You Need It",     "Understand how insurance protects you from financial disasters",               "insurance-protection", "explorer",  "unit-35", "7.1",  300),
+  L("ins-2",  "How Insurance Works: Premiums & Payouts", "Learn the mechanics of deductibles, premiums, co-pays, and coverage limits",   "insurance-protection", "explorer",  "unit-35", "7.2",  300),
+  L("ins-3",  "Auto Insurance",                          "Understand the types of car insurance Florida requires and recommends",         "insurance-protection", "explorer",  "unit-35", "7.3",  350),
+  L("ins-4",  "Renters & Homeowners Insurance",          "Protect your belongings and home from loss, theft, and disaster",              "insurance-protection", "explorer",  "unit-35", "7.4",  350),
+  L("ins-5",  "Health Insurance",                        "Navigate health plans, networks, deductibles, and out-of-pocket costs",        "insurance-protection", "builder",   "unit-35", "7.5",  500),
+  L("ins-6",  "Life & Disability Insurance",             "Learn when and why to get life and disability coverage",                       "insurance-protection", "builder",   "unit-35", "7.6",  500),
+  L("ins-7",  "Identity Theft: Prevention & Recovery",   "Protect your personal information and know what to do if stolen",              "insurance-protection", "builder",   "unit-35", "7.7",  600),
+  L("ins-8",  "Wills, Inheritance & Financial Planning", "Understand estate planning basics and how to build a long-term financial plan", "insurance-protection", "strategist","unit-35", "7.8",  750),
 
   // ─── LEVEL 3: INVESTING CORE ───
 
@@ -161,6 +193,8 @@ export const lessons: Lesson[] = [
   L("invest-8",  "Long vs Short Term",    "Different time horizons require different strategies",      "investing-intro", "strategist", "unit-6", "7.8",  1100),
   L("invest-9",  "Accounts Overview",     "IRA, 401k, brokerage — what's what",                       "investing-intro", "strategist", "unit-6", "7.9",  1150),
   L("invest-10", "First Portfolio",        "Build your very first investment portfolio",                "investing-intro", "strategist", "unit-6", "7.10", 1250),
+  L("invest-11", "Why Markets Need Regulators: SEC & the Fed", "Understand why the SEC, Federal Reserve, and other agencies regulate markets", "investing-intro", "strategist", "unit-6", "7.11", 600),
+  L("invest-12", "Retirement & Education Accounts Deep Dive",  "Master 401k, 403b, IRA, Roth IRA, pension, 529, and Coverdell accounts",    "investing-intro", "strategist", "unit-6", "7.12", 650),
 
   // Unit 8: Stocks Explained
   L("stocks-1",  "What Is a Share",        "Discover how stocks let you own pieces of companies",      "stocks", "builder",    "unit-7", "8.1",  750),
@@ -465,6 +499,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "strategic-analysis": { title: "Strategic Analysis", icon: "Crosshair", description: "SWOT, Porter's Five Forces, and KPI frameworks", color: "primary" },
   "pestel-analysis": { title: "PESTEL Analysis", icon: "Globe", description: "Political, Economic, Social, Technological, Environmental & Legal factors", color: "primary" },
   "business-ethics": { title: "Business Ethics", icon: "Scale", description: "Ethics, CSR, and responsible business decision-making", color: "accent" },
+  "insurance-protection": { title: "Insurance & Protection", icon: "ShieldCheck", description: "Protect yourself, your money, and your future", color: "secondary" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {

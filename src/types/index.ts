@@ -91,6 +91,7 @@ export type LessonCategory =
   | "strategic-analysis"
   | "pestel-analysis"
   | "business-ethics"
+  | "insurance-protection"
   // AP Microeconomics elective track
   | "micro-basics"
   | "micro-supply-demand"

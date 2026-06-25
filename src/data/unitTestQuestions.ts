@@ -319,6 +319,135 @@ export const unitTests: UnitTest[] = [
         explanation: "Budgeting is the FOUNDATION of wealth. You can't invest money you've already spent! Studies show most millionaires actively budget - that's HOW they became millionaires. Income doesn't determine wealth; behavior does."
       }
     ]
+  },
+  {
+    category: "insurance-protection",
+    title: "Insurance & Protection Exam",
+    description: "Prove you can protect yourself, your money, and your future. Score 80% or higher to earn 250 Jeff's!",
+    passingScore: 80,
+    reward: 250,
+    questions: [
+      {
+        id: "ut-ins-1",
+        question: "What is 'risk pooling,' the idea at the heart of all insurance?",
+        options: [
+          "Many people pay in so the unlucky few who face disasters get covered",
+          "Each person saves only for their own emergencies",
+          "The government pays for everyone's losses",
+          "Investors bet on which customers will get hurt"
+        ],
+        correctAnswer: 0,
+        explanation: "Risk pooling means a large group contributes premiums, and the pooled money covers the small number who actually experience a disaster. No single person bears the full cost alone."
+      },
+      {
+        id: "ut-ins-2",
+        question: "You have a $750 deductible and a covered accident causes $4,000 in damage. How much does insurance pay?",
+        options: [
+          "$4,000",
+          "$3,250",
+          "$750",
+          "$0"
+        ],
+        correctAnswer: 1,
+        explanation: "You pay the $750 deductible first; insurance covers the remaining $4,000 − $750 = $3,250."
+      },
+      {
+        id: "ut-ins-3",
+        question: "Because Florida is a no-fault state, which coverage does it require every driver to carry?",
+        options: [
+          "Collision and comprehensive",
+          "Personal Injury Protection (PIP) and Property Damage Liability (PDL)",
+          "Life insurance",
+          "Only uninsured-motorist coverage"
+        ],
+        correctAnswer: 1,
+        explanation: "Florida's no-fault system requires PIP (covers your own injuries regardless of fault) and PDL (covers property damage you cause to others)."
+      },
+      {
+        id: "ut-ins-4",
+        question: "An apartment is burglarized. Whose insurance covers the TENANT's stolen belongings?",
+        options: [
+          "The landlord's insurance",
+          "The tenant's own renters insurance",
+          "Nobody — belongings can't be insured",
+          "The building's HOA"
+        ],
+        correctAnswer: 1,
+        explanation: "Renters insurance covers the tenant's belongings and liability. The landlord's policy covers only the building structure, not tenants' personal property."
+      },
+      {
+        id: "ut-ins-5",
+        question: "What does the out-of-pocket maximum on a health plan do?",
+        options: [
+          "Caps the most YOU pay in a year; after that, insurance covers 100%",
+          "Caps the most the insurer will ever pay",
+          "Is the same as your monthly premium",
+          "Is a penalty for using out-of-network doctors"
+        ],
+        correctAnswer: 0,
+        explanation: "The out-of-pocket maximum is the yearly ceiling on your own spending. Once you hit it, the insurer pays 100% of covered costs for the rest of the year."
+      },
+      {
+        id: "ut-ins-6",
+        question: "What is the recommended FIRST step if your identity is stolen?",
+        options: [
+          "Wait and see if it resolves on its own",
+          "Report it at IdentityTheft.gov to get an official recovery plan",
+          "Pay the fraudulent charges to make them disappear",
+          "Post your SSN online to warn others"
+        ],
+        correctAnswer: 1,
+        explanation: "IdentityTheft.gov (the FTC) is the official starting point and creates a personalized recovery plan; you then place a fraud alert and freeze your credit."
+      },
+      {
+        id: "ut-ins-7",
+        question: "Someone dies in Florida without a will. What determines who inherits their assets?",
+        options: [
+          "Whoever asks first gets everything",
+          "Florida's intestate succession laws decide",
+          "The assets go to the state permanently",
+          "Their employer chooses"
+        ],
+        correctAnswer: 1,
+        explanation: "Dying without a will means dying 'intestate,' so Florida's intestate succession laws — not the person — decide how assets are distributed."
+      },
+      {
+        id: "ut-ins-8",
+        question: "Which is an example of a well-formed SMART financial goal?",
+        options: [
+          "Save more money someday",
+          "Save $1,000 for an emergency fund within 6 months",
+          "Get rich",
+          "Stop spending forever"
+        ],
+        correctAnswer: 1,
+        explanation: "SMART goals are Specific, Measurable, Achievable, Relevant, and Time-bound. 'Save $1,000 in 6 months' meets all five; the others are vague."
+      },
+      {
+        id: "ut-ins-9",
+        question: "What is a key difference between term and whole life insurance?",
+        options: [
+          "Term lasts forever; whole life expires quickly",
+          "Term covers a set period and is cheaper; whole life is permanent, costs more, and builds cash value",
+          "They are identical",
+          "Whole life has no premium"
+        ],
+        correctAnswer: 1,
+        explanation: "Term life covers a fixed number of years at low cost; whole life is permanent, more expensive, and accumulates cash value."
+      },
+      {
+        id: "ut-ins-10",
+        question: "What does disability insurance protect?",
+        options: [
+          "Your car from theft",
+          "A portion of your income if illness or injury keeps you from working",
+          "Your beneficiaries when you die",
+          "Your home from floods"
+        ],
+        correctAnswer: 1,
+        explanation: "Disability insurance replaces part of your income when an illness or injury prevents you from working — protecting your ability to earn."
+      }
+    ]
   }
 ]
 

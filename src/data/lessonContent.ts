@@ -13,6 +13,11 @@ import { leadershipManagementContent } from "@/data/leadershipManagementContent"
 import { strategicAnalysisContent } from "@/data/strategicAnalysisContent"
 import { pestelAnalysisContent } from "@/data/pestelAnalysisContent"
 import { businessEthicsContent } from "@/data/businessEthicsContent"
+import { insuranceContent } from "@/data/insuranceContent"
+import { creditExpansionContent } from "@/data/creditExpansionContent"
+import { incomeExpansionContent } from "@/data/incomeExpansionContent"
+import { budgetExpansionContent } from "@/data/budgetExpansionContent"
+import { savingsInvestExpansionContent } from "@/data/savingsInvestExpansionContent"
 
 /**
  * Structured 6-section lesson content.
@@ -1268,7 +1273,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
  * NEVER returns null — every lesson always has structured content.
  */
 export function getStructuredContent(lessonId: string): StructuredLessonContent | null {
-  const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...apMicroUnit1Content]
+  const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...insuranceContent, ...creditExpansionContent, ...incomeExpansionContent, ...budgetExpansionContent, ...savingsInvestExpansionContent, ...apMicroUnit1Content]
   const handWritten = allContent.find(c => c.lessonId === lessonId)
   if (handWritten) return handWritten
 
