@@ -469,22 +469,25 @@ export default function Lessons() {
               transition={{ duration: 0.3 }}
               className="rounded-[20px] bg-card overflow-hidden mb-4"
               style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
-              {/* #2 Circular progress ring hero */}
-              <div className="px-5 pt-5 pb-3 flex items-center gap-5">
-                <ProgressRing completed={completedCount} total={totalLessons} pct={pctComplete} />
-                <div className="min-w-0 flex-1">
+              {/* Slim header — the coaster is the hero; key stats sit beside it */}
+              <div className="px-5 pt-4 pb-1 flex items-end justify-between gap-3">
+                <div className="min-w-0">
                   <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.12em] truncate">
+                    {activeUnit ? `Unit ${activeUnit.unitNumber} · Your ride` : "Your ride"}
+                  </p>
+                  <p className="font-display font-extrabold text-foreground tracking-tight leading-tight mt-0.5 text-lg truncate">
                     {activeUnit?.title ?? "—"}
                   </p>
-                  {/* #10 Prominent lessons-done line (16px / 500) */}
-                  <p className="text-foreground tracking-tight mt-0.5" style={{ fontSize: 16, fontWeight: 500 }}>
-                    {completedCount} of {totalLessons} lessons done
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="text-foreground tracking-tight" style={{ fontSize: 15, fontWeight: 600 }}>
+                    {completedCount} of {totalLessons} done
                   </p>
-                  <div className="flex items-center gap-2 mt-2">
+                  <div className="flex items-center justify-end gap-2 mt-1">
                     <span className="text-sm font-bold" style={{ color: "#1D9E75" }}>
                       {earnedPts.toLocaleString()} pts
                     </span>
-                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full"
+                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full"
                       style={{ background: "rgba(29,158,117,0.1)", color: "#1D9E75" }}>
                       ▲ {pctComplete}%
                     </span>
@@ -495,7 +498,7 @@ export default function Lessons() {
               {/* Roller-coaster ride — Jeff travels through this unit's lessons.
                   Each station is a lesson: ridden track is solid green, the track
                   ahead is dashed, and tapping a station jumps to that lesson. */}
-              <div className="px-2 sm:px-4 pb-5">
+              <div className="px-2 sm:px-4 pt-1 pb-5">
                 <CoasterTrack
                   lessons={activeLessons}
                   currentIdx={currentLessonIdx}
@@ -798,12 +801,12 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
 
   // Geometry in viewBox units, then rendered at a fixed pixel height so Jeff's
   // cart never clips regardless of how many stations there are.
-  const padL = 48, padR = 48, sx = 96;
-  const W = Math.max(480, padL + padR + Math.max(0, n - 1) * sx);
+  const padL = 56, padR = 56, sx = 122;
+  const W = Math.max(560, padL + padR + Math.max(0, n - 1) * sx);
   const H = 240;
   const groundY = 214;
-  const my = 120, amp = 42;
-  const HPX = 220;
+  const my = 124, amp = 52;
+  const HPX = 320;
   const scale = HPX / H;
   const WPX = W * scale;
 
@@ -811,7 +814,7 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
     const x = n > 1 ? padL + i * ((W - padL - padR) / (n - 1)) : W / 2;
     const trend = n > 1 ? (my + 30) - (i / (n - 1)) * 60 : my;
     const hill = -amp * Math.sin(i * 1.15 + 0.5);
-    const y = Math.max(70, Math.min(182, trend + hill));
+    const y = Math.max(72, Math.min(186, trend + hill));
     return { x, y };
   };
   const pts = Array.from({ length: Math.max(n, 1) }, (_, i) => pointAt(i));
@@ -911,22 +914,22 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
               className="absolute rounded-full flex items-center justify-center transition-transform"
               style={{
                 left: px(p.x), top: px(p.y),
-                width: 26, height: 26,
+                width: 36, height: 36,
                 transform: `translate(-50%,-50%) scale(${hovered === i ? 1.18 : 1})`,
                 cursor: clickable ? "pointer" : "default",
                 zIndex: isCurrent ? 2 : 3,
                 opacity: isCurrent ? 0 : 1, // current station hides behind Jeff's cart
                 background: done ? "#1D9E75" : unlocked ? "#fff" : "hsl(45 10% 90%)",
-                border: done ? "2px solid #fff" : unlocked ? "2px solid #1D9E75" : "2px solid hsl(45 10% 82%)",
-                boxShadow: done ? "0 2px 6px rgba(29,158,117,0.35)" : "0 1px 3px rgba(0,0,0,0.12)",
+                border: done ? "2.5px solid #fff" : unlocked ? "2.5px solid #1D9E75" : "2.5px solid hsl(45 10% 82%)",
+                boxShadow: done ? "0 3px 8px rgba(29,158,117,0.4)" : "0 2px 5px rgba(0,0,0,0.14)",
               }}
               aria-label={al.lesson.title}
             >
-              {done ? <CheckCircle className="w-3.5 h-3.5 text-white" />
-                : unlocked ? <span className="text-[10px] font-extrabold" style={{ color: "#1D9E75" }}>{i + 1}</span>
-                : <Lock className="w-3 h-3 text-muted-foreground" />}
+              {done ? <CheckCircle className="w-5 h-5 text-white" />
+                : unlocked ? <span className="text-[14px] font-extrabold" style={{ color: "#1D9E75" }}>{i + 1}</span>
+                : <Lock className="w-4 h-4 text-muted-foreground" />}
               {hovered === i && (
-                <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 max-w-[160px] truncate whitespace-nowrap rounded-lg px-2 py-1 text-[10px] font-bold text-white pointer-events-none"
+                <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 max-w-[200px] truncate whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[12px] font-bold text-white pointer-events-none"
                   style={{ background: "#2C2C2A", zIndex: 10 }}>
                   {al.lesson.title}
                 </span>
@@ -937,8 +940,8 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
 
         {/* Finish-line flag with the unit's total reward (hidden once complete) */}
         {!celebrate && (
-          <div className="absolute pointer-events-none" style={{ left: px(pts[n - 1].x), top: px(pts[n - 1].y), transform: "translate(-50%,-150%)", zIndex: 2 }}>
-            <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded text-white whitespace-nowrap" style={{ background: "#2C2C2A" }}>
+          <div className="absolute pointer-events-none" style={{ left: px(pts[n - 1].x), top: px(pts[n - 1].y), transform: "translate(-50%,-155%)", zIndex: 2 }}>
+            <span className="text-[11px] font-extrabold px-2 py-1 rounded-md text-white whitespace-nowrap" style={{ background: "#2C2C2A" }}>
               🏁 +{unitTotalPts.toLocaleString()}
             </span>
           </div>
@@ -955,23 +958,23 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
             className="flex flex-col items-center cursor-pointer select-none"
             aria-label={celebrate ? "Unit complete" : "Continue current lesson"}
           >
-            <span className="mb-0.5 rounded-full px-2 py-0.5 text-[9px] font-extrabold text-white whitespace-nowrap"
+            <span className="mb-1 rounded-full px-2.5 py-1 text-[11px] font-extrabold text-white whitespace-nowrap"
               style={{ background: celebrate ? "#1D9E75" : "#EF9F27" }}>
               {celebrate ? "Unit complete!" : "you are here"}
             </span>
             <motion.div
-              animate={{ y: [0, -3, 0] }}
+              animate={{ y: [0, -4, 0] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
               className="flex flex-col items-center"
-              style={{ filter: "drop-shadow(0 5px 10px rgba(6,41,31,0.22))" }}
+              style={{ filter: "drop-shadow(0 7px 14px rgba(6,41,31,0.24))" }}
             >
-              <div style={{ width: 44, height: 50 }}>
+              <div style={{ width: 66, height: 74 }}>
                 <JeffMascot mood={celebrate ? "celebrate" : "encourage"} />
               </div>
-              <div className="relative -mt-1" style={{ width: 50 }}>
-                <div className="h-5 rounded-md rounded-b-xl" style={{ background: "linear-gradient(#EF9F27,#d9871a)" }} />
-                <div className="absolute -bottom-1.5 left-1.5 w-3 h-3 rounded-full border-2 border-[#d9871a] bg-[#2C2C2A]" />
-                <div className="absolute -bottom-1.5 right-1.5 w-3 h-3 rounded-full border-2 border-[#d9871a] bg-[#2C2C2A]" />
+              <div className="relative -mt-1.5" style={{ width: 74 }}>
+                <div className="h-7 rounded-lg rounded-b-2xl" style={{ background: "linear-gradient(#EF9F27,#d9871a)" }} />
+                <div className="absolute -bottom-2 left-2.5 w-4 h-4 rounded-full border-2 border-[#d9871a] bg-[#2C2C2A]" />
+                <div className="absolute -bottom-2 right-2.5 w-4 h-4 rounded-full border-2 border-[#d9871a] bg-[#2C2C2A]" />
               </div>
             </motion.div>
           </button>
@@ -981,25 +984,3 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
   );
 }
 
-/* ════════════════════════════════════════════════
-   #2 CIRCULAR PROGRESS RING
-   ════════════════════════════════════════════════ */
-function ProgressRing({ completed, total, pct }: { completed: number; total: number; pct: number }) {
-  const R = 52;
-  const C = 2 * Math.PI * R;
-  const dash = (C * pct) / 100;
-  return (
-    <div className="relative shrink-0" style={{ width: 120, height: 120 }}>
-      <svg width={120} height={120} viewBox="0 0 120 120">
-        <circle cx={60} cy={60} r={R} fill="none" stroke="hsl(45 10% 90%)" strokeWidth={10} />
-        <circle cx={60} cy={60} r={R} fill="none" stroke="#1a5c41" strokeWidth={10} strokeLinecap="round"
-          strokeDasharray={`${dash} ${C}`} transform="rotate(-90 60 60)"
-          style={{ transition: "stroke-dasharray 0.5s ease" }} />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-xl font-extrabold text-foreground leading-none">{completed} of {total}</span>
-        <span className="text-[10px] text-muted-foreground mt-1">lessons done</span>
-      </div>
-    </div>
-  );
-}
