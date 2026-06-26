@@ -88,7 +88,10 @@ export function JeffMascot({ mood = "idle", waving = false, activity = "none" }:
       const r = el.getBoundingClientRect()
       const dx = e.clientX - (r.left + r.width / 2)
       const dy = e.clientY - (r.top + r.height / 2)
-      leanRotV.set(clamp(dx * 0.035, -11, 11))
+      // No rotational lean — sitting in the corner, the cursor is almost always
+      // to his left, which made him perpetually tilt left. Keep him upright and
+      // let only a subtle positional drift track the pointer.
+      leanRotV.set(0)
       shiftXV.set(clamp(dx * 0.012, -5, 5))
       shiftYV.set(clamp(dy * 0.01, -3, 4))
     }
