@@ -39,19 +39,64 @@ const ACTIVITIES: { a: Exclude<JeffActivity, "none">; dur: number }[] = [
 const ROAM_MIN_MS = 11000
 const ROAM_VAR_MS = 12000 // next activity fires after 11–23s of calm
 
-const EVENT_MAP: Record<Exclude<JeffEvent, "page_change">, { mood: JeffMoodType; message: string }> = {
-  coins_earned: { mood: "celebrate", message: "Nice! +75 InvestiCoins! 💰" },
-  lesson_complete: { mood: "celebrate", message: "Lesson done! You're on a roll! 🎯" },
-  level_up: { mood: "celebrate", message: "LEVEL UP! You're incredible! 🚀" },
-  streak_update: { mood: "encourage", message: "Day streak! You're on fire! 🔥" },
+const pick = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]
+
+interface JeffLine { mood: JeffMoodType; message: string }
+
+// Multiple celebration lines per event so Jeff never repeats himself.
+const EVENT_LINES: Record<Exclude<JeffEvent, "page_change">, { mood: JeffMoodType; messages: string[] }> = {
+  coins_earned: { mood: "celebrate", messages: [
+    "Cha-ching! More InvestiCoins! 💰", "Coins in the bank — let's gooo! 🤑",
+    "That's how you stack it! 💸", "Rich-kid energy, keep it up 😎",
+  ] },
+  lesson_complete: { mood: "celebrate", messages: [
+    "Lesson DONE! You're unstoppable! 🎯", "Big brain moment! 🧠✨",
+    "Another one in the bag! 🔥", "You + knowledge = dangerous 💪",
+  ] },
+  level_up: { mood: "celebrate", messages: [
+    "LEVEL UP! You're built different 🚀", "New level unlocked — legend! 👑",
+    "Glow-up complete, next level 📈",
+  ] },
+  streak_update: { mood: "encourage", messages: [
+    "Streak alive! Don't break it 🔥", "Day after day — that's discipline 💯",
+    "Consistency royalty 👑🔥",
+  ] },
 }
 
-function pageMessage(path: string): { mood: JeffMoodType; message: string } | null {
-  if (path.startsWith("/dashboard")) return { mood: "idle", message: "Ready to invest today? 📈" }
-  if (path.startsWith("/lessons") || path.startsWith("/missions")) return { mood: "encourage", message: "You're so close to the next checkpoint! 🏔️" }
-  if (path.startsWith("/stocks") || path.startsWith("/stock-market")) return { mood: "think", message: "Hmm, let me check the charts... 🤔" }
-  if (path.startsWith("/leaderboard")) return { mood: "encourage", message: "You've got what it takes to reach #1! 🏆" }
+const GENERAL_TIPS = [
+  "Tiny habits today = big money tomorrow 🌱",
+  "Learning money young? Total cheat code 😎",
+  "Future-you is gonna thank present-you 🙌",
+  "Keep that streak alive — I believe in you 🔥",
+]
+
+// One greeting picked at random when Jeff lands on a page.
+function pageGreeting(path: string): JeffLine | null {
+  const g = (mood: JeffMoodType, msgs: string[]): JeffLine => ({ mood, message: pick(msgs) })
+  if (path.startsWith("/dashboard")) return g("idle", ["Ready to stack some coins today? 📈", "Welcome back, future millionaire! 💰", "Let's make today count! ✨", "Your money empire awaits 👑"])
+  if (path.startsWith("/lessons") || path.startsWith("/missions")) return g("encourage", ["Lesson time — let's level up that brain! 🧠", "One lesson closer to genius 🚀", "Hop on the coaster, let's ride! 🎢", "You're SO close to the next checkpoint! 🏔️"])
+  if (path.startsWith("/lab")) return g("think", ["Real-world money skills unlock here 🔬", "This stuff? You'll use it for life 💡", "Adulting, but make it fun 🧪"])
+  if (path.startsWith("/stocks") || path.startsWith("/stock-market")) return g("think", ["Let's read these charts together 📊", "Buy low, sell high — you got this 🤔", "Wall Street who? You're the trader 📈", "Zero risk, all the practice 💸"])
+  if (path.startsWith("/micro-business") || path.startsWith("/business")) return g("encourage", ["Time to be the boss 💼", "Build that empire, CEO! 🏪", "Every big company started small 🌱"])
+  if (path.startsWith("/progress")) return g("encourage", ["Look how far you've come! 📈", "Proof you're getting smarter 🧠", "Your growth is glowing ✨"])
+  if (path.startsWith("/leaderboard")) return g("encourage", ["#1 has your name on it 🏆", "Go flex on your classmates 😎", "Climb, climb, climb! 🧗"])
+  if (path.startsWith("/challenges")) return g("encourage", ["Winner takes the pot — that's you 🏆", "Bet on yourself and WIN 💪", "Challenge accepted? 😏"])
+  if (path.startsWith("/profile")) return g("idle", ["Lookin' good — that's all you 🌟", "Check those badges you earned 🎖️", "Your stats are stacking up 📊"])
+  if (path.startsWith("/daily")) return g("encourage", ["Daily streak = daily gains 🔥", "Quick games, real coins 🎮"])
   return null
+}
+
+// Occasional proactive tips Jeff drops on his own — page-aware, then general.
+function pageTips(path: string): string[] {
+  if (path.startsWith("/dashboard")) return ["Psst — finish a lesson today to keep your streak alive 🔥", "Tip: Missions are the fastest way to earn coins 💰", "The more you learn, the more you earn — literally 🧠"]
+  if (path.startsWith("/lessons")) return ["Ace the end quiz for bonus coins! 🎯", "Stuck? Reread the recap, then crush the check ✅", "Finish a whole unit to unlock the next 🔓"]
+  if (path.startsWith("/lab")) return ["These scenarios are real adult stuff — you're ahead of the game 😎", "Taxes & credit feel boring… till it's your money 💡"]
+  if (path.startsWith("/stocks")) return ["Real prices, fake cash — experiment freely! 💸", "Watch a stock a few days before you 'buy' 👀", "Don't put all your coins in one stock 🧺"]
+  if (path.startsWith("/micro-business") || path.startsWith("/business")) return ["Track profit each round — think like a CEO 📒", "Reinvest your earnings to grow faster 🌱"]
+  if (path.startsWith("/progress")) return ["Attack your weakest topic to level up fastest 📈", "Mastery beats speed — go deep 🧠"]
+  if (path.startsWith("/leaderboard")) return ["Want to climb? Lessons give the most XP 🚀", "Race a friend to #1 🏁"]
+  if (path.startsWith("/challenges")) return ["Enter a challenge — winner takes ALL the coins 🏆", "Even if you don't win, you learn. Still a W 💪"]
+  return GENERAL_TIPS
 }
 
 const ENCOURAGEMENTS = [
@@ -60,6 +105,9 @@ const ENCOURAGEMENTS = [
   "Small steps, big gains 📈",
   "I believe in you! 🌟",
   "Future investor in the making 💼",
+  "You're literally getting smarter rn 🤓",
+  "Don't stop — you're so close! 🏁",
+  "Main character energy 💫",
 ]
 
 export function JeffProvider({ children }: { children: ReactNode }) {
@@ -72,18 +120,33 @@ export function JeffProvider({ children }: { children: ReactNode }) {
   const roamTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const actTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const nudgeIdx = useRef(0)
+  // Latest route, read inside the (stable) roam scheduler for page-aware tips.
+  const locationRef = useRef(location.pathname)
+  locationRef.current = location.pathname
 
   // ── Autonomous roaming scheduler ──
   const scheduleRoam = useCallback(() => {
     if (roamTimer.current) clearTimeout(roamTimer.current)
     roamTimer.current = setTimeout(() => {
-      const pick = ACTIVITIES[Math.floor(Math.random() * ACTIVITIES.length)]
-      setState(s => ({ ...s, activity: pick.a, mood: pick.a === "nap" ? "sleep" : "idle" }))
+      // ~1 in 3 calm moments, Jeff proactively drops a page-aware tip; the rest
+      // of the time he does a little roam/vignette.
+      if (Math.random() < 0.34) {
+        const tip = pick(pageTips(locationRef.current))
+        if (resetTimer.current) clearTimeout(resetTimer.current)
+        setState(s => ({ ...s, mood: "encourage", message: tip, visible: true, activity: "none" }))
+        resetTimer.current = setTimeout(() => {
+          setState(s => ({ ...s, mood: "idle", message: null, visible: false }))
+          scheduleRoam()
+        }, MESSAGE_MS)
+        return
+      }
+      const act = ACTIVITIES[Math.floor(Math.random() * ACTIVITIES.length)]
+      setState(s => ({ ...s, activity: act.a, mood: act.a === "nap" ? "sleep" : "idle" }))
       if (actTimer.current) clearTimeout(actTimer.current)
       actTimer.current = setTimeout(() => {
         setState(s => ({ ...s, activity: "none", mood: "idle" }))
         scheduleRoam()
-      }, pick.dur)
+      }, act.dur)
     }, ROAM_MIN_MS + Math.random() * ROAM_VAR_MS)
   }, [])
 
@@ -118,14 +181,14 @@ export function JeffProvider({ children }: { children: ReactNode }) {
 
   const triggerJeff = useCallback((event: JeffEvent) => {
     if (event === "page_change") {
-      const pm = pageMessage(location.pathname)
+      const pm = pageGreeting(location.pathname)
       if (pm) show(pm.mood, pm.message)
       else { interruptActivity(); setState(s => ({ ...s, mood: "idle", message: null, visible: false })) }
       return
     }
-    if (event === "lesson_complete") { party(EVENT_MAP.lesson_complete.message); return }
-    const cfg = EVENT_MAP[event]
-    if (cfg) show(cfg.mood, cfg.message)
+    if (event === "lesson_complete") { party(pick(EVENT_LINES.lesson_complete.messages)); return }
+    const cfg = EVENT_LINES[event]
+    if (cfg) show(cfg.mood, pick(cfg.messages))
   }, [location.pathname, show, interruptActivity, party])
 
   const nudge = useCallback(() => {
