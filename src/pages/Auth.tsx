@@ -233,7 +233,7 @@ export default function Auth() {
 
   return (
     <div className="relative min-h-screen bg-background flex items-center justify-center p-4">
-      <Wordmark className="absolute top-6 left-1/2 -translate-x-1/2 text-2xl md:text-3xl" />
+      <Wordmark className="absolute top-28 md:top-40 left-1/2 -translate-x-1/2 text-3xl md:text-5xl" />
       <AnimatePresence mode="wait">
         {verificationSent ? (
           <motion.div
@@ -498,15 +498,23 @@ export default function Auth() {
             exit={{ opacity: 0, x: -50 }}
             className="w-full max-w-md"
           >
-            <div className="text-center mb-6">
-              <JeffMascot 
-                size="sm" 
-                message={mode === "login" 
-                  ? "Welcome back! Let's continue your journey!" 
+            {/* Jeff peeks in from the side to greet you. */}
+            <motion.div
+              className="fixed bottom-8 right-4 sm:right-8 z-20 hidden sm:flex flex-row-reverse items-center pointer-events-none"
+              initial={{ x: "130%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: "130%", opacity: 0 }}
+              transition={{ type: "spring", stiffness: 80, damping: 14, delay: 0.35 }}
+            >
+              <JeffMascot
+                size="xl"
+                mood={mode === "login" ? "happy" : "excited"}
+                message={mode === "login"
+                  ? "Happy to see you back! 👋"
                   : `Great choice! Let's set up your ${role} account.`}
               />
-            </div>
-            
+            </motion.div>
+
             <Card variant="elevated">
               <CardHeader>
                 <CardTitle>{mode === "login" ? "Log In" : "Sign Up"}</CardTitle>
