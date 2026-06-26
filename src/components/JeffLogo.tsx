@@ -21,9 +21,9 @@ export function JeffLogo({ size = 36, className }: JeffLogoProps) {
         style={{ background: "radial-gradient(circle, hsl(var(--primary) / 0.35) 0%, transparent 70%)" }}
       />
       <img
-        src="/brand/mascot.png?v=4"
+        src="/brand/mascot-character.png?v=2"
         alt="InvestiPlay mascot"
-        className="relative h-full w-full object-contain mix-blend-multiply transition-all duration-200 [filter:drop-shadow(0_0_12px_rgba(31,122,91,0.35))_drop-shadow(0_0_24px_rgba(31,122,91,0.18))]"
+        className="relative h-full w-full object-contain transition-all duration-200 [filter:drop-shadow(0_0_12px_rgba(31,122,91,0.35))_drop-shadow(0_0_24px_rgba(31,122,91,0.18))]"
         loading="eager"
         decoding="async"
       />

@@ -284,12 +284,8 @@ export default function Stocks() {
     .sort((a, b) => (a.changePercent ?? 0) - (b.changePercent ?? 0))
   const movers = moverTab === 'gainers' ? gainers : losers
 
-  // Page tint follows live market direction (SPY): green up-day, red down-day.
-  const spyChange = quotes['SPY']?.changePercent
-  const pageTint = (spyChange ?? 0) >= 0 ? '#f0f7f3' : '#f7f0f0'
-
   return (
-    <div className="min-h-screen pb-24 md:pb-8" style={{ backgroundColor: pageTint }}>
+    <div className="min-h-screen bg-background pb-24 md:pb-8">
       {/* 1. ANIMATED TICKER TAPE — live quotes, at the very top */}
       <div className="overflow-hidden" style={{ backgroundColor: '#0f2d1e' }}>
         <div className="ticker-track py-1.5 text-[12px] font-medium">

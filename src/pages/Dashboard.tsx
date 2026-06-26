@@ -11,7 +11,6 @@ import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
 import { supabase } from "@/integrations/supabase/client";
-import jeffCharacter from "@/assets/jeff-character.png";
 import DailyMissions from "@/components/DailyMissions";
 import DailySignal from "@/components/DailySignal";
 import {
