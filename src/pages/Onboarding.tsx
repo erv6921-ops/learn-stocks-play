@@ -412,6 +412,8 @@ export default function Onboarding() {
 
     setUser(localUser)
     setLoading(false)
+    // One-time flag the post-onboarding Jeff tour consumes on the dashboard.
+    try { localStorage.setItem("investiplay_show_tour", "1") } catch { /* ignore */ }
     navigate("/dashboard")
   }
 
@@ -449,6 +451,8 @@ export default function Onboarding() {
 
     setUser(localUser)
     setLoading(false)
+    // One-time flag the post-onboarding Jeff tour consumes on the dashboard.
+    try { localStorage.setItem("investiplay_show_tour", "1") } catch { /* ignore */ }
     navigate("/dashboard")
   }
 

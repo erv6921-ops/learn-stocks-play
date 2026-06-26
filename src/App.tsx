@@ -29,6 +29,7 @@ import { AssignmentNotifications } from "./components/AssignmentNotifications";
 import { GradeNotifications } from "./components/GradeNotifications";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
+import JeffTour from "@/components/JeffTour";
 
 const queryClient = new QueryClient();
 
@@ -82,6 +83,8 @@ const App = () => (
               {/* Persistent animated mascot — z-40 (below modals). Hides itself on
                   auth/onboarding routes and when signed out. */}
               <JeffWidget />
+              {/* One-time guided tour Jeff gives right after onboarding. */}
+              <JeffTour />
             </JeffProvider>
           </AppProvider>
         </BrowserRouter>
