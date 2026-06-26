@@ -8,7 +8,6 @@ import { benchmarkQuestions, BenchmarkQuestion, calculateLiteracyLevel, getLevel
 import { computeBenchmarkScores } from "@/lib/curriculumEngine"
 import { shuffleQuestion } from "@/lib/mcqEngine"
 import { JeffMascot } from "@/components/JeffMascot"
-import { Wordmark } from "@/components/Wordmark"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -16,10 +15,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
+import { cn } from "@/lib/utils"
 import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight } from "lucide-react"
 
 type UserRole = "student" | "teacher"
-type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-details" | "welcome" | "assessment" | "results"
+type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-account" | "student-details" | "welcome" | "assessment" | "results"
 
 const US_STATES = [
   "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia",
@@ -111,6 +111,75 @@ const GRADE_MAP: Record<string, number> = {
   junior: 11,
   senior: 12,
   adult: 0,
+}
+
+// ── Guided sign-up header ──────────────────────────────────────────────────
+// A slim progress bar of dots showing how far along the sign-up the user is.
+function StepDots({ current, total }: { current: number; total: number }) {
+  return (
+    <div className="flex items-center gap-1.5 mb-7">
+      {Array.from({ length: total }).map((_, i) => (
+        <motion.div
+          key={i}
+          className={cn(
+            "h-1.5 rounded-full",
+            i === current ? "bg-primary" : i < current ? "bg-primary/50" : "bg-border",
+          )}
+          animate={{ width: i === current ? 26 : 7 }}
+          transition={{ type: "spring", stiffness: 300, damping: 26 }}
+        />
+      ))}
+    </div>
+  )
+}
+
+// Jeff stands beside a speech bubble and talks the user through the current
+// step — the friendly "guide" that ties the whole sign-up together.
+function JeffGuide({ message, mood = "happy" }: { message: string; mood?: "happy" | "thinking" | "excited" | "teaching" | "celebrating" }) {
+  return (
+    <div className="flex items-end gap-3 mb-6">
+      <JeffMascot size="xl" mood={mood} />
+      <motion.div
+        key={message}
+        initial={{ opacity: 0, scale: 0.85, x: -8 }}
+        animate={{ opacity: 1, scale: 1, x: 0 }}
+        transition={{ type: "spring", stiffness: 260, damping: 18 }}
+        className="relative mb-2 max-w-[15rem] rounded-2xl rounded-bl-md border border-border bg-card px-4 py-2.5 text-left text-sm font-medium text-foreground shadow-card"
+      >
+        <span
+          aria-hidden
+          className="absolute -left-1.5 bottom-2 h-3 w-3 rotate-45 border-b border-l border-border bg-card"
+        />
+        {message}
+      </motion.div>
+    </div>
+  )
+}
+
+// Full header for a sign-up data-collection step: progress + Jeff + heading.
+function StepHeader({
+  current,
+  total,
+  message,
+  mood,
+  title,
+  subtitle,
+}: {
+  current: number
+  total: number
+  message: string
+  mood?: "happy" | "thinking" | "excited" | "teaching" | "celebrating"
+  title: string
+  subtitle?: string
+}) {
+  return (
+    <>
+      <StepDots current={current} total={total} />
+      <JeffGuide message={message} mood={mood} />
+      <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">{title}</h1>
+      {subtitle && <p className="text-muted-foreground text-sm mb-6">{subtitle}</p>}
+    </>
+  )
 }
 
 export default function Onboarding() {
@@ -412,6 +481,9 @@ export default function Onboarding() {
     return "Foundational"
   }, [correctHistory])
 
+  // How many dots the sign-up progress bar shows (teachers have one fewer step).
+  const totalSteps = selectedRole === "teacher" ? 3 : 4
+
   return (
     <div
       className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
@@ -448,13 +520,14 @@ export default function Onboarding() {
             exit={{ opacity: 0, y: -20 }}
             className="flex flex-col items-center text-center max-w-lg"
           >
-            <Wordmark className="text-4xl md:text-5xl mb-8" />
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
-              Welcome to InvestiPlay
-            </h1>
-            <p className="text-muted-foreground text-sm mb-8">
-              Let's get started — are you a student or a teacher?
-            </p>
+            <StepHeader
+              current={0}
+              total={totalSteps}
+              mood="excited"
+              message="Hi, I'm Jeff! I'll guide you through setup. First up — who are you?"
+              title="Welcome to InvestiPlay"
+              subtitle="Let's get started — are you a student or a teacher?"
+            />
             <div className="w-full max-w-sm space-y-3">
               <button
                 onClick={() => { setSelectedRole("student"); setStep("name") }}
@@ -504,13 +577,14 @@ export default function Onboarding() {
             exit={{ opacity: 0, y: -20 }}
             className="flex flex-col items-center text-center max-w-lg"
           >
-            <Wordmark className="text-4xl md:text-5xl mb-8" />
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
-              What's your name?
-            </h1>
-            <p className="text-muted-foreground text-sm mb-6">
-              {selectedRole === "teacher" ? "We'll use this for your teacher profile" : "We'll use this to personalize your experience"}
-            </p>
+            <StepHeader
+              current={1}
+              total={totalSteps}
+              mood="happy"
+              message={firstName.trim() ? `Nice to meet you, ${firstName.trim()}! 👋` : "Awesome! What should I call you?"}
+              title="What's your name?"
+              subtitle={selectedRole === "teacher" ? "We'll use this for your teacher profile" : "We'll use this to personalize your experience"}
+            />
             <div className="w-full max-w-sm space-y-4 text-left">
               <div>
                 <label className="text-sm font-medium mb-1.5 block">First Name</label>
@@ -538,7 +612,7 @@ export default function Onboarding() {
                 size="xl"
                 variant="hero"
                 disabled={!firstName.trim()}
-                onClick={() => setStep(selectedRole === "teacher" ? "teacher-details" : "student-details")}
+                onClick={() => setStep(selectedRole === "teacher" ? "teacher-details" : "student-account")}
               >
                 Continue <ArrowRight className="ml-2" />
               </Button>
@@ -555,13 +629,14 @@ export default function Onboarding() {
             exit={{ opacity: 0, y: -20 }}
             className="flex flex-col items-center text-center max-w-lg"
           >
-            <Wordmark className="text-4xl md:text-5xl mb-8" />
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
-              Teacher Info
-            </h1>
-            <p className="text-muted-foreground text-sm mb-6">
-              Tell us a bit about your school
-            </p>
+            <StepHeader
+              current={2}
+              total={totalSteps}
+              mood="teaching"
+              message="Last step! Tell me about your school and set up your login."
+              title="Teacher Info"
+              subtitle="Tell us a bit about your school"
+            />
             <div className="w-full max-w-sm space-y-4 text-left">
               <div>
                 <label className="text-sm font-medium mb-1.5 block">School Name</label>
@@ -670,26 +745,27 @@ export default function Onboarding() {
           </motion.div>
         )}
 
-        {/* Step 3b: Student Details */}
-        {step === "student-details" && (
+        {/* Step 3b: Student Account (login credentials) */}
+        {step === "student-account" && (
           <motion.div
-            key="student-details"
+            key="student-account"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className="flex flex-col items-center text-center max-w-lg"
           >
-            <Wordmark className="text-4xl md:text-5xl mb-8" />
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">
-              Student Info
-            </h1>
-            <p className="text-muted-foreground text-sm mb-6">
-              A few details to personalize your learning
-            </p>
+            <StepHeader
+              current={2}
+              total={totalSteps}
+              mood="happy"
+              message="Let's set up your login so your progress is saved on any device."
+              title="Create your login"
+              subtitle="You'll use these to sign back in anytime"
+            />
             <div className="w-full max-w-sm space-y-4 text-left">
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Email</label>
-                <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
+                <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoFocus />
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Password</label>
@@ -704,6 +780,41 @@ export default function Onboarding() {
                   You'll use this with your email to log back in from any device.
                 </p>
               </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <Button variant="outline" onClick={() => setStep("name")}>
+                <ArrowLeft className="mr-2 w-4 h-4" /> Back
+              </Button>
+              <Button
+                size="xl"
+                variant="hero"
+                disabled={!email.trim() || password.length < 6}
+                onClick={() => setStep("student-details")}
+              >
+                Continue <ArrowRight className="ml-2" />
+              </Button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Step 3c: Student Details */}
+        {step === "student-details" && (
+          <motion.div
+            key="student-details"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="flex flex-col items-center text-center max-w-lg"
+          >
+            <StepHeader
+              current={3}
+              total={totalSteps}
+              mood="teaching"
+              message={firstName.trim() ? `Almost there, ${firstName.trim()}! This helps me tailor your lessons.` : "Almost there! This helps me tailor your lessons."}
+              title="A bit about you"
+              subtitle="A few details to personalize your learning"
+            />
+            <div className="w-full max-w-sm space-y-4 text-left">
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Grade</label>
                 <Select value={grade} onValueChange={setGrade}>
@@ -762,7 +873,7 @@ export default function Onboarding() {
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <Button variant="outline" onClick={() => setStep("name")} disabled={signupLoading}>
+              <Button variant="outline" onClick={() => setStep("student-account")} disabled={signupLoading}>
                 <ArrowLeft className="mr-2 w-4 h-4" /> Back
               </Button>
               <Button
