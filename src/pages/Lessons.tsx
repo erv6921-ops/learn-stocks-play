@@ -784,6 +784,40 @@ export default function Lessons() {
    ridden is solid green; the track ahead is dashed. Every station is a lesson —
    tap one to jump straight to it. Horizontally scrollable for long units.
    ════════════════════════════════════════════════ */
+// Jeff's coaster chatter — one line rotates in based on the current station.
+const JEFF_DIALOGUE = [
+  "Next stop: new skills! 🎢",
+  "You're on a roll — keep going!",
+  "Climbing higher every lesson 📈",
+  "Coins ahead… let's grab 'em! 🪙",
+  "Smooth ride so far, nice work!",
+  "Hop in, let's learn something!",
+  "Almost at the top — hang on!",
+  "Big brain energy, let's go! 🧠",
+];
+
+// Dense Catmull-Rom samples through the station points. Used to draw real
+// coaster rails + cross-ties that hug the exact curve the cart rides.
+function sampleSpline(pts: { x: number; y: number }[], perSeg: number) {
+  if (pts.length < 2) return pts.slice();
+  const out: { x: number; y: number }[] = [];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2] || p2;
+    for (let s = 0; s < perSeg; s++) {
+      const t = s / perSeg, t2 = t * t, t3 = t2 * t;
+      out.push({
+        x: 0.5 * (2 * p1.x + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3),
+        y: 0.5 * (2 * p1.y + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3),
+      });
+    }
+  }
+  out.push(pts[pts.length - 1]);
+  return out;
+}
+
 interface CoasterTrackProps {
   lessons: AdaptiveLessonInfo[];
   currentIdx: number;
@@ -820,6 +854,11 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
   const pts = Array.from({ length: Math.max(n, 1) }, (_, i) => pointAt(i));
   const jeffIdx = Math.min(currentIdx, n - 1);
   const jeff = pts[Math.max(jeffIdx, 0)];
+  const dialogue = celebrate
+    ? "Woohoo — unit complete! 🎉"
+    : currentIdx <= 0
+      ? "All aboard! Tap to start 🎢"
+      : JEFF_DIALOGUE[Math.max(jeffIdx, 0) % JEFF_DIALOGUE.length];
 
   // Smooth curve through a slice of points (Catmull-Rom → cubic bezier).
   const smooth = (slice: { x: number; y: number }[]) => {
@@ -837,11 +876,33 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
     return d;
   };
 
-  const doneSlice = pts.slice(0, Math.min(currentIdx + 1, n));
   const remainSlice = pts.slice(Math.max(currentIdx, 0));
-  const fullPath = smooth(pts);
-  const donePath = smooth(doneSlice);
   const remainPath = smooth(remainSlice);
+
+  // Dense samples → twin rails + cross-ties that follow the curve exactly.
+  const perSeg = 14;
+  const dense = sampleSpline(pts, perSeg);
+  const normals = dense.map((p, i) => {
+    const a = dense[Math.max(0, i - 1)], b = dense[Math.min(dense.length - 1, i + 1)];
+    const tx = b.x - a.x, ty = b.y - a.y, len = Math.hypot(tx, ty) || 1;
+    return { x: -ty / len, y: tx / len };
+  });
+  const doneEnd = Math.max(0, Math.min(dense.length - 1, currentIdx * perSeg));
+  const railGap = 5;
+  const railPath = (gap: number, from: number, to: number) => {
+    let d = "";
+    for (let i = from; i <= to; i++) {
+      const p = dense[i], nrm = normals[i];
+      const x = (p.x + nrm.x * gap).toFixed(2), y = (p.y + nrm.y * gap).toFixed(2);
+      d += i === from ? `M${x},${y}` : ` L${x},${y}`;
+    }
+    return d;
+  };
+  const ties: { x1: number; y1: number; x2: number; y2: number; done: boolean }[] = [];
+  for (let i = 0; i < dense.length; i += 5) {
+    const p = dense[i], nrm = normals[i], g = railGap + 1.5;
+    ties.push({ x1: p.x - nrm.x * g, y1: p.y - nrm.y * g, x2: p.x + nrm.x * g, y2: p.y + nrm.y * g, done: i <= doneEnd });
+  }
 
   // Bring Jeff into view when the active unit / position changes.
   useEffect(() => {
@@ -863,36 +924,74 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
         <svg viewBox={`0 0 ${W} ${H}`} width={WPX} height={HPX} className="block" style={{ overflow: "visible" }}>
           <defs>
             <linearGradient id="coasterSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#eafaf3" />
+              <stop offset="0%" stopColor="#d8f0ff" />
+              <stop offset="55%" stopColor="#eafaf3" />
               <stop offset="100%" stopColor="#ffffff" />
             </linearGradient>
             <linearGradient id="coasterDone" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#1D9E75" />
               <stop offset="100%" stopColor="#16b07f" />
             </linearGradient>
+            <radialGradient id="coasterSun" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#FCD25C" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#FCD25C" stopOpacity="0" />
+            </radialGradient>
           </defs>
 
-          {/* sky + ground */}
+          {/* sky */}
           <rect x="0" y="0" width={W} height={groundY} fill="url(#coasterSky)" />
-          <line x1="0" y1={groundY} x2={W} y2={groundY} stroke="hsl(45 10% 86%)" strokeWidth="2" />
-
-          {/* support posts beneath each station */}
-          {pts.map((p, i) => (
-            <g key={`post${i}`} stroke="hsl(45 12% 82%)">
-              <line x1={p.x} y1={p.y} x2={p.x} y2={groundY} strokeWidth="3" />
-              <line x1={p.x} y1={(p.y + groundY) / 2} x2={p.x + (i % 2 ? 13 : -13)} y2={groundY} strokeWidth="2" opacity="0.55" />
+          {/* sun */}
+          <circle cx={W - 70} cy={48} r={46} fill="url(#coasterSun)" />
+          <circle cx={W - 70} cy={48} r={17} fill="#FCD25C" />
+          {/* clouds */}
+          {[{ x: 88, y: 50, s: 1 }, { x: W * 0.46, y: 36, s: 0.78 }, { x: W * 0.72, y: 64, s: 1.05 }].map((c, i) => (
+            <g key={`cloud${i}`} fill="#ffffff" opacity="0.92">
+              <ellipse cx={c.x} cy={c.y} rx={26 * c.s} ry={11 * c.s} />
+              <ellipse cx={c.x - 18 * c.s} cy={c.y + 4 * c.s} rx={16 * c.s} ry={9 * c.s} />
+              <ellipse cx={c.x + 20 * c.s} cy={c.y + 3 * c.s} rx={18 * c.s} ry={10 * c.s} />
             </g>
           ))}
 
-          {/* faint full track */}
-          {fullPath && <path d={fullPath} fill="none" stroke="hsl(45 10% 88%)" strokeWidth="10" strokeLinecap="round" />}
-          {/* upcoming track (dashed) */}
-          {remainSlice.length >= 2 && (
-            <path d={remainPath} fill="none" stroke="hsl(215 12% 74%)" strokeWidth="4" strokeDasharray="2 10" strokeLinecap="round" />
+          {/* grass ground */}
+          <rect x="0" y={groundY} width={W} height={H - groundY} fill="#cdebd5" />
+          <rect x="0" y={groundY} width={W} height="3" fill="#8fd6a8" />
+
+          {/* support posts beneath each station */}
+          {pts.map((p, i) => (
+            <g key={`post${i}`} stroke="hsl(45 12% 80%)">
+              <line x1={p.x} y1={p.y} x2={p.x} y2={groundY} strokeWidth="3" />
+              <line x1={p.x} y1={(p.y + groundY) / 2} x2={p.x + (i % 2 ? 13 : -13)} y2={groundY} strokeWidth="2" opacity="0.5" />
+            </g>
+          ))}
+
+          {/* soft glow under the ridden track */}
+          {doneEnd > 0 && (
+            <path d={railPath(0, 0, doneEnd)} fill="none" stroke="#1D9E75" strokeWidth="16" strokeLinecap="round" opacity="0.14" />
           )}
-          {/* ridden track (solid green) */}
-          {doneSlice.length >= 2 && (
-            <path d={donePath} fill="none" stroke="url(#coasterDone)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+
+          {/* cross-ties (sleepers) */}
+          {ties.map((t, i) => (
+            <line key={`tie${i}`} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
+              stroke={t.done ? "#15805f" : "hsl(45 8% 80%)"} strokeWidth={t.done ? 3 : 2.5} strokeLinecap="round" />
+          ))}
+
+          {/* remaining rails (light) + dashed center hint */}
+          {doneEnd < dense.length - 1 && (
+            <>
+              <path d={railPath(railGap, doneEnd, dense.length - 1)} fill="none" stroke="hsl(45 9% 79%)" strokeWidth="3" strokeLinecap="round" />
+              <path d={railPath(-railGap, doneEnd, dense.length - 1)} fill="none" stroke="hsl(45 9% 79%)" strokeWidth="3" strokeLinecap="round" />
+            </>
+          )}
+          {remainSlice.length >= 2 && (
+            <path d={remainPath} fill="none" stroke="hsl(215 12% 78%)" strokeWidth="2.5" strokeDasharray="2 9" strokeLinecap="round" />
+          )}
+
+          {/* ridden rails (green) */}
+          {doneEnd > 0 && (
+            <>
+              <path d={railPath(railGap, 0, doneEnd)} fill="none" stroke="url(#coasterDone)" strokeWidth="3.5" strokeLinecap="round" />
+              <path d={railPath(-railGap, 0, doneEnd)} fill="none" stroke="url(#coasterDone)" strokeWidth="3.5" strokeLinecap="round" />
+            </>
           )}
         </svg>
 
@@ -948,7 +1047,7 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
         )}
 
         {/* Jeff in his cart at the current station */}
-        <div className="absolute" style={{ left: px(jeff.x), top: px(jeff.y), transform: "translate(-50%,-72%)", zIndex: 6 }}>
+        <div className="absolute" style={{ left: px(jeff.x), top: px(jeff.y), transform: "translate(-50%,-87%)", zIndex: 6 }}>
           <button
             type="button"
             onClick={() => {
@@ -958,23 +1057,35 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
             className="flex flex-col items-center cursor-pointer select-none"
             aria-label={celebrate ? "Unit complete" : "Continue current lesson"}
           >
-            <span className="mb-1 rounded-full px-2.5 py-1 text-[11px] font-extrabold text-white whitespace-nowrap"
-              style={{ background: celebrate ? "#1D9E75" : "#EF9F27" }}>
-              {celebrate ? "Unit complete!" : "you are here"}
-            </span>
+            {/* Jeff's speech bubble */}
+            <div className="relative mb-2">
+              <div className="rounded-2xl px-3 py-1.5 text-[11px] font-bold whitespace-nowrap shadow-md"
+                style={{ background: "#fff", color: "#2C2C2A", border: "1.5px solid hsl(45 12% 86%)" }}>
+                {dialogue}
+              </div>
+              <div className="absolute left-1/2 -bottom-1.5 w-3 h-3 rotate-45"
+                style={{ background: "#fff", transform: "translateX(-50%) rotate(45deg)", borderRight: "1.5px solid hsl(45 12% 86%)", borderBottom: "1.5px solid hsl(45 12% 86%)" }} />
+            </div>
             <motion.div
               animate={{ y: [0, -4, 0] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-              className="flex flex-col items-center"
-              style={{ filter: "drop-shadow(0 7px 14px rgba(6,41,31,0.24))" }}
+              style={{ filter: "drop-shadow(0 8px 14px rgba(6,41,31,0.26))" }}
             >
-              <div style={{ width: 66, height: 74 }}>
-                <JeffMascot mood={celebrate ? "celebrate" : "encourage"} />
-              </div>
-              <div className="relative -mt-1.5" style={{ width: 74 }}>
-                <div className="h-7 rounded-lg rounded-b-2xl" style={{ background: "linear-gradient(#EF9F27,#d9871a)" }} />
-                <div className="absolute -bottom-2 left-2.5 w-4 h-4 rounded-full border-2 border-[#d9871a] bg-[#2C2C2A]" />
-                <div className="absolute -bottom-2 right-2.5 w-4 h-4 rounded-full border-2 border-[#d9871a] bg-[#2C2C2A]" />
+              {/* Coaster car with Jeff seated and strapped in */}
+              <div className="relative" style={{ width: 88, height: 92 }}>
+                {/* wheels */}
+                <div className="absolute rounded-full" style={{ width: 17, height: 17, left: 15, bottom: 3, background: "#2C2C2A", border: "2.5px solid #d9871a", zIndex: 1 }} />
+                <div className="absolute rounded-full" style={{ width: 17, height: 17, right: 15, bottom: 3, background: "#2C2C2A", border: "2.5px solid #d9871a", zIndex: 1 }} />
+                {/* Jeff seated — his lower half tucks down behind the car body */}
+                <div className="absolute" style={{ left: "50%", top: -5, transform: "translateX(-50%)", width: 58, height: 64, zIndex: 1 }}>
+                  <JeffMascot mood={celebrate ? "celebrate" : "encourage"} />
+                </div>
+                {/* car body in front of Jeff's legs */}
+                <div className="absolute" style={{ left: 2, right: 2, bottom: 8, height: 46, borderRadius: "11px 11px 20px 20px", background: "linear-gradient(#F2A937,#d9871a)", boxShadow: "inset 0 2px 0 rgba(255,255,255,0.35), 0 4px 8px rgba(6,41,31,0.18)", zIndex: 2 }}>
+                  <div className="absolute" style={{ left: 8, right: 8, top: 6, height: 3, borderRadius: 999, background: "rgba(255,255,255,0.35)" }} />
+                </div>
+                {/* lap bar pulled down across the car lip */}
+                <div className="absolute" style={{ left: 9, right: 9, top: 46, height: 7, borderRadius: 999, background: "linear-gradient(#3a3a36,#2C2C2A)", boxShadow: "0 1px 2px rgba(0,0,0,0.3)", zIndex: 3 }} />
               </div>
             </motion.div>
           </button>
