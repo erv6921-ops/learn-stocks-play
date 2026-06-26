@@ -3,7 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 import { AppProvider, useApp } from "@/contexts/AppContext";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
@@ -35,12 +36,21 @@ const queryClient = new QueryClient();
 
 function AppRoutes() {
   const { user, authReady } = useApp();
+  const location = useLocation();
   const homeTarget = user?.onboardingComplete ? "/dashboard" : "/onboarding";
 
   if (!authReady && !user) return null;
-  
+
   return (
-    <Routes>
+    // Gentle cross-fade between pages. Opacity-only (no transform) so it never
+    // breaks position:fixed elements like the mobile nav or modals.
+    <motion.div
+      key={location.pathname}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.24, ease: "easeOut" }}
+    >
+    <Routes location={location}>
       <Route path="/" element={<Navigate to={homeTarget} replace />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/onboarding" element={<Onboarding />} />
@@ -65,6 +75,7 @@ function AppRoutes() {
       <Route path="/challenges" element={<Challenges />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </motion.div>
   );
 }
 

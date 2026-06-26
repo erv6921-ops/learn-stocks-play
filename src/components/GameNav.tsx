@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Wordmark } from "@/components/Wordmark";
 import NotificationBell from "@/components/NotificationBell";
 import { getInitials } from "@/lib/playerStats";
+import AnimatedNumber from "@/components/AnimatedNumber";
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
@@ -138,7 +139,7 @@ export default function GameNav() {
               }
               <div className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
                 <Coins className="w-3.5 h-3.5" />
-                <span>{Math.floor(netWorth).toLocaleString()}</span>
+                <span><AnimatedNumber value={Math.floor(netWorth)} /></span>
               </div>
               <div className="hidden sm:flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1.5 rounded-xl text-xs font-bold border border-primary/15 shadow-sm nav-bounce cursor-default">
                 <Star className="w-3.5 h-3.5" />
