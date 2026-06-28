@@ -246,14 +246,16 @@ export default function Auth() {
             <div className="text-center mb-6">
               <JeffMascot
                 size="sm"
-                message="Almost there! Check your inbox to verify your email."
+                message="Almost there! Check your inbox — and your spam folder — to verify your email."
               />
             </div>
             <Card variant="elevated">
               <CardHeader>
-                <CardTitle>Verify your email</CardTitle>
+                <CardTitle>Check your email to confirm</CardTitle>
                 <CardDescription>
                   We sent a confirmation link to <span className="font-medium">{email}</span>. Click it to activate your account, then come back and log in.
+                  <br /><br />
+                  <span className="font-semibold text-foreground">Don't see it? Check your spam or junk folder</span> — confirmation emails often land there.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
