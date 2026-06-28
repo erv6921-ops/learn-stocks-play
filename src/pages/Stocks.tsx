@@ -24,6 +24,13 @@ interface Quote {
   changePercent: number | null
 }
 
+interface MoverRow {
+  symbol: string
+  name: string
+  price: number | null
+  changePercent: number | null
+}
+
 const MAJOR_INDEXES = [
   { symbol: 'SPY', name: 'S&P 500 (SPY)' },
   { symbol: 'DIA', name: 'Dow Jones (DIA)' },
@@ -162,6 +169,9 @@ export default function Stocks() {
 
   // Top movers tab
   const [moverTab, setMoverTab] = useState<'gainers' | 'losers'>('gainers')
+  // Real market movers (Yahoo screeners) fetched via the get-stock-movers function.
+  const [moversData, setMoversData] = useState<{ gainers: MoverRow[]; losers: MoverRow[] }>({ gainers: [], losers: [] })
+  const [moversLoading, setMoversLoading] = useState(true)
 
   useEffect(() => {
     const t = setInterval(() => setMarketOpen(isMarketOpen()), REFRESH_MS)
@@ -187,6 +197,24 @@ export default function Stocks() {
       // Keep prior values if a refresh fails (don't blank the page).
       if (Object.keys(q).length > 0) setQuotes(q)
       setQuotesLoading(false)
+    }
+    load()
+    const id = setInterval(load, REFRESH_MS)
+    return () => { active = false; clearInterval(id) }
+  }, [])
+
+  // Real market-wide top movers from Yahoo's screeners — refreshed every 60s.
+  useEffect(() => {
+    let active = true
+    const load = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke('get-stock-movers', { body: { count: 8 } })
+        if (!active) return
+        if (!error && data && (Array.isArray(data.gainers) || Array.isArray(data.losers))) {
+          setMoversData({ gainers: data.gainers ?? [], losers: data.losers ?? [] })
+        }
+      } catch { /* keep prior values on failure */ }
+      if (active) setMoversLoading(false)
     }
     load()
     const id = setInterval(load, REFRESH_MS)
@@ -273,17 +301,8 @@ export default function Stocks() {
     else { addToWatchlist(sym); toast.success("Added to Watchlist") }
   }
 
-  // Derive top movers from live quotes: gainers high→low, losers low→high.
-  const moverQuotes = MOVER_SYMBOLS
-    .map(sym => ({ symbol: sym, ...quotes[sym] }))
-    .filter(q => q.changePercent != null)
-  const gainers = moverQuotes
-    .filter(q => (q.changePercent ?? 0) >= 0)
-    .sort((a, b) => (b.changePercent ?? 0) - (a.changePercent ?? 0))
-  const losers = moverQuotes
-    .filter(q => (q.changePercent ?? 0) < 0)
-    .sort((a, b) => (a.changePercent ?? 0) - (b.changePercent ?? 0))
-  const movers = moverTab === 'gainers' ? gainers : losers
+  // Real market-wide top movers from Yahoo's day_gainers / day_losers screeners.
+  const movers = moverTab === 'gainers' ? moversData.gainers : moversData.losers
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
@@ -507,7 +526,7 @@ export default function Stocks() {
                   <TrendingDown className="w-4 h-4" /> Losers
                 </button>
               </div>
-              {quotesLoading && moverQuotes.length === 0 ? (
+              {moversLoading && movers.length === 0 ? (
                 <div className="grid gap-2">
                   {[0, 1, 2, 3, 4].map(i => <Sk key={i} className="h-[58px] w-full" />)}
                 </div>
