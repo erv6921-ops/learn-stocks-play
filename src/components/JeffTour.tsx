@@ -122,15 +122,14 @@ export default function JeffTour() {
     return () => window.removeEventListener("resize", onResize)
   }, [])
 
-  // Open exactly once, after onboarding, on the dashboard.
+  // Show the tour once per account: the first time an onboarded user lands on the
+  // dashboard. It's marked done (per account) on finish/skip so it never repeats.
   useEffect(() => {
     if (started.current || !user?.id || !user.onboardingComplete) return
     if (!location.pathname.startsWith("/dashboard")) return
-    let show = false
-    try {
-      show = localStorage.getItem(SHOW_FLAG) === "1" && localStorage.getItem(doneKey(user.id)) !== "1"
-    } catch { /* ignore */ }
-    if (show) { started.current = true; setI(0); setOpen(true) }
+    let done = false
+    try { done = localStorage.getItem(doneKey(user.id)) === "1" } catch { /* ignore */ }
+    if (!done) { started.current = true; setI(0); setOpen(true) }
   }, [user?.id, user?.onboardingComplete, location.pathname])
 
   const measure = () => {
