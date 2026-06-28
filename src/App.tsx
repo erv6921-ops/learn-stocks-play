@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import { AppProvider, useApp } from "@/contexts/AppContext";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
-import Welcome from "./pages/Welcome";
 import Dashboard from "./pages/Dashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import Lessons from "./pages/Lessons";
@@ -55,7 +54,6 @@ function AppRoutes() {
       <Route path="/" element={<Navigate to={homeTarget} replace />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/onboarding" element={<Onboarding />} />
-      <Route path="/welcome" element={<Welcome />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
       <Route path="/lessons" element={<Lessons />} />
