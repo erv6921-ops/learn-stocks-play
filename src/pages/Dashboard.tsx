@@ -13,6 +13,7 @@ import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/
 import { supabase } from "@/integrations/supabase/client";
 import DailyMissions from "@/components/DailyMissions";
 import DailySignal from "@/components/DailySignal";
+import { anchor } from "@/lib/tourAnchors";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, Wallet,
@@ -563,20 +564,22 @@ export default function Dashboard() {
         <SectionHeader icon={Wallet} title="Overview" subtitle="Your money & progress at a glance" />
         <div className="grid grid-cols-1 min-[420px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 mb-4 md:mb-8">
           <StatCard
+            tour="dash-networth"
             title="Total Value"
             value={Math.floor(netWorth).toLocaleString()}
             subtitle={earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "Cash + Investments"}
             icon={Coins}
             accentColor="gold" />
           <StatCard
+            tour="dash-cash"
             title="Cash Balance"
             value={jeffsBalance.toLocaleString()}
             subtitle="Available to spend"
             icon={Wallet}
             accentColor="gold" />
 
-          <StatCard title="Portfolio Value" value={Math.floor(portfolioValue).toLocaleString()} icon={LineChart} accentColor="primary" />
-          <StatCard title="Level" value={`${currLevel}`} subtitle={LEVEL_NAMES[currLevel - 1] || "Master"} icon={Star} accentColor="accent" />
+          <StatCard tour="dash-portfolio" title="Portfolio Value" value={Math.floor(portfolioValue).toLocaleString()} icon={LineChart} accentColor="primary" />
+          <StatCard tour="dash-level" title="Level" value={`${currLevel}`} subtitle={LEVEL_NAMES[currLevel - 1] || "Master"} icon={Star} accentColor="accent" />
           <StatCard title="Missions Done" value={`${completedLessons}/${totalLessons}`} icon={BookOpen} accentColor="primary" />
           <StatCard title="Stocks Owned" value={portfolio.length.toString()} icon={TrendingUp} accentColor="primary" />
         </div>
@@ -585,6 +588,7 @@ export default function Dashboard() {
         <SectionHeader icon={Flame} title="Today" subtitle="Daily games, signals & missions — earn coins every day" />
         <div className="space-y-4 mb-4 md:mb-8">
           <Card
+            ref={anchor("dash-today")}
             className={`border-0 overflow-hidden ${dailyDone ? "opacity-70" : ""}`}
             style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
             <CardContent className="p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -622,7 +626,7 @@ export default function Dashboard() {
         </div>
 
         {/* ──── MISSION PROGRESS ──── */}
-        <div className="mb-4 md:mb-8">
+        <div className="mb-4 md:mb-8" data-tour="dash-missions">
           <SectionHeader icon={Target} title="Mission Progress" action={{ label: "View all", to: "/lessons" }} />
 
           {/* Overall progress */}
@@ -687,7 +691,7 @@ export default function Dashboard() {
         </button>
 
         {/* ──── BADGES ──── */}
-        <div className="mb-8">
+        <div className="mb-8" data-tour="dash-badges">
           <SectionHeader icon={Award} title="Badges" right={
           <div className="flex items-center gap-2">
               <span className="text-xs text-muted-foreground font-semibold">{unlockedBadgeCount}/{BADGES.length} unlocked</span>
@@ -898,7 +902,7 @@ function EmptyState({ icon: Icon, label, cta, to }: {icon: React.ComponentType<{
 
 }
 
-function StatCard({ title, value, subtitle, icon: Icon, accentColor }: {title: string;value: string;subtitle?: string;icon: React.ComponentType<{className?: string;}>;accentColor: string;}) {
+function StatCard({ title, value, subtitle, icon: Icon, accentColor, tour }: {title: string;value: string;subtitle?: string;icon: React.ComponentType<{className?: string;}>;accentColor: string;tour?: string;}) {
   const isGold = accentColor === 'gold';
   const colorMap: Record<string, {bg: string;text: string;strip: string;}> = {
     gold: { bg: "bg-gold/10", text: "text-gold", strip: "from-gold to-gold/40" },
@@ -910,6 +914,7 @@ function StatCard({ title, value, subtitle, icon: Icon, accentColor }: {title: s
 
   return (
     <Card
+      data-tour={tour}
       variant="elevated"
       className={`relative overflow-hidden p-3.5 md:p-5 hover-lift press-scale cursor-default ${
       isGold ? "border-gold/20" : ""}`

@@ -29,6 +29,7 @@ import {
 import {
   briefsForCategory, allBriefIdsForQuarter, type QuarterlyBrief,
 } from "@/lib/quarterlyBriefs";
+import { anchor } from "@/lib/tourAnchors";
 
 const NEON = "#00ff88";
 type Fields = Record<string, unknown>;
@@ -305,13 +306,13 @@ export default function MicroBusinessStudio() {
           </div>
 
           {/* Workbench — this quarter's activities, one at a time */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3" ref={anchor("biz-activity")}>
             <Tabs defaultValue="product" className="space-y-4">
               <TabsList className={cn("grid w-full", allDone ? "grid-cols-5" : "grid-cols-4")}>
-                <TabsTrigger value="product" className="text-xs"><Package className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Product</TabsTrigger>
-                <TabsTrigger value="office" className="text-xs"><Briefcase className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Office</TabsTrigger>
-                <TabsTrigger value="collab" className="text-xs"><Handshake className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Collab</TabsTrigger>
-                <TabsTrigger value="marketing" className="text-xs"><Megaphone className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Marketing</TabsTrigger>
+                <TabsTrigger value="product" ref={anchor("biz-product")} className="text-xs"><Package className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Product</TabsTrigger>
+                <TabsTrigger value="office" ref={anchor("biz-office")} className="text-xs"><Briefcase className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Office</TabsTrigger>
+                <TabsTrigger value="collab" ref={anchor("biz-collab")} className="text-xs"><Handshake className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Collab</TabsTrigger>
+                <TabsTrigger value="marketing" ref={anchor("biz-marketing")} className="text-xs"><Megaphone className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Marketing</TabsTrigger>
                 {allDone && <TabsTrigger value="summary" className="text-xs"><Trophy className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Report</TabsTrigger>}
               </TabsList>
 

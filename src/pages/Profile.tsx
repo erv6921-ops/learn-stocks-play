@@ -28,6 +28,7 @@ import {
   Crown, Medal, Target, Gem, PiggyBank, Briefcase, LineChart, Brain,
   Shield, Banknote, Diamond, BarChart3, Wallet, Compass,
 } from "lucide-react"
+import { anchor } from "@/lib/tourAnchors"
 
 // ── Curriculum level + progress to next level ─────────────────────────────
 // Mirrors GameNav/getCurriculumLevel thresholds so the level matches the HUD,
@@ -408,7 +409,7 @@ export default function Profile() {
                   <p className="text-xs text-muted-foreground">Choose how InvestiPlay looks</p>
                 </div>
               </div>
-              <div className="flex items-center gap-1 bg-muted/60 rounded-xl p-1 self-start sm:self-auto">
+              <div className="flex items-center gap-1 bg-muted/60 rounded-xl p-1 self-start sm:self-auto" ref={anchor("profile-theme")}>
                 {THEME_OPTIONS.map(opt => {
                   const activeTheme = (theme ?? "system") === opt.value
                   return (

@@ -10,6 +10,7 @@ import { JeffMascot } from "@/components/JeffMascot"
 import GameNav from "@/components/GameNav"
 import { Search, TrendingUp, TrendingDown, Star, StarOff, Loader2, Coins } from "lucide-react"
 import { toast } from "sonner"
+import { anchor } from "@/lib/tourAnchors"
 
 interface SymbolRow {
   symbol: string
@@ -331,7 +332,7 @@ export default function Stocks() {
 
         {/* Search Bar — Front and Center */}
         <form onSubmit={handleSearchSubmit} className="mb-10">
-          <div className="relative max-w-2xl mx-auto">
+          <div className="relative max-w-2xl mx-auto" ref={anchor("stocks-search")}>
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
               placeholder="Search any ticker or company (e.g. AAPL, Tesla)..."
@@ -491,7 +492,7 @@ export default function Stocks() {
 
             {/* 7. TOP MOVERS — live, sorted */}
             <div className="mb-10">
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-4" ref={anchor("stocks-movers")}>
                 <h2 className="font-display text-lg font-semibold mr-2">Top movers</h2>
                 <button
                   onClick={() => setMoverTab('gainers')}
@@ -516,8 +517,8 @@ export default function Stocks() {
                 </p>
               ) : (
                 <div className="grid gap-2">
-                  {movers.map(row => (
-                    <Card key={row.symbol} variant="elevated" className="card-tier-3 hover:shadow-card transition-all hover:-translate-y-px cursor-pointer"
+                  {movers.map((row, ri) => (
+                    <Card key={row.symbol} variant="elevated" ref={ri === 0 ? anchor("stocks-row") : undefined} className="card-tier-3 hover:shadow-card transition-all hover:-translate-y-px cursor-pointer"
                       onClick={() => handleStockClick(row.symbol)}>
                       <CardContent className="p-3">
                         <div className="flex items-center gap-4">

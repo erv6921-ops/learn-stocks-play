@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { motion } from "framer-motion"
 import { Trophy, Coins, Star, Flame, Crown, Medal, Users, UserPlus, Copy, Link2 } from "lucide-react"
+import { anchor } from "@/lib/tourAnchors"
 
 const LEVEL_THRESHOLDS = [0, 1000, 3000, 7000, 15000, 30000, 60000, 100000]
 function getLevel(xp: number) {
@@ -280,7 +281,7 @@ export default function Leaderboard() {
         </motion.div>
 
         {/* Scope toggle */}
-        <div className="flex gap-1 p-1 bg-muted rounded-xl w-full sm:w-fit mb-6">
+        <div className="flex gap-1 p-1 bg-muted rounded-xl w-full sm:w-fit mb-6" ref={anchor("lead-podium")}>
           {(["class", "friends", "national"] as Scope[]).map(s => (
             <Button
               key={s}

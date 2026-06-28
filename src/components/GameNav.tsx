@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Wordmark } from "@/components/Wordmark";
 import NotificationBell from "@/components/NotificationBell";
 import { getInitials } from "@/lib/playerStats";
+import { anchor } from "@/lib/tourAnchors";
 import AnimatedNumber from "@/components/AnimatedNumber";
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import {
@@ -60,14 +61,14 @@ function getStreak(history: { amount: number; reason: string; date: Date }[]) {
 }
 
 const NAV_ITEMS = [
-{ to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-{ to: "/lessons", icon: BookOpen, label: "Missions" },
-{ to: "/lab", icon: FlaskConical, label: "Lab" },
-{ to: "/stocks", icon: LineChart, label: "Stocks" },
-{ to: "/micro-business", icon: Store, label: "Business" },
-{ to: "/progress", icon: BarChart3, label: "Progress" },
-{ to: "/leaderboard", icon: Trophy, label: "Leaderboard" },
-{ to: "/challenges", icon: Swords, label: "Challenges" }];
+{ to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", tour: "nav-dashboard" },
+{ to: "/lessons", icon: BookOpen, label: "Missions", tour: "nav-lessons" },
+{ to: "/lab", icon: FlaskConical, label: "Lab", tour: "nav-lab" },
+{ to: "/stocks", icon: LineChart, label: "Stocks", tour: "nav-stocks" },
+{ to: "/micro-business", icon: Store, label: "Business", tour: "nav-business" },
+{ to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress" },
+{ to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard" },
+{ to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges" }];
 
 
 export default function GameNav() {
@@ -118,6 +119,7 @@ export default function GameNav() {
               {NAV_ITEMS.map((item) =>
               <Link key={item.to} to={item.to}>
                   <Button
+                  ref={anchor(item.tour)}
                   variant={isActive(item.to) ? "default" : "ghost"}
                   size="sm"
                   className={`gap-2 nav-bounce ${isActive(item.to) ? "shadow-glow" : "hover:bg-muted/70"}`}>
@@ -132,21 +134,21 @@ export default function GameNav() {
             {/* HUD pills */}
             <div className="flex items-center gap-2">
               {streak > 0 &&
-              <div className="flex items-center gap-1 bg-orange-500/10 text-orange-500 px-2.5 py-1.5 rounded-xl text-xs font-bold border border-orange-500/15 shadow-sm nav-bounce cursor-default">
+              <div ref={anchor("hud-streak")} className="flex items-center gap-1 bg-orange-500/10 text-orange-500 px-2.5 py-1.5 rounded-xl text-xs font-bold border border-orange-500/15 shadow-sm nav-bounce cursor-default">
                   <Flame className="w-3.5 h-3.5" style={{ animation: 'streak-pulse 2s ease-in-out infinite' }} />
                   <span>{streak}d</span>
                 </div>
               }
-              <div className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
+              <div ref={anchor("hud-coins")} className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
                 <Coins className="w-3.5 h-3.5" />
                 <span><AnimatedNumber value={Math.floor(netWorth)} /></span>
               </div>
-              <div className="hidden sm:flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1.5 rounded-xl text-xs font-bold border border-primary/15 shadow-sm nav-bounce cursor-default">
+              <div ref={anchor("hud-level")} className="hidden sm:flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1.5 rounded-xl text-xs font-bold border border-primary/15 shadow-sm nav-bounce cursor-default">
                 <Star className="w-3.5 h-3.5" />
                 <span>Lv {level}</span>
               </div>
               <NotificationBell />
-              <Link to="/profile" aria-label="Your profile" title="Your profile">
+              <Link to="/profile" aria-label="Your profile" title="Your profile" ref={anchor("hud-profile")}>
                 <Avatar className="w-8 h-8 border border-border nav-bounce cursor-pointer ring-offset-background hover:ring-2 hover:ring-primary/40 transition-shadow">
                   <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
                     {getInitials(user?.firstName, user?.lastName)}
@@ -168,7 +170,7 @@ export default function GameNav() {
             const active = isActive(item.to);
             return (
               <Link key={item.to} to={item.to} className="flex flex-col items-center gap-0.5">
-                <div className={`p-2 rounded-xl nav-bounce ${active ? "bg-primary text-primary-foreground shadow-glow" : "text-muted-foreground hover:text-foreground"}`}>
+                <div ref={anchor(item.tour)} className={`p-2 rounded-xl nav-bounce ${active ? "bg-primary text-primary-foreground shadow-glow" : "text-muted-foreground hover:text-foreground"}`}>
                   <item.icon className="w-5 h-5" />
                 </div>
                 <span className={`text-[10px] ${active ? "text-foreground font-semibold" : "text-muted-foreground"}`}>

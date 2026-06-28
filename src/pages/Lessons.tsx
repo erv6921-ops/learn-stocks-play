@@ -21,6 +21,7 @@ import { LessonCategory, CourseTrack } from "@/types";
 import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
+import { anchor } from "@/lib/tourAnchors";
 
 // ── #4 Next-lesson one-line descriptions, keyed L<unit>.<lesson> ──
 const lessonDescriptions: Record<string, string> = {
@@ -600,6 +601,7 @@ export default function Lessons() {
                       <button
                         key={unit.id}
                         data-unit={unit.id}
+                        ref={anchor("lesson-node")}
                         onClick={() => handleUnitTabClick(unit.id)}
                         className="shrink-0 rounded-2xl p-3 text-left transition-all duration-200 w-[160px] press-scale hover:-translate-y-0.5"
                         style={{

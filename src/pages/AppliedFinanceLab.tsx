@@ -15,6 +15,7 @@ import advancedWealthIcon from "@/assets/icons/advanced-wealth.png";
 import realEstateIcon from "@/assets/icons/real-estate-house.png";
 import { labCategories } from "@/data/labDocuments";
 import { ArrowRight, Lock, Coins, Clock, FlaskConical, CheckCircle2 } from "lucide-react";
+import { anchor } from "@/lib/tourAnchors";
 
 const DIFFICULTY_COLORS: Record<string, string> = {
   beginner: "text-success",
@@ -197,6 +198,7 @@ export default function AppliedFinanceLab() {
               {active.documents.map((doc, i) => (
                 <li
                   key={doc.id}
+                  ref={i === 0 ? anchor("lab-doc") : undefined}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border bg-card transition-all ${
                     doc.available
                       ? "border-border hover:border-primary/40 hover:shadow-sm cursor-pointer"

@@ -4,6 +4,7 @@ import { useApp } from "@/contexts/AppContext"
 import { useAuth } from "@/hooks/useAuth"
 import GameNav from "@/components/GameNav"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { anchor } from "@/lib/tourAnchors"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress as ProgressBar } from "@/components/ui/progress"
@@ -377,7 +378,7 @@ export default function ProgressPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <Card variant="elevated">
+              <Card variant="elevated" ref={anchor("progress-overview")}>
                 <CardHeader>
                   <div className="flex items-center justify-between flex-wrap gap-3">
                     <div>

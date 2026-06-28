@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { formatHistoryTimestamp, formatLocalTimestamp, getMarketSessionStatus, isLiveMarketSessionNow } from "@/lib/marketSession"
+import { anchor } from "@/lib/tourAnchors"
 
 interface StockData {
   symbol: string
@@ -752,7 +753,7 @@ export default function StockDetail() {
                 )}
               </div>
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-0.5 bg-white/5 rounded-xl p-0.5">
+                <div className="flex items-center gap-0.5 bg-white/5 rounded-xl p-0.5" ref={anchor("stock-range")}>
                   {TIME_RANGES.map(r => (
                     <button
                       key={r.value}
@@ -858,7 +859,7 @@ export default function StockDetail() {
                   <span className="font-bold text-base">{jeffsBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2" ref={anchor("stock-trade-toggle")}>
                   <Button variant={buyMode === "buy" ? "default" : "outline"} className="flex-1 press-scale" size="sm"
                     onClick={() => { setBuyMode("buy"); setShares(1); setShowConfirm(false) }}>Buy</Button>
                   <Button variant={buyMode === "sell" ? "default" : "outline"} className="flex-1 press-scale" size="sm"
@@ -867,7 +868,7 @@ export default function StockDetail() {
 
                 <div>
                   <Label htmlFor="shares" className="text-xs text-muted-foreground mb-2 block">Number of Shares</Label>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3" ref={anchor("stock-shares")}>
                     <Button variant="outline" size="icon" className="press-scale" onClick={() => setShares(Math.max(0.01, Math.round((shares - 0.25) * 100) / 100))} disabled={shares <= 0.01}><Minus className="w-4 h-4" /></Button>
                     <Input id="shares" type="number" value={shares} onChange={(e) => setShares(Math.max(0.01, parseFloat(e.target.value) || 0.01))} className="text-center font-semibold" min={0.01} step={0.01} />
                     <Button variant="outline" size="icon" className="press-scale" onClick={() => setShares(Math.round((shares + 0.25) * 100) / 100)}><Plus className="w-4 h-4" /></Button>
@@ -912,7 +913,7 @@ export default function StockDetail() {
                 )}
 
                 {!showConfirm ? (
-                  <Button className="w-full press-scale" onClick={() => setShowConfirm(true)} disabled={!hasValidPrice || (buyMode === "buy" ? !canAfford : !canSell)}>
+                  <Button ref={anchor("stock-trade")} className="w-full press-scale" onClick={() => setShowConfirm(true)} disabled={!hasValidPrice || (buyMode === "buy" ? !canAfford : !canSell)}>
                     {buyMode === "buy" ? "Buy" : "Sell"} {shares} Share{shares > 1 ? "s" : ""}
                   </Button>
                 ) : (

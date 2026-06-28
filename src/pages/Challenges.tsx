@@ -18,6 +18,7 @@ import EnterChallengeModal from "@/components/challenges/EnterChallengeModal"
 import CreateChallengeModal, { type NewChallengePayload } from "@/components/challenges/CreateChallengeModal"
 import ChallengePodium, { type WinnerBanner } from "@/components/challenges/ChallengePodium"
 import { toast } from "sonner"
+import { anchor } from "@/lib/tourAnchors"
 
 // localStorage idempotency flags so client-side payouts/refunds happen once.
 const flag = (kind: string, id: string) => `ip_ch_${kind}_${id}`
@@ -291,10 +292,10 @@ export default function Challenges() {
             <p className="text-sm text-muted-foreground mt-1 mb-4">
               {isTeacher ? "Create one to get your class competing!" : "Start one and challenge your class!"}
             </p>
-            <Button onClick={() => setCreateOpen(true)}><Plus className="w-4 h-4 mr-1" /> Create Challenge</Button>
+            <Button ref={anchor("challenge-enter")} onClick={() => setCreateOpen(true)}><Plus className="w-4 h-4 mr-1" /> Create Challenge</Button>
           </div>
         ) : (
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2" ref={anchor("challenge-enter")}>
             {activeChallenges.map(ch => (
               <ChallengeCard
                 key={ch.id}
