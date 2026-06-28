@@ -358,7 +358,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
             } else if (existingUser?.onboarding_complete) {
               navigate("/dashboard", { replace: true })
             } else {
-              navigate("/onboarding", { replace: true })
+              // New / not-yet-onboarded user (e.g. just confirmed their email):
+              // greet them, then Welcome sends them into onboarding → dashboard (Jeff).
+              navigate("/welcome", { replace: true })
             }
           }
         })()

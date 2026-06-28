@@ -238,11 +238,17 @@ export default function Auth() {
         {verificationSent ? (
           <motion.div
             key="verify-email"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="w-full max-w-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/85 backdrop-blur-sm"
           >
+           <motion.div
+             initial={{ opacity: 0, scale: 0.94, y: 14 }}
+             animate={{ opacity: 1, scale: 1, y: 0 }}
+             transition={{ type: "spring", stiffness: 220, damping: 22 }}
+             className="w-full max-w-md"
+           >
             <div className="text-center mb-6">
               <JeffMascot
                 size="sm"
@@ -297,6 +303,7 @@ export default function Auth() {
                 </Button>
               </CardContent>
             </Card>
+           </motion.div>
           </motion.div>
         ) : mode === "forgot" ? (
 
