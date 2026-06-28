@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { motion, type Variants } from "framer-motion"
 import { useTheme } from "next-themes"
 import { toast } from "sonner"
@@ -26,7 +26,7 @@ import {
   Gamepad2, Lock, CheckCircle2, ChevronRight, Trophy, Rocket,
   Pencil, Sun, Moon, Monitor, Palette,
   Crown, Medal, Target, Gem, PiggyBank, Briefcase, LineChart, Brain,
-  Shield, Banknote, Diamond, BarChart3, Wallet, Compass,
+  Shield, Banknote, Diamond, BarChart3, Wallet, Compass, Trash2,
 } from "lucide-react"
 import { anchor } from "@/lib/tourAnchors"
 
@@ -103,9 +103,29 @@ const item: Variants = {
 }
 
 export default function Profile() {
-  const { user, setUser, lessonProgress, jeffsHistory, portfolio } = useApp()
+  const { user, setUser, lessonProgress, jeffsHistory, portfolio, logout } = useApp()
   const { netWorth } = useNetWorth()
   const { theme, setTheme } = useTheme()
+  const navigate = useNavigate()
+
+  // ── Delete-account dialog ──
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deleteConfirm, setDeleteConfirm] = useState("")
+  const [deleting, setDeleting] = useState(false)
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true)
+    try {
+      const { error } = await supabase.functions.invoke("delete-account")
+      if (error) throw error
+      toast.success("Your account has been deleted.")
+      await logout()
+      navigate("/auth", { replace: true })
+    } catch (e: any) {
+      toast.error(e?.message || "Couldn't delete your account. Please try again.")
+      setDeleting(false)
+    }
+  }
 
   // ── Edit-name dialog ──
   const [editOpen, setEditOpen] = useState(false)
@@ -429,6 +449,50 @@ export default function Profile() {
             </CardContent>
           </Card>
         </motion.div>
+
+        {/* ── DANGER ZONE ── */}
+        <motion.div variants={item}>
+          <Card variant="elevated" className="border-destructive/30">
+            <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-xl bg-destructive/10 flex items-center justify-center">
+                  <Trash2 className="w-4 h-4 text-destructive" />
+                </div>
+                <div>
+                  <p className="font-semibold text-sm">Delete account</p>
+                  <p className="text-xs text-muted-foreground">Permanently remove your account and all your data</p>
+                </div>
+              </div>
+              <Button variant="destructive" size="sm" className="press-scale self-start sm:self-auto"
+                onClick={() => { setDeleteConfirm(""); setDeleteOpen(true) }}>
+                <Trash2 className="w-4 h-4 mr-1.5" /> Delete account
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <Dialog open={deleteOpen} onOpenChange={(o) => { if (!deleting) setDeleteOpen(o) }}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Delete your account?</DialogTitle>
+              <DialogDescription>
+                This permanently deletes your account, progress, coins, and portfolio. This can't be undone.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-2">
+              <Label htmlFor="delete-confirm">Type <span className="font-bold">DELETE</span> to confirm</Label>
+              <Input id="delete-confirm" value={deleteConfirm} autoComplete="off"
+                onChange={(e) => setDeleteConfirm(e.target.value)} placeholder="DELETE" />
+            </div>
+            <DialogFooter>
+              <Button variant="ghost" onClick={() => setDeleteOpen(false)} disabled={deleting}>Cancel</Button>
+              <Button variant="destructive" onClick={handleDeleteAccount}
+                disabled={deleting || deleteConfirm.trim().toUpperCase() !== "DELETE"}>
+                {deleting ? "Deleting…" : "Delete account"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         {/* ── SECTION 2 — STATS OVERVIEW ── */}
         <motion.div variants={item} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
