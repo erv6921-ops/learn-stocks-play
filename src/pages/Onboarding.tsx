@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils"
 import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight } from "lucide-react"
 
 type UserRole = "student" | "teacher"
-type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-account" | "student-details" | "welcome" | "assessment" | "results"
+type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-account" | "student-details" | "program-select" | "welcome" | "assessment" | "results"
 
 const US_STATES = [
   "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia",
@@ -207,6 +207,8 @@ export default function Onboarding() {
   const [stateCourse, setStateCourse] = useState("")
   const [password, setPassword] = useState("")
   const [signupLoading, setSignupLoading] = useState(false)
+  // Program choice: standard InvestiPlay vs. the Gulliver Biz Lab (Shark Tank).
+  const [bizLab, setBizLab] = useState<boolean>(() => !!user?.bizLabEnrolled)
 
   // Adaptive assessment state
   const [questionPool] = useState<BenchmarkQuestion[]>(() => buildAdaptivePool())
@@ -381,6 +383,7 @@ export default function Onboarding() {
       reward_multiplier: rewardMultiplier,
       benchmark_scores: benchmarkScoresLegacy,
       benchmark_category_scores: categoryScores,
+      biz_lab_enrolled: bizLab,
     })
     if (!saved) {
       setLoading(false)
@@ -408,6 +411,7 @@ export default function Onboarding() {
       benchmarkScores: benchmarkScoresLegacy,
       benchmarkCategoryScores: categoryScores,
       rewardMultiplier,
+      bizLabEnrolled: bizLab,
     }
 
     setUser(localUser)
@@ -427,6 +431,7 @@ export default function Onboarding() {
       reward_multiplier: 1,
       benchmark_scores: {},
       benchmark_category_scores: {},
+      biz_lab_enrolled: bizLab,
     })
     if (!saved) {
       setLoading(false)
@@ -446,6 +451,7 @@ export default function Onboarding() {
       benchmarkScores: {},
       benchmarkCategoryScores: {},
       rewardMultiplier: 1,
+      bizLabEnrolled: bizLab,
       createdAt: new Date()
     }
 
@@ -486,7 +492,7 @@ export default function Onboarding() {
   }, [correctHistory])
 
   // How many dots the sign-up progress bar shows (teachers have one fewer step).
-  const totalSteps = selectedRole === "teacher" ? 3 : 4
+  const totalSteps = selectedRole === "teacher" ? 3 : 5
 
   return (
     <div
@@ -935,7 +941,7 @@ export default function Onboarding() {
                       benchmark_category_scores: {},
                       onboarding_complete: false,
                     })
-                    if (saved) setStep("welcome")
+                    if (saved) setStep("program-select")
                   } catch (err: any) {
                     toast({
                       title: "Couldn't create account",
@@ -950,6 +956,67 @@ export default function Onboarding() {
                 {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : <>Continue <ArrowRight className="ml-2" /></>}
               </Button>
             </div>
+          </motion.div>
+        )}
+
+        {/* Step 4: Program selection (students) — Standard vs. Gulliver Biz Lab */}
+        {step === "program-select" && (
+          <motion.div
+            key="program-select"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="flex flex-col items-center text-center max-w-lg"
+          >
+            <StepHeader
+              current={4}
+              total={totalSteps}
+              mood="excited"
+              message="Pick your adventure! You can explore the full app either way."
+              title="Choose your program"
+              subtitle="Are you here for the standard curriculum, or the Shark Tank Biz Lab?"
+            />
+            <div className="w-full max-w-sm space-y-3">
+              <button
+                onClick={() => {
+                  setBizLab(false)
+                  try { localStorage.setItem("investiplay_active_track", "florida") } catch {}
+                  setStep("welcome")
+                }}
+                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg">Standard InvestiPlay</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">The full money-skills curriculum, lessons, stocks, and AP tracks</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+              </button>
+              <button
+                onClick={() => {
+                  setBizLab(true)
+                  try { localStorage.setItem("investiplay_active_track", "gulliver-biz-lab") } catch {}
+                  setStep("welcome")
+                }}
+                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-gold hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg flex items-center gap-2">
+                    Gulliver Biz Lab <span className="text-[10px] font-bold uppercase bg-gold/15 text-gold rounded-full px-2 py-0.5">Shark Tank</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-0.5">Build a business and pitch it to the Sharks. Hides the AP elective tabs.</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-gold group-hover:translate-x-0.5 transition-all shrink-0" />
+              </button>
+            </div>
+            <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("student-details")}>
+              <ArrowLeft className="mr-2 w-4 h-4" /> Back
+            </Button>
           </motion.div>
         )}
 

@@ -20,6 +20,7 @@ import {
 import { LessonCategory, CourseTrack } from "@/types";
 import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
+import GulliverBizLab from "@/components/bizlab/GulliverBizLab";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
 import { anchor } from "@/lib/tourAnchors";
 
@@ -89,6 +90,14 @@ export default function Lessons() {
   useEffect(() => {
     try { localStorage.setItem("investiplay_active_track", activeTrack); } catch { /* storage unavailable */ }
   }, [activeTrack]);
+
+  // Biz Lab students only see Regular Course + Gulliver Biz Lab — never the AP
+  // elective. If a stale track was stored, fall back to the regular course.
+  const bizLabEnrolled = !!user?.bizLabEnrolled;
+  useEffect(() => {
+    if (bizLabEnrolled && activeTrack === "ap-micro") setActiveTrack("florida");
+    if (!bizLabEnrolled && activeTrack === "gulliver-biz-lab") setActiveTrack("florida");
+  }, [bizLabEnrolled, activeTrack]);
   const trackUnits = useMemo(
     () => unitInfo.filter(u => (u.track ?? "florida") === activeTrack).sort((a, b) => a.orderIndex - b.orderIndex),
     [activeTrack]
@@ -380,12 +389,19 @@ export default function Lessons() {
       <GameNav />
 
       <main className="container mx-auto px-4 md:px-6 py-6 max-w-5xl">
-        {/* Course track switcher */}
+        {/* Course track switcher. Biz Lab students see only Regular Course +
+            Gulliver Biz Lab; everyone else keeps the AP Micro elective tab. */}
         <div className="mb-5 inline-flex items-center rounded-full bg-muted/60 p-1 border border-border/40">
-          {([
-            { key: "florida" as CourseTrack, label: "Personal Finance" },
-            { key: "ap-micro" as CourseTrack, label: "AP Microeconomics" },
-          ]).map(t => (
+          {(bizLabEnrolled
+            ? [
+                { key: "florida" as CourseTrack, label: "Regular Course" },
+                { key: "gulliver-biz-lab" as CourseTrack, label: "Gulliver Biz Lab" },
+              ]
+            : [
+                { key: "florida" as CourseTrack, label: "Personal Finance" },
+                { key: "ap-micro" as CourseTrack, label: "AP Microeconomics" },
+              ]
+          ).map(t => (
             <button
               key={t.key}
               onClick={() => setActiveTrack(t.key)}
@@ -396,8 +412,9 @@ export default function Lessons() {
           ))}
         </div>
 
-        {/* AP Mode Toggle (business AP tracks — Florida only) */}
-        {activeTrack === "florida" && (
+        {/* AP Mode Toggle (business AP tracks — Florida only). Hidden for Biz
+            Lab students, who only have Regular Course + Gulliver Biz Lab. */}
+        {activeTrack === "florida" && !bizLabEnrolled && (
           <div className="mb-5">
             <APModeToggle apMode={apMode} onToggle={setApMode} />
           </div>
@@ -413,7 +430,7 @@ export default function Lessons() {
           </div>
         )}
 
-        {apMode && activeTrack === "florida" ? renderAPMode() : (
+        {activeTrack === "gulliver-biz-lab" ? <GulliverBizLab /> : apMode && activeTrack === "florida" ? renderAPMode() : (
           <>
             {/* 1. Page header — unit hero + unified stat strip */}
             <div className="relative overflow-hidden rounded-[20px] mb-4 p-5 md:p-6 text-white"

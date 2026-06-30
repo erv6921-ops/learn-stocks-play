@@ -212,6 +212,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           benchmarkScores: (profile.benchmark_scores as any) ?? {},
           benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
           rewardMultiplier: profile.reward_multiplier ?? 1,
+          bizLabEnrolled: !!(profile as any).biz_lab_enrolled,
           createdAt: new Date(profile.created_at ?? Date.now()),
         }
         setUser(hydrated)
@@ -327,6 +328,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
               benchmarkScores: (existingUser.benchmark_scores as any) ?? {},
               benchmarkCategoryScores: (existingUser.benchmark_category_scores as any) ?? {},
               rewardMultiplier: existingUser.reward_multiplier ?? 1,
+              bizLabEnrolled: !!(existingUser as any).biz_lab_enrolled,
               createdAt: new Date(existingUser.created_at ?? Date.now()),
             })
           } else {
