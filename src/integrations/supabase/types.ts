@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      entrepreneurship_submissions: {
+        Row: {
+          id: string
+          user_id: string
+          submission_type: string
+          content: Json
+          link: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          submission_type: string
+          content?: Json
+          link?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          submission_type?: string
+          content?: Json
+          link?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       class_challenges: {
         Row: {
           id: string
@@ -578,6 +608,7 @@ export type Database = {
           assessment_score: number | null
           benchmark_category_scores: Json | null
           benchmark_scores: Json | null
+          biz_lab_enrolled: boolean | null
           class_code: string | null
           created_at: string | null
           email: string
@@ -599,6 +630,7 @@ export type Database = {
           assessment_score?: number | null
           benchmark_category_scores?: Json | null
           benchmark_scores?: Json | null
+          biz_lab_enrolled?: boolean | null
           class_code?: string | null
           created_at?: string | null
           email: string
@@ -620,6 +652,7 @@ export type Database = {
           assessment_score?: number | null
           benchmark_category_scores?: Json | null
           benchmark_scores?: Json | null
+          biz_lab_enrolled?: boolean | null
           class_code?: string | null
           created_at?: string | null
           email?: string

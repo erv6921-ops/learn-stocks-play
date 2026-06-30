@@ -23,6 +23,8 @@ export interface UserProfile {
   benchmarkScores?: Record<string, number> // per-topic: 0 or 1
   benchmarkCategoryScores?: Record<string, BenchmarkCategoryScore>
   rewardMultiplier?: number
+  // True when the student picked the Gulliver Biz Lab program during onboarding.
+  bizLabEnrolled?: boolean
   createdAt: Date
 }
 
@@ -101,7 +103,9 @@ export type LessonCategory =
   | "micro-market-failure"
 
 // Curriculum track. Defaults to the state-required Florida track when omitted.
-export type CourseTrack = "florida" | "ap-micro"
+// "gulliver-biz-lab" is the optional Shark Tank entrepreneurship program; when a
+// student enrolls, the AP elective tracks are hidden from the course switcher.
+export type CourseTrack = "florida" | "ap-micro" | "gulliver-biz-lab"
 
 export interface UnitInfo {
   id: string
