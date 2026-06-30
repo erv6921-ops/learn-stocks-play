@@ -76,8 +76,18 @@ export interface BizLabPart {
   activities: BizLabActivity[]
   reflections: ReflectionPrompt[]
   submissions: SubmissionSpec[]
+  /** Optional fill-in-the-blank templates shown in the "Build" stage. */
+  templates?: BizTemplate[]
+  /** Short, energetic line Jeff says when the part opens. */
+  jeffIntro?: string
   /** InvestiCoins awarded for completing the part. */
   xp: number
+}
+
+export interface BizTemplate {
+  title: string
+  blurb: string
+  body: string
 }
 
 // ── Shared reference content ───────────────────────────────────────────────
@@ -299,6 +309,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     number: 1,
     title: "Introduction to Entrepreneurship",
     subtitle: "What makes a great business idea?",
+    jeffIntro: "Welcome to the Tank, future founder! 🦈 Every empire starts with one idea. Let's find yours.",
     icon: "Lightbulb",
     accent: ["#0f2d1e", "#1D9E75"],
     estMinutes: 45,
@@ -374,6 +385,21 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     number: 2,
     title: "The Business Plan & Prototype",
     subtitle: "Turn your idea into a real plan",
+    jeffIntro: "Sharks don't buy ideas — they buy plans. Time to make yours bulletproof! 💼",
+    templates: [
+      {
+        title: "Elevator Pitch Template",
+        blurb: "Fill in the blanks and you've got a pitch in 30 seconds.",
+        body: [
+          "Hi, we're [COMPANY NAME].",
+          "Do you ever struggle with [THE PROBLEM]?",
+          "We created [PRODUCT NAME], a [WHAT IT IS] that [WHAT IT DOES].",
+          "Unlike [COMPETITOR], ours [WHAT MAKES YOU DIFFERENT].",
+          "It costs [PRICE], and it's perfect for [TARGET AUDIENCE].",
+          "[COMPANY NAME] — [YOUR SLOGAN].",
+        ].join("\n"),
+      },
+    ],
     icon: "ClipboardList",
     accent: ["#1a2a6c", "#2563eb"],
     estMinutes: 90,
@@ -491,6 +517,30 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     number: 3,
     title: "The Logo & Marketing Material",
     subtitle: "Build a brand people remember",
+    jeffIntro: "A logo is your business's face. Let's make one people can't forget! 🎨",
+    templates: [
+      {
+        title: "Brand Board Template",
+        blurb: "A designer's starting point — fill it in before you open Canva.",
+        body: [
+          "BRAND NAME: ____________________",
+          "SLOGAN: ____________________",
+          "",
+          "3 VIBE WORDS: ________ , ________ , ________",
+          "(e.g. bold · playful · eco-friendly)",
+          "",
+          "COLOR PALETTE:",
+          "  • Main color: ________  (HEX #______)",
+          "  • Accent color: ________ (HEX #______)",
+          "  • Background: ________",
+          "",
+          "FONT STYLE: ☐ Bold/blocky  ☐ Rounded/friendly  ☐ Sleek/modern  ☐ Handwritten",
+          "",
+          "SYMBOL / ICON IDEA: ____________________",
+          "LOGO LAYOUT: ☐ Icon + text  ☐ Text only  ☐ Icon inside a shape",
+        ].join("\n"),
+      },
+    ],
     icon: "Palette",
     accent: ["#7c2d12", "#ea580c"],
     estMinutes: 60,
@@ -567,6 +617,26 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     number: 4,
     title: "The Pitch (Commercial)",
     subtitle: "Film a 30–60 second commercial",
+    jeffIntro: "Lights, camera, ACTION! 🎬 Let's make an ad that stops the scroll.",
+    templates: [
+      {
+        title: "Commercial Script Template",
+        blurb: "The classic ad formula: Hook → Pitch → Call to Action.",
+        body: [
+          "[HOOK — 0:00-0:10]",
+          'Grab attention: "Don\'t you hate it when ______?"',
+          "",
+          "[BODY — 0:10-0:45]",
+          "Introduce [PRODUCT NAME].",
+          "It [WHAT IT DOES] so you can [THE BENEFIT].",
+          "Show it in action!",
+          "",
+          "[CALL TO ACTION — 0:45-0:60]",
+          'End strong: "Get yours now at [WEBSITE]!"',
+          "Show logo + slogan on screen.",
+        ].join("\n"),
+      },
+    ],
     icon: "Clapperboard",
     accent: ["#581c87", "#a855f7"],
     estMinutes: 120,
@@ -669,6 +739,29 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     number: 5,
     title: "The Website",
     subtitle: "Build your company's online home",
+    jeffIntro: "Time to go live! 🌐 Your website is where the Sharks check you out.",
+    templates: [
+      {
+        title: "Website Page Map Template",
+        blurb: "Plan your 5 pages before you build in Google Sites.",
+        body: [
+          "PAGE 1 — Home / Business Info",
+          "  Company name · logo · slogan · mission statement",
+          "",
+          "PAGE 2 — Product Details",
+          "  What it is · photos of prototype · price",
+          "",
+          "PAGE 3 — Business Plan / About",
+          "  Costs · market research · target customer · competitors",
+          "",
+          "PAGE 4 — Vision",
+          "  Where we'll be in 10 years · why Sharks should invest",
+          "",
+          "PAGE 5 — Commercial",
+          "  Embedded video · customer testimonials",
+        ].join("\n"),
+      },
+    ],
     icon: "Globe",
     accent: ["#134e4a", "#14b8a6"],
     estMinutes: 120,
@@ -744,6 +837,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     number: 6,
     title: "Final Activities & Shark Tank Presentation",
     subtitle: "Prepare to face the Sharks",
+    jeffIntro: "This is it — the big one. Let's get you pitch-perfect for the Tank! 🏆",
     icon: "Trophy",
     accent: ["#831843", "#ec4899"],
     estMinutes: 90,
