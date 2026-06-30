@@ -47,6 +47,9 @@ export interface SubmissionField {
   type: SubmissionFieldType
   placeholder?: string
   help?: string
+  /** Optional sub-section heading. Fields sharing a group render together in a
+   *  collapsible section so long question sets feel bite-sized, not intimidating. */
+  group?: string
 }
 
 export interface SubmissionSpec {
@@ -481,17 +484,17 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
         title: "Business Plan",
         description: "Answer the core business-plan questions.",
         fields: [
-          { key: "companyName", label: "Name of your product or company", type: "text" },
-          { key: "origin", label: "How did you come up with this idea?", type: "textarea" },
-          { key: "problemSolved", label: "What problem does your product solve? Key features?", type: "textarea" },
-          { key: "competitors", label: "Are there similar products? Their strengths & weaknesses?", type: "textarea" },
-          { key: "advantage", label: "What advantage will your company have over competitors?", type: "textarea" },
-          { key: "slogan", label: "Catchy slogan for your company", type: "text" },
-          { key: "targetAudience", label: "Target audience (age, interests, characteristics)", type: "textarea" },
-          { key: "advertising", label: "How will you advertise your product?", type: "textarea" },
-          { key: "price", label: "How much will you sell your product for?", type: "text" },
-          { key: "costs", label: "What costs are associated with making it?", type: "textarea" },
-          { key: "profit", label: "Projected profit — how much will you make, and how is profit calculated?", type: "textarea" },
+          { key: "companyName", label: "Name of your product or company", type: "text", group: "1. The Idea" },
+          { key: "origin", label: "How did you come up with this idea?", type: "textarea", group: "1. The Idea" },
+          { key: "problemSolved", label: "What problem does your product solve? Key features?", type: "textarea", group: "1. The Idea" },
+          { key: "competitors", label: "Are there similar products? Their strengths & weaknesses?", type: "textarea", group: "2. Know Your Market" },
+          { key: "advantage", label: "What advantage will your company have over competitors?", type: "textarea", group: "2. Know Your Market" },
+          { key: "slogan", label: "Catchy slogan for your company", type: "text", group: "3. Marketing" },
+          { key: "targetAudience", label: "Target audience (age, interests, characteristics)", type: "textarea", group: "3. Marketing" },
+          { key: "advertising", label: "How will you advertise your product?", type: "textarea", group: "3. Marketing" },
+          { key: "price", label: "How much will you sell your product for?", type: "text", group: "4. The Money" },
+          { key: "costs", label: "What costs are associated with making it?", type: "textarea", group: "4. The Money" },
+          { key: "profit", label: "Projected profit — how much will you make, and how is profit calculated?", type: "textarea", group: "4. The Money" },
         ],
         xp: 150,
       },
@@ -598,12 +601,12 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
         title: "Logo & Brand Vibe",
         description: "Submit your brand vibe and logo design.",
         fields: [
-          { key: "adjectives", label: "Brand adjectives", type: "text", placeholder: "e.g. bold, playful, eco-friendly" },
-          { key: "colors", label: "Colors", type: "text" },
-          { key: "fonts", label: "Fonts", type: "text" },
-          { key: "symbols", label: "Symbols / imagery", type: "text" },
-          { key: "logoLinks", label: "Logo image links (PNG)", type: "url-list", help: "Paste links to your logo files — one per line." },
-          { key: "mockups", label: "3 marketing mockup links", type: "url-list", help: "T-shirt, flyer, social post, etc. — one link per line." },
+          { key: "adjectives", label: "Brand adjectives", type: "text", placeholder: "e.g. bold, playful, eco-friendly", group: "1. Your Vibe" },
+          { key: "colors", label: "Colors", type: "text", group: "1. Your Vibe" },
+          { key: "fonts", label: "Fonts", type: "text", group: "1. Your Vibe" },
+          { key: "symbols", label: "Symbols / imagery", type: "text", group: "1. Your Vibe" },
+          { key: "logoLinks", label: "Logo image links (PNG)", type: "url-list", help: "Paste links to your logo files — one per line.", group: "2. Your Designs" },
+          { key: "mockups", label: "3 marketing mockup links", type: "url-list", help: "T-shirt, flyer, social post, etc. — one link per line.", group: "2. Your Designs" },
         ],
         xp: 150,
       },

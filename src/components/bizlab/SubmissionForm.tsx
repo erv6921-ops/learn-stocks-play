@@ -1,11 +1,12 @@
-import React, { useState } from "react"
-import { Upload, Check, Loader2, ExternalLink, AlertCircle } from "lucide-react"
+import React, { useMemo, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Upload, Check, Loader2, ExternalLink, AlertCircle, ChevronDown, CheckCircle2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { supabase } from "@/integrations/supabase/client"
-import { SubmissionSpec } from "@/data/bizLab"
+import { SubmissionSpec, SubmissionField } from "@/data/bizLab"
 import { useBizLabStore } from "@/stores/bizLabStore"
 import { useApp } from "@/contexts/AppContext"
 import VideoEmbed from "./VideoEmbed"
@@ -46,7 +47,35 @@ export default function SubmissionForm({ spec }: { spec: SubmissionSpec }) {
   const awardKey = `submission:${spec.submissionType}`
   const saved = !!cached
 
+  // Split fields into ordered sub-sections by their `group`. When there's more
+  // than one group we render them as collapsible sections so a long question
+  // set (e.g. the 11-question business plan) shows a few questions at a time.
+  const groups = useMemo(() => {
+    const order: string[] = []
+    const map: Record<string, SubmissionField[]> = {}
+    for (const f of spec.fields) {
+      const g = f.group ?? ""
+      if (!(g in map)) { map[g] = []; order.push(g) }
+      map[g].push(f)
+    }
+    return order.map(title => ({ title, fields: map[title] }))
+  }, [spec])
+  const useGroups = groups.length > 1
+  const [openGroup, setOpenGroup] = useState(0)
+
   const set = (k: string, v: string) => setValues(prev => ({ ...prev, [k]: v }))
+
+  const renderField = (f: SubmissionField) => (
+    <div key={f.key}>
+      <label className="text-sm font-medium block mb-1.5">{f.label}</label>
+      {f.type === "textarea" || f.type === "url-list" ? (
+        <Textarea value={values[f.key] ?? ""} onChange={e => set(f.key, e.target.value)} placeholder={f.placeholder} rows={3} />
+      ) : (
+        <Input value={values[f.key] ?? ""} onChange={e => set(f.key, e.target.value)} placeholder={f.placeholder} />
+      )}
+      {f.help && <p className="text-xs text-muted-foreground mt-1">{f.help}</p>}
+    </div>
+  )
 
   const handleSubmit = async () => {
     setError(null)
@@ -137,27 +166,56 @@ export default function SubmissionForm({ spec }: { spec: SubmissionSpec }) {
       </div>
       {spec.description && <p className="text-sm text-muted-foreground mb-4">{spec.description}</p>}
 
+      {useGroups && (
+        <p className="text-xs text-muted-foreground mb-3">
+          {groups.length} quick sections — tap one open at a time. No pressure! 🙌
+        </p>
+      )}
+
       <div className="space-y-3">
-        {spec.fields.map(f => (
-          <div key={f.key}>
-            <label className="text-sm font-medium block mb-1.5">{f.label}</label>
-            {f.type === "textarea" || f.type === "url-list" ? (
-              <Textarea
-                value={values[f.key] ?? ""}
-                onChange={e => set(f.key, e.target.value)}
-                placeholder={f.placeholder}
-                rows={f.type === "url-list" ? 3 : 3}
-              />
-            ) : (
-              <Input
-                value={values[f.key] ?? ""}
-                onChange={e => set(f.key, e.target.value)}
-                placeholder={f.placeholder}
-              />
-            )}
-            {f.help && <p className="text-xs text-muted-foreground mt-1">{f.help}</p>}
+        {useGroups ? (
+          <div className="space-y-2.5">
+            {groups.map((grp, gi) => {
+              const isOpen = openGroup === gi
+              const filled = grp.fields.filter(f => (values[f.key] ?? "").trim()).length
+              const allFilled = filled === grp.fields.length
+              return (
+                <div key={grp.title} className="rounded-xl border border-border/60 overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setOpenGroup(isOpen ? -1 : gi)}
+                    className="w-full flex items-center gap-2 px-3.5 py-2.5 text-left bg-muted/40"
+                  >
+                    {allFilled ? (
+                      <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
+                    ) : (
+                      <span className="w-4 h-4 rounded-full border-2 border-muted-foreground/40 shrink-0" />
+                    )}
+                    <span className="flex-1 font-bold text-sm">{grp.title}</span>
+                    <span className="text-[11px] text-muted-foreground tabular-nums">{filled}/{grp.fields.length}</span>
+                    <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
+                        <div className="px-3.5 py-3 space-y-3">
+                          {grp.fields.map(renderField)}
+                          {gi < groups.length - 1 && (
+                            <Button type="button" variant="outline" size="sm" onClick={() => setOpenGroup(gi + 1)}>
+                              Next section →
+                            </Button>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )
+            })}
           </div>
-        ))}
+        ) : (
+          spec.fields.map(renderField)
+        )}
 
         {spec.linkField && (
           <div>

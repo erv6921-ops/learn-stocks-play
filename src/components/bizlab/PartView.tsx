@@ -5,7 +5,7 @@ import {
   GraduationCap, Hammer, BookHeart, ArrowLeft, ArrowRight, ChevronDown, PartyPopper,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { JeffMascot } from "@/components/JeffMascot"
+import JeffSidekick from "./JeffSidekick"
 import { useToast } from "@/hooks/use-toast"
 import { useJeff } from "@/contexts/JeffContext"
 import { BizLabPart, PROBLEMS_FOR_TEENS } from "@/data/bizLab"
@@ -196,10 +196,17 @@ export default function PartView({ part }: { part: BizLabPart }) {
         </div>
       </div>
 
-      {/* Jeff guide */}
-      <div className="rounded-2xl border border-border/60 bg-muted/30 p-3">
-        <JeffMascot size="lg" mood={jeff.mood} message={jeff.line} />
-      </div>
+      {/* Side-by-side: big animated Jeff coach on the left, content on the right */}
+      <div className="lg:flex lg:gap-6 lg:items-start">
+        <aside className="hidden lg:block lg:w-[210px] shrink-0 sticky top-20 self-start">
+          <JeffSidekick message={jeff.line} variant="side" />
+        </aside>
+
+        <div className="flex-1 min-w-0 space-y-4">
+          {/* Mobile Jeff banner */}
+          <div className="lg:hidden rounded-2xl border border-border/60 bg-muted/30 p-3">
+            <JeffSidekick message={jeff.line} variant="compact" />
+          </div>
 
       {/* Stage stepper */}
       <div className="flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1">
@@ -356,6 +363,8 @@ export default function PartView({ part }: { part: BizLabPart }) {
         ) : (
           <span className="w-[72px]" />
         )}
+      </div>
+        </div>
       </div>
     </motion.div>
   )
