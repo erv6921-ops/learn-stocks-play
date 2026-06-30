@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
 import { useJeff, JeffActivity } from "@/contexts/JeffContext"
+import { useJeffSolo } from "@/stores/jeffSoloStore"
 import { JeffMascot } from "./JeffMascot"
 import { SpeechBubble } from "./SpeechBubble"
 
@@ -83,6 +84,7 @@ export function JeffWidget() {
   const location = useLocation()
   const { user } = useApp()
   const { mood, message, visible, activity, nudge, dismiss } = useJeff()
+  const sidekickActive = useJeffSolo(s => s.sidekickActive)
   const [hovered, setHovered] = useState(false)
   const [dims, setDims] = useState({ w: typeof window !== "undefined" ? window.innerWidth : 1200, h: typeof window !== "undefined" ? window.innerHeight : 800 })
 
@@ -94,6 +96,9 @@ export function JeffWidget() {
 
   if (!user) return null
   if (HIDDEN_ROUTES.some(r => location.pathname.startsWith(r))) return null
+  // Hide the global corner Jeff while the Biz Lab's own large side Jeff is up,
+  // so there's only ever one Jeff on screen.
+  if (sidekickActive) return null
 
   const cont = containerAnim(activity, dims.w, dims.h)
   const isFlip = activity === "flip"

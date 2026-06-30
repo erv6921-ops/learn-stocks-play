@@ -7,7 +7,6 @@ import {
 import { Button } from "@/components/ui/button"
 import JeffSidekick from "./JeffSidekick"
 import { useToast } from "@/hooks/use-toast"
-import { useJeff } from "@/contexts/JeffContext"
 import { BizLabPart, PROBLEMS_FOR_TEENS } from "@/data/bizLab"
 import { useBizLabStore } from "@/stores/bizLabStore"
 import { useApp } from "@/contexts/AppContext"
@@ -103,7 +102,7 @@ function LearnAccordion({ part }: { part: BizLabPart }) {
 export default function PartView({ part }: { part: BizLabPart }) {
   const { toast } = useToast()
   const { earnJeffs } = useApp()
-  const { react } = useJeff()
+  const [celebrate, setCelebrate] = useState(0)
   const activities = useBizLabStore(s => s.activities)
   const toggleActivity = useBizLabStore(s => s.toggleActivity)
   const submissions = useBizLabStore(s => s.submissions)
@@ -141,13 +140,7 @@ export default function PartView({ part }: { part: BizLabPart }) {
   }
 
   const goNext = () => {
-    if (stageIdx < STAGES.length - 1) {
-      const next = stageIdx + 1
-      setStageIdx(next)
-      // Nudge the roaming Jeff with the next stage's line.
-      const j = jeffFor(STAGES[next].id, part)
-      react("encourage", j.line)
-    }
+    if (stageIdx < STAGES.length - 1) setStageIdx(stageIdx + 1)
   }
   const goBack = () => stageIdx > 0 && setStageIdx(stageIdx - 1)
 
@@ -157,7 +150,7 @@ export default function PartView({ part }: { part: BizLabPart }) {
     if (newly && !hasAwarded(key)) {
       earnJeffs(part.xp, `Completed Biz Lab ${part.title}`)
       markAwarded(key)
-      react("celebrate", `Part ${part.number} crushed! Badge unlocked! 🏆`, "party")
+      setCelebrate(c => c + 1) // triggers Jeff's big party flip
       toast({ title: `Part ${part.number} complete! 🦈`, description: `+${part.xp} InvestiCoins. Badge unlocked!` })
     }
   }
@@ -199,13 +192,13 @@ export default function PartView({ part }: { part: BizLabPart }) {
       {/* Side-by-side: big animated Jeff coach on the left, content on the right */}
       <div className="lg:flex lg:gap-6 lg:items-start">
         <aside className="hidden lg:block lg:w-[210px] shrink-0 sticky top-20 self-start">
-          <JeffSidekick message={jeff.line} variant="side" />
+          <JeffSidekick message={jeff.line} variant="side" celebrateKey={celebrate} />
         </aside>
 
         <div className="flex-1 min-w-0 space-y-4">
           {/* Mobile Jeff banner */}
           <div className="lg:hidden rounded-2xl border border-border/60 bg-muted/30 p-3">
-            <JeffSidekick message={jeff.line} variant="compact" />
+            <JeffSidekick message={jeff.line} variant="compact" celebrateKey={celebrate} />
           </div>
 
       {/* Stage stepper */}

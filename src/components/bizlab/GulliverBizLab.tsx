@@ -12,6 +12,7 @@ import {
   computeUnitPercent,
   computeEarnedBadges,
 } from "@/stores/bizLabStore"
+import { useJeffSolo } from "@/stores/jeffSoloStore"
 import { bizIcon } from "./icons"
 import Countdown from "./Countdown"
 import BadgeShelf from "./BadgeShelf"
@@ -45,6 +46,14 @@ export default function GulliverBizLab() {
   useEffect(() => {
     touchStreak()
   }, [touchStreak])
+
+  // Take over as the only Jeff on screen — the global corner widget hides while
+  // this is mounted, then comes back when the student leaves the Biz Lab.
+  const setSidekickActive = useJeffSolo(s => s.setSidekickActive)
+  useEffect(() => {
+    setSidekickActive(true)
+    return () => setSidekickActive(false)
+  }, [setSidekickActive])
 
   const percent = computeUnitPercent(completedParts)
   const earnedBadges = useMemo(() => computeEarnedBadges(completedParts), [completedParts])
