@@ -61,6 +61,24 @@ const ls = {
   del(key: string) { try { localStorage.removeItem(key) } catch {} },
 }
 
+// Onboarding records the program choice in localStorage *before* the account
+// has a session (email-confirmation signups bounce to /auth first). On the
+// first authenticated hydrate we flush that pending choice to the profile and
+// clear the flag, so picking "Gulliver Biz Lab" survives the round-trip.
+function applyPendingBizLab(uid: string, current: boolean): boolean {
+  let pending: string | null = null
+  try { pending = localStorage.getItem("investiplay_biz_lab_pending") } catch {}
+  if (pending !== "1" && pending !== "0") return current
+  const want = pending === "1"
+  if (want !== current) {
+    supabase.from("profiles").update({ biz_lab_enrolled: want }).eq("id", uid).then(({ error }) => {
+      if (error) console.error("[biz_lab pending apply]", error)
+    })
+  }
+  try { localStorage.removeItem("investiplay_biz_lab_pending") } catch {}
+  return want
+}
+
 // Every per-user localStorage key. Cleared on logout / sign-out so one
 // account's cached data never bleeds into the next session on a shared device.
 const USER_KEYS = [
@@ -212,7 +230,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           benchmarkScores: (profile.benchmark_scores as any) ?? {},
           benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
           rewardMultiplier: profile.reward_multiplier ?? 1,
-          bizLabEnrolled: !!(profile as any).biz_lab_enrolled,
+          bizLabEnrolled: applyPendingBizLab(uid, !!(profile as any).biz_lab_enrolled),
           createdAt: new Date(profile.created_at ?? Date.now()),
         }
         setUser(hydrated)
@@ -328,7 +346,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
               benchmarkScores: (existingUser.benchmark_scores as any) ?? {},
               benchmarkCategoryScores: (existingUser.benchmark_category_scores as any) ?? {},
               rewardMultiplier: existingUser.reward_multiplier ?? 1,
-              bizLabEnrolled: !!(existingUser as any).biz_lab_enrolled,
+              bizLabEnrolled: applyPendingBizLab(session.user.id, !!(existingUser as any).biz_lab_enrolled),
               createdAt: new Date(existingUser.created_at ?? Date.now()),
             })
           } else {

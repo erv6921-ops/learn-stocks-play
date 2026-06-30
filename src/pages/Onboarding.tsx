@@ -622,7 +622,7 @@ export default function Onboarding() {
                 size="xl"
                 variant="hero"
                 disabled={!firstName.trim()}
-                onClick={() => setStep(selectedRole === "teacher" ? "teacher-details" : "student-account")}
+                onClick={() => setStep(selectedRole === "teacher" ? "teacher-details" : "program-select")}
               >
                 Continue <ArrowRight className="ml-2" />
               </Button>
@@ -765,7 +765,7 @@ export default function Onboarding() {
             className="flex flex-col items-center text-center max-w-lg"
           >
             <StepHeader
-              current={2}
+              current={3}
               total={totalSteps}
               mood="happy"
               message="Let's set up your login so your progress is saved on any device."
@@ -792,7 +792,7 @@ export default function Onboarding() {
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <Button variant="outline" onClick={() => setStep("name")}>
+              <Button variant="outline" onClick={() => setStep("program-select")}>
                 <ArrowLeft className="mr-2 w-4 h-4" /> Back
               </Button>
               <Button
@@ -817,7 +817,7 @@ export default function Onboarding() {
             className="flex flex-col items-center text-center max-w-lg"
           >
             <StepHeader
-              current={3}
+              current={4}
               total={totalSteps}
               mood="teaching"
               message={firstName.trim() ? `Almost there, ${firstName.trim()}! This helps me tailor your lessons.` : "Almost there! This helps me tailor your lessons."}
@@ -941,7 +941,7 @@ export default function Onboarding() {
                       benchmark_category_scores: {},
                       onboarding_complete: false,
                     })
-                    if (saved) setStep("program-select")
+                    if (saved) setStep("welcome")
                   } catch (err: any) {
                     toast({
                       title: "Couldn't create account",
@@ -959,7 +959,9 @@ export default function Onboarding() {
           </motion.div>
         )}
 
-        {/* Step 4: Program selection (students) — Standard vs. Gulliver Biz Lab */}
+        {/* Step 3: Program selection (students) — Standard vs. Gulliver Biz Lab.
+            Comes BEFORE account creation so it always shows even when email
+            confirmation is on (sign-up otherwise bounces to /auth first). */}
         {step === "program-select" && (
           <motion.div
             key="program-select"
@@ -969,7 +971,7 @@ export default function Onboarding() {
             className="flex flex-col items-center text-center max-w-lg"
           >
             <StepHeader
-              current={4}
+              current={2}
               total={totalSteps}
               mood="excited"
               message="Pick your adventure! You can explore the full app either way."
@@ -980,8 +982,13 @@ export default function Onboarding() {
               <button
                 onClick={() => {
                   setBizLab(false)
-                  try { localStorage.setItem("investiplay_active_track", "florida") } catch {}
-                  setStep("welcome")
+                  try {
+                    localStorage.setItem("investiplay_active_track", "florida")
+                    // Pending flag is applied to the profile on first login, so the
+                    // choice survives the email-confirmation round-trip.
+                    localStorage.setItem("investiplay_biz_lab_pending", "0")
+                  } catch {}
+                  setStep("student-account")
                 }}
                 className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
               >
@@ -997,8 +1004,11 @@ export default function Onboarding() {
               <button
                 onClick={() => {
                   setBizLab(true)
-                  try { localStorage.setItem("investiplay_active_track", "gulliver-biz-lab") } catch {}
-                  setStep("welcome")
+                  try {
+                    localStorage.setItem("investiplay_active_track", "gulliver-biz-lab")
+                    localStorage.setItem("investiplay_biz_lab_pending", "1")
+                  } catch {}
+                  setStep("student-account")
                 }}
                 className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-gold hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
               >
@@ -1014,7 +1024,7 @@ export default function Onboarding() {
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-gold group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
             </div>
-            <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("student-details")}>
+            <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("name")}>
               <ArrowLeft className="mr-2 w-4 h-4" /> Back
             </Button>
           </motion.div>
