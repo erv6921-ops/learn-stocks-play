@@ -98,6 +98,11 @@ export default function Lessons() {
     if (bizLabEnrolled && activeTrack === "ap-micro") setActiveTrack("florida");
     if (!bizLabEnrolled && activeTrack === "gulliver-biz-lab") setActiveTrack("florida");
   }, [bizLabEnrolled, activeTrack]);
+
+  // Biz Lab students get the original Regular Course format (roller coaster,
+  // badges, etc.) — never the AP Mode layout, even if AP Mode was toggled on
+  // before enrolling and is still stored in localStorage.
+  const effectiveApMode = apMode && !bizLabEnrolled;
   const trackUnits = useMemo(
     () => unitInfo.filter(u => (u.track ?? "florida") === activeTrack).sort((a, b) => a.orderIndex - b.orderIndex),
     [activeTrack]
@@ -430,7 +435,7 @@ export default function Lessons() {
           </div>
         )}
 
-        {activeTrack === "gulliver-biz-lab" ? <GulliverBizLab /> : apMode && activeTrack === "florida" ? renderAPMode() : (
+        {activeTrack === "gulliver-biz-lab" ? <GulliverBizLab /> : effectiveApMode && activeTrack === "florida" ? renderAPMode() : (
           <>
             {/* 1. Page header — unit hero + unified stat strip */}
             <div className="relative overflow-hidden rounded-[20px] mb-4 p-5 md:p-6 text-white"
