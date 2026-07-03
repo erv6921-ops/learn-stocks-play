@@ -178,11 +178,17 @@ export default function Lessons() {
   const [activeUnitId, setActiveUnitId] = useState(firstActiveUnitId);
   useEffect(() => { setActiveUnitId(firstActiveUnitId); }, [firstActiveUnitId]);
 
-  // Scroll active chip into view
+  // Center the active chip within its own horizontal strip — scroll only the
+  // strip container (not the page), so entering the tab never jumps vertically.
   useEffect(() => {
-    if (!stripRef.current) return;
-    const el = stripRef.current.querySelector(`[data-unit="${activeUnitId}"]`) as HTMLElement;
-    if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    const container = stripRef.current;
+    if (!container) return;
+    const el = container.querySelector(`[data-unit="${activeUnitId}"]`) as HTMLElement | null;
+    if (!el) return;
+    const cRect = container.getBoundingClientRect();
+    const eRect = el.getBoundingClientRect();
+    const left = container.scrollLeft + (eRect.left - cRect.left) - (container.clientWidth - el.clientWidth) / 2;
+    container.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
   }, [activeUnitId]);
 
   // Active unit data
