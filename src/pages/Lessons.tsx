@@ -579,13 +579,15 @@ export default function Lessons() {
         {coasterMini && isMapView && (
           <>
             {/* Fullscreen button — sends the roller coaster to the big view */}
-            <button
-              onClick={() => setCoasterFull(true)}
-              className="mb-4 inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
-              style={{ background: "linear-gradient(135deg,#2FD39B,#0F7E5C)", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
-            >
-              <Maximize2 className="w-4 h-4" /> Fullscreen
-            </button>
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={() => setCoasterFull(true)}
+                className="inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
+                style={{ background: "linear-gradient(135deg,#2FD39B,#0F7E5C)", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
+              >
+                <Maximize2 className="w-4 h-4" /> Fullscreen
+              </button>
+            </div>
             {/* 1. Page header — unit hero + unified stat strip */}
             <div className="relative overflow-hidden rounded-[20px] mb-4 p-5 md:p-6 text-white"
               style={{ background: "linear-gradient(135deg, #0f2d1e 0%, #143d29 55%, #1d6b4d 135%)" }}>
