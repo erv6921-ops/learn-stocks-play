@@ -462,9 +462,10 @@ export default function Lessons() {
     </div>
   );
 
-  // Mini-coaster journey: when enabled, skip the fullscreen map so we fall
-  // through to the original card layout below (with a Fullscreen button added).
-  const coasterMini = !!import.meta.env.VITE_COASTER_MINI;
+  // Mini-coaster journey is the default Missions experience: the original card
+  // layout + a Fullscreen button that opens the big roller coaster. Only the
+  // VITE_COASTER_TAB comparison build (big coaster as the whole tab) opts out.
+  const coasterMini = !import.meta.env.VITE_COASTER_TAB;
 
   if (isMapView && !coasterMini) {
     return (
