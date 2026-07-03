@@ -12,10 +12,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import GameNav from "@/components/GameNav";
+import FullScreenCoaster from "@/components/FullScreenCoaster";
 import {
   ArrowRight, Lock, CheckCircle, Coins, Flame, Star, Trophy,
   Award, Footprints, Zap, Crown, LineChart, Coins as CoinsIcon,
   GraduationCap, Target, BookOpen, Medal, Rocket, Compass, Shield, Sparkles, Gem,
+  Maximize2, Minimize2,
 } from "lucide-react";
 import { LessonCategory, CourseTrack } from "@/types";
 import APModeToggle from "@/components/APModeToggle";
@@ -23,6 +25,7 @@ import APModeSections from "@/components/APModeSections";
 import GulliverBizLab from "@/components/bizlab/GulliverBizLab";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
 import { anchor } from "@/lib/tourAnchors";
+import MissionsWorldMap, { UnitMeta } from "@/components/MissionsWorldMap";
 
 // ── #4 Next-lesson one-line descriptions, keyed L<unit>.<lesson> ──
 const lessonDescriptions: Record<string, string> = {
@@ -317,6 +320,9 @@ export default function Lessons() {
   const [previewUnitId, setPreviewUnitId] = useState<string | null>(null);
   const previewUnit = previewUnitId ? unitInfo.find(u => u.id === previewUnitId) : null;
 
+  // Fullscreen roller-coaster overlay (mini-coaster journey variant).
+  const [coasterFull, setCoasterFull] = useState(false);
+
   // ── #10 Brief skeleton frame to avoid layout shift on first paint ──
   const [statsReady, setStatsReady] = useState(false);
   useEffect(() => {
@@ -333,6 +339,31 @@ export default function Lessons() {
       setPreviewUnitId(prev => prev === unitId ? null : unitId);
     }
   };
+
+  // ── World-map missions: one bank per unit, in track order ──
+  const worldUnitsMeta: UnitMeta[] = useMemo(() => trackUnits.map(unit => {
+    const adaptive = adaptiveCurriculum.get(unit.id);
+    const uLessons = adaptive?.lessons ?? [];
+    const done = uLessons.filter(l => l.status === "validated" || isLessonCompleted(l.lesson.id)).length;
+    const total = uLessons.length;
+    return { unit, done, total, complete: total > 0 && done >= total, unlocked: unlockedUnits.has(unit.id) };
+  }), [trackUnits, adaptiveCurriculum, unlockedUnits, isLessonCompleted]);
+
+  const worldRewardTotals = useMemo(() => {
+    const r: Record<string, number> = {};
+    for (const unit of trackUnits) r[unit.id] = Math.round(getUnitRewardTotal(unit.id) * multiplier);
+    return r;
+  }, [trackUnits, multiplier]);
+
+  // Clicking a bank drops you into that unit's next unfinished lesson.
+  const openUnit = useCallback((unitId: string) => {
+    const adaptive = adaptiveCurriculum.get(unitId);
+    const uLessons = adaptive?.lessons ?? [];
+    const next = uLessons.find(al =>
+      al.status === "required" && !isLessonCompleted(al.lesson.id) && isLessonUnlocked(unitId, al.lesson.id));
+    const target = next?.lesson.id ?? uLessons[0]?.lesson.id;
+    if (target) navigate(`/lessons/${target}`);
+  }, [adaptiveCurriculum, isLessonCompleted, unlockedUnits, navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) { navigate("/onboarding"); return null; }
 
@@ -389,6 +420,107 @@ export default function Lessons() {
     );
   }
 
+  // The immersive world map is the default Missions view. Biz Lab and AP Mode
+  // keep their own (container) layouts.
+  const trackTabs = bizLabEnrolled
+    ? [
+        { key: "florida" as CourseTrack, label: "Course" },
+        { key: "gulliver-biz-lab" as CourseTrack, label: "Biz Lab" },
+      ]
+    : [
+        { key: "florida" as CourseTrack, label: "Personal Finance" },
+        { key: "ap-micro" as CourseTrack, label: "AP Micro" },
+      ];
+  const isMapView = activeTrack !== "gulliver-biz-lab" && !(effectiveApMode && activeTrack === "florida");
+
+  // Live station + stats data shared by the small coaster and the fullscreen one.
+  const coasterStations = activeLessons.map(al => ({
+    id: al.lesson.id,
+    title: al.lesson.title,
+    done: al.status === "validated" || !!isLessonCompleted(al.lesson.id),
+    unlocked: isLessonUnlocked(activeUnitId, al.lesson.id),
+  }));
+  const coasterOverlay = coasterFull && (
+    <div className="fixed inset-0 z-[60] bg-background">
+      <FullScreenCoaster
+        unitNumber={activeUnit?.unitNumber}
+        unitTitle={activeUnit?.title ?? "Your ride"}
+        unitReward={Math.round(unitTotalPts * multiplier)}
+        stations={coasterStations}
+        currentIdx={currentLessonIdx}
+        stats={{ streak, points: jeffsBalance, level }}
+        onSelectStation={(s) => navigate(`/lessons/${s.id}`)}
+      />
+      {/* Exit-fullscreen button, top-left */}
+      <button
+        onClick={() => setCoasterFull(false)}
+        className="absolute top-4 left-4 z-[61] inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-[#0d3524] shadow-lg transition-transform active:scale-95"
+        style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.9)" }}
+      >
+        <Minimize2 className="w-4 h-4" /> Exit fullscreen
+      </button>
+    </div>
+  );
+
+  // Mini-coaster journey: when enabled, skip the fullscreen map so we fall
+  // through to the original card layout below (with a Fullscreen button added).
+  const coasterMini = !!import.meta.env.VITE_COASTER_MINI;
+
+  if (isMapView && !coasterMini) {
+    return (
+      <div className="fixed inset-0 flex flex-col bg-background">
+        <GameNav />
+        <div className="relative flex-1 overflow-hidden">
+          {import.meta.env.VITE_COASTER_TAB ? (
+            <FullScreenCoaster
+              embedded
+              unitNumber={activeUnit?.unitNumber}
+              unitTitle={activeUnit?.title ?? "Your ride"}
+              unitReward={Math.round(unitTotalPts * multiplier)}
+              stations={activeLessons.map(al => ({
+                id: al.lesson.id,
+                title: al.lesson.title,
+                done: al.status === "validated" || !!isLessonCompleted(al.lesson.id),
+                unlocked: isLessonUnlocked(activeUnitId, al.lesson.id),
+              }))}
+              currentIdx={currentLessonIdx}
+              stats={{ streak, points: jeffsBalance, level }}
+              onSelectStation={(s) => navigate(`/lessons/${s.id}`)}
+            />
+          ) : (
+          <MissionsWorldMap
+            unitsMeta={worldUnitsMeta}
+            activeUnitId={activeUnitId}
+            onOpenUnit={openUnit}
+            rewardTotals={worldRewardTotals}
+          />
+          )}
+          {/* Floating track switcher (keeps AP Micro / Biz Lab reachable). */}
+          <div className="absolute top-3 right-3 md:top-4 md:right-4 z-20 inline-flex items-center rounded-full bg-white/90 backdrop-blur p-1 border border-black/5 shadow-md">
+            {trackTabs.map(tb => (
+              <button
+                key={tb.key}
+                onClick={() => setActiveTrack(tb.key)}
+                className={`px-3 py-1 rounded-full text-[12px] font-bold transition-all ${activeTrack === tb.key ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                {tb.label}
+              </button>
+            ))}
+            {activeTrack === "florida" && !bizLabEnrolled && (
+              <button
+                onClick={() => setApMode(true)}
+                className="px-3 py-1 rounded-full text-[12px] font-bold text-muted-foreground hover:text-foreground transition-all"
+                title="Switch to AP business list view"
+              >
+                AP Mode
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
@@ -435,8 +567,24 @@ export default function Lessons() {
           </div>
         )}
 
-        {activeTrack === "gulliver-biz-lab" ? <GulliverBizLab /> : effectiveApMode && activeTrack === "florida" ? renderAPMode() : (
+        {activeTrack === "gulliver-biz-lab" ? <GulliverBizLab /> : effectiveApMode && activeTrack === "florida" ? renderAPMode() : coasterMini ? null : (
+          <MissionsWorldMap
+            unitsMeta={worldUnitsMeta}
+            activeUnitId={activeUnitId}
+            onOpenUnit={openUnit}
+            rewardTotals={worldRewardTotals}
+          />
+        )}
+        {coasterMini && isMapView && (
           <>
+            {/* Fullscreen button — sends the roller coaster to the big view */}
+            <button
+              onClick={() => setCoasterFull(true)}
+              className="mb-4 inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
+              style={{ background: "linear-gradient(135deg,#2FD39B,#0F7E5C)", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
+            >
+              <Maximize2 className="w-4 h-4" /> Fullscreen
+            </button>
             {/* 1. Page header — unit hero + unified stat strip */}
             <div className="relative overflow-hidden rounded-[20px] mb-4 p-5 md:p-6 text-white"
               style={{ background: "linear-gradient(135deg, #0f2d1e 0%, #143d29 55%, #1d6b4d 135%)" }}>
@@ -798,6 +946,7 @@ export default function Lessons() {
           </>
         )}
       </main>
+      {coasterOverlay}
     </div>
   );
 }

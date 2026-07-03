@@ -26,6 +26,8 @@ import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
 import Profile from "./pages/Profile";
 import Challenges from "./pages/Challenges";
+import MissionsPreview from "./pages/MissionsPreview";
+import CoasterJourney from "./pages/CoasterJourney";
 import { AssignmentNotifications } from "./components/AssignmentNotifications";
 import { GradeNotifications } from "./components/GradeNotifications";
 import { JeffProvider } from "@/contexts/JeffContext";
@@ -51,7 +53,7 @@ function AppRoutes() {
       transition={{ duration: 0.24, ease: "easeOut" }}
     >
     <Routes location={location}>
-      <Route path="/" element={<Navigate to={homeTarget} replace />} />
+      <Route path="/" element={import.meta.env.VITE_COASTER_ONLY ? <CoasterJourney /> : <Navigate to={homeTarget} replace />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/dashboard" element={<Dashboard />} />
@@ -73,6 +75,8 @@ function AppRoutes() {
       <Route path="/financial-advisor" element={<FinancialAdvisor />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/challenges" element={<Challenges />} />
+      <Route path="/missions-preview" element={<MissionsPreview />} />
+      <Route path="/coaster-journey" element={<CoasterJourney />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     </motion.div>
