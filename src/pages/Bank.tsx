@@ -105,37 +105,48 @@ function VaultDesk() {
   }))
 
   return (
-    <div className="grid lg:grid-cols-5 gap-4 items-start">
-      <div className="lg:col-span-3 space-y-4">
-        {/* vault door */}
-        <BankPanel className="p-5 sm:p-6">
-          <div className="relative z-10">
-            <Engraving className="mb-4">Floor 01 · The Vault</Engraving>
-            <div className="flex items-end justify-between gap-4 flex-wrap">
-              <div>
-                <p className="text-[11px] uppercase font-bold tracking-[0.14em] text-white/40">Your balance</p>
-                <p className="font-display text-5xl font-extrabold mt-1" style={{ color: ACCENT_SOFT }}>
-                  <AnimatedNumber value={savings} />
-                </p>
-                <p className="text-xs text-white/40 mt-1">coins, locked behind 3 feet of steel</p>
-              </div>
-              <div className="text-right space-y-1.5">
-                <Badge className="bg-white/5 hover:bg-white/5 border gap-1" style={{ borderColor: `${ACCENT}44`, color: ACCENT_SOFT }}>
-                  <Sparkles className="h-3 w-3" /> {SAVINGS_DAILY_RATE * 100}% / day, compounding
-                </Badge>
-                {savings > 0 && (
-                  <p className="text-xs font-bold text-emerald-300">≈ +{money(dailyInterest)} coins tomorrow</p>
-                )}
-                {lifetimeInterest > 0 && (
-                  <p className="text-[11px] text-white/40">lifetime interest: {money(lifetimeInterest)}</p>
-                )}
-              </div>
+    <div className="space-y-4">
+      {/* vault door — balance + compounding forecast in one wide panel */}
+      <BankPanel className="p-5 sm:p-6">
+        <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
+          <div>
+            <p className="text-[11px] uppercase font-bold tracking-[0.14em] text-white/40">Your balance</p>
+            <p className="font-display text-5xl sm:text-6xl font-extrabold mt-1" style={{ color: ACCENT_SOFT }}>
+              <AnimatedNumber value={savings} />
+            </p>
+            <p className="text-xs text-white/40 mt-1">coins, locked behind 3 feet of steel</p>
+            <div className="flex items-center gap-2 mt-3 flex-wrap">
+              <Badge className="bg-white/5 hover:bg-white/5 border gap-1" style={{ borderColor: `${ACCENT}44`, color: ACCENT_SOFT }}>
+                <Sparkles className="h-3 w-3" /> {SAVINGS_DAILY_RATE * 100}% / day, compounding
+              </Badge>
+              {savings > 0 && (
+                <span className="text-xs font-bold text-emerald-300">≈ +{money(dailyInterest)} tomorrow</span>
+              )}
             </div>
           </div>
-        </BankPanel>
+          <div>
+            <Engraving className="mb-3">If you leave it alone…</Engraving>
+            <div className="grid grid-cols-3 gap-2">
+              {projection.map(({ days, value }) => (
+                <div key={days} className="rounded-lg border px-2.5 py-2.5 text-center" style={{ borderColor: `${ACCENT}30`, background: "rgba(255,255,255,0.04)" }}>
+                  <p className="text-[10px] uppercase font-bold tracking-wide text-white/40">{days} days</p>
+                  <p className="text-sm sm:text-base font-extrabold tabular-nums text-white mt-0.5">{savings > 0 ? money(value) : "—"}</p>
+                  <p className="text-[11px] font-bold text-emerald-300">{savings > 0 ? `+${money(value - savings)}` : " "}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] text-white/35 mt-2 text-center">
+              {savings > 0
+                ? lifetimeInterest > 0 ? `Lifetime interest earned: ${money(lifetimeInterest)} coins` : "Compound interest: interest earning interest."
+                : "Deposit some coins to see compounding do its magic."}
+            </p>
+          </div>
+        </div>
+      </BankPanel>
 
-        {/* teller window */}
-        <Card variant="elevated">
+      {/* teller window + explainer */}
+      <div className="grid lg:grid-cols-5 gap-4 items-stretch">
+        <Card variant="elevated" className="lg:col-span-3">
           <CardContent className="p-4 sm:p-5 space-y-3">
             <div className="flex items-center justify-between">
               <DeskLabel icon={Wallet}>Teller window</DeskLabel>
@@ -169,33 +180,13 @@ function VaultDesk() {
             </div>
           </CardContent>
         </Card>
-      </div>
 
-      <div className="lg:col-span-2 space-y-4">
-        <Card variant="elevated">
-          <CardContent className="p-4">
-            <DeskLabel icon={Sparkles}>If you leave it alone…</DeskLabel>
-            <div className="mt-3 space-y-2">
-              {projection.map(({ days, value }) => (
-                <div key={days} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-2">
-                  <span className="text-xs font-semibold text-muted-foreground">In {days} days</span>
-                  <span className="text-sm font-extrabold tabular-nums">
-                    {savings > 0 ? money(value) : "—"}
-                    {savings > 0 && <span className="text-emerald-500 text-xs font-bold ml-1.5">+{money(value - savings)}</span>}
-                  </span>
-                </div>
-              ))}
-            </div>
-            {savings === 0 && (
-              <p className="text-xs text-muted-foreground mt-2">Deposit some coins to see compounding do its magic.</p>
-            )}
-          </CardContent>
-        </Card>
-
-        <LearnCard icon={PiggyBank} title="How savings work:">
-          money in the vault earns compound interest — interest on your interest. Banks pay you to keep
-          money with them because they lend it out to others. Come back each day and watch it grow.
-        </LearnCard>
+        <div className="lg:col-span-2">
+          <LearnCard icon={PiggyBank} title="How savings work:">
+            money in the vault earns compound interest — interest on your interest. Banks pay you to keep
+            money with them because they lend it out to others. Come back each day and watch it grow.
+          </LearnCard>
+        </div>
       </div>
     </div>
   )
@@ -291,20 +282,32 @@ function LoansDesk() {
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-4 items-start">
-      <div className="space-y-4">
-        {/* credit gauge */}
-        <BankPanel className="p-5">
-          <div className="relative z-10">
-            <Engraving className="mb-3">Floor 02 · Lending Desk</Engraving>
-            <CreditGauge score={creditScore} />
-            <p className="mt-4 text-[11px] text-white/40 text-center">
-              On-time repay <span className="text-emerald-300 font-bold">+25</span> · missed due date{" "}
-              <span className="text-red-300 font-bold">−50</span> · loans repaid: <span className="font-bold" style={{ color: ACCENT_SOFT }}>{loansRepaid}</span>
+    <div className="space-y-4">
+      {/* credit desk — gauge + how the score moves, one wide panel */}
+      <BankPanel className="p-5 sm:p-6">
+        <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
+          <CreditGauge score={creditScore} />
+          <div className="space-y-2">
+            <Engraving className="mb-3">How your score moves</Engraving>
+            {[
+              { label: "Repay a loan on time", value: "+25", color: "#6ee7b7" },
+              { label: "Miss a due date", value: "−50", color: "#fca5a5" },
+              { label: "Loans repaid so far", value: String(loansRepaid), color: ACCENT_SOFT },
+            ].map(r => (
+              <div key={r.label} className="flex items-center justify-between rounded-lg border px-3 py-2" style={{ borderColor: `${ACCENT}30`, background: "rgba(255,255,255,0.04)" }}>
+                <span className="text-xs font-semibold text-white/60">{r.label}</span>
+                <span className="font-mono text-sm font-extrabold tabular-nums" style={{ color: r.color }}>{r.value}</span>
+              </div>
+            ))}
+            <p className="text-[11px] text-white/35 pt-1">
+              Higher scores unlock bigger loans — 620+ for the Builder, 720+ for the Big Dream.
             </p>
           </div>
-        </BankPanel>
+        </div>
+      </BankPanel>
 
+      <div className="grid lg:grid-cols-2 gap-4 items-start">
+      <div className="space-y-4">
         <LearnCard icon={ScrollText} title="How credit works:">
           your credit score is your money reputation. Borrow only what you can pay back, repay on time,
           and banks will trust you with bigger loans at better rates — in this game and in real life.
@@ -376,6 +379,7 @@ function LoansDesk() {
             </Card>
           )
         })}
+      </div>
       </div>
     </div>
   )
@@ -547,11 +551,11 @@ function BondsDesk() {
 
 type Floor = "vault" | "lending" | "bonds" | "careers"
 
-const FLOORS: { id: Floor; num: string; name: string; desc: string; icon: LucideIcon }[] = [
-  { id: "vault", num: "01", name: "The Vault", desc: "Savings & interest", icon: Vault },
-  { id: "lending", num: "02", name: "Lending Desk", desc: "Loans & credit", icon: HandCoins },
-  { id: "bonds", num: "03", name: "Bond Market", desc: "Fixed income", icon: ScrollText },
-  { id: "careers", num: "04", name: "Executive Floor", desc: "Your career", icon: Briefcase },
+const FLOORS: { id: Floor; num: string; name: string; desc: string; blurb: string; icon: LucideIcon }[] = [
+  { id: "vault", num: "01", name: "The Vault", desc: "Savings & interest", blurb: "Park your coins and let compound interest do the heavy lifting.", icon: Vault },
+  { id: "lending", num: "02", name: "Lending Desk", desc: "Loans & credit", blurb: "Borrow against your credit score — and build it by paying on time.", icon: HandCoins },
+  { id: "bonds", num: "03", name: "Bond Market", desc: "Fixed income", blurb: "Lend your money out for a fixed term and collect the interest at maturity.", icon: ScrollText },
+  { id: "careers", num: "04", name: "Executive Floor", desc: "Your career", blurb: "Work a real finance job, week after week.", icon: Briefcase },
 ]
 
 export default function Bank() {
@@ -600,45 +604,36 @@ export default function Bank() {
     }
   }
 
+  const meta = FLOORS.find(f => f.id === floor)!
+
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-          {/* ── marble façade ── */}
-          <BankPanel className="p-5 sm:p-6">
-            <div className="relative z-10 flex items-center justify-between gap-4 flex-wrap">
-              <div className="flex items-center gap-4">
-                <div
-                  className="h-14 w-14 rounded-full flex items-center justify-center shrink-0 border-2"
-                  style={{ borderColor: `${ACCENT}66`, background: `${ACCENT}1a` }}
-                >
-                  <Landmark className="h-7 w-7" style={{ color: ACCENT_SOFT }} />
-                </div>
-                <div>
-                  <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-white leading-tight tracking-tight">
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+          {/* ── the building: one anchor column + the floor you're on ── */}
+          <div className="grid lg:grid-cols-[260px_1fr] gap-5 items-start">
+            {/* bank column: identity + directory + your money (desktop) */}
+            <BankPanel className="hidden lg:flex flex-col sticky top-24 p-5 min-h-[calc(100vh-9rem)]">
+              <div className="relative z-10 flex flex-col flex-1">
+                {/* identity */}
+                <div className="text-center pb-4 border-b border-white/10">
+                  <div
+                    className="h-14 w-14 mx-auto rounded-full flex items-center justify-center border-2"
+                    style={{ borderColor: `${ACCENT}66`, background: `${ACCENT}1a` }}
+                  >
+                    <Landmark className="h-7 w-7" style={{ color: ACCENT_SOFT }} />
+                  </div>
+                  <h1 className="font-display text-2xl font-extrabold text-white leading-tight tracking-tight mt-2">
                     Investi<span style={{ color: ACCENT_SOFT }}>Bank</span>
                   </h1>
-                  <p className="text-xs sm:text-sm text-white/45 tracking-wide">
-                    Private banking for young investors · est. 2026
+                  <p className="text-[11px] text-white/45 tracking-wide">
+                    Private banking for young investors
                   </p>
                 </div>
-              </div>
-              <div className="grid grid-cols-4 gap-2 flex-1 max-w-md min-w-[280px]">
-                <Plaque label="Wallet"><AnimatedNumber value={Math.floor(jeffsBalance)} /></Plaque>
-                <Plaque label="Vault"><AnimatedNumber value={savings} /></Plaque>
-                <Plaque label="Bonds"><AnimatedNumber value={bondsValue} /></Plaque>
-                <Plaque label="Credit"><AnimatedNumber value={creditScore} /></Plaque>
-              </div>
-            </div>
-          </BankPanel>
 
-          {/* ── directory + floor content ── */}
-          <div className="grid lg:grid-cols-[240px_1fr] gap-5 items-start">
-            {/* building directory (desktop) */}
-            <BankPanel className="hidden lg:block sticky top-24 p-4">
-              <div className="relative z-10">
-                <Engraving className="mb-3">Directory</Engraving>
+                {/* directory */}
+                <Engraving className="my-4">Directory</Engraving>
                 <div className="space-y-1">
                   {FLOORS.map(f => {
                     const active = floor === f.id
@@ -670,8 +665,17 @@ export default function Bank() {
                     )
                   })}
                 </div>
-                <div className="mt-4 pt-3 border-t border-white/10">
-                  <p className="text-[10px] text-white/30 leading-relaxed italic">
+
+                {/* your money + house quote, pinned to the bottom */}
+                <div className="mt-auto pt-4">
+                  <Engraving className="mb-3">Your money</Engraving>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Plaque label="Wallet"><AnimatedNumber value={Math.floor(jeffsBalance)} /></Plaque>
+                    <Plaque label="Vault"><AnimatedNumber value={savings} /></Plaque>
+                    <Plaque label="Bonds"><AnimatedNumber value={bondsValue} /></Plaque>
+                    <Plaque label="Credit"><AnimatedNumber value={creditScore} /></Plaque>
+                  </div>
+                  <p className="text-[10px] text-white/30 leading-relaxed italic mt-4 pt-3 border-t border-white/10">
                     "Compound interest is the eighth wonder of the world." — attributed to Einstein
                   </p>
                 </div>
@@ -679,29 +683,50 @@ export default function Bank() {
             </BankPanel>
 
             <div className="min-w-0 space-y-4">
-              {/* floor switcher (mobile) */}
-              <div className="grid grid-cols-4 gap-1.5 lg:hidden">
-                {FLOORS.map(f => {
-                  const active = floor === f.id
-                  const Icon = f.icon
-                  const d = dot(f.id)
-                  return (
-                    <button
-                      key={f.id}
-                      onClick={() => setFloor(f.id)}
-                      className={cn(
-                        "relative rounded-xl border px-2 py-2 text-center transition-colors",
-                        active ? "border-transparent text-white" : "border-border text-muted-foreground bg-card"
-                      )}
-                      style={active ? { background: "hsl(228 50% 16%)", boxShadow: `inset 0 -2px 0 ${ACCENT}` } : undefined}
+              {/* compact identity + floor switcher (mobile) */}
+              <BankPanel className="lg:hidden p-4">
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="h-10 w-10 rounded-full flex items-center justify-center border-2 shrink-0"
+                      style={{ borderColor: `${ACCENT}66`, background: `${ACCENT}1a` }}
                     >
-                      <Icon className="h-4 w-4 mx-auto" style={active ? { color: ACCENT_SOFT } : undefined} />
-                      <span className="block text-[10px] font-bold mt-0.5 truncate">{f.name.replace("The ", "")}</span>
-                      {d && <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: d }} />}
-                    </button>
-                  )
-                })}
-              </div>
+                      <Landmark className="h-5 w-5" style={{ color: ACCENT_SOFT }} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h1 className="font-display text-lg font-extrabold text-white leading-tight">
+                        Investi<span style={{ color: ACCENT_SOFT }}>Bank</span>
+                      </h1>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      <Plaque label="Wallet" className="px-2 py-1"><AnimatedNumber value={Math.floor(jeffsBalance)} /></Plaque>
+                      <Plaque label="Vault" className="px-2 py-1"><AnimatedNumber value={savings} /></Plaque>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-4 gap-1.5 mt-3">
+                    {FLOORS.map(f => {
+                      const active = floor === f.id
+                      const Icon = f.icon
+                      const d = dot(f.id)
+                      return (
+                        <button
+                          key={f.id}
+                          onClick={() => setFloor(f.id)}
+                          className={cn(
+                            "relative rounded-lg px-2 py-2 text-center transition-colors",
+                            active ? "bg-white/10 text-white" : "text-white/50 hover:bg-white/5"
+                          )}
+                          style={active ? { boxShadow: `inset 0 -2px 0 ${ACCENT}` } : undefined}
+                        >
+                          <Icon className="h-4 w-4 mx-auto" style={active ? { color: ACCENT_SOFT } : undefined} />
+                          <span className="block text-[10px] font-bold mt-0.5 truncate">{f.name.replace("The ", "")}</span>
+                          {d && <span className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: d }} />}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              </BankPanel>
 
               <AnimatePresence mode="wait">
                 <motion.div
@@ -710,7 +735,20 @@ export default function Bank() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.18 }}
+                  className="space-y-4"
                 >
+                  {/* floor header — Careers renders its own desk header */}
+                  {floor !== "careers" && (
+                    <div className="flex items-end justify-between gap-3 flex-wrap px-1">
+                      <div>
+                        <p className="text-[11px] font-extrabold uppercase tracking-[0.22em]" style={{ color: ACCENT }}>
+                          Floor {meta.num}
+                        </p>
+                        <h2 className="font-display text-2xl sm:text-3xl font-extrabold leading-tight">{meta.name}</h2>
+                      </div>
+                      <p className="text-sm text-muted-foreground pb-1 max-w-sm">{meta.blurb}</p>
+                    </div>
+                  )}
                   {renderFloor()}
                 </motion.div>
               </AnimatePresence>
