@@ -41,7 +41,6 @@ function CareerPicker({ onPick }: { onPick: (id: string) => void }) {
   return (
     <div className="space-y-5">
       <div className="text-center space-y-1.5">
-        <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground">InvestiBank · Careers Floor</p>
         <h2 className="font-display text-2xl font-extrabold">Choose your career</h2>
         <p className="text-sm text-muted-foreground max-w-md mx-auto">
           Take a real job in finance. Work deals week after week, write real memos, earn a salary, and climb six ranks to the top. Switch anytime — every career remembers your progress.

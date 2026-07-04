@@ -1,8 +1,9 @@
 // InvestiBank — the Virtual Bank page (/bank).
 //
-// Styled as an old-money private bank (deep green, mint trim, pinstripes) with
-// a building-directory sidebar instead of tabs — deliberately distinct from
-// Micro-Business's neon office look. Four floors:
+// Styled as an old-money private bank (deep green, mint trim, pinstripes).
+// Every visit opens in the LOBBY — a drawn bank façade where Jeff greets you
+// and points to four floors; each floor then takes over the full page, with a
+// "Lobby" button top-right to switch. Four floors:
 //   01 The Vault       — savings with 2%/day compound interest
 //   02 Lending Desk    — loans against your credit score
 //   03 Bond Market     — fixed-term bonds, certificate style
@@ -17,7 +18,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import GameNav from "@/components/GameNav"
 import CareersDesk from "@/components/bank/CareersDesk"
 import AnimatedNumber from "@/components/AnimatedNumber"
-import { BankPanel, Plaque, Engraving, ACCENT, ACCENT_SOFT } from "@/components/bank/theme"
+import { BankPanel, Engraving, ACCENT, ACCENT_SOFT } from "@/components/bank/theme"
+import { JeffMascot } from "@/components/Jeff/JeffMascot"
+import { getCareer } from "@/data/careers"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -31,7 +34,7 @@ import {
   CREDIT_MIN, CREDIT_MAX, DAY_MS, daysUntil, isPast,
 } from "@/data/bankData"
 import {
-  AlertTriangle, ArrowDownToLine, ArrowUpFromLine, Briefcase,
+  AlertTriangle, ArrowDownToLine, ArrowUpFromLine, Briefcase, ChevronRight,
   CircleDollarSign, Clock, Coins, Gauge, HandCoins, Landmark, PiggyBank,
   ReceiptText, ScrollText, Sparkles, Vault, Wallet, type LucideIcon,
 } from "lucide-react"
@@ -558,16 +561,65 @@ const FLOORS: { id: Floor; num: string; name: string; desc: string; blurb: strin
   { id: "careers", num: "04", name: "Executive Floor", desc: "Your career", blurb: "Work a real finance job, week after week.", icon: Briefcase },
 ]
 
+/* ── Bank building illustration ──────────────────────────────────────── */
+
+function BankBuilding({ className }: { className?: string }) {
+  const stroke = ACCENT_SOFT
+  const fill = `${ACCENT}26`
+  return (
+    <svg viewBox="0 0 340 210" className={className} aria-hidden>
+      {/* ground */}
+      <line x1="12" y1="196" x2="328" y2="196" stroke={`${ACCENT}55`} strokeWidth="2.5" strokeLinecap="round" />
+      {/* steps */}
+      <rect x="52" y="186" width="236" height="10" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      <rect x="64" y="176" width="212" height="10" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      {/* columns */}
+      {[86, 138, 190, 242].map(x => (
+        <g key={x}>
+          <rect x={x} y="98" width="14" height="78" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
+          <rect x={x - 4} y="92" width="22" height="8" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
+          <rect x={x - 4} y="170" width="22" height="6" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
+        </g>
+      ))}
+      {/* door between middle columns */}
+      <path d="M 158 176 v-32 a 13 13 0 0 1 26 0 v 32 z" fill={`${ACCENT}40`} stroke={stroke} strokeWidth="2.5" />
+      {/* entablature */}
+      <rect x="66" y="78" width="208" height="14" rx="3" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      {/* pediment */}
+      <path d="M 170 26 L 62 78 L 278 78 Z" fill={fill} stroke={stroke} strokeWidth="2.5" strokeLinejoin="round" />
+      {/* coin emblem in the pediment */}
+      <circle cx="170" cy="60" r="11" fill={`${ACCENT}40`} stroke={stroke} strokeWidth="2.5" />
+      <text x="170" y="65" textAnchor="middle" fontSize="13" fontWeight="800" fill={stroke}>¢</text>
+      {/* flag */}
+      <line x1="170" y1="26" x2="170" y2="10" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M 170 10 h 20 l -5 5 5 5 h -20 z" fill={`${ACCENT}66`} stroke={stroke} strokeWidth="2" strokeLinejoin="round" />
+      {/* bushes */}
+      <circle cx="40" cy="188" r="9" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      <circle cx="302" cy="188" r="9" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      {/* floating coins */}
+      <circle cx="46" cy="70" r="8" fill={`${ACCENT}33`} stroke={stroke} strokeWidth="2" />
+      <text x="46" y="74.5" textAnchor="middle" fontSize="10" fontWeight="800" fill={stroke}>¢</text>
+      <circle cx="298" cy="52" r="6.5" fill={`${ACCENT}33`} stroke={stroke} strokeWidth="2" />
+      <text x="298" y="56" textAnchor="middle" fontSize="8" fontWeight="800" fill={stroke}>¢</text>
+    </svg>
+  )
+}
+
+/* ── Page ────────────────────────────────────────────────────────────── */
+
 export default function Bank() {
   const { toast } = useToast()
-  const { jeffsBalance } = useApp()
+  const { jeffsBalance, user } = useApp()
   const accrueInterest = useBankStore(s => s.accrueInterest)
   const checkOverdueLoans = useBankStore(s => s.checkOverdueLoans)
   const savings = useBankStore(s => s.savings)
   const creditScore = useBankStore(s => s.creditScore)
   const loans = useBankStore(s => s.loans)
   const bonds = useBankStore(s => s.bonds)
-  const [floor, setFloor] = useState<Floor>("vault")
+  const activeCareer = useBankStore(s => s.activeCareer)
+  const careerWeek = useBankStore(s => s.careerWeek)
+  // Every visit starts in the lobby, where Jeff points you to a floor.
+  const [floor, setFloor] = useState<Floor | null>(null)
 
   // On visit: pay out any savings interest earned since last time and apply
   // late penalties for loans that went overdue.
@@ -595,166 +647,163 @@ export default function Bank() {
   const dot = (f: Floor) =>
     (f === "lending" && overdueLoans) ? "#f87171" : (f === "bonds" && matureBonds > 0) ? "#34d399" : null
 
+  // Live one-liner shown on each lobby door.
+  const floorStat = (f: Floor): string => {
+    switch (f) {
+      case "vault": return savings > 0 ? `${money(savings)} coins growing` : "Start saving today"
+      case "lending": return overdueLoans ? "A loan is overdue!" : loans.length > 0 ? `${loans.length} active loan${loans.length === 1 ? "" : "s"}` : `Credit score ${creditScore}`
+      case "bonds": return matureBonds > 0 ? `${matureBonds} bond${matureBonds === 1 ? "" : "s"} ready to collect!` : bonds.length > 0 ? `${bonds.length} certificate${bonds.length === 1 ? "" : "s"} maturing` : "3 bonds on the market"
+      case "careers": {
+        if (!activeCareer) return "Get hired today"
+        const c = getCareer(activeCareer)
+        return c ? `${c.name} · week ${careerWeek[activeCareer] ?? 1}` : "Get hired today"
+      }
+    }
+  }
+
   const renderFloor = () => {
     switch (floor) {
       case "vault": return <VaultDesk />
       case "lending": return <LoansDesk />
       case "bonds": return <BondsDesk />
       case "careers": return <CareersDesk />
+      default: return null
     }
   }
 
-  const meta = FLOORS.find(f => f.id === floor)!
+  const meta = floor ? FLOORS.find(f => f.id === floor)! : null
+  const firstName = user?.firstName
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          {/* ── the building: one anchor column + the floor you're on ── */}
-          <div className="grid lg:grid-cols-[260px_1fr] gap-5 items-start">
-            {/* bank column: identity + directory + your money (desktop) */}
-            <BankPanel className="hidden lg:flex flex-col sticky top-24 p-5 min-h-[calc(100vh-9rem)]">
-              <div className="relative z-10 flex flex-col flex-1">
-                {/* identity */}
-                <div className="text-center pb-4 border-b border-white/10">
-                  <div
-                    className="h-14 w-14 mx-auto rounded-full flex items-center justify-center border-2"
-                    style={{ borderColor: `${ACCENT}66`, background: `${ACCENT}1a` }}
-                  >
-                    <Landmark className="h-7 w-7" style={{ color: ACCENT_SOFT }} />
-                  </div>
-                  <h1 className="font-display text-2xl font-extrabold text-white leading-tight tracking-tight mt-2">
-                    Investi<span style={{ color: ACCENT_SOFT }}>Bank</span>
-                  </h1>
-                  <p className="text-[11px] text-white/45 tracking-wide">
-                    Private banking for young investors
-                  </p>
-                </div>
-
-                {/* directory */}
-                <Engraving className="my-4">Directory</Engraving>
-                <div className="space-y-1">
-                  {FLOORS.map(f => {
-                    const active = floor === f.id
-                    const d = dot(f.id)
-                    return (
-                      <button
-                        key={f.id}
-                        onClick={() => setFloor(f.id)}
-                        className={cn(
-                          "w-full text-left rounded-lg px-3 py-2.5 transition-colors flex items-center gap-3",
-                          active ? "bg-white/10" : "hover:bg-white/5"
-                        )}
-                        style={active ? { boxShadow: `inset 3px 0 0 ${ACCENT}` } : undefined}
+        <AnimatePresence mode="wait">
+          {!floor ? (
+            /* ══════════════ THE LOBBY ══════════════ */
+            <motion.div
+              key="lobby"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-5"
+            >
+              {/* façade: the building + Jeff at the door */}
+              <BankPanel className="p-6 sm:p-8 overflow-visible">
+                <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
+                  <div>
+                    <p className="text-[11px] font-extrabold uppercase tracking-[0.22em]" style={{ color: ACCENT }}>
+                      Main lobby · est. 2026
+                    </p>
+                    <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight mt-1">
+                      Welcome to Investi<span style={{ color: ACCENT_SOFT }}>Bank</span>
+                    </h1>
+                    <div className="flex items-end gap-1 mt-5">
+                      <div className="h-28 w-28 sm:h-32 sm:w-32 shrink-0 -mb-2">
+                        <JeffMascot mood="encourage" />
+                      </div>
+                      {/* Jeff's greeting */}
+                      <div
+                        className="relative rounded-2xl border px-4 py-3 text-sm text-white/90 leading-relaxed mb-6"
+                        style={{ borderColor: `${ACCENT}44`, background: "rgba(255,255,255,0.07)" }}
                       >
                         <span
-                          className="font-display text-xs font-extrabold tabular-nums"
-                          style={{ color: active ? ACCENT_SOFT : "rgba(255,255,255,0.3)" }}
-                        >
-                          {f.num}
-                        </span>
-                        <span className="flex-1 min-w-0">
-                          <span className={cn("block text-sm font-bold leading-tight", active ? "text-white" : "text-white/60")}>
-                            {f.name}
-                          </span>
-                          <span className="block text-[10px] text-white/35">{f.desc}</span>
-                        </span>
-                        {d && <span className="h-2 w-2 rounded-full animate-pulse shrink-0" style={{ background: d }} />}
-                      </button>
-                    )
-                  })}
-                </div>
-
-                {/* your money + house quote, pinned to the bottom */}
-                <div className="mt-auto pt-4">
-                  <Engraving className="mb-3">Your money</Engraving>
-                  <div className="grid grid-cols-2 gap-2">
-                    <Plaque label="Wallet"><AnimatedNumber value={Math.floor(jeffsBalance)} /></Plaque>
-                    <Plaque label="Vault"><AnimatedNumber value={savings} /></Plaque>
-                    <Plaque label="Bonds"><AnimatedNumber value={bondsValue} /></Plaque>
-                    <Plaque label="Credit"><AnimatedNumber value={creditScore} /></Plaque>
-                  </div>
-                  <p className="text-[10px] text-white/30 leading-relaxed italic mt-4 pt-3 border-t border-white/10">
-                    "Compound interest is the eighth wonder of the world." — attributed to Einstein
-                  </p>
-                </div>
-              </div>
-            </BankPanel>
-
-            <div className="min-w-0 space-y-4">
-              {/* compact identity + floor switcher (mobile) */}
-              <BankPanel className="lg:hidden p-4">
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="h-10 w-10 rounded-full flex items-center justify-center border-2 shrink-0"
-                      style={{ borderColor: `${ACCENT}66`, background: `${ACCENT}1a` }}
-                    >
-                      <Landmark className="h-5 w-5" style={{ color: ACCENT_SOFT }} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h1 className="font-display text-lg font-extrabold text-white leading-tight">
-                        Investi<span style={{ color: ACCENT_SOFT }}>Bank</span>
-                      </h1>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      <Plaque label="Wallet" className="px-2 py-1"><AnimatedNumber value={Math.floor(jeffsBalance)} /></Plaque>
-                      <Plaque label="Vault" className="px-2 py-1"><AnimatedNumber value={savings} /></Plaque>
+                          className="absolute -left-1.5 bottom-4 w-3 h-3 rotate-45 border-l border-b"
+                          style={{ borderColor: `${ACCENT}44`, background: "hsl(169 55% 14%)" }}
+                        />
+                        {firstName ? `Hey ${firstName}! ` : "Hey! "}I'm Jeff, your personal banker. Grow it, borrow it,
+                        lend it — or earn it with a real finance job. Which floor are we visiting today?
+                      </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-4 gap-1.5 mt-3">
-                    {FLOORS.map(f => {
-                      const active = floor === f.id
-                      const Icon = f.icon
-                      const d = dot(f.id)
-                      return (
-                        <button
-                          key={f.id}
-                          onClick={() => setFloor(f.id)}
-                          className={cn(
-                            "relative rounded-lg px-2 py-2 text-center transition-colors",
-                            active ? "bg-white/10 text-white" : "text-white/50 hover:bg-white/5"
-                          )}
-                          style={active ? { boxShadow: `inset 0 -2px 0 ${ACCENT}` } : undefined}
-                        >
-                          <Icon className="h-4 w-4 mx-auto" style={active ? { color: ACCENT_SOFT } : undefined} />
-                          <span className="block text-[10px] font-bold mt-0.5 truncate">{f.name.replace("The ", "")}</span>
-                          {d && <span className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: d }} />}
-                        </button>
-                      )
-                    })}
-                  </div>
+                  <BankBuilding className="w-full max-w-md mx-auto drop-shadow-lg" />
                 </div>
               </BankPanel>
 
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={floor}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.18 }}
-                  className="space-y-4"
-                >
-                  {/* floor header — Careers renders its own desk header */}
-                  {floor !== "careers" && (
-                    <div className="flex items-end justify-between gap-3 flex-wrap px-1">
-                      <div>
-                        <p className="text-[11px] font-extrabold uppercase tracking-[0.22em]" style={{ color: ACCENT }}>
-                          Floor {meta.num}
-                        </p>
-                        <h2 className="font-display text-2xl sm:text-3xl font-extrabold leading-tight">{meta.name}</h2>
+              {/* the four doors */}
+              <div className="grid sm:grid-cols-2 gap-4">
+                {FLOORS.map((f, i) => {
+                  const Icon = f.icon
+                  const d = dot(f.id)
+                  return (
+                    <motion.button
+                      key={f.id}
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.08 + i * 0.06 }}
+                      whileHover={{ y: -4 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setFloor(f.id)}
+                      className="text-left group"
+                    >
+                      <div className="relative h-full rounded-2xl border border-border/60 bg-card shadow-card p-5 transition-shadow group-hover:shadow-lg overflow-hidden">
+                        <div className="absolute inset-x-0 top-0 h-1" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
+                        <div className="flex items-center gap-4">
+                          <div
+                            className="h-14 w-14 rounded-2xl flex items-center justify-center shrink-0 border-2 transition-transform group-hover:scale-105"
+                            style={{ borderColor: `${ACCENT}55`, background: `${ACCENT}14` }}
+                          >
+                            <Icon className="h-7 w-7" style={{ color: ACCENT }} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-muted-foreground">Floor {f.num}</p>
+                            <p className="font-display text-xl font-extrabold leading-tight">{f.name}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">{f.blurb}</p>
+                          </div>
+                          <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0 transition-transform group-hover:translate-x-1" />
+                        </div>
+                        <div className="flex items-center gap-2 mt-4">
+                          <Badge variant="secondary" className="text-[11px] font-bold gap-1.5">
+                            {d && <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: d }} />}
+                            {floorStat(f.id)}
+                          </Badge>
+                        </div>
                       </div>
-                      <p className="text-sm text-muted-foreground pb-1 max-w-sm">{meta.blurb}</p>
+                    </motion.button>
+                  )
+                })}
+              </div>
+            </motion.div>
+          ) : (
+            /* ══════════════ A FLOOR ══════════════ */
+            <motion.div
+              key={floor}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-5"
+            >
+              {/* floor bar: title left, money + lobby button right */}
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <div>
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.22em]" style={{ color: ACCENT }}>
+                    InvestiBank · Floor {meta!.num}
+                  </p>
+                  <h1 className="font-display text-2xl sm:text-3xl font-extrabold leading-tight">{meta!.name}</h1>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="hidden md:grid grid-cols-2 gap-1.5">
+                    <div className="rounded-lg border border-border bg-card px-3 py-1 text-center">
+                      <p className="text-[9px] uppercase font-bold tracking-wide text-muted-foreground">Wallet</p>
+                      <p className="text-sm font-extrabold tabular-nums"><AnimatedNumber value={Math.floor(jeffsBalance)} /></p>
                     </div>
-                  )}
-                  {renderFloor()}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-        </motion.div>
+                    <div className="rounded-lg border border-border bg-card px-3 py-1 text-center">
+                      <p className="text-[9px] uppercase font-bold tracking-wide text-muted-foreground">Vault</p>
+                      <p className="text-sm font-extrabold tabular-nums"><AnimatedNumber value={savings} /></p>
+                    </div>
+                  </div>
+                  <Button variant="outline" onClick={() => setFloor(null)} className="gap-1.5 press-scale">
+                    <Landmark className="h-4 w-4" style={{ color: ACCENT }} /> Lobby
+                  </Button>
+                </div>
+              </div>
+
+              {renderFloor()}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
     </div>
   )
