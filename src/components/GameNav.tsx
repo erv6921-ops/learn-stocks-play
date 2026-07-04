@@ -12,7 +12,7 @@ import AnimatedNumber from "@/components/AnimatedNumber";
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
-  Star, Flame, Store, BarChart3, Trophy, FlaskConical, Swords } from
+  Star, Flame, Store, BarChart3, Trophy, FlaskConical, Swords, Landmark } from
 "lucide-react";
 
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
@@ -66,6 +66,7 @@ const NAV_ITEMS = [
 { to: "/lab", icon: FlaskConical, label: "Lab", tour: "nav-lab" },
 { to: "/stocks", icon: LineChart, label: "Stocks", tour: "nav-stocks" },
 { to: "/micro-business", icon: Store, label: "Business", tour: "nav-business" },
+{ to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank" },
 { to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress" },
 { to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard" },
 { to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges" }];

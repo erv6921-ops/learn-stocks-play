@@ -16,6 +16,7 @@ import UnitTest from "./pages/UnitTest";
 import Stocks from "./pages/Stocks";
 import StockDetail from "./pages/StockDetail";
 import MicroBusiness from "./pages/MicroBusiness";
+import Bank from "./pages/Bank";
 import NotFound from "./pages/NotFound";
 import ProgressPage from "./pages/Progress";
 import Leaderboard from "./pages/Leaderboard";
@@ -64,6 +65,7 @@ function AppRoutes() {
       <Route path="/stocks" element={<Stocks />} />
       <Route path="/stocks/:symbol" element={<StockDetail />} />
       <Route path="/micro-business" element={<MicroBusiness />} />
+      <Route path="/bank" element={<Bank />} />
       <Route path="/business" element={<MicroBusiness />} />
       <Route path="/tokens" element={<MicroBusiness />} />
       <Route path="/progress" element={<ProgressPage />} />
