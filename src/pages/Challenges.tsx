@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Trophy, Plus, Coins, Users, Sparkles } from "lucide-react"
 import GameNav from "@/components/GameNav"
@@ -187,6 +187,18 @@ export default function Challenges() {
     window.addEventListener("focus", refresh)
     return () => window.removeEventListener("focus", refresh)
   }, [reload])
+
+  // Deep link from the dashboard widget: /challenges?create=1 opens the
+  // create modal straight away (param consumed so refresh doesn't re-open).
+  const [searchParams, setSearchParams] = useSearchParams()
+  useEffect(() => {
+    if (searchParams.get("create") === "1") {
+      setCreateOpen(true)
+      searchParams.delete("create")
+      setSearchParams(searchParams, { replace: true })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const confirmEnter = async () => {
     const ch = enterTarget

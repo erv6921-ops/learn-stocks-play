@@ -13,6 +13,7 @@ import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/
 import { supabase } from "@/integrations/supabase/client";
 import DailyMissions from "@/components/DailyMissions";
 import DailySignal from "@/components/DailySignal";
+import ChallengesWidget from "@/components/challenges/ChallengesWidget";
 import { anchor } from "@/lib/tourAnchors";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
@@ -616,6 +617,9 @@ export default function Dashboard() {
               }
             </CardContent>
           </Card>
+
+          {/* Live class challenges + create — replaces the Challenges nav tab */}
+          <ChallengesWidget />
 
           <DailySignal />
 
