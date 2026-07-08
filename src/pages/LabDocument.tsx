@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
-import { getLabDocument, w4FormFields, FormField } from "@/data/labDocuments"
+import { getLabDocument, w4FormFields, markLabDocDone, FormField } from "@/data/labDocuments"
 import { supabase } from "@/integrations/supabase/client"
 import GameNav from "@/components/GameNav"
 import { Button } from "@/components/ui/button"
@@ -130,11 +130,13 @@ export default function LabDocument() {
       return
     }
     setCompleted(true)
+    markLabDocDone(doc.id)
     earnJeffs(doc.reward, `Completed Lab: ${doc.title}`)
   }, [fields, formValues])
 
   const handleComplete = () => {
     setCompleted(true)
+    markLabDocDone(doc.id)
     earnJeffs(doc.reward, `Completed Lab: ${doc.title}`)
   }
 

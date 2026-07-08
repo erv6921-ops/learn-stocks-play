@@ -314,6 +314,15 @@ export const w4FormFields: FormField[] = [
   },
 ]
 
+// ── Completion flags (localStorage, same pattern as challenge flags) ──
+export const labDoneKey = (docId: string) => `ip_lab_done_${docId}`
+export function isLabDocDone(docId: string): boolean {
+  try { return localStorage.getItem(labDoneKey(docId)) === "1" } catch { return false }
+}
+export function markLabDocDone(docId: string) {
+  try { localStorage.setItem(labDoneKey(docId), "1") } catch { /* ignore */ }
+}
+
 export function getLabCategory(id: string) {
   return labCategories.find(c => c.id === id)
 }
