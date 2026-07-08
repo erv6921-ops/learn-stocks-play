@@ -6,7 +6,7 @@
 // "Next" = first available, not-yet-completed document in catalog order;
 // completion flags come from localStorage (written by LabDocument on finish).
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GameNav from "@/components/GameNav";
 import { Button } from "@/components/ui/button";
@@ -148,6 +148,10 @@ export default function AppliedFinanceLab() {
   const questions = nextDoc ? totalQuestions(nextDoc.id) : 0
   const nextHue = nextCat ? catHue(nextCat.id) : 170
 
+  // Library: one topic's docs shown at a time, picked from the chip grid.
+  const [selectedCatId, setSelectedCatId] = useState(() => (nextCat ?? labCategories[0]).id)
+  const selectedCat = labCategories.find(c => c.id === selectedCatId) ?? labCategories[0]
+
   return (
     <div className="min-h-screen bg-background">
       <GameNav />
@@ -228,10 +232,18 @@ export default function AppliedFinanceLab() {
                 </div>
               </div>
 
-              {/* Right: the first questions, fading out into the real form */}
-              <div className="relative bg-muted/30 border-t lg:border-t-0 lg:border-l border-border p-6 md:p-8">
+              {/* Right: the first questions, fading out into the real form.
+                  The whole panel is a click target — tapping any question
+                  opens the actual form. */}
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate(`/lab/${nextDoc.id}`)}
+                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") navigate(`/lab/${nextDoc.id}`) }}
+                className="relative bg-muted/30 border-t lg:border-t-0 lg:border-l border-border p-6 md:p-8 cursor-pointer group/preview transition-colors hover:bg-muted/50"
+              >
                 <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
-                  A peek at the form
+                  A peek at the form — tap to open
                 </p>
                 {preview.length > 0 ? (
                   <div
@@ -290,73 +302,99 @@ export default function AppliedFinanceLab() {
           </section>
         )}
 
-        {/* ═══ THE REST OF THE LIBRARY ═══ */}
+        {/* ═══ THE REST OF THE LIBRARY ═══
+            All 12 topics visible at once as a chip grid (no scrolling to
+            find one); tapping a chip shows just that topic's documents. */}
         <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
           All case files · {labCategories.length} topics · {totalDocs} documents
         </p>
-        <div className="space-y-6">
+
+        {/* topic chips — the whole catalog in two-ish rows */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
           {labCategories.map(cat => {
             const hue = catHue(cat.id)
             const icon = catIcon(cat.id)
-            const docs = cat.documents
+            const avail = cat.documents.filter(d => d.available)
+            const done = avail.filter(d => isLabDocDone(d.id)).length
+            const isActive = cat.id === selectedCatId
+            const hasNext = cat.documents.some(d => d.id === nextDoc?.id)
             return (
-              <section key={cat.id}>
-                {/* topic header */}
-                <div className="flex items-center gap-2.5 mb-2 px-1">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                    style={{ background: `hsl(${hue} 60% 48% / 0.12)`, border: `1px solid hsl(${hue} 60% 48% / 0.18)` }}>
-                    {icon ? <img src={icon} alt="" className="w-5 h-5 rounded object-cover" /> : <span className="text-sm">{cat.icon}</span>}
-                  </div>
-                  <h3 className="font-bold text-sm">{cat.title}</h3>
-                  <span className="text-[11px] text-muted-foreground">
-                    {docs.filter(d => d.available && isLabDocDone(d.id)).length}/{docs.filter(d => d.available).length} done
-                  </span>
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCatId(cat.id)}
+                className={`relative rounded-xl border p-2.5 text-center transition-all press-scale ${
+                  isActive ? "bg-card shadow-sm" : "border-border/60 bg-card/50 hover:bg-card hover:border-border"
+                }`}
+                style={isActive ? { borderColor: `hsl(${hue} 60% 48% / 0.55)`, boxShadow: `inset 0 -2px 0 hsl(${hue} 65% 45%)` } : undefined}
+              >
+                <div className="w-8 h-8 mx-auto rounded-lg flex items-center justify-center"
+                  style={{ background: `hsl(${hue} 60% 48% / 0.12)` }}>
+                  {icon ? <img src={icon} alt="" className="w-6 h-6 rounded object-cover" /> : <span className="text-base">{cat.icon}</span>}
                 </div>
-
-                {/* docs grid */}
-                <div className="grid sm:grid-cols-2 gap-2">
-                  {docs.map(doc => {
-                    const done = doc.available && isLabDocDone(doc.id)
-                    const isNext = doc.id === nextDoc?.id
-                    return (
-                      <button
-                        key={doc.id}
-                        disabled={!doc.available}
-                        onClick={() => navigate(`/lab/${doc.id}`)}
-                        className={`flex items-center gap-3 p-3 rounded-xl border bg-card text-left transition-all ${
-                          doc.available
-                            ? "border-border hover:border-primary/40 hover:shadow-sm press-scale"
-                            : "border-dashed border-border/60 opacity-55"
-                        }`}
-                        style={isNext ? { borderColor: `hsl(${hue} 60% 48% / 0.5)` } : undefined}
-                      >
-                        <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                          style={doc.available ? { background: `hsl(${hue} 60% 48% / 0.1)` } : undefined}>
-                          {!doc.available
-                            ? <Lock className="w-3.5 h-3.5 text-muted-foreground" />
-                            : done
-                              ? <CheckCircle2 className="w-4 h-4 text-success" />
-                              : <FileText className="w-4 h-4" style={{ color: `hsl(${hue} 55% 40%)` }} />}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className={`text-sm font-semibold truncate ${done ? "text-muted-foreground line-through decoration-success/60" : ""}`}>
-                            {doc.title}
-                          </p>
-                          <p className="text-[11px] text-muted-foreground truncate">
-                            {doc.available
-                              ? <>{doc.estimatedMinutes}m · <span className="text-gold font-semibold">{doc.reward} 🪙</span>{isNext && <span className="font-bold ml-1" style={{ color: `hsl(${hue} 60% 40%)` }}>· Up next</span>}</>
-                              : "Coming soon"}
-                          </p>
-                        </div>
-                        {doc.available && <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />}
-                      </button>
-                    )
-                  })}
-                </div>
-              </section>
+                <p className={`text-[11px] font-bold mt-1.5 leading-tight truncate ${isActive ? "" : "text-muted-foreground"}`}>{cat.title}</p>
+                <p className="text-[10px] text-muted-foreground">
+                  {avail.length > 0 ? `${done}/${avail.length}` : "soon"}
+                </p>
+                {hasNext && (
+                  <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: `hsl(${hue} 65% 45%)` }} />
+                )}
+              </button>
             )
           })}
         </div>
+
+        {/* selected topic's documents */}
+        {selectedCat && (() => {
+          const hue = catHue(selectedCat.id)
+          return (
+            <section className="rounded-2xl border border-border bg-card/50 p-4"
+              style={{ borderLeft: `3px solid hsl(${hue} 65% 45%)` }}>
+              <div className="flex items-center gap-2 mb-3 px-1">
+                <h3 className="font-bold text-sm">{selectedCat.title}</h3>
+                <span className="text-xs text-muted-foreground">— {selectedCat.description}</span>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-2">
+                {selectedCat.documents.map(doc => {
+                  const done = doc.available && isLabDocDone(doc.id)
+                  const isNext = doc.id === nextDoc?.id
+                  return (
+                    <button
+                      key={doc.id}
+                      disabled={!doc.available}
+                      onClick={() => navigate(`/lab/${doc.id}`)}
+                      className={`flex items-center gap-3 p-3 rounded-xl border bg-card text-left transition-all ${
+                        doc.available
+                          ? "border-border hover:border-primary/40 hover:shadow-sm press-scale"
+                          : "border-dashed border-border/60 opacity-55"
+                      }`}
+                      style={isNext ? { borderColor: `hsl(${hue} 60% 48% / 0.5)` } : undefined}
+                    >
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                        style={doc.available ? { background: `hsl(${hue} 60% 48% / 0.1)` } : undefined}>
+                        {!doc.available
+                          ? <Lock className="w-3.5 h-3.5 text-muted-foreground" />
+                          : done
+                            ? <CheckCircle2 className="w-4 h-4 text-success" />
+                            : <FileText className="w-4 h-4" style={{ color: `hsl(${hue} 55% 40%)` }} />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm font-semibold truncate ${done ? "text-muted-foreground line-through decoration-success/60" : ""}`}>
+                          {doc.title}
+                        </p>
+                        <p className="text-[11px] text-muted-foreground truncate">
+                          {doc.available
+                            ? <>{doc.estimatedMinutes}m · <span className="text-gold font-semibold">{doc.reward} 🪙</span>{isNext && <span className="font-bold ml-1" style={{ color: `hsl(${hue} 60% 40%)` }}>· Up next</span>}</>
+                            : "Coming soon"}
+                        </p>
+                      </div>
+                      {doc.available && <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />}
+                    </button>
+                  )
+                })}
+              </div>
+            </section>
+          )
+        })()}
       </main>
     </div>
   );
