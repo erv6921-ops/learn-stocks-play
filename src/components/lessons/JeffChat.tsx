@@ -12,7 +12,7 @@ import { X } from "lucide-react"
 import type { Lesson } from "@/types"
 import {
   jeffChatTurn, initialJeffMessage, INITIAL_OPTIONS, END_SIGNAL,
-  loadChat, saveChat, type ChatMessage,
+  loadChat, saveChat, scriptOptions, type ChatMessage,
 } from "@/lib/jeffChatLesson"
 
 const JEFF_GREEN = "#1a5c41"
@@ -58,13 +58,18 @@ function TypingIndicator() {
 
 interface JeffChatProps {
   lesson: Lesson
+  /**
+   * Scripted fallback: Jeff teaches these messages (built from the lesson's
+   * own content) whenever the AI is unavailable, instead of erroring out.
+   */
+  script?: string[]
   /** Student tapped "Take the Quiz →". */
   onQuizReady: () => void
   /** Student closed the chat (progress is saved). */
   onClose: () => void
 }
 
-export default function JeffChat({ lesson, onQuizReady, onClose }: JeffChatProps) {
+export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: JeffChatProps) {
   // Resume a saved conversation, otherwise open with Jeff's hardcoded hook.
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
     loadChat(lesson.id)?.messages ?? [{ role: "assistant", content: initialJeffMessage(lesson) }]
@@ -74,13 +79,14 @@ export default function JeffChat({ lesson, onQuizReady, onClose }: JeffChatProps
     return saved ? saved.options : INITIAL_OPTIONS
   })
   const [done, setDone] = useState<boolean>(() => loadChat(lesson.id)?.done ?? false)
+  const [scriptIdx, setScriptIdx] = useState<number>(() => loadChat(lesson.id)?.scriptIdx ?? 0)
   const [typing, setTyping] = useState(false)
   const feedRef = useRef<HTMLDivElement>(null)
 
   // Persist every state change so closing mid-lesson resumes seamlessly.
   useEffect(() => {
-    saveChat(lesson.id, { messages, options, done })
-  }, [lesson.id, messages, options, done])
+    saveChat(lesson.id, { messages, options, done, scriptIdx })
+  }, [lesson.id, messages, options, done, scriptIdx])
 
   // Smooth scroll to the newest message.
   useEffect(() => {
@@ -111,10 +117,23 @@ export default function JeffChat({ lesson, onQuizReady, onClose }: JeffChatProps
     } catch {
       await minDelay
       setTyping(false)
-      // Friendly recovery: drop the student's unanswered bubble, apologize,
-      // and re-show the same options so they can just tap again.
-      setMessages([...messages, { role: "assistant", content: "Hmm, lost my train of thought for a sec! Try tapping that again." }])
-      setOptions(lastOptionsRef.current)
+      if (scriptIdx < script.length) {
+        // AI unavailable → Jeff keeps teaching from the lesson's own content.
+        const text = script[scriptIdx]
+        setMessages(prev => [...prev, { role: "assistant", content: text }])
+        setScriptIdx(scriptIdx + 1)
+        if (text.includes(END_SIGNAL)) {
+          setDone(true)
+          setOptions([])
+        } else {
+          setOptions(scriptOptions(scriptIdx))
+        }
+      } else {
+        // No script left either: drop the student's unanswered bubble,
+        // apologize, and re-show the same options so they can tap again.
+        setMessages([...messages, { role: "assistant", content: "Hmm, lost my train of thought for a sec! Try tapping that again." }])
+        setOptions(lastOptionsRef.current)
+      }
     }
   }
 

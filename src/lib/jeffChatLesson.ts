@@ -2,7 +2,7 @@
 // lesson experience (edge function: jeff-chat). Jeff teaches the lesson
 // conversationally; the student replies via tappable options.
 import { supabase } from "@/integrations/supabase/client"
-import type { Lesson } from "@/types"
+import type { Lesson, LessonSection } from "@/types"
 
 export interface ChatMessage {
   role: "user" | "assistant"
@@ -66,6 +66,54 @@ export async function jeffChatTurn(
   return { text: (data?.text as string) || "", options: (data?.options as string[]) || [] }
 }
 
+// ── Scripted fallback ──────────────────────────────────────────────
+// When the AI is unavailable (no API credits, offline, rate-limited), Jeff
+// teaches from the lesson's own written content instead of erroring out.
+// Chunks concept paragraphs into chat-sized messages (<~45 words each).
+
+const CHUNK_WORDS = 42
+
+function chunkText(text: string): string[] {
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean)
+  const chunks: string[] = []
+  let current = ""
+  for (const s of sentences) {
+    const candidate = current ? `${current} ${s}` : s
+    if (candidate.split(/\s+/).length > CHUNK_WORDS && current) {
+      chunks.push(current)
+      current = s
+    } else {
+      current = candidate
+    }
+  }
+  if (current) chunks.push(current)
+  return chunks
+}
+
+/** Jeff's teaching script from the lesson's concept sections. */
+export function buildScript(sections: LessonSection[]): string[] {
+  const out: string[] = []
+  for (const s of sections) {
+    if (s.type !== "concept") continue
+    for (const p of s.paragraphs) out.push(...chunkText(p))
+    if (s.realWorldExample) out.push(...chunkText(`Real talk: ${s.realWorldExample}`))
+  }
+  const script = out.slice(0, 7)
+  if (script.length === 0) return []
+  script[script.length - 1] += ` That's the big idea! ${END_SIGNAL} 🎯`
+  return script
+}
+
+/** Rotating tap options while Jeff works through the script. */
+export function scriptOptions(idx: number): string[] {
+  const sets = [
+    ["Tell me more", "Give me an example", "Got it 👍"],
+    ["Makes sense", "Wait, explain that again", "Keep going"],
+    ["Interesting 🤔", "Okay, then what", "Got it 👍"],
+  ]
+  return sets[idx % sets.length]
+}
+
 // ── Resume support: conversation persists per-lesson in localStorage ──
 const storeKey = (lessonId: string) => `ip_jeffchat_${lessonId}`
 
@@ -73,6 +121,8 @@ export interface SavedChat {
   messages: ChatMessage[]
   options: string[]
   done: boolean
+  /** Position in the scripted fallback (0 = AI-only so far). */
+  scriptIdx?: number
 }
 
 export function loadChat(lessonId: string): SavedChat | null {

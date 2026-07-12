@@ -20,6 +20,7 @@ import {
   MasteryCheckRenderer,
 } from "@/components/lesson/SectionRenderer"
 import JeffChat from "@/components/lessons/JeffChat"
+import { buildScript } from "@/lib/jeffChatLesson"
 import {
   ArrowLeft,
   ArrowRight,
@@ -247,6 +248,9 @@ export default function LessonDetail() {
       {chatOpen && !isCompleted && (
         <JeffChat
           lesson={lesson}
+          // Offline/no-credits fallback: Jeff teaches the lesson's own
+          // concept content as a scripted chat instead of erroring.
+          script={buildScript(sections)}
           onQuizReady={handleChatQuizReady}
           onClose={() => setChatOpen(false)}
         />
