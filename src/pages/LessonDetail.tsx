@@ -19,6 +19,7 @@ import {
   RecapRenderer,
   MasteryCheckRenderer,
 } from "@/components/lesson/SectionRenderer"
+import JeffChat from "@/components/lessons/JeffChat"
 import {
   ArrowLeft,
   ArrowRight,
@@ -70,6 +71,8 @@ export default function LessonDetail() {
   const [lessonFinished, setLessonFinished] = useState(false)
   const [jeffsEarned, setJeffsEarned] = useState(false)
   const [totalAttempts, setTotalAttempts] = useState(0)
+  // "Chat with Jeff" replaces the paragraph reading for uncompleted lessons.
+  const [chatOpen, setChatOpen] = useState(false)
 
   if (!lesson || !structuredContent) {
     return (
@@ -83,6 +86,19 @@ export default function LessonDetail() {
   }
 
   const sections = structuredContent.sections
+
+  // The chat replaces the reading ("concept") sections — after it, students
+  // jump straight to the first interactive/quiz section.
+  const firstQuizIdx = Math.max(0, sections.findIndex(s => s.type !== "concept"))
+
+  const handleChatQuizReady = () => {
+    setChatOpen(false)
+    // Record "content viewed" on the existing lesson_progress row (not completed yet).
+    if (!isCompleted) updateLessonProgress(lesson.id, false)
+    setLessonStarted(true)
+    setCurrentSectionIdx(firstQuizIdx)
+    window.scrollTo({ top: 0 })
+  }
 
   // ─── Handlers ───
   const handleSectionContinue = () => {
@@ -183,9 +199,10 @@ export default function LessonDetail() {
             </Card>
 
             <div className="text-center">
-              <Button size="lg" variant="hero" onClick={() => setLessonStarted(true)}>
+              <Button size="lg" variant="hero" onClick={() => setChatOpen(true)}>
                 Start Mission <ArrowRight className="ml-2" />
               </Button>
+              <p className="text-xs text-muted-foreground mt-2">💬 Jeff will teach you this one in chat</p>
             </div>
           </div>
         ) : lessonFinished || isCompleted ? (
@@ -225,6 +242,15 @@ export default function LessonDetail() {
           </div>
         )}
       </main>
+
+      {/* ─── Chat with Jeff: the conversational lesson (replaces reading) ─── */}
+      {chatOpen && !isCompleted && (
+        <JeffChat
+          lesson={lesson}
+          onQuizReady={handleChatQuizReady}
+          onClose={() => setChatOpen(false)}
+        />
+      )}
     </div>
   )
 }

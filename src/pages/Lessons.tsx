@@ -23,6 +23,7 @@ import { LessonCategory, CourseTrack } from "@/types";
 import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
 import GulliverBizLab from "@/components/bizlab/GulliverBizLab";
+import { JeffChatAvatar } from "@/components/lessons/JeffChat";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
 import { anchor } from "@/lib/tourAnchors";
 import MissionsWorldMap, { UnitMeta } from "@/components/MissionsWorldMap";
@@ -944,7 +945,11 @@ export default function Lessons() {
                       {completed ? <CheckCircle className="w-3.5 h-3.5" /> : `L${idx + 1}`}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <span className="text-[13px] font-semibold text-foreground/80 truncate block">{lesson.title}</span>
+                      <span className="text-[13px] font-semibold text-foreground/80 truncate flex items-center gap-1.5">
+                        {lesson.title}
+                        {/* Interactive "Chat with Jeff" lesson indicator */}
+                        {!completed && <span title="Chat with Jeff" className="shrink-0 inline-flex"><JeffChatAvatar size={16} /></span>}
+                      </span>
                       {isValidated && <span className="text-[10px] text-[#1D9E75] font-bold">Validated by benchmark</span>}
                     </div>
                     <span className={`text-xs font-bold font-mono ${completed ? "text-[#1D9E75]" : "text-muted-foreground"}`}>
