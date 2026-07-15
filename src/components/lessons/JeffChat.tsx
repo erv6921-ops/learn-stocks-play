@@ -37,62 +37,319 @@ export function JeffChatAvatar({ size = 16 }: { size?: number }) {
 const EXPECTED_TURNS = 6
 
 /* ── Thinking skits ──────────────────────────────────────────────────
-   While the AI works, Jeff doesn't just stand there — he plays a random
-   little skit (cooking, napping, jumping jacks, sketching, juggling
-   numbers, pacing…) and rotates to a new one if the wait drags on. */
+   While the AI works, Jeff plays a fully staged skit — each one is its
+   own little scene where props live WITH his body (pan in hand, blanket
+   over him, pencil on a real notepad), not floating nearby. Rotates to a
+   new skit if the wait drags on. */
 
 interface Skit {
   caption: string
-  mood: JeffMoodType
-  /** Built-in mascot activity (cook/nap/pack render their own props). */
-  activity?: JeffActivity
-  /** Extra whole-body motion layered by the stage. */
-  anim?: { animate: Record<string, number[]>; duration: number }
-  /** Extra floating emoji scene rendered around Jeff. */
-  extras?: { emoji: string; left: string; top: string; delay: number }[]
+  Body: React.FC
+}
+
+/** 💤 Lying down on a pillow, blanket on top, z's rising. */
+function NapSkit() {
+  return (
+    <div className="relative w-full h-full">
+      {/* pillow under his head */}
+      <motion.div
+        className="absolute left-[4%] bottom-[5%] w-[32%] h-[15%] rounded-[45%] bg-white border border-black/10 shadow-sm"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
+      />
+      {/* Jeff tips over and lies down */}
+      <motion.div
+        className="absolute inset-0"
+        initial={{ rotate: 0, y: 0 }}
+        animate={{ rotate: -84, y: "16%", x: "18%" }}
+        transition={{ duration: 0.65, ease: [0.3, 1.4, 0.6, 1] }}
+        style={{ transformOrigin: "50% 58%" }}
+      >
+        <JeffMascot mood="sleep" />
+      </motion.div>
+      {/* blanket tucked over his body, rising gently as he breathes */}
+      <motion.div
+        className="absolute left-[40%] bottom-[3%] w-[58%] h-[24%] rounded-t-[2.2rem] rounded-b-md"
+        style={{
+          background: "repeating-linear-gradient(45deg, hsl(152 45% 62%) 0 9px, hsl(158 42% 52%) 9px 18px)",
+          boxShadow: "inset 0 4px 0 rgba(255,255,255,0.55), 0 2px 4px rgba(6,41,31,0.15)",
+        }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: [0, -2.5, 0] }}
+        transition={{ opacity: { delay: 0.55, duration: 0.3 }, y: { duration: 2.6, repeat: Infinity, delay: 0.8, ease: "easeInOut" } }}
+      />
+      {/* z's drifting up from his head */}
+      {[0, 1, 2].map(i => (
+        <motion.span
+          key={i}
+          className="absolute font-extrabold text-emerald-500/80"
+          style={{ left: `${14 + i * 8}%`, bottom: `${36 + i * 9}%`, fontSize: `${0.65 + i * 0.18}rem` }}
+          animate={{ opacity: [0, 1, 0], y: [6, -8, -20], x: [0, 4, 8] }}
+          transition={{ duration: 2.1, repeat: Infinity, delay: 0.9 + i * 0.55, ease: "easeOut" }}
+        >
+          z
+        </motion.span>
+      ))}
+    </div>
+  )
+}
+
+/** 🍳 Pan in hand (moves with his body), steam, and a flipping pancake. */
+function CookSkit() {
+  return (
+    <div className="relative w-full h-full">
+      {/* the whole body rocks like he's working the stove — pan is INSIDE
+          this wrapper so it moves with him, like it's in his hand */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: [-4, 4, -4] }}
+        transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "center bottom" }}
+      >
+        <JeffMascot mood="idle" />
+        {/* frying pan at his right hand */}
+        <motion.span
+          className="absolute text-4xl sm:text-5xl"
+          style={{ left: "56%", bottom: "14%" }}
+          animate={{ rotate: [-8, 6, -8], y: [0, -3, 0] }}
+          transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          🍳
+        </motion.span>
+        {/* pancake flipping out of the pan */}
+        <motion.span
+          className="absolute text-lg sm:text-xl"
+          style={{ left: "66%", bottom: "30%" }}
+          animate={{ y: [0, -34, 0], rotate: [0, 340, 360], opacity: [0, 1, 1] }}
+          transition={{ duration: 1.15, repeat: Infinity, repeatDelay: 0.9, ease: "easeOut" }}
+        >
+          🥞
+        </motion.span>
+      </motion.div>
+      {/* steam rising above the pan */}
+      {[0, 1].map(i => (
+        <motion.span
+          key={i}
+          className="absolute text-slate-400 text-xs"
+          style={{ left: `${66 + i * 8}%`, bottom: "36%" }}
+          animate={{ opacity: [0, 0.8, 0], y: [0, -14, -24] }}
+          transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.7, ease: "easeOut" }}
+        >
+          ∿
+        </motion.span>
+      ))}
+    </div>
+  )
+}
+
+/** ✏️ A real notepad in front of him; the pencil scribbles lines that appear. */
+function SketchSkit() {
+  return (
+    <div className="relative w-full h-full">
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: [-2, 2, -2] }}
+        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "center bottom" }}
+      >
+        <JeffMascot mood="think" />
+      </motion.div>
+      {/* notepad propped in front of him */}
+      <motion.div
+        className="absolute right-[-8%] bottom-[2%] w-[44%] h-[36%] rounded-lg bg-white border border-black/10 shadow-md p-2"
+        style={{ rotate: 8 }}
+        initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
+      >
+        {/* scribble lines appearing one after another, then clearing */}
+        {[0, 1, 2].map(i => (
+          <motion.div
+            key={i}
+            className="h-[3px] rounded-full bg-slate-300 mb-[6px]"
+            style={{ width: `${82 - i * 18}%` }}
+            animate={{ scaleX: [0, 1, 1, 0], opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 3, repeat: Infinity, delay: i * 0.55, times: [0, 0.25, 0.85, 1], ease: "easeOut" }}
+          />
+        ))}
+      </motion.div>
+      {/* pencil scribbling on the pad */}
+      <motion.span
+        className="absolute text-xl sm:text-2xl"
+        style={{ left: "58%", bottom: "26%" }}
+        animate={{ x: [0, 14, 3, 18, 0], y: [0, 3, 7, 10, 0], rotate: [12, 20, 14, 22, 12] }}
+        transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+      >
+        ✏️
+      </motion.span>
+    </div>
+  )
+}
+
+/** 🪙 Proper juggling — coins follow an arcing cascade above his hands. */
+function JuggleSkit() {
+  return (
+    <div className="relative w-full h-full">
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: [-3, 3, -3], y: [0, -2, 0] }}
+        transition={{ duration: 0.55, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "center bottom" }}
+      >
+        <JeffMascot mood="encourage" />
+      </motion.div>
+      {/* three coins in a cascade arc above his head */}
+      {[0, 1, 2].map(i => (
+        <motion.span
+          key={i}
+          className="absolute text-lg sm:text-xl"
+          style={{ left: "42%", bottom: "72%" }}
+          animate={{
+            x: [-30, 0, 30, 0, -30],
+            y: [10, -26, 10, 22, 10],
+            rotate: [0, 180, 360, 360, 360],
+          }}
+          transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.53, ease: "easeInOut" }}
+        >
+          🪙
+        </motion.span>
+      ))}
+    </div>
+  )
+}
+
+/** 📖 Book held at his chest, pages flipping. */
+function BookSkit() {
+  return (
+    <div className="relative w-full h-full">
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: [-1.5, 1.5, -1.5] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "center bottom" }}
+      >
+        <JeffMascot mood="think" />
+        {/* book held right in front of his body */}
+        <motion.span
+          className="absolute text-3xl sm:text-4xl"
+          style={{ left: "30%", bottom: "16%" }}
+          animate={{ scaleX: [1, 0.75, 1], rotate: [-2, 2, -2] }}
+          transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
+        >
+          📖
+        </motion.span>
+      </motion.div>
+      {/* the occasional lightbulb when something clicks */}
+      <motion.span
+        className="absolute text-base sm:text-lg"
+        style={{ left: "66%", top: "4%" }}
+        animate={{ opacity: [0, 0, 1, 0], scale: [0.5, 0.5, 1.15, 0.8], y: [4, 4, -4, -8] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: "easeOut" }}
+      >
+        💡
+      </motion.span>
+    </div>
+  )
+}
+
+/** 🔥 Hype jumps with squash-and-stretch and impact puffs. */
+function JumpSkit() {
+  return (
+    <div className="relative w-full h-full">
+      <motion.div
+        className="absolute inset-0"
+        animate={{ y: [0, -32, 0, -18, 0], scaleY: [0.94, 1.08, 0.9, 1.05, 0.94], scaleX: [1.05, 0.95, 1.08, 0.96, 1.05] }}
+        transition={{ duration: 1.05, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "center bottom" }}
+      >
+        <JeffMascot mood="encourage" />
+      </motion.div>
+      {/* landing puffs */}
+      {[0, 1].map(i => (
+        <motion.span
+          key={i}
+          className="absolute text-sm text-slate-400"
+          style={{ left: `${26 + i * 42}%`, bottom: "2%" }}
+          animate={{ opacity: [0, 0.9, 0], scale: [0.4, 1.1, 1.4], x: [0, i === 0 ? -8 : 8] }}
+          transition={{ duration: 1.05, repeat: Infinity, delay: 0.5, ease: "easeOut" }}
+        >
+          💨
+        </motion.span>
+      ))}
+    </div>
+  )
+}
+
+/** 🚶 Pacing — walks left and right, turning to face where he's going. */
+function PaceSkit() {
+  return (
+    <div className="relative w-full h-full">
+      <motion.div
+        className="absolute inset-0"
+        animate={{ x: [0, 40, 40, 0, 0], scaleX: [1, 1, -1, -1, 1], y: [0, -3, 0, -3, 0] }}
+        transition={{ duration: 3.4, repeat: Infinity, times: [0, 0.46, 0.5, 0.96, 1], ease: "easeInOut" }}
+        style={{ transformOrigin: "center bottom" }}
+      >
+        <JeffMascot mood="think" />
+      </motion.div>
+      {/* a thought bubble trailing overhead */}
+      <motion.span
+        className="absolute text-base sm:text-lg"
+        style={{ left: "58%", top: "2%" }}
+        animate={{ opacity: [0, 1, 1, 0], y: [4, -2, -2, -8] }}
+        transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        💭
+      </motion.span>
+    </div>
+  )
+}
+
+/** 🎒 Digging through his pack — uses the mascot's built-in packing scene. */
+function NotesSkit() {
+  return (
+    <div className="relative w-full h-full">
+      <JeffMascot mood="idle" activity="pack" />
+      <JeffScene activity="pack" />
+    </div>
+  )
+}
+
+/** 🤔 Classic think pose with a pulsing thought bubble of ideas. */
+function ThinkSkit() {
+  return (
+    <div className="relative w-full h-full">
+      <JeffMascot mood="think" />
+      <motion.span
+        className="absolute text-xl sm:text-2xl"
+        style={{ left: "62%", top: "0%" }}
+        animate={{ opacity: [0, 1, 1, 0], scale: [0.6, 1, 1, 0.7], y: [6, -2, -2, -10] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        💭
+      </motion.span>
+      {["❓", "💰", "📈"].map((e, i) => (
+        <motion.span
+          key={e}
+          className="absolute text-[10px] sm:text-xs"
+          style={{ left: `${68 + (i % 2) * 6}%`, top: "6%" }}
+          animate={{ opacity: [0, 0, 1, 0], scale: [0.5, 0.5, 1, 0.6] }}
+          transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.8, ease: "easeInOut" }}
+        >
+          {e}
+        </motion.span>
+      ))}
+    </div>
+  )
 }
 
 const SKITS: Skit[] = [
-  { caption: "Jeff is thinking hard… 🤔", mood: "think" },
-  { caption: "Jeff's cooking up an answer… 🍳", mood: "idle", activity: "cook" },
-  { caption: "Jeff's recharging with a micro-nap… 💤", mood: "sleep", activity: "nap" },
-  { caption: "Jeff's digging through his notes… 🎒", mood: "idle", activity: "pack" },
-  {
-    caption: "Jeff's doing his hype jumps! 🔥", mood: "encourage",
-    anim: { animate: { y: [0, -30, 0, -16, 0], scaleY: [1, 1.06, 0.92, 1.04, 1] }, duration: 0.9 },
-  },
-  {
-    caption: "Jeff's sketching it out… ✏️", mood: "think",
-    extras: [
-      { emoji: "✏️", left: "78%", top: "30%", delay: 0 },
-      { emoji: "📐", left: "8%", top: "48%", delay: 0.5 },
-      { emoji: "💡", left: "60%", top: "6%", delay: 1 },
-    ],
-  },
-  {
-    caption: "Jeff's juggling the numbers… 🪙", mood: "idle",
-    anim: { animate: { rotate: [-4, 4, -4] }, duration: 0.7 },
-    extras: [
-      { emoji: "🪙", left: "20%", top: "18%", delay: 0 },
-      { emoji: "🪙", left: "48%", top: "4%", delay: 0.35 },
-      { emoji: "🪙", left: "74%", top: "20%", delay: 0.7 },
-    ],
-  },
-  {
-    caption: "Jeff's pacing back and forth…", mood: "think",
-    anim: { animate: { x: [0, 34, 34, 0, 0] }, duration: 3.2 },
-  },
-  {
-    caption: "Jeff's warming up with a spin! 🌀", mood: "encourage",
-    anim: { animate: { rotate: [0, 0, 360, 360], y: [0, -18, -18, 0] }, duration: 1.4 },
-  },
-  {
-    caption: "Jeff's flipping through the textbook… 📖", mood: "think",
-    extras: [
-      { emoji: "📖", left: "70%", top: "42%", delay: 0 },
-      { emoji: "🔎", left: "14%", top: "22%", delay: 0.6 },
-    ],
-  },
+  { caption: "Jeff is thinking hard… 🤔", Body: ThinkSkit },
+  { caption: "Jeff's cooking up an answer… 🍳", Body: CookSkit },
+  { caption: "Jeff's recharging with a micro-nap… 💤", Body: NapSkit },
+  { caption: "Jeff's digging through his notes… 🎒", Body: NotesSkit },
+  { caption: "Jeff's doing his hype jumps! 🔥", Body: JumpSkit },
+  { caption: "Jeff's sketching it out… ✏️", Body: SketchSkit },
+  { caption: "Jeff's juggling the numbers… 🪙", Body: JuggleSkit },
+  { caption: "Jeff's pacing back and forth… 💭", Body: PaceSkit },
+  { caption: "Jeff's flipping through the textbook… 📖", Body: BookSkit },
 ]
 
 const randomSkit = (excludeCaption?: string): Skit => {
@@ -130,7 +387,9 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   useEffect(() => {
     if (!thinking) return
     setSkit(prev => randomSkit(prev.caption))
-    const interval = setInterval(() => setSkit(prev => randomSkit(prev.caption)), 3800)
+    // Staged scenes need time to breathe (lying down, tucking in…), so
+    // rotate a little slower than the old caption-only version.
+    const interval = setInterval(() => setSkit(prev => randomSkit(prev.caption)), 5000)
     return () => clearInterval(interval)
   }, [thinking])
 
@@ -143,8 +402,7 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   const current = [...messages].reverse().find(m => m.role === "assistant")?.content ?? ""
   const lastChoice = messages[messages.length - 1]?.role === "user" ? messages[messages.length - 1].content : null
   const jeffTurns = messages.filter(m => m.role === "assistant").length
-  const mood: JeffMoodType = done ? "celebrate" : thinking ? skit.mood : "encourage"
-  const activity: JeffActivity = thinking ? (skit.activity ?? "none") : "none"
+  const mood: JeffMoodType = done ? "celebrate" : "encourage"
 
   const send = async (choice: string) => {
     if (thinking) return
@@ -305,38 +563,27 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
             </div>
 
             {/* Jeff himself — big, alive, on stage. While thinking he plays
-                a random skit: extra body motion + activity props + floating
-                emoji scene, rotating every few seconds. */}
+                a fully staged skit (lying under a blanket, pan in hand,
+                scribbling a notepad…), rotating every few seconds. */}
             <div className="shrink-0 flex items-end gap-3 h-40 sm:h-48">
-              <motion.div
-                key={thinking ? skit.caption : "idle"}
-                className="relative h-full w-40 sm:w-48"
-                animate={thinking && skit.anim ? skit.anim.animate : { x: 0, y: 0, rotate: 0, scaleY: 1 }}
-                transition={thinking && skit.anim
-                  ? { duration: skit.anim.duration, repeat: Infinity, ease: "easeInOut" }
-                  : { duration: 0.3 }}
-                style={{ transformOrigin: "center bottom" }}
-              >
-                <JeffMascot mood={mood} activity={activity} />
-                {/* built-in activity props (frying pan / sleeping mat / backpack) */}
-                {thinking && skit.activity && <JeffScene activity={skit.activity} />}
-                {/* skit-specific floating extras */}
-                <AnimatePresence>
-                  {thinking && skit.extras?.map((e, i) => (
-                    <motion.span
-                      key={`${skit.caption}-${i}`}
-                      className="absolute text-lg sm:text-xl pointer-events-none"
-                      style={{ left: e.left, top: e.top }}
-                      initial={{ opacity: 0, scale: 0, y: 6 }}
-                      animate={{ opacity: [0, 1, 1, 0.6], scale: [0.6, 1.1, 1, 1], y: [6, -6, -2, -8], rotate: [-6, 6, -6] }}
-                      exit={{ opacity: 0, scale: 0 }}
-                      transition={{ duration: 1.8, repeat: Infinity, delay: e.delay, ease: "easeInOut" }}
+              <div className="relative h-full w-40 sm:w-48">
+                {thinking ? (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={skit.caption}
+                      className="absolute inset-0"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25 }}
                     >
-                      {e.emoji}
-                    </motion.span>
-                  ))}
-                </AnimatePresence>
-              </motion.div>
+                      <skit.Body />
+                    </motion.div>
+                  </AnimatePresence>
+                ) : (
+                  <JeffMascot mood={mood} />
+                )}
+              </div>
             </div>
           </>
         )}
