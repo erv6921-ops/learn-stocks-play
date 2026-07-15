@@ -188,15 +188,15 @@ export const unitTests: UnitTest[] = [
       },
       {
         id: "ut-b-15",
-        question: "A budget shows Income: $4,000, Needs: $2,200, Wants: $1,000, Savings: $600. What adjustment brings this to balance?",
+        question: "A zero-based budget shows Income: $4,000, Needs: $2,200, Wants: $1,000, Savings: $600. What should happen to complete it?",
         options: [
           "Increase income by $200 to cover the apparent gap",
           "Reduce wants by $200 to match the income amount",
-          "Increase savings by $200 since there's extra available",
-          "It's already balanced — income exceeds allocated expenses"
+          "Assign the leftover $200 a job, like savings or a goal",
+          "Nothing — leftover money means the budget is done"
         ],
-        correctAnswer: 3,
-        explanation: "Check the math: $2,200 + $1,000 + $600 = $3,800. Income is $4,000. This equals a $200 SURPLUS, not deficit - so it IS balanced. The $200 difference should be allocated to savings or goals."
+        correctAnswer: 2,
+        explanation: "Check the math: $2,200 + $1,000 + $600 = $3,800. Income is $4,000, leaving a $200 surplus. In zero-based budgeting every dollar gets a job — so that $200 should be assigned to savings or a goal, not left floating."
       },
       {
         id: "ut-b-16",

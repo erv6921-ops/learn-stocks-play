@@ -743,13 +743,13 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         paragraphs: [
           "There's a smart order for funding college, and it starts with money you never have to pay back. First come scholarships and grants (including Florida's Bright Futures), then work-study, then federal loans (subsidized before unsubsidized), then Parent PLUS loans, and finally — as a last resort — private loans. Following this hierarchy can save you tens of thousands of dollars over your lifetime.",
           "It all begins with the FAFSA (Free Application for Federal Student Aid). Filing the FAFSA unlocks federal grants, loans, and work-study, and it's used by colleges to build your aid package. Florida's state aid deadline is often earlier than the federal one, so filing early matters. The FAFSA calculates a number (formerly the EFC, now the SAI) that estimates what your family can contribute, which determines your need-based aid.",
-          "Florida's Bright Futures scholarship rewards strong students. For the top Academic Scholars award, students generally need around a 3.0+ GPA (with specific course and test requirements) plus 100 community service hours. Know the difference between your funding types: a grant is need-based free money, a scholarship is usually merit-based free money, and a loan must be repaid with interest. The goal is to maximize free money and minimize loans — especially private ones."
+          "Florida's Bright Futures scholarship rewards strong students. The top Academic Scholars award generally requires around a 3.5 weighted GPA (with specific course and test requirements) plus 100 community service hours; the Medallion Scholars tier requires around a 3.0 GPA and 75 hours. Know the difference between your funding types: a grant is need-based free money, a scholarship is usually merit-based free money, and a loan must be repaid with interest. The goal is to maximize free money and minimize loans — especially private ones."
         ],
         bullets: [
           "Funding order: scholarships/grants → work-study → federal loans → PLUS loans → private loans.",
           "The FAFSA unlocks federal grants, loans, and work-study — file it early.",
           "Florida's state aid deadline is often earlier than the federal deadline.",
-          "Bright Futures Academic Scholars need ~3.0+ GPA and 100 community service hours.",
+          "Bright Futures: Academic Scholars need ~3.5 GPA + 100 service hours; Medallion Scholars ~3.0 GPA + 75 hours.",
           "Grants/scholarships are free money; loans must be repaid with interest."
         ],
         realWorldExample: "Two students attend the same Florida university. One files FAFSA early and wins Bright Futures plus grants, graduating with $8,000 in loans. The other skips scholarships and leans on private loans, graduating with $60,000 in debt — same degree, wildly different financial start."
@@ -814,7 +814,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         takeaways: [
           "Pursue funding in order: scholarships/grants → work-study → federal loans → PLUS → private.",
           "The FAFSA unlocks federal aid — file it early, especially for Florida's earlier state deadline.",
-          "Bright Futures Academic Scholars need ~3.0+ GPA and 100 community service hours.",
+          "Bright Futures: Academic Scholars need ~3.5 GPA + 100 service hours; Medallion Scholars ~3.0 GPA + 75 hours.",
           "Grants and scholarships are free; loans must be repaid with interest.",
           "Private loans are the last resort due to higher rates and fewer protections."
         ]
@@ -840,12 +840,12 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             question: "What do Bright Futures Academic Scholars generally need?",
             options: [
               "No requirements at all",
-              "Around a 3.0+ GPA plus 100 community service hours (with course/test requirements)",
+              "Around a 3.5 GPA plus 100 community service hours (with course/test requirements)",
               "A perfect 4.0 and 1,000 service hours",
               "Only Florida residency"
             ],
             correctAnswer: 1,
-            explanation: "The Academic Scholars award generally requires roughly a 3.0+ GPA, specific coursework/test scores, and 100 community service hours."
+            explanation: "The top Academic Scholars award generally requires roughly a 3.5 weighted GPA, specific coursework/test scores, and 100 community service hours. The Medallion Scholars tier is ~3.0 GPA and 75 hours."
           },
           {
             id: "credit16-mastery3",

@@ -124,7 +124,7 @@ export const lessonQuizzes: LessonQuiz[] = [
         options: [
           "That it requires basic math skills to create one",
           "That it helps you become more aware of spending patterns",
-          "That it takes several hours each week to maintain properly",
+          "That it lets you plan your spending before the month starts",
           "That it means you can never have any fun with money"
         ],
         correctAnswer: 3,
@@ -334,7 +334,7 @@ export const lessonQuizzes: LessonQuiz[] = [
           "A budgeting app that syncs directly with your bank"
         ],
         correctAnswer: 3,
-        explanation: "Apps like Mint or YNAB automatically import and categorize transactions instantly. Memory is unreliable - we forget 50% of purchases within a day. Real-time tracking means no surprises."
+        explanation: "Apps like YNAB, Monarch, or Rocket Money automatically import and categorize transactions instantly. Memory is unreliable - we forget 50% of purchases within a day. Real-time tracking means no surprises."
       },
       {
         id: "b3-q7",
@@ -909,7 +909,7 @@ export const lessonQuizzes: LessonQuiz[] = [
           "They eliminate the need to think about money at all"
         ],
         correctAnswer: 2,
-        explanation: "Apps like Mint or YNAB automatically import transactions and categorize spending, showing you've spent 80% of your dining budget by mid-month. No app guarantees savings - that's still your choice."
+        explanation: "Apps like YNAB, Monarch, or Rocket Money automatically import transactions and categorize spending, showing you've spent 80% of your dining budget by mid-month. No app guarantees savings - that's still your choice."
       },
       {
         id: "b8-q2",
@@ -1005,7 +1005,7 @@ export const lessonQuizzes: LessonQuiz[] = [
           "Using multiple tools is meant to confuse potential hackers"
         ],
         correctAnswer: 1,
-        explanation: "You might use Mint for tracking, YNAB for active budgeting, and a spreadsheet for long-term planning. Each tool has strengths. Use what works for each need."
+        explanation: "You might use Rocket Money for tracking, YNAB for active budgeting, and a spreadsheet for long-term planning. Each tool has strengths. Use what works for each need."
       },
       {
         id: "b8-q10",
@@ -1623,12 +1623,12 @@ export const lessonQuizzes: LessonQuiz[] = [
         question: "How does paying off debt affect your balance sheet?",
         options: [
           "It decreases your total assets only without changing liabilities",
-          "It has absolutely no effect on your overall net worth",
+          "It immediately increases your net worth by the amount you paid",
           "It actually decreases your net worth by reducing cash",
-          "It decreases liabilities, which can increase your net worth"
+          "It reduces cash and debt equally, so net worth stays the same"
         ],
         correctAnswer: 3,
-        explanation: "Paying $1,000 off a loan decreases both cash (asset) by $1,000 AND debt (liability) by $1,000. Net worth stays the same! But you have less debt risk."
+        explanation: "Paying $1,000 off a loan decreases both cash (asset) by $1,000 AND debt (liability) by $1,000. Net worth stays the same at that moment! But you stop paying interest, which helps your net worth grow over time."
       },
       {
         id: "bal1-q9",
@@ -2287,7 +2287,7 @@ export const lessonQuizzes: LessonQuiz[] = [
           "Net worth only counts assets and ignores all liabilities"
         ],
         correctAnswer: 1,
-        explanation: "Net worth = Assets - Liabilities. $50,000 in assets with $30,000 debt = $20,000 net worth. Paying down debt increases net worth just like gaining assets does."
+        explanation: "Net worth = Assets - Liabilities. $50,000 in assets with $30,000 debt = $20,000 net worth. Paying down debt cuts your liabilities and the interest they cost you — combined with saving, that's how net worth grows over time."
       }
     ]
   },

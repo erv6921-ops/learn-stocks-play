@@ -50,7 +50,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
           "Social comparison — spending to match peers rather than your actual budget",
           "Mental accounting — treating 'found money' (tax refunds, gifts) differently than earned money"
         ],
-        realWorldExample: "A study by the National Endowment for Financial Education found that 70% of lottery winners go broke within a few years. Despite suddenly having millions, their spending habits, emotional triggers, and lack of financial discipline led to financial ruin. The money changed, but their psychology didn't."
+        realWorldExample: "It's widely reported that a large share of lottery winners burn through their winnings within a few years. Despite suddenly having millions, their spending habits, emotional triggers, and lack of financial discipline lead to financial ruin. The money changed, but their psychology didn't."
       },
       {
         type: "micro-check",
@@ -84,11 +84,11 @@ export const structuredLessonContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "The Two Friends: Marcus & Jaylen",
-        narrative: "Marcus and Jaylen both start their first jobs earning $2,000/month. Marcus buys the latest sneakers, eats out daily, and finances a new car — spending $2,100/month. Jaylen lives simply, packs lunch, takes the bus, and saves $400/month. After 3 years, Marcus has $8,000 in credit card debt. Jaylen has $14,400 in savings plus $2,000 in investment gains.",
+        narrative: "Marcus and Jaylen both start their first jobs earning $2,000/month. Marcus buys the latest sneakers, eats out daily, and finances a new car — spending $2,100/month. Jaylen lives simply, packs lunch, takes the bus, and saves $400/month. After 3 years, Marcus has about $5,000 in credit card debt (overspending plus 22% interest adds up fast). Jaylen has $14,400 in savings plus $2,000 in investment gains.",
         details: [
           "Marcus wasn't 'dumb' — he was driven by social comparison and present bias",
           "Jaylen wasn't 'cheap' — he understood delayed gratification",
-          "The gap between them: $22,400 in just 3 years",
+          "The gap between them: over $21,000 in just 3 years",
           "This gap compounds — after 10 years it could be $100,000+"
         ]
       },
@@ -159,7 +159,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
           },
           {
             id: "psych1-mastery4",
-            question: "70% of lottery winners go bankrupt within a few years primarily because:",
+            question: "Many lottery winners go broke within a few years primarily because:",
             options: [
               "The government takes most of their winnings through heavy taxes",
               "They tend to invest in risky stocks that eventually lose value",
@@ -795,7 +795,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
           "Decoy pricing: adding an overpriced option to make the middle option seem reasonable",
           "Loss framing: 'Don't miss out!' is more motivating than 'You could gain this!'"
         ],
-        realWorldExample: "Netflix uses decoy pricing brilliantly. Their plans: Basic ($6.99), Standard ($15.49), Premium ($22.99). The Basic plan is intentionally limited (no HD, one screen) to make Standard look like a great deal. Most people choose Standard — which is exactly what Netflix wants. The Basic plan exists not to be chosen, but to make Standard feel like good value."
+        realWorldExample: "Netflix famously used decoy pricing with its old three-tier lineup: Basic (~$7), Standard (~$15), Premium (~$23). The Basic plan was intentionally limited (no HD, one screen) to make Standard look like a great deal. Most people chose Standard — which is exactly what Netflix wanted. The decoy plan existed not to be chosen, but to make the middle option feel like good value."
       },
       {
         type: "micro-check",
@@ -941,7 +941,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
           "Kevin exhibited THREE biases: sunk cost (can't sell at a loss), confirmation bias (only reading bullish posts), and herd mentality (following friend's advice blindly)",
           "He ignored warning signs: the project had no revenue, the team was anonymous, and similar coins had failed",
           "A rational approach: set a stop-loss at purchase, research independently, accept losses early",
-          "Kevin's $4,000 loss could have been a $2,000 loss if he'd sold at $25 instead of holding to $0"
+          "Kevin's $5,000 total loss could have been just $2,500 if he'd sold at $25 instead of riding it to $0"
         ]
       },
       {

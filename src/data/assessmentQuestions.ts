@@ -67,13 +67,13 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     question: "Alex has a job offering $50,000/year salary with full benefits (health insurance worth $8,000/year, 401k match worth $3,000/year). A freelance opportunity offers $65,000/year with no benefits. Which provides better total compensation?",
     options: [
       "Freelance, because the $65,000 base pay exceeds the salary offer",
-      "Salary, because total comp is $61,000 plus employer-paid payroll taxes",
+      "Salary, because a guaranteed base salary always beats freelance income",
       "They are essentially equal when accounting for all benefit costs",
-      "Salary, because $61,000 plus freelancer self-employment tax closes the gap"
+      "Salary, because $61,000 total comp plus the freelancer's extra taxes and insurance costs closes the gap"
     ],
     correctAnswer: 3,
     category: "income-earning",
-    explanation: "The salaried position provides $61,000 in total compensation. The freelancer earning $65,000 must pay self-employment tax (~15.3% = ~$9,945), reducing net to ~$55,055, plus must buy their own insurance.",
+    explanation: "The salaried position provides $61,000 in total compensation ($50k + $8k insurance + $3k match). The freelancer pays an EXTRA ~7.65% self-employment tax (the employer half of FICA, ~$5,000) on top of what employees already pay, and must buy their own health insurance (~$8,000) — dropping the freelance package below the salaried one.",
     difficulty: "strategic"
   },
   {
@@ -157,13 +157,13 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     question: "You have a credit card with a $5,000 balance at 22% APR. You make only the minimum payment of $100/month. Approximately how long will it take to pay off, and how much total interest will you pay?",
     options: [
       "About 2 years with roughly $1,000 in total interest charges",
-      "About 9 years with roughly $6,000 or more in interest charges",
+      "About 11 years with over $8,000 in interest charges",
       "About 4 years with roughly $2,500 in total interest charges",
       "About 50 months with roughly $3,000 in total interest charges"
     ],
     correctAnswer: 1,
     category: "credit-debt",
-    explanation: "At 22% APR with only minimum payments, it takes roughly 9+ years to pay off $5,000, with total interest exceeding the original balance.",
+    explanation: "At 22% APR paying a fixed $100/month, it takes about 11 years (~137 payments) to clear $5,000 — with roughly $8,700 in interest, MORE than the original balance itself.",
     difficulty: "strategic"
   },
   {

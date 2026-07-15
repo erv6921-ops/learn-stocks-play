@@ -314,7 +314,7 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
           "Shareholders may receive dividends — a share of the company's profits",
           "You don't need to be rich to buy stocks — many platforms allow fractional shares"
         ],
-        realWorldExample: "In January 2010, Apple stock traded at about $30 per share (split-adjusted). If a student had bought just 10 shares for $300, by 2024 those shares would be worth over $1,900 — more than 6x the original investment. And they would have collected over $100 in dividend payments along the way. That $300 turned into real wealth simply by owning a piece of a growing business."
+        realWorldExample: "In January 2010, Apple stock traded at about $7 per share (adjusted for all later stock splits). If a student had invested just $280 in 40 shares, by 2024 those shares would be worth over $7,000 — roughly 25x the original investment. And they would have collected hundreds of dollars in dividend payments along the way. That $280 turned into real wealth simply by owning a piece of a growing business."
       },
       {
         type: "micro-check",
@@ -348,7 +348,7 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Jasmine's First Stock Purchase",
-        narrative: "Jasmine, a high school junior, saved $500 from her part-time job. After learning about investing, she bought shares of Apple at $50 per share (split-adjusted), getting 10 shares. Over the next 8 years through college and her first job, she didn't touch the investment. Apple released new iPhones, iPads, Apple Watch, and expanded its services business. By the time Jasmine was 25, her 10 shares were worth $1,900 — nearly 4x her original investment.",
+        narrative: "Jasmine, a high school junior, saved $500 from her part-time job. After learning about investing, she bought 10 shares of a big tech company at $50 per share. Over the next 8 years through college and her first job, she didn't touch the investment. The company kept launching new products and growing its services business. By the time Jasmine was 25, her 10 shares were worth $1,900 — nearly 4x her original investment.",
         details: [
           "Jasmine didn't need expert knowledge — she invested in a company she understood",
           "She practiced patience: she held through market dips and didn't panic sell",
@@ -742,7 +742,7 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
         title: "The Fundamental Tradeoff: Risk and Reward",
         paragraphs: [
           "Every investment involves a tradeoff between risk and return. Risk is the possibility that you could lose some or all of your money. Return is the profit you earn. The fundamental rule of investing is: higher potential returns come with higher risk, and lower-risk investments offer lower returns.",
-          "A savings account is very low risk — your money is FDIC insured up to $250,000. But it only pays 0.01% to 5% interest. At the other extreme, investing in a single startup stock could make you 1,000% returns or lose 100% of your money. Most investments fall somewhere in between these extremes.",
+          "A savings account is very low risk — your money is FDIC insured up to $250,000. But traditional accounts pay just 0.01% to 0.5% interest, and even high-yield accounts (~4-5%) barely outpace inflation long-term. At the other extreme, investing in a single startup stock could make you 1,000% returns or lose 100% of your money. Most investments fall somewhere in between these extremes.",
           "Volatility is a measure of how much an investment's price swings up and down. Stocks are volatile — they might drop 30% in a bad year but gain 40% in a good year. Bonds are less volatile — they rarely drop more than 5-10%. Understanding your tolerance for these swings is essential to choosing the right investments."
         ],
         bullets: [
@@ -1336,7 +1336,7 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
           "Rule of thumb: (110 − your age) = percentage in stocks",
           "Diversify within each asset class too — different sizes, sectors, and geographies"
         ],
-        realWorldExample: "Vanguard's Target Retirement 2065 fund — designed for someone retiring around 2065 (today's 18-year-olds) — holds about 90% stocks and 10% bonds. Their Target Retirement 2025 fund — designed for someone retiring soon — holds about 40% stocks and 60% bonds. These funds automatically shift from aggressive to conservative as the retirement date approaches, demonstrating how asset allocation should change with age."
+        realWorldExample: "Vanguard's Target Retirement 2065 fund — designed for someone retiring around 2065 (today's 18-year-olds) — holds about 90% stocks and 10% bonds. Their Target Retirement 2025 fund — designed for someone retiring soon — holds about 50% stocks and 50% bonds. These funds automatically shift from aggressive to conservative as the retirement date approaches, demonstrating how asset allocation should change with age."
       },
       {
         type: "micro-check",

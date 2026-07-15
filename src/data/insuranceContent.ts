@@ -307,7 +307,7 @@ export const insuranceContent: StructuredLessonContent[] = [
         paragraphs: [
           "Florida is a 'no-fault' state, which means that after most accidents, your own insurance pays for your medical bills no matter who caused the crash. That's why Florida requires every driver to carry Personal Injury Protection (PIP) — coverage for your own injuries — plus Property Damage Liability (PDL), which pays for damage you cause to other people's property.",
           "There are several types of auto coverage. Liability covers the damage and injuries you cause to others. Collision covers damage to YOUR car from a crash. Comprehensive covers your car from non-crash events like theft, fire, floods, or a tree falling on it. Uninsured/underinsured motorist coverage protects you when the other driver has no insurance — a real risk in Florida, which has one of the highest uninsured-driver rates in the country.",
-          "Insurers set your premium based on risk factors: your age (teens pay the most because they crash the most), your driving record (tickets and accidents raise it), the type of car (a sports car costs more to insure than a sedan), and even your ZIP code (busy, theft-prone areas cost more). A common shorthand for Florida-style minimum liability limits is written like 10/20/10: $10,000 per person for injuries, $20,000 per accident for injuries, and $10,000 for property damage."
+          "Insurers set your premium based on risk factors: your age (teens pay the most because they crash the most), your driving record (tickets and accidents raise it), the type of car (a sports car costs more to insure than a sedan), and even your ZIP code (busy, theft-prone areas cost more). In many states, minimum liability limits are written in shorthand like 10/20/10: $10,000 per person for injuries, $20,000 per accident for injuries, and $10,000 for property damage. Florida is different — its standard legal minimum is just PIP ($10,000) plus PDL ($10,000), with no bodily-injury liability required for most drivers. That surprisingly thin requirement is a big reason uninsured/underinsured motorist coverage matters so much here."
         ],
         bullets: [
           "Florida is a no-fault state and requires PIP (your injuries) and PDL (others' property).",
@@ -451,13 +451,13 @@ export const insuranceContent: StructuredLessonContent[] = [
         title: "Protecting Your Stuff and Your Home",
         paragraphs: [
           "Renters insurance protects YOUR belongings — your laptop, clothes, furniture, and electronics — when you rent an apartment or house. It does NOT cover the building itself; that's the landlord's responsibility. A huge surprise for many young renters: if the building burns down or gets robbed, the landlord's insurance covers the structure, but nothing inside that belongs to you. Renters insurance also includes liability coverage if someone gets hurt in your place.",
-          "Homeowners insurance is broader because you own the building. It covers the structure, your belongings inside, and liability if someone is injured on your property. In Florida, homeowners insurance is more expensive than the national average — often $1,500 to $3,000+ per year — largely because of hurricane risk. Renters insurance, by contrast, is remarkably cheap: often just $15 to $30 per month.",
+          "Homeowners insurance is broader because you own the building. It covers the structure, your belongings inside, and liability if someone is injured on your property. In Florida, homeowners insurance is among the most expensive in the country — often $4,000+ per year — largely because of hurricane risk. Renters insurance, by contrast, is remarkably cheap: often just $15 to $30 per month.",
           "Both policies have important gaps. In Florida, standard homeowners and renters policies usually do NOT cover floods or mold — you typically need a separate flood policy (often through the National Flood Insurance Program). It also matters whether your policy pays 'actual cash value' (the depreciated, used value of your stuff) or 'replacement cost' (what it costs to buy new). Replacement cost coverage costs a bit more but pays a lot more when you file a claim."
         ],
         bullets: [
           "Renters insurance covers your belongings and your liability — not the building.",
           "Homeowners insurance covers the building, your belongings, AND liability.",
-          "Renters insurance is cheap ($15–$30/month); Florida homeowners runs ~$1,500–$3,000+/year.",
+          "Renters insurance is cheap ($15–$30/month); Florida homeowners often runs $4,000+/year — among the priciest in the U.S.",
           "In Florida, floods are usually NOT covered — you need separate flood insurance.",
           "Replacement cost pays to buy new; actual cash value only pays the depreciated value."
         ],
@@ -643,8 +643,8 @@ export const insuranceContent: StructuredLessonContent[] = [
         narrative: "Jaylen, 19, is a college student in Gainesville covered by a student health plan. One night he develops severe stomach pain and needs emergency appendix surgery. The hospital bill totals $28,000. Jaylen is terrified — until he reviews how his insurance applies.",
         details: [
           "Jaylen's plan has a $1,500 deductible, which he pays first.",
-          "After the deductible, his co-insurance share of the remaining covered costs comes to about $500.",
-          "His total out-of-pocket cost is roughly $2,000 — far below the full $28,000.",
+          "After the deductible, his 20% co-insurance would owe thousands more — but his plan's $2,000 out-of-pocket maximum caps his co-insurance at just $500.",
+          "His total out-of-pocket cost is capped at $2,000 — far below the full $28,000. That's the out-of-pocket max doing its job.",
           "A classmate with no insurance who had the same surgery owes the entire $28,000 and is offered a multi-year payment plan."
         ]
       },
