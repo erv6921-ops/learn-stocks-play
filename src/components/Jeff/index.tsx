@@ -26,7 +26,8 @@ function containerAnim(activity: JeffActivity, w: number, h: number) {
 }
 
 // Little props/scene that accompany an activity, drawn around Jeff.
-function JeffScene({ activity }: { activity: JeffActivity }) {
+// Exported so other Jeff stages (e.g. the lesson classroom) can reuse them.
+export function JeffScene({ activity }: { activity: JeffActivity }) {
   if (activity === "nap") {
     return (
       <div

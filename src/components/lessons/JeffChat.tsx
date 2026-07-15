@@ -10,6 +10,8 @@ import React, { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { JeffMascot } from "@/components/Jeff/JeffMascot"
+import { JeffScene } from "@/components/Jeff"
+import type { JeffMoodType, JeffActivity } from "@/contexts/JeffContext"
 import { X, History } from "lucide-react"
 import type { Lesson } from "@/types"
 import {
@@ -34,6 +36,70 @@ export function JeffChatAvatar({ size = 16 }: { size?: number }) {
 /* Expected teaching beats — drives the little progress dots up top. */
 const EXPECTED_TURNS = 6
 
+/* ── Thinking skits ──────────────────────────────────────────────────
+   While the AI works, Jeff doesn't just stand there — he plays a random
+   little skit (cooking, napping, jumping jacks, sketching, juggling
+   numbers, pacing…) and rotates to a new one if the wait drags on. */
+
+interface Skit {
+  caption: string
+  mood: JeffMoodType
+  /** Built-in mascot activity (cook/nap/pack render their own props). */
+  activity?: JeffActivity
+  /** Extra whole-body motion layered by the stage. */
+  anim?: { animate: Record<string, number[]>; duration: number }
+  /** Extra floating emoji scene rendered around Jeff. */
+  extras?: { emoji: string; left: string; top: string; delay: number }[]
+}
+
+const SKITS: Skit[] = [
+  { caption: "Jeff is thinking hard… 🤔", mood: "think" },
+  { caption: "Jeff's cooking up an answer… 🍳", mood: "idle", activity: "cook" },
+  { caption: "Jeff's recharging with a micro-nap… 💤", mood: "sleep", activity: "nap" },
+  { caption: "Jeff's digging through his notes… 🎒", mood: "idle", activity: "pack" },
+  {
+    caption: "Jeff's doing his hype jumps! 🔥", mood: "encourage",
+    anim: { animate: { y: [0, -30, 0, -16, 0], scaleY: [1, 1.06, 0.92, 1.04, 1] }, duration: 0.9 },
+  },
+  {
+    caption: "Jeff's sketching it out… ✏️", mood: "think",
+    extras: [
+      { emoji: "✏️", left: "78%", top: "30%", delay: 0 },
+      { emoji: "📐", left: "8%", top: "48%", delay: 0.5 },
+      { emoji: "💡", left: "60%", top: "6%", delay: 1 },
+    ],
+  },
+  {
+    caption: "Jeff's juggling the numbers… 🪙", mood: "idle",
+    anim: { animate: { rotate: [-4, 4, -4] }, duration: 0.7 },
+    extras: [
+      { emoji: "🪙", left: "20%", top: "18%", delay: 0 },
+      { emoji: "🪙", left: "48%", top: "4%", delay: 0.35 },
+      { emoji: "🪙", left: "74%", top: "20%", delay: 0.7 },
+    ],
+  },
+  {
+    caption: "Jeff's pacing back and forth…", mood: "think",
+    anim: { animate: { x: [0, 34, 34, 0, 0] }, duration: 3.2 },
+  },
+  {
+    caption: "Jeff's warming up with a spin! 🌀", mood: "encourage",
+    anim: { animate: { rotate: [0, 0, 360, 360], y: [0, -18, -18, 0] }, duration: 1.4 },
+  },
+  {
+    caption: "Jeff's flipping through the textbook… 📖", mood: "think",
+    extras: [
+      { emoji: "📖", left: "70%", top: "42%", delay: 0 },
+      { emoji: "🔎", left: "14%", top: "22%", delay: 0.6 },
+    ],
+  },
+]
+
+const randomSkit = (excludeCaption?: string): Skit => {
+  const pool = SKITS.filter(s => s.caption !== excludeCaption)
+  return pool[Math.floor(Math.random() * pool.length)]
+}
+
 interface JeffChatProps {
   lesson: Lesson
   /** Scripted fallback: Jeff teaches these when the AI is unavailable. */
@@ -57,6 +123,16 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   const [scriptIdx, setScriptIdx] = useState<number>(() => loadChat(lesson.id)?.scriptIdx ?? 0)
   const [thinking, setThinking] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
+  const [skit, setSkit] = useState<Skit>(SKITS[0])
+
+  // Pick a fresh skit whenever thinking starts, and rotate to a new one
+  // every few seconds if the AI takes its time — keeps Jeff feeling alive.
+  useEffect(() => {
+    if (!thinking) return
+    setSkit(prev => randomSkit(prev.caption))
+    const interval = setInterval(() => setSkit(prev => randomSkit(prev.caption)), 3800)
+    return () => clearInterval(interval)
+  }, [thinking])
 
   // Persist every state change so closing mid-lesson resumes seamlessly.
   useEffect(() => {
@@ -67,7 +143,8 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   const current = [...messages].reverse().find(m => m.role === "assistant")?.content ?? ""
   const lastChoice = messages[messages.length - 1]?.role === "user" ? messages[messages.length - 1].content : null
   const jeffTurns = messages.filter(m => m.role === "assistant").length
-  const mood = done ? "celebrate" : thinking ? "think" : "encourage"
+  const mood: JeffMoodType = done ? "celebrate" : thinking ? skit.mood : "encourage"
+  const activity: JeffActivity = thinking ? (skit.activity ?? "none") : "none"
 
   const send = async (choice: string) => {
     if (thinking) return
@@ -204,7 +281,17 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
                           />
                         ))}
                       </div>
-                      <span className="text-sm text-muted-foreground">Jeff is thinking…</span>
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={skit.caption}
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -4 }}
+                          className="text-sm text-muted-foreground"
+                        >
+                          {skit.caption}
+                        </motion.span>
+                      </AnimatePresence>
                     </div>
                   ) : (
                     <p className="text-[17px] sm:text-lg leading-relaxed text-foreground whitespace-pre-wrap">
@@ -217,11 +304,39 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
               </AnimatePresence>
             </div>
 
-            {/* Jeff himself — big, alive, on stage */}
+            {/* Jeff himself — big, alive, on stage. While thinking he plays
+                a random skit: extra body motion + activity props + floating
+                emoji scene, rotating every few seconds. */}
             <div className="shrink-0 flex items-end gap-3 h-40 sm:h-48">
-              <div className="h-full w-40 sm:w-48">
-                <JeffMascot mood={mood} />
-              </div>
+              <motion.div
+                key={thinking ? skit.caption : "idle"}
+                className="relative h-full w-40 sm:w-48"
+                animate={thinking && skit.anim ? skit.anim.animate : { x: 0, y: 0, rotate: 0, scaleY: 1 }}
+                transition={thinking && skit.anim
+                  ? { duration: skit.anim.duration, repeat: Infinity, ease: "easeInOut" }
+                  : { duration: 0.3 }}
+                style={{ transformOrigin: "center bottom" }}
+              >
+                <JeffMascot mood={mood} activity={activity} />
+                {/* built-in activity props (frying pan / sleeping mat / backpack) */}
+                {thinking && skit.activity && <JeffScene activity={skit.activity} />}
+                {/* skit-specific floating extras */}
+                <AnimatePresence>
+                  {thinking && skit.extras?.map((e, i) => (
+                    <motion.span
+                      key={`${skit.caption}-${i}`}
+                      className="absolute text-lg sm:text-xl pointer-events-none"
+                      style={{ left: e.left, top: e.top }}
+                      initial={{ opacity: 0, scale: 0, y: 6 }}
+                      animate={{ opacity: [0, 1, 1, 0.6], scale: [0.6, 1.1, 1, 1], y: [6, -6, -2, -8], rotate: [-6, 6, -6] }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      transition={{ duration: 1.8, repeat: Infinity, delay: e.delay, ease: "easeInOut" }}
+                    >
+                      {e.emoji}
+                    </motion.span>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
             </div>
           </>
         )}
