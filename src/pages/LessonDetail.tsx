@@ -42,11 +42,16 @@ export default function LessonDetail() {
   // Track regeneration attempts for mastery check failures
   const [regenerationCount, setRegenerationCount] = useState(0)
 
-  // Always use structured content — hand-written or generated
+  // Always use structured content — hand-written or generated.
+  // On mastery-check retries (regenerationCount > 0) hand-written lessons
+  // KEEP their authored sections — the shuffle below re-randomizes option
+  // order because this memo re-runs. Only generator-dependent lessons
+  // regenerate; swapping authored content for the generic template meant
+  // AP/expansion students retried against off-topic filler questions.
   const structuredContent: StructuredLessonContent | null = useMemo(() => {
     if (!lesson) return null
     const handWritten = getStructuredContent(lesson.id)
-    const raw = (handWritten && regenerationCount === 0) ? handWritten : generateStructuredContent(lesson, regenerationCount)
+    const raw = handWritten ?? generateStructuredContent(lesson, regenerationCount)
     if (!raw) return null
 
     // Process all question sections through the MCQ engine for balanced positions & length normalization

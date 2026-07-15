@@ -171,14 +171,14 @@ export const lessons: Lesson[] = [
   L("credit-18", "Federal vs Private Student Loans",                 "Compare subsidized, unsubsidized, PLUS, and private loans",              "credit-debt", "strategist", "unit-5", "6.18", 900),
 
   // Unit 35: Insurance & Protection
-  L("ins-1",  "What Is Insurance & Why You Need It",     "Understand how insurance protects you from financial disasters",               "insurance-protection", "explorer",  "unit-35", "7.1",  300),
-  L("ins-2",  "How Insurance Works: Premiums & Payouts", "Learn the mechanics of deductibles, premiums, co-pays, and coverage limits",   "insurance-protection", "explorer",  "unit-35", "7.2",  300),
-  L("ins-3",  "Auto Insurance",                          "Understand the types of car insurance Florida requires and recommends",         "insurance-protection", "explorer",  "unit-35", "7.3",  350),
-  L("ins-4",  "Renters & Homeowners Insurance",          "Protect your belongings and home from loss, theft, and disaster",              "insurance-protection", "explorer",  "unit-35", "7.4",  350),
-  L("ins-5",  "Health Insurance",                        "Navigate health plans, networks, deductibles, and out-of-pocket costs",        "insurance-protection", "builder",   "unit-35", "7.5",  500),
-  L("ins-6",  "Life & Disability Insurance",             "Learn when and why to get life and disability coverage",                       "insurance-protection", "builder",   "unit-35", "7.6",  500),
-  L("ins-7",  "Identity Theft: Prevention & Recovery",   "Protect your personal information and know what to do if stolen",              "insurance-protection", "builder",   "unit-35", "7.7",  600),
-  L("ins-8",  "Wills, Inheritance & Financial Planning", "Understand estate planning basics and how to build a long-term financial plan", "insurance-protection", "strategist","unit-35", "7.8",  750),
+  L("ins-1",  "What Is Insurance & Why You Need It",     "Understand how insurance protects you from financial disasters",               "insurance-protection", "explorer",  "unit-35", "35.1",  300),
+  L("ins-2",  "How Insurance Works: Premiums & Payouts", "Learn the mechanics of deductibles, premiums, co-pays, and coverage limits",   "insurance-protection", "explorer",  "unit-35", "35.2",  300),
+  L("ins-3",  "Auto Insurance",                          "Understand the types of car insurance Florida requires and recommends",         "insurance-protection", "explorer",  "unit-35", "35.3",  350),
+  L("ins-4",  "Renters & Homeowners Insurance",          "Protect your belongings and home from loss, theft, and disaster",              "insurance-protection", "explorer",  "unit-35", "35.4",  350),
+  L("ins-5",  "Health Insurance",                        "Navigate health plans, networks, deductibles, and out-of-pocket costs",        "insurance-protection", "builder",   "unit-35", "35.5",  500),
+  L("ins-6",  "Life & Disability Insurance",             "Learn when and why to get life and disability coverage",                       "insurance-protection", "builder",   "unit-35", "35.6",  500),
+  L("ins-7",  "Identity Theft: Prevention & Recovery",   "Protect your personal information and know what to do if stolen",              "insurance-protection", "builder",   "unit-35", "35.7",  600),
+  L("ins-8",  "Wills, Inheritance & Financial Planning", "Understand estate planning basics and how to build a long-term financial plan", "insurance-protection", "strategist","unit-35", "35.8",  750),
 
   // ─── LEVEL 3: INVESTING CORE ───
 
@@ -500,6 +500,13 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "pestel-analysis": { title: "PESTEL Analysis", icon: "Globe", description: "Political, Economic, Social, Technological, Environmental & Legal factors", color: "primary" },
   "business-ethics": { title: "Business Ethics", icon: "Scale", description: "Ethics, CSR, and responsible business decision-making", color: "accent" },
   "insurance-protection": { title: "Insurance & Protection", icon: "ShieldCheck", description: "Protect yourself, your money, and your future", color: "secondary" },
+  // AP Microeconomics categories — required by Record<LessonCategory, …>
+  "micro-basics": { title: "Micro: Basic Concepts", icon: "TrendingUp", description: "Scarcity, opportunity cost, and the PPC", color: "accent" },
+  "micro-supply-demand": { title: "Micro: Supply & Demand", icon: "LineChart", description: "Markets, equilibrium, elasticity, and surplus", color: "primary" },
+  "micro-production": { title: "Micro: Production & Costs", icon: "Factory", description: "Costs, perfect competition, and profit", color: "warning" },
+  "micro-imperfect": { title: "Micro: Imperfect Competition", icon: "Building2", description: "Monopoly, oligopoly, and game theory", color: "secondary" },
+  "micro-factor-markets": { title: "Micro: Factor Markets", icon: "Users", description: "Labor markets and resource pricing", color: "primary" },
+  "micro-market-failure": { title: "Micro: Market Failure", icon: "AlertTriangle", description: "Externalities, public goods, and the role of government", color: "accent" },
 }
 
 export function getLessonsByCategory(category: LessonCategory): Lesson[] {

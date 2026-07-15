@@ -1278,7 +1278,7 @@ export const lessonQuizzes: LessonQuiz[] = [
 
   // ECON-1: Supply & Demand
   {
-    lessonId: "econ-1",
+    lessonId: "stocks-7",   // Supply & Demand (remapped from stale econ-1)
     questions: [
       {
         id: "e1-q1",
@@ -1405,7 +1405,7 @@ export const lessonQuizzes: LessonQuiz[] = [
 
   // ECON-2: Needs, Wants & Opportunity Cost
   {
-    lessonId: "econ-2",
+    lessonId: "invest-6",   // Opportunity Cost (remapped from stale econ-2)
     questions: [
       {
         id: "e2-q1",
@@ -1532,7 +1532,7 @@ export const lessonQuizzes: LessonQuiz[] = [
 
   // BALANCE-1: Understanding a Balance Sheet
   {
-    lessonId: "balance-1",
+    lessonId: "fin-stmt-7", // Balance Sheet (remapped from stale balance-1)
     questions: [
       {
         id: "bal1-q1",
@@ -2040,7 +2040,7 @@ export const lessonQuizzes: LessonQuiz[] = [
 
   // DEBT-1: What is Debt?
   {
-    lessonId: "debt-1",
+    lessonId: "credit-17",  // How to Apply for a Loan (remapped from stale debt-1)
     questions: [
       {
         id: "d1-q1",
@@ -2167,7 +2167,7 @@ export const lessonQuizzes: LessonQuiz[] = [
 
   // DEBT-2: Good Debt vs Bad Debt
   {
-    lessonId: "debt-2",
+    lessonId: "credit-1",   // What Is Credit (remapped from stale debt-2)
     questions: [
       {
         id: "d2-q1",

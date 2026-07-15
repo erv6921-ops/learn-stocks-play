@@ -53,6 +53,9 @@ function balancedCorrectIndex(questionId: string, questionIndex: number): number
  */
 function rebalanceQuestion(q: QuizQuestion, targetIndex: number): QuizQuestion {
   if (q.correctAnswer === targetIndex) return q
+  // Guard: a question with fewer options than the target slot would get
+  // `undefined` swapped into its options array.
+  if (targetIndex >= q.options.length) return q
   const options = [...q.options]
   const correctText = options[q.correctAnswer]
   // Swap correct answer to target position
@@ -219,7 +222,10 @@ function getTemplate(category: LessonCategory): CategoryTemplate {
 
 function selectQuestions(pool: QuizQuestion[], count: number, exclude: Set<string>): QuizQuestion[] {
   const available = pool.filter(q => !exclude.has(q.id) && questionPassesQualityChecks(q))
-  const shuffled = [...available].sort(() => Math.random() - 0.5)
+  // If the quality filter empties the pool, fall back to unfiltered unused
+  // questions — an imperfect question beats a renderer crash on [].
+  const usable = available.length > 0 ? available : pool.filter(q => !exclude.has(q.id))
+  const shuffled = [...usable].sort(() => Math.random() - 0.5)
   return shuffled.slice(0, count)
 }
 
@@ -301,7 +307,11 @@ export function generateStructuredContent(lesson: Lesson, regenerationAttempt: n
       masteryQuestions.push(...fallback.filter(q => !usedIds.has(q.id)).slice(0, 3 - masteryQuestions.length))
     }
   } else {
+    // Exclude fallbacks already shown in the micro-check/applied sections —
+    // otherwise the mastery check repeats questions whose answers were just
+    // revealed minutes earlier in the same lesson.
     masteryQuestions = template.fallbackQuestions(lesson.title, lesson.level)
+      .filter(q => !usedIds.has(q.id))
   }
 
   // ─── Balance all questions across A/B/C/D ───
