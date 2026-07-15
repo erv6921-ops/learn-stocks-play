@@ -11,34 +11,70 @@ export interface ChatMessage {
 
 export const END_SIGNAL = "Ready to test what you learned?"
 
-/** Hardcoded initial reply options — shown before the first API call. */
-export const INITIAL_OPTIONS = ["Let's go 🔥", "Tell me more", "I know a little about this"]
+// Opening hook questions per lesson topic, each with reply options that
+// actually ANSWER that question (so the first tap never feels irrelevant).
+// Matched against the lesson's category (specific ids first, then keyword
+// families).
+interface Hook { question: string; answers: string[] }
 
-// Opening hook questions per lesson topic. Matched against the lesson's
-// category (specific ids first, then keyword families).
-const CATEGORY_HOOKS: [RegExp, string][] = [
-  [/psychology-of-money|behavioral/, "If you got $100 right now, what's the FIRST thing you'd do with it?"],
-  [/delayed|gratification/, "Would you rather have $50 today or $100 in a month?"],
-  [/budget/, "Do you actually know where your money goes every month?"],
-  [/banking/, "Do you know how banks make money off your savings account?"],
-  [/credit|debt/, "Did you know your credit score can affect your rent, job, and even phone plan?"],
-  [/invest|stock|portfolio|etf|bond/, "If I told you $100 invested at 17 beats $1,000 invested at 30, would you believe me?"],
-  [/tax/, "How much of a $15/hr paycheck do you actually take home?"],
-  [/insurance/, "What would happen if you got in a car accident tomorrow with no insurance?"],
-  [/entrepreneur|business/, "What's one problem in your school or neighborhood nobody's solved yet?"],
+const CATEGORY_HOOKS: [RegExp, Hook][] = [
+  [/delayed|gratification|instant/, {
+    question: "Would you rather have $50 today or $100 in a month?",
+    answers: ["$50 today, easy", "$100 in a month", "Hmm, depends"],
+  }],
+  [/psychology-of-money|behavioral/, {
+    question: "If you got $100 right now, what's the FIRST thing you'd do with it?",
+    answers: ["Spend it on something fun 🛍️", "Save every penny", "Half spend, half save"],
+  }],
+  [/budget/, {
+    question: "Do you actually know where your money goes every month?",
+    answers: ["Yeah, pretty much", "Not really 😅", "I don't track anything"],
+  }],
+  [/banking/, {
+    question: "Do you know how banks make money off your savings account?",
+    answers: ["No idea honestly", "They charge fees, right?", "They invest it somehow?"],
+  }],
+  [/credit|debt/, {
+    question: "Did you know your credit score can affect your rent, job, and even phone plan?",
+    answers: ["Wait, seriously?", "Yeah, I knew that", "What even is a credit score?"],
+  }],
+  [/invest|stock|portfolio|etf|bond/, {
+    question: "If I told you $100 invested at 17 beats $1,000 invested at 30, would you believe me?",
+    answers: ["No way, prove it", "I'd believe it", "How does that work?"],
+  }],
+  [/tax/, {
+    question: "How much of a $15/hr paycheck do you actually take home?",
+    answers: ["All of it… right?", "Like $12/hr maybe?", "No clue honestly"],
+  }],
+  [/insurance/, {
+    question: "What would happen if you got in a car accident tomorrow with no insurance?",
+    answers: ["I'd be in big trouble", "My parents would cover it?", "Never thought about it"],
+  }],
+  [/entrepreneur|business/, {
+    question: "What's one problem in your school or neighborhood nobody's solved yet?",
+    answers: ["Ooh, I've got ideas", "Let me think about that", "Why does that matter?"],
+  }],
 ]
 
-export function openingHook(lesson: Lesson): string {
+export function openingHook(lesson: Lesson): Hook {
   const hay = `${lesson.category} ${lesson.title.toLowerCase()}`
   for (const [re, hook] of CATEGORY_HOOKS) {
     if (re.test(hay)) return hook
   }
-  return `What do you already know about ${lesson.title}?`
+  return {
+    question: `What do you already know about ${lesson.title.toLowerCase()}?`,
+    answers: ["Basically nothing", "A little bit", "Quite a bit actually"],
+  }
 }
 
 /** Jeff's hardcoded opener — no API call needed for the first message. */
 export function initialJeffMessage(lesson: Lesson): string {
-  return `Hey! I'm Jeff 👋 I'll be teaching you about ${lesson.title} today. Quick question first — ${openingHook(lesson)}`
+  return `Hey! I'm Jeff 👋 I'll be teaching you about ${lesson.title} today. Quick question first — ${openingHook(lesson).question}`
+}
+
+/** Reply options matching the opener's hook question. */
+export function initialOptions(lesson: Lesson): string[] {
+  return openingHook(lesson).answers
 }
 
 export function buildSystemPrompt(lesson: Lesson): string {

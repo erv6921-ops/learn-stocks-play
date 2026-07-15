@@ -15,7 +15,7 @@ import type { JeffMoodType, JeffActivity } from "@/contexts/JeffContext"
 import { X, History } from "lucide-react"
 import type { Lesson } from "@/types"
 import {
-  jeffChatTurn, initialJeffMessage, INITIAL_OPTIONS, END_SIGNAL,
+  jeffChatTurn, initialJeffMessage, initialOptions, END_SIGNAL,
   loadChat, saveChat, scriptOptions, type ChatMessage,
 } from "@/lib/jeffChatLesson"
 
@@ -374,7 +374,7 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   )
   const [options, setOptions] = useState<string[]>(() => {
     const saved = loadChat(lesson.id)
-    return saved ? saved.options : INITIAL_OPTIONS
+    return saved ? saved.options : initialOptions(lesson)
   })
   const [done, setDone] = useState<boolean>(() => loadChat(lesson.id)?.done ?? false)
   const [scriptIdx, setScriptIdx] = useState<number>(() => loadChat(lesson.id)?.scriptIdx ?? 0)
