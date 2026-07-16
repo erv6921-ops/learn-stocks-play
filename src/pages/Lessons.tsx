@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
 import { supabase } from "@/integrations/supabase/client";
 import { lessons, unitInfo, getUnitRewardTotal, getLessonsByUnit } from "@/data/lessons";
+import { getUnitTestByCategory } from "@/data/unitTestQuestions";
 import { AP_UNIT_CHALLENGES } from "@/data/apMicro";
 import { getAdaptiveCurriculum, AdaptiveLessonInfo } from "@/lib/curriculumEngine";
 import {
@@ -959,6 +960,50 @@ export default function Lessons() {
                 );
               })}
             </div>
+
+            {/* Unit Test CTA — shown for categories that have authored test
+                data; unlocks once every lesson in the unit is done. (The
+                /unit-test route previously had no inbound link anywhere.) */}
+            {(() => {
+              const testCategory = activeUnit?.categories.find(c => getUnitTestByCategory(c));
+              if (!testCategory) return null;
+              const test = getUnitTestByCategory(testCategory)!;
+              const allDone = activeLessons.length > 0 && activeLessons.every(
+                al => al.status === "validated" || !!isLessonCompleted(al.lesson.id)
+              );
+              const passed = !!unitTestPassed(testCategory);
+              return (
+                <div className={`mt-3 rounded-[20px] bg-card p-4 flex items-center gap-3 ${!allDone && !passed ? "opacity-60" : ""}`}
+                  style={{ border: passed ? "1.5px solid #1D9E75" : "0.5px solid hsl(45 10% 82%)" }}>
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${passed ? "bg-[#1D9E75]/10 text-[#1D9E75]" : "bg-[#EF9F27]/10 text-[#EF9F27]"}`}>
+                    {passed ? <CheckCircle className="w-4.5 h-4.5" /> : <Trophy className="w-4.5 h-4.5" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold">Unit Test</p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {passed
+                        ? "Passed — nice work!"
+                        : allDone
+                          ? `${test.questions.length} questions · score ${test.passingScore}%+ to earn ${Math.round(test.reward * multiplier)} coins`
+                          : "Finish every lesson in this unit to unlock"}
+                    </p>
+                  </div>
+                  {passed ? (
+                    <Link to={`/unit-test/${testCategory}`} className="shrink-0">
+                      <Button size="sm" variant="outline" className="press-scale">Retake</Button>
+                    </Link>
+                  ) : allDone ? (
+                    <Link to={`/unit-test/${testCategory}`} className="shrink-0">
+                      <Button size="sm" className="bg-[#EF9F27] hover:bg-[#df8f1a] text-white font-bold press-scale">
+                        Take the test
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Lock className="w-4 h-4 text-muted-foreground shrink-0" />
+                  )}
+                </div>
+              );
+            })()}
           </>
         )}
       </main>

@@ -1272,7 +1272,13 @@ export const structuredLessonContent: StructuredLessonContent[] = [
  * Returns hand-written content if available, otherwise generates content dynamically.
  * NEVER returns null — every lesson always has structured content.
  */
-export function getStructuredContent(lessonId: string): StructuredLessonContent | null {
+/**
+ * Resolve a lesson's content: hand-written if it exists, generated otherwise
+ * (with the AP quiz overlay applied). `regeneration` varies the generated
+ * question selection on mastery-check retries — hand-written content ignores
+ * it (retries just reshuffle option order downstream).
+ */
+export function getStructuredContent(lessonId: string, regeneration = 0): StructuredLessonContent | null {
   const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...insuranceContent, ...creditExpansionContent, ...incomeExpansionContent, ...budgetExpansionContent, ...savingsInvestExpansionContent, ...apMicroUnit1Content]
   const handWritten = allContent.find(c => c.lessonId === lessonId)
   if (handWritten) return handWritten
@@ -1280,7 +1286,7 @@ export function getStructuredContent(lessonId: string): StructuredLessonContent 
   // Generate content dynamically for lessons without hand-written content
   const lesson = lessons.find((l) => l.id === lessonId)
   if (lesson) {
-    const generated = generateStructuredContent(lesson)
+    const generated = generateStructuredContent(lesson, regeneration)
     // AP Micro lessons: keep the auto-generated prose but overlay the
     // hand-authored 3-question quiz as the end-of-lesson mastery check.
     const authoredQuiz = AP_MICRO_QUIZZES[lessonId]
