@@ -15,6 +15,7 @@ import DailyMissions from "@/components/DailyMissions";
 import DailySignal from "@/components/DailySignal";
 import ChallengesWidget from "@/components/challenges/ChallengesWidget";
 import { anchor } from "@/lib/tourAnchors";
+import { getTotalEarned, isEarnedEntry } from "@/lib/playerStats";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, Wallet,
@@ -214,10 +215,7 @@ export default function Dashboard() {
     }
   };
 
-  const totalXp = useMemo(() =>
-  jeffsHistory.filter((h) => h.amount > 0).reduce((sum, h) => sum + h.amount, 0),
-  [jeffsHistory]
-  );
+  const totalXp = useMemo(() => getTotalEarned(jeffsHistory), [jeffsHistory]);
 
   // Curriculum-based level
   const unitScoresForLevel = useMemo(() => {
@@ -239,7 +237,7 @@ export default function Dashboard() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return jeffsHistory
-      .filter((h) => h.amount > 0 && new Date(h.date).getTime() >= today.getTime())
+      .filter((h) => isEarnedEntry(h) && new Date(h.date).getTime() >= today.getTime())
       .reduce((sum, h) => sum + h.amount, 0);
   }, [jeffsHistory]);
 

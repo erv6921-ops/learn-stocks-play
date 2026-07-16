@@ -18,6 +18,7 @@ import {
 import { anchor } from "@/lib/tourAnchors"
 // League ladder + levels are shared with the Partners directory (see lib/leagues).
 import { LEAGUES, getLeagueIdx, getLevel } from "@/lib/leagues"
+import { getTotalEarned } from "@/lib/playerStats"
 
 // Demo data — only shown when user explicitly toggles "Show Demo Data"
 const DEMO_NATIONAL = [
@@ -65,10 +66,7 @@ export default function Leaderboard() {
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
   const [loadingClasses, setLoadingClasses] = useState(true)
 
-  const totalXp = useMemo(() =>
-    jeffsHistory.filter(h => h.amount > 0).reduce((sum, h) => sum + h.amount, 0),
-    [jeffsHistory]
-  )
+  const totalXp = useMemo(() => getTotalEarned(jeffsHistory), [jeffsHistory])
 
   const loadMyClasses = useCallback(async () => {
     try {
@@ -177,9 +175,9 @@ export default function Leaderboard() {
     if (scope === "class" && classMembers.length > 0) {
       const entries: Entry[] = [
         ...classMembers.map(m => ({
-          name: m.name, score: m.xp, scoreLabel: "coins", level: getLevel(m.xp), streak: 0, isMe: false,
+          name: m.name, score: m.xp, scoreLabel: "coins earned", level: getLevel(m.xp), streak: 0, isMe: false,
         })),
-        { name: "You", score: totalXp, scoreLabel: "coins", level: getLevel(totalXp), streak: 0, isMe: true },
+        { name: "You", score: totalXp, scoreLabel: "coins earned", level: getLevel(totalXp), streak: 0, isMe: true },
       ]
       entries.sort((a, b) => b.score - a.score)
       return entries

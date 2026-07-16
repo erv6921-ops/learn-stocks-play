@@ -28,6 +28,27 @@ export interface HistoryEntry {
 // Reasons that count as "real activity" for the daily streak.
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"]
 
+// Positive ledger entries that are money MOVEMENT, not money EARNED — stock
+// sale proceeds, vault withdrawals, loan disbursements, bond payouts and
+// refunds all put coins back in your pocket without being new earnings.
+// Counting them inflated "coins earned" (XP) way past real activity, e.g. a
+// bank deposit + withdrawal round-trip doubled as fake XP.
+// Must stay in sync with public.is_xp_reason() in the database.
+const NON_EARNING_PREFIXES = [
+  "sold ",                     // `Sold ${shares} shares of ${symbol}`
+  "withdrew from investibank", // "Withdrew from InvestiBank vault"
+  "borrowed:",                 // `Borrowed: ${product.name}`
+  "bond matured",              // `Bond matured (+$X interest)`
+  "challenge refund",          // `Challenge refund: ${title}`
+]
+
+// True when a ledger entry counts toward XP / "coins earned".
+export function isEarnedEntry(h: HistoryEntry): boolean {
+  if (h.amount <= 0) return false
+  const r = h.reason.toLowerCase()
+  return !NON_EARNING_PREFIXES.some((p) => r.startsWith(p))
+}
+
 const isMeaningful = (h: HistoryEntry) =>
   MEANINGFUL_REASONS.some((r) => h.reason.toLowerCase().includes(r))
 
@@ -74,16 +95,16 @@ export function getBestStreak(history: HistoryEntry[]): number {
   return best
 }
 
-// Total InvestiCoins ever earned (sum of positive ledger entries).
+// Total InvestiCoins ever earned (positive ledger entries, minus money movement).
 export function getTotalEarned(history: HistoryEntry[]): number {
-  return history.filter((h) => h.amount > 0).reduce((s, h) => s + h.amount, 0)
+  return history.filter(isEarnedEntry).reduce((s, h) => s + h.amount, 0)
 }
 
 // InvestiCoins earned in the last 7 days.
 export function getCoinsThisWeek(history: HistoryEntry[]): number {
   const cutoff = Date.now() - 7 * 86400000
   return history
-    .filter((h) => h.amount > 0 && new Date(h.date).getTime() >= cutoff)
+    .filter((h) => isEarnedEntry(h) && new Date(h.date).getTime() >= cutoff)
     .reduce((s, h) => s + h.amount, 0)
 }
 
