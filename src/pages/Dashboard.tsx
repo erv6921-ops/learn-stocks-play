@@ -15,7 +15,7 @@ import DailyMissions from "@/components/DailyMissions";
 import DailySignal from "@/components/DailySignal";
 import ChallengesWidget from "@/components/challenges/ChallengesWidget";
 import { anchor } from "@/lib/tourAnchors";
-import { getTotalEarned, isEarnedEntry } from "@/lib/playerStats";
+import { isEarnedEntry } from "@/lib/playerStats";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, Wallet,
@@ -214,8 +214,6 @@ export default function Dashboard() {
       setJoining(false);
     }
   };
-
-  const totalXp = useMemo(() => getTotalEarned(jeffsHistory), [jeffsHistory]);
 
   // Curriculum-based level
   const unitScoresForLevel = useMemo(() => {

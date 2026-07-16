@@ -539,7 +539,7 @@ function SnapshotView({
                   {league.icon} {league.name} League
                 </span>
                 <Badge variant="outline" className="gap-1"><Star className="w-3 h-3 text-warning" /> Level {level}</Badge>
-                <Badge variant="outline" className="gap-1"><Coins className="w-3 h-3 text-warning" /> {Math.round(xp).toLocaleString()} coins earned</Badge>
+                <Badge variant="outline" className="gap-1"><Coins className="w-3 h-3 text-warning" /> {Math.round(xp).toLocaleString()} InvestiCoins</Badge>
                 <Badge variant="outline" className="gap-1" style={{ color: ACCENT, borderColor: ACCENT }}>
                   <Handshake className="w-3 h-3" /> {Number(snap.partner_count ?? 0).toLocaleString()} {Number(snap.partner_count ?? 0) === 1 ? "partner" : "partners"}
                 </Badge>
