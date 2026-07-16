@@ -27,6 +27,7 @@ import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
 import Profile from "./pages/Profile";
 import Challenges from "./pages/Challenges";
+import Partners from "./pages/Partners";
 import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
 import { AssignmentNotifications } from "./components/AssignmentNotifications";
@@ -77,6 +78,7 @@ function AppRoutes() {
       <Route path="/financial-advisor" element={<FinancialAdvisor />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/challenges" element={<Challenges />} />
+      <Route path="/partners" element={<Partners />} />
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />
       <Route path="*" element={<NotFound />} />

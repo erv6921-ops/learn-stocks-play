@@ -319,9 +319,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
         // a session for that same user was still persisted (so userIdRef already
         // matches and isNewSignIn would be false). Capture that synchronously
         // here, before the async profile lookup, since the route is still /auth.
+        //
+        // On a full page refresh, userIdRef resets to null (fresh JS context), so
+        // a session restore looks like "null -> userId", i.e. a user change. We
+        // must NOT treat that as a login, or every refresh yanks the user to the
+        // dashboard. So the "user changed" branch requires a non-null previous id
+        // (a real account switch within a live session); refresh restores fall
+        // through to onAuthPage, which is false off the /auth page → stay put.
         const previousUserId = userIdRef.current
         const onAuthPage = window.location.pathname.startsWith("/auth")
-        const shouldRoute = previousUserId !== session.user.id || onAuthPage
+        const shouldRoute = onAuthPage || (previousUserId !== null && previousUserId !== session.user.id)
         authReadyRef.current = true
         setAuthReady(true)
         userIdRef.current = session.user.id
