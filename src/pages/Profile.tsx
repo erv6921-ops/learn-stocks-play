@@ -352,8 +352,8 @@ export default function Profile() {
   const memberSince = user?.createdAt ? fmtDate(new Date(user.createdAt)) : "—"
 
   const stats = [
-    { label: "Total XP", value: Math.floor(totalXP).toLocaleString(), icon: Zap, color: "text-accent", bg: "bg-accent/10" },
-    { label: "InvestiCoins", value: Math.floor(netWorth).toLocaleString(), icon: Coins, color: "text-gold", bg: "bg-gold/10" },
+    { label: "Coins Earned", value: Math.floor(totalXP).toLocaleString(), icon: Coins, color: "text-accent", bg: "bg-accent/10" },
+    { label: "Net Worth", value: Math.floor(netWorth).toLocaleString(), icon: Coins, color: "text-gold", bg: "bg-gold/10" },
     { label: "Current Streak", value: `${streak}d`, icon: Flame, color: "text-orange-500", bg: "bg-orange-500/10" },
     { label: "Lessons Done", value: completedLessons.length, icon: BookOpen, color: "text-primary", bg: "bg-primary/10" },
     { label: "Units Done", value: unitsCompleted, icon: Layers, color: "text-secondary", bg: "bg-secondary/10" },

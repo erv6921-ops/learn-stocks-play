@@ -94,7 +94,7 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
         // Award immediately
         earnJeffs(mission.coins, `Daily Mission: ${mission.label}`)
         toast.success(`Mission Complete: ${mission.label}`, {
-          description: `+${mission.xp} XP · +${mission.coins} InvestiCoins`
+          description: `+${mission.coins} InvestiCoins`
         })
       }
     }
@@ -147,9 +147,8 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
                     {mission.label}
                   </p>
                   <div className="flex items-center gap-3 mt-0.5">
-                    <span className="text-[11px] text-accent font-bold">+{mission.xp} XP</span>
                     <span className="text-[11px] text-warning font-bold flex items-center gap-0.5">
-                      <Coins className="w-3 h-3" />+{mission.coins}
+                      <Coins className="w-3 h-3" />+{mission.coins} InvestiCoins
                     </span>
                     {isDone && (
                       <span className="text-[10px] text-success font-medium">✓ Earned</span>

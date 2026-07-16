@@ -1,11 +1,17 @@
 import { QuizQuestion } from "@/types"
+import { incomeBankingCreditQuizzes } from "./quizzes/incomeBankingCredit"
+import { stocksAndMarketsQuizzes } from "./quizzes/stocksAndMarkets"
+import { portfolioFundsBondsQuizzes } from "./quizzes/portfolioFundsBonds"
+import { statementsRatiosValuationQuizzes } from "./quizzes/statementsRatiosValuation"
+import { behavioralMacroQuizzes } from "./quizzes/behavioralMacro"
+import { advancedTopicsQuizzes } from "./quizzes/advancedTopics"
 
 export interface LessonQuiz {
   lessonId: string
   questions: QuizQuestion[]
 }
 
-export const lessonQuizzes: LessonQuiz[] = [
+const baseLessonQuizzes: LessonQuiz[] = [
   // BUDGET-1: What is a Budget & Why It Matters
   {
     lessonId: "budget-1",
@@ -3356,6 +3362,17 @@ export const lessonQuizzes: LessonQuiz[] = [
       }
     ]
   }
+]
+
+/** All quiz pools: the original hand-written set plus the authored packs. */
+export const lessonQuizzes: LessonQuiz[] = [
+  ...baseLessonQuizzes,
+  ...incomeBankingCreditQuizzes,
+  ...stocksAndMarketsQuizzes,
+  ...portfolioFundsBondsQuizzes,
+  ...statementsRatiosValuationQuizzes,
+  ...behavioralMacroQuizzes,
+  ...advancedTopicsQuizzes,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {

@@ -23,7 +23,7 @@ export interface ChallengeMetricMeta {
 
 export const CHALLENGE_METRICS: ChallengeMetricMeta[] = [
   { value: "lessons_completed", label: "Most lessons completed", tracking: "Most lessons completed", unit: "lessons" },
-  { value: "xp_earned", label: "Most XP earned", tracking: "Most XP earned", unit: "XP" },
+  { value: "xp_earned", label: "Most InvestiCoins earned", tracking: "Most InvestiCoins earned", unit: "coins" },
   { value: "streak_days", label: "Longest streak", tracking: "Longest streak", unit: "days" },
   { value: "quiz_score_avg", label: "Highest quiz average", tracking: "Highest quiz average", unit: "%" },
 ]

@@ -83,7 +83,7 @@ function CareerPicker({ onPick }: { onPick: (id: string) => void }) {
                   <p className="text-sm text-muted-foreground leading-relaxed">{career.description}</p>
                   {week ? (
                     <Badge variant="secondary" className="gap-1 text-[11px]">
-                      <CalendarDays className="h-3 w-3" /> Week {week} · {xp} XP — continue
+                      <CalendarDays className="h-3 w-3" /> Week {week} · {xp} Rep — continue
                     </Badge>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-xs font-bold" style={{ color: career.accent }}>
@@ -214,12 +214,12 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
                 <div className="border-t pt-2.5 mt-1" style={{ borderColor: `${ACCENT}33` }}>
                   <StubRow label="Total paid" value={`${totalPay} coins`} gold />
                 </div>
-                <StubRow label="XP earned" value={`+${payout.gained}`} />
+                <StubRow label="Rep earned" value={`+${payout.gained}`} />
               </>
             ) : payout.bonus > 0 ? (
               <>
                 <StubRow label="Case fee" value={`${payout.bonus} coins`} gold />
-                <StubRow label="XP earned" value={`+${payout.gained}`} />
+                <StubRow label="Rep earned" value={`+${payout.gained}`} />
               </>
             ) : (
               <p className="text-xs text-muted-foreground text-center py-1">
@@ -255,7 +255,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
             Final step · the write-up
           </span>
           <Badge variant="outline" className="gap-1 text-[10px]">
-            <PenLine className="h-3 w-3" /> +{MEMO_XP} XP · +{memoPay(currentIdx)} coins
+            <PenLine className="h-3 w-3" /> +{MEMO_XP} Rep · +{memoPay(currentIdx)} 🪙
           </Badge>
         </div>
         <Card variant="elevated" className="overflow-hidden">
@@ -567,7 +567,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
               <BadgeChip icon={CalendarDays} label="Week" value={String(week)} />
               <BadgeChip icon={Heart} label="Rep" value={String(rep)} color={rep >= 60 ? "#10b981" : rep >= 40 ? "#d97706" : "#ef4444"} />
               <BadgeChip icon={Coins} label="Salary" value={`${salary}/wk`} />
-              <BadgeChip icon={Star} label="XP" value={String(xp)} />
+              <BadgeChip icon={Star} label="Rep" value={String(xp)} />
               <Button variant="outline" size="sm" onClick={onSwitch} className="gap-1.5">
                 <ArrowRightLeft className="h-3.5 w-3.5" /> Switch
               </Button>
@@ -582,7 +582,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                 {next
                   ? needsMilestone && xp >= next.minXp
                     ? `Close your promotion case to become ${next.title}!`
-                    : `${Math.max(0, next.minXp - xp)} XP to ${next.title}`
+                    : `${Math.max(0, next.minXp - xp)} Rep to ${next.title}`
                   : "Top of the ladder 🏆"}
               </span>
             </div>
@@ -620,7 +620,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                     disabled={xp < (next?.minXp ?? 0)}
                     onClick={() => setActive({ deal: nextMilestone, mode: "milestone" })}
                   >
-                    {xp >= (next?.minXp ?? 0) ? "Take the case" : `${(next?.minXp ?? 0) - xp} XP away`}
+                    {xp >= (next?.minXp ?? 0) ? "Take the case" : `${(next?.minXp ?? 0) - xp} Rep away`}
                   </Button>
                 </CardContent>
               </Card>
@@ -650,7 +650,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                         <PenLine className="h-3.5 w-3.5" /> +{memoPay(currentIdx)} for the write-up
                       </span>
                       <span className="flex items-center gap-1 text-purple-500">
-                        <Star className="h-3.5 w-3.5" /> up to {dealMaxPoints(weekDeal) + MEMO_XP} XP
+                        <Star className="h-3.5 w-3.5" /> up to {dealMaxPoints(weekDeal) + MEMO_XP} Rep
                       </span>
                     </div>
                   </div>
@@ -709,7 +709,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                       />
                       <span className="flex-1">{r.title}</span>
                       {isCurrent && <Badge variant="secondary" className="text-[10px]">You</Badge>}
-                      {!reached && <span className="text-[10px] font-semibold">{r.minXp} XP{[1, 3, 5].includes(i) ? " + case" : ""}</span>}
+                      {!reached && <span className="text-[10px] font-semibold">{r.minXp} Rep{[1, 3, 5].includes(i) ? " + case" : ""}</span>}
                     </div>
                   )
                 })}

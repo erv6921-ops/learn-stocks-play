@@ -104,7 +104,7 @@ export default function MicroBusinessOffice() {
       });
       awardXP(8, "Completed a business week");
       if (quit) toast.error("Your employees quit!", { description: "You skipped payroll — reputation took a hit." });
-      else toast.success(`Week ${s.week} complete`, { description: "Weekly report generated. +8 XP" });
+      else toast.success(`Week ${s.week} complete`, { description: "Weekly report generated. +8 InvestiCoins" });
     } finally {
       setAdvancing(false);
     }
@@ -512,7 +512,7 @@ function TaxForm({ s, update, awardXP, spend, taxDue }: { s: BusinessGameState; 
     }
     update((st) => ({ ...st, taxFiledWeeks: [...st.taxFiledWeeks, st.week], billsOnTime: st.billsOnTime + 1 }));
     awardXP(12, "Filed quarterly taxes correctly");
-    toast.success("Schedule C filed correctly! +12 XP");
+    toast.success("Schedule C filed correctly! +12 InvestiCoins");
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
@@ -630,7 +630,7 @@ function BusinessPlanGate({ update, awardXP }: { update: Update; awardXP: (n: nu
     const feedback = "Your plan covers the essentials — a defined market, a pricing rationale, real startup costs, and a clear goal. Approved!";
     update((st) => ({ ...st, planScore: 7, planFeedback: feedback, planApproved: true }));
     awardXP(15, "Business plan approved");
-    toast.success("Plan scored 7/10 — approved! +15 XP", { description: feedback });
+    toast.success("Plan scored 7/10 — approved! +15 InvestiCoins", { description: feedback });
   };
   return (
     <Card variant="elevated">

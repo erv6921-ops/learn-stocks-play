@@ -76,7 +76,7 @@ const STEPS: Step[] = [
   { route: "/micro-business", anchor: "biz-office", icon: BarChart3, title: "Office", body: "Manage the day to day: money, operations and the decisions a real owner makes.", mood: "teaching" },
   { route: "/micro-business", anchor: "biz-collab", icon: UserCircle, title: "Collaboration", body: "Find partners and negotiate with vendors. Business is a team sport! 🤝", mood: "thinking" },
   { route: "/micro-business", anchor: "biz-marketing", icon: Sparkles, title: "Marketing", body: "Build your brand and launch campaigns to get customers in the door.", mood: "happy" },
-  { route: "/micro-business", anchor: "biz-activity", icon: Target, title: "Do the activities", body: "Each tab has tasks right here. Finish them to earn XP and grow your empire. 🌱", mood: "excited" },
+  { route: "/micro-business", anchor: "biz-activity", icon: Target, title: "Do the activities", body: "Each tab has tasks right here. Finish them to earn InvestiCoins and grow your empire. 🌱", mood: "excited" },
 
   // The rest
   { route: "/progress", anchor: "progress-overview", icon: BarChart3, title: "Your progress", body: "This map shows your strengths across every topic. Attack your weak spots to level fast.", mood: "teaching" },

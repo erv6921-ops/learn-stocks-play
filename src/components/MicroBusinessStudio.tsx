@@ -70,7 +70,7 @@ function ActivityCard({ icon: Icon, n, title, desc, xp, done, children }: { icon
           <h3 className="font-display text-lg font-extrabold mt-1">{title}</h3>
           <p className="text-sm text-muted-foreground">{desc}</p>
         </div>
-        {done ? <Badge variant="success" className="gap-1 shrink-0"><CheckCircle2 className="w-3.5 h-3.5" /> Done</Badge> : <Badge variant="outline" className="shrink-0">+{xp} XP</Badge>}
+        {done ? <Badge variant="success" className="gap-1 shrink-0"><CheckCircle2 className="w-3.5 h-3.5" /> Done</Badge> : <Badge variant="outline" className="shrink-0">+{xp} 🪙</Badge>}
       </div>
       {children}
     </CardContent></Card>
@@ -163,7 +163,7 @@ export default function MicroBusinessStudio() {
       return next;
     });
     const eff = ACTIVITY_EFFECTS[id];
-    toast.success(`${ACTIVITY_TITLES[id] || "Activity"} submitted`, { description: `+${xp} XP${eff ? ` · ${eff.msg}` : ""}` });
+    toast.success(`${ACTIVITY_TITLES[id] || "Activity"} submitted`, { description: `+${xp} InvestiCoins${eff ? ` · ${eff.msg}` : ""}` });
   }, [earnJeffs]);
 
   // Completion for rotating quarterly briefs — same flow as `complete`, but the
@@ -184,7 +184,7 @@ export default function MicroBusinessStudio() {
       saveActivities(next);
       return next;
     });
-    toast.success(`${brief.title} submitted`, { description: `+${brief.xp} XP · ${brief.effect.msg}` });
+    toast.success(`${brief.title} submitted`, { description: `+${brief.xp} InvestiCoins · ${brief.effect.msg}` });
   }, [earnJeffs]);
 
   if (!a) return (<div className="min-h-screen bg-background"><GameNav /><div className="flex items-center justify-center py-24"><Loader2 className="w-7 h-7 animate-spin text-primary" /></div></div>);
@@ -235,14 +235,14 @@ export default function MicroBusinessStudio() {
     const newQuarter = quarterOf(next.month) !== quarterOf(sim.month) && next.status !== "failed";
     persist({ ...a, sim: next, ...(newQuarter ? { done: [], xpAwarded: [] } : {}) });
     earnJeffs(40, `Business month ${sim.month}`);
-    toast.success(`Month ${sim.month} resolved`, { description: `Revenue +${revenue} IC · +40 XP` });
+    toast.success(`Month ${sim.month} resolved`, { description: `Revenue +${revenue} IC · +40 InvestiCoins` });
     if (newQuarter) toast.success(`Quarter ${quarterOf(next.month) + 1} begins`, { description: "Your operations activities have refreshed — run them again." });
     if (next.status === "failed") toast.error("Your business ran out of road", { description: "Review what happened, then rebuild." });
   };
   const rebuild = () => persist({ ...a, sim: defaultBizState(), done: [], xpAwarded: [] });
   const addProductHandler = (p: { name: string; price: number; pitch: string }) => {
     setSim(addProduct(sim, p)); earnJeffs(75, "Launched a new product");
-    toast.success(`"${p.name}" added to your product line`, { description: "Customers +60 · Brand +5 · +75 XP" });
+    toast.success(`"${p.name}" added to your product line`, { description: "Customers +60 · Brand +5 · +75 InvestiCoins" });
   };
 
   // Build each tab's ordered step list. Q1 uses the bespoke founding activities;
@@ -895,7 +895,7 @@ function SummaryReport({ a, bt, qi }: { a: ActivitiesState; bt: BusinessType; qi
       <div className="rounded-3xl p-6 text-center" style={{ background: "linear-gradient(135deg,#0f2d1e,#06291f)" }}>
         <Trophy className="w-12 h-12 mx-auto mb-1" style={{ color: NEON }} />
         <p className="font-display text-2xl font-extrabold text-white">Quarter {quarter} Operations Report</p>
-        <p className="text-white/55 text-sm">{def.label} · all {ALL_ACTIVITIES.length} ops run this quarter · {totalXP} XP this quarter</p>
+        <p className="text-white/55 text-sm">{def.label} · all {ALL_ACTIVITIES.length} ops run this quarter · {totalXP} InvestiCoins this quarter</p>
       </div>
       {[
         { t: "Product", items: [["Product brief", S("productDoc", "name")], ["Problem", S("productDoc", "problem")], ["Pricing", `${num(d.pricing?.["price"])} IC (${str(d.pricing?.["ptype"])})`], ["Feedback v2 plan", S("feedback", "v2")]] },
@@ -1007,7 +1007,7 @@ function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string;
           <Input type="number" placeholder="Price (IC)" value={price} onChange={(e) => setPrice(e.target.value)} />
           <WField label="Pitch — what it is and who it's for (25+ words)" value={pitch} onChange={setPitch} min={25} rows={2} />
           <Incomplete items={[{ label: "Name", ok: name.trim().length >= 2 }, { label: "Price greater than 0", ok: num(price) > 0 }, { label: "Pitch (25+ words)", ok: wc(pitch) >= 25 }]} />
-          <div className="flex gap-2"><Button variant="outline" className="flex-1" onClick={() => setOpen(false)}>Cancel</Button><Button className="flex-1 press-scale" disabled={!ready} onClick={submit}><Plus className="w-4 h-4 mr-1" /> Add product (+75 XP)</Button></div>
+          <div className="flex gap-2"><Button variant="outline" className="flex-1" onClick={() => setOpen(false)}>Cancel</Button><Button className="flex-1 press-scale" disabled={!ready} onClick={submit}><Plus className="w-4 h-4 mr-1" /> Add product (+75 🪙)</Button></div>
         </div>
       ) : (
         <Button variant="outline" className="w-full press-scale" onClick={() => setOpen(true)}><Plus className="w-4 h-4 mr-1.5" /> Add a product to your line</Button>
