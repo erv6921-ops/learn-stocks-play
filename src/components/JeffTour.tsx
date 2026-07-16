@@ -151,6 +151,9 @@ export default function JeffTour() {
     elRef.current = null
 
     if (s.route && location.pathname !== s.route) navigate(s.route)
+    // Nav links live inside GameNav's slide-out sidebar — tell it to open for
+    // nav-* steps (and close for everything else) so the target is on screen.
+    window.dispatchEvent(new CustomEvent("investiplay:nav-menu", { detail: { open: !!s.anchor?.startsWith("nav-") } }))
     if (!s.anchor) { setRect(null); return }
 
     const lockOn = (el: HTMLElement) => {
@@ -212,6 +215,8 @@ export default function JeffTour() {
   const finish = () => {
     setOpen(false)
     elRef.current = null
+    // Make sure the nav sidebar isn't left open if the tour is skipped mid-nav-step.
+    window.dispatchEvent(new CustomEvent("investiplay:nav-menu", { detail: { open: false } }))
     try {
       localStorage.removeItem(SHOW_FLAG)
       if (user?.id) localStorage.setItem(doneKey(user.id), "1")

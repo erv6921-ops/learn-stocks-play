@@ -1,5 +1,17 @@
-import React, { useMemo } from "react";
+// GameNav — top bar + slide-out sidebar.
+//
+// Layout: hamburger (left) opens a sidebar with every page link; the
+// InvestiPlay wordmark sits dead-center; InvestiCoins, notifications and the
+// profile avatar stay pinned top-right. Everything else (nav links, Find
+// friends, streak, logout) lives in the sidebar so the top bar never crams.
+//
+// The Jeff tour spotlights nav links inside the sidebar: JeffTour dispatches an
+// "investiplay:nav-menu" window event before each step, and we open/close the
+// menu to match so the anchored element is actually on screen.
+
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Button } from "@/components/ui/button";
@@ -11,7 +23,8 @@ import { anchor } from "@/lib/tourAnchors";
 import AnimatedNumber from "@/components/AnimatedNumber";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
-  Flame, Store, BarChart3, Trophy, FlaskConical, Landmark, Search } from
+  Flame, Store, BarChart3, Trophy, FlaskConical, Landmark,
+  Users, Swords, Menu, X } from
 "lucide-react";
 
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
@@ -49,12 +62,15 @@ const NAV_ITEMS = [
 { to: "/micro-business", icon: Store, label: "Business", tour: "nav-business" },
 { to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank" },
 { to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress" },
-{ to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard" }];
+{ to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard" },
+{ to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges" },
+{ to: "/partners", icon: Users, label: "Find Friends", tour: "nav-partners" }];
 
 
 export default function GameNav() {
   const { jeffsHistory, logout, user } = useApp();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
@@ -68,57 +84,55 @@ export default function GameNav() {
   const isActive = (to: string) =>
   to === "/dashboard" ? location.pathname === "/dashboard" : location.pathname.startsWith(to);
 
+  // Close the menu whenever we land on a new page.
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
+  // Let the Jeff tour open/close the sidebar so it can spotlight nav links.
+  useEffect(() => {
+    const onTour = (e: Event) => setMenuOpen(!!(e as CustomEvent).detail?.open);
+    window.addEventListener("investiplay:nav-menu", onTour);
+    return () => window.removeEventListener("investiplay:nav-menu", onTour);
+  }, []);
+
+  // Lock page scroll while the sidebar is open.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [menuOpen]);
+
   return (
     <>
-      {/* Desktop Nav */}
+      {/* Top bar */}
       <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            {/* InvestiPlay Wordmark */}
-            <Link to="/dashboard" className="flex items-center group">
+          <div className="relative flex items-center justify-between h-16">
+            {/* Hamburger */}
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Open menu"
+              onClick={() => setMenuOpen(o => !o)}
+              className="nav-bounce"
+            >
+              <Menu className="w-5 h-5" />
+            </Button>
+
+            {/* Centered wordmark */}
+            <Link
+              to="/dashboard"
+              className="absolute left-1/2 -translate-x-1/2 flex items-center group"
+            >
               <Wordmark className="text-xl md:text-2xl transition-transform duration-200 group-hover:scale-[1.02]" />
             </Link>
 
-            {/* Nav items */}
-            <div className="hidden md:flex items-center gap-1">
-              {NAV_ITEMS.map((item) =>
-              <Link key={item.to} to={item.to}>
-                  <Button
-                  ref={anchor(item.tour)}
-                  variant={isActive(item.to) ? "default" : "ghost"}
-                  size="sm"
-                  className={`gap-2 nav-bounce ${isActive(item.to) ? "shadow-glow" : "hover:bg-muted/70"}`}>
-
-                    <item.icon className="w-4 h-4" />
-                    {item.label}
-                  </Button>
-                </Link>
-              )}
-            </div>
-
-            {/* HUD pills */}
+            {/* Top-right: coins, notifications, profile */}
             <div className="flex items-center gap-2">
-              {streak > 0 &&
-              <div ref={anchor("hud-streak")} className="flex items-center gap-1 bg-orange-500/10 text-orange-500 px-2.5 py-1.5 rounded-xl text-xs font-bold border border-orange-500/15 shadow-sm nav-bounce cursor-default">
-                  <Flame className="w-3.5 h-3.5" style={{ animation: 'streak-pulse 2s ease-in-out infinite' }} />
-                  <span>{streak}d</span>
-                </div>
-              }
               <div ref={anchor("hud-coins")} className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
                 <Coins className="w-3.5 h-3.5" />
                 <span><AnimatedNumber value={Math.floor(netWorth)} /></span>
               </div>
-              {/* Find-friends search pill → Partners directory */}
-              <Link
-                to="/partners"
-                aria-label="Find friends"
-                title="Find friends"
-                ref={anchor("hud-partners")}
-                className="flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1.5 rounded-xl text-xs font-bold border border-primary/15 shadow-sm nav-bounce hover:bg-primary/20 transition-colors"
-              >
-                <Search className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Find friends</span>
-              </Link>
               <NotificationBell />
               <Link to="/profile" aria-label="Your profile" title="Your profile" ref={anchor("hud-profile")}>
                 <Avatar className="w-8 h-8 border border-border nav-bounce cursor-pointer ring-offset-background hover:ring-2 hover:ring-primary/40 transition-shadow">
@@ -127,32 +141,88 @@ export default function GameNav() {
                   </AvatarFallback>
                 </Avatar>
               </Link>
-              <Button variant="ghost" size="icon" onClick={handleLogout} className="text-muted-foreground w-8 h-8 nav-bounce">
-                <LogOut className="w-4 h-4" />
-              </Button>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Nav */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-t border-border">
-        <div className="flex items-center justify-around py-2.5">
-          {NAV_ITEMS.map((item) => {
-            const active = isActive(item.to);
-            return (
-              <Link key={item.to} to={item.to} className="flex flex-col items-center gap-0.5">
-                <div ref={anchor(item.tour)} className={`p-2 rounded-xl nav-bounce ${active ? "bg-primary text-primary-foreground shadow-glow" : "text-muted-foreground hover:text-foreground"}`}>
-                  <item.icon className="w-5 h-5" />
-                </div>
-                <span className={`text-[10px] ${active ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
-                  {item.label}
-                </span>
-              </Link>);
+      {/* Slide-out sidebar */}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="nav-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-[55] bg-black/40 backdrop-blur-[2px]"
+            />
+            {/* Panel */}
+            <motion.aside
+              key="nav-panel"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "tween", duration: 0.22, ease: "easeOut" }}
+              className="fixed inset-y-0 left-0 z-[60] w-72 max-w-[85vw] bg-background border-r border-border flex flex-col"
+            >
+              {/* Sidebar header */}
+              <div className="flex items-center justify-between px-4 h-16 border-b border-border">
+                <Wordmark className="text-xl" />
+                <Button variant="ghost" size="icon" aria-label="Close menu" onClick={() => setMenuOpen(false)}>
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
 
-          })}
-        </div>
-      </div>
+              {/* Streak */}
+              {streak > 0 && (
+                <div className="px-4 pt-4">
+                  <div ref={anchor("hud-streak")} className="flex items-center gap-2 bg-orange-500/10 text-orange-500 px-3 py-2 rounded-xl text-sm font-bold border border-orange-500/15">
+                    <Flame className="w-4 h-4" style={{ animation: 'streak-pulse 2s ease-in-out infinite' }} />
+                    <span>{streak} day streak</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Nav links */}
+              <div className="flex-1 overflow-y-auto p-3 space-y-1">
+                {NAV_ITEMS.map((item) => {
+                  const active = isActive(item.to);
+                  return (
+                    <Link key={item.to} to={item.to} onClick={() => setMenuOpen(false)}>
+                      <div
+                        ref={anchor(item.tour)}
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-colors ${
+                          active
+                            ? "bg-primary text-primary-foreground shadow-glow"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted/70"
+                        }`}
+                      >
+                        <item.icon className="w-5 h-5" />
+                        {item.label}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Logout */}
+              <div className="p-3 border-t border-border">
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                >
+                  <LogOut className="w-5 h-5" />
+                  Log out
+                </button>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </>);
 
 }
