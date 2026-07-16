@@ -169,7 +169,7 @@ export default function MicroBusinessOffice() {
           {supplierDue && <SupplierNegotiation s={s} update={update} awardXP={awardXP} />}
           <HiringPanel s={s} update={update} awardXP={awardXP} />
         </TabsContent>
-        <TabsContent value="taxes"><TaxForm s={s} update={update} awardXP={awardXP} spend={spendJeffs} taxDue={taxDue} /></TabsContent>
+        <TabsContent value="taxes"><TaxForm s={s} update={update} spend={spendJeffs} balance={jeffsBalance} taxDue={taxDue} /></TabsContent>
       </Tabs>
     </div>
   );
@@ -488,8 +488,12 @@ function SupplierNegotiation({ s, update, awardXP }: { s: BusinessGameState; upd
 }
 
 /* ═══ FEATURE 9 — QUARTERLY TAX FORM (Schedule C simplified) ═══ */
-function TaxForm({ s, update, awardXP, spend, taxDue }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void; spend: (n: number, r: string) => boolean; taxDue: boolean }) {
+// Businesses pay tax on profit — a real, recurring money sink every quarter.
+const INCOME_TAX_RATE = 0.25;
+
+function TaxForm({ s, update, spend, balance, taxDue }: { s: BusinessGameState; update: Update; spend: (n: number, r: string) => boolean; balance: number; taxDue: boolean }) {
   const p = computePnL(s);
+  const taxOwed = Math.max(0, Math.round(p.netProfit * INCOME_TAX_RATE));
   const lines = [
     { id: "rev", label: "Line 1 — Gross receipts (Revenue)", value: p.revenue },
     { id: "cogs", label: "Line 4 — Cost of goods sold", value: p.cogs },
@@ -503,20 +507,27 @@ function TaxForm({ s, update, awardXP, spend, taxDue }: { s: BusinessGameState; 
     return <Card variant="elevated"><CardContent className="pt-6 text-center text-sm text-muted-foreground">No filing due. A simplified Schedule C is due every 4 weeks (next at week {(Math.floor(s.week / TAX_PERIOD) + 1) * TAX_PERIOD}).</CardContent></Card>;
   }
   const file = () => {
+    // Incomplete filing: you still owe the tax, plus a penalty fee.
     if (!allConfirmed) {
       const penalty = 75;
-      spend(penalty, "Tax penalty (incomplete filing)");
+      const bill = Math.min(taxOwed + penalty, balance);
+      spend(bill, "Taxes + penalty (incomplete filing)");
       update((st) => ({ ...st, taxFiledWeeks: [...st.taxFiledWeeks, st.week], billsMissed: st.billsMissed + 1 }));
-      toast.error(`Incomplete filing — ${penalty} IC penalty`, { description: "Confirm every line next quarter to avoid fees." });
+      toast.error(`Incomplete filing — paid ${bill} IC`, { description: `Tax owed ${taxOwed} IC + ${penalty} IC penalty. Confirm every line next quarter to skip the fee.` });
       return;
     }
     update((st) => ({ ...st, taxFiledWeeks: [...st.taxFiledWeeks, st.week], billsOnTime: st.billsOnTime + 1 }));
-    awardXP(12, "Filed quarterly taxes correctly");
-    toast.success("Schedule C filed correctly! +12 InvestiCoins");
+    if (taxOwed > 0) {
+      const paid = Math.min(taxOwed, balance);
+      spend(paid, "Paid quarterly business taxes");
+      toast.success(`Schedule C filed — paid ${paid} IC in taxes`, { description: `That's ${Math.round(INCOME_TAX_RATE * 100)}% of your net profit, just like a real business owes the IRS.` });
+    } else {
+      toast.success("Schedule C filed — no tax owed", { description: "You didn't turn a profit this quarter, so there's no income tax due." });
+    }
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={FileText} title="Schedule C (simplified)" sub="Auto-filled from your P&L. Review and confirm each line." />
+      <Head icon={FileText} title="Schedule C (simplified)" sub="Auto-filled from your P&L. Review and confirm each line, then pay what you owe." />
       <div className="rounded-xl border border-border overflow-hidden">
         {lines.map((l, i) => (
           <button key={l.id} onClick={() => setChecked((c) => ({ ...c, [l.id]: !c[l.id] }))} className={cn("w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors", i % 2 && "bg-muted/40", checked[l.id] && "bg-success/5")}>
@@ -525,7 +536,16 @@ function TaxForm({ s, update, awardXP, spend, taxDue }: { s: BusinessGameState; 
           </button>
         ))}
       </div>
-      <Button className="w-full press-scale" onClick={file}><FileText className="w-4 h-4 mr-1.5" /> {allConfirmed ? "Submit filing" : "Submit (incomplete — penalty applies)"}</Button>
+      {/* Tax owed — the amount that will be deducted */}
+      <div className="flex items-center justify-between rounded-xl border border-destructive/30 bg-destructive/5 px-3 py-2.5">
+        <span className="text-sm font-semibold flex items-center gap-2 text-destructive">
+          Tax due ({Math.round(INCOME_TAX_RATE * 100)}% of net profit)
+        </span>
+        <span className="font-mono font-extrabold tabular-nums text-sm text-destructive">
+          {taxOwed > 0 ? `− ${money(taxOwed)}` : money(0)}
+        </span>
+      </div>
+      <Button className="w-full press-scale" onClick={file}><FileText className="w-4 h-4 mr-1.5" /> {allConfirmed ? (taxOwed > 0 ? `Pay ${money(taxOwed)} & file` : "File (no tax due)") : "Submit (incomplete — penalty applies)"}</Button>
     </CardContent></Card>
   );
 }

@@ -24,6 +24,7 @@ import {
   BrainCircuit,
   FileQuestion,
 } from "lucide-react"
+import { useHints } from "@/components/lesson/HintContext"
 // shuffleQuestion import removed — shuffling is handled upstream in LessonDetail
 
 // ─── Quiz Answer Component (shared by Micro Check, Applied Question, Mastery) ───
@@ -41,13 +42,30 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   const shuffledQ = question
   const [selected, setSelected] = useState<number | null>(null)
   const [revealed, setRevealed] = useState(false)
+  // Wrong options this question's hints have crossed out.
+  const [eliminated, setEliminated] = useState<number[]>([])
+  const hints = useHints()
 
   const handleSelect = (idx: number) => {
-    if (revealed) return
+    if (revealed || eliminated.includes(idx)) return
     setSelected(idx)
     setRevealed(true)
     if (idx === shuffledQ.correctAnswer) onCorrect()
     else onIncorrect()
+  }
+
+  // Cap eliminations so at least two options (incl. the correct one) always
+  // remain — a hint narrows the field, it never hands over the answer.
+  const maxEliminations = Math.max(0, shuffledQ.options.length - 2)
+  const canHint = !!hints && hints.hintsLeft > 0 && eliminated.length < maxEliminations && !revealed
+
+  const takeHint = () => {
+    if (!hints || hints.hintsLeft <= 0) return
+    const wrong = shuffledQ.options
+      .map((_, i) => i)
+      .find(i => i !== shuffledQ.correctAnswer && !eliminated.includes(i))
+    if (wrong === undefined) return
+    if (hints.spendHint()) setEliminated(prev => [...prev, wrong])
   }
 
   const isCorrect = selected === shuffledQ.correctAnswer
@@ -61,29 +79,58 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
           const isRight = i === shuffledQ.correctAnswer
           const showGreen = revealed && isRight
           const showRed = revealed && isSelected && !isRight
+          const isEliminated = !revealed && eliminated.includes(i)
 
           return (
             <button
               key={i}
               onClick={() => handleSelect(i)}
-              disabled={revealed}
+              disabled={revealed || isEliminated}
               className={`w-full text-left p-3.5 rounded-xl border-2 transition-all flex items-center gap-3 text-sm ${
-                showGreen
+                isEliminated
+                  ? "border-border/60 bg-muted/40 text-muted-foreground line-through opacity-55"
+                  : showGreen
                   ? "border-success bg-success/10 text-success"
                   : showRed
                   ? "border-destructive bg-destructive/10 text-destructive"
                   : isSelected
                   ? "border-primary bg-primary/10"
                   : "border-border hover:border-primary/50 hover:bg-muted/50"
-              } ${revealed ? "cursor-default" : "cursor-pointer"}`}
+              } ${revealed || isEliminated ? "cursor-default" : "cursor-pointer"}`}
             >
               {showGreen && <CheckCircle className="w-4 h-4 flex-shrink-0" />}
               {showRed && <XCircle className="w-4 h-4 flex-shrink-0" />}
-              <span>{opt}</span>
+              <span className="flex-1">{opt}</span>
+              {isEliminated && <span className="text-[10px] font-semibold shrink-0">ruled out</span>}
             </button>
           )
         })}
       </div>
+
+      {/* Hint control — a shared budget of hints for the whole lesson. Each hint
+          rules out one wrong answer. */}
+      {!revealed && hints && (
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={!canHint}
+            onClick={takeHint}
+            className="gap-1.5"
+          >
+            <Lightbulb className={`w-3.5 h-3.5 ${hints.hintsLeft > 0 ? "text-amber-500" : "text-muted-foreground"}`} />
+            {hints.hintsLeft > 0
+              ? `Hint · ${hints.hintsLeft} left`
+              : "No hints left"}
+          </Button>
+          {eliminated.length > 0 ? (
+            <span className="text-[11px] text-muted-foreground">👀 Crossed out a wrong answer</span>
+          ) : hints.hintsLeft > 0 ? (
+            <span className="text-[11px] text-muted-foreground">Stuck? A hint rules one out.</span>
+          ) : null}
+        </div>
+      )}
 
       {revealed && (
         <div className={`p-4 rounded-lg ${isCorrect ? "bg-success/10 border border-success/20" : "bg-amber-500/10 border border-amber-500/20"}`}>

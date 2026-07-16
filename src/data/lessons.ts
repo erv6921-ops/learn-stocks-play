@@ -1,12 +1,17 @@
 import { Lesson, LessonCategory, MasteryTier, UnitInfo, LEVEL_TITLES, CourseTrack } from "@/types"
 import { AP_MICRO_UNITS, AP_MICRO_LESSONS } from "@/data/apMicro"
 
+// Global lesson-reward scale. Lessons were paying out so much that coins were
+// trivial to accumulate, so every lesson's reward is cut by this factor. Tune
+// here to rebalance the whole curriculum at once (1 = original, 0.5 = half).
+const LESSON_REWARD_SCALE = 0.5
+
 // Helper to create a lesson
 function L(
   id: string, title: string, description: string, category: LessonCategory,
   tier: MasteryTier, unitId: string, lessonNum: string, reward: number
 ): Lesson {
-  return { id, title, description, category, level: tier, unitId, lessonNumber: lessonNum, reward, content: "", duration: 2, completed: false }
+  return { id, title, description, category, level: tier, unitId, lessonNumber: lessonNum, reward: Math.round(reward * LESSON_REWARD_SCALE), content: "", duration: 2, completed: false }
 }
 
 // ═══════════════════════════════════════════════

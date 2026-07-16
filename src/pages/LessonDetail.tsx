@@ -19,6 +19,7 @@ import {
   RecapRenderer,
   MasteryCheckRenderer,
 } from "@/components/lesson/SectionRenderer"
+import { HintProvider } from "@/components/lesson/HintContext"
 import JeffChat from "@/components/lessons/JeffChat"
 import { buildScript } from "@/lib/jeffChatLesson"
 import {
@@ -153,6 +154,7 @@ export default function LessonDetail() {
   }
 
   return (
+    <HintProvider key={lesson.id} total={2}>
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       {/* Header */}
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
@@ -261,5 +263,6 @@ export default function LessonDetail() {
         />
       )}
     </div>
+    </HintProvider>
   )
 }
