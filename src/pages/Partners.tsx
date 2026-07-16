@@ -23,11 +23,13 @@ import { LEAGUES, getLeagueIdx, getLevel } from "@/lib/leagues"
 import {
   Search, UserPlus, UserCheck, UserMinus, Users, School, GraduationCap,
   LineChart, Store, Trophy, Coins, Star, TrendingUp, TrendingDown, Loader2,
-  BadgeCheck, Handshake, Sparkles,
+  BadgeCheck, Handshake, Sparkles, Clock, X, Mail,
 } from "lucide-react"
 
 const ACCENT = "hsl(152 62% 46%)"
 const ACCENT_SOFT = "hsl(152 62% 46% / 0.10)"
+
+type PartnerStatus = "none" | "pending_out" | "pending_in" | "accepted"
 
 interface StudentRow {
   user_id: string
@@ -36,7 +38,7 @@ interface StudentRow {
   school_name: string | null
   grade: number | null
   xp: number
-  is_partner: boolean
+  partner_status: PartnerStatus
 }
 
 interface Snapshot {
@@ -80,14 +82,16 @@ function LeagueChip({ xp }: { xp: number }) {
   )
 }
 
-// ── One student row (search results + partner roster share this) ─────────
+// ── One student row (search results, invites and partner roster share this) ─
 function StudentCard({
-  s, selected, onSelect, onAdd, onRemove, busy,
+  s, selected, onSelect, onInvite, onAccept, onDecline, onRemove, busy,
 }: {
   s: StudentRow
   selected: boolean
   onSelect: () => void
-  onAdd?: () => void
+  onInvite?: () => void
+  onAccept?: () => void
+  onDecline?: () => void
   onRemove?: () => void
   busy: boolean
 }) {
@@ -121,18 +125,48 @@ function StudentCard({
             {!s.school_name && s.grade == null && <span>InvestiPlay student</span>}
           </p>
         </div>
-        {onAdd && !s.is_partner && (
+        {onInvite && s.partner_status === "none" && (
           <Button
             size="sm"
             className="shrink-0 gap-1 text-white"
             style={{ background: ACCENT }}
             disabled={busy}
-            onClick={(e) => { e.stopPropagation(); onAdd() }}
+            onClick={(e) => { e.stopPropagation(); onInvite() }}
           >
-            {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserPlus className="w-3.5 h-3.5" />} Add
+            {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserPlus className="w-3.5 h-3.5" />} Invite
           </Button>
         )}
-        {onAdd && s.is_partner && (
+        {onInvite && s.partner_status === "pending_out" && (
+          <Badge variant="outline" className="shrink-0 gap-1 text-muted-foreground">
+            <Clock className="w-3 h-3" /> Invited
+          </Badge>
+        )}
+        {onAccept && s.partner_status === "pending_in" && (
+          <div className="flex items-center gap-1 shrink-0">
+            <Button
+              size="sm"
+              className="gap-1 text-white"
+              style={{ background: ACCENT }}
+              disabled={busy}
+              onClick={(e) => { e.stopPropagation(); onAccept() }}
+            >
+              {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserCheck className="w-3.5 h-3.5" />} Accept
+            </Button>
+            {onDecline && (
+              <Button
+                size="sm"
+                variant="ghost"
+                className="text-muted-foreground hover:text-destructive px-2"
+                disabled={busy}
+                onClick={(e) => { e.stopPropagation(); onDecline() }}
+                title="Decline invite"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        )}
+        {onInvite && s.partner_status === "accepted" && (
           <Badge variant="outline" className="shrink-0 gap-1" style={{ color: ACCENT, borderColor: ACCENT }}>
             <UserCheck className="w-3 h-3" /> Partner
           </Badge>
@@ -164,8 +198,9 @@ export default function Partners() {
   const [searching, setSearching] = useState(false)
   const searchSeq = useRef(0)
 
-  // roster
+  // roster + incoming invites
   const [partners, setPartners] = useState<StudentRow[]>([])
+  const [requests, setRequests] = useState<StudentRow[]>([])
   const [loadingPartners, setLoadingPartners] = useState(true)
   const [busyId, setBusyId] = useState<string | null>(null)
 
@@ -176,8 +211,12 @@ export default function Partners() {
   const [livePrices, setLivePrices] = useState<Map<string, number>>(new Map())
 
   const loadPartners = useCallback(async () => {
-    const { data, error } = await (supabase as any).rpc("get_partners")
-    if (!error && data) setPartners(data as StudentRow[])
+    const [{ data: p, error: pErr }, { data: r, error: rErr }] = await Promise.all([
+      (supabase as any).rpc("get_partners"),
+      (supabase as any).rpc("get_partner_requests"),
+    ])
+    if (!pErr && p) setPartners(p as StudentRow[])
+    if (!rErr && r) setRequests(r as StudentRow[])
     setLoadingPartners(false)
   }, [])
 
@@ -198,37 +237,55 @@ export default function Partners() {
     return () => clearTimeout(t)
   }, [query])
 
-  const addPartner = async (s: StudentRow) => {
+  const setResultStatus = (userId: string, status: PartnerStatus) =>
+    setResults(r => r.map(x => x.user_id === userId ? { ...x, partner_status: status } : x))
+
+  const invitePartner = async (s: StudentRow) => {
     if (!user?.id) return
     setBusyId(s.user_id)
-    const { error } = await (supabase as any)
-      .from("partners")
-      .insert({ user_id: user.id, partner_id: s.user_id })
+    const { data, error } = await (supabase as any).rpc("send_partner_request", { _to: s.user_id })
     setBusyId(null)
     if (error) {
-      toast({ title: "Couldn't add partner", description: error.message, variant: "destructive" })
+      toast({ title: "Couldn't send invite", description: error.message, variant: "destructive" })
       return
     }
-    toast({ title: "Partner added! 🤝", description: `${fullName(s)} is now on your team.` })
-    setResults(r => r.map(x => x.user_id === s.user_id ? { ...x, is_partner: true } : x))
+    if (data === "accepted") {
+      // They had already invited us — inviting back seals the partnership.
+      toast({ title: "You're partners! 🤝", description: `${fullName(s)} had already invited you.` })
+      setResultStatus(s.user_id, "accepted")
+    } else {
+      toast({ title: "Invite sent! ✉️", description: `${fullName(s)} has to accept before you're partners.` })
+      setResultStatus(s.user_id, "pending_out")
+    }
     loadPartners()
+  }
+
+  const respondRequest = async (s: StudentRow, accept: boolean) => {
+    if (!user?.id) return
+    setBusyId(s.user_id)
+    const { error } = await (supabase as any).rpc("respond_partner_request", { _from: s.user_id, _accept: accept })
+    setBusyId(null)
+    if (error) {
+      toast({ title: "Something went wrong", description: error.message, variant: "destructive" })
+      return
+    }
+    if (accept) toast({ title: "You're partners! 🤝", description: `${fullName(s)} is now on your team.` })
+    setRequests(r => r.filter(x => x.user_id !== s.user_id))
+    setResultStatus(s.user_id, accept ? "accepted" : "none")
+    if (accept) loadPartners()
   }
 
   const removePartner = async (s: StudentRow) => {
     if (!user?.id) return
     setBusyId(s.user_id)
-    const { error } = await (supabase as any)
-      .from("partners")
-      .delete()
-      .eq("user_id", user.id)
-      .eq("partner_id", s.user_id)
+    const { error } = await (supabase as any).rpc("remove_partner", { _other: s.user_id })
     setBusyId(null)
     if (error) {
       toast({ title: "Couldn't remove partner", description: error.message, variant: "destructive" })
       return
     }
     setPartners(p => p.filter(x => x.user_id !== s.user_id))
-    setResults(r => r.map(x => x.user_id === s.user_id ? { ...x, is_partner: false } : x))
+    setResultStatus(s.user_id, "none")
   }
 
   // Load the selected student's public snapshot, then live prices for holdings.
@@ -276,8 +333,8 @@ export default function Partners() {
               <h1 className="text-2xl md:text-3xl font-extrabold text-white">Partners</h1>
             </div>
             <p className="text-sm md:text-base" style={{ color: "hsl(152 40% 80%)" }}>
-              Search any student by name, see their school and grade, and add them to your team.
-              Tap a partner to peek at their stocks, business and rank.
+              Search any student by name, see their school and grade, and send them a partner invite.
+              Once they accept, you're connected — tap a partner to peek at their stocks, business and rank.
             </p>
           </div>
           <Sparkles className="absolute right-6 top-6 w-16 h-16 opacity-10 text-white" />
@@ -316,7 +373,9 @@ export default function Partners() {
                           s={s}
                           selected={selectedId === s.user_id}
                           onSelect={() => setSelectedId(s.user_id)}
-                          onAdd={() => addPartner(s)}
+                          onInvite={() => invitePartner(s)}
+                          onAccept={() => respondRequest(s, true)}
+                          onDecline={() => respondRequest(s, false)}
                           busy={busyId === s.user_id}
                         />
                       ))}
@@ -331,6 +390,31 @@ export default function Partners() {
               </CardContent>
             </Card>
 
+            {/* Incoming invites — people who want to partner with you */}
+            {requests.length > 0 && (
+              <div>
+                <h2 className="font-extrabold text-sm uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
+                  <Mail className="w-4 h-4" style={{ color: ACCENT }} /> Invites ({requests.length})
+                  <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: ACCENT }} />
+                </h2>
+                <div className="space-y-2">
+                  <AnimatePresence>
+                    {requests.map(s => (
+                      <StudentCard
+                        key={s.user_id}
+                        s={s}
+                        selected={selectedId === s.user_id}
+                        onSelect={() => setSelectedId(s.user_id)}
+                        onAccept={() => respondRequest(s, true)}
+                        onDecline={() => respondRequest(s, false)}
+                        busy={busyId === s.user_id}
+                      />
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </div>
+            )}
+
             <div>
               <h2 className="font-extrabold text-sm uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
                 <Users className="w-4 h-4" style={{ color: ACCENT }} /> My Partners ({partners.length})
@@ -344,7 +428,7 @@ export default function Partners() {
                   <CardContent className="p-5 text-center">
                     <Handshake className="w-8 h-8 mx-auto mb-2 text-muted-foreground/50" />
                     <p className="text-sm font-semibold">No partners yet</p>
-                    <p className="text-xs text-muted-foreground">Search a classmate's name above to add your first one.</p>
+                    <p className="text-xs text-muted-foreground">Search a classmate's name above and send your first invite.</p>
                   </CardContent>
                 </Card>
               ) : (
