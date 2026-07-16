@@ -54,17 +54,19 @@ function getStreak(history: { amount: number; reason: string; date: Date }[]) {
   return streak;
 }
 
+// Each page gets its own icon tint so the menu reads like the app's world map,
+// not a plain settings list.
 const NAV_ITEMS = [
-{ to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", tour: "nav-dashboard" },
-{ to: "/lessons", icon: BookOpen, label: "Missions", tour: "nav-lessons" },
-{ to: "/lab", icon: FlaskConical, label: "Lab", tour: "nav-lab" },
-{ to: "/stocks", icon: LineChart, label: "Stocks", tour: "nav-stocks" },
-{ to: "/micro-business", icon: Store, label: "Business", tour: "nav-business" },
-{ to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank" },
-{ to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress" },
-{ to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard" },
-{ to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges" },
-{ to: "/partners", icon: Users, label: "Find Friends", tour: "nav-partners" }];
+{ to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", tour: "nav-dashboard", tint: "#1D9E75" },
+{ to: "/lessons", icon: BookOpen, label: "Missions", tour: "nav-lessons", tint: "#8B5CF6" },
+{ to: "/lab", icon: FlaskConical, label: "Lab", tour: "nav-lab", tint: "#3BA7C4" },
+{ to: "/stocks", icon: LineChart, label: "Stocks", tour: "nav-stocks", tint: "#E3A008" },
+{ to: "/micro-business", icon: Store, label: "Business", tour: "nav-business", tint: "#F97316" },
+{ to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank", tint: "#0F766E" },
+{ to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress", tint: "#6366F1" },
+{ to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard", tint: "#E0457B" },
+{ to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges", tint: "#DC2626" },
+{ to: "/partners", icon: Users, label: "Find Friends", tour: "nav-partners", tint: "#059669" }];
 
 
 export default function GameNav() {
@@ -165,46 +167,89 @@ export default function GameNav() {
               key="nav-panel"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "tween", duration: 0.22, ease: "easeOut" }}
-              className="fixed inset-y-0 left-0 z-[60] w-72 max-w-[85vw] bg-background border-r border-border flex flex-col"
+              exit={{ x: "-100%", transition: { type: "tween", duration: 0.18, ease: "easeIn" } }}
+              transition={{ type: "spring", stiffness: 380, damping: 34 }}
+              className="fixed inset-y-0 left-0 z-[60] w-72 max-w-[85vw] bg-background border-r border-border flex flex-col shadow-2xl"
             >
-              {/* Sidebar header */}
-              <div className="flex items-center justify-between px-4 h-16 border-b border-border">
-                <Wordmark className="text-xl" />
-                <Button variant="ghost" size="icon" aria-label="Close menu" onClick={() => setMenuOpen(false)}>
-                  <X className="w-5 h-5" />
-                </Button>
-              </div>
-
-              {/* Streak */}
-              {streak > 0 && (
-                <div className="px-4 pt-4">
-                  <div ref={anchor("hud-streak")} className="flex items-center gap-2 bg-orange-500/10 text-orange-500 px-3 py-2 rounded-xl text-sm font-bold border border-orange-500/15">
-                    <Flame className="w-4 h-4" style={{ animation: 'streak-pulse 2s ease-in-out infinite' }} />
-                    <span>{streak} day streak</span>
+              {/* Sidebar header — deep-green gradient with the player's card */}
+              <div
+                className="relative px-4 pt-4 pb-4 overflow-hidden"
+                style={{ background: "linear-gradient(135deg, hsl(158 45% 15%), hsl(152 50% 24%))" }}
+              >
+                <div className="flex items-center justify-between">
+                  <Wordmark className="text-xl !text-white" />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Close menu"
+                    onClick={() => setMenuOpen(false)}
+                    className="nav-bounce text-white/80 hover:text-white hover:bg-white/10"
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+                <div className="flex items-center gap-3 mt-3">
+                  <Avatar className="w-10 h-10 border-2 border-white/25 shadow-md">
+                    <AvatarFallback className="bg-white/15 text-white text-sm font-extrabold">
+                      {getInitials(user?.firstName, user?.lastName)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0">
+                    <p className="text-sm font-extrabold text-white truncate">
+                      {[user?.firstName, user?.lastName].filter(Boolean).join(" ") || "Player"}
+                    </p>
+                    {streak > 0 ? (
+                      <p ref={anchor("hud-streak")} className="text-xs font-bold text-orange-300 flex items-center gap-1">
+                        <Flame className="w-3.5 h-3.5" style={{ animation: 'streak-pulse 2s ease-in-out infinite' }} />
+                        {streak} day streak
+                      </p>
+                    ) : (
+                      <p className="text-xs font-semibold" style={{ color: "hsl(152 40% 78%)" }}>Ready to play</p>
+                    )}
                   </div>
                 </div>
-              )}
+                {/* soft glow flourish */}
+                <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+              </div>
 
-              {/* Nav links */}
+              {/* Nav links — staggered entrance, bouncy hover */}
               <div className="flex-1 overflow-y-auto p-3 space-y-1">
-                {NAV_ITEMS.map((item) => {
+                {NAV_ITEMS.map((item, idx) => {
                   const active = isActive(item.to);
                   return (
-                    <Link key={item.to} to={item.to} onClick={() => setMenuOpen(false)}>
-                      <div
-                        ref={anchor(item.tour)}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-colors ${
-                          active
-                            ? "bg-primary text-primary-foreground shadow-glow"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted/70"
-                        }`}
-                      >
-                        <item.icon className="w-5 h-5" />
-                        {item.label}
-                      </div>
-                    </Link>
+                    <motion.div
+                      key={item.to}
+                      initial={{ opacity: 0, x: -18 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.04 + idx * 0.03, type: "spring", stiffness: 420, damping: 30 }}
+                    >
+                      <Link to={item.to} onClick={() => setMenuOpen(false)}>
+                        <div
+                          ref={anchor(item.tour)}
+                          className={`nav-bounce flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold transition-colors ${
+                            active
+                              ? "bg-primary text-primary-foreground shadow-glow"
+                              : "text-foreground/80 hover:text-foreground hover:bg-muted/70"
+                          }`}
+                        >
+                          <span
+                            className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform"
+                            style={active
+                              ? { background: "rgba(255,255,255,0.18)", color: "#fff" }
+                              : { background: `${item.tint}1A`, color: item.tint }}
+                          >
+                            <item.icon className="w-[18px] h-[18px]" />
+                          </span>
+                          {item.label}
+                          {active && (
+                            <motion.span
+                              layoutId="nav-active-dot"
+                              className="ml-auto w-1.5 h-1.5 rounded-full bg-primary-foreground"
+                            />
+                          )}
+                        </div>
+                      </Link>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -213,9 +258,11 @@ export default function GameNav() {
               <div className="p-3 border-t border-border">
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                  className="nav-bounce w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                 >
-                  <LogOut className="w-5 h-5" />
+                  <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-muted/60">
+                    <LogOut className="w-[18px] h-[18px]" />
+                  </span>
                   Log out
                 </button>
               </div>
