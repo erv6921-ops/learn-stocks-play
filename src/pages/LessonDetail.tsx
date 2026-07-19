@@ -5,7 +5,8 @@ import { lessons } from "@/data/lessons"
 import { getStructuredContent } from "@/data/lessonContent"
 import { generateStructuredContent } from "@/lib/contentGenerator"
 import { LessonSection, StructuredLessonContent, QuizQuestion } from "@/types"
-import { shuffleQuestionSet } from "@/lib/mcqEngine"
+import { shuffleQuestionSet, normalizeOptionLengths, questionPassesQualityChecks } from "@/lib/mcqEngine"
+import { getQuizForLesson } from "@/data/lessonQuizzes"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -55,17 +56,39 @@ export default function LessonDetail() {
     const raw = getStructuredContent(lesson.id, regenerationCount)
     if (!raw) return null
 
+    // Guessability guard: authored questions often have the correct answer
+    // written as the longest option — a tell no amount of position-shuffling
+    // can hide. For each quiz question: (1) trim trailing elaboration off
+    // standout-long options, and (2) if it STILL fails the length/quality
+    // checks, swap in a clean unused question from this lesson's quiz pool.
+    const pool = getQuizForLesson(lesson.id)
+    const usedIds = new Set<string>()
+    raw.sections.forEach(s => {
+      if (s.type === "micro-check" || s.type === "mastery-check") s.questions.forEach(q => usedIds.add(q.id))
+      if (s.type === "applied-question") usedIds.add(s.question.id)
+    })
+    const deBias = (q: QuizQuestion): QuizQuestion => {
+      const normalized = normalizeOptionLengths(q)
+      if (questionPassesQualityChecks(normalized)) return normalized
+      const substitute = pool.find(p => !usedIds.has(p.id) && questionPassesQualityChecks(normalizeOptionLengths(p)))
+      if (substitute) {
+        usedIds.add(substitute.id)
+        return normalizeOptionLengths(substitute)
+      }
+      return normalized // no clean replacement available — trimmed original beats nothing
+    }
+
     // Process all question sections through the MCQ engine for balanced positions & length normalization
     const processedSections = raw.sections.map(section => {
       if (section.type === "micro-check") {
-        return { ...section, questions: shuffleQuestionSet(section.questions) }
+        return { ...section, questions: shuffleQuestionSet(section.questions.map(deBias)) }
       }
       if (section.type === "applied-question") {
-        const [processed] = shuffleQuestionSet([section.question])
+        const [processed] = shuffleQuestionSet([deBias(section.question)])
         return { ...section, question: processed }
       }
       if (section.type === "mastery-check") {
-        return { ...section, questions: shuffleQuestionSet(section.questions) }
+        return { ...section, questions: shuffleQuestionSet(section.questions.map(deBias)) }
       }
       return section
     })

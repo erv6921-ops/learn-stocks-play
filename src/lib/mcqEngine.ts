@@ -45,6 +45,132 @@ function hasLengthBias(question: QuizQuestion): boolean {
   return false
 }
 
+// ── Render-time length normalization ─────────────────────────────────────
+// Positional shuffling can never hide the classic tell where the CORRECT
+// answer is written as the longest, most detailed option (much of the authored
+// question bank has this bias). Before shuffling, trim trailing elaboration
+// clauses off standout-long options until the correct answer no longer sticks
+// out. Only clearly-decorative tails are cut, and never below 5 words, so the
+// core assertion of the option is preserved (full reasoning still lives in the
+// explanation shown after answering).
+const TRAILING_CLAUSE_CUTTERS: RegExp[] = [
+  /,\s+(?:which|so|and|but|making|allowing|helping|leading|giving|keeping|letting|creating|reducing|ensuring|even)\b[^]*$/i,
+  /\s+because\b[^]*$/i,
+  /\s+so that\b[^]*$/i,
+  /\s+(?:—|–)\s[^]*$/,
+  /\s+while\b[^]*$/i,
+  /\s+instead of\b[^]*$/i,
+  /\s+rather than\b[^]*$/i,
+  /\s+even if\b[^]*$/i,
+  /\s+over time[.!]?$/i,
+]
+
+function trimTrailingClause(text: string): string {
+  for (const cutter of TRAILING_CLAUSE_CUTTERS) {
+    const trimmed = text.replace(cutter, "")
+    if (trimmed === text) continue
+    const cleaned = stripWeakTail(trimmed)
+    if (cleaned && countWords(cleaned) >= 5) return cleaned
+  }
+  return text
+}
+
+// Words an option must never END on after a cut (dangling grammar).
+const WEAK_TAIL_WORDS = new Set([
+  "for", "to", "with", "of", "a", "an", "the", "and", "or", "nor", "in", "by",
+  "on", "at", "as", "from", "into", "that", "which", "because", "so", "while",
+  "their", "your", "its", "my", "our", "his", "her", "than", "but", "if",
+  "is", "are", "be", "being", "been", "was", "were", "has", "have", "had",
+  "can", "could", "will", "would", "may", "might", "must", "should",
+  "even", "also", "still", "just", "only", "very", "quite", "more", "most",
+  "less", "least", "not", "no", "any", "some", "each", "every", "both",
+  "either", "neither", "such", "how", "what", "who", "where", "why", "when",
+  "it", "this", "these", "those", "they", "we", "you", "i",
+])
+
+// Phrase-boundary words where a trailing cut is grammatically safe-ish.
+// Note: no "to" — infinitives bind too tightly ("the desire to match…").
+const CUT_BOUNDARY_WORDS = new Set([
+  "for", "with", "by", "in", "on", "so", "that", "which", "because",
+  "while", "without", "across", "over", "instead", "rather", "and", "or",
+  "when", "before", "after", "during", "through", "unless", "since",
+])
+
+const cleanWord = (w: string) => w.toLowerCase().replace(/[^a-z']/g, "")
+
+// Drop trailing weak/dangling words + punctuation after a cut. Returns null
+// when the cleanup can't produce a well-formed remainder.
+function stripWeakTail(text: string): string | null {
+  let words = text.trim().split(/\s+/)
+  while (words.length > 0 && WEAK_TAIL_WORDS.has(cleanWord(words[words.length - 1]))) words.pop()
+  if (words.length < 5) return null
+  const out = words.join(" ").replace(/[,;:—–-]+$/, "").trim()
+  if (!isBalanced(out)) return null
+  return out
+}
+
+// A candidate must not strand an unclosed dash-aside, paren or quote.
+function isBalanced(text: string): boolean {
+  if (((text.match(/[—–]/g) || []).length) % 2 === 1) return false
+  if ((text.match(/\(/g) || []).length !== (text.match(/\)/g) || []).length) return false
+  if (((text.match(/"/g) || []).length) % 2 === 1) return false
+  return true
+}
+
+/**
+ * Shorten `text` toward `targetWords` by cutting trailing phrases at safe
+ * boundaries. Returns the original text when no clean cut exists. A vaguer but
+ * still-true correct answer beats a guessable one — distractors are factually
+ * wrong, so the trimmed correct option remains the best choice, and the full
+ * reasoning still appears in the explanation after answering.
+ */
+function shortenToward(text: string, targetWords: number): string {
+  const words = text.trim().replace(/[.!]\s*$/, "").split(/\s+/)
+
+  // Collect clean candidate prefixes at safe boundaries, longest first.
+  const candidates: string[] = []
+  for (let i = words.length - 1; i >= 5; i--) {
+    const boundary = CUT_BOUNDARY_WORDS.has(cleanWord(words[i])) || /[,;:]$/.test(words[i - 1])
+    if (!boundary) continue
+    const candidate = stripWeakTail(words.slice(0, i).join(" "))
+    if (candidate) candidates.push(candidate)
+  }
+
+  // Prefer the longest candidate that reaches the target; otherwise take the
+  // shortest clean candidate (narrowing the gap still weakens the tell).
+  for (const candidate of candidates) {
+    if (countWords(candidate) <= targetWords) return candidate
+  }
+  return candidates.length > 0 ? candidates[candidates.length - 1] : text
+}
+
+export function normalizeOptionLengths(question: QuizQuestion): QuizQuestion {
+  const options = [...question.options]
+
+  // Pass 1: clip decorative trailing clauses off whichever option is the
+  // standout longest, while the engine's bias heuristics still flag the set.
+  for (let pass = 0; pass < 4; pass++) {
+    if (!hasLengthBias({ ...question, options })) break
+    const counts = options.map(countWords)
+    const longestIdx = counts.indexOf(Math.max(...counts))
+    const trimmed = trimTrailingClause(options[longestIdx])
+    if (trimmed === options[longestIdx]) break // no safe cut available
+    options[longestIdx] = trimmed
+  }
+
+  // Pass 2: kill the "pick the longest" tell outright — if the CORRECT answer
+  // is still strictly the longest, shorten it toward the second-longest
+  // option at safe phrase boundaries.
+  const counts = options.map(countWords)
+  const correctWords = counts[question.correctAnswer]
+  const othersMax = Math.max(...counts.filter((_, i) => i !== question.correctAnswer))
+  if (correctWords > othersMax) {
+    options[question.correctAnswer] = shortenToward(options[question.correctAnswer], othersMax)
+  }
+
+  return { ...question, options }
+}
+
 function hasWeakDistractor(question: QuizQuestion): boolean {
   const counts = getWordCounts(question.options)
   const avg = average(counts)
@@ -83,7 +209,9 @@ function fisherYates<T>(items: T[]): T[] {
   return copy
 }
 
-export function shuffleQuestion(q: QuizQuestion): QuizQuestion {
+export function shuffleQuestion(question: QuizQuestion): QuizQuestion {
+  // Strip length bias first — position shuffling can't fix option text.
+  const q = normalizeOptionLengths(question)
   let fallback: QuizQuestion | null = null
 
   for (let attempt = 0; attempt < MAX_SINGLE_ATTEMPTS; attempt++) {
