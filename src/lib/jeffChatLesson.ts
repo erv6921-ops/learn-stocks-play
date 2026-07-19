@@ -67,9 +67,28 @@ export function openingHook(lesson: Lesson): Hook {
   }
 }
 
-/** Jeff's hardcoded opener — no API call needed for the first message. */
+// Jeff already introduced himself in onboarding, so lessons skip the "I'm Jeff"
+// every time. Instead he rolls in casually — sometimes fresh off some random
+// activity, sometimes just diving straight in.
+const LESSON_OPENERS: ((title: string) => string)[] = [
+  (t) => `Just got back from a run 🏃 — anyway, today it's ${t}.`,
+  (t) => `Phew, just finished a pickup basketball game 🏀 Okay, ${t} time.`,
+  (t) => `Was out on a walk, but I'm back 🚶 Let's talk ${t}.`,
+  (t) => `Just grabbed a snack 🍎 Alright — ${t}.`,
+  (t) => `Fresh off beating my high score 🎮 So, ${t}.`,
+  (t) => `Just wrapped up a quick nap 😴 Now — ${t}.`,
+  (t) => `Back from the gym 💪 Today we're on ${t}.`,
+  (t) => `Just made myself a smoothie 🥤 Cool, let's do ${t}.`,
+  (t) => `Okay, let's jump right in — ${t}.`,
+  (t) => `Ready when you are. Today it's ${t}.`,
+  (t) => `${t}. This one's actually kinda fun.`,
+  (t) => `Alright, ${t} — let's get into it.`,
+]
+
+/** Jeff's opener — no API call needed for the first message. */
 export function initialJeffMessage(lesson: Lesson): string {
-  return `Hey! I'm Jeff 👋 I'll be teaching you about ${lesson.title} today. Quick question first — ${openingHook(lesson).question}`
+  const opener = LESSON_OPENERS[Math.floor(Math.random() * LESSON_OPENERS.length)](lesson.title)
+  return `${opener} Quick question first — ${openingHook(lesson).question}`
 }
 
 /** Reply options matching the opener's hook question. */
@@ -85,6 +104,8 @@ Your personality: enthusiastic, encouraging, uses casual teen-friendly language,
 Your job: teach the core concept of this lesson through a back-and-forth conversation. Start by introducing the topic with a hook (surprising stat or relatable scenario). Then explain the concept across 4-6 message exchanges. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.
 
 Always end your final message with exactly: 'Ready to test what you learned? 🎯' — this is the signal to show the quiz button.
+
+The student already knows you — never introduce yourself or say "I'm Jeff." Just dive into teaching.
 
 Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.`
 }
