@@ -916,7 +916,7 @@ function EmptyState({ icon: Icon, label, cta, to }: {icon: React.ComponentType<{
 }
 
 // Live snapshot of the player's micro-business (mirrors /micro-business state).
-export function BusinessSnapshot({ type, sim }: { type: BusinessType; sim: BizState }) {
+function BusinessSnapshot({ type, sim }: { type: BusinessType; sim: BizState }) {
   const def = bizDef(type);
   const status = statusLabel(sim);
   const revPerMonth = monthlyRevenue(sim);
