@@ -1068,13 +1068,14 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
   const n = lessons.length;
 
   // Geometry in viewBox units, then rendered at a fixed pixel height so Jeff's
-  // cart never clips regardless of how many stations there are.
-  const padL = 56, padR = 56, sx = 122;
+  // cart never clips regardless of how many stations there are. Generous edge
+  // padding keeps his speech bubble on-screen even at the first/last station.
+  const padL = 84, padR = 84, sx = 122;
   const W = Math.max(560, padL + padR + Math.max(0, n - 1) * sx);
   const H = 240;
   const groundY = 214;
   const my = 124, amp = 52;
-  const HPX = 320;
+  const HPX = 360;
   const scale = HPX / H;
   const WPX = W * scale;
 
@@ -1082,7 +1083,8 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
     const x = n > 1 ? padL + i * ((W - padL - padR) / (n - 1)) : W / 2;
     const trend = n > 1 ? (my + 30) - (i / (n - 1)) * 60 : my;
     const hill = -amp * Math.sin(i * 1.15 + 0.5);
-    const y = Math.max(72, Math.min(186, trend + hill));
+    // Min y of 86 leaves headroom above the tallest hill for cart + bubble.
+    const y = Math.max(86, Math.min(186, trend + hill));
     return { x, y };
   };
   const pts = Array.from({ length: Math.max(n, 1) }, (_, i) => pointAt(i));
@@ -1151,6 +1153,15 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
   }
 
   const px = (v: number) => v * scale;
+
+  // Keep Jeff's speech bubble fully inside the track area: estimate its half
+  // width from the text and nudge it right/left when he's near an edge, so the
+  // words never get cut off. The tail arrow stays centered on Jeff.
+  const bubbleHalf = Math.min(180, Math.round(dialogue.length * 3.6 + 20));
+  const bubbleShift = Math.round(
+    Math.max(0, bubbleHalf + 10 - px(jeff.x)) +
+    Math.min(0, (WPX - 10) - (px(jeff.x) + bubbleHalf))
+  );
 
   return (
     <div ref={scrollRef} className="w-full overflow-x-auto no-scrollbar">
@@ -1291,10 +1302,10 @@ function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isComplet
             className="flex flex-col items-center cursor-pointer select-none"
             aria-label={celebrate ? "Unit complete" : "Continue current lesson"}
           >
-            {/* Jeff's speech bubble */}
+            {/* Jeff's speech bubble — shifted near the edges so it never clips */}
             <div className="relative mb-2">
-              <div className="rounded-2xl px-3 py-1.5 text-[11px] font-bold whitespace-nowrap shadow-md"
-                style={{ background: "#fff", color: "#2C2C2A", border: "1.5px solid hsl(45 12% 86%)" }}>
+              <div className="rounded-2xl px-3.5 py-2 text-[12px] font-bold whitespace-nowrap shadow-md"
+                style={{ background: "#fff", color: "#2C2C2A", border: "1.5px solid hsl(45 12% 86%)", transform: `translateX(${bubbleShift}px)` }}>
                 {dialogue}
               </div>
               <div className="absolute left-1/2 -bottom-1.5 w-3 h-3 rotate-45"
