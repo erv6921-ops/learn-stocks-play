@@ -534,7 +534,7 @@ export default function Lessons() {
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
 
-      <main className="container mx-auto px-4 md:px-6 py-6 max-w-5xl">
+      <main className="container mx-auto px-4 md:px-6 py-6 max-w-7xl">
         {/* Course track switcher (left) + Fullscreen button (right), one row.
             Biz Lab students see only Regular Course + Gulliver Biz Lab;
             everyone else keeps the AP Micro elective tab. */}
@@ -623,15 +623,18 @@ export default function Lessons() {
                   )}
                 </div>
 
-                {/* Stat strip — same info, one cohesive panel */}
+                {/* Stat strip — all six player stats in one row across the hero */}
                 {statsReady ? (
-                  <div className="mt-4 grid grid-cols-3 rounded-2xl bg-white/[0.06] border border-white/10 divide-x divide-white/10">
+                  <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
                     {[
                       { Icon: Flame, tint: "text-orange-400", value: String(streak), label: "Day streak" },
                       { Icon: Coins, tint: "text-gold", value: jeffsBalance.toLocaleString(), label: "Points" },
                       { Icon: Star, tint: "text-yellow-300", value: `Lv ${level}`, label: "Level" },
+                      { Icon: Flame, tint: "text-orange-300", value: `${bestStreak}d`, label: "Best streak" },
+                      { Icon: Coins, tint: "text-gold", value: coinsThisWeek.toLocaleString(), label: "This week" },
+                      { Icon: Target, tint: "text-emerald-300", value: `${timeSpentMins}m`, label: "Time spent" },
                     ].map(({ Icon, tint, value, label }) => (
-                      <div key={label} className="px-3 py-3 sm:px-4 flex items-center gap-2.5 min-w-0">
+                      <div key={label} className="rounded-xl bg-white/[0.06] border border-white/10 px-3 py-2.5 flex items-center gap-2.5 min-w-0">
                         <Icon className={`w-4 h-4 shrink-0 ${tint}`} />
                         <div className="min-w-0">
                           <p className="text-base md:text-lg font-extrabold leading-none tabular-nums">{value}</p>
@@ -703,66 +706,18 @@ export default function Lessons() {
               </div>
             </motion.div>
 
-            {/* #7 Mini stat grid (fills space between card and unit tabs) */}
-            {statsReady ? (
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                {[
-                  { label: "Best streak", value: `${bestStreak} day${bestStreak === 1 ? "" : "s"}` },
-                  { label: "Coins this week", value: coinsThisWeek.toLocaleString() },
-                  { label: "Time spent", value: `${timeSpentMins} mins` },
-                ].map(s => (
-                  <div key={s.label} className="rounded-2xl bg-muted/50 border border-border/40 px-3 py-3 text-center">
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider truncate">{s.label}</p>
-                    <p className="text-base font-extrabold text-foreground mt-0.5">{s.value}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                {[0, 1, 2].map(i => <div key={i} className="h-[58px] rounded-2xl animate-pulse bg-muted" />)}
-              </div>
-            )}
+            {/* Two-column desktop layout: journey (left) + goals & trophies (right) */}
+            <div className="grid lg:grid-cols-3 gap-5 items-start">
+            <div className="lg:col-span-2 space-y-4 min-w-0">
 
-            {/* #5 Badges section */}
-            <div className="mb-5">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="font-display text-sm font-bold flex items-center gap-1.5">
-                  <Award className="w-4 h-4 text-gold" /> Your badges
-                </h2>
-                <span className="text-[11px] font-semibold text-muted-foreground">{earnedBadgeCount} earned</span>
-              </div>
-              {statsReady ? (
-                <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
-                  {badges.map(b => (
-                    <div key={b.id} className="shrink-0 w-[72px] flex flex-col items-center gap-1.5 text-center">
-                      <div className={`relative w-12 h-12 rounded-full flex items-center justify-center ${b.earned ? "" : "grayscale opacity-50"}`}
-                        style={{ background: b.earned ? "linear-gradient(135deg,#1D9E75,#0f2d1e)" : "hsl(45 10% 88%)" }}>
-                        <b.Icon className={`w-5 h-5 ${b.earned ? "text-white" : "text-muted-foreground"}`} />
-                        {!b.earned && (
-                          <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-muted-foreground/80 flex items-center justify-center">
-                            <Lock className="w-2.5 h-2.5 text-white" />
-                          </span>
-                        )}
-                      </div>
-                      <span className={`text-[10px] leading-tight font-semibold ${b.earned ? "text-foreground" : "text-muted-foreground"}`}>{b.name}</span>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="flex gap-3 pb-1">
-                  {[0, 1, 2, 3, 4, 5].map(i => <div key={i} className="shrink-0 w-12 h-12 rounded-full animate-pulse bg-muted" />)}
-                </div>
-              )}
-            </div>
-
-            {/* 3. Unit strip — scrollable "mission" tabs */}
-            <div className="mb-4">
+            {/* 3. Unit grid — every "mission" visible at once, no side-scrolling */}
+            <div>
               <div className="flex items-center justify-between mb-2">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Units</p>
                 <span className="text-[11px] font-semibold text-muted-foreground">{trackUnits.length} in this track</span>
               </div>
               <div className="relative">
-                <div ref={stripRef} className="flex gap-2.5 overflow-x-auto pb-2 no-scrollbar">
+                <div ref={stripRef} className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                   {trackUnits.map((unit) => {
                     const adaptive = adaptiveCurriculum.get(unit.id);
                     const uLessons = adaptive?.lessons ?? [];
@@ -786,7 +741,7 @@ export default function Lessons() {
                         data-unit={unit.id}
                         ref={anchor("lesson-node")}
                         onClick={() => handleUnitTabClick(unit.id)}
-                        className="shrink-0 rounded-2xl p-3 text-left transition-all duration-200 w-[160px] press-scale hover:-translate-y-0.5"
+                        className="rounded-2xl p-3 text-left transition-all duration-200 w-full press-scale hover:-translate-y-0.5"
                         style={{
                           background: isActive ? "#2C2C2A" : isComplete ? "#E1F5EE" : "hsl(45 10% 93%)",
                           opacity: isLocked ? 0.55 : 1,
@@ -817,15 +772,12 @@ export default function Lessons() {
                     );
                   })}
                 </div>
-                {/* Right fade hint */}
-                <div className="pointer-events-none absolute right-0 top-0 bottom-2 w-12"
-                  style={{ background: "linear-gradient(to right, transparent, hsl(var(--background)))" }} />
               </div>
             </div>
 
             {/* #8 Locked-unit preview panel */}
             {previewUnit && (
-              <div className="rounded-[20px] bg-card px-6 py-5 mb-4"
+              <div className="rounded-[20px] bg-card px-6 py-5"
                 style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.15em]">
@@ -843,16 +795,6 @@ export default function Lessons() {
                   <Lock className="w-3.5 h-3.5" />
                   Complete Unit {Math.max(1, previewUnit.unitNumber - 1)} first to unlock
                 </p>
-              </div>
-            )}
-
-            {/* AP Micro: unit challenge tie-in (simulator / lab / business mode) */}
-            {activeTrack === "ap-micro" && AP_UNIT_CHALLENGES[activeUnitId] && (
-              <div className="rounded-[20px] px-5 py-4 mb-4 border" style={{ borderColor: "hsl(45 10% 82%)", background: "rgba(29,158,117,0.06)" }}>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-[#1D9E75] flex items-center gap-1.5 mb-1">
-                  <Target className="w-3.5 h-3.5" /> Apply it — challenge
-                </p>
-                <p className="text-sm text-foreground/80">{AP_UNIT_CHALLENGES[activeUnitId]}</p>
               </div>
             )}
 
@@ -907,7 +849,7 @@ export default function Lessons() {
             ) : null}
 
             {/* Lesson list below chart (condensed) */}
-            <div className="mt-4 rounded-[20px] bg-card overflow-hidden"
+            <div className="rounded-[20px] bg-card overflow-hidden"
               style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
               {activeLessons.map((al, idx) => {
                 const lesson = al.lesson;
@@ -961,6 +903,21 @@ export default function Lessons() {
               })}
             </div>
 
+            </div>{/* /left column */}
+
+            {/* ── Right sidebar: goals & trophies ── */}
+            <div className="space-y-4 min-w-0">
+
+            {/* AP Micro: unit challenge tie-in (simulator / lab / business mode) */}
+            {activeTrack === "ap-micro" && AP_UNIT_CHALLENGES[activeUnitId] && (
+              <div className="rounded-[20px] px-5 py-4 border" style={{ borderColor: "hsl(45 10% 82%)", background: "rgba(29,158,117,0.06)" }}>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#1D9E75] flex items-center gap-1.5 mb-1">
+                  <Target className="w-3.5 h-3.5" /> Apply it — challenge
+                </p>
+                <p className="text-sm text-foreground/80">{AP_UNIT_CHALLENGES[activeUnitId]}</p>
+              </div>
+            )}
+
             {/* Unit Test CTA — shown for categories that have authored test
                 data; unlocks once every lesson in the unit is done. (The
                 /unit-test route previously had no inbound link anywhere.) */}
@@ -973,7 +930,7 @@ export default function Lessons() {
               );
               const passed = !!unitTestPassed(testCategory);
               return (
-                <div className={`mt-3 rounded-[20px] bg-card p-4 flex items-center gap-3 ${!allDone && !passed ? "opacity-60" : ""}`}
+                <div className={`rounded-[20px] bg-card p-4 flex items-center gap-3 ${!allDone && !passed ? "opacity-60" : ""}`}
                   style={{ border: passed ? "1.5px solid #1D9E75" : "0.5px solid hsl(45 10% 82%)" }}>
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${passed ? "bg-[#1D9E75]/10 text-[#1D9E75]" : "bg-[#EF9F27]/10 text-[#EF9F27]"}`}>
                     {passed ? <CheckCircle className="w-4.5 h-4.5" /> : <Trophy className="w-4.5 h-4.5" />}
@@ -1004,6 +961,42 @@ export default function Lessons() {
                 </div>
               );
             })()}
+
+            {/* #5 Badges — trophy cabinet */}
+            <div className="rounded-[20px] bg-card px-5 py-4"
+              style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="font-display text-sm font-bold flex items-center gap-1.5">
+                  <Award className="w-4 h-4 text-gold" /> Your badges
+                </h2>
+                <span className="text-[11px] font-semibold text-muted-foreground">{earnedBadgeCount} earned</span>
+              </div>
+              {statsReady ? (
+                <div className="grid grid-cols-3 gap-x-2 gap-y-4">
+                  {badges.map(b => (
+                    <div key={b.id} className="flex flex-col items-center gap-1.5 text-center">
+                      <div className={`relative w-12 h-12 rounded-full flex items-center justify-center ${b.earned ? "" : "grayscale opacity-50"}`}
+                        style={{ background: b.earned ? "linear-gradient(135deg,#1D9E75,#0f2d1e)" : "hsl(45 10% 88%)" }}>
+                        <b.Icon className={`w-5 h-5 ${b.earned ? "text-white" : "text-muted-foreground"}`} />
+                        {!b.earned && (
+                          <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-muted-foreground/80 flex items-center justify-center">
+                            <Lock className="w-2.5 h-2.5 text-white" />
+                          </span>
+                        )}
+                      </div>
+                      <span className={`text-[10px] leading-tight font-semibold ${b.earned ? "text-foreground" : "text-muted-foreground"}`}>{b.name}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-3 gap-3">
+                  {[0, 1, 2, 3, 4, 5].map(i => <div key={i} className="w-12 h-12 mx-auto rounded-full animate-pulse bg-muted" />)}
+                </div>
+              )}
+            </div>
+
+            </div>{/* /sidebar */}
+            </div>{/* /two-column grid */}
           </>
         )}
       </main>
