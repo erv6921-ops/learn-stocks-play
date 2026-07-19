@@ -710,14 +710,14 @@ export default function Lessons() {
             <div className="grid lg:grid-cols-3 gap-5 items-start">
             <div className="lg:col-span-2 space-y-4 min-w-0">
 
-            {/* 3. Unit grid — every "mission" visible at once, no side-scrolling */}
+            {/* 3. Unit strip — scrollable "mission" tabs */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Units</p>
                 <span className="text-[11px] font-semibold text-muted-foreground">{trackUnits.length} in this track</span>
               </div>
               <div className="relative">
-                <div ref={stripRef} className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <div ref={stripRef} className="flex gap-2.5 overflow-x-auto pb-2 no-scrollbar">
                   {trackUnits.map((unit) => {
                     const adaptive = adaptiveCurriculum.get(unit.id);
                     const uLessons = adaptive?.lessons ?? [];
@@ -741,7 +741,7 @@ export default function Lessons() {
                         data-unit={unit.id}
                         ref={anchor("lesson-node")}
                         onClick={() => handleUnitTabClick(unit.id)}
-                        className="rounded-2xl p-3 text-left transition-all duration-200 w-full press-scale hover:-translate-y-0.5"
+                        className="shrink-0 rounded-2xl p-3 text-left transition-all duration-200 w-[160px] press-scale hover:-translate-y-0.5"
                         style={{
                           background: isActive ? "#2C2C2A" : isComplete ? "#E1F5EE" : "hsl(45 10% 93%)",
                           opacity: isLocked ? 0.55 : 1,
@@ -772,6 +772,9 @@ export default function Lessons() {
                     );
                   })}
                 </div>
+                {/* Right fade hint */}
+                <div className="pointer-events-none absolute right-0 top-0 bottom-2 w-12"
+                  style={{ background: "linear-gradient(to right, transparent, hsl(var(--background)))" }} />
               </div>
             </div>
 
@@ -848,59 +851,71 @@ export default function Lessons() {
               </motion.div>
             ) : null}
 
-            {/* Lesson list below chart (condensed) */}
-            <div className="rounded-[20px] bg-card overflow-hidden"
-              style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
-              {activeLessons.map((al, idx) => {
-                const lesson = al.lesson;
-                const completed = al.status === "validated" || !!isLessonCompleted(lesson.id);
-                const unlocked = isLessonUnlocked(activeUnitId, lesson.id);
-                const isValidated = al.status === "validated";
-                const isCurrent = idx === currentLessonIdx;
+            {/* Lesson cards — same card language as the unit tabs, one per lesson */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                  {activeUnit ? `Unit ${activeUnit.unitNumber} lessons` : "Lessons"}
+                </p>
+                <span className="text-[11px] font-semibold text-muted-foreground">{completedCount}/{totalLessons} done</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                {activeLessons.map((al, idx) => {
+                  const lesson = al.lesson;
+                  const completed = al.status === "validated" || !!isLessonCompleted(lesson.id);
+                  const unlocked = isLessonUnlocked(activeUnitId, lesson.id);
+                  const isValidated = al.status === "validated";
+                  const isCurrent = idx === currentLessonIdx && !completed;
+                  const locked = !unlocked && !completed;
 
-                if (!unlocked && !completed) {
-                  return (
-                    <div key={lesson.id}
-                      className="flex items-center gap-3 px-5 py-3 opacity-40 border-b last:border-b-0"
-                      style={{ borderColor: "hsl(45 10% 92%)" }}>
-                      <div className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0 bg-muted/60 text-muted-foreground">
-                        <Lock className="w-3 h-3" />
+                  // Same palette as the unit tabs: charcoal current, light-green
+                  // complete, warm-grey default; gold/green accents.
+                  const labelColor = isCurrent ? "rgba(255,255,255,0.55)" : completed ? "#1D9E75" : "hsl(215 12% 52%)";
+                  const titleColor = isCurrent ? "#fff" : completed ? "#0f6b4f" : "hsl(215 12% 28%)";
+
+                  const card = (
+                    <div
+                      className={`rounded-2xl p-3 text-left transition-all duration-200 h-full ${locked ? "" : "press-scale hover:-translate-y-0.5"}`}
+                      style={{
+                        background: isCurrent ? "#2C2C2A" : completed ? "#E1F5EE" : "hsl(45 10% 93%)",
+                        opacity: locked ? 0.55 : 1,
+                        boxShadow: isCurrent ? "0 8px 20px rgba(44,44,42,0.22)" : "none",
+                        border: isCurrent ? "1px solid #2C2C2A" : completed ? "1px solid rgba(29,158,117,0.22)" : "1px solid hsl(45 10% 86%)",
+                      }}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: labelColor }}>
+                          Lesson {idx + 1}
+                        </span>
+                        <span className="shrink-0 flex items-center">
+                          {locked ? <Lock className="w-3 h-3" style={{ color: labelColor }} />
+                            : completed ? <CheckCircle className="w-4 h-4" style={{ color: "#1D9E75" }} />
+                            : isCurrent ? <span className="text-[9px] font-extrabold uppercase tracking-wider" style={{ color: "#EF9F27" }}>Up next</span>
+                            : null}
+                        </span>
                       </div>
-                      <span className="flex-1 text-[13px] font-semibold text-foreground/50 truncate">{lesson.title}</span>
-                      <span className="text-xs text-muted-foreground/40 font-bold font-mono">
-                        +{Math.round(lesson.reward * multiplier)}
+                      <span className="text-[12.5px] font-bold block mt-1 leading-snug line-clamp-2 min-h-[2.4em]" style={{ color: titleColor }}>
+                        {lesson.title}
                       </span>
+                      <div className="mt-2.5 flex items-center justify-between gap-2">
+                        <span className="text-[11px] font-bold font-mono" style={{ color: completed ? "#1D9E75" : isCurrent ? "#EF9F27" : labelColor }}>
+                          +{Math.round(lesson.reward * multiplier)} pts
+                        </span>
+                        {!completed && !locked && (
+                          <span title="Chat with Jeff" className="shrink-0 inline-flex"><JeffChatAvatar size={16} /></span>
+                        )}
+                        {isValidated && <span className="text-[9px] font-bold" style={{ color: "#1D9E75" }}>Validated</span>}
+                      </div>
                     </div>
                   );
-                }
 
-                return (
-                  <Link key={lesson.id} to={`/lessons/${lesson.id}`}
-                    className={`flex items-center gap-3 px-5 py-3 transition-colors border-b last:border-b-0 ${
-                      isCurrent ? "bg-[#EF9F27]/5" : completed ? "bg-[#1D9E75]/3" : "hover:bg-muted/20"
-                    }`}
-                    style={{ borderColor: "hsl(45 10% 92%)" }}>
-                    <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 text-[10px] font-bold ${
-                      completed ? "bg-[#1D9E75]/10 text-[#1D9E75]" :
-                      isCurrent ? "bg-[#EF9F27]/10 text-[#EF9F27]" :
-                      "bg-muted/60 text-muted-foreground"
-                    }`}>
-                      {completed ? <CheckCircle className="w-3.5 h-3.5" /> : `L${idx + 1}`}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <span className="text-[13px] font-semibold text-foreground/80 truncate flex items-center gap-1.5">
-                        {lesson.title}
-                        {/* Interactive "Chat with Jeff" lesson indicator */}
-                        {!completed && <span title="Chat with Jeff" className="shrink-0 inline-flex"><JeffChatAvatar size={16} /></span>}
-                      </span>
-                      {isValidated && <span className="text-[10px] text-[#1D9E75] font-bold">Validated by benchmark</span>}
-                    </div>
-                    <span className={`text-xs font-bold font-mono ${completed ? "text-[#1D9E75]" : "text-muted-foreground"}`}>
-                      +{Math.round(lesson.reward * multiplier)}
-                    </span>
-                  </Link>
-                );
-              })}
+                  return locked ? (
+                    <div key={lesson.id}>{card}</div>
+                  ) : (
+                    <Link key={lesson.id} to={`/lessons/${lesson.id}`} className="block h-full">{card}</Link>
+                  );
+                })}
+              </div>
             </div>
 
             </div>{/* /left column */}
