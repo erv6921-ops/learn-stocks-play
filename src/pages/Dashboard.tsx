@@ -16,6 +16,8 @@ import DailySignal from "@/components/DailySignal";
 import ChallengesWidget from "@/components/challenges/ChallengesWidget";
 import { anchor } from "@/lib/tourAnchors";
 import { isEarnedEntry } from "@/lib/playerStats";
+import { loadActivities, bizDef, type ActivitiesState, type BusinessType } from "@/lib/businessActivities";
+import { type BizState, monthlyRevenue, statusLabel } from "@/lib/businessSim";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, Wallet,
@@ -163,6 +165,13 @@ export default function Dashboard() {
   const dailyDate = new Date();
   const dailyToday = `${dailyDate.getFullYear()}-${String(dailyDate.getMonth() + 1).padStart(2, "0")}-${String(dailyDate.getDate()).padStart(2, "0")}`;
   const dailyGameName = dailyDate.getDate() % 2 === 0 ? "Higher or Lower" : "Daily Scenario";
+  // Live micro-business state so the dashboard snapshot mirrors /micro-business.
+  const [bizActivities, setBizActivities] = useState<ActivitiesState | null>(null);
+  useEffect(() => { loadActivities().then(setBizActivities); }, []);
+  const bizType = bizActivities?.businessType ?? null;
+  const bizSim = (bizActivities?.sim as BizState | undefined) ?? null;
+  const hasBusiness = !!bizType;
+
   const [dailyDone, setDailyDone] = useState(false);
   useEffect(() => {
     let cancelled = false;
@@ -852,7 +861,11 @@ export default function Dashboard() {
               </Link>
             </CardHeader>
             <CardContent className="px-6 pb-6">
-              <EmptyState icon={Coins} label="Build your micro-business" cta="Get Started" to="/micro-business" />
+              {hasBusiness && bizSim ? (
+                <BusinessSnapshot type={bizType!} sim={bizSim} />
+              ) : (
+                <EmptyState icon={Coins} label="Build your micro-business" cta="Get Started" to="/micro-business" />
+              )}
             </CardContent>
           </Card>
         </div>
@@ -898,6 +911,79 @@ function EmptyState({ icon: Icon, label, cta, to }: {icon: React.ComponentType<{
       <Link to={to}>
         <Button variant="hero" size="sm" className="press-scale">{cta}</Button>
       </Link>
+    </div>);
+
+}
+
+// Live snapshot of the player's micro-business (mirrors /micro-business state).
+export function BusinessSnapshot({ type, sim }: { type: BusinessType; sim: BizState }) {
+  const def = bizDef(type);
+  const status = statusLabel(sim);
+  const revPerMonth = monthlyRevenue(sim);
+  const failed = sim.status === "failed";
+  const Icon = def.icon;
+
+  const stats: { label: string; value: string }[] = [
+    { label: "Month", value: String(sim.month) },
+    { label: "Cash", value: `${Math.round(sim.cash).toLocaleString()}` },
+    { label: "Customers", value: sim.customers.toLocaleString() },
+    { label: "Revenue/mo", value: revPerMonth.toLocaleString() },
+  ];
+
+  return (
+    <div className="space-y-3">
+      {/* Header: business type + status */}
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${def.color}1a` }}>
+            <Icon className="w-4 h-4" style={{ color: def.color }} />
+          </span>
+          <div className="min-w-0">
+            <p className="text-sm font-bold truncate">{def.label}</p>
+            <p className="text-[11px] text-muted-foreground truncate">{def.blurb}</p>
+          </div>
+        </div>
+        <span className="text-[11px] font-bold px-2 py-1 rounded-full shrink-0"
+          style={{ background: `${status.color}1a`, color: status.color }}>
+          {status.label}
+        </span>
+      </div>
+
+      {failed ? (
+        <div className="rounded-xl bg-destructive/5 border border-destructive/20 px-3 py-3 text-center">
+          <p className="text-sm font-bold text-destructive">Your business folded in month {sim.month}</p>
+          <p className="text-[11px] text-muted-foreground mt-0.5">Head to the office to rebuild and try again.</p>
+        </div>
+      ) : (
+        <>
+          {/* Key stats */}
+          <div className="grid grid-cols-2 gap-2">
+            {stats.map((s) => (
+              <div key={s.label} className="rounded-xl bg-muted/40 border border-border/40 px-3 py-2">
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider truncate">{s.label}</p>
+                <p className="text-sm font-extrabold tabular-nums mt-0.5 flex items-center gap-1">
+                  {(s.label === "Cash" || s.label === "Revenue/mo") && <Coins className="w-3 h-3 text-gold" />}
+                  {s.value}
+                </p>
+              </div>
+            ))}
+          </div>
+          {/* Reputation & Brand bars */}
+          <div className="grid grid-cols-2 gap-3 pt-0.5">
+            {([["Reputation", sim.reputation], ["Brand", sim.brand]] as const).map(([label, val]) => (
+              <div key={label}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">{label}</span>
+                  <span className="text-[10px] font-bold tabular-nums">{Math.round(val)}</span>
+                </div>
+                <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                  <div className="h-full rounded-full" style={{ width: `${Math.max(0, Math.min(100, val))}%`, background: def.color }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>);
 
 }
