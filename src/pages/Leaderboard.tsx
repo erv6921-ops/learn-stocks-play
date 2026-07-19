@@ -62,6 +62,8 @@ export default function Leaderboard() {
   const [joiningClass, setJoiningClass] = useState(false)
   const [myClasses, setMyClasses] = useState<{ id: string; name: string; joinCode: string }[]>([])
   const [classMembers, setClassMembers] = useState<{ name: string; userId: string; xp: number }[]>([])
+  // Accepted partners from the Partners directory — powers the Friends tab.
+  const [friendRows, setFriendRows] = useState<{ name: string; xp: number }[]>([])
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
   const [loadingClasses, setLoadingClasses] = useState(true)
 
@@ -117,6 +119,25 @@ export default function Leaderboard() {
   useEffect(() => {
     loadMyClasses()
   }, [lessonProgress, loadMyClasses])
+
+  // Friends tab = accepted partners (get_partners returns their live
+  // InvestiCoins balance in the xp field).
+  const loadFriends = useCallback(async () => {
+    const { data, error } = await (supabase as any).rpc("get_partners")
+    if (!error && data) {
+      setFriendRows((data as { first_name: string | null; last_name: string | null; xp: number }[]).map(r => ({
+        name: `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim() || "Student",
+        xp: Number(r.xp) || 0,
+      })))
+    }
+  }, [])
+
+  useEffect(() => { loadFriends() }, [loadFriends])
+  useEffect(() => {
+    const refresh = () => { if (!document.hidden) loadFriends() }
+    window.addEventListener("focus", refresh)
+    return () => window.removeEventListener("focus", refresh)
+  }, [loadFriends])
 
   useEffect(() => {
     const refresh = () => { if (!document.hidden) loadMyClasses() }
@@ -184,6 +205,17 @@ export default function Leaderboard() {
       return entries
     }
 
+    if (scope === "friends" && friendRows.length > 0) {
+      const entries: Entry[] = [
+        ...friendRows.map(f => ({
+          name: f.name, score: f.xp, scoreLabel: "InvestiCoins", level: getLevel(f.xp), streak: 0, isMe: false,
+        })),
+        { name: "You", score: totalXp, scoreLabel: "InvestiCoins", level: getLevel(totalXp), streak: 0, isMe: true },
+      ]
+      entries.sort((a, b) => b.score - a.score)
+      return entries
+    }
+
     if (showDemo) {
       const demoData = scope === "national" ? DEMO_NATIONAL : DEMO_NATIONAL.slice(0, 5)
       const entries: Entry[] = [
@@ -195,7 +227,7 @@ export default function Leaderboard() {
     }
 
     return [{ name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true }]
-  }, [scope, myNetWorth, showDemo, classMembers, totalXp])
+  }, [scope, myNetWorth, showDemo, classMembers, friendRows, totalXp])
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
   const myRank = allEntries.findIndex(e => e.isMe) + 1
@@ -506,8 +538,15 @@ export default function Leaderboard() {
                 <p className="text-sm text-muted-foreground max-w-md mx-auto">
                   {scope === "class"
                     ? "Join a class to compete with your classmates and race up the leagues — but you can start earning InvestiCoins and climbing the ladder right now."
-                    : "Invite friends to InvestiPlay to compete together. Meanwhile, keep stacking InvestiCoins to climb the league ladder."}
+                    : "Add partners in the Find Friends directory and they'll show up here to race against."}
                 </p>
+                {scope === "friends" && (
+                  <Link to="/partners">
+                    <Button size="sm" className="mt-4 gap-1.5 font-bold">
+                      <UserPlus className="w-4 h-4" /> Find Friends
+                    </Button>
+                  </Link>
+                )}
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
