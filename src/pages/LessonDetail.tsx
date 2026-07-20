@@ -23,6 +23,9 @@ import {
 import { HintProvider } from "@/components/lesson/HintContext"
 import JeffChat from "@/components/lessons/JeffChat"
 import { buildScript } from "@/lib/jeffChatLesson"
+import { Textarea } from "@/components/ui/textarea"
+import { supabase } from "@/integrations/supabase/client"
+import { getReflectionPrompt, MIN_REFLECTION_WORDS, REFLECTION_BONUS } from "@/lib/reflectionPrompts"
 import {
   ArrowLeft,
   ArrowRight,
@@ -35,7 +38,7 @@ import {
 export default function LessonDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { lessonProgress, updateLessonProgress, earnJeffs, getRewardMultiplier } = useApp()
+  const { user, lessonProgress, updateLessonProgress, earnJeffs, getRewardMultiplier } = useApp()
 
   const lesson = lessons.find(l => l.id === id)
   const progress = lessonProgress.find(p => p.lessonId === id)
@@ -103,6 +106,13 @@ export default function LessonDetail() {
   const [totalAttempts, setTotalAttempts] = useState(0)
   // "Chat with Jeff" replaces the paragraph reading for uncompleted lessons.
   const [chatOpen, setChatOpen] = useState(false)
+  // "Make It Stick" reflection — after mastery, before the completion screen.
+  const [pendingMastery, setPendingMastery] = useState<{ correct: number; attempts: number } | null>(null)
+  const [reflectionText, setReflectionText] = useState("")
+  const [savingReflection, setSavingReflection] = useState(false)
+  const [reflectionDone, setReflectionDone] = useState(false)
+  const reflectionPrompt = lesson ? getReflectionPrompt(lesson.category, lesson.title) : ""
+  const reflectionWords = reflectionText.trim().split(/\s+/).filter(Boolean).length
 
   if (!lesson || !structuredContent) {
     return (
@@ -138,7 +148,7 @@ export default function LessonDetail() {
     }
   }
 
-  const handleMasteryComplete = (correct: number, attempts: number) => {
+  const finishLesson = (attempts: number) => {
     setTotalAttempts(attempts)
     setLessonFinished(true)
     updateLessonProgress(lesson.id, true, 100)
@@ -146,6 +156,37 @@ export default function LessonDetail() {
       earnJeffs(lesson.reward, `Completed lesson: ${lesson.title}`)
       setJeffsEarned(true)
     }
+  }
+
+  const handleMasteryComplete = (correct: number, attempts: number) => {
+    // First-time completions write a "Make It Stick" reflection before the
+    // rewards screen; replays skip straight to the finish.
+    if (isCompleted) { finishLesson(attempts); return }
+    setPendingMastery({ correct, attempts })
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const handleReflectionSubmit = async () => {
+    if (!pendingMastery || reflectionWords < MIN_REFLECTION_WORDS || savingReflection) return
+    setSavingReflection(true)
+    try {
+      if (user?.id) {
+        await (supabase as any).from("lesson_reflections").upsert(
+          {
+            user_id: user.id,
+            lesson_id: lesson.id,
+            prompt: reflectionPrompt,
+            response: reflectionText.trim(),
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "user_id,lesson_id" }
+        )
+      }
+    } catch { /* never block lesson completion on a save hiccup */ }
+    setSavingReflection(false)
+    earnJeffs(REFLECTION_BONUS, `Reflection journal: ${lesson.title}`)
+    setReflectionDone(true)
+    finishLesson(pendingMastery.attempts)
   }
 
   const handleMasteryFail = () => {
@@ -236,6 +277,58 @@ export default function LessonDetail() {
               <p className="text-xs text-muted-foreground mt-2">💬 Jeff will teach you this one in chat</p>
             </div>
           </div>
+        ) : pendingMastery && !lessonFinished ? (
+          /* ─── "Make It Stick" reflection — apply the lesson to your own life ─── */
+          <Card variant="elevated">
+            <CardContent className="p-6 md:p-8 space-y-5">
+              <div className="flex items-start gap-4">
+                <JeffMascot size="sm" />
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-primary">Make it stick</p>
+                  <h2 className="text-xl font-bold mt-0.5">Nice — you passed! Now make it yours.</h2>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Learning sticks when you put it in your own words and make a real plan.
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-primary/15 bg-primary/5 p-4">
+                <p className="text-sm font-semibold leading-relaxed">{reflectionPrompt}</p>
+              </div>
+
+              <div>
+                <Textarea
+                  value={reflectionText}
+                  onChange={(e) => setReflectionText(e.target.value)}
+                  placeholder="Write your plan in your own words…"
+                  rows={5}
+                  className="resize-none text-[15px]"
+                  autoFocus
+                />
+                <div className="flex items-center justify-between mt-2">
+                  <span className={`text-xs font-semibold ${reflectionWords >= MIN_REFLECTION_WORDS ? "text-success" : "text-muted-foreground"}`}>
+                    {reflectionWords} / {MIN_REFLECTION_WORDS} words {reflectionWords >= MIN_REFLECTION_WORDS && "✓"}
+                  </span>
+                  <span className="text-xs font-bold text-gold flex items-center gap-1">
+                    <Coins className="w-3.5 h-3.5" /> +{REFLECTION_BONUS} bonus
+                  </span>
+                </div>
+              </div>
+
+              <Button
+                size="lg"
+                className="w-full font-bold"
+                disabled={reflectionWords < MIN_REFLECTION_WORDS || savingReflection}
+                onClick={handleReflectionSubmit}
+              >
+                {savingReflection ? "Saving…" :
+                  reflectionWords < MIN_REFLECTION_WORDS
+                    ? `Write ${MIN_REFLECTION_WORDS - reflectionWords} more ${MIN_REFLECTION_WORDS - reflectionWords === 1 ? "word" : "words"} to finish`
+                    : "Lock it in & finish mission"}
+                {reflectionWords >= MIN_REFLECTION_WORDS && !savingReflection && <ArrowRight className="ml-2 w-4 h-4" />}
+              </Button>
+            </CardContent>
+          </Card>
         ) : lessonFinished || isCompleted ? (
           /* ─── Completion screen ─── */
           <Card variant="elevated">
@@ -256,6 +349,9 @@ export default function LessonDetail() {
                   <p className="text-sm text-muted-foreground">InvestiCoins earned!</p>
                   {getRewardMultiplier() > 1 && (
                     <p className="text-xs text-gold/70 mt-1">({getRewardMultiplier().toFixed(1)}x multiplier from Benchmark)</p>
+                  )}
+                  {reflectionDone && (
+                    <p className="text-xs text-gold/80 mt-1">+{REFLECTION_BONUS} reflection bonus — plan locked in 📝</p>
                   )}
                 </div>
               )}
