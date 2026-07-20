@@ -5,6 +5,12 @@ import { portfolioFundsBondsQuizzes } from "./quizzes/portfolioFundsBonds"
 import { statementsRatiosValuationQuizzes } from "./quizzes/statementsRatiosValuation"
 import { behavioralMacroQuizzes } from "./quizzes/behavioralMacro"
 import { advancedTopicsQuizzes } from "./quizzes/advancedTopics"
+import { bankingCreditCoreQuizzes } from "./quizzes/bankingCreditCore"
+import { investingStocksCoreQuizzes } from "./quizzes/investingStocksCore"
+import { marketsRatiosValuationQuizzes } from "./quizzes/marketsRatiosValuation"
+import { bubblesMacroIndicatorsQuizzes } from "./quizzes/bubblesMacroIndicators"
+import { optionsAltsPlanningSimsQuizzes } from "./quizzes/optionsAltsPlanningSims"
+import { bizMktTopUpQuizzes } from "./quizzes/bizMktTopUp"
 
 export interface LessonQuiz {
   lessonId: string
@@ -3373,9 +3379,16 @@ export const lessonQuizzes: LessonQuiz[] = [
   ...statementsRatiosValuationQuizzes,
   ...behavioralMacroQuizzes,
   ...advancedTopicsQuizzes,
+  ...bankingCreditCoreQuizzes,
+  ...investingStocksCoreQuizzes,
+  ...marketsRatiosValuationQuizzes,
+  ...bubblesMacroIndicatorsQuizzes,
+  ...optionsAltsPlanningSimsQuizzes,
+  ...bizMktTopUpQuizzes,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
-  const quiz = lessonQuizzes.find(q => q.lessonId === lessonId)
-  return quiz?.questions || []
+  // Merge every pool registered for this lesson — lets top-up packs extend an
+  // existing pool without editing the original file.
+  return lessonQuizzes.filter(q => q.lessonId === lessonId).flatMap(q => q.questions)
 }
