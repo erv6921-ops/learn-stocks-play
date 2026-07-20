@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from "react"
+import React, { useState, useMemo, useEffect, useCallback, useRef } from "react"
 import { Link } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { useNetWorth } from "@/hooks/useNetWorth"
@@ -65,11 +65,31 @@ export default function Leaderboard() {
   // Accepted partners from the Partners directory — powers the Friends tab.
   const [friendRows, setFriendRows] = useState<{ name: string; xp: number }[]>([])
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
+  // Mirror of selectedClassId read inside loadMyClasses so that callback can stay
+  // stable — depending on the state directly made it re-create itself every time
+  // it set the selection, which re-fired the load effect and double-fetched.
+  const selectedClassIdRef = useRef<string | null>(null)
   const [loadingClasses, setLoadingClasses] = useState(true)
 
   // Everyone's score is their CURRENT InvestiCoins balance — the same number
   // as the coin counter, so the leaderboard always matches what students see.
   const totalXp = jeffsBalance
+
+  // Fetch one class's member rows (each member's live InvestiCoins via the RPC).
+  const loadClassMembers = useCallback(async (classId: string) => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+    const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: classId })
+    if (lb) {
+      setClassMembers(lb
+        .filter(r => r.user_id !== user.id)
+        .map(r => ({
+          name: `${r.first_name || ''} ${(r.last_name || '').charAt(0)}.`.trim() || 'Student',
+          userId: r.user_id,
+          xp: Number(r.xp) || 0,
+        })))
+    }
+  }, [])
 
   const loadMyClasses = useCallback(async () => {
     try {
@@ -88,25 +108,16 @@ export default function Leaderboard() {
           .select("id, name, join_code")
           .in("id", classIds)
 
-        if (classes) {
+        if (classes && classes.length > 0) {
           setMyClasses(classes.map(c => ({ id: c.id, name: c.name, joinCode: c.join_code })))
 
-          const activeId = (selectedClassId && classes.some(c => c.id === selectedClassId))
-            ? selectedClassId
-            : classes[0]?.id
-          if (activeId && activeId !== selectedClassId) setSelectedClassId(activeId)
-          if (activeId) {
-            const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: activeId })
-            if (lb) {
-              setClassMembers(lb
-                .filter(r => r.user_id !== user.id)
-                .map(r => ({
-                  name: `${r.first_name || ''} ${(r.last_name || '').charAt(0)}.`.trim() || 'Student',
-                  userId: r.user_id,
-                  xp: Number(r.xp) || 0,
-                })))
-            }
+          const current = selectedClassIdRef.current
+          const activeId = (current && classes.some(c => c.id === current)) ? current : classes[0].id
+          if (activeId !== selectedClassIdRef.current) {
+            selectedClassIdRef.current = activeId
+            setSelectedClassId(activeId)
           }
+          await loadClassMembers(activeId)
         }
       }
     } catch (err) {
@@ -114,7 +125,14 @@ export default function Leaderboard() {
     } finally {
       setLoadingClasses(false)
     }
-  }, [selectedClassId])
+  }, [loadClassMembers])
+
+  // Switch the active class from the tabs (updates ref, state, and its members).
+  const switchClass = useCallback((id: string) => {
+    selectedClassIdRef.current = id
+    setSelectedClassId(id)
+    loadClassMembers(id)
+  }, [loadClassMembers])
 
   useEffect(() => {
     loadMyClasses()
@@ -133,21 +151,25 @@ export default function Leaderboard() {
   }, [])
 
   useEffect(() => { loadFriends() }, [loadFriends])
-  useEffect(() => {
-    const refresh = () => { if (!document.hidden) loadFriends() }
-    window.addEventListener("focus", refresh)
-    return () => window.removeEventListener("focus", refresh)
-  }, [loadFriends])
 
+  // Near real-time: refresh classmate + friend scores on focus/visibility and
+  // every 15s while the tab is visible, so ranks update without a manual reload.
+  // (Your own score is already live — it reads jeffsBalance from context.)
   useEffect(() => {
-    const refresh = () => { if (!document.hidden) loadMyClasses() }
+    const refresh = () => {
+      if (document.hidden) return
+      loadMyClasses()
+      loadFriends()
+    }
     window.addEventListener("focus", refresh)
     document.addEventListener("visibilitychange", refresh)
+    const interval = window.setInterval(refresh, 15000)
     return () => {
       window.removeEventListener("focus", refresh)
       document.removeEventListener("visibilitychange", refresh)
+      window.clearInterval(interval)
     }
-  }, [loadMyClasses])
+  }, [loadMyClasses, loadFriends])
 
   const handleJoinClass = async () => {
     if (!joinCode.trim()) return
@@ -226,7 +248,7 @@ export default function Leaderboard() {
       return entries
     }
 
-    return [{ name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true }]
+    return [{ name: "You", score: totalXp, scoreLabel: "InvestiCoins", level: getLevel(totalXp), streak: 0, isMe: true }]
   }, [scope, myNetWorth, showDemo, classMembers, friendRows, totalXp])
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
@@ -367,11 +389,11 @@ export default function Leaderboard() {
               </div>
 
               <p className="text-xs text-primary-foreground/70 font-semibold uppercase tracking-wider mt-4">
-                {scope === "class" && classMembers.length > 0 ? "Your InvestiCoins" : "Your Net Worth"}
+                {showDemo ? "Your Net Worth" : "Your InvestiCoins"}
               </p>
               <p className="font-display text-5xl md:text-6xl font-extrabold flex items-center gap-2 mt-1 leading-none">
                 <Coins className="w-8 h-8 md:w-9 md:h-9 text-warning" />
-                {(scope === "class" && classMembers.length > 0 ? totalXp : myNetWorth).toLocaleString()}
+                {(showDemo ? myNetWorth : totalXp).toLocaleString()}
               </p>
               <p className="text-[11px] text-primary-foreground/60 mt-2">
                 InvestiCoins {jeffsBalance.toLocaleString()} + Portfolio {Math.round(portfolioValue).toLocaleString()}
@@ -500,7 +522,7 @@ export default function Leaderboard() {
                 {myClasses.map(c => (
                   <button
                     key={c.id}
-                    onClick={() => setSelectedClassId(c.id)}
+                    onClick={() => switchClass(c.id)}
                     className={`press-scale text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
                       c.id === selectedClassId
                         ? "bg-primary text-primary-foreground border-primary"
@@ -698,18 +720,22 @@ export default function Leaderboard() {
                       const rank = (podium.length >= 3 ? 3 : 0) + idx + 1
                       return (
                         <motion.div
-                          key={`${entry.name}-${idx}`}
+                          // Stable identity per person (not position) so rows glide
+                          // to their new rank via `layout` instead of remounting and
+                          // re-animating from scratch when scores update live.
+                          key={entry.isMe ? "me" : entry.name}
+                          layout
                           initial={{ opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.25, delay: Math.min(idx * 0.03, 0.3) }}
-                          className={`relative flex items-center gap-3 sm:gap-4 p-3.5 rounded-2xl transition-all overflow-hidden ${
+                          transition={{ layout: { duration: 0.4, ease: "easeInOut" }, duration: 0.25 }}
+                          className={`relative flex items-center gap-3 sm:gap-4 p-3.5 rounded-2xl overflow-hidden ${
                             entry.isMe
                               ? "bg-primary/10 border-2 border-primary/30 shadow-glow"
                               : "bg-card border border-border/40 hover:border-border"
                           }`}
                         >
                           <motion.div
-                            initial={{ width: 0 }}
+                            initial={false}
                             animate={{ width: barPct(entry.score) }}
                             transition={{ duration: 0.6, ease: "easeOut" }}
                             className={`absolute inset-y-0 left-0 rounded-2xl pointer-events-none ${entry.isMe ? "bg-primary/10" : "bg-muted/40"}`}
