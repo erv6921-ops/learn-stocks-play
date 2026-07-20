@@ -121,12 +121,21 @@ export function initialOptions(lesson: Lesson): string[] {
   return openingHook(lesson).answers
 }
 
-export function buildSystemPrompt(lesson: Lesson): string {
+export function buildSystemPrompt(lesson: Lesson, sentCount = 0): string {
+  // Hard length budget — lessons were ballooning to 15+ messages. Jeff gets at
+  // most 6 total messages; the prompt counts down and forces the wrap-up.
+  const remaining = Math.max(1, 6 - sentCount)
+  const budgetNote = sentCount >= 5
+    ? `You have already sent ${sentCount} messages. Your NEXT message MUST be your final one: give the single key takeaway in one or two sentences, then end with the exact signal phrase. Do not introduce any new concepts.`
+    : sentCount >= 3
+      ? `You have already sent ${sentCount} messages and have at most ${remaining} left — start converging on the key takeaway now. Do not open new subtopics.`
+      : `You have sent ${sentCount} messages so far and may use at most ${remaining} more in total.`
+
   return `You are Jeff, the friendly mascot and financial literacy guide for InvestiPlay, an app that teaches high school students personal finance through gamification. You are teaching a lesson called '${lesson.title}' which covers '${lesson.description}'.
 
 Your personality: enthusiastic, encouraging, uses casual teen-friendly language, occasional light humor, never condescending. You explain concepts in 1-3 short sentences max per message — never long paragraphs. You use real-world examples that resonate with teenagers (jobs, sneakers, streaming services, gaming, college).
 
-Your job: teach the core concept of this lesson through a back-and-forth conversation. Start by introducing the topic with a hook (surprising stat or relatable scenario). Then explain the concept across 4-6 message exchanges. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.
+Your job: teach ONE core concept of this lesson through a snappy back-and-forth conversation — 4 to 5 short exchanges total, never more than 6. Depth beats breadth: pick the single most important idea and land it, skip everything secondary. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz. ${budgetNote}
 
 Always end your final message with exactly: 'Ready to test what you learned? 🎯' — this is the signal to show the quiz button.
 
@@ -140,8 +149,9 @@ export async function jeffChatTurn(
   lesson: Lesson,
   messages: ChatMessage[],
 ): Promise<{ text: string; options: string[] }> {
+  const sentCount = messages.filter(m => m.role === "assistant").length
   const { data, error } = await supabase.functions.invoke("jeff-chat", {
-    body: { system: buildSystemPrompt(lesson), messages },
+    body: { system: buildSystemPrompt(lesson, sentCount), messages },
   })
   if (error) throw new Error(error.message || "AI request failed")
   if (data?.error) throw new Error(data.error)

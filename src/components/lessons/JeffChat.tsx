@@ -418,8 +418,13 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
         minDelay,
       ])
       setThinking(false)
-      setMessages(prev => [...prev, { role: "assistant", content: text }])
-      if (text.includes(END_SIGNAL)) {
+      // Hard stop: if the AI ignores its message budget, force the wrap-up at
+      // 8 Jeff messages so no lesson chat drags past that.
+      const jeffCount = nextMessages.filter(m => m.role === "assistant").length + 1
+      const forceEnd = jeffCount >= 8 && !text.includes(END_SIGNAL)
+      const finalText = forceEnd ? `${text} ${END_SIGNAL} 🎯` : text
+      setMessages(prev => [...prev, { role: "assistant", content: finalText }])
+      if (finalText.includes(END_SIGNAL)) {
         setDone(true)
         setOptions([])
       } else {
