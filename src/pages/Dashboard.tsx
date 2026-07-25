@@ -429,21 +429,28 @@ export default function Dashboard() {
 
         {/* ═══ 1. ROLLER COASTER — full-width strip ═══ */}
         <MCard i={1}>
-          <div className="bg-white rounded-[10px] overflow-hidden" style={{ border: "0.5px solid #e0e8e3" }}>
-            <div className="px-5 pt-4 pb-1 flex items-center justify-between gap-3">
+          <div className="bg-white rounded-[20px] overflow-hidden relative" style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-md)" }}>
+            {/* gold→mint hairline + soft corner glow */}
+            <div className="absolute top-0 left-0 right-0 h-[2.5px]"
+              style={{ background: "linear-gradient(90deg, #E3A008, #1D9E75 55%, transparent)" }} />
+            <div className="absolute -right-10 -top-10 w-36 h-36 rounded-full blur-3xl pointer-events-none"
+              style={{ background: "rgba(29,158,117,0.08)" }} />
+            <div className="px-5 md:px-6 pt-5 pb-1 flex items-center justify-between gap-3 relative">
               <div className="min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
+                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#1D9E75" }} />
                   Unit {currentUnit.unitNumber} · Your ride
                 </p>
-                <p className="font-display font-extrabold text-lg tracking-tight truncate">{currentUnit.title}</p>
+                <p className="font-display font-extrabold text-xl tracking-tight truncate mt-0.5">{currentUnit.title}</p>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <span className="text-sm font-bold hidden sm:inline" style={{ color: "#1D9E75" }}>
+                <span className="hidden sm:inline-flex items-center gap-1.5 text-[12px] font-extrabold px-3 py-1.5 rounded-full"
+                  style={{ color: "#0f6b4f", background: "rgba(29,158,117,0.1)", border: "1px solid rgba(29,158,117,0.18)" }}>
                   {currentUnitCompleted}/{currentUnitLessons.length} · {currentUnitProgress}%
                 </span>
                 <button
                   onClick={() => setCoasterFull(true)}
-                  className="inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
+                  className="nav-bounce inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md"
                   style={{ background: "linear-gradient(135deg,#2FD39B,#0F7E5C)", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
                 >
                   <Maximize2 className="w-4 h-4" /> Fullscreen
@@ -462,57 +469,64 @@ export default function Dashboard() {
           </div>
         </MCard>
 
-        {/* ═══ 2. SNAPSHOT — one-line basics strip ═══ */}
-        <MCard i={2} className="mt-3">
-          <div className="bg-white rounded-[10px] px-4 py-3 grid grid-cols-2 sm:grid-cols-4 gap-y-2 divide-x divide-[#e8eeeb]" style={{ border: "0.5px solid #e0e8e3" }}>
-            <div className="flex items-center gap-2.5 px-2 min-w-0">
-              <Coins className="w-4 h-4 text-gold shrink-0" />
-              <div className="min-w-0">
-                <p className="font-display font-extrabold text-base leading-none tabular-nums">{jeffsBalance.toLocaleString()}</p>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5">Cash</p>
+        {/* ═══ 2. SNAPSHOT — four tinted stat boxes ═══ */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
+          {[
+            { i: 2, icon: Coins, tint: "#E3A008", label: "Cash", value: jeffsBalance.toLocaleString(), sub: earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "InvestiCoins ready to spend" },
+            { i: 3, icon: Flame, tint: "#F97316", label: "Streak", value: `${streak} day${streak === 1 ? "" : "s"}`, sub: streak > 0 ? "Don't break the chain" : "Play today to start one" },
+            { i: 4, icon: TrendingUp, tint: "#1D9E75", label: "Stocks owned", value: String(portfolio.length), sub: portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()} invested` : "Make your first trade" },
+            { i: 5, icon: BookOpen, tint: "#8B5CF6", label: "Lessons", value: `${completedLessons}/${totalLessons}`, sub: `${progressPercent}% of the course`, progress: progressPercent },
+          ].map((st) => (
+            <MCard key={st.label} i={st.i}>
+              <div className="group bg-white rounded-[20px] p-4 md:p-5 relative overflow-hidden hover-lift press-scale h-full"
+                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
+                <div className="absolute top-0 left-0 right-0 h-[2.5px]"
+                  style={{ background: `linear-gradient(90deg, ${st.tint}, ${st.tint}00 70%)` }} />
+                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
+                  style={{ background: `${st.tint}1f` }} />
+                <div className="relative">
+                  <span className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 border"
+                    style={{ background: `linear-gradient(135deg, ${st.tint}26, ${st.tint}0a)`, color: st.tint, borderColor: `${st.tint}26` }}>
+                    <st.icon className="w-4 h-4" />
+                  </span>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{st.label}</p>
+                  <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">{st.value}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{st.sub}</p>
+                  {st.progress != null && (
+                    <div className="mt-3 h-1 rounded-full bg-muted overflow-hidden">
+                      <div className="h-full rounded-full transition-all" style={{ width: `${st.progress}%`, background: st.tint }} />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-2.5 px-3 min-w-0">
-              <Flame className="w-4 h-4 text-orange-500 shrink-0" />
-              <div className="min-w-0">
-                <p className="font-display font-extrabold text-base leading-none tabular-nums">{streak}<span className="text-xs font-bold text-muted-foreground ml-0.5">d</span></p>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5">Streak</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2.5 px-3 min-w-0">
-              <TrendingUp className="w-4 h-4 shrink-0" style={{ color: "#1D9E75" }} />
-              <div className="min-w-0">
-                <p className="font-display font-extrabold text-base leading-none tabular-nums">{portfolio.length}</p>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5">Stocks owned</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2.5 px-3 min-w-0">
-              <BookOpen className="w-4 h-4 shrink-0" style={{ color: "#8B5CF6" }} />
-              <div className="min-w-0">
-                <p className="font-display font-extrabold text-base leading-none tabular-nums">{completedLessons}<span className="text-xs font-bold text-muted-foreground">/{totalLessons}</span></p>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5">Lessons</p>
-              </div>
-            </div>
-          </div>
-        </MCard>
+            </MCard>
+          ))}
+        </div>
 
         {/* ═══ 3. DAILIES — challenge + missions ═══ */}
         <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-3 mt-3 items-start">
-          <MCard i={3}>
-            <div className={`rounded-[10px] p-4 md:p-5 text-white relative overflow-hidden ${dailyDone ? "opacity-75" : ""}`} style={{ background: "#0f2d1e" }}>
+          <MCard i={6}>
+            <div className={`rounded-[20px] p-5 text-white relative overflow-hidden hover-lift ${dailyDone ? "opacity-75" : ""}`} style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)", boxShadow: "var(--shadow-md)" }}>
               <div className="absolute top-0 left-0 right-0 h-[2px]"
                 style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Daily challenge</p>
-              <div className="flex items-center justify-between gap-4 mt-2">
-                <div className="min-w-0">
-                  <p className="font-display font-extrabold text-lg truncate">{dailyGameName}</p>
-                  <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+              <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
+                style={{ background: "rgba(43,182,115,0.14)" }} />
+              <p className="relative text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Daily challenge</p>
+              <div className="relative flex items-center justify-between gap-4 mt-2.5">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/5" style={{ background: "rgba(43,182,115,0.18)" }}>
+                    <Flame className="w-5 h-5 text-success" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-display font-extrabold text-lg truncate">{dailyGameName}</p>
+                    <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+                  </div>
                 </div>
                 {dailyDone ? (
                   <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
                 ) : (
                   <Link to="/daily" className="shrink-0">
-                    <button className="px-6 py-2 rounded-[6px] bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale">
+                    <button className="px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale border border-white/10">
                       Play →
                     </button>
                   </Link>
@@ -521,7 +535,7 @@ export default function Dashboard() {
             </div>
           </MCard>
 
-          <MCard i={4}>
+          <MCard i={7}>
             <DailyMissions
               lessonProgress={lessonProgress}
               portfolio={portfolio}
