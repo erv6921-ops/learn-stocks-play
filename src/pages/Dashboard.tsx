@@ -23,7 +23,7 @@ import { type BizState, monthlyRevenue, statusLabel } from "@/lib/businessSim";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, Wallet,
-  GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical, Maximize2, Minimize2,
+  GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical, Maximize2, Minimize2, Users,
   Target, Eye, ArrowRight } from
 "lucide-react";
 
@@ -307,6 +307,27 @@ export default function Dashboard() {
   const streakDayInCycle = streak % 7;
   const streakRingProgress = streakDayInCycle / 7 * 100;
 
+  // Friends snapshot — accepted partners + waiting invites (Partners page RPCs).
+  const [friendsInfo, setFriendsInfo] = useState<{ count: number; names: string[]; invites: number } | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!user?.id) return;
+      const [{ data: partners }, { data: requests }] = await Promise.all([
+        (supabase as any).rpc("get_partners"),
+        (supabase as any).rpc("get_partner_requests"),
+      ]);
+      if (cancelled) return;
+      const rows = (partners ?? []) as { first_name: string | null; last_name: string | null }[];
+      setFriendsInfo({
+        count: rows.length,
+        names: rows.slice(0, 3).map((r) => `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim()).filter(Boolean),
+        invites: ((requests ?? []) as unknown[]).length,
+      });
+    })();
+    return () => { cancelled = true; };
+  }, [user?.id]);
+
   // Fullscreen roller-coaster overlay toggle.
   const [coasterFull, setCoasterFull] = useState(false);
 
@@ -540,6 +561,125 @@ export default function Dashboard() {
               lessonProgress={lessonProgress}
               portfolio={portfolio}
               earnJeffs={earnJeffs} />
+          </MCard>
+        </div>
+
+        {/* ═══ 4. SNAPSHOTS — business · portfolio · friends ═══ */}
+        <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-3 mt-3 items-stretch">
+          {/* Micro-business */}
+          <MCard i={8}>
+            <Link to="/micro-business" className="block h-full">
+              <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
+                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
+                <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #0F766E, #0F766E00 70%)" }} />
+                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#0F766E1f" }} />
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <span className="w-9 h-9 rounded-xl flex items-center justify-center border"
+                      style={{ background: "linear-gradient(135deg, #0F766E26, #0F766E0a)", color: "#0F766E", borderColor: "#0F766E26" }}>
+                      <Store className="w-4 h-4" />
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mt-3">My business</p>
+                  {hasBusiness && bizSim ? (
+                    <>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">Month {bizSim.month}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                        {statusLabel(bizSim).label} · 🪙 {monthlyRevenue(bizSim).toLocaleString()}/mo · {bizSim.customers.toLocaleString()} customers
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">Start yours</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">Build a company from scratch</p>
+                    </>
+                  )}
+                </div>
+              </div>
+            </Link>
+          </MCard>
+
+          {/* Portfolio */}
+          <MCard i={9}>
+            <Link to="/stocks" className="block h-full">
+              <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
+                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
+                <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #3BA7C4, #3BA7C400 70%)" }} />
+                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#3BA7C41f" }} />
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <span className="w-9 h-9 rounded-xl flex items-center justify-center border"
+                      style={{ background: "linear-gradient(135deg, #3BA7C426, #3BA7C40a)", color: "#3BA7C4", borderColor: "#3BA7C426" }}>
+                      <LineChart className="w-4 h-4" />
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mt-3">Portfolio</p>
+                  {portfolio.length > 0 ? (
+                    <>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">
+                        🪙 {Math.floor(portfolioValue).toLocaleString()}
+                        <span className={`text-sm font-bold ml-2 ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
+                          {plPct >= 0 ? "▲" : "▼"} {plPct >= 0 ? "+" : ""}{plPct.toFixed(1)}%
+                        </span>
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                        {portfolio.length} {portfolio.length === 1 ? "stock" : "stocks"} · {portfolio.slice(0, 3).map((h) => h.symbol).join(", ")}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">First trade</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">Buy real companies with virtual cash</p>
+                    </>
+                  )}
+                </div>
+              </div>
+            </Link>
+          </MCard>
+
+          {/* Friends */}
+          <MCard i={10}>
+            <Link to="/partners" className="block h-full">
+              <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
+                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
+                <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #E0457B, #E0457B00 70%)" }} />
+                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#E0457B1f" }} />
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <span className="w-9 h-9 rounded-xl flex items-center justify-center border"
+                      style={{ background: "linear-gradient(135deg, #E0457B26, #E0457B0a)", color: "#E0457B", borderColor: "#E0457B26" }}>
+                      <Users className="w-4 h-4" />
+                    </span>
+                    {friendsInfo && friendsInfo.invites > 0 ? (
+                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full animate-pulse"
+                        style={{ color: "#E0457B", background: "#E0457B1a" }}>
+                        {friendsInfo.invites} invite{friendsInfo.invites === 1 ? "" : "s"} 📨
+                      </span>
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
+                    )}
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mt-3">Friends</p>
+                  {friendsInfo && friendsInfo.count > 0 ? (
+                    <>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">
+                        {friendsInfo.count} partner{friendsInfo.count === 1 ? "" : "s"}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                        {friendsInfo.names.join(", ")}{friendsInfo.count > friendsInfo.names.length ? ` +${friendsInfo.count - friendsInfo.names.length} more` : ""}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">Find friends</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">Search classmates & team up</p>
+                    </>
+                  )}
+                </div>
+              </div>
+            </Link>
           </MCard>
         </div>
       </main>
