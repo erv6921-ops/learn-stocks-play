@@ -1070,7 +1070,7 @@ interface CoasterTrackProps {
   celebrate: boolean;
 }
 
-function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isCompleted, onSelect, celebrate }: CoasterTrackProps) {
+export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isCompleted, onSelect, celebrate }: CoasterTrackProps) {
   const [hovered, setHovered] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const n = lessons.length;

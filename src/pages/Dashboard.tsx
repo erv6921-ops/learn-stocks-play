@@ -12,10 +12,10 @@ import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
 import { supabase } from "@/integrations/supabase/client";
-import DailyMissions from "@/components/DailyMissions";
 import { anchor } from "@/lib/tourAnchors";
 import { isEarnedEntry } from "@/lib/playerStats";
 import { getLeague } from "@/lib/leagues";
+import { CoasterTrack } from "./Lessons";
 import { loadActivities, bizDef, type ActivitiesState, type BusinessType } from "@/lib/businessActivities";
 import { type BizState, monthlyRevenue, statusLabel } from "@/lib/businessSim";
 import {
@@ -305,6 +305,82 @@ export default function Dashboard() {
   const streakDayInCycle = streak % 7;
   const streakRingProgress = streakDayInCycle / 7 * 100;
 
+  // ── Class rank (same RPC as the Leaderboard page) ──
+  const [rankInfo, setRankInfo] = useState<{ rank: number; pts: number } | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!user?.id) return;
+      const { data: memberships } = await supabase.from("class_members").select("class_id").eq("user_id", user.id);
+      const classId = memberships?.[0]?.class_id;
+      if (!classId) return;
+      const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: classId });
+      if (cancelled || !lb) return;
+      const sorted = [...lb].sort((a, b) => Number(b.xp) - Number(a.xp));
+      const idx = sorted.findIndex((r) => r.user_id === user.id);
+      if (idx !== -1) setRankInfo({ rank: idx + 1, pts: Math.round(Number(sorted[idx].xp)) });
+    })();
+    return () => { cancelled = true; };
+  }, [user?.id]);
+
+  // ── Active class challenge (same table the Challenges page uses) ──
+  const [challenge, setChallenge] = useState<{ title: string; pot: number; entry_fee: number; ends_at: string } | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!user?.id) return;
+      const { data: memberships } = await supabase.from("class_members").select("class_id").eq("user_id", user.id);
+      const classIds = (memberships ?? []).map((m) => m.class_id);
+      if (classIds.length === 0) return;
+      const { data } = await (supabase as any)
+        .from("class_challenges").select("*").in("class_id", classIds).eq("status", "active");
+      if (cancelled) return;
+      const live = ((data ?? []) as { title: string; pot: number; entry_fee: number; ends_at: string }[])
+        .filter((ch) => new Date(ch.ends_at).getTime() > Date.now());
+      if (live.length > 0) setChallenge(live[0]);
+    })();
+    return () => { cancelled = true; };
+  }, [user?.id]);
+
+  // ── This week: lessons completed + 7-day activity dots ──
+  const weekInfo = useMemo(() => {
+    const dayStart = (offset: number) => {
+      const d = new Date(); d.setDate(d.getDate() - offset); d.setHours(0, 0, 0, 0);
+      return d.getTime();
+    };
+    const completedTimes = lessonProgress
+      .filter((p) => p.completed && p.completedAt)
+      .map((p) => new Date(p.completedAt as Date).getTime());
+    const days: boolean[] = [];
+    for (let i = 6; i >= 0; i--) {
+      const start = dayStart(i);
+      days.push(completedTimes.some((t) => t >= start && t < start + 86400000));
+    }
+    const weekStart = dayStart(6);
+    const count = completedTimes.filter((t) => t >= weekStart).length;
+    return { days, count };
+  }, [lessonProgress]);
+
+  // ── Portfolio P/L% (live value vs cost basis) ──
+  const costBasis = portfolio.reduce((s, h) => s + h.shares * h.purchasePrice, 0);
+  const plPct = costBasis > 0 ? ((portfolioValue - costBasis) / costBasis) * 100 : 0;
+
+  // ── Roller coaster inputs for the current unit (reuses the Missions coaster) ──
+  const coasterLessons = useMemo(
+    () => currentUnitLessons.map((l) => ({ lesson: l, status: "required" as const })),
+    [currentUnitLessons]
+  );
+  const coasterIdx = useMemo(() => {
+    const i = currentUnitLessons.findIndex((l) => !isLessonCompleted(l.id));
+    return i === -1 ? Math.max(0, currentUnitLessons.length - 1) : i;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUnitLessons, lessonProgress]);
+  const coasterUnlocked = (lessonId: string): boolean => {
+    const i = currentUnitLessons.findIndex((l) => l.id === lessonId);
+    if (i <= 0) return i === 0;
+    return isLessonCompleted(currentUnitLessons[i - 1].id);
+  };
+
   if (!authReady) return null;
   if (!user) return <Navigate to="/auth" replace />;
 
@@ -318,189 +394,224 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: "#f0f5f3" }}>
       <GameNav />
 
-      <main className="container mx-auto px-4 py-6 md:py-8 pb-28 md:pb-12 max-w-6xl">
-        {/* ═══ 1. HERO — who you are + the ONE thing to do next ═══ */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
-          className="hud-panel p-6 md:p-10 mb-6 md:mb-8 relative z-10 overflow-hidden"
-        >
-          {/* ambient glows */}
-          <div className="absolute -top-24 -right-16 w-72 h-72 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, rgba(227,160,8,0.14), transparent 65%)" }} />
-          <div className="absolute -bottom-28 -left-20 w-80 h-80 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, rgba(43,182,115,0.16), transparent 65%)" }} />
-
-          <div className="relative z-10 grid lg:grid-cols-[1.1fr_1fr] gap-8 items-center">
-            {/* Left: greeting + vitals */}
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-white/35 mb-2">{formattedDate}</p>
-              <h1 className="font-display text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-[1.1]">
-                {getGreeting()}
-              </h1>
-              <div className="flex flex-wrap items-center gap-2 mt-5">
-                {streak > 0 && (
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.07] backdrop-blur-sm text-orange-300 text-xs font-bold border border-white/10">
-                    <Flame className="w-3.5 h-3.5" style={{ animation: "streak-pulse 2s ease-in-out infinite" }} /> {streak} day{streak === 1 ? "" : "s"}
-                  </span>
-                )}
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.07] backdrop-blur-sm text-gold text-xs font-bold border border-white/10">
-                  <Coins className="w-3.5 h-3.5" /> {Math.floor(netWorth).toLocaleString()}
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.07] backdrop-blur-sm text-white text-xs font-bold border border-white/10">
-                  <Star className="w-3.5 h-3.5 text-yellow-300" /> Level {currLevel}
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.07] backdrop-blur-sm text-xs font-bold border border-white/10" style={{ color: myLeague.color }}>
-                  {myLeague.icon} {myLeague.name}
-                </span>
-              </div>
-              {earnedToday > 0 && (
-                <p className="flex items-center gap-2 text-xs font-semibold text-white/60 mt-4">
-                  <span className="w-1.5 h-1.5 rounded-full bg-success inline-block" style={{ animation: "sparkle 2s ease-in-out infinite" }} />
-                  +{earnedToday.toLocaleString()} InvestiCoins earned today
-                </p>
-              )}
-            </div>
-
-            {/* Right: NEXT UP — the single most important card on the page */}
-            {nextLesson ? (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.12, ease: "easeOut" }}
-                ref={anchor("dash-today")}
-                className="relative rounded-[20px] border border-white/10 bg-white/[0.06] backdrop-blur-md p-6 overflow-hidden"
-              >
-                {/* gold hairline across the top */}
-                <div className="absolute top-0 left-0 right-0 h-[2px]"
-                  style={{ background: "linear-gradient(90deg, transparent, rgba(227,160,8,0.8), transparent)" }} />
-                <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.24em] text-gold mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-gold inline-block" /> Next up
-                </p>
-                <p className="text-white font-display font-extrabold text-xl leading-snug">{nextLesson.title}</p>
-                <p className="text-white/45 text-xs mt-1.5">Unit {currentUnit.unitNumber} · {currentUnit.title}</p>
-                <div className="mt-4 flex items-center gap-3">
-                  <div className="h-1 flex-1 rounded-full bg-white/10 overflow-hidden">
-                    <div className="h-full rounded-full transition-all"
-                      style={{ width: `${currentUnitProgress}%`, background: "linear-gradient(90deg, #2BB673, #E3A008)" }} />
-                  </div>
-                  <span className="text-white/45 text-[11px] font-bold tabular-nums">{currentUnitProgress}%</span>
+      <main className="p-4 pb-28 md:pb-6">
+        {/* ──── JOIN A CLASS (only for students not yet in one) ──── */}
+        {inClass === false &&
+        <MCard i={0} className="mb-3">
+          <Card variant="elevated" className="border-primary/30 rounded-[10px]">
+            <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex items-start gap-3 flex-1">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-5 h-5 text-primary" />
                 </div>
-                <div className="flex items-center justify-between gap-3 mt-5">
-                  <span className="text-gold font-bold text-sm flex items-center gap-1.5">
-                    <Coins className="w-4 h-4" />+{Math.round(nextLesson.reward * getRewardMultiplier()).toLocaleString()}
+                <div>
+                  <p className="font-bold">Join a class</p>
+                  <p className="text-sm text-muted-foreground">Got a class code from your teacher? Enter it to join.</p>
+                </div>
+              </div>
+              <form className="flex gap-2 w-full sm:w-auto" onSubmit={(e) => {e.preventDefault();handleJoinClass();}}>
+                <Input value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
+                  placeholder="e.g. ABC123" maxLength={6} className="uppercase font-mono w-full sm:w-36" />
+                <Button type="submit" disabled={!joinCode.trim() || joining}>{joining ? "Joining…" : "Join"}</Button>
+              </form>
+            </CardContent>
+          </Card>
+        </MCard>
+        }
+
+        {/* ═══ SPLIT SCREEN: coaster + next lesson (left) · live stat rail (right) ═══ */}
+        <div className="flex flex-col min-[900px]:flex-row gap-3 items-start">
+
+          {/* ── LEFT COLUMN (~65%) ── */}
+          <div className="w-full min-[900px]:flex-[2] min-w-0 space-y-3">
+            {/* Roller coaster progress — the exact component from Missions */}
+            <MCard i={1}>
+              <div className="bg-white rounded-[10px] overflow-hidden" style={{ border: "0.5px solid #e0e8e3" }}>
+                <div className="px-5 pt-4 pb-1 flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                      Unit {currentUnit.unitNumber} · Your ride
+                    </p>
+                    <p className="font-display font-extrabold text-lg tracking-tight truncate">{currentUnit.title}</p>
+                  </div>
+                  <span className="shrink-0 text-sm font-bold" style={{ color: "#1D9E75" }}>
+                    {currentUnitCompleted}/{currentUnitLessons.length} · {currentUnitProgress}%
                   </span>
-                  <Link to={`/lessons/${nextLesson.id}`}>
-                    <Button size="lg" className="press-scale gap-2 font-bold shadow-glow px-7">
-                      Continue <ArrowRight className="w-4 h-4" />
+                </div>
+                <CoasterTrack
+                  lessons={coasterLessons}
+                  currentIdx={coasterIdx}
+                  unitTotalPts={Math.round(getUnitRewardTotal(currentUnit.id) * getRewardMultiplier())}
+                  isUnlocked={coasterUnlocked}
+                  isCompleted={(al) => isLessonCompleted(al.lesson.id)}
+                  onSelect={(id) => navigate(`/lessons/${id}`)}
+                  celebrate={currentUnitProgress === 100}
+                />
+              </div>
+            </MCard>
+
+            {/* Next lesson */}
+            {nextLesson && (
+              <MCard i={2}>
+                <div className="bg-white rounded-[10px] p-4 md:p-5 flex flex-col sm:flex-row sm:items-center gap-4" style={{ border: "0.5px solid #e0e8e3" }}>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-1">
+                      Next lesson · Unit {currentUnit.unitNumber}
+                    </p>
+                    <p className="font-display font-extrabold text-base tracking-tight">{nextLesson.title}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5 line-clamp-1">{nextLesson.description}</p>
+                    <p className="text-sm font-bold mt-1.5" style={{ color: "#1D9E75" }}>
+                      +{Math.round(nextLesson.reward * getRewardMultiplier()).toLocaleString()} coins on completion
+                    </p>
+                  </div>
+                  <Link to={`/lessons/${nextLesson.id}`} className="shrink-0">
+                    <Button className="press-scale gap-1.5 font-bold px-6" style={{ background: "#1D9E75" }}>
+                      Start <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
                 </div>
-              </motion.div>
-            ) : (
-              <div className="relative rounded-[20px] border border-white/10 bg-white/[0.06] backdrop-blur-md p-8 text-center">
-                <p className="text-3xl mb-2">🎉</p>
-                <p className="text-white font-display font-extrabold text-lg">Every lesson complete — legend!</p>
-                <Link to="/leaderboard" className="inline-block mt-4">
-                  <Button className="press-scale shadow-glow">See your rank</Button>
-                </Link>
-              </div>
+              </MCard>
             )}
           </div>
-        </motion.div>
 
-        {/* ──── JOIN A CLASS (only for students not yet in one) ──── */}
-        {inClass === false &&
-        <Card variant="elevated" className="mb-5 border-primary/30">
-          <CardContent className="p-4 md:p-5 flex flex-col sm:flex-row sm:items-center gap-4">
-            <div className="flex items-start gap-3 flex-1">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                <GraduationCap className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-bold">Join a class</p>
-                <p className="text-sm text-muted-foreground">Got a class code from your teacher? Enter it to join.</p>
-              </div>
-            </div>
-            <form
-              className="flex gap-2 w-full sm:w-auto"
-              onSubmit={(e) => {e.preventDefault();handleJoinClass();}}>
-              <Input
-                value={joinCode}
-                onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
-                placeholder="e.g. ABC123"
-                maxLength={6}
-                className="uppercase font-mono w-full sm:w-36" />
-              <Button type="submit" disabled={!joinCode.trim() || joining}>
-                {joining ? "Joining…" : "Join"}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-        }
+          {/* ── RIGHT SIDEBAR (~35%) — live stat cards ── */}
+          <div className="w-full min-[900px]:flex-1 min-w-0 flex flex-row min-[900px]:flex-col gap-2 overflow-x-auto min-[900px]:overflow-visible no-scrollbar pb-1 min-[900px]:pb-0">
 
-        {/* ═══ 2. TODAY — quick daily coins, nothing else ═══ */}
-        <SectionHeader icon={Flame} title="Today" subtitle="Quick wins — fresh coins every day" />
-        <div className="grid lg:grid-cols-2 gap-4 mb-6 items-start">
-          <Card
-            className={`border-0 overflow-hidden relative rounded-[20px] ${dailyDone ? "opacity-70" : ""}`}
-            style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
-            <div className="absolute top-0 left-0 right-0 h-[2px]"
-              style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
-            <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
-              style={{ background: "rgba(43,182,115,0.14)" }} />
-            <CardContent className="p-4 md:p-5 relative">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "rgba(43,182,115,0.18)" }}>
-                  <Flame className="w-5 h-5 text-success" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="font-display text-base md:text-lg font-extrabold text-white">Daily Challenge</p>
-                  <p className="text-sm text-white/70 truncate">
-                    <span className="font-bold text-white">{dailyGameName}</span>
-                    <span className="mx-1.5">·</span>
-                    <span className="font-bold text-gold">🪙 75</span>
-                  </p>
-                </div>
-                {dailyDone ?
-                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-success/20 text-success font-bold text-sm border border-success/30 shrink-0">
-                    Done ✓
-                  </span> :
-                <Link to="/daily" className="shrink-0">
-                    <Button className="press-scale gap-1.5">Play <ArrowRight className="w-4 h-4" /></Button>
+            {/* 1 · Today's daily game */}
+            <MCard i={3} className="min-w-[240px] min-[900px]:min-w-0 flex-1">
+              <div className="rounded-[10px] p-4 text-white h-full" style={{ background: "#0f2d1e" }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Today</p>
+                <p className="font-display font-extrabold text-lg mt-1">{dailyGameName}</p>
+                <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+                {dailyDone ? (
+                  <p className="mt-3 text-sm font-bold text-center py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</p>
+                ) : (
+                  <Link to="/daily" className="block mt-3">
+                    <button className="w-full py-2 rounded-[6px] bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale">
+                      Play →
+                    </button>
                   </Link>
-                }
+                )}
               </div>
-            </CardContent>
-          </Card>
+            </MCard>
 
-          <DailyMissions
-            lessonProgress={lessonProgress}
-            portfolio={portfolio}
-            earnJeffs={earnJeffs} />
+            {/* 2 · Class rank — hidden when not in a class */}
+            {rankInfo && (
+              <MCard i={4} className="min-w-[240px] min-[900px]:min-w-0 flex-1">
+                <Link to="/leaderboard" className="block h-full">
+                  <div className="rounded-[10px] p-4 text-white h-full press-scale" style={{ background: "#0f2d1e" }}>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Class rank</p>
+                    <p className="font-display font-extrabold text-3xl mt-1" style={{ color: "#4ade80" }}>#{rankInfo.rank}</p>
+                    <p className="text-sm text-white/70 mt-1">
+                      {rankInfo.pts.toLocaleString()} pts{streak > 0 ? ` · ${streak} day streak 🔥` : ""}
+                    </p>
+                  </div>
+                </Link>
+              </MCard>
+            )}
+
+            {/* 3 · Active challenge */}
+            <MCard i={5} className="min-w-[240px] min-[900px]:min-w-0 flex-1">
+              <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "1px solid rgba(29,158,117,0.35)" }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Challenge pot</p>
+                {challenge ? (
+                  <>
+                    <p className="font-display font-extrabold text-2xl mt-1" style={{ color: "#1D9E75" }}>
+                      🪙 {challenge.pot.toLocaleString()}
+                    </p>
+                    <p className="text-sm text-foreground/80 mt-0.5 truncate">
+                      {challenge.title} · {timeLeft(challenge.ends_at)}
+                    </p>
+                    <Link to="/challenges" className="block mt-3">
+                      <button className="w-full py-2 rounded-[6px] text-white text-sm font-bold press-scale" style={{ background: "#0f2d1e" }}>
+                        Enter · {challenge.entry_fee} coins
+                      </button>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-bold text-sm mt-2">No active challenges</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Check back soon</p>
+                  </>
+                )}
+              </div>
+            </MCard>
+
+            {/* 4 · InvestiCoins balance */}
+            <MCard i={6} className="min-w-[240px] min-[900px]:min-w-0 flex-1">
+              <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "0.5px solid #e0e8e3" }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Coins</p>
+                <p className="font-display font-extrabold text-2xl mt-1 flex items-center gap-1.5">
+                  <Coins className="w-5 h-5 text-gold" /> {jeffsBalance.toLocaleString()}
+                </p>
+                {earnedToday > 0 && (
+                  <p className="text-sm font-bold mt-0.5" style={{ color: "#1D9E75" }}>+{earnedToday.toLocaleString()} earned today</p>
+                )}
+                <p className="text-xs text-muted-foreground/60 mt-3">Visit shop</p>
+              </div>
+            </MCard>
+          </div>
         </div>
 
-        {/* ═══ 3. YOUR WORLD — six doors, one live number each ═══ */}
-        <SectionHeader icon={Target} title="Your World" subtitle="Everything you build, one tap away" />
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-          <WorldTile index={0} to="/lessons" icon={BookOpen} tint="#8B5CF6" title="Missions"
-            stat={`${progressPercent}%`} sub={`${completedLessons}/${totalLessons} lessons done`} progress={progressPercent} />
-          <WorldTile index={1} to="/stocks" icon={LineChart} tint="#E3A008" title="Stocks"
-            stat={portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()}` : undefined}
-            sub={portfolio.length > 0 ? `${portfolio.length} ${portfolio.length === 1 ? "stock" : "stocks"} owned` : "Make your first trade"} />
-          <WorldTile index={2} to="/micro-business" icon={Store} tint="#F97316" title="Business"
-            stat={hasBusiness && bizSim ? `Month ${bizSim.month}` : undefined}
-            sub={hasBusiness && bizSim ? `${statusLabel(bizSim).label} · 🪙 ${monthlyRevenue(bizSim).toLocaleString()}/mo` : "Build your own company"} />
-          <WorldTile index={3} to="/bank" icon={Landmark} tint="#0F766E" title="Bank"
-            sub="Vault, loans, bonds & careers" />
-          <WorldTile index={4} to="/leaderboard" icon={Trophy} tint="#E0457B" title="Leaderboard"
-            stat={`${myLeague.icon} ${myLeague.name}`} sub="Race your class up the leagues" />
-          <WorldTile index={5} to="/lab" icon={FlaskConical} tint="#3BA7C4" title="Lab"
-            sub="Real-world money skills" />
+        {/* ═══ BOTTOM ROW — badges · portfolio · this week ═══ */}
+        <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-2 mt-3">
+          {/* Badges */}
+          <MCard i={7}>
+            <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "0.5px solid #e0e8e3" }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-3">Badges</p>
+              <div className="flex items-center gap-3">
+                {BADGES.slice(0, 4).map((badge) => {
+                  const unlocked = completedLessons >= badge.unlockAt;
+                  const Icon = badge.icon;
+                  return (
+                    <div key={badge.name} title={unlocked ? badge.name : `Unlock: complete ${badge.unlockAt} lessons`}
+                      className={`w-11 h-11 rounded-full flex items-center justify-center relative ${unlocked ? "" : "grayscale opacity-50"}`}
+                      style={{ background: unlocked ? "linear-gradient(135deg,#1D9E75,#0f2d1e)" : "#e8eeeb" }}>
+                      <Icon className={`w-5 h-5 ${unlocked ? "text-white" : "text-muted-foreground"}`} />
+                      {!unlocked && <Lock className="w-3 h-3 absolute -bottom-0.5 -right-0.5 text-muted-foreground/60" />}
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-sm font-bold mt-3">{unlockedBadgeCount} earned</p>
+            </div>
+          </MCard>
+
+          {/* Portfolio value */}
+          <MCard i={8}>
+            <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "0.5px solid #e0e8e3" }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Portfolio</p>
+              <p className="font-display font-extrabold text-2xl mt-1">🪙 {Math.floor(portfolioValue).toLocaleString()}</p>
+              {portfolio.length > 0 && (
+                <p className={`text-sm font-bold mt-0.5 ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
+                  {plPct >= 0 ? "▲" : "▼"} {plPct >= 0 ? "+" : ""}{plPct.toFixed(1)}%
+                </p>
+              )}
+              <Link to="/stocks" className="inline-block text-sm font-bold mt-3" style={{ color: "#1D9E75" }}>
+                View stocks →
+              </Link>
+            </div>
+          </MCard>
+
+          {/* This week */}
+          <MCard i={9}>
+            <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "0.5px solid #e0e8e3" }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">This week</p>
+              <p className="font-display font-extrabold text-2xl mt-1">
+                {weekInfo.count} {weekInfo.count === 1 ? "lesson" : "lessons"}
+              </p>
+              <div className="flex items-center gap-1.5 mt-3">
+                {weekInfo.days.map((active, i) => (
+                  <span key={i} className="w-2.5 h-2.5 rounded-full"
+                    style={{ background: active ? "#1D9E75" : "#dbe4df" }} />
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">last 7 days</p>
+            </div>
+          </MCard>
         </div>
       </main>
     </div>);
@@ -509,77 +620,26 @@ export default function Dashboard() {
 
 /* ──── Sub-components ──── */
 
-// Unified section header used across the dashboard for a cohesive look.
-function SectionHeader({ icon: Icon, title, subtitle, action, right }: {icon: React.ComponentType<{className?: string;}>;title: string;subtitle?: string;action?: {label: string;to: string;};right?: React.ReactNode;}) {
-  return (
-    <div className="flex items-center gap-3 mb-4 md:mb-5">
-      <span className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/10 flex items-center justify-center shrink-0">
-        <Icon className="w-4 h-4 text-primary" />
-      </span>
-      <div className="min-w-0">
-        <h3 className="font-display text-lg font-extrabold leading-none tracking-tight">{title}</h3>
-        {subtitle && <p className="text-[11px] text-muted-foreground mt-1 truncate">{subtitle}</p>}
-      </div>
-      <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
-      {right ? right : action ?
-      <Link to={action.to}>
-          <Button variant="ghost" size="sm" className="press-scale text-xs shrink-0 -ml-2">
-            {action.label}<ChevronRight className="w-3.5 h-3.5 ml-1" />
-          </Button>
-        </Link> :
-      null}
-    </div>);
-
-}
-
-// One "door" into a section of the app: icon, one live number, one line of
-// context, and an optional progress bar — the whole dashboard vocabulary.
-function WorldTile({ to, icon: Icon, tint, title, stat, sub, progress, index = 0 }: {
-  to: string;
-  icon: React.ComponentType<{ className?: string }>;
-  tint: string;
-  title: string;
-  stat?: string;
-  sub: string;
-  progress?: number;
-  index?: number;
-}) {
+// Cascade wrapper: fade + slide up, 0.05s stagger between cards.
+function MCard({ i, children, className }: { i: number; children: React.ReactNode; className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, delay: 0.05 + index * 0.06, ease: "easeOut" }}
+      transition={{ duration: 0.3, delay: i * 0.05, ease: "easeOut" }}
+      className={className}
     >
-      <Link
-        to={to}
-        className="group h-full rounded-[20px] bg-card border border-border/50 p-5 md:p-6 hover-lift press-scale block relative overflow-hidden transition-colors"
-        style={{ boxShadow: "var(--shadow-sm)" }}
-      >
-        {/* soft tinted glow in the corner */}
-        <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
-          style={{ background: `${tint}1f` }} />
-        {/* tint hairline */}
-        <div className="absolute top-0 left-0 right-0 h-[2.5px]"
-          style={{ background: `linear-gradient(90deg, ${tint}, ${tint}00 70%)` }} />
-
-        <div className="relative">
-          <span className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4 border"
-            style={{ background: `linear-gradient(135deg, ${tint}26, ${tint}0a)`, color: tint, borderColor: `${tint}26` }}>
-            <Icon className="w-5 h-5" />
-          </span>
-          <div className="flex items-center justify-between gap-2">
-            <p className="font-display font-extrabold text-[15px] tracking-tight">{title}</p>
-            <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all shrink-0" />
-          </div>
-          {stat && <p className="font-display text-[22px] font-extrabold mt-1 tracking-tight leading-none" style={{ color: tint }}>{stat}</p>}
-          <p className="text-xs text-muted-foreground mt-1.5 line-clamp-1">{sub}</p>
-          {progress != null && (
-            <div className="mt-4 h-1 rounded-full bg-muted overflow-hidden">
-              <div className="h-full rounded-full transition-all" style={{ width: `${progress}%`, background: tint }} />
-            </div>
-          )}
-        </div>
-      </Link>
+      {children}
     </motion.div>
   );
+}
+
+// Human "time left" for challenge deadlines.
+function timeLeft(endsAt: string): string {
+  const ms = new Date(endsAt).getTime() - Date.now();
+  if (ms <= 0) return "ended";
+  const days = Math.floor(ms / 86400000);
+  if (days > 0) return `${days}d left`;
+  const hours = Math.floor(ms / 3600000);
+  return hours > 0 ? `${hours}h left` : "ending soon";
 }
