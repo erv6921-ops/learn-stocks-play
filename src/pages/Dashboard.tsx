@@ -16,12 +16,14 @@ import { anchor } from "@/lib/tourAnchors";
 import { isEarnedEntry } from "@/lib/playerStats";
 import { getLeague } from "@/lib/leagues";
 import { CoasterTrack } from "./Lessons";
+import FullScreenCoaster from "@/components/FullScreenCoaster";
+import DailyMissions from "@/components/DailyMissions";
 import { loadActivities, bizDef, type ActivitiesState, type BusinessType } from "@/lib/businessActivities";
 import { type BizState, monthlyRevenue, statusLabel } from "@/lib/businessSim";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, Wallet,
-  GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical,
+  GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical, Maximize2, Minimize2,
   Target, Eye, ArrowRight } from
 "lucide-react";
 
@@ -305,6 +307,9 @@ export default function Dashboard() {
   const streakDayInCycle = streak % 7;
   const streakRingProgress = streakDayInCycle / 7 * 100;
 
+  // Fullscreen roller-coaster overlay toggle.
+  const [coasterFull, setCoasterFull] = useState(false);
+
   // ── Class rank (same RPC as the Leaderboard page) ──
   const [rankInfo, setRankInfo] = useState<{ rank: number; pts: number } | null>(null);
   useEffect(() => {
@@ -422,198 +427,135 @@ export default function Dashboard() {
         </MCard>
         }
 
-        {/* ═══ SPLIT SCREEN: coaster + next lesson (left) · live stat rail (right) ═══ */}
-        <div className="flex flex-col min-[900px]:flex-row gap-3 items-start">
-
-          {/* ── LEFT COLUMN (~65%) ── */}
-          <div className="w-full min-[900px]:flex-[2] min-w-0 space-y-3">
-            {/* Roller coaster progress — the exact component from Missions */}
-            <MCard i={1}>
-              <div className="bg-white rounded-[10px] overflow-hidden" style={{ border: "0.5px solid #e0e8e3" }}>
-                <div className="px-5 pt-4 pb-1 flex items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                      Unit {currentUnit.unitNumber} · Your ride
-                    </p>
-                    <p className="font-display font-extrabold text-lg tracking-tight truncate">{currentUnit.title}</p>
-                  </div>
-                  <span className="shrink-0 text-sm font-bold" style={{ color: "#1D9E75" }}>
-                    {currentUnitCompleted}/{currentUnitLessons.length} · {currentUnitProgress}%
-                  </span>
-                </div>
-                <CoasterTrack
-                  lessons={coasterLessons}
-                  currentIdx={coasterIdx}
-                  unitTotalPts={Math.round(getUnitRewardTotal(currentUnit.id) * getRewardMultiplier())}
-                  isUnlocked={coasterUnlocked}
-                  isCompleted={(al) => isLessonCompleted(al.lesson.id)}
-                  onSelect={(id) => navigate(`/lessons/${id}`)}
-                  celebrate={currentUnitProgress === 100}
-                />
+        {/* ═══ 1. ROLLER COASTER — full-width strip ═══ */}
+        <MCard i={1}>
+          <div className="bg-white rounded-[10px] overflow-hidden" style={{ border: "0.5px solid #e0e8e3" }}>
+            <div className="px-5 pt-4 pb-1 flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                  Unit {currentUnit.unitNumber} · Your ride
+                </p>
+                <p className="font-display font-extrabold text-lg tracking-tight truncate">{currentUnit.title}</p>
               </div>
-            </MCard>
-
-            {/* Next lesson */}
-            {nextLesson && (
-              <MCard i={2}>
-                <div className="bg-white rounded-[10px] p-4 md:p-5 flex flex-col sm:flex-row sm:items-center gap-4" style={{ border: "0.5px solid #e0e8e3" }}>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-1">
-                      Next lesson · Unit {currentUnit.unitNumber}
-                    </p>
-                    <p className="font-display font-extrabold text-base tracking-tight">{nextLesson.title}</p>
-                    <p className="text-sm text-muted-foreground mt-0.5 line-clamp-1">{nextLesson.description}</p>
-                    <p className="text-sm font-bold mt-1.5" style={{ color: "#1D9E75" }}>
-                      +{Math.round(nextLesson.reward * getRewardMultiplier()).toLocaleString()} coins on completion
-                    </p>
-                  </div>
-                  <Link to={`/lessons/${nextLesson.id}`} className="shrink-0">
-                    <Button className="press-scale gap-1.5 font-bold px-6" style={{ background: "#1D9E75" }}>
-                      Start <ArrowRight className="w-4 h-4" />
-                    </Button>
-                  </Link>
-                </div>
-              </MCard>
-            )}
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="text-sm font-bold hidden sm:inline" style={{ color: "#1D9E75" }}>
+                  {currentUnitCompleted}/{currentUnitLessons.length} · {currentUnitProgress}%
+                </span>
+                <button
+                  onClick={() => setCoasterFull(true)}
+                  className="inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
+                  style={{ background: "linear-gradient(135deg,#2FD39B,#0F7E5C)", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
+                >
+                  <Maximize2 className="w-4 h-4" /> Fullscreen
+                </button>
+              </div>
+            </div>
+            <CoasterTrack
+              lessons={coasterLessons}
+              currentIdx={coasterIdx}
+              unitTotalPts={Math.round(getUnitRewardTotal(currentUnit.id) * getRewardMultiplier())}
+              isUnlocked={coasterUnlocked}
+              isCompleted={(al) => isLessonCompleted(al.lesson.id)}
+              onSelect={(id) => navigate(`/lessons/${id}`)}
+              celebrate={currentUnitProgress === 100}
+            />
           </div>
+        </MCard>
 
-          {/* ── RIGHT SIDEBAR (~35%) — live stat cards ── */}
-          <div className="w-full min-[900px]:flex-1 min-w-0 flex flex-row min-[900px]:flex-col gap-2 overflow-x-auto min-[900px]:overflow-visible no-scrollbar pb-1 min-[900px]:pb-0">
+        {/* ═══ 2. SNAPSHOT — one-line basics strip ═══ */}
+        <MCard i={2} className="mt-3">
+          <div className="bg-white rounded-[10px] px-4 py-3 grid grid-cols-2 sm:grid-cols-4 gap-y-2 divide-x divide-[#e8eeeb]" style={{ border: "0.5px solid #e0e8e3" }}>
+            <div className="flex items-center gap-2.5 px-2 min-w-0">
+              <Coins className="w-4 h-4 text-gold shrink-0" />
+              <div className="min-w-0">
+                <p className="font-display font-extrabold text-base leading-none tabular-nums">{jeffsBalance.toLocaleString()}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5">Cash</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2.5 px-3 min-w-0">
+              <Flame className="w-4 h-4 text-orange-500 shrink-0" />
+              <div className="min-w-0">
+                <p className="font-display font-extrabold text-base leading-none tabular-nums">{streak}<span className="text-xs font-bold text-muted-foreground ml-0.5">d</span></p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5">Streak</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2.5 px-3 min-w-0">
+              <TrendingUp className="w-4 h-4 shrink-0" style={{ color: "#1D9E75" }} />
+              <div className="min-w-0">
+                <p className="font-display font-extrabold text-base leading-none tabular-nums">{portfolio.length}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5">Stocks owned</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2.5 px-3 min-w-0">
+              <BookOpen className="w-4 h-4 shrink-0" style={{ color: "#8B5CF6" }} />
+              <div className="min-w-0">
+                <p className="font-display font-extrabold text-base leading-none tabular-nums">{completedLessons}<span className="text-xs font-bold text-muted-foreground">/{totalLessons}</span></p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5">Lessons</p>
+              </div>
+            </div>
+          </div>
+        </MCard>
 
-            {/* 1 · Today's daily game */}
-            <MCard i={3} className="min-w-[240px] min-[900px]:min-w-0 flex-1">
-              <div className="rounded-[10px] p-4 text-white h-full" style={{ background: "#0f2d1e" }}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Today</p>
-                <p className="font-display font-extrabold text-lg mt-1">{dailyGameName}</p>
-                <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+        {/* ═══ 3. DAILIES — challenge + missions ═══ */}
+        <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-3 mt-3 items-start">
+          <MCard i={3}>
+            <div className={`rounded-[10px] p-4 md:p-5 text-white relative overflow-hidden ${dailyDone ? "opacity-75" : ""}`} style={{ background: "#0f2d1e" }}>
+              <div className="absolute top-0 left-0 right-0 h-[2px]"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Daily challenge</p>
+              <div className="flex items-center justify-between gap-4 mt-2">
+                <div className="min-w-0">
+                  <p className="font-display font-extrabold text-lg truncate">{dailyGameName}</p>
+                  <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+                </div>
                 {dailyDone ? (
-                  <p className="mt-3 text-sm font-bold text-center py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</p>
+                  <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
                 ) : (
-                  <Link to="/daily" className="block mt-3">
-                    <button className="w-full py-2 rounded-[6px] bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale">
+                  <Link to="/daily" className="shrink-0">
+                    <button className="px-6 py-2 rounded-[6px] bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale">
                       Play →
                     </button>
                   </Link>
                 )}
               </div>
-            </MCard>
-
-            {/* 2 · Class rank — hidden when not in a class */}
-            {rankInfo && (
-              <MCard i={4} className="min-w-[240px] min-[900px]:min-w-0 flex-1">
-                <Link to="/leaderboard" className="block h-full">
-                  <div className="rounded-[10px] p-4 text-white h-full press-scale" style={{ background: "#0f2d1e" }}>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Class rank</p>
-                    <p className="font-display font-extrabold text-3xl mt-1" style={{ color: "#4ade80" }}>#{rankInfo.rank}</p>
-                    <p className="text-sm text-white/70 mt-1">
-                      {rankInfo.pts.toLocaleString()} pts{streak > 0 ? ` · ${streak} day streak 🔥` : ""}
-                    </p>
-                  </div>
-                </Link>
-              </MCard>
-            )}
-
-            {/* 3 · Active challenge */}
-            <MCard i={5} className="min-w-[240px] min-[900px]:min-w-0 flex-1">
-              <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "1px solid rgba(29,158,117,0.35)" }}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Challenge pot</p>
-                {challenge ? (
-                  <>
-                    <p className="font-display font-extrabold text-2xl mt-1" style={{ color: "#1D9E75" }}>
-                      🪙 {challenge.pot.toLocaleString()}
-                    </p>
-                    <p className="text-sm text-foreground/80 mt-0.5 truncate">
-                      {challenge.title} · {timeLeft(challenge.ends_at)}
-                    </p>
-                    <Link to="/challenges" className="block mt-3">
-                      <button className="w-full py-2 rounded-[6px] text-white text-sm font-bold press-scale" style={{ background: "#0f2d1e" }}>
-                        Enter · {challenge.entry_fee} coins
-                      </button>
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <p className="font-bold text-sm mt-2">No active challenges</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">Check back soon</p>
-                  </>
-                )}
-              </div>
-            </MCard>
-
-            {/* 4 · InvestiCoins balance */}
-            <MCard i={6} className="min-w-[240px] min-[900px]:min-w-0 flex-1">
-              <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "0.5px solid #e0e8e3" }}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Coins</p>
-                <p className="font-display font-extrabold text-2xl mt-1 flex items-center gap-1.5">
-                  <Coins className="w-5 h-5 text-gold" /> {jeffsBalance.toLocaleString()}
-                </p>
-                {earnedToday > 0 && (
-                  <p className="text-sm font-bold mt-0.5" style={{ color: "#1D9E75" }}>+{earnedToday.toLocaleString()} earned today</p>
-                )}
-                <p className="text-xs text-muted-foreground/60 mt-3">Visit shop</p>
-              </div>
-            </MCard>
-          </div>
-        </div>
-
-        {/* ═══ BOTTOM ROW — badges · portfolio · this week ═══ */}
-        <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-2 mt-3">
-          {/* Badges */}
-          <MCard i={7}>
-            <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "0.5px solid #e0e8e3" }}>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-3">Badges</p>
-              <div className="flex items-center gap-3">
-                {BADGES.slice(0, 4).map((badge) => {
-                  const unlocked = completedLessons >= badge.unlockAt;
-                  const Icon = badge.icon;
-                  return (
-                    <div key={badge.name} title={unlocked ? badge.name : `Unlock: complete ${badge.unlockAt} lessons`}
-                      className={`w-11 h-11 rounded-full flex items-center justify-center relative ${unlocked ? "" : "grayscale opacity-50"}`}
-                      style={{ background: unlocked ? "linear-gradient(135deg,#1D9E75,#0f2d1e)" : "#e8eeeb" }}>
-                      <Icon className={`w-5 h-5 ${unlocked ? "text-white" : "text-muted-foreground"}`} />
-                      {!unlocked && <Lock className="w-3 h-3 absolute -bottom-0.5 -right-0.5 text-muted-foreground/60" />}
-                    </div>
-                  );
-                })}
-              </div>
-              <p className="text-sm font-bold mt-3">{unlockedBadgeCount} earned</p>
             </div>
           </MCard>
 
-          {/* Portfolio value */}
-          <MCard i={8}>
-            <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "0.5px solid #e0e8e3" }}>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Portfolio</p>
-              <p className="font-display font-extrabold text-2xl mt-1">🪙 {Math.floor(portfolioValue).toLocaleString()}</p>
-              {portfolio.length > 0 && (
-                <p className={`text-sm font-bold mt-0.5 ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
-                  {plPct >= 0 ? "▲" : "▼"} {plPct >= 0 ? "+" : ""}{plPct.toFixed(1)}%
-                </p>
-              )}
-              <Link to="/stocks" className="inline-block text-sm font-bold mt-3" style={{ color: "#1D9E75" }}>
-                View stocks →
-              </Link>
-            </div>
-          </MCard>
-
-          {/* This week */}
-          <MCard i={9}>
-            <div className="bg-white rounded-[10px] p-4 h-full" style={{ border: "0.5px solid #e0e8e3" }}>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">This week</p>
-              <p className="font-display font-extrabold text-2xl mt-1">
-                {weekInfo.count} {weekInfo.count === 1 ? "lesson" : "lessons"}
-              </p>
-              <div className="flex items-center gap-1.5 mt-3">
-                {weekInfo.days.map((active, i) => (
-                  <span key={i} className="w-2.5 h-2.5 rounded-full"
-                    style={{ background: active ? "#1D9E75" : "#dbe4df" }} />
-                ))}
-              </div>
-              <p className="text-xs text-muted-foreground mt-2">last 7 days</p>
-            </div>
+          <MCard i={4}>
+            <DailyMissions
+              lessonProgress={lessonProgress}
+              portfolio={portfolio}
+              earnJeffs={earnJeffs} />
           </MCard>
         </div>
       </main>
+
+      {/* Fullscreen roller coaster — same overlay Missions uses */}
+      {coasterFull && (
+        <div className="fixed inset-0 z-[60] bg-background">
+          <FullScreenCoaster
+            unitNumber={currentUnit.unitNumber}
+            unitTitle={currentUnit.title}
+            unitReward={Math.round(getUnitRewardTotal(currentUnit.id) * getRewardMultiplier())}
+            stations={currentUnitLessons.map((l) => ({
+              id: l.id,
+              title: l.title,
+              done: isLessonCompleted(l.id),
+              unlocked: coasterUnlocked(l.id),
+            }))}
+            currentIdx={coasterIdx}
+            stats={{ streak, points: jeffsBalance, level: currLevel }}
+            onSelectStation={(st) => navigate(`/lessons/${st.id}`)}
+          />
+          <button
+            onClick={() => setCoasterFull(false)}
+            className="absolute top-4 left-4 z-[61] inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-[#0d3524] shadow-lg transition-transform active:scale-95"
+            style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.9)" }}
+          >
+            <Minimize2 className="w-4 h-4" /> Exit fullscreen
+          </button>
+        </div>
+      )}
     </div>);
 
 }
