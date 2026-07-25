@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
@@ -320,67 +321,97 @@ export default function Dashboard() {
     <div className="min-h-screen bg-background">
       <GameNav />
 
-      <main className="container mx-auto px-4 py-6 md:py-8 pb-28 md:pb-10">
+      <main className="container mx-auto px-4 py-6 md:py-8 pb-28 md:pb-12 max-w-6xl">
         {/* ═══ 1. HERO — who you are + the ONE thing to do next ═══ */}
-        <div className="hud-panel p-5 md:p-8 mb-5 relative z-10 overflow-hidden">
-          <div className="relative z-10 grid lg:grid-cols-2 gap-6 items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="hud-panel p-6 md:p-10 mb-6 md:mb-8 relative z-10 overflow-hidden"
+        >
+          {/* ambient glows */}
+          <div className="absolute -top-24 -right-16 w-72 h-72 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, rgba(227,160,8,0.14), transparent 65%)" }} />
+          <div className="absolute -bottom-28 -left-20 w-80 h-80 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, rgba(43,182,115,0.16), transparent 65%)" }} />
+
+          <div className="relative z-10 grid lg:grid-cols-[1.1fr_1fr] gap-8 items-center">
             {/* Left: greeting + vitals */}
             <div>
-              <h1 className="font-display text-2xl md:text-3xl font-extrabold text-white tracking-tight">{getGreeting()} 👋</h1>
-              <p className="text-white/50 text-sm mt-1">{formattedDate}</p>
-              <div className="flex flex-wrap items-center gap-2 mt-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-white/35 mb-2">{formattedDate}</p>
+              <h1 className="font-display text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-[1.1]">
+                {getGreeting()}
+              </h1>
+              <div className="flex flex-wrap items-center gap-2 mt-5">
                 {streak > 0 && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-500/15 text-orange-300 text-xs font-bold border border-orange-500/20">
-                    <Flame className="w-3.5 h-3.5" /> {streak} day streak
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.07] backdrop-blur-sm text-orange-300 text-xs font-bold border border-white/10">
+                    <Flame className="w-3.5 h-3.5" style={{ animation: "streak-pulse 2s ease-in-out infinite" }} /> {streak} day{streak === 1 ? "" : "s"}
                   </span>
                 )}
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gold/15 text-gold text-xs font-bold border border-gold/20">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.07] backdrop-blur-sm text-gold text-xs font-bold border border-white/10">
                   <Coins className="w-3.5 h-3.5" /> {Math.floor(netWorth).toLocaleString()}
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 text-white text-xs font-bold border border-white/10">
-                  <Star className="w-3.5 h-3.5 text-yellow-300" /> Lv {currLevel}
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.07] backdrop-blur-sm text-white text-xs font-bold border border-white/10">
+                  <Star className="w-3.5 h-3.5 text-yellow-300" /> Level {currLevel}
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border border-white/10" style={{ color: myLeague.color, background: "rgba(255,255,255,0.06)" }}>
-                  {myLeague.icon} {myLeague.name} League
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.07] backdrop-blur-sm text-xs font-bold border border-white/10" style={{ color: myLeague.color }}>
+                  {myLeague.icon} {myLeague.name}
                 </span>
               </div>
               {earnedToday > 0 && (
-                <p className="text-success text-xs font-bold mt-3">+{earnedToday.toLocaleString()} InvestiCoins earned today — keep going!</p>
+                <p className="flex items-center gap-2 text-xs font-semibold text-white/60 mt-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-success inline-block" style={{ animation: "sparkle 2s ease-in-out infinite" }} />
+                  +{earnedToday.toLocaleString()} InvestiCoins earned today
+                </p>
               )}
             </div>
 
             {/* Right: NEXT UP — the single most important card on the page */}
             {nextLesson ? (
-              <div ref={anchor("dash-today")} className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold mb-1.5">▶ Next up</p>
-                <p className="text-white font-display font-extrabold text-lg leading-snug">{nextLesson.title}</p>
-                <p className="text-white/50 text-xs mt-1">Unit {currentUnit.unitNumber} · {currentUnit.title}</p>
-                <div className="mt-3 flex items-center gap-2">
-                  <div className="h-1.5 flex-1 rounded-full bg-white/10 overflow-hidden">
-                    <div className="h-full rounded-full bg-success transition-all" style={{ width: `${currentUnitProgress}%` }} />
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.12, ease: "easeOut" }}
+                ref={anchor("dash-today")}
+                className="relative rounded-[20px] border border-white/10 bg-white/[0.06] backdrop-blur-md p-6 overflow-hidden"
+              >
+                {/* gold hairline across the top */}
+                <div className="absolute top-0 left-0 right-0 h-[2px]"
+                  style={{ background: "linear-gradient(90deg, transparent, rgba(227,160,8,0.8), transparent)" }} />
+                <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.24em] text-gold mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold inline-block" /> Next up
+                </p>
+                <p className="text-white font-display font-extrabold text-xl leading-snug">{nextLesson.title}</p>
+                <p className="text-white/45 text-xs mt-1.5">Unit {currentUnit.unitNumber} · {currentUnit.title}</p>
+                <div className="mt-4 flex items-center gap-3">
+                  <div className="h-1 flex-1 rounded-full bg-white/10 overflow-hidden">
+                    <div className="h-full rounded-full transition-all"
+                      style={{ width: `${currentUnitProgress}%`, background: "linear-gradient(90deg, #2BB673, #E3A008)" }} />
                   </div>
-                  <span className="text-white/50 text-[11px] font-bold">{currentUnitProgress}%</span>
+                  <span className="text-white/45 text-[11px] font-bold tabular-nums">{currentUnitProgress}%</span>
                 </div>
-                <div className="flex items-center justify-between gap-3 mt-4">
-                  <span className="text-gold font-bold text-sm flex items-center gap-1">
+                <div className="flex items-center justify-between gap-3 mt-5">
+                  <span className="text-gold font-bold text-sm flex items-center gap-1.5">
                     <Coins className="w-4 h-4" />+{Math.round(nextLesson.reward * getRewardMultiplier()).toLocaleString()}
                   </span>
                   <Link to={`/lessons/${nextLesson.id}`}>
-                    <Button size="lg" className="press-scale gap-1.5 font-bold">Continue <ArrowRight className="w-4 h-4" /></Button>
+                    <Button size="lg" className="press-scale gap-2 font-bold shadow-glow px-7">
+                      Continue <ArrowRight className="w-4 h-4" />
+                    </Button>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ) : (
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
-                <p className="text-2xl mb-1">🎉</p>
-                <p className="text-white font-extrabold">Every lesson complete — legend!</p>
-                <Link to="/leaderboard" className="inline-block mt-3">
-                  <Button size="sm" className="press-scale">See your rank</Button>
+              <div className="relative rounded-[20px] border border-white/10 bg-white/[0.06] backdrop-blur-md p-8 text-center">
+                <p className="text-3xl mb-2">🎉</p>
+                <p className="text-white font-display font-extrabold text-lg">Every lesson complete — legend!</p>
+                <Link to="/leaderboard" className="inline-block mt-4">
+                  <Button className="press-scale shadow-glow">See your rank</Button>
                 </Link>
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* ──── JOIN A CLASS (only for students not yet in one) ──── */}
         {inClass === false &&
@@ -416,9 +447,13 @@ export default function Dashboard() {
         <SectionHeader icon={Flame} title="Today" subtitle="Quick wins — fresh coins every day" />
         <div className="grid lg:grid-cols-2 gap-4 mb-6 items-start">
           <Card
-            className={`border-0 overflow-hidden ${dailyDone ? "opacity-70" : ""}`}
+            className={`border-0 overflow-hidden relative rounded-[20px] ${dailyDone ? "opacity-70" : ""}`}
             style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
-            <CardContent className="p-4 md:p-5">
+            <div className="absolute top-0 left-0 right-0 h-[2px]"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
+            <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
+              style={{ background: "rgba(43,182,115,0.14)" }} />
+            <CardContent className="p-4 md:p-5 relative">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "rgba(43,182,115,0.18)" }}>
                   <Flame className="w-5 h-5 text-success" />
@@ -452,19 +487,19 @@ export default function Dashboard() {
         {/* ═══ 3. YOUR WORLD — six doors, one live number each ═══ */}
         <SectionHeader icon={Target} title="Your World" subtitle="Everything you build, one tap away" />
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-          <WorldTile to="/lessons" icon={BookOpen} tint="#8B5CF6" title="Missions"
+          <WorldTile index={0} to="/lessons" icon={BookOpen} tint="#8B5CF6" title="Missions"
             stat={`${progressPercent}%`} sub={`${completedLessons}/${totalLessons} lessons done`} progress={progressPercent} />
-          <WorldTile to="/stocks" icon={LineChart} tint="#E3A008" title="Stocks"
+          <WorldTile index={1} to="/stocks" icon={LineChart} tint="#E3A008" title="Stocks"
             stat={portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()}` : undefined}
             sub={portfolio.length > 0 ? `${portfolio.length} ${portfolio.length === 1 ? "stock" : "stocks"} owned` : "Make your first trade"} />
-          <WorldTile to="/micro-business" icon={Store} tint="#F97316" title="Business"
+          <WorldTile index={2} to="/micro-business" icon={Store} tint="#F97316" title="Business"
             stat={hasBusiness && bizSim ? `Month ${bizSim.month}` : undefined}
             sub={hasBusiness && bizSim ? `${statusLabel(bizSim).label} · 🪙 ${monthlyRevenue(bizSim).toLocaleString()}/mo` : "Build your own company"} />
-          <WorldTile to="/bank" icon={Landmark} tint="#0F766E" title="Bank"
+          <WorldTile index={3} to="/bank" icon={Landmark} tint="#0F766E" title="Bank"
             sub="Vault, loans, bonds & careers" />
-          <WorldTile to="/leaderboard" icon={Trophy} tint="#E0457B" title="Leaderboard"
+          <WorldTile index={4} to="/leaderboard" icon={Trophy} tint="#E0457B" title="Leaderboard"
             stat={`${myLeague.icon} ${myLeague.name}`} sub="Race your class up the leagues" />
-          <WorldTile to="/lab" icon={FlaskConical} tint="#3BA7C4" title="Lab"
+          <WorldTile index={5} to="/lab" icon={FlaskConical} tint="#3BA7C4" title="Lab"
             sub="Real-world money skills" />
         </div>
       </main>
@@ -477,19 +512,18 @@ export default function Dashboard() {
 // Unified section header used across the dashboard for a cohesive look.
 function SectionHeader({ icon: Icon, title, subtitle, action, right }: {icon: React.ComponentType<{className?: string;}>;title: string;subtitle?: string;action?: {label: string;to: string;};right?: React.ReactNode;}) {
   return (
-    <div className="flex items-end justify-between gap-3 mb-3 md:mb-4">
-      <div className="flex items-center gap-2.5">
-        <span className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-          <Icon className="w-4 h-4 text-primary" />
-        </span>
-        <div>
-          <h3 className="font-display text-base font-extrabold leading-none tracking-tight">{title}</h3>
-          {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
-        </div>
+    <div className="flex items-center gap-3 mb-4 md:mb-5">
+      <span className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/10 flex items-center justify-center shrink-0">
+        <Icon className="w-4 h-4 text-primary" />
+      </span>
+      <div className="min-w-0">
+        <h3 className="font-display text-lg font-extrabold leading-none tracking-tight">{title}</h3>
+        {subtitle && <p className="text-[11px] text-muted-foreground mt-1 truncate">{subtitle}</p>}
       </div>
+      <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
       {right ? right : action ?
       <Link to={action.to}>
-          <Button variant="ghost" size="sm" className="press-scale text-xs shrink-0">
+          <Button variant="ghost" size="sm" className="press-scale text-xs shrink-0 -ml-2">
             {action.label}<ChevronRight className="w-3.5 h-3.5 ml-1" />
           </Button>
         </Link> :
@@ -500,7 +534,7 @@ function SectionHeader({ icon: Icon, title, subtitle, action, right }: {icon: Re
 
 // One "door" into a section of the app: icon, one live number, one line of
 // context, and an optional progress bar — the whole dashboard vocabulary.
-function WorldTile({ to, icon: Icon, tint, title, stat, sub, progress }: {
+function WorldTile({ to, icon: Icon, tint, title, stat, sub, progress, index = 0 }: {
   to: string;
   icon: React.ComponentType<{ className?: string }>;
   tint: string;
@@ -508,28 +542,44 @@ function WorldTile({ to, icon: Icon, tint, title, stat, sub, progress }: {
   stat?: string;
   sub: string;
   progress?: number;
+  index?: number;
 }) {
   return (
-    <Link
-      to={to}
-      className="group rounded-2xl bg-card border border-border/40 p-4 md:p-5 hover-lift press-scale block relative overflow-hidden"
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: 0.05 + index * 0.06, ease: "easeOut" }}
     >
-      {/* Top accent strip in the section's tint */}
-      <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: tint }} />
-      <span className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background: `${tint}1a`, color: tint }}>
-        <Icon className="w-5 h-5" />
-      </span>
-      <div className="flex items-center justify-between gap-2">
-        <p className="font-display font-extrabold text-base tracking-tight">{title}</p>
-        <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all shrink-0" />
-      </div>
-      {stat && <p className="text-xl font-extrabold mt-0.5 tracking-tight" style={{ color: tint }}>{stat}</p>}
-      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{sub}</p>
-      {progress != null && (
-        <div className="mt-3 h-1.5 rounded-full bg-muted overflow-hidden">
-          <div className="h-full rounded-full transition-all" style={{ width: `${progress}%`, background: tint }} />
+      <Link
+        to={to}
+        className="group h-full rounded-[20px] bg-card border border-border/50 p-5 md:p-6 hover-lift press-scale block relative overflow-hidden transition-colors"
+        style={{ boxShadow: "var(--shadow-sm)" }}
+      >
+        {/* soft tinted glow in the corner */}
+        <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
+          style={{ background: `${tint}1f` }} />
+        {/* tint hairline */}
+        <div className="absolute top-0 left-0 right-0 h-[2.5px]"
+          style={{ background: `linear-gradient(90deg, ${tint}, ${tint}00 70%)` }} />
+
+        <div className="relative">
+          <span className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4 border"
+            style={{ background: `linear-gradient(135deg, ${tint}26, ${tint}0a)`, color: tint, borderColor: `${tint}26` }}>
+            <Icon className="w-5 h-5" />
+          </span>
+          <div className="flex items-center justify-between gap-2">
+            <p className="font-display font-extrabold text-[15px] tracking-tight">{title}</p>
+            <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all shrink-0" />
+          </div>
+          {stat && <p className="font-display text-[22px] font-extrabold mt-1 tracking-tight leading-none" style={{ color: tint }}>{stat}</p>}
+          <p className="text-xs text-muted-foreground mt-1.5 line-clamp-1">{sub}</p>
+          {progress != null && (
+            <div className="mt-4 h-1 rounded-full bg-muted overflow-hidden">
+              <div className="h-full rounded-full transition-all" style={{ width: `${progress}%`, background: tint }} />
+            </div>
+          )}
         </div>
-      )}
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
