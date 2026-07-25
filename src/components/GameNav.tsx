@@ -29,6 +29,13 @@ import {
 
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
 
+// Compact large balances (e.g. 12,300 → "12.3K") so the coin pill stays narrow
+// on phones and never widens the top-right cluster into the centered wordmark.
+const compactBalance = (n: number) =>
+  Math.abs(n) >= 10_000
+    ? Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(n)
+    : n.toLocaleString();
+
 function getStreak(history: { amount: number; reason: string; date: Date }[]) {
   if (history.length === 0) return 0;
   const today = new Date();
@@ -126,14 +133,16 @@ export default function GameNav() {
               to="/dashboard"
               className="absolute left-1/2 -translate-x-1/2 flex items-center group"
             >
-              <Wordmark className="text-xl md:text-2xl transition-transform duration-200 group-hover:scale-[1.02]" />
+              <Wordmark className="text-lg min-[400px]:text-xl md:text-2xl transition-transform duration-200 group-hover:scale-[1.02]" />
             </Link>
 
             {/* Top-right: coins, notifications, profile */}
-            <div className="flex items-center gap-2">
-              <div ref={anchor("hud-coins")} className="flex items-center gap-1.5 bg-gold/10 text-gold px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
-                <Coins className="w-3.5 h-3.5" />
-                <span><AnimatedNumber value={Math.floor(netWorth)} /></span>
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <div ref={anchor("hud-coins")} className="flex items-center gap-1.5 bg-gold/10 text-gold px-2 sm:px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
+                <Coins className="w-3.5 h-3.5 shrink-0" />
+                {/* Compact on phones (keeps the pill narrow), full number on larger screens. */}
+                <span className="sm:hidden tabular-nums"><AnimatedNumber value={Math.floor(netWorth)} format={compactBalance} /></span>
+                <span className="hidden sm:inline tabular-nums"><AnimatedNumber value={Math.floor(netWorth)} /></span>
               </div>
               <NotificationBell />
               <Link to="/profile" aria-label="Your profile" title="Your profile" ref={anchor("hud-profile")}>

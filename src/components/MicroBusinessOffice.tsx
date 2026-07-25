@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { ws } from "@/lib/writingScale";
 import {
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip as RTooltip,
 } from "recharts";
@@ -426,9 +427,9 @@ function ComplaintPanel({ s, update, awardXP }: { s: BusinessGameState; update: 
     const lower = text.toLowerCase();
     const present = COMPLAINT_KEYWORDS.filter((k) => lower.includes(k));
     let score: number; let note: string;
-    if (present.length === COMPLAINT_KEYWORDS.length && words > 50) { score = 9; note = "Thorough, empathetic, and solution-focused."; }
+    if (present.length === COMPLAINT_KEYWORDS.length && words > ws(50)) { score = 9; note = "Thorough, empathetic, and solution-focused."; }
     else if (present.length > 0) { score = 7; note = `Good — you acknowledged it (${present.join(", ")}).`; }
-    else if (words < 30) { score = 3; note = "Too short and impersonal — apologize and offer a fix."; }
+    else if (words < ws(30)) { score = 3; note = "Too short and impersonal — apologize and offer a fix."; }
     else { score = 5; note = "Add empathy words like 'sorry' and offer a concrete fix."; }
     update((st) => {
       const newStar = Math.max(1, Math.min(5, st.starRating * 0.7 + (score / 2) * 0.3));

@@ -219,9 +219,9 @@ export default function Leaderboard() {
     if (scope === "class" && classMembers.length > 0) {
       const entries: Entry[] = [
         ...classMembers.map(m => ({
-          name: m.name, score: m.xp, scoreLabel: "InvestiCoins", level: getLevel(m.xp), streak: 0, isMe: false,
+          name: m.name, score: m.xp, scoreLabel: "Net Worth", level: getLevel(m.xp), streak: 0, isMe: false,
         })),
-        { name: "You", score: totalXp, scoreLabel: "InvestiCoins", level: getLevel(totalXp), streak: 0, isMe: true },
+        { name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true },
       ]
       entries.sort((a, b) => b.score - a.score)
       return entries
@@ -230,9 +230,9 @@ export default function Leaderboard() {
     if (scope === "friends" && friendRows.length > 0) {
       const entries: Entry[] = [
         ...friendRows.map(f => ({
-          name: f.name, score: f.xp, scoreLabel: "InvestiCoins", level: getLevel(f.xp), streak: 0, isMe: false,
+          name: f.name, score: f.xp, scoreLabel: "Net Worth", level: getLevel(f.xp), streak: 0, isMe: false,
         })),
-        { name: "You", score: totalXp, scoreLabel: "InvestiCoins", level: getLevel(totalXp), streak: 0, isMe: true },
+        { name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true },
       ]
       entries.sort((a, b) => b.score - a.score)
       return entries
@@ -248,7 +248,7 @@ export default function Leaderboard() {
       return entries
     }
 
-    return [{ name: "You", score: totalXp, scoreLabel: "InvestiCoins", level: getLevel(totalXp), streak: 0, isMe: true }]
+    return [{ name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true }]
   }, [scope, myNetWorth, showDemo, classMembers, friendRows, totalXp])
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
@@ -389,11 +389,11 @@ export default function Leaderboard() {
               </div>
 
               <p className="text-xs text-primary-foreground/70 font-semibold uppercase tracking-wider mt-4">
-                {showDemo ? "Your Net Worth" : "Your InvestiCoins"}
+                Your Net Worth
               </p>
               <p className="font-display text-5xl md:text-6xl font-extrabold flex items-center gap-2 mt-1 leading-none">
                 <Coins className="w-8 h-8 md:w-9 md:h-9 text-warning" />
-                {(showDemo ? myNetWorth : totalXp).toLocaleString()}
+                {myNetWorth.toLocaleString()}
               </p>
               <p className="text-[11px] text-primary-foreground/60 mt-2">
                 InvestiCoins {jeffsBalance.toLocaleString()} + Portfolio {Math.round(portfolioValue).toLocaleString()}

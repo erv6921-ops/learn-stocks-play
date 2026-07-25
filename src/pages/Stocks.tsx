@@ -332,8 +332,8 @@ export default function Stocks() {
       </div>
 
       <GameNav />
-      <main className="container mx-auto px-4 py-10">
-        <div className="flex items-start justify-between gap-4 mb-8">
+      <main className="container mx-auto px-4 py-6 md:py-10">
+        <div className="flex items-start justify-between gap-4 mb-6 md:mb-8">
           <div>
             <h1 className="font-display text-[28px] md:text-[32px] font-bold mb-1.5 tracking-tight">Stock Market</h1>
             {/* 2. MARKET STATUS BADGE */}
@@ -346,11 +346,11 @@ export default function Stocks() {
               </span>
             </div>
           </div>
-          <JeffMascot size="sm" message="Search any stock ticker to see its details!" />
+          <JeffMascot size="sm" message="Search any stock ticker to see its details!" className="hidden sm:flex shrink-0" />
         </div>
 
         {/* Search Bar — Front and Center */}
-        <form onSubmit={handleSearchSubmit} className="mb-10">
+        <form onSubmit={handleSearchSubmit} className="mb-6 md:mb-10">
           <div className="relative max-w-2xl mx-auto" ref={anchor("stocks-search")}>
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
@@ -390,7 +390,7 @@ export default function Stocks() {
         {!searchQuery.trim() && (
           <>
             {/* 5. MOST ACTIVE STRIP — live */}
-            <div className="mb-10">
+            <div className="mb-6 md:mb-10">
               <h2 className="font-display text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Most active today</h2>
               <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
                 {MOST_ACTIVE_SYMBOLS.map(sym => {
@@ -418,7 +418,7 @@ export default function Stocks() {
             </div>
 
             {/* 3. MAJOR INDEXES — live price, % change, intraday sparkline */}
-            <div className="mb-10">
+            <div className="mb-6 md:mb-10">
               <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" /> Major Indexes
               </h2>
@@ -441,7 +441,7 @@ export default function Stocks() {
                         >
                           {fmtPct(change)}
                         </span>
-                        <p className="text-[11px] text-white/50 mb-0.5 font-medium uppercase tracking-wider">{idx.name}</p>
+                        <p className="text-[11px] text-white/50 mb-0.5 font-medium uppercase tracking-wider pr-12 truncate">{idx.name}</p>
                         <p className="text-xs font-mono text-white/30">{idx.symbol}</p>
                         {quotesLoading && q?.price == null ? (
                           <Sk className="h-7 w-24 mt-2 bg-white/10" />
@@ -475,7 +475,7 @@ export default function Stocks() {
             </div>
 
             {/* 6. WATCHLIST SECTION */}
-            <div className="mb-10">
+            <div className="mb-6 md:mb-10">
               <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
                 <Star className="w-5 h-5 text-warning fill-warning" /> Your watchlist
               </h2>
@@ -510,7 +510,7 @@ export default function Stocks() {
             </div>
 
             {/* 7. TOP MOVERS — live, sorted */}
-            <div className="mb-10">
+            <div className="mb-6 md:mb-10">
               <div className="flex items-center gap-2 mb-4" ref={anchor("stocks-movers")}>
                 <h2 className="font-display text-lg font-semibold mr-2">Top movers</h2>
                 <button
@@ -559,7 +559,7 @@ export default function Stocks() {
 
             {/* 8. ANALYST REPORT BANNER */}
             <div
-              className="rounded-2xl p-5 flex items-center justify-between gap-4"
+              className="rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
               style={{ backgroundColor: '#0f2d1e' }}
             >
               <div className="flex items-center gap-3 min-w-0">
@@ -573,7 +573,7 @@ export default function Stocks() {
               </div>
               <button
                 onClick={() => toast("Coming soon!")}
-                className="shrink-0 px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap"
+                className="shrink-0 w-full sm:w-auto px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap"
                 style={{ backgroundColor: '#0a2016', color: '#f59e0b', border: '1px solid #f59e0b33' }}
               >
                 100 coins · Unlock

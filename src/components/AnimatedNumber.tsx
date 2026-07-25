@@ -6,12 +6,19 @@ import { useSpring } from "framer-motion"
  * like the coin balance roll up/down instead of snapping. Renders the rounded,
  * locale-formatted integer.
  */
-export default function AnimatedNumber({ value }: { value: number }) {
+export default function AnimatedNumber({
+  value,
+  format,
+}: {
+  value: number
+  /** Optional formatter for the tweened value (e.g. compact "12.3K" in tight spots). */
+  format?: (n: number) => string
+}) {
   const spring = useSpring(value, { stiffness: 90, damping: 20, mass: 0.6 })
   const [display, setDisplay] = useState(value)
 
   useEffect(() => { spring.set(value) }, [value, spring])
   useEffect(() => spring.on("change", v => setDisplay(Math.round(v))), [spring])
 
-  return <>{display.toLocaleString()}</>
+  return <>{format ? format(display) : display.toLocaleString()}</>
 }

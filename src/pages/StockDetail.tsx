@@ -752,8 +752,8 @@ export default function StockDetail() {
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-0.5 bg-white/5 rounded-xl p-0.5" ref={anchor("stock-range")}>
+              <div className="flex items-center gap-2 max-w-full">
+                <div className="flex items-center gap-0.5 bg-white/5 rounded-xl p-0.5 max-w-full overflow-x-auto no-scrollbar" ref={anchor("stock-range")}>
                   {TIME_RANGES.map(r => (
                     <button
                       key={r.value}
@@ -771,9 +771,9 @@ export default function StockDetail() {
               </div>
             </div>
           </div>
-          <div className="px-5 pb-4">
+          <div className="px-1.5 sm:px-5 pb-4">
             {history && history.length > 0 ? (
-              <div className="h-64">
+              <div className="h-80 sm:h-96 md:h-[28rem]">
                 <ResponsiveContainer key={`${symbol}-${selectedRange}`} width="100%" height="100%">
                   <AreaChart data={history}>
                     <defs>
@@ -795,7 +795,7 @@ export default function StockDetail() {
                       domain={['dataMin', 'dataMax']}
                       axisLine={false}
                       tickLine={false}
-                      width={75}
+                      width={56}
                       tickFormatter={(v) => Number(v).toLocaleString(undefined, { minimumFractionDigits: v < 10 ? 2 : 0, maximumFractionDigits: 2 })}
                       padding={{ top: 10, bottom: 10 }}
                     />
@@ -823,7 +823,7 @@ export default function StockDetail() {
                 </ResponsiveContainer>
               </div>
             ) : (
-              <div className="h-64 flex items-center justify-center">
+              <div className="h-80 sm:h-96 md:h-[28rem] flex items-center justify-center">
                 <Loader2 className="w-5 h-5 animate-spin text-white/30" />
               </div>
             )}

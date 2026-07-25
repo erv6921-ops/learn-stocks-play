@@ -568,30 +568,29 @@ export default function Dashboard() {
 
         {/* ──── OVERVIEW ──── */}
         <SectionHeader icon={Wallet} title="Overview" subtitle="Your money & progress at a glance" />
-        <div className="grid grid-cols-1 min-[420px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 mb-4 md:mb-8">
+        {/* Four cards, not six — kids found the wall of stats overwhelming, so
+            cash and stock-count live as subtitles instead of extra cards. */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-8">
           <StatCard
             tour="dash-networth"
             title="Total Value"
             value={Math.floor(netWorth).toLocaleString()}
-            subtitle={earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "Cash + Investments"}
+            subtitle={earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : `${jeffsBalance.toLocaleString()} cash`}
             icon={Coins}
             accentColor="gold" />
-          <StatCard
-            tour="dash-cash"
-            title="Cash Balance"
-            value={jeffsBalance.toLocaleString()}
-            subtitle="Available to spend"
-            icon={Wallet}
-            accentColor="gold" />
-
-          <StatCard tour="dash-portfolio" title="Portfolio Value" value={Math.floor(portfolioValue).toLocaleString()} icon={LineChart} accentColor="primary" />
+          <StatCard tour="dash-portfolio" title="Portfolio Value" value={Math.floor(portfolioValue).toLocaleString()} subtitle={`${portfolio.length} ${portfolio.length === 1 ? "stock" : "stocks"} owned`} icon={LineChart} accentColor="primary" />
           <StatCard tour="dash-level" title="Level" value={`${currLevel}`} subtitle={LEVEL_NAMES[currLevel - 1] || "Master"} icon={Star} accentColor="accent" />
-          <StatCard title="Missions Done" value={`${completedLessons}/${totalLessons}`} icon={BookOpen} accentColor="primary" />
-          <StatCard title="Stocks Owned" value={portfolio.length.toString()} icon={TrendingUp} accentColor="primary" />
+          <StatCard title="Missions Done" value={`${completedLessons}/${totalLessons}`} subtitle={`${progressPercent}% of the course`} icon={BookOpen} accentColor="primary" />
         </div>
 
+        {/* ──── MAIN GRID: "do this now" (left) + extras (right sidebar) ────
+            One clear action column instead of a long stack of full-width
+            cards — the #1 fix for "the dashboard is messy". */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-4 md:mb-8 items-start">
+        <div className="lg:col-span-2">
+
         {/* ──── TODAY ──── */}
-        <SectionHeader icon={Flame} title="Today" subtitle="Daily games, signals & missions — earn coins every day" />
+        <SectionHeader icon={Flame} title="Today" subtitle="Earn coins every day" />
         <div className="space-y-4 mb-4 md:mb-8">
           <Card
             ref={anchor("dash-today")}
@@ -623,11 +622,6 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Live class challenges + create — replaces the Challenges nav tab */}
-          <ChallengesWidget />
-
-          <DailySignal />
-
           <DailyMissions
             lessonProgress={lessonProgress}
             portfolio={portfolio}
@@ -647,9 +641,9 @@ export default function Dashboard() {
             <Progress value={progressPercent} variant="success" />
           </div>
 
-          {/* Unit Progress Grid — derived from unitInfo */}
+          {/* Unit Progress Grid — just the next few units; the rest live on /lessons */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {unitOverviewCards.map((unit) =>
+            {unitOverviewCards.slice(0, 4).map((unit) =>
             <Link
               key={unit.id}
               to="/lessons"
@@ -678,13 +672,44 @@ export default function Dashboard() {
           </div>
         </div>
 
+        </div>{/* /left column */}
+
+        {/* ──── RIGHT SIDEBAR: signals, challenges, business, elective ──── */}
+        <div className="space-y-4">
+          <DailySignal />
+
+          {/* Live class challenges + create — replaces the Challenges nav tab */}
+          <ChallengesWidget />
+
+          {/* My Business — snapshot lives in the sidebar now */}
+          <Card variant="elevated" className="card-tier-1 hover-lift">
+            <CardHeader className="flex flex-row items-center justify-between p-6 pb-4">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Coins className="w-4 h-4 text-primary" />
+                My Business
+              </CardTitle>
+              <Link to="/micro-business">
+                <Button variant="ghost" size="sm" className="press-scale">
+                  Open <ChevronRight className="w-3.5 h-3.5 ml-1" />
+                </Button>
+              </Link>
+            </CardHeader>
+            <CardContent className="px-6 pb-6">
+              {hasBusiness && bizSim ? (
+                <BusinessSnapshot type={bizType!} sim={bizSim} />
+              ) : (
+                <EmptyState icon={Coins} label="Build your micro-business" cta="Get Started" to="/micro-business" />
+              )}
+            </CardContent>
+          </Card>
+
         {/* ──── AP MICROECONOMICS ELECTIVE ──── */}
         <button
           onClick={() => {
             try { localStorage.setItem("investiplay_active_track", "ap-micro"); } catch { /* ignore */ }
             navigate("/lessons");
           }}
-          className="w-full text-left rounded-2xl p-5 mb-4 md:mb-8 relative overflow-hidden press-scale"
+          className="w-full text-left rounded-2xl p-5 relative overflow-hidden press-scale"
           style={{ background: "linear-gradient(135deg,#0f2d1e 0%,#14432e 55%,#1D9E75 140%)" }}
         >
           <div className="flex items-center justify-between gap-4">
@@ -698,6 +723,9 @@ export default function Dashboard() {
             </span>
           </div>
         </button>
+
+        </div>{/* /sidebar */}
+        </div>{/* /main grid */}
 
         {/* ──── BADGES ──── */}
         <div className="mb-8" data-tour="dash-badges">
@@ -738,8 +766,8 @@ export default function Dashboard() {
         </div>
 
         {/* ──── YOUR MONEY ──── */}
-        <SectionHeader icon={Coins} title="Your Money" subtitle="Portfolio, watchlist & your business" />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <SectionHeader icon={Coins} title="Your Money" subtitle="Portfolio & watchlist" />
+        <div className="grid md:grid-cols-2 gap-6">
           {/* Portfolio */}
           <Card variant="elevated" className="card-tier-1 hover-lift">
             <CardHeader className="flex flex-row items-center justify-between p-6">
@@ -847,27 +875,6 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Micro-Business */}
-          <Card variant="elevated" className="card-tier-1 hover-lift">
-            <CardHeader className="flex flex-row items-center justify-between p-6">
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Coins className="w-4 h-4 text-primary" />
-                My Business
-              </CardTitle>
-              <Link to="/micro-business">
-                <Button variant="ghost" size="sm" className="press-scale">
-                  Open <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                </Button>
-              </Link>
-            </CardHeader>
-            <CardContent className="px-6 pb-6">
-              {hasBusiness && bizSim ? (
-                <BusinessSnapshot type={bizType!} sim={bizSim} />
-              ) : (
-                <EmptyState icon={Coins} label="Build your micro-business" cta="Get Started" to="/micro-business" />
-              )}
-            </CardContent>
-          </Card>
         </div>
       </main>
     </div>);

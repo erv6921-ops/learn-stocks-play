@@ -30,6 +30,9 @@ import {
   briefsForCategory, allBriefIdsForQuarter, type QuarterlyBrief,
 } from "@/lib/quarterlyBriefs";
 import { anchor } from "@/lib/tourAnchors";
+// Teacher-adjustable writing workload: ws() scales every word minimum by the
+// class's writing_scale setting (Light/Standard/Extended in TeacherDashboard).
+import { ws, initWritingScale, subscribeWritingScale } from "@/lib/writingScale";
 
 const NEON = "#00ff88";
 type Fields = Record<string, unknown>;
@@ -143,6 +146,15 @@ export default function MicroBusinessStudio() {
   const [a, setA] = useState<ActivitiesState | null>(null);
 
   useEffect(() => { loadActivities().then(setA); }, []);
+
+  // Load the class writing scale and re-render when it arrives, so every
+  // word-minimum label/check below reflects the teacher's setting.
+  const [, forceScaleRender] = useState(0);
+  useEffect(() => {
+    const unsub = subscribeWritingScale(() => forceScaleRender(n => n + 1));
+    initWritingScale();
+    return unsub;
+  }, []);
   const persist = useCallback((next: ActivitiesState) => { setA(next); saveActivities(next); }, []);
 
   const setBusinessType = (bt: BusinessType) => { if (!a) return; persist({ ...a, businessType: bt }); };
@@ -349,12 +361,12 @@ function ProductDoc({ a, complete }: AProps) {
   const [f, set] = useForm(saved, { name: "", problem: "", target: "", feat1: "", feat2: "", feat3: "", diff: "" });
   const checks = [
     { label: "Product/Service name (3+ words)", ok: wc(str(f.name)) >= 3 },
-    { label: "Problem it solves (75+ words)", ok: wc(str(f.problem)) >= 75 },
-    { label: "Target customer (50+ words)", ok: wc(str(f.target)) >= 50 },
-    { label: "Feature 1 + why (30+ words)", ok: wc(str(f.feat1)) >= 30 },
-    { label: "Feature 2 + why (30+ words)", ok: wc(str(f.feat2)) >= 30 },
-    { label: "Feature 3 + why (30+ words)", ok: wc(str(f.feat3)) >= 30 },
-    { label: "What makes it different (50+ words)", ok: wc(str(f.diff)) >= 50 },
+    { label: `Problem it solves (${ws(75)}+ words)`, ok: wc(str(f.problem)) >= ws(75) },
+    { label: `Target customer (${ws(50)}+ words)`, ok: wc(str(f.target)) >= ws(50) },
+    { label: `Feature 1 + why (${ws(30)}+ words)`, ok: wc(str(f.feat1)) >= ws(30) },
+    { label: `Feature 2 + why (${ws(30)}+ words)`, ok: wc(str(f.feat2)) >= ws(30) },
+    { label: `Feature 3 + why (${ws(30)}+ words)`, ok: wc(str(f.feat3)) >= ws(30) },
+    { label: `What makes it different (${ws(50)}+ words)`, ok: wc(str(f.diff)) >= ws(50) },
   ];
   const ready = checks.every((c) => c.ok);
   if (done && !editing) {
@@ -379,12 +391,12 @@ function ProductDoc({ a, complete }: AProps) {
     <ActivityCard icon={FileText} n={1} title="Product Design Document" desc="Write a structured brief for your product or service." xp={XP.pd} done={done}>
       <div className="space-y-3">
         <WField label="Product / Service name (min 3 words)" value={str(f.name)} onChange={(v) => set("name", v)} min={3} rows={1} placeholder="A short, descriptive name" />
-        <WField label="Problem it solves (min 75 words)" value={str(f.problem)} onChange={(v) => set("problem", v)} min={75} rows={4} />
-        <WField label="Target customer description (min 50 words)" value={str(f.target)} onChange={(v) => set("target", v)} min={50} rows={3} />
-        <WField label="Feature 1 — and why it matters (min 30 words)" value={str(f.feat1)} onChange={(v) => set("feat1", v)} min={30} />
-        <WField label="Feature 2 — and why it matters (min 30 words)" value={str(f.feat2)} onChange={(v) => set("feat2", v)} min={30} />
-        <WField label="Feature 3 — and why it matters (min 30 words)" value={str(f.feat3)} onChange={(v) => set("feat3", v)} min={30} />
-        <WField label="What makes it different from competitors (min 50 words)" value={str(f.diff)} onChange={(v) => set("diff", v)} min={50} rows={3} />
+        <WField label={`Problem it solves (min ${ws(75)} words)`} value={str(f.problem)} onChange={(v) => set("problem", v)} min={ws(75)} rows={4} />
+        <WField label={`Target customer description (min ${ws(50)} words)`} value={str(f.target)} onChange={(v) => set("target", v)} min={ws(50)} rows={3} />
+        <WField label={`Feature 1 — and why it matters (min ${ws(30)} words)`} value={str(f.feat1)} onChange={(v) => set("feat1", v)} min={ws(30)} />
+        <WField label={`Feature 2 — and why it matters (min ${ws(30)} words)`} value={str(f.feat2)} onChange={(v) => set("feat2", v)} min={ws(30)} />
+        <WField label={`Feature 3 — and why it matters (min ${ws(30)} words)`} value={str(f.feat3)} onChange={(v) => set("feat3", v)} min={ws(30)} />
+        <WField label={`What makes it different from competitors (min ${ws(50)} words)`} value={str(f.diff)} onChange={(v) => set("diff", v)} min={ws(50)} rows={3} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => { complete(id, f, XP.pd); setEditing(false); }}><FileText className="w-4 h-4 mr-1.5" /> Generate Product Brief</Button>
       </div>
@@ -403,10 +415,10 @@ function Pricing({ a, bt, complete }: AProps) {
   const lowMargin = price > 0 && actualMargin < 10;
   const checks = [
     { label: "Set a price greater than your cost", ok: price > cost },
-    { label: "Justify your price (40+ words)", ok: wc(str(f.justify)) >= 40 },
+    { label: `Justify your price (${ws(40)}+ words)`, ok: wc(str(f.justify)) >= ws(40) },
     { label: "Enter your calculated margin %", ok: String(f.margin).trim().length > 0 },
-    { label: "Explain your pricing approach (60+ words)", ok: wc(str(f.explain)) >= 60 },
-    ...(lowMargin ? [{ label: "Low margin: justify accepting it (40+ words)", ok: wc(str(f.lowReason)) >= 40 }] : []),
+    { label: `Explain your pricing approach (${ws(60)}+ words)`, ok: wc(str(f.explain)) >= ws(60) },
+    ...(lowMargin ? [{ label: `Low margin: justify accepting it (${ws(40)}+ words)`, ok: wc(str(f.lowReason)) >= ws(40) }] : []),
   ];
   const ready = checks.every((c) => c.ok);
   const marginOff = price > 0 && Math.abs(num(f.margin) - actualMargin) > 2;
@@ -431,17 +443,17 @@ function Pricing({ a, bt, complete }: AProps) {
           <div><label className="text-sm font-semibold">Profit margin %</label><Input value={str(f.margin)} onChange={(e) => set("margin", e.target.value)} className="mt-1" placeholder="you calculate it" /></div>
         </div>
         <p className="text-xs text-muted-foreground">Formula: (Price − Cost) ÷ Price × 100{price > 0 ? ` — actual works out to ${actualMargin.toFixed(0)}%` : ""}{marginOff ? " (check your math)" : ""}</p>
-        <WField label="Justify your price (40+ words)" value={str(f.justify)} onChange={(v) => set("justify", v)} min={40} />
+        <WField label={`Justify your price (${ws(40)}+ words)`} value={str(f.justify)} onChange={(v) => set("justify", v)} min={ws(40)} />
         <div>
           <label className="text-sm font-semibold">Pricing approach</label>
           <div className="flex gap-2 mt-1">{PRICING_TYPES.map((p) => <button key={p} onClick={() => set("ptype", p)} className={cn("flex-1 px-2 py-1.5 rounded-lg text-xs font-bold border press-scale", f.ptype === p ? "border-primary bg-primary/10" : "border-border bg-muted")}>{p}</button>)}</div>
         </div>
-        <WField label="Explain why you chose that approach (60+ words)" value={str(f.explain)} onChange={(v) => set("explain", v)} min={60} rows={3} />
+        <WField label={`Explain why you chose that approach (${ws(60)}+ words)`} value={str(f.explain)} onChange={(v) => set("explain", v)} min={ws(60)} rows={3} />
         {lowMargin && (
           <div className="rounded-xl border border-destructive/40 bg-destructive/5 p-3">
             <p className="text-sm font-bold text-destructive flex items-center gap-1.5"><AlertTriangle className="w-4 h-4" /> Your margin is dangerously thin.</p>
             <p className="text-xs text-muted-foreground mt-0.5">Most businesses need at least 20% to survive. Raise your price, or justify accepting a low margin below.</p>
-            <div className="mt-2"><WField label="Why accept a low margin? (40+ words)" value={str(f.lowReason)} onChange={(v) => set("lowReason", v)} min={40} /></div>
+            <div className="mt-2"><WField label={`Why accept a low margin? (${ws(40)}+ words)`} value={str(f.lowReason)} onChange={(v) => set("lowReason", v)} min={ws(40)} /></div>
           </div>
         )}
         <Incomplete items={checks} />
@@ -457,9 +469,9 @@ function Feedback({ a, bt, complete }: AProps) {
   const review = useMemo(() => BETA_REVIEWS[bt][weekIndex() % BETA_REVIEWS[bt].length], [bt]);
   const [f, set] = useForm(saved, { summary: "", implement: "yes", why: "", v2: "" });
   const checks = [
-    { label: "Summarize the feedback (40+ words)", ok: wc(str(f.summary)) >= 40 },
-    { label: "Justify your decision (50+ words)", ok: wc(str(f.why)) >= 50 },
-    { label: "Describe your v2 changes (60+ words)", ok: wc(str(f.v2)) >= 60 },
+    { label: `Summarize the feedback (${ws(40)}+ words)`, ok: wc(str(f.summary)) >= ws(40) },
+    { label: `Justify your decision (${ws(50)}+ words)`, ok: wc(str(f.why)) >= ws(50) },
+    { label: `Describe your v2 changes (${ws(60)}+ words)`, ok: wc(str(f.v2)) >= ws(60) },
   ];
   const ready = checks.every((c) => c.ok);
   if (done) {
@@ -478,13 +490,13 @@ function Feedback({ a, bt, complete }: AProps) {
     <ActivityCard icon={MessageSquare} n={3} title="Product Feedback Response" desc="A beta tester reviewed your product." xp={XP.pd} done={false}>
       <div className="space-y-3">
         <div className="rounded-xl border border-border bg-card p-3"><div className="flex items-center gap-1 text-gold mb-1">{[1, 2, 3].map((i) => <Star key={i} className="w-3.5 h-3.5" fill="#EBB13E" color="#EBB13E" />)}<span className="text-xs text-muted-foreground ml-1">Beta tester</span></div><p className="text-sm italic">"{review}"</p></div>
-        <WField label="Summarize the feedback in your own words (40+ words)" value={str(f.summary)} onChange={(v) => set("summary", v)} min={40} />
+        <WField label={`Summarize the feedback in your own words (${ws(40)}+ words)`} value={str(f.summary)} onChange={(v) => set("summary", v)} min={ws(40)} />
         <div>
           <label className="text-sm font-semibold">Will you implement this feedback?</label>
           <div className="flex gap-2 mt-1">{["yes", "no"].map((o) => <button key={o} onClick={() => set("implement", o)} className={cn("flex-1 px-2 py-1.5 rounded-lg text-sm font-bold border press-scale capitalize", f.implement === o ? "border-primary bg-primary/10" : "border-border bg-muted")}>{o === "yes" ? "Implement" : "Don't implement"}</button>)}</div>
         </div>
-        <WField label="Justify your decision (50+ words)" value={str(f.why)} onChange={(v) => set("why", v)} min={50} rows={3} />
-        <WField label="What would you change in v2? (60+ words)" value={str(f.v2)} onChange={(v) => set("v2", v)} min={60} rows={3} />
+        <WField label={`Justify your decision (${ws(50)}+ words)`} value={str(f.why)} onChange={(v) => set("why", v)} min={ws(50)} rows={3} />
+        <WField label={`What would you change in v2? (${ws(60)}+ words)`} value={str(f.v2)} onChange={(v) => set("v2", v)} min={ws(60)} rows={3} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, { ...f, __review: review }, XP.pd)}><MessageSquare className="w-4 h-4 mr-1.5" /> Submit response</Button>
       </div>
@@ -499,8 +511,8 @@ function FindPartner({ a, bt, complete }: AProps) {
   const [f, set] = useForm(saved, { chosen: "", why: "", proposal: "", split: "", timeline: "", deliverables: "" });
   const checks = [
     { label: "Pick a partner", ok: !!f.chosen },
-    { label: "Why you chose them (60+ words)", ok: wc(str(f.why)) >= 60 },
-    { label: "Collaboration proposal (100+ words)", ok: wc(str(f.proposal)) >= 100 },
+    { label: `Why you chose them (${ws(60)}+ words)`, ok: wc(str(f.why)) >= ws(60) },
+    { label: `Collaboration proposal (${ws(100)}+ words)`, ok: wc(str(f.proposal)) >= ws(100) },
     { label: "Revenue split %", ok: str(f.split).trim().length > 0 },
     { label: "Timeline", ok: str(f.timeline).trim().length > 0 },
     { label: "Deliverables", ok: str(f.deliverables).trim().length > 0 },
@@ -532,8 +544,8 @@ function FindPartner({ a, bt, complete }: AProps) {
             </button>
           ))}
         </div>
-        <WField label="Why did you choose them over the others? (60+ words)" value={str(f.why)} onChange={(v) => set("why", v)} min={60} rows={3} />
-        <WField label={`Collaboration proposal${chosen ? ` to ${chosen.name}` : ""} (100+ words)`} value={str(f.proposal)} onChange={(v) => set("proposal", v)} min={100} rows={5} placeholder="What the partnership looks like, what each side contributes, and the expected benefit." />
+        <WField label={`Why did you choose them over the others? (${ws(60)}+ words)`} value={str(f.why)} onChange={(v) => set("why", v)} min={ws(60)} rows={3} />
+        <WField label={`Collaboration proposal${chosen ? ` to ${chosen.name}` : ""} (100+ words)`} value={str(f.proposal)} onChange={(v) => set("proposal", v)} min={ws(100)} rows={5} placeholder="What the partnership looks like, what each side contributes, and the expected benefit." />
         <div className="grid grid-cols-3 gap-2">
           <div><label className="text-xs font-semibold">Revenue split %</label><Input value={str(f.split)} onChange={(e) => set("split", e.target.value)} className="mt-1" placeholder="e.g. 60/40" /></div>
           <div><label className="text-xs font-semibold">Timeline</label><Input value={str(f.timeline)} onChange={(e) => set("timeline", e.target.value)} className="mt-1" placeholder="e.g. 6 months" /></div>
@@ -553,9 +565,9 @@ function PartnerProblem({ a, bt, complete }: AProps) {
   const problem = useMemo(() => PARTNER_PROBLEMS[bt][weekIndex() % PARTNER_PROBLEMS[bt].length], [bt]);
   const [f, set] = useForm(saved, { message: "", resolution: "", reflection: "" });
   const checks = [
-    { label: "Message to your partner (75+ words)", ok: wc(str(f.message)) >= 75 },
-    { label: "Proposed resolution (50+ words)", ok: wc(str(f.resolution)) >= 50 },
-    { label: "Reflection (40+ words)", ok: wc(str(f.reflection)) >= 40 },
+    { label: `Message to your partner (${ws(75)}+ words)`, ok: wc(str(f.message)) >= ws(75) },
+    { label: `Proposed resolution (${ws(50)}+ words)`, ok: wc(str(f.resolution)) >= ws(50) },
+    { label: `Reflection (${ws(40)}+ words)`, ok: wc(str(f.reflection)) >= ws(40) },
   ];
   const ready = checks.every((c) => c.ok);
   if (!partnerFormed && !done) {
@@ -572,9 +584,9 @@ function PartnerProblem({ a, bt, complete }: AProps) {
     <ActivityCard icon={AlertTriangle} n={2} title="Partnership Problem" desc="A conflict came up with your partner." xp={XP.collab} done={false}>
       <div className="space-y-3">
         <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3"><p className="text-xs font-bold uppercase tracking-wider text-destructive mb-1">Problem</p><p className="text-sm">{problem}</p></div>
-        <WField label="Write a professional message to your partner (75+ words)" value={str(f.message)} onChange={(v) => set("message", v)} min={75} rows={4} />
-        <WField label="Propose a resolution with specific terms (50+ words)" value={str(f.resolution)} onChange={(v) => set("resolution", v)} min={50} rows={3} />
-        <WField label="What would you do differently choosing a partner next time? (40+ words)" value={str(f.reflection)} onChange={(v) => set("reflection", v)} min={40} />
+        <WField label={`Write a professional message to your partner (${ws(75)}+ words)`} value={str(f.message)} onChange={(v) => set("message", v)} min={ws(75)} rows={4} />
+        <WField label={`Propose a resolution with specific terms (${ws(50)}+ words)`} value={str(f.resolution)} onChange={(v) => set("resolution", v)} min={ws(50)} rows={3} />
+        <WField label={`What would you do differently choosing a partner next time? (${ws(40)}+ words)`} value={str(f.reflection)} onChange={(v) => set("reflection", v)} min={ws(40)} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, { ...f, __problem: problem }, XP.collab)}><ArrowRight className="w-4 h-4 mr-1.5" /> Send & resolve</Button>
       </div>
@@ -588,8 +600,8 @@ function VendorNegotiation({ a, bt, complete }: AProps) {
   const offer = VENDOR_OFFERS[bt];
   const [f, set] = useForm(saved, { analysis: "", counter: "" });
   const checks = [
-    { label: "Analyze the offer (60+ words)", ok: wc(str(f.analysis)) >= 60 },
-    { label: "Counter-offer letter (75+ words)", ok: wc(str(f.counter)) >= 75 },
+    { label: `Analyze the offer (${ws(60)}+ words)`, ok: wc(str(f.analysis)) >= ws(60) },
+    { label: `Counter-offer letter (${ws(75)}+ words)`, ok: wc(str(f.counter)) >= ws(75) },
   ];
   const ready = checks.every((c) => c.ok);
   const evaluate = () => {
@@ -624,8 +636,8 @@ function VendorNegotiation({ a, bt, complete }: AProps) {
     <ActivityCard icon={Truck} n={3} title="Vendor Negotiation" desc="A vendor sent a supply offer." xp={XP.collab} done={false}>
       <div className="space-y-3">
         <div className="rounded-xl bg-muted p-3 text-sm"><p className="font-bold mb-1">Vendor opening offer — {offer.item}</p><div className="flex gap-4 text-xs"><span>Price: <b>{offer.unitPrice.toFixed(2)} IC/unit</b></span><span>Min order: <b>{offer.moq}</b></span><span>Delivery: <b>{offer.deliveryDays} days</b></span></div></div>
-        <WField label="Analyze the offer — good or bad for you, and why? (60+ words)" value={str(f.analysis)} onChange={(v) => set("analysis", v)} min={60} rows={3} />
-        <WField label="Write a counter-offer letter with specific numbers (75+ words)" value={str(f.counter)} onChange={(v) => set("counter", v)} min={75} rows={4} placeholder="Tip: ask for a realistic discount (%), and justify it with volume or loyalty." />
+        <WField label={`Analyze the offer — good or bad for you, and why? (${ws(60)}+ words)`} value={str(f.analysis)} onChange={(v) => set("analysis", v)} min={ws(60)} rows={3} />
+        <WField label={`Write a counter-offer letter with specific numbers (${ws(75)}+ words)`} value={str(f.counter)} onChange={(v) => set("counter", v)} min={ws(75)} rows={4} placeholder="Tip: ask for a realistic discount (%), and justify it with volume or loyalty." />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, { ...f, __outcome: evaluate() }, XP.collab)}><Truck className="w-4 h-4 mr-1.5" /> Send counter-offer</Button>
       </div>
@@ -645,14 +657,14 @@ function BrandIdentity({ a, complete }: AProps) {
   const drafts = (f.drafts as string[]) || [];
   const addDraft = () => { const d = draft.trim(); if (!d) return; if (wc(d) > 10) { toast.error("Tagline must be 10 words or fewer"); return; } set("drafts", [...drafts, d]); setDraft(""); };
   const checks = [
-    { label: "Brand mission (50+ words)", ok: wc(str(f.mission)) >= 50 },
+    { label: `Brand mission (${ws(50)}+ words)`, ok: wc(str(f.mission)) >= ws(50) },
     { label: "At least 3 tagline drafts", ok: drafts.length >= 3 },
     { label: "Finalize a tagline (≤10 words)", ok: !!str(f.tagline) && wc(str(f.tagline)) <= 10 },
-    { label: "Voice example 1 (30+ words)", ok: wc(str(f.ex1)) >= 30 },
-    { label: "Voice example 2 (30+ words)", ok: wc(str(f.ex2)) >= 30 },
-    { label: "Why primary color (20+ words)", ok: wc(str(f.whyP)) >= 20 },
-    { label: "Why secondary color (20+ words)", ok: wc(str(f.whyS)) >= 20 },
-    { label: "Why accent color (20+ words)", ok: wc(str(f.whyA)) >= 20 },
+    { label: `Voice example 1 (${ws(30)}+ words)`, ok: wc(str(f.ex1)) >= ws(30) },
+    { label: `Voice example 2 (${ws(30)}+ words)`, ok: wc(str(f.ex2)) >= ws(30) },
+    { label: `Why primary color (${ws(20)}+ words)`, ok: wc(str(f.whyP)) >= ws(20) },
+    { label: `Why secondary color (${ws(20)}+ words)`, ok: wc(str(f.whyS)) >= ws(20) },
+    { label: `Why accent color (${ws(20)}+ words)`, ok: wc(str(f.whyA)) >= ws(20) },
   ];
   const ready = checks.every((c) => c.ok);
   if (done) {
@@ -670,7 +682,7 @@ function BrandIdentity({ a, complete }: AProps) {
   return (
     <ActivityCard icon={Palette} n={1} title="Brand Identity" desc="Define your brand from scratch." xp={XP.mkt} done={false}>
       <div className="space-y-3">
-        <WField label="Brand mission statement (50+ words)" value={str(f.mission)} onChange={(v) => set("mission", v)} min={50} rows={3} />
+        <WField label={`Brand mission statement (${ws(50)}+ words)`} value={str(f.mission)} onChange={(v) => set("mission", v)} min={ws(50)} rows={3} />
         <div>
           <label className="text-sm font-semibold">Tagline drafts ({drafts.length}/3 min) <span className="text-muted-foreground font-normal">· max 10 words each</span></label>
           <div className="flex gap-2 mt-1"><Input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Draft a tagline…" /><Button type="button" variant="outline" onClick={addDraft}><Plus className="w-4 h-4" /></Button></div>
@@ -680,8 +692,8 @@ function BrandIdentity({ a, complete }: AProps) {
           <label className="text-sm font-semibold">Brand voice</label>
           <div className="flex flex-wrap gap-2 mt-1">{VOICES.map((v) => <button key={v} onClick={() => set("voice", v)} className={cn("px-3 py-1 rounded-full text-xs font-bold border press-scale", f.voice === v ? "border-primary bg-primary/10" : "border-border bg-muted")}>{v}</button>)}</div>
         </div>
-        <WField label={`Example sentence 1 in your "${f.voice}" voice (30+ words)`} value={str(f.ex1)} onChange={(v) => set("ex1", v)} min={30} />
-        <WField label={`Example sentence 2 in your "${f.voice}" voice (30+ words)`} value={str(f.ex2)} onChange={(v) => set("ex2", v)} min={30} />
+        <WField label={`Example sentence 1 in your "${f.voice}" voice (${ws(30)}+ words)`} value={str(f.ex1)} onChange={(v) => set("ex1", v)} min={ws(30)} />
+        <WField label={`Example sentence 2 in your "${f.voice}" voice (${ws(30)}+ words)`} value={str(f.ex2)} onChange={(v) => set("ex2", v)} min={ws(30)} />
         <div className="grid grid-cols-3 gap-2">
           {([["cPrimary", "whyP", "Primary"], ["cSecondary", "whyS", "Secondary"], ["cAccent", "whyA", "Accent"]] as const).map(([ck, wk, lbl]) => (
             <div key={ck}>
@@ -690,9 +702,9 @@ function BrandIdentity({ a, complete }: AProps) {
             </div>
           ))}
         </div>
-        <WField label="Why the primary color fits (20+ words)" value={str(f.whyP)} onChange={(v) => set("whyP", v)} min={20} rows={2} />
-        <WField label="Why the secondary color fits (20+ words)" value={str(f.whyS)} onChange={(v) => set("whyS", v)} min={20} rows={2} />
-        <WField label="Why the accent color fits (20+ words)" value={str(f.whyA)} onChange={(v) => set("whyA", v)} min={20} rows={2} />
+        <WField label={`Why the primary color fits (${ws(20)}+ words)`} value={str(f.whyP)} onChange={(v) => set("whyP", v)} min={ws(20)} rows={2} />
+        <WField label={`Why the secondary color fits (${ws(20)}+ words)`} value={str(f.whyS)} onChange={(v) => set("whyS", v)} min={ws(20)} rows={2} />
+        <WField label={`Why the accent color fits (${ws(20)}+ words)`} value={str(f.whyA)} onChange={(v) => set("whyA", v)} min={ws(20)} rows={2} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, f, XP.mkt)}><Palette className="w-4 h-4 mr-1.5" /> Lock in brand</Button>
       </div>
@@ -716,12 +728,12 @@ function MarketingPlan({ a, complete }: AProps) {
   };
   const budget = num(f.budget);
   const checks = [
-    { label: "Target audience (60+ words)", ok: wc(str(f.audience)) >= 60 },
+    { label: `Target audience (${ws(60)}+ words)`, ok: wc(str(f.audience)) >= ws(60) },
     { label: "Choose 2 channels", ok: channels.length === 2 },
-    { label: `${channels[0] || "Channel 1"} plan (50+ words)`, ok: channels.length >= 1 && wc(str(f.ch0)) >= 50 },
-    { label: `${channels[1] || "Channel 2"} plan (50+ words)`, ok: channels.length >= 2 && wc(str(f.ch1)) >= 50 },
+    { label: `${channels[0] || "Channel 1"} plan (50+ words)`, ok: channels.length >= 1 && wc(str(f.ch0)) >= ws(50) },
+    { label: `${channels[1] || "Channel 2"} plan (50+ words)`, ok: channels.length >= 2 && wc(str(f.ch1)) >= ws(50) },
     { label: "Budget 5–30% of revenue", ok: budget >= 5 && budget <= 30 },
-    { label: "4 launch milestones (20+ words each)", ok: [f.m0, f.m1, f.m2, f.m3].every((m) => wc(str(m)) >= 20) },
+    { label: "4 launch milestones (20+ words each)", ok: [f.m0, f.m1, f.m2, f.m3].every((m) => wc(str(m)) >= ws(20)) },
   ];
   const ready = checks.every((c) => c.ok);
   if (done) {
@@ -734,13 +746,13 @@ function MarketingPlan({ a, complete }: AProps) {
   return (
     <ActivityCard icon={ClipboardList} n={2} title="Marketing Plan" desc="Plan how you'll reach customers." xp={XP.mkt} done={false}>
       <div className="space-y-3">
-        <WField label="Target audience description (60+ words)" value={str(f.audience)} onChange={(v) => set("audience", v)} min={60} rows={3} />
+        <WField label={`Target audience description (${ws(60)}+ words)`} value={str(f.audience)} onChange={(v) => set("audience", v)} min={ws(60)} rows={3} />
         <div>
           <label className="text-sm font-semibold">Pick exactly 2 channels</label>
           <div className="flex flex-wrap gap-2 mt-1">{CHANNELS.map((c) => <button key={c} onClick={() => toggleCh(c)} className={cn("px-3 py-1 rounded-full text-xs font-bold border press-scale", channels.includes(c) ? "border-primary bg-primary/10" : "border-border bg-muted")}>{c}</button>)}</div>
         </div>
-        {channels.length >= 1 && <WField label={`${channels[0]} — what you'd post, how often, expected outcome (50+ words)`} value={str(f.ch0)} onChange={(v) => set("ch0", v)} min={50} rows={3} />}
-        {channels.length >= 2 && <WField label={`${channels[1]} — what you'd post, how often, expected outcome (50+ words)`} value={str(f.ch1)} onChange={(v) => set("ch1", v)} min={50} rows={3} />}
+        {channels.length >= 1 && <WField label={`${channels[0]} — what you'd post, how often, expected outcome (${ws(50)}+ words)`} value={str(f.ch0)} onChange={(v) => set("ch0", v)} min={ws(50)} rows={3} />}
+        {channels.length >= 2 && <WField label={`${channels[1]} — what you'd post, how often, expected outcome (${ws(50)}+ words)`} value={str(f.ch1)} onChange={(v) => set("ch1", v)} min={ws(50)} rows={3} />}
         <div>
           <label className="text-sm font-semibold">Marketing budget (% of revenue)</label>
           <Input type="number" value={str(f.budget)} onChange={(e) => set("budget", e.target.value)} className="mt-1" />
@@ -748,7 +760,7 @@ function MarketingPlan({ a, complete }: AProps) {
         </div>
         <div>
           <label className="text-sm font-semibold">30-day launch plan — 4 milestones (20+ words each)</label>
-          <div className="space-y-2 mt-1">{(["m0", "m1", "m2", "m3"] as const).map((k, i) => <WField key={k} label={`Milestone ${i + 1}`} value={str(f[k])} onChange={(v) => set(k, v)} min={20} rows={2} />)}</div>
+          <div className="space-y-2 mt-1">{(["m0", "m1", "m2", "m3"] as const).map((k, i) => <WField key={k} label={`Milestone ${i + 1}`} value={str(f[k])} onChange={(v) => set(k, v)} min={ws(20)} rows={2} />)}</div>
         </div>
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, f, XP.mkt)}><Megaphone className="w-4 h-4 mr-1.5" /> Submit plan</Button>
@@ -766,10 +778,10 @@ function AdCampaign({ a, complete }: AProps) {
   const colors = { p: str(brand.cPrimary) || NEON, s: str(brand.cSecondary) || "#0a0f0d", acc: str(brand.cAccent) || "#f97316" };
   const [f, set] = useForm(saved, { p0: "Instagram caption", p1: "Email", copy0: "", copy1: "", who0: "", act0: "", meas0: "", who1: "", act1: "", meas1: "" });
   const checks = [
-    { label: "Ad 1 copy (60+ words)", ok: wc(str(f.copy0)) >= 60 },
-    { label: "Ad 1 — who/action/measure (40+ words)", ok: wc(`${str(f.who0)} ${str(f.act0)} ${str(f.meas0)}`) >= 40 },
-    { label: "Ad 2 copy (60+ words)", ok: wc(str(f.copy1)) >= 60 },
-    { label: "Ad 2 — who/action/measure (40+ words)", ok: wc(`${str(f.who1)} ${str(f.act1)} ${str(f.meas1)}`) >= 40 },
+    { label: `Ad 1 copy (${ws(60)}+ words)`, ok: wc(str(f.copy0)) >= ws(60) },
+    { label: `Ad 1 — who/action/measure (${ws(40)}+ words)`, ok: wc(`${str(f.who0)} ${str(f.act0)} ${str(f.meas0)}`) >= 40 },
+    { label: `Ad 2 copy (${ws(60)}+ words)`, ok: wc(str(f.copy1)) >= ws(60) },
+    { label: `Ad 2 — who/action/measure (${ws(40)}+ words)`, ok: wc(`${str(f.who1)} ${str(f.act1)} ${str(f.meas1)}`) >= 40 },
   ];
   const ready = checks.every((c) => c.ok);
   const Preview = ({ platform, copy }: { platform: string; copy: string }) => (
@@ -793,7 +805,7 @@ function AdCampaign({ a, complete }: AProps) {
           return (
             <div key={i} className="space-y-2 rounded-xl border border-border p-3">
               <div className="flex flex-wrap gap-2">{PLATFORMS.map((p) => <button key={p} onClick={() => set(pk, p)} className={cn("px-2.5 py-1 rounded-full text-xs font-bold border press-scale", f[pk] === p ? "border-primary bg-primary/10" : "border-border bg-muted")}>{p}</button>)}</div>
-              <WField label={`Ad ${i + 1} copy (60+ words)`} value={str(f[ck])} onChange={(v) => set(ck, v)} min={60} rows={3} />
+              <WField label={`Ad ${i + 1} copy (${ws(60)}+ words)`} value={str(f[ck])} onChange={(v) => set(ck, v)} min={ws(60)} rows={3} />
               <div className="grid sm:grid-cols-3 gap-2">
                 <WField label="Who is this targeting?" value={str(f[wk])} onChange={(v) => set(wk, v)} min={0} rows={2} />
                 <WField label="What action do you want?" value={str(f[ak])} onChange={(v) => set(ak, v)} min={0} rows={2} />
@@ -823,7 +835,7 @@ function BriefActivity({ a, bt, brief, n, complete }: { a: ActivitiesState; bt: 
   const scenario = brief.scenario.replace("{biz}", bizDef(bt).label);
   const checks = [
     ...(brief.choice ? [{ label: `Choose: ${brief.choice.label}`, ok: !!str(f.__choice) }] : []),
-    ...brief.fields.map((fl) => ({ label: `${fl.label} (${fl.min}+ words)`, ok: wc(str(f[fl.key])) >= fl.min })),
+    ...brief.fields.map((fl) => ({ label: `${fl.label} (${ws(fl.min)}+ words)`, ok: wc(str(f[fl.key])) >= ws(fl.min) })),
   ];
   const ready = checks.every((c) => c.ok);
   const Icon = brief.icon;
@@ -852,7 +864,7 @@ function BriefActivity({ a, bt, brief, n, complete }: { a: ActivitiesState; bt: 
             ))}</div>
           </div>
         )}
-        {brief.fields.map((fl) => <WField key={fl.key} label={fl.label} value={str(f[fl.key])} onChange={(v) => set(fl.key, v)} min={fl.min} rows={fl.rows} placeholder={fl.placeholder} />)}
+        {brief.fields.map((fl) => <WField key={fl.key} label={fl.label} value={str(f[fl.key])} onChange={(v) => set(fl.key, v)} min={ws(fl.min)} rows={fl.rows} placeholder={fl.placeholder} />)}
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(brief, f)}><ArrowRight className="w-4 h-4 mr-1.5" /> Submit brief</Button>
       </div>
@@ -985,7 +997,7 @@ function MonthlyOps({ sim, onGenerate, onResolve, onRebuild }: { sim: BizState; 
 }
 function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string; price: number; pitch: string }) => void }) {
   const [name, setName] = useState(""); const [price, setPrice] = useState(""); const [pitch, setPitch] = useState(""); const [open, setOpen] = useState(false);
-  const ready = name.trim().length >= 2 && num(price) > 0 && wc(pitch) >= 25;
+  const ready = name.trim().length >= 2 && num(price) > 0 && wc(pitch) >= ws(25);
   const submit = () => { onAdd({ name: name.trim(), price: num(price), pitch: pitch.trim() }); setName(""); setPrice(""); setPitch(""); setOpen(false); };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
@@ -1005,8 +1017,8 @@ function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string;
         <div className="space-y-2 rounded-xl border border-border p-3">
           <Input placeholder="Product name" value={name} onChange={(e) => setName(e.target.value)} />
           <Input type="number" placeholder="Price (IC)" value={price} onChange={(e) => setPrice(e.target.value)} />
-          <WField label="Pitch — what it is and who it's for (25+ words)" value={pitch} onChange={setPitch} min={25} rows={2} />
-          <Incomplete items={[{ label: "Name", ok: name.trim().length >= 2 }, { label: "Price greater than 0", ok: num(price) > 0 }, { label: "Pitch (25+ words)", ok: wc(pitch) >= 25 }]} />
+          <WField label={`Pitch — what it is and who it's for (${ws(25)}+ words)`} value={pitch} onChange={setPitch} min={ws(25)} rows={2} />
+          <Incomplete items={[{ label: "Name", ok: name.trim().length >= 2 }, { label: "Price greater than 0", ok: num(price) > 0 }, { label: `Pitch (${ws(25)}+ words)`, ok: wc(pitch) >= ws(25) }]} />
           <div className="flex gap-2"><Button variant="outline" className="flex-1" onClick={() => setOpen(false)}>Cancel</Button><Button className="flex-1 press-scale" disabled={!ready} onClick={submit}><Plus className="w-4 h-4 mr-1" /> Add product (+75 🪙)</Button></div>
         </div>
       ) : (

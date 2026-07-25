@@ -78,7 +78,17 @@ interface Class {
   join_code: string
   created_at: string
   student_count?: number
+  /** Micro-business writing workload multiplier: 0.5 Light / 1 Standard / 1.5 Extended */
+  writing_scale?: number
 }
+
+// Word-count options teachers can pick per class. Scales every micro-business
+// write-up minimum (e.g. a 50-word answer becomes 25 on Light, 75 on Extended).
+const WRITING_LEVELS = [
+  { value: 0.5, label: "Light", hint: "≈ half the words" },
+  { value: 1, label: "Standard", hint: "authored minimums" },
+  { value: 1.5, label: "Extended", hint: "≈ 1.5× the words" },
+] as const
 
 interface AssignedLesson {
   id: string
@@ -589,6 +599,23 @@ export default function TeacherDashboard() {
     })
   }
 
+  // Set how much writing the micro-business activities require for a class.
+  const setWritingScale = async (classId: string, scale: number) => {
+    const prev = classes
+    setClasses(cs => cs.map(c => c.id === classId ? { ...c, writing_scale: scale } : c))
+    const { error } = await (supabase as any)
+      .from("classes")
+      .update({ writing_scale: scale })
+      .eq("id", classId)
+    if (error) {
+      setClasses(prev)
+      toast({ title: "Couldn't save writing level", description: error.message, variant: "destructive" })
+    } else {
+      const lvl = WRITING_LEVELS.find(l => l.value === scale)
+      toast({ title: `Writing level: ${lvl?.label}`, description: "Students see the new word minimums next time they open Micro-Business." })
+    }
+  }
+
   const handleLogout = async () => {
     await supabase.auth.signOut()
     navigate("/auth")
@@ -813,6 +840,29 @@ export default function TeacherDashboard() {
                                 <Users className="w-3 h-3" />
                                 {cls.student_count} students
                               </span>
+                            </div>
+                            {/* Micro-business writing workload — per-class word-count control */}
+                            <div className="mt-3">
+                              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">
+                                Micro-business word count
+                              </p>
+                              <div className="inline-flex items-center rounded-lg bg-muted/60 p-0.5 border border-border/40">
+                                {WRITING_LEVELS.map(lvl => {
+                                  const active = (cls.writing_scale ?? 1) === lvl.value
+                                  return (
+                                    <button
+                                      key={lvl.value}
+                                      title={lvl.hint}
+                                      onClick={(e) => { e.stopPropagation(); setWritingScale(cls.id, lvl.value) }}
+                                      className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
+                                        active ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                                      }`}
+                                    >
+                                      {lvl.label}
+                                    </button>
+                                  )
+                                })}
+                              </div>
                             </div>
                           </div>
                           <div className="flex gap-1">
