@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import AnimatedNumber from "@/components/AnimatedNumber";
 import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
@@ -493,10 +494,10 @@ export default function Dashboard() {
         {/* ═══ 2. SNAPSHOT — four tinted stat boxes ═══ */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
           {[
-            { i: 2, icon: Coins, tint: "#E3A008", label: "Cash", value: jeffsBalance.toLocaleString(), sub: earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "InvestiCoins ready to spend" },
-            { i: 3, icon: Flame, tint: "#F97316", label: "Streak", value: `${streak} day${streak === 1 ? "" : "s"}`, sub: streak > 0 ? "Don't break the chain" : "Play today to start one" },
-            { i: 4, icon: TrendingUp, tint: "#1D9E75", label: "Stocks owned", value: String(portfolio.length), sub: portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()} invested` : "Make your first trade" },
-            { i: 5, icon: BookOpen, tint: "#8B5CF6", label: "Lessons", value: `${completedLessons}/${totalLessons}`, sub: `${progressPercent}% of the course`, progress: progressPercent },
+            { i: 2, icon: Coins, tint: "#E3A008", label: "Cash", num: jeffsBalance, sub: earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "InvestiCoins ready to spend" },
+            { i: 3, icon: Flame, tint: "#F97316", label: "Streak", num: streak, suffix: ` day${streak === 1 ? "" : "s"}`, pulse: streak > 0, sub: streak > 0 ? "Don't break the chain" : "Play today to start one" },
+            { i: 4, icon: TrendingUp, tint: "#1D9E75", label: "Stocks owned", num: portfolio.length, sub: portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()} invested` : "Make your first trade" },
+            { i: 5, icon: BookOpen, tint: "#8B5CF6", label: "Lessons", num: completedLessons, suffix: `/${totalLessons}`, sub: `${progressPercent}% of the course`, progress: progressPercent },
           ].map((st) => (
             <MCard key={st.label} i={st.i}>
               <div className="group bg-white rounded-[20px] p-4 md:p-5 relative overflow-hidden hover-lift press-scale h-full"
@@ -506,16 +507,26 @@ export default function Dashboard() {
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
                   style={{ background: `${st.tint}1f` }} />
                 <div className="relative">
-                  <span className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 border"
+                  <motion.span
+                    initial={{ scale: 0, rotate: -12 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.1 + st.i * 0.05 }}
+                    className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 border group-hover:scale-110 transition-transform"
                     style={{ background: `linear-gradient(135deg, ${st.tint}26, ${st.tint}0a)`, color: st.tint, borderColor: `${st.tint}26` }}>
-                    <st.icon className="w-4 h-4" />
-                  </span>
+                    <st.icon className="w-4 h-4" style={st.pulse ? { animation: "streak-pulse 2s ease-in-out infinite" } : undefined} />
+                  </motion.span>
                   <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{st.label}</p>
-                  <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">{st.value}</p>
+                  <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">
+                    <AnimatedNumber value={st.num} countUp />{st.suffix ?? ""}
+                  </p>
                   <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{st.sub}</p>
                   {st.progress != null && (
                     <div className="mt-3 h-1 rounded-full bg-muted overflow-hidden">
-                      <div className="h-full rounded-full transition-all" style={{ width: `${st.progress}%`, background: st.tint }} />
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${st.progress}%` }}
+                        transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
+                        className="h-full rounded-full" style={{ background: st.tint }} />
                     </div>
                   )}
                 </div>
@@ -575,16 +586,20 @@ export default function Dashboard() {
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#0F766E1f" }} />
                 <div className="relative">
                   <div className="flex items-center justify-between">
-                    <span className="w-9 h-9 rounded-xl flex items-center justify-center border"
+                    <motion.span
+                      initial={{ scale: 0, rotate: -12 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.55 }}
+                      className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
                       style={{ background: "linear-gradient(135deg, #0F766E26, #0F766E0a)", color: "#0F766E", borderColor: "#0F766E26" }}>
                       <Store className="w-4 h-4" />
-                    </span>
+                    </motion.span>
                     <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
                   </div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mt-3">My business</p>
                   {hasBusiness && bizSim ? (
                     <>
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">Month {bizSim.month}</p>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">Month <AnimatedNumber value={bizSim.month} countUp /></p>
                       <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
                         {statusLabel(bizSim).label} · 🪙 {monthlyRevenue(bizSim).toLocaleString()}/mo · {bizSim.customers.toLocaleString()} customers
                       </p>
@@ -609,20 +624,28 @@ export default function Dashboard() {
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#3BA7C41f" }} />
                 <div className="relative">
                   <div className="flex items-center justify-between">
-                    <span className="w-9 h-9 rounded-xl flex items-center justify-center border"
+                    <motion.span
+                      initial={{ scale: 0, rotate: -12 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.55 }}
+                      className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
                       style={{ background: "linear-gradient(135deg, #3BA7C426, #3BA7C40a)", color: "#3BA7C4", borderColor: "#3BA7C426" }}>
                       <LineChart className="w-4 h-4" />
-                    </span>
+                    </motion.span>
                     <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
                   </div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mt-3">Portfolio</p>
                   {portfolio.length > 0 ? (
                     <>
                       <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">
-                        🪙 {Math.floor(portfolioValue).toLocaleString()}
-                        <span className={`text-sm font-bold ml-2 ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
+                        🪙 <AnimatedNumber value={Math.floor(portfolioValue)} countUp />
+                        <motion.span
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 16, delay: 0.7 }}
+                          className={`inline-block text-sm font-bold ml-2 ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
                           {plPct >= 0 ? "▲" : "▼"} {plPct >= 0 ? "+" : ""}{plPct.toFixed(1)}%
-                        </span>
+                        </motion.span>
                       </p>
                       <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
                         {portfolio.length} {portfolio.length === 1 ? "stock" : "stocks"} · {portfolio.slice(0, 3).map((h) => h.symbol).join(", ")}
@@ -648,10 +671,14 @@ export default function Dashboard() {
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#E0457B1f" }} />
                 <div className="relative">
                   <div className="flex items-center justify-between">
-                    <span className="w-9 h-9 rounded-xl flex items-center justify-center border"
+                    <motion.span
+                      initial={{ scale: 0, rotate: -12 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.55 }}
+                      className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
                       style={{ background: "linear-gradient(135deg, #E0457B26, #E0457B0a)", color: "#E0457B", borderColor: "#E0457B26" }}>
                       <Users className="w-4 h-4" />
-                    </span>
+                    </motion.span>
                     {friendsInfo && friendsInfo.invites > 0 ? (
                       <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full animate-pulse"
                         style={{ color: "#E0457B", background: "#E0457B1a" }}>
@@ -665,7 +692,7 @@ export default function Dashboard() {
                   {friendsInfo && friendsInfo.count > 0 ? (
                     <>
                       <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">
-                        {friendsInfo.count} partner{friendsInfo.count === 1 ? "" : "s"}
+                        <AnimatedNumber value={friendsInfo.count} countUp /> partner{friendsInfo.count === 1 ? "" : "s"}
                       </p>
                       <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
                         {friendsInfo.names.join(", ")}{friendsInfo.count > friendsInfo.names.length ? ` +${friendsInfo.count - friendsInfo.names.length} more` : ""}
