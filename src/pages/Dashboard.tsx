@@ -12,16 +12,15 @@ import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
 import { supabase } from "@/integrations/supabase/client";
 import DailyMissions from "@/components/DailyMissions";
-import DailySignal from "@/components/DailySignal";
-import ChallengesWidget from "@/components/challenges/ChallengesWidget";
 import { anchor } from "@/lib/tourAnchors";
 import { isEarnedEntry } from "@/lib/playerStats";
+import { getLeague } from "@/lib/leagues";
 import { loadActivities, bizDef, type ActivitiesState, type BusinessType } from "@/lib/businessActivities";
 import { type BizState, monthlyRevenue, statusLabel } from "@/lib/businessSim";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, Wallet,
-  GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award,
+  GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical,
   Target, Eye, ArrowRight } from
 "lucide-react";
 
@@ -240,6 +239,7 @@ export default function Dashboard() {
   }, [completedLessons, totalLessons]);
 
   const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
+  const myLeague = getLeague(jeffsBalance);
   const earnedToday = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -321,200 +321,70 @@ export default function Dashboard() {
       <GameNav />
 
       <main className="container mx-auto px-4 py-6 md:py-8 pb-28 md:pb-10">
-        {/* ──── HERO SECTION ──── */}
-        <div className="hud-panel p-4 md:p-6 lg:p-8 mb-4 md:mb-8 relative z-10">
-          {/* Dedicated phone layout (≤640px) */}
-          <div className="min-[641px]:hidden relative z-10 space-y-3">
+        {/* ═══ 1. HERO — who you are + the ONE thing to do next ═══ */}
+        <div className="hud-panel p-5 md:p-8 mb-5 relative z-10 overflow-hidden">
+          <div className="relative z-10 grid lg:grid-cols-2 gap-6 items-center">
+            {/* Left: greeting + vitals */}
             <div>
-              <h1 className="text-xl font-extrabold text-white tracking-tight mb-0.5">
-                {getGreeting()} 👋
-              </h1>
-              <p className="text-white/50 text-xs">
-                {formattedDate}{user?.grade ? ` · Grade ${user.grade}` : ""}{user?.schoolName ? ` · ${user.schoolName}` : ""}
-              </p>
+              <h1 className="font-display text-2xl md:text-3xl font-extrabold text-white tracking-tight">{getGreeting()} 👋</h1>
+              <p className="text-white/50 text-sm mt-1">{formattedDate}</p>
+              <div className="flex flex-wrap items-center gap-2 mt-4">
+                {streak > 0 && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-500/15 text-orange-300 text-xs font-bold border border-orange-500/20">
+                    <Flame className="w-3.5 h-3.5" /> {streak} day streak
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gold/15 text-gold text-xs font-bold border border-gold/20">
+                  <Coins className="w-3.5 h-3.5" /> {Math.floor(netWorth).toLocaleString()}
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 text-white text-xs font-bold border border-white/10">
+                  <Star className="w-3.5 h-3.5 text-yellow-300" /> Lv {currLevel}
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border border-white/10" style={{ color: myLeague.color, background: "rgba(255,255,255,0.06)" }}>
+                  {myLeague.icon} {myLeague.name} League
+                </span>
+              </div>
+              {earnedToday > 0 && (
+                <p className="text-success text-xs font-bold mt-3">+{earnedToday.toLocaleString()} InvestiCoins earned today — keep going!</p>
+              )}
             </div>
 
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
-              <div className="flex items-center gap-2.5 mb-3">
-                <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center shadow-glow border border-white/5 shrink-0">
-                  <Star className="w-4 h-4 text-gold" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-white">Level {currLevel}</p>
-                  <p className="text-[11px] text-white/40 truncate">{LEVEL_NAMES[currLevel - 1] || "Master"}</p>
-                </div>
-              </div>
-              <div className="h-3 rounded-full bg-white/10 overflow-hidden border border-white/5">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-accent to-success transition-all duration-1000 ease-out animate-xp-fill"
-                  style={{ width: `${levelProgressPct}%`, boxShadow: '0 0 16px hsl(152 62% 46% / 0.5)' }}
-                />
-              </div>
-              <p className="text-[10px] text-white/30 mt-1.5 text-right">
-                {completedLessons} / {totalLessons} lessons · {progressPercent}% curriculum
-              </p>
-            </div>
-
-            <div className="bg-white/5 border border-orange-500/20 rounded-2xl p-4 backdrop-blur-sm relative overflow-hidden">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="relative w-11 h-11 shrink-0">
-                  <svg viewBox="0 0 36 36" className="w-11 h-11 -rotate-90">
-                    <path
-                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                      fill="none"
-                      stroke="rgba(255,255,255,0.1)"
-                      strokeWidth="3"
-                    />
-                    <path
-                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                      fill="none"
-                      stroke="hsl(25 95% 53%)"
-                      strokeWidth="3"
-                      strokeDasharray={`${streakRingProgress}, 100`}
-                      strokeLinecap="round"
-                      className="transition-all duration-700"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Flame className="w-5 h-5 text-orange-400" style={{ animation: streak > 0 ? 'streak-pulse 2s ease-in-out infinite' : 'none' }} />
+            {/* Right: NEXT UP — the single most important card on the page */}
+            {nextLesson ? (
+              <div ref={anchor("dash-today")} className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold mb-1.5">▶ Next up</p>
+                <p className="text-white font-display font-extrabold text-lg leading-snug">{nextLesson.title}</p>
+                <p className="text-white/50 text-xs mt-1">Unit {currentUnit.unitNumber} · {currentUnit.title}</p>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="h-1.5 flex-1 rounded-full bg-white/10 overflow-hidden">
+                    <div className="h-full rounded-full bg-success transition-all" style={{ width: `${currentUnitProgress}%` }} />
                   </div>
+                  <span className="text-white/50 text-[11px] font-bold">{currentUnitProgress}%</span>
                 </div>
-                <div>
-                  <p className="text-2xl font-extrabold text-white leading-none">{streak}</p>
-                  <p className="text-[11px] text-white/50 font-semibold">day streak</p>
+                <div className="flex items-center justify-between gap-3 mt-4">
+                  <span className="text-gold font-bold text-sm flex items-center gap-1">
+                    <Coins className="w-4 h-4" />+{Math.round(nextLesson.reward * getRewardMultiplier()).toLocaleString()}
+                  </span>
+                  <Link to={`/lessons/${nextLesson.id}`}>
+                    <Button size="lg" className="press-scale gap-1.5 font-bold">Continue <ArrowRight className="w-4 h-4" /></Button>
+                  </Link>
                 </div>
               </div>
-              <p className="text-[10px] text-orange-400/70 font-medium">
-                {streakDayInCycle === 0 && streak > 0 ? "🎉 +250 🪙 earned!" : `${7 - streakDayInCycle} days to +250 🪙`}
-              </p>
-            </div>
-
-            {nextUnlock && (
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
-                <div className="flex items-center gap-1.5 text-[10px] text-white/40 uppercase tracking-widest font-bold mb-2">
-                  <Lock className="w-3 h-3" />
-                  Next Unlock
-                </div>
-                <p className="text-sm font-bold text-white">{nextUnlock.name}</p>
-                <p className="text-[11px] text-white/30 mt-0.5">{nextUnlock.unitsRequired} units needed</p>
+            ) : (
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+                <p className="text-2xl mb-1">🎉</p>
+                <p className="text-white font-extrabold">Every lesson complete — legend!</p>
+                <Link to="/leaderboard" className="inline-block mt-3">
+                  <Button size="sm" className="press-scale">See your rank</Button>
+                </Link>
               </div>
             )}
           </div>
-
-          {/* Existing tablet/desktop layout (>640px) */}
-          <div className="hidden min-[641px]:flex flex-col lg:flex-row lg:items-center gap-4 md:gap-6 relative z-10">
-            {/* Left: Greeting + Level + XP */}
-            <div className="flex-1">
-              {/* Row 1: Greeting */}
-              <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-white tracking-tight mb-0.5 md:mb-1">
-                {getGreeting()} 👋
-              </h1>
-              {/* Row 2: Date line */}
-              <p className="text-white/50 text-xs md:text-sm mb-3 md:mb-4">
-                {formattedDate}{user?.grade ? ` · Grade ${user.grade}` : ""}{user?.schoolName ? ` · ${user.schoolName}` : ""}
-              </p>
-
-              {/* Row 3: Level + XP bar — stacked on mobile, inline on desktop */}
-              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                <div className="flex items-center gap-2.5 shrink-0">
-                  <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-white/10 flex items-center justify-center shadow-glow border border-white/5">
-                    <Star className="w-4 h-4 md:w-5 md:h-5 text-gold" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-white">Level {currLevel}</p>
-                    <p className="text-[11px] text-white/40">{LEVEL_NAMES[currLevel - 1] || "Master"}</p>
-                  </div>
-                </div>
-                <div className="flex-1 w-full md:max-w-md">
-                  <div className="h-3 md:h-3.5 rounded-full bg-white/10 overflow-hidden border border-white/5">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-accent to-success transition-all duration-1000 ease-out animate-xp-fill"
-                      style={{ width: `${levelProgressPct}%`, boxShadow: '0 0 16px hsl(152 62% 46% / 0.5)' }} />
-                  </div>
-                  <p className="text-[10px] text-white/30 mt-1 text-right">
-                    {completedLessons} / {totalLessons} lessons · {progressPercent}% curriculum
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: STREAK + Next Unlock */}
-            <div className="flex flex-col md:flex-row md:items-center gap-3 md:flex-wrap">
-              <div className="bg-white/5 border border-orange-500/20 rounded-2xl p-4 md:p-5 md:min-w-[160px] backdrop-blur-sm relative overflow-hidden w-full md:w-auto">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="relative w-11 h-11 md:w-12 md:h-12">
-                    <svg viewBox="0 0 36 36" className="w-11 h-11 md:w-12 md:h-12 -rotate-90">
-                      <path
-                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="rgba(255,255,255,0.1)"
-                        strokeWidth="3" />
-                      <path
-                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="hsl(25 95% 53%)"
-                        strokeWidth="3"
-                        strokeDasharray={`${streakRingProgress}, 100`}
-                        strokeLinecap="round"
-                        className="transition-all duration-700" />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Flame className="w-5 h-5 text-orange-400" style={{ animation: streak > 0 ? 'streak-pulse 2s ease-in-out infinite' : 'none' }} />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-extrabold text-white leading-none">{streak}</p>
-                    <p className="text-[11px] text-white/50 font-semibold">day streak</p>
-                  </div>
-                </div>
-                <p className="text-[10px] text-orange-400/70 font-medium">
-                  {streakDayInCycle === 0 && streak > 0 ? "🎉 +250 🪙 earned!" : `${7 - streakDayInCycle} days to +250 🪙`}
-                </p>
-              </div>
-
-              {nextUnlock &&
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 md:min-w-[140px] backdrop-blur-sm w-full md:w-auto">
-                  <div className="flex items-center gap-1.5 text-[10px] text-white/40 uppercase tracking-widest font-bold mb-2">
-                    <Lock className="w-3 h-3" />
-                    Next Unlock
-                  </div>
-                  <p className="text-sm font-bold text-white">{nextUnlock.name}</p>
-                  <p className="text-[11px] text-white/30 mt-0.5">{nextUnlock.unitsRequired} units needed</p>
-                </div>
-              }
-            </div>
-          </div>
-
-          {/* Continue Lesson CTA — tablet/desktop only */}
-          {nextLesson &&
-          <div className="hidden min-[641px]:flex mt-6 pt-5 border-t border-white/10 items-center justify-between gap-4">
-              <div className="flex items-center gap-3 min-w-0">
-                <Wordmark className="text-base shrink-0 !text-white" />
-                <div className="min-w-0">
-                  <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-0.5">Continue Your Journey</p>
-                  <p className="text-sm font-bold text-white truncate">{nextLesson.title}</p>
-                  <p className="text-xs text-white/40 mt-0.5">
-                    Unit {currentUnit.unitNumber}: {currentUnit.title} · {currentUnitProgress}% complete
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="text-gold font-bold text-sm flex items-center gap-1">
-                  <Coins className="w-3.5 h-3.5" />+{Math.round(nextLesson.reward * getRewardMultiplier())}
-                </span>
-                <Link to={`/lessons/${nextLesson.id}`}>
-                  <Button size="sm" className="press-scale gap-1.5">
-                    Continue <ArrowRight className="w-3.5 h-3.5" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          }
         </div>
 
-        {/* ──── JOIN A CLASS (shown to students not yet in a class) ──── */}
+        {/* ──── JOIN A CLASS (only for students not yet in one) ──── */}
         {inClass === false &&
-        <Card variant="elevated" className="mb-4 md:mb-8 border-primary/30">
+        <Card variant="elevated" className="mb-5 border-primary/30">
           <CardContent className="p-4 md:p-5 flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="flex items-start gap-3 flex-1">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -542,83 +412,34 @@ export default function Dashboard() {
         </Card>
         }
 
-        {/* ──── MOBILE CONTINUE CARD (separate from hero) ──── */}
-        {nextLesson &&
-        <div className="min-[641px]:hidden mb-4">
-          <Card variant="elevated" className="p-4 border-primary/20">
-            <div className="flex items-center gap-3 mb-3">
-              <img alt="" className="w-8 h-8 object-contain shrink-0" src="/lovable-uploads/26a8ff86-40b5-4f21-9e6e-2bc94bee8dbc.png" />
-              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Continue Your Journey</p>
-            </div>
-            <p className="text-sm font-bold mb-1">{nextLesson.title}</p>
-            <p className="text-xs text-muted-foreground mb-1">
-              Unit {currentUnit.unitNumber}: {currentUnit.title} · {currentUnitProgress}% complete
-            </p>
-            <p className="text-gold font-bold text-sm flex items-center gap-1 mb-3">
-              <Coins className="w-3.5 h-3.5" />+{Math.round(nextLesson.reward * getRewardMultiplier())}
-            </p>
-            <Link to={`/lessons/${nextLesson.id}`} className="block">
-              <Button className="w-full press-scale gap-1.5 min-h-[44px]">
-                Continue <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </Card>
-        </div>
-        }
-
-        {/* ──── OVERVIEW ──── */}
-        <SectionHeader icon={Wallet} title="Overview" subtitle="Your money & progress at a glance" />
-        {/* Four cards, not six — kids found the wall of stats overwhelming, so
-            cash and stock-count live as subtitles instead of extra cards. */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-8">
-          <StatCard
-            tour="dash-networth"
-            title="Total Value"
-            value={Math.floor(netWorth).toLocaleString()}
-            subtitle={earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : `${jeffsBalance.toLocaleString()} cash`}
-            icon={Coins}
-            accentColor="gold" />
-          <StatCard tour="dash-portfolio" title="Portfolio Value" value={Math.floor(portfolioValue).toLocaleString()} subtitle={`${portfolio.length} ${portfolio.length === 1 ? "stock" : "stocks"} owned`} icon={LineChart} accentColor="primary" />
-          <StatCard tour="dash-level" title="Level" value={`${currLevel}`} subtitle={LEVEL_NAMES[currLevel - 1] || "Master"} icon={Star} accentColor="accent" />
-          <StatCard title="Missions Done" value={`${completedLessons}/${totalLessons}`} subtitle={`${progressPercent}% of the course`} icon={BookOpen} accentColor="primary" />
-        </div>
-
-        {/* ──── MAIN GRID: "do this now" (left) + extras (right sidebar) ────
-            One clear action column instead of a long stack of full-width
-            cards — the #1 fix for "the dashboard is messy". */}
-        <div className="grid lg:grid-cols-3 gap-6 mb-4 md:mb-8 items-start">
-        <div className="lg:col-span-2">
-
-        {/* ──── TODAY ──── */}
-        <SectionHeader icon={Flame} title="Today" subtitle="Earn coins every day" />
-        <div className="space-y-4 mb-4 md:mb-8">
+        {/* ═══ 2. TODAY — quick daily coins, nothing else ═══ */}
+        <SectionHeader icon={Flame} title="Today" subtitle="Quick wins — fresh coins every day" />
+        <div className="grid lg:grid-cols-2 gap-4 mb-6 items-start">
           <Card
-            ref={anchor("dash-today")}
             className={`border-0 overflow-hidden ${dailyDone ? "opacity-70" : ""}`}
             style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
-            <CardContent className="p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <CardContent className="p-4 md:p-5">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "rgba(43,182,115,0.18)" }}>
                   <Flame className="w-5 h-5 text-success" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="font-display text-base md:text-lg font-extrabold text-white">Daily Challenge</p>
-                  <p className="text-sm text-white/70">
-                    Today: <span className="font-bold text-white">{dailyGameName}</span>
+                  <p className="text-sm text-white/70 truncate">
+                    <span className="font-bold text-white">{dailyGameName}</span>
                     <span className="mx-1.5">·</span>
-                    <span className="font-bold text-gold">🪙 75 InvestiCoins</span>
+                    <span className="font-bold text-gold">🪙 75</span>
                   </p>
                 </div>
+                {dailyDone ?
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-success/20 text-success font-bold text-sm border border-success/30 shrink-0">
+                    Done ✓
+                  </span> :
+                <Link to="/daily" className="shrink-0">
+                    <Button className="press-scale gap-1.5">Play <ArrowRight className="w-4 h-4" /></Button>
+                  </Link>
+                }
               </div>
-              {dailyDone ?
-              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-success/20 text-success font-bold text-sm border border-success/30 self-start sm:self-auto">
-                  Completed ✓
-                </span> :
-
-              <Link to="/daily" className="self-start sm:self-auto">
-                  <Button className="press-scale gap-1.5">Play Now <ArrowRight className="w-4 h-4" /></Button>
-                </Link>
-              }
             </CardContent>
           </Card>
 
@@ -628,253 +449,23 @@ export default function Dashboard() {
             earnJeffs={earnJeffs} />
         </div>
 
-        {/* ──── MISSION PROGRESS ──── */}
-        <div className="mb-4 md:mb-8" data-tour="dash-missions">
-          <SectionHeader icon={Target} title="Mission Progress" action={{ label: "View all", to: "/lessons" }} />
-
-          {/* Overall progress */}
-          <div className="mb-4">
-            <div className="flex justify-between mb-2">
-              <span className="text-sm text-muted-foreground">Overall Progress</span>
-              <span className="text-sm font-bold">{progressPercent}%</span>
-            </div>
-            <Progress value={progressPercent} variant="success" />
-          </div>
-
-          {/* Unit Progress Grid — just the next few units; the rest live on /lessons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {unitOverviewCards.slice(0, 4).map((unit) =>
-            <Link
-              key={unit.id}
-              to="/lessons"
-              className="p-4 rounded-2xl bg-card border border-border/40 hover:bg-muted/40 transition-all group hover-lift press-scale">
-
-                <div className="flex items-center justify-between mb-2">
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Unit {unit.unitNumber}</p>
-                    <p className="text-sm font-bold truncate">{unit.title}</p>
-                  </div>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all shrink-0" />
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="flex-1">
-                    <Progress value={unit.progress} variant="success" className="h-2" />
-                  </div>
-                  <span className="text-[11px] text-muted-foreground font-semibold shrink-0">{unit.done}/{unit.total}</span>
-                </div>
-                <div className="flex items-center gap-3 mt-2">
-                  <span className="text-[11px] text-gold font-bold flex items-center gap-1">
-                    <Coins className="w-3 h-3" />{unit.remainingReward.toLocaleString()} left
-                  </span>
-                </div>
-              </Link>
-            )}
-          </div>
-        </div>
-
-        </div>{/* /left column */}
-
-        {/* ──── RIGHT SIDEBAR: signals, challenges, business, elective ──── */}
-        <div className="space-y-4">
-          <DailySignal />
-
-          {/* Live class challenges + create — replaces the Challenges nav tab */}
-          <ChallengesWidget />
-
-          {/* My Business — snapshot lives in the sidebar now */}
-          <Card variant="elevated" className="card-tier-1 hover-lift">
-            <CardHeader className="flex flex-row items-center justify-between p-6 pb-4">
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Coins className="w-4 h-4 text-primary" />
-                My Business
-              </CardTitle>
-              <Link to="/micro-business">
-                <Button variant="ghost" size="sm" className="press-scale">
-                  Open <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                </Button>
-              </Link>
-            </CardHeader>
-            <CardContent className="px-6 pb-6">
-              {hasBusiness && bizSim ? (
-                <BusinessSnapshot type={bizType!} sim={bizSim} />
-              ) : (
-                <EmptyState icon={Coins} label="Build your micro-business" cta="Get Started" to="/micro-business" />
-              )}
-            </CardContent>
-          </Card>
-
-        {/* ──── AP MICROECONOMICS ELECTIVE ──── */}
-        <button
-          onClick={() => {
-            try { localStorage.setItem("investiplay_active_track", "ap-micro"); } catch { /* ignore */ }
-            navigate("/lessons");
-          }}
-          className="w-full text-left rounded-2xl p-5 relative overflow-hidden press-scale"
-          style={{ background: "linear-gradient(135deg,#0f2d1e 0%,#14432e 55%,#1D9E75 140%)" }}
-        >
-          <div className="flex items-center justify-between gap-4">
-            <div className="min-w-0">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gold mb-1">Elective course</p>
-              <h3 className="font-display text-lg font-extrabold text-white tracking-tight">AP Microeconomics</h3>
-              <p className="text-white/55 text-sm mt-0.5">6 College Board–aligned units. Available in any state — your required curriculum is unaffected.</p>
-            </div>
-            <span className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-white/10 border border-white/15 px-3 py-2 text-sm font-bold text-white">
-              Start <ChevronRight className="w-4 h-4" />
-            </span>
-          </div>
-        </button>
-
-        </div>{/* /sidebar */}
-        </div>{/* /main grid */}
-
-        {/* ──── BADGES ──── */}
-        <div className="mb-8" data-tour="dash-badges">
-          <SectionHeader icon={Award} title="Badges" right={
-          <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground font-semibold">{unlockedBadgeCount}/{BADGES.length} unlocked</span>
-              <div className="w-16 h-1.5 rounded-full bg-muted overflow-hidden">
-                <div className="h-full rounded-full bg-gold transition-all" style={{ width: `${unlockedBadgeCount / BADGES.length * 100}%` }} />
-              </div>
-            </div>
-          } />
-          <div className="flex gap-3 overflow-x-auto pb-2">
-            {BADGES.map((badge) => {
-              const unlocked = completedLessons >= badge.unlockAt;
-              const Icon = badge.icon;
-              return (
-                <div
-                  key={badge.name}
-                  title={unlocked ? badge.name : `Unlock: Complete ${badge.unlockAt} lessons`}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl min-w-[80px] border transition-all cursor-default ${
-                  unlocked ?
-                  "bg-gold/8 border-gold/20 shadow-gold-glow" :
-                  "bg-muted/30 border-border/40 opacity-50 grayscale"}`
-                  }>
-
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center relative ${
-                  unlocked ? "bg-gold/15" : "bg-muted"}`
-                  }>
-                    <Icon className={`w-5 h-5 ${unlocked ? "text-gold" : "text-muted-foreground/40"}`} />
-                    {!unlocked && <Lock className="w-3 h-3 absolute -bottom-0.5 -right-0.5 text-muted-foreground/50" />}
-                    {unlocked && <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-gold" style={{ animation: 'sparkle 2s ease-in-out infinite' }} />}
-                  </div>
-                  <p className="text-[10px] font-semibold text-center leading-tight">{badge.name}</p>
-                </div>);
-
-            })}
-          </div>
-        </div>
-
-        {/* ──── YOUR MONEY ──── */}
-        <SectionHeader icon={Coins} title="Your Money" subtitle="Portfolio & watchlist" />
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Portfolio */}
-          <Card variant="elevated" className="card-tier-1 hover-lift">
-            <CardHeader className="flex flex-row items-center justify-between p-6">
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Wallet className="w-4 h-4 text-primary" />
-                My Portfolio
-              </CardTitle>
-              <Link to="/stocks">
-                <Button variant="ghost" size="sm" className="press-scale">
-                  Trade <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                </Button>
-              </Link>
-            </CardHeader>
-            <CardContent className="px-6 pb-6">
-              {portfolio.length > 0 ?
-              <div className="space-y-1">
-                  {portfolio.slice(0, 4).map(({ symbol, shares, purchasePrice }) => {
-                  const currentPrice = livePrices.get(symbol) ?? purchasePrice;
-                  const currentValue = shares * currentPrice;
-                  const profitLossPercent = (currentPrice - purchasePrice) / purchasePrice * 100;
-                  const profitLoss = currentValue - shares * purchasePrice;
-
-                  return (
-                    <Link key={symbol} to={`/stocks/${encodeURIComponent(symbol)}`}
-                    className="flex items-center justify-between p-3 rounded-xl hover:bg-muted/40 transition-all press-scale">
-                        <div>
-                          <p className="font-bold text-sm">{symbol}</p>
-                          <p className="text-xs text-muted-foreground">{shares} shares</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-bold text-sm flex items-center justify-end gap-1">
-                            <Coins className="w-3.5 h-3.5 text-gold" />
-                            {Math.floor(currentValue).toLocaleString()}
-                          </p>
-                          <p className={`text-xs flex items-center justify-end gap-1 ${profitLoss >= 0 ? "text-success" : "text-destructive"}`}>
-                            {profitLoss >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                            {profitLoss >= 0 ? "+" : ""}{profitLossPercent.toFixed(1)}%
-                          </p>
-                        </div>
-                      </Link>);
-
-                })}
-                </div> :
-
-              <EmptyState icon={Wallet} label="No stocks owned yet" cta="Buy Stocks" to="/stocks" />
-              }
-            </CardContent>
-          </Card>
-
-          {/* Watchlist */}
-          <Card variant="elevated" className="card-tier-1 hover-lift">
-            <CardHeader className="flex flex-row items-center justify-between p-6">
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Star className="w-4 h-4 text-warning" />
-                Watchlist
-              </CardTitle>
-              <Link to="/stocks">
-                <Button variant="ghost" size="sm" className="press-scale">
-                  View All <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                </Button>
-              </Link>
-            </CardHeader>
-            <CardContent className="px-6 pb-6">
-              {watchlist.length > 0 ?
-              <div className="space-y-1">
-                  {watchlist.slice(0, 6).map((sym) => {
-                  const lp = watchlistPrices.get(sym);
-                  const isGain = lp && (lp.change ?? 0) >= 0;
-                  return (
-                    <Link key={sym} to={`/stocks/${encodeURIComponent(sym)}`}
-                    className="flex items-center justify-between p-3 rounded-xl hover:bg-muted/40 transition-all press-scale">
-                        <div>
-                          <p className="font-bold text-sm">{sym}</p>
-                          <p className="text-xs text-muted-foreground truncate max-w-[120px]">{lp?.name || sym}</p>
-                        </div>
-                        <div className="text-right">
-                          {lp ?
-                        <>
-                              <p className="font-bold text-sm">{lp.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-                              {lp.changePercent != null &&
-                          <p className={`text-xs flex items-center justify-end gap-1 ${isGain ? "text-success" : "text-destructive"}`}>
-                                  {isGain ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                                  {lp.changePercent.toFixed(2)}%
-                                </p>
-                          }
-                            </> :
-
-                        <span className="text-xs text-muted-foreground">Loading...</span>
-                        }
-                        </div>
-                      </Link>);
-
-                })}
-                </div> :
-
-              <div className="text-center py-10 rounded-2xl bg-muted/20 border border-dashed border-border/40">
-                  <StarOff className="w-8 h-8 mx-auto text-muted-foreground/30 mb-3" />
-                  <p className="text-sm text-muted-foreground mb-1">Your Watchlist is empty.</p>
-                  <p className="text-xs text-muted-foreground/60 mb-4">Tap ⭐ on any stock to add it.</p>
-                  <Link to="/stocks">
-                    <Button variant="hero" size="sm" className="press-scale">Browse Stocks</Button>
-                  </Link>
-                </div>
-              }
-            </CardContent>
-          </Card>
-
+        {/* ═══ 3. YOUR WORLD — six doors, one live number each ═══ */}
+        <SectionHeader icon={Target} title="Your World" subtitle="Everything you build, one tap away" />
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+          <WorldTile to="/lessons" icon={BookOpen} tint="#8B5CF6" title="Missions"
+            stat={`${progressPercent}%`} sub={`${completedLessons}/${totalLessons} lessons done`} progress={progressPercent} />
+          <WorldTile to="/stocks" icon={LineChart} tint="#E3A008" title="Stocks"
+            stat={portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()}` : undefined}
+            sub={portfolio.length > 0 ? `${portfolio.length} ${portfolio.length === 1 ? "stock" : "stocks"} owned` : "Make your first trade"} />
+          <WorldTile to="/micro-business" icon={Store} tint="#F97316" title="Business"
+            stat={hasBusiness && bizSim ? `Month ${bizSim.month}` : undefined}
+            sub={hasBusiness && bizSim ? `${statusLabel(bizSim).label} · 🪙 ${monthlyRevenue(bizSim).toLocaleString()}/mo` : "Build your own company"} />
+          <WorldTile to="/bank" icon={Landmark} tint="#0F766E" title="Bank"
+            sub="Vault, loans, bonds & careers" />
+          <WorldTile to="/leaderboard" icon={Trophy} tint="#E0457B" title="Leaderboard"
+            stat={`${myLeague.icon} ${myLeague.name}`} sub="Race your class up the leagues" />
+          <WorldTile to="/lab" icon={FlaskConical} tint="#3BA7C4" title="Lab"
+            sub="Real-world money skills" />
         </div>
       </main>
     </div>);
@@ -907,126 +498,38 @@ function SectionHeader({ icon: Icon, title, subtitle, action, right }: {icon: Re
 
 }
 
-function EmptyState({ icon: Icon, label, cta, to }: {icon: React.ComponentType<{className?: string;}>;label: string;cta: string;to: string;}) {
+// One "door" into a section of the app: icon, one live number, one line of
+// context, and an optional progress bar — the whole dashboard vocabulary.
+function WorldTile({ to, icon: Icon, tint, title, stat, sub, progress }: {
+  to: string;
+  icon: React.ComponentType<{ className?: string }>;
+  tint: string;
+  title: string;
+  stat?: string;
+  sub: string;
+  progress?: number;
+}) {
   return (
-    <div className="text-center py-10 rounded-2xl bg-muted/20 border border-dashed border-border/40">
-      <div className="relative w-fit mx-auto mb-3">
-        <img alt="" className="w-8 h-8 object-contain mx-auto mb-2" src="/lovable-uploads/3e63c29a-3f71-4350-96db-209ca70ada67.png" />
-        <Icon className="w-8 h-8 text-muted-foreground/20" />
-      </div>
-      <p className="text-sm text-muted-foreground mb-4">{label}</p>
-      <Link to={to}>
-        <Button variant="hero" size="sm" className="press-scale">{cta}</Button>
-      </Link>
-    </div>);
-
-}
-
-// Live snapshot of the player's micro-business (mirrors /micro-business state).
-function BusinessSnapshot({ type, sim }: { type: BusinessType; sim: BizState }) {
-  const def = bizDef(type);
-  const status = statusLabel(sim);
-  const revPerMonth = monthlyRevenue(sim);
-  const failed = sim.status === "failed";
-  const Icon = def.icon;
-
-  const stats: { label: string; value: string }[] = [
-    { label: "Month", value: String(sim.month) },
-    { label: "Cash", value: `${Math.round(sim.cash).toLocaleString()}` },
-    { label: "Customers", value: sim.customers.toLocaleString() },
-    { label: "Revenue/mo", value: revPerMonth.toLocaleString() },
-  ];
-
-  return (
-    <div className="space-y-3">
-      {/* Header: business type + status */}
+    <Link
+      to={to}
+      className="group rounded-2xl bg-card border border-border/40 p-4 md:p-5 hover-lift press-scale block relative overflow-hidden"
+    >
+      {/* Top accent strip in the section's tint */}
+      <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: tint }} />
+      <span className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background: `${tint}1a`, color: tint }}>
+        <Icon className="w-5 h-5" />
+      </span>
       <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${def.color}1a` }}>
-            <Icon className="w-4 h-4" style={{ color: def.color }} />
-          </span>
-          <div className="min-w-0">
-            <p className="text-sm font-bold truncate">{def.label}</p>
-            <p className="text-[11px] text-muted-foreground truncate">{def.blurb}</p>
-          </div>
-        </div>
-        <span className="text-[11px] font-bold px-2 py-1 rounded-full shrink-0"
-          style={{ background: `${status.color}1a`, color: status.color }}>
-          {status.label}
-        </span>
+        <p className="font-display font-extrabold text-base tracking-tight">{title}</p>
+        <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all shrink-0" />
       </div>
-
-      {failed ? (
-        <div className="rounded-xl bg-destructive/5 border border-destructive/20 px-3 py-3 text-center">
-          <p className="text-sm font-bold text-destructive">Your business folded in month {sim.month}</p>
-          <p className="text-[11px] text-muted-foreground mt-0.5">Head to the office to rebuild and try again.</p>
+      {stat && <p className="text-xl font-extrabold mt-0.5 tracking-tight" style={{ color: tint }}>{stat}</p>}
+      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{sub}</p>
+      {progress != null && (
+        <div className="mt-3 h-1.5 rounded-full bg-muted overflow-hidden">
+          <div className="h-full rounded-full transition-all" style={{ width: `${progress}%`, background: tint }} />
         </div>
-      ) : (
-        <>
-          {/* Key stats */}
-          <div className="grid grid-cols-2 gap-2">
-            {stats.map((s) => (
-              <div key={s.label} className="rounded-xl bg-muted/40 border border-border/40 px-3 py-2">
-                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider truncate">{s.label}</p>
-                <p className="text-sm font-extrabold tabular-nums mt-0.5 flex items-center gap-1">
-                  {(s.label === "Cash" || s.label === "Revenue/mo") && <Coins className="w-3 h-3 text-gold" />}
-                  {s.value}
-                </p>
-              </div>
-            ))}
-          </div>
-          {/* Reputation & Brand bars */}
-          <div className="grid grid-cols-2 gap-3 pt-0.5">
-            {([["Reputation", sim.reputation], ["Brand", sim.brand]] as const).map(([label, val]) => (
-              <div key={label}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">{label}</span>
-                  <span className="text-[10px] font-bold tabular-nums">{Math.round(val)}</span>
-                </div>
-                <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: `${Math.max(0, Math.min(100, val))}%`, background: def.color }} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </>
       )}
-    </div>);
-
-}
-
-function StatCard({ title, value, subtitle, icon: Icon, accentColor, tour }: {title: string;value: string;subtitle?: string;icon: React.ComponentType<{className?: string;}>;accentColor: string;tour?: string;}) {
-  const isGold = accentColor === 'gold';
-  const colorMap: Record<string, {bg: string;text: string;strip: string;}> = {
-    gold: { bg: "bg-gold/10", text: "text-gold", strip: "from-gold to-gold/40" },
-    primary: { bg: "bg-primary/10", text: "text-primary", strip: "from-primary to-primary/30" },
-    accent: { bg: "bg-accent/10", text: "text-accent", strip: "from-accent to-accent/30" },
-    secondary: { bg: "bg-secondary/10", text: "text-secondary", strip: "from-secondary to-secondary/30" }
-  };
-  const c = colorMap[accentColor] || colorMap.primary;
-
-  return (
-    <Card
-      data-tour={tour}
-      variant="elevated"
-      className={`relative overflow-hidden p-3.5 md:p-5 hover-lift press-scale cursor-default ${
-      isGold ? "border-gold/20" : ""}`
-      }>
-
-      {/* Top accent strip */}
-      <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${c.strip}`} />
-      <div className="flex flex-col gap-2">
-        <div className={`p-2 rounded-xl w-fit ${c.bg}`}>
-          <Icon className={`w-4 h-4 ${c.text}`} />
-        </div>
-        <div>
-          <p className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold">{title}</p>
-          <p className={`text-xl min-[420px]:text-[22px] font-extrabold capitalize tracking-tight leading-tight mt-0.5 ${isGold ? "text-gold" : ""}`}>{value}</p>
-          {subtitle &&
-          <p className={`text-[10px] mt-0.5 font-medium ${isGold ? "text-gold/60" : "text-muted-foreground"}`}>{subtitle}</p>
-          }
-        </div>
-      </div>
-    </Card>);
-
+    </Link>
+  );
 }
