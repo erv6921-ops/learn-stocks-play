@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import AnimatedNumber from "@/components/AnimatedNumber";
+import PortfolioExpanded from "@/components/PortfolioExpanded";
 import { useStockHistory } from "@/hooks/useStockHistory";
 import { Area, AreaChart, ResponsiveContainer, YAxis, Tooltip } from "recharts";
 import GameNav from "@/components/GameNav";
@@ -477,7 +478,47 @@ export default function Dashboard() {
         </MCard>
         }
 
-        {/* ═══ 1. ROLLER COASTER — full-width strip ═══ */}
+        {/* ═══ 1. DAILIES — challenge + missions ═══ */}
+        <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-3 mb-3 items-start">
+          <MCard i={6}>
+            <div className={`rounded-[20px] p-5 text-white relative overflow-hidden hover-lift ${dailyDone ? "opacity-75" : ""}`} style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)", boxShadow: "var(--shadow-md)" }}>
+              <div className="absolute top-0 left-0 right-0 h-[2px]"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
+              <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
+                style={{ background: "rgba(43,182,115,0.14)" }} />
+              <p className="relative text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Daily challenge</p>
+              <div className="relative flex items-center justify-between gap-4 mt-2.5">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/5" style={{ background: "rgba(43,182,115,0.18)" }}>
+                    <Flame className="w-5 h-5 text-success" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-display font-extrabold text-lg truncate">{dailyGameName}</p>
+                    <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+                  </div>
+                </div>
+                {dailyDone ? (
+                  <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
+                ) : (
+                  <Link to="/daily" className="shrink-0">
+                    <button className="px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale border border-white/10">
+                      Play →
+                    </button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </MCard>
+
+          <MCard i={7}>
+            <DailyMissions
+              lessonProgress={lessonProgress}
+              portfolio={portfolio}
+              earnJeffs={earnJeffs} />
+          </MCard>
+        </div>
+
+        {/* ═══ 2. ROLLER COASTER — full-width strip ═══ */}
         <MCard i={1}>
           <div className="bg-white rounded-[20px] overflow-hidden relative" style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-md)" }}>
             {/* gold→mint hairline + soft corner glow */}
@@ -519,92 +560,48 @@ export default function Dashboard() {
           </div>
         </MCard>
 
-        {/* ═══ 2. TODAY + STATS — dailies left, numbers right ═══ */}
-        <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-3 mt-3 items-start">
-
-          {/* Left: daily action cards stacked */}
-          <div className="space-y-3">
-            <MCard i={6}>
-              <div className={`rounded-[20px] p-5 text-white relative overflow-hidden hover-lift ${dailyDone ? "opacity-75" : ""}`} style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)", boxShadow: "var(--shadow-md)" }}>
-                <div className="absolute top-0 left-0 right-0 h-[2px]"
-                  style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
-                <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
-                  style={{ background: "rgba(43,182,115,0.14)" }} />
-                <p className="relative text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Daily challenge</p>
-                <div className="relative flex items-center justify-between gap-4 mt-2.5">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/5" style={{ background: "rgba(43,182,115,0.18)" }}>
-                      <Flame className="w-5 h-5 text-success" />
+        {/* ═══ 3. STATS — four tinted boxes ═══ */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
+          {[
+            { i: 2, icon: Coins, tint: "#E3A008", label: "Coins", num: jeffsBalance, sub: earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "InvestiCoins ready to spend" },
+            { i: 3, icon: Flame, tint: "#F97316", label: "Streak", num: streak, suffix: ` day${streak === 1 ? "" : "s"}`, pulse: streak > 0, sub: streak > 0 ? "Don't break the chain" : "Play today to start one" },
+            { i: 4, icon: TrendingUp, tint: "#1D9E75", label: "Stocks owned", num: portfolio.length, sub: portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()} invested` : "Make your first trade" },
+            { i: 5, icon: BookOpen, tint: "#8B5CF6", label: "Lessons", num: completedLessons, suffix: `/${totalLessons}`, sub: `${progressPercent}% of the course`, progress: progressPercent },
+          ].map((st) => (
+            <MCard key={st.label} i={st.i}>
+              <div className="group bg-white rounded-[20px] p-4 relative overflow-hidden hover-lift press-scale h-full"
+                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
+                <div className="absolute top-0 left-0 right-0 h-[2.5px]"
+                  style={{ background: `linear-gradient(90deg, ${st.tint}, ${st.tint}00 70%)` }} />
+                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
+                  style={{ background: `${st.tint}1f` }} />
+                <div className="relative">
+                  <motion.span
+                    initial={{ scale: 0, rotate: -12 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.1 + st.i * 0.05 }}
+                    className="w-8 h-8 rounded-xl flex items-center justify-center mb-2.5 border group-hover:scale-110 transition-transform"
+                    style={{ background: `linear-gradient(135deg, ${st.tint}26, ${st.tint}0a)`, color: st.tint, borderColor: `${st.tint}26` }}>
+                    <st.icon className="w-4 h-4" style={st.pulse ? { animation: "streak-pulse 2s ease-in-out infinite" } : undefined} />
+                  </motion.span>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{st.label}</p>
+                  <p className="font-display text-[20px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">
+                    <AnimatedNumber value={st.num} countUp />{st.suffix ?? ""}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{st.sub}</p>
+                  {st.progress != null && (
+                    <div className="mt-2.5 h-1 rounded-full bg-muted overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${st.progress}%` }}
+                        transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
+                        className="h-full rounded-full" style={{ background: st.tint }} />
                     </div>
-                    <div className="min-w-0">
-                      <p className="font-display font-extrabold text-lg truncate">{dailyGameName}</p>
-                      <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
-                    </div>
-                  </div>
-                  {dailyDone ? (
-                    <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
-                  ) : (
-                    <Link to="/daily" className="shrink-0">
-                      <button className="px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale border border-white/10">
-                        Play →
-                      </button>
-                    </Link>
                   )}
                 </div>
               </div>
             </MCard>
-
-            <MCard i={7}>
-              <DailyMissions
-                lessonProgress={lessonProgress}
-                portfolio={portfolio}
-                earnJeffs={earnJeffs} />
-            </MCard>
-          </div>
-
-          {/* Right: 4 stat boxes in 2×2 grid */}
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { i: 2, icon: Coins, tint: "#E3A008", label: "Coins", num: jeffsBalance, sub: earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "InvestiCoins ready to spend" },
-              { i: 3, icon: Flame, tint: "#F97316", label: "Streak", num: streak, suffix: ` day${streak === 1 ? "" : "s"}`, pulse: streak > 0, sub: streak > 0 ? "Don't break the chain" : "Play today to start one" },
-              { i: 4, icon: TrendingUp, tint: "#1D9E75", label: "Stocks owned", num: portfolio.length, sub: portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()} invested` : "Make your first trade" },
-              { i: 5, icon: BookOpen, tint: "#8B5CF6", label: "Lessons", num: completedLessons, suffix: `/${totalLessons}`, sub: `${progressPercent}% of the course`, progress: progressPercent },
-            ].map((st) => (
-              <MCard key={st.label} i={st.i}>
-                <div className="group bg-white rounded-[20px] p-4 relative overflow-hidden hover-lift press-scale h-full"
-                  style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
-                  <div className="absolute top-0 left-0 right-0 h-[2.5px]"
-                    style={{ background: `linear-gradient(90deg, ${st.tint}, ${st.tint}00 70%)` }} />
-                  <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
-                    style={{ background: `${st.tint}1f` }} />
-                  <div className="relative">
-                    <motion.span
-                      initial={{ scale: 0, rotate: -12 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.1 + st.i * 0.05 }}
-                      className="w-8 h-8 rounded-xl flex items-center justify-center mb-2.5 border group-hover:scale-110 transition-transform"
-                      style={{ background: `linear-gradient(135deg, ${st.tint}26, ${st.tint}0a)`, color: st.tint, borderColor: `${st.tint}26` }}>
-                      <st.icon className="w-4 h-4" style={st.pulse ? { animation: "streak-pulse 2s ease-in-out infinite" } : undefined} />
-                    </motion.span>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{st.label}</p>
-                    <p className="font-display text-[20px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">
-                      <AnimatedNumber value={st.num} countUp />{st.suffix ?? ""}
-                    </p>
-                    <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{st.sub}</p>
-                    {st.progress != null && (
-                      <div className="mt-2.5 h-1 rounded-full bg-muted overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${st.progress}%` }}
-                          transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
-                          className="h-full rounded-full" style={{ background: st.tint }} />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </MCard>
-            ))}
-          </div>
+          ))}
         </div>
 
         {/* ═══ 3. SNAPSHOTS — business · portfolio · class rank ═══ */}
@@ -780,8 +777,10 @@ export default function Dashboard() {
           {/* ── Portfolio: interactive terminal ── */}
           <PortfolioSnapshot
             portfolio={portfolio}
+            watchlist={watchlist}
             livePrices={livePrices}
             plPct={plPct}
+            portfolioValue={portfolioValue}
           />
 
           {/* ── Class Leaderboard snapshot ── */}
@@ -964,14 +963,23 @@ type ChartRangeVal = typeof CHART_RANGES[number]["value"];
 
 interface PortfolioSnapshotProps {
   portfolio: { symbol: string; shares: number; purchasePrice: number }[];
+  watchlist: string[];
   livePrices: Map<string, number>;
   plPct: number;
+  portfolioValue: number;
 }
-function PortfolioSnapshot({ portfolio, livePrices, plPct }: PortfolioSnapshotProps) {
+function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioValue }: PortfolioSnapshotProps) {
   const [activeSymbol, setActiveSymbol] = useState<string | undefined>(undefined);
   const [chartRange, setChartRange] = useState<ChartRangeVal>("1y");
   const [hoverPrice, setHoverPrice] = useState<number | null>(null);
   const [hoverDate, setHoverDate] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [expandSymbol, setExpandSymbol] = useState<string | undefined>(undefined);
+
+  const openExpanded = (sym?: string) => {
+    setExpandSymbol(sym ?? symbol);
+    setExpanded(true);
+  };
 
   const topHolding = useMemo(() => {
     if (portfolio.length === 0) return undefined;
@@ -1033,17 +1041,19 @@ function PortfolioSnapshot({ portfolio, livePrices, plPct }: PortfolioSnapshotPr
               </div>
             </div>
             {portfolio.length > 0 && (
-              <Link to="/stocks" onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground hover:text-foreground transition-colors">
-                View all <ArrowRight className="w-3 h-3" />
-              </Link>
+              <button onClick={() => openExpanded()}
+                className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full transition-colors press-scale"
+                style={{ background: "#3BA7C414", color: "#3BA7C4" }}>
+                Expand <Maximize2 className="w-3 h-3" />
+              </button>
             )}
           </div>
 
           {portfolio.length > 0 && activeHolding ? (
             <>
-              {/* Price display — updates on hover */}
-              <div className="mt-3 flex items-start justify-between gap-2">
+              {/* Price display — updates on hover; click to expand */}
+              <div onClick={() => openExpanded()}
+                className="mt-3 flex items-start justify-between gap-2 cursor-pointer group/hero">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="px-2 py-0.5 rounded font-mono font-extrabold text-sm shrink-0"
@@ -1080,8 +1090,8 @@ function PortfolioSnapshot({ portfolio, livePrices, plPct }: PortfolioSnapshotPr
                 ))}
               </div>
 
-              {/* Interactive chart with crosshair */}
-              <div className="h-28 mt-2 -mx-2 cursor-crosshair">
+              {/* Interactive chart with crosshair — click to expand */}
+              <div className="h-28 mt-2 -mx-2 cursor-pointer" onClick={() => openExpanded()}>
                 {chartData.length >= 2 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
@@ -1114,7 +1124,7 @@ function PortfolioSnapshot({ portfolio, livePrices, plPct }: PortfolioSnapshotPr
                 )}
               </div>
 
-              {/* Holdings list — click to switch chart */}
+              {/* Holdings list — click to open the expanded view on that stock */}
               <div className="mt-1.5">
                 {portfolio.slice(0, 4).map((h, idx) => {
                   const price = livePrices.get(h.symbol) ?? h.purchasePrice;
@@ -1125,7 +1135,7 @@ function PortfolioSnapshot({ portfolio, livePrices, plPct }: PortfolioSnapshotPr
                       key={h.symbol}
                       initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.85 + idx * 0.07, duration: 0.25 }}
-                      onClick={() => setActiveSymbol(h.symbol)}
+                      onClick={() => openExpanded(h.symbol)}
                       className="w-full flex items-center gap-2 py-2 border-t border-border/40 transition-all press-scale rounded-lg hover:bg-muted/40 px-1.5"
                       style={isActive ? { background: "#3BA7C40c" } : {}}>
                       <span className="font-mono font-extrabold text-sm w-12 text-left shrink-0"
@@ -1142,6 +1152,12 @@ function PortfolioSnapshot({ portfolio, livePrices, plPct }: PortfolioSnapshotPr
                     </motion.button>
                   );
                 })}
+                {portfolio.length > 4 && (
+                  <button onClick={() => openExpanded()}
+                    className="w-full text-center py-2 border-t border-border/40 text-[11px] font-bold text-muted-foreground hover:text-foreground transition-colors press-scale">
+                    +{portfolio.length - 4} more · view full portfolio →
+                  </button>
+                )}
               </div>
             </>
           ) : (
@@ -1154,6 +1170,17 @@ function PortfolioSnapshot({ portfolio, livePrices, plPct }: PortfolioSnapshotPr
           )}
         </div>
       </div>
+
+      <PortfolioExpanded
+        open={expanded}
+        onClose={() => setExpanded(false)}
+        portfolio={portfolio}
+        watchlist={watchlist}
+        livePrices={livePrices}
+        initialSymbol={expandSymbol}
+        portfolioValue={portfolioValue}
+        plPct={plPct}
+      />
     </MCard>
   );
 }
