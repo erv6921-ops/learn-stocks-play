@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import AnimatedNumber from "@/components/AnimatedNumber";
 import { useStockHistory } from "@/hooks/useStockHistory";
-import { Area, AreaChart, ResponsiveContainer, YAxis } from "recharts";
+import { Area, AreaChart, ResponsiveContainer, YAxis, Tooltip } from "recharts";
 import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
@@ -332,17 +332,6 @@ export default function Dashboard() {
     })();
     return () => { cancelled = true; };
   }, [user?.id]);
-
-  // Biggest holding + its price history for the portfolio snapshot chart.
-  const topHolding = useMemo(() => {
-    if (portfolio.length === 0) return undefined;
-    return [...portfolio].sort((a, b) =>
-      b.shares * (livePrices.get(b.symbol) ?? b.purchasePrice) - a.shares * (livePrices.get(a.symbol) ?? a.purchasePrice)
-    )[0];
-  }, [portfolio, livePrices]);
-  const { historicalData: topHistory } = useStockHistory(topHolding?.symbol, "1y");
-  const sparkData = useMemo(() => (topHistory ?? []).map((d) => ({ p: d.price })), [topHistory]);
-  const sparkUp = sparkData.length >= 2 ? sparkData[sparkData.length - 1].p >= sparkData[0].p : true;
 
   // Fullscreen roller-coaster overlay toggle.
   const [coasterFull, setCoasterFull] = useState(false);
@@ -698,209 +687,144 @@ export default function Dashboard() {
             </Link>
           </MCard>
 
-          {/* ── Portfolio: chart-first layout with live feed ── */}
-          <MCard i={9}>
-            <Link to="/stocks" className="block h-full">
-              <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
-                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
-                <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #3BA7C4, #3BA7C400 70%)" }} />
-                {/* Subtle trading terminal grid */}
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  backgroundImage: "linear-gradient(rgba(59,167,196,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,167,196,0.04) 1px, transparent 1px)",
-                  backgroundSize: "20px 20px"
-                }} />
-                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#3BA7C41f" }} />
-                <div className="relative">
-                  {/* Header with LIVE pulse */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <motion.span
-                        initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }}
-                        transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.6 }}
-                        className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
-                        style={{ background: "linear-gradient(135deg, #3BA7C426, #3BA7C40a)", color: "#3BA7C4", borderColor: "#3BA7C426" }}>
-                        <LineChart className="w-4 h-4" />
-                      </motion.span>
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Portfolio</p>
-                        <div className="flex items-center gap-1 mt-0.5">
-                          <motion.span
-                            animate={{ opacity: [1, 0.2, 1] }}
-                            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-                            className="w-1.5 h-1.5 rounded-full bg-success inline-block" />
-                          <span className="text-[9px] font-bold text-success">LIVE</span>
-                        </div>
-                      </div>
-                    </div>
-                    {portfolio.length > 0 && (
-                      <motion.span
-                        initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 16, delay: 0.8 }}
-                        className={`text-[11px] font-extrabold px-2 py-0.5 rounded-full ${plPct >= 0 ? "text-success bg-success/10" : "text-destructive bg-destructive/10"}`}>
-                        {plPct >= 0 ? "▲ +" : "▼ "}{plPct.toFixed(1)}%
-                      </motion.span>
-                    )}
-                  </div>
-
-                  {portfolio.length > 0 && topHolding ? (
-                    <>
-                      {/* Chart FIRST — big hero */}
-                      <motion.div
-                        initial={{ opacity: 0, scaleY: 0.85 }} animate={{ opacity: 1, scaleY: 1 }}
-                        style={{ transformOrigin: "bottom" }}
-                        transition={{ delay: 0.55, duration: 0.45 }}
-                        className="h-24 mt-3 -mx-2">
-                        {sparkData.length >= 2 ? (
-                          <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={sparkData} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
-                              <defs>
-                                <linearGradient id="dashSpark" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="0%" stopColor={sparkUp ? "#1D9E75" : "#dc2626"} stopOpacity={0.5} />
-                                  <stop offset="100%" stopColor={sparkUp ? "#1D9E75" : "#dc2626"} stopOpacity={0.02} />
-                                </linearGradient>
-                              </defs>
-                              <YAxis
-                                hide
-                                domain={[(min: number) => min * 0.993, (max: number) => max * 1.007]}
-                              />
-                              <Area type="monotone" dataKey="p" stroke={sparkUp ? "#1D9E75" : "#dc2626"} strokeWidth={2.5}
-                                fill="url(#dashSpark)" dot={false} isAnimationActive animationDuration={1600} animationBegin={400} />
-                            </AreaChart>
-                          </ResponsiveContainer>
-                        ) : (
-                          <div className="h-full rounded-lg bg-muted/40 animate-pulse" />
-                        )}
-                      </motion.div>
-
-                      {/* Top holding — below chart */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.85, duration: 0.3 }}
-                        className="flex items-center justify-between mt-2 pb-2 border-b border-border/40">
-                        <div className="flex items-center gap-2">
-                          <span className="px-2 py-0.5 rounded font-mono font-extrabold text-sm"
-                            style={{ background: "#3BA7C420", color: "#3BA7C4" }}>{topHolding.symbol}</span>
-                          <span className="text-[11px] text-muted-foreground">{topHolding.shares} sh · biggest</span>
-                        </div>
-                        <p className="font-display text-base font-extrabold tabular-nums" style={{ color: "#3BA7C4" }}>
-                          🪙 <AnimatedNumber value={Math.floor(topHolding.shares * (livePrices.get(topHolding.symbol) ?? topHolding.purchasePrice))} countUp />
-                        </p>
-                      </motion.div>
-
-                      {/* Rest of holdings — staggered */}
-                      {portfolio.filter((h) => h.symbol !== topHolding.symbol).slice(0, 3).map((h, idx) => {
-                        const price = livePrices.get(h.symbol) ?? h.purchasePrice;
-                        const pct = h.purchasePrice > 0 ? ((price - h.purchasePrice) / h.purchasePrice) * 100 : 0;
-                        return (
-                          <motion.div key={h.symbol}
-                            initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 1.0 + idx * 0.1, duration: 0.3 }}
-                            className="flex items-center justify-between py-1.5 border-t border-border/40">
-                            <span className="text-sm font-bold font-mono">{h.symbol}</span>
-                            <span className="text-xs text-muted-foreground">{h.shares}sh</span>
-                            <span className="text-sm font-bold tabular-nums">🪙{Math.floor(h.shares * price).toLocaleString()}</span>
-                            <span className={`text-xs font-bold ${pct >= 0 ? "text-success" : "text-destructive"}`}>
-                              {pct >= 0 ? "+" : ""}{pct.toFixed(1)}%
-                            </span>
-                          </motion.div>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <div className="mt-3">
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">First trade</p>
-                      <p className="text-xs text-muted-foreground mt-1">Buy real companies with virtual cash and watch your chart grow right here.</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </Link>
-          </MCard>
+          {/* ── Portfolio: interactive terminal ── */}
+          <PortfolioSnapshot
+            portfolio={portfolio}
+            livePrices={livePrices}
+            plPct={plPct}
+          />
 
           {/* ── Class Leaderboard snapshot ── */}
           <MCard i={10}>
             <Link to="/leaderboard" className="block h-full">
-              <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
+              <div className="group bg-white rounded-[20px] overflow-hidden hover-lift press-scale h-full relative"
                 style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
                 <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #E3A008, #E3A00800 70%)" }} />
-                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#E3A0081f" }} />
-                <div className="relative">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
+
+                {lbRows.length > 0 && rankInfo ? (
+                  <>
+                    {/* ── Hero rank section — dark gradient bg ── */}
+                    <div className="px-5 pt-5 pb-4 relative overflow-hidden"
+                      style={{ background: "linear-gradient(145deg, #1a1208, #2d1f06)" }}>
+                      {/* Glow orb */}
+                      <div className="absolute -right-6 -top-6 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+                        style={{ background: "rgba(227,160,8,0.25)" }} />
+                      <div className="absolute -left-4 bottom-0 w-20 h-20 rounded-full blur-2xl pointer-events-none"
+                        style={{ background: "rgba(227,160,8,0.1)" }} />
+
+                      <div className="relative flex items-start justify-between">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "#E3A00880" }}>Class rank</p>
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.65, duration: 0.35 }}
+                            className="flex items-end gap-2 mt-1">
+                            <p className="font-display font-extrabold leading-none" style={{ fontSize: "52px", color: "#E3A008", lineHeight: 1 }}>
+                              #{rankInfo.rank}
+                            </p>
+                          </motion.div>
+                          <p className="text-sm font-bold mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
+                            of {rankInfo.total} students
+                          </p>
+                        </div>
+
+                        {/* Rank medal badge */}
+                        <motion.div
+                          initial={{ scale: 0, rotate: 20 }} animate={{ scale: 1, rotate: 0 }}
+                          transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.7 }}
+                          className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mt-1 shrink-0"
+                          style={{ background: "rgba(227,160,8,0.15)", border: "1px solid rgba(227,160,8,0.3)" }}>
+                          {rankInfo.rank === 1 ? "🥇" : rankInfo.rank === 2 ? "🥈" : rankInfo.rank === 3 ? "🥉" : "🏅"}
+                        </motion.div>
+                      </div>
+
+                      {/* Coins + progress to next rank */}
+                      {(() => {
+                        const above = lbRows.find(r => r.rank === rankInfo.rank - 1);
+                        const gap = above ? above.xp - rankInfo.pts : null;
+                        const pctToAbove = above && above.xp > 0 ? Math.min((rankInfo.pts / above.xp) * 100, 100) : null;
+                        return (
+                          <div className="mt-3 relative">
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="text-[11px] font-extrabold tabular-nums" style={{ color: "#E3A008" }}>
+                                🪙 {rankInfo.pts.toLocaleString()} coins
+                              </span>
+                              {gap != null && (
+                                <span className="text-[10px] font-bold" style={{ color: "rgba(255,255,255,0.45)" }}>
+                                  {gap.toLocaleString()} to #{rankInfo.rank - 1}
+                                </span>
+                              )}
+                            </div>
+                            {pctToAbove != null && (
+                              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
+                                <motion.div
+                                  initial={{ width: 0 }} animate={{ width: `${pctToAbove}%` }}
+                                  transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
+                                  className="h-full rounded-full"
+                                  style={{ background: "linear-gradient(90deg, #E3A008, #FCD34D)" }} />
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })()}
+                    </div>
+
+                    {/* ── Standings list ── */}
+                    <div className="px-5 py-3 space-y-0">
+                      {(() => {
+                        const maxXp = Math.max(...lbRows.map(r => r.xp), 1);
+                        return lbRows.map((r, i) => {
+                          const medals = ["🥇", "🥈", "🥉"];
+                          const barColor = r.isMe ? "#1D9E75" : r.rank <= 3 ? ["#E3A008", "#9CA3AF", "#CD7C3A"][r.rank - 1] : "#CBD5E1";
+                          return (
+                            <motion.div key={r.name + i}
+                              initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.75 + i * 0.08, duration: 0.28 }}
+                              className="py-2.5"
+                              style={r.isMe ? { borderTop: "1px solid rgba(29,158,117,0.2)", borderBottom: "1px solid rgba(29,158,117,0.2)", marginTop: "2px", marginBottom: "2px" } : { borderTop: "1px solid #f0f5f3" }}>
+                              <div className={`rounded-xl px-2 py-1 -mx-2 transition-colors ${r.isMe ? "bg-success/5" : ""}`}>
+                                <div className="flex items-center gap-2.5 mb-1">
+                                  <span className="text-base shrink-0 w-5 text-center">
+                                    {r.rank <= 3 ? medals[r.rank - 1] : <span className="text-[11px] font-extrabold text-muted-foreground">{r.rank}</span>}
+                                  </span>
+                                  <span className={`text-sm flex-1 truncate ${r.isMe ? "font-extrabold" : "font-semibold"}`}
+                                    style={r.isMe ? { color: "#1D9E75" } : { color: "#374151" }}>
+                                    {r.name}
+                                  </span>
+                                  <span className="text-xs font-bold tabular-nums" style={{ color: barColor }}>
+                                    🪙{r.xp.toLocaleString()}
+                                  </span>
+                                </div>
+                                <div className="ml-7 h-1.5 rounded-full bg-muted overflow-hidden">
+                                  <motion.div
+                                    initial={{ width: 0 }} animate={{ width: `${(r.xp / maxXp) * 100}%` }}
+                                    transition={{ duration: 1.0, delay: 0.82 + i * 0.1, ease: "easeOut" }}
+                                    className="h-full rounded-full"
+                                    style={{ background: barColor }} />
+                                </div>
+                              </div>
+                            </motion.div>
+                          );
+                        });
+                      })()}
+                    </div>
+                  </>
+                ) : (
+                  <div className="p-5">
+                    <div className="flex items-center gap-2.5 mb-3">
                       <motion.span
                         initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }}
                         transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.65 }}
-                        className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
+                        className="w-9 h-9 rounded-xl flex items-center justify-center border"
                         style={{ background: "linear-gradient(135deg, #E3A00826, #E3A0080a)", color: "#E3A008", borderColor: "#E3A00826" }}>
                         <Trophy className="w-4 h-4" />
                       </motion.span>
                       <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Class rank</p>
                     </div>
-                    {rankInfo && (
-                      <motion.span
-                        initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 16, delay: 0.8 }}
-                        className="text-[11px] font-extrabold px-2 py-0.5 rounded-full"
-                        style={{ color: "#E3A008", background: "#E3A0081a" }}>
-                        #{rankInfo.rank} of {rankInfo.total}
-                      </motion.span>
-                    )}
+                    <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Class rank</p>
+                    <p className="text-xs text-muted-foreground mt-1">Join a class to see where you stand against your classmates.</p>
                   </div>
-
-                  {lbRows.length > 0 ? (
-                    <>
-                      {/* Hero rank */}
-                      {rankInfo && (
-                        <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.75, duration: 0.3 }}
-                          className="mt-3 flex items-end gap-2">
-                          <p className="font-display text-[26px] font-extrabold tracking-tight leading-none" style={{ color: "#E3A008" }}>
-                            #{rankInfo.rank}
-                          </p>
-                          <p className="text-sm font-bold text-muted-foreground mb-0.5">in your class</p>
-                        </motion.div>
-                      )}
-
-                      {/* Race-track bars */}
-                      <div className="mt-3 space-y-2">
-                        {(() => {
-                          const maxXp = Math.max(...lbRows.map((r) => r.xp), 1);
-                          const rankColors = ["#E3A008", "#9CA3AF", "#CD7C3A", "#6366F1", "#0F766E"];
-                          return lbRows.map((r, i) => (
-                            <motion.div key={r.name + i}
-                              initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.8 + i * 0.09, duration: 0.28 }}>
-                              <div className="flex items-center gap-2 mb-0.5">
-                                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-extrabold shrink-0 text-white"
-                                  style={{ background: r.rank <= 3 ? rankColors[r.rank - 1] : r.isMe ? "#1D9E75" : "#9CA3AF" }}>
-                                  {r.rank <= 3 ? ["🥇","🥈","🥉"][r.rank - 1] : r.rank}
-                                </span>
-                                <span className={`text-xs flex-1 truncate ${r.isMe ? "font-extrabold" : "font-bold"}`}
-                                  style={r.isMe ? { color: "#1D9E75" } : {}}>
-                                  {r.name}
-                                </span>
-                                <span className="text-[10px] font-extrabold tabular-nums text-muted-foreground">
-                                  🪙{r.xp.toLocaleString()}
-                                </span>
-                              </div>
-                              <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                                <motion.div
-                                  initial={{ width: 0 }} animate={{ width: `${(r.xp / maxXp) * 100}%` }}
-                                  transition={{ duration: 1.1, delay: 0.85 + i * 0.1, ease: "easeOut" }}
-                                  className="h-full rounded-full"
-                                  style={{ background: r.isMe ? "#1D9E75" : r.rank <= 3 ? rankColors[r.rank - 1] : "#9CA3AF" }} />
-                              </div>
-                            </motion.div>
-                          ));
-                        })()}
-                      </div>
-                    </>
-                  ) : (
-                    <div className="mt-3">
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Class rank</p>
-                      <p className="text-xs text-muted-foreground mt-1">Join a class to see where you stand against your classmates.</p>
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
             </Link>
           </MCard>
@@ -938,6 +862,211 @@ export default function Dashboard() {
 }
 
 /* ──── Sub-components ──── */
+
+// ─── Interactive portfolio snapshot ───────────────────────────────────────────
+const CHART_RANGES = [
+  { label: "1W", value: "5d" },
+  { label: "1M", value: "1m" },
+  { label: "6M", value: "6m" },
+  { label: "1Y", value: "1y" },
+] as const;
+type ChartRangeVal = typeof CHART_RANGES[number]["value"];
+
+interface PortfolioSnapshotProps {
+  portfolio: { symbol: string; shares: number; purchasePrice: number }[];
+  livePrices: Map<string, number>;
+  plPct: number;
+}
+function PortfolioSnapshot({ portfolio, livePrices, plPct }: PortfolioSnapshotProps) {
+  const [activeSymbol, setActiveSymbol] = useState<string | undefined>(undefined);
+  const [chartRange, setChartRange] = useState<ChartRangeVal>("1y");
+  const [hoverPrice, setHoverPrice] = useState<number | null>(null);
+  const [hoverDate, setHoverDate] = useState<string | null>(null);
+
+  const topHolding = useMemo(() => {
+    if (portfolio.length === 0) return undefined;
+    return [...portfolio].sort(
+      (a, b) =>
+        b.shares * (livePrices.get(b.symbol) ?? b.purchasePrice) -
+        a.shares * (livePrices.get(a.symbol) ?? a.purchasePrice)
+    )[0];
+  }, [portfolio, livePrices]);
+
+  const symbol = activeSymbol ?? topHolding?.symbol;
+  const { historicalData } = useStockHistory(symbol, chartRange);
+  const chartData = useMemo(
+    () => (historicalData ?? []).map((d) => ({ p: d.price, date: d.date })),
+    [historicalData]
+  );
+  const chartUp = chartData.length >= 2 ? chartData[chartData.length - 1].p >= chartData[0].p : true;
+  const chartColor = chartUp ? "#1D9E75" : "#dc2626";
+
+  const activeHolding = portfolio.find((h) => h.symbol === symbol);
+  const livePrice = symbol ? (livePrices.get(symbol) ?? activeHolding?.purchasePrice ?? 0) : 0;
+  const displayPrice = hoverPrice ?? livePrice;
+  const holdingPnl =
+    activeHolding && activeHolding.purchasePrice > 0
+      ? ((livePrice - activeHolding.purchasePrice) / activeHolding.purchasePrice) * 100
+      : 0;
+
+  return (
+    <MCard i={9}>
+      <div
+        className="bg-white rounded-[20px] p-5 relative overflow-hidden h-full"
+        style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}
+      >
+        <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #3BA7C4, #3BA7C400 70%)" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(59,167,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,167,196,0.04) 1px,transparent 1px)",
+          backgroundSize: "20px 20px",
+        }} />
+        <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60" style={{ background: "#3BA7C41f" }} />
+
+        <div className="relative">
+          {/* Header */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <motion.span
+                initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.6 }}
+                className="w-9 h-9 rounded-xl flex items-center justify-center border"
+                style={{ background: "linear-gradient(135deg,#3BA7C426,#3BA7C40a)", color: "#3BA7C4", borderColor: "#3BA7C426" }}>
+                <LineChart className="w-4 h-4" />
+              </motion.span>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Portfolio</p>
+                <div className="flex items-center gap-1 mt-0.5">
+                  <motion.span animate={{ opacity: [1, 0.2, 1] }} transition={{ repeat: Infinity, duration: 1.8 }}
+                    className="w-1.5 h-1.5 rounded-full bg-success inline-block" />
+                  <span className="text-[9px] font-bold text-success">LIVE</span>
+                </div>
+              </div>
+            </div>
+            {portfolio.length > 0 && (
+              <Link to="/stocks" onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground hover:text-foreground transition-colors">
+                View all <ArrowRight className="w-3 h-3" />
+              </Link>
+            )}
+          </div>
+
+          {portfolio.length > 0 && activeHolding ? (
+            <>
+              {/* Price display — updates on hover */}
+              <div className="mt-3 flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-2 py-0.5 rounded font-mono font-extrabold text-sm shrink-0"
+                      style={{ background: "#3BA7C420", color: "#3BA7C4" }}>{symbol}</span>
+                    <span className={`text-[11px] font-extrabold ${holdingPnl >= 0 ? "text-success" : "text-destructive"}`}>
+                      {holdingPnl >= 0 ? "+" : ""}{holdingPnl.toFixed(2)}%
+                    </span>
+                  </div>
+                  <p className="font-display text-[22px] font-extrabold tracking-tight tabular-nums mt-0.5">
+                    🪙 {Math.floor(displayPrice).toLocaleString()}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground h-4">
+                    {hoverDate ?? `${activeHolding.shares} sh · per share`}
+                  </p>
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Total P/L</p>
+                  <p className={`text-sm font-extrabold ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
+                    {plPct >= 0 ? "▲ +" : "▼ "}{plPct.toFixed(1)}%
+                  </p>
+                </div>
+              </div>
+
+              {/* Range pills */}
+              <div className="flex gap-1 mt-2">
+                {CHART_RANGES.map((r) => (
+                  <button key={r.value} onClick={() => setChartRange(r.value)}
+                    className="px-2.5 py-1 rounded-full text-[10px] font-bold transition-all press-scale"
+                    style={chartRange === r.value
+                      ? { background: "#3BA7C4", color: "white" }
+                      : { background: "rgba(0,0,0,0.05)", color: "#94a3b8" }}>
+                    {r.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Interactive chart with crosshair */}
+              <div className="h-28 mt-2 -mx-2 cursor-crosshair">
+                {chartData.length >= 2 ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart
+                      data={chartData}
+                      margin={{ top: 4, right: 0, bottom: 0, left: 0 }}
+                      onMouseMove={(state) => {
+                        if (state.isTooltipActive && state.activePayload?.[0]) {
+                          setHoverPrice(Number(state.activePayload[0].value));
+                          setHoverDate(String(state.activePayload[0].payload.date));
+                        }
+                      }}
+                      onMouseLeave={() => { setHoverPrice(null); setHoverDate(null); }}>
+                      <defs>
+                        <linearGradient id="dashSpark" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor={chartColor} stopOpacity={0.5} />
+                          <stop offset="100%" stopColor={chartColor} stopOpacity={0.02} />
+                        </linearGradient>
+                      </defs>
+                      <YAxis hide domain={[(min: number) => min * 0.993, (max: number) => max * 1.007]} />
+                      <Tooltip
+                        cursor={{ stroke: chartColor, strokeWidth: 1, strokeDasharray: "4 3" }}
+                        content={() => null}
+                      />
+                      <Area type="monotone" dataKey="p" stroke={chartColor} strokeWidth={2.5}
+                        fill="url(#dashSpark)" dot={false} isAnimationActive animationDuration={900} animationBegin={0} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-full rounded-lg bg-muted/40 animate-pulse" />
+                )}
+              </div>
+
+              {/* Holdings list — click to switch chart */}
+              <div className="mt-1.5">
+                {portfolio.slice(0, 4).map((h, idx) => {
+                  const price = livePrices.get(h.symbol) ?? h.purchasePrice;
+                  const pct = h.purchasePrice > 0 ? ((price - h.purchasePrice) / h.purchasePrice) * 100 : 0;
+                  const isActive = h.symbol === symbol;
+                  return (
+                    <motion.button
+                      key={h.symbol}
+                      initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.85 + idx * 0.07, duration: 0.25 }}
+                      onClick={() => setActiveSymbol(h.symbol)}
+                      className="w-full flex items-center gap-2 py-2 border-t border-border/40 transition-all press-scale rounded-lg hover:bg-muted/40 px-1.5"
+                      style={isActive ? { background: "#3BA7C40c" } : {}}>
+                      <span className="font-mono font-extrabold text-sm w-12 text-left shrink-0"
+                        style={isActive ? { color: "#3BA7C4" } : {}}>
+                        {h.symbol}
+                      </span>
+                      <span className="text-xs text-muted-foreground w-10 shrink-0">{h.shares}sh</span>
+                      <span className="text-sm font-bold tabular-nums flex-1 text-right">
+                        🪙{Math.floor(h.shares * price).toLocaleString()}
+                      </span>
+                      <span className={`text-xs font-bold w-12 text-right shrink-0 ${pct >= 0 ? "text-success" : "text-destructive"}`}>
+                        {pct >= 0 ? "+" : ""}{pct.toFixed(1)}%
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </>
+          ) : (
+            <div className="mt-3">
+              <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">First trade</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Buy real companies with virtual cash and watch your chart grow right here.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </MCard>
+  );
+}
 
 function RadialGauge({ value, color, label }: { value: number; color: string; label: string }) {
   const r = 22;
