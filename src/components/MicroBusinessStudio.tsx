@@ -31,6 +31,8 @@ import {
   briefsForCategory, allBriefIdsForQuarter, type QuarterlyBrief,
 } from "@/lib/quarterlyBriefs";
 import { anchor } from "@/lib/tourAnchors";
+import { useBizDeals } from "@/hooks/useBizDeals";
+import PartnerDealsPanel from "@/components/PartnerDealsPanel";
 // Teacher-adjustable writing workload: ws() scales every word minimum by the
 // class's writing_scale setting (Light/Standard/Extended in TeacherDashboard).
 import { ws, initWritingScale, subscribeWritingScale } from "@/lib/writingScale";
@@ -239,18 +241,32 @@ export default function MicroBusinessStudio() {
   const currentIds = qi === 0 ? ALL_ACTIVITIES : allBriefIdsForQuarter(qi);
   const doneCount = currentIds.filter((id) => a.done.includes(id)).length;
   const allDone = currentIds.length > 0 && doneCount === currentIds.length;
+  const { totalBonus: dealBonus } = useBizDeals(bt);
+
   const setSim = (next: BizState) => persist({ ...a, sim: next });
   const generateMonth = () => { if (sim.pending || sim.status === "failed") return; setSim({ ...sim, pending: pickSituation(sim) }); };
   const resolveMonth = (optIndex: number, words: number) => {
     const { next, revenue } = resolveSituation(sim, optIndex, words);
+    // Apply active partner-deal bonuses on top of the base simulation result.
+    const extraRev = Math.round(revenue * dealBonus.revenuePct / 100);
+    const withDeals: BizState = dealBonus.dealCount > 0 ? {
+      ...next,
+      cash: next.cash + extraRev,
+      customers: Math.max(0, next.customers + dealBonus.customers),
+      reputation: Math.min(100, Math.max(0, next.reputation + dealBonus.reputation)),
+      log: extraRev > 0 || dealBonus.customers > 0
+        ? [...next.log, { month: next.month, text: `🤝 Partner deal bonuses: +${extraRev} rev, +${dealBonus.customers} customers` }].slice(-30)
+        : next.log,
+    } : next;
     // Crossing into a new quarter refreshes the operations activities so running
     // the business stays an ongoing job rather than a one-time 9-item checklist.
-    const newQuarter = quarterOf(next.month) !== quarterOf(sim.month) && next.status !== "failed";
-    persist({ ...a, sim: next, ...(newQuarter ? { done: [], xpAwarded: [] } : {}) });
+    const newQuarter = quarterOf(withDeals.month) !== quarterOf(sim.month) && withDeals.status !== "failed";
+    persist({ ...a, sim: withDeals, ...(newQuarter ? { done: [], xpAwarded: [] } : {}) });
     earnJeffs(40, `Business month ${sim.month}`);
-    toast.success(`Month ${sim.month} resolved`, { description: `Revenue +${revenue} IC · +40 InvestiCoins` });
-    if (newQuarter) toast.success(`Quarter ${quarterOf(next.month) + 1} begins`, { description: "Your operations activities have refreshed — run them again." });
-    if (next.status === "failed") toast.error("Your business ran out of road", { description: "Review what happened, then rebuild." });
+    const totalRev = revenue + extraRev;
+    toast.success(`Month ${sim.month} resolved`, { description: `Revenue +${totalRev} IC${extraRev > 0 ? ` (inc. +${extraRev} from deals)` : ""} · +40 InvestiCoins` });
+    if (newQuarter) toast.success(`Quarter ${quarterOf(withDeals.month) + 1} begins`, { description: "Your operations activities have refreshed — run them again." });
+    if (withDeals.status === "failed") toast.error("Your business ran out of road", { description: "Review what happened, then rebuild." });
   };
   const rebuild = () => persist({ ...a, sim: defaultBizState(), done: [], xpAwarded: [] });
   const addProductHandler = (p: { name: string; price: number; pitch: string }) => {
@@ -338,6 +354,7 @@ export default function MicroBusinessStudio() {
 
               <TabsContent value="collab">
                 <SequentialSteps a={a} steps={collabSteps} />
+                <PartnerDealsPanel bizType={bt} />
               </TabsContent>
 
               <TabsContent value="marketing">

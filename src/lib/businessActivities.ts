@@ -178,7 +178,13 @@ export function saveActivities(s: ActivitiesState) {
       if (uid) {
         // Upsert only the `activities` column so the Office's `state` column is untouched.
         await (supabase as any).from("business_game_state").upsert(
-          { user_id: uid, activities: s, updated_at: new Date().toISOString() },
+          {
+            user_id: uid,
+            activities: s,
+            // Expose biz_type so get_partners_with_biz() can surface it
+            biz_type: s.businessType ?? null,
+            updated_at: new Date().toISOString(),
+          },
           { onConflict: "user_id" },
         );
       }
