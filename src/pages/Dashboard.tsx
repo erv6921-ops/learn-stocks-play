@@ -478,45 +478,13 @@ export default function Dashboard() {
         </MCard>
         }
 
-        {/* ═══ 1. DAILIES — challenge + missions ═══ */}
-        <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-3 mb-3 items-start">
-          <MCard i={6}>
-            <div className={`rounded-[20px] p-5 text-white relative overflow-hidden hover-lift ${dailyDone ? "opacity-75" : ""}`} style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)", boxShadow: "var(--shadow-md)" }}>
-              <div className="absolute top-0 left-0 right-0 h-[2px]"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
-              <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
-                style={{ background: "rgba(43,182,115,0.14)" }} />
-              <p className="relative text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Daily challenge</p>
-              <div className="relative flex items-center justify-between gap-4 mt-2.5">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/5" style={{ background: "rgba(43,182,115,0.18)" }}>
-                    <Flame className="w-5 h-5 text-success" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-display font-extrabold text-lg truncate">{dailyGameName}</p>
-                    <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
-                  </div>
-                </div>
-                {dailyDone ? (
-                  <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
-                ) : (
-                  <Link to="/daily" className="shrink-0">
-                    <button className="px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale border border-white/10">
-                      Play →
-                    </button>
-                  </Link>
-                )}
-              </div>
-            </div>
-          </MCard>
-
-          <MCard i={7}>
-            <DailyMissions
-              lessonProgress={lessonProgress}
-              portfolio={portfolio}
-              earnJeffs={earnJeffs} />
-          </MCard>
-        </div>
+        {/* ═══ 1. DAILY MISSIONS — full-width checklist ═══ */}
+        <MCard i={7}>
+          <DailyMissions
+            lessonProgress={lessonProgress}
+            portfolio={portfolio}
+            earnJeffs={earnJeffs} />
+        </MCard>
 
         {/* ═══ 2. ROLLER COASTER — full-width strip ═══ */}
         <MCard i={1}>
@@ -604,7 +572,38 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {/* ═══ 3. SNAPSHOTS — business · portfolio · class rank ═══ */}
+        {/* ═══ 3. DAILY CHALLENGE — between stats and snapshots ═══ */}
+        <MCard i={6}>
+          <div className={`rounded-[20px] p-5 text-white relative overflow-hidden hover-lift mt-3 ${dailyDone ? "opacity-75" : ""}`} style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)", boxShadow: "var(--shadow-md)" }}>
+            <div className="absolute top-0 left-0 right-0 h-[2px]"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
+            <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
+              style={{ background: "rgba(43,182,115,0.14)" }} />
+            <p className="relative text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Daily challenge</p>
+            <div className="relative flex items-center justify-between gap-4 mt-2.5">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/5" style={{ background: "rgba(43,182,115,0.18)" }}>
+                  <Flame className="w-5 h-5 text-success" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-display font-extrabold text-lg truncate">{dailyGameName}</p>
+                  <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+                </div>
+              </div>
+              {dailyDone ? (
+                <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
+              ) : (
+                <Link to="/daily" className="shrink-0">
+                  <button className="px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale border border-white/10">
+                    Play →
+                  </button>
+                </Link>
+              )}
+            </div>
+          </div>
+        </MCard>
+
+        {/* ═══ 4. SNAPSHOTS — business · portfolio · class rank ═══ */}
         <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-3 mt-3 items-stretch">
 
           {/* ── Micro-business: revenue hero + radial rep + customer dots ── */}
