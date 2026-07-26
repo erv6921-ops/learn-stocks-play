@@ -623,57 +623,62 @@ export default function Dashboard() {
 
                   {hasBusiness && bizSim ? (
                     <>
-                      {/* Business type label */}
-                      {bizType && (
-                        <p className="text-[10px] font-bold mt-1" style={{ color: bizDef(bizType).color }}>
-                          {bizDef(bizType).label}
+                      {/* Revenue hero + reputation arc side by side */}
+                      <div className="flex items-end justify-between mt-3">
+                        <div>
+                          <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-0.5">Revenue / mo</p>
+                          <p className="font-display text-[26px] font-extrabold tracking-tight leading-none">
+                            🪙 <AnimatedNumber value={monthlyRevenue(bizSim)} countUp />
+                          </p>
+                        </div>
+                        <RadialGauge value={bizSim.reputation} color="#0F766E" label="Rep" />
+                      </div>
+
+                      {/* Animated customer dots */}
+                      <div className="mt-3">
+                        <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
+                          Customers · <span className="font-extrabold" style={{ color: "#0F766E" }}>{bizSim.customers}</span>
                         </p>
-                      )}
-
-                      {/* 2×2 stat grid — matches the actual Micro-Business page */}
-                      <div className="grid grid-cols-2 gap-2 mt-3">
-                        {[
-                          { label: "Customers", val: bizSim.customers.toLocaleString(), color: "#0F766E" },
-                          { label: "Cash", val: `${Math.round(bizSim.cash).toLocaleString()} IC`, color: "#E3A008" },
-                          { label: "Products", val: String(bizSim.products.length), color: "#8B5CF6" },
-                          { label: "Revenue/mo", val: `${monthlyRevenue(bizSim).toLocaleString()} IC`, color: "#3BA7C4" },
-                        ].map((s, k) => (
-                          <motion.div key={s.label}
-                            initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6 + k * 0.07, duration: 0.3 }}
-                            className="rounded-xl p-2.5" style={{ background: `${s.color}12` }}>
-                            <p className="text-[8px] font-bold uppercase tracking-wider text-muted-foreground">{s.label}</p>
-                            <p className="font-display text-sm font-extrabold tabular-nums mt-0.5" style={{ color: s.color }}>{s.val}</p>
-                          </motion.div>
-                        ))}
+                        <div className="flex gap-1 flex-wrap">
+                          {Array.from({ length: Math.min(bizSim.customers, 12) }).map((_, k) => (
+                            <motion.div key={k}
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              transition={{ delay: 0.65 + k * 0.055, type: "spring", stiffness: 420, damping: 14 }}
+                              className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-white"
+                              style={{ background: k === 0 ? "#0F766E" : k < 4 ? "#0F766E99" : "#0F766E40", fontSize: "9px" }}>
+                              {k < 3 ? "★" : "·"}
+                            </motion.div>
+                          ))}
+                          {bizSim.customers > 12 && (
+                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.35 }}
+                              className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0"
+                              style={{ background: "#0F766E20", color: "#0F766E" }}>
+                              +{bizSim.customers - 12}
+                            </motion.div>
+                          )}
+                        </div>
                       </div>
 
-                      {/* Reputation + Brand bars */}
-                      <div className="mt-3 space-y-2">
-                        {[
-                          { label: "Reputation", val: bizSim.reputation, color: "#0F766E" },
-                          { label: "Brand", val: bizSim.brand, color: "#3BA7C4" },
-                        ].map((b, k) => (
-                          <div key={b.label}>
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">{b.label}</span>
-                              <span className="text-[11px] font-extrabold tabular-nums" style={{ color: b.color }}>
-                                <AnimatedNumber value={Math.round(b.val)} countUp />
-                              </span>
-                            </div>
-                            <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                              <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min(100, b.val)}%` }}
-                                transition={{ duration: 1.1, delay: 0.75 + k * 0.15, ease: "easeOut" }}
-                                className="h-full rounded-full" style={{ background: b.color }} />
-                            </div>
-                          </div>
-                        ))}
+                      {/* Brand gradient bar */}
+                      <div className="mt-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Brand strength</span>
+                          <span className="text-[11px] font-extrabold tabular-nums" style={{ color: "#3BA7C4" }}>
+                            <AnimatedNumber value={Math.round(bizSim.brand)} countUp />
+                          </span>
+                        </div>
+                        <div className="h-2 rounded-full bg-muted overflow-hidden">
+                          <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min(100, bizSim.brand)}%` }}
+                            transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
+                            className="h-full rounded-full" style={{ background: "linear-gradient(90deg, #0F766E, #3BA7C4)" }} />
+                        </div>
                       </div>
 
-                      <p className="text-[11px] text-muted-foreground mt-2.5 flex items-center gap-1.5">
+                      <p className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1.5">
                         <span>Month <AnimatedNumber value={bizSim.month} countUp /></span>
                         <span className="opacity-40">·</span>
-                        <span className="capitalize">{bizSim.status}</span>
+                        <span>🪙 <AnimatedNumber value={Math.round(bizSim.cash)} countUp /> cash</span>
                       </p>
                     </>
                   ) : (
