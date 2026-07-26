@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import AnimatedNumber from "@/components/AnimatedNumber";
 import { useStockHistory } from "@/hooks/useStockHistory";
-import { Area, AreaChart, ResponsiveContainer } from "recharts";
+import { Area, AreaChart, ResponsiveContainer, YAxis } from "recharts";
 import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
@@ -340,15 +340,16 @@ export default function Dashboard() {
       b.shares * (livePrices.get(b.symbol) ?? b.purchasePrice) - a.shares * (livePrices.get(a.symbol) ?? a.purchasePrice)
     )[0];
   }, [portfolio, livePrices]);
-  const { historicalData: topHistory } = useStockHistory(topHolding?.symbol);
-  const sparkData = useMemo(() => (topHistory ?? []).slice(-30).map((d) => ({ p: d.price })), [topHistory]);
+  const { historicalData: topHistory } = useStockHistory(topHolding?.symbol, "1y");
+  const sparkData = useMemo(() => (topHistory ?? []).map((d) => ({ p: d.price })), [topHistory]);
   const sparkUp = sparkData.length >= 2 ? sparkData[sparkData.length - 1].p >= sparkData[0].p : true;
 
   // Fullscreen roller-coaster overlay toggle.
   const [coasterFull, setCoasterFull] = useState(false);
 
-  // ── Class rank (same RPC as the Leaderboard page) ──
-  const [rankInfo, setRankInfo] = useState<{ rank: number; pts: number } | null>(null);
+  // ── Class rank + top-5 leaderboard rows ──
+  const [rankInfo, setRankInfo] = useState<{ rank: number; pts: number; total: number } | null>(null);
+  const [lbRows, setLbRows] = useState<{ name: string; xp: number; isMe: boolean; rank: number }[]>([]);
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -360,7 +361,18 @@ export default function Dashboard() {
       if (cancelled || !lb) return;
       const sorted = [...lb].sort((a, b) => Number(b.xp) - Number(a.xp));
       const idx = sorted.findIndex((r) => r.user_id === user.id);
-      if (idx !== -1) setRankInfo({ rank: idx + 1, pts: Math.round(Number(sorted[idx].xp)) });
+      if (idx !== -1) setRankInfo({ rank: idx + 1, pts: Math.round(Number(sorted[idx].xp)), total: sorted.length });
+
+      // Top 5 rows, always include the current user even if outside top 5
+      const top5 = sorted.slice(0, 5);
+      if (idx >= 5) top5.push(sorted[idx]);
+      const rows = top5.map((r, i) => ({
+        name: r.user_id === user.id ? "You" : `${r.first_name || ""}${r.last_name ? ` ${(r.last_name as string).charAt(0)}.` : ""}`.trim() || "Student",
+        xp: Math.round(Number(r.xp)),
+        isMe: r.user_id === user.id,
+        rank: sorted.indexOf(r) + 1,
+      }));
+      if (!cancelled) setLbRows(rows);
     })();
     return () => { cancelled = true; };
   }, [user?.id]);
@@ -622,62 +634,57 @@ export default function Dashboard() {
 
                   {hasBusiness && bizSim ? (
                     <>
-                      {/* Revenue hero + reputation arc side by side */}
-                      <div className="flex items-end justify-between mt-3">
-                        <div>
-                          <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-0.5">Revenue / mo</p>
-                          <p className="font-display text-[26px] font-extrabold tracking-tight leading-none">
-                            🪙 <AnimatedNumber value={monthlyRevenue(bizSim)} countUp />
-                          </p>
-                        </div>
-                        <RadialGauge value={bizSim.reputation} color="#0F766E" label="Rep" />
-                      </div>
-
-                      {/* Animated customer dots */}
-                      <div className="mt-3">
-                        <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
-                          Customers · <span className="font-extrabold" style={{ color: "#0F766E" }}>{bizSim.customers}</span>
+                      {/* Business type label */}
+                      {bizType && (
+                        <p className="text-[10px] font-bold mt-1" style={{ color: bizDef(bizType).color }}>
+                          {bizDef(bizType).label}
                         </p>
-                        <div className="flex gap-1 flex-wrap">
-                          {Array.from({ length: Math.min(bizSim.customers, 12) }).map((_, k) => (
-                            <motion.div key={k}
-                              initial={{ scale: 0, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
-                              transition={{ delay: 0.65 + k * 0.055, type: "spring", stiffness: 420, damping: 14 }}
-                              className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-white"
-                              style={{ background: k === 0 ? "#0F766E" : k < 4 ? "#0F766E99" : "#0F766E40", fontSize: "9px" }}>
-                              {k < 3 ? "★" : "·"}
-                            </motion.div>
-                          ))}
-                          {bizSim.customers > 12 && (
-                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.35 }}
-                              className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0"
-                              style={{ background: "#0F766E20", color: "#0F766E" }}>
-                              +{bizSim.customers - 12}
-                            </motion.div>
-                          )}
-                        </div>
+                      )}
+
+                      {/* 2×2 stat grid — matches the actual Micro-Business page */}
+                      <div className="grid grid-cols-2 gap-2 mt-3">
+                        {[
+                          { label: "Customers", val: bizSim.customers.toLocaleString(), color: "#0F766E" },
+                          { label: "Cash", val: `${Math.round(bizSim.cash).toLocaleString()} IC`, color: "#E3A008" },
+                          { label: "Products", val: String(bizSim.products.length), color: "#8B5CF6" },
+                          { label: "Revenue/mo", val: `${monthlyRevenue(bizSim).toLocaleString()} IC`, color: "#3BA7C4" },
+                        ].map((s, k) => (
+                          <motion.div key={s.label}
+                            initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 + k * 0.07, duration: 0.3 }}
+                            className="rounded-xl p-2.5" style={{ background: `${s.color}12` }}>
+                            <p className="text-[8px] font-bold uppercase tracking-wider text-muted-foreground">{s.label}</p>
+                            <p className="font-display text-sm font-extrabold tabular-nums mt-0.5" style={{ color: s.color }}>{s.val}</p>
+                          </motion.div>
+                        ))}
                       </div>
 
-                      {/* Brand gradient bar */}
-                      <div className="mt-3">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Brand strength</span>
-                          <span className="text-[11px] font-extrabold tabular-nums" style={{ color: "#3BA7C4" }}>
-                            <AnimatedNumber value={Math.round(bizSim.brand)} countUp />
-                          </span>
-                        </div>
-                        <div className="h-2 rounded-full bg-muted overflow-hidden">
-                          <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min(100, bizSim.brand)}%` }}
-                            transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
-                            className="h-full rounded-full" style={{ background: "linear-gradient(90deg, #0F766E, #3BA7C4)" }} />
-                        </div>
+                      {/* Reputation + Brand bars */}
+                      <div className="mt-3 space-y-2">
+                        {[
+                          { label: "Reputation", val: bizSim.reputation, color: "#0F766E" },
+                          { label: "Brand", val: bizSim.brand, color: "#3BA7C4" },
+                        ].map((b, k) => (
+                          <div key={b.label}>
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">{b.label}</span>
+                              <span className="text-[11px] font-extrabold tabular-nums" style={{ color: b.color }}>
+                                <AnimatedNumber value={Math.round(b.val)} countUp />
+                              </span>
+                            </div>
+                            <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                              <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min(100, b.val)}%` }}
+                                transition={{ duration: 1.1, delay: 0.75 + k * 0.15, ease: "easeOut" }}
+                                className="h-full rounded-full" style={{ background: b.color }} />
+                            </div>
+                          </div>
+                        ))}
                       </div>
 
-                      <p className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1.5">
+                      <p className="text-[11px] text-muted-foreground mt-2.5 flex items-center gap-1.5">
                         <span>Month <AnimatedNumber value={bizSim.month} countUp /></span>
                         <span className="opacity-40">·</span>
-                        <span>🪙 <AnimatedNumber value={Math.round(bizSim.cash)} countUp /> cash</span>
+                        <span className="capitalize">{bizSim.status}</span>
                       </p>
                     </>
                   ) : (
@@ -748,12 +755,16 @@ export default function Dashboard() {
                             <AreaChart data={sparkData} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
                               <defs>
                                 <linearGradient id="dashSpark" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="0%" stopColor={sparkUp ? "#1D9E75" : "#dc2626"} stopOpacity={0.45} />
+                                  <stop offset="0%" stopColor={sparkUp ? "#1D9E75" : "#dc2626"} stopOpacity={0.5} />
                                   <stop offset="100%" stopColor={sparkUp ? "#1D9E75" : "#dc2626"} stopOpacity={0.02} />
                                 </linearGradient>
                               </defs>
+                              <YAxis
+                                hide
+                                domain={[(min: number) => min * 0.993, (max: number) => max * 1.007]}
+                              />
                               <Area type="monotone" dataKey="p" stroke={sparkUp ? "#1D9E75" : "#dc2626"} strokeWidth={2.5}
-                                fill="url(#dashSpark)" dot={false} isAnimationActive animationDuration={1500} animationBegin={500} />
+                                fill="url(#dashSpark)" dot={false} isAnimationActive animationDuration={1600} animationBegin={400} />
                             </AreaChart>
                           </ResponsiveContainer>
                         ) : (
@@ -806,13 +817,13 @@ export default function Dashboard() {
             </Link>
           </MCard>
 
-          {/* ── Friends: race-track leaderboard ── */}
+          {/* ── Class Leaderboard snapshot ── */}
           <MCard i={10}>
-            <Link to="/partners" className="block h-full">
+            <Link to="/leaderboard" className="block h-full">
               <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
                 style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
-                <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #E0457B, #E0457B00 70%)" }} />
-                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#E0457B1f" }} />
+                <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #E3A008, #E3A00800 70%)" }} />
+                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#E3A0081f" }} />
                 <div className="relative">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
@@ -820,52 +831,63 @@ export default function Dashboard() {
                         initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }}
                         transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.65 }}
                         className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
-                        style={{ background: "linear-gradient(135deg, #E0457B26, #E0457B0a)", color: "#E0457B", borderColor: "#E0457B26" }}>
-                        <Users className="w-4 h-4" />
+                        style={{ background: "linear-gradient(135deg, #E3A00826, #E3A0080a)", color: "#E3A008", borderColor: "#E3A00826" }}>
+                        <Trophy className="w-4 h-4" />
                       </motion.span>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Friends</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Class rank</p>
                     </div>
-                    {friendsInfo && friendsInfo.invites > 0 && (
+                    {rankInfo && (
                       <motion.span
-                        animate={{ scale: [1, 1.08, 1] }} transition={{ repeat: Infinity, duration: 2 }}
-                        className="text-[10px] font-extrabold px-2 py-0.5 rounded-full"
-                        style={{ color: "#E0457B", background: "#E0457B1a" }}>
-                        {friendsInfo.invites} invite{friendsInfo.invites === 1 ? "" : "s"} 📨
+                        initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 16, delay: 0.8 }}
+                        className="text-[11px] font-extrabold px-2 py-0.5 rounded-full"
+                        style={{ color: "#E3A008", background: "#E3A0081a" }}>
+                        #{rankInfo.rank} of {rankInfo.total}
                       </motion.span>
                     )}
                   </div>
 
-                  {friendsInfo && friendsInfo.count > 0 ? (
+                  {lbRows.length > 0 ? (
                     <>
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-none mt-3">
-                        <AnimatedNumber value={friendsInfo.count} countUp /> partner{friendsInfo.count === 1 ? "" : "s"}
-                      </p>
+                      {/* Hero rank */}
+                      {rankInfo && (
+                        <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.75, duration: 0.3 }}
+                          className="mt-3 flex items-end gap-2">
+                          <p className="font-display text-[26px] font-extrabold tracking-tight leading-none" style={{ color: "#E3A008" }}>
+                            #{rankInfo.rank}
+                          </p>
+                          <p className="text-sm font-bold text-muted-foreground mb-0.5">in your class</p>
+                        </motion.div>
+                      )}
 
                       {/* Race-track bars */}
-                      <div className="mt-3 space-y-2.5">
+                      <div className="mt-3 space-y-2">
                         {(() => {
-                          const maxCoins = Math.max(...friendsInfo.rows.map((r) => r.coins), 1);
-                          const colors = ["#E0457B", "#8B5CF6", "#3BA7C4", "#0F766E"];
-                          return friendsInfo.rows.slice(0, 4).map((f, i) => (
-                            <motion.div key={f.name + i}
-                              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.7 + i * 0.1, duration: 0.3 }}>
-                              <div className="flex items-center gap-2 mb-1">
-                                <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-extrabold shrink-0 text-white"
-                                  style={{ background: colors[i % 4] }}>
-                                  {i === 0 ? "👑" : `${i + 1}`}
+                          const maxXp = Math.max(...lbRows.map((r) => r.xp), 1);
+                          const rankColors = ["#E3A008", "#9CA3AF", "#CD7C3A", "#6366F1", "#0F766E"];
+                          return lbRows.map((r, i) => (
+                            <motion.div key={r.name + i}
+                              initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.8 + i * 0.09, duration: 0.28 }}>
+                              <div className="flex items-center gap-2 mb-0.5">
+                                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-extrabold shrink-0 text-white"
+                                  style={{ background: r.rank <= 3 ? rankColors[r.rank - 1] : r.isMe ? "#1D9E75" : "#9CA3AF" }}>
+                                  {r.rank <= 3 ? ["🥇","🥈","🥉"][r.rank - 1] : r.rank}
                                 </span>
-                                <span className="text-xs font-bold flex-1 truncate">{f.name}</span>
-                                <span className="text-[11px] font-extrabold tabular-nums" style={{ color: colors[i % 4] }}>
-                                  🪙{f.coins.toLocaleString()}
+                                <span className={`text-xs flex-1 truncate ${r.isMe ? "font-extrabold" : "font-bold"}`}
+                                  style={r.isMe ? { color: "#1D9E75" } : {}}>
+                                  {r.name}
+                                </span>
+                                <span className="text-[10px] font-extrabold tabular-nums text-muted-foreground">
+                                  🪙{r.xp.toLocaleString()}
                                 </span>
                               </div>
-                              <div className="h-2 rounded-full bg-muted overflow-hidden">
+                              <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                                 <motion.div
-                                  initial={{ width: 0 }} animate={{ width: `${(f.coins / maxCoins) * 100}%` }}
-                                  transition={{ duration: 1.1, delay: 0.75 + i * 0.12, ease: "easeOut" }}
+                                  initial={{ width: 0 }} animate={{ width: `${(r.xp / maxXp) * 100}%` }}
+                                  transition={{ duration: 1.1, delay: 0.85 + i * 0.1, ease: "easeOut" }}
                                   className="h-full rounded-full"
-                                  style={{ background: `linear-gradient(90deg, ${colors[i % 4]}, ${colors[(i + 1) % 4]})` }} />
+                                  style={{ background: r.isMe ? "#1D9E75" : r.rank <= 3 ? rankColors[r.rank - 1] : "#9CA3AF" }} />
                               </div>
                             </motion.div>
                           ));
@@ -874,8 +896,8 @@ export default function Dashboard() {
                     </>
                   ) : (
                     <div className="mt-3">
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Find friends</p>
-                      <p className="text-xs text-muted-foreground mt-1">Search classmates, send an invite, and race each other up the leagues.</p>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Class rank</p>
+                      <p className="text-xs text-muted-foreground mt-1">Join a class to see where you stand against your classmates.</p>
                     </div>
                   )}
                 </div>

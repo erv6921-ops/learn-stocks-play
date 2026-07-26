@@ -6,7 +6,7 @@ interface HistoricalPoint {
   price: number;
 }
 
-export function useStockHistory(symbol: string | undefined) {
+export function useStockHistory(symbol: string | undefined, range = "1y") {
   const [historicalData, setHistoricalData] = useState<HistoricalPoint[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +21,7 @@ export function useStockHistory(symbol: string | undefined) {
       setError(null);
       try {
         const { data, error: fetchError } = await supabase.functions.invoke('get-stock-quote', {
-          body: { symbols: [symbol], includeHistory: true }
+          body: { symbols: [symbol], includeHistory: true, historyRange: range }
         });
 
         if (cancelled) return;
@@ -44,7 +44,7 @@ export function useStockHistory(symbol: string | undefined) {
 
     fetchHistory();
     return () => { cancelled = true; };
-  }, [symbol]);
+  }, [symbol, range]);
 
   return { historicalData, loading, error };
 }
