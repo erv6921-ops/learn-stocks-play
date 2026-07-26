@@ -14,7 +14,8 @@ import { toast } from "sonner";
 import {
   Loader2, CheckCircle2, AlertTriangle, FileText, Package, Tag, MessageSquare,
   Users, Handshake, Truck, Megaphone, Palette, Rocket, Star, ArrowRight, Plus,
-  Briefcase, ClipboardList, DollarSign, Lightbulb, Trophy, Pencil, Activity, Skull, Lock, type LucideIcon,
+  Briefcase, ClipboardList, DollarSign, Lightbulb, Trophy, Pencil, Activity, Skull, Lock,
+  Coins, TrendingUp, Heart, Sparkles, type LucideIcon,
 } from "lucide-react";
 import {
   BUSINESS_TYPES, bizDef, BETA_REVIEWS, PARTNERS, PARTNER_PROBLEMS, VENDOR_OFFERS,
@@ -925,12 +926,36 @@ function SummaryReport({ a, bt, qi }: { a: ActivitiesState; bt: BusinessType; qi
 }
 
 /* ════════════════════════ LIVING BUSINESS (runs over months) ════════════════════════ */
-function MetricBar({ label, value }: { label: string; value: number }) {
+// Big, kid-friendly meter: large number readout + a chunky colored bar.
+function MetricBar({ label, value, icon: Icon }: { label: string; value: number; icon: LucideIcon }) {
   const color = value >= 66 ? "#1D9E75" : value >= 33 ? "#EF9F27" : "#dc2626";
   return (
-    <div>
-      <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-white/40"><span>{label}</span><span style={{ color }}>{Math.round(value)}</span></div>
-      <div className="h-1.5 mt-1 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${value}%`, background: color }} /></div>
+    <div className="bg-white/5 rounded-xl p-3">
+      <div className="flex items-center justify-between">
+        <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white/50">
+          <Icon className="w-3.5 h-3.5" style={{ color }} /> {label}
+        </span>
+        <span className="font-display text-2xl font-extrabold tabular-nums leading-none" style={{ color }}>{Math.round(value)}</span>
+      </div>
+      <div className="h-2.5 mt-2 rounded-full bg-white/10 overflow-hidden">
+        <div className="h-full rounded-full transition-all" style={{ width: `${value}%`, background: color }} />
+      </div>
+    </div>
+  );
+}
+// Each headline number gets its own icon + color so kids can tell them apart fast.
+function StatTile({ label, value, suffix, icon: Icon, color }: { label: string; value: string; suffix?: string; icon: LucideIcon; color: string }) {
+  return (
+    <div className="bg-white/5 rounded-xl px-3 py-3">
+      <div className="flex items-center gap-1.5">
+        <span className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${color}22` }}>
+          <Icon className="w-3.5 h-3.5" style={{ color }} />
+        </span>
+        <p className="text-[11px] text-white/55 uppercase font-bold tracking-wide leading-tight">{label}</p>
+      </div>
+      <p className="font-display font-extrabold text-white tabular-nums leading-none mt-2 text-[28px]">
+        {value}{suffix && <span className="text-sm font-bold text-white/45 ml-1">{suffix}</span>}
+      </p>
     </div>
   );
 }
@@ -943,12 +968,16 @@ function BusinessDashboard({ sim }: { sim: BizState }) {
           <p className="font-display text-base font-extrabold text-white flex items-center gap-2"><Activity className="w-4 h-4" style={{ color: NEON }} /> Business status · Month {sim.month}</p>
           <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: `${st.color}22`, color: st.color }}>{st.label}</span>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
-          {([["Customers", sim.customers.toLocaleString()], ["Cash", `${sim.cash.toLocaleString()} IC`], ["Products", String(sim.products.length)], ["Revenue/mo", `${monthlyRevenue(sim).toLocaleString()} IC`]] as const).map(([l, v]) => (
-            <div key={l} className="bg-white/5 rounded-lg px-2 py-1.5 text-center"><p className="text-[9px] text-white/40 uppercase font-bold">{l}</p><p className="text-sm font-extrabold text-white">{v}</p></div>
-          ))}
+        <div className="grid grid-cols-2 gap-2.5 mb-3">
+          <StatTile label="Customers" value={sim.customers.toLocaleString()} icon={Users} color="#3BA7C4" />
+          <StatTile label="Cash" value={sim.cash.toLocaleString()} suffix="IC" icon={Coins} color={NEON} />
+          <StatTile label="Products" value={String(sim.products.length)} icon={Package} color="#A78BFA" />
+          <StatTile label="Money / month" value={monthlyRevenue(sim).toLocaleString()} suffix="IC" icon={TrendingUp} color="#F5B301" />
         </div>
-        <div className="grid grid-cols-2 gap-3"><MetricBar label="Reputation" value={sim.reputation} /><MetricBar label="Brand" value={sim.brand} /></div>
+        <div className="grid grid-cols-2 gap-2.5">
+          <MetricBar label="Reputation" value={sim.reputation} icon={Heart} />
+          <MetricBar label="Brand" value={sim.brand} icon={Sparkles} />
+        </div>
       </div>
     </div>
   );
