@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import AnimatedNumber from "@/components/AnimatedNumber";
+import { useStockHistory } from "@/hooks/useStockHistory";
+import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
@@ -309,7 +311,7 @@ export default function Dashboard() {
   const streakRingProgress = streakDayInCycle / 7 * 100;
 
   // Friends snapshot — accepted partners + waiting invites (Partners page RPCs).
-  const [friendsInfo, setFriendsInfo] = useState<{ count: number; names: string[]; invites: number } | null>(null);
+  const [friendsInfo, setFriendsInfo] = useState<{ count: number; rows: { name: string; coins: number }[]; invites: number } | null>(null);
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -319,15 +321,28 @@ export default function Dashboard() {
         (supabase as any).rpc("get_partner_requests"),
       ]);
       if (cancelled) return;
-      const rows = (partners ?? []) as { first_name: string | null; last_name: string | null }[];
+      const rows = (partners ?? []) as { first_name: string | null; last_name: string | null; xp: number }[];
       setFriendsInfo({
         count: rows.length,
-        names: rows.slice(0, 3).map((r) => `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim()).filter(Boolean),
+        rows: rows
+          .map((r) => ({ name: `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim() || "Student", coins: Math.round(Number(r.xp) || 0) }))
+          .sort((a, b) => b.coins - a.coins),
         invites: ((requests ?? []) as unknown[]).length,
       });
     })();
     return () => { cancelled = true; };
   }, [user?.id]);
+
+  // Biggest holding + its price history for the portfolio snapshot chart.
+  const topHolding = useMemo(() => {
+    if (portfolio.length === 0) return undefined;
+    return [...portfolio].sort((a, b) =>
+      b.shares * (livePrices.get(b.symbol) ?? b.purchasePrice) - a.shares * (livePrices.get(a.symbol) ?? a.purchasePrice)
+    )[0];
+  }, [portfolio, livePrices]);
+  const { historicalData: topHistory } = useStockHistory(topHolding?.symbol);
+  const sparkData = useMemo(() => (topHistory ?? []).slice(-30).map((d) => ({ p: d.price })), [topHistory]);
+  const sparkUp = sparkData.length >= 2 ? sparkData[sparkData.length - 1].p >= sparkData[0].p : true;
 
   // Fullscreen roller-coaster overlay toggle.
   const [coasterFull, setCoasterFull] = useState(false);
@@ -575,9 +590,10 @@ export default function Dashboard() {
           </MCard>
         </div>
 
-        {/* ═══ 4. SNAPSHOTS — business · portfolio · friends ═══ */}
+        {/* ═══ 4. SNAPSHOTS — business · portfolio · friends (rich) ═══ */}
         <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-3 mt-3 items-stretch">
-          {/* Micro-business */}
+
+          {/* ── Micro-business: revenue hero + radial rep + customer dots ── */}
           <MCard i={8}>
             <Link to="/micro-business" className="block h-full">
               <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
@@ -586,83 +602,211 @@ export default function Dashboard() {
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#0F766E1f" }} />
                 <div className="relative">
                   <div className="flex items-center justify-between">
-                    <motion.span
-                      initial={{ scale: 0, rotate: -12 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.55 }}
-                      className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
-                      style={{ background: "linear-gradient(135deg, #0F766E26, #0F766E0a)", color: "#0F766E", borderColor: "#0F766E26" }}>
-                      <Store className="w-4 h-4" />
-                    </motion.span>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
+                    <div className="flex items-center gap-2.5">
+                      <motion.span
+                        initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.55 }}
+                        className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
+                        style={{ background: "linear-gradient(135deg, #0F766E26, #0F766E0a)", color: "#0F766E", borderColor: "#0F766E26" }}>
+                        <Store className="w-4 h-4" />
+                      </motion.span>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">My business</p>
+                    </div>
+                    {hasBusiness && bizSim && (
+                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full"
+                        style={{ color: statusLabel(bizSim).color, background: `${statusLabel(bizSim).color}1a` }}>
+                        {statusLabel(bizSim).label}
+                      </span>
+                    )}
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mt-3">My business</p>
+
                   {hasBusiness && bizSim ? (
                     <>
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">Month <AnimatedNumber value={bizSim.month} countUp /></p>
-                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                        {statusLabel(bizSim).label} · 🪙 {monthlyRevenue(bizSim).toLocaleString()}/mo · {bizSim.customers.toLocaleString()} customers
+                      {/* Revenue hero + reputation arc side by side */}
+                      <div className="flex items-end justify-between mt-3">
+                        <div>
+                          <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-0.5">Revenue / mo</p>
+                          <p className="font-display text-[26px] font-extrabold tracking-tight leading-none">
+                            🪙 <AnimatedNumber value={monthlyRevenue(bizSim)} countUp />
+                          </p>
+                        </div>
+                        <RadialGauge value={bizSim.reputation} color="#0F766E" label="Rep" />
+                      </div>
+
+                      {/* Animated customer dots */}
+                      <div className="mt-3">
+                        <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
+                          Customers · <span className="font-extrabold" style={{ color: "#0F766E" }}>{bizSim.customers}</span>
+                        </p>
+                        <div className="flex gap-1 flex-wrap">
+                          {Array.from({ length: Math.min(bizSim.customers, 12) }).map((_, k) => (
+                            <motion.div key={k}
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              transition={{ delay: 0.65 + k * 0.055, type: "spring", stiffness: 420, damping: 14 }}
+                              className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-white"
+                              style={{ background: k === 0 ? "#0F766E" : k < 4 ? "#0F766E99" : "#0F766E40", fontSize: "9px" }}>
+                              {k < 3 ? "★" : "·"}
+                            </motion.div>
+                          ))}
+                          {bizSim.customers > 12 && (
+                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.35 }}
+                              className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0"
+                              style={{ background: "#0F766E20", color: "#0F766E" }}>
+                              +{bizSim.customers - 12}
+                            </motion.div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Brand gradient bar */}
+                      <div className="mt-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Brand strength</span>
+                          <span className="text-[11px] font-extrabold tabular-nums" style={{ color: "#3BA7C4" }}>
+                            <AnimatedNumber value={Math.round(bizSim.brand)} countUp />
+                          </span>
+                        </div>
+                        <div className="h-2 rounded-full bg-muted overflow-hidden">
+                          <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min(100, bizSim.brand)}%` }}
+                            transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
+                            className="h-full rounded-full" style={{ background: "linear-gradient(90deg, #0F766E, #3BA7C4)" }} />
+                        </div>
+                      </div>
+
+                      <p className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1.5">
+                        <span>Month <AnimatedNumber value={bizSim.month} countUp /></span>
+                        <span className="opacity-40">·</span>
+                        <span>🪙 <AnimatedNumber value={Math.round(bizSim.cash)} countUp /> cash</span>
                       </p>
                     </>
                   ) : (
-                    <>
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">Start yours</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">Build a company from scratch</p>
-                    </>
+                    <div className="mt-3">
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Start yours</p>
+                      <p className="text-xs text-muted-foreground mt-1">Design a product, win customers, and run the books — your own company from scratch.</p>
+                    </div>
                   )}
                 </div>
               </div>
             </Link>
           </MCard>
 
-          {/* Portfolio */}
+          {/* ── Portfolio: chart-first layout with live feed ── */}
           <MCard i={9}>
             <Link to="/stocks" className="block h-full">
               <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
                 style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
                 <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #3BA7C4, #3BA7C400 70%)" }} />
+                {/* Subtle trading terminal grid */}
+                <div className="absolute inset-0 pointer-events-none" style={{
+                  backgroundImage: "linear-gradient(rgba(59,167,196,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,167,196,0.04) 1px, transparent 1px)",
+                  backgroundSize: "20px 20px"
+                }} />
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#3BA7C41f" }} />
                 <div className="relative">
+                  {/* Header with LIVE pulse */}
                   <div className="flex items-center justify-between">
-                    <motion.span
-                      initial={{ scale: 0, rotate: -12 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.55 }}
-                      className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
-                      style={{ background: "linear-gradient(135deg, #3BA7C426, #3BA7C40a)", color: "#3BA7C4", borderColor: "#3BA7C426" }}>
-                      <LineChart className="w-4 h-4" />
-                    </motion.span>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
+                    <div className="flex items-center gap-2.5">
+                      <motion.span
+                        initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.6 }}
+                        className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
+                        style={{ background: "linear-gradient(135deg, #3BA7C426, #3BA7C40a)", color: "#3BA7C4", borderColor: "#3BA7C426" }}>
+                        <LineChart className="w-4 h-4" />
+                      </motion.span>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Portfolio</p>
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <motion.span
+                            animate={{ opacity: [1, 0.2, 1] }}
+                            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                            className="w-1.5 h-1.5 rounded-full bg-success inline-block" />
+                          <span className="text-[9px] font-bold text-success">LIVE</span>
+                        </div>
+                      </div>
+                    </div>
+                    {portfolio.length > 0 && (
+                      <motion.span
+                        initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 16, delay: 0.8 }}
+                        className={`text-[11px] font-extrabold px-2 py-0.5 rounded-full ${plPct >= 0 ? "text-success bg-success/10" : "text-destructive bg-destructive/10"}`}>
+                        {plPct >= 0 ? "▲ +" : "▼ "}{plPct.toFixed(1)}%
+                      </motion.span>
+                    )}
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mt-3">Portfolio</p>
-                  {portfolio.length > 0 ? (
+
+                  {portfolio.length > 0 && topHolding ? (
                     <>
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">
-                        🪙 <AnimatedNumber value={Math.floor(portfolioValue)} countUp />
-                        <motion.span
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 16, delay: 0.7 }}
-                          className={`inline-block text-sm font-bold ml-2 ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
-                          {plPct >= 0 ? "▲" : "▼"} {plPct >= 0 ? "+" : ""}{plPct.toFixed(1)}%
-                        </motion.span>
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                        {portfolio.length} {portfolio.length === 1 ? "stock" : "stocks"} · {portfolio.slice(0, 3).map((h) => h.symbol).join(", ")}
-                      </p>
+                      {/* Chart FIRST — big hero */}
+                      <motion.div
+                        initial={{ opacity: 0, scaleY: 0.85 }} animate={{ opacity: 1, scaleY: 1 }}
+                        style={{ transformOrigin: "bottom" }}
+                        transition={{ delay: 0.55, duration: 0.45 }}
+                        className="h-24 mt-3 -mx-2">
+                        {sparkData.length >= 2 ? (
+                          <ResponsiveContainer width="100%" height="100%">
+                            <AreaChart data={sparkData} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
+                              <defs>
+                                <linearGradient id="dashSpark" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="0%" stopColor={sparkUp ? "#1D9E75" : "#dc2626"} stopOpacity={0.45} />
+                                  <stop offset="100%" stopColor={sparkUp ? "#1D9E75" : "#dc2626"} stopOpacity={0.02} />
+                                </linearGradient>
+                              </defs>
+                              <Area type="monotone" dataKey="p" stroke={sparkUp ? "#1D9E75" : "#dc2626"} strokeWidth={2.5}
+                                fill="url(#dashSpark)" dot={false} isAnimationActive animationDuration={1500} animationBegin={500} />
+                            </AreaChart>
+                          </ResponsiveContainer>
+                        ) : (
+                          <div className="h-full rounded-lg bg-muted/40 animate-pulse" />
+                        )}
+                      </motion.div>
+
+                      {/* Top holding — below chart */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.85, duration: 0.3 }}
+                        className="flex items-center justify-between mt-2 pb-2 border-b border-border/40">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded font-mono font-extrabold text-sm"
+                            style={{ background: "#3BA7C420", color: "#3BA7C4" }}>{topHolding.symbol}</span>
+                          <span className="text-[11px] text-muted-foreground">{topHolding.shares} sh · biggest</span>
+                        </div>
+                        <p className="font-display text-base font-extrabold tabular-nums" style={{ color: "#3BA7C4" }}>
+                          🪙 <AnimatedNumber value={Math.floor(topHolding.shares * (livePrices.get(topHolding.symbol) ?? topHolding.purchasePrice))} countUp />
+                        </p>
+                      </motion.div>
+
+                      {/* Rest of holdings — staggered */}
+                      {portfolio.filter((h) => h.symbol !== topHolding.symbol).slice(0, 3).map((h, idx) => {
+                        const price = livePrices.get(h.symbol) ?? h.purchasePrice;
+                        const pct = h.purchasePrice > 0 ? ((price - h.purchasePrice) / h.purchasePrice) * 100 : 0;
+                        return (
+                          <motion.div key={h.symbol}
+                            initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 1.0 + idx * 0.1, duration: 0.3 }}
+                            className="flex items-center justify-between py-1.5 border-t border-border/40">
+                            <span className="text-sm font-bold font-mono">{h.symbol}</span>
+                            <span className="text-xs text-muted-foreground">{h.shares}sh</span>
+                            <span className="text-sm font-bold tabular-nums">🪙{Math.floor(h.shares * price).toLocaleString()}</span>
+                            <span className={`text-xs font-bold ${pct >= 0 ? "text-success" : "text-destructive"}`}>
+                              {pct >= 0 ? "+" : ""}{pct.toFixed(1)}%
+                            </span>
+                          </motion.div>
+                        );
+                      })}
                     </>
                   ) : (
-                    <>
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">First trade</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">Buy real companies with virtual cash</p>
-                    </>
+                    <div className="mt-3">
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">First trade</p>
+                      <p className="text-xs text-muted-foreground mt-1">Buy real companies with virtual cash and watch your chart grow right here.</p>
+                    </div>
                   )}
                 </div>
               </div>
             </Link>
           </MCard>
 
-          {/* Friends */}
+          {/* ── Friends: race-track leaderboard ── */}
           <MCard i={10}>
             <Link to="/partners" className="block h-full">
               <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
@@ -671,38 +815,68 @@ export default function Dashboard() {
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#E0457B1f" }} />
                 <div className="relative">
                   <div className="flex items-center justify-between">
-                    <motion.span
-                      initial={{ scale: 0, rotate: -12 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.55 }}
-                      className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
-                      style={{ background: "linear-gradient(135deg, #E0457B26, #E0457B0a)", color: "#E0457B", borderColor: "#E0457B26" }}>
-                      <Users className="w-4 h-4" />
-                    </motion.span>
-                    {friendsInfo && friendsInfo.invites > 0 ? (
-                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full animate-pulse"
+                    <div className="flex items-center gap-2.5">
+                      <motion.span
+                        initial={{ scale: 0, rotate: -12 }} animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.65 }}
+                        className="w-9 h-9 rounded-xl flex items-center justify-center border group-hover:scale-110 transition-transform"
+                        style={{ background: "linear-gradient(135deg, #E0457B26, #E0457B0a)", color: "#E0457B", borderColor: "#E0457B26" }}>
+                        <Users className="w-4 h-4" />
+                      </motion.span>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Friends</p>
+                    </div>
+                    {friendsInfo && friendsInfo.invites > 0 && (
+                      <motion.span
+                        animate={{ scale: [1, 1.08, 1] }} transition={{ repeat: Infinity, duration: 2 }}
+                        className="text-[10px] font-extrabold px-2 py-0.5 rounded-full"
                         style={{ color: "#E0457B", background: "#E0457B1a" }}>
                         {friendsInfo.invites} invite{friendsInfo.invites === 1 ? "" : "s"} 📨
-                      </span>
-                    ) : (
-                      <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
+                      </motion.span>
                     )}
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mt-3">Friends</p>
+
                   {friendsInfo && friendsInfo.count > 0 ? (
                     <>
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-none mt-3">
                         <AnimatedNumber value={friendsInfo.count} countUp /> partner{friendsInfo.count === 1 ? "" : "s"}
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                        {friendsInfo.names.join(", ")}{friendsInfo.count > friendsInfo.names.length ? ` +${friendsInfo.count - friendsInfo.names.length} more` : ""}
-                      </p>
+
+                      {/* Race-track bars */}
+                      <div className="mt-3 space-y-2.5">
+                        {(() => {
+                          const maxCoins = Math.max(...friendsInfo.rows.map((r) => r.coins), 1);
+                          const colors = ["#E0457B", "#8B5CF6", "#3BA7C4", "#0F766E"];
+                          return friendsInfo.rows.slice(0, 4).map((f, i) => (
+                            <motion.div key={f.name + i}
+                              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.7 + i * 0.1, duration: 0.3 }}>
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-extrabold shrink-0 text-white"
+                                  style={{ background: colors[i % 4] }}>
+                                  {i === 0 ? "👑" : `${i + 1}`}
+                                </span>
+                                <span className="text-xs font-bold flex-1 truncate">{f.name}</span>
+                                <span className="text-[11px] font-extrabold tabular-nums" style={{ color: colors[i % 4] }}>
+                                  🪙{f.coins.toLocaleString()}
+                                </span>
+                              </div>
+                              <div className="h-2 rounded-full bg-muted overflow-hidden">
+                                <motion.div
+                                  initial={{ width: 0 }} animate={{ width: `${(f.coins / maxCoins) * 100}%` }}
+                                  transition={{ duration: 1.1, delay: 0.75 + i * 0.12, ease: "easeOut" }}
+                                  className="h-full rounded-full"
+                                  style={{ background: `linear-gradient(90deg, ${colors[i % 4]}, ${colors[(i + 1) % 4]})` }} />
+                              </div>
+                            </motion.div>
+                          ));
+                        })()}
+                      </div>
                     </>
                   ) : (
-                    <>
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight mt-0.5">Find friends</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">Search classmates & team up</p>
-                    </>
+                    <div className="mt-3">
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Find friends</p>
+                      <p className="text-xs text-muted-foreground mt-1">Search classmates, send an invite, and race each other up the leagues.</p>
+                    </div>
                   )}
                 </div>
               </div>
@@ -742,6 +916,27 @@ export default function Dashboard() {
 }
 
 /* ──── Sub-components ──── */
+
+function RadialGauge({ value, color, label }: { value: number; color: string; label: string }) {
+  const r = 22;
+  const circ = Math.PI * r;
+  const pct = Math.min(Math.max(value, 0), 100) / 100;
+  return (
+    <div className="flex flex-col items-center gap-0.5">
+      <svg width={54} height={34} viewBox="0 0 54 34" className="overflow-visible">
+        <path d={`M 5 30 A ${r} ${r} 0 0 1 49 30`} fill="none" stroke="#e5e7eb" strokeWidth={5} strokeLinecap="round" />
+        <motion.path
+          d={`M 5 30 A ${r} ${r} 0 0 1 49 30`} fill="none" stroke={color} strokeWidth={5} strokeLinecap="round"
+          strokeDasharray={circ} strokeDashoffset={circ}
+          animate={{ strokeDashoffset: circ * (1 - pct) }}
+          transition={{ duration: 1.3, delay: 0.65, ease: "easeOut" }}
+        />
+        <text x="27" y="27" textAnchor="middle" fontSize="11" fontWeight="800" fill={color}>{Math.round(value)}</text>
+      </svg>
+      <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">{label}</span>
+    </div>
+  );
+}
 
 // Cascade wrapper: fade + slide up, 0.05s stagger between cards.
 function MCard({ i, children, className }: { i: number; children: React.ReactNode; className?: string }) {
