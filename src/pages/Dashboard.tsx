@@ -522,7 +522,7 @@ export default function Dashboard() {
         {/* ═══ 2. SNAPSHOT — four tinted stat boxes ═══ */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
           {[
-            { i: 2, icon: Coins, tint: "#E3A008", label: "Cash", num: jeffsBalance, sub: earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "InvestiCoins ready to spend" },
+            { i: 2, icon: Coins, tint: "#E3A008", label: "Coins", num: jeffsBalance, sub: earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "InvestiCoins ready to spend" },
             { i: 3, icon: Flame, tint: "#F97316", label: "Streak", num: streak, suffix: ` day${streak === 1 ? "" : "s"}`, pulse: streak > 0, sub: streak > 0 ? "Don't break the chain" : "Play today to start one" },
             { i: 4, icon: TrendingUp, tint: "#1D9E75", label: "Stocks owned", num: portfolio.length, sub: portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()} invested` : "Make your first trade" },
             { i: 5, icon: BookOpen, tint: "#8B5CF6", label: "Lessons", num: completedLessons, suffix: `/${totalLessons}`, sub: `${progressPercent}% of the course`, progress: progressPercent },

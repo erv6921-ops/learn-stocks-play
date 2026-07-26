@@ -628,7 +628,7 @@ export default function Lessons() {
                   <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
                     {[
                       { Icon: Flame, tint: "text-orange-400", value: String(streak), label: "Day streak" },
-                      { Icon: Coins, tint: "text-gold", value: jeffsBalance.toLocaleString(), label: "Points" },
+                      { Icon: Coins, tint: "text-gold", value: jeffsBalance.toLocaleString(), label: "Coins" },
                       { Icon: Star, tint: "text-yellow-300", value: `Lv ${level}`, label: "Level" },
                       { Icon: Flame, tint: "text-orange-300", value: `${bestStreak}d`, label: "Best streak" },
                       { Icon: Coins, tint: "text-gold", value: coinsThisWeek.toLocaleString(), label: "This week" },

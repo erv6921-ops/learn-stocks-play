@@ -219,9 +219,9 @@ export default function Leaderboard() {
     if (scope === "class" && classMembers.length > 0) {
       const entries: Entry[] = [
         ...classMembers.map(m => ({
-          name: m.name, score: m.xp, scoreLabel: "Net Worth", level: getLevel(m.xp), streak: 0, isMe: false,
+          name: m.name, score: m.xp, scoreLabel: "Coins", level: getLevel(m.xp), streak: 0, isMe: false,
         })),
-        { name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true },
+        { name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true },
       ]
       entries.sort((a, b) => b.score - a.score)
       return entries
@@ -230,9 +230,9 @@ export default function Leaderboard() {
     if (scope === "friends" && friendRows.length > 0) {
       const entries: Entry[] = [
         ...friendRows.map(f => ({
-          name: f.name, score: f.xp, scoreLabel: "Net Worth", level: getLevel(f.xp), streak: 0, isMe: false,
+          name: f.name, score: f.xp, scoreLabel: "Coins", level: getLevel(f.xp), streak: 0, isMe: false,
         })),
-        { name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true },
+        { name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true },
       ]
       entries.sort((a, b) => b.score - a.score)
       return entries
@@ -241,14 +241,14 @@ export default function Leaderboard() {
     if (showDemo) {
       const demoData = scope === "national" ? DEMO_NATIONAL : DEMO_NATIONAL.slice(0, 5)
       const entries: Entry[] = [
-        ...demoData.map(d => ({ name: d.name, score: d.netWorth, scoreLabel: "Net Worth", level: d.level, streak: d.streak, isMe: false })),
-        { name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true },
+        ...demoData.map(d => ({ name: d.name, score: d.netWorth, scoreLabel: "Coins", level: d.level, streak: d.streak, isMe: false })),
+        { name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true },
       ]
       entries.sort((a, b) => b.score - a.score)
       return entries
     }
 
-    return [{ name: "You", score: myNetWorth, scoreLabel: "Net Worth", level: getLevel(totalXp), streak: 0, isMe: true }]
+    return [{ name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true }]
   }, [scope, myNetWorth, showDemo, classMembers, friendRows, totalXp])
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
