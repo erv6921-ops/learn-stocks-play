@@ -675,6 +675,75 @@ export default function Dashboard() {
                         </div>
                       </div>
 
+                      {/* Products */}
+                      {bizSim.products.length > 0 && (
+                        <div className="mt-3">
+                          <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
+                            Products · <span className="font-extrabold" style={{ color: "#8B5CF6" }}>{bizSim.products.length}</span>
+                          </p>
+                          <div className="flex gap-1.5 flex-wrap">
+                            {bizSim.products.slice(0, 4).map((p, k) => (
+                              <motion.span key={p.id}
+                                initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.75 + k * 0.07, duration: 0.25 }}
+                                className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold"
+                                style={{ background: "#8B5CF610", color: "#8B5CF6", border: "1px solid #8B5CF620" }}>
+                                📦 {p.name}
+                                <span className="opacity-60">🪙{p.price}</span>
+                              </motion.span>
+                            ))}
+                            {bizSim.products.length > 4 && (
+                              <span className="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-bold"
+                                style={{ background: "#8B5CF610", color: "#8B5CF6" }}>
+                                +{bizSim.products.length - 4}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Pending scenario — pulsing alert */}
+                      {bizSim.pending ? (
+                        <motion.div
+                          initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.8, duration: 0.3 }}
+                          className="mt-3 rounded-xl p-3 relative overflow-hidden"
+                          style={{ background: "linear-gradient(135deg, #F97316, #EF4444)", boxShadow: "0 4px 12px rgba(249,115,22,0.25)" }}>
+                          <motion.div
+                            animate={{ opacity: [0.4, 0.8, 0.4] }}
+                            transition={{ repeat: Infinity, duration: 2.5 }}
+                            className="absolute inset-0 rounded-xl"
+                            style={{ background: "linear-gradient(135deg, #F9731620, transparent)" }} />
+                          <div className="relative flex items-start gap-2.5">
+                            <span className="text-xl shrink-0 mt-0.5">{bizSim.pending.emoji}</span>
+                            <div className="min-w-0">
+                              <p className="text-[9px] font-bold uppercase tracking-wider text-white/60">Situation waiting</p>
+                              <p className="text-[12px] font-extrabold text-white leading-tight mt-0.5 truncate">{bizSim.pending.title}</p>
+                              <p className="text-[10px] text-white/70 mt-0.5">Tap to react →</p>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ) : (
+                        /* Recent activity log — last 2 entries */
+                        bizSim.log.length > 0 && (
+                          <div className="mt-3">
+                            <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Recent activity</p>
+                            <div className="space-y-1.5">
+                              {bizSim.log.slice(-2).reverse().map((entry, k) => (
+                                <motion.div key={k}
+                                  initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.85 + k * 0.1, duration: 0.25 }}
+                                  className="flex items-start gap-2">
+                                  <span className="text-[10px] font-bold shrink-0 mt-0.5 px-1.5 py-0.5 rounded"
+                                    style={{ background: "#0F766E15", color: "#0F766E" }}>M{entry.month}</span>
+                                  <p className="text-[10px] text-muted-foreground leading-tight line-clamp-2">{entry.text}</p>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        )
+                      )}
+
                       <p className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1.5">
                         <span>Month <AnimatedNumber value={bizSim.month} countUp /></span>
                         <span className="opacity-40">·</span>
