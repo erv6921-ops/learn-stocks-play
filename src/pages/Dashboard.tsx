@@ -14,6 +14,7 @@ import { Area, AreaChart, ResponsiveContainer, YAxis, Tooltip } from "recharts";
 import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
+import { getAdaptiveUnit } from "@/lib/curriculumEngine";
 import { supabase } from "@/integrations/supabase/client";
 import { anchor } from "@/lib/tourAnchors";
 import { isEarnedEntry } from "@/lib/playerStats";
@@ -409,19 +410,30 @@ export default function Dashboard() {
   const plPct = costBasis > 0 ? ((portfolioValue - costBasis) / costBasis) * 100 : 0;
 
   // ── Roller coaster inputs for the current unit (reuses the Missions coaster) ──
+  // Use the adaptive unit so validated lessons (benchmark-skipped) are correctly
+  // treated as done — matching the exact logic the Missions page uses.
   const coasterLessons = useMemo(
-    () => currentUnitLessons.map((l) => ({ lesson: l, status: "required" as const })),
-    [currentUnitLessons]
+    () => getAdaptiveUnit(
+      currentUnit.id,
+      user?.benchmarkCategoryScores ?? null,
+      user?.benchmarkScores ?? null,
+      user?.assessmentScore ?? null,
+    ).lessons,
+    [currentUnit, user?.benchmarkCategoryScores, user?.benchmarkScores, user?.assessmentScore]
   );
   const coasterIdx = useMemo(() => {
-    const i = currentUnitLessons.findIndex((l) => !isLessonCompleted(l.id));
-    return i === -1 ? Math.max(0, currentUnitLessons.length - 1) : i;
+    for (let i = 0; i < coasterLessons.length; i++) {
+      const al = coasterLessons[i];
+      if (al.status !== "validated" && !isLessonCompleted(al.lesson.id)) return i;
+    }
+    return coasterLessons.length; // all done — CoasterTrack clamps to n-1
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUnitLessons, lessonProgress]);
+  }, [coasterLessons, lessonProgress]);
   const coasterUnlocked = (lessonId: string): boolean => {
-    const i = currentUnitLessons.findIndex((l) => l.id === lessonId);
+    const i = coasterLessons.findIndex((al) => al.lesson.id === lessonId);
     if (i <= 0) return i === 0;
-    return isLessonCompleted(currentUnitLessons[i - 1].id);
+    const prev = coasterLessons[i - 1];
+    return prev.status === "validated" || isLessonCompleted(prev.lesson.id);
   };
 
   if (!authReady) return null;
@@ -500,7 +512,7 @@ export default function Dashboard() {
               currentIdx={coasterIdx}
               unitTotalPts={Math.round(getUnitRewardTotal(currentUnit.id) * getRewardMultiplier())}
               isUnlocked={coasterUnlocked}
-              isCompleted={(al) => isLessonCompleted(al.lesson.id)}
+              isCompleted={(al) => al.status === "validated" || isLessonCompleted(al.lesson.id)}
               onSelect={(id) => navigate(`/lessons/${id}`)}
               celebrate={currentUnitProgress === 100}
             />
@@ -912,11 +924,11 @@ export default function Dashboard() {
             unitNumber={currentUnit.unitNumber}
             unitTitle={currentUnit.title}
             unitReward={Math.round(getUnitRewardTotal(currentUnit.id) * getRewardMultiplier())}
-            stations={currentUnitLessons.map((l) => ({
-              id: l.id,
-              title: l.title,
-              done: isLessonCompleted(l.id),
-              unlocked: coasterUnlocked(l.id),
+            stations={coasterLessons.map((al) => ({
+              id: al.lesson.id,
+              title: al.lesson.title,
+              done: al.status === "validated" || isLessonCompleted(al.lesson.id),
+              unlocked: coasterUnlocked(al.lesson.id),
             }))}
             currentIdx={coasterIdx}
             stats={{ streak, points: jeffsBalance, level: currLevel }}
