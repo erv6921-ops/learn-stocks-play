@@ -10,150 +10,10 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.4"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
-      entrepreneurship_submissions: {
-        Row: {
-          id: string
-          user_id: string
-          submission_type: string
-          content: Json
-          link: string | null
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          submission_type: string
-          content?: Json
-          link?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          submission_type?: string
-          content?: Json
-          link?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      class_challenges: {
-        Row: {
-          id: string
-          class_id: string | null
-          created_by: string | null
-          created_by_role: string
-          title: string
-          description: string
-          metric: string
-          entry_fee: number
-          pot: number
-          teacher_bonus: number
-          starts_at: string
-          ends_at: string
-          status: string
-          winner_user_id: string | null
-          created_at: string | null
-        }
-        Insert: {
-          id?: string
-          class_id?: string | null
-          created_by?: string | null
-          created_by_role: string
-          title: string
-          description: string
-          metric: string
-          entry_fee?: number
-          pot?: number
-          teacher_bonus?: number
-          starts_at: string
-          ends_at: string
-          status?: string
-          winner_user_id?: string | null
-          created_at?: string | null
-        }
-        Update: {
-          id?: string
-          class_id?: string | null
-          created_by?: string | null
-          created_by_role?: string
-          title?: string
-          description?: string
-          metric?: string
-          entry_fee?: number
-          pot?: number
-          teacher_bonus?: number
-          starts_at?: string
-          ends_at?: string
-          status?: string
-          winner_user_id?: string | null
-          created_at?: string | null
-        }
-        Relationships: []
-      }
-      challenge_entries: {
-        Row: {
-          id: string
-          challenge_id: string | null
-          user_id: string | null
-          coins_contributed: number
-          score: number
-          joined_at: string | null
-        }
-        Insert: {
-          id?: string
-          challenge_id?: string | null
-          user_id?: string | null
-          coins_contributed: number
-          score?: number
-          joined_at?: string | null
-        }
-        Update: {
-          id?: string
-          challenge_id?: string | null
-          user_id?: string | null
-          coins_contributed?: number
-          score?: number
-          joined_at?: string | null
-        }
-        Relationships: []
-      }
-      assignment_dismissals: {
-        Row: {
-          assignment_id: string
-          dismissed_at: string | null
-          id: string
-          user_id: string
-        }
-        Insert: {
-          assignment_id: string
-          dismissed_at?: string | null
-          id?: string
-          user_id: string
-        }
-        Update: {
-          assignment_id?: string
-          dismissed_at?: string | null
-          id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "assignment_dismissals_assignment_id_fkey"
-            columns: ["assignment_id"]
-            isOneToOne: false
-            referencedRelation: "assigned_lessons"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       assigned_lessons: {
         Row: {
           assigned_at: string
@@ -186,6 +46,35 @@ export type Database = {
           },
         ]
       }
+      assignment_dismissals: {
+        Row: {
+          assignment_id: string
+          dismissed_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          assignment_id: string
+          dismissed_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          assignment_id?: string
+          dismissed_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assignment_dismissals_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: false
+            referencedRelation: "assigned_lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       avatar_items: {
         Row: {
           category: string
@@ -213,36 +102,6 @@ export type Database = {
           image_url?: string | null
           name?: string
           price?: number
-        }
-        Relationships: []
-      }
-      daily_game_completions: {
-        Row: {
-          coins_earned: number | null
-          completed_at: string | null
-          game_date: string
-          game_type: string
-          id: string
-          score: number | null
-          user_id: string | null
-        }
-        Insert: {
-          coins_earned?: number | null
-          completed_at?: string | null
-          game_date: string
-          game_type: string
-          id?: string
-          score?: number | null
-          user_id?: string | null
-        }
-        Update: {
-          coins_earned?: number | null
-          completed_at?: string | null
-          game_date?: string
-          game_type?: string
-          id?: string
-          score?: number | null
-          user_id?: string | null
         }
         Relationships: []
       }
@@ -355,6 +214,54 @@ export type Database = {
           },
         ]
       }
+      business_game_state: {
+        Row: {
+          activities: Json
+          biz_type: string | null
+          state: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          activities?: Json
+          biz_type?: string | null
+          state?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          activities?: Json
+          biz_type?: string | null
+          state?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      business_grades: {
+        Row: {
+          feedback: string | null
+          grade: string | null
+          graded_by: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          feedback?: string | null
+          grade?: string | null
+          graded_by?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          feedback?: string | null
+          grade?: string | null
+          graded_by?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       business_tasks: {
         Row: {
           business_id: string
@@ -423,6 +330,103 @@ export type Database = {
         }
         Relationships: []
       }
+      challenge_entries: {
+        Row: {
+          challenge_id: string | null
+          coins_contributed: number
+          id: string
+          joined_at: string | null
+          score: number
+          user_id: string | null
+        }
+        Insert: {
+          challenge_id?: string | null
+          coins_contributed: number
+          id?: string
+          joined_at?: string | null
+          score?: number
+          user_id?: string | null
+        }
+        Update: {
+          challenge_id?: string | null
+          coins_contributed?: number
+          id?: string
+          joined_at?: string | null
+          score?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_entries_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "class_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      class_challenges: {
+        Row: {
+          class_id: string | null
+          created_at: string | null
+          created_by: string | null
+          created_by_role: string
+          description: string
+          ends_at: string
+          entry_fee: number
+          id: string
+          metric: string
+          pot: number
+          starts_at: string
+          status: string
+          teacher_bonus: number
+          title: string
+          winner_user_id: string | null
+        }
+        Insert: {
+          class_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          created_by_role: string
+          description: string
+          ends_at: string
+          entry_fee?: number
+          id?: string
+          metric: string
+          pot?: number
+          starts_at: string
+          status?: string
+          teacher_bonus?: number
+          title: string
+          winner_user_id?: string | null
+        }
+        Update: {
+          class_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          created_by_role?: string
+          description?: string
+          ends_at?: string
+          entry_fee?: number
+          id?: string
+          metric?: string
+          pot?: number
+          starts_at?: string
+          status?: string
+          teacher_bonus?: number
+          title?: string
+          winner_user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "class_challenges_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       class_members: {
         Row: {
           class_id: string
@@ -461,6 +465,7 @@ export type Database = {
           name: string
           teacher_id: string
           updated_at: string | null
+          writing_scale: number
         }
         Insert: {
           created_at?: string | null
@@ -470,6 +475,7 @@ export type Database = {
           name: string
           teacher_id: string
           updated_at?: string | null
+          writing_scale?: number
         }
         Update: {
           created_at?: string | null
@@ -479,10 +485,71 @@ export type Database = {
           name?: string
           teacher_id?: string
           updated_at?: string | null
+          writing_scale?: number
         }
         Relationships: []
       }
-      jeffs_history: {
+      daily_game_completions: {
+        Row: {
+          coins_earned: number | null
+          completed_at: string | null
+          game_date: string
+          game_type: string
+          id: string
+          score: number | null
+          user_id: string | null
+        }
+        Insert: {
+          coins_earned?: number | null
+          completed_at?: string | null
+          game_date: string
+          game_type: string
+          id?: string
+          score?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          coins_earned?: number | null
+          completed_at?: string | null
+          game_date?: string
+          game_type?: string
+          id?: string
+          score?: number | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      entrepreneurship_submissions: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          link: string | null
+          submission_type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          id?: string
+          link?: string | null
+          submission_type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          link?: string | null
+          submission_type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      investicoins_transactions: {
         Row: {
           amount: number
           created_at: string
@@ -502,6 +569,30 @@ export type Database = {
           created_at?: string
           id?: string
           reason?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      jeffs_history: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          reason: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          reason?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          reason?: string | null
           user_id?: string
         }
         Relationships: []
@@ -534,6 +625,36 @@ export type Database = {
           id?: string
           lesson_id?: string
           quiz_score?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      lesson_reflections: {
+        Row: {
+          created_at: string
+          id: string
+          lesson_id: string
+          prompt: string
+          response: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lesson_id: string
+          prompt: string
+          response: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lesson_id?: string
+          prompt?: string
+          response?: string
           updated_at?: string
           user_id?: string
         }
@@ -572,6 +693,129 @@ export type Database = {
         }
         Relationships: []
       }
+      mastery_scores: {
+        Row: {
+          computed_at: string
+          confidence_tier: string
+          contributing_signals: Json
+          id: string
+          mcs_score: number
+          topic_id: string
+          user_id: string
+        }
+        Insert: {
+          computed_at?: string
+          confidence_tier: string
+          contributing_signals?: Json
+          id?: string
+          mcs_score: number
+          topic_id: string
+          user_id: string
+        }
+        Update: {
+          computed_at?: string
+          confidence_tier?: string
+          contributing_signals?: Json
+          id?: string
+          mcs_score?: number
+          topic_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      partner_deals: {
+        Row: {
+          created_at: string | null
+          description: string
+          duration_days: number
+          emoji: string
+          id: string
+          proposer_biz_type: string
+          proposer_customers_bonus: number
+          proposer_first_name: string
+          proposer_id: string
+          proposer_reputation_bonus: number
+          proposer_revenue_pct: number
+          receiver_biz_type: string
+          receiver_customers_bonus: number
+          receiver_first_name: string
+          receiver_id: string
+          receiver_reputation_bonus: number
+          receiver_revenue_pct: number
+          responded_at: string | null
+          status: string
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          duration_days?: number
+          emoji?: string
+          id?: string
+          proposer_biz_type: string
+          proposer_customers_bonus?: number
+          proposer_first_name?: string
+          proposer_id: string
+          proposer_reputation_bonus?: number
+          proposer_revenue_pct?: number
+          receiver_biz_type: string
+          receiver_customers_bonus?: number
+          receiver_first_name?: string
+          receiver_id: string
+          receiver_reputation_bonus?: number
+          receiver_revenue_pct?: number
+          responded_at?: string | null
+          status?: string
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          duration_days?: number
+          emoji?: string
+          id?: string
+          proposer_biz_type?: string
+          proposer_customers_bonus?: number
+          proposer_first_name?: string
+          proposer_id?: string
+          proposer_reputation_bonus?: number
+          proposer_revenue_pct?: number
+          receiver_biz_type?: string
+          receiver_customers_bonus?: number
+          receiver_first_name?: string
+          receiver_id?: string
+          receiver_reputation_bonus?: number
+          receiver_revenue_pct?: number
+          responded_at?: string | null
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      partners: {
+        Row: {
+          created_at: string
+          id: string
+          partner_id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          partner_id: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          partner_id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       portfolio: {
         Row: {
           id: string
@@ -579,16 +823,14 @@ export type Database = {
           purchased_at: string
           shares: number
           symbol: string
-          updated_at: string
           user_id: string
         }
         Insert: {
           id?: string
-          purchase_price: number
+          purchase_price?: number
           purchased_at?: string
-          shares: number
+          shares?: number
           symbol: string
-          updated_at?: string
           user_id: string
         }
         Update: {
@@ -597,7 +839,6 @@ export type Database = {
           purchased_at?: string
           shares?: number
           symbol?: string
-          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -605,21 +846,23 @@ export type Database = {
       profiles: {
         Row: {
           age: number | null
-          assessment_score: number | null
-          benchmark_category_scores: Json | null
-          benchmark_scores: Json | null
-          biz_lab_enrolled: boolean | null
+          assessment_score: number
+          benchmark_category_scores: Json
+          benchmark_scores: Json
+          biz_lab_enrolled: boolean
           class_code: string | null
           created_at: string | null
           email: string
           first_name: string | null
           grade: number | null
           id: string
+          investicoins_balance: number
           jeffs_balance: number
           last_name: string | null
           literacy_level: string | null
+          mastery_tier: string
           onboarding_complete: boolean | null
-          reward_multiplier: number | null
+          reward_multiplier: number
           role: Database["public"]["Enums"]["app_role"] | null
           school_name: string | null
           state_course: string | null
@@ -627,21 +870,23 @@ export type Database = {
         }
         Insert: {
           age?: number | null
-          assessment_score?: number | null
-          benchmark_category_scores?: Json | null
-          benchmark_scores?: Json | null
-          biz_lab_enrolled?: boolean | null
+          assessment_score?: number
+          benchmark_category_scores?: Json
+          benchmark_scores?: Json
+          biz_lab_enrolled?: boolean
           class_code?: string | null
           created_at?: string | null
           email: string
           first_name?: string | null
           grade?: number | null
           id: string
+          investicoins_balance?: number
           jeffs_balance?: number
           last_name?: string | null
           literacy_level?: string | null
+          mastery_tier?: string
           onboarding_complete?: boolean | null
-          reward_multiplier?: number | null
+          reward_multiplier?: number
           role?: Database["public"]["Enums"]["app_role"] | null
           school_name?: string | null
           state_course?: string | null
@@ -649,21 +894,23 @@ export type Database = {
         }
         Update: {
           age?: number | null
-          assessment_score?: number | null
-          benchmark_category_scores?: Json | null
-          benchmark_scores?: Json | null
-          biz_lab_enrolled?: boolean | null
+          assessment_score?: number
+          benchmark_category_scores?: Json
+          benchmark_scores?: Json
+          biz_lab_enrolled?: boolean
           class_code?: string | null
           created_at?: string | null
           email?: string
           first_name?: string | null
           grade?: number | null
           id?: string
+          investicoins_balance?: number
           jeffs_balance?: number
           last_name?: string | null
           literacy_level?: string | null
+          mastery_tier?: string
           onboarding_complete?: boolean | null
-          reward_multiplier?: number | null
+          reward_multiplier?: number
           role?: Database["public"]["Enums"]["app_role"] | null
           school_name?: string | null
           state_course?: string | null
@@ -705,6 +952,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      question_attempts: {
+        Row: {
+          attempt_session_id: string
+          created_at: string
+          id: string
+          is_correct: boolean
+          lesson_id: string | null
+          question_id: string
+          response_time_ms: number | null
+          session_attempt_number: number
+          source: string
+          topic_id: string
+          user_id: string
+        }
+        Insert: {
+          attempt_session_id: string
+          created_at?: string
+          id?: string
+          is_correct: boolean
+          lesson_id?: string | null
+          question_id: string
+          response_time_ms?: number | null
+          session_attempt_number?: number
+          source: string
+          topic_id: string
+          user_id: string
+        }
+        Update: {
+          attempt_session_id?: string
+          created_at?: string
+          id?: string
+          is_correct?: boolean
+          lesson_id?: string | null
+          question_id?: string
+          response_time_ms?: number | null
+          session_attempt_number?: number
+          source?: string
+          topic_id?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       stock_fundamentals: {
         Row: {
@@ -864,6 +1153,33 @@ export type Database = {
           category: string
           completed: boolean
           completed_at: string | null
+          id: string
+          score: number
+          user_id: string
+        }
+        Insert: {
+          category: string
+          completed?: boolean
+          completed_at?: string | null
+          id?: string
+          score?: number
+          user_id: string
+        }
+        Update: {
+          category?: string
+          completed?: boolean
+          completed_at?: string | null
+          id?: string
+          score?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      unit_test_results: {
+        Row: {
+          category: string
+          completed: boolean
+          completed_at: string | null
           created_at: string
           id: string
           score: number
@@ -921,6 +1237,36 @@ export type Database = {
           },
         ]
       }
+      user_portfolio: {
+        Row: {
+          avg_purchase_price: number
+          first_purchased_at: string
+          id: string
+          shares: number
+          symbol: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avg_purchase_price?: number
+          first_purchased_at?: string
+          id?: string
+          shares?: number
+          symbol: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avg_purchase_price?: number
+          first_purchased_at?: string
+          id?: string
+          shares?: number
+          symbol?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -953,9 +1299,9 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
-          market_cap: number
+          market_cap?: number
           name: string
-          price_simulation: number
+          price_simulation?: number
           symbol: string
           total_supply: number
           user_id: string
@@ -993,6 +1339,27 @@ export type Database = {
         }
         Relationships: []
       }
+      watchlist_items: {
+        Row: {
+          added_at: string
+          id: string
+          symbol: string
+          user_id: string
+        }
+        Insert: {
+          added_at?: string
+          id?: string
+          symbol: string
+          user_id: string
+        }
+        Update: {
+          added_at?: string
+          id?: string
+          symbol?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -1002,10 +1369,65 @@ export type Database = {
       get_class_leaderboard: {
         Args: { _class_id: string }
         Returns: {
-          user_id: string
           first_name: string
           last_name: string
+          user_id: string
           xp: number
+        }[]
+      }
+      get_my_partner_deals: {
+        Args: never
+        Returns: {
+          created_at: string
+          description: string
+          direction: string
+          emoji: string
+          expires_at: string
+          id: string
+          my_customers_bonus: number
+          my_reputation_bonus: number
+          my_revenue_pct: number
+          partner_biz_type: string
+          partner_first_name: string
+          partner_id: string
+          partner_last_name: string
+          responded_at: string
+          status: string
+          title: string
+        }[]
+      }
+      get_partner_requests: {
+        Args: never
+        Returns: {
+          first_name: string
+          grade: number
+          last_name: string
+          partner_status: string
+          school_name: string
+          user_id: string
+          xp: number
+        }[]
+      }
+      get_partner_snapshot: { Args: { _user_id: string }; Returns: Json }
+      get_partners: {
+        Args: never
+        Returns: {
+          first_name: string
+          grade: number
+          last_name: string
+          partner_status: string
+          school_name: string
+          user_id: string
+          xp: number
+        }[]
+      }
+      get_partners_with_biz: {
+        Args: never
+        Returns: {
+          biz_type: string
+          first_name: string
+          last_name: string
+          user_id: string
         }[]
       }
       has_role: {
@@ -1023,11 +1445,54 @@ export type Database = {
         Args: { _class_id: string; _user_id: string }
         Returns: boolean
       }
+      is_teacher_of_student: {
+        Args: { _student: string; _teacher: string }
+        Returns: boolean
+      }
+      is_xp_reason: { Args: { _reason: string }; Returns: boolean }
       lookup_class_by_join_code: {
         Args: { _code: string }
         Returns: {
           id: string
           name: string
+        }[]
+      }
+      propose_partner_deal: {
+        Args: {
+          _description: string
+          _emoji: string
+          _proposer_biz_type: string
+          _proposer_customers_bonus: number
+          _proposer_reputation_bonus: number
+          _proposer_revenue_pct: number
+          _receiver_biz_type: string
+          _receiver_customers_bonus: number
+          _receiver_id: string
+          _receiver_reputation_bonus: number
+          _receiver_revenue_pct: number
+          _title: string
+        }
+        Returns: string
+      }
+      remove_partner: { Args: { _other: string }; Returns: undefined }
+      respond_partner_request: {
+        Args: { _accept: boolean; _from: string }
+        Returns: boolean
+      }
+      respond_to_partner_deal: {
+        Args: { _accept: boolean; _deal_id: string }
+        Returns: undefined
+      }
+      search_students: {
+        Args: { _query: string }
+        Returns: {
+          first_name: string
+          grade: number
+          last_name: string
+          partner_status: string
+          school_name: string
+          user_id: string
+          xp: number
         }[]
       }
       search_symbols: {
@@ -1048,6 +1513,7 @@ export type Database = {
           type: string
         }[]
       }
+      send_partner_request: { Args: { _to: string }; Returns: string }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
     }
