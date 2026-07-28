@@ -18,7 +18,7 @@ import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/
 import { getAdaptiveUnit } from "@/lib/curriculumEngine";
 import { supabase } from "@/integrations/supabase/client";
 import { anchor } from "@/lib/tourAnchors";
-import { isEarnedEntry } from "@/lib/playerStats";
+import { getBestStreak } from "@/lib/playerStats";
 import { getLeague } from "@/lib/leagues";
 import { CoasterTrack } from "./Lessons";
 import FullScreenCoaster from "@/components/FullScreenCoaster";
@@ -123,7 +123,6 @@ export default function Dashboard() {
 
   const completedLessons = lessonProgress.filter((p) => p.completed && floridaLessonIds.has(p.lessonId)).length;
   const totalLessons = floridaLessonIds.size;
-  const progressPercent = totalLessons > 0 ? Math.round(completedLessons / totalLessons * 100) : 0;
 
   // ── Live watchlist prices ──
   const [watchlistPrices, setWatchlistPrices] = useState<Map<string, {price: number;change: number | null;changePercent: number | null;name?: string;}>>(new Map());
@@ -247,14 +246,8 @@ export default function Dashboard() {
   }, [completedLessons, totalLessons]);
 
   const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
+  const bestStreak = useMemo(() => getBestStreak(jeffsHistory), [jeffsHistory]);
   const myLeague = getLeague(jeffsBalance);
-  const earnedToday = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return jeffsHistory
-      .filter((h) => isEarnedEntry(h) && new Date(h.date).getTime() >= today.getTime())
-      .reduce((sum, h) => sum + h.amount, 0);
-  }, [jeffsHistory]);
 
   const unitsFullyComplete = unitScoresForLevel.filter(u => u.total > 0 && u.done >= u.total).length;
   const nextUnlock = NEXT_UNLOCKS.find((u) => unitsFullyComplete < u.unitsRequired);
@@ -267,6 +260,23 @@ export default function Dashboard() {
       month: "long",
       day: "numeric",
     });
+  }, []);
+
+  // A fresh motivational line each time the dashboard mounts.
+  const greetingSub = useMemo(() => {
+    const lines = [
+      "Ready to build some wealth today?",
+      "Your portfolio's waiting — let's make it grow.",
+      "Every lesson is money in the bank.",
+      "Small steps today, big returns tomorrow.",
+      "Let's turn knowledge into net worth.",
+      "The market never sleeps — neither does your streak.",
+      "One more lesson closer to the finish line.",
+      "Compound your streak, compound your coins.",
+      "Time to put your money mindset to work.",
+      "Let's chase that next milestone. 🚀",
+    ];
+    return lines[Math.floor(Math.random() * lines.length)];
   }, []);
 
   // ── Derive from Missions data (single source of truth) ──
@@ -478,12 +488,53 @@ export default function Dashboard() {
         </MCard>
         }
 
-        {/* ═══ 1. DAILY MISSIONS — full-width checklist ═══ */}
-        <MCard i={7}>
-          <DailyMissions
-            lessonProgress={lessonProgress}
-            portfolio={portfolio}
-            earnJeffs={earnJeffs} />
+        {/* ═══ 1. GREETING BANNER — moved here from Missions, sits above the ride ═══ */}
+        <MCard i={0}>
+          <div className="relative overflow-hidden rounded-[20px] mb-3 p-5 md:p-6 text-white"
+            style={{ background: "linear-gradient(135deg, #0f2d1e 0%, #143d29 55%, #1d6b4d 135%)" }}>
+            {/* subtle dotted texture */}
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
+              style={{ backgroundImage: "radial-gradient(circle at 25% 15%, white 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
+            <div className="relative">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/45">
+                    {formattedDate}
+                  </p>
+                  <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight leading-tight mt-1 break-words">
+                    {getGreeting()}
+                  </h1>
+                  <p className="text-sm text-white/55 mt-1">{greetingSub}</p>
+                </div>
+                {/* Class rank — hidden entirely when no class/leaderboard */}
+                {rankInfo != null && (
+                  <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold shrink-0"
+                    style={{ background: "rgba(239,159,39,0.18)", color: "#F5C26B" }}>
+                    <Trophy className="w-3.5 h-3.5" /> #{rankInfo.rank} in class
+                  </div>
+                )}
+              </div>
+
+              {/* Stat strip — streak, coins, level, best streak, lessons completed */}
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+                {[
+                  { Icon: Flame, tint: "text-orange-400", value: String(streak), label: "Day streak" },
+                  { Icon: Coins, tint: "text-gold", value: jeffsBalance.toLocaleString(), label: "Coins" },
+                  { Icon: Star, tint: "text-yellow-300", value: `Lv ${currLevel}`, label: "Level" },
+                  { Icon: Flame, tint: "text-orange-300", value: `${bestStreak}d`, label: "Best streak" },
+                  { Icon: BookOpen, tint: "text-emerald-300", value: `${completedLessons}/${totalLessons}`, label: "Lessons completed" },
+                ].map(({ Icon, tint, value, label }) => (
+                  <div key={label} className="rounded-xl bg-white/[0.06] border border-white/10 px-3 py-2.5 flex items-center gap-2.5 min-w-0">
+                    <Icon className={`w-4 h-4 shrink-0 ${tint}`} />
+                    <div className="min-w-0">
+                      <p className="text-base md:text-lg font-extrabold leading-none tabular-nums">{value}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 truncate">{label}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </MCard>
 
         {/* ═══ 2. ROLLER COASTER — full-width strip ═══ */}
@@ -528,51 +579,7 @@ export default function Dashboard() {
           </div>
         </MCard>
 
-        {/* ═══ 3. STATS — four tinted boxes ═══ */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
-          {[
-            { i: 2, icon: Coins, tint: "#E3A008", label: "Coins", num: jeffsBalance, sub: earnedToday > 0 ? `+${earnedToday.toLocaleString()} today` : "InvestiCoins ready to spend" },
-            { i: 3, icon: Flame, tint: "#F97316", label: "Streak", num: streak, suffix: ` day${streak === 1 ? "" : "s"}`, pulse: streak > 0, sub: streak > 0 ? "Don't break the chain" : "Play today to start one" },
-            { i: 4, icon: TrendingUp, tint: "#1D9E75", label: "Stocks owned", num: portfolio.length, sub: portfolio.length > 0 ? `🪙 ${Math.floor(portfolioValue).toLocaleString()} invested` : "Make your first trade" },
-            { i: 5, icon: BookOpen, tint: "#8B5CF6", label: "Lessons", num: completedLessons, suffix: `/${totalLessons}`, sub: `${progressPercent}% of the course`, progress: progressPercent },
-          ].map((st) => (
-            <MCard key={st.label} i={st.i}>
-              <div className="group bg-white rounded-[20px] p-4 relative overflow-hidden hover-lift press-scale h-full"
-                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
-                <div className="absolute top-0 left-0 right-0 h-[2.5px]"
-                  style={{ background: `linear-gradient(90deg, ${st.tint}, ${st.tint}00 70%)` }} />
-                <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"
-                  style={{ background: `${st.tint}1f` }} />
-                <div className="relative">
-                  <motion.span
-                    initial={{ scale: 0, rotate: -12 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.1 + st.i * 0.05 }}
-                    className="w-8 h-8 rounded-xl flex items-center justify-center mb-2.5 border group-hover:scale-110 transition-transform"
-                    style={{ background: `linear-gradient(135deg, ${st.tint}26, ${st.tint}0a)`, color: st.tint, borderColor: `${st.tint}26` }}>
-                    <st.icon className="w-4 h-4" style={st.pulse ? { animation: "streak-pulse 2s ease-in-out infinite" } : undefined} />
-                  </motion.span>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{st.label}</p>
-                  <p className="font-display text-[20px] font-extrabold tracking-tight leading-tight mt-0.5 tabular-nums">
-                    <AnimatedNumber value={st.num} countUp />{st.suffix ?? ""}
-                  </p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{st.sub}</p>
-                  {st.progress != null && (
-                    <div className="mt-2.5 h-1 rounded-full bg-muted overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${st.progress}%` }}
-                        transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
-                        className="h-full rounded-full" style={{ background: st.tint }} />
-                    </div>
-                  )}
-                </div>
-              </div>
-            </MCard>
-          ))}
-        </div>
-
-        {/* ═══ 3. DAILY CHALLENGE — between stats and snapshots ═══ */}
+        {/* ═══ 3. DAILY CHALLENGE ═══ */}
         <MCard i={6}>
           <div className={`rounded-[20px] p-5 text-white relative overflow-hidden hover-lift mt-3 ${dailyDone ? "opacity-75" : ""}`} style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)", boxShadow: "var(--shadow-md)" }}>
             <div className="absolute top-0 left-0 right-0 h-[2px]"
@@ -601,6 +608,14 @@ export default function Dashboard() {
               )}
             </div>
           </div>
+        </MCard>
+
+        {/* ═══ 3b. DAILY MISSIONS — full-width checklist, under the daily challenge ═══ */}
+        <MCard i={7} className="mt-3">
+          <DailyMissions
+            lessonProgress={lessonProgress}
+            portfolio={portfolio}
+            earnJeffs={earnJeffs} />
         </MCard>
 
         {/* ═══ 4. SNAPSHOTS — business · portfolio · class rank ═══ */}
