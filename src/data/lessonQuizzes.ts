@@ -10,7 +10,6 @@ import { investingStocksCoreQuizzes } from "./quizzes/investingStocksCore"
 import { marketsRatiosValuationQuizzes } from "./quizzes/marketsRatiosValuation"
 import { bubblesMacroIndicatorsQuizzes } from "./quizzes/bubblesMacroIndicators"
 import { optionsAltsPlanningSimsQuizzes } from "./quizzes/optionsAltsPlanningSims"
-import { bizMktTopUpQuizzes } from "./quizzes/bizMktTopUp"
 
 export interface LessonQuiz {
   lessonId: string
@@ -3384,7 +3383,6 @@ export const lessonQuizzes: LessonQuiz[] = [
   ...marketsRatiosValuationQuizzes,
   ...bubblesMacroIndicatorsQuizzes,
   ...optionsAltsPlanningSimsQuizzes,
-  ...bizMktTopUpQuizzes,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
