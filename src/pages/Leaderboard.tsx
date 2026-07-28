@@ -389,14 +389,16 @@ export default function Leaderboard() {
               </div>
 
               <p className="text-xs text-primary-foreground/70 font-semibold uppercase tracking-wider mt-4">
-                Your Net Worth
+                Your Coins
               </p>
               <p className="font-display text-5xl md:text-6xl font-extrabold flex items-center gap-2 mt-1 leading-none">
                 <Coins className="w-8 h-8 md:w-9 md:h-9 text-warning" />
-                {myNetWorth.toLocaleString()}
+                {jeffsBalance.toLocaleString()}
               </p>
               <p className="text-[11px] text-primary-foreground/60 mt-2">
-                InvestiCoins {jeffsBalance.toLocaleString()} + Portfolio {Math.round(portfolioValue).toLocaleString()}
+                {portfolioValue > 0
+                  ? `Spendable InvestiCoins · ${Math.round(portfolioValue).toLocaleString()} more invested in stocks`
+                  : "Spendable InvestiCoins — this is what the leaderboard ranks on"}
               </p>
 
               {/* League progress bar */}
