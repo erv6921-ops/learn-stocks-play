@@ -598,57 +598,6 @@ export default function Lessons() {
         )}
         {coasterMini && isMapView && (
           <>
-            {/* 1. Page header — unit hero + unified stat strip */}
-            <div className="relative overflow-hidden rounded-[20px] mb-4 p-5 md:p-6 text-white"
-              style={{ background: "linear-gradient(135deg, #0f2d1e 0%, #143d29 55%, #1d6b4d 135%)" }}>
-              {/* subtle dotted texture */}
-              <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
-                style={{ backgroundImage: "radial-gradient(circle at 25% 15%, white 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
-              <div className="relative">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/45">
-                      Your knowledge portfolio
-                    </p>
-                    <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight leading-tight mt-1 break-words">
-                      {activeUnit ? `Unit ${activeUnit.unitNumber} — ${activeUnit.title}` : "Curriculum"}
-                    </h1>
-                  </div>
-                  {/* Class rank — hidden entirely when no class/leaderboard */}
-                  {classRank != null && (
-                    <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold shrink-0"
-                      style={{ background: "rgba(239,159,39,0.18)", color: "#F5C26B" }}>
-                      <Trophy className="w-3.5 h-3.5" /> #{classRank} in class
-                    </div>
-                  )}
-                </div>
-
-                {/* Stat strip — all six player stats in one row across the hero */}
-                {statsReady ? (
-                  <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-                    {[
-                      { Icon: Flame, tint: "text-orange-400", value: String(streak), label: "Day streak" },
-                      { Icon: Coins, tint: "text-gold", value: jeffsBalance.toLocaleString(), label: "Coins" },
-                      { Icon: Star, tint: "text-yellow-300", value: `Lv ${level}`, label: "Level" },
-                      { Icon: Flame, tint: "text-orange-300", value: `${bestStreak}d`, label: "Best streak" },
-                      { Icon: Coins, tint: "text-gold", value: coinsThisWeek.toLocaleString(), label: "This week" },
-                      { Icon: Target, tint: "text-emerald-300", value: `${timeSpentMins}m`, label: "Time spent" },
-                    ].map(({ Icon, tint, value, label }) => (
-                      <div key={label} className="rounded-xl bg-white/[0.06] border border-white/10 px-3 py-2.5 flex items-center gap-2.5 min-w-0">
-                        <Icon className={`w-4 h-4 shrink-0 ${tint}`} />
-                        <div className="min-w-0">
-                          <p className="text-base md:text-lg font-extrabold leading-none tabular-nums">{value}</p>
-                          <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 truncate">{label}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="mt-4 h-[60px] rounded-2xl bg-white/[0.06] border border-white/10 animate-pulse" />
-                )}
-              </div>
-            </div>
-
             {/* 2. Progress card — circular ring hero + chart */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}

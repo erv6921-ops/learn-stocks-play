@@ -537,7 +537,7 @@ export default function Leaderboard() {
           </div>
         )}
 
-        {/* Loading skeleton */}
+        {/* Loading skeleton — Class waits on classes, Friends on partners */}
         {loadingClasses && scope === "class" && !hasOtherUsers && !showDemo ? (
           <div className="space-y-2 animate-pulse max-w-3xl">
             <div className="grid grid-cols-3 gap-3 items-end mb-6">
@@ -547,7 +547,7 @@ export default function Leaderboard() {
             </div>
             {[0, 1, 2, 3].map(i => <div key={i} className="h-16 rounded-2xl bg-muted/50" />)}
           </div>
-        ) : scope === "class" && !hasOtherUsers && !showDemo ? (
+        ) : (scope === "class" || scope === "friends") && !hasOtherUsers && !showDemo ? (
           /* ───────────── Empty state — join / invite + climb panels ───────────── */
           <div className="grid lg:grid-cols-3 gap-5">
             {/* Left — join / invite */}
@@ -560,40 +560,40 @@ export default function Leaderboard() {
                 <p className="text-sm text-muted-foreground max-w-md mx-auto">
                   {scope === "class"
                     ? "Join a class to compete with your classmates and race up the leagues — but you can start earning InvestiCoins and climbing the ladder right now."
-                    : "Add partners in the Find Friends directory and they'll show up here to race against."}
+                    : "Add partners in the Find Friends directory and they'll show up here to race against — your stats are ready when they are."}
                 </p>
-                {scope === "friends" && (
-                  <Link to="/partners">
-                    <Button size="sm" className="mt-4 gap-1.5 font-bold">
-                      <UserPlus className="w-4 h-4" /> Find Friends
-                    </Button>
-                  </Link>
-                )}
+                <Link to="/partners">
+                  <Button size="sm" className="mt-4 gap-1.5 font-bold">
+                    <UserPlus className="w-4 h-4" /> Find Friends
+                  </Button>
+                </Link>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                <Card variant="elevated">
-                  <CardHeader>
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <UserPlus className="w-4 h-4 text-primary" /> Join a Class
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <p className="text-sm text-muted-foreground">Enter the class code your teacher gave you.</p>
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="e.g., ABC123"
-                        value={joinCode}
-                        onChange={e => setJoinCode(e.target.value.toUpperCase())}
-                        maxLength={6}
-                        className="font-mono text-center tracking-widest"
-                      />
-                      <Button onClick={handleJoinClass} disabled={!joinCode.trim() || joiningClass}>
-                        {joiningClass ? "Joining..." : "Join"}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                {scope === "class" && (
+                  <Card variant="elevated">
+                    <CardHeader>
+                      <CardTitle className="text-base flex items-center gap-2">
+                        <UserPlus className="w-4 h-4 text-primary" /> Join a Class
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <p className="text-sm text-muted-foreground">Enter the class code your teacher gave you.</p>
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="e.g., ABC123"
+                          value={joinCode}
+                          onChange={e => setJoinCode(e.target.value.toUpperCase())}
+                          maxLength={6}
+                          className="font-mono text-center tracking-widest"
+                        />
+                        <Button onClick={handleJoinClass} disabled={!joinCode.trim() || joiningClass}>
+                          {joiningClass ? "Joining..." : "Join"}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
                 <Card variant="elevated">
                   <CardHeader>
@@ -610,7 +610,7 @@ export default function Leaderboard() {
                 </Card>
               </div>
 
-              {myClasses.length > 0 && (
+              {scope === "class" && myClasses.length > 0 && (
                 <Card variant="elevated">
                   <CardHeader>
                     <CardTitle className="text-base">Your Classes</CardTitle>
@@ -651,24 +651,6 @@ export default function Leaderboard() {
                   <label htmlFor="demo-toggle-2" className="text-xs text-muted-foreground cursor-pointer">Demo</label>
                   <Switch id="demo-toggle-2" checked={showDemo} onCheckedChange={setShowDemo} />
                 </div>
-              </div>
-            )}
-
-            {/* Friends tab — no rivals yet: invite nudge above the board */}
-            {scope === "friends" && !hasOtherUsers && !showDemo && (
-              <div className="flex items-center justify-between mb-4 px-4 py-3 rounded-2xl border border-primary/20 bg-primary/[0.04]">
-                <div className="flex items-center gap-3 min-w-0">
-                  <UserPlus className="w-5 h-5 text-primary shrink-0" />
-                  <div className="min-w-0">
-                    <p className="text-sm font-bold">No rivals yet</p>
-                    <p className="text-xs text-muted-foreground truncate">Find a friend to race against — your stats are ready when they are.</p>
-                  </div>
-                </div>
-                <Link to="/partners" className="shrink-0 ml-3">
-                  <Button size="sm" className="gap-1.5 font-bold whitespace-nowrap">
-                    <UserPlus className="w-3.5 h-3.5" /> Find Friends
-                  </Button>
-                </Link>
               </div>
             )}
 

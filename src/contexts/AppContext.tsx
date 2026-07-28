@@ -184,6 +184,31 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     }
 
+    // Fetch the FULL jeffs_history ledger, paginating past Supabase's implicit
+    // 1000-row cap so the summed InvestiCoin balance never undercounts once a
+    // user exceeds 1000 ledger entries (which would diverge from the
+    // server/leaderboard, whose balance is also SUM(jeffs_history.amount)).
+    // Returns null on any failure so the caller can keep the last-known balance
+    // rather than corrupting it with a partial/empty sum.
+    const fetchFullJeffsHistory = async (uid: string): Promise<any[] | null> => {
+      const pageSize = 1000
+      const rows: any[] = []
+      for (let from = 0; ; from += pageSize) {
+        const res = await safeQuery(
+          supabase
+            .from("jeffs_history")
+            .select("*")
+            .eq("user_id", uid)
+            .order("created_at", { ascending: true })
+            .range(from, from + pageSize - 1)
+        )
+        if (!res?.data) return null // transient failure — don't reconcile with a partial ledger
+        rows.push(...res.data)
+        if (res.data.length < pageSize) break
+      }
+      return rows
+    }
+
     const hydrate = async (uid: string) => {
       userIdRef.current = uid
 
@@ -204,11 +229,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
         })
       }
 
-      const [profileRes, lessonsRes, unitTestsRes, historyRes, portfolioRes, watchlistRes, tokensRes] = await Promise.all([
+      const [profileRes, lessonsRes, unitTestsRes, jeffsHistoryRows, portfolioRes, watchlistRes, tokensRes] = await Promise.all([
         safeQuery(supabase.from("profiles").select("*").eq("id", uid).maybeSingle()),
         safeQuery(supabase.from("lesson_progress").select("*").eq("user_id", uid)),
         safeQuery(supabase.from("unit_test_progress").select("*").eq("user_id", uid)),
-        safeQuery(supabase.from("jeffs_history").select("*").eq("user_id", uid).order("created_at", { ascending: true })),
+        fetchFullJeffsHistory(uid),
         safeQuery(supabase.from("portfolio").select("*").eq("user_id", uid)),
         safeQuery(supabase.from("watchlist").select("*").eq("user_id", uid)),
         safeQuery(supabase.from("user_tokens").select("*").eq("user_id", uid)),
@@ -258,19 +283,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ls.set("investiplay_unit_tests", ut)
       }
 
-      if (historyRes?.data) {
-        const h: JeffsHistoryEntry[] = historyRes.data.map((r: any) => ({
+      // Only reconcile when the fetch succeeded. On a transient failure
+      // (jeffsHistoryRows === null) we leave both jeffsHistory and the balance
+      // at their last-known localStorage values so the counter never
+      // flickers to a stale/zero number; a later successful load reconciles.
+      if (jeffsHistoryRows) {
+        const h: JeffsHistoryEntry[] = jeffsHistoryRows.map((r: any) => ({
           amount: r.amount,
           reason: r.reason,
           date: new Date(r.created_at),
         }))
         setJeffsHistory(h)
         ls.set("investiplay_jeffs_history", h)
-        // Restore the InvestiCoins balance from the jeffs_history ledger sum.
-        // jeffs_history is the table that actually persists in Supabase (every
-        // earn/spend is inserted there); profiles has no jeffs_balance column,
-        // so the ledger sum is the source of truth and the balance survives
-        // logout instead of resetting to zero.
+        // The balance is summed over the FULL paginated ledger (see
+        // fetchFullJeffsHistory), so it stays the true source of truth and
+        // matches the server/leaderboard even beyond 1000 entries.
         const balance = h.reduce((sum, e) => sum + e.amount, 0)
         setJeffsBalance(balance)
         ls.set("investiplay_jeffs_balance", balance)
