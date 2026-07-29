@@ -491,14 +491,14 @@ export default function Dashboard() {
         {/* ═══ 1. GREETING BANNER — moved here from Missions, sits above the ride ═══ */}
         <MCard i={0}>
           <div className="relative overflow-hidden rounded-3xl mb-3 p-6 md:p-8 text-white"
-            style={{ background: "radial-gradient(130% 130% at 88% -10%, #23855c 0%, #145037 42%, #0b2418 100%)" }}>
+            style={{ background: "var(--brand-hero)" }}>
             {/* dotted texture + soft colored depth orbs */}
             <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
               style={{ backgroundImage: "radial-gradient(circle at 25% 15%, white 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
             <div className="absolute -right-16 -top-24 w-72 h-72 rounded-full blur-3xl pointer-events-none"
               style={{ background: "rgba(227,160,8,0.18)" }} />
             <div className="absolute -left-20 -bottom-24 w-72 h-72 rounded-full blur-3xl pointer-events-none"
-              style={{ background: "rgba(47,211,155,0.16)" }} />
+              style={{ background: "rgba(var(--brand-rgb),0.18)" }} />
 
             <div className="relative">
               <div className="flex items-start justify-between gap-3">
@@ -530,7 +530,7 @@ export default function Dashboard() {
               <div className="mt-6">
                 <div className="flex items-end justify-between gap-3 mb-2">
                   <p className="text-[13px] font-bold">
-                    <span style={{ color: "#5eead4" }}>Level {currLevel}</span>
+                    <span style={{ color: "var(--brand-bright)" }}>Level {currLevel}</span>
                     <span className="text-white/45 font-semibold"> · {LEVEL_NAMES[currLevel - 1]}</span>
                   </p>
                   <p className="text-[11px] font-semibold text-white/45 tabular-nums">
@@ -542,7 +542,7 @@ export default function Dashboard() {
                     initial={{ width: 0 }} animate={{ width: `${levelProgressPct}%` }}
                     transition={{ duration: 1.1, delay: 0.3, ease: "easeOut" }}
                     className="h-full rounded-full"
-                    style={{ background: "linear-gradient(90deg, #E3A008, #2FD39B)" }} />
+                    style={{ background: "linear-gradient(90deg, #E3A008, var(--brand-bright))" }} />
                 </div>
               </div>
 
@@ -554,25 +554,17 @@ export default function Dashboard() {
                   { Icon: Coins, tint: "#F5C26B", value: jeffsBalance.toLocaleString(), label: "Coins" },
                   { Icon: Star, tint: "#fde047", value: `Lv ${currLevel}`, label: "Level" },
                   { Icon: Flame, tint: "#fdba74", value: `${bestStreak}d`, label: "Best streak" },
-                  { Icon: BookOpen, tint: "#6ee7b7", value: `${completedLessons}/${totalLessons}`, label: "Lessons", bar: levelProgressPct },
-                ].map(({ Icon, tint, value, label, bar }, idx) => (
+                  { Icon: BookOpen, tint: "#6ee7b7", value: `${completedLessons}/${totalLessons}`, label: "Lessons" },
+                ].map(({ Icon, tint, value, label }, idx) => (
                   <div key={label}
                     className={`flex items-center gap-3 px-4 py-3.5 min-w-0 border-white/10 ${idx > 0 ? "sm:border-l" : ""} ${idx >= 2 ? "border-t sm:border-t-0" : ""} ${idx % 2 === 1 ? "border-l sm:border-l" : ""}`}>
                     <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                       style={{ background: `${tint}1f`, border: `1px solid ${tint}33` }}>
                       <Icon className="w-4 h-4" style={{ color: tint }} />
                     </span>
-                    <div className="min-w-0 flex-1">
+                    <div className="min-w-0">
                       <p className="text-xl md:text-2xl font-extrabold leading-none tabular-nums">{value}</p>
                       <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 truncate">{label}</p>
-                      {bar != null && (
-                        <div className="h-1 rounded-full mt-1.5 overflow-hidden" style={{ background: "rgba(255,255,255,0.12)" }}>
-                          <motion.div
-                            initial={{ width: 0 }} animate={{ width: `${bar}%` }}
-                            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                            className="h-full rounded-full" style={{ background: tint }} />
-                        </div>
-                      )}
                     </div>
                   </div>
                 ))}
@@ -584,26 +576,26 @@ export default function Dashboard() {
         {/* ═══ 2. ROLLER COASTER — full-width strip (hidden — flip to true to restore) ═══ */}
         {false && (
         <MCard i={1}>
-          <div className="rounded-3xl overflow-hidden relative" style={{ background: "linear-gradient(180deg, #e6f1eb 0%, #f4faf7 14%, #ffffff 34%)", border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
+          <div className="rounded-3xl overflow-hidden relative" style={{ background: "linear-gradient(180deg, rgba(var(--brand-rgb),0.14) 0%, rgba(var(--brand-rgb),0.05) 14%, #ffffff 34%)", border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
             <div className="absolute -right-10 -top-10 w-36 h-36 rounded-full blur-3xl pointer-events-none"
-              style={{ background: "rgba(29,158,117,0.10)" }} />
+              style={{ background: "rgba(var(--brand-rgb),0.10)" }} />
             <div className="px-5 md:px-6 pt-5 pb-1 flex items-center justify-between gap-3 relative">
               <div className="min-w-0">
                 <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#1D9E75" }} />
+                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--brand)" }} />
                   Unit {currentUnit.unitNumber} · Your ride
                 </p>
                 <p className="font-display font-extrabold text-xl tracking-tight truncate mt-0.5">{currentUnit.title}</p>
               </div>
               <div className="flex items-center gap-3 shrink-0">
                 <span className="hidden sm:inline-flex items-center gap-1.5 text-[12px] font-extrabold px-3 py-1.5 rounded-full"
-                  style={{ color: "#0f6b4f", background: "rgba(29,158,117,0.1)", border: "1px solid rgba(29,158,117,0.18)" }}>
+                  style={{ color: "var(--brand-strong)", background: "rgba(var(--brand-rgb),0.1)", border: "1px solid rgba(var(--brand-rgb),0.18)" }}>
                   {currentUnitCompleted}/{currentUnitLessons.length} · {currentUnitProgress}%
                 </span>
                 <button
                   onClick={() => setCoasterFull(true)}
                   className="nav-bounce inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md"
-                  style={{ background: "linear-gradient(135deg,#2FD39B,#0F7E5C)", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
+                  style={{ background: "linear-gradient(135deg,var(--brand-bright),var(--brand-strong))", boxShadow: "0 6px 16px rgba(var(--brand-rgb),0.35)" }}
                 >
                   <Maximize2 className="w-4 h-4" /> Fullscreen
                 </button>
@@ -626,14 +618,14 @@ export default function Dashboard() {
         <MCard i={6} className="mt-3">
           <div className="bg-white rounded-3xl p-5 relative overflow-hidden" style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
             <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
-              style={{ background: "rgba(43,182,115,0.06)" }} />
+              style={{ background: "rgba(var(--brand-rgb),0.06)" }} />
             <p className="relative text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Today</p>
 
             {/* Daily challenge — contained highlight row */}
             <div className={`relative mt-3 rounded-2xl p-4 text-white overflow-hidden ${dailyDone ? "opacity-80" : ""}`}
-              style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
+              style={{ background: "var(--brand-deep)" }}>
               <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full blur-2xl pointer-events-none"
-                style={{ background: "rgba(43,182,115,0.16)" }} />
+                style={{ background: "rgba(var(--brand-rgb),0.18)" }} />
               <div className="relative flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/5" style={{ background: "rgba(43,182,115,0.18)" }}>
@@ -670,7 +662,7 @@ export default function Dashboard() {
         {/* ═══ 4. SNAPSHOTS — business · portfolio · class rank ═══ */}
         <MCard i={7} className="mt-6 mb-2.5 px-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#1D9E75" }} />
+            <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--brand)" }} />
             Your world
           </p>
         </MCard>

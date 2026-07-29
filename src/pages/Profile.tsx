@@ -24,11 +24,12 @@ import {
   Coins, Zap, Flame, BookOpen, Layers, Award, Star, GraduationCap,
   School, KeyRound, CalendarDays, Sparkles, Store, TrendingUp, TrendingDown,
   Gamepad2, Lock, CheckCircle2, ChevronRight, Trophy, Rocket,
-  Pencil, Sun, Moon, Monitor, Palette,
+  Pencil, Sun, Moon, Monitor, Palette, Check,
   Crown, Medal, Target, Gem, PiggyBank, Briefcase, LineChart, Brain,
   Shield, Banknote, Diamond, BarChart3, Wallet, Compass, Trash2,
 } from "lucide-react"
 import { anchor } from "@/lib/tourAnchors"
+import { ACCENT_THEMES, getAccent, applyAccent, type AccentId } from "@/lib/accentTheme"
 
 // ── Curriculum level + progress to next level ─────────────────────────────
 // Mirrors GameNav/getCurriculumLevel thresholds so the level matches the HUD,
@@ -106,6 +107,8 @@ export default function Profile() {
   const { user, setUser, lessonProgress, jeffsHistory, portfolio, logout } = useApp()
   const { netWorth } = useNetWorth()
   const { theme, setTheme } = useTheme()
+  const [accent, setAccentState] = useState<AccentId>(getAccent)
+  const chooseAccent = (id: AccentId) => { setAccentState(id); applyAccent(id) }
   const navigate = useNavigate()
 
   // ── Delete-account dialog ──
@@ -419,32 +422,70 @@ export default function Profile() {
         {/* ── APPEARANCE ── */}
         <motion.div variants={item}>
           <Card variant="elevated">
-            <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Palette className="w-4 h-4 text-primary" />
+            <CardContent className="p-4 space-y-4">
+              {/* Light / dark mode */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Palette className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm">Appearance</p>
+                    <p className="text-xs text-muted-foreground">Choose how InvestiPlay looks</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-sm">Appearance</p>
-                  <p className="text-xs text-muted-foreground">Choose how InvestiPlay looks</p>
+                <div className="flex items-center gap-1 bg-muted/60 rounded-xl p-1 self-start sm:self-auto" ref={anchor("profile-theme")}>
+                  {THEME_OPTIONS.map(opt => {
+                    const activeTheme = (theme ?? "system") === opt.value
+                    return (
+                      <button
+                        key={opt.value}
+                        onClick={() => setTheme(opt.value)}
+                        aria-pressed={activeTheme}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors press-scale ${
+                          activeTheme ? "bg-card text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        <opt.icon className="w-3.5 h-3.5" /> {opt.label}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
-              <div className="flex items-center gap-1 bg-muted/60 rounded-xl p-1 self-start sm:self-auto" ref={anchor("profile-theme")}>
-                {THEME_OPTIONS.map(opt => {
-                  const activeTheme = (theme ?? "system") === opt.value
-                  return (
-                    <button
-                      key={opt.value}
-                      onClick={() => setTheme(opt.value)}
-                      aria-pressed={activeTheme}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors press-scale ${
-                        activeTheme ? "bg-card text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <opt.icon className="w-3.5 h-3.5" /> {opt.label}
-                    </button>
-                  )
-                })}
+
+              {/* Accent color */}
+              <div className="border-t border-border/60 pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "hsl(var(--primary) / 0.12)" }}>
+                    <Sparkles className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm">Accent color</p>
+                    <p className="text-xs text-muted-foreground">Recolors the app to your favorite</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5 self-start sm:self-auto">
+                  {ACCENT_THEMES.map(t => {
+                    const active = accent === t.id
+                    return (
+                      <button
+                        key={t.id}
+                        onClick={() => chooseAccent(t.id)}
+                        aria-pressed={active}
+                        title={t.label}
+                        className="relative w-8 h-8 rounded-full press-scale transition-transform hover:scale-110"
+                        style={{
+                          background: `linear-gradient(135deg, ${t.swatch}, ${t.swatchDeep})`,
+                          boxShadow: active
+                            ? `0 0 0 2px hsl(var(--card)), 0 0 0 4px ${t.swatch}`
+                            : "0 1px 3px rgba(0,0,0,0.15)",
+                        }}
+                      >
+                        {active && <Check className="w-4 h-4 text-white absolute inset-0 m-auto" strokeWidth={3} />}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
             </CardContent>
           </Card>

@@ -76,6 +76,74 @@
     --sidebar-accent-foreground: 170 72% 18%;
     --sidebar-border: 220 14% 90%;
     --sidebar-ring: 170 72% 21%;
+
+    /* Brand accent family — themeable via [data-accent]; green is the default.
+       Financial semantics (--success / --destructive / --gold) are NOT themed. */
+    --brand: #1D9E75;
+    --brand-strong: #0F7E5C;
+    --brand-bright: #2FD39B;
+    --brand-rgb: 29,158,117;
+    --brand-hero: radial-gradient(130% 130% at 88% -10%, #23855c 0%, #145037 42%, #0b2418 100%);
+    --brand-deep: linear-gradient(135deg, #0f3d2a, #06291f);
+  }
+
+  /* ── Accent themes ── high specificity (:root[...] beats .dark) so the choice
+     holds in both light and dark modes. */
+  :root[data-accent="blue"] {
+    --primary: 212 74% 26%;
+    --primary-glow: 208 72% 46%;
+    --secondary: 205 66% 45%;
+    --accent: 207 82% 50%;
+    --ring: 212 74% 26%;
+    --gradient-primary: linear-gradient(135deg, hsl(212 74% 26%), hsl(208 72% 42%));
+    --gradient-accent: linear-gradient(135deg, hsl(207 82% 50%), hsl(205 78% 56%));
+    --gradient-hero: linear-gradient(135deg, hsl(212 74% 16%) 0%, hsl(212 70% 24%) 40%, hsl(205 66% 34%) 100%);
+    --shadow-glow: 0 0 20px hsl(212 74% 40% / 0.18);
+    --shadow-accent: 0 4px 16px hsl(207 82% 50% / 0.14);
+    --brand: #2E7FD6;
+    --brand-strong: #12518C;
+    --brand-bright: #4FA9F5;
+    --brand-rgb: 46,127,214;
+    --brand-hero: radial-gradient(130% 130% at 88% -10%, #2b6fb8 0%, #163f6b 42%, #0b1a2e 100%);
+    --brand-deep: linear-gradient(135deg, #123a63, #0a1f36);
+  }
+
+  :root[data-accent="red"] {
+    --primary: 2 60% 34%;
+    --primary-glow: 4 72% 52%;
+    --secondary: 6 62% 48%;
+    --accent: 4 74% 52%;
+    --ring: 2 60% 34%;
+    --gradient-primary: linear-gradient(135deg, hsl(2 60% 34%), hsl(4 68% 46%));
+    --gradient-accent: linear-gradient(135deg, hsl(4 74% 52%), hsl(6 70% 58%));
+    --gradient-hero: linear-gradient(135deg, hsl(2 60% 18%) 0%, hsl(2 58% 28%) 40%, hsl(8 56% 38%) 100%);
+    --shadow-glow: 0 0 20px hsl(2 60% 45% / 0.18);
+    --shadow-accent: 0 4px 16px hsl(4 74% 52% / 0.14);
+    --brand: #D5473F;
+    --brand-strong: #98241C;
+    --brand-bright: #F26D62;
+    --brand-rgb: 213,71,63;
+    --brand-hero: radial-gradient(130% 130% at 88% -10%, #b8402f 0%, #6b1d18 42%, #2e0b0b 100%);
+    --brand-deep: linear-gradient(135deg, #4a1512, #2c0b0a);
+  }
+
+  :root[data-accent="yellow"] {
+    --primary: 38 80% 30%;
+    --primary-glow: 42 88% 45%;
+    --secondary: 40 76% 44%;
+    --accent: 42 90% 48%;
+    --ring: 38 80% 30%;
+    --gradient-primary: linear-gradient(135deg, hsl(38 80% 30%), hsl(42 84% 42%));
+    --gradient-accent: linear-gradient(135deg, hsl(42 90% 48%), hsl(44 86% 54%));
+    --gradient-hero: linear-gradient(135deg, hsl(38 80% 16%) 0%, hsl(40 74% 24%) 40%, hsl(44 70% 34%) 100%);
+    --shadow-glow: 0 0 20px hsl(42 88% 45% / 0.20);
+    --shadow-accent: 0 4px 16px hsl(42 90% 48% / 0.16);
+    --brand: #D99A00;
+    --brand-strong: #9A6E00;
+    --brand-bright: #F5C518;
+    --brand-rgb: 217,154,0;
+    --brand-hero: radial-gradient(130% 130% at 88% -10%, #b8862a 0%, #6b4f14 42%, #2e2208 100%);
+    --brand-deep: linear-gradient(135deg, #3f2f08, #241b05);
   }
 
   .dark {

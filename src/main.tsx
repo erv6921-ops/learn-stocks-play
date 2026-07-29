@@ -1,6 +1,10 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { initAccent } from "@/lib/accentTheme";
+
+// Apply the saved accent theme before first paint.
+initAccent();
 
 async function clearStaleClientCaches() {
   if (typeof window === "undefined") return;
