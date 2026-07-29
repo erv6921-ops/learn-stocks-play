@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { BookOpen, Target, Eye, Coins, CheckCircle2 } from "lucide-react"
 import { toast } from "sonner"
 import { LessonProgress, StockHolding } from "@/types"
@@ -112,51 +110,43 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
   const completedCount = Object.values(completed).filter(Boolean).length
 
   return (
-    <div className="mb-8">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-display text-base font-bold flex items-center gap-2">
-          <Target className="w-4 h-4 text-primary" />
-          Daily Missions
-        </h3>
-        <Badge variant="outline" className="text-xs">
-          {completedCount}/3 Complete
-        </Badge>
+    <div>
+      <div className="flex items-center justify-between mb-2.5">
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5">
+          <Target className="w-3.5 h-3.5 text-primary" />
+          Daily missions
+        </p>
+        <span className="text-[11px] font-bold tabular-nums text-muted-foreground">
+          {completedCount}/3 done
+        </span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
         {missions.map((mission) => {
           const isDone = completed[mission.id]
           return (
-            <Card
+            <div
               key={mission.id}
-              variant="elevated"
-              className={`p-4 hover-lift cursor-default transition-all ${
-                isDone ? "border-success/20 bg-success/5" : ""
+              className={`flex items-center gap-2.5 rounded-2xl px-3 py-2.5 transition-colors ${
+                isDone ? "bg-success/[0.07]" : "bg-black/[0.03]"
               }`}
             >
-              <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                  isDone ? "bg-success/15" : "bg-primary/10"
-                }`}>
-                  {isDone
-                    ? <CheckCircle2 className="w-4 h-4 text-success" />
-                    : <mission.icon className="w-4 h-4 text-primary" />
-                  }
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className={`text-sm font-semibold ${isDone ? "line-through text-muted-foreground" : ""}`}>
-                    {mission.label}
-                  </p>
-                  <div className="flex items-center gap-3 mt-0.5">
-                    <span className="text-[11px] text-warning font-bold flex items-center gap-0.5">
-                      <Coins className="w-3 h-3" />+{mission.coins} InvestiCoins
-                    </span>
-                    {isDone && (
-                      <span className="text-[10px] text-success font-medium">✓ Earned</span>
-                    )}
-                  </div>
-                </div>
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                isDone ? "bg-success/15" : "bg-primary/10"
+              }`}>
+                {isDone
+                  ? <CheckCircle2 className="w-4 h-4 text-success" />
+                  : <mission.icon className="w-4 h-4 text-primary" />
+                }
               </div>
-            </Card>
+              <div className="min-w-0">
+                <p className={`text-[13px] font-semibold leading-tight ${isDone ? "line-through text-muted-foreground" : ""}`}>
+                  {mission.label}
+                </p>
+                <span className="text-[11px] text-warning font-bold flex items-center gap-0.5 mt-0.5">
+                  <Coins className="w-3 h-3" />{isDone ? "Earned" : `+${mission.coins}`}
+                </span>
+              </div>
+            </div>
           )
         })}
       </div>

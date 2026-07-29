@@ -467,7 +467,7 @@ export default function Dashboard() {
         {/* ──── JOIN A CLASS (only for students not yet in one) ──── */}
         {inClass === false &&
         <MCard i={0} className="mb-3">
-          <Card variant="elevated" className="border-primary/30 rounded-[10px]">
+          <Card variant="elevated" className="border-primary/30 rounded-3xl">
             <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-4">
               <div className="flex items-start gap-3 flex-1">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -490,45 +490,89 @@ export default function Dashboard() {
 
         {/* ═══ 1. GREETING BANNER — moved here from Missions, sits above the ride ═══ */}
         <MCard i={0}>
-          <div className="relative overflow-hidden rounded-[20px] mb-3 p-5 md:p-6 text-white"
-            style={{ background: "linear-gradient(135deg, #0f2d1e 0%, #143d29 55%, #1d6b4d 135%)" }}>
-            {/* subtle dotted texture */}
+          <div className="relative overflow-hidden rounded-3xl mb-3 p-6 md:p-8 text-white"
+            style={{ background: "radial-gradient(130% 130% at 88% -10%, #23855c 0%, #145037 42%, #0b2418 100%)" }}>
+            {/* dotted texture + soft colored depth orbs */}
             <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
               style={{ backgroundImage: "radial-gradient(circle at 25% 15%, white 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
+            <div className="absolute -right-16 -top-24 w-72 h-72 rounded-full blur-3xl pointer-events-none"
+              style={{ background: "rgba(227,160,8,0.18)" }} />
+            <div className="absolute -left-20 -bottom-24 w-72 h-72 rounded-full blur-3xl pointer-events-none"
+              style={{ background: "rgba(47,211,155,0.16)" }} />
+
             <div className="relative">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/45">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">
                     {formattedDate}
                   </p>
-                  <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight leading-tight mt-1 break-words">
+                  <h1 className="font-display text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.05] mt-1.5 break-words">
                     {getGreeting()}
                   </h1>
-                  <p className="text-sm text-white/55 mt-1">{greetingSub}</p>
+                  <p className="text-sm md:text-[15px] text-white/60 mt-2">{greetingSub}</p>
                 </div>
-                {/* Class rank — hidden entirely when no class/leaderboard */}
-                {rankInfo != null && (
-                  <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold shrink-0"
-                    style={{ background: "rgba(239,159,39,0.18)", color: "#F5C26B" }}>
-                    <Trophy className="w-3.5 h-3.5" /> #{rankInfo.rank} in class
+                {/* League badge + class rank */}
+                <div className="flex flex-col items-end gap-2 shrink-0">
+                  <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-bold"
+                    style={{ background: myLeague.soft, color: myLeague.color, border: `1px solid ${myLeague.color}55` }}>
+                    <span className="text-sm leading-none">{myLeague.icon}</span> {myLeague.name}
                   </div>
-                )}
+                  {rankInfo != null && (
+                    <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold"
+                      style={{ background: "rgba(239,159,39,0.18)", color: "#F5C26B" }}>
+                      <Trophy className="w-3.5 h-3.5" /> #{rankInfo.rank} in class
+                    </div>
+                  )}
+                </div>
               </div>
 
-              {/* Stat strip — streak, coins, level, best streak, lessons completed */}
-              <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+              {/* Level progress bar */}
+              <div className="mt-6">
+                <div className="flex items-end justify-between gap-3 mb-2">
+                  <p className="text-[13px] font-bold">
+                    <span style={{ color: "#5eead4" }}>Level {currLevel}</span>
+                    <span className="text-white/45 font-semibold"> · {LEVEL_NAMES[currLevel - 1]}</span>
+                  </p>
+                  <p className="text-[11px] font-semibold text-white/45 tabular-nums">
+                    {completedLessons}/{totalLessons} lessons
+                  </p>
+                </div>
+                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.09)" }}>
+                  <motion.div
+                    initial={{ width: 0 }} animate={{ width: `${levelProgressPct}%` }}
+                    transition={{ duration: 1.1, delay: 0.3, ease: "easeOut" }}
+                    className="h-full rounded-full"
+                    style={{ background: "linear-gradient(90deg, #E3A008, #2FD39B)" }} />
+                </div>
+              </div>
+
+              {/* Stats — one cohesive frosted tray, icon chips, hairline dividers */}
+              <div className="mt-6 rounded-2xl grid grid-cols-2 sm:grid-cols-5 overflow-hidden"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
                 {[
-                  { Icon: Flame, tint: "text-orange-400", value: String(streak), label: "Day streak" },
-                  { Icon: Coins, tint: "text-gold", value: jeffsBalance.toLocaleString(), label: "Coins" },
-                  { Icon: Star, tint: "text-yellow-300", value: `Lv ${currLevel}`, label: "Level" },
-                  { Icon: Flame, tint: "text-orange-300", value: `${bestStreak}d`, label: "Best streak" },
-                  { Icon: BookOpen, tint: "text-emerald-300", value: `${completedLessons}/${totalLessons}`, label: "Lessons completed" },
-                ].map(({ Icon, tint, value, label }) => (
-                  <div key={label} className="rounded-xl bg-white/[0.06] border border-white/10 px-3 py-2.5 flex items-center gap-2.5 min-w-0">
-                    <Icon className={`w-4 h-4 shrink-0 ${tint}`} />
-                    <div className="min-w-0">
-                      <p className="text-base md:text-lg font-extrabold leading-none tabular-nums">{value}</p>
+                  { Icon: Flame, tint: "#fb923c", value: String(streak), label: "Day streak" },
+                  { Icon: Coins, tint: "#F5C26B", value: jeffsBalance.toLocaleString(), label: "Coins" },
+                  { Icon: Star, tint: "#fde047", value: `Lv ${currLevel}`, label: "Level" },
+                  { Icon: Flame, tint: "#fdba74", value: `${bestStreak}d`, label: "Best streak" },
+                  { Icon: BookOpen, tint: "#6ee7b7", value: `${completedLessons}/${totalLessons}`, label: "Lessons", bar: levelProgressPct },
+                ].map(({ Icon, tint, value, label, bar }, idx) => (
+                  <div key={label}
+                    className={`flex items-center gap-3 px-4 py-3.5 min-w-0 border-white/10 ${idx > 0 ? "sm:border-l" : ""} ${idx >= 2 ? "border-t sm:border-t-0" : ""} ${idx % 2 === 1 ? "border-l sm:border-l" : ""}`}>
+                    <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                      style={{ background: `${tint}1f`, border: `1px solid ${tint}33` }}>
+                      <Icon className="w-4 h-4" style={{ color: tint }} />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xl md:text-2xl font-extrabold leading-none tabular-nums">{value}</p>
                       <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 truncate">{label}</p>
+                      {bar != null && (
+                        <div className="h-1 rounded-full mt-1.5 overflow-hidden" style={{ background: "rgba(255,255,255,0.12)" }}>
+                          <motion.div
+                            initial={{ width: 0 }} animate={{ width: `${bar}%` }}
+                            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                            className="h-full rounded-full" style={{ background: tint }} />
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -537,14 +581,12 @@ export default function Dashboard() {
           </div>
         </MCard>
 
-        {/* ═══ 2. ROLLER COASTER — full-width strip ═══ */}
+        {/* ═══ 2. ROLLER COASTER — full-width strip (hidden — flip to true to restore) ═══ */}
+        {false && (
         <MCard i={1}>
-          <div className="bg-white rounded-[20px] overflow-hidden relative" style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-md)" }}>
-            {/* gold→mint hairline + soft corner glow */}
-            <div className="absolute top-0 left-0 right-0 h-[2.5px]"
-              style={{ background: "linear-gradient(90deg, #E3A008, #1D9E75 55%, transparent)" }} />
+          <div className="rounded-3xl overflow-hidden relative" style={{ background: "linear-gradient(180deg, #e6f1eb 0%, #f4faf7 14%, #ffffff 34%)", border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
             <div className="absolute -right-10 -top-10 w-36 h-36 rounded-full blur-3xl pointer-events-none"
-              style={{ background: "rgba(29,158,117,0.08)" }} />
+              style={{ background: "rgba(29,158,117,0.10)" }} />
             <div className="px-5 md:px-6 pt-5 pb-1 flex items-center justify-between gap-3 relative">
               <div className="min-w-0">
                 <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
@@ -578,55 +620,67 @@ export default function Dashboard() {
             />
           </div>
         </MCard>
+        )}
 
-        {/* ═══ 3. DAILY CHALLENGE ═══ */}
-        <MCard i={6}>
-          <div className={`rounded-[20px] p-5 text-white relative overflow-hidden hover-lift mt-3 ${dailyDone ? "opacity-75" : ""}`} style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)", boxShadow: "var(--shadow-md)" }}>
-            <div className="absolute top-0 left-0 right-0 h-[2px]"
-              style={{ background: "linear-gradient(90deg, transparent, rgba(43,182,115,0.7), transparent)" }} />
-            <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
-              style={{ background: "rgba(43,182,115,0.14)" }} />
-            <p className="relative text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Daily challenge</p>
-            <div className="relative flex items-center justify-between gap-4 mt-2.5">
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/5" style={{ background: "rgba(43,182,115,0.18)" }}>
-                  <Flame className="w-5 h-5 text-success" />
+        {/* ═══ 3. TODAY — daily challenge + missions, one unified card ═══ */}
+        <MCard i={6} className="mt-3">
+          <div className="bg-white rounded-3xl p-5 relative overflow-hidden" style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
+            <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+              style={{ background: "rgba(43,182,115,0.06)" }} />
+            <p className="relative text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Today</p>
+
+            {/* Daily challenge — contained highlight row */}
+            <div className={`relative mt-3 rounded-2xl p-4 text-white overflow-hidden ${dailyDone ? "opacity-80" : ""}`}
+              style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
+              <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full blur-2xl pointer-events-none"
+                style={{ background: "rgba(43,182,115,0.16)" }} />
+              <div className="relative flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/5" style={{ background: "rgba(43,182,115,0.18)" }}>
+                    <Flame className="w-5 h-5 text-success" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Daily challenge</p>
+                    <p className="font-display font-extrabold text-lg truncate mt-0.5">{dailyGameName}</p>
+                    <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="font-display font-extrabold text-lg truncate">{dailyGameName}</p>
-                  <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
-                </div>
+                {dailyDone ? (
+                  <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-xl bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
+                ) : (
+                  <Link to="/daily" className="shrink-0">
+                    <button className="px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale border border-white/10">
+                      Play →
+                    </button>
+                  </Link>
+                )}
               </div>
-              {dailyDone ? (
-                <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-[6px] bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
-              ) : (
-                <Link to="/daily" className="shrink-0">
-                  <button className="px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale border border-white/10">
-                    Play →
-                  </button>
-                </Link>
-              )}
+            </div>
+
+            {/* Daily missions — light rows, same card */}
+            <div className="mt-4 pt-4 border-t border-black/[0.06]">
+              <DailyMissions
+                lessonProgress={lessonProgress}
+                portfolio={portfolio}
+                earnJeffs={earnJeffs} />
             </div>
           </div>
         </MCard>
 
-        {/* ═══ 3b. DAILY MISSIONS — full-width checklist, under the daily challenge ═══ */}
-        <MCard i={7} className="mt-3">
-          <DailyMissions
-            lessonProgress={lessonProgress}
-            portfolio={portfolio}
-            earnJeffs={earnJeffs} />
-        </MCard>
-
         {/* ═══ 4. SNAPSHOTS — business · portfolio · class rank ═══ */}
-        <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-3 mt-3 items-stretch">
+        <MCard i={7} className="mt-6 mb-2.5 px-1">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#1D9E75" }} />
+            Your world
+          </p>
+        </MCard>
+        <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-3 items-stretch">
 
           {/* ── Micro-business: revenue hero + radial rep + customer dots ── */}
           <MCard i={8}>
             <Link to="/micro-business" className="block h-full">
-              <div className="group bg-white rounded-[20px] p-5 relative overflow-hidden hover-lift press-scale h-full"
-                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
-                <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #0F766E, #0F766E00 70%)" }} />
+              <div className="group bg-white rounded-3xl p-5 relative overflow-hidden hover-lift press-scale h-full"
+                style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#0F766E1f" }} />
                 <div className="relative">
                   <div className="flex items-center justify-between">
@@ -800,9 +854,8 @@ export default function Dashboard() {
           {/* ── Class Leaderboard snapshot ── */}
           <MCard i={10}>
             <Link to="/leaderboard" className="block h-full">
-              <div className="group bg-white rounded-[20px] overflow-hidden hover-lift press-scale h-full relative"
-                style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}>
-                <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #E3A008, #E3A00800 70%)" }} />
+              <div className="group bg-white rounded-3xl overflow-hidden hover-lift press-scale h-full relative"
+                style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
 
                 {lbRows.length > 0 && rankInfo ? (
                   <>
@@ -1024,10 +1077,9 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
   return (
     <MCard i={9}>
       <div
-        className="bg-white rounded-[20px] p-5 relative overflow-hidden h-full"
-        style={{ border: "0.5px solid #e0e8e3", boxShadow: "var(--shadow-sm)" }}
+        className="bg-white rounded-3xl p-5 relative overflow-hidden h-full"
+        style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}
       >
-        <div className="absolute top-0 left-0 right-0 h-[2.5px]" style={{ background: "linear-gradient(90deg, #3BA7C4, #3BA7C400 70%)" }} />
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(59,167,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,167,196,0.04) 1px,transparent 1px)",
           backgroundSize: "20px 20px",
