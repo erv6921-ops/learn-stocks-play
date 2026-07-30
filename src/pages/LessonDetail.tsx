@@ -3,10 +3,10 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { lessons } from "@/data/lessons"
 import { getStructuredContent } from "@/data/lessonContent"
-import { generateStructuredContent } from "@/lib/contentGenerator"
+import { generateStructuredContent, tierDifficulty } from "@/lib/contentGenerator"
 import { LessonSection, StructuredLessonContent, QuizQuestion } from "@/types"
 import { shuffleQuestionSet, normalizeOptionLengths, questionPassesQualityChecks } from "@/lib/mcqEngine"
-import { getQuizForLesson } from "@/data/lessonQuizzes"
+import { getQuizForLesson, getQuizForLessonByTier } from "@/data/lessonQuizzes"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -100,7 +100,7 @@ export default function LessonDetail() {
   // off-topic generic template questions.)
   const structuredContent: StructuredLessonContent | null = useMemo(() => {
     if (!lesson) return null
-    const raw = getStructuredContent(lesson.id, regenerationCount, contentConfidenceTier, recentQuestionIds)
+    const raw = getStructuredContent(lesson.id, regenerationCount, contentConfidenceTier, recentQuestionIds, user?.literacyLevel ?? null)
     if (!raw) return null
 
     // Guessability guard: authored questions often have the correct answer
@@ -108,7 +108,9 @@ export default function LessonDetail() {
     // can hide. For each quiz question: (1) trim trailing elaboration off
     // standout-long options, and (2) if it STILL fails the length/quality
     // checks, swap in a clean unused question from this lesson's quiz pool.
-    const pool = getQuizForLesson(lesson.id)
+    const pool = user?.literacyLevel
+      ? getQuizForLessonByTier(lesson.id, tierDifficulty(user.literacyLevel))
+      : getQuizForLesson(lesson.id)
     const usedIds = new Set<string>()
     raw.sections.forEach(s => {
       if (s.type === "micro-check" || s.type === "mastery-check") s.questions.forEach(q => usedIds.add(q.id))
@@ -140,7 +142,7 @@ export default function LessonDetail() {
       return section
     })
     return { ...raw, sections: processedSections }
-  }, [lesson, regenerationCount, contentConfidenceTier, recentQuestionIds])
+  }, [lesson, regenerationCount, contentConfidenceTier, recentQuestionIds, user?.literacyLevel])
 
   // ─── Lesson state ───
   const [currentSectionIdx, setCurrentSectionIdx] = useState(0)
@@ -170,7 +172,7 @@ export default function LessonDetail() {
   // the capped confidence-tier reinforcement round (handleReinforcementContinue)
   // is a deliberately fresh, separate attempt chain, not a "restart."
   const [masteryAttempt, setMasteryAttempt] = useState(() => ({ sessionId: crypto.randomUUID(), attemptNumber: 1 }))
-  const reflectionPrompt = lesson ? getReflectionPrompt(lesson.category, lesson.title) : ""
+  const reflectionPrompt = lesson ? getReflectionPrompt(lesson.id, lesson.category) : ""
   const reflectionWords = reflectionText.trim().split(/\s+/).filter(Boolean).length
 
   if (!lesson || !structuredContent) {

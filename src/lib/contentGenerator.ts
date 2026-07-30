@@ -10,7 +10,7 @@
  */
 
 import { Lesson, StructuredLessonContent, QuizQuestion, LessonCategory, MasteryTier } from "@/types"
-import { getQuizForLesson } from "@/data/lessonQuizzes"
+import { getQuizForLesson, getQuizForLessonByTier } from "@/data/lessonQuizzes"
 import { prepareQuestionsForRender, questionPassesQualityChecks } from "@/lib/mcqEngine"
 
 // ═══════════════════════════════════════════════
@@ -25,7 +25,7 @@ interface CategoryTemplate {
   fallbackQuestions: (title: string, tier: MasteryTier) => QuizQuestion[]
 }
 
-function tierDifficulty(tier: MasteryTier): "beginner" | "intermediate" | "advanced" {
+export function tierDifficulty(tier: MasteryTier): "beginner" | "intermediate" | "advanced" {
   if (tier === "explorer") return "beginner"
   if (tier === "builder" || tier === "strategist") return "intermediate"
   return "advanced"
@@ -252,13 +252,18 @@ export function generateStructuredContent(
   // what each tier actually does; this function only applies what it's told.
   confidenceTier: string | null = null,
   excludeQuestionIds: string[] = [],
-  reinforcementQuestion: QuizQuestion | null = null
+  reinforcementQuestion: QuizQuestion | null = null,
+  // Student's live MasteryTier (not lesson.level, which is the lesson's fixed
+  // authored tier). Null means "unknown" - preserves today's unfiltered pool.
+  studentTier: MasteryTier | null = null
 ): StructuredLessonContent {
   // Set generation seed for this call - changes on regeneration
   _generationSeed = regenerationAttempt * 7919 // prime multiplier for variety
 
   const template = getTemplate(lesson.category)
-  let quizPool = getQuizForLesson(lesson.id)
+  let quizPool = studentTier
+    ? getQuizForLessonByTier(lesson.id, tierDifficulty(studentTier))
+    : getQuizForLesson(lesson.id)
   const usedIds = new Set<string>()
 
   // fragile_confidence: give a different set than what they just saw, not

@@ -1,4 +1,4 @@
-import { StructuredLessonContent, Lesson, QuizQuestion, MicroCheckSection, MasteryCheckSection } from "@/types"
+import { StructuredLessonContent, Lesson, QuizQuestion, MicroCheckSection, MasteryCheckSection, MasteryTier } from "@/types"
 import { lessons } from "@/data/lessons"
 import { getQuizForLesson } from "@/data/lessonQuizzes"
 import { generateStructuredContent } from "@/lib/contentGenerator"
@@ -1348,7 +1348,8 @@ export function getStructuredContent(
   lessonId: string,
   regeneration = 0,
   confidenceTier: string | null = null,
-  recentQuestionIds: string[] = []
+  recentQuestionIds: string[] = [],
+  studentTier: MasteryTier | null = null
 ): StructuredLessonContent | null {
   const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...insuranceContent, ...creditExpansionContent, ...incomeExpansionContent, ...budgetExpansionContent, ...savingsInvestExpansionContent, ...apMicroUnit1Content]
   const handWritten = allContent.find(c => c.lessonId === lessonId)
@@ -1367,7 +1368,7 @@ export function getStructuredContent(
     const reinforcementQuestion = confidenceTier === "moderate_confidence"
       ? pickReinforcementQuestion(lesson, allContent)
       : null
-    const generated = generateStructuredContent(lesson, regeneration, confidenceTier, recentQuestionIds, reinforcementQuestion)
+    const generated = generateStructuredContent(lesson, regeneration, confidenceTier, recentQuestionIds, reinforcementQuestion, studentTier)
     // AP Micro lessons: keep the auto-generated prose but overlay the
     // hand-authored 3-question quiz as the end-of-lesson mastery check.
     const authoredQuiz = AP_MICRO_QUIZZES[lessonId]
