@@ -94,7 +94,7 @@ function pageTips(path: string): string[] {
   if (path.startsWith("/stocks")) return ["Real prices, fake cash - experiment freely! 💸", "Watch a stock a few days before you 'buy' 👀", "Don't put all your coins in one stock 🧺"]
   if (path.startsWith("/micro-business") || path.startsWith("/business")) return ["Track profit each round - think like a CEO 📒", "Reinvest your earnings to grow faster 🌱"]
   if (path.startsWith("/progress")) return ["Attack your weakest topic to level up fastest 📈", "Mastery beats speed - go deep 🧠"]
-  if (path.startsWith("/leaderboard")) return ["Want to climb? Lessons give the most InvestiCoins 🚀", "Race a friend to #1 🏁"]
+  if (path.startsWith("/leaderboard")) return ["Want to climb? Lessons give the most InvestiCoins 🚀", "Race a partner to #1 🏁"]
   if (path.startsWith("/challenges")) return ["Enter a challenge - winner takes ALL the coins 🏆", "Even if you don't win, you learn. Still a W 💪"]
   return GENERAL_TIPS
 }

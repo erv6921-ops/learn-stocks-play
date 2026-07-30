@@ -72,7 +72,7 @@ const NAV_ITEMS = [
 { to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress", tint: "#6366F1" },
 { to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard", tint: "#E0457B" },
 { to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges", tint: "#DC2626" },
-{ to: "/partners", icon: Users, label: "Find Friends", tour: "nav-partners", tint: "#059669" }];
+{ to: "/partners", icon: Users, label: "Find Partners", tour: "nav-partners", tint: "#059669" }];
 
 
 export default function GameNav() {

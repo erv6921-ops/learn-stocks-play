@@ -212,7 +212,7 @@ export default function Leaderboard() {
   const copyInviteLink = () => {
     const url = `${window.location.origin}/onboarding`
     navigator.clipboard.writeText(url)
-    toast({ title: "Link copied!", description: "Share this with friends to invite them." })
+    toast({ title: "Link copied!", description: "Share this with partners to invite them." })
   }
 
   const allEntries = useMemo<Entry[]>(() => {
@@ -504,7 +504,7 @@ export default function Leaderboard() {
               onClick={() => setScope(s)}
               className="press-scale capitalize flex-1 sm:flex-none"
             >
-              {s === "class" ? "My Class" : s === "friends" ? "Friends" : "National"}
+              {s === "class" ? "My Class" : s === "friends" ? "Partners" : "National"}
             </Button>
           ))}
         </div>
@@ -557,16 +557,16 @@ export default function Leaderboard() {
               <div className="rounded-3xl border border-border/40 bg-gradient-to-b from-primary/[0.05] to-card p-6 text-center">
                 <Users className="w-12 h-12 mx-auto text-primary/40 mb-3" />
                 <h3 className="text-lg font-bold mb-1.5">
-                  {scope === "class" ? "No classmates yet" : "No friends connected yet"}
+                  {scope === "class" ? "No classmates yet" : "No partners connected yet"}
                 </h3>
                 <p className="text-sm text-muted-foreground max-w-md mx-auto">
                   {scope === "class"
                     ? "Join a class to compete with your classmates and race up the leagues - but you can start earning InvestiCoins and climbing the ladder right now."
-                    : "Add partners in the Find Friends directory and they'll show up here to race against - your stats are ready when they are."}
+                    : "Add partners in the Find Partners directory and they'll show up here to race against - your stats are ready when they are."}
                 </p>
                 <Link to="/partners">
                   <Button size="sm" className="mt-4 gap-1.5 font-bold">
-                    <UserPlus className="w-4 h-4" /> Find Friends
+                    <UserPlus className="w-4 h-4" /> Find Partners
                   </Button>
                 </Link>
               </div>
@@ -600,11 +600,11 @@ export default function Leaderboard() {
                 <Card variant="elevated">
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
-                      <Link2 className="w-4 h-4 text-primary" /> Invite Friends
+                      <Link2 className="w-4 h-4 text-primary" /> Invite Partners
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <p className="text-sm text-muted-foreground">Share this link with friends to invite them to InvestiPlay.</p>
+                    <p className="text-sm text-muted-foreground">Share this link with partners to invite them to InvestiPlay.</p>
                     <Button variant="outline" onClick={copyInviteLink} className="w-full gap-2">
                       <Copy className="w-4 h-4" /> Copy Invite Link
                     </Button>
@@ -786,7 +786,7 @@ export default function Leaderboard() {
                 <div className="rounded-3xl border border-primary/20 bg-primary/5 p-5 text-center">
                   <TrendingUp className="w-7 h-7 mx-auto text-primary mb-2" />
                   <p className="text-sm font-bold">More rivals, more glory</p>
-                  <p className="text-[12px] text-muted-foreground mt-1 mb-3">Invite friends and battle for the crown.</p>
+                  <p className="text-[12px] text-muted-foreground mt-1 mb-3">Invite partners and battle for the crown.</p>
                   <Button variant="outline" size="sm" onClick={copyInviteLink} className="w-full gap-2">
                     <Copy className="w-4 h-4" /> Copy invite link
                   </Button>

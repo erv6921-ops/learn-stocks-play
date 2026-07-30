@@ -80,7 +80,7 @@ const STEPS: Step[] = [
 
   // The rest
   { route: "/progress", anchor: "progress-overview", icon: BarChart3, title: "Your progress", body: "This map shows your strengths across every topic. Attack your weak spots to level fast.", mood: "teaching" },
-  { route: "/leaderboard", anchor: "lead-podium", icon: Trophy, title: "Switch the board", body: "Flip between your class, friends and national rankings. Go climb! 🧗", mood: "happy" },
+  { route: "/leaderboard", anchor: "lead-podium", icon: Trophy, title: "Switch the board", body: "Flip between your class, partners and national rankings. Go climb! 🧗", mood: "happy" },
   { route: "/challenges", anchor: "challenge-enter", icon: Swords, title: "Join a challenge", body: "Jump into a challenge here, beat the goal and win the pot of coins. 💪", mood: "excited" },
   { route: "/profile", anchor: "profile-theme", icon: Palette, title: "Make it yours", body: "Switch between light and dark mode right here whenever you like.", mood: "happy" },
 
