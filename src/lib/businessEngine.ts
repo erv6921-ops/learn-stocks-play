@@ -1,4 +1,4 @@
-// businessEngine.ts — pure data + simulation for Micro-Business Mode.
+// businessEngine.ts - pure data + simulation for Micro-Business Mode.
 // No React / JSX here so the economy is easy to reason about and test.
 import {
   Package, Wrench, Monitor, Palette, Gamepad2, BookOpen, ShoppingBag,
@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 
 export const SEED_COST = 500;            // startup investment (InvestiCoins)
-export const START_HEALTH = 70;          // business health meter (0–100)
+export const START_HEALTH = 70;          // business health meter (0-100)
 export const OP_COOLDOWN_HOURS = 20;     // one operations run per ~day
 export const BUSINESS_MONTH_DAYS = 5;    // 5 business days = one "month"
 export const SEASON_LEN_DAYS = 14;       // class competition season length
@@ -50,9 +50,9 @@ export const RESEARCH: ResearchQ[] = [
     { label: "A nice-to-have", pts: 12 },
     { label: "It's mostly for fun", pts: 5 } ] },
   { id: "competition", q: "How much competition is there?", options: [
-    { label: "A few rivals — demand is proven", pts: 25 },
+    { label: "A few rivals - demand is proven", pts: 25 },
     { label: "None I can find", pts: 8 },
-    { label: "Tons — it's crowded", pts: 4 } ] },
+    { label: "Tons - it's crowded", pts: 4 } ] },
   { id: "reach", q: "How will customers find you?", options: [
     { label: "A specific channel I can name", pts: 25 },
     { label: "Word of mouth", pts: 14 },
@@ -61,31 +61,31 @@ export const RESEARCH: ResearchQ[] = [
 
 export const PROOFS = [
   { id: "target", label: "Describe your target customer", placeholder: "e.g. Middle-schoolers who love anime and decorate their laptops…" },
-  { id: "competitors", label: "Identify 3 competitors", placeholder: "1) … 2) … 3) … — and how you'll be different" },
+  { id: "competitors", label: "Identify 3 competitors", placeholder: "1) … 2) … 3) … - and how you'll be different" },
   { id: "valueProp", label: "Write your value proposition", placeholder: "We help ___ do ___ with ___, unlike ___ because ___" },
 ] as const;
 export const MIN_PROOF = 15;
 
 export interface Tier { key: "hot" | "risky" | "saturated"; label: string; emoji: string; mult: number; icon: LucideIcon; color: string; note: string }
 export function viabilityTier(score: number): Tier {
-  if (score >= 72) return { key: "hot", label: "Hot Market", emoji: "🔥", mult: 1.4, icon: Flame, color: "#EF9F27", note: "Strong demand — you'll launch with real traction." };
+  if (score >= 72) return { key: "hot", label: "Hot Market", emoji: "🔥", mult: 1.4, icon: Flame, color: "#EF9F27", note: "Strong demand - you'll launch with real traction." };
   if (score >= 44) return { key: "risky", label: "Risky", emoji: "⚠️", mult: 1.0, icon: AlertTriangle, color: "#f59e0b", note: "It could work, but the market is unproven. Execute well." };
-  return { key: "saturated", label: "Saturated", emoji: "❄️", mult: 0.65, icon: Snowflake, color: "#60a5fa", note: "Crowded or unclear — every coin will have to work harder." };
+  return { key: "saturated", label: "Saturated", emoji: "❄️", mult: 0.65, icon: Snowflake, color: "#60a5fa", note: "Crowded or unclear - every coin will have to work harder." };
 }
 
 export interface MarketEvent { type: "good" | "bad" | "neutral"; emoji: string; title: string; desc: string; mult: number; opex?: number }
 export const EVENTS: MarketEvent[] = [
-  { type: "good", emoji: "📰", title: "Local news featured you!", desc: "A reporter covered your shop — customers poured in.", mult: 1.35 },
+  { type: "good", emoji: "📰", title: "Local news featured you!", desc: "A reporter covered your shop - customers poured in.", mult: 1.35 },
   { type: "good", emoji: "🎵", title: "Viral TikTok mention!", desc: "A creator showed off your product. Sales spiked.", mult: 1.6 },
   { type: "good", emoji: "⭐", title: "Glowing word of mouth", desc: "Happy customers told their friends.", mult: 1.3 },
   { type: "good", emoji: "🎁", title: "Seasonal rush", desc: "A holiday lifted demand across the board.", mult: 1.25 },
   { type: "good", emoji: "🔁", title: "Repeat customers", desc: "Loyal buyers came back for more.", mult: 1.2 },
-  { type: "bad", emoji: "🔻", title: "Competitor undercut you", desc: "A rival slashed prices — you lost some customers.", mult: 0.8 },
+  { type: "bad", emoji: "🔻", title: "Competitor undercut you", desc: "A rival slashed prices - you lost some customers.", mult: 0.8 },
   { type: "bad", emoji: "📦", title: "Supplier costs jumped", desc: "Materials got more expensive today.", mult: 0.97, opex: 18 },
   { type: "bad", emoji: "😬", title: "A bad review spread", desc: "One angry customer scared others away.", mult: 0.82 },
   { type: "bad", emoji: "📉", title: "Economy slowed down", desc: "People tightened their budgets.", mult: 0.8 },
   { type: "bad", emoji: "🔧", title: "Equipment broke", desc: "Something broke and needed a repair.", mult: 0.95, opex: 22 },
-  { type: "neutral", emoji: "🌙", title: "Quiet day", desc: "No big swings — steady as she goes.", mult: 1.0 },
+  { type: "neutral", emoji: "🌙", title: "Quiet day", desc: "No big swings - steady as she goes.", mult: 1.0 },
 ];
 export const pickEvent = () => EVENTS[Math.floor(Math.random() * EVENTS.length)];
 
@@ -94,15 +94,15 @@ export interface Upgrade { id: string; icon: LucideIcon; title: string; cost: nu
 export const UPGRADES: Upgrade[] = [
   { id: "hire", icon: Users, title: "Hire an employee", cost: 120, blurb: "More capacity to meet demand (+overhead).", apply: m => ({ ...m, capacity: m.capacity + 0.2, opex: m.opex + 16 }), health: 3, repeatable: true },
   { id: "product", icon: Lightbulb, title: "Invest in product quality", cost: 90, blurb: "Charge more & keep customers loyal.", apply: m => ({ ...m, quality: m.quality + 0.16 }), health: 6, repeatable: true },
-  { id: "expand", icon: Building2, title: "Expand to a new location", cost: 220, blurb: "Bigger reach — but a bigger overhead bill.", apply: m => ({ ...m, demand: m.demand + 0.4, opex: m.opex + 40 }), health: -2, repeatable: true },
+  { id: "expand", icon: Building2, title: "Expand to a new location", cost: 220, blurb: "Bigger reach - but a bigger overhead bill.", apply: m => ({ ...m, demand: m.demand + 0.4, opex: m.opex + 40 }), health: -2, repeatable: true },
   { id: "automate", icon: Monitor, title: "Automate operations", cost: 160, blurb: "Lower ongoing costs for good.", apply: m => ({ ...m, opex: Math.max(-60, m.opex - 22) }), health: 2 },
 ];
 
-// One-shot marketing campaigns — a gamble (can flop).
+// One-shot marketing campaigns - a gamble (can flop).
 export interface Campaign { id: string; name: string; cost: number; payoff: number; successRate: number; desc: string }
 export const CAMPAIGNS: Campaign[] = [
   { id: "social", name: "Social media blitz", cost: 50, payoff: 110, successRate: 0.75, desc: "Post everywhere to pull in attention." },
-  { id: "flash", name: "Flash sale", cost: 25, payoff: 75, successRate: 0.6, desc: "Quick revenue spike — high risk, high reward." },
+  { id: "flash", name: "Flash sale", cost: 25, payoff: 75, successRate: 0.6, desc: "Quick revenue spike - high risk, high reward." },
   { id: "referral", name: "Referral program", cost: 75, payoff: 160, successRate: 0.7, desc: "Reward customers who bring friends." },
   { id: "feature", name: "Premium ad placement", cost: 150, payoff: 300, successRate: 0.65, desc: "Featured spot in the marketplace." },
 ];

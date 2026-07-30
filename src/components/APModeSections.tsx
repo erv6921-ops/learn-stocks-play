@@ -36,23 +36,23 @@ interface APSection {
 const AP_SECTIONS: APSection[] = [
   {
     title: "Unit 1: Businesses, Competition & New Ideas",
-    subtitle: "Markets, competitive advantage, PESTEL, business ethics, supply chains — 25 class periods",
+    subtitle: "Markets, competitive advantage, PESTEL, business ethics, supply chains - 25 class periods",
     unitIds: ["unit-19", "unit-20", "unit-26", "unit-33", "unit-34"],
     extras: [
-      { label: "Micro Business Simulator", description: "Apply what you've learned — run your own business", link: "/micro-business", icon: <Briefcase className="w-4 h-4" /> },
+      { label: "Micro Business Simulator", description: "Apply what you've learned - run your own business", link: "/micro-business", icon: <Briefcase className="w-4 h-4" /> },
     ],
   },
   {
     title: "Unit 2: Marketing",
-    subtitle: "Consumer behavior, market research, the 4 Ps — 25 class periods",
+    subtitle: "Consumer behavior, market research, the 4 Ps - 25 class periods",
     unitIds: ["unit-15", "unit-16", "unit-28", "unit-29", "unit-30"],
   },
   {
     title: "Unit 3: Finance & Accounting",
-    subtitle: "Personal finance, financial statements, business capital — 35 class periods",
+    subtitle: "Personal finance, financial statements, business capital - 35 class periods",
     subsections: [
       {
-        label: "Part 1 — Personal Finance",
+        label: "Part 1 - Personal Finance",
         unitIds: ["unit-1", "unit-2", "unit-3", "unit-4", "unit-5"],
         extras: [
           { label: "Lab: Taxes (W-4, W-2, 1040-EZ)", description: "Hands-on tax document practice", link: "/applied-finance-lab", icon: <BookOpen className="w-4 h-4" /> },
@@ -60,24 +60,24 @@ const AP_SECTIONS: APSection[] = [
         ],
       },
       {
-        label: "Part 2 — Business Finance",
+        label: "Part 2 - Business Finance",
         unitIds: ["unit-12", "unit-13", "unit-14", "unit-6", "unit-7", "unit-8"],
       },
     ],
   },
   {
     title: "Unit 4: Management & Strategy",
-    subtitle: "Leadership, KPIs, SWOT analysis, Porter's Five Forces — 25 class periods",
+    subtitle: "Leadership, KPIs, SWOT analysis, Porter's Five Forces - 25 class periods",
     unitIds: ["unit-26", "unit-31", "unit-32"],
   },
   {
     title: "Unit 5: Personal Goals & Investing",
-    subtitle: "Taxes, risk management, retirement goals — 50 class periods · Financial Advisor Project",
+    subtitle: "Taxes, risk management, retirement goals - 50 class periods · Financial Advisor Project",
     topNote: "This unit supports the Financial Advisor Project and is not directly tested on the AP Exam",
     unitIds: ["unit-9", "unit-10", "unit-11", "unit-17", "unit-18", "unit-23", "unit-24"],
     extras: [
       { label: "Stock Market Simulator", description: "Trade stocks with virtual money in real-time", link: "/stocks", icon: <TrendingUp className="w-4 h-4" /> },
-      { label: "Financial Advisor Project — AP Culminating", description: "Advise a fictional household on budgeting, education, home buying & retirement", link: "/financial-advisor", icon: <ClipboardList className="w-4 h-4" /> },
+      { label: "Financial Advisor Project - AP Culminating", description: "Advise a fictional household on budgeting, education, home buying & retirement", link: "/financial-advisor", icon: <ClipboardList className="w-4 h-4" /> },
     ],
   },
 ];
@@ -145,7 +145,7 @@ export default function APModeSections({ allUnits, renderUnit }: APModeSectionsP
         </p>
       </div>
 
-      {/* Business Canvas Project — AP Required */}
+      {/* Business Canvas Project - AP Required */}
       <Link to="/business-canvas">
         <Card className="flex items-center gap-4 px-6 py-5 border-2 border-primary/20 rounded-2xl bg-primary/3 shadow-card hover:bg-primary/5 transition-colors press-scale">
           <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
@@ -157,7 +157,7 @@ export default function APModeSections({ allUnits, renderUnit }: APModeSectionsP
               <Badge variant="outline" className="text-[10px] font-bold border-primary/30 text-primary">AP Required</Badge>
             </div>
             <p className="text-xs text-muted-foreground">
-              Build a complete Business Model Canvas for your own business idea — 9 guided blocks + submission
+              Build a complete Business Model Canvas for your own business idea - 9 guided blocks + submission
             </p>
           </div>
           <div className="text-primary shrink-0">
@@ -208,7 +208,7 @@ export default function APModeSections({ allUnits, renderUnit }: APModeSectionsP
         </section>
       ))}
 
-      {/* Beyond AP — collapsed */}
+      {/* Beyond AP - collapsed */}
       {beyondUnits.length > 0 && (
         <section>
           <Accordion type="single" collapsible className="space-y-0">
@@ -220,7 +220,7 @@ export default function APModeSections({ allUnits, renderUnit }: APModeSectionsP
                   </div>
                   <div>
                     <h2 className="font-display text-lg md:text-xl font-bold tracking-tight">
-                      Beyond AP — Advanced Content
+                      Beyond AP - Advanced Content
                     </h2>
                     <p className="text-[11px] text-muted-foreground mt-0.5">
                       {beyondUnits.length} additional unit{beyondUnits.length !== 1 ? "s" : ""} for advanced exploration

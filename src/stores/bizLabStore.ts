@@ -4,7 +4,7 @@
 // activities, reflections, flashcard views, streaks, badges, and a local cache
 // of submissions). It persists to localStorage so a student's progress and
 // streak survive reloads. Submissions are *also* synced to Supabase by the
-// submission form — the cache here just gives instant, offline-friendly UI.
+// submission form - the cache here just gives instant, offline-friendly UI.
 //
 // InvestiCoin payouts run through AppContext's `earnJeffs`; this store only
 // records which reward keys have already been paid (`awardedKeys`) so a coin is
@@ -138,7 +138,7 @@ export const useBizLabStore = create<BizLabState>()(
 
 // ── Derived selectors (plain functions, not hooks) ──────────────────────────
 
-/** Overall unit completion 0–100 based on parts completed. */
+/** Overall unit completion 0-100 based on parts completed. */
 export function computeUnitPercent(completedParts: string[]): number {
   return Math.round((completedParts.length / BIZ_LAB_PARTS.length) * 100)
 }

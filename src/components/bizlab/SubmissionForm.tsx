@@ -168,7 +168,7 @@ export default function SubmissionForm({ spec }: { spec: SubmissionSpec }) {
 
       {useGroups && (
         <p className="text-xs text-muted-foreground mb-3">
-          {groups.length} quick sections — tap one open at a time. No pressure! 🙌
+          {groups.length} quick sections - tap one open at a time. No pressure! 🙌
         </p>
       )}
 

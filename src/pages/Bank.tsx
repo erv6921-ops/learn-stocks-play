@@ -1,13 +1,13 @@
-// InvestiBank — the Virtual Bank page (/bank).
+// InvestiBank - the Virtual Bank page (/bank).
 //
 // Styled as an old-money private bank (deep green, mint trim, pinstripes).
-// Every visit opens in the LOBBY — a drawn bank façade where Jeff greets you
+// Every visit opens in the LOBBY - a drawn bank façade where Jeff greets you
 // and points to four floors; each floor then takes over the full page, with a
 // "Lobby" button top-right to switch. Four floors:
-//   01 The Vault       — savings with 2%/day compound interest
-//   02 Lending Desk    — loans against your credit score
-//   03 Bond Market     — fixed-term bonds, certificate style
-//   04 Executive Floor — a long-running finance career
+//   01 The Vault       - savings with 2%/day compound interest
+//   02 Lending Desk    - loans against your credit score
+//   03 Bond Market     - fixed-term bonds, certificate style
+//   04 Executive Floor - a long-running finance career
 //
 // Coins move through AppContext (earnJeffs/awardJeffs/spendJeffs) so the
 // jeffs_history ledger stays the source of truth; bank-internal state
@@ -109,7 +109,7 @@ function VaultDesk() {
 
   return (
     <div className="space-y-4">
-      {/* vault door — balance + compounding forecast in one wide panel */}
+      {/* vault door - balance + compounding forecast in one wide panel */}
       <BankPanel className="p-5 sm:p-6">
         <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
           <div>
@@ -133,7 +133,7 @@ function VaultDesk() {
               {projection.map(({ days, value }) => (
                 <div key={days} className="rounded-lg border px-2.5 py-2.5 text-center" style={{ borderColor: `${ACCENT}30`, background: "rgba(255,255,255,0.04)" }}>
                   <p className="text-[10px] uppercase font-bold tracking-wide text-white/40">{days} days</p>
-                  <p className="text-sm sm:text-base font-extrabold tabular-nums text-white mt-0.5">{savings > 0 ? money(value) : "—"}</p>
+                  <p className="text-sm sm:text-base font-extrabold tabular-nums text-white mt-0.5">{savings > 0 ? money(value) : "-"}</p>
                   <p className="text-[11px] font-bold text-emerald-300">{savings > 0 ? `+${money(value - savings)}` : " "}</p>
                 </div>
               ))}
@@ -186,7 +186,7 @@ function VaultDesk() {
 
         <div className="lg:col-span-2">
           <LearnCard icon={PiggyBank} title="How savings work:">
-            money in the vault earns compound interest — interest on your interest. Banks pay you to keep
+            money in the vault earns compound interest - interest on your interest. Banks pay you to keep
             money with them because they lend it out to others. Come back each day and watch it grow.
           </LearnCard>
         </div>
@@ -280,13 +280,13 @@ function LoansDesk() {
     repayLoan(loanId)
     toast({
       title: onTime ? "Loan repaid on time! 🎉" : "Loan repaid",
-      description: onTime ? "Credit score +25. Banks love reliable borrowers." : "Repaid late — debt cleared, but no credit boost this time.",
+      description: onTime ? "Credit score +25. Banks love reliable borrowers." : "Repaid late - debt cleared, but no credit boost this time.",
     })
   }
 
   return (
     <div className="space-y-4">
-      {/* credit desk — gauge + how the score moves, one wide panel */}
+      {/* credit desk - gauge + how the score moves, one wide panel */}
       <BankPanel className="p-5 sm:p-6">
         <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
           <CreditGauge score={creditScore} />
@@ -294,7 +294,7 @@ function LoansDesk() {
             <Engraving className="mb-3">How your score moves</Engraving>
             {[
               { label: "Repay a loan on time", value: "+25", color: "#6ee7b7" },
-              { label: "Miss a due date", value: "−50", color: "#fca5a5" },
+              { label: "Miss a due date", value: "-50", color: "#fca5a5" },
               { label: "Loans repaid so far", value: String(loansRepaid), color: ACCENT_SOFT },
             ].map(r => (
               <div key={r.label} className="flex items-center justify-between rounded-lg border px-3 py-2" style={{ borderColor: `${ACCENT}30`, background: "rgba(255,255,255,0.04)" }}>
@@ -303,7 +303,7 @@ function LoansDesk() {
               </div>
             ))}
             <p className="text-[11px] text-white/35 pt-1">
-              Higher scores unlock bigger loans — 620+ for the Builder, 720+ for the Big Dream.
+              Higher scores unlock bigger loans - 620+ for the Builder, 720+ for the Big Dream.
             </p>
           </div>
         </div>
@@ -313,7 +313,7 @@ function LoansDesk() {
       <div className="space-y-4">
         <LearnCard icon={ScrollText} title="How credit works:">
           your credit score is your money reputation. Borrow only what you can pay back, repay on time,
-          and banks will trust you with bigger loans at better rates — in this game and in real life.
+          and banks will trust you with bigger loans at better rates - in this game and in real life.
         </LearnCard>
 
         {/* active loans */}
@@ -332,7 +332,7 @@ function LoansDesk() {
                       <p className="text-xs text-muted-foreground mt-0.5">
                         Owe <span className="font-bold text-foreground">{money(loan.totalDue)}</span> coins ·{" "}
                         {overdue ? (
-                          <span className="text-red-500 font-bold inline-flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> OVERDUE — credit hit!</span>
+                          <span className="text-red-500 font-bold inline-flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> OVERDUE - credit hit!</span>
                         ) : (
                           <span className="inline-flex items-center gap-1"><Clock className="h-3 w-3" /> due in {days} day{days === 1 ? "" : "s"}</span>
                         )}
@@ -521,7 +521,7 @@ function BondsDesk() {
                       </span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                      <span className="font-semibold">{product.issuer}</span> — {product.blurb}
+                      <span className="font-semibold">{product.issuer}</span> - {product.blurb}
                     </p>
                   </div>
                 </div>
@@ -556,7 +556,7 @@ type Floor = "vault" | "lending" | "bonds" | "careers"
 
 const FLOORS: { id: Floor; num: string; name: string; desc: string; blurb: string; icon: LucideIcon }[] = [
   { id: "vault", num: "01", name: "The Vault", desc: "Savings & interest", blurb: "Park your coins and let compound interest do the heavy lifting.", icon: Vault },
-  { id: "lending", num: "02", name: "Lending Desk", desc: "Loans & credit", blurb: "Borrow against your credit score — and build it by paying on time.", icon: HandCoins },
+  { id: "lending", num: "02", name: "Lending Desk", desc: "Loans & credit", blurb: "Borrow against your credit score - and build it by paying on time.", icon: HandCoins },
   { id: "bonds", num: "03", name: "Bond Market", desc: "Fixed income", blurb: "Lend your money out for a fixed term and collect the interest at maturity.", icon: ScrollText },
   { id: "careers", num: "04", name: "Executive Floor", desc: "Your career", blurb: "Work a real finance job, week after week.", icon: Briefcase },
 ]
@@ -713,7 +713,7 @@ export default function Bank() {
                           style={{ borderColor: `${ACCENT}44`, background: "hsl(169 55% 14%)" }}
                         />
                         {firstName ? `Hey ${firstName}! ` : "Hey! "}I'm Jeff, your personal banker. Grow it, borrow it,
-                        lend it — or earn it with a real finance job. Which floor are we visiting today?
+                        lend it - or earn it with a real finance job. Which floor are we visiting today?
                       </div>
                     </div>
                   </div>

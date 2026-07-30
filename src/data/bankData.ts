@@ -17,7 +17,7 @@ export interface LoanProduct {
   name: string
   icon: LucideIcon
   amount: number
-  /** Total interest owed on top of principal (flat, not APR — simpler for kids). */
+  /** Total interest owed on top of principal (flat, not APR - simpler for kids). */
   interestRate: number
   termDays: number
   /** Minimum credit score to qualify. */
@@ -91,7 +91,7 @@ export const BOND_PRODUCTS: BondProduct[] = [
     termDays: 3,
     minInvestment: 100,
     risk: "Very Low",
-    blurb: "Backed by the government — the safest investment there is. Small but sure.",
+    blurb: "Backed by the government - the safest investment there is. Small but sure.",
   },
   {
     id: "muni",

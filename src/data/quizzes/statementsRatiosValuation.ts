@@ -1,6 +1,6 @@
 import type { LessonQuiz } from "../lessonQuizzes"
 
-// Authored quiz pools — Financial Statements, Ratios, and Valuation.
+// Authored quiz pools - Financial Statements, Ratios, and Valuation.
 export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
   // FIN-STMT-1: Income Statement
   {
@@ -28,7 +28,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Total revenue from selling products and services"
         ],
         correctAnswer: 3,
-        explanation: "Revenue is the starting point — that's why it's nicknamed the 'top line.' Expenses are subtracted from it as you move down, ending with net income at the bottom."
+        explanation: "Revenue is the starting point - that's why it's nicknamed the 'top line.' Expenses are subtracted from it as you move down, ending with net income at the bottom."
       },
       {
         id: "fin-stmt-1-q3",
@@ -40,7 +40,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "A profit of exactly $150,000 for that period"
         ],
         correctAnswer: 0,
-        explanation: "Profit is revenue minus expenses: $200,000 − $150,000 = $50,000. Since revenue exceeds expenses, the company made money, not a loss."
+        explanation: "Profit is revenue minus expenses: $200,000 - $150,000 = $50,000. Since revenue exceeds expenses, the company made money, not a loss."
       },
       {
         id: "fin-stmt-1-q4",
@@ -64,7 +64,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Revenue of $500 and a $200 profit"
         ],
         correctAnswer: 3,
-        explanation: "Sales of $500 are the revenue, and $500 − $300 in costs leaves a $200 profit. You made money, so it's a profit rather than a loss."
+        explanation: "Sales of $500 are the revenue, and $500 - $300 in costs leaves a $200 profit. You made money, so it's a profit rather than a loss."
       },
       {
         id: "fin-stmt-1-q6",
@@ -118,7 +118,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "The amount of cash borrowed from a bank"
         ],
         correctAnswer: 2,
-        explanation: "Revenue is all the money coming in from selling products or services, before any costs are subtracted. What's left after expenses is profit — a different number."
+        explanation: "Revenue is all the money coming in from selling products or services, before any costs are subtracted. What's left after expenses is profit - a different number."
       },
       {
         id: "fin-stmt-2-q2",
@@ -130,7 +130,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "The value of a company's buildings and equipment"
         ],
         correctAnswer: 0,
-        explanation: "Profit is revenue minus every expense — it's what the company actually keeps. Total customer payments describe revenue, not profit."
+        explanation: "Profit is revenue minus every expense - it's what the company actually keeps. Total customer payments describe revenue, not profit."
       },
       {
         id: "fin-stmt-2-q3",
@@ -142,7 +142,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "A loss of $100,000 for the year"
         ],
         correctAnswer: 3,
-        explanation: "Spending $1,100,000 while earning $1,000,000 leaves the company $100,000 short — a loss. Big revenue means nothing if expenses are even bigger."
+        explanation: "Spending $1,100,000 while earning $1,000,000 leaves the company $100,000 short - a loss. Big revenue means nothing if expenses are even bigger."
       },
       {
         id: "fin-stmt-2-q4",
@@ -190,7 +190,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "The shop's total expenses for the whole year"
         ],
         correctAnswer: 1,
-        explanation: "1,000 pairs times $100 equals $100,000 of revenue — money from sales before subtracting anything. Profit will be smaller once the shop pays for inventory, rent, and staff."
+        explanation: "1,000 pairs times $100 equals $100,000 of revenue - money from sales before subtracting anything. Profit will be smaller once the shop pays for inventory, rent, and staff."
       },
       {
         id: "fin-stmt-2-q8",
@@ -220,7 +220,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "The rent paid on the company's office buildings"
         ],
         correctAnswer: 0,
-        explanation: "COGS covers costs directly tied to producing what was sold — materials, factory labor, and production supplies. Office rent, ads, and admin salaries are operating expenses instead."
+        explanation: "COGS covers costs directly tied to producing what was sold - materials, factory labor, and production supplies. Office rent, ads, and admin salaries are operating expenses instead."
       },
       {
         id: "fin-stmt-3-q2",
@@ -256,7 +256,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Gross profit, before other operating expenses"
         ],
         correctAnswer: 3,
-        explanation: "Revenue minus COGS equals gross profit — the money left after covering direct production costs. Operating expenses and taxes still need to be subtracted to reach net income."
+        explanation: "Revenue minus COGS equals gross profit - the money left after covering direct production costs. Operating expenses and taxes still need to be subtracted to reach net income."
       },
       {
         id: "fin-stmt-3-q5",
@@ -268,7 +268,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "$50,000 because revenue equals gross profit"
         ],
         correctAnswer: 2,
-        explanation: "Gross profit is revenue minus COGS: $50,000 − $30,000 = $20,000. That's the cash cushion left to cover rent, salaries, marketing, and taxes."
+        explanation: "Gross profit is revenue minus COGS: $50,000 - $30,000 = $20,000. That's the cash cushion left to cover rent, salaries, marketing, and taxes."
       },
       {
         id: "fin-stmt-3-q6",
@@ -304,7 +304,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "It falls from $60 all the way to $30"
         ],
         correctAnswer: 0,
-        explanation: "Gross profit per pair is price minus COGS: $100 − $60 = $40 before, and $100 − $70 = $30 after. The $10 cost increase comes straight out of profit."
+        explanation: "Gross profit per pair is price minus COGS: $100 - $60 = $40 before, and $100 - $70 = $30 after. The $10 cost increase comes straight out of profit."
       }
     ]
   },
@@ -322,7 +322,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Revenue minus COGS, divided by revenue"
         ],
         correctAnswer: 3,
-        explanation: "Gross margin is (revenue − COGS) ÷ revenue, expressed as a percentage. It shows what share of each sales dollar survives after direct production costs."
+        explanation: "Gross margin is (revenue - COGS) ÷ revenue, expressed as a percentage. It shows what share of each sales dollar survives after direct production costs."
       },
       {
         id: "fin-stmt-4-q2",
@@ -334,7 +334,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "6% of the company's total revenue"
         ],
         correctAnswer: 1,
-        explanation: "($100 − $60) ÷ $100 = $40 ÷ $100 = 40%. The company keeps 40 cents of every sales dollar after production costs."
+        explanation: "($100 - $60) ÷ $100 = $40 ÷ $100 = 40%. The company keeps 40 cents of every sales dollar after production costs."
       },
       {
         id: "fin-stmt-4-q3",
@@ -346,7 +346,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "25%, keeping $125,000 of the revenue"
         ],
         correctAnswer: 2,
-        explanation: "Gross profit is $500,000 − $200,000 = $300,000, and $300,000 ÷ $500,000 = 60%. The brand keeps 60 cents of every dollar it sells."
+        explanation: "Gross profit is $500,000 - $200,000 = $300,000, and $300,000 ÷ $500,000 = 60%. The brand keeps 60 cents of every dollar it sells."
       },
       {
         id: "fin-stmt-4-q4",
@@ -406,7 +406,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "60%, keeping $1.20 per cup"
         ],
         correctAnswer: 2,
-        explanation: "($2.00 − $0.50) ÷ $2.00 = $1.50 ÷ $2.00 = 75%. Three-quarters of every cup's price stays with you after ingredient costs."
+        explanation: "($2.00 - $0.50) ÷ $2.00 = $1.50 ÷ $2.00 = 75%. Three-quarters of every cup's price stays with you after ingredient costs."
       }
     ]
   },
@@ -448,7 +448,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "$80,000 because gross profit never changes"
         ],
         correctAnswer: 0,
-        explanation: "Operating income is gross profit minus operating expenses: $80,000 − $50,000 = $30,000. That's the profit from running the core business, before interest and taxes."
+        explanation: "Operating income is gross profit minus operating expenses: $80,000 - $50,000 = $30,000. That's the profit from running the core business, before interest and taxes."
       },
       {
         id: "fin-stmt-5-q4",
@@ -472,7 +472,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "They mostly continue, since rent and salaries remain"
         ],
         correctAnswer: 3,
-        explanation: "Costs like rent and staff salaries don't shrink just because sales slow down. That's what makes falling revenue dangerous — many operating expenses keep arriving anyway."
+        explanation: "Costs like rent and staff salaries don't shrink just because sales slow down. That's what makes falling revenue dangerous - many operating expenses keep arriving anyway."
       },
       {
         id: "fin-stmt-5-q6",
@@ -508,7 +508,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Standard goods and average inventory costs"
         ],
         correctAnswer: 1,
-        explanation: "SG&A stands for selling, general, and administrative expenses — a major bucket of operating costs. It includes things like sales team pay, office costs, and management salaries."
+        explanation: "SG&A stands for selling, general, and administrative expenses - a major bucket of operating costs. It includes things like sales team pay, office costs, and management salaries."
       }
     ]
   },
@@ -526,7 +526,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "The value of products sitting in inventory"
         ],
         correctAnswer: 2,
-        explanation: "Net income is revenue minus every expense — production costs, operating costs, interest, and taxes. It's the company's true profit for the period."
+        explanation: "Net income is revenue minus every expense - production costs, operating costs, interest, and taxes. It's the company's true profit for the period."
       },
       {
         id: "fin-stmt-6-q2",
@@ -550,7 +550,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "$24,000 after subtracting every expense listed"
         ],
         correctAnswer: 3,
-        explanation: "$100,000 − $40,000 − $30,000 = $30,000 before taxes, and $30,000 − $6,000 = $24,000 net income. Every cost, including taxes, comes out before the bottom line."
+        explanation: "$100,000 - $40,000 - $30,000 = $30,000 before taxes, and $30,000 - $6,000 = $24,000 net income. Every cost, including taxes, comes out before the bottom line."
       },
       {
         id: "fin-stmt-6-q4",
@@ -562,7 +562,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "The company paid too much in dividends"
         ],
         correctAnswer: 1,
-        explanation: "Negative net income means total expenses exceeded revenue — a net loss for the period. It doesn't guarantee any specific stock move, though repeated losses worry investors."
+        explanation: "Negative net income means total expenses exceeded revenue - a net loss for the period. It doesn't guarantee any specific stock move, though repeated losses worry investors."
       },
       {
         id: "fin-stmt-6-q5",
@@ -586,7 +586,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "$680 after adding everything up together"
         ],
         correctAnswer: 2,
-        explanation: "$400 − $250 = $150 before taxes, and $150 − $30 = $120 net income. Net income always includes the tax bill."
+        explanation: "$400 - $250 = $150 before taxes, and $150 - $30 = $120 net income. Net income always includes the tax bill."
       },
       {
         id: "fin-stmt-6-q7",
@@ -628,7 +628,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "The salary owed to employees next payday"
         ],
         correctAnswer: 0,
-        explanation: "Assets are valuable things a company owns or controls — cash, inventory, equipment, buildings. Money owed to others is a liability, the opposite side of the balance sheet."
+        explanation: "Assets are valuable things a company owns or controls - cash, inventory, equipment, buildings. Money owed to others is a liability, the opposite side of the balance sheet."
       },
       {
         id: "fin-stmt-8-q2",
@@ -652,7 +652,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "$500,000 because equity always equals total assets"
         ],
         correctAnswer: 1,
-        explanation: "Equity equals assets minus liabilities: $500,000 − $300,000 = $200,000. It's what would belong to owners if all debts were paid off."
+        explanation: "Equity equals assets minus liabilities: $500,000 - $300,000 = $200,000. It's what would belong to owners if all debts were paid off."
       },
       {
         id: "fin-stmt-8-q4",
@@ -700,7 +700,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "It owes more than everything it owns"
         ],
         correctAnswer: 3,
-        explanation: "When liabilities exceed assets, equity turns negative — even selling everything wouldn't cover the debts. That's a serious sign of financial distress."
+        explanation: "When liabilities exceed assets, equity turns negative - even selling everything wouldn't cover the debts. That's a serious sign of financial distress."
       },
       {
         id: "fin-stmt-8-q8",
@@ -712,7 +712,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Equity doubles because the company now owns more"
         ],
         correctAnswer: 0,
-        explanation: "Assets rise $10,000 (equipment) and liabilities rise $10,000 (loan), so the difference — equity — is unchanged. Borrowing to buy something doesn't create owner value by itself."
+        explanation: "Assets rise $10,000 (equipment) and liabilities rise $10,000 (loan), so the difference - equity - is unchanged. Borrowing to buy something doesn't create owner value by itself."
       }
     ]
   },
@@ -754,7 +754,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Its profit becomes illegal until clients pay"
         ],
         correctAnswer: 2,
-        explanation: "Accounting rules let companies record revenue when work is delivered, even before cash arrives. So a business can look profitable while its bank account stays thin — a key reason to watch cash flow."
+        explanation: "Accounting rules let companies record revenue when work is delivered, even before cash arrives. So a business can look profitable while its bank account stays thin - a key reason to watch cash flow."
       },
       {
         id: "fin-stmt-9-q4",
@@ -766,7 +766,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Exactly zero because the flows cancel out"
         ],
         correctAnswer: 0,
-        explanation: "Net cash flow is cash in minus cash out: $80,000 − $60,000 = +$20,000. The company's cash pile grew during the quarter."
+        explanation: "Net cash flow is cash in minus cash out: $80,000 - $60,000 = +$20,000. The company's cash pile grew during the quarter."
       },
       {
         id: "fin-stmt-9-q5",
@@ -802,7 +802,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Nowhere, because loans never touch cash flow"
         ],
         correctAnswer: 0,
-        explanation: "Borrowing money is a financing activity — cash comes in from lenders, not from selling products. Repaying that loan later also shows up in the financing section."
+        explanation: "Borrowing money is a financing activity - cash comes in from lenders, not from selling products. Repaying that loan later also shows up in the financing section."
       },
       {
         id: "fin-stmt-9-q8",
@@ -844,7 +844,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "$70,000 after subtracting the equipment spending"
         ],
         correctAnswer: 3,
-        explanation: "FCF is operating cash flow minus capex: $100,000 − $30,000 = $70,000. That's the cash left after keeping the business running and equipped."
+        explanation: "FCF is operating cash flow minus capex: $100,000 - $30,000 = $70,000. That's the cash left after keeping the business running and equipped."
       },
       {
         id: "fin-stmt-10-q3",
@@ -856,7 +856,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Return it to the government as extra taxes"
         ],
         correctAnswer: 0,
-        explanation: "FCF is flexible money — it can fund dividends, share buybacks, debt repayment, acquisitions, or new growth projects. That flexibility is exactly why investors prize it."
+        explanation: "FCF is flexible money - it can fund dividends, share buybacks, debt repayment, acquisitions, or new growth projects. That flexibility is exactly why investors prize it."
       },
       {
         id: "fin-stmt-10-q4",
@@ -880,7 +880,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Negative $10,000 for the year overall"
         ],
         correctAnswer: 3,
-        explanation: "$50,000 − $60,000 = −$10,000, so FCF is negative. The company invested more cash in equipment than its operations produced that year."
+        explanation: "$50,000 - $60,000 = -$10,000, so FCF is negative. The company invested more cash in equipment than its operations produced that year."
       },
       {
         id: "fin-stmt-10-q6",
@@ -892,7 +892,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "The cost of shipping products to customers"
         ],
         correctAnswer: 0,
-        explanation: "Capex is money spent on long-lasting physical assets — factories, machinery, vehicles, warehouses. It's subtracted from operating cash flow to calculate free cash flow."
+        explanation: "Capex is money spent on long-lasting physical assets - factories, machinery, vehicles, warehouses. It's subtracted from operating cash flow to calculate free cash flow."
       },
       {
         id: "fin-stmt-10-q7",
@@ -904,7 +904,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "Negative FCF proves the business model failed"
         ],
         correctAnswer: 2,
-        explanation: "Negative FCF isn't automatically bad — a young company may be pouring cash into assets that power future growth. The key question is whether those investments will pay off later."
+        explanation: "Negative FCF isn't automatically bad - a young company may be pouring cash into assets that power future growth. The key question is whether those investments will pay off later."
       },
       {
         id: "fin-stmt-10-q8",
@@ -916,7 +916,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
           "$200,000 because machines don't affect FCF"
         ],
         correctAnswer: 1,
-        explanation: "FCF equals $200,000 − $80,000 = $120,000. After reinvesting in machines, that's the cash available for dividends, debt payments, or expansion."
+        explanation: "FCF equals $200,000 - $80,000 = $120,000. After reinvesting in machines, that's the cash available for dividends, debt payments, or expansion."
       }
     ]
   },

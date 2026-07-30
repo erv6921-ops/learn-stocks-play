@@ -1,9 +1,9 @@
-// Partners — the student directory (/partners).
+// Partners - the student directory (/partners).
 //
 // Styled as a "trading floor directory": search any student by name, see their
 // school + grade instantly, and add them as a partner. Clicking a student opens
-// their public snapshot — league rank, stock portfolio (live prices) and
-// micro-business stats — served by SECURITY DEFINER RPCs (search_students,
+// their public snapshot - league rank, stock portfolio (live prices) and
+// micro-business stats - served by SECURITY DEFINER RPCs (search_students,
 // get_partners, get_partner_snapshot) since the underlying tables are RLS
 // own-row-only. Visual identity: mint "ID badge" cards, distinct from the
 // leaderboard's trophy styling and the bank's engraved panels.
@@ -250,7 +250,7 @@ export default function Partners() {
       return
     }
     if (data === "accepted") {
-      // They had already invited us — inviting back seals the partnership.
+      // They had already invited us - inviting back seals the partnership.
       toast({ title: "You're partners! 🤝", description: `${fullName(s)} had already invited you.` })
       setResultStatus(s.user_id, "accepted")
     } else {
@@ -322,7 +322,7 @@ export default function Partners() {
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
-        {/* Header — directory identity */}
+        {/* Header - directory identity */}
         <div
           className="rounded-2xl p-6 md:p-8 mb-6 border relative overflow-hidden"
           style={{ background: `linear-gradient(135deg, hsl(158 45% 15%), hsl(152 50% 24%))`, borderColor: "hsl(152 40% 30%)" }}
@@ -334,7 +334,7 @@ export default function Partners() {
             </div>
             <p className="text-sm md:text-base" style={{ color: "hsl(152 40% 80%)" }}>
               Search any student by name, see their school and grade, and send them a partner invite.
-              Once they accept, you're connected — tap a partner to peek at their stocks, business and rank.
+              Once they accept, you're connected - tap a partner to peek at their stocks, business and rank.
             </p>
           </div>
           <Sparkles className="absolute right-6 top-6 w-16 h-16 opacity-10 text-white" />
@@ -390,7 +390,7 @@ export default function Partners() {
               </CardContent>
             </Card>
 
-            {/* Incoming invites — people who want to partner with you */}
+            {/* Incoming invites - people who want to partner with you */}
             {requests.length > 0 && (
               <div>
                 <h2 className="font-extrabold text-sm uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
@@ -568,7 +568,7 @@ function SnapshotView({
             )}
           </div>
           {snap.holdings.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No stocks yet — their portfolio is empty.</p>
+            <p className="text-sm text-muted-foreground">No stocks yet - their portfolio is empty.</p>
           ) : (
             <div className="divide-y divide-border">
               {snap.holdings.map(h => {
@@ -619,7 +619,7 @@ function SnapshotView({
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <BizStat label="Week" value={`${biz.week}`} />
                 <BizStat label="Revenue" value={fmtMoney(Number(biz.revenue ?? 0))} />
-                <BizStat label="Credit Score" value={`${biz.credit_score ?? "—"}`} />
+                <BizStat label="Credit Score" value={`${biz.credit_score ?? "-"}`} />
                 <BizStat label="Rating" value={`${Number(biz.star_rating ?? 0).toFixed(1)} ★`} />
               </div>
               <div className="flex flex-wrap gap-2 mt-3">

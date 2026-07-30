@@ -18,8 +18,8 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
         title: "Accounts the Government Pays You to Use",
         paragraphs: [
           "Tax-advantaged accounts are special accounts the government created to encourage saving by giving you a tax break. The two main retirement versions are the Traditional IRA and the Roth IRA. With a Traditional IRA, you contribute pre-tax dollars (lowering your taxes now) but pay taxes when you withdraw in retirement. With a Roth IRA, you contribute after-tax dollars now, and then ALL the growth and withdrawals in retirement are completely tax-free.",
-          "For teens and young workers, the Roth IRA is usually the winner. Why? You're in a low tax bracket now, so paying tax on contributions costs little — and in exchange, decades of growth come out tax-free later. The 2024 contribution limit is $7,000 per year (as long as you have earned income). There's also the 529 plan, designed for education: the money grows tax-free and withdrawals are tax-free when used for qualified education expenses.",
-          "The real magic is compound growth over time. If you invest $2,000 a year in a Roth IRA from age 18 to 65 at an 8% average return, you could end up with roughly $1,000,000 — and because it's a Roth, you wouldn't owe taxes on that million when you withdraw it. Starting young is the single biggest advantage you have, because time does most of the work."
+          "For teens and young workers, the Roth IRA is usually the winner. Why? You're in a low tax bracket now, so paying tax on contributions costs little - and in exchange, decades of growth come out tax-free later. The 2024 contribution limit is $7,000 per year (as long as you have earned income). There's also the 529 plan, designed for education: the money grows tax-free and withdrawals are tax-free when used for qualified education expenses.",
+          "The real magic is compound growth over time. If you invest $2,000 a year in a Roth IRA from age 18 to 65 at an 8% average return, you could end up with roughly $1,000,000 - and because it's a Roth, you wouldn't owe taxes on that million when you withdraw it. Starting young is the single biggest advantage you have, because time does most of the work."
         ],
         bullets: [
           "Tax-advantaged accounts give you tax breaks to reward saving.",
@@ -28,7 +28,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
           "Roth is usually best for young, low-income savers (low tax now, tax-free later).",
           "The 2024 IRA contribution limit is $7,000/year; 529 plans cover education tax-free."
         ],
-        realWorldExample: "A teen who puts summer-job earnings into a Roth IRA gets decades of tax-free compounding. Because they're taxed at a low rate now, paying tax upfront is cheap — and the eventual tax-free withdrawal can be worth a fortune."
+        realWorldExample: "A teen who puts summer-job earnings into a Roth IRA gets decades of tax-free compounding. Because they're taxed at a low rate now, paying tax upfront is cheap - and the eventual tax-free withdrawal can be worth a fortune."
       },
       {
         type: "micro-check",
@@ -55,7 +55,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
               "Because teens can't use Traditional IRAs"
             ],
             correctAnswer: 1,
-            explanation: "Young, low-income earners pay little tax now, so paying upfront on Roth contributions is cheap — and they lock in decades of tax-free growth."
+            explanation: "Young, low-income earners pay little tax now, so paying upfront on Roth contributions is cheap - and they lock in decades of tax-free growth."
           }
         ]
       },
@@ -109,7 +109,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
               "They are taxed only above $1 million"
             ],
             correctAnswer: 0,
-            explanation: "Because you already paid tax on Roth contributions, qualified withdrawals in retirement — including all the growth — are tax-free."
+            explanation: "Because you already paid tax on Roth contributions, qualified withdrawals in retirement - including all the growth - are tax-free."
           },
           {
             id: "banking9-mastery2",
@@ -162,9 +162,9 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Free Money Most People Leave on the Table",
         paragraphs: [
-          "A 401(k) is a retirement plan offered by your employer. You contribute money straight from your paycheck (pre-tax), and it's invested, usually in mutual funds, to grow for retirement. The single most important feature is the employer match — when your company adds money to your account based on what you contribute. A very common match is '50% of your contributions up to 6% of your salary.'",
+          "A 401(k) is a retirement plan offered by your employer. You contribute money straight from your paycheck (pre-tax), and it's invested, usually in mutual funds, to grow for retirement. The single most important feature is the employer match - when your company adds money to your account based on what you contribute. A very common match is '50% of your contributions up to 6% of your salary.'",
           "Here's why the match is a big deal: it's literally free money. If you earn $50,000 and contribute 6% ($3,000), a 50%-up-to-6% match means your employer adds $1,500 on top. If you contribute nothing, you get nothing. Not contributing enough to capture the full match is like turning down a guaranteed raise. There's also a vesting schedule to know about: you may have to stay with the company for a few years before the employer's contributions are fully yours to keep.",
-          "Behavior matters too. Companies that automatically enroll employees in their 401(k) see roughly three times higher participation, because most people never change the default — inertia keeps them saving. You can use that same psychology on yourself: enroll, contribute at least enough to get the full match, and let automatic payroll deductions and compound growth do the heavy lifting over decades."
+          "Behavior matters too. Companies that automatically enroll employees in their 401(k) see roughly three times higher participation, because most people never change the default - inertia keeps them saving. You can use that same psychology on yourself: enroll, contribute at least enough to get the full match, and let automatic payroll deductions and compound growth do the heavy lifting over decades."
         ],
         bullets: [
           "A 401(k) is an employer-sponsored retirement plan funded from your paycheck.",
@@ -173,7 +173,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
           "Not contributing enough to get the full match leaves free money behind.",
           "Vesting schedules may require you to stay a few years to keep employer contributions."
         ],
-        realWorldExample: "If your employer offers a match and you don't contribute enough to get it, you're declining part of your total pay. Few people would refuse a raise — but skipping the 401(k) match does exactly that."
+        realWorldExample: "If your employer offers a match and you don't contribute enough to get it, you're declining part of your total pay. Few people would refuse a raise - but skipping the 401(k) match does exactly that."
       },
       {
         type: "micro-check",
@@ -188,14 +188,14 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
               "A tax on your paycheck"
             ],
             correctAnswer: 1,
-            explanation: "An employer match is extra money your company contributes to your retirement account based on how much you contribute — essentially free money."
+            explanation: "An employer match is extra money your company contributes to your retirement account based on how much you contribute - essentially free money."
           },
           {
             id: "banking10-mc2",
             question: "What happens if you contribute nothing to a 401(k) that offers a match?",
             options: [
               "You still get the full match",
-              "You get $0 in matching funds — leaving free money behind",
+              "You get $0 in matching funds - leaving free money behind",
               "Your employer doubles your salary",
               "You're automatically enrolled at 10%"
             ],
@@ -234,7 +234,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
         type: "recap",
         takeaways: [
           "A 401(k) is an employer-sponsored retirement plan funded from your paycheck.",
-          "The employer match is free money — always contribute enough to get the full match.",
+          "The employer match is free money - always contribute enough to get the full match.",
           "Failing to capture the match leaves significant money (and future growth) behind.",
           "Vesting schedules may require you to stay a few years to keep employer contributions.",
           "Auto-enrollment boosts participation because inertia keeps people saving."
@@ -248,13 +248,13 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
             id: "banking10-mastery1",
             question: "What does an employer 401(k) match mean for you?",
             options: [
-              "Your employer adds money to your retirement account based on your contributions — free money",
+              "Your employer adds money to your retirement account based on your contributions - free money",
               "You must match your coworkers' contributions",
               "You pay a penalty for contributing",
               "It's a loan against your salary"
             ],
             correctAnswer: 0,
-            explanation: "An employer match is additional money your company contributes based on what you put in — effectively free retirement savings."
+            explanation: "An employer match is additional money your company contributes based on what you put in - effectively free retirement savings."
           },
           {
             id: "banking10-mastery2",
@@ -266,7 +266,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
               "Because it raises your tax bracket"
             ],
             correctAnswer: 1,
-            explanation: "If you don't contribute enough to earn the full match, you simply don't receive those free employer dollars — money gone for good."
+            explanation: "If you don't contribute enough to earn the full match, you simply don't receive those free employer dollars - money gone for good."
           },
           {
             id: "banking10-mastery3",
@@ -307,9 +307,9 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Referees That Keep Markets Fair",
         paragraphs: [
-          "Without rules, financial markets break down. The core problem is information asymmetry — a company knows far more about itself than an outside investor does. That gap invites fraud, manipulation, and insider trading. Regulators exist to level the playing field so ordinary people can invest with some confidence that they're not being cheated.",
+          "Without rules, financial markets break down. The core problem is information asymmetry - a company knows far more about itself than an outside investor does. That gap invites fraud, manipulation, and insider trading. Regulators exist to level the playing field so ordinary people can invest with some confidence that they're not being cheated.",
           "Several agencies share the job. The SEC (Securities and Exchange Commission) requires public companies to disclose their finances through reports like the 10-K (annual) and 10-Q (quarterly), investigates fraud, and oversees brokers. The Federal Reserve (the Fed) sets interest rates, controls the money supply, and acts as the 'lender of last resort' to banks in a crisis. FINRA regulates broker-dealers. And SIPC protects your brokerage account (up to $500,000) if your brokerage firm goes bankrupt.",
-          "History shows why these protections matter. The 1929 crash, the Enron scandal, and the 2008 financial crisis all revealed what happens when oversight is weak: investors lose everything while insiders walk away. After Enron, Congress passed the Sarbanes-Oxley Act to tighten corporate financial reporting and accountability. Regulation isn't red tape for its own sake — it's the foundation that makes investing safe enough for regular people to participate."
+          "History shows why these protections matter. The 1929 crash, the Enron scandal, and the 2008 financial crisis all revealed what happens when oversight is weak: investors lose everything while insiders walk away. After Enron, Congress passed the Sarbanes-Oxley Act to tighten corporate financial reporting and accountability. Regulation isn't red tape for its own sake - it's the foundation that makes investing safe enough for regular people to participate."
         ],
         bullets: [
           "Markets fail without rules due to information asymmetry, fraud, and manipulation.",
@@ -318,7 +318,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
           "FINRA regulates broker-dealers; SIPC protects brokerage accounts up to $500,000.",
           "Sarbanes-Oxley tightened corporate reporting after the Enron scandal."
         ],
-        realWorldExample: "When you open a brokerage app and can read a company's audited financials before buying its stock, that's the SEC's disclosure rules at work — protecting you from investing blind in a company that's secretly failing."
+        realWorldExample: "When you open a brokerage app and can read a company's audited financials before buying its stock, that's the SEC's disclosure rules at work - protecting you from investing blind in a company that's secretly failing."
       },
       {
         type: "micro-check",
@@ -352,7 +352,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "The Enron Collapse",
-        narrative: "At Enron, employees held much of their retirement savings in company stock. Executives knew the company was failing but hid it from the public and their own workers. When the truth came out, the stock collapsed and employees lost their savings — while the lack of honest disclosure was at the heart of the disaster.",
+        narrative: "At Enron, employees held much of their retirement savings in company stock. Executives knew the company was failing but hid it from the public and their own workers. When the truth came out, the stock collapsed and employees lost their savings - while the lack of honest disclosure was at the heart of the disaster.",
         details: [
           "Employees' retirement savings were concentrated in Enron stock.",
           "Executives concealed the company's true, failing financial condition.",
@@ -452,9 +452,9 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Your Complete Map of Retirement & Education Accounts",
         paragraphs: [
-          "There's a whole landscape of accounts designed to help you save, each with its own rules. The 401(k) is an employer-sponsored plan with pre-tax contributions and a $23,000/year limit (2024). The 403(b) works almost identically but is offered to employees of schools, nonprofits, and hospitals — which means many InvestiPlay students who become teachers or healthcare workers will encounter a 403(b) instead of a 401(k). On the individual side, the Traditional IRA ($7,000/year limit) and Roth IRA (post-tax contributions, tax-free growth) let you save on your own.",
-          "Other accounts serve specific needs. A pension (a 'defined benefit' plan) is where an employer pays you a fixed monthly amount in retirement — once common, now increasingly rare. For education, the 529 plan grows tax-free for qualified education expenses, and unused funds can now be rolled into a Roth IRA (up to $35,000) under newer rules. The Coverdell ESA is another education account with a $2,000/year limit that's more flexible than a 529 for some K–12 expenses.",
-          "With so many options, use a simple decision tree to prioritize. First, contribute enough to your 401(k)/403(b) to get the full employer match (free money). Next, fund a Roth IRA for tax-free growth. Then go back and contribute more to your 401(k)/403(b) up to its limits. Finally, use a regular taxable brokerage account for anything beyond that. Match first, then IRA, then max the workplace plan, then taxable — that order squeezes the most value from the system."
+          "There's a whole landscape of accounts designed to help you save, each with its own rules. The 401(k) is an employer-sponsored plan with pre-tax contributions and a $23,000/year limit (2024). The 403(b) works almost identically but is offered to employees of schools, nonprofits, and hospitals - which means many InvestiPlay students who become teachers or healthcare workers will encounter a 403(b) instead of a 401(k). On the individual side, the Traditional IRA ($7,000/year limit) and Roth IRA (post-tax contributions, tax-free growth) let you save on your own.",
+          "Other accounts serve specific needs. A pension (a 'defined benefit' plan) is where an employer pays you a fixed monthly amount in retirement - once common, now increasingly rare. For education, the 529 plan grows tax-free for qualified education expenses, and unused funds can now be rolled into a Roth IRA (up to $35,000) under newer rules. The Coverdell ESA is another education account with a $2,000/year limit that's more flexible than a 529 for some K-12 expenses.",
+          "With so many options, use a simple decision tree to prioritize. First, contribute enough to your 401(k)/403(b) to get the full employer match (free money). Next, fund a Roth IRA for tax-free growth. Then go back and contribute more to your 401(k)/403(b) up to its limits. Finally, use a regular taxable brokerage account for anything beyond that. Match first, then IRA, then max the workplace plan, then taxable - that order squeezes the most value from the system."
         ],
         bullets: [
           "401(k): employer plan, pre-tax, $23,000/year limit (2024).",
@@ -463,7 +463,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
           "Pension = employer-paid fixed retirement income (now rare); 529 and Coverdell are for education.",
           "Priority order: match first → Roth IRA → max 401(k)/403(b) → taxable account."
         ],
-        realWorldExample: "A new teacher in Florida gets a 403(b) instead of a 401(k) — same idea, different name. If their school district offers a match, grabbing that match first is the highest-value move before funding any other account."
+        realWorldExample: "A new teacher in Florida gets a 403(b) instead of a 401(k) - same idea, different name. If their school district offers a match, grabbing that match first is the highest-value move before funding any other account."
       },
       {
         type: "micro-check",
@@ -475,10 +475,10 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
               "Only company CEOs",
               "Employees of schools, nonprofits, and hospitals (like teachers and nurses)",
               "Only self-employed people",
-              "Nobody — it's an old account that no longer exists"
+              "Nobody - it's an old account that no longer exists"
             ],
             correctAnswer: 1,
-            explanation: "A 403(b) works like a 401(k) but is offered to employees of schools, nonprofits, and hospitals — common for teachers and healthcare workers."
+            explanation: "A 403(b) works like a 401(k) but is offered to employees of schools, nonprofits, and hospitals - common for teachers and healthcare workers."
           },
           {
             id: "invest12-mc2",
@@ -490,7 +490,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
               "A pension"
             ],
             correctAnswer: 1,
-            explanation: "Capture the full employer match first — it's free money and the highest-value starting point before other accounts."
+            explanation: "Capture the full employer match first - it's free money and the highest-value starting point before other accounts."
           }
         ]
       },
@@ -499,7 +499,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
         title: "Teachers and Private-Sector Workers",
         narrative: "Two teachers contribute to 403(b) plans (relevant to many future InvestiPlay students), while two private-sector workers contribute to 401(k) plans. Across 35 years, their account choices, employer matches, and consistency lead to dramatically different retirement outcomes.",
         details: [
-          "The teachers use 403(b) plans; the private-sector workers use 401(k) plans — similar structures, different names.",
+          "The teachers use 403(b) plans; the private-sector workers use 401(k) plans - similar structures, different names.",
           "Those who capture their full employer match start with an immediate boost.",
           "Consistent contributions plus compound growth widen the gap over 35 years.",
           "Those who skip the match or contribute inconsistently end up with far less."
@@ -517,7 +517,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
             "401(k) plans are only for teachers"
           ],
           correctAnswer: 1,
-          explanation: "A 403(b) and a 401(k) are both employer-sponsored, pre-tax retirement plans that function almost identically — the 403(b) is simply the version offered to schools, nonprofits, and hospitals."
+          explanation: "A 403(b) and a 401(k) are both employer-sponsored, pre-tax retirement plans that function almost identically - the 403(b) is simply the version offered to schools, nonprofits, and hospitals."
         }
       },
       {
@@ -538,7 +538,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
             id: "invest12-mastery1",
             question: "What is the main difference between a 403(b) and a 401(k)?",
             options: [
-              "A 403(b) is for schools, nonprofits, and hospitals; a 401(k) is for most private companies — otherwise they work similarly",
+              "A 403(b) is for schools, nonprofits, and hospitals; a 401(k) is for most private companies - otherwise they work similarly",
               "A 403(b) can't grow in value",
               "A 401(k) is only for teachers",
               "They have nothing in common"
@@ -580,7 +580,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
               "Roth IRA only, never anything else"
             ],
             correctAnswer: 1,
-            explanation: "Grab the free employer match first, then fund a Roth IRA, then max your workplace plan, and finally use a taxable account — maximizing tax advantages and free money."
+            explanation: "Grab the free employer match first, then fund a Roth IRA, then max your workplace plan, and finally use a taxable account - maximizing tax advantages and free money."
           }
         ]
       }

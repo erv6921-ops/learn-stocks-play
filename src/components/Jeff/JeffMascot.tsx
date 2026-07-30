@@ -29,7 +29,7 @@ const MOODS: Record<JeffMoodType, MoodMotion> = {
 // never feels static. Each is a self-contained framer-motion keyframe set run on
 // its own wrapper, so it composes on top of the breathing/bob/lean underneath.
 const FIDGETS = {
-  // Jelly wobble — a quick gelatinous shimmy.
+  // Jelly wobble - a quick gelatinous shimmy.
   wobble: { rotate: [0, -9, 7, -5, 3, 0], scaleX: [1, 1.06, 0.95, 1.03, 1], transition: { duration: 0.9, ease: "easeInOut" } },
   // Excited hop with a full spin.
   spin: { y: [0, 6, -34, -34, 0], rotate: [0, 0, 180, 360, 360], scaleY: [1, 0.82, 1.12, 1, 1], transition: { duration: 0.95, times: [0, 0.12, 0.5, 0.8, 1], ease: "easeOut" } },
@@ -50,7 +50,7 @@ const REST_POSE = { x: 0, y: 0, rotate: 0, scale: 1, scaleX: 1, scaleY: 1 }
  * The friendly explorer mascot. Renders the brand illustration (a transparent
  * character cut from mascot.png) and brings it to life with framer-motion:
  *   • idle breathing + a jelly squash-and-stretch bob
- *   • cursor tracking — he leans and shifts toward your pointer
+ *   • cursor tracking - he leans and shifts toward your pointer
  *   • a random "fidget" engine that plays playful one-off moves while idle
  *   • celebrate sparkles, a hover wave, and sleepy "z"s
  * Roaming/flip/party motion is layered on by the parent <JeffWidget>, so this
@@ -88,7 +88,7 @@ export function JeffMascot({ mood = "idle", waving = false, activity = "none" }:
       const r = el.getBoundingClientRect()
       const dx = e.clientX - (r.left + r.width / 2)
       const dy = e.clientY - (r.top + r.height / 2)
-      // No rotational lean — sitting in the corner, the cursor is almost always
+      // No rotational lean - sitting in the corner, the cursor is almost always
       // to his left, which made him perpetually tilt left. Keep him upright and
       // let only a subtle positional drift track the pointer.
       leanRotV.set(0)
@@ -111,7 +111,7 @@ export function JeffMascot({ mood = "idle", waving = false, activity = "none" }:
     let alive = true
     let timer: ReturnType<typeof setTimeout>
     const tick = () => {
-      const wait = 3500 + Math.random() * 5000 // 3.5–8.5s of calm between fidgets
+      const wait = 3500 + Math.random() * 5000 // 3.5-8.5s of calm between fidgets
       timer = setTimeout(async () => {
         if (!alive) return
         if (idleRef.current) {
@@ -141,7 +141,7 @@ export function JeffMascot({ mood = "idle", waving = false, activity = "none" }:
         transition={loop(m.dur)}
       />
 
-      {/* Cursor-lean wrapper — tilts/drifts toward the pointer. */}
+      {/* Cursor-lean wrapper - tilts/drifts toward the pointer. */}
       <motion.div className="absolute inset-0" style={{ rotate: leanRot, x: shiftX, y: shiftY, transformOrigin: "center bottom" }}>
         {/* Breathing scale wrapper (separate axis from the bob so they compound). */}
         <motion.div
@@ -162,7 +162,7 @@ export function JeffMascot({ mood = "idle", waving = false, activity = "none" }:
             transition={{ y: loop(m.dur), rotate: loop(rotateDur), scaleY: loop(m.dur), scaleX: loop(m.dur) }}
             style={{ rotate: lean, transformOrigin: "center bottom" }}
           >
-            {/* Fidget wrapper — random one-off personality moves play here. */}
+            {/* Fidget wrapper - random one-off personality moves play here. */}
             <motion.div className="w-full h-full" animate={fidget} style={{ transformOrigin: "center bottom" }}>
               <motion.img
                 src={MASCOT_SRC}

@@ -59,7 +59,7 @@ export const unitInfo: UnitInfo[] = [
   { id: "unit-26", unitNumber: 22, title: "Business Management & Strategy",level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["business-management"],     orderIndex: 23 },
   { id: "unit-27", unitNumber: 23, title: "Marketing",                     level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing"],               orderIndex: 24 },
   { id: "unit-28", unitNumber: 24, title: "Consumer Behavior",              level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["consumer-behavior"],        orderIndex: 25 },
-  { id: "unit-29", unitNumber: 25, title: "The Marketing Mix — 4 Ps",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing-mix"],            orderIndex: 26 },
+  { id: "unit-29", unitNumber: 25, title: "The Marketing Mix - 4 Ps",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["marketing-mix"],            orderIndex: 26 },
   { id: "unit-30", unitNumber: 26, title: "Market Research",                level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["market-research"],          orderIndex: 27 },
   { id: "unit-31", unitNumber: 27, title: "Leadership & Management",       level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["leadership-management"],    orderIndex: 28 },
   { id: "unit-32", unitNumber: 28, title: "Strategic Analysis Tools",      level: 8,  levelTitle: LEVEL_TITLES[8],  categories: ["strategic-analysis"],       orderIndex: 29 },
@@ -76,7 +76,7 @@ export const unitInfo: UnitInfo[] = [
 ]
 
 // ═══════════════════════════════════════════════
-// LESSONS (no videos — all use structured content)
+// LESSONS (no videos - all use structured content)
 // ═══════════════════════════════════════════════
 
 export const lessons: Lesson[] = [
@@ -196,7 +196,7 @@ export const lessons: Lesson[] = [
   L("invest-6",  "Opportunity Cost",      "Every investment choice has a hidden cost",                 "investing-intro", "strategist", "unit-6", "7.6",  1000),
   L("invest-7",  "Diversification",       "Don't put all your eggs in one basket",                     "investing-intro", "strategist", "unit-6", "7.7",  1000),
   L("invest-8",  "Long vs Short Term",    "Different time horizons require different strategies",      "investing-intro", "strategist", "unit-6", "7.8",  1100),
-  L("invest-9",  "Accounts Overview",     "IRA, 401k, brokerage — what's what",                       "investing-intro", "strategist", "unit-6", "7.9",  1150),
+  L("invest-9",  "Accounts Overview",     "IRA, 401k, brokerage - what's what",                       "investing-intro", "strategist", "unit-6", "7.9",  1150),
   L("invest-10", "First Portfolio",        "Build your very first investment portfolio",                "investing-intro", "strategist", "unit-6", "7.10", 1250),
   L("invest-11", "Why Markets Need Regulators: SEC & the Fed", "Understand why the SEC, Federal Reserve, and other agencies regulate markets", "investing-intro", "strategist", "unit-6", "7.11", 600),
   L("invest-12", "Retirement & Education Accounts Deep Dive",  "Master 401k, 403b, IRA, Roth IRA, pension, 529, and Coverdell accounts",    "investing-intro", "strategist", "unit-6", "7.12", 650),
@@ -205,7 +205,7 @@ export const lessons: Lesson[] = [
   L("stocks-1",  "What Is a Share",        "Discover how stocks let you own pieces of companies",      "stocks", "builder",    "unit-7", "8.1",  750),
   L("stocks-2",  "Public vs Private",      "Understand the difference between public and private",     "stocks", "builder",    "unit-7", "8.2",  800),
   L("stocks-3",  "IPOs",                   "Learn how companies go public",                            "stocks", "builder",    "unit-7", "8.3",  850),
-  L("stocks-4",  "Market Cap",             "Size matters — understand market capitalization",           "stocks", "builder",    "unit-7", "8.4",  900),
+  L("stocks-4",  "Market Cap",             "Size matters - understand market capitalization",           "stocks", "builder",    "unit-7", "8.4",  900),
   L("stocks-5",  "Dividends",              "Learn how companies share profits with shareholders",      "stocks", "strategist", "unit-7", "8.5",  1000),
   L("stocks-6",  "Why Prices Move",        "Discover what drives stock price changes",                 "stocks", "strategist", "unit-7", "8.6",  1000),
   L("stocks-7",  "Supply & Demand",        "The market forces that set stock prices",                  "stocks", "strategist", "unit-7", "8.7",  1100),
@@ -223,7 +223,7 @@ export const lessons: Lesson[] = [
   L("market-7",  "Circuit Breakers",   "How markets protect against extreme crashes",       "stock-market", "strategist", "unit-8", "9.7",  1100),
   L("market-8",  "Insider Trading",    "The illegal side of stock trading",                 "stock-market", "strategist", "unit-8", "9.8",  1100),
   L("market-9",  "SEC Basics",         "The regulator that keeps markets fair",             "stock-market", "strategist", "unit-8", "9.9",  1200),
-  L("market-10", "Market Indexes",     "S&P 500, Dow, Nasdaq — what they track",            "stock-market", "strategist", "unit-8", "9.10", 1250),
+  L("market-10", "Market Indexes",     "S&P 500, Dow, Nasdaq - what they track",            "stock-market", "strategist", "unit-8", "9.10", 1250),
 
   // ─── LEVEL 4: PORTFOLIO STRATEGY ───
 
@@ -269,7 +269,7 @@ export const lessons: Lesson[] = [
   L("fin-stmt-3",  "COGS",                 "Cost of goods sold explained",                     "financial-statements", "investor", "unit-12", "13.3",  3400),
   L("fin-stmt-4",  "Gross Margin",          "How much money a company keeps after costs",       "financial-statements", "investor", "unit-12", "13.4",  3500),
   L("fin-stmt-5",  "Operating Expenses",   "The costs of running a business day-to-day",       "financial-statements", "investor", "unit-12", "13.5",  3600),
-  L("fin-stmt-6",  "Net Income",            "The bottom line — a company's true profit",        "financial-statements", "investor", "unit-12", "13.6",  3800),
+  L("fin-stmt-6",  "Net Income",            "The bottom line - a company's true profit",        "financial-statements", "investor", "unit-12", "13.6",  3800),
   L("fin-stmt-7",  "Balance Sheet",         "Assets, liabilities, and equity explained",        "financial-statements", "capital-architect", "unit-12", "13.7",  4000),
   L("fin-stmt-8",  "Assets vs Liabilities", "What a company owns vs what it owes",              "financial-statements", "capital-architect", "unit-12", "13.8",  4200),
   L("fin-stmt-9",  "Cash Flow",             "Follow the money flowing in and out",              "financial-statements", "capital-architect", "unit-12", "13.9",  4500),
@@ -279,7 +279,7 @@ export const lessons: Lesson[] = [
   L("ratios-2", "EPS",                  "Earnings per share and what it means",        "financial-ratios", "investor",          "unit-13", "14.2", 3200),
   L("ratios-3", "Debt-to-Equity",       "How much a company relies on borrowed money", "financial-ratios", "investor",          "unit-13", "14.3", 3500),
   L("ratios-4", "Profit Margin",        "Measuring a company's efficiency",            "financial-ratios", "investor",          "unit-13", "14.4", 3800),
-  L("ratios-5", "ROE",                  "Return on equity — shareholder value",        "financial-ratios", "capital-architect", "unit-13", "14.5", 4200),
+  L("ratios-5", "ROE",                  "Return on equity - shareholder value",        "financial-ratios", "capital-architect", "unit-13", "14.5", 4200),
   L("ratios-6", "Price-to-Sales",       "Another way to value a company",              "financial-ratios", "capital-architect", "unit-13", "14.6", 4500),
   L("ratios-7", "Valuation Multiples",  "Comparing companies using multiples",         "financial-ratios", "capital-architect", "unit-13", "14.7", 4800),
   L("ratios-8", "Ratio Interpretation", "Putting all the ratios together",             "financial-ratios", "capital-architect", "unit-13", "14.8", 5000),
@@ -326,7 +326,7 @@ export const lessons: Lesson[] = [
   L("indicators-3", "Consumer Confidence",   "How optimism drives the economy",              "economic-indicators", "investor",          "unit-18", "19.3", 3600),
   L("indicators-4", "Retail Sales",          "Tracking consumer spending trends",             "economic-indicators", "investor",          "unit-18", "19.4", 3800),
   L("indicators-5", "Housing",               "The real estate market as an economic indicator","economic-indicators", "investor",         "unit-18", "19.5", 4000),
-  L("indicators-6", "Recessions",            "When the economy shrinks — causes and effects", "economic-indicators", "capital-architect", "unit-18", "19.6", 4500),
+  L("indicators-6", "Recessions",            "When the economy shrinks - causes and effects", "economic-indicators", "capital-architect", "unit-18", "19.6", 4500),
   L("indicators-7", "Leading vs Lagging",    "Predicting vs confirming economic trends",      "economic-indicators", "capital-architect", "unit-18", "19.7", 5000),
 
   // ─── LEVEL 8: ENTREPRENEURSHIP ───
@@ -347,7 +347,7 @@ export const lessons: Lesson[] = [
   L("strategy-6", "Sustainable Advantage", "Building moats that last",                          "competitive-strategy", "capital-architect", "unit-20", "21.6", 5000),
 
   // Unit 22: Business Management & Strategy
-  L("mgmt-1", "What Managers Actually Do",           "Learn the four functions of management — planning, organizing, leading, controlling",       "business-management", "builder", "unit-26", "22.1", 400),
+  L("mgmt-1", "What Managers Actually Do",           "Learn the four functions of management - planning, organizing, leading, controlling",       "business-management", "builder", "unit-26", "22.1", 400),
   L("mgmt-2", "Leadership Styles",                   "Explore autocratic, democratic, and laissez-faire leadership and when each works",          "business-management", "builder", "unit-26", "22.2", 400),
   L("mgmt-3", "Organizational Structure",            "Understand flat vs hierarchical structures, spans of control, and org charts",              "business-management", "builder", "unit-26", "22.3", 425),
   L("mgmt-4", "SWOT Analysis",                       "Use strengths, weaknesses, opportunities, and threats as a decision framework",             "business-management", "builder", "unit-26", "22.4", 425),
@@ -360,15 +360,15 @@ export const lessons: Lesson[] = [
   L("mkt-1", "What Marketing Actually Is",           "Marketing vs advertising and the goal of creating and communicating value",                 "marketing", "explorer", "unit-27", "23.1", 300),
   L("mkt-2", "Understanding Your Customer",          "Target markets, customer segmentation, demographics vs psychographics",                     "marketing", "explorer", "unit-27", "23.2", 300),
   L("mkt-3", "Market Research",                      "Primary vs secondary research, surveys, focus groups, and reducing risk with data",         "marketing", "explorer", "unit-27", "23.3", 325),
-  L("mkt-4", "The 4 Ps: Product & Price",            "Product differentiation and pricing strategies — cost-plus, value-based, competitive",     "marketing", "explorer", "unit-27", "23.4", 325),
+  L("mkt-4", "The 4 Ps: Product & Price",            "Product differentiation and pricing strategies - cost-plus, value-based, competitive",     "marketing", "explorer", "unit-27", "23.4", 325),
   L("mkt-5", "The 4 Ps: Place & Promotion",          "Distribution channels, organic vs paid marketing, and reaching your audience",             "marketing", "explorer", "unit-27", "23.5", 350),
   L("mkt-6", "Branding",                             "What a brand really is, brand voice, consistency, trust, and brand equity",                "marketing", "explorer", "unit-27", "23.6", 350),
-  L("mkt-7", "Consumer Decision-Making",             "The buyer journey — awareness, consideration, decision, and loyalty",                      "marketing", "explorer", "unit-27", "23.7", 375),
+  L("mkt-7", "Consumer Decision-Making",             "The buyer journey - awareness, consideration, decision, and loyalty",                      "marketing", "explorer", "unit-27", "23.7", 375),
   L("mkt-8", "Testing Your Ideas",                   "Hypothesis testing, A/B testing, MVPs, and using data to iterate",                         "marketing", "explorer", "unit-27", "23.8", 400),
 
   // Unit 24: Consumer Behavior
   L("cb-1", "What Is Consumer Behavior",              "Why understanding how people buy is the foundation of every successful business",           "consumer-behavior", "explorer", "unit-28", "24.1", 2000),
-  L("cb-2", "The Decision-Making Process",            "The five stages every buyer goes through — from need recognition to post-purchase",         "consumer-behavior", "explorer", "unit-28", "24.2", 2100),
+  L("cb-2", "The Decision-Making Process",            "The five stages every buyer goes through - from need recognition to post-purchase",         "consumer-behavior", "explorer", "unit-28", "24.2", 2100),
   L("cb-3", "Psychological Factors",                  "How motivation, perception, learning, and attitudes drive purchase decisions",              "consumer-behavior", "explorer", "unit-28", "24.3", 2200),
   L("cb-4", "Social & Cultural Influences",           "Family, friends, culture, and social class shape what and why people buy",                  "consumer-behavior", "explorer", "unit-28", "24.4", 2200),
   L("cb-5", "Market Segmentation",                    "Dividing markets by demographics, psychographics, geography, and behavior",                "consumer-behavior", "explorer", "unit-28", "24.5", 2300),
@@ -376,7 +376,7 @@ export const lessons: Lesson[] = [
   L("cb-7", "Brand Loyalty vs Brand Switching",       "What makes customers stay loyal and what pushes them to switch brands",                     "consumer-behavior", "explorer", "unit-28", "24.7", 2400),
   L("cb-8", "Case Study: How Nike Uses Consumer Research", "How a real brand applies consumer behavior insights to dominate its market",           "consumer-behavior", "explorer", "unit-28", "24.8", 2500),
 
-  // Unit 25: The Marketing Mix — 4 Ps
+  // Unit 25: The Marketing Mix - 4 Ps
   L("mix-1", "What Is the Marketing Mix",              "Why businesses use the 4 Ps framework to plan and execute their strategy",                 "marketing-mix", "explorer", "unit-29", "25.1", 2200),
   L("mix-2", "Product",                                "Features, branding, packaging, and the product life cycle",                                "marketing-mix", "explorer", "unit-29", "25.2", 2300),
   L("mix-3", "Price",                                  "Cost-based, value-based, competitive, and penetration pricing strategies",                 "marketing-mix", "explorer", "unit-29", "25.3", 2400),
@@ -388,25 +388,25 @@ export const lessons: Lesson[] = [
 
   // Unit 26: Market Research
   L("mr-1", "Why Market Research Matters",             "What market research is and why businesses cannot afford to skip it",                       "market-research", "explorer", "unit-30", "26.1", 2000),
-  L("mr-2", "Primary Research Methods",                "Surveys, interviews, focus groups, and observations — collecting your own data",            "market-research", "explorer", "unit-30", "26.2", 2200),
+  L("mr-2", "Primary Research Methods",                "Surveys, interviews, focus groups, and observations - collecting your own data",            "market-research", "explorer", "unit-30", "26.2", 2200),
   L("mr-3", "Secondary Research",                      "Using existing data, government sources, and industry reports to understand markets",       "market-research", "explorer", "unit-30", "26.3", 2200),
-  L("mr-4", "Qualitative vs Quantitative",             "When to use open-ended exploration versus numerical data — and how to combine both",        "market-research", "explorer", "unit-30", "26.4", 2300),
+  L("mr-4", "Qualitative vs Quantitative",             "When to use open-ended exploration versus numerical data - and how to combine both",        "market-research", "explorer", "unit-30", "26.4", 2300),
   L("mr-5", "Reading & Interpreting Data",             "How to read charts, spot trends, identify outliers, and avoid common data mistakes",        "market-research", "explorer", "unit-30", "26.5", 2400),
-  L("mr-6", "Market Sizing — TAM, SAM, SOM",          "Total addressable market, serviceable market, and obtainable market explained simply",      "market-research", "explorer", "unit-30", "26.6", 2400),
+  L("mr-6", "Market Sizing - TAM, SAM, SOM",          "Total addressable market, serviceable market, and obtainable market explained simply",      "market-research", "explorer", "unit-30", "26.6", 2400),
   L("mr-7", "Case Study: Research-Driven Launch",      "How a company used market research to successfully launch or pivot a product",              "market-research", "explorer", "unit-30", "26.7", 2500),
 
   // Unit 27: Leadership & Management
   L("lm-1", "Leadership vs Management",            "The difference between leadership and management and why both matter",                    "leadership-management", "explorer", "unit-31", "27.1", 2200),
   L("lm-2", "Leadership Styles",                   "Autocratic, democratic, laissez-faire, and transformational approaches",                  "leadership-management", "explorer", "unit-31", "27.2", 2300),
   L("lm-3", "Motivation Theories",                 "Maslow's hierarchy of needs and Herzberg's two-factor theory explained",                  "leadership-management", "explorer", "unit-31", "27.3", 2400),
-  L("lm-4", "Organizational Structures",           "Flat vs hierarchical, functional vs divisional — how companies organize",                "leadership-management", "explorer", "unit-31", "27.4", 2500),
+  L("lm-4", "Organizational Structures",           "Flat vs hierarchical, functional vs divisional - how companies organize",                "leadership-management", "explorer", "unit-31", "27.4", 2500),
   L("lm-5", "Human Resources Basics",              "Hiring, training, performance reviews, and keeping great employees",                      "leadership-management", "explorer", "unit-31", "27.5", 2500),
   L("lm-6", "Conflict Resolution & Communication", "Managing disagreements and building healthy team communication",                          "leadership-management", "explorer", "unit-31", "27.6", 2600),
   L("lm-7", "Case Study: Satya Nadella at Microsoft", "How one leader transformed Microsoft's culture, strategy, and market value",           "leadership-management", "explorer", "unit-31", "27.7", 2500),
 
   // Unit 28: Strategic Analysis Tools
   L("sa-1", "What Is Business Strategy?",              "Learn why strategy matters and how companies use it to win",                          "strategic-analysis", "explorer", "unit-32", "28.1", 2500),
-  L("sa-2", "KPIs — Measuring What Matters",           "Understand key performance indicators and how to choose the right ones",              "strategic-analysis", "explorer", "unit-32", "28.2", 2500),
+  L("sa-2", "KPIs - Measuring What Matters",           "Understand key performance indicators and how to choose the right ones",              "strategic-analysis", "explorer", "unit-32", "28.2", 2500),
   L("sa-3", "SWOT Analysis",                           "Learn to evaluate strengths, weaknesses, opportunities, and threats",                "strategic-analysis", "explorer", "unit-32", "28.3", 2750),
   L("sa-4", "Porter's Five Forces",                    "Analyze industry competition through five structural forces",                        "strategic-analysis", "explorer", "unit-32", "28.4", 2750),
   L("sa-5", "Applying SWOT to a Business Opportunity", "Use SWOT to make real go/no-go strategic decisions",                                "strategic-analysis", "explorer", "unit-32", "28.5", 2750),
@@ -433,14 +433,14 @@ export const lessons: Lesson[] = [
   // ─── PESTEL Analysis (Unit 33) ───
   L("pestel-1", "What is PESTEL Analysis",      "Learn how businesses scan their external environment using the PESTEL framework",           "pestel-analysis", "explorer", "unit-33", "29.1", 2000),
   L("pestel-2", "Political Factors",             "How government policy, regulation, and trade agreements shape business strategy",           "pestel-analysis", "explorer", "unit-33", "29.2", 2200),
-  L("pestel-3", "Economic Factors",              "GDP, interest rates, inflation, and business cycles — the financial climate around business","pestel-analysis", "explorer", "unit-33", "29.3", 2400),
+  L("pestel-3", "Economic Factors",              "GDP, interest rates, inflation, and business cycles - the financial climate around business","pestel-analysis", "explorer", "unit-33", "29.3", 2400),
   L("pestel-4", "Social Factors",                "Demographics, culture, and consumer attitudes that drive market demand",                   "pestel-analysis", "explorer", "unit-33", "29.4", 2400),
-  L("pestel-5", "Technological Factors",         "Innovation, automation, and digital disruption — how technology transforms industries",     "pestel-analysis", "explorer", "unit-33", "29.5", 2500),
+  L("pestel-5", "Technological Factors",         "Innovation, automation, and digital disruption - how technology transforms industries",     "pestel-analysis", "explorer", "unit-33", "29.5", 2500),
   L("pestel-6", "Environmental & Legal Factors", "Sustainability, climate risk, employment law, and consumer protection",                    "pestel-analysis", "explorer", "unit-33", "29.6", 2500),
 
   // ─── Business Ethics & Social Responsibility (Unit 34) ───
   L("ethics-1", "What is Business Ethics",                 "Why ethics matters beyond just following the law",                              "business-ethics", "explorer", "unit-34", "30.1", 1800),
-  L("ethics-2", "Corporate Social Responsibility",         "CSR — definition, examples, and the trade-offs businesses face",               "business-ethics", "explorer", "unit-34", "30.2", 2000),
+  L("ethics-2", "Corporate Social Responsibility",         "CSR - definition, examples, and the trade-offs businesses face",               "business-ethics", "explorer", "unit-34", "30.2", 2000),
   L("ethics-3", "Stakeholder Theory",                      "Who businesses are responsible to beyond shareholders",                         "business-ethics", "explorer", "unit-34", "30.3", 2000),
   L("ethics-4", "Ethical Dilemmas in Business",            "How to reason through hard decisions using ethical frameworks",                 "business-ethics", "explorer", "unit-34", "30.4", 2000),
   L("ethics-5", "Business Ethics and the Law",             "Where ethics and legal requirements overlap or diverge",                        "business-ethics", "explorer", "unit-34", "30.5", 2200),
@@ -449,7 +449,7 @@ export const lessons: Lesson[] = [
   // ─── LEVEL 10: REAL-WORLD APPLICATION ───
 
   L("plan-1", "Goal Setting",           "Define your financial goals for the next decade",      "financial-planning", "capital-architect", "unit-23", "33.1", 10000),
-  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth — choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "33.2", 11000),
+  L("plan-2", "Retirement Accounts",    "401k, IRA, Roth - choosing the right accounts",       "financial-planning", "capital-architect", "unit-23", "33.2", 11000),
   L("plan-3", "Compounding",            "The magic of compound growth over decades",            "financial-planning", "capital-architect", "unit-23", "33.3", 12000),
   L("plan-4", "Inflation Adjustments",  "Planning for rising costs over time",                  "financial-planning", "capital-architect", "unit-23", "33.4", 13000),
   L("plan-5", "Lifestyle Planning",     "Aligning your finances with your life goals",          "financial-planning", "capital-architect", "unit-23", "33.5", 15000),
@@ -505,7 +505,7 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "pestel-analysis": { title: "PESTEL Analysis", icon: "Globe", description: "Political, Economic, Social, Technological, Environmental & Legal factors", color: "primary" },
   "business-ethics": { title: "Business Ethics", icon: "Scale", description: "Ethics, CSR, and responsible business decision-making", color: "accent" },
   "insurance-protection": { title: "Insurance & Protection", icon: "ShieldCheck", description: "Protect yourself, your money, and your future", color: "secondary" },
-  // AP Microeconomics categories — required by Record<LessonCategory, …>
+  // AP Microeconomics categories - required by Record<LessonCategory, …>
   "micro-basics": { title: "Micro: Basic Concepts", icon: "TrendingUp", description: "Scarcity, opportunity cost, and the PPC", color: "accent" },
   "micro-supply-demand": { title: "Micro: Supply & Demand", icon: "LineChart", description: "Markets, equilibrium, elasticity, and surplus", color: "primary" },
   "micro-production": { title: "Micro: Production & Costs", icon: "Factory", description: "Costs, perfect competition, and profit", color: "warning" },
@@ -527,7 +527,7 @@ export function getUnitRewardTotal(unitId: string): number {
 }
 
 // ═══════════════════════════════════════════════
-// AP MICROECONOMICS — additive elective track
+// AP MICROECONOMICS - additive elective track
 // Appended to the shared arrays so the existing lesson UI, routing, and
 // gamification work unchanged. Everything else filters by `track`, so the
 // Florida (default) track is unaffected.

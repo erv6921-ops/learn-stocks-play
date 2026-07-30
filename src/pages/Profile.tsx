@@ -352,7 +352,7 @@ export default function Profile() {
 
   const initials = getInitials(user?.firstName, user?.lastName)
   const fullName = getDisplayName(user?.firstName, user?.lastName)
-  const memberSince = user?.createdAt ? fmtDate(new Date(user.createdAt)) : "—"
+  const memberSince = user?.createdAt ? fmtDate(new Date(user.createdAt)) : "-"
 
   const stats = [
     { label: "Coins Earned", value: Math.floor(totalXP).toLocaleString(), icon: Coins, color: "text-accent", bg: "bg-accent/10" },
@@ -372,7 +372,7 @@ export default function Profile() {
         animate="show"
         className="container mx-auto px-4 py-8 max-w-5xl space-y-6"
       >
-        {/* ── SECTION 1 — USER HEADER ── */}
+        {/* ── SECTION 1 - USER HEADER ── */}
         <motion.div variants={item}>
           <Card variant="elevated" className="overflow-hidden">
             <div className="bg-gradient-hero h-20 md:h-24" />
@@ -535,7 +535,7 @@ export default function Profile() {
           </DialogContent>
         </Dialog>
 
-        {/* ── SECTION 2 — STATS OVERVIEW ── */}
+        {/* ── SECTION 2 - STATS OVERVIEW ── */}
         <motion.div variants={item} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {stats.map(s => (
             <Card key={s.label} variant="elevated" className="hover-lift">
@@ -550,7 +550,7 @@ export default function Profile() {
           ))}
         </motion.div>
 
-        {/* ── SECTION 3 — COMPLETED LESSONS ── */}
+        {/* ── SECTION 3 - COMPLETED LESSONS ── */}
         <motion.div variants={item}>
           <Card variant="elevated">
             <CardHeader>
@@ -600,7 +600,7 @@ export default function Profile() {
           </Card>
         </motion.div>
 
-        {/* ── SECTION 4 — BADGES ── */}
+        {/* ── SECTION 4 - BADGES ── */}
         <motion.div variants={item}>
           <Card variant="elevated">
             <CardHeader>
@@ -612,7 +612,7 @@ export default function Profile() {
             <CardContent>
               {earnedBadges.length === 0 && (
                 <p className="text-sm text-muted-foreground mb-4">
-                  No badges yet — complete lessons, build streaks, and explore to start earning them! 🌟
+                  No badges yet - complete lessons, build streaks, and explore to start earning them! 🌟
                 </p>
               )}
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
@@ -640,7 +640,7 @@ export default function Profile() {
           </Card>
         </motion.div>
 
-        {/* ── SECTION 5 — RECENT ACTIVITY ── */}
+        {/* ── SECTION 5 - RECENT ACTIVITY ── */}
         <motion.div variants={item}>
           <Card variant="elevated">
             <CardHeader>
@@ -671,7 +671,7 @@ export default function Profile() {
           </Card>
         </motion.div>
 
-        {/* ── SECTION 6 — MICRO-BUSINESS SNAPSHOT ── */}
+        {/* ── SECTION 6 - MICRO-BUSINESS SNAPSHOT ── */}
         <motion.div variants={item}>
           <Card variant="elevated">
             <CardHeader>

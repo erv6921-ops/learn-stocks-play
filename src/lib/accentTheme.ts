@@ -1,4 +1,4 @@
-// Accent themes — swap the app's brand/primary color family without touching
+// Accent themes - swap the app's brand/primary color family without touching
 // financial semantics (gains stay green, losses stay red, coins stay gold).
 // The chosen id is written to <html data-accent="..."> and matching CSS
 // variable overrides live in index.css. Persisted per-device in localStorage.

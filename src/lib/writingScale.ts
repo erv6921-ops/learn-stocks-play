@@ -1,5 +1,5 @@
 // Writing-scale: teachers set how much writing micro-business activities
-// require (classes.writing_scale — 0.5 Light / 1.0 Standard / 1.5 Extended).
+// require (classes.writing_scale - 0.5 Light / 1.0 Standard / 1.5 Extended).
 // Students inherit the most lenient scale among their classes. `ws(n)` scales
 // any word minimum; small structural minimums (names etc., < 20 words) are
 // never scaled. Cached in localStorage so minimums render correctly instantly.

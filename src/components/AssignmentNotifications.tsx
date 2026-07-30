@@ -82,7 +82,7 @@ export function AssignmentNotifications() {
       if (cancelled) return
       if (dismissErr) {
         // If the dismissals table is unreachable we still show the dialog
-        // rather than swallow the assignment — better to over-remind than to
+        // rather than swallow the assignment - better to over-remind than to
         // silently hide a teacher's assignment.
         console.error("[assignment dismissals fetch]", dismissErr)
       }

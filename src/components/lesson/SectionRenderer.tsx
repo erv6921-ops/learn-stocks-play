@@ -1,5 +1,7 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { useJeff } from "@/contexts/JeffContext"
+import { useApp } from "@/contexts/AppContext"
+import { supabase } from "@/integrations/supabase/client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -25,7 +27,7 @@ import {
   FileQuestion,
 } from "lucide-react"
 import { useHints } from "@/components/lesson/HintContext"
-// shuffleQuestion import removed — shuffling is handled upstream in LessonDetail
+// shuffleQuestion import removed - shuffling is handled upstream in LessonDetail
 
 // ─── Quiz Answer Component (shared by Micro Check, Applied Question, Mastery) ───
 
@@ -35,27 +37,37 @@ interface QuizAnswerProps {
   onIncorrect: () => void
   onContinue: () => void
   showContinue: boolean
+  // Optional - only the Mastery Engine's write path (MasteryCheckRenderer)
+  // wires this. Micro-check and applied-question are formative practice,
+  // not the assessment of mastery, so they never log to question_attempts.
+  onAnswered?: (isCorrect: boolean, responseTimeMs: number) => void
 }
 
-function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue }: QuizAnswerProps) {
-  // Questions are already shuffled & validated by the MCQ engine in LessonDetail — use as-is
+function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, onAnswered }: QuizAnswerProps) {
+  // Questions are already shuffled & validated by the MCQ engine in LessonDetail - use as-is
   const shuffledQ = question
   const [selected, setSelected] = useState<number | null>(null)
   const [revealed, setRevealed] = useState(false)
   // Wrong options this question's hints have crossed out.
   const [eliminated, setEliminated] = useState<number[]>([])
   const hints = useHints()
+  // Mount time for THIS question - a fresh QuizAnswer instance is created
+  // per question (parent passes key={question.id}), so this ref naturally
+  // resets per question with no effect/cleanup needed.
+  const shownAtRef = useRef(Date.now())
 
   const handleSelect = (idx: number) => {
     if (revealed || eliminated.includes(idx)) return
     setSelected(idx)
     setRevealed(true)
-    if (idx === shuffledQ.correctAnswer) onCorrect()
+    const isRight = idx === shuffledQ.correctAnswer
+    onAnswered?.(isRight, Date.now() - shownAtRef.current)
+    if (isRight) onCorrect()
     else onIncorrect()
   }
 
   // Cap eliminations so at least two options (incl. the correct one) always
-  // remain — a hint narrows the field, it never hands over the answer.
+  // remain - a hint narrows the field, it never hands over the answer.
   const maxEliminations = Math.max(0, shuffledQ.options.length - 2)
   const canHint = !!hints && hints.hintsLeft > 0 && eliminated.length < maxEliminations && !revealed
 
@@ -107,7 +119,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
         })}
       </div>
 
-      {/* Hint control — a shared budget of hints for the whole lesson. Each hint
+      {/* Hint control - a shared budget of hints for the whole lesson. Each hint
           rules out one wrong answer. */}
       {!revealed && hints && (
         <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -315,14 +327,31 @@ export function RecapRenderer({ section, onContinue }: { section: RecapSection; 
 
 export function MasteryCheckRenderer({
   section,
+  topicId,
+  lessonId,
+  attemptSessionId,
+  sessionAttemptNumber,
   onComplete,
   onFail,
 }: {
   section: MasteryCheckSection
-  onComplete: (correctCount: number, totalAttempts: number) => void
+  // Mastery Engine identifiers - the LessonCategory and lesson id this
+  // mastery check belongs to, threaded down so each answer can be logged
+  // to question_attempts against the right topic.
+  topicId: string
+  lessonId: string
+  // Owned by LessonDetail, not local state: a genuine fail-and-retry routes
+  // through the recap section, which unmounts/remounts this component, so
+  // any restart counter kept here would reset to 1 on every single retry -
+  // silently zeroing out retry_factor for every real student retry. The
+  // parent survives that remount, so it's the only place this can live.
+  attemptSessionId: string
+  sessionAttemptNumber: number
+  onComplete: (correctCount: number, totalAttempts: number, attemptSessionId: string) => void
   onFail: () => void
 }) {
   const { react } = useJeff()
+  const { user } = useApp()
   const [currentQ, setCurrentQ] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
   const [totalAttempts, setTotalAttempts] = useState(0)
@@ -330,6 +359,26 @@ export function MasteryCheckRenderer({
 
   const total = section.questions.length
   const required = section.requiredCorrect
+
+  // Fire-and-forget event log write - never blocks or delays quiz feedback,
+  // and a failed write never breaks the lesson (matches the app's existing
+  // pattern for non-critical writes, e.g. the reflection-journal save).
+  const logAttempt = (question: QuizQuestion, isCorrect: boolean, responseTimeMs: number) => {
+    if (!user?.id) return
+    supabase.from("question_attempts").insert({
+      user_id: user.id,
+      question_id: question.id,
+      topic_id: topicId,
+      lesson_id: lessonId,
+      source: "lesson_quiz",
+      is_correct: isCorrect,
+      response_time_ms: responseTimeMs,
+      attempt_session_id: attemptSessionId,
+      session_attempt_number: sessionAttemptNumber,
+    }).then(({ error }) => {
+      if (error) console.error("[question_attempts insert]", error)
+    })
+  }
 
   const CORRECT_CHEERS = [
     "Boom! Nailed it. 💥",
@@ -343,15 +392,15 @@ export function MasteryCheckRenderer({
     setCorrectCount(nc)
     setTotalAttempts(prev => prev + 1)
     if (nc >= required) {
-      // The one that secures the pass — Jeff does a backflip.
-      react("celebrate", "YESSS! That's the one — you passed! 🎉", "flip")
+      // The one that secures the pass - Jeff does a backflip.
+      react("celebrate", "YESSS! That's the one - you passed! 🎉", "flip")
     } else {
       react("celebrate", CORRECT_CHEERS[nc % CORRECT_CHEERS.length], "jump")
     }
   }
   const handleIncorrect = () => {
     setTotalAttempts(prev => prev + 1)
-    react("encourage", "Shake it off — lock in on the next one. 💪")
+    react("encourage", "Shake it off - lock in on the next one. 💪")
   }
 
   const handleNext = () => {
@@ -359,12 +408,12 @@ export function MasteryCheckRenderer({
       setCurrentQ(currentQ + 1)
       // Clutch moment: one correct answer away from passing.
       if (required > 1 && correctCount === required - 1) {
-        react("think", "Focus up — get this one and you pass. It's for all the marbles! 🎯")
+        react("think", "Focus up - get this one and you pass. It's for all the marbles! 🎯")
       }
     } else {
       setFinished(true)
       const finalCorrect = correctCount // already updated
-      if (finalCorrect >= required) onComplete(finalCorrect, totalAttempts)
+      if (finalCorrect >= required) onComplete(finalCorrect, totalAttempts, attemptSessionId)
       // fail handled by retry button
     }
   }
@@ -378,18 +427,18 @@ export function MasteryCheckRenderer({
       <Card variant="elevated" className="overflow-hidden">
         <div className="bg-destructive/10 border-b border-border px-6 py-3 flex items-center gap-2">
           <Target className="w-4 h-4 text-destructive" />
-          <span className="text-xs font-semibold text-destructive uppercase tracking-wider">Mastery Check — Retry Needed</span>
+          <span className="text-xs font-semibold text-destructive uppercase tracking-wider">Mastery Check - Retry Needed</span>
         </div>
         <CardContent className="p-6 text-center space-y-4">
           <XCircle className="w-12 h-12 text-destructive mx-auto" />
           <p className="text-lg font-bold">You got {actualCorrect} / {total} correct</p>
           <p className="text-sm text-muted-foreground">You need at least {required} correct answers to pass. Review the concepts and try again!</p>
           <Button onClick={() => {
-            setCurrentQ(0)
-            setCorrectCount(0)
-            setTotalAttempts(0)
-            setFinished(false)
-            react("encourage", "No sweat — we run it back and get it this time. 🔁")
+            // No local resets needed - onFail() routes to recap, which
+            // unmounts this component entirely; the next attempt's
+            // sessionId/number come back down fresh via props from
+            // LessonDetail, which is what actually survives the remount.
+            react("encourage", "No sweat - we run it back and get it this time. 🔁")
             onFail()
           }}>
             Retry Mastery Check
@@ -420,6 +469,7 @@ export function MasteryCheckRenderer({
           onCorrect={handleCorrect}
           onIncorrect={handleIncorrect}
           onContinue={handleNext}
+          onAnswered={(isCorrect, ms) => logAttempt(section.questions[currentQ], isCorrect, ms)}
           showContinue={true}
         />
       </CardContent>

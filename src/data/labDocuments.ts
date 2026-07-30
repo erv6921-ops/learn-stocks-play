@@ -66,7 +66,7 @@ export const labCategories: LabCategory[] = [
         available: true,
         education: {
           whatItIs: "The W-4 is a federal tax form you give to your employer when you start a new job. It tells your employer how much federal income tax to withhold from each paycheck.",
-          whenYouFillItOut: "You fill out a W-4 on your first day at a new job, and you can update it anytime — after getting married, having a child, or if you owed a lot at tax time.",
+          whenYouFillItOut: "You fill out a W-4 on your first day at a new job, and you can update it anytime - after getting married, having a child, or if you owed a lot at tax time.",
           whyItMatters: "If you fill it out incorrectly, too much or too little tax gets taken from your paycheck. Too little means you'll owe money at tax time. Too much means you're giving the government an interest-free loan.",
           whatHappensIfWrong: "Incorrect withholding can lead to a surprise tax bill, underpayment penalties, or months of unnecessarily reduced paychecks. Getting it right puts you in control of your money.",
         },
@@ -179,7 +179,7 @@ export const labCategories: LabCategory[] = [
 ]
 
 // ═══════════════════════════════════════════════
-// W-4 FORM FIELDS — enriched with whyItMatters
+// W-4 FORM FIELDS - enriched with whyItMatters
 // ═══════════════════════════════════════════════
 
 export const w4FormFields: FormField[] = [
@@ -253,13 +253,13 @@ export const w4FormFields: FormField[] = [
     label: "Do you have more than one job at the same time?",
     type: "radio",
     helpText: "If you work two part-time jobs simultaneously, select 'Yes.' This affects how much tax is withheld from each paycheck.",
-    whyItMatters: "If you have two jobs and don't indicate it here, each employer withholds as if it's your only income — meaning too little total tax is withheld. You could owe a big bill in April.",
+    whyItMatters: "If you have two jobs and don't indicate it here, each employer withholds as if it's your only income - meaning too little total tax is withheld. You could owe a big bill in April.",
     required: true,
     section: "Step 2: Multiple Jobs or Spouse Works",
     sectionNumber: 2,
     options: [
-      { value: "no", label: "No — I have only one job" },
-      { value: "yes", label: "Yes — I work multiple jobs" },
+      { value: "no", label: "No - I have only one job" },
+      { value: "yes", label: "Yes - I work multiple jobs" },
     ],
   },
   // Step 3: Claim Dependents

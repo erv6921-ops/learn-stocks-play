@@ -26,7 +26,7 @@ interface Grade {
 const seenKey = (uid: string) => `investiplay_grade_seen_${uid}`
 
 export function GradeNotifications() {
-  // Gate on isTeacher (a confirmed teacher) rather than isStudent — a student
+  // Gate on isTeacher (a confirmed teacher) rather than isStudent - a student
   // whose role lookup is slow/missing resolves to role=null and would be hidden.
   const { user, isTeacher } = useAuth()
   const [grade, setGrade] = useState<Grade | null>(null)

@@ -27,7 +27,7 @@ interface Holding {
   purchasePrice: number;
 }
 
-// Loose shape of a get-stock-quote row — every field may be missing/null.
+// Loose shape of a get-stock-quote row - every field may be missing/null.
 interface Quote {
   symbol: string;
   price?: number | null;
@@ -83,7 +83,7 @@ interface PortfolioExpandedProps {
 const fmt = (v: number, d = 2) =>
   Number.isFinite(v)
     ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d })
-    : "—";
+    : "-";
 
 export default function PortfolioExpanded({
   open,
@@ -234,8 +234,8 @@ export default function PortfolioExpanded({
   };
   push("Open", stat(q?.open), (v) => `🪙 ${fmt(v)}`);
   push("Prev Close", stat(q?.previousClose), (v) => `🪙 ${fmt(v)}`);
-  if (stat(q?.dayLow) && stat(q?.dayHigh)) stats.push({ label: "Day's Range", value: `${fmt(q!.dayLow!)} – ${fmt(q!.dayHigh!)}` });
-  if (low52 && high52) stats.push({ label: "52-Wk Range", value: `${fmt(low52)} – ${fmt(high52)}` });
+  if (stat(q?.dayLow) && stat(q?.dayHigh)) stats.push({ label: "Day's Range", value: `${fmt(q!.dayLow!)} - ${fmt(q!.dayHigh!)}` });
+  if (low52 && high52) stats.push({ label: "52-Wk Range", value: `${fmt(low52)} - ${fmt(high52)}` });
   push("Volume", stat(q?.volume), (v) => formatVolume(v));
   push("Avg Vol (3M)", stat(q?.avgVolume3M), (v) => formatVolume(v));
   push("Market Cap", marketCap, (v) => formatMarketCap(v));
@@ -471,7 +471,7 @@ export default function PortfolioExpanded({
                 {/* Holdings */}
                 <SideSection icon={<Wallet className="w-3.5 h-3.5" />} title="Holdings" count={portfolio.length}>
                   {portfolio.length === 0 ? (
-                    <p className="text-xs text-muted-foreground px-1 py-2">No stocks yet — make your first trade.</p>
+                    <p className="text-xs text-muted-foreground px-1 py-2">No stocks yet - make your first trade.</p>
                   ) : (
                     portfolio.map((h) => {
                       const price = priceOf(h.symbol);

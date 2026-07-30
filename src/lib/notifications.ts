@@ -1,7 +1,7 @@
 // ───────────────────────────────────────────────────────────
 // Notification center store
 //
-// Records every InvestiCoin movement — coins gained (lessons, missions,
+// Records every InvestiCoin movement - coins gained (lessons, missions,
 // selling stock, investor funding) AND coins lost (buying stock, payroll,
 // tax penalties). Driven from the jeffs ledger in AppContext, so the +/-
 // amount and reason are always accurate, not guessed from pop-up text.
@@ -59,7 +59,7 @@ export function subscribe(cb: () => void): () => void {
   }
 }
 
-// Stable reference until the array is replaced — required by useSyncExternalStore.
+// Stable reference until the array is replaced - required by useSyncExternalStore.
 export function getSnapshot(): AppNotification[] {
   return notifications
 }

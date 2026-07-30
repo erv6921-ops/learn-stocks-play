@@ -28,7 +28,7 @@ export interface HistoryEntry {
 // Reasons that count as "real activity" for the daily streak.
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"]
 
-// Positive ledger entries that are money MOVEMENT, not money EARNED — stock
+// Positive ledger entries that are money MOVEMENT, not money EARNED - stock
 // sale proceeds, vault withdrawals, loan disbursements, bond payouts and
 // refunds all put coins back in your pocket without being new earnings.
 // Counting them inflated "coins earned" (XP) way past real activity, e.g. a
@@ -108,7 +108,7 @@ export function getCoinsThisWeek(history: HistoryEntry[]): number {
     .reduce((s, h) => s + h.amount, 0)
 }
 
-// Curriculum level (1–10), identical to GameNav's getCurriculumLevel.
+// Curriculum level (1-10), identical to GameNav's getCurriculumLevel.
 export function getCurriculumLevel(
   completedLessons: number,
   totalLessons: number,

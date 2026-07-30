@@ -6,7 +6,7 @@ import { ArrowRight, Compass } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 /**
- * Daily Signal — a curriculum-aware learning nudge that surfaces
+ * Daily Signal - a curriculum-aware learning nudge that surfaces
  * a contextual recommendation based on the student's progress.
  * Styled with InvestiPlay's dark-emerald premium branding.
  */
@@ -33,7 +33,7 @@ function getDailySignal(
       return {
         label: "Continue Unit",
         title: `You're ${Math.round((done / ul.length) * 100)}% through ${unit.title}`,
-        description: `${ul.length - done} lessons remaining — finish strong.`,
+        description: `${ul.length - done} lessons remaining - finish strong.`,
         cta: "Resume",
         link: nextLesson ? `/lessons/${nextLesson.id}` : "/lessons",
       }
@@ -101,7 +101,7 @@ export default function DailySignal() {
           </div>
         </div>
 
-        {/* CTA — full width on mobile */}
+        {/* CTA - full width on mobile */}
         <Link to={signal.link} className="shrink-0 block">
           <Button size="sm" className="w-full md:w-auto gap-1.5 text-xs font-semibold rounded-lg min-h-[44px] md:min-h-0"
             style={{

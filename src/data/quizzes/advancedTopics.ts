@@ -15,7 +15,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The location where a business sells its products"
         ],
         correctAnswer: 0,
-        explanation: "A revenue model describes how a business turns its product or service into income — for example, through sales, subscriptions, ads, or commissions."
+        explanation: "A revenue model describes how a business turns its product or service into income - for example, through sales, subscriptions, ads, or commissions."
       },
       {
         id: "biz-1-q2",
@@ -39,7 +39,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Selling advertising space to companies targeting users"
         ],
         correctAnswer: 3,
-        explanation: "Free apps typically earn revenue by showing ads — advertisers pay the app to reach its users, so the users' attention is really the product."
+        explanation: "Free apps typically earn revenue by showing ads - advertisers pay the app to reach its users, so the users' attention is really the product."
       },
       {
         id: "biz-1-q4",
@@ -51,7 +51,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A franchise model with locally licensed locations"
         ],
         correctAnswer: 2,
-        explanation: "Freemium means the basic product is free while premium features cost money — a tiny share of paying users can fund the whole game."
+        explanation: "Freemium means the basic product is free while premium features cost money - a tiny share of paying users can fund the whole game."
       },
       {
         id: "biz-1-q5",
@@ -87,7 +87,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "It means the bakery no longer needs customers"
         ],
         correctAnswer: 2,
-        explanation: "If cake sales slow down, income from classes and licensing can keep the business afloat — diversified revenue reduces risk."
+        explanation: "If cake sales slow down, income from classes and licensing can keep the business afloat - diversified revenue reduces risk."
       },
       {
         id: "biz-1-q8",
@@ -118,7 +118,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A cost that the government repairs for businesses"
         ],
         correctAnswer: 2,
-        explanation: "Fixed costs like rent or insurance must be paid whether you sell 10 items or 10,000 — they don't change with production volume."
+        explanation: "Fixed costs like rent or insurance must be paid whether you sell 10 items or 10,000 - they don't change with production volume."
       },
       {
         id: "biz-2-q2",
@@ -130,7 +130,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The yearly business license fee from the city"
         ],
         correctAnswer: 0,
-        explanation: "Variable costs rise and fall with sales — every extra smoothie requires more fruit and another cup, while rent and licenses stay constant."
+        explanation: "Variable costs rise and fall with sales - every extra smoothie requires more fruit and another cup, while rent and licenses stay constant."
       },
       {
         id: "biz-2-q3",
@@ -178,7 +178,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The vinyl and envelopes per order"
         ],
         correctAnswer: 3,
-        explanation: "Materials and packaging are variable costs — each additional order consumes more vinyl and another envelope, while hosting, software, and the printer cost the same regardless."
+        explanation: "Materials and packaging are variable costs - each additional order consumes more vinyl and another envelope, while hosting, software, and the printer cost the same regardless."
       },
       {
         id: "biz-2-q7",
@@ -221,7 +221,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The point where a business doubles its starting money"
         ],
         correctAnswer: 1,
-        explanation: "At break-even, the business isn't losing money or making money — revenue exactly covers all fixed and variable costs."
+        explanation: "At break-even, the business isn't losing money or making money - revenue exactly covers all fixed and variable costs."
       },
       {
         id: "biz-3-q2",
@@ -233,7 +233,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Fixed costs divided by price minus variable cost"
         ],
         correctAnswer: 3,
-        explanation: "Break-even units = fixed costs ÷ (price − variable cost per unit), because each sale contributes that margin toward covering fixed costs."
+        explanation: "Break-even units = fixed costs ÷ (price - variable cost per unit), because each sale contributes that margin toward covering fixed costs."
       },
       {
         id: "biz-3-q3",
@@ -245,7 +245,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "It must sell exactly 125 candles"
         ],
         correctAnswer: 0,
-        explanation: "Each candle contributes $10 − $6 = $4 toward fixed costs, so $2,000 ÷ $4 = 500 candles to break even."
+        explanation: "Each candle contributes $10 - $6 = $4 toward fixed costs, so $2,000 ÷ $4 = 500 candles to break even."
       },
       {
         id: "biz-3-q4",
@@ -257,7 +257,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Exactly 300 total cups sold"
         ],
         correctAnswer: 2,
-        explanation: "Contribution per cup is $8 − $5 = $3, and $600 ÷ $3 = 200 cups needed to cover all costs."
+        explanation: "Contribution per cup is $8 - $5 = $3, and $600 ÷ $3 = 200 cups needed to cover all costs."
       },
       {
         id: "biz-3-q5",
@@ -269,7 +269,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Each sale adds its contribution margin as profit"
         ],
         correctAnswer: 3,
-        explanation: "Once fixed costs are covered, every extra unit's price minus variable cost flows straight to profit — that's why volume past break-even is so valuable."
+        explanation: "Once fixed costs are covered, every extra unit's price minus variable cost flows straight to profit - that's why volume past break-even is so valuable."
       },
       {
         id: "biz-3-q6",
@@ -305,7 +305,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Total revenue minus all taxes paid yearly"
         ],
         correctAnswer: 0,
-        explanation: "Contribution margin is what each sale 'contributes' toward fixed costs — for a $10 candle costing $6 to make, it's $4."
+        explanation: "Contribution margin is what each sale 'contributes' toward fixed costs - for a $10 candle costing $6 to make, it's $4."
       }
     ]
   },
@@ -336,7 +336,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A margin of exactly 15 percent"
         ],
         correctAnswer: 2,
-        explanation: "Profit is $200 − $150 = $50, and $50 ÷ $200 = 25% — the shop keeps a quarter of every revenue dollar."
+        explanation: "Profit is $200 - $150 = $50, and $50 ÷ $200 = 25% - the shop keeps a quarter of every revenue dollar."
       },
       {
         id: "biz-4-q3",
@@ -348,7 +348,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A gross margin of exactly 160 percent"
         ],
         correctAnswer: 0,
-        explanation: "Gross profit is $100 − $60 = $40, so gross margin is $40 ÷ $100 = 40% of the selling price."
+        explanation: "Gross profit is $100 - $60 = $40, so gross margin is $40 ÷ $100 = 40% of the selling price."
       },
       {
         id: "biz-4-q4",
@@ -372,7 +372,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A net margin of exactly 50 percent"
         ],
         correctAnswer: 2,
-        explanation: "$15 million ÷ $300 million = 0.05, or a 5% net margin — the company keeps five cents of each revenue dollar."
+        explanation: "$15 million ÷ $300 million = 0.05, or a 5% net margin - the company keeps five cents of each revenue dollar."
       },
       {
         id: "biz-4-q6",
@@ -396,7 +396,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Huge sales volume can offset a thin margin"
         ],
         correctAnswer: 3,
-        explanation: "Groceries earn a tiny slice of enormous, steady revenue — 2% of billions in sales is still a lot of profit."
+        explanation: "Groceries earn a tiny slice of enormous, steady revenue - 2% of billions in sales is still a lot of profit."
       },
       {
         id: "biz-4-q8",
@@ -451,7 +451,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "An ownership stake in the company itself"
         ],
         correctAnswer: 3,
-        explanation: "VCs buy equity — they own part of the company and profit only if it grows in value, unlike lenders who are repaid with interest."
+        explanation: "VCs buy equity - they own part of the company and profit only if it grows in value, unlike lenders who are repaid with interest."
       },
       {
         id: "biz-5-q4",
@@ -554,7 +554,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Rounding all prices down to the nearest dollar"
         ],
         correctAnswer: 2,
-        explanation: "Skimming charges early enthusiasts a premium at launch — like new game consoles — then drops the price over time to reach more buyers."
+        explanation: "Skimming charges early enthusiasts a premium at launch - like new game consoles - then drops the price over time to reach more buyers."
       },
       {
         id: "biz-6-q4",
@@ -578,7 +578,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Pricing that changes randomly every single day"
         ],
         correctAnswer: 0,
-        explanation: "Value-based pricing asks what the product is worth to the buyer — a tutoring app that raises grades can charge far more than its costs suggest."
+        explanation: "Value-based pricing asks what the product is worth to the buyer - a tutoring app that raises grades can charge far more than its costs suggest."
       },
       {
         id: "biz-6-q6",
@@ -590,7 +590,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Low prices always attract lawsuits from bigger competitors"
         ],
         correctAnswer: 2,
-        explanation: "Prices must cover more than materials — her labor, shipping errors, and reinvestment all need margin, or the business slowly exhausts her."
+        explanation: "Prices must cover more than materials - her labor, shipping errors, and reinvestment all need margin, or the business slowly exhausts her."
       },
       {
         id: "biz-6-q7",
@@ -602,7 +602,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "It rose from $1,000 up to $1,045"
         ],
         correctAnswer: 3,
-        explanation: "New revenue is $11 × 95 = $1,045 versus the old $10 × 100 = $1,000 — the higher price more than offset the lost customers."
+        explanation: "New revenue is $11 × 95 = $1,045 versus the old $10 × 100 = $1,000 - the higher price more than offset the lost customers."
       },
       {
         id: "biz-6-q8",
@@ -614,7 +614,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Because charging more than any competitor is always impossible"
         ],
         correctAnswer: 1,
-        explanation: "Customers shop around — you can charge more than rivals only if you offer clearly more value, so knowing the market anchors your price."
+        explanation: "Customers shop around - you can charge more than rivals only if you offer clearly more value, so knowing the market anchors your price."
       }
     ]
   },
@@ -657,7 +657,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "To satisfy a legal requirement for new businesses"
         ],
         correctAnswer: 1,
-        explanation: "Market research shows who the customers are, how many exist, and what they'll pay — evidence the idea can actually generate sales."
+        explanation: "Market research shows who the customers are, how many exist, and what they'll pay - evidence the idea can actually generate sales."
       },
       {
         id: "biz-7-q4",
@@ -669,7 +669,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The exact taxes every competitor will pay"
         ],
         correctAnswer: 0,
-        explanation: "Projections forecast expected sales, expenses, and profits — usually for one to three years — so founders and investors can judge viability."
+        explanation: "Projections forecast expected sales, expenses, and profits - usually for one to three years - so founders and investors can judge viability."
       },
       {
         id: "biz-7-q5",
@@ -693,7 +693,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The specific group of customers you serve"
         ],
         correctAnswer: 3,
-        explanation: "A target market defines exactly who you're selling to — like 'high school gamers' — so marketing and product decisions stay focused."
+        explanation: "A target market defines exactly who you're selling to - like 'high school gamers' - so marketing and product decisions stay focused."
       },
       {
         id: "biz-7-q7",
@@ -705,7 +705,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Double every revenue estimate to fix the math"
         ],
         correctAnswer: 0,
-        explanation: "That's the plan doing its job — discovering the problem on paper lets her adjust prices, cut costs, or rethink the idea before losing real money."
+        explanation: "That's the plan doing its job - discovering the problem on paper lets her adjust prices, cut costs, or rethink the idea before losing real money."
       },
       {
         id: "biz-7-q8",
@@ -736,7 +736,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The price of one share of a company's stock today"
         ],
         correctAnswer: 2,
-        explanation: "Market share measures what slice of an industry's total sales belongs to one company — if customers spend $100 on sneakers and $30 goes to one brand, that brand has 30% market share."
+        explanation: "Market share measures what slice of an industry's total sales belongs to one company - if customers spend $100 on sneakers and $30 goes to one brand, that brand has 30% market share."
       },
       {
         id: "strategy-1-q2",
@@ -760,7 +760,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Win customers away from its competitors' products"
         ],
         correctAnswer: 3,
-        explanation: "Market share is a competition for customers — a company gains share by convincing buyers to choose its product instead of a rival's."
+        explanation: "Market share is a competition for customers - a company gains share by convincing buyers to choose its product instead of a rival's."
       },
       {
         id: "strategy-1-q4",
@@ -772,7 +772,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Cutting prices has no real effect on market share"
         ],
         correctAnswer: 1,
-        explanation: "Price cuts can win customers and grow share, but each sale earns less — companies must decide whether the extra volume is worth the thinner margins."
+        explanation: "Price cuts can win customers and grow share, but each sale earns less - companies must decide whether the extra volume is worth the thinner margins."
       },
       {
         id: "strategy-1-q5",
@@ -796,7 +796,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Its customers stopped buying video games entirely this year"
         ],
         correctAnswer: 2,
-        explanation: "If the overall gaming market grew 25% while the company grew only 10%, rivals captured more of the new spending — the company grew, but its slice of the pie shrank."
+        explanation: "If the overall gaming market grew 25% while the company grew only 10%, rivals captured more of the new spending - the company grew, but its slice of the pie shrank."
       },
       {
         id: "strategy-1-q7",
@@ -851,7 +851,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The company has strong pricing power over its buyers"
         ],
         correctAnswer: 3,
-        explanation: "When demand barely drops after a price increase, the company clearly has pricing power — customers value the product enough to pay more."
+        explanation: "When demand barely drops after a price increase, the company clearly has pricing power - customers value the product enough to pay more."
       },
       {
         id: "strategy-2-q3",
@@ -863,7 +863,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A history of frequent discounts and constant coupon offers"
         ],
         correctAnswer: 0,
-        explanation: "Pricing power comes from being hard to replace — a unique product or a brand customers insist on lets a company charge more without losing sales."
+        explanation: "Pricing power comes from being hard to replace - a unique product or a brand customers insist on lets a company charge more without losing sales."
       },
       {
         id: "strategy-2-q4",
@@ -875,7 +875,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The station raised prices during the wrong season entirely"
         ],
         correctAnswer: 2,
-        explanation: "Gas is a commodity — one station's fuel is the same as another's — so customers simply buy wherever it's cheapest, leaving sellers with almost no pricing power."
+        explanation: "Gas is a commodity - one station's fuel is the same as another's - so customers simply buy wherever it's cheapest, leaving sellers with almost no pricing power."
       },
       {
         id: "strategy-2-q5",
@@ -899,7 +899,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Revenue rises because the higher price outweighs small losses"
         ],
         correctAnswer: 3,
-        explanation: "A 20% price increase with only 2% of subscribers leaving means much more money overall — for every 100 subscribers paying $10 ($1,000), it now has 98 paying $12 ($1,176)."
+        explanation: "A 20% price increase with only 2% of subscribers leaving means much more money overall - for every 100 subscribers paying $10 ($1,000), it now has 98 paying $12 ($1,176)."
       },
       {
         id: "strategy-2-q7",
@@ -923,7 +923,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Its employees will be forced to accept lower salaries"
         ],
         correctAnswer: 1,
-        explanation: "Even loyal customers have limits — pushing prices too far invites competitors to offer cheaper alternatives and erodes the loyalty that created the pricing power."
+        explanation: "Even loyal customers have limits - pushing prices too far invites competitors to offer cheaper alternatives and erodes the loyalty that created the pricing power."
       }
     ]
   },
@@ -942,7 +942,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Cost per unit falls as production volume grows"
         ],
         correctAnswer: 3,
-        explanation: "Economies of scale means getting cheaper as you get bigger — producing more units spreads costs out, so each individual unit costs less to make."
+        explanation: "Economies of scale means getting cheaper as you get bigger - producing more units spreads costs out, so each individual unit costs less to make."
       },
       {
         id: "strategy-3-q2",
@@ -966,7 +966,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Producing many unrelated products in tiny separate batches"
         ],
         correctAnswer: 1,
-        explanation: "Big buyers get better deals — a chain ordering a million cups pays far less per cup than a cafe ordering a hundred, lowering its cost per drink sold."
+        explanation: "Big buyers get better deals - a chain ordering a million cups pays far less per cup than a cafe ordering a hundred, lowering its cost per drink sold."
       },
       {
         id: "strategy-3-q4",
@@ -978,7 +978,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Small stores prefer paying more to support their suppliers"
         ],
         correctAnswer: 0,
-        explanation: "Suppliers compete hard to win massive orders, so a chain buying truckloads can negotiate prices a small shop could never get — a classic economy of scale."
+        explanation: "Suppliers compete hard to win massive orders, so a chain buying truckloads can negotiate prices a small shop could never get - a classic economy of scale."
       },
       {
         id: "strategy-3-q5",
@@ -990,7 +990,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Customers refuse to ever try products from new companies"
         ],
         correctAnswer: 1,
-        explanation: "A small newcomer can't spread costs across millions of units, so its products cost more to make — making it tough to match the big player's prices and still profit."
+        explanation: "A small newcomer can't spread costs across millions of units, so its products cost more to make - making it tough to match the big player's prices and still profit."
       },
       {
         id: "strategy-3-q6",
@@ -1002,7 +1002,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Batch size has no effect on your production costs"
         ],
         correctAnswer: 0,
-        explanation: "One pitcher costs $4 alone, but four at once cost $2.50 each ($10 ÷ 4) — producing in bigger batches spread your effort and ingredients more efficiently."
+        explanation: "One pitcher costs $4 alone, but four at once cost $2.50 each ($10 ÷ 4) - producing in bigger batches spread your effort and ingredients more efficiently."
       },
       {
         id: "strategy-3-q7",
@@ -1014,7 +1014,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "When growing too big starts raising costs per unit"
         ],
         correctAnswer: 3,
-        explanation: "Past a certain size, layers of managers, communication problems, and complexity can make each unit more expensive — bigger stops being better."
+        explanation: "Past a certain size, layers of managers, communication problems, and complexity can make each unit more expensive - bigger stops being better."
       },
       {
         id: "strategy-3-q8",
@@ -1026,7 +1026,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Software customers always pay more than hardware customers"
         ],
         correctAnswer: 2,
-        explanation: "Writing an app is expensive, but copying it for the next user is nearly free — so as users multiply, the average cost per user plummets toward zero."
+        explanation: "Writing an app is expensive, but copying it for the next user is nearly free - so as users multiply, the average cost per user plummets toward zero."
       }
     ]
   },
@@ -1045,7 +1045,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A business hires employees through personal connections only"
         ],
         correctAnswer: 0,
-        explanation: "With network effects, every new user makes the product better for everyone else — a messaging app with all your friends on it is far more useful than an empty one."
+        explanation: "With network effects, every new user makes the product better for everyone else - a messaging app with all your friends on it is far more useful than an empty one."
       },
       {
         id: "strategy-4-q2",
@@ -1057,7 +1057,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The most popular app is always the newest one released"
         ],
         correctAnswer: 1,
-        explanation: "A messaging app is only useful if the people you want to reach are there — that's the network effect pulling everyone toward the app their friends already use."
+        explanation: "A messaging app is only useful if the people you want to reach are there - that's the network effect pulling everyone toward the app their friends already use."
       },
       {
         id: "strategy-4-q3",
@@ -1069,7 +1069,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Adding drivers makes the app's icon easier to find"
         ],
         correctAnswer: 2,
-        explanation: "This is a two-sided network effect: more drivers mean faster pickups, which attracts riders, which attracts more drivers — each side makes the other more valuable."
+        explanation: "This is a two-sided network effect: more drivers mean faster pickups, which attracts riders, which attracts more drivers - each side makes the other more valuable."
       },
       {
         id: "strategy-4-q4",
@@ -1081,7 +1081,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "An empty network offers little value to early joiners"
         ],
         correctAnswer: 3,
-        explanation: "This is the 'cold start' problem — a social app with no one to follow or message feels worthless, no matter how good the features are, until enough users join."
+        explanation: "This is the 'cold start' problem - a social app with no one to follow or message feels worthless, no matter how good the features are, until enough users join."
       },
       {
         id: "strategy-4-q5",
@@ -1093,7 +1093,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Everyone gravitates to the biggest, most useful network"
         ],
         correctAnswer: 3,
-        explanation: "Since the biggest network is the most valuable one, new users keep choosing it, making it even bigger — a snowball that often leaves rivals far behind."
+        explanation: "Since the biggest network is the most valuable one, new users keep choosing it, making it even bigger - a snowball that often leaves rivals far behind."
       },
       {
         id: "strategy-4-q6",
@@ -1105,7 +1105,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The game becomes shorter so everyone can finish it"
         ],
         correctAnswer: 2,
-        explanation: "With a huge player pool, the game can quickly match you with opponents at your skill level — a direct network effect where more users improve the experience."
+        explanation: "With a huge player pool, the game can quickly match you with opponents at your skill level - a direct network effect where more users improve the experience."
       },
       {
         id: "strategy-4-q7",
@@ -1129,7 +1129,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A car wash serving drivers on a busy road"
         ],
         correctAnswer: 0,
-        explanation: "A marketplace gets better for buyers as sellers join and better for sellers as buyers join — the bakery, landscaper, and car wash don't get more valuable per customer as their user counts grow."
+        explanation: "A marketplace gets better for buyers as sellers join and better for sellers as buyers join - the bakery, landscaper, and car wash don't get more valuable per customer as their user counts grow."
       }
     ]
   },
@@ -1148,7 +1148,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The salary paid to a company's chief marketing officer"
         ],
         correctAnswer: 1,
-        explanation: "Brand value is the premium a familiar, trusted name commands — customers pay more and choose it more often because of what the name promises."
+        explanation: "Brand value is the premium a familiar, trusted name commands - customers pay more and choose it more often because of what the name promises."
       },
       {
         id: "strategy-5-q2",
@@ -1160,7 +1160,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The cheaper hoodie is illegal to wear in public"
         ],
         correctAnswer: 0,
-        explanation: "Customers aren't just buying fabric — they're buying identity, status, and trust in the name, which is exactly the power of a strong brand."
+        explanation: "Customers aren't just buying fabric - they're buying identity, status, and trust in the name, which is exactly the power of a strong brand."
       },
       {
         id: "strategy-5-q3",
@@ -1172,7 +1172,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "By delivering consistent quality that earns customer trust"
         ],
         correctAnswer: 3,
-        explanation: "Brands are built on repeated good experiences — when a product reliably delivers, customers learn to trust the name and choose it automatically."
+        explanation: "Brands are built on repeated good experiences - when a product reliably delivers, customers learn to trust the name and choose it automatically."
       },
       {
         id: "strategy-5-q4",
@@ -1184,7 +1184,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The government will assign the company a new brand"
         ],
         correctAnswer: 2,
-        explanation: "Brand value rests on trust, so a scandal can undo years of goodwill quickly — burned customers often take their spending to brands they still believe in."
+        explanation: "Brand value rests on trust, so a scandal can undo years of goodwill quickly - burned customers often take their spending to brands they still believe in."
       },
       {
         id: "strategy-5-q5",
@@ -1196,7 +1196,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Factories are worthless, so only extras have value"
         ],
         correctAnswer: 2,
-        explanation: "A famous brand brings loyal customers and pricing power that don't show up as physical property — buyers pay a premium for that intangible asset."
+        explanation: "A famous brand brings loyal customers and pricing power that don't show up as physical property - buyers pay a premium for that intangible asset."
       },
       {
         id: "strategy-5-q6",
@@ -1208,7 +1208,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Customers will pay extra purely for the trusted name"
         ],
         correctAnswer: 3,
-        explanation: "Since the cereal inside is identical, the entire $2 difference is brand value — proof that a trusted name alone can command a higher price."
+        explanation: "Since the cereal inside is identical, the entire $2 difference is brand value - proof that a trusted name alone can command a higher price."
       },
       {
         id: "strategy-5-q7",
@@ -1220,7 +1220,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A rewards card that expires after one purchase"
         ],
         correctAnswer: 0,
-        explanation: "Brand loyalty means customers come back again and again by choice — like always buying the same sneaker brand even when rivals run sales."
+        explanation: "Brand loyalty means customers come back again and again by choice - like always buying the same sneaker brand even when rivals run sales."
       },
       {
         id: "strategy-5-q8",
@@ -1251,7 +1251,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "An emergency fund companies keep for economic downturns"
         ],
         correctAnswer: 2,
-        explanation: "Like a moat around a castle, an economic moat is a lasting advantage — such as a brand or patent — that makes it hard for rivals to steal a company's customers and profits."
+        explanation: "Like a moat around a castle, an economic moat is a lasting advantage - such as a brand or patent - that makes it hard for rivals to steal a company's customers and profits."
       },
       {
         id: "strategy-6-q2",
@@ -1263,7 +1263,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A patent that blocks rivals from copying an invention"
         ],
         correctAnswer: 3,
-        explanation: "A patent legally prevents competitors from copying the invention for years, giving the company durable protection — while trends, viral moments, and discounts fade fast."
+        explanation: "A patent legally prevents competitors from copying the invention for years, giving the company durable protection - while trends, viral moments, and discounts fade fast."
       },
       {
         id: "strategy-6-q3",
@@ -1275,7 +1275,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A government regulation preventing customers from changing brands"
         ],
         correctAnswer: 0,
-        explanation: "When leaving a product means losing time, money, or data, customers tend to stay — those switching costs are a powerful moat even if rivals offer great alternatives."
+        explanation: "When leaving a product means losing time, money, or data, customers tend to stay - those switching costs are a powerful moat even if rivals offer great alternatives."
       },
       {
         id: "strategy-6-q4",
@@ -1287,7 +1287,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A celebrity endorsement to make the toy popular"
         ],
         correctAnswer: 1,
-        explanation: "A hot product without patents, brand loyalty, or other protection invites copycats — without a moat, the advantage evaporated as soon as rivals arrived."
+        explanation: "A hot product without patents, brand loyalty, or other protection invites copycats - without a moat, the advantage evaporated as soon as rivals arrived."
       },
       {
         id: "strategy-6-q5",
@@ -1311,7 +1311,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "Nothing changes because patients ignore generic medicines"
         ],
         correctAnswer: 0,
-        explanation: "When a patent expires, the moat disappears — generic makers can copy the drug and sell it cheaply, usually taking a big bite out of the original's sales."
+        explanation: "When a patent expires, the moat disappears - generic makers can copy the drug and sell it cheaply, usually taking a big bite out of the original's sales."
       },
       {
         id: "strategy-6-q7",
@@ -1323,7 +1323,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "The hassle and expense customers face changing to a rival"
         ],
         correctAnswer: 3,
-        explanation: "Switching costs are everything a customer gives up to change products — money, time, saved data, or learning a new system — and they keep customers locked in."
+        explanation: "Switching costs are everything a customer gives up to change products - money, time, saved data, or learning a new system - and they keep customers locked in."
       },
       {
         id: "strategy-6-q8",
@@ -1335,7 +1335,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
           "A single celebrity endorsement deal signed last month"
         ],
         correctAnswer: 2,
-        explanation: "Fashion trends, temporary discounts, and endorsement deals fade quickly, but a massive user network keeps reinforcing itself — making it one of the most durable moats."
+        explanation: "Fashion trends, temporary discounts, and endorsement deals fade quickly, but a massive user network keeps reinforcing itself - making it one of the most durable moats."
       }
     ]
   },

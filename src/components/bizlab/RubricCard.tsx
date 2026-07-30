@@ -11,7 +11,7 @@ export default function RubricCard() {
         <h4 className="font-display font-bold text-lg">Judge's Scoring Rubric</h4>
       </div>
       <p className="text-sm text-muted-foreground mb-4">
-        130 points total — here's exactly how the Sharks will score you.
+        130 points total - here's exactly how the Sharks will score you.
       </p>
       <div className="space-y-3">
         {RUBRIC.map(cat => (

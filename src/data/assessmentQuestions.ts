@@ -50,10 +50,10 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     id: "bm-2",
     question: "A study shows people who receive a windfall of $10,000 are more likely to spend it than people who save $10,000 over time. This behavior is best explained by:",
     options: [
-      "Mental accounting — windfall money feels different from earned savings",
-      "Inflation expectations — holding cash means losing purchasing power",
-      "Opportunity cost logic — spending unexpected money now is rational",
-      "Loss aversion bias — people fear losing unearned money quickly"
+      "Mental accounting - windfall money feels different from earned savings",
+      "Inflation expectations - holding cash means losing purchasing power",
+      "Opportunity cost logic - spending unexpected money now is rational",
+      "Loss aversion bias - people fear losing unearned money quickly"
     ],
     correctAnswer: 0,
     category: "psychology-of-money",
@@ -73,7 +73,7 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     ],
     correctAnswer: 3,
     category: "income-earning",
-    explanation: "The salaried position provides $61,000 in total compensation ($50k + $8k insurance + $3k match). The freelancer pays an EXTRA ~7.65% self-employment tax (the employer half of FICA, ~$5,000) on top of what employees already pay, and must buy their own health insurance (~$8,000) — dropping the freelance package below the salaried one.",
+    explanation: "The salaried position provides $61,000 in total compensation ($50k + $8k insurance + $3k match). The freelancer pays an EXTRA ~7.65% self-employment tax (the employer half of FICA, ~$5,000) on top of what employees already pay, and must buy their own health insurance (~$8,000) - dropping the freelance package below the salaried one.",
     difficulty: "strategic"
   },
   {
@@ -117,7 +117,7 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     ],
     correctAnswer: 2,
     category: "budgeting",
-    explanation: "Zero-based budgeting is proactive — it assigns purpose to every dollar upfront, which psychologically reduces impulse spending compared to reactive tracking.",
+    explanation: "Zero-based budgeting is proactive - it assigns purpose to every dollar upfront, which psychologically reduces impulse spending compared to reactive tracking.",
     difficulty: "foundational"
   },
 
@@ -163,7 +163,7 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     ],
     correctAnswer: 1,
     category: "credit-debt",
-    explanation: "At 22% APR paying a fixed $100/month, it takes about 11 years (~137 payments) to clear $5,000 — with roughly $8,700 in interest, MORE than the original balance itself.",
+    explanation: "At 22% APR paying a fixed $100/month, it takes about 11 years (~137 payments) to clear $5,000 - with roughly $8,700 in interest, MORE than the original balance itself.",
     difficulty: "strategic"
   },
   {
@@ -177,7 +177,7 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     ],
     correctAnswer: 1,
     category: "credit-debt",
-    explanation: "Payment history accounts for approximately 35% of a FICO score — the single largest factor. Amounts owed (utilization) is second at 30%.",
+    explanation: "Payment history accounts for approximately 35% of a FICO score - the single largest factor. Amounts owed (utilization) is second at 30%.",
     difficulty: "foundational"
   },
 
@@ -456,10 +456,10 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     id: "bm-29",
     question: "An investor bought a stock at $100 that has fallen to $60. Despite negative fundamentals, they refuse to sell, saying 'I'll sell when I break even.' This behavior is an example of:",
     options: [
-      "Anchoring bias — fixating on the purchase price as a reference",
-      "Confirmation bias — only seeking information that supports holding",
-      "Herding behavior — following what other investors are also doing",
-      "Recency bias — overweighting the most recent price movements"
+      "Anchoring bias - fixating on the purchase price as a reference",
+      "Confirmation bias - only seeking information that supports holding",
+      "Herding behavior - following what other investors are also doing",
+      "Recency bias - overweighting the most recent price movements"
     ],
     correctAnswer: 0,
     category: "behavioral-finance",
@@ -537,7 +537,7 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     ],
     correctAnswer: 1,
     category: "macro-economics",
-    explanation: "Rate hikes increase borrowing costs across the economy, which slows spending and investment, helping to reduce inflation — though with a lag.",
+    explanation: "Rate hikes increase borrowing costs across the economy, which slows spending and investment, helping to reduce inflation - though with a lag.",
     difficulty: "applied"
   },
 
@@ -742,7 +742,7 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     options: [
       "The computer hardware might introduce random calculation errors",
       "Historical market data is always fundamentally inaccurate and unreliable",
-      "Overfitting — the strategy works on past data but fails on new data",
+      "Overfitting - the strategy works on past data but fails on new data",
       "Backtesting is explicitly prohibited by current financial market regulations"
     ],
     correctAnswer: 2,
@@ -751,7 +751,7 @@ export const benchmarkQuestions: BenchmarkQuestion[] = [
     difficulty: "strategic"
   },
 
-  // ── BONUS QUESTIONS (49–50) ──
+  // ── BONUS QUESTIONS (49-50) ──
   {
     id: "bm-49",
     question: "A teenager receives $5,000 as a gift and must choose between paying off a $2,000 credit card balance at 24% APR or investing all $5,000 in an index fund averaging 10% annually. What is the financially optimal decision?",
@@ -859,7 +859,7 @@ export function getLevelDescription(level: MasteryTier): string {
     case "builder":
       return "You have solid basic knowledge. Some foundational content will be compressed so you can move faster to applied scenarios."
     case "strategist":
-      return "Strong financial awareness! Foundational lessons in your strong areas are validated — you'll jump into strategic-level challenges."
+      return "Strong financial awareness! Foundational lessons in your strong areas are validated - you'll jump into strategic-level challenges."
     case "investor":
       return "Impressive skills! Many foundational and applied lessons are validated. You'll start with advanced case studies and deeper analysis."
     case "capital-architect":

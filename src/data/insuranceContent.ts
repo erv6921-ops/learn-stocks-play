@@ -17,16 +17,16 @@ export const insuranceContent: StructuredLessonContent[] = [
         paragraphs: [
           "Insurance is a deal: you pay a small, predictable amount of money on a regular schedule, and in exchange a company promises to cover a large, unpredictable cost if something bad happens. You are trading a tiny guaranteed loss (your payment) to protect yourself from a giant, surprise loss that could wipe you out.",
           "The magic behind insurance is called risk pooling. Thousands of people each pay into a shared pot. Most of them will not have a disaster this year, so most of the money sits there. When a few unlucky people DO have a car crash, house fire, or surgery, the pot pays their huge bills. Nobody knows in advance who the unlucky ones will be, so everyone chips in to protect each other.",
-          "Without insurance, a single bad day can erase years of saving. One car accident, one trip to the emergency room, or one apartment fire can cost tens of thousands of dollars. With insurance, that same disaster becomes a much smaller, manageable bill — which is exactly why insurance exists and why nearly every adult needs at least some of it."
+          "Without insurance, a single bad day can erase years of saving. One car accident, one trip to the emergency room, or one apartment fire can cost tens of thousands of dollars. With insurance, that same disaster becomes a much smaller, manageable bill - which is exactly why insurance exists and why nearly every adult needs at least some of it."
         ],
         bullets: [
           "Insurance turns a scary, unpredictable cost into a small, predictable monthly payment.",
           "Risk pooling means many people share the cost of the few who have disasters.",
-          "You will usually pay more in premiums over your life than you get back — and that is fine, because the point is protection, not profit.",
+          "You will usually pay more in premiums over your life than you get back - and that is fine, because the point is protection, not profit.",
           "The uninsured pay 100% of a disaster out of their own pocket; the insured pay a fraction.",
           "Insurance protects the savings and assets you have worked hard to build."
         ],
-        realWorldExample: "Think of your phone. If you drop and shatter a $1,000 phone with no protection, you pay the full $1,000. With a $7/month protection plan, you pay maybe a $29 repair fee. You 'lost' $7/month, but you avoided a $1,000 hit — that's insurance in miniature."
+        realWorldExample: "Think of your phone. If you drop and shatter a $1,000 phone with no protection, you pay the full $1,000. With a $7/month protection plan, you pay maybe a $29 repair fee. You 'lost' $7/month, but you avoided a $1,000 hit - that's insurance in miniature."
       },
       {
         type: "micro-check",
@@ -53,7 +53,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Because premiums are actually a type of investment that always grows"
             ],
             correctAnswer: 1,
-            explanation: "Premiums buy peace of mind and protection, not a guaranteed payout. In a good year you 'lose' the premium, but you were protected the whole time — that protection is what you paid for."
+            explanation: "Premiums buy peace of mind and protection, not a guaranteed payout. In a good year you 'lose' the premium, but you were protected the whole time - that protection is what you paid for."
           }
         ]
       },
@@ -62,7 +62,7 @@ export const insuranceContent: StructuredLessonContent[] = [
         title: "Two Drivers, One Crash",
         narrative: "Sofia, 17, just got her license in Miami. Her family pays $120/month for auto insurance. Her best friend Camila rides with a family that dropped their insurance to save money. One afternoon, Camila's family car rear-ends another vehicle on the Palmetto Expressway, causing $8,000 in damage. The same week, Sofia's family is in a minor fender bender.",
         details: [
-          "Camila's family has no insurance, so they must pay the entire $8,000 repair bill themselves — money they don't have saved.",
+          "Camila's family has no insurance, so they must pay the entire $8,000 repair bill themselves - money they don't have saved.",
           "Sofia's family files a claim; after their deductible, insurance covers most of the repair cost.",
           "Sofia's family paid $1,440 over the past year in premiums ($120 × 12) but avoided a financial catastrophe.",
           "Camila's family 'saved' on premiums for months but now faces a bill larger than their entire emergency fund."
@@ -80,7 +80,7 @@ export const insuranceContent: StructuredLessonContent[] = [
             "Because Camila's family was legally required to pay Sofia's bill"
           ],
           correctAnswer: 2,
-          explanation: "Sofia's family traded a predictable $1,440/year for protection against an unpredictable multi-thousand-dollar disaster. Camila's family avoided premiums but was fully exposed when the $8,000 bill hit — that's the difference insurance makes."
+          explanation: "Sofia's family traded a predictable $1,440/year for protection against an unpredictable multi-thousand-dollar disaster. Camila's family avoided premiums but was fully exposed when the $8,000 bill hit - that's the difference insurance makes."
         }
       },
       {
@@ -89,7 +89,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "Insurance trades a small, predictable payment for protection against a large, unpredictable loss.",
           "Risk pooling spreads the cost of disasters across many people so no single person is ruined.",
           "Being uninsured means you personally absorb 100% of any disaster.",
-          "It is normal and expected to pay more in premiums than you receive — protection is the product.",
+          "It is normal and expected to pay more in premiums than you receive - protection is the product.",
           "Insurance guards the savings and assets you've worked to build."
         ]
       },
@@ -119,7 +119,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Only people who never file a claim"
             ],
             correctAnswer: 2,
-            explanation: "In any year, the people who actually face a disaster benefit most — the pooled premiums of everyone else cover their large losses."
+            explanation: "In any year, the people who actually face a disaster benefit most - the pooled premiums of everyone else cover their large losses."
           },
           {
             id: "ins1-mastery3",
@@ -131,7 +131,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "They owe nothing because they had no policy"
             ],
             correctAnswer: 1,
-            explanation: "Without insurance, you are personally responsible for 100% of the cost — which can be financially devastating."
+            explanation: "Without insurance, you are personally responsible for 100% of the cost - which can be financially devastating."
           },
           {
             id: "ins1-mastery4",
@@ -143,7 +143,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Because insurance companies are non-profits"
             ],
             correctAnswer: 1,
-            explanation: "Insurance is protection, not an investment. Paying premiums and never needing a big payout means you stayed safe — that's success, not loss."
+            explanation: "Insurance is protection, not an investment. Paying premiums and never needing a big payout means you stayed safe - that's success, not loss."
           }
         ]
       }
@@ -151,7 +151,7 @@ export const insuranceContent: StructuredLessonContent[] = [
   },
 
   // ─────────────────────────────────────────────
-  // ins-2: How Insurance Works — Premiums, Deductibles, Co-pays (FL.7.3)
+  // ins-2: How Insurance Works - Premiums, Deductibles, Co-pays (FL.7.3)
   // ─────────────────────────────────────────────
   {
     lessonId: "ins-2",
@@ -160,8 +160,8 @@ export const insuranceContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Five Words That Decide What You Actually Pay",
         paragraphs: [
-          "Every insurance policy runs on a handful of key terms. The premium is what you pay regularly (usually monthly) just to have the policy — like a subscription. The deductible is the amount YOU pay out of pocket before the insurance company starts paying anything. A co-pay is a small fixed amount you pay for a specific service, like $20 each time you see a doctor.",
-          "Two more terms set the limits. The coverage limit is the maximum the insurance company will pay for a claim — anything above that is on you. The out-of-pocket maximum is a yearly cap on what YOU can be forced to pay; once you hit it, insurance covers 100% for the rest of the year.",
+          "Every insurance policy runs on a handful of key terms. The premium is what you pay regularly (usually monthly) just to have the policy - like a subscription. The deductible is the amount YOU pay out of pocket before the insurance company starts paying anything. A co-pay is a small fixed amount you pay for a specific service, like $20 each time you see a doctor.",
+          "Two more terms set the limits. The coverage limit is the maximum the insurance company will pay for a claim - anything above that is on you. The out-of-pocket maximum is a yearly cap on what YOU can be forced to pay; once you hit it, insurance covers 100% for the rest of the year.",
           "Here's how they connect with real numbers: imagine a policy with a $200/month premium, a $1,000 deductible, a $20 co-pay, and a $50,000 coverage limit. You pay $200 every month no matter what. If you have a big claim, you pay the first $1,000 yourself (the deductible), then insurance kicks in. There's also a key trade-off to remember: a higher deductible usually means a lower monthly premium, because you're agreeing to take on more of the risk yourself."
         ],
         bullets: [
@@ -171,7 +171,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "Coverage limit = the most insurance will pay; you cover anything above it.",
           "Out-of-pocket maximum = the yearly cap on your spending, after which insurance pays 100%."
         ],
-        realWorldExample: "A $1,000-deductible car policy might cost $90/month, while a $250-deductible version of the same policy costs $140/month. Choosing the higher deductible saves $50/month ($600/year) — but you'd pay $750 more out of pocket if you actually crash. The 'right' choice depends on your savings and how much risk you can handle."
+        realWorldExample: "A $1,000-deductible car policy might cost $90/month, while a $250-deductible version of the same policy costs $140/month. Choosing the higher deductible saves $50/month ($600/year) - but you'd pay $750 more out of pocket if you actually crash. The 'right' choice depends on your savings and how much risk you can handle."
       },
       {
         type: "micro-check",
@@ -210,7 +210,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "Marcus pays his $500 deductible first.",
           "Insurance then covers the remaining $2,700 of the $3,200 repair.",
           "A month later, Marcus gets a smaller scratch that costs only $400 to fix.",
-          "Because $400 is less than his $500 deductible, insurance pays nothing — Marcus pays the full $400 himself."
+          "Because $400 is less than his $500 deductible, insurance pays nothing - Marcus pays the full $400 himself."
         ]
       },
       {
@@ -234,7 +234,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "Premium is your ongoing cost; deductible is what you pay before coverage begins.",
           "A co-pay is a small fixed fee for a specific service; the coverage limit caps the insurer's payout.",
           "The out-of-pocket maximum protects you with a yearly ceiling on your own spending.",
-          "Higher deductible = lower premium, and vice versa — it's a risk trade-off.",
+          "Higher deductible = lower premium, and vice versa - it's a risk trade-off.",
           "If a repair costs less than your deductible, insurance pays nothing and you cover it all."
         ]
       },
@@ -252,7 +252,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "$0"
             ],
             correctAnswer: 2,
-            explanation: "You pay the $750 deductible first; insurance covers the rest: $5,000 − $750 = $4,250."
+            explanation: "You pay the $750 deductible first; insurance covers the rest: $5,000 - $750 = $4,250."
           },
           {
             id: "ins2-mastery2",
@@ -305,9 +305,9 @@ export const insuranceContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Driving in Florida: What the Law Requires and What Actually Protects You",
         paragraphs: [
-          "Florida is a 'no-fault' state, which means that after most accidents, your own insurance pays for your medical bills no matter who caused the crash. That's why Florida requires every driver to carry Personal Injury Protection (PIP) — coverage for your own injuries — plus Property Damage Liability (PDL), which pays for damage you cause to other people's property.",
-          "There are several types of auto coverage. Liability covers the damage and injuries you cause to others. Collision covers damage to YOUR car from a crash. Comprehensive covers your car from non-crash events like theft, fire, floods, or a tree falling on it. Uninsured/underinsured motorist coverage protects you when the other driver has no insurance — a real risk in Florida, which has one of the highest uninsured-driver rates in the country.",
-          "Insurers set your premium based on risk factors: your age (teens pay the most because they crash the most), your driving record (tickets and accidents raise it), the type of car (a sports car costs more to insure than a sedan), and even your ZIP code (busy, theft-prone areas cost more). In many states, minimum liability limits are written in shorthand like 10/20/10: $10,000 per person for injuries, $20,000 per accident for injuries, and $10,000 for property damage. Florida is different — its standard legal minimum is just PIP ($10,000) plus PDL ($10,000), with no bodily-injury liability required for most drivers. That surprisingly thin requirement is a big reason uninsured/underinsured motorist coverage matters so much here."
+          "Florida is a 'no-fault' state, which means that after most accidents, your own insurance pays for your medical bills no matter who caused the crash. That's why Florida requires every driver to carry Personal Injury Protection (PIP) - coverage for your own injuries - plus Property Damage Liability (PDL), which pays for damage you cause to other people's property.",
+          "There are several types of auto coverage. Liability covers the damage and injuries you cause to others. Collision covers damage to YOUR car from a crash. Comprehensive covers your car from non-crash events like theft, fire, floods, or a tree falling on it. Uninsured/underinsured motorist coverage protects you when the other driver has no insurance - a real risk in Florida, which has one of the highest uninsured-driver rates in the country.",
+          "Insurers set your premium based on risk factors: your age (teens pay the most because they crash the most), your driving record (tickets and accidents raise it), the type of car (a sports car costs more to insure than a sedan), and even your ZIP code (busy, theft-prone areas cost more). In many states, minimum liability limits are written in shorthand like 10/20/10: $10,000 per person for injuries, $20,000 per accident for injuries, and $10,000 for property damage. Florida is different - its standard legal minimum is just PIP ($10,000) plus PDL ($10,000), with no bodily-injury liability required for most drivers. That surprisingly thin requirement is a big reason uninsured/underinsured motorist coverage matters so much here."
         ],
         bullets: [
           "Florida is a no-fault state and requires PIP (your injuries) and PDL (others' property).",
@@ -316,7 +316,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "Teens pay the highest premiums because statistically they crash most often.",
           "Minimum coverage meets the law but can leave you exposed; full coverage protects your own car too."
         ],
-        realWorldExample: "If a hurricane floods your car in a Fort Myers parking lot, collision insurance won't help — that's what comprehensive coverage is for. In flood-prone Florida, comprehensive can be the difference between replacing your car and losing it entirely."
+        realWorldExample: "If a hurricane floods your car in a Fort Myers parking lot, collision insurance won't help - that's what comprehensive coverage is for. In flood-prone Florida, comprehensive can be the difference between replacing your car and losing it entirely."
       },
       {
         type: "micro-check",
@@ -328,7 +328,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Only comprehensive coverage",
               "Personal Injury Protection (PIP) and Property Damage Liability (PDL)",
               "Life insurance",
-              "Nothing — Florida has no insurance requirements"
+              "Nothing - Florida has no insurance requirements"
             ],
             correctAnswer: 1,
             explanation: "Florida's no-fault system requires PIP (covers your own injuries regardless of fault) and PDL (covers property damage you cause to others)."
@@ -350,7 +350,7 @@ export const insuranceContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Two Eighteen-Year-Olds in Orlando",
-        narrative: "Diego and Tyler both turn 18 and buy used cars in Orlando. Diego buys minimum coverage only (the cheapest legal option) to save money. Tyler pays more for full coverage that includes collision and comprehensive. A few months later, both are in separate single-car accidents — each one's own fault — with about $6,000 in damage to their own vehicles.",
+        narrative: "Diego and Tyler both turn 18 and buy used cars in Orlando. Diego buys minimum coverage only (the cheapest legal option) to save money. Tyler pays more for full coverage that includes collision and comprehensive. A few months later, both are in separate single-car accidents - each one's own fault - with about $6,000 in damage to their own vehicles.",
         details: [
           "Diego's minimum policy has no collision coverage, so it pays nothing toward his own car's $6,000 in damage.",
           "Diego must pay the full $6,000 himself or drive a wrecked car.",
@@ -370,7 +370,7 @@ export const insuranceContent: StructuredLessonContent[] = [
             "Because comprehensive and collision are illegal in Florida"
           ],
           correctAnswer: 0,
-          explanation: "Florida's minimum (PIP + PDL) is built to cover your injuries and damage you cause to others — not damage to your own vehicle. Collision/comprehensive (part of full coverage) is what repairs your own car."
+          explanation: "Florida's minimum (PIP + PDL) is built to cover your injuries and damage you cause to others - not damage to your own vehicle. Collision/comprehensive (part of full coverage) is what repairs your own car."
         }
       },
       {
@@ -433,7 +433,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Theft of your car"
             ],
             correctAnswer: 2,
-            explanation: "Liability coverage pays for harm you cause to others — their injuries and property — not your own car or losses."
+            explanation: "Liability coverage pays for harm you cause to others - their injuries and property - not your own car or losses."
           }
         ]
       }
@@ -450,15 +450,15 @@ export const insuranceContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Protecting Your Stuff and Your Home",
         paragraphs: [
-          "Renters insurance protects YOUR belongings — your laptop, clothes, furniture, and electronics — when you rent an apartment or house. It does NOT cover the building itself; that's the landlord's responsibility. A huge surprise for many young renters: if the building burns down or gets robbed, the landlord's insurance covers the structure, but nothing inside that belongs to you. Renters insurance also includes liability coverage if someone gets hurt in your place.",
-          "Homeowners insurance is broader because you own the building. It covers the structure, your belongings inside, and liability if someone is injured on your property. In Florida, homeowners insurance is among the most expensive in the country — often $4,000+ per year — largely because of hurricane risk. Renters insurance, by contrast, is remarkably cheap: often just $15 to $30 per month.",
-          "Both policies have important gaps. In Florida, standard homeowners and renters policies usually do NOT cover floods or mold — you typically need a separate flood policy (often through the National Flood Insurance Program). It also matters whether your policy pays 'actual cash value' (the depreciated, used value of your stuff) or 'replacement cost' (what it costs to buy new). Replacement cost coverage costs a bit more but pays a lot more when you file a claim."
+          "Renters insurance protects YOUR belongings - your laptop, clothes, furniture, and electronics - when you rent an apartment or house. It does NOT cover the building itself; that's the landlord's responsibility. A huge surprise for many young renters: if the building burns down or gets robbed, the landlord's insurance covers the structure, but nothing inside that belongs to you. Renters insurance also includes liability coverage if someone gets hurt in your place.",
+          "Homeowners insurance is broader because you own the building. It covers the structure, your belongings inside, and liability if someone is injured on your property. In Florida, homeowners insurance is among the most expensive in the country - often $4,000+ per year - largely because of hurricane risk. Renters insurance, by contrast, is remarkably cheap: often just $15 to $30 per month.",
+          "Both policies have important gaps. In Florida, standard homeowners and renters policies usually do NOT cover floods or mold - you typically need a separate flood policy (often through the National Flood Insurance Program). It also matters whether your policy pays 'actual cash value' (the depreciated, used value of your stuff) or 'replacement cost' (what it costs to buy new). Replacement cost coverage costs a bit more but pays a lot more when you file a claim."
         ],
         bullets: [
-          "Renters insurance covers your belongings and your liability — not the building.",
+          "Renters insurance covers your belongings and your liability - not the building.",
           "Homeowners insurance covers the building, your belongings, AND liability.",
-          "Renters insurance is cheap ($15–$30/month); Florida homeowners often runs $4,000+/year — among the priciest in the U.S.",
-          "In Florida, floods are usually NOT covered — you need separate flood insurance.",
+          "Renters insurance is cheap ($15-$30/month); Florida homeowners often runs $4,000+/year - among the priciest in the U.S.",
+          "In Florida, floods are usually NOT covered - you need separate flood insurance.",
           "Replacement cost pays to buy new; actual cash value only pays the depreciated value."
         ],
         realWorldExample: "A college renter who thinks 'my landlord's insurance covers me' learns the hard way after a break-in: the landlord's policy fixes the broken door, but does nothing for the stolen $2,000 laptop and TV. A $18/month renters policy would have replaced them."
@@ -473,7 +473,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "The apartment building itself",
               "Your personal belongings and your liability",
               "The landlord's mortgage",
-              "Nothing — renters can't get insurance"
+              "Nothing - renters can't get insurance"
             ],
             correctAnswer: 1,
             explanation: "Renters insurance covers your stuff and liability. The building is the landlord's responsibility, covered by the landlord's own policy."
@@ -497,7 +497,7 @@ export const insuranceContent: StructuredLessonContent[] = [
         title: "Roommates in Tampa",
         narrative: "Andrea and Bianca share an apartment near the University of South Florida in Tampa. Andrea buys renters insurance for $18/month. Bianca skips it to save money, figuring the landlord's policy will protect her. One weekend while they're home for break, the apartment is broken into and about $2,000 worth of electronics are stolen from each of them.",
         details: [
-          "The landlord's insurance repairs the broken door and window frame — the building.",
+          "The landlord's insurance repairs the broken door and window frame - the building.",
           "Andrea files a renters claim and is reimbursed for her stolen $2,000 in electronics (minus a small deductible).",
           "Bianca has no renters insurance, so the landlord's policy gives her nothing for her stolen items.",
           "Bianca must spend $2,000 of her own money to replace everything; Andrea spent about $216/year on premiums."
@@ -515,7 +515,7 @@ export const insuranceContent: StructuredLessonContent[] = [
             "Because Bianca lived in Florida"
           ],
           correctAnswer: 1,
-          explanation: "A landlord's insurance protects the structure they own. Tenants' personal belongings are only covered if the tenant has their own renters insurance — which is exactly why Andrea was reimbursed and Bianca wasn't."
+          explanation: "A landlord's insurance protects the structure they own. Tenants' personal belongings are only covered if the tenant has their own renters insurance - which is exactly why Andrea was reimbursed and Bianca wasn't."
         }
       },
       {
@@ -525,7 +525,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "Homeowners insurance covers the structure, contents, and liability.",
           "Florida homeowners insurance is pricey largely due to hurricane risk.",
           "Floods (and mold) usually need separate coverage in Florida.",
-          "Replacement cost pays more than actual cash value — worth the small extra premium."
+          "Replacement cost pays more than actual cash value - worth the small extra premium."
         ]
       },
       {
@@ -578,7 +578,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Both only apply to cars"
             ],
             correctAnswer: 1,
-            explanation: "Replacement cost reimburses what it costs to buy the item new. Actual cash value only pays the depreciated, used value — so it pays out less."
+            explanation: "Replacement cost reimburses what it costs to buy the item new. Actual cash value only pays the depreciated, used value - so it pays out less."
           }
         ]
       }
@@ -595,7 +595,7 @@ export const insuranceContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Decoding Your Health Insurance Card",
         paragraphs: [
-          "Health insurance helps pay for doctor visits, hospital stays, prescriptions, and emergencies. It works through the same building blocks you've learned — premium, deductible, co-pay, out-of-pocket maximum — plus one more: co-insurance, which is a percentage you pay after meeting your deductible (for example, you pay 20% and the insurer pays 80% until you hit your out-of-pocket max).",
+          "Health insurance helps pay for doctor visits, hospital stays, prescriptions, and emergencies. It works through the same building blocks you've learned - premium, deductible, co-pay, out-of-pocket maximum - plus one more: co-insurance, which is a percentage you pay after meeting your deductible (for example, you pay 20% and the insurer pays 80% until you hit your out-of-pocket max).",
           "Plans differ in how they handle your choice of doctors. An HMO is usually cheaper but requires you to stay within a set network and get referrals to see specialists. A PPO costs more but lets you see more doctors, including out-of-network, with more freedom. An HDHP (High-Deductible Health Plan) has low premiums but a high deductible, and often pairs with a tax-advantaged Health Savings Account. The word 'network' matters a lot: staying in-network costs far less than going out-of-network, where you pay much more.",
           "How do young people get covered? You can usually stay on a parent's plan until age 26. After that, you might get coverage through an employer (often the cheapest because employers pay part of the premium), or buy your own through the ACA 'Marketplace' (HealthCare.gov), where you might qualify for subsidies based on income. The key lesson: going without health insurance leaves you exposed to bills that can reach tens of thousands of dollars for a single emergency."
         ],
@@ -606,7 +606,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "In-network care costs far less than out-of-network care.",
           "You can stay on a parent's plan until age 26; then use an employer plan or the ACA Marketplace."
         ],
-        realWorldExample: "A single ER visit for a broken arm can be billed at $2,500+. Without insurance you owe all of it; with insurance you might owe a co-pay plus co-insurance up to your out-of-pocket max — and once you hit that max, the insurer covers 100% for the rest of the year."
+        realWorldExample: "A single ER visit for a broken arm can be billed at $2,500+. Without insurance you owe all of it; with insurance you might owe a co-pay plus co-insurance up to your out-of-pocket max - and once you hit that max, the insurer covers 100% for the rest of the year."
       },
       {
         type: "micro-check",
@@ -640,11 +640,11 @@ export const insuranceContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Jaylen's Emergency Surgery",
-        narrative: "Jaylen, 19, is a college student in Gainesville covered by a student health plan. One night he develops severe stomach pain and needs emergency appendix surgery. The hospital bill totals $28,000. Jaylen is terrified — until he reviews how his insurance applies.",
+        narrative: "Jaylen, 19, is a college student in Gainesville covered by a student health plan. One night he develops severe stomach pain and needs emergency appendix surgery. The hospital bill totals $28,000. Jaylen is terrified - until he reviews how his insurance applies.",
         details: [
           "Jaylen's plan has a $1,500 deductible, which he pays first.",
-          "After the deductible, his 20% co-insurance would owe thousands more — but his plan's $2,000 out-of-pocket maximum caps his co-insurance at just $500.",
-          "His total out-of-pocket cost is capped at $2,000 — far below the full $28,000. That's the out-of-pocket max doing its job.",
+          "After the deductible, his 20% co-insurance would owe thousands more - but his plan's $2,000 out-of-pocket maximum caps his co-insurance at just $500.",
+          "His total out-of-pocket cost is capped at $2,000 - far below the full $28,000. That's the out-of-pocket max doing its job.",
           "A classmate with no insurance who had the same surgery owes the entire $28,000 and is offered a multi-year payment plan."
         ]
       },
@@ -740,18 +740,18 @@ export const insuranceContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Protecting the People Who Depend on Your Income",
         paragraphs: [
-          "Life insurance pays money to the people you choose (your beneficiaries) when you die. Its main purpose is to protect anyone who depends on your income — like a spouse, kids, or a relative you support. If no one relies on your income, you may not need it yet; if people do, it can keep them financially afloat after you're gone. There are two main types: term life (covers you for a set period, like 20 years, and is cheap) and whole life (lasts your whole life and builds cash value, but costs much more).",
+          "Life insurance pays money to the people you choose (your beneficiaries) when you die. Its main purpose is to protect anyone who depends on your income - like a spouse, kids, or a relative you support. If no one relies on your income, you may not need it yet; if people do, it can keep them financially afloat after you're gone. There are two main types: term life (covers you for a set period, like 20 years, and is cheap) and whole life (lasts your whole life and builds cash value, but costs much more).",
           "Disability insurance is the one most people forget, even though you're statistically more likely to become disabled during your working years than to die young. It replaces a portion of your income if illness or injury prevents you from working. Short-term disability covers a few weeks to months; long-term disability can cover years. Many employers offer some disability coverage as a benefit, which is often the easiest and cheapest way to get it.",
-          "Here's the priority logic: term life is the smart starting point for most young families because it's affordable and covers the years when your kids are growing up and your mortgage is being paid off. Whole life is more of a specialized tool. And disability insurance protects the asset that funds everything else — your ability to earn. Losing your income for a year due to injury can be more financially damaging than almost anything else."
+          "Here's the priority logic: term life is the smart starting point for most young families because it's affordable and covers the years when your kids are growing up and your mortgage is being paid off. Whole life is more of a specialized tool. And disability insurance protects the asset that funds everything else - your ability to earn. Losing your income for a year due to injury can be more financially damaging than almost anything else."
         ],
         bullets: [
-          "Life insurance pays your beneficiaries when you die — most important if others depend on your income.",
+          "Life insurance pays your beneficiaries when you die - most important if others depend on your income.",
           "Term life is cheap and covers a set period; whole life is costly but permanent and builds cash value.",
           "Disability insurance replaces income if you can't work due to illness or injury.",
           "Short-term disability covers weeks/months; long-term covers years.",
           "Employer benefits are often the easiest, cheapest way to get disability and basic life coverage."
         ],
-        realWorldExample: "A 30-year-old parent earning $60,000 can often buy a 20-year, $500,000 term life policy for around $25–$35/month. If they pass away, that payout can replace years of income for their kids — something whole life would cost several times more to provide."
+        realWorldExample: "A 30-year-old parent earning $60,000 can often buy a 20-year, $500,000 term life policy for around $25-$35/month. If they pass away, that payout can replace years of income for their kids - something whole life would cost several times more to provide."
       },
       {
         type: "micro-check",
@@ -778,7 +778,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Pays off your credit cards automatically"
             ],
             correctAnswer: 1,
-            explanation: "Disability insurance replaces a portion of your income when an illness or injury keeps you from working — protecting your ability to earn."
+            explanation: "Disability insurance replaces a portion of your income when an illness or injury keeps you from working - protecting your ability to earn."
           }
         ]
       },
@@ -805,7 +805,7 @@ export const insuranceContent: StructuredLessonContent[] = [
             "Marcus's employer paid his full salary out of kindness"
           ],
           correctAnswer: 1,
-          explanation: "Disability insurance replaced Marcus's income during recovery, so his family kept paying their bills. Andre had no such coverage, so his income simply stopped — putting his family in crisis."
+          explanation: "Disability insurance replaced Marcus's income during recovery, so his family kept paying their bills. Andre had no such coverage, so his income simply stopped - putting his family in crisis."
         }
       },
       {
@@ -813,7 +813,7 @@ export const insuranceContent: StructuredLessonContent[] = [
         takeaways: [
           "Life insurance protects people who depend on your income.",
           "Term life is affordable and time-limited; whole life is permanent, pricier, and builds cash value.",
-          "Disability insurance replaces income when you can't work — a commonly overlooked protection.",
+          "Disability insurance replaces income when you can't work - a commonly overlooked protection.",
           "Short-term vs long-term disability differ by how long benefits last.",
           "Employer benefits are often the simplest, cheapest way to start both coverages."
         ]
@@ -876,7 +876,7 @@ export const insuranceContent: StructuredLessonContent[] = [
   },
 
   // ─────────────────────────────────────────────
-  // ins-7: Identity Theft — Prevention & Recovery (FL.7.4)
+  // ins-7: Identity Theft - Prevention & Recovery (FL.7.4)
   // ─────────────────────────────────────────────
   {
     lessonId: "ins-7",
@@ -885,8 +885,8 @@ export const insuranceContent: StructuredLessonContent[] = [
         type: "concept",
         title: "When Someone Steals Your Most Valuable Asset: Your Identity",
         paragraphs: [
-          "Identity theft happens when someone uses your personal information — your Social Security number (SSN), credit card, or login details — to commit fraud in your name. It comes in several forms: financial identity theft (opening credit cards or loans as you), medical identity theft (using your insurance for treatment), and tax fraud (filing a fake tax return to steal your refund). Teens are surprisingly common targets because their clean, unused credit histories can go unnoticed for years.",
-          "Prevention is mostly about controlling access to your information. Freeze your credit (a free tool that blocks new accounts from being opened in your name), use strong, unique passwords, turn on two-factor authentication (2FA), and never share your SSN unless absolutely required. You're entitled to a free credit report each year at AnnualCreditReport.com — checking it regularly is how you catch fraud early.",
+          "Identity theft happens when someone uses your personal information - your Social Security number (SSN), credit card, or login details - to commit fraud in your name. It comes in several forms: financial identity theft (opening credit cards or loans as you), medical identity theft (using your insurance for treatment), and tax fraud (filing a fake tax return to steal your refund). Teens are surprisingly common targets because their clean, unused credit histories can go unnoticed for years.",
+          "Prevention is mostly about controlling access to your information. Freeze your credit (a free tool that blocks new accounts from being opened in your name), use strong, unique passwords, turn on two-factor authentication (2FA), and never share your SSN unless absolutely required. You're entitled to a free credit report each year at AnnualCreditReport.com - checking it regularly is how you catch fraud early.",
           "If your identity IS stolen, there's a clear recovery process. The official starting point is reporting at IdentityTheft.gov (the FTC's site), which generates a personalized recovery plan. From there: place a fraud alert, freeze your credit, file the FTC report (and often a police report), dispute the fraudulent charges and accounts, and keep records of everything. Acting fast limits the damage and shifts the responsibility off you."
         ],
         bullets: [
@@ -896,7 +896,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "Check your free credit report yearly at AnnualCreditReport.com to catch fraud early.",
           "Recover at IdentityTheft.gov: fraud alert, credit freeze, FTC report, dispute charges."
         ],
-        realWorldExample: "A thief who gets your SSN can open a credit card, run up $3,000, and never pay — and you won't know until a collector calls or you're denied a loan. A free credit freeze would have blocked that new account from ever being opened."
+        realWorldExample: "A thief who gets your SSN can open a credit card, run up $3,000, and never pay - and you won't know until a collector calls or you're denied a loan. A free credit freeze would have blocked that new account from ever being opened."
       },
       {
         type: "micro-check",
@@ -930,7 +930,7 @@ export const insuranceContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Maya's Surprise Denial",
-        narrative: "Maya, 16, lives in Fort Lauderdale and has never checked her credit — she figures she's too young to have any. At 18, she applies for her first credit card and is denied. Confused, she pulls her credit report and discovers that someone opened three fraudulent accounts in her name when she was 14, using her stolen SSN. The accounts are unpaid and have wrecked a credit history she didn't even know she had.",
+        narrative: "Maya, 16, lives in Fort Lauderdale and has never checked her credit - she figures she's too young to have any. At 18, she applies for her first credit card and is denied. Confused, she pulls her credit report and discovers that someone opened three fraudulent accounts in her name when she was 14, using her stolen SSN. The accounts are unpaid and have wrecked a credit history she didn't even know she had.",
         details: [
           "A thief used Maya's SSN at age 14 to open accounts she never knew existed.",
           "Because Maya never checked her credit, the fraud went undetected for years.",
@@ -1001,7 +1001,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "It locks you out of your own bank account"
             ],
             correctAnswer: 0,
-            explanation: "A credit freeze stops lenders from opening new accounts in your name — a powerful, free defense against identity theft."
+            explanation: "A credit freeze stops lenders from opening new accounts in your name - a powerful, free defense against identity theft."
           },
           {
             id: "ins7-mastery4",
@@ -1013,7 +1013,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Your phone's wallpaper"
             ],
             correctAnswer: 1,
-            explanation: "The SSN is the master key to your financial identity — thieves prize it because it lets them open accounts and file fraud in your name."
+            explanation: "The SSN is the master key to your financial identity - thieves prize it because it lets them open accounts and file fraud in your name."
           }
         ]
       }
@@ -1030,9 +1030,9 @@ export const insuranceContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Building a Plan That Outlives You",
         paragraphs: [
-          "Financial planning means setting clear goals — short, medium, and long term — and building steps to reach them. A widely used order of priorities looks like this: build a small emergency fund, pay off high-interest debt, invest for the future, protect what you have with insurance, and finally create an estate plan. A helpful tool for setting goals is the SMART framework: Specific, Measurable, Achievable, Relevant, and Time-bound (for example, 'save $1,000 for emergencies in 6 months' instead of 'save more money').",
-          "A will is a legal document that says who gets your assets and who cares for any dependents when you die. Young adults often think wills are only for the old or wealthy, but even a simple will — plus medical directives that state your healthcare wishes — prevents confusion and family conflict. Just as important are beneficiary designations: the names you put on accounts like life insurance, a 401(k), or a bank account that direct the money straight to that person, often bypassing the long court process.",
-          "If you die without a will, you die 'intestate,' and the state decides who gets your assets using a fixed legal formula called intestate succession. In Florida, that means the law — not you — chooses how your property is divided among relatives, which can be slow, public, and not what you would have wanted. Having a will and up-to-date beneficiary designations keeps you in control."
+          "Financial planning means setting clear goals - short, medium, and long term - and building steps to reach them. A widely used order of priorities looks like this: build a small emergency fund, pay off high-interest debt, invest for the future, protect what you have with insurance, and finally create an estate plan. A helpful tool for setting goals is the SMART framework: Specific, Measurable, Achievable, Relevant, and Time-bound (for example, 'save $1,000 for emergencies in 6 months' instead of 'save more money').",
+          "A will is a legal document that says who gets your assets and who cares for any dependents when you die. Young adults often think wills are only for the old or wealthy, but even a simple will - plus medical directives that state your healthcare wishes - prevents confusion and family conflict. Just as important are beneficiary designations: the names you put on accounts like life insurance, a 401(k), or a bank account that direct the money straight to that person, often bypassing the long court process.",
+          "If you die without a will, you die 'intestate,' and the state decides who gets your assets using a fixed legal formula called intestate succession. In Florida, that means the law - not you - chooses how your property is divided among relatives, which can be slow, public, and not what you would have wanted. Having a will and up-to-date beneficiary designations keeps you in control."
         ],
         bullets: [
           "Financial planning sets short-, medium-, and long-term goals with concrete steps.",
@@ -1041,7 +1041,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "A will names who gets your assets and who cares for dependents; medical directives state health wishes.",
           "Dying without a will (intestate) means Florida law decides who inherits."
         ],
-        realWorldExample: "A 23-year-old with a $50,000 life insurance policy who names their younger sibling as beneficiary ensures that money goes directly to the sibling — fast and outside of court — even without a full estate plan. That single beneficiary line can matter more than a long legal document."
+        realWorldExample: "A 23-year-old with a $50,000 life insurance policy who names their younger sibling as beneficiary ensures that money goes directly to the sibling - fast and outside of court - even without a full estate plan. That single beneficiary line can matter more than a long legal document."
       },
       {
         type: "micro-check",
@@ -1068,7 +1068,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "Buying whole life insurance"
             ],
             correctAnswer: 1,
-            explanation: "An emergency fund comes first — it's the foundation that keeps a surprise expense from forcing you into debt while you pursue other goals."
+            explanation: "An emergency fund comes first - it's the foundation that keeps a surprise expense from forcing you into debt while you pursue other goals."
           }
         ]
       },
@@ -1105,7 +1105,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           "A common priority order is emergency fund → pay off debt → invest → insure → estate plan.",
           "A will names who inherits your assets and who cares for dependents.",
           "Beneficiary designations send specific accounts straight to named people, often skipping court.",
-          "Dying intestate (without a will) hands the decision to state law — in Florida, intestate succession."
+          "Dying intestate (without a will) hands the decision to state law - in Florida, intestate succession."
         ]
       },
       {
@@ -1134,7 +1134,7 @@ export const insuranceContent: StructuredLessonContent[] = [
               "To increase their credit score"
             ],
             correctAnswer: 1,
-            explanation: "A will lets anyone — at any age — decide who receives their assets and care for dependents, rather than leaving it to state default rules."
+            explanation: "A will lets anyone - at any age - decide who receives their assets and care for dependents, rather than leaving it to state default rules."
           },
           {
             id: "ins8-mastery3",

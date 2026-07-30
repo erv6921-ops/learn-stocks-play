@@ -58,7 +58,7 @@ export default function ChallengeCard({ challenge, entries, entered, canManage, 
           <Trophy className="w-3.5 h-3.5 text-gold" /> Standings
         </div>
         {top5.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-2">No one's entered yet — be the first!</p>
+          <p className="text-sm text-muted-foreground py-2">No one's entered yet - be the first!</p>
         ) : (
           <div className="space-y-1.5">
             {top5.map((e, i) => (

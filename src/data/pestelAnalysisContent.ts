@@ -7,14 +7,14 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "PESTEL — Scanning the Business Environment",
+        title: "PESTEL - Scanning the Business Environment",
         paragraphs: [
           "Every business operates inside a larger environment it can't fully control. Interest rates change. New laws get passed. Technology disrupts entire industries overnight. PESTEL analysis is a framework that helps businesses systematically scan these external forces before they become surprises.",
           "PESTEL stands for Political, Economic, Social, Technological, Environmental, and Legal factors. Together, these six categories cover the major macro-environmental forces that shape whether a business thrives or struggles.",
           "Companies use PESTEL before entering new markets, launching products, or making strategic decisions. It forces leaders to look beyond their own company and ask: 'What's happening in the world that could affect us?'"
         ],
         bullets: [
-          "PESTEL is an external analysis tool — it looks outside the company, not inside",
+          "PESTEL is an external analysis tool - it looks outside the company, not inside",
           "Each letter represents a category of macro-environmental forces",
           "It complements internal tools like SWOT by covering factors a company can't control",
           "Used for strategic planning, market entry, risk assessment, and opportunity scanning"
@@ -29,7 +29,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "What does PESTEL analysis primarily examine?",
             options: ["Internal company strengths", "External macro-environmental factors", "Competitor pricing strategies", "Employee satisfaction levels"],
             correctAnswer: 1,
-            explanation: "PESTEL focuses on external forces — Political, Economic, Social, Technological, Environmental, and Legal — that businesses can't directly control but must respond to."
+            explanation: "PESTEL focuses on external forces - Political, Economic, Social, Technological, Environmental, and Legal - that businesses can't directly control but must respond to."
           }
         ]
       },
@@ -39,7 +39,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
         narrative: "Jasmine and Derek both opened coffee shops in 2019. When COVID hit in 2020, Jasmine had already been tracking social trends (remote work rising) and technological shifts (mobile ordering). She pivoted to delivery and drive-through within weeks. Derek, who never monitored external trends, was caught flat-footed and closed after 6 months.",
         details: [
           "Jasmine's environmental scanning helped her anticipate and adapt",
-          "Derek's failure wasn't about coffee quality — it was about ignoring external forces",
+          "Derek's failure wasn't about coffee quality - it was about ignoring external forces",
           "PESTEL thinking would have flagged pandemic risk under Social and Political factors"
         ]
       },
@@ -55,14 +55,14 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             "She had a better location"
           ],
           correctAnswer: 1,
-          explanation: "Jasmine succeeded because she practiced environmental scanning — tracking social and technological trends — which let her pivot quickly when conditions changed."
+          explanation: "Jasmine succeeded because she practiced environmental scanning - tracking social and technological trends - which let her pivot quickly when conditions changed."
         }
       },
       {
         type: "recap",
         takeaways: [
           "PESTEL stands for Political, Economic, Social, Technological, Environmental, and Legal",
-          "It's an external analysis framework — examining forces outside the company",
+          "It's an external analysis framework - examining forces outside the company",
           "Businesses use it for strategic planning, market entry, and risk assessment",
           "Environmental scanning helps companies anticipate change instead of reacting to it"
         ]
@@ -117,19 +117,19 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Political Factors — How Government Shapes Business",
+        title: "Political Factors - How Government Shapes Business",
         paragraphs: [
           "Political factors include everything related to how governments interact with the business environment: regulations, tax policies, trade agreements, political stability, and government spending priorities. These forces can create enormous opportunities or devastating obstacles for businesses.",
           "Trade agreements between countries can open or close markets overnight. Tax incentives can make certain industries boom. Political instability in a region can make it too risky to operate there. Smart businesses monitor political landscapes continuously.",
-          "Political factors also include labor laws, environmental regulations, intellectual property protections, and antitrust policies. A single new law can reshape an entire industry — think of how data privacy regulations (like GDPR) forced every tech company to change how they handle user data."
+          "Political factors also include labor laws, environmental regulations, intellectual property protections, and antitrust policies. A single new law can reshape an entire industry - think of how data privacy regulations (like GDPR) forced every tech company to change how they handle user data."
         ],
         bullets: [
-          "Government regulation — rules that businesses must follow (safety standards, licensing, etc.)",
-          "Tax policy — corporate tax rates, incentives, tariffs on imports/exports",
-          "Trade agreements — deals between countries that affect cross-border business",
-          "Political stability — how predictable and stable the governing environment is"
+          "Government regulation - rules that businesses must follow (safety standards, licensing, etc.)",
+          "Tax policy - corporate tax rates, incentives, tariffs on imports/exports",
+          "Trade agreements - deals between countries that affect cross-border business",
+          "Political stability - how predictable and stable the governing environment is"
         ],
-        realWorldExample: "When the US imposed tariffs on Chinese goods in 2018–2019, Apple faced a major political PESTEL factor. Many of its products were assembled in China. The tariffs threatened to raise iPhone prices significantly. Apple lobbied for exemptions and simultaneously began diversifying manufacturing to India and Vietnam — a direct strategic response to a political factor."
+        realWorldExample: "When the US imposed tariffs on Chinese goods in 2018-2019, Apple faced a major political PESTEL factor. Many of its products were assembled in China. The tariffs threatened to raise iPhone prices significantly. Apple lobbied for exemptions and simultaneously began diversifying manufacturing to India and Vietnam - a direct strategic response to a political factor."
       },
       {
         type: "micro-check",
@@ -166,7 +166,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             "Ignore the tariff and hope it gets reversed"
           ],
           correctAnswer: 2,
-          explanation: "The best strategic response is to evaluate alternatives — finding domestic suppliers reduces tariff exposure while maintaining competitiveness. Immediate price hikes could lose customers, and ignoring the change is risky."
+          explanation: "The best strategic response is to evaluate alternatives - finding domestic suppliers reduces tariff exposure while maintaining competitiveness. Immediate price hikes could lose customers, and ignoring the change is risky."
         }
       },
       {
@@ -175,7 +175,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
           "Political factors include government regulations, tax policy, trade agreements, and political stability",
           "Trade tariffs can reshape competitive dynamics in an industry overnight",
           "Companies must monitor political environments in every country they operate in",
-          "Political changes create both threats and opportunities — the key is anticipating them"
+          "Political changes create both threats and opportunities - the key is anticipating them"
         ]
       },
       {
@@ -187,14 +187,14 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "Which of the following is a political factor in PESTEL?",
             options: ["Consumer spending trends", "New trade agreement between two countries", "Adoption of artificial intelligence", "Population aging"],
             correctAnswer: 1,
-            explanation: "Trade agreements are government-level decisions that directly affect how businesses operate across borders — a classic political factor."
+            explanation: "Trade agreements are government-level decisions that directly affect how businesses operate across borders - a classic political factor."
           },
           {
             id: "pestel-2-mq2",
             question: "How did Apple respond to US-China tariffs?",
             options: ["Stopped selling iPhones", "Raised prices 50%", "Diversified manufacturing to India and Vietnam", "Moved headquarters to China"],
             correctAnswer: 2,
-            explanation: "Apple began shifting production to countries like India and Vietnam to reduce its exposure to US-China trade tensions — a strategic response to political factors."
+            explanation: "Apple began shifting production to countries like India and Vietnam to reduce its exposure to US-China trade tensions - a strategic response to political factors."
           },
           {
             id: "pestel-2-mq3",
@@ -208,14 +208,14 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "Why should businesses monitor political factors in countries where they don't yet operate?",
             options: ["It's not necessary", "Political changes could create future market entry opportunities", "Only to track competitor headquarters", "Political factors only matter domestically"],
             correctAnswer: 1,
-            explanation: "Political changes in other countries can create opportunities for expansion — new trade agreements, deregulation, or incentive programs may make a market attractive."
+            explanation: "Political changes in other countries can create opportunities for expansion - new trade agreements, deregulation, or incentive programs may make a market attractive."
           },
           {
             id: "pestel-2-mq5",
             question: "Political instability in a country would most likely cause a business to:",
             options: ["Increase investment there immediately", "Delay or reduce operations in that market", "Ignore it since it doesn't affect business", "Move all operations there for lower costs"],
             correctAnswer: 1,
-            explanation: "Political instability increases risk — unpredictable government changes, potential unrest, and unreliable rule of law make businesses cautious about investing."
+            explanation: "Political instability increases risk - unpredictable government changes, potential unrest, and unreliable rule of law make businesses cautious about investing."
           }
         ]
       }
@@ -228,20 +228,20 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Economic Factors — The Financial Climate Around Your Business",
+        title: "Economic Factors - The Financial Climate Around Your Business",
         paragraphs: [
           "Economic factors are the macro-financial conditions that affect consumer spending power, business costs, and overall market demand. These include GDP growth, inflation rates, interest rates, unemployment levels, exchange rates, and the stage of the business cycle.",
           "When the economy is growing (expansion), consumers spend more, businesses hire, and profits rise. During recessions, spending drops, layoffs increase, and many businesses struggle. Understanding where you are in the business cycle helps companies plan for what's coming.",
-          "Interest rates are particularly powerful. When rates are low, borrowing is cheap — businesses expand and consumers buy homes and cars. When rates rise, borrowing becomes expensive, slowing economic activity. The Federal Reserve manipulates interest rates as its primary tool for managing the economy."
+          "Interest rates are particularly powerful. When rates are low, borrowing is cheap - businesses expand and consumers buy homes and cars. When rates rise, borrowing becomes expensive, slowing economic activity. The Federal Reserve manipulates interest rates as its primary tool for managing the economy."
         ],
         bullets: [
-          "GDP growth rate — measures overall economic output and growth",
-          "Inflation — rising prices that erode purchasing power over time",
-          "Interest rates — the cost of borrowing money (set by central banks)",
-          "Unemployment — affects consumer spending and labor availability",
-          "Exchange rates — impact import/export costs for international businesses"
+          "GDP growth rate - measures overall economic output and growth",
+          "Inflation - rising prices that erode purchasing power over time",
+          "Interest rates - the cost of borrowing money (set by central banks)",
+          "Unemployment - affects consumer spending and labor availability",
+          "Exchange rates - impact import/export costs for international businesses"
         ],
-        realWorldExample: "During the 2022–2023 inflation surge, McDonald's faced a classic economic PESTEL factor. Food input costs rose 14%, labor costs climbed, and consumers became more price-sensitive. McDonald's responded by emphasizing its value menu, raising prices strategically on premium items, and investing in digital ordering to reduce labor costs. The economic environment forced a shift in strategy."
+        realWorldExample: "During the 2022-2023 inflation surge, McDonald's faced a classic economic PESTEL factor. Food input costs rose 14%, labor costs climbed, and consumers became more price-sensitive. McDonald's responded by emphasizing its value menu, raising prices strategically on premium items, and investing in digital ordering to reduce labor costs. The economic environment forced a shift in strategy."
       },
       {
         type: "micro-check",
@@ -262,7 +262,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
         details: [
           "Beef costs up 18%, chicken up 14%, produce up 10%",
           "Minimum wage in their state increased 8% this year",
-          "Competitor chains are raising prices 5–8%",
+          "Competitor chains are raising prices 5-8%",
           "Customer traffic has already dropped 7% from last year"
         ]
       },
@@ -278,7 +278,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             "Close half the restaurants to cut costs"
           ],
           correctAnswer: 2,
-          explanation: "A balanced approach — selective price increases, menu engineering, and portion optimization — lets FreshBite protect margins while keeping customers. Across-the-board increases or doing nothing are both extreme."
+          explanation: "A balanced approach - selective price increases, menu engineering, and portion optimization - lets FreshBite protect margins while keeping customers. Across-the-board increases or doing nothing are both extreme."
         }
       },
       {
@@ -310,10 +310,10 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
           },
           {
             id: "pestel-3-mq3",
-            question: "How did McDonald's respond to 2022–2023 inflation?",
+            question: "How did McDonald's respond to 2022-2023 inflation?",
             options: ["Closed all locations", "Emphasized value menu and raised prices strategically on premium items", "Stopped serving food", "Ignored the inflation entirely"],
             correctAnswer: 1,
-            explanation: "McDonald's used a strategic pricing approach — protecting value-conscious customers while raising prices on premium items where demand was less price-sensitive."
+            explanation: "McDonald's used a strategic pricing approach - protecting value-conscious customers while raising prices on premium items where demand was less price-sensitive."
           },
           {
             id: "pestel-3-mq4",
@@ -340,19 +340,19 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Social Factors — People, Culture, and Changing Attitudes",
+        title: "Social Factors - People, Culture, and Changing Attitudes",
         paragraphs: [
-          "Social factors examine how demographics, cultural values, lifestyle trends, and consumer attitudes shape demand for products and services. These are the 'people' forces — shifts in how society thinks, lives, and spends.",
+          "Social factors examine how demographics, cultural values, lifestyle trends, and consumer attitudes shape demand for products and services. These are the 'people' forces - shifts in how society thinks, lives, and spends.",
           "Demographics include population size, age distribution, education levels, and income distribution. An aging population creates demand for healthcare and retirement services. A younger population drives demand for technology, entertainment, and education.",
           "Cultural attitudes evolve constantly. The rise of health consciousness created a massive wellness industry. Growing environmental awareness pushed companies toward sustainability. Social media changed how people discover, evaluate, and recommend products. Businesses that read social trends early gain a competitive advantage."
         ],
         bullets: [
-          "Demographics — age distribution, population growth, urbanization, education levels",
-          "Cultural values — health consciousness, sustainability, work-life balance",
-          "Consumer attitudes — brand expectations, social responsibility demands",
-          "Lifestyle trends — remote work, plant-based diets, minimalism, digital-first living"
+          "Demographics - age distribution, population growth, urbanization, education levels",
+          "Cultural values - health consciousness, sustainability, work-life balance",
+          "Consumer attitudes - brand expectations, social responsibility demands",
+          "Lifestyle trends - remote work, plant-based diets, minimalism, digital-first living"
         ],
-        realWorldExample: "Nike's 2018 Colin Kaepernick ad campaign was a direct response to social factors. Nike read the cultural moment — younger consumers (their core market) valued brands that took stands on social issues. Despite controversy and short-term boycotts, Nike's online sales surged 31% in the days after the campaign, and the stock hit an all-time high within weeks. Nike's social factor analysis told them their target demographic would reward boldness."
+        realWorldExample: "Nike's 2018 Colin Kaepernick ad campaign was a direct response to social factors. Nike read the cultural moment - younger consumers (their core market) valued brands that took stands on social issues. Despite controversy and short-term boycotts, Nike's online sales surged 31% in the days after the campaign, and the stock hit an all-time high within weeks. Nike's social factor analysis told them their target demographic would reward boldness."
       },
       {
         type: "micro-check",
@@ -362,7 +362,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "A company notices that 60% of its target market now works remotely. What PESTEL category is this?",
             options: ["Political", "Economic", "Social", "Technological"],
             correctAnswer: 2,
-            explanation: "Remote work is a lifestyle and cultural shift — a Social factor that changes how, where, and what people buy."
+            explanation: "Remote work is a lifestyle and cultural shift - a Social factor that changes how, where, and what people buy."
           }
         ]
       },
@@ -372,7 +372,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
         narrative: "MeatCo, a traditional burger chain, notices that plant-based food sales in their region have grown 240% over five years. Their customer surveys show 35% of millennials are actively reducing meat consumption. A competitor just launched a plant-based menu section and saw a 22% increase in foot traffic from new customers.",
         details: [
           "Plant-based food market projected to reach $162 billion by 2030",
-          "MeatCo's core customer base (ages 18–34) is the most likely to try plant-based options",
+          "MeatCo's core customer base (ages 18-34) is the most likely to try plant-based options",
           "Adding plant-based items would require new supplier relationships and kitchen training",
           "MeatCo's brand identity is built around traditional American burgers"
         ]
@@ -383,7 +383,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
           id: "pestel-4-aq1",
           question: "What should MeatCo do based on these social trends?",
           options: [
-            "Ignore the trend — it's just a fad",
+            "Ignore the trend - it's just a fad",
             "Completely rebrand as a plant-based restaurant",
             "Add plant-based options to the existing menu while maintaining their core identity",
             "Launch negative advertising against plant-based competitors"
@@ -417,7 +417,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "Nike's Kaepernick campaign succeeded primarily because:",
             options: ["The ads were visually beautiful", "Nike correctly read that their target demographic valued social stands", "Everyone agreed with the message", "It was the cheapest campaign they could run"],
             correctAnswer: 1,
-            explanation: "Nike's social factor analysis showed that younger consumers — their core market — would reward brands that took stands on social issues, even if it was controversial."
+            explanation: "Nike's social factor analysis showed that younger consumers - their core market - would reward brands that took stands on social issues, even if it was controversial."
           },
           {
             id: "pestel-4-mq3",
@@ -451,17 +451,17 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Technological Factors — Innovation, Automation, and Digital Disruption",
+        title: "Technological Factors - Innovation, Automation, and Digital Disruption",
         paragraphs: [
           "Technological factors examine how innovation, automation, digital transformation, and emerging technologies affect business strategy. Technology can create entirely new industries (ride-sharing, streaming), destroy existing ones (video rental, film cameras), and fundamentally change how companies operate.",
           "The speed of technological change is accelerating. Businesses must constantly evaluate: Will AI replace parts of our workforce? Should we invest in automation? Are competitors using technology we're not? Is our industry vulnerable to digital disruption?",
           "R&D spending, technology adoption rates, digital infrastructure, and cybersecurity threats are all technological factors. Companies that embrace technology early often gain massive competitive advantages, while those that resist change risk becoming obsolete."
         ],
         bullets: [
-          "Innovation — new products, services, and business models enabled by technology",
-          "Automation — machines and AI replacing human tasks (manufacturing, customer service)",
-          "Digital disruption — technology fundamentally changing how an industry works",
-          "Cybersecurity — protecting digital assets and customer data from threats"
+          "Innovation - new products, services, and business models enabled by technology",
+          "Automation - machines and AI replacing human tasks (manufacturing, customer service)",
+          "Digital disruption - technology fundamentally changing how an industry works",
+          "Cybersecurity - protecting digital assets and customer data from threats"
         ],
         realWorldExample: "Kodak is the textbook example of ignoring technological factors. Kodak actually invented the digital camera in 1975 but suppressed it to protect their film business. By the time smartphone cameras became mainstream, Kodak's film revenue had collapsed. They filed for bankruptcy in 2012. Meanwhile, companies like Instagram (founded 2010) built billion-dollar businesses on the same digital photography technology Kodak invented but refused to embrace."
       },
@@ -500,14 +500,14 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             "Sue the AI companies for unfair competition"
           ],
           correctAnswer: 2,
-          explanation: "A hybrid approach — using AI for speed and cost savings, with human expertise for quality control — lets TranslateNow compete on price while maintaining its accuracy advantage. Pure resistance or pure replacement are both risky."
+          explanation: "A hybrid approach - using AI for speed and cost savings, with human expertise for quality control - lets TranslateNow compete on price while maintaining its accuracy advantage. Pure resistance or pure replacement are both risky."
         }
       },
       {
         type: "recap",
         takeaways: [
           "Technological factors include innovation, automation, digital disruption, and cybersecurity",
-          "Technology can create new industries and destroy existing ones — often rapidly",
+          "Technology can create new industries and destroy existing ones - often rapidly",
           "Companies that embrace technology early gain competitive advantages",
           "The Kodak story shows the danger of ignoring technological change to protect legacy business"
         ]
@@ -535,7 +535,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "Digital disruption most accurately describes:",
             options: ["A minor software update", "Technology fundamentally changing how an entire industry operates", "A temporary internet outage", "A company buying new computers"],
             correctAnswer: 1,
-            explanation: "Digital disruption occurs when technology transforms the fundamental way an industry works — like streaming disrupting video rental or ride-sharing disrupting taxis."
+            explanation: "Digital disruption occurs when technology transforms the fundamental way an industry works - like streaming disrupting video rental or ride-sharing disrupting taxis."
           },
           {
             id: "pestel-5-mq4",
@@ -549,7 +549,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "The best response to technological disruption in your industry is usually to:",
             options: ["Resist all change", "Evaluate and integrate relevant technologies while maintaining core strengths", "Abandon your entire business model immediately", "Wait until competitors have fully adopted it"],
             correctAnswer: 1,
-            explanation: "Strategic technology adoption — evaluating what's relevant and integrating it thoughtfully — balances innovation with stability."
+            explanation: "Strategic technology adoption - evaluating what's relevant and integrating it thoughtfully - balances innovation with stability."
           }
         ]
       }
@@ -562,7 +562,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Environmental & Legal Factors — Sustainability, Climate Risk, and the Law",
+        title: "Environmental & Legal Factors - Sustainability, Climate Risk, and the Law",
         paragraphs: [
           "Environmental factors include climate change, sustainability pressures, natural resource availability, pollution regulations, and weather patterns. Businesses increasingly face pressure from consumers, investors, and regulators to reduce their environmental impact.",
           "Legal factors cover the laws and regulations that businesses must comply with: employment law, consumer protection, health and safety standards, data protection (like GDPR), intellectual property rights, and antitrust regulations. Breaking these laws can result in massive fines, lawsuits, and reputation damage.",
@@ -584,28 +584,28 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "A company must comply with new data privacy regulations (like GDPR). Which PESTEL factor is this?",
             options: ["Political", "Economic", "Social", "Legal"],
             correctAnswer: 3,
-            explanation: "Data privacy laws are Legal factors — specific regulations that businesses must comply with or face penalties."
+            explanation: "Data privacy laws are Legal factors - specific regulations that businesses must comply with or face penalties."
           },
           {
             id: "pestel-6-mc2",
             question: "Investors increasingly refuse to invest in companies with high carbon emissions. This pressure is primarily:",
             options: ["Political", "Environmental", "Technological", "Economic"],
             correctAnswer: 1,
-            explanation: "Investor pressure around carbon emissions is an Environmental factor — it's driven by climate concerns and sustainability expectations."
+            explanation: "Investor pressure around carbon emissions is an Environmental factor - it's driven by climate concerns and sustainability expectations."
           }
         ]
       },
       {
         type: "scenario",
-        title: "The Full PESTEL — GreenTech Case Study",
+        title: "The Full PESTEL - GreenTech Case Study",
         narrative: "GreenTech is a startup that makes biodegradable packaging for food companies. Read the following factors affecting their business and classify each one using PESTEL:\n\n1. The government announces a $2 billion grant program for sustainable packaging companies\n2. A recession reduces corporate spending on premium packaging\n3. Gen Z consumers demand eco-friendly packaging from brands they buy\n4. A new bio-material technology makes biodegradable packaging 40% cheaper to produce\n5. A major hurricane disrupts their raw material supply chain for 3 months\n6. New employment law requires overtime pay for warehouse workers above 35 hours/week",
         details: [
-          "Factor 1: Political — government grant program",
-          "Factor 2: Economic — recession reducing demand",
-          "Factor 3: Social — consumer attitude shift toward sustainability",
-          "Factor 4: Technological — new bio-material innovation",
-          "Factor 5: Environmental — natural disaster disrupting operations",
-          "Factor 6: Legal — employment law change affecting labor costs"
+          "Factor 1: Political - government grant program",
+          "Factor 2: Economic - recession reducing demand",
+          "Factor 3: Social - consumer attitude shift toward sustainability",
+          "Factor 4: Technological - new bio-material innovation",
+          "Factor 5: Environmental - natural disaster disrupting operations",
+          "Factor 6: Legal - employment law change affecting labor costs"
         ]
       },
       {
@@ -628,7 +628,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
         takeaways: [
           "Environmental factors include climate change, sustainability, resource scarcity, and natural disasters",
           "Legal factors include employment law, consumer protection, data privacy, and intellectual property",
-          "Environmental and Legal factors often overlap — environmental concerns create new regulations",
+          "Environmental and Legal factors often overlap - environmental concerns create new regulations",
           "The Volkswagen emissions scandal shows the catastrophic cost of ignoring Environmental/Legal factors",
           "PESTEL works best when all six factors are analyzed together as an interconnected system"
         ]
@@ -649,7 +649,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "ESG investing stands for:",
             options: ["Economic, Strategic, Growth", "Environmental, Social, Governance", "Efficient, Scalable, Global", "Early, Safe, Guaranteed"],
             correctAnswer: 1,
-            explanation: "ESG — Environmental, Social, and Governance — is an investing framework that evaluates companies on sustainability, social responsibility, and corporate governance."
+            explanation: "ESG - Environmental, Social, and Governance - is an investing framework that evaluates companies on sustainability, social responsibility, and corporate governance."
           },
           {
             id: "pestel-6-mq3",
@@ -663,7 +663,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
             question: "GDPR (General Data Protection Regulation) is best classified as:",
             options: ["A social trend", "A legal factor", "A technological innovation", "An economic indicator"],
             correctAnswer: 1,
-            explanation: "GDPR is a specific regulation (law) that businesses must comply with — a Legal factor in PESTEL analysis."
+            explanation: "GDPR is a specific regulation (law) that businesses must comply with - a Legal factor in PESTEL analysis."
           },
           {
             id: "pestel-6-mq5",

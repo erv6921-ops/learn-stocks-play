@@ -1,6 +1,6 @@
-// Shared rank ladder — used by the Leaderboard and the Partners directory so a
+// Shared rank ladder - used by the Leaderboard and the Partners directory so a
 // student's league/level reads the same everywhere. Tiers are derived from the
-// student's current InvestiCoins balance — the same number as the coin counter.
+// student's current InvestiCoins balance - the same number as the coin counter.
 
 export const LEVEL_THRESHOLDS = [0, 1000, 3000, 7000, 15000, 30000, 60000, 100000]
 

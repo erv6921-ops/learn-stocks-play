@@ -32,16 +32,16 @@ import MissionsWorldMap, { UnitMeta } from "@/components/MissionsWorldMap";
 // ── #4 Next-lesson one-line descriptions, keyed L<unit>.<lesson> ──
 const lessonDescriptions: Record<string, string> = {
   "L1.1": "Why our brains make terrible money decisions",
-  "L1.2": "How waiting pays off — literally",
+  "L1.2": "How waiting pays off - literally",
   "L1.3": "The trap of wanting what others have",
   "L1.4": "Why you spend more than you think",
   "L2.1": "What your time is actually worth per hour",
-  "L2.2": "Salary vs. hourly — which is really better?",
+  "L2.2": "Salary vs. hourly - which is really better?",
   "L2.3": "How taxes shrink your paycheck",
   "L2.4": "Side hustles that actually make money",
   "L3.1": "Build a budget that doesn't feel like a punishment",
   "L3.2": "The 50/30/20 rule explained",
-  "L3.3": "Needs vs. wants — drawing the line",
+  "L3.3": "Needs vs. wants - drawing the line",
   "L3.4": "Tracking spending without losing your mind",
 };
 const FALLBACK_LESSON_DESC = "Master this concept to unlock the next level.";
@@ -55,7 +55,7 @@ const unitSummaries: Record<number, string> = {
   3: "Master budgeting so your money goes where you actually want it to go.",
   4: "Understand debt, credit scores, and how to use borrowing without getting trapped.",
   5: "Learn to invest early and let compound interest do the heavy lifting.",
-  6: "Understand taxes — what you owe, why, and how to keep more of what you earn.",
+  6: "Understand taxes - what you owe, why, and how to keep more of what you earn.",
   7: "Protect yourself and your assets with the right insurance strategies.",
   8: "Plan for retirement now, even if it feels impossibly far away.",
 };
@@ -96,7 +96,7 @@ export default function Lessons() {
     try { localStorage.setItem("investiplay_active_track", activeTrack); } catch { /* storage unavailable */ }
   }, [activeTrack]);
 
-  // Biz Lab students only see Regular Course + Gulliver Biz Lab — never the AP
+  // Biz Lab students only see Regular Course + Gulliver Biz Lab - never the AP
   // elective. If a stale track was stored, fall back to the regular course.
   const bizLabEnrolled = !!user?.bizLabEnrolled;
   useEffect(() => {
@@ -105,7 +105,7 @@ export default function Lessons() {
   }, [bizLabEnrolled, activeTrack]);
 
   // Biz Lab students get the original Regular Course format (roller coaster,
-  // badges, etc.) — never the AP Mode layout, even if AP Mode was toggled on
+  // badges, etc.) - never the AP Mode layout, even if AP Mode was toggled on
   // before enrolling and is still stored in localStorage.
   const effectiveApMode = apMode && !bizLabEnrolled;
   const trackUnits = useMemo(
@@ -130,7 +130,7 @@ export default function Lessons() {
     );
   }, [user?.benchmarkCategoryScores, user?.benchmarkScores, user?.assessmentScore]);
 
-  // Prerequisite gating — scoped to the units of the active track.
+  // Prerequisite gating - scoped to the units of the active track.
   const unlockedUnits = useMemo(() => {
     const unlocked = new Set<string>();
     const firstOrder = trackUnits[0]?.orderIndex;
@@ -180,7 +180,7 @@ export default function Lessons() {
   const [activeUnitId, setActiveUnitId] = useState(firstActiveUnitId);
   useEffect(() => { setActiveUnitId(firstActiveUnitId); }, [firstActiveUnitId]);
 
-  // Center the active chip within its own horizontal strip — scroll only the
+  // Center the active chip within its own horizontal strip - scroll only the
   // strip container (not the page), so entering the tab never jumps vertically.
   useEffect(() => {
     const container = stripRef.current;
@@ -319,7 +319,7 @@ export default function Lessons() {
         const sorted = [...lb].sort((a, b) => (Number(b.xp) || 0) - (Number(a.xp) || 0));
         const idx = sorted.findIndex(r => r.user_id === authUser.id);
         if (idx >= 0) setClassRank(idx + 1);
-      } catch { /* leaderboard unavailable — leave rank hidden */ }
+      } catch { /* leaderboard unavailable - leave rank hidden */ }
     })();
     return () => { active = false; };
   }, [lessonProgress]);
@@ -570,7 +570,7 @@ export default function Lessons() {
           )}
         </div>
 
-        {/* AP Mode Toggle (business AP tracks — Florida only). Hidden for Biz
+        {/* AP Mode Toggle (business AP tracks - Florida only). Hidden for Biz
             Lab students, who only have Regular Course + Gulliver Biz Lab. */}
         {activeTrack === "florida" && !bizLabEnrolled && (
           <div className="mb-5">
@@ -582,7 +582,7 @@ export default function Lessons() {
         {activeTrack === "ap-micro" && (
           <div className="rounded-2xl p-4 mb-5 text-white" style={{ background: "linear-gradient(135deg,#0f2d1e,#1D9E75)" }}>
             <p className="text-sm font-bold flex items-center gap-2">
-              <GraduationCap className="w-4 h-4 text-gold" /> AP Microeconomics — College Board aligned
+              <GraduationCap className="w-4 h-4 text-gold" /> AP Microeconomics - College Board aligned
             </p>
             <p className="text-white/60 text-xs mt-0.5">An elective track. Your required curriculum and level are unaffected.</p>
           </div>
@@ -598,21 +598,21 @@ export default function Lessons() {
         )}
         {coasterMini && isMapView && (
           <>
-            {/* 2. Progress card — circular ring hero + chart */}
+            {/* 2. Progress card - circular ring hero + chart */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
               className="rounded-[20px] bg-card overflow-hidden mb-4"
               style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
-              {/* Slim header — the coaster is the hero; key stats sit beside it */}
+              {/* Slim header - the coaster is the hero; key stats sit beside it */}
               <div className="px-5 pt-4 pb-1 flex items-end justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.12em] truncate">
                     {activeUnit ? `Unit ${activeUnit.unitNumber} · Your ride` : "Your ride"}
                   </p>
                   <p className="font-display font-extrabold text-foreground tracking-tight leading-tight mt-0.5 text-lg truncate">
-                    {activeUnit?.title ?? "—"}
+                    {activeUnit?.title ?? "-"}
                   </p>
                 </div>
                 <div className="text-right shrink-0">
@@ -631,7 +631,7 @@ export default function Lessons() {
                 </div>
               </div>
 
-              {/* Roller-coaster ride — Jeff travels through this unit's lessons.
+              {/* Roller-coaster ride - Jeff travels through this unit's lessons.
                   Each station is a lesson: ridden track is solid green, the track
                   ahead is dashed, and tapping a station jumps to that lesson. */}
               <div className="px-2 sm:px-4 pt-1 pb-5">
@@ -659,7 +659,7 @@ export default function Lessons() {
             <div className="grid lg:grid-cols-3 gap-5 items-start">
             <div className="lg:col-span-2 space-y-4 min-w-0">
 
-            {/* 3. Unit strip — scrollable "mission" tabs */}
+            {/* 3. Unit strip - scrollable "mission" tabs */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Units</p>
@@ -756,7 +756,7 @@ export default function Lessons() {
                 style={{ background: "#1D9E75" }}>
                 <div>
                   <p className="text-white font-extrabold text-base">
-                    Unit complete — {earnedPts.toLocaleString()} earned
+                    Unit complete - {earnedPts.toLocaleString()} earned
                   </p>
                 </div>
                 {nextUnit && (
@@ -800,7 +800,7 @@ export default function Lessons() {
               </motion.div>
             ) : null}
 
-            {/* Lesson cards — same card language as the unit tabs, one per lesson */}
+            {/* Lesson cards - same card language as the unit tabs, one per lesson */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
@@ -876,13 +876,13 @@ export default function Lessons() {
             {activeTrack === "ap-micro" && AP_UNIT_CHALLENGES[activeUnitId] && (
               <div className="rounded-[20px] px-5 py-4 border" style={{ borderColor: "hsl(45 10% 82%)", background: "rgba(29,158,117,0.06)" }}>
                 <p className="text-[11px] font-bold uppercase tracking-wider text-[#1D9E75] flex items-center gap-1.5 mb-1">
-                  <Target className="w-3.5 h-3.5" /> Apply it — challenge
+                  <Target className="w-3.5 h-3.5" /> Apply it - challenge
                 </p>
                 <p className="text-sm text-foreground/80">{AP_UNIT_CHALLENGES[activeUnitId]}</p>
               </div>
             )}
 
-            {/* Unit Test CTA — shown for categories that have authored test
+            {/* Unit Test CTA - shown for categories that have authored test
                 data; unlocks once every lesson in the unit is done. (The
                 /unit-test route previously had no inbound link anywhere.) */}
             {(() => {
@@ -903,7 +903,7 @@ export default function Lessons() {
                     <p className="text-sm font-bold">Unit Test</p>
                     <p className="text-xs text-muted-foreground truncate">
                       {passed
-                        ? "Passed — nice work!"
+                        ? "Passed - nice work!"
                         : allDone
                           ? `${test.questions.length} questions · score ${test.passingScore}%+ to earn ${Math.round(test.reward * multiplier)} coins`
                           : "Finish every lesson in this unit to unlock"}
@@ -926,7 +926,7 @@ export default function Lessons() {
               );
             })()}
 
-            {/* #5 Badges — trophy cabinet */}
+            {/* #5 Badges - trophy cabinet */}
             <div className="rounded-[20px] bg-card px-5 py-4"
               style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
               <div className="flex items-center justify-between mb-3">
@@ -972,18 +972,18 @@ export default function Lessons() {
 /* ════════════════════════════════════════════════
    INTERACTIVE ROLLER-COASTER PROGRESS TRACK
    Jeff rides a cart through the active unit's lessons. The track he's already
-   ridden is solid green; the track ahead is dashed. Every station is a lesson —
+   ridden is solid green; the track ahead is dashed. Every station is a lesson -
    tap one to jump straight to it. Horizontally scrollable for long units.
    ════════════════════════════════════════════════ */
-// Jeff's coaster chatter — one line rotates in based on the current station.
+// Jeff's coaster chatter - one line rotates in based on the current station.
 const JEFF_DIALOGUE = [
   "Next stop: new skills! 🎢",
-  "You're on a roll — keep going!",
+  "You're on a roll - keep going!",
   "Climbing higher every lesson 📈",
   "Coins ahead… let's grab 'em! 🪙",
   "Smooth ride so far, nice work!",
   "Hop in, let's learn something!",
-  "Almost at the top — hang on!",
+  "Almost at the top - hang on!",
   "Big brain energy, let's go! 🧠",
 ];
 
@@ -1048,7 +1048,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
   const jeffIdx = Math.min(currentIdx, n - 1);
   const jeff = pts[Math.max(jeffIdx, 0)];
   const dialogue = celebrate
-    ? "Woohoo — unit complete! 🎉"
+    ? "Woohoo - unit complete! 🎉"
     : currentIdx <= 0
       ? "All aboard! Tap to start 🎢"
       : JEFF_DIALOGUE[Math.max(jeffIdx, 0) % JEFF_DIALOGUE.length];
@@ -1197,7 +1197,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
           )}
         </svg>
 
-        {/* Station markers — HTML overlay for easy tap + hover */}
+        {/* Station markers - HTML overlay for easy tap + hover */}
         {pts.map((p, i) => {
           const al = lessons[i];
           const done = isCompleted(al);
@@ -1259,7 +1259,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
             className="flex flex-col items-center cursor-pointer select-none"
             aria-label={celebrate ? "Unit complete" : "Continue current lesson"}
           >
-            {/* Jeff's speech bubble — shifted near the edges so it never clips */}
+            {/* Jeff's speech bubble - shifted near the edges so it never clips */}
             <div className="relative mb-2">
               <div className="rounded-2xl px-3.5 py-2 text-[12px] font-bold whitespace-nowrap shadow-md"
                 style={{ background: "#fff", color: "#2C2C2A", border: "1.5px solid hsl(45 12% 86%)", transform: `translateX(${bubbleShift}px)` }}>
@@ -1278,7 +1278,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
                 {/* wheels */}
                 <div className="absolute rounded-full" style={{ width: 17, height: 17, left: 15, bottom: 3, background: "#2C2C2A", border: "2.5px solid #d9871a", zIndex: 1 }} />
                 <div className="absolute rounded-full" style={{ width: 17, height: 17, right: 15, bottom: 3, background: "#2C2C2A", border: "2.5px solid #d9871a", zIndex: 1 }} />
-                {/* Jeff seated — his lower half tucks down behind the car body */}
+                {/* Jeff seated - his lower half tucks down behind the car body */}
                 <div className="absolute" style={{ left: "50%", top: -5, transform: "translateX(-50%)", width: 58, height: 64, zIndex: 1 }}>
                   <JeffMascot mood={celebrate ? "celebrate" : "encourage"} />
                 </div>

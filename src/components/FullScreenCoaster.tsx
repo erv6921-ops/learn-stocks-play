@@ -4,7 +4,7 @@ import { CheckCircle, Lock, Flame, Coins, Star, ChevronRight } from "lucide-reac
 import { JeffMascot } from "@/components/JeffMascot";
 
 /**
- * FULL-SCREEN COASTER — the roller coaster fills its entire container, with the
+ * FULL-SCREEN COASTER - the roller coaster fills its entire container, with the
  * player's core stats (streak, points, level) floating in the SKY rather than
  * in a separate strip. Each station is a lesson; tap one to jump to it.
  *
@@ -38,10 +38,10 @@ export interface FullScreenCoasterProps {
 }
 
 const JEFF_DIALOGUE = [
-  "All aboard — let's learn! 🎢",
+  "All aboard - let's learn! 🎢",
   "You're on a roll, keep climbing!",
   "Coins ahead… let's grab 'em! 🪙",
-  "Big brain energy — let's go! 🧠",
+  "Big brain energy - let's go! 🧠",
   "Almost at the top, hang on!",
 ];
 
@@ -141,7 +141,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
   const jeff = pts[jeffIdx] ?? { x: W / 2, y: my };
   const allDone = currentIdx >= n;
   const pctComplete = n > 0 ? Math.round((Math.min(currentIdx, n) / n) * 100) : 0;
-  const dialogue = allDone ? "Woohoo — unit complete! 🎉" : currentIdx <= 0 ? "All aboard! Tap to start 🎢" : JEFF_DIALOGUE[jeffIdx % JEFF_DIALOGUE.length];
+  const dialogue = allDone ? "Woohoo - unit complete! 🎉" : currentIdx <= 0 ? "All aboard! Tap to start 🎢" : JEFF_DIALOGUE[jeffIdx % JEFF_DIALOGUE.length];
 
   // Dense samples → twin rails + cross-ties that hug the exact curve.
   const perSeg = 16;
@@ -512,7 +512,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
                   <div className="absolute" style={{ left: "50%", top: -8, transform: "translateX(-50%)", width: 94, height: 100, zIndex: 1 }}>
                     <JeffMascot mood={allDone ? "celebrating" : "excited"} size="xl" className="!w-full !h-full" />
                   </div>
-                  {/* car body — glossy */}
+                  {/* car body - glossy */}
                   <div className="absolute" style={{ left: 3, right: 3, bottom: 12, height: 72, borderRadius: "18px 18px 32px 32px", background: "linear-gradient(160deg,#FFD96B,#F2A937 55%,#d9871a)", boxShadow: "inset 0 3px 0 rgba(255,255,255,0.5), inset 0 -8px 14px rgba(150,80,10,0.35), 0 8px 16px rgba(6,41,31,0.24)", zIndex: 2 }}>
                     <div className="absolute" style={{ left: 12, right: 12, top: 9, height: 5, borderRadius: 999, background: "rgba(255,255,255,0.55)" }} />
                     {/* star emblem */}

@@ -9,16 +9,16 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         type: "concept",
         title: "What Is Business Strategy?",
         paragraphs: [
-          "Business strategy is a plan for how a company will achieve its goals and outperform competitors. Without strategy, a business is just reacting — making decisions based on whatever happens today rather than building toward a clear future.",
-          "Strategy answers three core questions: Where are we now? Where do we want to be? How do we get there? Every successful company — from a local coffee shop to a tech giant — has some form of strategy guiding its decisions.",
-          "Good strategy involves making trade-offs. You can't be everything to everyone. A company that tries to be the cheapest AND the most premium AND the fastest usually fails at all three. Strategy is about choosing what to focus on — and what to say no to."
+          "Business strategy is a plan for how a company will achieve its goals and outperform competitors. Without strategy, a business is just reacting - making decisions based on whatever happens today rather than building toward a clear future.",
+          "Strategy answers three core questions: Where are we now? Where do we want to be? How do we get there? Every successful company - from a local coffee shop to a tech giant - has some form of strategy guiding its decisions.",
+          "Good strategy involves making trade-offs. You can't be everything to everyone. A company that tries to be the cheapest AND the most premium AND the fastest usually fails at all three. Strategy is about choosing what to focus on - and what to say no to."
         ],
         bullets: [
           "Strategy is a deliberate plan for achieving competitive advantage",
           "It answers: Where are we? Where do we want to be? How do we get there?",
           "Good strategy requires making trade-offs and tough choices",
           "Without strategy, businesses react instead of building proactively",
-          "Strategy applies to businesses of all sizes — not just corporations"
+          "Strategy applies to businesses of all sizes - not just corporations"
         ],
         realWorldExample: "In-N-Out Burger has a famously simple strategy: a small menu, fresh ingredients, and no franchising. By saying 'no' to expanding too fast or adding dozens of menu items, they've built one of the most profitable fast-food chains per location in America. Their strategy is about what they DON'T do as much as what they do."
       },
@@ -30,7 +30,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "What is the primary purpose of a business strategy?",
             options: ["To create the largest product catalog possible", "To achieve goals and outperform competitors through deliberate planning", "To copy what the most successful competitor is doing", "To maximize short-term profits above all else"],
             correctAnswer: 1,
-            explanation: "Strategy is a deliberate plan for how a company will achieve its goals and build competitive advantage — not just reacting to what happens."
+            explanation: "Strategy is a deliberate plan for how a company will achieve its goals and build competitive advantage - not just reacting to what happens."
           },
           {
             id: "sa1-mc2",
@@ -44,12 +44,12 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Two Pizza Shops, Two Strategies",
-        narrative: "Tony and Maria both open pizza shops in the same neighborhood. Tony decides to compete on price — offering $5 large pizzas, fast delivery, and no frills. Maria decides to compete on quality — using imported ingredients, a wood-fired oven, and a cozy dine-in experience with higher prices. Both shops succeed because each has a clear strategy. But when Tony tries to also add a premium menu and Maria tries to also offer $5 deals, both start losing money. Their strategies became confused.",
+        narrative: "Tony and Maria both open pizza shops in the same neighborhood. Tony decides to compete on price - offering $5 large pizzas, fast delivery, and no frills. Maria decides to compete on quality - using imported ingredients, a wood-fired oven, and a cozy dine-in experience with higher prices. Both shops succeed because each has a clear strategy. But when Tony tries to also add a premium menu and Maria tries to also offer $5 deals, both start losing money. Their strategies became confused.",
         details: [
-          "Tony's strategy: Cost leadership — high volume, low margins, speed",
-          "Maria's strategy: Differentiation — premium quality, unique experience, higher margins",
+          "Tony's strategy: Cost leadership - high volume, low margins, speed",
+          "Maria's strategy: Differentiation - premium quality, unique experience, higher margins",
           "Both strategies work when executed consistently",
-          "Problems arise when either tries to do both — customers get confused about what the brand stands for"
+          "Problems arise when either tries to do both - customers get confused about what the brand stands for"
         ]
       },
       {
@@ -67,7 +67,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         takeaways: [
           "Business strategy is a deliberate plan to achieve goals and competitive advantage",
           "Strategy answers: Where are we? Where do we want to be? How do we get there?",
-          "Good strategy requires trade-offs — you can't be everything to everyone",
+          "Good strategy requires trade-offs - you can't be everything to everyone",
           "Consistent execution of a clear strategy beats trying to do everything"
         ]
       },
@@ -94,7 +94,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "Why is In-N-Out Burger's strategy considered effective?",
             options: ["They have the largest menu in fast food", "They franchise aggressively to maximize locations", "They focus on a small menu and quality, saying 'no' to overexpansion", "They compete primarily on having the lowest prices"],
             correctAnswer: 2,
-            explanation: "In-N-Out's strategy works because they're disciplined about what they won't do — keeping the menu small, ingredients fresh, and growth controlled."
+            explanation: "In-N-Out's strategy works because they're disciplined about what they won't do - keeping the menu small, ingredients fresh, and growth controlled."
           },
           {
             id: "sa1-mq4",
@@ -108,7 +108,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "A local bakery decides to focus exclusively on custom wedding cakes rather than selling all types of baked goods. This is an example of:",
             options: ["Poor business management", "Strategic focus through trade-offs", "Giving up on growth opportunities", "A temporary marketing tactic"],
             correctAnswer: 1,
-            explanation: "Choosing to specialize is a strategic trade-off — the bakery says 'no' to some revenue to become the best at one thing."
+            explanation: "Choosing to specialize is a strategic trade-off - the bakery says 'no' to some revenue to become the best at one thing."
           }
         ]
       }
@@ -121,20 +121,20 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "KPIs — Measuring What Actually Matters",
+        title: "KPIs - Measuring What Actually Matters",
         paragraphs: [
-          "Key Performance Indicators (KPIs) are specific, measurable values that show whether a business is achieving its most important objectives. Think of KPIs as the dashboard in a car — you can't drive well if you don't know your speed, fuel level, or engine temperature.",
-          "Not every number is a KPI. Revenue, website visits, and social media followers are all metrics — but only some of them are truly 'key' to your business. A KPI must be directly tied to a strategic goal. If your goal is customer retention, then your churn rate is a KPI. If your goal is growth, then monthly new customers might be your KPI.",
+          "Key Performance Indicators (KPIs) are specific, measurable values that show whether a business is achieving its most important objectives. Think of KPIs as the dashboard in a car - you can't drive well if you don't know your speed, fuel level, or engine temperature.",
+          "Not every number is a KPI. Revenue, website visits, and social media followers are all metrics - but only some of them are truly 'key' to your business. A KPI must be directly tied to a strategic goal. If your goal is customer retention, then your churn rate is a KPI. If your goal is growth, then monthly new customers might be your KPI.",
           "The best KPIs are SMART: Specific, Measurable, Achievable, Relevant, and Time-bound. 'Increase sales' is vague. 'Increase monthly recurring revenue by 15% within Q3' is a real KPI."
         ],
         bullets: [
           "KPIs are measurable values tied directly to strategic objectives",
-          "Not all metrics are KPIs — only the ones that matter most to your goals",
+          "Not all metrics are KPIs - only the ones that matter most to your goals",
           "Leading indicators predict future performance (e.g., pipeline deals)",
           "Lagging indicators measure past results (e.g., quarterly revenue)",
           "Good KPIs follow the SMART framework: Specific, Measurable, Achievable, Relevant, Time-bound"
         ],
-        realWorldExample: "Netflix tracks 'viewing hours per subscriber' as a key KPI — not just total subscribers. Why? Because a subscriber who watches 20 hours a month is far less likely to cancel than one who watches 2 hours. This KPI helps Netflix predict churn before it happens and guides decisions about what content to produce."
+        realWorldExample: "Netflix tracks 'viewing hours per subscriber' as a key KPI - not just total subscribers. Why? Because a subscriber who watches 20 hours a month is far less likely to cancel than one who watches 2 hours. This KPI helps Netflix predict churn before it happens and guides decisions about what content to produce."
       },
       {
         type: "micro-check",
@@ -144,7 +144,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "What makes a metric qualify as a KPI?",
             options: ["It must be the largest number the company tracks", "It must be directly tied to a strategic business objective", "It must involve financial data only", "It must be reported to shareholders quarterly"],
             correctAnswer: 1,
-            explanation: "A KPI is 'key' because it directly measures progress toward an important strategic goal — not just because it's a big or interesting number."
+            explanation: "A KPI is 'key' because it directly measures progress toward an important strategic goal - not just because it's a big or interesting number."
           },
           {
             id: "sa2-mc2",
@@ -158,10 +158,10 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "The Social Media Trap",
-        narrative: "FreshFit is a healthy meal delivery startup. The marketing team is celebrating because their Instagram grew from 5,000 to 50,000 followers in three months. But when the CEO checks the business dashboard, she notices something concerning: monthly orders have barely changed, customer acquisition cost has tripled, and the churn rate is climbing. The followers are vanity metrics — they look impressive but aren't driving actual business results. The team was optimizing for the wrong KPI.",
+        narrative: "FreshFit is a healthy meal delivery startup. The marketing team is celebrating because their Instagram grew from 5,000 to 50,000 followers in three months. But when the CEO checks the business dashboard, she notices something concerning: monthly orders have barely changed, customer acquisition cost has tripled, and the churn rate is climbing. The followers are vanity metrics - they look impressive but aren't driving actual business results. The team was optimizing for the wrong KPI.",
         details: [
           "Vanity metric: Instagram followers (grew 10x but didn't drive orders)",
-          "Actual KPI that matters: Customer acquisition cost (tripled — unsustainable)",
+          "Actual KPI that matters: Customer acquisition cost (tripled - unsustainable)",
           "Actual KPI that matters: Monthly recurring orders (flat despite follower growth)",
           "Lesson: The team should track conversion rate from social media to paying customers, not just follower count"
         ]
@@ -180,7 +180,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         type: "recap",
         takeaways: [
           "KPIs are measurable values directly tied to strategic objectives",
-          "Not every metric is a KPI — focus on what truly drives business success",
+          "Not every metric is a KPI - focus on what truly drives business success",
           "Leading indicators predict the future; lagging indicators measure the past",
           "Vanity metrics (likes, followers) can be misleading if they don't connect to real business results"
         ]
@@ -208,14 +208,14 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "A company tracks 'number of sales calls made per week.' This is an example of:",
             options: ["A lagging indicator", "A vanity metric", "A leading indicator", "An irrelevant metric"],
             correctAnswer: 2,
-            explanation: "Sales calls made is a leading indicator — it predicts future sales results. More calls today typically means more deals closed next month."
+            explanation: "Sales calls made is a leading indicator - it predicts future sales results. More calls today typically means more deals closed next month."
           },
           {
             id: "sa2-mq4",
             question: "Netflix tracks 'viewing hours per subscriber' rather than just total subscribers. Why?",
-            options: ["Total subscribers is too hard to measure accurately", "Viewing hours predict churn — engaged viewers are less likely to cancel", "Advertisers only care about viewing hours", "It's required by streaming industry regulations"],
+            options: ["Total subscribers is too hard to measure accurately", "Viewing hours predict churn - engaged viewers are less likely to cancel", "Advertisers only care about viewing hours", "It's required by streaming industry regulations"],
             correctAnswer: 1,
-            explanation: "Viewing hours per subscriber is a leading indicator of retention — subscribers who watch more are far less likely to cancel their subscription."
+            explanation: "Viewing hours per subscriber is a leading indicator of retention - subscribers who watch more are far less likely to cancel their subscription."
           },
           {
             id: "sa2-mq5",
@@ -235,18 +235,18 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "SWOT Analysis — A Framework for Strategic Thinking",
+        title: "SWOT Analysis - A Framework for Strategic Thinking",
         paragraphs: [
           "SWOT analysis is one of the most widely used strategic planning tools in business. It helps you evaluate a company's position by examining four categories: Strengths, Weaknesses, Opportunities, and Threats.",
-          "Strengths and Weaknesses are internal factors — things the company controls, like its brand reputation, team talent, financial resources, or operational efficiency. Opportunities and Threats are external factors — things happening in the market, economy, or industry that the company must respond to.",
-          "SWOT is powerful because it forces structured thinking. Instead of just saying 'things are going well' or 'we have problems,' it pushes you to categorize and prioritize. The real value comes from connecting the dots — using strengths to capture opportunities, or addressing weaknesses before threats exploit them."
+          "Strengths and Weaknesses are internal factors - things the company controls, like its brand reputation, team talent, financial resources, or operational efficiency. Opportunities and Threats are external factors - things happening in the market, economy, or industry that the company must respond to.",
+          "SWOT is powerful because it forces structured thinking. Instead of just saying 'things are going well' or 'we have problems,' it pushes you to categorize and prioritize. The real value comes from connecting the dots - using strengths to capture opportunities, or addressing weaknesses before threats exploit them."
         ],
         bullets: [
           "Strengths: Internal advantages (brand, talent, resources, patents)",
           "Weaknesses: Internal disadvantages (high costs, skill gaps, aging technology)",
           "Opportunities: External favorable conditions (new markets, trends, regulations)",
           "Threats: External unfavorable conditions (competitors, economic downturns, disruption)",
-          "The power is in connecting the categories — not just listing items"
+          "The power is in connecting the categories - not just listing items"
         ],
         realWorldExample: "When Starbucks conducted a SWOT analysis in 2008 during the financial crisis, they identified a key weakness: they had expanded too fast, diluting the customer experience. An opportunity existed in the growing demand for premium, ethically-sourced coffee. CEO Howard Schultz closed 600 underperforming stores (addressing the weakness) and doubled down on store experience and ethical sourcing (capturing the opportunity). The stock price recovered from $8 to over $100 within a decade."
       },
@@ -258,7 +258,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "In a SWOT analysis, which two categories represent internal factors?",
             options: ["Opportunities and Threats", "Strengths and Weaknesses", "Strengths and Opportunities", "Weaknesses and Threats"],
             correctAnswer: 1,
-            explanation: "Strengths and Weaknesses are internal — things the company controls. Opportunities and Threats are external factors from the market or environment."
+            explanation: "Strengths and Weaknesses are internal - things the company controls. Opportunities and Threats are external factors from the market or environment."
           },
           {
             id: "sa3-mc2",
@@ -295,7 +295,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         takeaways: [
           "SWOT stands for Strengths, Weaknesses, Opportunities, and Threats",
           "Strengths and Weaknesses are internal; Opportunities and Threats are external",
-          "The real value is connecting categories — using strengths to capture opportunities or counter threats",
+          "The real value is connecting categories - using strengths to capture opportunities or counter threats",
           "SWOT works for businesses of all sizes, from startups to global corporations"
         ]
       },
@@ -315,7 +315,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "A new government regulation makes it easier for small businesses to export products. This is an example of:",
             options: ["A Strength", "A Weakness", "An Opportunity", "A Threat"],
             correctAnswer: 2,
-            explanation: "Favorable external conditions like supportive regulations are Opportunities — they create new possibilities for the business."
+            explanation: "Favorable external conditions like supportive regulations are Opportunities - they create new possibilities for the business."
           },
           {
             id: "sa3-mq3",
@@ -327,16 +327,16 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           {
             id: "sa3-mq4",
             question: "What is the most strategic way to use a SWOT analysis?",
-            options: ["List as many items as possible in each category", "Connect the categories — use strengths to capture opportunities and counter threats", "Focus only on strengths and ignore weaknesses", "Share it with competitors to show transparency"],
+            options: ["List as many items as possible in each category", "Connect the categories - use strengths to capture opportunities and counter threats", "Focus only on strengths and ignore weaknesses", "Share it with competitors to show transparency"],
             correctAnswer: 1,
-            explanation: "The real power of SWOT is connecting the dots — matching strengths to opportunities and addressing weaknesses before threats exploit them."
+            explanation: "The real power of SWOT is connecting the dots - matching strengths to opportunities and addressing weaknesses before threats exploit them."
           },
           {
             id: "sa3-mq5",
             question: "A new competitor entering your market is an example of which SWOT category?",
             options: ["Strength", "Weakness", "Opportunity", "Threat"],
             correctAnswer: 3,
-            explanation: "A new competitor is an external unfavorable condition — a Threat that could take market share or pressure your pricing."
+            explanation: "A new competitor is an external unfavorable condition - a Threat that could take market share or pressure your pricing."
           }
         ]
       }
@@ -349,10 +349,10 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Porter's Five Forces — Understanding Industry Competition",
+        title: "Porter's Five Forces - Understanding Industry Competition",
         paragraphs: [
           "Porter's Five Forces is a framework developed by Harvard professor Michael Porter to analyze the competitive dynamics of an entire industry. While SWOT looks at one company, Porter's Five Forces examines the broader competitive environment that affects every company in that industry.",
-          "The five forces are: (1) Threat of New Entrants — how easy is it for new competitors to enter? (2) Bargaining Power of Buyers — how much power do customers have to demand lower prices? (3) Bargaining Power of Suppliers — how much power do suppliers have to raise prices? (4) Threat of Substitutes — can customers switch to alternative products? (5) Industry Rivalry — how intense is competition among existing players?",
+          "The five forces are: (1) Threat of New Entrants - how easy is it for new competitors to enter? (2) Bargaining Power of Buyers - how much power do customers have to demand lower prices? (3) Bargaining Power of Suppliers - how much power do suppliers have to raise prices? (4) Threat of Substitutes - can customers switch to alternative products? (5) Industry Rivalry - how intense is competition among existing players?",
           "When all five forces are strong, an industry tends to be less profitable. When forces are weak, companies in that industry can earn higher profits. Understanding these forces helps businesses choose which industries to enter and how to position themselves."
         ],
         bullets: [
@@ -372,21 +372,21 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "What does Porter's Five Forces analyze?",
             options: ["A single company's financial statements", "The competitive dynamics of an entire industry", "Employee satisfaction within an organization", "The marketing mix of a product"],
             correctAnswer: 1,
-            explanation: "Porter's Five Forces examines industry-level competition — the forces that affect profitability for ALL companies in that industry, not just one."
+            explanation: "Porter's Five Forces examines industry-level competition - the forces that affect profitability for ALL companies in that industry, not just one."
           },
           {
             id: "sa4-mc2",
             question: "When all five forces are strong, what typically happens to industry profitability?",
             options: ["It increases significantly", "It decreases because competition is intense from all angles", "It stays exactly the same", "Profitability is not affected by competitive forces"],
             correctAnswer: 1,
-            explanation: "Strong forces mean more competition, more buyer and supplier power, and more substitutes — all of which squeeze profits for companies in that industry."
+            explanation: "Strong forces mean more competition, more buyer and supplier power, and more substitutes - all of which squeeze profits for companies in that industry."
           }
         ]
       },
       {
         type: "scenario",
         title: "Five Forces: Smartphone Industry",
-        narrative: "Analyzing the smartphone industry through Porter's lens reveals interesting dynamics. Threat of New Entrants: Moderate — starting a smartphone company requires huge capital but Chinese manufacturers have lowered barriers. Buyer Power: High — consumers can easily switch brands and compare prices online. Supplier Power: High — key chip suppliers like TSMC and Qualcomm have enormous leverage. Threat of Substitutes: Low — no product truly replaces a smartphone. Industry Rivalry: Extremely high — Apple, Samsung, Google, and Chinese brands compete aggressively. This explains why most smartphone makers (except Apple) have thin profit margins.",
+        narrative: "Analyzing the smartphone industry through Porter's lens reveals interesting dynamics. Threat of New Entrants: Moderate - starting a smartphone company requires huge capital but Chinese manufacturers have lowered barriers. Buyer Power: High - consumers can easily switch brands and compare prices online. Supplier Power: High - key chip suppliers like TSMC and Qualcomm have enormous leverage. Threat of Substitutes: Low - no product truly replaces a smartphone. Industry Rivalry: Extremely high - Apple, Samsung, Google, and Chinese brands compete aggressively. This explains why most smartphone makers (except Apple) have thin profit margins.",
         details: [
           "Apple succeeds despite strong forces by creating high switching costs (ecosystem lock-in)",
           "Samsung competes by controlling its own supply chain (makes its own chips and screens)",
@@ -401,7 +401,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           question: "A pharmaceutical company holds a patent on a life-saving drug with no alternatives. Which of Porter's forces is weakest for this company?",
           options: ["Bargaining power of buyers", "Threat of new entrants", "Threat of substitutes", "Industry rivalry"],
           correctAnswer: 2,
-          explanation: "With a patent and no alternatives, the threat of substitutes is very weak — patients and hospitals have no choice but to buy from this company, giving it strong pricing power."
+          explanation: "With a patent and no alternatives, the threat of substitutes is very weak - patients and hospitals have no choice but to buy from this company, giving it strong pricing power."
         }
       },
       {
@@ -429,28 +429,28 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "High barriers to entry (like expensive equipment or patents) affect which force?",
             options: ["Bargaining power of buyers", "Threat of new entrants", "Threat of substitutes", "Supplier power"],
             correctAnswer: 1,
-            explanation: "High barriers to entry reduce the threat of new entrants — it's harder for new competitors to join the industry."
+            explanation: "High barriers to entry reduce the threat of new entrants - it's harder for new competitors to join the industry."
           },
           {
             id: "sa4-mq3",
             question: "How does Apple weaken buyer power in the smartphone industry?",
             options: ["By offering the lowest prices", "By creating ecosystem lock-in that raises switching costs", "By reducing the quality of competitor products", "By limiting the number of phones produced"],
             correctAnswer: 1,
-            explanation: "Apple's ecosystem (iMessage, AirDrop, iCloud, Apple Watch) creates high switching costs, making it harder for customers to leave — which weakens their bargaining power."
+            explanation: "Apple's ecosystem (iMessage, AirDrop, iCloud, Apple Watch) creates high switching costs, making it harder for customers to leave - which weakens their bargaining power."
           },
           {
             id: "sa4-mq4",
             question: "If customers can easily find alternative products, which force is strong?",
             options: ["Threat of new entrants", "Supplier power", "Threat of substitutes", "Industry rivalry"],
             correctAnswer: 2,
-            explanation: "When alternatives are readily available, the threat of substitutes is strong — customers can switch if prices rise or quality drops."
+            explanation: "When alternatives are readily available, the threat of substitutes is strong - customers can switch if prices rise or quality drops."
           },
           {
             id: "sa4-mq5",
             question: "A company that manufactures the only type of chip used in medical devices has:",
             options: ["Weak supplier power because medical devices are expensive", "Strong supplier power because buyers have no alternative suppliers", "No competitive advantage", "High threat of substitutes"],
             correctAnswer: 1,
-            explanation: "Being the sole supplier of a critical input gives enormous bargaining power — buyers must accept your terms because there's no alternative."
+            explanation: "Being the sole supplier of a critical input gives enormous bargaining power - buyers must accept your terms because there's no alternative."
           }
         ]
       }
@@ -465,18 +465,18 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Using SWOT to Evaluate Real Business Opportunities",
         paragraphs: [
-          "Running a SWOT analysis isn't just an academic exercise — it's a practical tool for evaluating whether to pursue a business opportunity, launch a product, or enter a new market. The key is being brutally honest in each category and then using the results to make a clear go/no-go decision.",
-          "Start by gathering real data, not just opinions. For Strengths, look at what your company actually does better than competitors. For Weaknesses, identify genuine gaps — not things you wish were better, but things that could actually cause failure. For Opportunities, research market trends, customer needs, and regulatory changes. For Threats, study competitor moves, economic conditions, and technology shifts.",
+          "Running a SWOT analysis isn't just an academic exercise - it's a practical tool for evaluating whether to pursue a business opportunity, launch a product, or enter a new market. The key is being brutally honest in each category and then using the results to make a clear go/no-go decision.",
+          "Start by gathering real data, not just opinions. For Strengths, look at what your company actually does better than competitors. For Weaknesses, identify genuine gaps - not things you wish were better, but things that could actually cause failure. For Opportunities, research market trends, customer needs, and regulatory changes. For Threats, study competitor moves, economic conditions, and technology shifts.",
           "The most valuable step is the 'so what?' analysis. After listing items in each quadrant, ask: Can our strengths capture this opportunity? Will our weaknesses prevent us from succeeding? Is the threat manageable? This is where SWOT becomes a decision-making tool, not just a list."
         ],
         bullets: [
           "Use real data, not opinions, when filling out each SWOT quadrant",
-          "Be brutally honest about weaknesses — sugarcoating defeats the purpose",
+          "Be brutally honest about weaknesses - sugarcoating defeats the purpose",
           "The 'so what?' step converts lists into actionable strategic decisions",
           "Match strengths to opportunities for your best strategic moves",
           "If weaknesses align with threats, that's a red flag requiring urgent attention"
         ],
-        realWorldExample: "Before launching Disney+, Disney ran an intensive strategic analysis. Strengths: massive content library (Marvel, Star Wars, Pixar, Disney classics), global brand recognition. Weaknesses: no direct-to-consumer streaming experience, behind Netflix by years. Opportunities: cord-cutting trend accelerating, families wanting kid-safe content. Threats: Netflix, Amazon, and HBO already established. Their conclusion: the strength of their content library and brand was strong enough to overcome the late-mover weakness. They launched at $6.99/month — undercutting Netflix — and hit 100 million subscribers in just 16 months."
+        realWorldExample: "Before launching Disney+, Disney ran an intensive strategic analysis. Strengths: massive content library (Marvel, Star Wars, Pixar, Disney classics), global brand recognition. Weaknesses: no direct-to-consumer streaming experience, behind Netflix by years. Opportunities: cord-cutting trend accelerating, families wanting kid-safe content. Threats: Netflix, Amazon, and HBO already established. Their conclusion: the strength of their content library and brand was strong enough to overcome the late-mover weakness. They launched at $6.99/month - undercutting Netflix - and hit 100 million subscribers in just 16 months."
       },
       {
         type: "micro-check",
@@ -484,16 +484,16 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           {
             id: "sa5-mc1",
             question: "What is the most important step after completing a SWOT analysis?",
-            options: ["Making the chart look visually appealing", "Asking 'so what?' — connecting categories to make strategic decisions", "Sharing it on social media for feedback", "Adding as many items as possible to each quadrant"],
+            options: ["Making the chart look visually appealing", "Asking 'so what?' - connecting categories to make strategic decisions", "Sharing it on social media for feedback", "Adding as many items as possible to each quadrant"],
             correctAnswer: 1,
-            explanation: "The lists themselves aren't valuable — the strategic decisions you make by connecting strengths to opportunities and addressing weakness-threat combinations are what matter."
+            explanation: "The lists themselves aren't valuable - the strategic decisions you make by connecting strengths to opportunities and addressing weakness-threat combinations are what matter."
           },
           {
             id: "sa5-mc2",
             question: "Why should you be 'brutally honest' about weaknesses in a SWOT analysis?",
             options: ["To discourage the team from pursuing the opportunity", "Because sugarcoating weaknesses prevents you from addressing real risks", "Honesty is only important for public companies", "Weaknesses don't actually affect business outcomes"],
             correctAnswer: 1,
-            explanation: "If you hide or minimize real weaknesses, you can't plan for them — and they'll likely cause problems when you try to execute your strategy."
+            explanation: "If you hide or minimize real weaknesses, you can't plan for them - and they'll likely cause problems when you try to execute your strategy."
           }
         ]
       },
@@ -515,7 +515,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           question: "A SWOT analysis reveals strong weaknesses that directly align with major threats. What should the business do?",
           options: ["Ignore the analysis and proceed anyway", "Treat this as a serious red flag and either fix the weaknesses or reconsider the opportunity", "Focus only on strengths and opportunities instead", "Assume the threats won't actually materialize"],
             correctAnswer: 1,
-          explanation: "When weaknesses align with threats, it's the most dangerous combination — like having a leaky boat heading into a storm. The business must address this before proceeding."
+          explanation: "When weaknesses align with threats, it's the most dangerous combination - like having a leaky boat heading into a storm. The business must address this before proceeding."
         }
       },
       {
@@ -543,14 +543,14 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "A student's SWOT shows she has great skills (strength) but no time (weakness) to pursue an opportunity. What's the best approach?",
             options: ["Quit everything else to make time", "Start small and manageable to test the opportunity without overcommitting", "Give up because the weakness cancels the strength", "Ignore the time constraint and hope it works out"],
             correctAnswer: 1,
-            explanation: "Starting small lets you test the opportunity while respecting the time constraint — you validate the idea before committing fully."
+            explanation: "Starting small lets you test the opportunity while respecting the time constraint - you validate the idea before committing fully."
           },
           {
             id: "sa5-mq3",
             question: "What's the most dangerous combination in a SWOT analysis?",
             options: ["Strong strengths with strong opportunities", "Weak strengths with weak threats", "Major weaknesses that align directly with major threats", "Many opportunities with few strengths"],
             correctAnswer: 2,
-            explanation: "When your biggest weaknesses are in the same areas as your biggest threats, you're extremely vulnerable — like having gaps in your armor exactly where attacks are coming."
+            explanation: "When your biggest weaknesses are in the same areas as your biggest threats, you're extremely vulnerable - like having gaps in your armor exactly where attacks are coming."
           },
           {
             id: "sa5-mq4",
@@ -564,7 +564,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "Aisha decided to start her tutoring business with only 3 subjects and 5 students. This decision reflects:",
             options: ["A lack of ambition", "Strategic mitigation of her time weakness while testing the opportunity", "A failure to understand market demand", "Ignoring the SWOT results entirely"],
             correctAnswer: 1,
-            explanation: "Starting small directly addresses her time weakness while still allowing her to capture the opportunity — this is smart SWOT-informed strategy."
+            explanation: "Starting small directly addresses her time weakness while still allowing her to capture the opportunity - this is smart SWOT-informed strategy."
           }
         ]
       }
@@ -577,9 +577,9 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Porter's Five Forces in Practice — Streaming and Fast Food",
+        title: "Porter's Five Forces in Practice - Streaming and Fast Food",
         paragraphs: [
-          "The best way to understand Porter's Five Forces is to apply it to industries you already know. Let's analyze two very different industries — streaming entertainment and fast food — to see how the five forces shape profitability and competition differently.",
+          "The best way to understand Porter's Five Forces is to apply it to industries you already know. Let's analyze two very different industries - streaming entertainment and fast food - to see how the five forces shape profitability and competition differently.",
           "The streaming industry has moderate entry barriers (content creation is expensive but technology is accessible), high buyer power (consumers can easily cancel and switch), growing supplier power (content creators and studios demand higher fees), high substitute threats (gaming, social media, free YouTube), and intense rivalry (Netflix, Disney+, HBO, Amazon, Apple). This explains why most streaming services are unprofitable despite massive subscriber numbers.",
           "Fast food has moderate entry barriers (opening a restaurant is possible but competing with established brands is hard), moderate buyer power (customers are price-sensitive but habitual), low supplier power (commodity ingredients from many sources), high substitute threats (cooking at home, meal kits, healthy options), and intense rivalry (McDonald's, Burger King, Wendy's, Chick-fil-A). Fast food succeeds through brand loyalty, convenience, and massive scale."
         ],
@@ -590,7 +590,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           "Companies succeed by finding ways to weaken the strongest forces against them",
           "The analysis changes over time as technology and markets evolve"
         ],
-        realWorldExample: "Chick-fil-A has brilliantly weakened several forces. They reduce rivalry by being closed on Sundays (creating scarcity and brand identity). They weaken buyer power by building extreme customer loyalty through service quality. They reduce new entrant threats by being very selective about franchise operators (only 80-100 new locations per year from 60,000+ applications). The result: Chick-fil-A generates more revenue per restaurant than any other fast-food chain — even while being open one fewer day per week."
+        realWorldExample: "Chick-fil-A has brilliantly weakened several forces. They reduce rivalry by being closed on Sundays (creating scarcity and brand identity). They weaken buyer power by building extreme customer loyalty through service quality. They reduce new entrant threats by being very selective about franchise operators (only 80-100 new locations per year from 60,000+ applications). The result: Chick-fil-A generates more revenue per restaurant than any other fast-food chain - even while being open one fewer day per week."
       },
       {
         type: "micro-check",
@@ -598,7 +598,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           {
             id: "sa6-mc1",
             question: "Why are most streaming services unprofitable despite having millions of subscribers?",
-            options: ["They don't charge enough for subscriptions", "All five forces are relatively strong — especially buyer power, rivalry, and substitute threats", "Streaming technology is too expensive to maintain", "There aren't enough people willing to pay for streaming"],
+            options: ["They don't charge enough for subscriptions", "All five forces are relatively strong - especially buyer power, rivalry, and substitute threats", "Streaming technology is too expensive to maintain", "There aren't enough people willing to pay for streaming"],
             correctAnswer: 1,
             explanation: "High buyer power (easy to cancel), intense rivalry (many competitors), and strong substitute threats (gaming, YouTube, social media) squeeze profits across the streaming industry."
           },
@@ -614,9 +614,9 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Five Forces Analysis: The Coffee Shop Industry",
-        narrative: "Alex is considering opening a specialty coffee shop. He applies Porter's Five Forces. Threat of New Entrants: High — opening a coffee shop is relatively cheap and common. Buyer Power: High — customers can easily go to Starbucks, Dunkin', or make coffee at home. Supplier Power: Moderate — specialty coffee beans have fewer suppliers, but commodity beans are widely available. Threat of Substitutes: High — energy drinks, tea, home brewing, and gas station coffee are all alternatives. Industry Rivalry: Very high — there's a coffee shop on every corner. Alex realizes every force is working against him. To succeed, he needs to weaken at least two forces — perhaps by creating a unique experience (reducing substitutes) and building a loyal community (reducing buyer power).",
+        narrative: "Alex is considering opening a specialty coffee shop. He applies Porter's Five Forces. Threat of New Entrants: High - opening a coffee shop is relatively cheap and common. Buyer Power: High - customers can easily go to Starbucks, Dunkin', or make coffee at home. Supplier Power: Moderate - specialty coffee beans have fewer suppliers, but commodity beans are widely available. Threat of Substitutes: High - energy drinks, tea, home brewing, and gas station coffee are all alternatives. Industry Rivalry: Very high - there's a coffee shop on every corner. Alex realizes every force is working against him. To succeed, he needs to weaken at least two forces - perhaps by creating a unique experience (reducing substitutes) and building a loyal community (reducing buyer power).",
         details: [
-          "All five forces are moderate to strong — this is a tough industry",
+          "All five forces are moderate to strong - this is a tough industry",
           "Alex must differentiate through experience, not just coffee quality",
           "Building community loyalty can weaken buyer power",
           "Specialty sourcing (direct farm partnerships) can weaken supplier power",
@@ -648,17 +648,17 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa6-mq1",
-            question: "Which industry typically has stronger buyer power — streaming or fast food?",
+            question: "Which industry typically has stronger buyer power - streaming or fast food?",
             options: ["Fast food, because food is more expensive", "Streaming, because subscribers can cancel anytime with no switching costs", "They have equal buyer power", "Neither industry has significant buyer power"],
             correctAnswer: 1,
-            explanation: "Streaming subscribers face virtually zero switching costs — they can cancel one service and subscribe to another in minutes. Fast food customers are more habitual."
+            explanation: "Streaming subscribers face virtually zero switching costs - they can cancel one service and subscribe to another in minutes. Fast food customers are more habitual."
           },
           {
             id: "sa6-mq2",
             question: "What force does 'cooking at home' represent for the fast food industry?",
             options: ["Threat of new entrants", "Bargaining power of suppliers", "Threat of substitutes", "Industry rivalry"],
             correctAnswer: 2,
-            explanation: "Cooking at home is an alternative to buying fast food — it's a substitute that customers can switch to, especially when fast food prices rise."
+            explanation: "Cooking at home is an alternative to buying fast food - it's a substitute that customers can switch to, especially when fast food prices rise."
           },
           {
             id: "sa6-mq3",
@@ -672,14 +672,14 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "How can a specialty coffee shop weaken buyer power?",
             options: ["By copying Starbucks exactly", "By building a loyal community and unique experience that customers can't get elsewhere", "By raising prices higher than competitors", "By offering a smaller menu with fewer choices"],
             correctAnswer: 1,
-            explanation: "Creating unique value and community loyalty makes customers less likely to switch — weakening their bargaining power."
+            explanation: "Creating unique value and community loyalty makes customers less likely to switch - weakening their bargaining power."
           },
           {
             id: "sa6-mq5",
             question: "Chick-fil-A generates more revenue per restaurant than any other chain while being closed one day a week. Which strategic principle does this demonstrate?",
             options: ["More hours always means more revenue", "Scarcity and brand identity can be more powerful than maximum availability", "Fast food customers don't care about operating hours", "Being closed on Sundays is just a coincidence"],
             correctAnswer: 1,
-            explanation: "Being closed on Sundays creates brand identity, employee loyalty, and perceived scarcity — all of which strengthen customer attachment and per-location performance."
+            explanation: "Being closed on Sundays creates brand identity, employee loyalty, and perceived scarcity - all of which strengthen customer attachment and per-location performance."
           }
         ]
       }
@@ -692,7 +692,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "From Analysis to Action — Using Frameworks to Make Real Decisions",
+        title: "From Analysis to Action - Using Frameworks to Make Real Decisions",
         paragraphs: [
           "SWOT and Porter's Five Forces are only valuable if they lead to action. Too many businesses run the analysis, create a nice-looking chart, and then ignore it. The best companies use these frameworks as living documents that inform quarterly planning, product launches, hiring decisions, and resource allocation.",
           "The most powerful approach combines both tools. Use Porter's Five Forces to understand the industry landscape, then use SWOT to evaluate your specific company within that landscape. Together, they answer: 'Is this a good industry to be in?' (Porter's) and 'Can WE specifically win in this industry?' (SWOT).",
@@ -700,8 +700,8 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         ],
         bullets: [
           "Combine Porter's (industry) with SWOT (company) for complete strategic picture",
-          "Use frameworks to inform decisions — hiring, products, pricing, expansion",
-          "Revisit analyses regularly — markets and competitive dynamics constantly change",
+          "Use frameworks to inform decisions - hiring, products, pricing, expansion",
+          "Revisit analyses regularly - markets and competitive dynamics constantly change",
           "The best strategies match internal strengths to favorable industry forces",
           "Analysis without action is just an academic exercise"
         ],
@@ -722,19 +722,19 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "Why must strategic analyses be revisited regularly?",
             options: ["Because the original analysis was probably wrong", "Because markets, competitors, and technologies constantly change", "Because investors require new reports every month", "Revisiting them is optional and rarely useful"],
             correctAnswer: 1,
-            explanation: "Industries evolve — new competitors emerge, technology changes, regulations shift. An analysis from last year might not reflect today's reality."
+            explanation: "Industries evolve - new competitors emerge, technology changes, regulations shift. An analysis from last year might not reflect today's reality."
           }
         ]
       },
       {
         type: "scenario",
         title: "Strategic Decision-Making at a Growing E-Commerce Brand",
-        narrative: "NovaSkin, an online skincare brand, is deciding whether to expand into physical retail stores. Their combined analysis reveals: Porter's shows physical retail has high rivalry and strong buyer power, but weak new entrant threat for established online brands. SWOT shows NovaSkin has a strong online community (strength), limited capital (weakness), a growing 'try before you buy' consumer trend (opportunity), and Amazon launching a competing skincare line (threat). The team debates: should they open stores, partner with existing retailers, or double down on online-only? The analysis points toward retail partnerships — it captures the 'try before you buy' opportunity without the capital weakness of opening owned stores, and having physical presence helps differentiate from Amazon.",
+        narrative: "NovaSkin, an online skincare brand, is deciding whether to expand into physical retail stores. Their combined analysis reveals: Porter's shows physical retail has high rivalry and strong buyer power, but weak new entrant threat for established online brands. SWOT shows NovaSkin has a strong online community (strength), limited capital (weakness), a growing 'try before you buy' consumer trend (opportunity), and Amazon launching a competing skincare line (threat). The team debates: should they open stores, partner with existing retailers, or double down on online-only? The analysis points toward retail partnerships - it captures the 'try before you buy' opportunity without the capital weakness of opening owned stores, and having physical presence helps differentiate from Amazon.",
         details: [
           "Porter's insight: Physical retail has high rivalry but provides differentiation from online-only competitors",
           "SWOT match: Retail partnerships capture the opportunity without triggering the capital weakness",
           "Threat response: Physical retail presence differentiates from Amazon's online skincare push",
-          "Decision: Partner with Sephora/Ulta rather than open own stores — lower risk, faster execution"
+          "Decision: Partner with Sephora/Ulta rather than open own stores - lower risk, faster execution"
         ]
       },
       {
@@ -744,7 +744,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           question: "A company's Porter's analysis shows a highly profitable industry, but their SWOT reveals significant weaknesses relative to competitors. What does this combined analysis suggest?",
           options: ["Enter the industry immediately before competitors do", "The industry is attractive, but the company may need to strengthen capabilities before competing effectively", "The Porter's analysis must be wrong", "Weaknesses don't matter if the industry is profitable"],
           correctAnswer: 1,
-          explanation: "An attractive industry (Porter's) with weak positioning (SWOT) means the opportunity exists but the company isn't ready yet — they need to build capabilities first."
+          explanation: "An attractive industry (Porter's) with weak positioning (SWOT) means the opportunity exists but the company isn't ready yet - they need to build capabilities first."
         }
       },
       {
@@ -752,7 +752,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         takeaways: [
           "Combine Porter's Five Forces (industry) with SWOT (company) for complete strategic analysis",
           "Analysis only matters if it leads to concrete decisions and actions",
-          "Revisit strategic analyses regularly — markets and competition constantly change",
+          "Revisit strategic analyses regularly - markets and competition constantly change",
           "The best strategies match company strengths to favorable industry dynamics"
         ]
       },
@@ -786,21 +786,21 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "A taxi company in 2010 vs. 2015 would show dramatically different Porter's Five Forces analysis because of:",
             options: ["Changes in fuel prices", "Uber's entry dramatically increased the threat of substitutes and new entrants", "Taxi drivers went on strike", "Government banned all taxis"],
             correctAnswer: 1,
-            explanation: "Uber's ride-sharing model completely changed the competitive landscape — creating a powerful substitute and lowering barriers to entry in the transportation industry."
+            explanation: "Uber's ride-sharing model completely changed the competitive landscape - creating a powerful substitute and lowering barriers to entry in the transportation industry."
           },
           {
             id: "sa7-mq5",
             question: "When Porter's Five Forces shows a good industry but SWOT shows company weaknesses, the best approach is:",
             options: ["Enter immediately and figure it out later", "Avoid the industry entirely", "Build capabilities to address weaknesses before entering or competing", "Ignore the SWOT and rely only on Porter's"],
             correctAnswer: 2,
-            explanation: "An attractive industry with a weak position means you need to build strengths before competing effectively — rushing in with significant weaknesses leads to failure."
+            explanation: "An attractive industry with a weak position means you need to build strengths before competing effectively - rushing in with significant weaknesses leads to failure."
           }
         ]
       }
     ]
   },
 
-  // SA-8: Mini-Project — Run a SWOT and Porter's Analysis
+  // SA-8: Mini-Project - Run a SWOT and Porter's Analysis
   {
     lessonId: "sa-8",
     sections: [
@@ -809,15 +809,15 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         title: "Mini-Project: Build Your Own Strategic Analysis",
         paragraphs: [
           "Now it's time to apply everything you've learned. In this lesson, you'll walk through the process of conducting both a SWOT analysis and a Porter's Five Forces analysis on a business of your choice. This mirrors exactly what consultants, executives, and entrepreneurs do when making major business decisions.",
-          "Choose any business you find interesting — it could be a local restaurant, a tech company, your school's student store, or even a business you'd like to start someday. The key is picking something you know enough about to analyze thoughtfully.",
-          "Follow these steps: (1) Start with Porter's Five Forces to understand the industry. (2) Then do a SWOT analysis for the specific business. (3) Connect the two — identify where the business's strengths align with weak industry forces, and where weaknesses align with strong forces. (4) Make a strategic recommendation based on your analysis."
+          "Choose any business you find interesting - it could be a local restaurant, a tech company, your school's student store, or even a business you'd like to start someday. The key is picking something you know enough about to analyze thoughtfully.",
+          "Follow these steps: (1) Start with Porter's Five Forces to understand the industry. (2) Then do a SWOT analysis for the specific business. (3) Connect the two - identify where the business's strengths align with weak industry forces, and where weaknesses align with strong forces. (4) Make a strategic recommendation based on your analysis."
         ],
         bullets: [
           "Step 1: Choose a business or industry you're interested in",
           "Step 2: Run Porter's Five Forces on the industry first",
           "Step 3: Run a SWOT analysis on the specific company",
           "Step 4: Connect the two analyses to find strategic insights",
-          "Step 5: Make a clear recommendation — what should the business do?"
+          "Step 5: Make a clear recommendation - what should the business do?"
         ],
         realWorldExample: "McKinsey & Company, one of the world's top consulting firms, charges companies millions of dollars for strategic analyses that follow this exact process. Their consultants start with industry analysis (Porter's), move to company assessment (SWOT), then combine insights into actionable recommendations. The skills you're learning in this unit are the same ones used by professionals advising Fortune 500 companies."
       },
@@ -827,7 +827,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           {
             id: "sa8-mc1",
             question: "In a combined strategic analysis, which framework should you typically apply first?",
-            options: ["SWOT, because it's simpler", "Porter's Five Forces, because you should understand the industry before analyzing the company", "Neither — do them simultaneously", "It doesn't matter which comes first"],
+            options: ["SWOT, because it's simpler", "Porter's Five Forces, because you should understand the industry before analyzing the company", "Neither - do them simultaneously", "It doesn't matter which comes first"],
             correctAnswer: 1,
             explanation: "Start with Porter's Five Forces to understand the industry landscape. Then use SWOT to evaluate how the specific company is positioned within that industry."
           },
@@ -843,9 +843,9 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Sample Project: Analyzing a Local Gym",
-        narrative: "Let's walk through a sample analysis for FitZone, a local gym. Porter's Five Forces: Threat of new entrants — Moderate (requires capital but boutique fitness studios are easy to open). Buyer power — High (many gym options, easy to switch). Supplier power — Low (equipment from many manufacturers). Substitutes — High (home workouts, YouTube, Peloton, outdoor exercise). Rivalry — Very high (Planet Fitness, LA Fitness, CrossFit boxes, Orange Theory all nearby). SWOT: Strength — only gym with a pool and childcare in the area. Weakness — outdated equipment, no app for booking. Opportunity — growing interest in wellness and community fitness. Threat — Planet Fitness opening a location one mile away. Recommendation: Invest in the app (fix weakness), market the pool and childcare aggressively (leverage unique strengths), and build a community fitness program (capture the wellness trend while differentiating from Planet Fitness).",
+        narrative: "Let's walk through a sample analysis for FitZone, a local gym. Porter's Five Forces: Threat of new entrants - Moderate (requires capital but boutique fitness studios are easy to open). Buyer power - High (many gym options, easy to switch). Supplier power - Low (equipment from many manufacturers). Substitutes - High (home workouts, YouTube, Peloton, outdoor exercise). Rivalry - Very high (Planet Fitness, LA Fitness, CrossFit boxes, Orange Theory all nearby). SWOT: Strength - only gym with a pool and childcare in the area. Weakness - outdated equipment, no app for booking. Opportunity - growing interest in wellness and community fitness. Threat - Planet Fitness opening a location one mile away. Recommendation: Invest in the app (fix weakness), market the pool and childcare aggressively (leverage unique strengths), and build a community fitness program (capture the wellness trend while differentiating from Planet Fitness).",
         details: [
-          "Porter's reveals a tough industry — high rivalry, high substitutes, high buyer power",
+          "Porter's reveals a tough industry - high rivalry, high substitutes, high buyer power",
           "SWOT reveals unique strengths (pool, childcare) that most competitors don't offer",
           "Strategic insight: Lean into what makes FitZone unique rather than competing on price",
           "Action plan: Fix the app weakness, amplify unique strengths, build community differentiation"
@@ -856,17 +856,17 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
         question: {
           id: "sa8-aq1",
           question: "After completing both a Porter's Five Forces and SWOT analysis, what is the most valuable connection to identify?",
-          options: ["How many items are in each SWOT quadrant", "Where company strengths align with weak industry forces — creating the best strategic opportunity", "Whether the SWOT chart looks better than the Porter's chart", "How many competitors exist in the industry"],
+          options: ["How many items are in each SWOT quadrant", "Where company strengths align with weak industry forces - creating the best strategic opportunity", "Whether the SWOT chart looks better than the Porter's chart", "How many competitors exist in the industry"],
           correctAnswer: 1,
-          explanation: "The most powerful strategic opportunities exist where your strengths align with weak competitive forces — you're strong exactly where the industry pressure is lightest."
+          explanation: "The most powerful strategic opportunities exist where your strengths align with weak competitive forces - you're strong exactly where the industry pressure is lightest."
         }
       },
       {
         type: "recap",
         takeaways: [
           "Start with Porter's Five Forces (industry) then do SWOT (company) for a complete analysis",
-          "Connect the two frameworks — find where strengths meet weak forces and weaknesses meet strong forces",
-          "Always end with an actionable recommendation — analysis without action is wasted effort",
+          "Connect the two frameworks - find where strengths meet weak forces and weaknesses meet strong forces",
+          "Always end with an actionable recommendation - analysis without action is wasted effort",
           "These are the exact skills used by professional consultants and corporate strategists"
         ]
       },
@@ -879,26 +879,26 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
             question: "In the FitZone example, what was the most strategically valuable strength?",
             options: ["Having the lowest membership price", "Being the only gym with a pool and childcare in the area", "Having the most locations in the city", "Having the newest equipment"],
             correctAnswer: 1,
-            explanation: "The pool and childcare are unique differentiators that no competitor offers — this is the strength most worth building strategy around."
+            explanation: "The pool and childcare are unique differentiators that no competitor offers - this is the strength most worth building strategy around."
           },
           {
             id: "sa8-mq2",
             question: "Why should Porter's Five Forces analysis come before SWOT in a strategic review?",
             options: ["Because Porter's is more important than SWOT", "Because understanding the industry landscape provides context for evaluating the company's position", "Because SWOT can only be done after Porter's by law", "Because Porter's is faster to complete"],
             correctAnswer: 1,
-            explanation: "Knowing the industry forces helps you understand which strengths and weaknesses matter most — a strength is more valuable if it counters a strong competitive force."
+            explanation: "Knowing the industry forces helps you understand which strengths and weaknesses matter most - a strength is more valuable if it counters a strong competitive force."
           },
           {
             id: "sa8-mq3",
             question: "McKinsey consultants follow the same process taught in this lesson. What does their approach typically lead to?",
             options: ["Academic papers published in journals", "Actionable strategic recommendations for client companies", "Social media marketing campaigns", "New product designs"],
             correctAnswer: 1,
-            explanation: "Top consulting firms use industry and company analysis to develop actionable strategic recommendations — the same process you've learned in this unit."
+            explanation: "Top consulting firms use industry and company analysis to develop actionable strategic recommendations - the same process you've learned in this unit."
           },
           {
             id: "sa8-mq4",
             question: "FitZone's recommendation to 'build a community fitness program' is designed to counter which competitive force?",
-            options: ["Supplier power", "Threat of new entrants", "Buyer power and rivalry — by creating loyalty that makes switching less appealing", "Government regulation"],
+            options: ["Supplier power", "Threat of new entrants", "Buyer power and rivalry - by creating loyalty that makes switching less appealing", "Government regulation"],
             correctAnswer: 2,
             explanation: "Community programs build loyalty and emotional connection, making members less likely to switch to a competitor (reducing buyer power) and differentiating from rivals."
           },

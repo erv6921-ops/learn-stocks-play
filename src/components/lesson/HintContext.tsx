@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react"
  * Lesson-wide hint budget. Kids get a small, fixed number of hints for the
  * ENTIRE lesson (shared across every quiz question), so hints stay a scarce,
  * strategic help rather than a way to breeze through. A hint rules out one
- * wrong answer — a nudge toward "what it could be" without giving it away.
+ * wrong answer - a nudge toward "what it could be" without giving it away.
  */
 interface HintCtx {
   hintsLeft: number

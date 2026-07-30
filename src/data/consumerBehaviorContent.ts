@@ -12,16 +12,16 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         title: "What Is Consumer Behavior and Why It Matters",
         paragraphs: [
           "Consumer behavior is the study of how individuals make decisions about what to buy, when to buy it, where to buy it, and why. It examines the full journey from the moment a person realizes they have a need to long after they have made a purchase.",
-          "Businesses that understand consumer behavior can design better products, create more effective marketing, price their offerings strategically, and build lasting customer relationships. Companies that ignore it are essentially guessing — and guessing is expensive.",
+          "Businesses that understand consumer behavior can design better products, create more effective marketing, price their offerings strategically, and build lasting customer relationships. Companies that ignore it are essentially guessing - and guessing is expensive.",
           "Consumer behavior draws from psychology, sociology, economics, and neuroscience. It explains why two people with the same income can make completely different purchasing decisions, and why a customer might pay $5 for a coffee at one store but refuse to pay $3 at another."
         ],
         bullets: [
-          "Consumer behavior — the study of how and why people make purchasing decisions",
+          "Consumer behavior - the study of how and why people make purchasing decisions",
           "It covers the entire buyer journey, not just the moment of purchase",
           "Understanding behavior helps businesses design products, set prices, and communicate value",
           "It draws from multiple fields including psychology, sociology, and economics"
         ],
-        realWorldExample: "Starbucks doesn't just sell coffee — they studied consumer behavior and discovered people would pay a premium for a 'third place' experience between home and work. That insight transformed a commodity product into a $100 billion company."
+        realWorldExample: "Starbucks doesn't just sell coffee - they studied consumer behavior and discovered people would pay a premium for a 'third place' experience between home and work. That insight transformed a commodity product into a $100 billion company."
       },
       {
         type: "micro-check",
@@ -36,7 +36,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "It only matters for large corporations with dedicated research departments and big budgets"
             ],
             correctAnswer: 0,
-            explanation: "Consumer behavior research gives businesses real insights into what customers need, how they decide, and what influences their choices — leading to better products, pricing, and marketing."
+            explanation: "Consumer behavior research gives businesses real insights into what customers need, how they decide, and what influences their choices - leading to better products, pricing, and marketing."
           },
           {
             id: "cb1-mc2",
@@ -48,18 +48,18 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Only computer science and data analytics, since modern consumer tracking relies on technology"
             ],
             correctAnswer: 1,
-            explanation: "Consumer behavior is interdisciplinary — psychology explains individual motivation, sociology covers group influence, economics addresses value and scarcity, and neuroscience reveals how the brain processes buying decisions."
+            explanation: "Consumer behavior is interdisciplinary - psychology explains individual motivation, sociology covers group influence, economics addresses value and scarcity, and neuroscience reveals how the brain processes buying decisions."
           }
         ]
       },
       {
         type: "scenario",
         title: "Two Coffee Shops, Two Approaches",
-        narrative: "Maya opens a coffee shop and spends three months observing how customers behave — when they arrive, what they order, how long they stay, and what makes them come back. She discovers her morning customers want speed, her afternoon customers want a workspace, and her evening customers want ambiance. She adjusts her layout, menu, and staffing to match. Across town, Derek opens a similar shop but designs everything based on his personal preferences. He plays loud music, removes seating to fit more inventory, and keeps the same menu all day.",
+        narrative: "Maya opens a coffee shop and spends three months observing how customers behave - when they arrive, what they order, how long they stay, and what makes them come back. She discovers her morning customers want speed, her afternoon customers want a workspace, and her evening customers want ambiance. She adjusts her layout, menu, and staffing to match. Across town, Derek opens a similar shop but designs everything based on his personal preferences. He plays loud music, removes seating to fit more inventory, and keeps the same menu all day.",
         details: [
           "After one year, Maya's shop has 78% customer retention and growing revenue each month",
           "Derek's shop struggles with inconsistent traffic and frequent complaints about atmosphere",
-          "Maya didn't spend more money — she simply paid attention to how her customers actually behaved"
+          "Maya didn't spend more money - she simply paid attention to how her customers actually behaved"
         ]
       },
       {
@@ -74,7 +74,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             "Maya spent significantly more on advertising and promotions to attract new customers"
           ],
           correctAnswer: 0,
-          explanation: "Maya succeeded because she observed real consumer behavior — arrival patterns, preferences, and retention drivers — then adapted her business accordingly. Derek designed around his own preferences rather than customer needs."
+          explanation: "Maya succeeded because she observed real consumer behavior - arrival patterns, preferences, and retention drivers - then adapted her business accordingly. Derek designed around his own preferences rather than customer needs."
         }
       },
       {
@@ -117,16 +117,16 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Consumer Decision-Making Process",
         paragraphs: [
-          "Every purchase — from a pack of gum to a new car — follows a predictable path. The consumer decision-making process has five stages: need recognition, information search, evaluation of alternatives, purchase decision, and post-purchase behavior.",
-          "Need recognition happens when a consumer realizes there is a gap between their current situation and their desired situation. This can be triggered internally (hunger, boredom) or externally (an ad, a friend's recommendation). Not every recognized need leads to action — it depends on how urgently the consumer feels the gap.",
-          "After recognizing a need, consumers search for information — sometimes extensively (researching laptops for weeks) and sometimes barely at all (grabbing whichever toothpaste is on sale). They then evaluate alternatives, make a purchase decision, and experience post-purchase feelings that determine whether they buy again."
+          "Every purchase - from a pack of gum to a new car - follows a predictable path. The consumer decision-making process has five stages: need recognition, information search, evaluation of alternatives, purchase decision, and post-purchase behavior.",
+          "Need recognition happens when a consumer realizes there is a gap between their current situation and their desired situation. This can be triggered internally (hunger, boredom) or externally (an ad, a friend's recommendation). Not every recognized need leads to action - it depends on how urgently the consumer feels the gap.",
+          "After recognizing a need, consumers search for information - sometimes extensively (researching laptops for weeks) and sometimes barely at all (grabbing whichever toothpaste is on sale). They then evaluate alternatives, make a purchase decision, and experience post-purchase feelings that determine whether they buy again."
         ],
         bullets: [
-          "Need recognition — realizing a gap exists between the current state and the desired state",
-          "Information search — gathering options through personal experience, friends, reviews, or ads",
-          "Evaluation of alternatives — comparing options based on price, quality, brand, and features",
-          "Purchase decision — choosing a product and completing the transaction",
-          "Post-purchase behavior — satisfaction or regret that shapes future buying decisions"
+          "Need recognition - realizing a gap exists between the current state and the desired state",
+          "Information search - gathering options through personal experience, friends, reviews, or ads",
+          "Evaluation of alternatives - comparing options based on price, quality, brand, and features",
+          "Purchase decision - choosing a product and completing the transaction",
+          "Post-purchase behavior - satisfaction or regret that shapes future buying decisions"
         ],
         realWorldExample: "Think about buying a new phone. You notice yours is slow (need recognition), read reviews online (information search), compare three models (evaluation), choose one (purchase), and then either love it or wish you'd picked something else (post-purchase). That entire journey is the decision-making process."
       },
@@ -155,18 +155,18 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "It allows businesses to charge higher prices on future products without improving quality"
             ],
             correctAnswer: 0,
-            explanation: "Post-purchase behavior drives repeat purchases, word-of-mouth recommendations, and online reviews — all of which directly impact future sales and brand reputation."
+            explanation: "Post-purchase behavior drives repeat purchases, word-of-mouth recommendations, and online reviews - all of which directly impact future sales and brand reputation."
           }
         ]
       },
       {
         type: "scenario",
         title: "Two Students Buy Headphones",
-        narrative: "Aisha needs new headphones for studying. She spends two weeks reading reviews, comparing noise-canceling features, and watching YouTube comparisons. She narrows it down to three models, picks the best value, and loves her choice — she tells five friends about them. Marcus also needs headphones. He grabs the first pair he sees at the store because they look cool. Within a week, the sound quality disappoints him and the ear cushions hurt. He leaves a one-star review and buys a different pair.",
+        narrative: "Aisha needs new headphones for studying. She spends two weeks reading reviews, comparing noise-canceling features, and watching YouTube comparisons. She narrows it down to three models, picks the best value, and loves her choice - she tells five friends about them. Marcus also needs headphones. He grabs the first pair he sees at the store because they look cool. Within a week, the sound quality disappoints him and the ear cushions hurt. He leaves a one-star review and buys a different pair.",
         details: [
-          "Aisha went through all five stages deliberately — need recognition, thorough search, careful evaluation, intentional purchase, and positive post-purchase",
-          "Marcus skipped information search and evaluation — jumping straight from need recognition to purchase",
-          "Aisha became a brand advocate; Marcus became a detractor — two completely different outcomes from the same starting point"
+          "Aisha went through all five stages deliberately - need recognition, thorough search, careful evaluation, intentional purchase, and positive post-purchase",
+          "Marcus skipped information search and evaluation - jumping straight from need recognition to purchase",
+          "Aisha became a brand advocate; Marcus became a detractor - two completely different outcomes from the same starting point"
         ]
       },
       {
@@ -189,7 +189,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         takeaways: [
           "The consumer decision-making process has five stages: need recognition, information search, evaluation, purchase, and post-purchase",
           "Need recognition is triggered by internal feelings or external stimuli that create a gap between current and desired states",
-          "The depth of information search varies — extensive for high-involvement purchases, minimal for routine ones",
+          "The depth of information search varies - extensive for high-involvement purchases, minimal for routine ones",
           "Post-purchase behavior determines whether a customer becomes an advocate or a detractor for the brand"
         ]
       },
@@ -207,7 +207,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "A social media post showing the laptop at a music festival with popular influencers in the background"
             ],
             correctAnswer: 1,
-            explanation: "During information search, consumers actively look for detailed comparisons and reviews. Meeting them where they're already searching — with relevant, informative content — is far more effective than broad awareness tactics."
+            explanation: "During information search, consumers actively look for detailed comparisons and reviews. Meeting them where they're already searching - with relevant, informative content - is far more effective than broad awareness tactics."
           }
         ]
       }
@@ -226,13 +226,13 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         paragraphs: [
           "Four key psychological factors shape every purchase: motivation, perception, learning, and attitudes. These internal forces operate beneath the surface, often influencing buying decisions without the consumer even realizing it.",
           "Motivation is the internal drive that pushes someone to fulfill a need. Maslow's hierarchy of needs explains that people prioritize basic needs (food, shelter) before pursuing higher-level needs (status, self-actualization). A teenager buying expensive sneakers might be motivated by belonging and status, not just the need for footwear.",
-          "Perception is how people interpret information. Two customers can see the same product and perceive completely different things based on their experiences and biases. Learning changes behavior through experience — a bad restaurant experience teaches you to avoid that place. Attitudes are consistent evaluations (positive or negative) that are hard to change once formed."
+          "Perception is how people interpret information. Two customers can see the same product and perceive completely different things based on their experiences and biases. Learning changes behavior through experience - a bad restaurant experience teaches you to avoid that place. Attitudes are consistent evaluations (positive or negative) that are hard to change once formed."
         ],
         bullets: [
-          "Motivation — the internal drive to satisfy a need, explained by Maslow's hierarchy",
-          "Perception — how individuals select, organize, and interpret information about products",
-          "Learning — changes in behavior that result from past experiences with products or brands",
-          "Attitudes — consistent positive or negative evaluations that are difficult to change once formed"
+          "Motivation - the internal drive to satisfy a need, explained by Maslow's hierarchy",
+          "Perception - how individuals select, organize, and interpret information about products",
+          "Learning - changes in behavior that result from past experiences with products or brands",
+          "Attitudes - consistent positive or negative evaluations that are difficult to change once formed"
         ],
         realWorldExample: "Why do people pay $1,000 for a phone when a $200 phone does the same things? Motivation (status and belonging), perception (premium brand = better quality), learning (past positive experiences with the brand), and attitude (I'm an Apple/Samsung person) all work together to justify the premium."
       },
@@ -249,7 +249,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Marketing companies have successfully manipulated teenagers into ignoring their actual physical needs"
             ],
             correctAnswer: 0,
-            explanation: "Once basic needs (food, shelter, safety) are met, people pursue higher-level needs like belonging and esteem. Expensive sneakers signal group membership and status — fulfilling real psychological needs."
+            explanation: "Once basic needs (food, shelter, safety) are met, people pursue higher-level needs like belonging and esteem. Expensive sneakers signal group membership and status - fulfilling real psychological needs."
           },
           {
             id: "cb3-mc2",
@@ -261,17 +261,17 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Consumers always perceive higher-priced products as higher quality regardless of any other factors"
             ],
             correctAnswer: 0,
-            explanation: "Perception is subjective — the same product can seem premium to one person and overpriced to another. Past experiences, cultural background, and personal biases all shape how people interpret what they see."
+            explanation: "Perception is subjective - the same product can seem premium to one person and overpriced to another. Past experiences, cultural background, and personal biases all shape how people interpret what they see."
           }
         ]
       },
       {
         type: "scenario",
         title: "Two Reactions to the Same Product",
-        narrative: "A new energy drink launches at $4.99 per can. Jordan sees the premium packaging and higher price and thinks, 'This must be a high-quality product worth trying — it costs more than the competition, so it's probably better.' Taylor sees the same product and thinks, 'That's a ridiculous price for sugar water — the cheap brands taste the same and I've been buying them for years.' Same product, same price, completely different perceptions.",
+        narrative: "A new energy drink launches at $4.99 per can. Jordan sees the premium packaging and higher price and thinks, 'This must be a high-quality product worth trying - it costs more than the competition, so it's probably better.' Taylor sees the same product and thinks, 'That's a ridiculous price for sugar water - the cheap brands taste the same and I've been buying them for years.' Same product, same price, completely different perceptions.",
         details: [
-          "Jordan's perception is shaped by a price-quality association — higher price signals higher value in their mind",
-          "Taylor's perception is shaped by learning from past experience — all energy drinks have tasted similar to them",
+          "Jordan's perception is shaped by a price-quality association - higher price signals higher value in their mind",
+          "Taylor's perception is shaped by learning from past experience - all energy drinks have tasted similar to them",
           "Taylor also has a strong pre-existing attitude toward budget brands that would be difficult for the new brand to change"
         ]
       },
@@ -281,8 +281,8 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
           id: "cb3-aq1",
           question: "Which psychological factor BEST explains why Taylor refuses to try the new energy drink despite having never tasted it?",
           options: [
-            "Motivation — Taylor is not internally driven to consume energy drinks in any form or brand",
-            "Perception — Taylor sees the high price as unjustified based on past learning and existing attitudes",
+            "Motivation - Taylor is not internally driven to consume energy drinks in any form or brand",
+            "Perception - Taylor sees the high price as unjustified based on past learning and existing attitudes",
             "Taylor is simply being financially responsible by choosing the most affordable option available",
             "Taylor lacks access to sufficient product information to make an informed purchasing decision"
           ],
@@ -293,10 +293,10 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
       {
         type: "recap",
         takeaways: [
-          "Motivation drives purchases by pushing consumers to fulfill needs — from basic survival to status and self-expression",
+          "Motivation drives purchases by pushing consumers to fulfill needs - from basic survival to status and self-expression",
           "Perception causes different people to interpret the same product in completely different ways",
           "Learning from past experiences shapes future buying decisions and can create strong brand preferences",
-          "Attitudes are consistent evaluations that are hard to change once formed — making first impressions critical"
+          "Attitudes are consistent evaluations that are hard to change once formed - making first impressions critical"
         ]
       },
       {
@@ -307,13 +307,13 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             id: "cb3-mastery",
             question: "A student had a terrible experience at a restaurant chain two years ago and now refuses to eat there, even though friends say it has improved. Which psychological factor is MOST responsible for this resistance?",
             options: [
-              "Motivation — the student is not motivated to eat at restaurants and prefers cooking meals at home",
-              "Perception — the student cannot physically see the restaurant from their home and forgets it exists",
-              "Learning and attitude — a negative past experience created a lasting negative evaluation that resists change",
-              "Social influence — the student's friends secretly also dislike the restaurant and are reinforcing avoidance"
+              "Motivation - the student is not motivated to eat at restaurants and prefers cooking meals at home",
+              "Perception - the student cannot physically see the restaurant from their home and forgets it exists",
+              "Learning and attitude - a negative past experience created a lasting negative evaluation that resists change",
+              "Social influence - the student's friends secretly also dislike the restaurant and are reinforcing avoidance"
             ],
             correctAnswer: 2,
-            explanation: "The bad experience (learning) created a negative attitude toward the restaurant. Attitudes, once formed, are resistant to change — even when new information (friends' recommendations) contradicts them."
+            explanation: "The bad experience (learning) created a negative attitude toward the restaurant. Attitudes, once formed, are resistant to change - even when new information (friends' recommendations) contradicts them."
           }
         ]
       }
@@ -331,16 +331,16 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         title: "Social and Cultural Influences on Buying",
         paragraphs: [
           "People don't make purchasing decisions in isolation. Family, friends, social class, culture, and reference groups all shape what people buy, how much they spend, and which brands they trust. These social influences can be even more powerful than individual preferences.",
-          "Reference groups are the people whose opinions and behaviors influence your own. They include membership groups (your actual friends and family), aspirational groups (people you want to be like), and dissociative groups (people you want to distance yourself from). A teenager might buy a specific brand because their favorite athlete wears it — that athlete is an aspirational reference group.",
-          "Culture is the broadest social influence. It includes shared values, beliefs, customs, and behaviors of a society. Subcultures — groups within a culture with distinct values — create specific consumer patterns. Social class also influences purchasing, affecting not just what people can afford but what they believe is appropriate to buy."
+          "Reference groups are the people whose opinions and behaviors influence your own. They include membership groups (your actual friends and family), aspirational groups (people you want to be like), and dissociative groups (people you want to distance yourself from). A teenager might buy a specific brand because their favorite athlete wears it - that athlete is an aspirational reference group.",
+          "Culture is the broadest social influence. It includes shared values, beliefs, customs, and behaviors of a society. Subcultures - groups within a culture with distinct values - create specific consumer patterns. Social class also influences purchasing, affecting not just what people can afford but what they believe is appropriate to buy."
         ],
         bullets: [
-          "Reference groups — membership, aspirational, and dissociative groups that shape brand preferences",
-          "Family influence — often the strongest social influence on buying habits and brand loyalty",
-          "Culture — shared values and customs that define what is desirable, acceptable, or taboo to buy",
-          "Social class — affects not only purchasing power but also attitudes about what is appropriate to buy"
+          "Reference groups - membership, aspirational, and dissociative groups that shape brand preferences",
+          "Family influence - often the strongest social influence on buying habits and brand loyalty",
+          "Culture - shared values and customs that define what is desirable, acceptable, or taboo to buy",
+          "Social class - affects not only purchasing power but also attitudes about what is appropriate to buy"
         ],
-        realWorldExample: "In Japan, gift-giving follows strict cultural rules — the wrapping matters as much as the gift itself, and certain numbers of items are considered unlucky. A company that ignores these cultural norms when selling in Japan will fail, no matter how good their product is."
+        realWorldExample: "In Japan, gift-giving follows strict cultural rules - the wrapping matters as much as the gift itself, and certain numbers of items are considered unlucky. A company that ignores these cultural norms when selling in Japan will fail, no matter how good their product is."
       },
       {
         type: "micro-check",
@@ -355,7 +355,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "An aspirational group charges membership fees while a membership group provides free access to all members"
             ],
             correctAnswer: 0,
-            explanation: "Membership groups are the people around you (friends, classmates, coworkers). Aspirational groups are people you admire and want to emulate — like celebrities, athletes, or successful entrepreneurs whose buying habits you might copy."
+            explanation: "Membership groups are the people around you (friends, classmates, coworkers). Aspirational groups are people you admire and want to emulate - like celebrities, athletes, or successful entrepreneurs whose buying habits you might copy."
           },
           {
             id: "cb4-mc2",
@@ -367,18 +367,18 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Culture only matters for international businesses and has no relevance for companies selling domestically"
             ],
             correctAnswer: 0,
-            explanation: "Culture is the foundation of consumer behavior — it shapes fundamental beliefs about what is desirable, necessary, appropriate, or taboo. Even in a globalized world, cultural values deeply influence purchase decisions."
+            explanation: "Culture is the foundation of consumer behavior - it shapes fundamental beliefs about what is desirable, necessary, appropriate, or taboo. Even in a globalized world, cultural values deeply influence purchase decisions."
           }
         ]
       },
       {
         type: "scenario",
         title: "Two Friends, Different Influences",
-        narrative: "Elena grew up in a family that valued practicality — her parents drove used cars, bought store-brand groceries, and talked openly about saving money. Her friend Sophia grew up in a family where brand names signaled success — designer clothes, the newest phone, and luxury vacations were the norm. When both start earning their own money at part-time jobs, Elena naturally gravitates toward saving and value shopping. Sophia naturally gravitates toward premium brands and visible status purchases.",
+        narrative: "Elena grew up in a family that valued practicality - her parents drove used cars, bought store-brand groceries, and talked openly about saving money. Her friend Sophia grew up in a family where brand names signaled success - designer clothes, the newest phone, and luxury vacations were the norm. When both start earning their own money at part-time jobs, Elena naturally gravitates toward saving and value shopping. Sophia naturally gravitates toward premium brands and visible status purchases.",
         details: [
-          "Neither student made a conscious decision to adopt their spending philosophy — family culture shaped their automatic preferences",
+          "Neither student made a conscious decision to adopt their spending philosophy - family culture shaped their automatic preferences",
           "Elena feels uncomfortable spending on luxury items even when she can afford them; Sophia feels uncomfortable buying generic brands",
-          "Their friend groups reinforce these patterns — Elena's friends trade budget tips while Sophia's friends share new purchases"
+          "Their friend groups reinforce these patterns - Elena's friends trade budget tips while Sophia's friends share new purchases"
         ]
       },
       {
@@ -387,19 +387,19 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
           id: "cb4-aq1",
           question: "Which social influence factor MOST explains why Elena and Sophia have opposite spending habits despite earning similar incomes?",
           options: [
-            "Family culture — the values, attitudes, and behaviors modeled by their parents shaped their automatic preferences",
-            "Social class — Elena comes from a lower-income family while Sophia comes from a higher-income household",
-            "Individual psychology — Elena is naturally frugal and Sophia is naturally materialistic regardless of upbringing",
-            "Marketing exposure — Sophia watches more advertisements than Elena which directly controls her spending choices"
+            "Family culture - the values, attitudes, and behaviors modeled by their parents shaped their automatic preferences",
+            "Social class - Elena comes from a lower-income family while Sophia comes from a higher-income household",
+            "Individual psychology - Elena is naturally frugal and Sophia is naturally materialistic regardless of upbringing",
+            "Marketing exposure - Sophia watches more advertisements than Elena which directly controls her spending choices"
           ],
           correctAnswer: 0,
-          explanation: "Family is often the strongest social influence on consumer behavior. Elena and Sophia internalized their families' values about money and spending — these learned behaviors now feel like natural preferences."
+          explanation: "Family is often the strongest social influence on consumer behavior. Elena and Sophia internalized their families' values about money and spending - these learned behaviors now feel like natural preferences."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Consumers are influenced by reference groups — membership, aspirational, and dissociative — that shape brand choices",
+          "Consumers are influenced by reference groups - membership, aspirational, and dissociative - that shape brand choices",
           "Family is typically the strongest social influence on buying habits, often creating lifelong spending patterns",
           "Culture defines the broad framework of what is considered desirable, acceptable, or taboo in purchasing",
           "Social class affects not just what people can afford but what they believe is appropriate for someone like them to buy"
@@ -419,7 +419,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Send email newsletters to parents explaining the long-term durability and cost-per-wear value of the shoes"
             ],
             correctAnswer: 1,
-            explanation: "High school students are heavily influenced by aspirational reference groups — athletes and influencers they admire. Associating the shoe with these figures creates social desirability that drives purchase intent far more than specs or parent emails."
+            explanation: "High school students are heavily influenced by aspirational reference groups - athletes and influencers they admire. Associating the shoe with these figures creates social desirability that drives purchase intent far more than specs or parent emails."
           }
         ]
       }
@@ -436,17 +436,17 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Market Segmentation",
         paragraphs: [
-          "Market segmentation is the process of dividing a broad market into smaller, more defined groups of consumers who share similar characteristics. Instead of trying to sell to everyone — which is expensive and ineffective — businesses focus on segments where their product fits best.",
-          "There are four primary segmentation methods. Demographic segmentation divides by age, gender, income, education, or occupation. Psychographic segmentation groups people by lifestyle, values, interests, and personality. Geographic segmentation divides by location — country, region, city, or even neighborhood. Behavioral segmentation groups consumers by how they actually interact with products — purchase frequency, brand loyalty, usage rate, and benefits sought.",
+          "Market segmentation is the process of dividing a broad market into smaller, more defined groups of consumers who share similar characteristics. Instead of trying to sell to everyone - which is expensive and ineffective - businesses focus on segments where their product fits best.",
+          "There are four primary segmentation methods. Demographic segmentation divides by age, gender, income, education, or occupation. Psychographic segmentation groups people by lifestyle, values, interests, and personality. Geographic segmentation divides by location - country, region, city, or even neighborhood. Behavioral segmentation groups consumers by how they actually interact with products - purchase frequency, brand loyalty, usage rate, and benefits sought.",
           "The most effective segmentation combines multiple methods. A fitness app might target 'college students (demographic) in urban areas (geographic) who value health and self-improvement (psychographic) and work out at least three times per week (behavioral).' This multi-dimensional approach creates precise, actionable segments."
         ],
         bullets: [
-          "Demographic — age, gender, income, education, family size, occupation",
-          "Psychographic — lifestyle, values, interests, personality traits, and opinions",
-          "Geographic — country, region, city, climate, population density, urban vs rural",
-          "Behavioral — purchase frequency, loyalty status, usage rate, and benefits sought"
+          "Demographic - age, gender, income, education, family size, occupation",
+          "Psychographic - lifestyle, values, interests, personality traits, and opinions",
+          "Geographic - country, region, city, climate, population density, urban vs rural",
+          "Behavioral - purchase frequency, loyalty status, usage rate, and benefits sought"
         ],
-        realWorldExample: "Netflix uses behavioral segmentation brilliantly. They don't just know your age and location — they track what you watch, when you watch, how long you watch, and what you pause on. This behavioral data creates micro-segments that power their recommendation engine, which drives 80% of viewer activity."
+        realWorldExample: "Netflix uses behavioral segmentation brilliantly. They don't just know your age and location - they track what you watch, when you watch, how long you watch, and what you pause on. This behavioral data creates micro-segments that power their recommendation engine, which drives 80% of viewer activity."
       },
       {
         type: "micro-check",
@@ -461,7 +461,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "To simplify marketing by treating all consumers identically and reducing the number of campaigns needed"
             ],
             correctAnswer: 0,
-            explanation: "Segmentation helps businesses focus their resources on the groups most likely to buy their product. It's about precision — reaching the right people with the right message rather than broadcasting to everyone."
+            explanation: "Segmentation helps businesses focus their resources on the groups most likely to buy their product. It's about precision - reaching the right people with the right message rather than broadcasting to everyone."
           },
           {
             id: "cb5-mc2",
@@ -473,7 +473,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Psychographic segmentation based on customer personality traits, lifestyle choices, and personal values"
             ],
             correctAnswer: 2,
-            explanation: "Purchase frequency and benefits sought are behavioral variables — they describe how customers actually interact with products rather than who they are (demographic) or what they believe (psychographic)."
+            explanation: "Purchase frequency and benefits sought are behavioral variables - they describe how customers actually interact with products rather than who they are (demographic) or what they believe (psychographic)."
           }
         ]
       },
@@ -482,7 +482,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         title: "Segmenting a Lemonade Stand",
         narrative: "Two students start lemonade businesses at a local park. Kayla sells one product at one price to everyone. She averages 30 cups per day. Marcus studies the park visitors and identifies three segments: morning joggers want cold, low-sugar hydration; families at the playground want sweet, fun drinks for kids; and evening walkers want premium flavored lemonades. He creates three products, prices them differently, and positions his stand to catch each group at the right time.",
         details: [
-          "Marcus sells 65 cups per day — more than double Kayla's volume — with higher average revenue per cup",
+          "Marcus sells 65 cups per day - more than double Kayla's volume - with higher average revenue per cup",
           "Morning joggers pay $2.50 for electrolyte lemonade, families buy $1.50 kids' cups, and evening walkers pay $4.00 for premium flavors",
           "Kayla's single product appealed somewhat to everyone but was the ideal choice for no one"
         ]
@@ -499,7 +499,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             "He used price discrimination by simply charging different amounts for the exact same product"
           ],
           correctAnswer: 1,
-          explanation: "Marcus identified behavioral differences (what each group sought: hydration, fun drinks, or premium flavors) and combined them with temporal patterns (morning, afternoon, evening). He then tailored products to match — that's effective multi-dimensional segmentation."
+          explanation: "Marcus identified behavioral differences (what each group sought: hydration, fun drinks, or premium flavors) and combined them with temporal patterns (morning, afternoon, evening). He then tailored products to match - that's effective multi-dimensional segmentation."
         }
       },
       {
@@ -525,7 +525,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Change their entire product line to only sustainable materials regardless of whether other segments want that"
             ],
             correctAnswer: 1,
-            explanation: "Multi-dimensional segmentation reveals your most valuable customer profile. The smart move is to focus resources — marketing, product development, and distribution — on this segment for the highest return, while still serving other customers."
+            explanation: "Multi-dimensional segmentation reveals your most valuable customer profile. The smart move is to focus resources - marketing, product development, and distribution - on this segment for the highest return, while still serving other customers."
           }
         ]
       }
@@ -542,17 +542,17 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Target Market Selection and Buyer Personas",
         paragraphs: [
-          "After segmenting the market, the next step is selecting a target market — the specific segment(s) a business will focus on serving. Not every segment is worth pursuing. A good target market is large enough to be profitable, reachable through available marketing channels, and aligned with the company's strengths and resources.",
+          "After segmenting the market, the next step is selecting a target market - the specific segment(s) a business will focus on serving. Not every segment is worth pursuing. A good target market is large enough to be profitable, reachable through available marketing channels, and aligned with the company's strengths and resources.",
           "A buyer persona is a detailed, semi-fictional profile of an ideal customer within your target market. It goes beyond demographics to include goals, pain points, decision-making patterns, preferred communication channels, and common objections. A persona has a name, a story, and enough detail that anyone in the company can picture this person.",
-          "The value of buyer personas is alignment — when the marketing team, product team, and sales team all share the same vivid picture of who they're serving, every decision becomes clearer. Instead of debating opinions, teams can ask: 'Would our persona want this?'"
+          "The value of buyer personas is alignment - when the marketing team, product team, and sales team all share the same vivid picture of who they're serving, every decision becomes clearer. Instead of debating opinions, teams can ask: 'Would our persona want this?'"
         ],
         bullets: [
-          "Target market — the specific segment a business decides to focus on after evaluating size, reachability, and fit",
-          "Buyer persona — a detailed semi-fictional profile that includes goals, pain points, and behavior patterns",
-          "Persona components — name, background, goals, challenges, buying preferences, and common objections",
-          "Alignment value — personas unify teams around a shared understanding of the ideal customer"
+          "Target market - the specific segment a business decides to focus on after evaluating size, reachability, and fit",
+          "Buyer persona - a detailed semi-fictional profile that includes goals, pain points, and behavior patterns",
+          "Persona components - name, background, goals, challenges, buying preferences, and common objections",
+          "Alignment value - personas unify teams around a shared understanding of the ideal customer"
         ],
-        realWorldExample: "HubSpot, a marketing software company, created a persona called 'Marketing Mary' — a 35-year-old marketing director at a mid-size company who struggles to prove ROI to her CEO. Every product feature, blog post, and sales pitch is designed to help 'Marketing Mary' solve her specific problems."
+        realWorldExample: "HubSpot, a marketing software company, created a persona called 'Marketing Mary' - a 35-year-old marketing director at a mid-size company who struggles to prove ROI to her CEO. Every product feature, blog post, and sales pitch is designed to help 'Marketing Mary' solve her specific problems."
       },
       {
         type: "micro-check",
@@ -586,7 +586,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Building a Persona for a Study App",
-        narrative: "A team of students is building a study app. Without a persona, they argue constantly — one wants gamification features, another wants AI tutoring, a third wants social study groups. They create a persona: 'Focused Fiona,' a 16-year-old junior taking three AP classes who feels overwhelmed by test prep, studies alone at night, and needs structured review schedules more than social features. Suddenly, every feature debate has a clear answer: 'Would Fiona want this?'",
+        narrative: "A team of students is building a study app. Without a persona, they argue constantly - one wants gamification features, another wants AI tutoring, a third wants social study groups. They create a persona: 'Focused Fiona,' a 16-year-old junior taking three AP classes who feels overwhelmed by test prep, studies alone at night, and needs structured review schedules more than social features. Suddenly, every feature debate has a clear answer: 'Would Fiona want this?'",
         details: [
           "Before the persona, the team spent 70% of meetings debating features based on personal opinions and preferences",
           "After creating Fiona, feature decisions became faster because the team had a shared framework for evaluation",
@@ -605,7 +605,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             "The persona was based on a real student who joined the development team and made all product decisions herself"
           ],
           correctAnswer: 0,
-          explanation: "Personas replace opinion-based debates with customer-based decisions. Instead of arguing 'I think users want X,' the team asks 'Would Fiona need this?' — creating alignment and faster, better decisions."
+          explanation: "Personas replace opinion-based debates with customer-based decisions. Instead of arguing 'I think users want X,' the team asks 'Would Fiona need this?' - creating alignment and faster, better decisions."
         }
       },
       {
@@ -613,7 +613,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         takeaways: [
           "Target market selection requires evaluating segment size, reachability, and alignment with company strengths",
           "Buyer personas are detailed semi-fictional profiles that go beyond demographics to include goals and pain points",
-          "Personas create team alignment — every department works from the same vivid picture of the ideal customer",
+          "Personas create team alignment - every department works from the same vivid picture of the ideal customer",
           "The question 'Would our persona want this?' replaces opinion-based debates with customer-centered decisions"
         ]
       },
@@ -631,7 +631,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Add the premium tier but hide it from Budget Ben so he does not feel pressured to upgrade his free account"
             ],
             correctAnswer: 1,
-            explanation: "If your persona is cost-conscious, a premium subscription directly conflicts with their values. Persona-driven thinking means adapting your business model to your customer — not forcing your customer into your preferred model. They might explore ads, freemium with limited features, or sponsorships instead."
+            explanation: "If your persona is cost-conscious, a premium subscription directly conflicts with their values. Persona-driven thinking means adapting your business model to your customer - not forcing your customer into your preferred model. They might explore ads, freemium with limited features, or sponsorships instead."
           }
         ]
       }
@@ -648,17 +648,17 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Brand Loyalty vs Brand Switching",
         paragraphs: [
-          "Brand loyalty occurs when a customer consistently chooses the same brand over competitors, even when alternatives are available at similar or lower prices. Loyal customers are the most valuable — they buy more frequently, pay premium prices, recommend the brand to others, and cost less to retain than new customers cost to acquire.",
+          "Brand loyalty occurs when a customer consistently chooses the same brand over competitors, even when alternatives are available at similar or lower prices. Loyal customers are the most valuable - they buy more frequently, pay premium prices, recommend the brand to others, and cost less to retain than new customers cost to acquire.",
           "Brand switching happens when customers move from one brand to another. The triggers include dissatisfaction with the current product, a better deal from a competitor, a change in personal needs, negative publicity about the brand, or a compelling new alternative entering the market. Switching can be temporary (trying something new) or permanent (leaving for good).",
-          "The economics are stark: acquiring a new customer costs five to seven times more than retaining an existing one. A 5% increase in customer retention can increase profits by 25% to 95%. This is why smart businesses invest heavily in loyalty — not just through rewards programs but through consistent quality, emotional connection, and excellent service."
+          "The economics are stark: acquiring a new customer costs five to seven times more than retaining an existing one. A 5% increase in customer retention can increase profits by 25% to 95%. This is why smart businesses invest heavily in loyalty - not just through rewards programs but through consistent quality, emotional connection, and excellent service."
         ],
         bullets: [
-          "Brand loyalty — consistently choosing the same brand, even when comparable alternatives exist",
-          "Brand switching — moving to a competitor due to dissatisfaction, better deals, or changing needs",
-          "Acquisition cost — getting a new customer costs 5-7x more than keeping an existing one",
-          "Retention impact — a 5% increase in retention can boost profits by 25% to 95%"
+          "Brand loyalty - consistently choosing the same brand, even when comparable alternatives exist",
+          "Brand switching - moving to a competitor due to dissatisfaction, better deals, or changing needs",
+          "Acquisition cost - getting a new customer costs 5-7x more than keeping an existing one",
+          "Retention impact - a 5% increase in retention can boost profits by 25% to 95%"
         ],
-        realWorldExample: "Apple has one of the highest brand loyalty rates in technology — over 90% of iPhone users buy another iPhone. This isn't just about the phone itself. Apple creates an ecosystem (iMessage, AirDrop, iCloud, Apple Watch) that makes switching painful. The more Apple products you own, the harder it is to leave."
+        realWorldExample: "Apple has one of the highest brand loyalty rates in technology - over 90% of iPhone users buy another iPhone. This isn't just about the phone itself. Apple creates an ecosystem (iMessage, AirDrop, iCloud, Apple Watch) that makes switching painful. The more Apple products you own, the harder it is to leave."
       },
       {
         type: "micro-check",
@@ -685,17 +685,17 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "Social media algorithms automatically rotate the brands that consumers are exposed to, forcing periodic switching"
             ],
             correctAnswer: 0,
-            explanation: "Brand switching is triggered by specific events — quality decline, competitor promotions, changing needs, or negative press. It's not random or scheduled; it happens when something disrupts the customer's loyalty."
+            explanation: "Brand switching is triggered by specific events - quality decline, competitor promotions, changing needs, or negative press. It's not random or scheduled; it happens when something disrupts the customer's loyalty."
           }
         ]
       },
       {
         type: "scenario",
         title: "The Loyalty Battle: Streaming Services",
-        narrative: "Maya has been subscribed to StreamFlix for three years. She's a loyal customer — she watches daily, has curated watchlists, and knows the interface well. Then StreamFlix raises prices by 30%, removes her favorite show, and adds more ads to the basic tier. Meanwhile, a competitor launches with lower prices, ad-free viewing, and exclusive content Maya wants. Within one month, Maya cancels StreamFlix and switches. Her friend Kai stays with StreamFlix despite the same frustrations because his entire family shares the account and switching would require everyone to rebuild their profiles.",
+        narrative: "Maya has been subscribed to StreamFlix for three years. She's a loyal customer - she watches daily, has curated watchlists, and knows the interface well. Then StreamFlix raises prices by 30%, removes her favorite show, and adds more ads to the basic tier. Meanwhile, a competitor launches with lower prices, ad-free viewing, and exclusive content Maya wants. Within one month, Maya cancels StreamFlix and switches. Her friend Kai stays with StreamFlix despite the same frustrations because his entire family shares the account and switching would require everyone to rebuild their profiles.",
         details: [
-          "Maya's brand loyalty broke because StreamFlix violated multiple trust factors simultaneously — price, content, and experience",
-          "Kai's loyalty is partially driven by switching costs — the effort required to move his entire family makes staying easier than leaving",
+          "Maya's brand loyalty broke because StreamFlix violated multiple trust factors simultaneously - price, content, and experience",
+          "Kai's loyalty is partially driven by switching costs - the effort required to move his entire family makes staying easier than leaving",
           "StreamFlix lost a customer not because the competitor was dramatically better but because StreamFlix eroded the value that earned Maya's loyalty"
         ]
       },
@@ -705,13 +705,13 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
           id: "cb7-aq1",
           question: "Why did Kai stay with StreamFlix while Maya switched, even though both faced the same frustrations?",
           options: [
-            "Kai's switching costs were higher — moving his whole family's profiles and preferences made leaving more difficult",
+            "Kai's switching costs were higher - moving his whole family's profiles and preferences made leaving more difficult",
             "Kai genuinely enjoyed the price increase and ad additions because he valued the expanded content library more",
             "Maya was simply a more rational consumer who always makes optimal purchasing decisions based on pure value",
             "Kai had a contractual obligation that prevented him from canceling his subscription for another twelve months"
           ],
           correctAnswer: 0,
-          explanation: "Switching costs — the effort, time, and inconvenience of changing — are a powerful factor in brand loyalty. Kai's high switching costs (family account, multiple profiles) kept him loyal even when satisfaction dropped."
+          explanation: "Switching costs - the effort, time, and inconvenience of changing - are a powerful factor in brand loyalty. Kai's high switching costs (family account, multiple profiles) kept him loyal even when satisfaction dropped."
         }
       },
       {
@@ -719,7 +719,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         takeaways: [
           "Brand loyalty means consistently choosing the same brand, and loyal customers are far more profitable than new ones",
           "Brand switching is triggered by dissatisfaction, better alternatives, changing needs, or negative brand experiences",
-          "Acquiring a new customer costs 5-7x more than retaining an existing one — making retention economically critical",
+          "Acquiring a new customer costs 5-7x more than retaining an existing one - making retention economically critical",
           "Switching costs (effort, inconvenience, ecosystem lock-in) can maintain loyalty even when satisfaction declines"
         ]
       },
@@ -745,7 +745,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
   },
 
   // ═══════════════════════════════════════════════
-  // CB-8: Case Study — How Nike Uses Consumer Research
+  // CB-8: Case Study - How Nike Uses Consumer Research
   // ═══════════════════════════════════════════════
   {
     lessonId: "cb-8",
@@ -754,15 +754,15 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Case Study: How Nike Applies Consumer Behavior Research",
         paragraphs: [
-          "Nike is one of the world's most valuable brands — worth over $30 billion — and consumer behavior research is the foundation of their success. Every product launch, marketing campaign, and retail experience is built on deep understanding of how athletes and aspiring athletes think, feel, and buy.",
-          "Nike uses all four segmentation methods simultaneously. Demographically, they target multiple age groups with different product lines (kids, teens, adults). Psychographically, they connect with people who see themselves as athletes — their 'Just Do It' slogan appeals to identity and aspiration. Geographically, they customize products for different markets (cricket shoes in India, soccer boots in Brazil). Behaviorally, they track purchase patterns through the Nike app to personalize recommendations.",
-          "Perhaps most powerfully, Nike leverages aspirational reference groups. By signing athletes like Michael Jordan, Serena Williams, and LeBron James, Nike connects their products to the ultimate athletic identity. Customers aren't just buying shoes — they're buying a piece of who they want to be."
+          "Nike is one of the world's most valuable brands - worth over $30 billion - and consumer behavior research is the foundation of their success. Every product launch, marketing campaign, and retail experience is built on deep understanding of how athletes and aspiring athletes think, feel, and buy.",
+          "Nike uses all four segmentation methods simultaneously. Demographically, they target multiple age groups with different product lines (kids, teens, adults). Psychographically, they connect with people who see themselves as athletes - their 'Just Do It' slogan appeals to identity and aspiration. Geographically, they customize products for different markets (cricket shoes in India, soccer boots in Brazil). Behaviorally, they track purchase patterns through the Nike app to personalize recommendations.",
+          "Perhaps most powerfully, Nike leverages aspirational reference groups. By signing athletes like Michael Jordan, Serena Williams, and LeBron James, Nike connects their products to the ultimate athletic identity. Customers aren't just buying shoes - they're buying a piece of who they want to be."
         ],
         bullets: [
-          "Multi-segment strategy — Nike targets kids, teens, casual athletes, and professionals with distinct product lines",
-          "Psychographic identity — 'Just Do It' connects with the internal athlete in every customer, not just professionals",
-          "Aspirational influence — athlete endorsements transform products into symbols of identity and achievement",
-          "Behavioral data — the Nike app tracks preferences and purchases to personalize the entire customer experience"
+          "Multi-segment strategy - Nike targets kids, teens, casual athletes, and professionals with distinct product lines",
+          "Psychographic identity - 'Just Do It' connects with the internal athlete in every customer, not just professionals",
+          "Aspirational influence - athlete endorsements transform products into symbols of identity and achievement",
+          "Behavioral data - the Nike app tracks preferences and purchases to personalize the entire customer experience"
         ],
         realWorldExample: "When Nike signed Colin Kaepernick for their 'Believe in Something' campaign, they used consumer behavior data showing their core psychographic segment valued social justice. The campaign was polarizing, but Nike's stock hit an all-time high because they knew their target audience's values deeply."
       },
@@ -779,13 +779,13 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
               "They create exclusive membership clubs that require athletic ability testing before allowing product purchases"
             ],
             correctAnswer: 0,
-            explanation: "Nike's athlete endorsements work because of aspirational reference group influence — customers want to be like these athletes, and wearing Nike becomes a way to connect with that identity."
+            explanation: "Nike's athlete endorsements work because of aspirational reference group influence - customers want to be like these athletes, and wearing Nike becomes a way to connect with that identity."
           },
           {
             id: "cb8-mc2",
             question: "Why does Nike customize products for different geographic markets?",
             options: [
-              "Because consumer behavior varies by culture and geography — different regions have different sports, preferences, and needs",
+              "Because consumer behavior varies by culture and geography - different regions have different sports, preferences, and needs",
               "Because Nike is legally required by international trade laws to manufacture different products for each country",
               "Because shipping costs are lower when products are designed specifically for nearby manufacturing facilities",
               "Because Nike uses geographic customization as a cost-cutting measure to reduce their global product inventory"
@@ -800,8 +800,8 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
         title: "Nike vs. a Competitor: Two Approaches to the Same Market",
         narrative: "Nike launches a new running shoe using their full consumer behavior playbook: psychographic research identifies that recreational runners want to feel like 'real athletes,' behavioral data from the Nike app reveals preferred cushioning levels, and an aspirational campaign features Olympic marathoners wearing the shoe. A competitor launches a similar shoe at a lower price with a generic ad showing the shoe on a white background with a list of technical specifications.",
         details: [
-          "Nike's shoe sells at $180 with 2 million units in the first quarter — customers report buying it because it 'makes them feel like a runner'",
-          "The competitor's shoe sells at $120 with only 200,000 units — customers who buy it cite price as the main reason",
+          "Nike's shoe sells at $180 with 2 million units in the first quarter - customers report buying it because it 'makes them feel like a runner'",
+          "The competitor's shoe sells at $120 with only 200,000 units - customers who buy it cite price as the main reason",
           "Nike's approach generated ten times the revenue because they sold identity and aspiration, not just a product",
           "The competitor's customers showed low brand loyalty and switched to an even cheaper option the following season"
         ]
@@ -818,13 +818,13 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             "Nike had ten times more retail store locations, giving them a geographic distribution advantage over the competitor"
           ],
           correctAnswer: 0,
-          explanation: "Nike's success came from applying every consumer behavior principle — psychographic targeting (identity), aspirational influence (Olympic athletes), and behavioral personalization (app data). They sold an emotional experience, not just a shoe."
+          explanation: "Nike's success came from applying every consumer behavior principle - psychographic targeting (identity), aspirational influence (Olympic athletes), and behavioral personalization (app data). They sold an emotional experience, not just a shoe."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Nike uses all four segmentation methods — demographic, psychographic, geographic, and behavioral — simultaneously",
+          "Nike uses all four segmentation methods - demographic, psychographic, geographic, and behavioral - simultaneously",
           "Their 'Just Do It' brand connects with the aspirational identity of being an athlete, not just wearing athletic gear",
           "Athlete endorsements leverage aspirational reference group influence to transform products into identity symbols",
           "Behavioral data from the Nike app enables personalized experiences that deepen loyalty and increase lifetime value"

@@ -63,7 +63,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Stocks cannot be purchased without bonds attached"
         ],
         correctAnswer: 2,
-        explanation: "Stocks and bonds often move differently — when stocks fall, bonds frequently hold steadier. Combining them smooths the ride without giving up all growth."
+        explanation: "Stocks and bonds often move differently - when stocks fall, bonds frequently hold steadier. Combining them smooths the ride without giving up all growth."
       },
       {
         id: "portfolio-1-q6",
@@ -118,7 +118,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "How fast you can sell an investment"
         ],
         correctAnswer: 0,
-        explanation: "Risk tolerance is your ability — both emotionally and financially — to withstand drops in your investments without panicking or being harmed."
+        explanation: "Risk tolerance is your ability - both emotionally and financially - to withstand drops in your investments without panicking or being harmed."
       },
       {
         id: "portfolio-2-q2",
@@ -190,7 +190,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Medium risk in a stock index fund"
         ],
         correctAnswer: 1,
-        explanation: "Money needed within a year shouldn't ride the stock market — a crash right before purchase would derail the goal. Short-term goals call for safe, stable places."
+        explanation: "Money needed within a year shouldn't ride the stock market - a crash right before purchase would derail the goal. Short-term goals call for safe, stable places."
       },
       {
         id: "portfolio-2-q8",
@@ -245,7 +245,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Stocks only diversify when bought monthly"
         ],
         correctAnswer: 1,
-        explanation: "All five stocks share the same industry risks — fuel prices, travel slumps, pandemics. Diversification requires spreading across different sectors, not just different tickers."
+        explanation: "All five stocks share the same industry risks - fuel prices, travel slumps, pandemics. Diversification requires spreading across different sectors, not just different tickers."
       },
       {
         id: "portfolio-3-q4",
@@ -281,7 +281,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Open accounts at five different banks"
         ],
         correctAnswer: 0,
-        explanation: "A single broad index fund can hold hundreds or thousands of companies, giving instant diversification with one purchase — perfect for beginners."
+        explanation: "A single broad index fund can hold hundreds or thousands of companies, giving instant diversification with one purchase - perfect for beginners."
       },
       {
         id: "portfolio-3-q7",
@@ -324,7 +324,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Selling small amounts every single week"
         ],
         correctAnswer: 2,
-        explanation: "DCA means investing the same dollar amount at regular intervals — like $50 every month — regardless of what the market is doing."
+        explanation: "DCA means investing the same dollar amount at regular intervals - like $50 every month - regardless of what the market is doing."
       },
       {
         id: "portfolio-4-q2",
@@ -336,7 +336,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Your broker cancels the scheduled purchase"
         ],
         correctAnswer: 0,
-        explanation: "When prices drop, the same $50 buys more shares. DCA automatically loads up when things are cheap — no timing skill required."
+        explanation: "When prices drop, the same $50 buys more shares. DCA automatically loads up when things are cheap - no timing skill required."
       },
       {
         id: "portfolio-4-q3",
@@ -360,7 +360,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Twenty-five shares in total"
         ],
         correctAnswer: 2,
-        explanation: "January: $100 ÷ $10 = 10 shares. February: $100 ÷ $5 = 20 shares. That's 30 total — the cheap month bought twice as many shares."
+        explanation: "January: $100 ÷ $10 = 10 shares. February: $100 ÷ $5 = 20 shares. That's 30 total - the cheap month bought twice as many shares."
       },
       {
         id: "portfolio-4-q5",
@@ -384,7 +384,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Pause investing until prices fully recover"
         ],
         correctAnswer: 1,
-        explanation: "DCA means sticking to the plan — and drops are actually when your fixed contribution buys the most shares. Stopping during dips defeats the strategy."
+        explanation: "DCA means sticking to the plan - and drops are actually when your fixed contribution buys the most shares. Stopping during dips defeats the strategy."
       },
       {
         id: "portfolio-4-q7",
@@ -396,7 +396,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Small regular paychecks match small regular investing"
         ],
         correctAnswer: 3,
-        explanation: "You don't need thousands saved up — DCA works with whatever you earn each pay period. Small consistent amounts build serious wealth over decades."
+        explanation: "You don't need thousands saved up - DCA works with whatever you earn each pay period. Small consistent amounts build serious wealth over decades."
       },
       {
         id: "portfolio-4-q8",
@@ -427,7 +427,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Selling everything and starting over completely"
         ],
         correctAnswer: 0,
-        explanation: "Rebalancing means adjusting your holdings back to your target allocation — for example, restoring a 70/30 stock/bond split after markets shift it."
+        explanation: "Rebalancing means adjusting your holdings back to your target allocation - for example, restoring a 70/30 stock/bond split after markets shift it."
       },
       {
         id: "portfolio-5-q2",
@@ -463,7 +463,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Avoiding all taxes on investment gains"
         ],
         correctAnswer: 2,
-        explanation: "Rebalancing forces you to trim what has risen (selling high) and add to what has lagged (buying low) — the opposite of emotional investing."
+        explanation: "Rebalancing forces you to trim what has risen (selling high) and add to what has lagged (buying low) - the opposite of emotional investing."
       },
       {
         id: "portfolio-5-q5",
@@ -487,7 +487,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Your dividends stop being paid out"
         ],
         correctAnswer: 0,
-        explanation: "Unchecked, winning assets keep growing their share, so a 70/30 portfolio can quietly become 90/10 — far more aggressive than you chose."
+        explanation: "Unchecked, winning assets keep growing their share, so a 70/30 portfolio can quietly become 90/10 - far more aggressive than you chose."
       },
       {
         id: "portfolio-5-q7",
@@ -499,7 +499,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Buy more of whatever grew fastest"
         ],
         correctAnswer: 1,
-        explanation: "Steering new money into whichever asset is below target rebalances without selling anything — avoiding taxes and trading costs entirely."
+        explanation: "Steering new money into whichever asset is below target rebalances without selling anything - avoiding taxes and trading costs entirely."
       },
       {
         id: "portfolio-5-q8",
@@ -511,7 +511,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It means trimming assets that feel like winners"
         ],
         correctAnswer: 3,
-        explanation: "Selling what's been soaring feels wrong in the moment. But that discipline — trimming winners before they crash back — is exactly what protects you."
+        explanation: "Selling what's been soaring feels wrong in the moment. But that discipline - trimming winners before they crash back - is exactly what protects you."
       }
     ]
   },
@@ -530,7 +530,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A fee charged by fund managers"
         ],
         correctAnswer: 1,
-        explanation: "An index is a measuring stick — a defined list of stocks (like 500 large US companies) whose combined performance tracks the market."
+        explanation: "An index is a measuring stick - a defined list of stocks (like 500 large US companies) whose combined performance tracks the market."
       },
       {
         id: "portfolio-6-q2",
@@ -542,7 +542,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Double the index's return every year"
         ],
         correctAnswer: 2,
-        explanation: "Index funds simply copy their index — holding the same stocks in the same proportions — to deliver the market's return, minus tiny fees."
+        explanation: "Index funds simply copy their index - holding the same stocks in the same proportions - to deliver the market's return, minus tiny fees."
       },
       {
         id: "portfolio-6-q3",
@@ -602,7 +602,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It only works for wealthy investors"
         ],
         correctAnswer: 1,
-        explanation: "Index funds don't dodge downturns — if the market falls 20%, so do you. The strategy accepts short-term drops for long-term market returns."
+        explanation: "Index funds don't dodge downturns - if the market falls 20%, so do you. The strategy accepts short-term drops for long-term market returns."
       },
       {
         id: "portfolio-6-q8",
@@ -669,7 +669,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Fees only apply to small accounts"
         ],
         correctAnswer: 1,
-        explanation: "A 1% annual fee sounds small, but compounded over decades it can consume a huge chunk of your final balance — a hurdle managers rarely overcome."
+        explanation: "A 1% annual fee sounds small, but compounded over decades it can consume a huge chunk of your final balance - a hurdle managers rarely overcome."
       },
       {
         id: "portfolio-7-q5",
@@ -705,7 +705,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Active funds cannot lose money in crashes"
         ],
         correctAnswer: 2,
-        explanation: "In less efficient corners of the market — like small or foreign stocks — research may find genuine bargains. It's the strongest honest case for active investing."
+        explanation: "In less efficient corners of the market - like small or foreign stocks - research may find genuine bargains. It's the strongest honest case for active investing."
       },
       {
         id: "portfolio-7-q8",
@@ -760,7 +760,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A penalty for selling too early"
         ],
         correctAnswer: 0,
-        explanation: "A benchmark, like the S&P 500, gives context. Earning 6% sounds fine — unless the benchmark earned 15% that same year."
+        explanation: "A benchmark, like the S&P 500, gives context. Earning 6% sounds fine - unless the benchmark earned 15% that same year."
       },
       {
         id: "portfolio-8-q4",
@@ -808,7 +808,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Deposits always count as investment losses"
         ],
         correctAnswer: 2,
-        explanation: "Of the $600 increase, $500 was his own money going in. Only $100 was actual investment gain — track deposits separately from returns."
+        explanation: "Of the $600 increase, $500 was his own money going in. Only $100 was actual investment gain - track deposits separately from returns."
       },
       {
         id: "portfolio-8-q8",
@@ -820,7 +820,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "The last forty-eight hours only"
         ],
         correctAnswer: 1,
-        explanation: "Strategies need years to show their true character — any week or month is dominated by random noise. Judge long-term plans on long-term results."
+        explanation: "Strategies need years to show their true character - any week or month is dominated by random noise. Judge long-term plans on long-term results."
       }
     ]
   },
@@ -839,7 +839,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Guaranteeing profits in every market year"
         ],
         correctAnswer: 2,
-        explanation: "Risk management isn't about zero risk — that would mean zero growth. It's about capping catastrophic losses while staying invested."
+        explanation: "Risk management isn't about zero risk - that would mean zero growth. It's about capping catastrophic losses while staying invested."
       },
       {
         id: "portfolio-9-q2",
@@ -863,7 +863,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A seventy-five percent gain"
         ],
         correctAnswer: 0,
-        explanation: "If $100 falls to $50, you need to double that $50 — a 100% gain — to get back to $100. This is why avoiding huge losses matters so much."
+        explanation: "If $100 falls to $50, you need to double that $50 - a 100% gain - to get back to $100. This is why avoiding huge losses matters so much."
       },
       {
         id: "portfolio-9-q4",
@@ -875,7 +875,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Losses get magnified and you still owe the debt"
         ],
         correctAnswer: 3,
-        explanation: "Leverage amplifies both directions. If your investments crash, the losses multiply — and the loan payments remain due regardless."
+        explanation: "Leverage amplifies both directions. If your investments crash, the losses multiply - and the loan payments remain due regardless."
       },
       {
         id: "portfolio-9-q5",
@@ -887,7 +887,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Investing only in trending assets"
         ],
         correctAnswer: 1,
-        explanation: "Position sizing — for example, never letting one holding exceed 5-10% of your portfolio — means even a total wipeout of one bet stays survivable."
+        explanation: "Position sizing - for example, never letting one holding exceed 5-10% of your portfolio - means even a total wipeout of one bet stays survivable."
       },
       {
         id: "portfolio-9-q6",
@@ -899,7 +899,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Never invest less than a thousand dollars"
         ],
         correctAnswer: 0,
-        explanation: "Money needed within months shouldn't face market risk — a dip right before tuition is due would force selling at a loss. Short-term money belongs in safe accounts."
+        explanation: "Money needed within months shouldn't face market risk - a dip right before tuition is due would force selling at a loss. Short-term money belongs in safe accounts."
       },
       {
         id: "portfolio-9-q7",
@@ -954,7 +954,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Taxes disappear after ten years invested"
         ],
         correctAnswer: 0,
-        explanation: "Compounding means returns earn returns — growth stacks on growth. Given decades, this snowball effect does most of the wealth-building work."
+        explanation: "Compounding means returns earn returns - growth stacks on growth. Given decades, this snowball effect does most of the wealth-building work."
       },
       {
         id: "portfolio-10-q3",
@@ -966,7 +966,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Extra years of compounding multiply the outcome"
         ],
         correctAnswer: 3,
-        explanation: "Those extra 14 years let compounding work far longer — early dollars can grow many times larger than dollars invested later. Time is a teen's superpower."
+        explanation: "Those extra 14 years let compounding work far longer - early dollars can grow many times larger than dollars invested later. Time is a teen's superpower."
       },
       {
         id: "portfolio-10-q4",
@@ -1044,7 +1044,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A government program for new investors"
         ],
         correctAnswer: 0,
-        explanation: "An ETF bundles many investments — often hundreds of stocks or bonds — into one package you can buy and sell on an exchange like a single stock."
+        explanation: "An ETF bundles many investments - often hundreds of stocks or bonds - into one package you can buy and sell on an exchange like a single stock."
       },
       {
         id: "funds-1-q2",
@@ -1056,7 +1056,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Only when the fund manager approves"
         ],
         correctAnswer: 2,
-        explanation: "ETFs trade all day on exchanges at live market prices, just like individual stocks — that's the 'exchange-traded' part of the name."
+        explanation: "ETFs trade all day on exchanges at live market prices, just like individual stocks - that's the 'exchange-traded' part of the name."
       },
       {
         id: "funds-1-q3",
@@ -1068,7 +1068,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A physical certificate mailed to him"
         ],
         correctAnswer: 0,
-        explanation: "One ETF share represents a small slice of everything the fund holds — instant diversification across the whole market for the price of one share."
+        explanation: "One ETF share represents a small slice of everything the fund holds - instant diversification across the whole market for the price of one share."
       },
       {
         id: "funds-1-q4",
@@ -1092,7 +1092,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "They pay higher interest than banks"
         ],
         correctAnswer: 1,
-        explanation: "Many broad ETFs charge tiny fees and spread your money across hundreds of holdings — removing the two biggest beginner mistakes: high costs and concentration."
+        explanation: "Many broad ETFs charge tiny fees and spread your money across hundreds of holdings - removing the two biggest beginner mistakes: high costs and concentration."
       },
       {
         id: "funds-1-q6",
@@ -1159,7 +1159,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A price the manager picks personally"
         ],
         correctAnswer: 2,
-        explanation: "Mutual funds transact once per day at the net asset value (NAV) calculated after markets close — no matter what time you placed the order."
+        explanation: "Mutual funds transact once per day at the net asset value (NAV) calculated after markets close - no matter what time you placed the order."
       },
       {
         id: "funds-2-q3",
@@ -1171,7 +1171,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "The fund's age measured in years"
         ],
         correctAnswer: 0,
-        explanation: "NAV is the total value of everything the fund owns, minus liabilities, divided by shares outstanding — the fair value of one share."
+        explanation: "NAV is the total value of everything the fund owns, minus liabilities, divided by shares outstanding - the fair value of one share."
       },
       {
         id: "funds-2-q4",
@@ -1219,7 +1219,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Approve each investor's personal budget"
         ],
         correctAnswer: 0,
-        explanation: "Active fund managers research and pick investments hoping to outperform a benchmark — a service investors pay for through higher fees."
+        explanation: "Active fund managers research and pick investments hoping to outperform a benchmark - a service investors pay for through higher fees."
       },
       {
         id: "funds-2-q8",
@@ -1231,7 +1231,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "They only accept monthly deposits by law"
         ],
         correctAnswer: 2,
-        explanation: "Mutual funds let you invest exact dollar amounts — like $50.00 monthly — automatically, making them a natural fit for scheduled contributions."
+        explanation: "Mutual funds let you invest exact dollar amounts - like $50.00 monthly - automatically, making them a natural fit for scheduled contributions."
       }
     ]
   },
@@ -1250,7 +1250,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Your monthly deposit divided by income"
         ],
         correctAnswer: 1,
-        explanation: "The expense ratio is the yearly fee a fund charges, expressed as a percentage of your invested money — 0.50% means $5 per $1,000 annually."
+        explanation: "The expense ratio is the yearly fee a fund charges, expressed as a percentage of your invested money - 0.50% means $5 per $1,000 annually."
       },
       {
         id: "funds-3-q2",
@@ -1274,7 +1274,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It's quietly deducted from returns, not billed"
         ],
         correctAnswer: 3,
-        explanation: "You never receive an invoice — the fee is skimmed from the fund's assets continuously, silently reducing your returns."
+        explanation: "You never receive an invoice - the fee is skimmed from the fund's assets continuously, silently reducing your returns."
       },
       {
         id: "funds-3-q4",
@@ -1286,7 +1286,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Neither, since index funds charge nothing"
         ],
         correctAnswer: 0,
-        explanation: "Same index, same holdings, same gross performance — the cheaper fund simply lets you keep more. Cost is the reliable difference."
+        explanation: "Same index, same holdings, same gross performance - the cheaper fund simply lets you keep more. Cost is the reliable difference."
       },
       {
         id: "funds-3-q5",
@@ -1310,7 +1310,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Between two and three percent yearly"
         ],
         correctAnswer: 2,
-        explanation: "Major broad-market index funds now charge just a few hundredths of a percent — some as low as 0.03% — making costs nearly negligible."
+        explanation: "Major broad-market index funds now charge just a few hundredths of a percent - some as low as 0.03% - making costs nearly negligible."
       },
       {
         id: "funds-3-q7",
@@ -1353,7 +1353,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A rotating set of secret picks"
         ],
         correctAnswer: 2,
-        explanation: "An index fund holds the securities in its chosen index — like all 500 companies in the S&P 500 — in matching proportions."
+        explanation: "An index fund holds the securities in its chosen index - like all 500 companies in the S&P 500 - in matching proportions."
       },
       {
         id: "funds-4-q2",
@@ -1365,7 +1365,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Investors split costs with the government"
         ],
         correctAnswer: 1,
-        explanation: "Replicating an index is mostly automated — no analysts hunting for winners — so fees can be a tiny fraction of active funds' costs."
+        explanation: "Replicating an index is mostly automated - no analysts hunting for winners - so fees can be a tiny fraction of active funds' costs."
       },
       {
         id: "funds-4-q3",
@@ -1377,7 +1377,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Essentially every publicly traded US stock"
         ],
         correctAnswer: 3,
-        explanation: "Total market funds hold thousands of US companies — large, mid, and small — so you own a slice of virtually the entire stock market."
+        explanation: "Total market funds hold thousands of US companies - large, mid, and small - so you own a slice of virtually the entire stock market."
       },
       {
         id: "funds-4-q4",
@@ -1401,7 +1401,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Neither type charges any fee whatsoever"
         ],
         correctAnswer: 2,
-        explanation: "Index funds commonly charge under 0.20% while active funds often charge 0.5-1% or more — a gap that compounds hugely over time."
+        explanation: "Index funds commonly charge under 0.20% while active funds often charge 0.5-1% or more - a gap that compounds hugely over time."
       },
       {
         id: "funds-4-q6",
@@ -1413,7 +1413,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It freezes at its previous high"
         ],
         correctAnswer: 0,
-        explanation: "Index funds don't dodge crashes — they ARE the market. The strategy relies on markets recovering and growing over long periods, as they historically have."
+        explanation: "Index funds don't dodge crashes - they ARE the market. The strategy relies on markets recovering and growing over long periods, as they historically have."
       },
       {
         id: "funds-4-q7",
@@ -1425,7 +1425,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Index funds hold no actual investments"
         ],
         correctAnswer: 1,
-        explanation: "The fund's job is replication, not judgment. Removing manager decisions removes manager mistakes — and manager salaries."
+        explanation: "The fund's job is replication, not judgment. Removing manager decisions removes manager mistakes - and manager salaries."
       },
       {
         id: "funds-4-q8",
@@ -1437,7 +1437,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Its expense ratio caused the small shortfall"
         ],
         correctAnswer: 3,
-        explanation: "A tiny, consistent lag matching the fee is exactly what healthy index funds show — you get the index's return minus the small expense ratio."
+        explanation: "A tiny, consistent lag matching the fee is exactly what healthy index funds show - you get the index's return minus the small expense ratio."
       }
     ]
   },
@@ -1480,7 +1480,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Exactly zero over long periods"
         ],
         correctAnswer: 1,
-        explanation: "Over many decades the S&P 500 has averaged roughly 10% annually before inflation — though individual years swing wildly above and below."
+        explanation: "Over many decades the S&P 500 has averaged roughly 10% annually before inflation - though individual years swing wildly above and below."
       },
       {
         id: "funds-5-q4",
@@ -1492,7 +1492,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It cheaply captures most of the US market"
         ],
         correctAnswer: 3,
-        explanation: "One low-cost purchase provides exposure to America's largest companies across all industries — a simple, proven core for a portfolio."
+        explanation: "One low-cost purchase provides exposure to America's largest companies across all industries - a simple, proven core for a portfolio."
       },
       {
         id: "funds-5-q5",
@@ -1504,7 +1504,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Foreign companies listed in Europe"
         ],
         correctAnswer: 0,
-        explanation: "S&P 500 funds hold America's biggest public companies — the tech giants, retailers, and healthcare firms whose products you use daily."
+        explanation: "S&P 500 funds hold America's biggest public companies - the tech giants, retailers, and healthcare firms whose products you use daily."
       },
       {
         id: "funds-5-q6",
@@ -1516,7 +1516,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "They owed money to the exchange"
         ],
         correctAnswer: 2,
-        explanation: "The index fully recovered within a few years and went on to set many new records — rewarding investors who stayed the course through the crash."
+        explanation: "The index fully recovered within a few years and went on to set many new records - rewarding investors who stayed the course through the crash."
       },
       {
         id: "funds-5-q7",
@@ -1528,7 +1528,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It cannot be held in retirement accounts"
         ],
         correctAnswer: 0,
-        explanation: "The S&P 500 covers large US companies only — adding small-cap and international funds diversifies beyond that one slice of the world."
+        explanation: "The S&P 500 covers large US companies only - adding small-cap and international funds diversifies beyond that one slice of the world."
       },
       {
         id: "funds-5-q8",
@@ -1540,7 +1540,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "The index committee replaces it with another"
         ],
         correctAnswer: 3,
-        explanation: "The index is maintained over time — struggling companies get replaced by qualifying ones, keeping the index representative of large US firms."
+        explanation: "The index is maintained over time - struggling companies get replaced by qualifying ones, keeping the index representative of large US firms."
       }
     ]
   },
@@ -1559,7 +1559,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A savings account for one purpose"
         ],
         correctAnswer: 1,
-        explanation: "Sector ETFs concentrate on a single industry — like technology, healthcare, or energy — holding many companies within that one field."
+        explanation: "Sector ETFs concentrate on a single industry - like technology, healthcare, or energy - holding many companies within that one field."
       },
       {
         id: "funds-6-q2",
@@ -1571,7 +1571,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Stocks priced under five dollars"
         ],
         correctAnswer: 2,
-        explanation: "Sectors group companies by what they do — healthcare, technology, energy, financials, and so on — not by name, price, or season."
+        explanation: "Sectors group companies by what they do - healthcare, technology, energy, financials, and so on - not by name, price, or season."
       },
       {
         id: "funds-6-q3",
@@ -1595,7 +1595,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A healthcare sector ETF holding many firms"
         ],
         correctAnswer: 3,
-        explanation: "A healthcare ETF lets her express the industry view while diversifying across dozens of companies — no single-stock gamble required."
+        explanation: "A healthcare ETF lets her express the industry view while diversifying across dozens of companies - no single-stock gamble required."
       },
       {
         id: "funds-6-q5",
@@ -1607,7 +1607,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A technology sector ETF"
         ],
         correctAnswer: 1,
-        explanation: "An energy ETF is packed with oil and gas companies, so an oil crash hits it directly and hard — while broad funds feel only a partial effect."
+        explanation: "An energy ETF is packed with oil and gas companies, so an oil crash hits it directly and hard - while broad funds feel only a partial effect."
       },
       {
         id: "funds-6-q6",
@@ -1631,7 +1631,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Winning sectors stop issuing stock"
         ],
         correctAnswer: 0,
-        explanation: "Sectors take turns leading — chasing last year's winner often means buying at peak prices right before it cools off."
+        explanation: "Sectors take turns leading - chasing last year's winner often means buying at peak prices right before it cools off."
       },
       {
         id: "funds-6-q8",
@@ -1643,7 +1643,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "One company's scandal won't wreck the position"
         ],
         correctAnswer: 3,
-        explanation: "The ETF still carries tech-industry risk, but spreads company-specific risk across many firms — one CEO scandal barely moves it."
+        explanation: "The ETF still carries tech-industry risk, but spreads company-specific risk across many firms - one CEO scandal barely moves it."
       }
     ]
   },
@@ -1662,7 +1662,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Stocks of banks that issue loans"
         ],
         correctAnswer: 0,
-        explanation: "A bond ETF holds a diversified collection of bonds — often hundreds or thousands — and trades on an exchange like a stock."
+        explanation: "A bond ETF holds a diversified collection of bonds - often hundreds or thousands - and trades on an exchange like a stock."
       },
       {
         id: "funds-7-q2",
@@ -1698,7 +1698,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It falls, since bond prices move inversely"
         ],
         correctAnswer: 3,
-        explanation: "Bond prices move opposite to interest rates, and a bond ETF's price reflects its holdings — so rising rates push the fund's price down."
+        explanation: "Bond prices move opposite to interest rates, and a bond ETF's price reflects its holdings - so rising rates push the fund's price down."
       },
       {
         id: "funds-7-q5",
@@ -1710,7 +1710,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Guaranteeing the portfolio never drops"
         ],
         correctAnswer: 0,
-        explanation: "Bond ETFs add steadier returns and income, cushioning stock market swings — the classic stabilizer role in a diversified portfolio."
+        explanation: "Bond ETFs add steadier returns and income, cushioning stock market swings - the classic stabilizer role in a diversified portfolio."
       },
       {
         id: "funds-7-q6",
@@ -1722,7 +1722,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Bonds that never pay any interest"
         ],
         correctAnswer: 1,
-        explanation: "Bond ETFs come in many flavors — Treasury funds, corporate funds, short-term, long-term — letting investors pick their risk and income mix."
+        explanation: "Bond ETFs come in many flavors - Treasury funds, corporate funds, short-term, long-term - letting investors pick their risk and income mix."
       },
       {
         id: "funds-7-q7",
@@ -1746,7 +1746,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Sixty dollars buys ten full Treasury bonds"
         ],
         correctAnswer: 2,
-        explanation: "Many bond ETF shares cost under $100, giving her instant access to hundreds of bonds — impossible to replicate directly with $60."
+        explanation: "Many bond ETF shares cost under $100, giving her instant access to hundreds of bonds - impossible to replicate directly with $60."
       }
     ]
   },
@@ -1765,7 +1765,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A fund only sold on certain dates"
         ],
         correctAnswer: 0,
-        explanation: "A target-date fund automatically shifts from aggressive to conservative as its target year — usually your planned retirement — gets closer."
+        explanation: "A target-date fund automatically shifts from aggressive to conservative as its target year - usually your planned retirement - gets closer."
       },
       {
         id: "funds-8-q2",
@@ -1777,7 +1777,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "The fund's guaranteed final share price"
         ],
         correctAnswer: 1,
-        explanation: "The year signals who the fund is designed for — investors expecting to retire around 2065 — and drives its risk schedule."
+        explanation: "The year signals who the fund is designed for - investors expecting to retire around 2065 - and drives its risk schedule."
       },
       {
         id: "funds-8-q3",
@@ -1813,7 +1813,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "They lock your deposits for decades"
         ],
         correctAnswer: 0,
-        explanation: "The fund handles allocation, rebalancing, and the gradual risk reduction itself — the investor just keeps contributing."
+        explanation: "The fund handles allocation, rebalancing, and the gradual risk reduction itself - the investor just keeps contributing."
       },
       {
         id: "funds-8-q6",
@@ -1825,7 +1825,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Cryptocurrency and collectible assets"
         ],
         correctAnswer: 1,
-        explanation: "Target-date funds are usually 'funds of funds' — bundles of broad stock and bond index funds mixed according to the glide path."
+        explanation: "Target-date funds are usually 'funds of funds' - bundles of broad stock and bond index funds mixed according to the glide path."
       },
       {
         id: "funds-8-q7",
@@ -1849,7 +1849,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "They require daily investor attention"
         ],
         correctAnswer: 0,
-        explanation: "The glide path is one-size-fits-all for a birth-year cohort — it can't know if you're personally more or less risk-tolerant than average."
+        explanation: "The glide path is one-size-fits-all for a birth-year cohort - it can't know if you're personally more or less risk-tolerant than average."
       }
     ]
   },
@@ -1868,7 +1868,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "The fund's television advertising budget"
         ],
         correctAnswer: 1,
-        explanation: "Research consistently shows low costs are among the best predictors of future relative performance — fees are certain, outperformance isn't."
+        explanation: "Research consistently shows low costs are among the best predictors of future relative performance - fees are certain, outperformance isn't."
       },
       {
         id: "funds-9-q2",
@@ -1892,7 +1892,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Which bank stores the money"
         ],
         correctAnswer: 0,
-        explanation: "The holdings list shows what you'd actually own — crucial for spotting overlap, concentration, or surprises inside a fund."
+        explanation: "The holdings list shows what you'd actually own - crucial for spotting overlap, concentration, or surprises inside a fund."
       },
       {
         id: "funds-9-q4",
@@ -1904,7 +1904,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Fund B charges higher fees or tracks worse"
         ],
         correctAnswer: 3,
-        explanation: "Identical benchmarks should mean near-identical returns — persistent gaps usually trace to higher expenses or sloppier index tracking."
+        explanation: "Identical benchmarks should mean near-identical returns - persistent gaps usually trace to higher expenses or sloppier index tracking."
       },
       {
         id: "funds-9-q5",
@@ -1928,7 +1928,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Comparing what each fund holds"
         ],
         correctAnswer: 2,
-        explanation: "Stock and bond funds have different jobs and risk levels — comparing raw returns across categories is apples versus oranges. Compare funds to peers and proper benchmarks."
+        explanation: "Stock and bond funds have different jobs and risk levels - comparing raw returns across categories is apples versus oranges. Compare funds to peers and proper benchmarks."
       },
       {
         id: "funds-9-q7",
@@ -1952,7 +1952,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A fund should be judged against its own category"
         ],
         correctAnswer: 3,
-        explanation: "A small-cap fund should be measured against a small-cap index, not the S&P 500 — otherwise you're grading it on someone else's test."
+        explanation: "A small-cap fund should be measured against a small-cap index, not the S&P 500 - otherwise you're grading it on someone else's test."
       }
     ]
   },
@@ -1971,7 +1971,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Tomorrow's lunch with friends"
         ],
         correctAnswer: 2,
-        explanation: "Stock funds swing too much for near-term needs but historically reward investors who can wait years — match the fund to the timeline."
+        explanation: "Stock funds swing too much for near-term needs but historically reward investors who can wait years - match the fund to the timeline."
       },
       {
         id: "funds-10-q2",
@@ -2007,7 +2007,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A broad index ETF with fractional shares"
         ],
         correctAnswer: 3,
-        explanation: "Broad ETFs bought through an app — even in fractional shares — deliver diversified stock exposure with tiny amounts and low costs."
+        explanation: "Broad ETFs bought through an app - even in fractional shares - deliver diversified stock exposure with tiny amounts and low costs."
       },
       {
         id: "funds-10-q5",
@@ -2019,7 +2019,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Never, since bonds are outdated"
         ],
         correctAnswer: 2,
-        explanation: "Bond funds suit investors who want to dampen swings or draw income — typically as goals get closer or risk tolerance is lower."
+        explanation: "Bond funds suit investors who want to dampen swings or draw income - typically as goals get closer or risk tolerance is lower."
       },
       {
         id: "funds-10-q6",
@@ -2031,7 +2031,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Collectible sneakers resold online"
         ],
         correctAnswer: 0,
-        explanation: "Index mutual funds accept exact dollar amounts on autopilot, making them ideal for scheduled contributions — though fractional-share ETFs work too."
+        explanation: "Index mutual funds accept exact dollar amounts on autopilot, making them ideal for scheduled contributions - though fractional-share ETFs work too."
       },
       {
         id: "funds-10-q7",
@@ -2043,7 +2043,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Diversification without research time or single-company risk"
         ],
         correctAnswer: 3,
-        explanation: "Funds outsource the hardest parts — research, diversification, discipline — which suits most people better than betting on their own stock picks."
+        explanation: "Funds outsource the hardest parts - research, diversification, discipline - which suits most people better than betting on their own stock picks."
       },
       {
         id: "funds-10-q8",
@@ -2055,7 +2055,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Which fund has the shortest name?"
         ],
         correctAnswer: 0,
-        explanation: "The right fund depends entirely on the job: goal, timeline, and risk tolerance come first — then you pick the cheapest good tool for that job."
+        explanation: "The right fund depends entirely on the job: goal, timeline, and risk tolerance come first - then you pick the cheapest good tool for that job."
       }
     ]
   },
@@ -2085,7 +2085,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Regular interest plus their money back"
         ],
         correctAnswer: 3,
-        explanation: "Bondholders earn scheduled interest payments and get their principal returned when the bond matures — profits and voting rights belong to stockholders."
+        explanation: "Bondholders earn scheduled interest payments and get their principal returned when the bond matures - profits and voting rights belong to stockholders."
       },
       {
         id: "bonds-1-q3",
@@ -2121,7 +2121,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "He gets his $1,000 principal back"
         ],
         correctAnswer: 3,
-        explanation: "At maturity the issuer repays the bond's face value — Jaden's $1,000 — having already paid him interest along the way."
+        explanation: "At maturity the issuer repays the bond's face value - Jaden's $1,000 - having already paid him interest along the way."
       },
       {
         id: "bonds-1-q6",
@@ -2157,7 +2157,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "The fee charged to buy the bond"
         ],
         correctAnswer: 2,
-        explanation: "Face value (or par) is the amount the issuer promises to repay when the bond matures — often $1,000 per bond."
+        explanation: "Face value (or par) is the amount the issuer promises to repay when the bond matures - often $1,000 per bond."
       }
     ]
   },
@@ -2176,7 +2176,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "They're insured by private banking companies"
         ],
         correctAnswer: 0,
-        explanation: "Treasuries are backed by the full faith and credit of the U.S. government, which has the power to tax — making default extremely unlikely."
+        explanation: "Treasuries are backed by the full faith and credit of the U.S. government, which has the power to tax - making default extremely unlikely."
       },
       {
         id: "bonds-2-q2",
@@ -2212,7 +2212,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A bond issued by the U.S. Treasury"
         ],
         correctAnswer: 3,
-        explanation: "For maximum safety, Treasuries are the gold standard — the federal government backs them, so default risk is about as low as it gets."
+        explanation: "For maximum safety, Treasuries are the gold standard - the federal government backs them, so default risk is about as low as it gets."
       },
       {
         id: "bonds-2-q5",
@@ -2224,7 +2224,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Cash stored safely inside a home safe"
         ],
         correctAnswer: 0,
-        explanation: "Corporate bonds pay more than Treasuries precisely because they carry more default risk — a fit for Tara's higher risk tolerance."
+        explanation: "Corporate bonds pay more than Treasuries precisely because they carry more default risk - a fit for Tara's higher risk tolerance."
       },
       {
         id: "bonds-2-q6",
@@ -2236,7 +2236,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It converts the bonds into new stock"
         ],
         correctAnswer: 2,
-        explanation: "Default means the issuer breaks its promise — missing interest payments or failing to repay principal. It's the core risk corporate bondholders face."
+        explanation: "Default means the issuer breaks its promise - missing interest payments or failing to repay principal. It's the core risk corporate bondholders face."
       },
       {
         id: "bonds-2-q7",
@@ -2248,7 +2248,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Investors demand payment for extra risk"
         ],
         correctAnswer: 3,
-        explanation: "That 2% gap is the risk premium — compensation investors require for the chance the company might not pay them back."
+        explanation: "That 2% gap is the risk premium - compensation investors require for the chance the company might not pay them back."
       },
       {
         id: "bonds-2-q8",
@@ -2303,7 +2303,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Interest payments and price changes"
         ],
         correctAnswer: 3,
-        explanation: "Bonds pay steady interest, and their market price can also rise or fall — sell above what you paid and that's extra return."
+        explanation: "Bonds pay steady interest, and their market price can also rise or fall - sell above what you paid and that's extra return."
       },
       {
         id: "bonds-3-q4",
@@ -2351,7 +2351,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Brokers change yields to attract new customers"
         ],
         correctAnswer: 1,
-        explanation: "The coupon is locked in, so when the price falls, that same payment represents a larger percentage of what a buyer pays — yield rises."
+        explanation: "The coupon is locked in, so when the price falls, that same payment represents a larger percentage of what a buyer pays - yield rises."
       },
       {
         id: "bonds-3-q8",
@@ -2382,7 +2382,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "How much interest the government allows"
         ],
         correctAnswer: 1,
-        explanation: "Ratings grade the issuer's ability to make its payments — essentially a credit score for governments and companies borrowing money."
+        explanation: "Ratings grade the issuer's ability to make its payments - essentially a credit score for governments and companies borrowing money."
       },
       {
         id: "bonds-4-q2",
@@ -2406,7 +2406,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Penalty bonds under federal review"
         ],
         correctAnswer: 2,
-        explanation: "Below BBB-/Baa3, bonds are labeled high-yield or 'junk' — the issuer's ability to pay is shakier, so they must offer bigger interest payments."
+        explanation: "Below BBB-/Baa3, bonds are labeled high-yield or 'junk' - the issuer's ability to pay is shakier, so they must offer bigger interest payments."
       },
       {
         id: "bonds-4-q4",
@@ -2418,7 +2418,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Agencies like Moody's and S&P"
         ],
         correctAnswer: 3,
-        explanation: "Independent agencies — Moody's, S&P Global, and Fitch — research issuers and publish ratings that investors use to gauge default risk."
+        explanation: "Independent agencies - Moody's, S&P Global, and Fitch - research issuers and publish ratings that investors use to gauge default risk."
       },
       {
         id: "bonds-4-q5",
@@ -2466,7 +2466,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "As a signal to avoid the bond"
         ],
         correctAnswer: 2,
-        explanation: "Ratings are expert opinions that can change — some highly rated securities failed in 2008. They're useful guides, not guarantees."
+        explanation: "Ratings are expert opinions that can change - some highly rated securities failed in 2008. They're useful guides, not guarantees."
       }
     ]
   },
@@ -2485,7 +2485,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Fixed payments buy less as prices rise"
         ],
         correctAnswer: 3,
-        explanation: "A bond's payments are usually fixed in dollars. When prices rise, those same dollars purchase less — quietly shrinking your real return."
+        explanation: "A bond's payments are usually fixed in dollars. When prices rise, those same dollars purchase less - quietly shrinking your real return."
       },
       {
         id: "bonds-5-q2",
@@ -2497,7 +2497,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Your power to negotiate lower store prices"
         ],
         correctAnswer: 1,
-        explanation: "Purchasing power is what your dollars can actually get you. Inflation erodes it — $100 buys less next year than it does today."
+        explanation: "Purchasing power is what your dollars can actually get you. Inflation erodes it - $100 buys less next year than it does today."
       },
       {
         id: "bonds-5-q3",
@@ -2533,7 +2533,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Inflation automatically increases the bond's face value yearly"
         ],
         correctAnswer: 1,
-        explanation: "Fixed coupons don't adjust. With high inflation, the same $30 buys less every year — long-term fixed bonds feel this the most."
+        explanation: "Fixed coupons don't adjust. With high inflation, the same $30 buys less every year - long-term fixed bonds feel this the most."
       },
       {
         id: "bonds-5-q6",
@@ -2557,7 +2557,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Nominal returns apply only to stock market investments"
         ],
         correctAnswer: 0,
-        explanation: "Nominal return is the sticker number; real return adjusts for inflation to show growth in actual purchasing power — what really matters."
+        explanation: "Nominal return is the sticker number; real return adjusts for inflation to show growth in actual purchasing power - what really matters."
       },
       {
         id: "bonds-5-q8",
@@ -2612,7 +2612,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Her fund's value dipped as prices fell"
         ],
         correctAnswer: 3,
-        explanation: "Rising rates push down the prices of the bonds her fund holds, so the fund's value dips — the inverse relationship in action."
+        explanation: "Rising rates push down the prices of the bonds her fund holds, so the fund's value dips - the inverse relationship in action."
       },
       {
         id: "bonds-6-q4",
@@ -2648,7 +2648,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A bonus payment for selling early"
         ],
         correctAnswer: 2,
-        explanation: "Selling after rates rise usually means selling at a discount — buyers can get better yields elsewhere, so they won't pay full price."
+        explanation: "Selling after rates rise usually means selling at a discount - buyers can get better yields elsewhere, so they won't pay full price."
       },
       {
         id: "bonds-6-q7",
@@ -2660,7 +2660,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A bond that matures next week"
         ],
         correctAnswer: 1,
-        explanation: "Longer-term bonds lock in their rate for longer, so a rate change affects many more future payments — their prices swing harder."
+        explanation: "Longer-term bonds lock in their rate for longer, so a rate change affects many more future payments - their prices swing harder."
       },
       {
         id: "bonds-6-q8",
@@ -2691,7 +2691,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "How long the issuer has existed"
         ],
         correctAnswer: 1,
-        explanation: "Duration estimates how much a bond's price moves when interest rates change — the higher the duration, the bigger the swing."
+        explanation: "Duration estimates how much a bond's price moves when interest rates change - the higher the duration, the bigger the swing."
       },
       {
         id: "bonds-7-q2",
@@ -2763,7 +2763,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A one-year bond paying monthly interest"
         ],
         correctAnswer: 2,
-        explanation: "Long maturities and small coupons both stretch duration — most of that bond's cash arrives decades away, so rate changes hit it hardest."
+        explanation: "Long maturities and small coupons both stretch duration - most of that bond's cash arrives decades away, so rate changes hit it hardest."
       },
       {
         id: "bonds-7-q8",
@@ -2830,7 +2830,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Buy shares of a bond fund"
         ],
         correctAnswer: 3,
-        explanation: "Bond funds and ETFs let small investors in — $50 buys a fractional slice of a portfolio holding hundreds of bonds."
+        explanation: "Bond funds and ETFs let small investors in - $50 buys a fractional slice of a portfolio holding hundreds of bonds."
       },
       {
         id: "bonds-8-q5",
@@ -2842,7 +2842,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "A fund is always riskier than any stock"
         ],
         correctAnswer: 2,
-        explanation: "Most bond funds constantly buy and sell bonds, so there's no date when you're guaranteed face value back — unlike holding one bond to maturity."
+        explanation: "Most bond funds constantly buy and sell bonds, so there's no date when you're guaranteed face value back - unlike holding one bond to maturity."
       },
       {
         id: "bonds-8-q6",
@@ -2878,7 +2878,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "The dip guarantees a quick full recovery"
         ],
         correctAnswer: 1,
-        explanation: "As older bonds mature, the fund buys new ones paying today's higher rates — so Dana's income yield gradually climbs."
+        explanation: "As older bonds mature, the fund buys new ones paying today's higher rates - so Dana's income yield gradually climbs."
       }
     ]
   },
@@ -2909,7 +2909,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "The income stays fixed to daily stock prices"
         ],
         correctAnswer: 0,
-        explanation: "Bonds promise defined interest payments on a set schedule — the amounts are 'fixed' in advance, unlike unpredictable stock returns."
+        explanation: "Bonds promise defined interest payments on a set schedule - the amounts are 'fixed' in advance, unlike unpredictable stock returns."
       },
       {
         id: "bonds-9-q3",
@@ -2921,7 +2921,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Convert automatically into discounted stock shares"
         ],
         correctAnswer: 1,
-        explanation: "Quality bonds often hold their value — or even rise — when stocks plunge, which is exactly why portfolios mix the two."
+        explanation: "Quality bonds often hold their value - or even rise - when stocks plunge, which is exactly why portfolios mix the two."
       },
       {
         id: "bonds-9-q4",
@@ -2957,7 +2957,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "It softens crashes and steadies their nerves"
         ],
         correctAnswer: 3,
-        explanation: "A bond cushion makes crashes less terrifying, helping investors avoid panic-selling — and it provides dry powder for rebalancing."
+        explanation: "A bond cushion makes crashes less terrifying, helping investors avoid panic-selling - and it provides dry powder for rebalancing."
       },
       {
         id: "bonds-9-q7",
@@ -2969,7 +2969,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Moving everything into cash for a decade"
         ],
         correctAnswer: 2,
-        explanation: "Steady bonds give Riley something to sell high so she can buy stocks low — rebalancing turns the crash into an opportunity."
+        explanation: "Steady bonds give Riley something to sell high so she can buy stocks low - rebalancing turns the crash into an opportunity."
       },
       {
         id: "bonds-9-q8",
@@ -2981,7 +2981,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
           "Paying penalties whenever stock markets rise"
         ],
         correctAnswer: 1,
-        explanation: "Bonds historically return less than stocks over long periods. You're trading growth potential for stability — the right mix depends on your timeline."
+        explanation: "Bonds historically return less than stocks over long periods. You're trading growth potential for stability - the right mix depends on your timeline."
       }
     ]
   },

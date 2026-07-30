@@ -1,4 +1,4 @@
-// businessAI — client wrapper around the `business-ai` edge function (Anthropic,
+// businessAI - client wrapper around the `business-ai` edge function (Anthropic,
 // claude-sonnet-4-6, max_tokens 1000). Used by the AI-powered Micro-Business
 // features: weekly report insight, business-plan scoring, complaint grading,
 // supplier negotiation, and the AI interview candidate.
@@ -13,7 +13,7 @@ export async function businessAI(system: string, prompt: string, maxTokens = 100
   return (data?.text as string) || "";
 }
 
-// Best-effort JSON extraction — models sometimes wrap JSON in prose or fences.
+// Best-effort JSON extraction - models sometimes wrap JSON in prose or fences.
 export function parseAIJson<T>(text: string, fallback: T): T {
   if (!text) return fallback;
   try {

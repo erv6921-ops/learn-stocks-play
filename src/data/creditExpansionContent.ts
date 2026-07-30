@@ -7,7 +7,7 @@ import { StructuredLessonContent } from "@/types"
 
 export const creditExpansionContent: StructuredLessonContent[] = [
   // ─────────────────────────────────────────────
-  // credit-11: Getting Out of Debt — Counseling & Negotiation (FL.5.9)
+  // credit-11: Getting Out of Debt - Counseling & Negotiation (FL.5.9)
   // ─────────────────────────────────────────────
   {
     lessonId: "credit-11",
@@ -16,9 +16,9 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "When Debt Feels Impossible, You Still Have Options",
         paragraphs: [
-          "When debt grows faster than you can pay it, it can feel hopeless — but there are real options long before bankruptcy. The first warning signal is your debt-to-income ratio: how much of your monthly income goes toward debt payments. When that climbs too high, it's time to act instead of ignoring the problem.",
-          "A powerful first move is credit counseling from a nonprofit agency, especially one that's a member of the NFCC (National Foundation for Credit Counseling). A legitimate counselor reviews your budget for free or cheap and may set up a Debt Management Plan (DMP) — a single monthly payment to the agency, which distributes it to your creditors, often at a lower interest rate they negotiate on your behalf. You can also negotiate directly with creditors yourself, asking about hardship programs or settlement offers.",
-          "Beware of predatory 'debt settlement' companies that charge huge fees (sometimes 15–25% of your debt), tell you to stop paying your bills, and can wreck your credit while charging you for the privilege. The difference matters: nonprofit credit counseling helps you repay responsibly; many for-profit debt settlement firms profit off your desperation. Know the difference before you sign anything."
+          "When debt grows faster than you can pay it, it can feel hopeless - but there are real options long before bankruptcy. The first warning signal is your debt-to-income ratio: how much of your monthly income goes toward debt payments. When that climbs too high, it's time to act instead of ignoring the problem.",
+          "A powerful first move is credit counseling from a nonprofit agency, especially one that's a member of the NFCC (National Foundation for Credit Counseling). A legitimate counselor reviews your budget for free or cheap and may set up a Debt Management Plan (DMP) - a single monthly payment to the agency, which distributes it to your creditors, often at a lower interest rate they negotiate on your behalf. You can also negotiate directly with creditors yourself, asking about hardship programs or settlement offers.",
+          "Beware of predatory 'debt settlement' companies that charge huge fees (sometimes 15-25% of your debt), tell you to stop paying your bills, and can wreck your credit while charging you for the privilege. The difference matters: nonprofit credit counseling helps you repay responsibly; many for-profit debt settlement firms profit off your desperation. Know the difference before you sign anything."
         ],
         bullets: [
           "Debt-to-income ratio is the early warning signal that debt is becoming unmanageable.",
@@ -27,7 +27,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
           "You can negotiate directly with creditors about hardship or settlement options.",
           "Avoid for-profit debt settlement scams with huge fees that damage your credit."
         ],
-        realWorldExample: "Someone with five maxed-out cards at 24% interest can call a nonprofit counselor, get those rates dropped into single digits through a DMP, and make one manageable monthly payment instead of juggling five — without paying a predatory company a quarter of their debt."
+        realWorldExample: "Someone with five maxed-out cards at 24% interest can call a nonprofit counselor, get those rates dropped into single digits through a DMP, and make one manageable monthly payment instead of juggling five - without paying a predatory company a quarter of their debt."
       },
       {
         type: "micro-check",
@@ -48,9 +48,9 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             id: "credit11-mc2",
             question: "What does NFCC stand for, and why does it matter?",
             options: [
-              "National Fund for Credit Cards — it issues cards",
-              "National Foundation for Credit Counseling — it signals a reputable nonprofit counselor",
-              "New Federal Credit Commission — it's a government bank",
+              "National Fund for Credit Cards - it issues cards",
+              "National Foundation for Credit Counseling - it signals a reputable nonprofit counselor",
+              "New Federal Credit Commission - it's a government bank",
               "It doesn't stand for anything real"
             ],
             correctAnswer: 1,
@@ -108,7 +108,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "Take out a new high-interest loan"
             ],
             correctAnswer: 1,
-            explanation: "Acting early — through nonprofit credit counseling — gives you the most options. Ignoring it or jumping straight to bankruptcy or new debt makes things worse."
+            explanation: "Acting early - through nonprofit credit counseling - gives you the most options. Ignoring it or jumping straight to bankruptcy or new debt makes things worse."
           },
           {
             id: "credit11-mastery2",
@@ -132,7 +132,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "Nonprofit Federal Credit Card"
             ],
             correctAnswer: 0,
-            explanation: "NFCC is the National Foundation for Credit Counseling — choosing a member agency signals a reputable nonprofit counselor."
+            explanation: "NFCC is the National Foundation for Credit Counseling - choosing a member agency signals a reputable nonprofit counselor."
           },
           {
             id: "credit11-mastery4",
@@ -144,7 +144,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "You pay each creditor double"
             ],
             correctAnswer: 1,
-            explanation: "A DMP consolidates your debts into a single monthly payment to the counseling agency, which pays creditors — frequently at reduced interest rates."
+            explanation: "A DMP consolidates your debts into a single monthly payment to the counseling agency, which pays creditors - frequently at reduced interest rates."
           }
         ]
       }
@@ -163,16 +163,16 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         paragraphs: [
           "Bankruptcy is a legal process for people who truly cannot repay their debts. It offers a fresh start, but it comes with serious, long-lasting consequences. The two most common types for individuals are Chapter 7 and Chapter 13. Chapter 7 is 'liquidation': most unsecured debts (like credit cards) are wiped out, but some of your assets may be sold to pay creditors, and it stays on your credit report for 10 years.",
           "Chapter 13 is a 'reorganization': instead of wiping debts immediately, you follow a court-approved repayment plan over 3 to 5 years, then remaining eligible debts are discharged. It stays on your credit report for 7 years. Chapter 13 often lets people keep assets (like a home) that Chapter 7 might force them to sell.",
-          "Bankruptcy can't erase everything. Generally, student loans, child support, alimony, and most recent taxes cannot be discharged. Florida also has a notably strong homestead exemption, which can protect the equity in your primary home from creditors. Because bankruptcy damages your credit for years, it's usually a last resort after counseling and negotiation have failed — but for the right situation, it provides a genuine fresh start."
+          "Bankruptcy can't erase everything. Generally, student loans, child support, alimony, and most recent taxes cannot be discharged. Florida also has a notably strong homestead exemption, which can protect the equity in your primary home from creditors. Because bankruptcy damages your credit for years, it's usually a last resort after counseling and negotiation have failed - but for the right situation, it provides a genuine fresh start."
         ],
         bullets: [
           "Chapter 7 = liquidation: most debts wiped, some assets may be sold, stays on credit 10 years.",
-          "Chapter 13 = repayment plan over 3–5 years, stays on credit 7 years, often lets you keep assets.",
+          "Chapter 13 = repayment plan over 3-5 years, stays on credit 7 years, often lets you keep assets.",
           "Student loans, child support, alimony, and most recent taxes usually CANNOT be discharged.",
           "Florida's homestead exemption can protect equity in your primary residence.",
           "Bankruptcy is a last resort because it damages credit for years."
         ],
-        realWorldExample: "After bankruptcy, getting approved for a car loan or apartment can be much harder for years, and interest rates offered will be higher — which is why people try counseling and DMPs first and reserve bankruptcy for when there's truly no other path."
+        realWorldExample: "After bankruptcy, getting approved for a car loan or apartment can be much harder for years, and interest rates offered will be higher - which is why people try counseling and DMPs first and reserve bankruptcy for when there's truly no other path."
       },
       {
         type: "micro-check",
@@ -181,13 +181,13 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             id: "credit12-mc1",
             question: "What is the main difference between Chapter 7 and Chapter 13 bankruptcy?",
             options: [
-              "Chapter 7 liquidates assets and wipes most debts; Chapter 13 sets up a 3–5 year repayment plan",
+              "Chapter 7 liquidates assets and wipes most debts; Chapter 13 sets up a 3-5 year repayment plan",
               "Chapter 7 is for businesses only; Chapter 13 is for teenagers",
               "They are exactly the same",
               "Chapter 13 erases all debt instantly with no repayment"
             ],
             correctAnswer: 0,
-            explanation: "Chapter 7 is liquidation (most debts wiped, assets may be sold). Chapter 13 is a court-approved repayment plan over 3–5 years."
+            explanation: "Chapter 7 is liquidation (most debts wiped, assets may be sold). Chapter 13 is a court-approved repayment plan over 3-5 years."
           },
           {
             id: "credit12-mc2",
@@ -226,14 +226,14 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             "DMPs erase student loans"
           ],
           correctAnswer: 1,
-          explanation: "Chapter 7 provides faster relief but leaves a bankruptcy on your credit report for 10 years. A DMP avoids that mark, helping credit recover sooner — a key trade-off."
+          explanation: "Chapter 7 provides faster relief but leaves a bankruptcy on your credit report for 10 years. A DMP avoids that mark, helping credit recover sooner - a key trade-off."
         }
       },
       {
         type: "recap",
         takeaways: [
           "Chapter 7 wipes most debts but may sell assets and stays on credit 10 years.",
-          "Chapter 13 is a 3–5 year repayment plan and stays on credit 7 years.",
+          "Chapter 13 is a 3-5 year repayment plan and stays on credit 7 years.",
           "Student loans, child support, alimony, and most recent taxes can't be discharged.",
           "Florida's homestead exemption can protect your primary home's equity.",
           "Bankruptcy is a last resort because of its long credit impact."
@@ -247,13 +247,13 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             id: "credit12-mastery1",
             question: "Which best describes Chapter 7 bankruptcy?",
             options: [
-              "A 3–5 year repayment plan",
+              "A 3-5 year repayment plan",
               "Liquidation: most unsecured debts are wiped and some assets may be sold",
               "A way to refinance your mortgage",
               "A type of credit counseling"
             ],
             correctAnswer: 1,
-            explanation: "Chapter 7 is liquidation — most unsecured debts are discharged and certain assets may be sold to pay creditors."
+            explanation: "Chapter 7 is liquidation - most unsecured debts are discharged and certain assets may be sold to pay creditors."
           },
           {
             id: "credit12-mastery2",
@@ -297,7 +297,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
   },
 
   // ─────────────────────────────────────────────
-  // credit-13: Mortgages — Buying a Home (FL.5.11)
+  // credit-13: Mortgages - Buying a Home (FL.5.11)
   // ─────────────────────────────────────────────
   {
     lessonId: "credit-13",
@@ -306,18 +306,18 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "How a Mortgage Turns a House Into Home (and Debt)",
         paragraphs: [
-          "A mortgage is a loan used to buy a home. Because the loan is so large, the lender holds a lien on the house — meaning the home is collateral. If you stop paying, the lender can take the home through foreclosure. The down payment is the cash you pay upfront, usually 3% to 20% of the price. A bigger down payment lowers your monthly payment and helps you avoid PMI (Private Mortgage Insurance), an extra monthly charge lenders require when your down payment is under 20%.",
+          "A mortgage is a loan used to buy a home. Because the loan is so large, the lender holds a lien on the house - meaning the home is collateral. If you stop paying, the lender can take the home through foreclosure. The down payment is the cash you pay upfront, usually 3% to 20% of the price. A bigger down payment lowers your monthly payment and helps you avoid PMI (Private Mortgage Insurance), an extra monthly charge lenders require when your down payment is under 20%.",
           "Mortgages come in flavors. A fixed-rate loan keeps the same interest rate for the whole loan, so your payment is predictable. An ARM (adjustable-rate mortgage) starts lower but can rise later, adding risk. You'll also choose a term: a 15-year loan has higher monthly payments but far less total interest, while a 30-year loan has lower payments but costs much more over time. Buying also involves closing costs (typically 2% to 5% of the price) paid at the finish line.",
-          "Your monthly payment is more than just the loan. The common shorthand is PITI: Principal (the loan balance), Interest (the lender's charge), Taxes (property taxes), and Insurance (homeowners insurance). For example, a $350,000 Florida home with 10% down on a 30-year fixed loan at 7% has a payment that bundles all four of these together. Miss enough payments and the foreclosure process begins — which is why understanding the full cost before buying is critical."
+          "Your monthly payment is more than just the loan. The common shorthand is PITI: Principal (the loan balance), Interest (the lender's charge), Taxes (property taxes), and Insurance (homeowners insurance). For example, a $350,000 Florida home with 10% down on a 30-year fixed loan at 7% has a payment that bundles all four of these together. Miss enough payments and the foreclosure process begins - which is why understanding the full cost before buying is critical."
         ],
         bullets: [
           "A mortgage is a home loan; the house is collateral via a lien.",
-          "Down payments run 3%–20%; under 20% usually triggers PMI.",
+          "Down payments run 3%-20%; under 20% usually triggers PMI.",
           "Fixed-rate = stable payments; ARM = lower at first but can rise.",
           "15-year loans cost less interest but more per month; 30-year loans cost more total but less per month.",
           "PITI = Principal + Interest + Taxes + Insurance, the four parts of your payment."
         ],
-        realWorldExample: "On a $315,000 home, putting down 20% ($63,000) avoids PMI entirely, while putting down 5% means paying PMI for years until you build enough equity — sometimes $100–$250 extra every month for nothing but the privilege of a small down payment."
+        realWorldExample: "On a $315,000 home, putting down 20% ($63,000) avoids PMI entirely, while putting down 5% means paying PMI for years until you build enough equity - sometimes $100-$250 extra every month for nothing but the privilege of a small down payment."
       },
       {
         type: "micro-check",
@@ -332,7 +332,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "Principal, Insurance, Total, Interest"
             ],
             correctAnswer: 0,
-            explanation: "PITI = Principal + Interest + Taxes + Insurance — the four components bundled into a typical monthly mortgage payment."
+            explanation: "PITI = Principal + Interest + Taxes + Insurance - the four components bundled into a typical monthly mortgage payment."
           },
           {
             id: "credit13-mc2",
@@ -351,7 +351,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "The Rodriguezes Buy in Hialeah",
-        narrative: "The Rodriguez family is buying their first home in Hialeah for $320,000. They save for a down payment, get pre-approved by a lender, make an offer, the home is appraised, and they reach closing. They understand their monthly PITI payment — but they also want to know what happens if money gets tight.",
+        narrative: "The Rodriguez family is buying their first home in Hialeah for $320,000. They save for a down payment, get pre-approved by a lender, make an offer, the home is appraised, and they reach closing. They understand their monthly PITI payment - but they also want to know what happens if money gets tight.",
         details: [
           "They save a down payment and get pre-approved before house hunting, so they know their budget.",
           "Their monthly payment bundles principal, interest, property taxes, and homeowners insurance (PITI).",
@@ -452,8 +452,8 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         title: "The Laws That Have Your Back",
         paragraphs: [
           "When you borrow money or use credit, federal laws protect you from being cheated or harassed. The Truth in Lending Act (TILA) requires lenders to clearly disclose the full cost of credit, including the APR (annual percentage rate), so you can compare offers honestly instead of being tricked by hidden fees. This is why every loan and credit card must show its APR plainly.",
-          "The Equal Credit Opportunity Act (ECOA) makes it illegal for lenders to discriminate based on race, color, religion, national origin, sex, marital status, or age. Your creditworthiness — not who you are — must drive lending decisions. The Fair Debt Collection Practices Act (FDCPA) restricts how debt collectors can behave: they can't call at unreasonable hours (like 3 a.m.), use threats, lie about what you owe, or harass you.",
-          "Overseeing much of this is the CFPB (Consumer Financial Protection Bureau), a federal agency where you can file complaints about banks, lenders, and collectors. If a collector breaks the rules — say, threatening you over a debt you don't even owe — you have the right to demand they stop in writing and to report them. Knowing these laws turns you from a target into an informed consumer."
+          "The Equal Credit Opportunity Act (ECOA) makes it illegal for lenders to discriminate based on race, color, religion, national origin, sex, marital status, or age. Your creditworthiness - not who you are - must drive lending decisions. The Fair Debt Collection Practices Act (FDCPA) restricts how debt collectors can behave: they can't call at unreasonable hours (like 3 a.m.), use threats, lie about what you owe, or harass you.",
+          "Overseeing much of this is the CFPB (Consumer Financial Protection Bureau), a federal agency where you can file complaints about banks, lenders, and collectors. If a collector breaks the rules - say, threatening you over a debt you don't even owe - you have the right to demand they stop in writing and to report them. Knowing these laws turns you from a target into an informed consumer."
         ],
         bullets: [
           "TILA requires lenders to disclose the full cost of credit, including the APR.",
@@ -477,7 +477,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "That debt collectors can call anytime"
             ],
             correctAnswer: 1,
-            explanation: "TILA requires lenders to disclose the true cost of borrowing — especially the APR — so consumers can compare offers fairly."
+            explanation: "TILA requires lenders to disclose the true cost of borrowing - especially the APR - so consumers can compare offers fairly."
           },
           {
             id: "credit14-mc2",
@@ -496,7 +496,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Devon and the 9 p.m. Calls",
-        narrative: "Devon keeps getting calls from a debt collector — sometimes late at night — claiming he owes $800 on an account he never opened. The collector is aggressive and threatening. Devon decides to learn his rights instead of panicking.",
+        narrative: "Devon keeps getting calls from a debt collector - sometimes late at night - claiming he owes $800 on an account he never opened. The collector is aggressive and threatening. Devon decides to learn his rights instead of panicking.",
         details: [
           "The collector calls repeatedly at 9 p.m. and uses threatening language.",
           "Devon never opened the account, so he disputes that the debt is even his.",
@@ -513,7 +513,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             "The local library",
             "The CFPB (Consumer Financial Protection Bureau), and he can also report to the FTC",
             "His cell phone provider",
-            "Nowhere — there's no agency for this"
+            "Nowhere - there's no agency for this"
           ],
           correctAnswer: 1,
           explanation: "The CFPB handles complaints about lenders, banks, and debt collectors (the FTC also takes such reports). Devon can use these channels alongside a written cease-and-desist."
@@ -540,7 +540,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "Their company's profits",
               "The full cost of credit, including the APR",
               "The names of all other borrowers",
-              "Nothing — disclosure is optional"
+              "Nothing - disclosure is optional"
             ],
             correctAnswer: 1,
             explanation: "TILA requires lenders to clearly disclose the cost of borrowing, especially the APR, so you can compare offers."
@@ -596,18 +596,18 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Free Report That Can Make or Break Your Future",
         paragraphs: [
-          "Federal law (the Fair Credit Reporting Act, or FCRA) gives every American one free credit report per year from each of the three major credit bureaus — Equifax, Experian, and TransUnion. The official site is AnnualCreditReport.com. This is different from the 'free credit score' apps; the official report is the detailed record lenders actually use.",
-          "Your credit report lists your personal info, your accounts and balances, your payment history (on-time or late), inquiries (who checked your credit), and public records like bankruptcies. Errors are surprisingly common — an account that isn't yours, a payment marked late that you actually paid, or a debt you already settled. These mistakes can quietly lower your score, leading to higher interest rates or even denied credit.",
-          "If you find an error, you have the right to dispute it. You file a written dispute with the credit bureau, which by law must investigate — typically within 30 days. If the information can't be verified, it must be corrected or removed. Checking your report regularly is one of the easiest, most powerful financial habits: it catches both honest mistakes and identity theft early, before they do real damage."
+          "Federal law (the Fair Credit Reporting Act, or FCRA) gives every American one free credit report per year from each of the three major credit bureaus - Equifax, Experian, and TransUnion. The official site is AnnualCreditReport.com. This is different from the 'free credit score' apps; the official report is the detailed record lenders actually use.",
+          "Your credit report lists your personal info, your accounts and balances, your payment history (on-time or late), inquiries (who checked your credit), and public records like bankruptcies. Errors are surprisingly common - an account that isn't yours, a payment marked late that you actually paid, or a debt you already settled. These mistakes can quietly lower your score, leading to higher interest rates or even denied credit.",
+          "If you find an error, you have the right to dispute it. You file a written dispute with the credit bureau, which by law must investigate - typically within 30 days. If the information can't be verified, it must be corrected or removed. Checking your report regularly is one of the easiest, most powerful financial habits: it catches both honest mistakes and identity theft early, before they do real damage."
         ],
         bullets: [
           "The FCRA guarantees one free report per year from each of the three bureaus.",
-          "Get it at the official AnnualCreditReport.com — not random 'free score' sites.",
+          "Get it at the official AnnualCreditReport.com - not random 'free score' sites.",
           "Reports show personal info, accounts, payment history, inquiries, and public records.",
           "Common errors include accounts that aren't yours and wrongly reported late payments.",
           "You can dispute errors in writing; bureaus must investigate, usually within 30 days."
         ],
-        realWorldExample: "A single wrongly reported collection account can drop a credit score by 80+ points — enough to turn a low car-loan rate into a much higher one, costing thousands over the loan. Catching and disputing it restores both the score and the savings."
+        realWorldExample: "A single wrongly reported collection account can drop a credit score by 80+ points - enough to turn a low car-loan rate into a much higher one, costing thousands over the loan. Catching and disputing it restores both the score and the savings."
       },
       {
         type: "micro-check",
@@ -688,7 +688,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "Your employer's HR department"
             ],
             correctAnswer: 0,
-            explanation: "AnnualCreditReport.com is the federally authorized site — the only official source for your free yearly reports."
+            explanation: "AnnualCreditReport.com is the federally authorized site - the only official source for your free yearly reports."
           },
           {
             id: "credit15-mastery2",
@@ -724,7 +724,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "A correct current balance"
             ],
             correctAnswer: 1,
-            explanation: "Common errors include accounts that don't belong to you and payments incorrectly reported as late — both can unfairly lower your score."
+            explanation: "Common errors include accounts that don't belong to you and payments incorrectly reported as late - both can unfairly lower your score."
           }
         ]
       }
@@ -732,7 +732,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
   },
 
   // ─────────────────────────────────────────────
-  // credit-16: Paying for College — FAFSA, Bright Futures & Loans (FL.5.14)
+  // credit-16: Paying for College - FAFSA, Bright Futures & Loans (FL.5.14)
   // ─────────────────────────────────────────────
   {
     lessonId: "credit-16",
@@ -741,18 +741,18 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Free Money First: The Smart Order of Paying for College",
         paragraphs: [
-          "There's a smart order for funding college, and it starts with money you never have to pay back. First come scholarships and grants (including Florida's Bright Futures), then work-study, then federal loans (subsidized before unsubsidized), then Parent PLUS loans, and finally — as a last resort — private loans. Following this hierarchy can save you tens of thousands of dollars over your lifetime.",
+          "There's a smart order for funding college, and it starts with money you never have to pay back. First come scholarships and grants (including Florida's Bright Futures), then work-study, then federal loans (subsidized before unsubsidized), then Parent PLUS loans, and finally - as a last resort - private loans. Following this hierarchy can save you tens of thousands of dollars over your lifetime.",
           "It all begins with the FAFSA (Free Application for Federal Student Aid). Filing the FAFSA unlocks federal grants, loans, and work-study, and it's used by colleges to build your aid package. Florida's state aid deadline is often earlier than the federal one, so filing early matters. The FAFSA calculates a number (formerly the EFC, now the SAI) that estimates what your family can contribute, which determines your need-based aid.",
-          "Florida's Bright Futures scholarship rewards strong students. The top Academic Scholars award generally requires around a 3.5 weighted GPA (with specific course and test requirements) plus 100 community service hours; the Medallion Scholars tier requires around a 3.0 GPA and 75 hours. Know the difference between your funding types: a grant is need-based free money, a scholarship is usually merit-based free money, and a loan must be repaid with interest. The goal is to maximize free money and minimize loans — especially private ones."
+          "Florida's Bright Futures scholarship rewards strong students. The top Academic Scholars award generally requires around a 3.5 weighted GPA (with specific course and test requirements) plus 100 community service hours; the Medallion Scholars tier requires around a 3.0 GPA and 75 hours. Know the difference between your funding types: a grant is need-based free money, a scholarship is usually merit-based free money, and a loan must be repaid with interest. The goal is to maximize free money and minimize loans - especially private ones."
         ],
         bullets: [
           "Funding order: scholarships/grants → work-study → federal loans → PLUS loans → private loans.",
-          "The FAFSA unlocks federal grants, loans, and work-study — file it early.",
+          "The FAFSA unlocks federal grants, loans, and work-study - file it early.",
           "Florida's state aid deadline is often earlier than the federal deadline.",
           "Bright Futures: Academic Scholars need ~3.5 GPA + 100 service hours; Medallion Scholars ~3.0 GPA + 75 hours.",
           "Grants/scholarships are free money; loans must be repaid with interest."
         ],
-        realWorldExample: "Two students attend the same Florida university. One files FAFSA early and wins Bright Futures plus grants, graduating with $8,000 in loans. The other skips scholarships and leans on private loans, graduating with $60,000 in debt — same degree, wildly different financial start."
+        realWorldExample: "Two students attend the same Florida university. One files FAFSA early and wins Bright Futures plus grants, graduating with $8,000 in loans. The other skips scholarships and leans on private loans, graduating with $60,000 in debt - same degree, wildly different financial start."
       },
       {
         type: "micro-check",
@@ -767,7 +767,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "Credit cards"
             ],
             correctAnswer: 1,
-            explanation: "Always start with free money — scholarships and grants — before any loans, since they never have to be repaid."
+            explanation: "Always start with free money - scholarships and grants - before any loans, since they never have to be repaid."
           },
           {
             id: "credit16-mc2",
@@ -813,7 +813,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         type: "recap",
         takeaways: [
           "Pursue funding in order: scholarships/grants → work-study → federal loans → PLUS → private.",
-          "The FAFSA unlocks federal aid — file it early, especially for Florida's earlier state deadline.",
+          "The FAFSA unlocks federal aid - file it early, especially for Florida's earlier state deadline.",
           "Bright Futures: Academic Scholars need ~3.5 GPA + 100 service hours; Medallion Scholars ~3.0 GPA + 75 hours.",
           "Grants and scholarships are free; loans must be repaid with interest.",
           "Private loans are the last resort due to higher rates and fewer protections."
@@ -886,7 +886,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "What Happens When You Ask a Lender for Money",
         paragraphs: [
-          "When you apply for a loan, the lender is deciding one thing: how likely are you to pay it back? They evaluate your credit score, your debt-to-income ratio (DTI), your income and employment, and — for secured loans — any collateral (like the car itself on an auto loan). DTI is your monthly debt payments divided by your gross monthly income; lenders generally like to see it below 36%.",
+          "When you apply for a loan, the lender is deciding one thing: how likely are you to pay it back? They evaluate your credit score, your debt-to-income ratio (DTI), your income and employment, and - for secured loans - any collateral (like the car itself on an auto loan). DTI is your monthly debt payments divided by your gross monthly income; lenders generally like to see it below 36%.",
           "You'll need documents to prove your situation: pay stubs, tax returns, bank statements, and a photo ID. When the lender checks your credit, it's usually a 'hard inquiry,' which can lower your score by a few points (about 5). That's different from a 'soft inquiry' (like checking your own score or a pre-qualification), which doesn't affect your score at all.",
           "After review, you'll get one of three outcomes: approval, conditional approval (approved if you provide more info or meet a condition), or denial. A car loan is the most common first loan for young adults, and the terms matter enormously. A longer term means smaller monthly payments but far more interest paid overall, while a shorter term costs more per month but saves you money in total."
         ],
@@ -897,7 +897,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
           "Common documents: pay stubs, tax returns, bank statements, and ID.",
           "Longer loan terms = lower payments but more total interest; shorter terms = the opposite."
         ],
-        realWorldExample: "On a $20,000 car loan, stretching from a 48-month to a 72-month term might drop your payment by $100/month — but you could pay over $2,000 more in interest by the end. The 'affordable' monthly payment quietly costs you thousands."
+        realWorldExample: "On a $20,000 car loan, stretching from a 48-month to a 72-month term might drop your payment by $100/month - but you could pay over $2,000 more in interest by the end. The 'affordable' monthly payment quietly costs you thousands."
       },
       {
         type: "micro-check",
@@ -935,8 +935,8 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         details: [
           "The lender checks Jasmine's credit score, income, and debt-to-income ratio.",
           "She provides pay stubs and her ID to verify her income.",
-          "Option A: 72 months at 9% APR — lower monthly payment, but more interest overall.",
-          "Option B: 48 months at 6.5% APR — higher monthly payment, but about $1,800 less interest in total."
+          "Option A: 72 months at 9% APR - lower monthly payment, but more interest overall.",
+          "Option B: 48 months at 6.5% APR - higher monthly payment, but about $1,800 less interest in total."
         ]
       },
       {
@@ -951,7 +951,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             "Because longer loans are always cheaper"
           ],
           correctAnswer: 1,
-          explanation: "A shorter term at a lower APR means the loan is paid off faster with less time for interest to accumulate — saving money overall despite the higher monthly payment."
+          explanation: "A shorter term at a lower APR means the loan is paid off faster with less time for interest to accumulate - saving money overall despite the higher monthly payment."
         }
       },
       {
@@ -990,7 +990,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "A pre-qualification offer"
             ],
             correctAnswer: 1,
-            explanation: "A hard inquiry — triggered when you actually apply for credit — can lower your score by around 5 points. Soft inquiries do not."
+            explanation: "A hard inquiry - triggered when you actually apply for credit - can lower your score by around 5 points. Soft inquiries do not."
           },
           {
             id: "credit17-mastery3",
@@ -1008,13 +1008,13 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             id: "credit17-mastery4",
             question: "Why do longer loan terms cost more in total?",
             options: [
-              "They don't — they always cost less",
+              "They don't - they always cost less",
               "Because you pay interest over a longer period, so more interest accumulates even if monthly payments are lower",
               "Because lenders charge a flat penalty",
               "Because the principal doubles"
             ],
             correctAnswer: 1,
-            explanation: "A longer term stretches payments over more months, giving interest more time to accumulate — raising the total cost despite lower monthly payments."
+            explanation: "A longer term stretches payments over more months, giving interest more time to accumulate - raising the total cost despite lower monthly payments."
           }
         ]
       }
@@ -1032,17 +1032,17 @@ export const creditExpansionContent: StructuredLessonContent[] = [
         title: "Not All Student Loans Are Created Equal",
         paragraphs: [
           "Student loans split into two big families: federal and private. Federal loans come from the government and offer strong borrower protections. Subsidized federal loans are need-based, and the government pays the interest while you're in school. Unsubsidized federal loans aren't need-based, and interest accrues from day one. PLUS loans are for parents or grad students and require a credit check.",
-          "Private loans come from banks and credit unions. They usually carry higher interest rates and — crucially — lack the safety nets federal loans provide. Federal loans offer income-driven repayment (IDR), which caps your monthly payment based on what you earn, and programs like Public Service Loan Forgiveness (PSLF), which can forgive remaining federal debt after about 10 years of qualifying payments while working in public service.",
-          "The repayment terms also differ in a crisis. Federal loans allow deferment and forbearance (temporary pauses) and have defined paths if you struggle. Defaulting on federal loans is serious — it can lead to wage garnishment and tax refund seizure — but income-driven options usually let you avoid that. Private loans have far fewer options, which is exactly why private loans should always be a last resort, taken only after maxing out federal aid."
+          "Private loans come from banks and credit unions. They usually carry higher interest rates and - crucially - lack the safety nets federal loans provide. Federal loans offer income-driven repayment (IDR), which caps your monthly payment based on what you earn, and programs like Public Service Loan Forgiveness (PSLF), which can forgive remaining federal debt after about 10 years of qualifying payments while working in public service.",
+          "The repayment terms also differ in a crisis. Federal loans allow deferment and forbearance (temporary pauses) and have defined paths if you struggle. Defaulting on federal loans is serious - it can lead to wage garnishment and tax refund seizure - but income-driven options usually let you avoid that. Private loans have far fewer options, which is exactly why private loans should always be a last resort, taken only after maxing out federal aid."
         ],
         bullets: [
           "Subsidized federal loans: need-based, government pays interest while you're in school.",
           "Unsubsidized federal loans: not need-based, interest accrues from day one.",
           "PLUS loans: for parents/grad students and require a credit check.",
           "Federal loans offer income-driven repayment and forgiveness programs like PSLF.",
-          "Private loans have higher rates and fewer protections — use them last."
+          "Private loans have higher rates and fewer protections - use them last."
         ],
-        realWorldExample: "Two graduates lose their jobs in a downturn. The one with only federal loans switches to income-driven repayment and pays almost nothing until they're working again. The one with private loans gets no such break — the bank still demands the full payment every month."
+        realWorldExample: "Two graduates lose their jobs in a downturn. The one with only federal loans switches to income-driven repayment and pays almost nothing until they're working again. The one with private loans gets no such break - the bank still demands the full payment every month."
       },
       {
         type: "micro-check",
@@ -1096,7 +1096,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             "Income-driven repayment is illegal in Florida"
           ],
           correctAnswer: 0,
-          explanation: "Income-driven repayment is a federal protection. It covered the first borrower's loans entirely, but only the federal portion of the second borrower's debt — the $15,000 private loan had no such option."
+          explanation: "Income-driven repayment is a federal protection. It covered the first borrower's loans entirely, but only the federal portion of the second borrower's debt - the $15,000 private loan had no such option."
         }
       },
       {
@@ -1129,7 +1129,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             id: "credit18-mastery2",
             question: "What does Public Service Loan Forgiveness (PSLF) require?",
             options: [
-              "Nothing — it's automatic for everyone",
+              "Nothing - it's automatic for everyone",
               "About 10 years of qualifying payments while working in public service, on federal loans",
               "Repaying private loans for 5 years",
               "A perfect credit score"
@@ -1159,7 +1159,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
               "Your interest rate drops to zero"
             ],
             correctAnswer: 1,
-            explanation: "Defaulting on federal loans can trigger wage garnishment and tax refund seizure — but income-driven repayment usually lets borrowers avoid default."
+            explanation: "Defaulting on federal loans can trigger wage garnishment and tax refund seizure - but income-driven repayment usually lets borrowers avoid default."
           }
         ]
       }

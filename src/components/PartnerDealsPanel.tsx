@@ -380,7 +380,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
         <div className="rounded-2xl border border-dashed p-6 text-center" style={{ borderColor: "#1D9E7530" }}>
           <Handshake className="w-8 h-8 mx-auto mb-2" style={{ color: "#1D9E7540" }} />
           <p className="text-sm font-bold text-muted-foreground">No deals yet</p>
-          <p className="text-xs text-muted-foreground mt-1">You have partners with businesses — propose a deal to unlock real bonuses.</p>
+          <p className="text-xs text-muted-foreground mt-1">You have partners with businesses - propose a deal to unlock real bonuses.</p>
           <button
             onClick={() => setShowPropose(true)}
             className="mt-3 text-sm font-bold px-4 py-2 rounded-full press-scale"

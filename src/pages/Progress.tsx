@@ -96,7 +96,7 @@ function CustomRadarTooltip({ active, payload }: any) {
   return (
     <div className="bg-card border border-border rounded-xl px-4 py-3 shadow-lg">
       <p className="text-sm font-semibold">{data.category}</p>
-      <p className="text-lg font-bold text-primary">{data.hasActivity ? `${data.score}%` : "—"}</p>
+      <p className="text-lg font-bold text-primary">{data.hasActivity ? `${data.score}%` : "-"}</p>
       <p className={`text-xs font-medium ${tier.color}`}>{tier.label}</p>
     </div>
   )
@@ -286,7 +286,7 @@ export default function ProgressPage() {
         </motion.div>
 
         {!benchmarkTaken ? (
-          /* ── Benchmark not taken — CTA + skeleton ── */
+          /* ── Benchmark not taken - CTA + skeleton ── */
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -350,12 +350,12 @@ export default function ProgressPage() {
                     </div>
                     <div className="flex items-center gap-4 text-[11px] text-muted-foreground">
                       <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-success inline-block" /> Strength ≥75</span>
-                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-warning inline-block" /> Growing 50–74</span>
+                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-warning inline-block" /> Growing 50-74</span>
                       <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-destructive/60 inline-block" /> Development &lt;50</span>
                       <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-muted inline-block" /> Not assessed</span>
                     </div>
                   </div>
-                  {/* Segmented bar — all units */}
+                  {/* Segmented bar - all units */}
                   <div className="flex gap-0.5 h-3 rounded-full overflow-hidden bg-muted/30">
                     {unitScores.map((u, i) => (
                       <motion.div
@@ -568,7 +568,7 @@ export default function ProgressPage() {
                               <p className="text-sm font-semibold truncate">{u.title}</p>
                             </div>
                             <span className="text-lg font-bold text-foreground shrink-0 ml-2">
-                              {u.total > 0 ? `${u.completionPercent}%` : "—"}
+                              {u.total > 0 ? `${u.completionPercent}%` : "-"}
                             </span>
                           </div>
 
@@ -592,7 +592,7 @@ export default function ProgressPage() {
                           </div>
 
                           <p className={`text-[10px] mt-2 font-medium ${masteryLabelColor(u.masteryScore, u.hasActivity)}`}>
-                            Mastery Score: {u.hasActivity ? `${u.masteryScore}%` : "—"}
+                            Mastery Score: {u.hasActivity ? `${u.masteryScore}%` : "-"}
                           </p>
                         </motion.div>
                       )
@@ -731,7 +731,7 @@ export default function ProgressPage() {
                           <span className="text-sm font-medium">{u.done}/{u.total}</span>
                         </div>
                         <div className="text-center">
-                          <span className="text-sm font-medium">{u.quizAvg > 0 ? `${u.quizAvg}%` : "—"}</span>
+                          <span className="text-sm font-medium">{u.quizAvg > 0 ? `${u.quizAvg}%` : "-"}</span>
                         </div>
                         <div className="flex justify-center">
                           {u.status === "complete" ? (

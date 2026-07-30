@@ -1,4 +1,4 @@
-// JeffChat — the "Jeff teaches you" lesson experience. Not a text-message
+// JeffChat - the "Jeff teaches you" lesson experience. Not a text-message
 // thread: the real animated Jeff mascot stands on a full-screen stage and
 // teaches one beat at a time in a big speech bubble. While the AI thinks,
 // Jeff goes into his "think" pose; when the lesson wraps he celebrates and
@@ -33,11 +33,11 @@ export function JeffChatAvatar({ size = 16 }: { size?: number }) {
   )
 }
 
-/* Expected teaching beats — drives the little progress dots up top. */
+/* Expected teaching beats - drives the little progress dots up top. */
 const EXPECTED_TURNS = 6
 
 /* ── Thinking skits ──────────────────────────────────────────────────
-   While the AI works, Jeff plays a fully staged skit — each one is its
+   While the AI works, Jeff plays a fully staged skit - each one is its
    own little scene where props live WITH his body (pan in hand, blanket
    over him, pencil on a real notepad), not floating nearby. Rotates to a
    new skit if the wait drags on. */
@@ -97,7 +97,7 @@ function NapSkit() {
 function CookSkit() {
   return (
     <div className="relative w-full h-full">
-      {/* the whole body rocks like he's working the stove — pan is INSIDE
+      {/* the whole body rocks like he's working the stove - pan is INSIDE
           this wrapper so it moves with him, like it's in his hand */}
       <motion.div
         className="absolute inset-0"
@@ -183,7 +183,7 @@ function SketchSkit() {
   )
 }
 
-/** 🪙 Proper juggling — coins follow an arcing cascade above his hands. */
+/** 🪙 Proper juggling - coins follow an arcing cascade above his hands. */
 function JuggleSkit() {
   return (
     <div className="relative w-full h-full">
@@ -277,7 +277,7 @@ function JumpSkit() {
   )
 }
 
-/** 🚶 Pacing — walks left and right, turning to face where he's going. */
+/** 🚶 Pacing - walks left and right, turning to face where he's going. */
 function PaceSkit() {
   return (
     <div className="relative w-full h-full">
@@ -302,7 +302,7 @@ function PaceSkit() {
   )
 }
 
-/** 🎒 Digging through his pack — uses the mascot's built-in packing scene. */
+/** 🎒 Digging through his pack - uses the mascot's built-in packing scene. */
 function NotesSkit() {
   return (
     <div className="relative w-full h-full">
@@ -383,7 +383,7 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   const [skit, setSkit] = useState<Skit>(SKITS[0])
 
   // Pick a fresh skit whenever thinking starts, and rotate to a new one
-  // every few seconds if the AI takes its time — keeps Jeff feeling alive.
+  // every few seconds if the AI takes its time - keeps Jeff feeling alive.
   useEffect(() => {
     if (!thinking) return
     setSkit(prev => randomSkit(prev.caption))
@@ -512,7 +512,7 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
           </div>
         ) : (
           <>
-            {/* speech bubble — Jeff's current teaching beat */}
+            {/* speech bubble - Jeff's current teaching beat */}
             <div className="flex-1 min-h-0 flex flex-col justify-end pb-2">
               {lastChoice && !thinking && (
                 <motion.p
@@ -567,7 +567,7 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
               </AnimatePresence>
             </div>
 
-            {/* Jeff himself — big, alive, on stage. While thinking he plays
+            {/* Jeff himself - big, alive, on stage. While thinking he plays
                 a fully staged skit (lying under a blanket, pan in hand,
                 scribbling a notepad…), rotating every few seconds. */}
             <div className="shrink-0 flex items-end gap-3 h-40 sm:h-48">

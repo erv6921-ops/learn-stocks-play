@@ -1,4 +1,4 @@
-// businessActivities — presets, persistence, and helpers for the restructured
+// businessActivities - presets, persistence, and helpers for the restructured
 // Micro-Business "Studio" (Product Development / Collaboration / Marketing).
 // All rule-based, no AI. Responses persist to business_game_state.activities.
 import { supabase } from "@/integrations/supabase/client";
@@ -19,28 +19,28 @@ export const bizDef = (t: BusinessType) => BUSINESS_TYPES.find((b) => b.id === t
 export const BETA_REVIEWS: Record<BusinessType, string[]> = {
   food: [
     "Loved the flavor but the portion felt small for the price. I left a little hungry.",
-    "Great taste! But I waited 25 minutes — way too long for a quick lunch spot.",
+    "Great taste! But I waited 25 minutes - way too long for a quick lunch spot.",
     "The packaging leaked all over my bag. Fix that and I'd order weekly.",
     "Honestly a bit too sweet for me. A savory option would win me over.",
-    "Best snack I've had in ages, but you're only open weekends — I want it Monday too.",
+    "Best snack I've had in ages, but you're only open weekends - I want it Monday too.",
   ],
   tech: [
     "The app is useful but it crashed twice while I was saving. I lost my work.",
     "Cool idea, but onboarding took 10 confusing steps. I almost gave up.",
-    "Does what it promises! The free tier is too limited though — I'd pay if it gave more.",
+    "Does what it promises! The free tier is too limited though - I'd pay if it gave more.",
     "Beautiful design, but it's slow to load on my older phone.",
     "I don't understand what makes this different from the free tool I already use.",
   ],
   retail: [
     "The fabric quality is amazing, but the sizing runs small. I had to return it.",
-    "Love the style! Shipping took two weeks though — too slow for impulse buys.",
+    "Love the style! Shipping took two weeks though - too slow for impulse buys.",
     "Photos looked brighter than the real color. Slightly disappointed on arrival.",
     "Great product, but there were only 3 sizes. I'm in between and couldn't fit.",
-    "I'd buy more if you had a loyalty discount — full price every time adds up.",
+    "I'd buy more if you had a loyalty discount - full price every time adds up.",
   ],
   creative: [
     "The design was gorgeous but you missed my deadline by three days.",
-    "Talented work! Communication was spotty though — I had to chase for updates.",
+    "Talented work! Communication was spotty though - I had to chase for updates.",
     "Loved the first draft, but revisions cost extra and that wasn't clear upfront.",
     "Exactly the vibe I wanted. Wish the file formats matched what I asked for.",
     "Great quality, but your pricing is higher than three competitors I checked.",
@@ -89,7 +89,7 @@ export const PARTNER_PROBLEMS: Record<BusinessType, string[]> = {
     "Your partner missed a sprint deadline and the launch is now at risk.",
     "They want to renegotiate the revenue share after seeing your growth.",
     "A data breach happened on their side and your users are affected.",
-    "They quietly shipped a feature you both agreed to build together — solo.",
+    "They quietly shipped a feature you both agreed to build together - solo.",
     "Their team went silent for two weeks with no updates.",
   ],
   retail: [

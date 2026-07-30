@@ -193,10 +193,10 @@ export const unitTests: UnitTest[] = [
           "Increase income by $200 to cover the apparent gap",
           "Reduce wants by $200 to match the income amount",
           "Assign the leftover $200 a job, like savings or a goal",
-          "Nothing — leftover money means the budget is done"
+          "Nothing - leftover money means the budget is done"
         ],
         correctAnswer: 2,
-        explanation: "Check the math: $2,200 + $1,000 + $600 = $3,800. Income is $4,000, leaving a $200 surplus. In zero-based budgeting every dollar gets a job — so that $200 should be assigned to savings or a goal, not left floating."
+        explanation: "Check the math: $2,200 + $1,000 + $600 = $3,800. Income is $4,000, leaving a $200 surplus. In zero-based budgeting every dollar gets a job - so that $200 should be assigned to savings or a goal, not left floating."
       },
       {
         id: "ut-b-16",
@@ -349,7 +349,7 @@ export const unitTests: UnitTest[] = [
           "$0"
         ],
         correctAnswer: 1,
-        explanation: "You pay the $750 deductible first; insurance covers the remaining $4,000 − $750 = $3,250."
+        explanation: "You pay the $750 deductible first; insurance covers the remaining $4,000 - $750 = $3,250."
       },
       {
         id: "ut-ins-3",
@@ -369,7 +369,7 @@ export const unitTests: UnitTest[] = [
         options: [
           "The landlord's insurance",
           "The tenant's own renters insurance",
-          "Nobody — belongings can't be insured",
+          "Nobody - belongings can't be insured",
           "The building's HOA"
         ],
         correctAnswer: 1,
@@ -409,7 +409,7 @@ export const unitTests: UnitTest[] = [
           "Their employer chooses"
         ],
         correctAnswer: 1,
-        explanation: "Dying without a will means dying 'intestate,' so Florida's intestate succession laws — not the person — decide how assets are distributed."
+        explanation: "Dying without a will means dying 'intestate,' so Florida's intestate succession laws - not the person - decide how assets are distributed."
       },
       {
         id: "ut-ins-8",
@@ -445,7 +445,7 @@ export const unitTests: UnitTest[] = [
           "Your home from floods"
         ],
         correctAnswer: 1,
-        explanation: "Disability insurance replaces part of your income when an illness or injury prevents you from working — protecting your ability to earn."
+        explanation: "Disability insurance replaces part of your income when an illness or injury prevents you from working - protecting your ability to earn."
       }
     ]
   }

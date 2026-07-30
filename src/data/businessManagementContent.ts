@@ -11,17 +11,17 @@ export const businessManagementContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Four Functions of Management",
         paragraphs: [
-          "Management is not about telling people what to do. It's about creating the conditions for a team to succeed. The best managers plan ahead, organize resources, lead with purpose, and control quality — every single day.",
-          "These four functions — planning, organizing, leading, and controlling — were first described by Henri Fayol over 100 years ago, and they still define what effective managers do today. Whether you're running a Fortune 500 company or a school club, these functions apply.",
+          "Management is not about telling people what to do. It's about creating the conditions for a team to succeed. The best managers plan ahead, organize resources, lead with purpose, and control quality - every single day.",
+          "These four functions - planning, organizing, leading, and controlling - were first described by Henri Fayol over 100 years ago, and they still define what effective managers do today. Whether you're running a Fortune 500 company or a school club, these functions apply.",
           "Planning means setting goals and deciding how to achieve them. Organizing means arranging people, tasks, and resources. Leading means motivating and guiding your team. Controlling means monitoring performance and making corrections when things go off track."
         ],
         bullets: [
-          "Planning — setting objectives and mapping out how to reach them",
-          "Organizing — assigning tasks, allocating resources, structuring teams",
-          "Leading — inspiring, motivating, and communicating a clear vision",
-          "Controlling — tracking progress, comparing results to goals, adjusting"
+          "Planning - setting objectives and mapping out how to reach them",
+          "Organizing - assigning tasks, allocating resources, structuring teams",
+          "Leading - inspiring, motivating, and communicating a clear vision",
+          "Controlling - tracking progress, comparing results to goals, adjusting"
         ],
-        realWorldExample: "Consider a restaurant manager who plans the weekly menu based on seasonal ingredients and customer demand, organizes staff schedules so the right people work during peak hours, leads pre-shift meetings to energize the team, and controls food costs by reviewing waste reports daily. Each function supports the others — skip one, and the whole operation suffers."
+        realWorldExample: "Consider a restaurant manager who plans the weekly menu based on seasonal ingredients and customer demand, organizes staff schedules so the right people work during peak hours, leads pre-shift meetings to energize the team, and controls food costs by reviewing waste reports daily. Each function supports the others - skip one, and the whole operation suffers."
       },
       {
         type: "micro-check",
@@ -36,16 +36,16 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "Controlling outcomes by reviewing weekly reports"
             ],
             correctAnswer: 1,
-            explanation: "Planning is the first function of management — it's about deciding what to accomplish and how. Without a plan, organizing, leading, and controlling have no clear direction."
+            explanation: "Planning is the first function of management - it's about deciding what to accomplish and how. Without a plan, organizing, leading, and controlling have no clear direction."
           },
           {
             id: "mgmt1-mc2",
             question: "A manager notices sales are 15% below target and adjusts the team's strategy. Which function is this?",
             options: [
-              "Planning — because the manager is creating a new goal",
-              "Organizing — because the manager is restructuring tasks",
-              "Leading — because the manager is motivating the team",
-              "Controlling — because the manager is correcting course"
+              "Planning - because the manager is creating a new goal",
+              "Organizing - because the manager is restructuring tasks",
+              "Leading - because the manager is motivating the team",
+              "Controlling - because the manager is correcting course"
             ],
             correctAnswer: 3,
             explanation: "Controlling means monitoring actual performance against goals and taking corrective action. Noticing the gap and adjusting is the essence of the controlling function."
@@ -55,7 +55,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Two Restaurant Managers, Two Very Different Results",
-        narrative: "Marcus and Priya both manage restaurants with the same owner, similar menus, and equally skilled staff. After six months, Marcus's location has high turnover, inconsistent food quality, and declining reviews. Priya's location has a loyal team, consistent five-star ratings, and growing revenue. The difference isn't talent or resources — it's management approach.",
+        narrative: "Marcus and Priya both manage restaurants with the same owner, similar menus, and equally skilled staff. After six months, Marcus's location has high turnover, inconsistent food quality, and declining reviews. Priya's location has a loyal team, consistent five-star ratings, and growing revenue. The difference isn't talent or resources - it's management approach.",
         details: [
           "Marcus skips weekly planning meetings and handles problems as they come up",
           "Priya plans each week's priorities on Sunday and shares them with her team Monday morning",
@@ -84,10 +84,10 @@ export const businessManagementContent: StructuredLessonContent[] = [
         type: "recap",
         takeaways: [
           "Management has four core functions: planning, organizing, leading, and controlling",
-          "Effective managers use all four functions consistently — not just when problems arise",
+          "Effective managers use all four functions consistently - not just when problems arise",
           "Planning sets direction, organizing builds structure, leading drives motivation, and controlling ensures quality",
-          "Poor management isn't always about bad people — it's about missing systems and habits",
-          "These functions apply at every scale — from running a club to leading a corporation"
+          "Poor management isn't always about bad people - it's about missing systems and habits",
+          "These functions apply at every scale - from running a club to leading a corporation"
         ]
       },
       {
@@ -98,13 +98,13 @@ export const businessManagementContent: StructuredLessonContent[] = [
             id: "mgmt1-mq1",
             question: "A startup founder creates a quarterly roadmap with milestones and deadlines. Which management function is she performing?",
             options: [
-              "Controlling — she's measuring progress against benchmarks",
-              "Organizing — she's arranging resources for the quarter",
-              "Planning — she's setting objectives and timelines ahead",
-              "Leading — she's inspiring the team with a clear direction"
+              "Controlling - she's measuring progress against benchmarks",
+              "Organizing - she's arranging resources for the quarter",
+              "Planning - she's setting objectives and timelines ahead",
+              "Leading - she's inspiring the team with a clear direction"
             ],
             correctAnswer: 2,
-            explanation: "Creating a roadmap with milestones and deadlines is planning — defining what needs to happen and by when. The roadmap then guides organizing, leading, and controlling."
+            explanation: "Creating a roadmap with milestones and deadlines is planning - defining what needs to happen and by when. The roadmap then guides organizing, leading, and controlling."
           },
           {
             id: "mgmt1-mq2",
@@ -123,24 +123,24 @@ export const businessManagementContent: StructuredLessonContent[] = [
             question: "Which of the following BEST describes the relationship between the four management functions?",
             options: [
               "They are separate activities performed at different times of the year",
-              "They are interdependent — each function supports and strengthens the others",
+              "They are interdependent - each function supports and strengthens the others",
               "Planning is the only important function and the others are optional",
               "Leading replaces the need for controlling in well-managed organizations"
             ],
             correctAnswer: 1,
-            explanation: "The four functions work together as a cycle. Planning sets direction, organizing creates structure, leading drives execution, and controlling provides feedback — which informs the next round of planning."
+            explanation: "The four functions work together as a cycle. Planning sets direction, organizing creates structure, leading drives execution, and controlling provides feedback - which informs the next round of planning."
           },
           {
             id: "mgmt1-mq4",
             question: "A team leader assigns specific project roles based on each member's strengths. Which function is this?",
             options: [
-              "Planning — the leader is deciding what the project goals are",
-              "Organizing — the leader is structuring roles and resources",
-              "Leading — the leader is motivating team members to perform",
-              "Controlling — the leader is reviewing individual performance"
+              "Planning - the leader is deciding what the project goals are",
+              "Organizing - the leader is structuring roles and resources",
+              "Leading - the leader is motivating team members to perform",
+              "Controlling - the leader is reviewing individual performance"
             ],
             correctAnswer: 1,
-            explanation: "Assigning roles based on strengths is organizing — arranging people and resources so the team operates effectively. It's about structure, not motivation or measurement."
+            explanation: "Assigning roles based on strengths is organizing - arranging people and resources so the team operates effectively. It's about structure, not motivation or measurement."
           }
         ]
       }
@@ -157,17 +157,17 @@ export const businessManagementContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Three Leadership Styles That Shape Organizations",
         paragraphs: [
-          "Leadership style is how a leader makes decisions, communicates expectations, and interacts with their team. The three classic styles — autocratic, democratic, and laissez-faire — each have strengths and weaknesses depending on the situation.",
+          "Leadership style is how a leader makes decisions, communicates expectations, and interacts with their team. The three classic styles - autocratic, democratic, and laissez-faire - each have strengths and weaknesses depending on the situation.",
           "Autocratic leaders make decisions unilaterally. They set clear expectations and maintain tight control. This works well in emergencies or with inexperienced teams, but can crush creativity and morale over time.",
           "Democratic leaders involve the team in decisions. They encourage input, foster collaboration, and build buy-in. This works well for creative problem-solving, but can be slow when fast decisions are needed. Laissez-faire leaders give near-total freedom to their team. This works when team members are highly skilled and self-motivated, but can lead to chaos without clear direction."
         ],
         bullets: [
-          "Autocratic — leader decides alone; fast decisions, less creativity",
-          "Democratic — team input shapes decisions; strong buy-in, slower process",
-          "Laissez-faire — minimal direction; great for experts, risky for new teams",
-          "No single style is always best — effective leaders adapt to the situation"
+          "Autocratic - leader decides alone; fast decisions, less creativity",
+          "Democratic - team input shapes decisions; strong buy-in, slower process",
+          "Laissez-faire - minimal direction; great for experts, risky for new teams",
+          "No single style is always best - effective leaders adapt to the situation"
         ],
-        realWorldExample: "During the development of the first iPhone, Steve Jobs used a largely autocratic style — he made final design decisions and pushed the team relentlessly. But Google's early engineering teams thrived under a more laissez-faire approach, giving brilliant engineers freedom to innovate. Neither style is universally 'right' — the context determines what works."
+        realWorldExample: "During the development of the first iPhone, Steve Jobs used a largely autocratic style - he made final design decisions and pushed the team relentlessly. But Google's early engineering teams thrived under a more laissez-faire approach, giving brilliant engineers freedom to innovate. Neither style is universally 'right' - the context determines what works."
       },
       {
         type: "micro-check",
@@ -203,8 +203,8 @@ export const businessManagementContent: StructuredLessonContent[] = [
         title: "Three Founders, One Product, Very Different Outcomes",
         narrative: "Alex, Jordan, and Sam each launched a food delivery app with similar funding, similar technology, and comparable teams of twelve people. After eighteen months, only one company is thriving. The difference came down to how each founder led their team.",
         details: [
-          "Alex (autocratic) made every product decision alone — the app launched fast but the team burned out, and eight of twelve employees quit within a year",
-          "Jordan (democratic) held weekly team votes on features — the team loved the culture, but the app took 14 months to launch and missed the market window",
+          "Alex (autocratic) made every product decision alone - the app launched fast but the team burned out, and eight of twelve employees quit within a year",
+          "Jordan (democratic) held weekly team votes on features - the team loved the culture, but the app took 14 months to launch and missed the market window",
           "Sam (adaptive) used autocratic decisions for urgent technical issues, democratic input for product features, and laissez-faire freedom for the senior engineering team",
           "Sam's company launched in 7 months, retained 11 of 12 employees, and captured market share from both competitors"
         ]
@@ -221,7 +221,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
             "Laissez-faire works best when teams are small and well-funded"
           ],
           correctAnswer: 1,
-          explanation: "Sam succeeded by matching the leadership style to the situation — autocratic for urgency, democratic for product vision, laissez-faire for senior experts. The best leaders are situational, not one-dimensional."
+          explanation: "Sam succeeded by matching the leadership style to the situation - autocratic for urgency, democratic for product vision, laissez-faire for senior experts. The best leaders are situational, not one-dimensional."
         }
       },
       {
@@ -242,10 +242,10 @@ export const businessManagementContent: StructuredLessonContent[] = [
             id: "mgmt2-mq1",
             question: "A hospital emergency room director must coordinate staff during a mass casualty event. Which style fits best?",
             options: [
-              "Democratic — gather input from all medical staff before acting",
-              "Laissez-faire — let each doctor decide their own patient priorities",
-              "Autocratic — issue clear directives to coordinate the response",
-              "Collaborative — form committees to discuss treatment protocols"
+              "Democratic - gather input from all medical staff before acting",
+              "Laissez-faire - let each doctor decide their own patient priorities",
+              "Autocratic - issue clear directives to coordinate the response",
+              "Collaborative - form committees to discuss treatment protocols"
             ],
             correctAnswer: 2,
             explanation: "In a mass casualty event, there's no time for discussion. Autocratic leadership provides the clear, immediate coordination needed to save lives."
@@ -254,10 +254,10 @@ export const businessManagementContent: StructuredLessonContent[] = [
             id: "mgmt2-mq2",
             question: "A game design studio wants to brainstorm ideas for their next title. Which leadership approach would generate the most creative output?",
             options: [
-              "Autocratic — the creative director should decide all concepts alone",
-              "Democratic — involve the team in ideation and evaluate ideas together",
-              "Laissez-faire — cancel all meetings and let people work independently",
-              "Hierarchical — have each department submit one idea through their manager"
+              "Autocratic - the creative director should decide all concepts alone",
+              "Democratic - involve the team in ideation and evaluate ideas together",
+              "Laissez-faire - cancel all meetings and let people work independently",
+              "Hierarchical - have each department submit one idea through their manager"
             ],
             correctAnswer: 1,
             explanation: "Creative work benefits from diverse perspectives and collaborative input. Democratic leadership encourages everyone to contribute ideas while maintaining structure."
@@ -303,15 +303,15 @@ export const businessManagementContent: StructuredLessonContent[] = [
         paragraphs: [
           "Organizational structure is the framework that defines how tasks are divided, who reports to whom, and how information flows through a company. Get it right, and people work efficiently. Get it wrong, and even talented teams struggle.",
           "In a flat structure, there are few management layers between employees and leadership. Communication is fast, decisions happen quickly, and everyone feels close to the mission. But as companies grow, flat structures can create confusion about who makes final calls.",
-          "In a hierarchical structure, there are clear chains of command. Roles are well-defined, promotions are visible, and accountability is straightforward. However, too many layers slow decisions and create bureaucracy. The 'span of control' — how many people a manager oversees — determines how wide or tall the org chart looks."
+          "In a hierarchical structure, there are clear chains of command. Roles are well-defined, promotions are visible, and accountability is straightforward. However, too many layers slow decisions and create bureaucracy. The 'span of control' - how many people a manager oversees - determines how wide or tall the org chart looks."
         ],
         bullets: [
-          "Flat structure — fewer layers, faster communication, harder to scale",
-          "Hierarchical structure — clear authority, defined roles, risk of bureaucracy",
-          "Span of control — number of direct reports per manager",
-          "No perfect structure exists — the right one depends on size, culture, and industry"
+          "Flat structure - fewer layers, faster communication, harder to scale",
+          "Hierarchical structure - clear authority, defined roles, risk of bureaucracy",
+          "Span of control - number of direct reports per manager",
+          "No perfect structure exists - the right one depends on size, culture, and industry"
         ],
-        realWorldExample: "Valve, the video game company, famously operates with an almost completely flat structure — employees choose their own projects and there are no formal managers. This works because they hire exceptionally talented, self-motivated people. Meanwhile, McDonald's uses a strict hierarchy because consistency across 40,000 locations demands standardized procedures and clear chains of command. Both companies are successful — with radically different structures."
+        realWorldExample: "Valve, the video game company, famously operates with an almost completely flat structure - employees choose their own projects and there are no formal managers. This works because they hire exceptionally talented, self-motivated people. Meanwhile, McDonald's uses a strict hierarchy because consistency across 40,000 locations demands standardized procedures and clear chains of command. Both companies are successful - with radically different structures."
       },
       {
         type: "micro-check",
@@ -345,13 +345,13 @@ export const businessManagementContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Two Startups, Two Structural Mistakes",
-        narrative: "NovaTech and StructureFirst both started as 8-person teams building similar SaaS products. As they grew, each made a different organizational mistake — and both paid the price.",
+        narrative: "NovaTech and StructureFirst both started as 8-person teams building similar SaaS products. As they grew, each made a different organizational mistake - and both paid the price.",
         details: [
-          "NovaTech stayed flat at 120 employees — no one knew who had final say on product decisions, leading to six months of conflicting priorities",
-          "StructureFirst added four management layers at just 25 employees — every decision needed three approvals, and their product updates took 4x longer than competitors",
+          "NovaTech stayed flat at 120 employees - no one knew who had final say on product decisions, leading to six months of conflicting priorities",
+          "StructureFirst added four management layers at just 25 employees - every decision needed three approvals, and their product updates took 4x longer than competitors",
           "NovaTech eventually lost three key engineers who were frustrated by the lack of clear career paths and role definition",
           "StructureFirst's best designer quit because she had to get approval from people who didn't understand her work",
-          "Both companies eventually restructured — NovaTech added team leads with clear authority, and StructureFirst flattened to two management layers"
+          "Both companies eventually restructured - NovaTech added team leads with clear authority, and StructureFirst flattened to two management layers"
         ]
       },
       {
@@ -376,7 +376,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
           "Hierarchical structures provide clarity but can slow innovation",
           "Span of control determines how many people one manager oversees",
           "The right structure depends on company size, industry, and culture",
-          "Successful companies adapt their structure as they grow — rigidity is the enemy"
+          "Successful companies adapt their structure as they grow - rigidity is the enemy"
         ]
       },
       {
@@ -417,7 +417,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "Narrow span of control always creates flat organizational charts"
             ],
             correctAnswer: 0,
-            explanation: "When managers oversee more people (wider span), you need fewer layers to cover everyone. Narrow spans mean more managers and more layers — creating a taller hierarchy."
+            explanation: "When managers oversee more people (wider span), you need fewer layers to cover everyone. Narrow spans mean more managers and more layers - creating a taller hierarchy."
           },
           {
             id: "mgmt3-mq4",
@@ -429,7 +429,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "Management layers have no effect on company performance or speed"
             ],
             correctAnswer: 0,
-            explanation: "Five layers for 50 people means excessive bureaucracy — decisions pass through too many hands, slowing everything down. Most 50-person companies operate well with 2-3 layers."
+            explanation: "Five layers for 50 people means excessive bureaucracy - decisions pass through too many hands, slowing everything down. Most 50-person companies operate well with 2-3 layers."
           }
         ]
       }
@@ -444,17 +444,17 @@ export const businessManagementContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "SWOT — A Framework for Better Decisions",
+        title: "SWOT - A Framework for Better Decisions",
         paragraphs: [
           "SWOT analysis is one of the most widely used decision-making frameworks in business. It stands for Strengths, Weaknesses, Opportunities, and Threats. By mapping these four areas, you can make more informed decisions about whether to pursue a project, launch a product, or enter a market.",
-          "Strengths and weaknesses are internal — things you control. Your skills, resources, reputation, and team fall into these categories. Opportunities and threats are external — things happening in the market, economy, or competitive landscape that affect you.",
+          "Strengths and weaknesses are internal - things you control. Your skills, resources, reputation, and team fall into these categories. Opportunities and threats are external - things happening in the market, economy, or competitive landscape that affect you.",
           "The power of SWOT isn't just listing items in each box. It's about understanding how they interact. A strength can help you seize an opportunity. A weakness can amplify a threat. The best strategists use SWOT to connect the dots, not just create lists."
         ],
         bullets: [
-          "Strengths — internal advantages you can leverage (skills, brand, resources)",
-          "Weaknesses — internal gaps to address (limited funding, small team)",
-          "Opportunities — external conditions to capitalize on (market trends, gaps)",
-          "Threats — external risks to prepare for (competition, regulation, economy)"
+          "Strengths - internal advantages you can leverage (skills, brand, resources)",
+          "Weaknesses - internal gaps to address (limited funding, small team)",
+          "Opportunities - external conditions to capitalize on (market trends, gaps)",
+          "Threats - external risks to prepare for (competition, regulation, economy)"
         ],
         realWorldExample: "When Netflix decided to shift from DVD-by-mail to streaming, their SWOT looked like this: Strengths included a massive subscriber base and recommendation algorithm. Weaknesses included no streaming content library. Opportunities included growing broadband adoption. Threats included Blockbuster's 10,000 physical stores. By leveraging their strengths against the opportunity, they transformed an entire industry."
       },
@@ -465,22 +465,22 @@ export const businessManagementContent: StructuredLessonContent[] = [
             id: "mgmt4-mc1",
             question: "In a SWOT analysis, which two categories represent factors you can directly control?",
             options: [
-              "Opportunities and threats — external market dynamics",
-              "Strengths and opportunities — positive factors only",
-              "Strengths and weaknesses — internal characteristics",
-              "Weaknesses and threats — negative factors only"
+              "Opportunities and threats - external market dynamics",
+              "Strengths and opportunities - positive factors only",
+              "Strengths and weaknesses - internal characteristics",
+              "Weaknesses and threats - negative factors only"
             ],
             correctAnswer: 2,
-            explanation: "Strengths and weaknesses are internal — they come from within your organization. Opportunities and threats are external — they come from the market and environment."
+            explanation: "Strengths and weaknesses are internal - they come from within your organization. Opportunities and threats are external - they come from the market and environment."
           },
           {
             id: "mgmt4-mc2",
             question: "A coffee shop's experienced baristas are a SWOT _______, while a new competitor opening next door is a SWOT _______.",
             options: [
-              "Opportunity, weakness — because both can be changed over time",
-              "Strength, threat — one is internal advantage, one is external risk",
-              "Weakness, opportunity — one needs improvement, one creates growth",
-              "Threat, strength — competition drives the baristas to work harder"
+              "Opportunity, weakness - because both can be changed over time",
+              "Strength, threat - one is internal advantage, one is external risk",
+              "Weakness, opportunity - one needs improvement, one creates growth",
+              "Threat, strength - competition drives the baristas to work harder"
             ],
             correctAnswer: 1,
             explanation: "Experienced baristas are an internal advantage (strength). A new competitor is an external risk you can't control (threat). SWOT categorization depends on whether the factor is internal or external."
@@ -518,7 +518,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
         takeaways: [
           "SWOT stands for Strengths, Weaknesses, Opportunities, and Threats",
           "Strengths and weaknesses are internal; opportunities and threats are external",
-          "The value of SWOT is in connecting the dots — not just making lists",
+          "The value of SWOT is in connecting the dots - not just making lists",
           "Use strengths to seize opportunities and prepare for threats",
           "SWOT works for personal decisions, business launches, and strategic planning"
         ]
@@ -543,20 +543,20 @@ export const businessManagementContent: StructuredLessonContent[] = [
             id: "mgmt4-mq2",
             question: "New government regulations requiring food trucks to have health inspections would be classified as what in a food truck's SWOT?",
             options: [
-              "Strength — regulations show the government supports food trucks",
-              "Weakness — the food truck should already have health inspections",
-              "Opportunity — inspections will help the truck attract more customers",
-              "Threat — external regulation increases costs and compliance burden"
+              "Strength - regulations show the government supports food trucks",
+              "Weakness - the food truck should already have health inspections",
+              "Opportunity - inspections will help the truck attract more customers",
+              "Threat - external regulation increases costs and compliance burden"
             ],
             correctAnswer: 3,
-            explanation: "Government regulations are external factors outside the business's control. New requirements that increase costs represent a threat — even if the truck can adapt."
+            explanation: "Government regulations are external factors outside the business's control. New requirements that increase costs represent a threat - even if the truck can adapt."
           },
           {
             id: "mgmt4-mq3",
             question: "Why is it important to analyze how SWOT factors interact rather than just listing them?",
             options: [
               "Lists are harder to read than paragraphs in business presentations",
-              "Interactions reveal strategic actions — like using strengths to counter threats",
+              "Interactions reveal strategic actions - like using strengths to counter threats",
               "SWOT categories overlap completely, so listing them is redundant",
               "Business professors require interaction analysis for higher exam scores"
             ],
@@ -567,13 +567,13 @@ export const businessManagementContent: StructuredLessonContent[] = [
             id: "mgmt4-mq4",
             question: "A tech startup's biggest competitor just went bankrupt. In the startup's SWOT, this is best classified as:",
             options: [
-              "A strength — it proves the startup's product is better",
-              "A weakness — the startup may face the same financial issues",
-              "An opportunity — reduced competition creates market share to capture",
-              "A threat — the industry may be declining if competitors are failing"
+              "A strength - it proves the startup's product is better",
+              "A weakness - the startup may face the same financial issues",
+              "An opportunity - reduced competition creates market share to capture",
+              "A threat - the industry may be declining if competitors are failing"
             ],
             correctAnswer: 2,
-            explanation: "A competitor's failure is an external event that creates potential market share for the startup. This is an opportunity — though a savvy analyst would also consider if it signals industry-wide threats."
+            explanation: "A competitor's failure is an external event that creates potential market share for the startup. This is an opportunity - though a savvy analyst would also consider if it signals industry-wide threats."
           }
         ]
       }
@@ -588,18 +588,18 @@ export const businessManagementContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Porter's Five Forces — Understanding Competitive Dynamics",
+        title: "Porter's Five Forces - Understanding Competitive Dynamics",
         paragraphs: [
-          "Michael Porter, a Harvard professor, developed the Five Forces framework to help businesses understand the competitive forces that shape every industry. It goes beyond just looking at your direct competitors — it examines five different pressures that determine how profitable an industry can be.",
+          "Michael Porter, a Harvard professor, developed the Five Forces framework to help businesses understand the competitive forces that shape every industry. It goes beyond just looking at your direct competitors - it examines five different pressures that determine how profitable an industry can be.",
           "The five forces are: competitive rivalry (how intense is competition?), supplier power (can suppliers dictate terms?), buyer power (can customers demand lower prices?), threat of substitutes (can customers switch to alternatives?), and threat of new entrants (how easy is it for new competitors to enter?).",
           "When all five forces are strong, an industry is brutally competitive and profits are thin. When forces are weak, companies can earn outsized profits. Understanding these forces helps businesses decide where to compete and how to position themselves."
         ],
         bullets: [
-          "Competitive rivalry — intensity of competition among existing players",
-          "Supplier power — ability of suppliers to raise prices or limit quality",
-          "Buyer power — ability of customers to demand lower prices or better terms",
-          "Threat of substitutes — availability of alternative products or services",
-          "Threat of new entrants — how easy it is for new competitors to enter the market"
+          "Competitive rivalry - intensity of competition among existing players",
+          "Supplier power - ability of suppliers to raise prices or limit quality",
+          "Buyer power - ability of customers to demand lower prices or better terms",
+          "Threat of substitutes - availability of alternative products or services",
+          "Threat of new entrants - how easy it is for new competitors to enter the market"
         ],
         realWorldExample: "The airline industry is a textbook example of strong Five Forces: intense rivalry (many airlines compete on price), high supplier power (Boeing and Airbus are the only major plane makers), strong buyer power (customers compare prices instantly online), many substitutes (trains, cars, video calls), and moderate threat of new entrants (expensive but budget carriers keep emerging). That's why airline profit margins are notoriously thin."
       },
@@ -616,7 +616,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "The risk that the government will regulate your industry more heavily"
             ],
             correctAnswer: 1,
-            explanation: "Threat of substitutes refers to customers choosing different products that meet the same need. For example, someone might choose a train over a flight — a substitute, not a direct competitor."
+            explanation: "Threat of substitutes refers to customers choosing different products that meet the same need. For example, someone might choose a train over a flight - a substitute, not a direct competitor."
           },
           {
             id: "mgmt5-mc2",
@@ -628,7 +628,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "New competitors are discouraged from entering the marketplace"
             ],
             correctAnswer: 1,
-            explanation: "High buyer power means customers have leverage — perhaps because there are many alternatives or switching costs are low. This forces companies to compete harder on price and quality."
+            explanation: "High buyer power means customers have leverage - perhaps because there are many alternatives or switching costs are low. This forces companies to compete harder on price and quality."
           }
         ]
       },
@@ -637,11 +637,11 @@ export const businessManagementContent: StructuredLessonContent[] = [
         title: "Should a Local Coffee Shop Expand?",
         narrative: "Maya owns a successful single-location coffee shop in a college town. She's considering opening a second location across town. Before committing $150,000 in startup costs, she analyzes the market using Porter's Five Forces.",
         details: [
-          "Competitive rivalry: HIGH — there are 12 coffee shops within 3 miles of the proposed location, including two Starbucks",
-          "Supplier power: MODERATE — Maya sources beans from three local roasters who also supply her competitors",
-          "Buyer power: HIGH — college students are extremely price-sensitive and will walk an extra block for a cheaper latte",
-          "Threat of substitutes: MODERATE — energy drinks, tea shops, and home brewing are popular alternatives",
-          "Threat of new entrants: HIGH — low startup costs mean new coffee shops open (and close) frequently in college towns"
+          "Competitive rivalry: HIGH - there are 12 coffee shops within 3 miles of the proposed location, including two Starbucks",
+          "Supplier power: MODERATE - Maya sources beans from three local roasters who also supply her competitors",
+          "Buyer power: HIGH - college students are extremely price-sensitive and will walk an extra block for a cheaper latte",
+          "Threat of substitutes: MODERATE - energy drinks, tea shops, and home brewing are popular alternatives",
+          "Threat of new entrants: HIGH - low startup costs mean new coffee shops open (and close) frequently in college towns"
         ]
       },
       {
@@ -650,13 +650,13 @@ export const businessManagementContent: StructuredLessonContent[] = [
           id: "mgmt5-aq1",
           question: "Based on Maya's Five Forces analysis, what should concern her MOST about the expansion?",
           options: [
-            "Supplier power — her roasters might stop selling to her entirely",
+            "Supplier power - her roasters might stop selling to her entirely",
             "Intense rivalry combined with high buyer power will compress her profit margins",
-            "The threat of substitutes — students will stop drinking coffee altogether",
-            "Threat of new entrants — the government may ban new coffee shop permits"
+            "The threat of substitutes - students will stop drinking coffee altogether",
+            "Threat of new entrants - the government may ban new coffee shop permits"
           ],
           correctAnswer: 1,
-          explanation: "The combination of 12 competitors (high rivalry) and price-sensitive students (high buyer power) means Maya will face heavy pressure to keep prices low while competing for customers — squeezing margins dangerously."
+          explanation: "The combination of 12 competitors (high rivalry) and price-sensitive students (high buyer power) means Maya will face heavy pressure to keep prices low while competing for customers - squeezing margins dangerously."
         }
       },
       {
@@ -666,7 +666,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
           "Strong forces mean lower profits; weak forces mean higher profit potential",
           "The framework helps businesses understand why some industries are more profitable than others",
           "Analyzing forces BEFORE entering a market prevents costly mistakes",
-          "Forces interact — high rivalry plus high buyer power is worse than either force alone"
+          "Forces interact - high rivalry plus high buyer power is worse than either force alone"
         ]
       },
       {
@@ -679,7 +679,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
             options: [
               "Pharmaceutical companies have lower operating costs than restaurants",
               "Restaurant chains have stronger brand loyalty than drug companies",
-              "Pharma has weaker Five Forces — patents block entrants and buyers have less power",
+              "Pharma has weaker Five Forces - patents block entrants and buyers have less power",
               "Restaurants benefit from higher threat of substitutes which drives innovation"
             ],
             correctAnswer: 2,
@@ -689,13 +689,13 @@ export const businessManagementContent: StructuredLessonContent[] = [
             id: "mgmt5-mq2",
             question: "A software company is the ONLY provider of a specialized tool with no alternatives. Which force is weakest for them?",
             options: [
-              "Competitive rivalry — they have no direct competitors currently",
-              "Supplier power — they don't depend on any external suppliers",
-              "Buyer power — their customers have many choices available",
-              "Threat of new entrants — it's easy for others to build similar tools"
+              "Competitive rivalry - they have no direct competitors currently",
+              "Supplier power - they don't depend on any external suppliers",
+              "Buyer power - their customers have many choices available",
+              "Threat of new entrants - it's easy for others to build similar tools"
             ],
             correctAnswer: 0,
-            explanation: "Being the only provider means competitive rivalry is essentially zero. However, this doesn't mean the company is safe — new entrants or substitutes could emerge."
+            explanation: "Being the only provider means competitive rivalry is essentially zero. However, this doesn't mean the company is safe - new entrants or substitutes could emerge."
           },
           {
             id: "mgmt5-mq3",
@@ -707,19 +707,19 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "New entrants always fail, so existing companies can safely ignore the threat"
             ],
             correctAnswer: 1,
-            explanation: "Even the threat of new competitors entering keeps existing companies disciplined — they can't raise prices too high or stop innovating, because that would create a profit opportunity for entrants."
+            explanation: "Even the threat of new competitors entering keeps existing companies disciplined - they can't raise prices too high or stop innovating, because that would create a profit opportunity for entrants."
           },
           {
             id: "mgmt5-mq4",
             question: "A grocery store's main supplier of organic produce is the only farm within 100 miles. Which Five Force is strongest?",
             options: [
-              "Competitive rivalry — grocery stores compete intensely on produce quality",
-              "Buyer power — customers can easily switch to a different grocery store",
-              "Supplier power — the farm can dictate prices because there's no alternative",
-              "Threat of substitutes — customers will switch to conventional produce instead"
+              "Competitive rivalry - grocery stores compete intensely on produce quality",
+              "Buyer power - customers can easily switch to a different grocery store",
+              "Supplier power - the farm can dictate prices because there's no alternative",
+              "Threat of substitutes - customers will switch to conventional produce instead"
             ],
             correctAnswer: 2,
-            explanation: "With only one supplier available, that farm has enormous leverage — they can raise prices knowing the grocery store has no alternative source for organic produce within 100 miles."
+            explanation: "With only one supplier available, that farm has enormous leverage - they can raise prices knowing the grocery store has no alternative source for organic produce within 100 miles."
           }
         ]
       }
@@ -734,11 +734,11 @@ export const businessManagementContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "KPIs — The Numbers That Actually Matter",
+        title: "KPIs - The Numbers That Actually Matter",
         paragraphs: [
-          "Key Performance Indicators (KPIs) are the specific metrics a business tracks to measure whether it's achieving its goals. Not every number is a KPI — only the ones that directly connect to strategic objectives qualify. Revenue is a metric. Revenue growth rate compared to the industry average is a KPI.",
-          "KPIs fall into two categories: leading and lagging indicators. Lagging indicators measure results that have already happened — like quarterly revenue or annual profit. Leading indicators predict future performance — like customer satisfaction scores or new leads generated this month.",
-          "The best businesses track both types. Lagging indicators tell you where you've been. Leading indicators tell you where you're headed. Relying on only one type is like driving a car using only the rearview mirror — or only looking ahead without checking your gauges."
+          "Key Performance Indicators (KPIs) are the specific metrics a business tracks to measure whether it's achieving its goals. Not every number is a KPI - only the ones that directly connect to strategic objectives qualify. Revenue is a metric. Revenue growth rate compared to the industry average is a KPI.",
+          "KPIs fall into two categories: leading and lagging indicators. Lagging indicators measure results that have already happened - like quarterly revenue or annual profit. Leading indicators predict future performance - like customer satisfaction scores or new leads generated this month.",
+          "The best businesses track both types. Lagging indicators tell you where you've been. Leading indicators tell you where you're headed. Relying on only one type is like driving a car using only the rearview mirror - or only looking ahead without checking your gauges."
         ],
         bullets: [
           "KPIs are metrics directly tied to strategic business objectives",
@@ -746,7 +746,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
           "Lagging indicators measure past results (revenue, profit, churn rate)",
           "Different departments track different KPIs aligned to their specific goals"
         ],
-        realWorldExample: "Amazon tracks hundreds of metrics, but Jeff Bezos famously focused on three KPIs above all others: customer selection (how many products are available), price (are we the cheapest?), and delivery speed (how fast can we get it there?). Every major investment — from warehouses to Prime — was driven by these three KPIs. This focus transformed Amazon from an online bookstore into the world's largest retailer."
+        realWorldExample: "Amazon tracks hundreds of metrics, but Jeff Bezos famously focused on three KPIs above all others: customer selection (how many products are available), price (are we the cheapest?), and delivery speed (how fast can we get it there?). Every major investment - from warehouses to Prime - was driven by these three KPIs. This focus transformed Amazon from an online bookstore into the world's largest retailer."
       },
       {
         type: "micro-check",
@@ -801,13 +801,13 @@ export const businessManagementContent: StructuredLessonContent[] = [
             "Paid advertising is always a bad strategy for online retail businesses"
           ],
           correctAnswer: 1,
-          explanation: "Revenue (a lagging indicator) looked identical for both companies. But leading indicators — retention, acquisition cost, order trends — revealed that ShopFast was on a decline while SteadyGoods was building sustainable growth."
+          explanation: "Revenue (a lagging indicator) looked identical for both companies. But leading indicators - retention, acquisition cost, order trends - revealed that ShopFast was on a decline while SteadyGoods was building sustainable growth."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "KPIs are specific metrics tied to strategic objectives — not just any number",
+          "KPIs are specific metrics tied to strategic objectives - not just any number",
           "Leading indicators predict the future; lagging indicators measure the past",
           "Revenue alone doesn't tell you if a business is healthy or heading for trouble",
           "The best companies focus on a few critical KPIs rather than tracking everything",
@@ -828,7 +828,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "A supplier-related metric that management cannot influence"
             ],
             correctAnswer: 0,
-            explanation: "Rising cancellation requests are a leading indicator — they predict that revenue will decline in the coming months as those cancellations take effect. Acting on this signal early can prevent losses."
+            explanation: "Rising cancellation requests are a leading indicator - they predict that revenue will decline in the coming months as those cancellations take effect. Acting on this signal early can prevent losses."
           },
           {
             id: "mgmt6-mq2",
@@ -864,7 +864,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "The company's office lease terms and real estate expenses this year"
             ],
             correctAnswer: 1,
-            explanation: "Profit is a lagging indicator. Customer acquisition cost and lifetime value are leading indicators that reveal whether that profit growth can continue — or if it was a one-time spike."
+            explanation: "Profit is a lagging indicator. Customer acquisition cost and lifetime value are leading indicators that reveal whether that profit growth can continue - or if it was a one-time spike."
           }
         ]
       }
@@ -881,17 +881,17 @@ export const businessManagementContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The True Cost of Getting Hiring Wrong",
         paragraphs: [
-          "Hiring the right people is one of the most important — and most expensive — decisions a business makes. The U.S. Department of Labor estimates that a bad hire costs a company 30% of that employee's first-year salary. For a $60,000 position, that's $18,000 wasted on recruitment, training, lost productivity, and starting over.",
+          "Hiring the right people is one of the most important - and most expensive - decisions a business makes. The U.S. Department of Labor estimates that a bad hire costs a company 30% of that employee's first-year salary. For a $60,000 position, that's $18,000 wasted on recruitment, training, lost productivity, and starting over.",
           "The hiring process has three critical phases: recruitment (finding candidates), onboarding (integrating new hires), and retention (keeping good employees). Companies that rush recruitment often regret it. Companies that skip onboarding lose people within months. And companies that ignore retention watch their best talent walk to competitors.",
           "There's a well-known saying in business: 'Hire slow, fire fast.' It means taking your time to find the right person is almost always cheaper than quickly hiring the wrong one and dealing with the fallout. The best companies treat hiring as an investment, not an expense."
         ],
         bullets: [
-          "Recruitment — finding and attracting qualified candidates for open positions",
-          "Onboarding — training and integrating new hires into the company culture",
-          "Retention — keeping talented employees through growth, compensation, and culture",
+          "Recruitment - finding and attracting qualified candidates for open positions",
+          "Onboarding - training and integrating new hires into the company culture",
+          "Retention - keeping talented employees through growth, compensation, and culture",
           "A bad hire costs roughly 30% of the position's annual salary in total losses"
         ],
-        realWorldExample: "Zappos, the online shoe retailer, is famous for its hiring culture. After an intensive interview process, new hires go through a 4-week paid training program. At the end, Zappos offers each new employee $2,000 to quit — yes, to leave. Why? Because they'd rather pay $2,000 now than keep someone who isn't truly committed, which would cost far more in the long run. About 97% of new hires stay."
+        realWorldExample: "Zappos, the online shoe retailer, is famous for its hiring culture. After an intensive interview process, new hires go through a 4-week paid training program. At the end, Zappos offers each new employee $2,000 to quit - yes, to leave. Why? Because they'd rather pay $2,000 now than keep someone who isn't truly committed, which would cost far more in the long run. About 97% of new hires stay."
       },
       {
         type: "micro-check",
@@ -906,7 +906,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "Slow hiring is legally required by employment regulations in most states"
             ],
             correctAnswer: 1,
-            explanation: "Carefully evaluating candidates reduces the chance of a bad hire — which costs time, money, and team morale. Rushing the process often leads to expensive mistakes that take months to fix."
+            explanation: "Carefully evaluating candidates reduces the chance of a bad hire - which costs time, money, and team morale. Rushing the process often leads to expensive mistakes that take months to fix."
           },
           {
             id: "mgmt7-mc2",
@@ -918,20 +918,20 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "To comply with government requirements for new employee documentation"
             ],
             correctAnswer: 1,
-            explanation: "Onboarding is about setting new employees up for success — teaching them how the company works, introducing them to their team, and ensuring they can contribute effectively from day one."
+            explanation: "Onboarding is about setting new employees up for success - teaching them how the company works, introducing them to their team, and ensuring they can contribute effectively from day one."
           }
         ]
       },
       {
         type: "scenario",
-        title: "Fast Hire vs. Careful Hire — 18 Month Comparison",
+        title: "Fast Hire vs. Careful Hire - 18 Month Comparison",
         narrative: "Two founders, Kai and Elena, each needed to hire a head of marketing for their growing startups. They took very different approaches, and the results over eighteen months were dramatic.",
         details: [
-          "Kai hired the first impressive candidate after two interviews — the hire started in 10 days",
+          "Kai hired the first impressive candidate after two interviews - the hire started in 10 days",
           "Elena interviewed 23 candidates over 8 weeks, including skills tests and team-fit assessments",
-          "Kai's hire launched three campaigns that failed because they didn't understand the product or customers — total cost: $140,000 in wasted ad spend plus the $95,000 salary",
-          "Elena's hire spent her first month learning the product deeply before launching — her first campaign generated $380,000 in new revenue",
-          "At month 12, Kai had to fire his hire and start the search again — losing another 3 months of productivity",
+          "Kai's hire launched three campaigns that failed because they didn't understand the product or customers - total cost: $140,000 in wasted ad spend plus the $95,000 salary",
+          "Elena's hire spent her first month learning the product deeply before launching - her first campaign generated $380,000 in new revenue",
+          "At month 12, Kai had to fire his hire and start the search again - losing another 3 months of productivity",
           "At month 18, Elena's hire had been promoted and was training a team of three marketing associates"
         ]
       },
@@ -953,7 +953,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
       {
         type: "recap",
         takeaways: [
-          "A bad hire costs roughly 30% of the position's annual salary — often more",
+          "A bad hire costs roughly 30% of the position's annual salary - often more",
           "The three phases of hiring are recruitment, onboarding, and retention",
           "Taking time to evaluate candidates saves money compared to rushing decisions",
           "Strong onboarding programs dramatically improve new hire success and retention",
@@ -968,13 +968,13 @@ export const businessManagementContent: StructuredLessonContent[] = [
             id: "mgmt7-mq1",
             question: "A company has 40% annual employee turnover. Which area of HR should they investigate FIRST?",
             options: [
-              "Recruitment — they may be attracting the wrong type of candidates",
-              "Onboarding — new employees may not be getting enough initial support",
-              "Retention — something is causing trained employees to leave consistently",
-              "Termination — they may be firing too many employees unnecessarily"
+              "Recruitment - they may be attracting the wrong type of candidates",
+              "Onboarding - new employees may not be getting enough initial support",
+              "Retention - something is causing trained employees to leave consistently",
+              "Termination - they may be firing too many employees unnecessarily"
             ],
             correctAnswer: 2,
-            explanation: "40% turnover means nearly half the workforce leaves every year. While recruitment and onboarding matter, the primary issue is retention — why are people leaving after being hired and trained?"
+            explanation: "40% turnover means nearly half the workforce leaves every year. While recruitment and onboarding matter, the primary issue is retention - why are people leaving after being hired and trained?"
           },
           {
             id: "mgmt7-mq2",
@@ -990,7 +990,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
           },
           {
             id: "mgmt7-mq3",
-            question: "A startup founder says 'I don't have time for formal onboarding — we just throw people in and they figure it out.' What is the likely result?",
+            question: "A startup founder says 'I don't have time for formal onboarding - we just throw people in and they figure it out.' What is the likely result?",
             options: [
               "Employees learn faster because they're forced to be independent",
               "Higher early turnover and longer time before new hires become productive",
@@ -998,7 +998,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "New hires prefer this approach because they dislike structured training"
             ],
             correctAnswer: 1,
-            explanation: "Without onboarding, new hires take longer to become productive, make more mistakes, and are more likely to leave within the first few months — all of which cost more than a proper onboarding program."
+            explanation: "Without onboarding, new hires take longer to become productive, make more mistakes, and are more likely to leave within the first few months - all of which cost more than a proper onboarding program."
           },
           {
             id: "mgmt7-mq4",
@@ -1027,17 +1027,17 @@ export const businessManagementContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Ethics, Stakeholders, and the Long Game",
         paragraphs: [
-          "Every business faces ethical dilemmas — situations where the profitable choice and the 'right' choice seem to conflict. Stakeholder theory argues that businesses should consider the impact of their decisions on all stakeholders — employees, customers, communities, and shareholders — not just the bottom line.",
-          "Short-term thinking often leads to cutting corners: using cheaper materials, underpaying workers, or hiding product defects. These decisions might boost quarterly profits, but they create reputational risk — the chance that public exposure of unethical behavior will destroy the company's brand and customer trust.",
-          "Long-term thinking considers how today's decisions affect the company five, ten, or twenty years from now. Companies with strong ethical cultures tend to attract better talent, build deeper customer loyalty, and avoid the catastrophic costs of scandals. Ethics isn't just a moral issue — it's a strategic advantage."
+          "Every business faces ethical dilemmas - situations where the profitable choice and the 'right' choice seem to conflict. Stakeholder theory argues that businesses should consider the impact of their decisions on all stakeholders - employees, customers, communities, and shareholders - not just the bottom line.",
+          "Short-term thinking often leads to cutting corners: using cheaper materials, underpaying workers, or hiding product defects. These decisions might boost quarterly profits, but they create reputational risk - the chance that public exposure of unethical behavior will destroy the company's brand and customer trust.",
+          "Long-term thinking considers how today's decisions affect the company five, ten, or twenty years from now. Companies with strong ethical cultures tend to attract better talent, build deeper customer loyalty, and avoid the catastrophic costs of scandals. Ethics isn't just a moral issue - it's a strategic advantage."
         ],
         bullets: [
-          "Stakeholder theory — consider impact on employees, customers, communities, and investors",
-          "Reputational risk — unethical decisions can permanently destroy brand trust",
-          "Short-term thinking — maximizing immediate profits at the expense of long-term health",
-          "Ethical culture — organizations where doing the right thing is the default behavior"
+          "Stakeholder theory - consider impact on employees, customers, communities, and investors",
+          "Reputational risk - unethical decisions can permanently destroy brand trust",
+          "Short-term thinking - maximizing immediate profits at the expense of long-term health",
+          "Ethical culture - organizations where doing the right thing is the default behavior"
         ],
-        realWorldExample: "In 2015, Volkswagen was caught cheating on emissions tests — software in 11 million cars made them appear cleaner than they actually were. The short-term 'savings' on emissions technology cost VW over $33 billion in fines, buybacks, and legal settlements. Their stock dropped 40%, and their reputation damage lasted years. Meanwhile, Patagonia's commitment to environmental ethics has built one of the most loyal customer bases in retail — customers pay premium prices because they trust the brand."
+        realWorldExample: "In 2015, Volkswagen was caught cheating on emissions tests - software in 11 million cars made them appear cleaner than they actually were. The short-term 'savings' on emissions technology cost VW over $33 billion in fines, buybacks, and legal settlements. Their stock dropped 40%, and their reputation damage lasted years. Meanwhile, Patagonia's commitment to environmental ethics has built one of the most loyal customer bases in retail - customers pay premium prices because they trust the brand."
       },
       {
         type: "micro-check",
@@ -1047,12 +1047,12 @@ export const businessManagementContent: StructuredLessonContent[] = [
             question: "What does stakeholder theory argue businesses should consider when making decisions?",
             options: [
               "Only shareholder profit, since they own the company's equity",
-              "The impact on all stakeholders — employees, customers, communities, and investors",
+              "The impact on all stakeholders - employees, customers, communities, and investors",
               "Government regulations only, ignoring customer and employee concerns",
               "Only the CEO's personal values and leadership philosophy preferences"
             ],
             correctAnswer: 1,
-            explanation: "Stakeholder theory says businesses exist within a web of relationships. Decisions affect employees, customers, suppliers, communities, and shareholders — and considering all of them leads to better long-term outcomes."
+            explanation: "Stakeholder theory says businesses exist within a web of relationships. Decisions affect employees, customers, suppliers, communities, and shareholders - and considering all of them leads to better long-term outcomes."
           },
           {
             id: "mgmt8-mc2",
@@ -1073,11 +1073,11 @@ export const businessManagementContent: StructuredLessonContent[] = [
         title: "Two Companies, Same Dilemma, Different Choices",
         narrative: "FreshBite and QuickMeals are two meal-kit delivery companies. Both discover that one of their suppliers has been using a pesticide that's legal but linked to health concerns in recent studies. Neither company is required by law to act. Here's what happened next.",
         details: [
-          "QuickMeals decided to keep the supplier — switching would cost $400,000 and delay deliveries by two weeks. They chose short-term cost savings and said nothing publicly.",
+          "QuickMeals decided to keep the supplier - switching would cost $400,000 and delay deliveries by two weeks. They chose short-term cost savings and said nothing publicly.",
           "FreshBite immediately disclosed the finding to customers, switched to an organic supplier at higher cost, and offered full refunds to recent customers who were concerned",
-          "Six months later, an investigative journalist published a story about the pesticide — naming QuickMeals as a company that knew but didn't act",
+          "Six months later, an investigative journalist published a story about the pesticide - naming QuickMeals as a company that knew but didn't act",
           "QuickMeals lost 35% of subscribers within 60 days and faced a class-action lawsuit",
-          "FreshBite was praised in the same article for their proactive response — their subscriber base grew 22% as QuickMeals customers switched",
+          "FreshBite was praised in the same article for their proactive response - their subscriber base grew 22% as QuickMeals customers switched",
           "Five years later, FreshBite is the market leader. QuickMeals was acquired at a discount after never recovering their reputation"
         ]
       },
@@ -1103,7 +1103,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
           "Reputational risk from unethical behavior can cost billions and destroy companies",
           "Short-term cost savings from cutting corners often create much larger long-term costs",
           "Companies with strong ethical cultures attract better talent and more loyal customers",
-          "Ethics in business isn't just about morality — it's a strategic competitive advantage"
+          "Ethics in business isn't just about morality - it's a strategic competitive advantage"
         ]
       },
       {
@@ -1132,19 +1132,19 @@ export const businessManagementContent: StructuredLessonContent[] = [
               "Patagonia has no competitors in the outdoor clothing and gear marketplace"
             ],
             correctAnswer: 1,
-            explanation: "Patagonia's genuine commitment to environmental ethics builds deep customer loyalty. People willingly pay more because they trust the brand — proving that ethics can be a powerful profit driver."
+            explanation: "Patagonia's genuine commitment to environmental ethics builds deep customer loyalty. People willingly pay more because they trust the brand - proving that ethics can be a powerful profit driver."
           },
           {
             id: "mgmt8-mq3",
             question: "A CEO argues that the company's only obligation is to maximize shareholder profit. Which perspective does this represent?",
             options: [
-              "Stakeholder theory — considering all groups affected by the business",
-              "Shareholder primacy — prioritizing investor returns above all other groups",
-              "Corporate social responsibility — balancing profit with social impact",
-              "Servant leadership — putting employee needs before company profits"
+              "Stakeholder theory - considering all groups affected by the business",
+              "Shareholder primacy - prioritizing investor returns above all other groups",
+              "Corporate social responsibility - balancing profit with social impact",
+              "Servant leadership - putting employee needs before company profits"
             ],
             correctAnswer: 1,
-            explanation: "Shareholder primacy holds that a company's primary duty is to its owners. Stakeholder theory argues for a broader view — considering employees, customers, and communities alongside shareholders."
+            explanation: "Shareholder primacy holds that a company's primary duty is to its owners. Stakeholder theory argues for a broader view - considering employees, customers, and communities alongside shareholders."
           },
           {
             id: "mgmt8-mq4",

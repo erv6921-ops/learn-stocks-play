@@ -1,6 +1,6 @@
-// Visual identity for InvestiBank — a "private bank" take on InvestiPlay's
+// Visual identity for InvestiBank - a "private bank" take on InvestiPlay's
 // own palette. Same deep-green family as the rest of the app, but dressed as
-// old money: engraved pinstripes, mint trim, plaques and certificates —
+// old money: engraved pinstripes, mint trim, plaques and certificates -
 // still clearly different from Micro-Business's neon office look.
 
 import React from "react"
@@ -34,7 +34,7 @@ export function BankPanel({ className, children }: { className?: string; childre
   )
 }
 
-/** Small plaque for a stat — engraved label, mint numerals. */
+/** Small plaque for a stat - engraved label, mint numerals. */
 export function Plaque({ label, children, className }: { label: string; children: React.ReactNode; className?: string }) {
   return (
     <div

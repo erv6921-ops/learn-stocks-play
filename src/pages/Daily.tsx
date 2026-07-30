@@ -84,7 +84,7 @@ export default function Daily() {
       if (error) {
         // Unique violation → already completed today (e.g. another tab).
         console.error("[daily completion insert]", error)
-        toast.error("Couldn't save — you may have already played today.")
+        toast.error("Couldn't save - you may have already played today.")
         setCompletion({ game_type: gameType, score, coins_earned: coins })
         setSubmitting(false)
         return
@@ -92,7 +92,7 @@ export default function Daily() {
       if (coins > 0) {
         earnJeffs(coins, `Daily Game: ${gameTypeLabel(gameType)}`)
         toast.success(`+${coins} InvestiCoins!`, {
-          description: "Nice work — come back tomorrow for more.",
+          description: "Nice work - come back tomorrow for more.",
         })
       }
       setCompletion({ game_type: gameType, score, coins_earned: coins })

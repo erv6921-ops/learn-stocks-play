@@ -28,7 +28,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Ignoring their portfolio completely during long market rallies"
         ],
         correctAnswer: 2,
-        explanation: "Loss-averse investors often refuse to sell losers because selling makes the loss feel 'real.' Holding on lets them avoid the pain of admitting a mistake — even when selling is smarter."
+        explanation: "Loss-averse investors often refuse to sell losers because selling makes the loss feel 'real.' Holding on lets them avoid the pain of admitting a mistake - even when selling is smarter."
       },
       {
         id: "behavior-1-q3",
@@ -40,7 +40,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Anchoring to analyst price targets she read online recently"
         ],
         correctAnswer: 1,
-        explanation: "Maya is avoiding the emotional pain of locking in a loss — the hallmark of loss aversion. The loss already happened on paper; refusing to sell doesn't undo it."
+        explanation: "Maya is avoiding the emotional pain of locking in a loss - the hallmark of loss aversion. The loss already happened on paper; refusing to sell doesn't undo it."
       },
       {
         id: "behavior-1-q4",
@@ -76,7 +76,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Feeling no emotions helped hunters stay calm under pressure"
         ],
         correctAnswer: 0,
-        explanation: "For early humans, missing a meal was survivable but ignoring a predator was fatal. Overweighting losses kept our ancestors alive — but the same wiring misfires in modern markets."
+        explanation: "For early humans, missing a meal was survivable but ignoring a predator was fatal. Overweighting losses kept our ancestors alive - but the same wiring misfires in modern markets."
       },
       {
         id: "behavior-1-q7",
@@ -100,7 +100,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Losing money automatically unlocks riskier investments in most apps"
         ],
         correctAnswer: 1,
-        explanation: "Because losses hurt so much, people desperate to erase them often take reckless gambles to 'get back to even' — the same trap that keeps casino gamblers at the table."
+        explanation: "Because losses hurt so much, people desperate to erase them often take reckless gambles to 'get back to even' - the same trap that keeps casino gamblers at the table."
       }
     ]
   },
@@ -119,7 +119,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Believing every prediction from your favorite financial news channel"
         ],
         correctAnswer: 1,
-        explanation: "Anchoring means the first piece of information you encounter — often a number — becomes a mental reference point that biases every judgment afterward."
+        explanation: "Anchoring means the first piece of information you encounter - often a number - becomes a mental reference point that biases every judgment afterward."
       },
       {
         id: "behavior-2-q2",
@@ -131,7 +131,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "The price you originally paid for a stock"
         ],
         correctAnswer: 3,
-        explanation: "Your purchase price is a powerful anchor — investors judge every future price against it, even though the market doesn't know or care what you paid."
+        explanation: "Your purchase price is a powerful anchor - investors judge every future price against it, even though the market doesn't know or care what you paid."
       },
       {
         id: "behavior-2-q3",
@@ -143,7 +143,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Discounts remove sales tax from the final price"
         ],
         correctAnswer: 0,
-        explanation: "The original $120 price acts as an anchor, so $60 feels like a steal by comparison — even if the hoodie was never worth $120. Retailers use this trick constantly."
+        explanation: "The original $120 price acts as an anchor, so $60 feels like a steal by comparison - even if the hoodie was never worth $120. Retailers use this trick constantly."
       },
       {
         id: "behavior-2-q4",
@@ -167,7 +167,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "They may judge all future prices against $200"
         ],
         correctAnswer: 3,
-        explanation: "Once $200 is planted in their mind, any price below it can feel like a 'deal' — even if the target was just one analyst's guess."
+        explanation: "Once $200 is planted in their mind, any price below it can feel like a 'deal' - even if the target was just one analyst's guess."
       },
       {
         id: "behavior-2-q6",
@@ -179,7 +179,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Asking friends what they originally paid for shares"
         ],
         correctAnswer: 1,
-        explanation: "Asking 'what is this business worth today, based on its earnings and prospects?' — as if seeing it for the first time — strips old numbers of their anchoring power."
+        explanation: "Asking 'what is this business worth today, based on its earnings and prospects?' - as if seeing it for the first time - strips old numbers of their anchoring power."
       },
       {
         id: "behavior-2-q7",
@@ -191,7 +191,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "The high only matters for stocks paying dividends"
         ],
         correctAnswer: 2,
-        explanation: "A stock that fell from $100 to $40 isn't automatically a bargain — the business may genuinely be worth less now. The old high is history, not a promise."
+        explanation: "A stock that fell from $100 to $40 isn't automatically a bargain - the business may genuinely be worth less now. The old high is history, not a promise."
       },
       {
         id: "behavior-2-q8",
@@ -234,7 +234,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Asking a skeptical friend to poke holes in your thesis"
         ],
         correctAnswer: 0,
-        explanation: "Filtering your reading to only positive coverage of stocks you own is textbook confirmation bias — you're collecting cheerleading, not information."
+        explanation: "Filtering your reading to only positive coverage of stocks you own is textbook confirmation bias - you're collecting cheerleading, not information."
       },
       {
         id: "behavior-3-q3",
@@ -282,7 +282,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Actively seeking the strongest case against your idea"
         ],
         correctAnswer: 3,
-        explanation: "Deliberately hunting for the best opposing argument — sometimes called 'steelmanning' — forces you to test your idea instead of just decorating it with agreement."
+        explanation: "Deliberately hunting for the best opposing argument - sometimes called 'steelmanning' - forces you to test your idea instead of just decorating it with agreement."
       },
       {
         id: "behavior-3-q7",
@@ -306,7 +306,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "New buyers stop receiving analyst reports after purchase"
         ],
         correctAnswer: 2,
-        explanation: "Once your money and ego are invested, admitting the stock was a mistake hurts — so your brain works overtime to dismiss warning signs you'd otherwise notice."
+        explanation: "Once your money and ego are invested, admitting the stock was a mistake hurts - so your brain works overtime to dismiss warning signs you'd otherwise notice."
       }
     ]
   },
@@ -325,7 +325,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Trusting professional fund managers more than your instincts"
         ],
         correctAnswer: 0,
-        explanation: "Overconfidence means believing your knowledge, skill, or forecasts are better than they really are — which leads investors to take risks they don't fully understand."
+        explanation: "Overconfidence means believing your knowledge, skill, or forecasts are better than they really are - which leads investors to take risks they don't fully understand."
       },
       {
         id: "behavior-4-q2",
@@ -337,7 +337,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Setting up automatic deposits into a savings account"
         ],
         correctAnswer: 2,
-        explanation: "Studies show overconfident investors trade far more often — and the extra fees and mistimed bets cause them to underperform investors who trade less."
+        explanation: "Studies show overconfident investors trade far more often - and the extra fees and mistimed bets cause them to underperform investors who trade less."
       },
       {
         id: "behavior-4-q3",
@@ -349,7 +349,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Three wins always guarantee that a loss comes next"
         ],
         correctAnswer: 1,
-        explanation: "Three trades is far too small a sample to prove skill — in a rising market almost anyone can win three times. Betting bigger on luck is how accounts blow up."
+        explanation: "Three trades is far too small a sample to prove skill - in a rising market almost anyone can win three times. Betting bigger on luck is how accounts blow up."
       },
       {
         id: "behavior-4-q4",
@@ -397,7 +397,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "We judge ourselves by intentions, not measured results"
         ],
         correctAnswer: 3,
-        explanation: "It's mathematically impossible for most people to be above average, yet surveys consistently show they believe it — we grade ourselves on effort and intent rather than outcomes."
+        explanation: "It's mathematically impossible for most people to be above average, yet surveys consistently show they believe it - we grade ourselves on effort and intent rather than outcomes."
       },
       {
         id: "behavior-4-q8",
@@ -409,7 +409,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Bull markets erase all trading fees and taxes"
         ],
         correctAnswer: 1,
-        explanation: "When nearly everything goes up, even random picks win — and investors credit their genius instead of the rising tide. The mistake gets exposed when the market turns."
+        explanation: "When nearly everything goes up, even random picks win - and investors credit their genius instead of the rising tide. The mistake gets exposed when the market turns."
       }
     ]
   },
@@ -428,7 +428,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Buying only large well-known companies with famous brands"
         ],
         correctAnswer: 1,
-        explanation: "Herd behavior means making investment decisions because 'everyone else is doing it' rather than from your own analysis — following the crowd off a cliff, sometimes."
+        explanation: "Herd behavior means making investment decisions because 'everyone else is doing it' rather than from your own analysis - following the crowd off a cliff, sometimes."
       },
       {
         id: "behavior-5-q2",
@@ -440,7 +440,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Buying a stock only because everyone else is"
         ],
         correctAnswer: 3,
-        explanation: "When popularity itself is the entire reason for buying, that's herding. The other choices involve actual reasons — research, fundamentals, or documented facts."
+        explanation: "When popularity itself is the entire reason for buying, that's herding. The other choices involve actual reasons - research, fundamentals, or documented facts."
       },
       {
         id: "behavior-5-q3",
@@ -452,7 +452,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "The company's strong dividend history over many years"
         ],
         correctAnswer: 0,
-        explanation: "Kai bought because his friends did — pure herd behavior. Social proof feels safe, but the crowd knows nothing about whether the price makes sense."
+        explanation: "Kai bought because his friends did - pure herd behavior. Social proof feels safe, but the crowd knows nothing about whether the price makes sense."
       },
       {
         id: "behavior-5-q4",
@@ -476,7 +476,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Crowds piling in push prices past real value"
         ],
         correctAnswer: 3,
-        explanation: "Bubbles inflate when waves of buyers join simply because prices are rising and everyone else is in — herding pushes prices far beyond what fundamentals justify."
+        explanation: "Bubbles inflate when waves of buyers join simply because prices are rising and everyone else is in - herding pushes prices far beyond what fundamentals justify."
       },
       {
         id: "behavior-5-q6",
@@ -488,7 +488,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Short the stock since crowds are always wrong"
         ],
         correctAnswer: 1,
-        explanation: "Popularity is not analysis. The crowd is sometimes right and sometimes wrong — the only way to know is to evaluate the investment yourself before acting."
+        explanation: "Popularity is not analysis. The crowd is sometimes right and sometimes wrong - the only way to know is to evaluate the investment yourself before acting."
       },
       {
         id: "behavior-5-q7",
@@ -500,7 +500,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Investors today face no real dangers worth fleeing from"
         ],
         correctAnswer: 2,
-        explanation: "Running with the group protected early humans from predators. In markets, though, buying what's already popular usually means paying peak prices — the crowd's comfort costs you returns."
+        explanation: "Running with the group protected early humans from predators. In markets, though, buying what's already popular usually means paying peak prices - the crowd's comfort costs you returns."
       },
       {
         id: "behavior-5-q8",
@@ -512,7 +512,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Market extremes only occur when every investor already agrees"
         ],
         correctAnswer: 0,
-        explanation: "At peaks and panics, emotions run highest and uncertainty feels unbearable — so people look to the crowd for reassurance exactly when the crowd is most likely wrong."
+        explanation: "At peaks and panics, emotions run highest and uncertainty feels unbearable - so people look to the crowd for reassurance exactly when the crowd is most likely wrong."
       }
     ]
   },
@@ -531,7 +531,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Fear of moving on quickly"
         ],
         correctAnswer: 2,
-        explanation: "FOMO — the fear of missing out — is the anxious feeling that others are getting rich without you, which pressures you into rushed, poorly researched investments."
+        explanation: "FOMO - the fear of missing out - is the anxious feeling that others are getting rich without you, which pressures you into rushed, poorly researched investments."
       },
       {
         id: "behavior-6-q2",
@@ -543,7 +543,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "It causes people to prefer safe government bonds"
         ],
         correctAnswer: 0,
-        explanation: "FOMO creates urgency — the feeling that waiting even a day means missing the gains. That urgency short-circuits the research a smart purchase requires."
+        explanation: "FOMO creates urgency - the feeling that waiting even a day means missing the gains. That urgency short-circuits the research a smart purchase requires."
       },
       {
         id: "behavior-6-q3",
@@ -591,7 +591,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Urgency triggers FOMO and short-circuits careful thinking"
         ],
         correctAnswer: 3,
-        explanation: "Artificial deadlines manufacture fear of missing out, pushing people to act before thinking. Legitimate investments rarely vanish overnight — urgency is a classic scam ingredient."
+        explanation: "Artificial deadlines manufacture fear of missing out, pushing people to act before thinking. Legitimate investments rarely vanish overnight - urgency is a classic scam ingredient."
       },
       {
         id: "behavior-6-q7",
@@ -615,7 +615,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "They get priority access to future stock offerings"
         ],
         correctAnswer: 2,
-        explanation: "Chasing hype means buying after big run-ups and panic-selling after drops — the exact opposite of buy low, sell high. Studies show performance-chasers lag the market badly."
+        explanation: "Chasing hype means buying after big run-ups and panic-selling after drops - the exact opposite of buy low, sell high. Studies show performance-chasers lag the market badly."
       }
     ]
   },
@@ -670,7 +670,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Revenge trading driven by regret and frustration"
         ],
         correctAnswer: 3,
-        explanation: "Jade is trading to soothe regret, not because the stock became a better value. Revenge trading swaps analysis for emotion — usually at the worst possible price."
+        explanation: "Jade is trading to soothe regret, not because the stock became a better value. Revenge trading swaps analysis for emotion - usually at the worst possible price."
       },
       {
         id: "behavior-7-q5",
@@ -682,7 +682,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "It hides your losses so they hurt less"
         ],
         correctAnswer: 2,
-        explanation: "When markets get scary, a plan written in a calm moment tells you exactly what to do — so your past rational self overrules your present panicked self."
+        explanation: "When markets get scary, a plan written in a calm moment tells you exactly what to do - so your past rational self overrules your present panicked self."
       },
       {
         id: "behavior-7-q6",
@@ -706,7 +706,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Greed peaks near tops and fear near bottoms"
         ],
         correctAnswer: 3,
-        explanation: "Excitement is strongest after prices have already soared, and terror is strongest after they've already crashed — so emotions push people to buy at peaks and sell at lows."
+        explanation: "Excitement is strongest after prices have already soared, and terror is strongest after they've already crashed - so emotions push people to buy at peaks and sell at lows."
       },
       {
         id: "behavior-7-q8",
@@ -773,7 +773,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Triggering capital gains taxes on her original purchase"
         ],
         correctAnswer: 2,
-        explanation: "Her written thesis lets her check whether anything fundamental actually changed. If her original reasons still hold, the dip is noise — not a reason to panic-sell."
+        explanation: "Her written thesis lets her check whether anything fundamental actually changed. If her original reasons still hold, the dip is noise - not a reason to panic-sell."
       },
       {
         id: "behavior-8-q5",
@@ -809,7 +809,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
           "Only professional investors are capable of overcoming biases"
         ],
         correctAnswer: 2,
-        explanation: "Biases fire fast and unconsciously — even experts who study them still fall for them. Systems like rules, automation, and checklists catch what awareness alone misses."
+        explanation: "Biases fire fast and unconsciously - even experts who study them still fall for them. Systems like rules, automation, and checklists catch what awareness alone misses."
       },
       {
         id: "behavior-8-q8",

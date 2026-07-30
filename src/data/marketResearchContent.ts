@@ -12,16 +12,16 @@ export const marketResearchContent: StructuredLessonContent[] = [
         title: "What Is Market Research and Why Businesses Can't Skip It",
         paragraphs: [
           "Market research is the systematic process of gathering, analyzing, and interpreting information about a market, a product, or a service to be offered for sale. It answers critical questions: Who are your customers? What do they need? How big is the opportunity? What are competitors doing? Without research, every business decision is a guess.",
-          "The cost of skipping market research is enormous. Studies show that 42% of startups fail because there is no market need for their product. These failures are not caused by bad products — they are caused by building the right product for the wrong market, or the wrong product for the right market. Research prevents both mistakes.",
+          "The cost of skipping market research is enormous. Studies show that 42% of startups fail because there is no market need for their product. These failures are not caused by bad products - they are caused by building the right product for the wrong market, or the wrong product for the right market. Research prevents both mistakes.",
           "Market research is not just for large corporations with dedicated departments. Any business, even a student selling tutoring services, benefits from understanding demand, competition, and customer preferences before investing time and money."
         ],
         bullets: [
-          "Market research — the systematic process of collecting and analyzing data about markets, customers, and competitors",
-          "It answers who, what, where, when, why, and how much — the questions every business needs answered before launch",
-          "42% of startups fail due to no market need — research is the primary tool for avoiding this outcome",
-          "Research applies at every scale — from solo entrepreneurs to Fortune 500 corporations"
+          "Market research - the systematic process of collecting and analyzing data about markets, customers, and competitors",
+          "It answers who, what, where, when, why, and how much - the questions every business needs answered before launch",
+          "42% of startups fail due to no market need - research is the primary tool for avoiding this outcome",
+          "Research applies at every scale - from solo entrepreneurs to Fortune 500 corporations"
         ],
-        realWorldExample: "Before launching the Swiffer, Procter & Gamble spent months researching how people actually clean their floors. They observed families in their homes and discovered that mopping was universally hated — too messy, too slow, too complicated. That research insight led directly to a product that generated over $500 million in its first year."
+        realWorldExample: "Before launching the Swiffer, Procter & Gamble spent months researching how people actually clean their floors. They observed families in their homes and discovered that mopping was universally hated - too messy, too slow, too complicated. That research insight led directly to a product that generated over $500 million in its first year."
       },
       {
         type: "micro-check",
@@ -48,7 +48,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "Because small businesses cannot succeed without hiring a professional research firm to collect customer data"
             ],
             correctAnswer: 0,
-            explanation: "Market research scales to any size. A student selling tutoring services benefits from knowing what subjects are in demand, what competitors charge, and what students actually want — just as much as a corporation launching a new product."
+            explanation: "Market research scales to any size. A student selling tutoring services benefits from knowing what subjects are in demand, what competitors charge, and what students actually want - just as much as a corporation launching a new product."
           }
         ]
       },
@@ -57,8 +57,8 @@ export const marketResearchContent: StructuredLessonContent[] = [
         title: "Two Students Launch Tutoring Businesses",
         narrative: "Jasmine surveys 50 classmates before starting her tutoring business. She discovers math tutoring has the highest demand, students prefer evening sessions, and the going rate is $20-25/hour. She launches with math-only evening sessions at $22/hour. Marcus assumes everyone needs help with English because he excels at it. He launches English tutoring at $30/hour during lunch breaks.",
         details: [
-          "Jasmine fills all her tutoring slots within two weeks — her pricing, subject, and timing match actual demand",
-          "Marcus gets two clients in the first month — demand for English tutoring is lower, lunch breaks are inconvenient, and his price is above market",
+          "Jasmine fills all her tutoring slots within two weeks - her pricing, subject, and timing match actual demand",
+          "Marcus gets two clients in the first month - demand for English tutoring is lower, lunch breaks are inconvenient, and his price is above market",
           "Jasmine's 30-minute survey cost her nothing but saved her from making the same assumptions that crippled Marcus"
         ]
       },
@@ -74,14 +74,14 @@ export const marketResearchContent: StructuredLessonContent[] = [
             "Jasmine had more friends at school who were willing to support her business as personal favors"
           ],
           correctAnswer: 0,
-          explanation: "Jasmine researched actual demand (math > English), preferences (evening > lunch), and pricing ($20-25 range). Marcus skipped research entirely and built around assumptions. The research — not the subject — made the difference."
+          explanation: "Jasmine researched actual demand (math > English), preferences (evening > lunch), and pricing ($20-25 range). Marcus skipped research entirely and built around assumptions. The research - not the subject - made the difference."
         }
       },
       {
         type: "recap",
         takeaways: [
           "Market research is the systematic process of gathering data about markets, customers, and competitors",
-          "42% of startups fail because there is no market need — research is the primary defense against this",
+          "42% of startups fail because there is no market need - research is the primary defense against this",
           "Even simple research like surveying 50 potential customers can prevent costly assumptions",
           "Research applies at every business scale, from student side hustles to multinational corporations"
         ]
@@ -94,7 +94,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
             id: "mr1-mastery",
             question: "A student wants to start a meal prep delivery service for busy families. Before investing $500 in equipment, what should they do FIRST?",
             options: [
-              "Buy the equipment immediately and start cooking — speed to market matters more than research for small businesses",
+              "Buy the equipment immediately and start cooking - speed to market matters more than research for small businesses",
               "Survey local families to understand demand, meal preferences, price sensitivity, and delivery timing before spending anything",
               "Create a professional website and social media presence to build brand awareness before researching the market",
               "Study the financial statements of major meal prep companies to understand the industry's profit margins"
@@ -117,17 +117,17 @@ export const marketResearchContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Primary Research Methods",
         paragraphs: [
-          "Primary research is original data that you collect yourself, directly from sources. It is custom-designed to answer your specific business questions. The four main primary research methods are surveys, interviews, focus groups, and observations — each with distinct strengths and ideal use cases.",
-          "Surveys collect standardized data from many respondents efficiently. They work best for measuring preferences, satisfaction, and demographics at scale. Interviews go deeper — one-on-one conversations reveal motivations, frustrations, and stories that surveys miss. Focus groups bring 6-10 people together for guided discussion, generating insights through group dynamics and debate.",
+          "Primary research is original data that you collect yourself, directly from sources. It is custom-designed to answer your specific business questions. The four main primary research methods are surveys, interviews, focus groups, and observations - each with distinct strengths and ideal use cases.",
+          "Surveys collect standardized data from many respondents efficiently. They work best for measuring preferences, satisfaction, and demographics at scale. Interviews go deeper - one-on-one conversations reveal motivations, frustrations, and stories that surveys miss. Focus groups bring 6-10 people together for guided discussion, generating insights through group dynamics and debate.",
           "Observation means watching how people actually behave, rather than asking how they behave (people often say one thing and do another). A retailer might observe which aisles customers visit first, or a website might track which buttons users click. Observation reveals real behavior, which is often different from reported behavior."
         ],
         bullets: [
-          "Surveys — standardized questions to many people; best for quantitative data at scale",
-          "Interviews — deep one-on-one conversations; best for understanding motivations and stories",
-          "Focus groups — guided group discussions of 6-10 people; best for generating ideas and testing reactions",
-          "Observation — watching real behavior; best for revealing what people actually do versus what they say"
+          "Surveys - standardized questions to many people; best for quantitative data at scale",
+          "Interviews - deep one-on-one conversations; best for understanding motivations and stories",
+          "Focus groups - guided group discussions of 6-10 people; best for generating ideas and testing reactions",
+          "Observation - watching real behavior; best for revealing what people actually do versus what they say"
         ],
-        realWorldExample: "IKEA sends researchers into people's homes to observe how they actually live. They discovered that many families eat dinner on the couch, not at a dining table. This observation led to products like lap trays and couch-friendly side tables — products that surveys about 'ideal dinner settings' would never have revealed."
+        realWorldExample: "IKEA sends researchers into people's homes to observe how they actually live. They discovered that many families eat dinner on the couch, not at a dining table. This observation led to products like lap trays and couch-friendly side tables - products that surveys about 'ideal dinner settings' would never have revealed."
       },
       {
         type: "micro-check",
@@ -142,7 +142,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "When you need to collect data from thousands of respondents simultaneously across multiple geographic regions"
             ],
             correctAnswer: 0,
-            explanation: "People often report ideal behavior rather than actual behavior in surveys. Observation captures reality — what customers actually do, not what they say they do. This gap between stated and actual behavior is a key research insight."
+            explanation: "People often report ideal behavior rather than actual behavior in surveys. Observation captures reality - what customers actually do, not what they say they do. This gap between stated and actual behavior is a key research insight."
           },
           {
             id: "mr2-mc2",
@@ -154,18 +154,18 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "Interviews eliminate all respondent bias because people are always more honest in face-to-face conversations"
             ],
             correctAnswer: 0,
-            explanation: "Interviews trade breadth for depth. While surveys collect surface-level data from many people, interviews uncover the 'why' behind decisions — motivations, frustrations, and detailed stories that reveal unmet needs."
+            explanation: "Interviews trade breadth for depth. While surveys collect surface-level data from many people, interviews uncover the 'why' behind decisions - motivations, frustrations, and detailed stories that reveal unmet needs."
           }
         ]
       },
       {
         type: "scenario",
         title: "Choosing the Right Research Method",
-        narrative: "A school cafeteria wants to improve its lunch menu. The manager uses three methods. First, a survey asks all 800 students to rate current menu items and suggest new ones (broad data). Second, interviews with 15 students reveal that the real issue is not the food itself but the long wait times — students skip lunch rather than wait. Third, observation during lunch hour confirms that 30% of students leave the line before ordering.",
+        narrative: "A school cafeteria wants to improve its lunch menu. The manager uses three methods. First, a survey asks all 800 students to rate current menu items and suggest new ones (broad data). Second, interviews with 15 students reveal that the real issue is not the food itself but the long wait times - students skip lunch rather than wait. Third, observation during lunch hour confirms that 30% of students leave the line before ordering.",
         details: [
-          "The survey revealed what students wanted to eat — but missed the real problem entirely",
+          "The survey revealed what students wanted to eat - but missed the real problem entirely",
           "The interviews uncovered the wait time issue that students did not mention in the structured survey format",
-          "Observation confirmed the interview insights with hard behavioral data — 30% abandoning the line was undeniable evidence"
+          "Observation confirmed the interview insights with hard behavioral data - 30% abandoning the line was undeniable evidence"
         ]
       },
       {
@@ -174,9 +174,9 @@ export const marketResearchContent: StructuredLessonContent[] = [
           id: "mr2-aq1",
           question: "Why did the cafeteria need all three research methods to understand the full problem?",
           options: [
-            "Each method revealed different layers — surveys showed preferences, interviews uncovered hidden problems, and observation confirmed real behavior",
-            "The first two methods failed completely and only the third method — observation — produced any useful information",
-            "Using three methods was unnecessary — the survey alone would have been sufficient if it included more questions",
+            "Each method revealed different layers - surveys showed preferences, interviews uncovered hidden problems, and observation confirmed real behavior",
+            "The first two methods failed completely and only the third method - observation - produced any useful information",
+            "Using three methods was unnecessary - the survey alone would have been sufficient if it included more questions",
             "The manager was required by school policy to use at least three different research methods before making changes"
           ],
           correctAnswer: 0,
@@ -186,7 +186,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
       {
         type: "recap",
         takeaways: [
-          "Primary research is original data you collect yourself — surveys, interviews, focus groups, and observations",
+          "Primary research is original data you collect yourself - surveys, interviews, focus groups, and observations",
           "Surveys provide broad quantitative data; interviews provide deep qualitative understanding",
           "Focus groups generate ideas through group dynamics; observation reveals actual behavior",
           "The strongest research combines multiple methods to capture both breadth and depth of insight"
@@ -206,7 +206,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "A focus group of teachers discussing their perceptions of how students feel about digital homework assistance"
             ],
             correctAnswer: 1,
-            explanation: "The question asks 'why' — which requires depth, context, and personal stories. Interviews are the best method for understanding motivations and reasoning. Surveys would capture preference but not the reasons behind it."
+            explanation: "The question asks 'why' - which requires depth, context, and personal stories. Interviews are the best method for understanding motivations and reasoning. Surveys would capture preference but not the reasons behind it."
           }
         ]
       }
@@ -221,19 +221,19 @@ export const marketResearchContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Secondary Research — Using Existing Data",
+        title: "Secondary Research - Using Existing Data",
         paragraphs: [
-          "Secondary research uses data that already exists — collected by someone else for a different purpose but applicable to your questions. It includes government statistics, industry reports, academic studies, competitor filings, news articles, and public databases. Secondary research is faster and cheaper than primary research, making it an essential starting point.",
+          "Secondary research uses data that already exists - collected by someone else for a different purpose but applicable to your questions. It includes government statistics, industry reports, academic studies, competitor filings, news articles, and public databases. Secondary research is faster and cheaper than primary research, making it an essential starting point.",
           "Government sources like the U.S. Census Bureau, Bureau of Labor Statistics, and Federal Reserve publish massive amounts of free data on demographics, employment, income, spending, and economic trends. Industry reports from firms like IBISWorld, Statista, and McKinsey provide market size, growth rates, and competitive analysis. Academic research offers peer-reviewed studies on consumer behavior and market dynamics.",
           "The limitation of secondary data is that it was not designed for your specific question. It may be outdated, too broad, or collected using different definitions. Smart researchers start with secondary data to understand the landscape, then use primary research to fill gaps and answer specific questions."
         ],
         bullets: [
-          "Government sources — Census, BLS, Federal Reserve provide free demographic, economic, and industry data",
-          "Industry reports — market size, growth rates, trends, and competitive analysis from research firms",
-          "Academic research — peer-reviewed studies on consumer behavior, market dynamics, and business strategy",
-          "Key limitation — secondary data may be outdated, too broad, or not perfectly matched to your specific question"
+          "Government sources - Census, BLS, Federal Reserve provide free demographic, economic, and industry data",
+          "Industry reports - market size, growth rates, trends, and competitive analysis from research firms",
+          "Academic research - peer-reviewed studies on consumer behavior, market dynamics, and business strategy",
+          "Key limitation - secondary data may be outdated, too broad, or not perfectly matched to your specific question"
         ],
-        realWorldExample: "When Airbnb was starting, they used secondary data from the U.S. Census and travel industry reports to estimate the size of the short-term rental market. This free data helped them build investor presentations showing a $500 billion travel market — without spending anything on custom research."
+        realWorldExample: "When Airbnb was starting, they used secondary data from the U.S. Census and travel industry reports to estimate the size of the short-term rental market. This free data helped them build investor presentations showing a $500 billion travel market - without spending anything on custom research."
       },
       {
         type: "micro-check",
@@ -248,7 +248,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "It eliminates the need for primary research entirely since all relevant information is already publicly available"
             ],
             correctAnswer: 0,
-            explanation: "Speed and cost are the biggest advantages. Secondary data already exists — you just need to find and analyze it. This makes it an ideal starting point before investing in more expensive primary research."
+            explanation: "Speed and cost are the biggest advantages. Secondary data already exists - you just need to find and analyze it. This makes it an ideal starting point before investing in more expensive primary research."
           },
           {
             id: "mr3-mc2",
@@ -260,16 +260,16 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "Because secondary research automatically generates the survey questions needed for primary research collection"
             ],
             correctAnswer: 0,
-            explanation: "Secondary research maps the landscape — what is already known about market size, demographics, and trends. This foundation helps you design focused primary research that fills specific gaps rather than duplicating existing knowledge."
+            explanation: "Secondary research maps the landscape - what is already known about market size, demographics, and trends. This foundation helps you design focused primary research that fills specific gaps rather than duplicating existing knowledge."
           }
         ]
       },
       {
         type: "scenario",
         title: "Research on a Budget",
-        narrative: "Two students want to open a smoothie stand near a college campus. Elena uses free secondary data: Census data shows 15,000 students aged 18-24 in the area, a health food industry report shows smoothie sales growing 8% annually, and competitor Yelp reviews reveal complaints about long wait times. This free research gives her a market size estimate and a competitive advantage to target (speed). Ryan skips all secondary data and immediately spends $200 on a custom survey — but his questions are unfocused because he doesn't know what the market already looks like.",
+        narrative: "Two students want to open a smoothie stand near a college campus. Elena uses free secondary data: Census data shows 15,000 students aged 18-24 in the area, a health food industry report shows smoothie sales growing 8% annually, and competitor Yelp reviews reveal complaints about long wait times. This free research gives her a market size estimate and a competitive advantage to target (speed). Ryan skips all secondary data and immediately spends $200 on a custom survey - but his questions are unfocused because he doesn't know what the market already looks like.",
         details: [
-          "Elena's free secondary research took three hours and provided a market estimate, growth trend, and competitive gap — all at zero cost",
+          "Elena's free secondary research took three hours and provided a market estimate, growth trend, and competitive gap - all at zero cost",
           "Ryan's $200 survey produced scattered results because he asked broad questions without first understanding the market landscape",
           "If Ryan had started with secondary data, he could have designed a focused survey asking about smoothie preferences and willingness to pay for faster service"
         ]
@@ -280,19 +280,19 @@ export const marketResearchContent: StructuredLessonContent[] = [
           id: "mr3-aq1",
           question: "Why did Elena's free secondary research produce more actionable insights than Ryan's $200 survey?",
           options: [
-            "Because secondary research mapped the landscape first — market size, trends, and competitive gaps — making any follow-up research more focused",
+            "Because secondary research mapped the landscape first - market size, trends, and competitive gaps - making any follow-up research more focused",
             "Because surveys are fundamentally unreliable and should never be used for market research purposes",
             "Because Elena was more experienced at business research and Ryan was a complete beginner in the field",
             "Because government census data is always more accurate than any survey data collected by private individuals"
           ],
           correctAnswer: 0,
-          explanation: "Elena's secondary research provided context — how big is the market, is it growing, and what are competitors doing wrong. This foundation made her prepared to ask the right primary research questions. Ryan jumped to primary research without context."
+          explanation: "Elena's secondary research provided context - how big is the market, is it growing, and what are competitors doing wrong. This foundation made her prepared to ask the right primary research questions. Ryan jumped to primary research without context."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Secondary research uses existing data — government statistics, industry reports, academic studies, and public databases",
+          "Secondary research uses existing data - government statistics, industry reports, academic studies, and public databases",
           "It is faster and cheaper than primary research, making it the ideal starting point for any investigation",
           "Limitations include potential for outdated, overly broad, or imperfectly matched data",
           "The best approach starts with secondary research to map the landscape, then uses primary research to fill specific gaps"
@@ -330,14 +330,14 @@ export const marketResearchContent: StructuredLessonContent[] = [
         title: "Qualitative vs Quantitative Research",
         paragraphs: [
           "All market research falls into two categories: qualitative (exploring ideas and understanding why) and quantitative (measuring numbers and proving how much). They answer fundamentally different questions, and the strongest research programs use both strategically.",
-          "Qualitative research is exploratory — it seeks to understand motivations, feelings, and experiences through open-ended questions, interviews, and observation. It answers 'why' and 'how' questions. Sample sizes are small (10-30 participants) but insights are deep. Results cannot be generalized to an entire population but reveal patterns, themes, and hypotheses worth testing.",
-          "Quantitative research is confirmatory — it measures, counts, and tests hypotheses using structured data collection. Surveys with closed-ended questions, web analytics, and sales data are quantitative. Sample sizes are large (hundreds or thousands) and results can be generalized. It answers 'how many,' 'how often,' and 'how much' questions."
+          "Qualitative research is exploratory - it seeks to understand motivations, feelings, and experiences through open-ended questions, interviews, and observation. It answers 'why' and 'how' questions. Sample sizes are small (10-30 participants) but insights are deep. Results cannot be generalized to an entire population but reveal patterns, themes, and hypotheses worth testing.",
+          "Quantitative research is confirmatory - it measures, counts, and tests hypotheses using structured data collection. Surveys with closed-ended questions, web analytics, and sales data are quantitative. Sample sizes are large (hundreds or thousands) and results can be generalized. It answers 'how many,' 'how often,' and 'how much' questions."
         ],
         bullets: [
-          "Qualitative — exploratory, small samples, open-ended, reveals motivations and stories (the 'why')",
-          "Quantitative — confirmatory, large samples, structured, measures frequency and magnitude (the 'how much')",
-          "Best practice — use qualitative first to explore and generate hypotheses, then quantitative to test and measure",
-          "Neither is superior — they answer different questions and are most powerful when combined"
+          "Qualitative - exploratory, small samples, open-ended, reveals motivations and stories (the 'why')",
+          "Quantitative - confirmatory, large samples, structured, measures frequency and magnitude (the 'how much')",
+          "Best practice - use qualitative first to explore and generate hypotheses, then quantitative to test and measure",
+          "Neither is superior - they answer different questions and are most powerful when combined"
         ],
         realWorldExample: "Netflix uses both methods constantly. Qualitative research (small focus groups, user interviews) helps them understand why viewers binge certain shows. Quantitative data (viewing statistics from 230 million subscribers) tells them exactly how many people watch, when they stop, and what they watch next. The qualitative 'why' informs the quantitative 'what.'"
       },
@@ -354,7 +354,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "When the target audience is too small for any quantitative data collection to produce meaningful results"
             ],
             correctAnswer: 0,
-            explanation: "Qualitative research is ideal for exploration — understanding a new problem, discovering unexpected insights, and forming hypotheses. These hypotheses can then be tested and measured quantitatively with larger samples."
+            explanation: "Qualitative research is ideal for exploration - understanding a new problem, discovering unexpected insights, and forming hypotheses. These hypotheses can then be tested and measured quantitatively with larger samples."
           },
           {
             id: "mr4-mc2",
@@ -373,10 +373,10 @@ export const marketResearchContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Qualitative Then Quantitative: App Redesign",
-        narrative: "A fitness app sees declining user engagement. First, they interview 20 users (qualitative) and discover a common theme: the app feels overwhelming — too many features on the home screen. This hypothesis is then tested with a quantitative survey of 5,000 users: 73% agree the home screen has too many options, and 61% say they would use the app more with a simplified interface. The app team redesigns with confidence, knowing the change is supported by both stories and statistics.",
+        narrative: "A fitness app sees declining user engagement. First, they interview 20 users (qualitative) and discover a common theme: the app feels overwhelming - too many features on the home screen. This hypothesis is then tested with a quantitative survey of 5,000 users: 73% agree the home screen has too many options, and 61% say they would use the app more with a simplified interface. The app team redesigns with confidence, knowing the change is supported by both stories and statistics.",
         details: [
           "The qualitative interviews revealed the problem (overwhelming interface) that analytics data alone could not explain",
-          "The quantitative survey confirmed the problem was widespread — not just an opinion of 20 users but felt by 73% of all users",
+          "The quantitative survey confirmed the problem was widespread - not just an opinion of 20 users but felt by 73% of all users",
           "Without qualitative first, the team might have tested the wrong hypotheses; without quantitative second, they could not justify the redesign investment"
         ]
       },
@@ -401,7 +401,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
           "Qualitative research explores the 'why' with small samples and open-ended methods like interviews",
           "Quantitative research measures the 'how much' with large samples and structured methods like surveys",
           "The best practice is qualitative first (explore and hypothesize) then quantitative (test and measure)",
-          "Neither method is superior — they answer different questions and are most powerful when combined strategically"
+          "Neither method is superior - they answer different questions and are most powerful when combined strategically"
         ]
       },
       {
@@ -435,17 +435,17 @@ export const marketResearchContent: StructuredLessonContent[] = [
         type: "concept",
         title: "How to Read and Interpret Market Research Data",
         paragraphs: [
-          "Collecting data is only half the job — interpreting it correctly is where real business insight happens. Data interpretation means looking at numbers, charts, and patterns and translating them into actionable business decisions. Poor interpretation leads to poor decisions, even when the data itself is excellent.",
+          "Collecting data is only half the job - interpreting it correctly is where real business insight happens. Data interpretation means looking at numbers, charts, and patterns and translating them into actionable business decisions. Poor interpretation leads to poor decisions, even when the data itself is excellent.",
           "Key interpretation skills include reading charts (bar, line, pie), identifying trends (upward, downward, stable), spotting outliers (data points that deviate significantly from the pattern), understanding correlation vs causation (two things moving together does not mean one causes the other), and calculating basic metrics like percentages, averages, and growth rates.",
           "Common data interpretation mistakes include cherry-picking (selecting only data that supports a pre-existing belief), confusing correlation with causation, ignoring sample size (a survey of 5 people is not reliable), and anchoring on a single data point instead of looking at the full trend. Good analysts question their data before trusting it."
         ],
         bullets: [
-          "Trend analysis — identifying upward, downward, or stable patterns over time in data series",
-          "Outlier detection — recognizing data points that deviate significantly and investigating why",
-          "Correlation vs causation — two things moving together does not mean one causes the other",
-          "Common mistakes — cherry-picking, ignoring sample size, and anchoring on single data points"
+          "Trend analysis - identifying upward, downward, or stable patterns over time in data series",
+          "Outlier detection - recognizing data points that deviate significantly and investigating why",
+          "Correlation vs causation - two things moving together does not mean one causes the other",
+          "Common mistakes - cherry-picking, ignoring sample size, and anchoring on single data points"
         ],
-        realWorldExample: "Ice cream sales and drowning deaths both increase in summer. A careless analyst might conclude ice cream causes drowning. The real explanation is a third variable — hot weather — that increases both independently. This is the classic example of confusing correlation with causation."
+        realWorldExample: "Ice cream sales and drowning deaths both increase in summer. A careless analyst might conclude ice cream causes drowning. The real explanation is a third variable - hot weather - that increases both independently. This is the classic example of confusing correlation with causation."
       },
       {
         type: "micro-check",
@@ -454,13 +454,13 @@ export const marketResearchContent: StructuredLessonContent[] = [
             id: "mr5-mc1",
             question: "What does 'correlation does not equal causation' mean in market research?",
             options: [
-              "Two variables moving together does not prove that one causes the other — a third factor may explain both",
+              "Two variables moving together does not prove that one causes the other - a third factor may explain both",
               "Market research data is fundamentally unreliable and should never be used to draw causal conclusions",
               "Correlation is always stronger evidence than causation for making important business strategy decisions",
               "Only experiments conducted in laboratory settings can establish correlation between market variables"
             ],
             correctAnswer: 0,
-            explanation: "Just because two things happen together doesn't mean one causes the other. Ice cream sales and drowning both rise in summer — but ice cream doesn't cause drowning. Hot weather (a third variable) explains both."
+            explanation: "Just because two things happen together doesn't mean one causes the other. Ice cream sales and drowning both rise in summer - but ice cream doesn't cause drowning. Hot weather (a third variable) explains both."
           },
           {
             id: "mr5-mc2",
@@ -472,18 +472,18 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "Because data should always be selected randomly from the smallest available sample to minimize processing time"
             ],
             correctAnswer: 0,
-            explanation: "Cherry-picking means ignoring data that contradicts your preferred conclusion. This creates false confidence — you feel supported by 'evidence' while overlooking warnings. Good analysts actively seek out contradictory data."
+            explanation: "Cherry-picking means ignoring data that contradicts your preferred conclusion. This creates false confidence - you feel supported by 'evidence' while overlooking warnings. Good analysts actively seek out contradictory data."
           }
         ]
       },
       {
         type: "scenario",
         title: "Two Analysts, Same Data, Different Conclusions",
-        narrative: "A clothing store's monthly sales data shows: January $10K, February $8K, March $12K, April $9K, May $15K, June $11K. Analyst A says 'Sales are trending upward — we should expand!' pointing to the overall January-to-June growth. Analyst B says 'Sales are volatile with no clear trend — the ups and downs cancel out. We should investigate what causes the swings before expanding.' Analyst B also notes the small sample (6 months) makes any trend claim unreliable.",
+        narrative: "A clothing store's monthly sales data shows: January $10K, February $8K, March $12K, April $9K, May $15K, June $11K. Analyst A says 'Sales are trending upward - we should expand!' pointing to the overall January-to-June growth. Analyst B says 'Sales are volatile with no clear trend - the ups and downs cancel out. We should investigate what causes the swings before expanding.' Analyst B also notes the small sample (6 months) makes any trend claim unreliable.",
         details: [
           "Analyst A cherry-picked the start and end points (January to June looks like growth) while ignoring the volatility in between",
           "Analyst B correctly identified that the data is too volatile and the sample too small to declare a reliable upward trend",
-          "The real insight is in the volatility — what causes the ups and downs? Answering that question is more valuable than declaring a trend"
+          "The real insight is in the volatility - what causes the ups and downs? Answering that question is more valuable than declaring a trend"
         ]
       },
       {
@@ -498,7 +498,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
             "Analyst B had more years of experience in retail analytics and therefore deserved more credibility from management"
           ],
           correctAnswer: 0,
-          explanation: "Analyst B applied critical thinking — noting that 6 months of volatile data is insufficient to declare a trend, and that investigating the cause of volatility is more actionable than declaring 'growth.' Good interpretation means questioning the data, not just reporting it."
+          explanation: "Analyst B applied critical thinking - noting that 6 months of volatile data is insufficient to declare a trend, and that investigating the cause of volatility is more actionable than declaring 'growth.' Good interpretation means questioning the data, not just reporting it."
         }
       },
       {
@@ -518,13 +518,13 @@ export const marketResearchContent: StructuredLessonContent[] = [
             id: "mr5-mastery",
             question: "A student's online store sees a spike in sales every time they post on social media. They conclude 'social media posts directly cause sales increases.' What critical thinking question should they ask before acting on this conclusion?",
             options: [
-              "Could a third factor — like posting on paydays or weekends when people shop more — explain both the posts and the sales spikes simultaneously?",
+              "Could a third factor - like posting on paydays or weekends when people shop more - explain both the posts and the sales spikes simultaneously?",
               "Should they stop posting on social media entirely to see if sales continue at the same rate without any promotional activity?",
               "Is their social media follower count large enough to qualify as a statistically significant sample for academic research?",
               "Should they hire a professional data scientist to confirm the correlation before making any changes to their posting schedule?"
             ],
             correctAnswer: 0,
-            explanation: "This is a correlation-causation question. The posts and sales may both be caused by a third variable — perhaps they post on weekends when people have more time to browse and shop. Before investing heavily in social media, they should test whether the timing (not the post itself) drives sales."
+            explanation: "This is a correlation-causation question. The posts and sales may both be caused by a third variable - perhaps they post on weekends when people have more time to browse and shop. Before investing heavily in social media, they should test whether the timing (not the post itself) drives sales."
           }
         ]
       }
@@ -532,23 +532,23 @@ export const marketResearchContent: StructuredLessonContent[] = [
   },
 
   // ═══════════════════════════════════════════════
-  // MR-6: Market Sizing — TAM, SAM, SOM
+  // MR-6: Market Sizing - TAM, SAM, SOM
   // ═══════════════════════════════════════════════
   {
     lessonId: "mr-6",
     sections: [
       {
         type: "concept",
-        title: "Market Sizing — TAM, SAM, and SOM",
+        title: "Market Sizing - TAM, SAM, and SOM",
         paragraphs: [
           "Market sizing is the process of estimating how big a business opportunity is in dollar terms. Investors, executives, and entrepreneurs all need to know: if everything goes perfectly, how much revenue could this business generate? Market sizing answers this question at three levels of specificity.",
-          "TAM (Total Addressable Market) is the total global demand for your product or service if you had zero competition and unlimited resources. SAM (Serviceable Addressable Market) is the portion of TAM that your business model can realistically serve — limited by geography, technology, and business model. SOM (Serviceable Obtainable Market) is the realistic share you can capture in the near term, given competition and current resources.",
+          "TAM (Total Addressable Market) is the total global demand for your product or service if you had zero competition and unlimited resources. SAM (Serviceable Addressable Market) is the portion of TAM that your business model can realistically serve - limited by geography, technology, and business model. SOM (Serviceable Obtainable Market) is the realistic share you can capture in the near term, given competition and current resources.",
           "These three concentric circles help businesses and investors set realistic expectations. A startup claiming 'our TAM is $50 billion' sounds impressive but means nothing without SAM and SOM context. If their SAM is $500 million and their realistic SOM is $5 million, the conversation becomes much more grounded and credible."
         ],
         bullets: [
-          "TAM — Total Addressable Market: the entire global demand for a product category with zero limitations",
-          "SAM — Serviceable Addressable Market: the portion your business model can realistically reach and serve",
-          "SOM — Serviceable Obtainable Market: the realistic share you can capture given competition and current resources",
+          "TAM - Total Addressable Market: the entire global demand for a product category with zero limitations",
+          "SAM - Serviceable Addressable Market: the portion your business model can realistically reach and serve",
+          "SOM - Serviceable Obtainable Market: the realistic share you can capture given competition and current resources",
           "Think of them as concentric circles: TAM is the largest, SAM fits inside, and SOM is the smallest and most realistic"
         ],
         realWorldExample: "When Uber launched: TAM = the entire global transportation market ($5.4 trillion). SAM = the ridesharing segment in cities where smartphone adoption was high enough ($300 billion). SOM = their initial launch cities in the first year ($100 million). Investors funded Uber because of the massive TAM, but Uber focused execution on achievable SOM targets."
@@ -587,7 +587,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
         title: "Market Sizing a Student Tutoring Business",
         narrative: "A student calculates market size for a math tutoring service. TAM: all K-12 students in the U.S. who need tutoring = $12 billion market. SAM: high school students within 10 miles of campus who can afford private tutoring = $2 million market. SOM: the 30 students she can realistically tutor in year one at $25/hour, 4 hours/week, 40 weeks = $120,000. An investor (her parents) feels much more confident funding supplies when she can show exactly how she'll earn that $120K.",
         details: [
-          "The TAM ($12B) shows the tutoring industry is large and growing — this is not a tiny niche with no potential",
+          "The TAM ($12B) shows the tutoring industry is large and growing - this is not a tiny niche with no potential",
           "The SAM ($2M) shows meaningful local demand exists within her reachable geography and price range",
           "The SOM ($120K) shows a specific, achievable revenue target based on realistic capacity and pricing assumptions"
         ]
@@ -596,9 +596,9 @@ export const marketResearchContent: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr6-aq1",
-          question: "Why would presenting only the $12 billion TAM — without SAM and SOM — be ineffective when pitching to her parents?",
+          question: "Why would presenting only the $12 billion TAM - without SAM and SOM - be ineffective when pitching to her parents?",
           options: [
-            "Because TAM alone gives no indication of what she can realistically achieve — SAM and SOM provide the credible, grounded plan",
+            "Because TAM alone gives no indication of what she can realistically achieve - SAM and SOM provide the credible, grounded plan",
             "Because her parents would not believe the tutoring industry is worth $12 billion and would assume the number is fabricated",
             "Because TAM is only relevant for publicly traded companies and has no application to small local service businesses",
             "Because presenting multiple numbers confuses investors and she should only share the single most impressive figure"
@@ -612,7 +612,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
         takeaways: [
           "TAM is the total global demand; SAM is the reachable portion; SOM is the realistic near-term capture",
           "Market sizing helps businesses and investors set grounded expectations about revenue potential",
-          "Presenting only TAM without SAM and SOM lacks credibility — all three levels are needed for a complete picture",
+          "Presenting only TAM without SAM and SOM lacks credibility - all three levels are needed for a complete picture",
           "SOM is the most actionable metric for near-term planning because it reflects actual resources and competition"
         ]
       },
@@ -638,7 +638,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
   },
 
   // ═══════════════════════════════════════════════
-  // MR-7: Case Study — Research-Driven Launch
+  // MR-7: Case Study - Research-Driven Launch
   // ═══════════════════════════════════════════════
   {
     lessonId: "mr-7",
@@ -648,14 +648,14 @@ export const marketResearchContent: StructuredLessonContent[] = [
         title: "Case Study: How Slack Used Market Research to Pivot and Launch",
         paragraphs: [
           "Slack, the workplace communication tool used by millions, was never supposed to exist. It started as an internal tool built by a gaming company called Tiny Speck while developing a game called Glitch. When the game failed, the team noticed something remarkable: the communication tool they built for their own team was better than anything else on the market. Market research confirmed this insight and guided one of the most successful pivots in tech history.",
-          "The team conducted primary research — interviewing companies of different sizes about their communication frustrations. They discovered universal pain points: email was too slow and formal, existing chat tools were ugly and unreliable, and information was scattered across too many platforms. Quantitative research confirmed that 78% of knowledge workers felt overwhelmed by their communication tools.",
+          "The team conducted primary research - interviewing companies of different sizes about their communication frustrations. They discovered universal pain points: email was too slow and formal, existing chat tools were ugly and unreliable, and information was scattered across too many platforms. Quantitative research confirmed that 78% of knowledge workers felt overwhelmed by their communication tools.",
           "They validated market size through secondary research: the enterprise collaboration market was $8 billion and growing 13% annually. Their SOM was initially just 5,000 companies in their beta. By combining qualitative insights (what people hated about existing tools) with quantitative validation (how widespread the problem was), Slack launched with confidence and reached $1 billion in annual revenue within five years."
         ],
         bullets: [
-          "Origin — Slack was an internal tool that pivoted to become a product after market research validated the opportunity",
-          "Primary research — interviews revealed universal frustration with email and existing chat tools",
-          "Quantitative validation — 78% of knowledge workers felt overwhelmed by communication tools",
-          "Secondary research — the $8 billion enterprise collaboration market confirmed the opportunity was large enough"
+          "Origin - Slack was an internal tool that pivoted to become a product after market research validated the opportunity",
+          "Primary research - interviews revealed universal frustration with email and existing chat tools",
+          "Quantitative validation - 78% of knowledge workers felt overwhelmed by communication tools",
+          "Secondary research - the $8 billion enterprise collaboration market confirmed the opportunity was large enough"
         ],
         realWorldExample: "Slack's beta launch strategy was itself a research tool. They invited 8,000 companies to test the product and tracked every feature used, every complaint filed, and every feature request. This behavioral data (primary, quantitative, observational) shaped the product before public launch."
       },
@@ -666,10 +666,10 @@ export const marketResearchContent: StructuredLessonContent[] = [
             id: "mr7-mc1",
             question: "What type of research did Slack's team conduct when interviewing companies about their communication frustrations?",
             options: [
-              "Primary qualitative research — collecting original data through interviews to explore motivations and pain points deeply",
-              "Secondary quantitative research — analyzing existing numerical data from published industry reports",
-              "Primary quantitative research — distributing standardized surveys with closed-ended numerical rating scales",
-              "Secondary qualitative research — reviewing published case studies about communication tool adoption trends"
+              "Primary qualitative research - collecting original data through interviews to explore motivations and pain points deeply",
+              "Secondary quantitative research - analyzing existing numerical data from published industry reports",
+              "Primary quantitative research - distributing standardized surveys with closed-ended numerical rating scales",
+              "Secondary qualitative research - reviewing published case studies about communication tool adoption trends"
             ],
             correctAnswer: 0,
             explanation: "Interviews with companies were primary (original data collected by Slack's team) and qualitative (open-ended exploration of frustrations and needs). This method revealed the specific pain points that shaped Slack's product design."
@@ -678,13 +678,13 @@ export const marketResearchContent: StructuredLessonContent[] = [
             id: "mr7-mc2",
             question: "How did Slack use their beta program as a research tool?",
             options: [
-              "They tracked feature usage, complaints, and requests from 8,000 beta companies — using behavioral observation to shape the product",
+              "They tracked feature usage, complaints, and requests from 8,000 beta companies - using behavioral observation to shape the product",
               "They used the beta program exclusively to generate press coverage and early revenue, not for research purposes",
               "They only allowed companies that had already purchased the full product to join the beta testing program",
               "They asked beta companies to submit formal academic research papers about their communication workflow challenges"
             ],
             correctAnswer: 0,
-            explanation: "The beta was a massive observation study — tracking real behavior (which features were used, which were ignored, what problems arose) across 8,000 companies. This quantitative behavioral data was more reliable than asking people what they wanted."
+            explanation: "The beta was a massive observation study - tracking real behavior (which features were used, which were ignored, what problems arose) across 8,000 companies. This quantitative behavioral data was more reliable than asking people what they wanted."
           }
         ]
       },
@@ -693,7 +693,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
         title: "What Would Have Happened Without Research?",
         narrative: "Imagine Slack's team had skipped market research after their game failed. Without interviews, they might have assumed their internal tool was only useful for game developers. Without the 78% statistic, they might not have realized the communication problem was universal. Without market sizing, they might have underestimated the opportunity and built a small niche product instead of a platform. Without beta observation data, they might have launched with wrong features prioritized.",
         details: [
-          "Without qualitative research, they would have missed the insight that the problem was universal — not specific to gaming companies",
+          "Without qualitative research, they would have missed the insight that the problem was universal - not specific to gaming companies",
           "Without quantitative validation, they would have lacked confidence to pursue a massive pivot from gaming to enterprise software",
           "Without market sizing (TAM/SAM/SOM), they could not have raised the venture capital funding needed to scale the product globally",
           "Research did not guarantee success, but it dramatically reduced the risk of a $1 billion bet on a pivot from a failed game"
@@ -737,7 +737,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
               "Build a premium version with advanced features and charge students twenty dollars per month before testing demand"
             ],
             correctAnswer: 1,
-            explanation: "Just like Slack, the first step is qualitative exploration: is the problem universal or niche? Interviewing students across subjects and schools reveals whether 'flashcard frustration' extends beyond one chemistry class — the same insight that transformed Slack from a gaming tool into a universal platform."
+            explanation: "Just like Slack, the first step is qualitative exploration: is the problem universal or niche? Interviewing students across subjects and schools reveals whether 'flashcard frustration' extends beyond one chemistry class - the same insight that transformed Slack from a gaming tool into a universal platform."
           }
         ]
       }

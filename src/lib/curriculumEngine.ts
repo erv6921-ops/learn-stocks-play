@@ -3,7 +3,7 @@
  * 
  * Dynamically restructures lesson flow per unit based on
  * the user's Benchmark Assessment results. Each unit adapts
- * independently — a user can be advanced in one area and
+ * independently - a user can be advanced in one area and
  * foundational in another.
  */
 

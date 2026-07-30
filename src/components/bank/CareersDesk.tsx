@@ -1,9 +1,9 @@
-// Careers desk for the Virtual Bank — a long-running "living job", built the
+// Careers desk for the Virtual Bank - a long-running "living job", built the
 // same way MicroBusinessOffice runs the business over weeks.
 //
 // The loop: every work week your desk gets a procedurally generated deal
-// (lib/careerSim). You play its decision stages, then WRITE the deliverable —
-// a deal memo / client letter with a word minimum, Micro-Business style —
+// (lib/careerSim). You play its decision stages, then WRITE the deliverable -
+// a deal memo / client letter with a word minimum, Micro-Business style -
 // before the week closes. Pay = rank salary + performance bonus (scaled by
 // reputation) + a writing stipend. Memos accumulate in a "work file" so
 // students build a body of writing. Authored milestone deals are promotion
@@ -43,7 +43,7 @@ function CareerPicker({ onPick }: { onPick: (id: string) => void }) {
       <div className="text-center space-y-1.5">
         <h2 className="font-display text-2xl font-extrabold">Choose your career</h2>
         <p className="text-sm text-muted-foreground max-w-md mx-auto">
-          Take a real job in finance. Work deals week after week, write real memos, earn a salary, and climb six ranks to the top. Switch anytime — every career remembers your progress.
+          Take a real job in finance. Work deals week after week, write real memos, earn a salary, and climb six ranks to the top. Switch anytime - every career remembers your progress.
         </p>
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
@@ -83,7 +83,7 @@ function CareerPicker({ onPick }: { onPick: (id: string) => void }) {
                   <p className="text-sm text-muted-foreground leading-relaxed">{career.description}</p>
                   {week ? (
                     <Badge variant="secondary" className="gap-1 text-[11px]">
-                      <CalendarDays className="h-3 w-3" /> Week {week} · {xp} Rep — continue
+                      <CalendarDays className="h-3 w-3" /> Week {week} · {xp} Rep - continue
                     </Badge>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-xs font-bold" style={{ color: career.accent }}>
@@ -223,7 +223,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
               </>
             ) : (
               <p className="text-xs text-muted-foreground text-center py-1">
-                No new pay — beat your best ({prevBest}/{maxPoints}) to earn more.
+                No new pay - beat your best ({prevBest}/{maxPoints}) to earn more.
               </p>
             )}
 
@@ -277,7 +277,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
               rows={7}
               value={memoText}
               onChange={e => setMemoText(e.target.value)}
-              placeholder={`Think about the choices you just made in "${deal.title}" — what did you decide, and why was it right (or wrong)?`}
+              placeholder={`Think about the choices you just made in "${deal.title}" - what did you decide, and why was it right (or wrong)?`}
               className={cn("text-sm leading-relaxed", memoOk && "border-emerald-500/50")}
             />
             <Button onClick={submitMemo} disabled={!memoOk} size="lg" className="w-full press-scale gap-1.5">
@@ -401,7 +401,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
 
 /* ══════════════════════════ Office moment ══════════════════════════ */
 
-// Stable fallback — returning a fresh [] from a zustand selector causes an
+// Stable fallback - returning a fresh [] from a zustand selector causes an
 // infinite re-render loop (new reference every snapshot).
 const NO_WEEKS: number[] = []
 
@@ -481,7 +481,7 @@ function WorkFile({ career }: { career: Career }) {
         </p>
         {memos.length === 0 ? (
           <p className="text-xs text-muted-foreground">
-            Every {memoSpec(career.id).title.toLowerCase()} you write gets filed here — your body of work on the {career.name} desk.
+            Every {memoSpec(career.id).title.toLowerCase()} you write gets filed here - your body of work on the {career.name} desk.
           </p>
         ) : (
           <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
@@ -532,7 +532,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
   const weeksWorked = week - 1
   const salary = salaryForRank(currentIdx)
 
-  // Light "employee ID badge" stat chip — deliberately not the dark HUD look.
+  // Light "employee ID badge" stat chip - deliberately not the dark HUD look.
   const BadgeChip = ({ icon: I, label, value, color }: { icon: typeof Star; label: string; value: string; color?: string }) => (
     <div className="rounded-lg border border-border bg-muted/40 px-3 py-1.5 text-center min-w-[64px]">
       <p className="text-[9px] text-muted-foreground uppercase font-bold flex items-center gap-1 justify-center"><I className="h-3 w-3" />{label}</p>
@@ -609,7 +609,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ color: career.accent }}>
-                      Promotion case {xp >= (next?.minXp ?? 0) ? "— ready now!" : "— coming up"}
+                      Promotion case {xp >= (next?.minXp ?? 0) ? "- ready now!" : "- coming up"}
                     </p>
                     <p className="font-display font-extrabold text-sm">{nextMilestone.title}</p>
                     <p className="text-xs text-muted-foreground truncate">{nextMilestone.tagline}</p>

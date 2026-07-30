@@ -28,7 +28,7 @@ import {
 // NOTE: These features use smart rule-based logic (no external AI calls).
 
 type Update = (fn: (s: BusinessGameState) => BusinessGameState) => void;
-const money = (n: number) => `${n < 0 ? "−" : ""}${Math.abs(Math.round(n)).toLocaleString()}`;
+const money = (n: number) => `${n < 0 ? "-" : ""}${Math.abs(Math.round(n)).toLocaleString()}`;
 const NEON = "#00ff88";
 
 /* ════════════════════════════ ORCHESTRATOR ════════════════════════════ */
@@ -67,16 +67,16 @@ export default function MicroBusinessOffice() {
       const newCogs = Math.round(rev * 0.4);
       const rent = 80, marketing = 45, other = 25;
 
-      // 3. Rule-based weekly-report insight — pick the most relevant rule from the P&L.
+      // 3. Rule-based weekly-report insight - pick the most relevant rule from the P&L.
       const weekExpenses = newCogs + marketing + rent + other;
       const weekNet = rev - weekExpenses;
       const margin = rev > 0 ? weekNet / rev : 0;
       const prevRev = s.history.length ? s.history[s.history.length - 1].revenue : 0;
       let insight: string;
-      if (weekNet < 0) insight = "Your expenses exceeded revenue this week — review your largest cost category.";
-      else if (margin < 0.1) insight = "Thin margins — consider raising prices or cutting COGS.";
-      else if (rev > prevRev) insight = "Strong week — keep your top revenue stream consistent.";
-      else insight = "Steady week — trim one cost and push one revenue stream next week.";
+      if (weekNet < 0) insight = "Your expenses exceeded revenue this week - review your largest cost category.";
+      else if (margin < 0.1) insight = "Thin margins - consider raising prices or cutting COGS.";
+      else if (rev > prevRev) insight = "Strong week - keep your top revenue stream consistent.";
+      else insight = "Steady week - trim one cost and push one revenue stream next week.";
 
       update((st) => {
         const employees = quit ? [] : st.employees;
@@ -104,7 +104,7 @@ export default function MicroBusinessOffice() {
         return next;
       });
       awardXP(8, "Completed a business week");
-      if (quit) toast.error("Your employees quit!", { description: "You skipped payroll — reputation took a hit." });
+      if (quit) toast.error("Your employees quit!", { description: "You skipped payroll - reputation took a hit." });
       else toast.success(`Week ${s.week} complete`, { description: "Weekly report generated. +8 InvestiCoins" });
     } finally {
       setAdvancing(false);
@@ -197,7 +197,7 @@ function Head({ icon: Icon, title, sub }: { icon: LucideIcon; title: string; sub
   );
 }
 
-/* ═══ FEATURE 1 — P&L SPREADSHEET DASHBOARD ═══ */
+/* ═══ FEATURE 1 - P&L SPREADSHEET DASHBOARD ═══ */
 function PnLSheet({ s }: { s: BusinessGameState }) {
   const p = computePnL(s);
   const exportCSV = () => {
@@ -221,7 +221,7 @@ function PnLSheet({ s }: { s: BusinessGameState }) {
     <Card variant="elevated">
       <CardContent className="pt-5">
         <div className="flex items-center justify-between mb-3">
-          <Head icon={FileSpreadsheet} title="Profit & Loss" sub="Live statement — updates as you run the business." />
+          <Head icon={FileSpreadsheet} title="Profit & Loss" sub="Live statement - updates as you run the business." />
           <Button size="sm" variant="outline" className="press-scale gap-1.5" onClick={exportCSV}><Download className="w-4 h-4" /> Export CSV</Button>
         </div>
         <div className="rounded-xl border border-border overflow-hidden font-mono">
@@ -243,7 +243,7 @@ function PnLSheet({ s }: { s: BusinessGameState }) {
   );
 }
 
-/* ═══ FEATURE 2 — PAYROLL SYSTEM ═══ */
+/* ═══ FEATURE 2 - PAYROLL SYSTEM ═══ */
 function PayrollPanel({ s, update, awardXP, spend, balance, payrollDue }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void; spend: (n: number, r: string) => boolean; balance: number; payrollDue: boolean }) {
   const gross = s.employees.reduce((a, e) => a + e.weeklyWage, 0);
   const tax = Math.round(gross * PAYROLL_TAX_RATE);
@@ -255,12 +255,12 @@ function PayrollPanel({ s, update, awardXP, spend, balance, payrollDue }: { s: B
     if (!spend(total, `Payroll week ${s.week}`)) return;
     update((st) => ({ ...st, lastPayrollWeek: st.week, billsOnTime: st.billsOnTime + 1, expenses: { ...st.expenses, payroll: st.expenses.payroll + total } }));
     awardXP(6, "Ran payroll on time");
-    toast.error(`Payroll paid — net cash impact −${total.toLocaleString()} IC`, { description: `Wages ${gross.toLocaleString()} + 15.3% payroll tax ${tax.toLocaleString()}`, icon: <TrendingDown className="w-4 h-4" /> });
+    toast.error(`Payroll paid - net cash impact -${total.toLocaleString()} IC`, { description: `Wages ${gross.toLocaleString()} + 15.3% payroll tax ${tax.toLocaleString()}`, icon: <TrendingDown className="w-4 h-4" /> });
   };
   return (
     <Card variant="elevated">
       <CardContent className="pt-5 space-y-4">
-        <Head icon={Users} title="Weekly Payroll" sub="Pay your team every week — or they walk." />
+        <Head icon={Users} title="Weekly Payroll" sub="Pay your team every week - or they walk." />
         {s.employees.length === 0 ? (
           <p className="text-sm text-muted-foreground py-4 text-center">No employees yet. Hire someone in the HR tab.</p>
         ) : (
@@ -279,7 +279,7 @@ function PayrollPanel({ s, update, awardXP, spend, balance, payrollDue }: { s: B
             <div className="rounded-xl bg-muted p-4 space-y-1.5 text-sm">
               <div className="flex justify-between"><span className="text-muted-foreground">Gross wages</span><span className="font-bold tabular-nums">{gross.toLocaleString()} IC</span></div>
               <div className="flex justify-between"><span className="text-muted-foreground">Payroll tax (15.3%)</span><span className="font-bold tabular-nums text-destructive">+{tax.toLocaleString()} IC</span></div>
-              <div className="flex justify-between border-t border-border pt-1.5"><span className="font-bold">Net cash impact</span><span className="font-extrabold tabular-nums text-destructive">−{total.toLocaleString()} IC</span></div>
+              <div className="flex justify-between border-t border-border pt-1.5"><span className="font-bold">Net cash impact</span><span className="font-extrabold tabular-nums text-destructive">-{total.toLocaleString()} IC</span></div>
             </div>
             {payrollDue
               ? <Button className="w-full press-scale" onClick={runPayroll}><Coins className="w-4 h-4 mr-1.5" /> Run payroll ({total.toLocaleString()} IC)</Button>
@@ -292,7 +292,7 @@ function PayrollPanel({ s, update, awardXP, spend, balance, payrollDue }: { s: B
   );
 }
 
-/* ═══ FEATURE 5 — WEEKLY BUSINESS REVIEW REPORT (Recharts + rule-based insight) ═══ */
+/* ═══ FEATURE 5 - WEEKLY BUSINESS REVIEW REPORT (Recharts + rule-based insight) ═══ */
 function WeeklyReports({ s }: { s: BusinessGameState }) {
   const last = s.history[s.history.length - 1];
   const chartData = s.history.map((h) => ({ name: `W${h.week}`, profit: h.revenue - h.expenses, revenue: h.revenue }));
@@ -348,7 +348,7 @@ function WeeklyReports({ s }: { s: BusinessGameState }) {
   );
 }
 
-/* ═══ FEATURE 3 — INVESTOR PITCH MODE ═══ */
+/* ═══ FEATURE 3 - INVESTOR PITCH MODE ═══ */
 function InvestorPitch({ s, update, earn }: { s: BusinessGameState; update: Update; earn: (n: number, r: string) => void }) {
   const [reviewing, setReviewing] = useState(false);
   if (s.week < PITCH_UNLOCK_WEEK) {
@@ -368,7 +368,7 @@ function InvestorPitch({ s, update, earn }: { s: BusinessGameState; update: Upda
         toast.success(`💰 Funded! +${amount} InvestiCoins`);
       } else {
         const reasons: string[] = [];
-        if (net <= 0) reasons.push("you're not profitable yet — your expenses outrun revenue");
+        if (net <= 0) reasons.push("you're not profitable yet - your expenses outrun revenue");
         if (trend < 0) reasons.push("revenue is trending down over recent weeks");
         if (s.creditScore < 600) reasons.push(`your business credit score (${s.creditScore}) is too low to lend against`);
         update((st) => ({ ...st, investorPassed: true, investorFunded: false, investorFeedback: `I'm going to pass for now. Here's why: ${reasons.join("; ")}. Come back when you've turned a profit for a couple of weeks and tightened your costs.` }));
@@ -398,7 +398,7 @@ function InvestorPitch({ s, update, earn }: { s: BusinessGameState; update: Upda
   );
 }
 
-/* ═══ FEATURE 7 — CUSTOMER COMPLAINT RESPONSES (rule-based: length + keywords) ═══ */
+/* ═══ FEATURE 7 - CUSTOMER COMPLAINT RESPONSES (rule-based: length + keywords) ═══ */
 const COMPLAINTS = [
   "My order arrived two days late and the packaging was crushed. This is unacceptable for the price I paid.",
   "I was charged twice for the same item and nobody has responded to my emails for a week.",
@@ -415,7 +415,7 @@ function ComplaintPanel({ s, update, awardXP }: { s: BusinessGameState; update: 
   if (alreadyThisWeek) {
     return (
       <Card variant="elevated"><CardContent className="pt-5">
-        <Head icon={Star} title="Customer Complaint" sub="One per week — already handled this week." />
+        <Head icon={Star} title="Customer Complaint" sub="One per week - already handled this week." />
         {last && <div className="rounded-xl bg-muted p-3 mt-2"><p className="text-xs text-muted-foreground">Your reply scored {last.score}/10 · rating now</p><Stars value={s.starRating} /></div>}
       </CardContent></Card>
     );
@@ -428,37 +428,37 @@ function ComplaintPanel({ s, update, awardXP }: { s: BusinessGameState; update: 
     const present = COMPLAINT_KEYWORDS.filter((k) => lower.includes(k));
     let score: number; let note: string;
     if (present.length === COMPLAINT_KEYWORDS.length && words > ws(50)) { score = 9; note = "Thorough, empathetic, and solution-focused."; }
-    else if (present.length > 0) { score = 7; note = `Good — you acknowledged it (${present.join(", ")}).`; }
-    else if (words < ws(30)) { score = 3; note = "Too short and impersonal — apologize and offer a fix."; }
+    else if (present.length > 0) { score = 7; note = `Good - you acknowledged it (${present.join(", ")}).`; }
+    else if (words < ws(30)) { score = 3; note = "Too short and impersonal - apologize and offer a fix."; }
     else { score = 5; note = "Add empathy words like 'sorry' and offer a concrete fix."; }
     update((st) => {
       const newStar = Math.max(1, Math.min(5, st.starRating * 0.7 + (score / 2) * 0.3));
       return { ...st, starRating: Math.round(newStar * 10) / 10, complaints: [...st.complaints, { week: st.week, complaint, response: text, score }] };
     });
     awardXP(5, "Handled a customer complaint");
-    toast.success(`Scored ${score}/10 — ${note}`);
+    toast.success(`Scored ${score}/10 - ${note}`);
     setResp("");
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={Star} title="Customer Complaint" sub="Respond well — it moves your star rating." />
+      <Head icon={Star} title="Customer Complaint" sub="Respond well - it moves your star rating." />
       <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3"><p className="text-xs font-bold uppercase tracking-wider text-destructive mb-1">Angry customer</p><p className="text-sm">"{complaint}"</p></div>
-      <p className="text-xs text-muted-foreground">Tip: apologize and offer a real fix — words like "sorry", "refund", "fix", "help" and a longer reply score higher.</p>
+      <p className="text-xs text-muted-foreground">Tip: apologize and offer a real fix - words like "sorry", "refund", "fix", "help" and a longer reply score higher.</p>
       <Textarea rows={3} placeholder="Write a professional, empathetic response…" value={resp} onChange={(e) => setResp(e.target.value)} />
       <Button className="w-full press-scale" onClick={submit}><ArrowRight className="w-4 h-4 mr-1.5" /> Send response</Button>
     </CardContent></Card>
   );
 }
 
-/* ═══ FEATURE 8 — SUPPLIER NEGOTIATION (3 rotating hardcoded personalities) ═══ */
+/* ═══ FEATURE 8 - SUPPLIER NEGOTIATION (3 rotating hardcoded personalities) ═══ */
 interface Supplier { name: string; emoji: string; keywords?: string[]; discount: number; win: string; lose: string }
 const SUPPLIERS: Supplier[] = [
   { name: "Firm Frank", emoji: "🧱", discount: 0,
-    win: "", lose: "I hear you, but a deal's a deal. The new price stands — take it or leave it." },
+    win: "", lose: "I hear you, but a deal's a deal. The new price stands - take it or leave it." },
   { name: "Flexible Maria", emoji: "🤝", keywords: ["loyal", "loyalty", "volume", "bulk", "regular", "long-term", "long term"], discount: 0.10,
-    win: "You've been a loyal, high-volume customer — I'll take 10% off the increase for you.", lose: "Commit to loyalty or bigger volume and I can work with you. Otherwise the price holds." },
+    win: "You've been a loyal, high-volume customer - I'll take 10% off the increase for you.", lose: "Commit to loyalty or bigger volume and I can work with you. Otherwise the price holds." },
   { name: "Deal-Seeker Dave", emoji: "💸", keywords: ["competitor", "rival", "another supplier", "other supplier", "shop around", "elsewhere", "cheaper"], discount: 0.15,
-    win: "Going to a competitor, huh? Fine — I'll beat them. 15% off the increase, just don't tell the others.", lose: "I'm not worried about losing you. Bring me a real competing quote and we'll talk." },
+    win: "Going to a competitor, huh? Fine - I'll beat them. 15% off the increase, just don't tell the others.", lose: "I'm not worried about losing you. Bring me a real competing quote and we'll talk." },
 ];
 function SupplierNegotiation({ s, update, awardXP }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void }) {
   const [msg, setMsg] = useState("");
@@ -480,7 +480,7 @@ function SupplierNegotiation({ s, update, awardXP }: { s: BusinessGameState; upd
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={Handshake} title="Supplier Negotiation" sub={`${supplier.emoji} ${supplier.name} raised prices ${Math.round((increase - 1) * 100)}%. Talk them down — it affects your COGS.`} />
+      <Head icon={Handshake} title="Supplier Negotiation" sub={`${supplier.emoji} ${supplier.name} raised prices ${Math.round((increase - 1) * 100)}%. Talk them down - it affects your COGS.`} />
       {reply && <div className="rounded-xl bg-muted p-3"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">{supplier.name}</p><p className="text-sm italic">"{reply}"</p></div>}
       <Textarea rows={3} placeholder="Make your negotiation case… (hint: mention loyalty/volume, or a competitor)" value={msg} onChange={(e) => setMsg(e.target.value)} />
       <Button className="w-full press-scale" onClick={negotiate}><Handshake className="w-4 h-4 mr-1.5" /> Negotiate</Button>
@@ -488,19 +488,19 @@ function SupplierNegotiation({ s, update, awardXP }: { s: BusinessGameState; upd
   );
 }
 
-/* ═══ FEATURE 9 — QUARTERLY TAX FORM (Schedule C simplified) ═══ */
-// Businesses pay tax on profit — a real, recurring money sink every quarter.
+/* ═══ FEATURE 9 - QUARTERLY TAX FORM (Schedule C simplified) ═══ */
+// Businesses pay tax on profit - a real, recurring money sink every quarter.
 const INCOME_TAX_RATE = 0.25;
 
 function TaxForm({ s, update, spend, balance, taxDue }: { s: BusinessGameState; update: Update; spend: (n: number, r: string) => boolean; balance: number; taxDue: boolean }) {
   const p = computePnL(s);
   const taxOwed = Math.max(0, Math.round(p.netProfit * INCOME_TAX_RATE));
   const lines = [
-    { id: "rev", label: "Line 1 — Gross receipts (Revenue)", value: p.revenue },
-    { id: "cogs", label: "Line 4 — Cost of goods sold", value: p.cogs },
-    { id: "gross", label: "Line 7 — Gross profit", value: p.grossProfit },
-    { id: "exp", label: "Line 28 — Total expenses", value: p.totalOpex },
-    { id: "net", label: "Line 31 — Net profit (or loss)", value: p.netProfit },
+    { id: "rev", label: "Line 1 - Gross receipts (Revenue)", value: p.revenue },
+    { id: "cogs", label: "Line 4 - Cost of goods sold", value: p.cogs },
+    { id: "gross", label: "Line 7 - Gross profit", value: p.grossProfit },
+    { id: "exp", label: "Line 28 - Total expenses", value: p.totalOpex },
+    { id: "net", label: "Line 31 - Net profit (or loss)", value: p.netProfit },
   ];
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const allConfirmed = lines.every((l) => checked[l.id]);
@@ -514,16 +514,16 @@ function TaxForm({ s, update, spend, balance, taxDue }: { s: BusinessGameState; 
       const bill = Math.min(taxOwed + penalty, balance);
       spend(bill, "Taxes + penalty (incomplete filing)");
       update((st) => ({ ...st, taxFiledWeeks: [...st.taxFiledWeeks, st.week], billsMissed: st.billsMissed + 1 }));
-      toast.error(`Incomplete filing — paid ${bill} IC`, { description: `Tax owed ${taxOwed} IC + ${penalty} IC penalty. Confirm every line next quarter to skip the fee.` });
+      toast.error(`Incomplete filing - paid ${bill} IC`, { description: `Tax owed ${taxOwed} IC + ${penalty} IC penalty. Confirm every line next quarter to skip the fee.` });
       return;
     }
     update((st) => ({ ...st, taxFiledWeeks: [...st.taxFiledWeeks, st.week], billsOnTime: st.billsOnTime + 1 }));
     if (taxOwed > 0) {
       const paid = Math.min(taxOwed, balance);
       spend(paid, "Paid quarterly business taxes");
-      toast.success(`Schedule C filed — paid ${paid} IC in taxes`, { description: `That's ${Math.round(INCOME_TAX_RATE * 100)}% of your net profit, just like a real business owes the IRS.` });
+      toast.success(`Schedule C filed - paid ${paid} IC in taxes`, { description: `That's ${Math.round(INCOME_TAX_RATE * 100)}% of your net profit, just like a real business owes the IRS.` });
     } else {
-      toast.success("Schedule C filed — no tax owed", { description: "You didn't turn a profit this quarter, so there's no income tax due." });
+      toast.success("Schedule C filed - no tax owed", { description: "You didn't turn a profit this quarter, so there's no income tax due." });
     }
   };
   return (
@@ -537,21 +537,21 @@ function TaxForm({ s, update, spend, balance, taxDue }: { s: BusinessGameState; 
           </button>
         ))}
       </div>
-      {/* Tax owed — the amount that will be deducted */}
+      {/* Tax owed - the amount that will be deducted */}
       <div className="flex items-center justify-between rounded-xl border border-destructive/30 bg-destructive/5 px-3 py-2.5">
         <span className="text-sm font-semibold flex items-center gap-2 text-destructive">
           Tax due ({Math.round(INCOME_TAX_RATE * 100)}% of net profit)
         </span>
         <span className="font-mono font-extrabold tabular-nums text-sm text-destructive">
-          {taxOwed > 0 ? `− ${money(taxOwed)}` : money(0)}
+          {taxOwed > 0 ? `- ${money(taxOwed)}` : money(0)}
         </span>
       </div>
-      <Button className="w-full press-scale" onClick={file}><FileText className="w-4 h-4 mr-1.5" /> {allConfirmed ? (taxOwed > 0 ? `Pay ${money(taxOwed)} & file` : "File (no tax due)") : "Submit (incomplete — penalty applies)"}</Button>
+      <Button className="w-full press-scale" onClick={file}><FileText className="w-4 h-4 mr-1.5" /> {allConfirmed ? (taxOwed > 0 ? `Pay ${money(taxOwed)} & file` : "File (no tax due)") : "Submit (incomplete - penalty applies)"}</Button>
     </CardContent></Card>
   );
 }
 
-/* ═══ FEATURE 10 — JOB POSTING + 5 PRE-WRITTEN CANDIDATE PROFILES ═══ */
+/* ═══ FEATURE 10 - JOB POSTING + 5 PRE-WRITTEN CANDIDATE PROFILES ═══ */
 const INTERVIEW_QUESTIONS = [
   "Why do you want this role?",
   "Tell me about a time you solved a problem.",
@@ -561,12 +561,12 @@ interface Candidate { name: string; background: string; quality: number; answers
 const CANDIDATES: Candidate[] = [
   { name: "Maya Chen", quality: 9, background: "Ran a profitable Etsy shop for two years while in school.",
     answers: [
-      "I've run my own small shop, so I know what it takes to keep customers happy and the books balanced — I want to do that at a bigger scale here.",
+      "I've run my own small shop, so I know what it takes to keep customers happy and the books balanced - I want to do that at a bigger scale here.",
       "When my supplier flaked right before a holiday rush, I found two backups in a day and still shipped every order on time.",
       "I batch similar tasks, knock out the highest-impact one first, and keep a running list so nothing slips."] },
   { name: "Priya Nair", quality: 8, background: "Treasurer of two school clubs; strong with numbers.",
     answers: [
-      "I love the operations side — budgets, scheduling, and making things actually run smoothly.",
+      "I love the operations side - budgets, scheduling, and making things actually run smoothly.",
       "Our club's budget was a mess; I rebuilt the spreadsheet line by line and we ended the year in surplus.",
       "I prioritize by deadline and impact, and I'm not afraid to ask for help early instead of falling behind."] },
   { name: "Jordan Blake", quality: 7, background: "Worked two summers in retail customer service.",
@@ -581,7 +581,7 @@ const CANDIDATES: Candidate[] = [
       "I just kind of do whatever's in front of me until it's done."] },
   { name: "Tyler Hood", quality: 3, background: "Lists a lot of hobbies, vague on actual work.",
     answers: [
-      "Honestly I'm not totally sure — a friend told me to apply.",
+      "Honestly I'm not totally sure - a friend told me to apply.",
       "I can't really think of one right now, sorry.",
       "I usually just wing it and hope it works out."] },
 ];
@@ -603,7 +603,7 @@ function HiringPanel({ s, update, awardXP }: { s: BusinessGameState; update: Upd
     const emp: Employee = { id: crypto.randomUUID(), name: cand.name, role: role.trim() || "Team member", weeklyWage: 90 + cand.quality * 8, hiredWeek: s.week, badHireUntilWeek: badHire ? s.week + 2 : undefined };
     update((st) => ({ ...st, employees: [...st.employees, emp] }));
     awardXP(6, "Hired an employee");
-    if (badHire) toast.error(`Hired ${cand.name} — but it's a bad fit`, { description: "−20% weekly productivity for 2 weeks." });
+    if (badHire) toast.error(`Hired ${cand.name} - but it's a bad fit`, { description: "-20% weekly productivity for 2 weeks." });
     else toast.success(`Hired ${cand.name}! A strong addition to the team.`);
     reset();
   };
@@ -623,7 +623,7 @@ function HiringPanel({ s, update, awardXP }: { s: BusinessGameState; update: Upd
         {INTERVIEW_QUESTIONS.map((q, i) => (
           <div key={i} className="rounded-xl border border-border p-3"><p className="text-sm font-semibold">Q: {q}</p><p className="text-sm text-muted-foreground mt-1">A: {cand.answers[i]}</p></div>
         ))}
-        <p className="text-xs text-muted-foreground italic">Read the answers carefully — a vague candidate is a risky hire (−20% productivity for 2 weeks).</p>
+        <p className="text-xs text-muted-foreground italic">Read the answers carefully - a vague candidate is a risky hire (-20% productivity for 2 weeks).</p>
         <div className="flex gap-2">
           <Button variant="outline" className="flex-1 press-scale" onClick={() => decide(false)}>Pass</Button>
           <Button className="flex-1 press-scale" onClick={() => decide(true)}><UserPlus className="w-4 h-4 mr-1.5" /> Hire</Button>
@@ -633,7 +633,7 @@ function HiringPanel({ s, update, awardXP }: { s: BusinessGameState; update: Upd
   );
 }
 
-/* ═══ FEATURE 6 — BUSINESS PLAN (required before launch, rule-based validator) ═══ */
+/* ═══ FEATURE 6 - BUSINESS PLAN (required before launch, rule-based validator) ═══ */
 function BusinessPlanGate({ update, awardXP }: { update: Update; awardXP: (n: number, r: string) => void }) {
   const [f, setF] = useState({ name: "", market: "", pricing: "", startup: "", goal: "" });
   const [errors, setErrors] = useState<string[]>([]);
@@ -648,10 +648,10 @@ function BusinessPlanGate({ update, awardXP }: { update: Update; awardXP: (n: nu
     if (!(goalNum > 0)) errs.push("3-month revenue goal: enter a number greater than 0.");
     setErrors(errs);
     if (errs.length) { toast.error("Fix the highlighted fields", { description: `${errs.length} item${errs.length > 1 ? "s" : ""} need attention.` }); return; }
-    const feedback = "Your plan covers the essentials — a defined market, a pricing rationale, real startup costs, and a clear goal. Approved!";
+    const feedback = "Your plan covers the essentials - a defined market, a pricing rationale, real startup costs, and a clear goal. Approved!";
     update((st) => ({ ...st, planScore: 7, planFeedback: feedback, planApproved: true }));
     awardXP(15, "Business plan approved");
-    toast.success("Plan scored 7/10 — approved! +15 InvestiCoins", { description: feedback });
+    toast.success("Plan scored 7/10 - approved! +15 InvestiCoins", { description: feedback });
   };
   return (
     <Card variant="elevated">

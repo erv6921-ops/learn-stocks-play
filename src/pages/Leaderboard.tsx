@@ -19,7 +19,7 @@ import { anchor } from "@/lib/tourAnchors"
 // League ladder + levels are shared with the Partners directory (see lib/leagues).
 import { LEAGUES, getLeagueIdx, getLevel } from "@/lib/leagues"
 
-// Demo data — only shown when user explicitly toggles "Show Demo Data"
+// Demo data - only shown when user explicitly toggles "Show Demo Data"
 const DEMO_NATIONAL = [
   { name: "Alex M.", netWorth: 87500, level: 7, streak: 45 },
   { name: "Jordan L.", netWorth: 72300, level: 6, streak: 32 },
@@ -44,7 +44,7 @@ interface Entry {
   isMe: boolean
 }
 
-// Actionable ways to climb — all link to real features, so the motivation is legit.
+// Actionable ways to climb - all link to real features, so the motivation is legit.
 const EARN_ACTIONS = [
   { icon: BookOpen,      label: "Finish a lesson",     detail: "Biggest, steadiest coins", to: "/lessons",  tint: "#1D9E75" },
   { icon: CalendarCheck, label: "Daily missions",      detail: "Fresh coins every day",    to: "/daily",    tint: "#E3A008" },
@@ -62,16 +62,16 @@ export default function Leaderboard() {
   const [joiningClass, setJoiningClass] = useState(false)
   const [myClasses, setMyClasses] = useState<{ id: string; name: string; joinCode: string }[]>([])
   const [classMembers, setClassMembers] = useState<{ name: string; userId: string; xp: number }[]>([])
-  // Accepted partners from the Partners directory — powers the Friends tab.
+  // Accepted partners from the Partners directory - powers the Friends tab.
   const [friendRows, setFriendRows] = useState<{ name: string; xp: number }[]>([])
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
   // Mirror of selectedClassId read inside loadMyClasses so that callback can stay
-  // stable — depending on the state directly made it re-create itself every time
+  // stable - depending on the state directly made it re-create itself every time
   // it set the selection, which re-fired the load effect and double-fetched.
   const selectedClassIdRef = useRef<string | null>(null)
   const [loadingClasses, setLoadingClasses] = useState(true)
 
-  // Everyone's score is their CURRENT InvestiCoins balance — the same number
+  // Everyone's score is their CURRENT InvestiCoins balance - the same number
   // as the coin counter, so the leaderboard always matches what students see.
   const totalXp = jeffsBalance
 
@@ -154,7 +154,7 @@ export default function Leaderboard() {
 
   // Near real-time: refresh classmate + friend scores on focus/visibility and
   // every 15s while the tab is visible, so ranks update without a manual reload.
-  // (Your own score is already live — it reads jeffsBalance from context.)
+  // (Your own score is already live - it reads jeffsBalance from context.)
   useEffect(() => {
     const refresh = () => {
       if (document.hidden) return
@@ -293,7 +293,7 @@ export default function Leaderboard() {
 
   const showLeaderboard = (hasOtherUsers || showDemo)
 
-  // Motivational panels — reused by both the populated board and the empty
+  // Motivational panels - reused by both the populated board and the empty
   // (no-classmates-yet) state, so climbing content is never missing.
   const climbFasterCard = (
     <div className="rounded-3xl border border-border/40 bg-card p-5">
@@ -358,7 +358,7 @@ export default function Leaderboard() {
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 md:px-6 py-6 max-w-[1400px]">
-        {/* ───────────────── HERO — your standing + the climb ───────────────── */}
+        {/* ───────────────── HERO - your standing + the climb ───────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -369,7 +369,7 @@ export default function Leaderboard() {
           <div className="absolute -bottom-24 -left-10 w-64 h-64 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
 
           <div className="relative grid lg:grid-cols-[1.1fr_1fr] gap-6 items-center">
-            {/* Left — score + league */}
+            {/* Left - score + league */}
             <div>
               <div className="flex items-center gap-2 text-warning mb-2">
                 <Trophy className="w-5 h-5" />
@@ -398,7 +398,7 @@ export default function Leaderboard() {
               <p className="text-[11px] text-primary-foreground/60 mt-2">
                 {portfolioValue > 0
                   ? `Spendable InvestiCoins · ${Math.round(portfolioValue).toLocaleString()} more invested in stocks`
-                  : "Spendable InvestiCoins — this is what the leaderboard ranks on"}
+                  : "Spendable InvestiCoins - this is what the leaderboard ranks on"}
               </p>
 
               {/* League progress bar */}
@@ -421,12 +421,12 @@ export default function Leaderboard() {
                 <p className="text-[11px] text-primary-foreground/70 mt-1.5">
                   {nextLeague
                     ? <><span className="font-bold text-warning">{xpToNextLeague.toLocaleString()} coins</span> to reach {nextLeague.name} League</>
-                    : "You've maxed the league ladder — legendary!"}
+                    : "You've maxed the league ladder - legendary!"}
                 </p>
               </div>
             </div>
 
-            {/* Right — rank + the chase */}
+            {/* Right - rank + the chase */}
             {showLeaderboard ? (
               <div className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 p-5">
                 <div className="flex items-center justify-between gap-4">
@@ -448,7 +448,7 @@ export default function Leaderboard() {
                   </div>
                 </div>
 
-                {/* The chase — catch the player above you */}
+                {/* The chase - catch the player above you */}
                 {rivalAbove ? (
                   <div className="mt-5">
                     <div className="flex items-center justify-between text-xs font-semibold mb-1.5">
@@ -466,13 +466,13 @@ export default function Leaderboard() {
                       />
                     </div>
                     <p className="text-[11px] text-primary-foreground/60 mt-1.5">
-                      You're at {catchPct}% of their score — one good day could pass them.
+                      You're at {catchPct}% of their score - one good day could pass them.
                     </p>
                   </div>
                 ) : (
                   <div className="mt-5 flex items-center gap-2 rounded-xl bg-warning/15 border border-warning/25 px-3 py-2.5">
                     <Crown className="w-5 h-5 text-warning shrink-0" />
-                    <p className="text-sm font-bold">You're #1 — defend your crown! Every lesson widens the lead.</p>
+                    <p className="text-sm font-bold">You're #1 - defend your crown! Every lesson widens the lead.</p>
                   </div>
                 )}
 
@@ -539,7 +539,7 @@ export default function Leaderboard() {
           </div>
         )}
 
-        {/* Loading skeleton — Class waits on classes, Friends on partners */}
+        {/* Loading skeleton - Class waits on classes, Friends on partners */}
         {loadingClasses && scope === "class" && !hasOtherUsers && !showDemo ? (
           <div className="space-y-2 animate-pulse max-w-3xl">
             <div className="grid grid-cols-3 gap-3 items-end mb-6">
@@ -550,9 +550,9 @@ export default function Leaderboard() {
             {[0, 1, 2, 3].map(i => <div key={i} className="h-16 rounded-2xl bg-muted/50" />)}
           </div>
         ) : (scope === "class" || scope === "friends") && !hasOtherUsers && !showDemo ? (
-          /* ───────────── Empty state — join / invite + climb panels ───────────── */
+          /* ───────────── Empty state - join / invite + climb panels ───────────── */
           <div className="grid lg:grid-cols-3 gap-5">
-            {/* Left — join / invite */}
+            {/* Left - join / invite */}
             <div className="lg:col-span-2 space-y-4">
               <div className="rounded-3xl border border-border/40 bg-gradient-to-b from-primary/[0.05] to-card p-6 text-center">
                 <Users className="w-12 h-12 mx-auto text-primary/40 mb-3" />
@@ -561,8 +561,8 @@ export default function Leaderboard() {
                 </h3>
                 <p className="text-sm text-muted-foreground max-w-md mx-auto">
                   {scope === "class"
-                    ? "Join a class to compete with your classmates and race up the leagues — but you can start earning InvestiCoins and climbing the ladder right now."
-                    : "Add partners in the Find Friends directory and they'll show up here to race against — your stats are ready when they are."}
+                    ? "Join a class to compete with your classmates and race up the leagues - but you can start earning InvestiCoins and climbing the ladder right now."
+                    : "Add partners in the Find Friends directory and they'll show up here to race against - your stats are ready when they are."}
                 </p>
                 <Link to="/partners">
                   <Button size="sm" className="mt-4 gap-1.5 font-bold">
@@ -634,14 +634,14 @@ export default function Leaderboard() {
               </div>
             </div>
 
-            {/* Right — climb content stays present even before you have rivals */}
+            {/* Right - climb content stays present even before you have rivals */}
             <aside className="space-y-5">
               {climbFasterCard}
               {leagueLadderCard}
             </aside>
           </div>
         ) : (
-          /* ───────────── Populated leaderboard — full-width 2-col ───────────── */
+          /* ───────────── Populated leaderboard - full-width 2-col ───────────── */
           <>
             {showDemo && (
               <div className="flex items-center justify-between mb-4 px-3 py-2 rounded-xl bg-warning/5 border border-warning/10">
@@ -657,13 +657,13 @@ export default function Leaderboard() {
             )}
 
             <div className="grid lg:grid-cols-3 gap-5">
-              {/* Main column — podium + rankings */}
+              {/* Main column - podium + rankings */}
               <div className="lg:col-span-2 space-y-5">
                 {/* Podium */}
                 {podium.length >= 3 && (
                   <div className="rounded-3xl border border-border/40 bg-gradient-to-b from-warning/[0.06] to-card p-4 sm:p-6">
                     <p className="text-[11px] font-bold uppercase tracking-wider text-warning flex items-center gap-1.5 mb-4">
-                      <Crown className="w-3.5 h-3.5" /> Promotion zone — top 3
+                      <Crown className="w-3.5 h-3.5" /> Promotion zone - top 3
                     </p>
                     <div className="grid grid-cols-3 gap-2 sm:gap-4 items-end">
                       {[podium[1], podium[0], podium[2]].map((entry, i) => {
@@ -715,7 +715,7 @@ export default function Leaderboard() {
                   <div className="space-y-2">
                     {podium.length >= 3 && (
                       <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground px-1 mb-1">
-                        The pack — climb the ranks
+                        The pack - climb the ranks
                       </p>
                     )}
                     {restEntries.map((entry, idx) => {
@@ -777,12 +777,12 @@ export default function Leaderboard() {
                 )}
               </div>
 
-              {/* Side rail — league ladder + fast ways to climb */}
+              {/* Side rail - league ladder + fast ways to climb */}
               <aside className="space-y-5">
                 {climbFasterCard}
                 {leagueLadderCard}
 
-                {/* Invite CTA — more rivals = more reasons to climb */}
+                {/* Invite CTA - more rivals = more reasons to climb */}
                 <div className="rounded-3xl border border-primary/20 bg-primary/5 p-5 text-center">
                   <TrendingUp className="w-7 h-7 mx-auto text-primary mb-2" />
                   <p className="text-sm font-bold">More rivals, more glory</p>

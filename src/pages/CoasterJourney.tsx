@@ -17,7 +17,7 @@ const TITLES = [
   "Risk & Reward",
   "Your First Portfolio",
 ];
-const CURRENT_IDX = 4; // stations 0–3 ridden, currently boarding #5
+const CURRENT_IDX = 4; // stations 0-3 ridden, currently boarding #5
 
 const stations: CoasterStation[] = TITLES.map((title, i) => ({
   id: `mock-${i}`,

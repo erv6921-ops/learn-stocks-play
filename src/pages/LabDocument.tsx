@@ -115,7 +115,7 @@ export default function LabDocument() {
       }
     } catch (err) {
       console.error("Feedback error:", err)
-      toast({ title: "Couldn't get feedback — try again", variant: "destructive" })
+      toast({ title: "Couldn't get feedback - try again", variant: "destructive" })
     } finally {
       setLoadingField(null)
     }
@@ -338,7 +338,7 @@ export default function LabDocument() {
             <div className="bg-primary/5 border-b border-border px-5 py-3 flex items-center gap-3">
               <FlaskConical className="w-4 h-4 text-primary" />
               <span className="text-xs font-bold text-primary uppercase tracking-wider flex-1">
-                {doc.title} — Employee Withholding Certificate
+                {doc.title} - Employee Withholding Certificate
               </span>
               <span className="text-[10px] text-muted-foreground">
                 {filledRequired}/{totalRequired} required fields
@@ -412,7 +412,7 @@ export default function LabDocument() {
                               )}
                             </Label>
 
-                            {/* Help text — always shown in guided, hover in independent */}
+                            {/* Help text - always shown in guided, hover in independent */}
                             {field.helpText && (guidedMode || isActive) && (
                               <motion.p
                                 initial={{ opacity: 0, height: 0 }}
@@ -465,7 +465,7 @@ export default function LabDocument() {
                               </RadioGroup>
                             )}
 
-                            {/* "Why this matters" expandable — guided mode */}
+                            {/* "Why this matters" expandable - guided mode */}
                             {guidedMode && field.whyItMatters && (
                               <button
                                 onClick={() => toggleExplanation(field.id)}

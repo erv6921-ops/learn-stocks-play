@@ -1,5 +1,5 @@
 /**
- * Content Generator — Structured lesson content builder
+ * Content Generator - Structured lesson content builder
  * 
  * Generates 6-section lessons with balanced MCQ distribution.
  * MCQ Engine Rules:
@@ -14,7 +14,7 @@ import { getQuizForLesson } from "@/data/lessonQuizzes"
 import { prepareQuestionsForRender, questionPassesQualityChecks } from "@/lib/mcqEngine"
 
 // ═══════════════════════════════════════════════
-// CATEGORY TEMPLATES — Concept paragraphs, scenarios, and fallback questions
+// CATEGORY TEMPLATES - Concept paragraphs, scenarios, and fallback questions
 // ═══════════════════════════════════════════════
 
 interface CategoryTemplate {
@@ -32,7 +32,7 @@ function tierDifficulty(tier: MasteryTier): "beginner" | "intermediate" | "advan
 }
 
 /**
- * Balanced answer index generator — ensures correct answers are distributed across A/B/C/D.
+ * Balanced answer index generator - ensures correct answers are distributed across A/B/C/D.
  * Uses a deterministic seed based on the question ID + generation seed to maintain consistency
  * while varying across regenerations.
  */
@@ -154,7 +154,7 @@ const genericTemplate: CategoryTemplate = {
 const CATEGORY_TEMPLATES: Partial<Record<LessonCategory, Partial<CategoryTemplate>>> = {
   budgeting: {
     conceptIntro: (title, desc) => [
-      `Budgeting isn't just about restricting spending — it's about intentionally directing your money toward what matters most to you. ${title} explores this essential skill.`,
+      `Budgeting isn't just about restricting spending - it's about intentionally directing your money toward what matters most to you. ${title} explores this essential skill.`,
       desc || `You'll learn practical frameworks for creating, maintaining, and adjusting budgets that work in the real world, not just on paper.`,
       `The best budget is one you'll actually follow. We'll focus on approaches that are sustainable and adaptable to changing circumstances.`
     ],
@@ -190,7 +190,7 @@ const CATEGORY_TEMPLATES: Partial<Record<LessonCategory, Partial<CategoryTemplat
   },
   "credit-debt": {
     conceptIntro: (title, desc) => [
-      `Credit and debt are two of the most powerful — and potentially dangerous — financial tools available. Understanding ${title} is essential.`,
+      `Credit and debt are two of the most powerful - and potentially dangerous - financial tools available. Understanding ${title} is essential.`,
       desc || `We'll explore how credit works, how to use debt wisely, and how to avoid the traps that catch millions of people.`,
       `The difference between "good debt" and "bad debt" can be the difference between building wealth and digging a financial hole.`
     ]
@@ -223,7 +223,7 @@ function getTemplate(category: LessonCategory): CategoryTemplate {
 function selectQuestions(pool: QuizQuestion[], count: number, exclude: Set<string>): QuizQuestion[] {
   const available = pool.filter(q => !exclude.has(q.id) && questionPassesQualityChecks(q))
   // If the quality filter empties the pool, fall back to unfiltered unused
-  // questions — an imperfect question beats a renderer crash on [].
+  // questions - an imperfect question beats a renderer crash on [].
   const usable = available.length > 0 ? available : pool.filter(q => !exclude.has(q.id))
   const shuffled = [...usable].sort(() => Math.random() - 0.5)
   return shuffled.slice(0, count)
@@ -245,13 +245,30 @@ function balanceQuestions(questions: QuizQuestion[]): QuizQuestion[] {
   return prepareQuestionsForRender(balanced)
 }
 
-export function generateStructuredContent(lesson: Lesson, regenerationAttempt: number = 0): StructuredLessonContent {
-  // Set generation seed for this call — changes on regeneration
+export function generateStructuredContent(
+  lesson: Lesson,
+  regenerationAttempt: number = 0,
+  // Hook B content pacing - see lessonContent.ts's getStructuredContent for
+  // what each tier actually does; this function only applies what it's told.
+  confidenceTier: string | null = null,
+  excludeQuestionIds: string[] = [],
+  reinforcementQuestion: QuizQuestion | null = null
+): StructuredLessonContent {
+  // Set generation seed for this call - changes on regeneration
   _generationSeed = regenerationAttempt * 7919 // prime multiplier for variety
 
   const template = getTemplate(lesson.category)
-  const quizPool = getQuizForLesson(lesson.id)
+  let quizPool = getQuizForLesson(lesson.id)
   const usedIds = new Set<string>()
+
+  // fragile_confidence: give a different set than what they just saw, not
+  // the identical questions again. Only apply if enough remain to still
+  // build a full set - excluding down to almost nothing would break content
+  // generation, which is worse than repeating a question once.
+  if (confidenceTier === "fragile_confidence" && excludeQuestionIds.length > 0) {
+    const filtered = quizPool.filter(q => !excludeQuestionIds.includes(q.id))
+    if (filtered.length >= 4) quizPool = filtered
+  }
 
   // On regeneration, shuffle the pool differently
   const shuffledPool = regenerationAttempt > 0
@@ -263,7 +280,7 @@ export function generateStructuredContent(lesson: Lesson, regenerationAttempt: n
   const conceptBullets = template.bullets(lesson.title)
   const realWorldExample = template.realWorldExample(lesson.title)
 
-  // ─── Micro Check — pick 1-2 questions from quiz pool ───
+  // ─── Micro Check - pick 1-2 questions from quiz pool ───
   let microCheckQuestions: QuizQuestion[]
   if (shuffledPool.length >= 2) {
     microCheckQuestions = selectQuestions(shuffledPool, 2, usedIds)
@@ -277,7 +294,7 @@ export function generateStructuredContent(lesson: Lesson, regenerationAttempt: n
   // ─── Scenario ───
   const scenario = template.scenario(lesson.title, lesson.description)
 
-  // ─── Applied Question — pick 1 from quiz pool ───
+  // ─── Applied Question - pick 1 from quiz pool ───
   let appliedQuestion: QuizQuestion
   if (shuffledPool.length >= 3) {
     const picked = selectQuestions(shuffledPool, 1, usedIds)
@@ -296,7 +313,7 @@ export function generateStructuredContent(lesson: Lesson, regenerationAttempt: n
     `Apply these concepts to your own financial situation for maximum benefit`
   ]
 
-  // ─── Mastery Check — pick 3-4 from quiz pool ───
+  // ─── Mastery Check - pick 3-4 from quiz pool ───
   let masteryQuestions: QuizQuestion[]
   if (shuffledPool.length >= 6) {
     masteryQuestions = selectQuestions(shuffledPool, 4, usedIds)
@@ -307,11 +324,18 @@ export function generateStructuredContent(lesson: Lesson, regenerationAttempt: n
       masteryQuestions.push(...fallback.filter(q => !usedIds.has(q.id)).slice(0, 3 - masteryQuestions.length))
     }
   } else {
-    // Exclude fallbacks already shown in the micro-check/applied sections —
+    // Exclude fallbacks already shown in the micro-check/applied sections -
     // otherwise the mastery check repeats questions whose answers were just
     // revealed minutes earlier in the same lesson.
     masteryQuestions = template.fallbackQuestions(lesson.title, lesson.level)
       .filter(q => !usedIds.has(q.id))
+  }
+
+  // moderate_confidence: mix in one real question pulled from the prior
+  // lesson in this topic (resolved by the caller - lessonContent.ts is what
+  // knows about both hand-written and generated prior-lesson pools).
+  if (reinforcementQuestion && !usedIds.has(reinforcementQuestion.id)) {
+    microCheckQuestions = [...microCheckQuestions, reinforcementQuestion]
   }
 
   // ─── Balance all questions across A/B/C/D ───

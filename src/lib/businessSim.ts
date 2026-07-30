@@ -1,4 +1,4 @@
-// businessSim — the "living business" layer that keeps the Micro-Business alive
+// businessSim - the "living business" layer that keeps the Micro-Business alive
 // over months. Activities have consequences (applyEffect), students build a
 // product line, and each month a state-driven SITUATION forces a fresh written
 // reaction with real outcomes. All rule-based, no AI.
@@ -6,9 +6,9 @@
 export interface BizProduct { id: string; name: string; price: number; pitch: string; month: number }
 export interface BizState {
   month: number;
-  reputation: number;   // 0–100
+  reputation: number;   // 0-100
   customers: number;
-  brand: number;        // 0–100
+  brand: number;        // 0-100
   cash: number;
   products: BizProduct[];
   log: { month: number; text: string }[];
@@ -43,7 +43,7 @@ const SITUATIONS: SitTemplate[] = [
   {
     type: "crisis", emoji: "🔥", title: "Supplier costs spiked overnight",
     prompt: "Your main supplier just raised prices 30% with no warning. It eats your margin this month.",
-    reactLabel: "Write your crisis plan — what you'll do and why (40+ words)", reactMin: 40,
+    reactLabel: "Write your crisis plan - what you'll do and why (40+ words)", reactMin: 40,
     options: [
       { label: "Absorb the cost for now", delta: { cash: -250, reputation: 4 }, outcome: "Customers stay happy, but cash takes a hit." },
       { label: "Raise your prices to cover it", delta: { cash: 80, customers: -90, reputation: -4 }, outcome: "Margin protected, but some customers leave." },
@@ -57,7 +57,7 @@ const SITUATIONS: SitTemplate[] = [
     options: [
       { label: "Go all-in with a launch promo", delta: { customers: 400, cash: -180, brand: 6 }, outcome: "Big spike in traffic and new customers." },
       { label: "Soft feature, no promo", delta: { customers: 150, brand: 4 }, outcome: "Steady bump, low cost." },
-      { label: "Pass — too busy", delta: { brand: -2 }, outcome: "Missed the moment." },
+      { label: "Pass - too busy", delta: { brand: -2 }, outcome: "Missed the moment." },
     ],
     when: (s) => s.brand >= 35,
   },
@@ -68,7 +68,7 @@ const SITUATIONS: SitTemplate[] = [
     options: [
       { label: "Build the custom order", delta: { cash: 320, customers: 40, brand: 5 }, outcome: "Profitable and builds reputation for flexibility." },
       { label: "Offer them the standard product", delta: { cash: 90 }, outcome: "Smaller sale, no extra work." },
-      { label: "Decline — not worth it", delta: { reputation: -5 }, outcome: "They felt brushed off." },
+      { label: "Decline - not worth it", delta: { reputation: -5 }, outcome: "They felt brushed off." },
     ],
   },
   {
@@ -86,7 +86,7 @@ const SITUATIONS: SitTemplate[] = [
     prompt: "An unhappy customer posted a scathing review that's getting traction online.",
     reactLabel: "Write your public response (50+ words)", reactMin: 50,
     options: [
-      { label: "Public apology + a real fix", delta: { reputation: 10, cash: -120 }, outcome: "Handled well — trust recovers." },
+      { label: "Public apology + a real fix", delta: { reputation: 10, cash: -120 }, outcome: "Handled well - trust recovers." },
       { label: "Offer refunds quietly", delta: { reputation: 4, cash: -200 }, outcome: "Costly but contains it." },
       { label: "Ignore it", delta: { reputation: -14, customers: -150 }, outcome: "It snowballed. Bad look." },
     ],
@@ -99,12 +99,12 @@ const SITUATIONS: SitTemplate[] = [
     options: [
       { label: "Cut marketing spend", delta: { cash: 250, customers: -120 }, outcome: "Cash up, but growth slows." },
       { label: "Run a flash sale", delta: { cash: 300, brand: -4 }, outcome: "Quick cash, slight brand hit." },
-      { label: "Take a small loan", delta: { cash: 400, reputation: -2 }, outcome: "Breathing room — but you owe it back." },
+      { label: "Take a small loan", delta: { cash: 400, reputation: -2 }, outcome: "Breathing room - but you owe it back." },
     ],
     when: (s) => s.cash < 400,
   },
   {
-    type: "team", emoji: "🧑‍💼", title: "You're overwhelmed — hire?",
+    type: "team", emoji: "🧑‍💼", title: "You're overwhelmed - hire?",
     prompt: "Demand is outpacing what you can deliver alone. Quality is starting to slip.",
     reactLabel: "Decision memo: what you'll do and why (40+ words)", reactMin: 40,
     options: [
@@ -130,7 +130,7 @@ const SITUATIONS: SitTemplate[] = [
     prompt: "You could open a second sales channel (a new market, storefront, or platform).",
     reactLabel: "Write your expansion plan and the risk (50+ words)", reactMin: 50,
     options: [
-      { label: "Expand aggressively", delta: { cash: -350, customers: 500, brand: 6 }, outcome: "High risk, high reward — big reach." },
+      { label: "Expand aggressively", delta: { cash: -350, customers: 500, brand: 6 }, outcome: "High risk, high reward - big reach." },
       { label: "Test it small first", delta: { cash: -120, customers: 160 }, outcome: "Measured growth, lower risk." },
       { label: "Hold and consolidate", delta: { reputation: 3, cash: 60 }, outcome: "Play it safe this month." },
     ],
@@ -139,19 +139,19 @@ const SITUATIONS: SitTemplate[] = [
   {
     type: "marketing", emoji: "📣", title: "Your ad budget is up for grabs",
     prompt: "You have some cash to put behind marketing this month. Where it goes shapes who shows up.",
-    reactLabel: "Write the campaign brief — audience, message, channel (40+ words)", reactMin: 40,
+    reactLabel: "Write the campaign brief - audience, message, channel (40+ words)", reactMin: 40,
     options: [
-      { label: "Pour it into paid social ads", delta: { cash: -200, customers: 320, brand: 3 }, outcome: "A flood of new visitors — pricey but effective." },
+      { label: "Pour it into paid social ads", delta: { cash: -200, customers: 320, brand: 3 }, outcome: "A flood of new visitors - pricey but effective." },
       { label: "Build slow with content + SEO", delta: { cash: -60, customers: 120, brand: 7 }, outcome: "Cheaper, slower, and it compounds." },
       { label: "Sponsor a local creator", delta: { cash: -150, customers: 240, brand: 6 }, outcome: "Trusted reach to a real audience." },
     ],
   },
   {
     type: "hiring", emoji: "🧑‍🔧", title: "A star applicant just walked in",
-    prompt: "Someone talented wants to join — but they want above-market pay. Hiring them stretches the budget.",
+    prompt: "Someone talented wants to join - but they want above-market pay. Hiring them stretches the budget.",
     reactLabel: "Decision memo: do you hire, and on what terms? (45+ words)", reactMin: 45,
     options: [
-      { label: "Hire at full pay", delta: { cash: -300, customers: 260, brand: 5 }, outcome: "Capacity and quality jump — at a cost." },
+      { label: "Hire at full pay", delta: { cash: -300, customers: 260, brand: 5 }, outcome: "Capacity and quality jump - at a cost." },
       { label: "Offer less + profit share", delta: { cash: -120, customers: 150, reputation: 3 }, outcome: "They buy in for upside." },
       { label: "Pass for now", delta: { brand: -2 }, outcome: "You stay lean, but you'll feel the gap." },
     ],
@@ -169,7 +169,7 @@ const SITUATIONS: SitTemplate[] = [
   },
   {
     type: "inventory", emoji: "📦", title: "You misjudged demand",
-    prompt: "You're sitting on stock that isn't moving — and it's tying up your cash.",
+    prompt: "You're sitting on stock that isn't moving - and it's tying up your cash.",
     reactLabel: "Write your plan to free up the cash (40+ words)", reactMin: 40,
     options: [
       { label: "Run a clearance sale", delta: { cash: 240, brand: -4, customers: 120 }, outcome: "Cash back, but you trained buyers to wait for deals." },
@@ -180,10 +180,10 @@ const SITUATIONS: SitTemplate[] = [
   },
   {
     type: "seasonal", emoji: "🎄", title: "The holiday rush is coming",
-    prompt: "Your busiest season is weeks away. Prepare well and it's your biggest month — or scramble and miss it.",
+    prompt: "Your busiest season is weeks away. Prepare well and it's your biggest month - or scramble and miss it.",
     reactLabel: "Write your seasonal game plan (45+ words)", reactMin: 45,
     options: [
-      { label: "Stock up and staff up", delta: { cash: -260, customers: 460, brand: 4 }, outcome: "You're ready — and it pays off big." },
+      { label: "Stock up and staff up", delta: { cash: -260, customers: 460, brand: 4 }, outcome: "You're ready - and it pays off big." },
       { label: "Run a limited-edition drop", delta: { cash: -120, customers: 280, brand: 8 }, outcome: "Scarcity drives hype and orders." },
       { label: "Play it safe, stay small", delta: { customers: 90 }, outcome: "Steady, but you left money on the table." },
     ],
@@ -206,22 +206,22 @@ const SITUATIONS: SitTemplate[] = [
     options: [
       { label: "Drop a flash promo immediately", delta: { customers: 520, cash: -100, brand: 5 }, outcome: "You caught the wave perfectly." },
       { label: "Engage and build the audience", delta: { customers: 240, brand: 9 }, outcome: "Followers now, customers later." },
-      { label: "Stay quiet — don't look thirsty", delta: { brand: 2 }, outcome: "The moment passes." },
+      { label: "Stay quiet - don't look thirsty", delta: { brand: 2 }, outcome: "The moment passes." },
     ],
     when: (s) => s.brand >= 45,
   },
   {
     type: "ethics", emoji: "🤔", title: "A shortcut would save real money",
-    prompt: "You could quietly cut a corner on quality to boost margins. No one would know — yet.",
+    prompt: "You could quietly cut a corner on quality to boost margins. No one would know - yet.",
     reactLabel: "Write your decision and reasoning (50+ words)", reactMin: 50,
     options: [
       { label: "Keep your standards", delta: { cash: -60, reputation: 8, brand: 4 }, outcome: "Costs you now, builds trust for years." },
-      { label: "Cut the corner this once", delta: { cash: 260, reputation: -10 }, outcome: "Cash today — but it'll come back around." },
+      { label: "Cut the corner this once", delta: { cash: 260, reputation: -10 }, outcome: "Cash today - but it'll come back around." },
       { label: "Find an honest middle path", delta: { cash: 80, reputation: 2 }, outcome: "A smarter saving with no shame." },
     ],
   },
   {
-    type: "sustainability", emoji: "🌱", title: "Go green — or stay cheap?",
+    type: "sustainability", emoji: "🌱", title: "Go green - or stay cheap?",
     prompt: "Switching to sustainable materials costs more but customers increasingly care.",
     reactLabel: "Write your stance and the business case (45+ words)", reactMin: 45,
     options: [
@@ -252,12 +252,12 @@ const SITUATIONS: SitTemplate[] = [
   },
   {
     type: "partnership", emoji: "🤝", title: "A bigger brand wants to collaborate",
-    prompt: "An established company proposes a co-branded product. Great exposure — but they'll want control.",
+    prompt: "An established company proposes a co-branded product. Great exposure - but they'll want control.",
     reactLabel: "Write your negotiating position (50+ words)", reactMin: 50,
     options: [
-      { label: "Sign the deal as offered", delta: { customers: 600, cash: 150, brand: 4 }, outcome: "Huge reach — on their terms." },
+      { label: "Sign the deal as offered", delta: { customers: 600, cash: 150, brand: 4 }, outcome: "Huge reach - on their terms." },
       { label: "Counter for a fairer split", delta: { customers: 380, cash: 260, brand: 7 }, outcome: "You held your value and still won." },
-      { label: "Decline — protect your brand", delta: { brand: 5, reputation: 3 }, outcome: "Independent, but the door closes." },
+      { label: "Decline - protect your brand", delta: { brand: 5, reputation: 3 }, outcome: "Independent, but the door closes." },
     ],
     when: (s) => s.brand >= 50,
   },
@@ -273,11 +273,11 @@ const SITUATIONS: SitTemplate[] = [
     when: (s) => s.customers > 600,
   },
   {
-    type: "pr", emoji: "🎤", title: "A reporter wants a comment — today",
+    type: "pr", emoji: "🎤", title: "A reporter wants a comment - today",
     prompt: "A journalist is writing about your industry and asked you for a quote on a hot, slightly controversial topic.",
     reactLabel: "Write the quote you'd give them (40+ words)", reactMin: 40,
     options: [
-      { label: "Give a bold, honest take", delta: { customers: 240, brand: 8, reputation: -2 }, outcome: "It gets shared widely — love it or hate it." },
+      { label: "Give a bold, honest take", delta: { customers: 240, brand: 8, reputation: -2 }, outcome: "It gets shared widely - love it or hate it." },
       { label: "Stay safe and diplomatic", delta: { brand: 3, reputation: 4 }, outcome: "Forgettable, but nobody's mad." },
       { label: "Decline to comment", delta: { brand: -2 }, outcome: "A missed spotlight." },
     ],
@@ -290,15 +290,15 @@ const SITUATIONS: SitTemplate[] = [
     options: [
       { label: "Build exactly what they asked", delta: { cash: -150, customers: 300, reputation: 6 }, outcome: "Customers feel heard and tell others." },
       { label: "Build a simpler version fast", delta: { cash: -60, customers: 180, reputation: 3 }, outcome: "Most of the value, a fraction of the cost." },
-      { label: "Stick to your own roadmap", delta: { customers: -90, brand: 2 }, outcome: "Focused — but some feel ignored." },
+      { label: "Stick to your own roadmap", delta: { customers: -90, brand: 2 }, outcome: "Focused - but some feel ignored." },
     ],
   },
   {
     type: "finance", emoji: "🏦", title: "The bank offers a credit line",
-    prompt: "You qualify for a loan that could fund a real growth push — but debt is debt.",
+    prompt: "You qualify for a loan that could fund a real growth push - but debt is debt.",
     reactLabel: "Write your decision and your repayment thinking (50+ words)", reactMin: 50,
     options: [
-      { label: "Take it and invest in growth", delta: { cash: 500, customers: 220, reputation: -2 }, outcome: "Fuel for growth — now you owe it back." },
+      { label: "Take it and invest in growth", delta: { cash: 500, customers: 220, reputation: -2 }, outcome: "Fuel for growth - now you owe it back." },
       { label: "Take a small, safe amount", delta: { cash: 220, customers: 90 }, outcome: "A cushion without betting the company." },
       { label: "Stay debt-free", delta: { reputation: 4, brand: 2 }, outcome: "Slower, but you sleep at night." },
     ],
@@ -341,7 +341,7 @@ const SITUATIONS: SitTemplate[] = [
     options: [
       { label: "Aggressive switch-over offer", delta: { cash: -160, customers: 480, brand: 3 }, outcome: "You scoop up most of their crowd." },
       { label: "Welcome them with great service", delta: { customers: 300, reputation: 6 }, outcome: "Slower, but they stay loyal." },
-      { label: "Raise prices — less competition", delta: { cash: 200, customers: -80 }, outcome: "More margin, fewer new faces." },
+      { label: "Raise prices - less competition", delta: { cash: 200, customers: -80 }, outcome: "More margin, fewer new faces." },
     ],
   },
   {
@@ -361,18 +361,18 @@ const SITUATIONS: SitTemplate[] = [
     options: [
       { label: "Launch there properly", delta: { cash: -320, customers: 540, brand: 6 }, outcome: "A bold new market opens up." },
       { label: "Test with shipping only", delta: { cash: -100, customers: 200 }, outcome: "Low-risk way to learn the demand." },
-      { label: "Stay focused on home turf", delta: { reputation: 3, cash: 40 }, outcome: "Disciplined — for now." },
+      { label: "Stay focused on home turf", delta: { reputation: 3, cash: 40 }, outcome: "Disciplined - for now." },
     ],
     when: (s) => s.customers > 1000 && s.cash > 400,
   },
   {
     type: "subscription", emoji: "🔁", title: "Should you launch a membership?",
-    prompt: "You could turn one-time buyers into recurring members — steady income, but you owe them ongoing value.",
+    prompt: "You could turn one-time buyers into recurring members - steady income, but you owe them ongoing value.",
     reactLabel: "Write your membership concept and what's included (45+ words)", reactMin: 45,
     options: [
       { label: "Launch a paid membership", delta: { cash: 280, customers: -60, brand: 5 }, outcome: "Predictable revenue from your superfans." },
       { label: "Free loyalty program", delta: { cash: -80, customers: 240, reputation: 6 }, outcome: "Retention up, no paywall friction." },
-      { label: "Not yet — keep it simple", delta: { reputation: 1 }, outcome: "One less thing to maintain." },
+      { label: "Not yet - keep it simple", delta: { reputation: 1 }, outcome: "One less thing to maintain." },
     ],
     when: (s) => s.customers > 600,
   },
@@ -409,7 +409,7 @@ export function resolveSituation(s: BizState, optIndex: number, reactionWords: n
   const fixed = 150 + s.products.length * 20;
   const cash = Math.round(s.cash + (d.cash || 0) + revenue - fixed);
   customers = Math.max(0, Math.round(customers * (0.96 + (reputation / 100) * 0.09))); // reputation retains customers
-  const log = [...s.log, { month: s.month, text: `${sit.emoji} ${opt.label} — ${opt.outcome} (rev +${revenue}, cash ${cash})` }].slice(-30);
+  const log = [...s.log, { month: s.month, text: `${sit.emoji} ${opt.label} - ${opt.outcome} (rev +${revenue}, cash ${cash})` }].slice(-30);
   let status: BizState["status"] = "active";
   if (reputation <= 0 || customers <= 0 || cash < -700) status = "failed";
   else if (reputation >= 75 && customers >= 1200 && cash > 1500) status = "thriving";
@@ -435,7 +435,7 @@ export const ACTIVITY_EFFECTS: Record<string, Delta & { msg: string }> = {
   partnerProblem: { reputation: 6, brand: 4, msg: "Reputation +6 · Brand +4" },
   vendor: { cash: 150, msg: "Lower costs · Cash +150" },
   brand: { brand: 20, reputation: 5, msg: "Brand +20 · Reputation +5" },
-  marketingPlan: { customers: 350, cash: -100, msg: "Customers +350 · Cash −100" },
+  marketingPlan: { customers: 350, cash: -100, msg: "Customers +350 · Cash -100" },
   adCampaign: { customers: 180, reputation: 5, msg: "Customers +180 · Reputation +5" },
 };
 export function applyEffect(s: BizState, id: string): BizState {

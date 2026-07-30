@@ -16,18 +16,18 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Real Question Isn't 'Is College Worth It?'",
         paragraphs: [
-          "The smartest question about education isn't 'is college worth it?' — it's 'which path has the best return for ME?' Return on investment (ROI) compares what you spend on education against what you earn afterward. A four-year degree at a public university can total around $120,000 (including living costs and lost income), while a two-year trade school program might cost around $33,000.",
-          "Different paths lead to very different starting salaries. An electrician might start around $65K, a registered nurse around $72K, a software engineer around $110K, a teacher around $45K, and some liberal-arts grads around $38K. The point isn't that one path is always better — it's that cost and expected income together determine the real value, and a cheaper path with solid pay can beat an expensive one.",
-          "A break-even analysis asks: how long until the higher-paying path 'pays off' its higher cost? You also have to count opportunity cost — the money you DON'T earn while you're in school instead of working. A trade-school grad who starts earning two years earlier, with far less debt, can be financially ahead of a four-year grad for a long time, sometimes permanently. The right choice depends on your goals, the career you want, and the numbers."
+          "The smartest question about education isn't 'is college worth it?' - it's 'which path has the best return for ME?' Return on investment (ROI) compares what you spend on education against what you earn afterward. A four-year degree at a public university can total around $120,000 (including living costs and lost income), while a two-year trade school program might cost around $33,000.",
+          "Different paths lead to very different starting salaries. An electrician might start around $65K, a registered nurse around $72K, a software engineer around $110K, a teacher around $45K, and some liberal-arts grads around $38K. The point isn't that one path is always better - it's that cost and expected income together determine the real value, and a cheaper path with solid pay can beat an expensive one.",
+          "A break-even analysis asks: how long until the higher-paying path 'pays off' its higher cost? You also have to count opportunity cost - the money you DON'T earn while you're in school instead of working. A trade-school grad who starts earning two years earlier, with far less debt, can be financially ahead of a four-year grad for a long time, sometimes permanently. The right choice depends on your goals, the career you want, and the numbers."
         ],
         bullets: [
           "ROI compares education cost against the income it produces.",
           "Four-year college can total ~$120K; a two-year trade program ~$33K.",
-          "Starting salaries vary widely by field — degree-required and skilled-trade alike.",
+          "Starting salaries vary widely by field - degree-required and skilled-trade alike.",
           "Break-even analysis estimates how long a pricier path takes to pay off.",
           "Opportunity cost = income you give up while studying instead of earning."
         ],
-        realWorldExample: "A welder who finishes a $25,000 program at 20 and earns $55K right away can be debt-free and saving while a four-year peer is still in school accumulating loans — a head start that compounds for years."
+        realWorldExample: "A welder who finishes a $25,000 program at 20 and earns $55K right away can be debt-free and saving while a four-year peer is still in school accumulating loans - a head start that compounds for years."
       },
       {
         type: "micro-check",
@@ -42,7 +42,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
               "The interest on student loans only"
             ],
             correctAnswer: 1,
-            explanation: "Opportunity cost is the money (and experience) you forgo by being in school rather than earning a paycheck — a real part of an education's true cost."
+            explanation: "Opportunity cost is the money (and experience) you forgo by being in school rather than earning a paycheck - a real part of an education's true cost."
           },
           {
             id: "income11-mc2",
@@ -54,7 +54,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
               "College degrees have no value"
             ],
             correctAnswer: 1,
-            explanation: "ROI depends on both cost and income. A lower-cost trade path that starts paying sooner can deliver a stronger return than an expensive degree — though it varies by career."
+            explanation: "ROI depends on both cost and income. A lower-cost trade path that starts paying sooner can deliver a stronger return than an expensive degree - though it varies by career."
           }
         ]
       },
@@ -64,7 +64,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
         narrative: "Three friends graduate high school in Tampa. Lucia enrolls at USF (4 years, about $80K total cost) and starts a job at $45K after graduating. Marco attends a trade school for electrical work (2 years, about $25K) and starts at $58K. Devin starts working full-time right away with no further schooling.",
         details: [
           "Lucia spends four years and ~$80K before earning her first full salary of $45K.",
-          "Marco spends two years and ~$25K, then starts earning $58K — sooner and with less debt.",
+          "Marco spends two years and ~$25K, then starts earning $58K - sooner and with less debt.",
           "Devin earns immediately but in lower-paying roles without specialized training.",
           "Over 10 years, the comparison depends on cost, salary growth, and debt for each path."
         ]
@@ -81,7 +81,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
             "Because he avoided all taxes"
           ],
           correctAnswer: 1,
-          explanation: "Marco's lower cost, earlier start, higher initial salary, and smaller debt give him a head start. Whether Lucia catches up depends on her long-term salary growth — that's what a break-even analysis examines."
+          explanation: "Marco's lower cost, earlier start, higher initial salary, and smaller debt give him a head start. Whether Lucia catches up depends on her long-term salary growth - that's what a break-even analysis examines."
         }
       },
       {
@@ -132,7 +132,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
               "Because tuition is the only real cost"
             ],
             correctAnswer: 1,
-            explanation: "Beyond tuition, you lose income you could have earned during those years — that forgone income is part of the true cost."
+            explanation: "Beyond tuition, you lose income you could have earned during those years - that forgone income is part of the true cost."
           },
           {
             id: "income11-mastery4",
@@ -144,7 +144,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
               "The number of clubs available"
             ],
             correctAnswer: 1,
-            explanation: "ROI is driven by how much the path costs and how much income it produces — together they reveal the real return."
+            explanation: "ROI is driven by how much the path costs and how much income it produces - together they reveal the real return."
           }
         ]
       }
@@ -161,15 +161,15 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Why Some Jobs Pay $20/Hour and Others Pay $200",
         paragraphs: [
-          "Your pay isn't random — it's set by supply and demand in the labor market. When lots of employers want a skill (high demand) but few people have it (low supply), wages rise. When a field gets flooded with workers (high supply) and demand doesn't keep up, wages stall or fall. This is the single biggest force behind why different jobs pay so differently.",
-          "Several things push wages up: jobs that are dangerous, require lots of education or rare skills, or have unpleasant conditions tend to pay more to attract workers. Employers also weigh your productivity — how much value you create. If hiring you adds more to the business than you cost, you're worth a higher wage; if not, your pay is capped by what you produce.",
-          "Markets shift over time, and so do wages. Software engineer pay surged from 2010–2020 as demand exploded. After 2008, a flood of new law-school graduates pushed some legal wages down. Today, automation and AI tools are changing demand for certain roles, while shortages of skilled trades like plumbers and electricians are pushing those wages up. Choosing a career with an eye on these trends helps you aim where pay is strong and growing."
+          "Your pay isn't random - it's set by supply and demand in the labor market. When lots of employers want a skill (high demand) but few people have it (low supply), wages rise. When a field gets flooded with workers (high supply) and demand doesn't keep up, wages stall or fall. This is the single biggest force behind why different jobs pay so differently.",
+          "Several things push wages up: jobs that are dangerous, require lots of education or rare skills, or have unpleasant conditions tend to pay more to attract workers. Employers also weigh your productivity - how much value you create. If hiring you adds more to the business than you cost, you're worth a higher wage; if not, your pay is capped by what you produce.",
+          "Markets shift over time, and so do wages. Software engineer pay surged from 2010-2020 as demand exploded. After 2008, a flood of new law-school graduates pushed some legal wages down. Today, automation and AI tools are changing demand for certain roles, while shortages of skilled trades like plumbers and electricians are pushing those wages up. Choosing a career with an eye on these trends helps you aim where pay is strong and growing."
         ],
         bullets: [
           "Wages are set by the supply of workers versus the demand for their skills.",
           "High demand + low supply = higher pay; oversupply = stagnant or falling pay.",
           "Danger, education, rare skills, and bad conditions tend to raise wages.",
-          "Employers pay based partly on your productivity — the value you create.",
+          "Employers pay based partly on your productivity - the value you create.",
           "Markets shift: automation can lower demand for some jobs while shortages raise others."
         ],
         realWorldExample: "During COVID, demand for nurses spiked while supply was limited, so hospitals offered huge pay and bonuses. The same supply-and-demand logic explains why a sudden shortage of electricians today is driving their wages up."
@@ -206,7 +206,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "AI Tools Meet the Trades Shortage",
-        narrative: "New AI coding tools make some basic programming tasks faster, increasing the supply of work that fewer junior developers can handle — putting downward pressure on entry-level developer wages. At the same time, fewer young people are entering the trades, creating a shortage of plumbers and electricians and pushing their wages up.",
+        narrative: "New AI coding tools make some basic programming tasks faster, increasing the supply of work that fewer junior developers can handle - putting downward pressure on entry-level developer wages. At the same time, fewer young people are entering the trades, creating a shortage of plumbers and electricians and pushing their wages up.",
         details: [
           "AI tools let companies do more with fewer junior developers, softening demand for entry-level coders.",
           "A larger pool competing for fewer junior roles can hold down those wages.",
@@ -226,7 +226,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
             "Because employers dislike programmers"
           ],
           correctAnswer: 1,
-          explanation: "Trades face low supply and steady demand, lifting wages. In some coding roles, AI tools reduce the demand for junior labor, softening those wages — both are supply-and-demand at work."
+          explanation: "Trades face low supply and steady demand, lifting wages. In some coding roles, AI tools reduce the demand for junior labor, softening those wages - both are supply-and-demand at work."
         }
       },
       {
@@ -236,7 +236,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
           "Scarce, high-demand skills command higher wages.",
           "Danger, education, rare skills, and tough conditions push pay up.",
           "Employers pay based partly on the value (productivity) you create.",
-          "Watch market trends — automation and shortages reshape which careers pay well."
+          "Watch market trends - automation and shortages reshape which careers pay well."
         ]
       },
       {
@@ -306,9 +306,9 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "When the Economy Shrinks, Be the One Who's Ready",
         paragraphs: [
-          "A recession is a significant, widespread decline in economic activity — often described as two or more quarters of falling GDP (the total output of the economy). During recessions, companies cut costs, which usually means layoffs, so unemployment rises. Understanding this cycle helps you prepare instead of panic.",
-          "Economists describe a few types of unemployment. Cyclical unemployment is caused by recessions (demand drops, so jobs vanish temporarily). Structural unemployment happens when jobs are permanently replaced — by technology or a shift in the economy. Frictional unemployment is the normal, short-term gap when people are between jobs or just entering the workforce.",
-          "Your best defense is an emergency fund — ideally enough to cover about six months of expenses — which acts like financial armor when income disappears. Some careers are more recession-resistant (healthcare, utilities, government) because people need those services no matter what. And during a downturn, two moves are especially risky: taking on new debt and quitting a job without a backup. Preparation, not prediction, is what protects you."
+          "A recession is a significant, widespread decline in economic activity - often described as two or more quarters of falling GDP (the total output of the economy). During recessions, companies cut costs, which usually means layoffs, so unemployment rises. Understanding this cycle helps you prepare instead of panic.",
+          "Economists describe a few types of unemployment. Cyclical unemployment is caused by recessions (demand drops, so jobs vanish temporarily). Structural unemployment happens when jobs are permanently replaced - by technology or a shift in the economy. Frictional unemployment is the normal, short-term gap when people are between jobs or just entering the workforce.",
+          "Your best defense is an emergency fund - ideally enough to cover about six months of expenses - which acts like financial armor when income disappears. Some careers are more recession-resistant (healthcare, utilities, government) because people need those services no matter what. And during a downturn, two moves are especially risky: taking on new debt and quitting a job without a backup. Preparation, not prediction, is what protects you."
         ],
         bullets: [
           "A recession is often defined as two or more quarters of falling GDP.",
@@ -398,7 +398,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
               "Lower prices on everything"
             ],
             correctAnswer: 1,
-            explanation: "As economic activity falls, companies cut costs — often through layoffs — which raises unemployment."
+            explanation: "As economic activity falls, companies cut costs - often through layoffs - which raises unemployment."
           },
           {
             id: "income13-mastery2",
@@ -452,8 +452,8 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
         title: "The Program You're Already Paying Into",
         paragraphs: [
           "Social Security is a federal program that provides income to retirees, people with disabilities, and survivors of deceased workers. It's funded by payroll taxes called FICA: 6.2% is taken from your paycheck and your employer matches another 6.2%. So before you ever retire, you're already contributing every time you get paid.",
-          "You earn Social Security by working. As you work and pay FICA, you accumulate 'credits' — up to four per year. After enough credits, you qualify for benefits. Your monthly retirement benefit is based on your 35 highest-earning years, so steady work over a career increases what you'll eventually receive. For today's young workers (Gen Z), the full retirement age is 67.",
-          "When you claim matters a lot. You can start as early as 62, but your monthly benefit is permanently reduced. Wait until full retirement age (67) for the full amount, or delay all the way to 70 for an even larger monthly check. Social Security isn't just for retirement, either — it also pays disability benefits (SSDI) if you can't work, and survivor benefits to a worker's family if they die."
+          "You earn Social Security by working. As you work and pay FICA, you accumulate 'credits' - up to four per year. After enough credits, you qualify for benefits. Your monthly retirement benefit is based on your 35 highest-earning years, so steady work over a career increases what you'll eventually receive. For today's young workers (Gen Z), the full retirement age is 67.",
+          "When you claim matters a lot. You can start as early as 62, but your monthly benefit is permanently reduced. Wait until full retirement age (67) for the full amount, or delay all the way to 70 for an even larger monthly check. Social Security isn't just for retirement, either - it also pays disability benefits (SSDI) if you can't work, and survivor benefits to a worker's family if they die."
         ],
         bullets: [
           "Social Security is funded by FICA payroll taxes (6.2% you + 6.2% employer).",
@@ -462,7 +462,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
           "Full retirement age for Gen Z is 67; claiming at 62 permanently lowers your benefit.",
           "Social Security also provides disability (SSDI) and survivor benefits."
         ],
-        realWorldExample: "Look at a real pay stub and you'll see a 'FICA' or 'Social Security' line — that 6.2% deduction is your contribution. Decades later, those contributions and your 35 best earning years determine the monthly check you receive in retirement."
+        realWorldExample: "Look at a real pay stub and you'll see a 'FICA' or 'Social Security' line - that 6.2% deduction is your contribution. Decades later, those contributions and your 35 best earning years determine the monthly check you receive in retirement."
       },
       {
         type: "micro-check",
@@ -587,18 +587,18 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
   },
 
   // ─────────────────────────────────────────────
-  // income-15: Local Taxes — Property, Sales & Municipal (FL.2.13)
+  // income-15: Local Taxes - Property, Sales & Municipal (FL.2.13)
   // ─────────────────────────────────────────────
   {
     lessonId: "income-15",
     sections: [
       {
         type: "concept",
-        title: "No State Income Tax — But You Still Pay Local Taxes",
+        title: "No State Income Tax - But You Still Pay Local Taxes",
         paragraphs: [
-          "Florida is one of only a handful of states with no state income tax — a real perk for workers. But that doesn't mean Florida is tax-free. Local governments still raise money through several taxes, and understanding them helps you budget for the real cost of living in different parts of the state.",
-          "The biggest local tax for homeowners is property tax, calculated as your home's assessed value multiplied by the local 'millage rate.' Millage rates vary by county and fund things like schools, roads, and emergency services. Florida also has a sales tax: a 6% state base rate, plus a county surtax in many areas — for example, Miami-Dade adds 1%, making it 7%. Some areas also charge special assessments for specific local projects.",
-          "Two homes of the same price in different counties can have very different property tax bills because their millage rates differ. Florida offers a homestead exemption — typically up to $50,000 off the assessed value of your primary residence — which lowers your property tax bill if the home is where you actually live. Knowing where your tax dollars go (schools, roads, police, fire) helps you see local taxes as the price of community services, not just a deduction from your wallet."
+          "Florida is one of only a handful of states with no state income tax - a real perk for workers. But that doesn't mean Florida is tax-free. Local governments still raise money through several taxes, and understanding them helps you budget for the real cost of living in different parts of the state.",
+          "The biggest local tax for homeowners is property tax, calculated as your home's assessed value multiplied by the local 'millage rate.' Millage rates vary by county and fund things like schools, roads, and emergency services. Florida also has a sales tax: a 6% state base rate, plus a county surtax in many areas - for example, Miami-Dade adds 1%, making it 7%. Some areas also charge special assessments for specific local projects.",
+          "Two homes of the same price in different counties can have very different property tax bills because their millage rates differ. Florida offers a homestead exemption - typically up to $50,000 off the assessed value of your primary residence - which lowers your property tax bill if the home is where you actually live. Knowing where your tax dollars go (schools, roads, police, fire) helps you see local taxes as the price of community services, not just a deduction from your wallet."
         ],
         bullets: [
           "Florida has no state income tax, but local taxes still apply.",
@@ -607,7 +607,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
           "The homestead exemption (up to ~$50,000) lowers property tax on your primary home.",
           "Local taxes fund schools, roads, police, and fire services."
         ],
-        realWorldExample: "Two families buy identical $400,000 homes — one in a county with a high millage rate, one in a county with a low rate. The high-rate family can pay thousands more in property taxes every year for the same-priced house, simply because of where they live."
+        realWorldExample: "Two families buy identical $400,000 homes - one in a county with a high millage rate, one in a county with a low rate. The high-rate family can pay thousands more in property taxes every year for the same-priced house, simply because of where they live."
       },
       {
         type: "micro-check",
@@ -617,7 +617,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
             question: "Does Florida have a state income tax?",
             options: [
               "Yes, one of the highest in the country",
-              "No — Florida is one of the states with no state income tax",
+              "No - Florida is one of the states with no state income tax",
               "Only for people over 65",
               "Only on weekends"
             ],
@@ -661,7 +661,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
             "Because property tax is based on income"
           ],
           correctAnswer: 1,
-          explanation: "Property tax = assessed value × millage rate. With a much higher millage rate, the Nguyens owe far more even though the home values are similar — the rate, not just the price, drives the bill."
+          explanation: "Property tax = assessed value × millage rate. With a much higher millage rate, the Nguyens owe far more even though the home values are similar - the rate, not just the price, drives the bill."
         }
       },
       {
@@ -688,7 +688,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
               "Only true for businesses"
             ],
             correctAnswer: 0,
-            explanation: "True — Florida is one of the few states with no state income tax, though local taxes still apply."
+            explanation: "True - Florida is one of the few states with no state income tax, though local taxes still apply."
           },
           {
             id: "income15-mastery2",
@@ -721,7 +721,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
               "Schools, roads, police, and fire services",
               "Private company profits",
               "The federal military budget only",
-              "Nowhere — they're just collected"
+              "Nowhere - they're just collected"
             ],
             correctAnswer: 0,
             explanation: "Local property taxes fund community services like public schools, roads, police, and fire departments."

@@ -266,11 +266,11 @@ export default function Dashboard() {
   const greetingSub = useMemo(() => {
     const lines = [
       "Ready to build some wealth today?",
-      "Your portfolio's waiting — let's make it grow.",
+      "Your portfolio's waiting - let's make it grow.",
       "Every lesson is money in the bank.",
       "Small steps today, big returns tomorrow.",
       "Let's turn knowledge into net worth.",
-      "The market never sleeps — neither does your streak.",
+      "The market never sleeps - neither does your streak.",
       "One more lesson closer to the finish line.",
       "Compound your streak, compound your coins.",
       "Time to put your money mindset to work.",
@@ -322,7 +322,7 @@ export default function Dashboard() {
   const streakDayInCycle = streak % 7;
   const streakRingProgress = streakDayInCycle / 7 * 100;
 
-  // Friends snapshot — accepted partners + waiting invites (Partners page RPCs).
+  // Friends snapshot - accepted partners + waiting invites (Partners page RPCs).
   const [friendsInfo, setFriendsInfo] = useState<{ count: number; rows: { name: string; coins: number }[]; invites: number } | null>(null);
   useEffect(() => {
     let cancelled = false;
@@ -422,7 +422,7 @@ export default function Dashboard() {
 
   // ── Roller coaster inputs for the current unit (reuses the Missions coaster) ──
   // Use the adaptive unit so validated lessons (benchmark-skipped) are correctly
-  // treated as done — matching the exact logic the Missions page uses.
+  // treated as done - matching the exact logic the Missions page uses.
   const coasterLessons = useMemo(
     () => getAdaptiveUnit(
       currentUnit.id,
@@ -437,7 +437,7 @@ export default function Dashboard() {
       const al = coasterLessons[i];
       if (al.status !== "validated" && !isLessonCompleted(al.lesson.id)) return i;
     }
-    return coasterLessons.length; // all done — CoasterTrack clamps to n-1
+    return coasterLessons.length; // all done - CoasterTrack clamps to n-1
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coasterLessons, lessonProgress]);
   const coasterUnlocked = (lessonId: string): boolean => {
@@ -488,7 +488,7 @@ export default function Dashboard() {
         </MCard>
         }
 
-        {/* ═══ 1. GREETING BANNER — moved here from Missions, sits above the ride ═══ */}
+        {/* ═══ 1. GREETING BANNER - moved here from Missions, sits above the ride ═══ */}
         <MCard i={0}>
           <div className="relative overflow-hidden rounded-3xl mb-3 p-6 md:p-8 text-white"
             style={{ background: "var(--brand-hero)" }}>
@@ -546,7 +546,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Stats — one cohesive frosted tray, icon chips, hairline dividers */}
+              {/* Stats - one cohesive frosted tray, icon chips, hairline dividers */}
               <div className="mt-6 rounded-2xl grid grid-cols-2 sm:grid-cols-5 overflow-hidden"
                 style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
                 {[
@@ -573,7 +573,7 @@ export default function Dashboard() {
           </div>
         </MCard>
 
-        {/* ═══ 2. ROLLER COASTER — full-width strip (hidden — flip to true to restore) ═══ */}
+        {/* ═══ 2. ROLLER COASTER - full-width strip (hidden - flip to true to restore) ═══ */}
         {false && (
         <MCard i={1}>
           <div className="rounded-3xl overflow-hidden relative" style={{ background: "linear-gradient(180deg, rgba(var(--brand-rgb),0.14) 0%, rgba(var(--brand-rgb),0.05) 14%, #ffffff 34%)", border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
@@ -614,14 +614,14 @@ export default function Dashboard() {
         </MCard>
         )}
 
-        {/* ═══ 3. TODAY — daily challenge + missions, one unified card ═══ */}
+        {/* ═══ 3. TODAY - daily challenge + missions, one unified card ═══ */}
         <MCard i={6} className="mt-3">
           <div className="bg-white rounded-3xl p-5 relative overflow-hidden" style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
             <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
               style={{ background: "rgba(var(--brand-rgb),0.06)" }} />
             <p className="relative text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Today</p>
 
-            {/* Daily challenge — contained highlight row */}
+            {/* Daily challenge - contained highlight row */}
             <div className={`relative mt-3 rounded-2xl p-4 text-white overflow-hidden ${dailyDone ? "opacity-80" : ""}`}
               style={{ background: "var(--brand-deep)" }}>
               <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full blur-2xl pointer-events-none"
@@ -649,7 +649,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Daily missions — light rows, same card */}
+            {/* Daily missions - light rows, same card */}
             <div className="mt-4 pt-4 border-t border-black/[0.06]">
               <DailyMissions
                 lessonProgress={lessonProgress}
@@ -659,7 +659,7 @@ export default function Dashboard() {
           </div>
         </MCard>
 
-        {/* ═══ 4. SNAPSHOTS — business · portfolio · class rank ═══ */}
+        {/* ═══ 4. SNAPSHOTS - business · portfolio · class rank ═══ */}
         <MCard i={7} className="mt-6 mb-2.5 px-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--brand)" }} />
@@ -775,7 +775,7 @@ export default function Dashboard() {
                         </div>
                       )}
 
-                      {/* Pending scenario — pulsing alert */}
+                      {/* Pending scenario - pulsing alert */}
                       {bizSim.pending ? (
                         <motion.div
                           initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
@@ -797,7 +797,7 @@ export default function Dashboard() {
                           </div>
                         </motion.div>
                       ) : (
-                        /* Recent activity log — last 2 entries */
+                        /* Recent activity log - last 2 entries */
                         bizSim.log.length > 0 && (
                           <div className="mt-3">
                             <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Recent activity</p>
@@ -826,7 +826,7 @@ export default function Dashboard() {
                   ) : (
                     <div className="mt-3">
                       <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Start yours</p>
-                      <p className="text-xs text-muted-foreground mt-1">Design a product, win customers, and run the books — your own company from scratch.</p>
+                      <p className="text-xs text-muted-foreground mt-1">Design a product, win customers, and run the books - your own company from scratch.</p>
                     </div>
                   )}
                 </div>
@@ -851,7 +851,7 @@ export default function Dashboard() {
 
                 {lbRows.length > 0 && rankInfo ? (
                   <>
-                    {/* ── Hero rank section — dark gradient bg ── */}
+                    {/* ── Hero rank section - dark gradient bg ── */}
                     <div className="px-5 pt-5 pb-4 relative overflow-hidden"
                       style={{ background: "linear-gradient(145deg, #1a1208, #2d1f06)" }}>
                       {/* Glow orb */}
@@ -979,7 +979,7 @@ export default function Dashboard() {
         </div>
       </main>
 
-      {/* Fullscreen roller coaster — same overlay Missions uses */}
+      {/* Fullscreen roller coaster - same overlay Missions uses */}
       {coasterFull && (
         <div className="fixed inset-0 z-[60] bg-background">
           <FullScreenCoaster
@@ -1109,7 +1109,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
 
           {portfolio.length > 0 && activeHolding ? (
             <>
-              {/* Price display — updates on hover; click to expand */}
+              {/* Price display - updates on hover; click to expand */}
               <div onClick={() => openExpanded()}
                 className="mt-3 flex items-start justify-between gap-2 cursor-pointer group/hero">
                 <div className="min-w-0">
@@ -1148,7 +1148,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
                 ))}
               </div>
 
-              {/* Interactive chart with crosshair — click to expand */}
+              {/* Interactive chart with crosshair - click to expand */}
               <div className="h-28 mt-2 -mx-2 cursor-pointer" onClick={() => openExpanded()}>
                 {chartData.length >= 2 ? (
                   <ResponsiveContainer width="100%" height="100%">
@@ -1182,7 +1182,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
                 )}
               </div>
 
-              {/* Holdings list — click to open the expanded view on that stock */}
+              {/* Holdings list - click to open the expanded view on that stock */}
               <div className="mt-1.5">
                 {portfolio.slice(0, 4).map((h, idx) => {
                   const price = livePrices.get(h.symbol) ?? h.purchasePrice;

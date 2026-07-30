@@ -140,7 +140,7 @@ export default function JeffTour() {
   }
 
   // Resolve the current step. Anchors register themselves (see lib/tourAnchors),
-  // so for elements already on the page — like the nav icons — we read the exact
+  // so for elements already on the page - like the nav icons - we read the exact
   // node synchronously with no lag and no searching. For a target on a page we're
   // navigating to, we get notified the moment it mounts instead of polling for it.
   useLayoutEffect(() => {
@@ -151,7 +151,7 @@ export default function JeffTour() {
     elRef.current = null
 
     if (s.route && location.pathname !== s.route) navigate(s.route)
-    // Nav links live inside GameNav's slide-out sidebar — tell it to open for
+    // Nav links live inside GameNav's slide-out sidebar - tell it to open for
     // nav-* steps (and close for everything else) so the target is on screen.
     window.dispatchEvent(new CustomEvent("investiplay:nav-menu", { detail: { open: !!s.anchor?.startsWith("nav-") } }))
     if (!s.anchor) { setRect(null); return }
@@ -171,7 +171,7 @@ export default function JeffTour() {
       return () => { cancelled = true; timers.forEach(clearTimeout) }
     }
 
-    // Target isn't mounted yet (we just changed pages) — wait to be told it arrived.
+    // Target isn't mounted yet (we just changed pages) - wait to be told it arrived.
     const unsub = tourAnchors.subscribe(() => {
       if (cancelled || elRef.current) return
       const el = tourAnchors.get(s.anchor!)
@@ -267,7 +267,7 @@ export default function JeffTour() {
   const box = rect ? { top: rect.top - pad, left: rect.left - pad, width: rect.width + pad * 2, height: rect.height + pad * 2 } : null
 
   // Arrow sits on the side of the unit facing the highlighted element, and points
-  // at the target's centre — its offset is derived from where the target actually
+  // at the target's centre - its offset is derived from where the target actually
   // is relative to the bubble, so it tracks the right nav item on every step
   // (not a fixed offset that always points at the first tab).
   const arrow = (() => {
@@ -305,7 +305,7 @@ export default function JeffTour() {
         </>
       )}
 
-      {/* Jeff + speech bubble — walks to each element. */}
+      {/* Jeff + speech bubble - walks to each element. */}
       <motion.div
         ref={unitRef}
         className="absolute top-0 left-0"

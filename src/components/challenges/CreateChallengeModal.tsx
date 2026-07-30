@@ -111,7 +111,7 @@ export default function CreateChallengeModal({ open, onOpenChange, submitting, i
               </div>
             )}
           </div>
-          {isTeacher && <p className="text-xs text-muted-foreground -mt-2">Add bonus coins to the pot (optional) — seeds it on top of student entries.</p>}
+          {isTeacher && <p className="text-xs text-muted-foreground -mt-2">Add bonus coins to the pot (optional) - seeds it on top of student entries.</p>}
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">

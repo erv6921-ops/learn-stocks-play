@@ -103,7 +103,7 @@ export default function StudentWork() {
         ])
         if (cancelled) return
 
-        // Lesson reflections — sorted into curriculum order.
+        // Lesson reflections - sorted into curriculum order.
         const refs = ((refRes?.data ?? []) as Reflection[])
           .filter((r) => r.response?.trim())
           .sort((a, b) => (LESSON_BY_ID.get(a.lesson_id)?.order ?? 999) - (LESSON_BY_ID.get(b.lesson_id)?.order ?? 999))
@@ -112,7 +112,7 @@ export default function StudentWork() {
         // Micro-business written activities.
         setBizSections(extractBizWork(gsRes?.data?.activities?.data))
 
-        // Biz Lab submissions — labelled from the spec, internal keys skipped.
+        // Biz Lab submissions - labelled from the spec, internal keys skipped.
         const subs: Submission[] = ((subRes?.data ?? []) as { submission_type: string; content: Record<string, string>; link: string | null; updated_at: string }[])
           .map((row) => {
             const spec = SUBMISSION_SPEC.get(row.submission_type)

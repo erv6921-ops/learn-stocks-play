@@ -181,7 +181,7 @@ export default function MicroBusinessStudio() {
     toast.success(`${ACTIVITY_TITLES[id] || "Activity"} submitted`, { description: `+${xp} InvestiCoins${eff ? ` · ${eff.msg}` : ""}` });
   }, [earnJeffs]);
 
-  // Completion for rotating quarterly briefs — same flow as `complete`, but the
+  // Completion for rotating quarterly briefs - same flow as `complete`, but the
   // metric effect and title come from the brief definition rather than a fixed map.
   const completeBrief: BriefComplete = useCallback((brief, fields) => {
     setA((prev) => {
@@ -265,7 +265,7 @@ export default function MicroBusinessStudio() {
     earnJeffs(40, `Business month ${sim.month}`);
     const totalRev = revenue + extraRev;
     toast.success(`Month ${sim.month} resolved`, { description: `Revenue +${totalRev} IC${extraRev > 0 ? ` (inc. +${extraRev} from deals)` : ""} · +40 InvestiCoins` });
-    if (newQuarter) toast.success(`Quarter ${quarterOf(withDeals.month) + 1} begins`, { description: "Your operations activities have refreshed — run them again." });
+    if (newQuarter) toast.success(`Quarter ${quarterOf(withDeals.month) + 1} begins`, { description: "Your operations activities have refreshed - run them again." });
     if (withDeals.status === "failed") toast.error("Your business ran out of road", { description: "Review what happened, then rebuild." });
   };
   const rebuild = () => persist({ ...a, sim: defaultBizState(), done: [], xpAwarded: [] });
@@ -320,21 +320,21 @@ export default function MicroBusinessStudio() {
             </div>
           </div>
           <div className="h-1.5 mt-3 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${(doneCount / ALL_ACTIVITIES.length) * 100}%`, background: NEON }} /></div>
-          <p className="text-[10px] text-white/35 mt-1.5">Operations refresh every quarter — there's always more to run.</p>
+          <p className="text-[10px] text-white/35 mt-1.5">Operations refresh every quarter - there's always more to run.</p>
         </div>
 
         {/* Two columns on desktop: the running-business cockpit on the left,
-            the quarter's activities on the right — fills the page and keeps the
+            the quarter's activities on the right - fills the page and keeps the
             "manage" and "do the work" jobs visually separate. */}
         <div className="grid lg:grid-cols-5 gap-5 items-start">
-          {/* Cockpit — your live business */}
+          {/* Cockpit - your live business */}
           <div className="lg:col-span-2 space-y-4">
             <BusinessDashboard sim={sim} />
             <MonthlyOps sim={sim} onGenerate={generateMonth} onResolve={resolveMonth} onRebuild={rebuild} />
             <ProductLine sim={sim} onAdd={addProductHandler} />
           </div>
 
-          {/* Workbench — this quarter's activities, one at a time */}
+          {/* Workbench - this quarter's activities, one at a time */}
           <div className="lg:col-span-3" ref={anchor("biz-activity")}>
             <Tabs defaultValue="product" className="space-y-4">
               <TabsList className={cn("grid w-full", allDone ? "grid-cols-5" : "grid-cols-4")}>
@@ -349,7 +349,7 @@ export default function MicroBusinessStudio() {
                 <SequentialSteps a={a} steps={productSteps} />
               </TabsContent>
 
-              {/* Office tab — untouched existing component */}
+              {/* Office tab - untouched existing component */}
               <TabsContent value="office"><MicroBusinessOffice /></TabsContent>
 
               <TabsContent value="collab">
@@ -372,7 +372,7 @@ export default function MicroBusinessStudio() {
 
 type AProps = { a: ActivitiesState; bt: BusinessType; complete: Complete };
 
-/* ═══ PRODUCT DEV · Activity 1 — Product Design Document ═══ */
+/* ═══ PRODUCT DEV · Activity 1 - Product Design Document ═══ */
 function ProductDoc({ a, complete }: AProps) {
   const id = "productDoc"; const done = a.done.includes(id); const saved = a.data[id] || {};
   const [editing, setEditing] = useState(false);
@@ -411,9 +411,9 @@ function ProductDoc({ a, complete }: AProps) {
         <WField label="Product / Service name (min 3 words)" value={str(f.name)} onChange={(v) => set("name", v)} min={3} rows={1} placeholder="A short, descriptive name" />
         <WField label={`Problem it solves (min ${ws(75)} words)`} value={str(f.problem)} onChange={(v) => set("problem", v)} min={ws(75)} rows={4} />
         <WField label={`Target customer description (min ${ws(50)} words)`} value={str(f.target)} onChange={(v) => set("target", v)} min={ws(50)} rows={3} />
-        <WField label={`Feature 1 — and why it matters (min ${ws(30)} words)`} value={str(f.feat1)} onChange={(v) => set("feat1", v)} min={ws(30)} />
-        <WField label={`Feature 2 — and why it matters (min ${ws(30)} words)`} value={str(f.feat2)} onChange={(v) => set("feat2", v)} min={ws(30)} />
-        <WField label={`Feature 3 — and why it matters (min ${ws(30)} words)`} value={str(f.feat3)} onChange={(v) => set("feat3", v)} min={ws(30)} />
+        <WField label={`Feature 1 - and why it matters (min ${ws(30)} words)`} value={str(f.feat1)} onChange={(v) => set("feat1", v)} min={ws(30)} />
+        <WField label={`Feature 2 - and why it matters (min ${ws(30)} words)`} value={str(f.feat2)} onChange={(v) => set("feat2", v)} min={ws(30)} />
+        <WField label={`Feature 3 - and why it matters (min ${ws(30)} words)`} value={str(f.feat3)} onChange={(v) => set("feat3", v)} min={ws(30)} />
         <WField label={`What makes it different from competitors (min ${ws(50)} words)`} value={str(f.diff)} onChange={(v) => set("diff", v)} min={ws(50)} rows={3} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => { complete(id, f, XP.pd); setEditing(false); }}><FileText className="w-4 h-4 mr-1.5" /> Generate Product Brief</Button>
@@ -422,7 +422,7 @@ function ProductDoc({ a, complete }: AProps) {
   );
 }
 
-/* ═══ PRODUCT DEV · Activity 2 — Pricing Strategy ═══ */
+/* ═══ PRODUCT DEV · Activity 2 - Pricing Strategy ═══ */
 const PRICING_TYPES = ["Cost-plus", "Value-based", "Competitive"];
 function Pricing({ a, bt, complete }: AProps) {
   const id = "pricing"; const done = a.done.includes(id); const saved = a.data[id] || {};
@@ -460,7 +460,7 @@ function Pricing({ a, bt, complete }: AProps) {
           <div><label className="text-sm font-semibold">Your price (IC)</label><Input type="number" value={str(f.price)} onChange={(e) => set("price", e.target.value)} className="mt-1" /></div>
           <div><label className="text-sm font-semibold">Profit margin %</label><Input value={str(f.margin)} onChange={(e) => set("margin", e.target.value)} className="mt-1" placeholder="you calculate it" /></div>
         </div>
-        <p className="text-xs text-muted-foreground">Formula: (Price − Cost) ÷ Price × 100{price > 0 ? ` — actual works out to ${actualMargin.toFixed(0)}%` : ""}{marginOff ? " (check your math)" : ""}</p>
+        <p className="text-xs text-muted-foreground">Formula: (Price - Cost) ÷ Price × 100{price > 0 ? ` - actual works out to ${actualMargin.toFixed(0)}%` : ""}{marginOff ? " (check your math)" : ""}</p>
         <WField label={`Justify your price (${ws(40)}+ words)`} value={str(f.justify)} onChange={(v) => set("justify", v)} min={ws(40)} />
         <div>
           <label className="text-sm font-semibold">Pricing approach</label>
@@ -481,7 +481,7 @@ function Pricing({ a, bt, complete }: AProps) {
   );
 }
 
-/* ═══ PRODUCT DEV · Activity 3 — Product Feedback Response ═══ */
+/* ═══ PRODUCT DEV · Activity 3 - Product Feedback Response ═══ */
 function Feedback({ a, bt, complete }: AProps) {
   const id = "feedback"; const done = a.done.includes(id); const saved = a.data[id] || {};
   const review = useMemo(() => BETA_REVIEWS[bt][weekIndex() % BETA_REVIEWS[bt].length], [bt]);
@@ -522,7 +522,7 @@ function Feedback({ a, bt, complete }: AProps) {
   );
 }
 
-/* ═══ COLLABORATION · Activity 1 — Find a Partner ═══ */
+/* ═══ COLLABORATION · Activity 1 - Find a Partner ═══ */
 function FindPartner({ a, bt, complete }: AProps) {
   const id = "partner"; const done = a.done.includes(id); const saved = a.data[id] || {};
   const partners = PARTNERS[bt];
@@ -576,7 +576,7 @@ function FindPartner({ a, bt, complete }: AProps) {
   );
 }
 
-/* ═══ COLLABORATION · Activity 2 — Partnership Problem ═══ */
+/* ═══ COLLABORATION · Activity 2 - Partnership Problem ═══ */
 function PartnerProblem({ a, bt, complete }: AProps) {
   const id = "partnerProblem"; const done = a.done.includes(id); const saved = a.data[id] || {};
   const partnerFormed = a.done.includes("partner");
@@ -612,7 +612,7 @@ function PartnerProblem({ a, bt, complete }: AProps) {
   );
 }
 
-/* ═══ COLLABORATION · Activity 3 — Vendor Negotiation ═══ */
+/* ═══ COLLABORATION · Activity 3 - Vendor Negotiation ═══ */
 function VendorNegotiation({ a, bt, complete }: AProps) {
   const id = "vendor"; const done = a.done.includes(id); const saved = a.data[id] || {};
   const offer = VENDOR_OFFERS[bt];
@@ -633,9 +633,9 @@ function VendorNegotiation({ a, bt, complete }: AProps) {
     } else if (askedPct >= 20 && !hasReason) {
       outcome = { ok: false, discount: 0, reply: `Dear customer,\n\nA discount of that size with no business justification isn't something we can entertain. Our price stands at ${offer.unitPrice.toFixed(2)} IC per unit. We'll move on to other buyers.\n\nRegards,\nVendor Sales` };
     } else if (askedPct >= 20 && hasReason) {
-      outcome = { ok: true, discount: 10, reply: `Dear customer,\n\nThat's a steep ask, but your volume and loyalty count for something. We can meet you partway with 10% off — ${(offer.unitPrice * 0.9).toFixed(2)} IC per unit. Final offer.\n\nRegards,\nVendor Sales` };
+      outcome = { ok: true, discount: 10, reply: `Dear customer,\n\nThat's a steep ask, but your volume and loyalty count for something. We can meet you partway with 10% off - ${(offer.unitPrice * 0.9).toFixed(2)} IC per unit. Final offer.\n\nRegards,\nVendor Sales` };
     } else {
-      outcome = { ok: true, discount: 5, reply: `Dear customer,\n\nWe can offer a modest 5% courtesy discount — ${(offer.unitPrice * 0.95).toFixed(2)} IC per unit. Sharpen your case (volume, loyalty) next time for more.\n\nRegards,\nVendor Sales` };
+      outcome = { ok: true, discount: 5, reply: `Dear customer,\n\nWe can offer a modest 5% courtesy discount - ${(offer.unitPrice * 0.95).toFixed(2)} IC per unit. Sharpen your case (volume, loyalty) next time for more.\n\nRegards,\nVendor Sales` };
     }
     return outcome;
   };
@@ -653,8 +653,8 @@ function VendorNegotiation({ a, bt, complete }: AProps) {
   return (
     <ActivityCard icon={Truck} n={3} title="Vendor Negotiation" desc="A vendor sent a supply offer." xp={XP.collab} done={false}>
       <div className="space-y-3">
-        <div className="rounded-xl bg-muted p-3 text-sm"><p className="font-bold mb-1">Vendor opening offer — {offer.item}</p><div className="flex gap-4 text-xs"><span>Price: <b>{offer.unitPrice.toFixed(2)} IC/unit</b></span><span>Min order: <b>{offer.moq}</b></span><span>Delivery: <b>{offer.deliveryDays} days</b></span></div></div>
-        <WField label={`Analyze the offer — good or bad for you, and why? (${ws(60)}+ words)`} value={str(f.analysis)} onChange={(v) => set("analysis", v)} min={ws(60)} rows={3} />
+        <div className="rounded-xl bg-muted p-3 text-sm"><p className="font-bold mb-1">Vendor opening offer - {offer.item}</p><div className="flex gap-4 text-xs"><span>Price: <b>{offer.unitPrice.toFixed(2)} IC/unit</b></span><span>Min order: <b>{offer.moq}</b></span><span>Delivery: <b>{offer.deliveryDays} days</b></span></div></div>
+        <WField label={`Analyze the offer - good or bad for you, and why? (${ws(60)}+ words)`} value={str(f.analysis)} onChange={(v) => set("analysis", v)} min={ws(60)} rows={3} />
         <WField label={`Write a counter-offer letter with specific numbers (${ws(75)}+ words)`} value={str(f.counter)} onChange={(v) => set("counter", v)} min={ws(75)} rows={4} placeholder="Tip: ask for a realistic discount (%), and justify it with volume or loyalty." />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, { ...f, __outcome: evaluate() }, XP.collab)}><Truck className="w-4 h-4 mr-1.5" /> Send counter-offer</Button>
@@ -663,7 +663,7 @@ function VendorNegotiation({ a, bt, complete }: AProps) {
   );
 }
 
-/* ═══ MARKETING · Activity 1 — Brand Identity ═══ */
+/* ═══ MARKETING · Activity 1 - Brand Identity ═══ */
 const VOICES = ["Formal", "Casual", "Bold", "Friendly", "Playful", "Luxurious"];
 function BrandIdentity({ a, complete }: AProps) {
   const id = "brand"; const done = a.done.includes(id); const saved = a.data[id] || {};
@@ -730,7 +730,7 @@ function BrandIdentity({ a, complete }: AProps) {
   );
 }
 
-/* ═══ MARKETING · Activity 2 — Marketing Plan ═══ */
+/* ═══ MARKETING · Activity 2 - Marketing Plan ═══ */
 const CHANNELS = ["Social Media", "Email", "Flyers", "Events", "Word of Mouth", "Influencers"];
 function MarketingPlan({ a, complete }: AProps) {
   const id = "marketingPlan"; const done = a.done.includes(id); const saved = a.data[id] || {};
@@ -750,7 +750,7 @@ function MarketingPlan({ a, complete }: AProps) {
     { label: "Choose 2 channels", ok: channels.length === 2 },
     { label: `${channels[0] || "Channel 1"} plan (50+ words)`, ok: channels.length >= 1 && wc(str(f.ch0)) >= ws(50) },
     { label: `${channels[1] || "Channel 2"} plan (50+ words)`, ok: channels.length >= 2 && wc(str(f.ch1)) >= ws(50) },
-    { label: "Budget 5–30% of revenue", ok: budget >= 5 && budget <= 30 },
+    { label: "Budget 5-30% of revenue", ok: budget >= 5 && budget <= 30 },
     { label: "4 launch milestones (20+ words each)", ok: [f.m0, f.m1, f.m2, f.m3].every((m) => wc(str(m)) >= ws(20)) },
   ];
   const ready = checks.every((c) => c.ok);
@@ -769,15 +769,15 @@ function MarketingPlan({ a, complete }: AProps) {
           <label className="text-sm font-semibold">Pick exactly 2 channels</label>
           <div className="flex flex-wrap gap-2 mt-1">{CHANNELS.map((c) => <button key={c} onClick={() => toggleCh(c)} className={cn("px-3 py-1 rounded-full text-xs font-bold border press-scale", channels.includes(c) ? "border-primary bg-primary/10" : "border-border bg-muted")}>{c}</button>)}</div>
         </div>
-        {channels.length >= 1 && <WField label={`${channels[0]} — what you'd post, how often, expected outcome (${ws(50)}+ words)`} value={str(f.ch0)} onChange={(v) => set("ch0", v)} min={ws(50)} rows={3} />}
-        {channels.length >= 2 && <WField label={`${channels[1]} — what you'd post, how often, expected outcome (${ws(50)}+ words)`} value={str(f.ch1)} onChange={(v) => set("ch1", v)} min={ws(50)} rows={3} />}
+        {channels.length >= 1 && <WField label={`${channels[0]} - what you'd post, how often, expected outcome (${ws(50)}+ words)`} value={str(f.ch0)} onChange={(v) => set("ch0", v)} min={ws(50)} rows={3} />}
+        {channels.length >= 2 && <WField label={`${channels[1]} - what you'd post, how often, expected outcome (${ws(50)}+ words)`} value={str(f.ch1)} onChange={(v) => set("ch1", v)} min={ws(50)} rows={3} />}
         <div>
           <label className="text-sm font-semibold">Marketing budget (% of revenue)</label>
           <Input type="number" value={str(f.budget)} onChange={(e) => set("budget", e.target.value)} className="mt-1" />
-          {budget > 30 && <p className="text-xs text-warning mt-1 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Most small businesses spend 7–12% of revenue on marketing.</p>}
+          {budget > 30 && <p className="text-xs text-warning mt-1 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Most small businesses spend 7-12% of revenue on marketing.</p>}
         </div>
         <div>
-          <label className="text-sm font-semibold">30-day launch plan — 4 milestones (20+ words each)</label>
+          <label className="text-sm font-semibold">30-day launch plan - 4 milestones (20+ words each)</label>
           <div className="space-y-2 mt-1">{(["m0", "m1", "m2", "m3"] as const).map((k, i) => <WField key={k} label={`Milestone ${i + 1}`} value={str(f[k])} onChange={(v) => set(k, v)} min={ws(20)} rows={2} />)}</div>
         </div>
         <Incomplete items={checks} />
@@ -787,7 +787,7 @@ function MarketingPlan({ a, complete }: AProps) {
   );
 }
 
-/* ═══ MARKETING · Activity 3 — Ad Campaign ═══ */
+/* ═══ MARKETING · Activity 3 - Ad Campaign ═══ */
 const PLATFORMS = ["Instagram caption", "Email", "Flyer", "TikTok script"];
 function AdCampaign({ a, complete }: AProps) {
   const id = "adCampaign"; const done = a.done.includes(id); const saved = a.data[id] || {};
@@ -797,9 +797,9 @@ function AdCampaign({ a, complete }: AProps) {
   const [f, set] = useForm(saved, { p0: "Instagram caption", p1: "Email", copy0: "", copy1: "", who0: "", act0: "", meas0: "", who1: "", act1: "", meas1: "" });
   const checks = [
     { label: `Ad 1 copy (${ws(60)}+ words)`, ok: wc(str(f.copy0)) >= ws(60) },
-    { label: `Ad 1 — who/action/measure (${ws(40)}+ words)`, ok: wc(`${str(f.who0)} ${str(f.act0)} ${str(f.meas0)}`) >= 40 },
+    { label: `Ad 1 - who/action/measure (${ws(40)}+ words)`, ok: wc(`${str(f.who0)} ${str(f.act0)} ${str(f.meas0)}`) >= 40 },
     { label: `Ad 2 copy (${ws(60)}+ words)`, ok: wc(str(f.copy1)) >= ws(60) },
-    { label: `Ad 2 — who/action/measure (${ws(40)}+ words)`, ok: wc(`${str(f.who1)} ${str(f.act1)} ${str(f.meas1)}`) >= 40 },
+    { label: `Ad 2 - who/action/measure (${ws(40)}+ words)`, ok: wc(`${str(f.who1)} ${str(f.act1)} ${str(f.meas1)}`) >= 40 },
   ];
   const ready = checks.every((c) => c.ok);
   const Preview = ({ platform, copy }: { platform: string; copy: string }) => (
@@ -912,7 +912,7 @@ function SummaryReport({ a, bt, qi }: { a: ActivitiesState; bt: BusinessType; qi
           <Card key={t} variant="elevated"><CardContent className="pt-5">
             <p className="font-display text-lg font-extrabold mb-2" style={{ color: NEON }}>{t}</p>
             {briefsForCategory(cat, qi).map((b) => (
-              <ResultRow key={b.id} label={b.title}>{b.fields.map((fl) => S(b.id, fl.key)).filter(Boolean).join(" — ") || "—"}</ResultRow>
+              <ResultRow key={b.id} label={b.title}>{b.fields.map((fl) => S(b.id, fl.key)).filter(Boolean).join(" - ") || "-"}</ResultRow>
             ))}
           </CardContent></Card>
         ))}
@@ -934,7 +934,7 @@ function SummaryReport({ a, bt, qi }: { a: ActivitiesState; bt: BusinessType; qi
       ].map((sec) => (
         <Card key={sec.t} variant="elevated"><CardContent className="pt-5">
           <p className="font-display text-lg font-extrabold mb-2" style={{ color: NEON }}>{sec.t}</p>
-          {sec.items.map(([label, val]) => <ResultRow key={label} label={label}>{val || "—"}</ResultRow>)}
+          {sec.items.map(([label, val]) => <ResultRow key={label} label={label}>{val || "-"}</ResultRow>)}
         </CardContent></Card>
       ))}
       <p className="text-xs text-muted-foreground text-center">All responses are saved to your business record for teacher review.</p>
@@ -1015,10 +1015,10 @@ function MonthlyOps({ sim, onGenerate, onResolve, onRebuild }: { sim: BizState; 
   }
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <h3 className="font-display text-lg font-extrabold flex items-center gap-2"><Activity className="w-5 h-5" style={{ color: NEON }} /> Run the business — Month {sim.month}</h3>
+      <h3 className="font-display text-lg font-extrabold flex items-center gap-2"><Activity className="w-5 h-5" style={{ color: NEON }} /> Run the business - Month {sim.month}</h3>
       {!s ? (
         <>
-          <p className="text-sm text-muted-foreground">A new situation hits every month and demands a decision. Keep your business alive and growing — for months.</p>
+          <p className="text-sm text-muted-foreground">A new situation hits every month and demands a decision. Keep your business alive and growing - for months.</p>
           <Button className="w-full press-scale" onClick={onGenerate}><ArrowRight className="w-4 h-4 mr-1.5" /> Start month {sim.month}</Button>
           {sim.log.length > 0 && <div className="rounded-xl bg-muted p-3 space-y-1">{sim.log.slice(-4).reverse().map((l, i) => <p key={i} className="text-xs text-foreground/70">M{l.month}: {l.text}</p>)}</div>}
         </>
@@ -1050,7 +1050,7 @@ function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string;
       <div className="flex items-start justify-between gap-2">
         <div>
           <h3 className="font-display text-lg font-extrabold flex items-center gap-2"><Package className="w-5 h-5 text-primary" /> Your product line</h3>
-          <p className="text-sm text-muted-foreground">Keep adding items — a bigger catalog grows your customer base.</p>
+          <p className="text-sm text-muted-foreground">Keep adding items - a bigger catalog grows your customer base.</p>
         </div>
         <Badge variant="outline" className="shrink-0">{sim.products.length} items</Badge>
       </div>
@@ -1063,7 +1063,7 @@ function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string;
         <div className="space-y-2 rounded-xl border border-border p-3">
           <Input placeholder="Product name" value={name} onChange={(e) => setName(e.target.value)} />
           <Input type="number" placeholder="Price (IC)" value={price} onChange={(e) => setPrice(e.target.value)} />
-          <WField label={`Pitch — what it is and who it's for (${ws(25)}+ words)`} value={pitch} onChange={setPitch} min={ws(25)} rows={2} />
+          <WField label={`Pitch - what it is and who it's for (${ws(25)}+ words)`} value={pitch} onChange={setPitch} min={ws(25)} rows={2} />
           <Incomplete items={[{ label: "Name", ok: name.trim().length >= 2 }, { label: "Price greater than 0", ok: num(price) > 0 }, { label: `Pitch (${ws(25)}+ words)`, ok: wc(pitch) >= ws(25) }]} />
           <div className="flex gap-2"><Button variant="outline" className="flex-1" onClick={() => setOpen(false)}>Cancel</Button><Button className="flex-1 press-scale" disabled={!ready} onClick={submit}><Plus className="w-4 h-4 mr-1" /> Add product (+75 🪙)</Button></div>
         </div>

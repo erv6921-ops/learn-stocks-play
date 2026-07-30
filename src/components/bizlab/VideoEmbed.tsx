@@ -16,7 +16,7 @@ function toEmbedSrc(raw: string): string | null {
   }
   const host = url.hostname.replace(/^www\./, "")
 
-  // YouTube — youtu.be/ID or youtube.com/watch?v=ID or /embed/ID or /shorts/ID
+  // YouTube - youtu.be/ID or youtube.com/watch?v=ID or /embed/ID or /shorts/ID
   if (host === "youtu.be") {
     const id = url.pathname.slice(1)
     return id ? `https://www.youtube.com/embed/${id}` : null
@@ -29,13 +29,13 @@ function toEmbedSrc(raw: string): string | null {
     return null
   }
 
-  // Vimeo — vimeo.com/ID
+  // Vimeo - vimeo.com/ID
   if (host === "vimeo.com") {
     const id = url.pathname.split("/").filter(Boolean)[0]
     return id ? `https://player.vimeo.com/video/${id}` : null
   }
 
-  // Google Drive — drive.google.com/file/d/ID/view → /preview
+  // Google Drive - drive.google.com/file/d/ID/view → /preview
   if (host === "drive.google.com") {
     const m = url.pathname.match(/\/file\/d\/([^/]+)/)
     if (m) return `https://drive.google.com/file/d/${m[1]}/preview`
@@ -51,7 +51,7 @@ export default function VideoEmbed({ url }: { url: string }) {
   const src = toEmbedSrc(url)
 
   if (!src) {
-    // Unknown provider — still give a way to watch it.
+    // Unknown provider - still give a way to watch it.
     return (
       <a
         href={url}

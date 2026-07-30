@@ -18,7 +18,7 @@ import { useApp } from "@/contexts/AppContext";
 
 /* ── Vocab tooltips for difficult terms (used in titles + inline in prompts) ── */
 const VOCAB_TIPS: Record<string, string> = {
-  "value proposition": "The unique benefit or solution your business promises to deliver to customers — why they should choose you.",
+  "value proposition": "The unique benefit or solution your business promises to deliver to customers - why they should choose you.",
   "customer segments": "The specific groups of people or organizations your business aims to serve.",
   "revenue stream": "A way your business earns money from customers (e.g., sales, subscriptions, ads).",
   "revenue streams": "The different ways your business earns money from customers.",
@@ -57,7 +57,7 @@ const CANVAS_BLOCKS: CanvasBlock[] = [
     title: "Customer Segments",
     number: 1,
     icon: <Users className="w-5 h-5" />,
-    description: "Who are your customers? Every business exists to serve a specific group of people. Defining your customer segments means identifying who you're creating value for — their demographics, needs, behaviors, and pain points.",
+    description: "Who are your customers? Every business exists to serve a specific group of people. Defining your customer segments means identifying who you're creating value for - their demographics, needs, behaviors, and pain points.",
     guidePrompts: [
       "Who is your ideal customer? Describe them in detail (age, location, lifestyle).",
       "What problem or need do they have that your business addresses?",
@@ -71,7 +71,7 @@ const CANVAS_BLOCKS: CanvasBlock[] = [
     title: "Value Proposition",
     number: 2,
     icon: <Lightbulb className="w-5 h-5" />,
-    description: "What problem do you solve? Your value proposition is the unique benefit your business offers. It's the reason customers choose you over alternatives — the specific value you create that makes their lives better.",
+    description: "What problem do you solve? Your value proposition is the unique benefit your business offers. It's the reason customers choose you over alternatives - the specific value you create that makes their lives better.",
     guidePrompts: [
       "What specific problem does your product or service solve?",
       "What makes your solution different from what already exists?",
@@ -85,7 +85,7 @@ const CANVAS_BLOCKS: CanvasBlock[] = [
     title: "Channels",
     number: 3,
     icon: <Megaphone className="w-5 h-5" />,
-    description: "How do you reach customers? Channels are the touchpoints through which you communicate with and deliver value to your customer segments — from marketing and sales to distribution and support.",
+    description: "How do you reach customers? Channels are the touchpoints through which you communicate with and deliver value to your customer segments - from marketing and sales to distribution and support.",
     guidePrompts: [
       "How will customers first hear about your business?",
       "Where will customers buy your product or service (online, in-store, app)?",
@@ -99,7 +99,7 @@ const CANVAS_BLOCKS: CanvasBlock[] = [
     title: "Customer Relationships",
     number: 4,
     icon: <Heart className="w-5 h-5" />,
-    description: "How do you interact with customers? This block defines the type of relationship you establish with each customer segment — from personal assistance to self-service, communities, or automated systems.",
+    description: "How do you interact with customers? This block defines the type of relationship you establish with each customer segment - from personal assistance to self-service, communities, or automated systems.",
     guidePrompts: [
       "Will you interact with customers personally or through automated systems?",
       "How will you keep customers coming back (loyalty programs, subscriptions, community)?",
@@ -127,21 +127,21 @@ const CANVAS_BLOCKS: CanvasBlock[] = [
     title: "Key Resources",
     number: 6,
     icon: <Box className="w-5 h-5" />,
-    description: "What assets do you need? Key resources are the most important assets required to make your business model work — physical (equipment, inventory), intellectual (patents, brand), human (team), or financial (cash, credit).",
+    description: "What assets do you need? Key resources are the most important assets required to make your business model work - physical (equipment, inventory), intellectual (patents, brand), human (team), or financial (cash, credit).",
     guidePrompts: [
       "What physical items or equipment do you need to operate?",
       "Do you need specialized knowledge, technology, or intellectual property?",
       "What people or skills are essential to run your business?",
       "How much starting capital do you need?"
     ],
-    reflectionPrompt: "What's the most important resource for your business — and what would happen if you lost it?"
+    reflectionPrompt: "What's the most important resource for your business - and what would happen if you lost it?"
   },
   {
     id: "key-activities",
     title: "Key Activities",
     number: 7,
     icon: <Cog className="w-5 h-5" />,
-    description: "What do you do every day to run the business? Key activities are the most critical actions your company must take to operate successfully — production, problem-solving, platform management, or service delivery.",
+    description: "What do you do every day to run the business? Key activities are the most critical actions your company must take to operate successfully - production, problem-solving, platform management, or service delivery.",
     guidePrompts: [
       "What are the daily tasks needed to deliver your product or service?",
       "What activities are critical to maintaining quality?",
@@ -407,7 +407,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
     );
   }
 
-  // ── Render: Block detail (steps 1–9) ──
+  // ── Render: Block detail (steps 1-9) ──
   if (step >= 1 && step <= 9) {
     const block = CANVAS_BLOCKS[step - 1];
     const data = canvas.blocks[block.id];
@@ -511,7 +511,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
 
         <div className="text-center mb-8">
           <h1 className="font-display text-3xl font-extrabold tracking-tight mb-2">
-            {canvas.businessName || "Your Business"} — Business Model Canvas
+            {canvas.businessName || "Your Business"} - Business Model Canvas
           </h1>
           <p className="text-muted-foreground text-sm">
             {completedBlocks}/9 blocks completed · Review your full canvas below

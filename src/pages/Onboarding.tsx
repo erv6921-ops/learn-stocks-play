@@ -92,7 +92,7 @@ function getAdaptiveNextQuestion(
   return remaining[Math.floor(Math.random() * remaining.length)]
 }
 
-// Ensure we cover all categories — pick at least 1 per category
+// Ensure we cover all categories - pick at least 1 per category
 function buildAdaptivePool(): BenchmarkQuestion[] {
   // Start with all questions shuffled by difficulty (hardest first)
   return buildAdaptiveQuestionOrder()
@@ -134,7 +134,7 @@ function StepDots({ current, total }: { current: number; total: number }) {
 }
 
 // Jeff stands beside a speech bubble and talks the user through the current
-// step — the friendly "guide" that ties the whole sign-up together.
+// step - the friendly "guide" that ties the whole sign-up together.
 function JeffGuide({ message, mood = "happy" }: { message: string; mood?: "happy" | "thinking" | "excited" | "teaching" | "celebrating" }) {
   return (
     <div className="flex items-end gap-3 mb-6">
@@ -192,7 +192,7 @@ export default function Onboarding() {
   const [loading, setLoading] = useState(false)
   const [showSkipDialog, setShowSkipDialog] = useState(false)
   // True when an already-authenticated user lands here just to (re)take the
-  // benchmark — we skip the role/signup steps and preserve their profile.
+  // benchmark - we skip the role/signup steps and preserve their profile.
   const [benchmarkOnly, setBenchmarkOnly] = useState(false)
 
   // Role & profile fields
@@ -219,7 +219,7 @@ export default function Onboarding() {
   const [showExplanation, setShowExplanation] = useState(false)
   const [score, setScore] = useState(0)
 
-  // The current question — adaptively selected
+  // The current question - adaptively selected
   const [currentQuestion, setCurrentQuestion] = useState<BenchmarkQuestion>(() => shuffleQuestion(questionPool[0]) as BenchmarkQuestion)
 
   useEffect(() => {
@@ -232,7 +232,7 @@ export default function Onboarding() {
       if (e) setEmail(e)
 
       // An authenticated user clicking "Take Benchmark" goes straight to the
-      // assessment — no login/signup, no dashboard bounce.
+      // assessment - no login/signup, no dashboard bounce.
       if (wantsBenchmark && data.session) {
         setBenchmarkOnly(true)
         setStep("assessment")
@@ -534,9 +534,9 @@ export default function Onboarding() {
               current={0}
               total={totalSteps}
               mood="excited"
-              message="Hi, I'm Jeff! I'll guide you through setup. First up — who are you?"
+              message="Hi, I'm Jeff! I'll guide you through setup. First up - who are you?"
               title="Welcome to InvestiPlay"
-              subtitle="Let's get started — are you a student or a teacher?"
+              subtitle="Let's get started - are you a student or a teacher?"
             />
             <div className="w-full max-w-sm space-y-3">
               <button
@@ -732,7 +732,7 @@ export default function Onboarding() {
                       return
                     }
 
-                    // Session active — save the rest of the teacher profile.
+                    // Session active - save the rest of the teacher profile.
                     const saved = await persistProfile({})
                     if (saved) {
                       toast({ title: "Welcome aboard!", description: "Your teacher account is ready." })
@@ -959,7 +959,7 @@ export default function Onboarding() {
           </motion.div>
         )}
 
-        {/* Step 3: Program selection (students) — Standard vs. Gulliver Biz Lab.
+        {/* Step 3: Program selection (students) - Standard vs. Gulliver Biz Lab.
             Comes BEFORE account creation so it always shows even when email
             confirmation is on (sign-up otherwise bounces to /auth first). */}
         {step === "program-select" && (
@@ -1050,7 +1050,7 @@ export default function Onboarding() {
               Learn money skills that last a lifetime through interactive lessons and simulations
             </p>
             <p className="text-sm text-muted-foreground mb-8 max-w-sm">
-              Take a quick benchmark to personalize your curriculum — or skip to start from the beginning.
+              Take a quick benchmark to personalize your curriculum - or skip to start from the beginning.
             </p>
             <Button size="xl" variant="hero" onClick={() => setStep("assessment")}>
               Take Benchmark Assessment <ArrowRight className="ml-2" />
@@ -1112,7 +1112,7 @@ export default function Onboarding() {
                       <DialogHeader>
                         <DialogTitle>Are you sure you want to skip?</DialogTitle>
                         <DialogDescription>
-                          The Benchmark Assessment personalizes everything — your lessons, difficulty, recommendations, and reward multiplier are all tailored based on your results. Without it, you'll start at the foundational level in every unit.
+                          The Benchmark Assessment personalizes everything - your lessons, difficulty, recommendations, and reward multiplier are all tailored based on your results. Without it, you'll start at the foundational level in every unit.
                         </DialogDescription>
                       </DialogHeader>
                       <DialogFooter>
@@ -1291,7 +1291,7 @@ export default function Onboarding() {
                 {/* What this means */}
                 <div className="bg-muted rounded-xl p-4 text-sm text-muted-foreground space-y-1">
                   <p><strong>What happens now:</strong></p>
-                  <p>• Strong areas ({'>'}75%): Foundational content is validated — you'll skip ahead to advanced scenarios</p>
+                  <p>• Strong areas ({'>'}75%): Foundational content is validated - you'll skip ahead to advanced scenarios</p>
                   <p>• Growing areas (50-74%): Applied-level entry with moderate scaffolding</p>
                   <p>• Development areas ({'<'}50%): Full foundational coverage with extra practice</p>
                   <p>• Reward multiplier: <strong>{Math.min(1 + Math.round((score / totalQuestions) * 100) / 200, 1.5).toFixed(2)}x</strong> on all InvestiCoins earned</p>

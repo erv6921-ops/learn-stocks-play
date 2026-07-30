@@ -21,7 +21,7 @@ import PartView from "./PartView"
 const CAPSTONE_XP = 500
 
 /**
- * The Gulliver Biz Lab experience — Mrs. Fortgang's 6-part Shark Tank project.
+ * The Gulliver Biz Lab experience - Mrs. Fortgang's 6-part Shark Tank project.
  * Rendered inside the Lessons page when the student's active course track is
  * "gulliver-biz-lab". Brings together the program hero, countdowns to the
  * pitch dates, progress + streak HUD, milestone badges, and the part navigator.
@@ -47,7 +47,7 @@ export default function GulliverBizLab() {
     touchStreak()
   }, [touchStreak])
 
-  // Take over as the only Jeff on screen — the global corner widget hides while
+  // Take over as the only Jeff on screen - the global corner widget hides while
   // this is mounted, then comes back when the student leaves the Biz Lab.
   const setSidekickActive = useJeffSolo(s => s.setSidekickActive)
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function GulliverBizLab() {
   // Capstone reward when the whole unit is finished.
   useEffect(() => {
     if (allComplete && !hasAwarded("capstone")) {
-      earnJeffs(CAPSTONE_XP, "Gulliver Biz Lab — Shark Tank Champion!")
+      earnJeffs(CAPSTONE_XP, "Gulliver Biz Lab - Shark Tank Champion!")
       markAwarded("capstone")
       toast({
         title: "🦈 Shark Tank Champion!",
@@ -95,7 +95,7 @@ export default function GulliverBizLab() {
             The Shark Tank Project
           </h1>
           <p className="text-white/70 text-sm mt-1 max-w-xl">
-            Build a real business — idea, plan, prototype, brand, commercial, and website — then pitch it to the Sharks. Let's get to work, future founder!
+            Build a real business - idea, plan, prototype, brand, commercial, and website - then pitch it to the Sharks. Let's get to work, future founder!
           </p>
 
           {/* HUD strip */}

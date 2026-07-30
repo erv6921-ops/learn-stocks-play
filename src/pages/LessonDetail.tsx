@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { lessons } from "@/data/lessons"
@@ -47,7 +47,51 @@ export default function LessonDetail() {
   // Track regeneration attempts for mastery check failures
   const [regenerationCount, setRegenerationCount] = useState(0)
 
-  // Always use structured content — hand-written or generated.
+  // Content pacing (Hook B): the student's most recent confidence tier for
+  // THIS topic, fetched once per lesson visit - not on every regeneration,
+  // since it reflects standing coming INTO this lesson, not anything that
+  // happens during it. Cold start (no row yet, or the fetch hasn't resolved)
+  // leaves this null, which is exactly today's unmodified content - never a
+  // special case that blocks or delays rendering the lesson.
+  const [contentConfidenceTier, setContentConfidenceTier] = useState<string | null>(null)
+  // fragile_confidence's "different set than what they just saw" needs to
+  // know what that set actually was - the question ids from this lesson's
+  // most recent completed mastery-check session.
+  const [recentQuestionIds, setRecentQuestionIds] = useState<string[]>([])
+
+  useEffect(() => {
+    // Replays already have a fixed quiz_score on record - don't let content
+    // pacing reshuffle what a student sees when reviewing a done lesson.
+    if (!lesson || !user?.id || isCompleted) return
+    let cancelled = false
+    supabase
+      .from("mastery_scores")
+      .select("confidence_tier")
+      .eq("user_id", user.id)
+      .eq("topic_id", lesson.category)
+      .order("computed_at", { ascending: false })
+      .limit(1)
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (cancelled || error || !data) return
+        setContentConfidenceTier(data.confidence_tier)
+      })
+    supabase
+      .from("question_attempts")
+      .select("question_id, attempt_session_id, created_at")
+      .eq("user_id", user.id)
+      .eq("lesson_id", lesson.id)
+      .order("created_at", { ascending: false })
+      .limit(20)
+      .then(({ data, error }) => {
+        if (cancelled || error || !data || data.length === 0) return
+        const latestSession = data[0].attempt_session_id
+        setRecentQuestionIds([...new Set(data.filter(r => r.attempt_session_id === latestSession).map(r => r.question_id))])
+      })
+    return () => { cancelled = true }
+  }, [lesson, user?.id, isCompleted])
+
+  // Always use structured content - hand-written or generated.
   // On mastery-check retries (regenerationCount > 0), getStructuredContent
   // keeps hand-written sections and the AP quiz overlay intact and only
   // varies GENERATED question selection; the shuffle below re-randomizes
@@ -56,11 +100,11 @@ export default function LessonDetail() {
   // off-topic generic template questions.)
   const structuredContent: StructuredLessonContent | null = useMemo(() => {
     if (!lesson) return null
-    const raw = getStructuredContent(lesson.id, regenerationCount)
+    const raw = getStructuredContent(lesson.id, regenerationCount, contentConfidenceTier, recentQuestionIds)
     if (!raw) return null
 
     // Guessability guard: authored questions often have the correct answer
-    // written as the longest option — a tell no amount of position-shuffling
+    // written as the longest option - a tell no amount of position-shuffling
     // can hide. For each quiz question: (1) trim trailing elaboration off
     // standout-long options, and (2) if it STILL fails the length/quality
     // checks, swap in a clean unused question from this lesson's quiz pool.
@@ -78,7 +122,7 @@ export default function LessonDetail() {
         usedIds.add(substitute.id)
         return normalizeOptionLengths(substitute)
       }
-      return normalized // no clean replacement available — trimmed original beats nothing
+      return normalized // no clean replacement available - trimmed original beats nothing
     }
 
     // Process all question sections through the MCQ engine for balanced positions & length normalization
@@ -96,7 +140,7 @@ export default function LessonDetail() {
       return section
     })
     return { ...raw, sections: processedSections }
-  }, [lesson, regenerationCount])
+  }, [lesson, regenerationCount, contentConfidenceTier, recentQuestionIds])
 
   // ─── Lesson state ───
   const [currentSectionIdx, setCurrentSectionIdx] = useState(0)
@@ -106,11 +150,26 @@ export default function LessonDetail() {
   const [totalAttempts, setTotalAttempts] = useState(0)
   // "Chat with Jeff" replaces the paragraph reading for uncompleted lessons.
   const [chatOpen, setChatOpen] = useState(false)
-  // "Make It Stick" reflection — after mastery, before the completion screen.
-  const [pendingMastery, setPendingMastery] = useState<{ correct: number; attempts: number } | null>(null)
+  // "Make It Stick" reflection - after mastery, before the completion screen.
+  const [pendingMastery, setPendingMastery] = useState<{ correct: number; attempts: number; attemptSessionId: string; tier: string | null } | null>(null)
   const [reflectionText, setReflectionText] = useState("")
   const [savingReflection, setSavingReflection] = useState(false)
   const [reflectionDone, setReflectionDone] = useState(false)
+  // Mastery confidence pacing: brief check-in while mastery-score is scored,
+  // and - for a fragile/needs-support result - one capped reinforcement
+  // round before the student moves on regardless of that round's outcome.
+  const [checkingMastery, setCheckingMastery] = useState(false)
+  const [pendingReinforcement, setPendingReinforcement] = useState<{ correct: number; attempts: number } | null>(null)
+  const [confidenceRoundUsed, setConfidenceRoundUsed] = useState(false)
+  // Owned here, not inside MasteryCheckRenderer: a genuine fail routes
+  // through the recap section, which unmounts/remounts that component, so
+  // a restart counter kept there would reset to 1 on every real retry -
+  // silently zeroing out retry_factor. LessonDetail stays mounted for the
+  // whole lesson, so this is what actually survives that remount.
+  // attemptNumber only increments on a genuine fail-and-retry (handleMasteryFail);
+  // the capped confidence-tier reinforcement round (handleReinforcementContinue)
+  // is a deliberately fresh, separate attempt chain, not a "restart."
+  const [masteryAttempt, setMasteryAttempt] = useState(() => ({ sessionId: crypto.randomUUID(), attemptNumber: 1 }))
   const reflectionPrompt = lesson ? getReflectionPrompt(lesson.category, lesson.title) : ""
   const reflectionWords = reflectionText.trim().split(/\s+/).filter(Boolean).length
 
@@ -127,7 +186,7 @@ export default function LessonDetail() {
 
   const sections = structuredContent.sections
 
-  // The chat replaces the reading ("concept") sections — after it, students
+  // The chat replaces the reading ("concept") sections - after it, students
   // jump straight to the first interactive/quiz section.
   const firstQuizIdx = Math.max(0, sections.findIndex(s => s.type !== "concept"))
 
@@ -148,21 +207,69 @@ export default function LessonDetail() {
     }
   }
 
-  const finishLesson = (attempts: number) => {
+  const finishLesson = (correct: number, attempts: number) => {
     setTotalAttempts(attempts)
     setLessonFinished(true)
-    updateLessonProgress(lesson.id, true, 100)
+    const quizScore = attempts > 0 ? Math.round((correct / attempts) * 100) : 100
+    updateLessonProgress(lesson.id, true, quizScore)
     if (!isCompleted) {
       earnJeffs(lesson.reward, `Completed lesson: ${lesson.title}`)
       setJeffsEarned(true)
     }
   }
 
-  const handleMasteryComplete = (correct: number, attempts: number) => {
+  // Mastery confidence pacing is read-only advice on top of the pass/fail
+  // gate above it - a cold start, timeout, or function error just means no
+  // tier came back, and every branch below falls through to today's plain
+  // pass behavior. Never let this call block or break lesson completion.
+  const withTimeout = <T,>(p: PromiseLike<T>, ms = 4000): Promise<T | null> =>
+    new Promise((resolve) => {
+      const timer = setTimeout(() => resolve(null), ms)
+      Promise.resolve(p).then((v) => { clearTimeout(timer); resolve(v) }, () => { clearTimeout(timer); resolve(null) })
+    })
+
+  const evaluateMastery = async (correct: number, attempts: number, attemptSessionId: string) => {
+    setCheckingMastery(true)
+    let tier: string | null = null
+    const result = await withTimeout(
+      supabase.functions.invoke("mastery-score", {
+        body: { topicId: lesson.category, attemptSessionId, source: "lesson_quiz" },
+      })
+    )
+    if (result && !result.error && result.data && !(result.data as any).error) {
+      tier = (result.data as any).confidenceTier ?? null
+    }
+    setCheckingMastery(false)
+
+    // Fragile/needs-support gets exactly one extra reinforcement round, then
+    // proceeds regardless of what that round scores - no unbounded retries.
+    if ((tier === "fragile_confidence" || tier === "needs_support") && !confidenceRoundUsed) {
+      setConfidenceRoundUsed(true)
+      setPendingReinforcement({ correct, attempts })
+      return
+    }
+    setPendingMastery({ correct, attempts, attemptSessionId, tier })
+  }
+
+  const handleMasteryComplete = (correct: number, attempts: number, attemptSessionId: string) => {
     // First-time completions write a "Make It Stick" reflection before the
     // rewards screen; replays skip straight to the finish.
-    if (isCompleted) { finishLesson(attempts); return }
-    setPendingMastery({ correct, attempts })
+    if (isCompleted) { finishLesson(correct, attempts); return }
+    window.scrollTo({ top: 0, behavior: "smooth" })
+    evaluateMastery(correct, attempts, attemptSessionId)
+  }
+
+  const handleReinforcementContinue = () => {
+    // Same regenerate-and-jump machinery as a real fail, but straight back
+    // into the mastery check - the student already passed, so there's no
+    // reason to re-walk the recap first. A fresh, separate attempt chain
+    // (sessionAttemptNumber back to 1) - this isn't a "restart," it's a
+    // deliberate extra round on top of a pass.
+    setPendingReinforcement(null)
+    setMasteryAttempt({ sessionId: crypto.randomUUID(), attemptNumber: 1 })
+    setRegenerationCount(prev => prev + 1)
+    const masteryIdx = sections.findIndex(s => s.type === "mastery-check")
+    if (masteryIdx !== -1) setCurrentSectionIdx(masteryIdx)
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
@@ -186,11 +293,13 @@ export default function LessonDetail() {
     setSavingReflection(false)
     earnJeffs(REFLECTION_BONUS, `Reflection journal: ${lesson.title}`)
     setReflectionDone(true)
-    finishLesson(pendingMastery.attempts)
+    finishLesson(pendingMastery.correct, pendingMastery.attempts)
   }
 
   const handleMasteryFail = () => {
-    // Regenerate questions for next attempt
+    // A genuine restart of the same failed attempt chain - bump the count
+    // retry_factor reads, on a fresh session id. Regenerate questions too.
+    setMasteryAttempt(prev => ({ sessionId: crypto.randomUUID(), attemptNumber: prev.attemptNumber + 1 }))
     setRegenerationCount(prev => prev + 1)
     const recapIdx = sections.findIndex(s => s.type === "recap")
     if (recapIdx !== -1) setCurrentSectionIdx(recapIdx)
@@ -211,7 +320,23 @@ export default function LessonDetail() {
       case "recap":
         return <RecapRenderer key={idx} section={section} onContinue={handleSectionContinue} />
       case "mastery-check":
-        return <MasteryCheckRenderer key={idx} section={section} onComplete={handleMasteryComplete} onFail={handleMasteryFail} />
+        return (
+          <MasteryCheckRenderer
+            // Keyed on regenerationCount too, not just idx: the reinforcement
+            // round (handleReinforcementContinue) jumps straight back to this
+            // same section index without detouring through recap, so idx
+            // alone wouldn't change and React would reuse the old, already
+            // "finished" component instance instead of mounting a fresh one.
+            key={`mastery-${idx}-${regenerationCount}`}
+            section={section}
+            topicId={lesson.category}
+            lessonId={lesson.id}
+            attemptSessionId={masteryAttempt.sessionId}
+            sessionAttemptNumber={masteryAttempt.attemptNumber}
+            onComplete={handleMasteryComplete}
+            onFail={handleMasteryFail}
+          />
+        )
       default:
         return null
     }
@@ -277,15 +402,43 @@ export default function LessonDetail() {
               <p className="text-xs text-muted-foreground mt-2">💬 Jeff will teach you this one in chat</p>
             </div>
           </div>
+        ) : checkingMastery ? (
+          /* ─── Brief check-in while mastery-score scores the attempt ─── */
+          <Card variant="elevated">
+            <CardContent className="p-8 text-center space-y-4">
+              <JeffMascot size="sm" />
+              <p className="text-sm text-muted-foreground animate-pulse">Checking in on that…</p>
+            </CardContent>
+          </Card>
+        ) : pendingReinforcement ? (
+          /* ─── Honest, non-fail-framed nudge for a fragile/needs-support pass ─── */
+          <Card variant="elevated">
+            <CardContent className="p-8 text-center space-y-4">
+              <JeffMascot size="sm" />
+              <h2 className="text-xl font-bold">Nice, you passed! 🎯</h2>
+              <p className="text-muted-foreground">
+                Let's lock it in with one more round before we move on.
+              </p>
+              <p className="text-xs text-muted-foreground">One quick round, then you're done - promise.</p>
+              <Button size="lg" className="font-bold" onClick={handleReinforcementContinue}>
+                Let's go <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </CardContent>
+          </Card>
         ) : pendingMastery && !lessonFinished ? (
-          /* ─── "Make It Stick" reflection — apply the lesson to your own life ─── */
+          /* ─── "Make It Stick" reflection - apply the lesson to your own life ─── */
           <Card variant="elevated">
             <CardContent className="p-6 md:p-8 space-y-5">
               <div className="flex items-start gap-4">
                 <JeffMascot size="sm" />
                 <div>
                   <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-primary">Make it stick</p>
-                  <h2 className="text-xl font-bold mt-0.5">Nice — you passed! Now make it yours.</h2>
+                  <h2 className="text-xl font-bold mt-0.5">Nice - you passed! Now make it yours.</h2>
+                  {pendingMastery.tier === "high_confidence" && (
+                    <p className="text-xs font-semibold text-primary mt-1">
+                      🔥 Crushing this one - expect a tougher round next time.
+                    </p>
+                  )}
                   <p className="text-sm text-muted-foreground mt-1">
                     Learning sticks when you put it in your own words and make a real plan.
                   </p>
@@ -351,7 +504,7 @@ export default function LessonDetail() {
                     <p className="text-xs text-gold/70 mt-1">({getRewardMultiplier().toFixed(1)}x multiplier from Benchmark)</p>
                   )}
                   {reflectionDone && (
-                    <p className="text-xs text-gold/80 mt-1">+{REFLECTION_BONUS} reflection bonus — plan locked in 📝</p>
+                    <p className="text-xs text-gold/80 mt-1">+{REFLECTION_BONUS} reflection bonus - plan locked in 📝</p>
                   )}
                 </div>
               )}

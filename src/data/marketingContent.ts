@@ -11,17 +11,17 @@ export const marketingContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Marketing vs Advertising",
         paragraphs: [
-          "Most people think marketing is just advertising — commercials, billboards, social media posts. But advertising is only one small piece of marketing. Marketing is the entire process of creating value for customers and communicating that value so they choose you over the competition.",
-          "Marketing starts long before an ad is created. It begins with understanding what people need, designing a product or service that meets that need, pricing it appropriately, making it available in the right places, and then — finally — promoting it.",
+          "Most people think marketing is just advertising - commercials, billboards, social media posts. But advertising is only one small piece of marketing. Marketing is the entire process of creating value for customers and communicating that value so they choose you over the competition.",
+          "Marketing starts long before an ad is created. It begins with understanding what people need, designing a product or service that meets that need, pricing it appropriately, making it available in the right places, and then - finally - promoting it.",
           "The best marketing doesn't feel like marketing at all. When a company truly understands its customers and delivers real value, the product almost sells itself. Word of mouth spreads, customers come back, and the business grows organically."
         ],
         bullets: [
-          "Marketing — the full process of creating, communicating, and delivering value to customers",
-          "Advertising — one specific promotional tool within the broader marketing strategy",
-          "Value creation — designing products and experiences that solve real customer problems",
-          "Customer focus — marketing starts with understanding people, not with selling to them"
+          "Marketing - the full process of creating, communicating, and delivering value to customers",
+          "Advertising - one specific promotional tool within the broader marketing strategy",
+          "Value creation - designing products and experiences that solve real customer problems",
+          "Customer focus - marketing starts with understanding people, not with selling to them"
         ],
-        realWorldExample: "Apple doesn't just run ads — they design stores that feel like museums, package products like gifts, and create an ecosystem that makes switching painful. Their marketing is baked into every detail of the customer experience, not just their commercials."
+        realWorldExample: "Apple doesn't just run ads - they design stores that feel like museums, package products like gifts, and create an ecosystem that makes switching painful. Their marketing is baked into every detail of the customer experience, not just their commercials."
       },
       {
         type: "micro-check",
@@ -33,7 +33,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Marketing is the full process of creating and delivering value; advertising is one promotional tool within it",
               "Advertising is the strategy and marketing is the execution of that strategy",
               "Marketing only applies to digital channels while advertising covers traditional media",
-              "There is no real difference — marketing and advertising mean the same thing in business"
+              "There is no real difference - marketing and advertising mean the same thing in business"
             ],
             correctAnswer: 0,
             explanation: "Marketing encompasses everything from understanding customers to designing products to choosing distribution channels. Advertising is just one tool used in the promotion phase of marketing."
@@ -55,12 +55,12 @@ export const marketingContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Two Lemonade Stands, Very Different Sales",
-        narrative: "Mia and Jake both set up lemonade stands on the same block during a neighborhood festival. They used the same recipe, the same cups, and charged the same price — $2 per cup. By the end of the day, Mia sold 120 cups and Jake sold 30. Same product, same location, same price. The difference was marketing.",
+        narrative: "Mia and Jake both set up lemonade stands on the same block during a neighborhood festival. They used the same recipe, the same cups, and charged the same price - $2 per cup. By the end of the day, Mia sold 120 cups and Jake sold 30. Same product, same location, same price. The difference was marketing.",
         details: [
           "Jake set up a folding table with a handwritten sign that said 'Lemonade $2' and sat behind it waiting for customers",
-          "Mia created a colorful banner reading 'Mia's Fresh-Squeezed Lemonade — Made While You Watch!' with her brand name and a tagline",
+          "Mia created a colorful banner reading 'Mia's Fresh-Squeezed Lemonade - Made While You Watch!' with her brand name and a tagline",
           "Mia offered free samples to people walking by, turning curious passersby into paying customers",
-          "Mia placed her stand at the busiest intersection instead of a quiet corner — she thought about where her customers would be",
+          "Mia placed her stand at the busiest intersection instead of a quiet corner - she thought about where her customers would be",
           "Jake had a good product but no strategy for communicating its value or reaching the right people"
         ]
       },
@@ -76,16 +76,16 @@ export const marketingContent: StructuredLessonContent[] = [
             "Mia spent more money on her stand setup, which automatically guarantees higher sales"
           ],
           correctAnswer: 1,
-          explanation: "Mia applied core marketing principles — clear value communication (the banner and tagline), strategic placement (the busy intersection), and active promotion (free samples). Jake had the same product but no strategy for reaching or persuading customers."
+          explanation: "Mia applied core marketing principles - clear value communication (the banner and tagline), strategic placement (the busy intersection), and active promotion (free samples). Jake had the same product but no strategy for reaching or persuading customers."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Marketing is the complete process of creating, communicating, and delivering value — not just advertising",
+          "Marketing is the complete process of creating, communicating, and delivering value - not just advertising",
           "Great marketing starts with understanding customers and designing real solutions for their needs",
           "The best products still fail without a clear strategy for reaching and persuading the right audience",
-          "Every business decision — from product design to pricing to location — is part of marketing"
+          "Every business decision - from product design to pricing to location - is part of marketing"
         ]
       },
       {
@@ -102,7 +102,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Copy exactly what the most popular tutoring company does since their approach clearly works"
             ],
             correctAnswer: 1,
-            explanation: "Marketing starts with understanding the customer — who needs this, what do they need, and where do they look? Without this foundation, even the best ads won't work because they're not reaching the right people with the right message."
+            explanation: "Marketing starts with understanding the customer - who needs this, what do they need, and where do they look? Without this foundation, even the best ads won't work because they're not reaching the right people with the right message."
           }
         ]
       }
@@ -119,15 +119,15 @@ export const marketingContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Target Markets and Customer Segmentation",
         paragraphs: [
-          "The biggest mistake in marketing is trying to sell to everyone. When you try to appeal to everyone, you end up appealing to no one. The most successful businesses know exactly who their customer is — and they design everything around that specific person.",
+          "The biggest mistake in marketing is trying to sell to everyone. When you try to appeal to everyone, you end up appealing to no one. The most successful businesses know exactly who their customer is - and they design everything around that specific person.",
           "Customer segmentation is the process of dividing a broad market into smaller, more specific groups. These segments can be based on demographics (age, income, location), psychographics (values, interests, lifestyle), behavior (buying habits, brand loyalty), or needs.",
           "Demographics tell you WHO your customer is. Psychographics tell you WHY they buy. The best marketers use both. A 16-year-old athlete and a 16-year-old artist might share demographics but have completely different motivations, values, and purchasing triggers."
         ],
         bullets: [
-          "Target market — the specific group of people most likely to buy your product",
-          "Demographics — measurable characteristics like age, gender, income, and location",
-          "Psychographics — psychological traits like values, interests, opinions, and lifestyle",
-          "Segmentation — dividing a large market into smaller groups to serve each one better"
+          "Target market - the specific group of people most likely to buy your product",
+          "Demographics - measurable characteristics like age, gender, income, and location",
+          "Psychographics - psychological traits like values, interests, opinions, and lifestyle",
+          "Segmentation - dividing a large market into smaller groups to serve each one better"
         ],
         realWorldExample: "Nike doesn't market to 'everyone who wears shoes.' They segment ruthlessly: runners get different ads than basketball players, who get different messaging than yoga practitioners. Each segment sees products designed for their specific needs and marketing that speaks their language."
       },
@@ -144,7 +144,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Demographics are used by large companies while psychographics are for small businesses"
             ],
             correctAnswer: 0,
-            explanation: "Demographics are the 'who' — measurable characteristics like age, gender, and income. Psychographics are the 'why' — the values, interests, and lifestyle factors that drive purchasing decisions."
+            explanation: "Demographics are the 'who' - measurable characteristics like age, gender, and income. Psychographics are the 'why' - the values, interests, and lifestyle factors that drive purchasing decisions."
           },
           {
             id: "mkt2-mc2",
@@ -163,9 +163,9 @@ export const marketingContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Phone Cases: Selling to Everyone vs Selling to Someone",
-        narrative: "Two students — Aiden and Zara — both start selling custom phone cases online. Aiden lists his cases on every platform with the description 'Cool phone cases for everyone!' Zara picks a specific customer: female college students who love minimalist design. She designs five cases with soft pastel colors and clean lines, names her brand 'Pebble Cases,' and markets exclusively on Pinterest and Instagram. After three months, Aiden has sold 12 cases. Zara has sold 340.",
+        narrative: "Two students - Aiden and Zara - both start selling custom phone cases online. Aiden lists his cases on every platform with the description 'Cool phone cases for everyone!' Zara picks a specific customer: female college students who love minimalist design. She designs five cases with soft pastel colors and clean lines, names her brand 'Pebble Cases,' and markets exclusively on Pinterest and Instagram. After three months, Aiden has sold 12 cases. Zara has sold 340.",
         details: [
-          "Aiden's designs tried to appeal to everyone — bold colors, patterns, sports themes, and anime — with no consistent style",
+          "Aiden's designs tried to appeal to everyone - bold colors, patterns, sports themes, and anime - with no consistent style",
           "Zara researched her target customer by surveying 30 college students about what they wanted in a phone case",
           "Zara's branding, product design, and marketing channels all aligned with her specific customer's preferences",
           "Aiden's social media posts got likes from friends but didn't convert to sales because there was no clear audience",
@@ -180,7 +180,7 @@ export const marketingContent: StructuredLessonContent[] = [
           options: [
             "Zara spent more money on advertising and had a bigger marketing budget to work with",
             "Zara chose higher-quality phone case materials that justified a premium price point",
-            "Zara identified a specific target customer and aligned every decision — product, brand, and channel — to that audience",
+            "Zara identified a specific target customer and aligned every decision - product, brand, and channel - to that audience",
             "Zara had more social media followers before launching, giving her an unfair head start"
           ],
           correctAnswer: 2,
@@ -190,10 +190,10 @@ export const marketingContent: StructuredLessonContent[] = [
       {
         type: "recap",
         takeaways: [
-          "Trying to sell to everyone means your message resonates with no one — specificity wins",
+          "Trying to sell to everyone means your message resonates with no one - specificity wins",
           "Demographics describe WHO your customer is; psychographics explain WHY they buy",
           "The best businesses align product design, branding, and marketing channels to one clear target audience",
-          "Customer research — even simple surveys — dramatically increases your chances of success"
+          "Customer research - even simple surveys - dramatically increases your chances of success"
         ]
       },
       {
@@ -228,16 +228,16 @@ export const marketingContent: StructuredLessonContent[] = [
         title: "Primary vs Secondary Research",
         paragraphs: [
           "Market research is the process of gathering information about your customers and competitors to make better business decisions. It's the difference between guessing what people want and knowing what people want.",
-          "Primary research is data you collect yourself — surveys, interviews, focus groups, observation. It's specific to your question and your market, but it takes time and effort. Secondary research uses data that already exists — industry reports, census data, competitor analysis, published studies.",
+          "Primary research is data you collect yourself - surveys, interviews, focus groups, observation. It's specific to your question and your market, but it takes time and effort. Secondary research uses data that already exists - industry reports, census data, competitor analysis, published studies.",
           "Smart businesses use both. Secondary research gives you the big picture and helps you understand trends. Primary research gives you specific insights about your exact customers. Skipping research is the most expensive mistake a business can make, because you'll spend money building something nobody wants."
         ],
         bullets: [
-          "Primary research — original data you collect directly from your target market",
-          "Secondary research — existing data from published sources, reports, and databases",
-          "Surveys — structured questions that can reach many people quickly and cheaply",
-          "Focus groups — small group discussions that reveal deeper motivations and reactions"
+          "Primary research - original data you collect directly from your target market",
+          "Secondary research - existing data from published sources, reports, and databases",
+          "Surveys - structured questions that can reach many people quickly and cheaply",
+          "Focus groups - small group discussions that reveal deeper motivations and reactions"
         ],
-        realWorldExample: "Before launching the iPhone, Apple didn't just rely on surveys. They observed how people actually used their phones — fumbling with tiny keyboards, squinting at small screens, carrying separate devices for music and calls. This observational research revealed needs customers couldn't even articulate."
+        realWorldExample: "Before launching the iPhone, Apple didn't just rely on surveys. They observed how people actually used their phones - fumbling with tiny keyboards, squinting at small screens, carrying separate devices for music and calls. This observational research revealed needs customers couldn't even articulate."
       },
       {
         type: "micro-check",
@@ -252,7 +252,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Primary research eliminates all risk from business decisions automatically"
             ],
             correctAnswer: 1,
-            explanation: "Primary research is tailored to your specific needs — you design the questions and choose the audience. Secondary research is broader and may not address your exact situation, though it's useful for context."
+            explanation: "Primary research is tailored to your specific needs - you design the questions and choose the audience. Secondary research is broader and may not address your exact situation, though it's useful for context."
           },
           {
             id: "mkt3-mc2",
@@ -271,9 +271,9 @@ export const marketingContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Two Food Trucks: Guessing vs Knowing",
-        narrative: "Carlos and Diana both want to open food trucks in the same neighborhood. Carlos picks a menu based on his favorite foods — Korean BBQ tacos — and parks wherever he finds space. Diana spends two weeks surveying 50 people in the neighborhood, analyzing foot traffic patterns, and checking what cuisines are already available nearby.",
+        narrative: "Carlos and Diana both want to open food trucks in the same neighborhood. Carlos picks a menu based on his favorite foods - Korean BBQ tacos - and parks wherever he finds space. Diana spends two weeks surveying 50 people in the neighborhood, analyzing foot traffic patterns, and checking what cuisines are already available nearby.",
         details: [
-          "Diana's survey revealed that 70% of residents wanted quick healthy lunch options — a gap no existing restaurant filled",
+          "Diana's survey revealed that 70% of residents wanted quick healthy lunch options - a gap no existing restaurant filled",
           "Diana chose to serve grain bowls and wraps, priced at the $10-12 range her research showed people were willing to pay",
           "Diana parked near the office complex where her survey showed the highest concentration of her target customers",
           "Carlos's Korean BBQ tacos were excellent, but the neighborhood already had three Korean restaurants and demand was low",
@@ -292,16 +292,16 @@ export const marketingContent: StructuredLessonContent[] = [
             "Studying Carlos's menu to make sure she offered different items than her competitor"
           ],
           correctAnswer: 1,
-          explanation: "Diana's survey revealed a gap in the market — high demand for healthy lunch options with no supply. This primary research insight shaped her entire business model and gave her a clear competitive advantage."
+          explanation: "Diana's survey revealed a gap in the market - high demand for healthy lunch options with no supply. This primary research insight shaped her entire business model and gave her a clear competitive advantage."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Market research replaces guessing with knowing — reducing risk and increasing your chances of success",
+          "Market research replaces guessing with knowing - reducing risk and increasing your chances of success",
           "Primary research (surveys, interviews) gives specific insights; secondary research (reports, data) gives context",
           "Even simple research like surveying 50 people can reveal critical market gaps and opportunities",
-          "Skipping research doesn't save money — it guarantees you'll waste money on untested assumptions"
+          "Skipping research doesn't save money - it guarantees you'll waste money on untested assumptions"
         ]
       },
       {
@@ -318,7 +318,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Check how many sticker shops exist on Etsy to determine if the market is already saturated"
             ],
             correctAnswer: 1,
-            explanation: "Asking classmates directly is primary research targeted at the exact market. It reveals demand, price sensitivity, and distribution preferences — all before spending money on inventory. Industry stats and Etsy searches provide context but don't tell you what YOUR customers want."
+            explanation: "Asking classmates directly is primary research targeted at the exact market. It reveals demand, price sensitivity, and distribution preferences - all before spending money on inventory. Industry stats and Etsy searches provide context but don't tell you what YOUR customers want."
           }
         ]
       }
@@ -326,7 +326,7 @@ export const marketingContent: StructuredLessonContent[] = [
   },
 
   // ═══════════════════════════════════════════════
-  // MKT-4: The 4 Ps — Product & Price
+  // MKT-4: The 4 Ps - Product & Price
   // ═══════════════════════════════════════════════
   {
     lessonId: "mkt-4",
@@ -335,17 +335,17 @@ export const marketingContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Product Design and Pricing Strategies",
         paragraphs: [
-          "The 4 Ps of marketing — Product, Price, Place, and Promotion — are the four key decisions every business must make. This lesson focuses on the first two: what you sell and how much you charge for it.",
-          "Product is more than just the physical item. It includes the features, quality, design, packaging, brand name, and the problem it solves. Great products are designed around customer needs, not just what the business wants to make. Differentiation — what makes your product different from competitors — is critical.",
+          "The 4 Ps of marketing - Product, Price, Place, and Promotion - are the four key decisions every business must make. This lesson focuses on the first two: what you sell and how much you charge for it.",
+          "Product is more than just the physical item. It includes the features, quality, design, packaging, brand name, and the problem it solves. Great products are designed around customer needs, not just what the business wants to make. Differentiation - what makes your product different from competitors - is critical.",
           "Pricing is one of the most powerful tools in marketing. Cost-plus pricing adds a markup to your costs. Value-based pricing charges what customers believe the product is worth. Competitive pricing matches or undercuts competitors. Each strategy sends a different message about your brand."
         ],
         bullets: [
-          "Product differentiation — what makes your offering unique and worth choosing over alternatives",
-          "Cost-plus pricing — calculating total cost and adding a percentage markup for profit",
-          "Value-based pricing — setting prices based on perceived customer value, not just your costs",
-          "Competitive pricing — setting prices relative to what competitors charge for similar products"
+          "Product differentiation - what makes your offering unique and worth choosing over alternatives",
+          "Cost-plus pricing - calculating total cost and adding a percentage markup for profit",
+          "Value-based pricing - setting prices based on perceived customer value, not just your costs",
+          "Competitive pricing - setting prices relative to what competitors charge for similar products"
         ],
-        realWorldExample: "Starbucks doesn't use cost-plus pricing. A cup of coffee costs them roughly $0.30 to make, but they charge $5-7. That's value-based pricing — customers pay for the experience, the brand, the ambiance, and the consistency. A gas station sells coffee for $1.50 using competitive pricing. Same product category, completely different strategies."
+        realWorldExample: "Starbucks doesn't use cost-plus pricing. A cup of coffee costs them roughly $0.30 to make, but they charge $5-7. That's value-based pricing - customers pay for the experience, the brand, the ambiance, and the consistency. A gas station sells coffee for $1.50 using competitive pricing. Same product category, completely different strategies."
       },
       {
         type: "micro-check",
@@ -360,7 +360,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Setting the lowest possible price to attract the maximum number of buyers quickly"
             ],
             correctAnswer: 1,
-            explanation: "Value-based pricing focuses on customer perception — what they believe the product is worth — rather than what it costs to produce. This often allows businesses to charge premium prices when they deliver exceptional experiences."
+            explanation: "Value-based pricing focuses on customer perception - what they believe the product is worth - rather than what it costs to produce. This often allows businesses to charge premium prices when they deliver exceptional experiences."
           },
           {
             id: "mkt4-mc2",
@@ -372,20 +372,20 @@ export const marketingContent: StructuredLessonContent[] = [
               "Because identical products always compete solely on advertising budget size"
             ],
             correctAnswer: 1,
-            explanation: "Without differentiation, customers have no reason to choose you over competitors — the only lever left is price, which leads to a race to the bottom. Differentiation creates a reason to buy from you specifically."
+            explanation: "Without differentiation, customers have no reason to choose you over competitors - the only lever left is price, which leads to a race to the bottom. Differentiation creates a reason to buy from you specifically."
           }
         ]
       },
       {
         type: "scenario",
         title: "Two Students at the School Market",
-        narrative: "Ella and Marcus both sell handmade bracelets at their school's holiday market. They use similar materials that cost about $2 per bracelet. Ella prices hers at $5 — a simple cost-plus approach. Marcus researches what students are willing to pay, creates a brand called 'Thread & Stone,' packages each bracelet in a small gift box with a card, and prices them at $15.",
+        narrative: "Ella and Marcus both sell handmade bracelets at their school's holiday market. They use similar materials that cost about $2 per bracelet. Ella prices hers at $5 - a simple cost-plus approach. Marcus researches what students are willing to pay, creates a brand called 'Thread & Stone,' packages each bracelet in a small gift box with a card, and prices them at $15.",
         details: [
-          "Ella sold 40 bracelets at $5 each — $200 revenue, $120 profit after materials",
-          "Marcus sold 25 bracelets at $15 each — $375 revenue, $325 profit after materials and packaging ($0.50 per box)",
+          "Ella sold 40 bracelets at $5 each - $200 revenue, $120 profit after materials",
+          "Marcus sold 25 bracelets at $15 each - $375 revenue, $325 profit after materials and packaging ($0.50 per box)",
           "Marcus made almost 3x the profit with fewer sales because his pricing reflected perceived value, not just cost",
           "Customers perceived Marcus's bracelets as 'gifts worth giving' while Ella's were seen as 'cheap accessories'",
-          "Marcus's leftover inventory was requested by students who missed the market — Ella had leftover stock nobody asked about"
+          "Marcus's leftover inventory was requested by students who missed the market - Ella had leftover stock nobody asked about"
         ]
       },
       {
@@ -400,13 +400,13 @@ export const marketingContent: StructuredLessonContent[] = [
             "Ella's pricing strategy was illegal under school market regulations for handmade goods"
           ],
           correctAnswer: 1,
-          explanation: "Marcus understood that value isn't just about the physical product — it's about the total experience. By creating a brand, adding packaging, and positioning his bracelets as gifts, he increased perceived value and could charge 3x more. Same material cost, completely different perception."
+          explanation: "Marcus understood that value isn't just about the physical product - it's about the total experience. By creating a brand, adding packaging, and positioning his bracelets as gifts, he increased perceived value and could charge 3x more. Same material cost, completely different perception."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Product includes everything — features, design, packaging, brand, and the problem it solves",
+          "Product includes everything - features, design, packaging, brand, and the problem it solves",
           "Differentiation gives customers a clear reason to choose you over competitors",
           "Cost-plus pricing covers costs; value-based pricing captures what customers believe a product is worth",
           "Packaging, branding, and presentation can increase perceived value far beyond the actual cost of materials"
@@ -420,13 +420,13 @@ export const marketingContent: StructuredLessonContent[] = [
             id: "mkt4-mastery",
             question: "A student makes custom phone wallpapers digitally (near-zero production cost). Which pricing strategy would be MOST appropriate and why?",
             options: [
-              "Cost-plus pricing — charge $0.10 since the digital file costs almost nothing to produce",
-              "Competitive pricing — find what other wallpaper apps charge and match that price exactly",
-              "Value-based pricing — charge $3-5 based on customers' willingness to pay for unique, custom designs",
-              "Free pricing — give all wallpapers away for free since there are no material costs to recover"
+              "Cost-plus pricing - charge $0.10 since the digital file costs almost nothing to produce",
+              "Competitive pricing - find what other wallpaper apps charge and match that price exactly",
+              "Value-based pricing - charge $3-5 based on customers' willingness to pay for unique, custom designs",
+              "Free pricing - give all wallpapers away for free since there are no material costs to recover"
             ],
             correctAnswer: 2,
-            explanation: "With near-zero production cost, cost-plus pricing would result in prices too low to sustain a business. Value-based pricing captures what customers believe the creative work is worth — the value is in the design skill and customization, not the file cost."
+            explanation: "With near-zero production cost, cost-plus pricing would result in prices too low to sustain a business. Value-based pricing captures what customers believe the creative work is worth - the value is in the design skill and customization, not the file cost."
           }
         ]
       }
@@ -434,7 +434,7 @@ export const marketingContent: StructuredLessonContent[] = [
   },
 
   // ═══════════════════════════════════════════════
-  // MKT-5: The 4 Ps — Place & Promotion
+  // MKT-5: The 4 Ps - Place & Promotion
   // ═══════════════════════════════════════════════
   {
     lessonId: "mkt-5",
@@ -443,15 +443,15 @@ export const marketingContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Distribution Channels and Promotion",
         paragraphs: [
-          "Place is about making your product available where your customers already are. The best product in the world fails if customers can't find it or access it easily. Distribution channels are the paths a product takes from creator to customer — and choosing the right channels can make or break a business.",
+          "Place is about making your product available where your customers already are. The best product in the world fails if customers can't find it or access it easily. Distribution channels are the paths a product takes from creator to customer - and choosing the right channels can make or break a business.",
           "Promotion is how you communicate your product's value to potential customers. It includes advertising (paid), public relations (earned media), social media (organic reach), sales promotions (discounts and incentives), and personal selling. The key is choosing promotional methods that reach your specific target audience.",
-          "The biggest shift in modern marketing is the rise of organic promotion — building an audience through content, community, and social media without paying for ads. This levels the playing field for small businesses and student entrepreneurs who can't afford traditional advertising budgets."
+          "The biggest shift in modern marketing is the rise of organic promotion - building an audience through content, community, and social media without paying for ads. This levels the playing field for small businesses and student entrepreneurs who can't afford traditional advertising budgets."
         ],
         bullets: [
-          "Distribution channels — the paths products take from creator to customer (online, retail, direct)",
-          "Advertising — paid promotion through media channels like social media ads, TV, and print",
-          "Organic marketing — building audience and awareness without paid advertising through content and community",
-          "Omnichannel — being present across multiple channels so customers can buy wherever they prefer"
+          "Distribution channels - the paths products take from creator to customer (online, retail, direct)",
+          "Advertising - paid promotion through media channels like social media ads, TV, and print",
+          "Organic marketing - building audience and awareness without paid advertising through content and community",
+          "Omnichannel - being present across multiple channels so customers can buy wherever they prefer"
         ],
         realWorldExample: "Glossier, the beauty brand, was built almost entirely on organic social media and word-of-mouth. Instead of spending millions on TV ads, they created a community of real customers who shared their experiences. Their Instagram-first strategy cost a fraction of traditional advertising and generated more trust."
       },
@@ -468,7 +468,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Because government regulations require products to be sold in specific approved locations"
             ],
             correctAnswer: 1,
-            explanation: "Place ensures your product is accessible to the right customers at the right time. A great product that customers can't find or don't know about will never sell — distribution is the bridge between your product and your customer."
+            explanation: "Place ensures your product is accessible to the right customers at the right time. A great product that customers can't find or don't know about will never sell - distribution is the bridge between your product and your customer."
           },
           {
             id: "mkt5-mc2",
@@ -480,20 +480,20 @@ export const marketingContent: StructuredLessonContent[] = [
               "It requires less creativity and strategic thinking than traditional paid advertising campaigns"
             ],
             correctAnswer: 1,
-            explanation: "Organic marketing — content creation, social media engagement, word-of-mouth — requires time and creativity but not large budgets. This makes it perfect for student entrepreneurs who have more energy than money."
+            explanation: "Organic marketing - content creation, social media engagement, word-of-mouth - requires time and creativity but not large budgets. This makes it perfect for student entrepreneurs who have more energy than money."
           }
         ]
       },
       {
         type: "scenario",
         title: "In-Person Only vs Online + Instagram",
-        narrative: "Two students, Kai and Nadia, both make and sell handmade candles. Kai sells exclusively at weekend farmers markets — great product, loyal local customers. Nadia sells at the same market AND runs an online store with an active Instagram account where she posts behind-the-scenes content of her candle-making process.",
+        narrative: "Two students, Kai and Nadia, both make and sell handmade candles. Kai sells exclusively at weekend farmers markets - great product, loyal local customers. Nadia sells at the same market AND runs an online store with an active Instagram account where she posts behind-the-scenes content of her candle-making process.",
         details: [
-          "Kai averaged $200 per weekend from market sales — solid but limited to the hours and days the market operated",
+          "Kai averaged $200 per weekend from market sales - solid but limited to the hours and days the market operated",
           "Nadia's market sales were similar at $180 per weekend, but her online store generated an additional $400 per week",
           "Nadia's Instagram grew to 2,800 followers who shared her content, driving traffic to her online store for free",
           "When the farmers market closed for winter, Kai's revenue dropped to zero. Nadia's online sales actually increased during the holiday season",
-          "Same product quality, same starting point — but Nadia's multi-channel approach generated 3x the total revenue"
+          "Same product quality, same starting point - but Nadia's multi-channel approach generated 3x the total revenue"
         ]
       },
       {
@@ -508,7 +508,7 @@ export const marketingContent: StructuredLessonContent[] = [
             "Nadia offered lower prices online which attracted more budget-conscious customers to her store"
           ],
           correctAnswer: 1,
-          explanation: "Nadia applied Place (online store + market = multiple channels) and Promotion (Instagram content = organic marketing) strategically. She wasn't limited to one location or one sales window — her products were accessible anywhere, anytime."
+          explanation: "Nadia applied Place (online store + market = multiple channels) and Promotion (Instagram content = organic marketing) strategically. She wasn't limited to one location or one sales window - her products were accessible anywhere, anytime."
         }
       },
       {
@@ -551,17 +551,17 @@ export const marketingContent: StructuredLessonContent[] = [
         type: "concept",
         title: "What a Brand Really Is",
         paragraphs: [
-          "A brand is not a logo. A brand is not a color scheme. A brand is the total perception that people have about your business — it's the feeling they get, the trust they have, and the story they tell others about you. A logo is just a visual shortcut to that deeper perception.",
-          "Brand consistency — using the same name, voice, colors, and message across every touchpoint — builds recognition and trust over time. Customers buy from brands they recognize and trust, even when cheaper alternatives exist. This is called brand equity, and it's one of the most valuable assets a business can own.",
-          "Brand voice is how your business 'speaks' — is it playful or professional? Bold or understated? Inclusive or exclusive? The best brands have a consistent voice that matches their target customer's expectations and builds an emotional connection."
+          "A brand is not a logo. A brand is not a color scheme. A brand is the total perception that people have about your business - it's the feeling they get, the trust they have, and the story they tell others about you. A logo is just a visual shortcut to that deeper perception.",
+          "Brand consistency - using the same name, voice, colors, and message across every touchpoint - builds recognition and trust over time. Customers buy from brands they recognize and trust, even when cheaper alternatives exist. This is called brand equity, and it's one of the most valuable assets a business can own.",
+          "Brand voice is how your business 'speaks' - is it playful or professional? Bold or understated? Inclusive or exclusive? The best brands have a consistent voice that matches their target customer's expectations and builds an emotional connection."
         ],
         bullets: [
-          "Brand — the total perception customers have about your business, not just visual elements",
-          "Brand equity — the additional value a strong brand adds beyond the product's functional benefits",
-          "Brand consistency — maintaining the same identity, voice, and message across all customer touchpoints",
-          "Brand voice — the personality and tone your business communicates in every interaction"
+          "Brand - the total perception customers have about your business, not just visual elements",
+          "Brand equity - the additional value a strong brand adds beyond the product's functional benefits",
+          "Brand consistency - maintaining the same identity, voice, and message across all customer touchpoints",
+          "Brand voice - the personality and tone your business communicates in every interaction"
         ],
-        realWorldExample: "Patagonia's brand isn't about jackets. It's about environmental activism. They've told their customers 'Don't Buy This Jacket' in ads, encouraging repair over replacement. This radical consistency between their values and actions has built one of the strongest brand loyalties in retail — customers pay premium prices BECAUSE of the brand's integrity."
+        realWorldExample: "Patagonia's brand isn't about jackets. It's about environmental activism. They've told their customers 'Don't Buy This Jacket' in ads, encouraging repair over replacement. This radical consistency between their values and actions has built one of the strongest brand loyalties in retail - customers pay premium prices BECAUSE of the brand's integrity."
       },
       {
         type: "micro-check",
@@ -576,7 +576,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Because customers with brand loyalty are contractually obligated to continue purchasing"
             ],
             correctAnswer: 1,
-            explanation: "Brand equity — the trust, recognition, and emotional connection built over time — creates perceived value beyond the physical product. Customers pay more for brands they trust and feel connected to."
+            explanation: "Brand equity - the trust, recognition, and emotional connection built over time - creates perceived value beyond the physical product. Customers pay more for brands they trust and feel connected to."
           },
           {
             id: "mkt6-mc2",
@@ -588,7 +588,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Ensuring every customer has an identical experience regardless of their preferences"
             ],
             correctAnswer: 0,
-            explanation: "Brand consistency means maintaining the same identity across all touchpoints — your website, packaging, social media, and customer interactions. This repetition builds recognition, and recognition builds trust."
+            explanation: "Brand consistency means maintaining the same identity across all touchpoints - your website, packaging, social media, and customer interactions. This repetition builds recognition, and recognition builds trust."
           }
         ]
       },
@@ -598,10 +598,10 @@ export const marketingContent: StructuredLessonContent[] = [
         narrative: "Jamal and Sarah both offer math tutoring at the same school. They charge the same rate ($25/hour), have similar qualifications, and both get great results for their students. But Sarah consistently charges $35/hour with a waitlist. The difference? Sarah built a brand called 'Apex Tutoring' with a consistent look, a clear message, and a professional presence.",
         details: [
           "Sarah created a simple but professional brand: a name (Apex Tutoring), consistent colors (navy and gold), and a tagline ('Think Sharper')",
-          "Sarah's social media posts all followed the same visual style — clean, consistent, and professional",
-          "Jamal marketed himself as 'Jamal — Math Tutor' with different flyer designs each time and no consistent message",
+          "Sarah's social media posts all followed the same visual style - clean, consistent, and professional",
+          "Jamal marketed himself as 'Jamal - Math Tutor' with different flyer designs each time and no consistent message",
           "Parents perceived Sarah's service as more professional and trustworthy, even though Jamal's teaching was equally good",
-          "Sarah's brand consistency signaled reliability — parents felt confident they'd get a consistent, professional experience"
+          "Sarah's brand consistency signaled reliability - parents felt confident they'd get a consistent, professional experience"
         ]
       },
       {
@@ -616,15 +616,15 @@ export const marketingContent: StructuredLessonContent[] = [
             "Sarah's tutoring sessions were longer and covered more material per hour than Jamal's sessions"
           ],
           correctAnswer: 1,
-          explanation: "Sarah's brand — consistent name, colors, messaging, and professional presence — created a perception of quality and reliability that went beyond the actual tutoring. Brand equity allowed her to command premium pricing for a functionally similar service."
+          explanation: "Sarah's brand - consistent name, colors, messaging, and professional presence - created a perception of quality and reliability that went beyond the actual tutoring. Brand equity allowed her to command premium pricing for a functionally similar service."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "A brand is the total perception people have about your business — far more than just a logo",
+          "A brand is the total perception people have about your business - far more than just a logo",
           "Brand equity allows businesses to charge premium prices because of trust and emotional connection",
-          "Consistency across all touchpoints — name, colors, voice, message — builds recognition and credibility",
+          "Consistency across all touchpoints - name, colors, voice, message - builds recognition and credibility",
           "Even small businesses and student entrepreneurs can build powerful brands with intentional consistency"
         ]
       },
@@ -637,12 +637,12 @@ export const marketingContent: StructuredLessonContent[] = [
             question: "A student starts a lawn care business. Which action would build the STRONGEST brand foundation?",
             options: [
               "Change the business name and logo every month to keep the brand looking fresh and trendy",
-              "Choose a memorable name, consistent colors, and a clear message and use them everywhere — every time",
+              "Choose a memorable name, consistent colors, and a clear message and use them everywhere - every time",
               "Focus only on doing excellent work, since quality automatically creates a brand without any marketing",
               "Copy the exact branding of the biggest lawn care company in town to benefit from their reputation"
             ],
             correctAnswer: 1,
-            explanation: "Brand building requires intentional consistency. A memorable name, consistent visual identity, and clear message — used across every flyer, social post, and customer interaction — builds the recognition and trust that creates brand equity."
+            explanation: "Brand building requires intentional consistency. A memorable name, consistent visual identity, and clear message - used across every flyer, social post, and customer interaction - builds the recognition and trust that creates brand equity."
           }
         ]
       }
@@ -659,15 +659,15 @@ export const marketingContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Buyer Journey",
         paragraphs: [
-          "Customers don't just see a product and buy it. They go through a journey — a series of stages from first becoming aware of a need to becoming a loyal repeat customer. Understanding this journey is one of the most powerful marketing skills you can develop.",
+          "Customers don't just see a product and buy it. They go through a journey - a series of stages from first becoming aware of a need to becoming a loyal repeat customer. Understanding this journey is one of the most powerful marketing skills you can develop.",
           "The buyer journey has four main stages: Awareness (realizing you have a need or want), Consideration (researching and comparing options), Decision (choosing and purchasing), and Loyalty (becoming a repeat customer and recommending to others).",
-          "Different marketing tactics work at different stages. Awareness requires visibility — being seen. Consideration requires information — reviews, comparisons, demos. Decision requires trust and urgency — testimonials, guarantees, limited offers. Loyalty requires ongoing value — great customer service, rewards, and follow-up."
+          "Different marketing tactics work at different stages. Awareness requires visibility - being seen. Consideration requires information - reviews, comparisons, demos. Decision requires trust and urgency - testimonials, guarantees, limited offers. Loyalty requires ongoing value - great customer service, rewards, and follow-up."
         ],
         bullets: [
-          "Awareness — the customer realizes they have a need, want, or problem to solve",
-          "Consideration — the customer researches options, reads reviews, and compares alternatives",
-          "Decision — the customer chooses a product and makes the purchase",
-          "Loyalty — the customer returns, repurchases, and recommends the product to others"
+          "Awareness - the customer realizes they have a need, want, or problem to solve",
+          "Consideration - the customer researches options, reads reviews, and compares alternatives",
+          "Decision - the customer chooses a product and makes the purchase",
+          "Loyalty - the customer returns, repurchases, and recommends the product to others"
         ],
         realWorldExample: "Think about how you chose your last pair of shoes. First, you noticed your old ones were worn out (awareness). Then you browsed Nike, Adidas, and New Balance online, reading reviews (consideration). You chose based on a friend's recommendation and a sale (decision). If they fit great and lasted long, you'd buy the same brand again (loyalty). Every step had marketing influencing you."
       },
@@ -678,10 +678,10 @@ export const marketingContent: StructuredLessonContent[] = [
             id: "mkt7-mc1",
             question: "A student sees a YouTube review comparing three different backpacks. Which stage of the buyer journey is this?",
             options: [
-              "Awareness — the student is just now learning that backpacks exist as a product category",
-              "Consideration — the student is actively researching and comparing options before buying",
-              "Decision — the student has already chosen which backpack to purchase right now",
-              "Loyalty — the student is returning to buy from a brand they've already purchased from"
+              "Awareness - the student is just now learning that backpacks exist as a product category",
+              "Consideration - the student is actively researching and comparing options before buying",
+              "Decision - the student has already chosen which backpack to purchase right now",
+              "Loyalty - the student is returning to buy from a brand they've already purchased from"
             ],
             correctAnswer: 1,
             explanation: "Watching comparison reviews is classic consideration-stage behavior. The student already knows they want a backpack (past awareness) but hasn't chosen yet (before decision). They're gathering information to make a choice."
@@ -696,7 +696,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Because customers in the loyalty stage stop comparing alternatives and ignore competitor products"
             ],
             correctAnswer: 0,
-            explanation: "Acquiring a new customer costs 5-7x more than retaining an existing one. Loyal customers buy again AND recommend you to friends — essentially doing your marketing for free through word-of-mouth."
+            explanation: "Acquiring a new customer costs 5-7x more than retaining an existing one. Loyal customers buy again AND recommend you to friends - essentially doing your marketing for free through word-of-mouth."
           }
         ]
       },
@@ -708,8 +708,8 @@ export const marketingContent: StructuredLessonContent[] = [
           "AWARENESS: Maya's old laptop died during a school project. She Googled 'best laptops for students 2026' and saw an article ranking the top 10 options",
           "CONSIDERATION: She narrowed it down to three options, watched YouTube reviews, read Reddit threads, and asked friends. A classmate's enthusiastic recommendation of the MacBook Air stuck with her",
           "DECISION: She visited the Apple Store, tried the laptop in person, and a student discount promotion tipped her over the edge. She bought it that day",
-          "LOYALTY: Three months later, the laptop exceeded her expectations. She posted about it on Instagram and recommended it to two friends — becoming a free marketing channel for Apple",
-          "At every stage, different marketing touchpoints influenced Maya — SEO (search results), content marketing (articles and reviews), word-of-mouth (friend's recommendation), in-store experience, and pricing (student discount)"
+          "LOYALTY: Three months later, the laptop exceeded her expectations. She posted about it on Instagram and recommended it to two friends - becoming a free marketing channel for Apple",
+          "At every stage, different marketing touchpoints influenced Maya - SEO (search results), content marketing (articles and reviews), word-of-mouth (friend's recommendation), in-store experience, and pricing (student discount)"
         ]
       },
       {
@@ -733,7 +733,7 @@ export const marketingContent: StructuredLessonContent[] = [
           "Customers move through Awareness → Consideration → Decision → Loyalty before and after buying",
           "Different marketing tactics are effective at different stages of the buyer journey",
           "Word-of-mouth and personal recommendations are among the most powerful marketing forces at the decision stage",
-          "Loyal customers are the most valuable marketing asset — they buy again and recruit new customers for free"
+          "Loyal customers are the most valuable marketing asset - they buy again and recruit new customers for free"
         ]
       },
       {
@@ -744,13 +744,13 @@ export const marketingContent: StructuredLessonContent[] = [
             id: "mkt7-mastery",
             question: "A student's baking business gets many Instagram followers but few actual orders. Which buyer journey stage is likely the bottleneck?",
             options: [
-              "Awareness — people don't know the baking business exists or what products it offers",
-              "Consideration — people see the products but can't find enough information to feel confident ordering",
-              "Decision — people want to order but the process of actually purchasing is unclear or difficult",
-              "Loyalty — existing customers are not coming back for repeat orders after their first purchase"
+              "Awareness - people don't know the baking business exists or what products it offers",
+              "Consideration - people see the products but can't find enough information to feel confident ordering",
+              "Decision - people want to order but the process of actually purchasing is unclear or difficult",
+              "Loyalty - existing customers are not coming back for repeat orders after their first purchase"
             ],
             correctAnswer: 2,
-            explanation: "Many followers means awareness isn't the problem — people know about the business. The bottleneck is likely at the decision stage: no clear ordering process, no pricing visible, no easy way to place an order. Removing friction at the decision stage converts followers into buyers."
+            explanation: "Many followers means awareness isn't the problem - people know about the business. The bottleneck is likely at the decision stage: no clear ordering process, no pricing visible, no easy way to place an order. Removing friction at the decision stage converts followers into buyers."
           }
         ]
       }
@@ -767,17 +767,17 @@ export const marketingContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Hypothesis Testing and Minimum Viable Products",
         paragraphs: [
-          "The most expensive mistake in business is building something nobody wants. The solution? Test before you invest. Every business idea is a hypothesis — an educated guess that needs to be validated with real data before you pour time and money into it.",
+          "The most expensive mistake in business is building something nobody wants. The solution? Test before you invest. Every business idea is a hypothesis - an educated guess that needs to be validated with real data before you pour time and money into it.",
           "A Minimum Viable Product (MVP) is the simplest version of your product that lets you test whether customers actually want it. Instead of spending months building a perfect product, launch a basic version quickly, get real feedback, and iterate. The goal is to learn fast and fail cheap.",
-          "A/B testing takes this further: instead of guessing which approach works better, you test two versions simultaneously and let data decide. Test two different prices, two ad headlines, two packaging designs — measure which performs better, and use the winner. This replaces opinions with evidence."
+          "A/B testing takes this further: instead of guessing which approach works better, you test two versions simultaneously and let data decide. Test two different prices, two ad headlines, two packaging designs - measure which performs better, and use the winner. This replaces opinions with evidence."
         ],
         bullets: [
-          "Hypothesis — a testable prediction about what customers want or how they'll respond",
-          "MVP (Minimum Viable Product) — the simplest version of your product that lets you test real demand",
-          "A/B testing — comparing two versions of something to see which performs better with real customers",
-          "Iteration — making improvements based on data and feedback rather than assumptions"
+          "Hypothesis - a testable prediction about what customers want or how they'll respond",
+          "MVP (Minimum Viable Product) - the simplest version of your product that lets you test real demand",
+          "A/B testing - comparing two versions of something to see which performs better with real customers",
+          "Iteration - making improvements based on data and feedback rather than assumptions"
         ],
-        realWorldExample: "Dropbox didn't build their full product first. Before writing a single line of code, they made a 3-minute video explaining what the product would do and put up a sign-up page. 75,000 people signed up overnight — validating demand before they spent millions on development. That video was their MVP."
+        realWorldExample: "Dropbox didn't build their full product first. Before writing a single line of code, they made a 3-minute video explaining what the product would do and put up a sign-up page. 75,000 people signed up overnight - validating demand before they spent millions on development. That video was their MVP."
       },
       {
         type: "micro-check",
@@ -792,7 +792,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "To create a prototype that investors can evaluate for potential funding opportunities"
             ],
             correctAnswer: 1,
-            explanation: "An MVP isn't about cutting corners — it's about learning quickly. You build the simplest version that tests your core assumption, gather real customer feedback, and then decide whether to invest more based on evidence rather than hope."
+            explanation: "An MVP isn't about cutting corners - it's about learning quickly. You build the simplest version that tests your core assumption, gather real customer feedback, and then decide whether to invest more based on evidence rather than hope."
           },
           {
             id: "mkt8-mc2",
@@ -811,13 +811,13 @@ export const marketingContent: StructuredLessonContent[] = [
       {
         type: "scenario",
         title: "Full Launch vs Test First",
-        narrative: "Two students — Jordan and Riley — both have ideas for selling custom study guides at their school. Jordan spends three months creating 50 comprehensive guides covering every subject, investing $400 in printing and binding. Riley creates just two sample guides, shows them to 20 classmates, and asks 'Would you pay $8 for this?'",
+        narrative: "Two students - Jordan and Riley - both have ideas for selling custom study guides at their school. Jordan spends three months creating 50 comprehensive guides covering every subject, investing $400 in printing and binding. Riley creates just two sample guides, shows them to 20 classmates, and asks 'Would you pay $8 for this?'",
         details: [
-          "Riley's quick test revealed that students wanted digital guides (not printed) and preferred subject-specific bundles — two insights that changed her entire approach",
+          "Riley's quick test revealed that students wanted digital guides (not printed) and preferred subject-specific bundles - two insights that changed her entire approach",
           "Riley spent $0 on her test and pivoted to digital guides in one week, earning $200 in her first month",
-          "Jordan launched all 50 guides and sold only 8 total — students didn't want printed guides and most subjects had low demand",
+          "Jordan launched all 50 guides and sold only 8 total - students didn't want printed guides and most subjects had low demand",
           "Jordan lost $340 and had 42 unsold printed guides. The three months of work was mostly wasted",
-          "Riley's MVP approach — testing small, learning fast — saved her from Jordan's expensive mistake"
+          "Riley's MVP approach - testing small, learning fast - saved her from Jordan's expensive mistake"
         ]
       },
       {
@@ -838,10 +838,10 @@ export const marketingContent: StructuredLessonContent[] = [
       {
         type: "recap",
         takeaways: [
-          "Every business idea is a hypothesis — test it before investing heavily in time or money",
+          "Every business idea is a hypothesis - test it before investing heavily in time or money",
           "An MVP is the cheapest, fastest way to learn whether real customers want what you're building",
           "A/B testing replaces guessing with data by comparing options with real customer behavior",
-          "Failing fast and cheap is far better than failing slowly and expensively — iteration beats perfection"
+          "Failing fast and cheap is far better than failing slowly and expensively - iteration beats perfection"
         ]
       },
       {
@@ -858,7 +858,7 @@ export const marketingContent: StructuredLessonContent[] = [
               "Create a detailed 50-page business plan with financial projections before talking to any potential customers"
             ],
             correctAnswer: 1,
-            explanation: "This is a textbook MVP approach: test the core hypothesis (will families pay for meal prep delivery?) with a small, cheap experiment. Five meals, ten families, real feedback — this costs almost nothing and tells you more than any business plan could."
+            explanation: "This is a textbook MVP approach: test the core hypothesis (will families pay for meal prep delivery?) with a small, cheap experiment. Five meals, ten families, real feedback - this costs almost nothing and tells you more than any business plan could."
           }
         ]
       }

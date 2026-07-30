@@ -35,15 +35,15 @@ function jeffFor(stage: StageId, part: BizLabPart): { mood: JeffMood; line: stri
     case "brief":
       return { mood: "excited", line: part.jeffIntro ?? `Part ${part.number}: ${part.subtitle}!` }
     case "words":
-      return { mood: "teaching", line: "Lock in these power-words — flip every card and you'll talk like a real founder! 📚" }
+      return { mood: "teaching", line: "Lock in these power-words - flip every card and you'll talk like a real founder! 📚" }
     case "learn":
       return { mood: "teaching", line: "Here's the playbook. Tap each card to open it. 🧠" }
     case "do":
-      return { mood: "happy", line: "Enough reading — time to take ACTION! Check off each move. 💪" }
+      return { mood: "happy", line: "Enough reading - time to take ACTION! Check off each move. 💪" }
     case "build":
       return { mood: "thinking", line: "Show me what you've built. Stuck? Grab a template to get rolling. 🛠️" }
     case "reflect":
-      return { mood: "happy", line: "Brain check-in — be honest, how'd it go? 💭" }
+      return { mood: "happy", line: "Brain check-in - be honest, how'd it go? 💭" }
   }
 }
 
@@ -320,7 +320,7 @@ export default function PartView({ part }: { part: BizLabPart }) {
               <div className="rounded-2xl border border-border/60 bg-muted/30 p-5 text-center">
                 {isComplete ? (
                   <div className="inline-flex items-center gap-2 text-success font-bold">
-                    <CheckCircle2 className="w-5 h-5" /> Part {part.number} complete — nice work!
+                    <CheckCircle2 className="w-5 h-5" /> Part {part.number} complete - nice work!
                   </div>
                 ) : (
                   <>

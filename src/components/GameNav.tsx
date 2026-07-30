@@ -1,4 +1,4 @@
-// GameNav — top bar + slide-out sidebar.
+// GameNav - top bar + slide-out sidebar.
 //
 // Layout: hamburger (left) opens a sidebar with every page link; the
 // InvestiPlay wordmark sits dead-center; InvestiCoins, notifications and the
@@ -13,7 +13,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
-import { useNetWorth } from "@/hooks/useNetWorth";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Wordmark } from "@/components/Wordmark";
@@ -77,7 +76,7 @@ const NAV_ITEMS = [
 
 
 export default function GameNav() {
-  const { jeffsHistory, logout, user } = useApp();
+  const { jeffsHistory, logout, user, jeffsBalance } = useApp();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -85,7 +84,6 @@ export default function GameNav() {
     await logout();
     navigate("/auth", { replace: true });
   };
-  const { netWorth } = useNetWorth();
   const location = useLocation();
 
   const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
@@ -141,8 +139,8 @@ export default function GameNav() {
               <div ref={anchor("hud-coins")} className="flex items-center gap-1.5 bg-gold/10 text-gold px-2 sm:px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
                 <Coins className="w-3.5 h-3.5 shrink-0" />
                 {/* Compact on phones (keeps the pill narrow), full number on larger screens. */}
-                <span className="sm:hidden tabular-nums"><AnimatedNumber value={Math.floor(netWorth)} format={compactBalance} /></span>
-                <span className="hidden sm:inline tabular-nums"><AnimatedNumber value={Math.floor(netWorth)} /></span>
+                <span className="sm:hidden tabular-nums"><AnimatedNumber value={Math.round(jeffsBalance)} format={compactBalance} /></span>
+                <span className="hidden sm:inline tabular-nums"><AnimatedNumber value={Math.round(jeffsBalance)} /></span>
               </div>
               <NotificationBell />
               <Link to="/profile" aria-label="Your profile" title="Your profile" ref={anchor("hud-profile")}>
@@ -180,7 +178,7 @@ export default function GameNav() {
               transition={{ type: "spring", stiffness: 380, damping: 34 }}
               className="fixed inset-y-0 left-0 z-[60] w-72 max-w-[85vw] bg-background border-r border-border flex flex-col shadow-2xl"
             >
-              {/* Sidebar header — deep-green gradient with the player's card */}
+              {/* Sidebar header - deep-green gradient with the player's card */}
               <div
                 className="relative px-4 pt-4 pb-4 overflow-hidden"
                 style={{ background: "linear-gradient(135deg, hsl(158 45% 15%), hsl(152 50% 24%))" }}
@@ -221,7 +219,7 @@ export default function GameNav() {
                 <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
               </div>
 
-              {/* Nav links — staggered entrance, bouncy hover */}
+              {/* Nav links - staggered entrance, bouncy hover */}
               <div className="flex-1 overflow-y-auto p-3 space-y-1">
                 {NAV_ITEMS.map((item, idx) => {
                   const active = isActive(item.to);

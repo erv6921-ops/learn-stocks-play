@@ -39,7 +39,7 @@ const MAJOR_INDEXES = [
 ]
 
 // Which symbols each section displays. Values (price/% change/sparkline) are all
-// fetched live from Yahoo Finance via the get-stock-quote proxy — nothing here
+// fetched live from Yahoo Finance via the get-stock-quote proxy - nothing here
 // is hardcoded.
 const TICKER_SYMBOLS = ['AAPL', 'TSLA', 'NVDA', 'MSFT', 'AMZN', 'META', 'GOOGL', 'JPM', 'SPY', 'QQQ']
 const MOST_ACTIVE_SYMBOLS = ['NVDA', 'AAPL', 'TSLA', 'META', 'AMZN', 'GOOGL']
@@ -77,7 +77,7 @@ async function fetchQuotes(symbols: string[]): Promise<Record<string, Quote>> {
 }
 
 // Fetch today's intraday closes (15-minute bars) for a sparkline. Returns [] on
-// failure so the caller can fall back to a flat "—" state.
+// failure so the caller can fall back to a flat "-" state.
 async function fetchSparkline(symbol: string): Promise<number[]> {
   try {
     const { data, error } = await supabase.functions.invoke('get-stock-quote', {
@@ -93,7 +93,7 @@ async function fetchSparkline(symbol: string): Promise<number[]> {
   }
 }
 
-// True when the US market is open (9:30am–4pm ET on a weekday). Converts the
+// True when the US market is open (9:30am-4pm ET on a weekday). Converts the
 // browser clock to America/New_York so it's correct in any local timezone.
 function isMarketOpen(now: Date = new Date()): boolean {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -129,10 +129,10 @@ function sparkPoints(data: number[], width = 96, height = 30): string {
     .join(' ')
 }
 
-const fmtPrice = (p: number | null | undefined) => (p == null ? '—' : `$${p.toFixed(2)}`)
-const fmtPlainPrice = (p: number | null | undefined) => (p == null ? '—' : p.toFixed(2))
+const fmtPrice = (p: number | null | undefined) => (p == null ? '-' : `$${p.toFixed(2)}`)
+const fmtPlainPrice = (p: number | null | undefined) => (p == null ? '-' : p.toFixed(2))
 const fmtPct = (c: number | null | undefined) =>
-  c == null ? '—' : `${c >= 0 ? '+' : ''}${c.toFixed(1)}%`
+  c == null ? '-' : `${c >= 0 ? '+' : ''}${c.toFixed(1)}%`
 
 // Small loading shimmer block.
 const Sk = ({ className = '' }: { className?: string }) => (
@@ -141,7 +141,7 @@ const Sk = ({ className = '' }: { className?: string }) => (
 
 function ChangeBadge({ pct }: { pct: number | null | undefined }) {
   if (pct == null) {
-    return <span className="text-xs font-bold px-2 py-0.5 rounded-full shrink-0 bg-muted text-muted-foreground">—</span>
+    return <span className="text-xs font-bold px-2 py-0.5 rounded-full shrink-0 bg-muted text-muted-foreground">-</span>
   }
   const positive = pct >= 0
   return (
@@ -164,7 +164,7 @@ export default function Stocks() {
   const [quotesLoading, setQuotesLoading] = useState(true)
   const [sparks, setSparks] = useState<Record<string, number[]>>({})
 
-  // Market open/closed status — refreshed each minute.
+  // Market open/closed status - refreshed each minute.
   const [marketOpen, setMarketOpen] = useState(isMarketOpen)
 
   // Top movers tab
@@ -188,7 +188,7 @@ export default function Stocks() {
   }, [])
 
   // Live quotes for the ticker tape, index cards, most active strip, and top
-  // movers — all from one proxy call, refreshed every 60s.
+  // movers - all from one proxy call, refreshed every 60s.
   useEffect(() => {
     let active = true
     const load = async () => {
@@ -203,7 +203,7 @@ export default function Stocks() {
     return () => { active = false; clearInterval(id) }
   }, [])
 
-  // Real market-wide top movers from Yahoo's screeners — refreshed every 60s.
+  // Real market-wide top movers from Yahoo's screeners - refreshed every 60s.
   useEffect(() => {
     let active = true
     const load = async () => {
@@ -221,7 +221,7 @@ export default function Stocks() {
     return () => { active = false; clearInterval(id) }
   }, [])
 
-  // Live intraday sparklines for the 4 index cards — refreshed every 60s.
+  // Live intraday sparklines for the 4 index cards - refreshed every 60s.
   useEffect(() => {
     let active = true
     const load = async () => {
@@ -240,7 +240,7 @@ export default function Stocks() {
     return () => { active = false; clearInterval(id) }
   }, [])
 
-  // Search — autocomplete by ticker OR company name via the free Yahoo
+  // Search - autocomplete by ticker OR company name via the free Yahoo
   // Finance search endpoint. Debounced 300ms to limit requests.
   useEffect(() => {
     const q = searchQuery.trim()
@@ -306,7 +306,7 @@ export default function Stocks() {
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
-      {/* 1. ANIMATED TICKER TAPE — live quotes, at the very top */}
+      {/* 1. ANIMATED TICKER TAPE - live quotes, at the very top */}
       <div className="overflow-hidden" style={{ backgroundColor: '#0f2d1e' }}>
         <div className="ticker-track py-1.5 text-[12px] font-medium">
           {/* Two identical copies → seamless loop. */}
@@ -349,7 +349,7 @@ export default function Stocks() {
           <JeffMascot size="sm" message="Search any stock ticker to see its details!" className="hidden sm:flex shrink-0" />
         </div>
 
-        {/* Search Bar — Front and Center */}
+        {/* Search Bar - Front and Center */}
         <form onSubmit={handleSearchSubmit} className="mb-6 md:mb-10">
           <div className="relative max-w-2xl mx-auto" ref={anchor("stocks-search")}>
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -389,7 +389,7 @@ export default function Stocks() {
         {/* The rest of the page is hidden while the user is actively searching. */}
         {!searchQuery.trim() && (
           <>
-            {/* 5. MOST ACTIVE STRIP — live */}
+            {/* 5. MOST ACTIVE STRIP - live */}
             <div className="mb-6 md:mb-10">
               <h2 className="font-display text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Most active today</h2>
               <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
@@ -417,7 +417,7 @@ export default function Stocks() {
               </div>
             </div>
 
-            {/* 3. MAJOR INDEXES — live price, % change, intraday sparkline */}
+            {/* 3. MAJOR INDEXES - live price, % change, intraday sparkline */}
             <div className="mb-6 md:mb-10">
               <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" /> Major Indexes
@@ -435,7 +435,7 @@ export default function Stocks() {
                       className="trader-panel rounded-2xl relative text-left overflow-hidden hover:-translate-y-px transition-transform"
                     >
                       <div className="p-5">
-                        {/* % change badge — top right */}
+                        {/* % change badge - top right */}
                         <span
                           className={`absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full ${change == null ? 'bg-white/10 text-white/50' : positive ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}
                         >
@@ -509,7 +509,7 @@ export default function Stocks() {
               )}
             </div>
 
-            {/* 7. TOP MOVERS — live, sorted */}
+            {/* 7. TOP MOVERS - live, sorted */}
             <div className="mb-6 md:mb-10">
               <div className="flex items-center gap-2 mb-4" ref={anchor("stocks-movers")}>
                 <h2 className="font-display text-lg font-semibold mr-2">Top movers</h2>

@@ -202,7 +202,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
             .order("created_at", { ascending: true })
             .range(from, from + pageSize - 1)
         )
-        if (!res?.data) return null // transient failure — don't reconcile with a partial ledger
+        if (!res?.data) return null // transient failure - don't reconcile with a partial ledger
         rows.push(...res.data)
         if (res.data.length < pageSize) break
       }
@@ -339,7 +339,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (session?.user) {
         // Supabase re-emits SIGNED_IN whenever the tab regains focus, not just
         // on a real login. Track the previous user so we only run post-login
-        // routing when the signed-in user actually changes — otherwise leaving
+        // routing when the signed-in user actually changes - otherwise leaving
         // and returning to the app would yank people back to the dashboard.
         //
         // But an explicit login from the /auth page must always route, even when
@@ -566,7 +566,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   const buyStock = (symbol: string, shares: number, pricePerShare: number): boolean => {
-    // Reject trades with no valid live price or non-positive share count —
+    // Reject trades with no valid live price or non-positive share count -
     // otherwise a failed quote (price 0/NaN) would grant free shares.
     if (!Number.isFinite(pricePerShare) || pricePerShare <= 0 || !Number.isFinite(shares) || shares <= 0) return false
     const totalCost = Math.round(shares * pricePerShare * 100) / 100

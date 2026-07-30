@@ -1,4 +1,4 @@
-// "Make It Stick" reflection prompts — shown after the mastery check, before
+// "Make It Stick" reflection prompts - shown after the mastery check, before
 // the completion screen. Each prompt asks the student to commit the lesson to
 // a concrete personal action in their own words (research-backed retention:
 // generation + implementation intentions beat re-reading every time).
@@ -10,7 +10,7 @@ const PROMPTS: Partial<Record<LessonCategory, string>> = {
   "psychology-of-money":
     "Think about your own spending habits. What is ONE thing you will start saving for, and HOW will you make yourself actually do it? (When will you set money aside, how much, and what will you do when you're tempted to spend it?)",
   "behavioral-finance":
-    "Describe one money mistake this lesson could help you avoid. What's your plan — in your own words — for catching yourself before you make it?",
+    "Describe one money mistake this lesson could help you avoid. What's your plan - in your own words - for catching yourself before you make it?",
   "bubbles-crashes":
     "Imagine everyone at school is hyped about some investment. Using what you just learned, what would you personally do, and what warning signs would you look for?",
 
@@ -20,7 +20,7 @@ const PROMPTS: Partial<Record<LessonCategory, string>> = {
   banking:
     "What will you personally do with a bank account in the next year? Describe how you'd set it up and what you'd use it for, based on this lesson.",
   "credit-debt":
-    "Write your own personal rule for using credit — when would YOU borrow, when would you refuse, and how will you make sure you never miss a payment?",
+    "Write your own personal rule for using credit - when would YOU borrow, when would you refuse, and how will you make sure you never miss a payment?",
   "debt-management":
     "If you ever owed money on two different things, how would you decide which to pay off first? Write your personal payoff game plan.",
   "income-earning":
@@ -36,11 +36,11 @@ const PROMPTS: Partial<Record<LessonCategory, string>> = {
   stocks:
     "Pick a real company you actually know and like. Using this lesson, what would you want to find out about it before putting real money in?",
   "stock-market":
-    "Describe how you would react — step by step — if a stock you owned dropped 20% in a week. Use what this lesson taught you.",
+    "Describe how you would react - step by step - if a stock you owned dropped 20% in a week. Use what this lesson taught you.",
   portfolio:
     "Design your dream starter portfolio in words: what mix would you pick, and how does what you just learned shape those choices?",
   "etfs-funds":
-    "Explain to a friend why you would (or wouldn't) start with a fund instead of picking single stocks. Make it personal — what fits YOUR situation?",
+    "Explain to a friend why you would (or wouldn't) start with a fund instead of picking single stocks. Make it personal - what fits YOUR situation?",
   bonds:
     "When in YOUR life do you think bonds would matter most to you, and why? Connect it to what you just learned.",
   valuation:
@@ -74,11 +74,11 @@ const PROMPTS: Partial<Record<LessonCategory, string>> = {
   "leadership-management":
     "Describe a moment (team project, sports, clubs) where you could use this leadership idea. What exactly would you do differently?",
   "strategic-analysis":
-    "Run a mini analysis on your micro-business: using this lesson, what's your biggest strength and your biggest threat — and what will you do about the threat?",
+    "Run a mini analysis on your micro-business: using this lesson, what's your biggest strength and your biggest threat - and what will you do about the threat?",
   "competitive-strategy":
     "Who is your micro-business's biggest competitor (real or imagined)? Using this lesson, how will you beat them? Be specific.",
   "business-ethics":
-    "Describe a business decision that would make you more money but feel wrong. Where's YOUR line, and why — using ideas from this lesson?",
+    "Describe a business decision that would make you more money but feel wrong. Where's YOUR line, and why - using ideas from this lesson?",
 
   // ── Statements & analysis ──
   "financial-statements":

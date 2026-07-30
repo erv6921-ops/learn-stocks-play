@@ -190,7 +190,7 @@ export default function UnitTest() {
                     Question {currentQuestion + 1} of {unitTest.questions.length}
                   </span>
                   <span className="text-muted-foreground">
-                    {/* Compare against the SHUFFLED set — answers were recorded against it */}
+                    {/* Compare against the SHUFFLED set - answers were recorded against it */}
                     {answers.filter((a, i) => a === shuffledQuestions[i]?.correctAnswer).length}{" "}
                     correct
                   </span>
@@ -298,7 +298,7 @@ export default function UnitTest() {
               <div className="text-center">
                 <p className="text-5xl font-bold text-primary">{finalScore}%</p>
                 <p className="text-muted-foreground">
-                  {/* Compare against the SHUFFLED set — answers were recorded against it */}
+                  {/* Compare against the SHUFFLED set - answers were recorded against it */}
                   {answers.filter((a, i) => a === shuffledQuestions[i]?.correctAnswer).length} of{" "}
                   {shuffledQuestions.length} correct
                 </p>

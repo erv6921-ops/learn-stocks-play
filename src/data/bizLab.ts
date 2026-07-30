@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════════════
-// GULLIVER BIZ LAB — Mrs. Fortgang's Shark Tank Project
+// GULLIVER BIZ LAB - Mrs. Fortgang's Shark Tank Project
 // ════════════════════════════════════════════════════════════════════════
 // All curriculum content for the 6-part entrepreneurship unit lives here so
 // the UI components stay presentational. Each part carries its own vocabulary
@@ -96,9 +96,9 @@ export interface BizTemplate {
 // ── Shared reference content ───────────────────────────────────────────────
 
 export const SHARK_TANK_OVERVIEW =
-  "On Shark Tank, everyday entrepreneurs pitch their business ideas to a panel of wealthy investors called \"Sharks.\" If a Shark believes in the idea, they invest their own money in exchange for a slice of the company. Your mission this unit: build a business worth investing in — then pitch it to our classroom Sharks."
+  "On Shark Tank, everyday entrepreneurs pitch their business ideas to a panel of wealthy investors called \"Sharks.\" If a Shark believes in the idea, they invest their own money in exchange for a slice of the company. Your mission this unit: build a business worth investing in - then pitch it to our classroom Sharks."
 
-// A brainstorming starter list — a teen-focused sample of the "100 Problems
+// A brainstorming starter list - a teen-focused sample of the "100 Problems
 // for Teens" prompt used to spark business ideas.
 export const PROBLEMS_FOR_TEENS: string[] = [
   "Forgetting homework or assignment due dates",
@@ -172,10 +172,10 @@ export const PROBLEMS_FOR_TEENS: string[] = [
 
 export const LOGO_PRINCIPLES = [
   { title: "Simple in design", detail: "Could a 7-year-old draw it from memory? The best logos are clean and uncluttered." },
-  { title: "Memorable or impactful", detail: "It sticks in your mind after one glance — think of the Nike swoosh or Apple." },
+  { title: "Memorable or impactful", detail: "It sticks in your mind after one glance - think of the Nike swoosh or Apple." },
   { title: "Timeless", detail: "It will still look good in 10 or 20 years, not just this year's trend." },
   { title: "Versatile or adaptable", detail: "It works big or small, in full color or one color, on a shirt or a screen." },
-  { title: "Appropriate or relevant", detail: "It fits your industry and audience — playful for a toy brand, sleek for tech." },
+  { title: "Appropriate or relevant", detail: "It fits your industry and audience - playful for a toy brand, sleek for tech." },
 ]
 
 export const WEBSITE_TRAITS = [
@@ -184,7 +184,7 @@ export const WEBSITE_TRAITS = [
   { title: "Interactive & Engaging", detail: "Buttons, embedded video, and elements that invite people to explore." },
   { title: "Informative", detail: "Clearly answers what the product is, what it costs, and why it matters." },
   { title: "Branding", detail: "Your logo, colors, and voice appear consistently on every page." },
-  { title: "Conversion", detail: "Guides visitors toward action — \"sell, sell, sell!\"" },
+  { title: "Conversion", detail: "Guides visitors toward action - \"sell, sell, sell!\"" },
 ]
 
 export const WEBSITE_PAGES = [
@@ -292,12 +292,12 @@ export interface BizBadge {
 }
 
 export const BIZ_BADGES: BizBadge[] = [
-  { id: "idea-spark", name: "Idea Spark", description: "Completed Part 1 — Introduction to Entrepreneurship", icon: "Lightbulb", unlockOn: "part-1" },
-  { id: "plan-master", name: "Plan Master", description: "Completed Part 2 — Business Plan & Prototype", icon: "ClipboardList", unlockOn: "part-2" },
-  { id: "brand-builder", name: "Brand Builder", description: "Completed Part 3 — Logo & Marketing", icon: "Palette", unlockOn: "part-3" },
-  { id: "pitch-perfect", name: "Pitch Perfect", description: "Completed Part 4 — The Commercial", icon: "Clapperboard", unlockOn: "part-4" },
-  { id: "web-architect", name: "Web Architect", description: "Completed Part 5 — The Website", icon: "Globe", unlockOn: "part-5" },
-  { id: "shark-ready", name: "Shark Ready", description: "Completed Part 6 — Final prep. You're ready for the Tank!", icon: "Trophy", unlockOn: "part-6" },
+  { id: "idea-spark", name: "Idea Spark", description: "Completed Part 1 - Introduction to Entrepreneurship", icon: "Lightbulb", unlockOn: "part-1" },
+  { id: "plan-master", name: "Plan Master", description: "Completed Part 2 - Business Plan & Prototype", icon: "ClipboardList", unlockOn: "part-2" },
+  { id: "brand-builder", name: "Brand Builder", description: "Completed Part 3 - Logo & Marketing", icon: "Palette", unlockOn: "part-3" },
+  { id: "pitch-perfect", name: "Pitch Perfect", description: "Completed Part 4 - The Commercial", icon: "Clapperboard", unlockOn: "part-4" },
+  { id: "web-architect", name: "Web Architect", description: "Completed Part 5 - The Website", icon: "Globe", unlockOn: "part-5" },
+  { id: "shark-ready", name: "Shark Ready", description: "Completed Part 6 - Final prep. You're ready for the Tank!", icon: "Trophy", unlockOn: "part-6" },
   { id: "shark-champion", name: "Shark Tank Champion", description: "Finished the entire Gulliver Biz Lab unit", icon: "Crown", unlockOn: "all" },
 ]
 
@@ -318,7 +318,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     estMinutes: 45,
     overview: [
       SHARK_TANK_OVERVIEW,
-      "In this first part you'll learn the language of entrepreneurs, study how real businesses begin, and brainstorm problems worth solving. Every great company started with someone noticing a problem — your job is to find one you care about.",
+      "In this first part you'll learn the language of entrepreneurs, study how real businesses begin, and brainstorm problems worth solving. Every great company started with someone noticing a problem - your job is to find one you care about.",
     ],
     vocab: [
       { term: "Entrepreneur", definition: "A person who creates and runs a business.", example: "A teen who starts a phone-case business is an entrepreneur." },
@@ -336,16 +336,16 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
       },
       {
         heading: "Invention vs. Innovation",
-        body: "Not every business needs a brand-new invention. Many succeed by innovating — improving something that already exists.",
+        body: "Not every business needs a brand-new invention. Many succeed by innovating - improving something that already exists.",
         bullets: [
           "Invention = something brand new to the world.",
           "Innovation = a meaningful improvement to an existing product or service.",
-          "Most teen-friendly businesses are innovations — solving an old problem in a fresher, cheaper, or cooler way.",
+          "Most teen-friendly businesses are innovations - solving an old problem in a fresher, cheaper, or cooler way.",
         ],
       },
       {
         heading: "Start with a problem",
-        body: "Great businesses solve real problems. Use the brainstorming list to spot frustrations in everyday teen life — the bigger the frustration, the bigger the opportunity.",
+        body: "Great businesses solve real problems. Use the brainstorming list to spot frustrations in everyday teen life - the bigger the frustration, the bigger the opportunity.",
       },
     ],
     activities: [
@@ -374,7 +374,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
         description: "Lock in the problem your business will solve.",
         fields: [
           { key: "problem", label: "The problem you're solving", type: "textarea", placeholder: "Describe the problem and who has it." },
-          { key: "idea", label: "Your idea for solving it", type: "textarea", placeholder: "Early thoughts — this can change later!" },
+          { key: "idea", label: "Your idea for solving it", type: "textarea", placeholder: "Early thoughts - this can change later!" },
         ],
         xp: 100,
       },
@@ -388,7 +388,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     number: 2,
     title: "The Business Plan & Prototype",
     subtitle: "Turn your idea into a real plan",
-    jeffIntro: "Sharks don't buy ideas — they buy plans. Time to make yours bulletproof! 💼",
+    jeffIntro: "Sharks don't buy ideas - they buy plans. Time to make yours bulletproof! 💼",
     templates: [
       {
         title: "Elevator Pitch Template",
@@ -399,7 +399,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
           "We created [PRODUCT NAME], a [WHAT IT IS] that [WHAT IT DOES].",
           "Unlike [COMPETITOR], ours [WHAT MAKES YOU DIFFERENT].",
           "It costs [PRICE], and it's perfect for [TARGET AUDIENCE].",
-          "[COMPANY NAME] — [YOUR SLOGAN].",
+          "[COMPANY NAME] - [YOUR SLOGAN].",
         ].join("\n"),
       },
     ],
@@ -407,12 +407,12 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     accent: ["#1a2a6c", "#2563eb"],
     estMinutes: 90,
     overview: [
-      "A great idea needs a plan. In this part you'll craft a 30–60 second elevator pitch, research your market, work out your numbers, and build a prototype of your product.",
-      "Investors don't just buy ideas — they buy plans they believe in. The clearer your plan, the more confident your Sharks will feel.",
+      "A great idea needs a plan. In this part you'll craft a 30-60 second elevator pitch, research your market, work out your numbers, and build a prototype of your product.",
+      "Investors don't just buy ideas - they buy plans they believe in. The clearer your plan, the more confident your Sharks will feel.",
     ],
     vocab: [
       { term: "Business Plan", definition: "A formal document outlining goals, strategies, and operational details.", example: "A roadmap showing what you'll sell, to whom, and how you'll profit." },
-      { term: "Target Audience", definition: "Who will use or buy the product (their age, interests, and characteristics).", example: "Teens aged 13–17 who play sports." },
+      { term: "Target Audience", definition: "Who will use or buy the product (their age, interests, and characteristics).", example: "Teens aged 13-17 who play sports." },
       { term: "Market Research", definition: "Gathering information about potential customers and competitors.", example: "Surveying classmates about what they'd pay for your product." },
       { term: "Financials", definition: "The numbers showing how a business will make money.", example: "Price, costs, and projected profit." },
       { term: "Prototype", definition: "An early sample or model of a product.", example: "A cardboard mock-up of your invention." },
@@ -421,7 +421,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     sections: [
       {
         heading: "The Elevator Pitch",
-        body: "Describe your idea in a few clear sentences. A strong elevator pitch explains what the business is, why it's valuable, and what makes it unique — all in under a minute.",
+        body: "Describe your idea in a few clear sentences. A strong elevator pitch explains what the business is, why it's valuable, and what makes it unique - all in under a minute.",
         bullets: ["What is the business?", "Why is it valuable?", "What makes it different from everything else?"],
       },
       {
@@ -430,16 +430,16 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
       },
       {
         heading: "Financials",
-        body: "Profit is what's left after costs. Profit = Revenue − Costs. Know your price, your costs, and your projected profit.",
-        note: "Profit = (Price × Units Sold) − Total Costs. Investors love founders who know their numbers.",
+        body: "Profit is what's left after costs. Profit = Revenue - Costs. Know your price, your costs, and your projected profit.",
+        note: "Profit = (Price × Units Sold) - Total Costs. Investors love founders who know their numbers.",
       },
       {
         heading: "Build a Prototype",
         body: "Choose ONE way to bring your product to life:",
         bullets: [
-          "Option A — Draw a detailed, labeled sketch on paper (materials & measurements).",
-          "Option B — Build a physical prototype (cardboard, paper, popsicle sticks, tape).",
-          "Option C — Create a 3D rendering in TinkerCAD.",
+          "Option A - Draw a detailed, labeled sketch on paper (materials & measurements).",
+          "Option B - Build a physical prototype (cardboard, paper, popsicle sticks, tape).",
+          "Option C - Create a 3D rendering in TinkerCAD.",
         ],
       },
     ],
@@ -473,7 +473,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
       {
         submissionType: "elevator_pitch",
         title: "Elevator Pitch",
-        description: "Write your 30–60 second pitch.",
+        description: "Write your 30-60 second pitch.",
         fields: [
           { key: "pitch", label: "Your elevator pitch", type: "textarea", placeholder: "What it is, why it's valuable, what makes it unique...", help: "Aim for something you can say in under a minute." },
         ],
@@ -494,7 +494,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
           { key: "advertising", label: "How will you advertise your product?", type: "textarea", group: "3. Marketing" },
           { key: "price", label: "How much will you sell your product for?", type: "text", group: "4. The Money" },
           { key: "costs", label: "What costs are associated with making it?", type: "textarea", group: "4. The Money" },
-          { key: "profit", label: "Projected profit — how much will you make, and how is profit calculated?", type: "textarea", group: "4. The Money" },
+          { key: "profit", label: "Projected profit - how much will you make, and how is profit calculated?", type: "textarea", group: "4. The Money" },
         ],
         xp: 150,
       },
@@ -505,7 +505,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
         fields: [
           { key: "option", label: "Which option did you choose? (A / B / C)", type: "text" },
           { key: "description", label: "Describe your prototype (materials, measurements, features)", type: "textarea" },
-          { key: "photos", label: "Photo / image links", type: "url-list", help: "Paste links to photos (Google Drive, Photos, etc.) — one per line." },
+          { key: "photos", label: "Photo / image links", type: "url-list", help: "Paste links to photos (Google Drive, Photos, etc.) - one per line." },
         ],
         linkField: { key: "designLink", label: "TinkerCAD or design link (optional)", placeholder: "https://www.tinkercad.com/..." },
         xp: 150,
@@ -524,7 +524,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     templates: [
       {
         title: "Brand Board Template",
-        blurb: "A designer's starting point — fill it in before you open Canva.",
+        blurb: "A designer's starting point - fill it in before you open Canva.",
         body: [
           "BRAND NAME: ____________________",
           "SLOGAN: ____________________",
@@ -549,7 +549,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     estMinutes: 60,
     overview: [
       "Your brand is how the world recognizes you. In this part you'll define your brand's \"vibe,\" design a logo, and create marketing mockups that make your product pop.",
-      "A strong logo and consistent branding make a tiny startup look like a real company — and that builds trust with customers and Sharks alike.",
+      "A strong logo and consistent branding make a tiny startup look like a real company - and that builds trust with customers and Sharks alike.",
     ],
     vocab: [
       { term: "Logo", definition: "A symbol or design that identifies a brand at a glance.", example: "The golden arches instantly mean McDonald's." },
@@ -561,7 +561,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
       {
         heading: "5 Characteristics of a Good Logo",
         body: "Keep these five traits in mind as you design:",
-        bullets: LOGO_PRINCIPLES.map(p => `${p.title} — ${p.detail}`),
+        bullets: LOGO_PRINCIPLES.map(p => `${p.title} - ${p.detail}`),
       },
       {
         heading: "Describe Your Vibe",
@@ -569,11 +569,11 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
       },
       {
         heading: "From Sketch to Canva",
-        body: "Sketch a few logo ideas on paper first. Then design your favorite in Canva — modify a template to make it unique, and export a PNG with a transparent background.",
+        body: "Sketch a few logo ideas on paper first. Then design your favorite in Canva - modify a template to make it unique, and export a PNG with a transparent background.",
       },
       {
         heading: "Marketing Mockups",
-        body: "Create 3 marketing material mockups using your logo — for example a t-shirt, water bottle, flyer, business card, or social media post.",
+        body: "Create 3 marketing material mockups using your logo - for example a t-shirt, water bottle, flyer, business card, or social media post.",
       },
     ],
     activities: [
@@ -605,8 +605,8 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
           { key: "colors", label: "Colors", type: "text", group: "1. Your Vibe" },
           { key: "fonts", label: "Fonts", type: "text", group: "1. Your Vibe" },
           { key: "symbols", label: "Symbols / imagery", type: "text", group: "1. Your Vibe" },
-          { key: "logoLinks", label: "Logo image links (PNG)", type: "url-list", help: "Paste links to your logo files — one per line.", group: "2. Your Designs" },
-          { key: "mockups", label: "3 marketing mockup links", type: "url-list", help: "T-shirt, flyer, social post, etc. — one link per line.", group: "2. Your Designs" },
+          { key: "logoLinks", label: "Logo image links (PNG)", type: "url-list", help: "Paste links to your logo files - one per line.", group: "2. Your Designs" },
+          { key: "mockups", label: "3 marketing mockup links", type: "url-list", help: "T-shirt, flyer, social post, etc. - one link per line.", group: "2. Your Designs" },
         ],
         xp: 150,
       },
@@ -619,22 +619,22 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     id: "part-4",
     number: 4,
     title: "The Pitch (Commercial)",
-    subtitle: "Film a 30–60 second commercial",
+    subtitle: "Film a 30-60 second commercial",
     jeffIntro: "Lights, camera, ACTION! 🎬 Let's make an ad that stops the scroll.",
     templates: [
       {
         title: "Commercial Script Template",
         blurb: "The classic ad formula: Hook → Pitch → Call to Action.",
         body: [
-          "[HOOK — 0:00-0:10]",
+          "[HOOK - 0:00-0:10]",
           'Grab attention: "Don\'t you hate it when ______?"',
           "",
-          "[BODY — 0:10-0:45]",
+          "[BODY - 0:10-0:45]",
           "Introduce [PRODUCT NAME].",
           "It [WHAT IT DOES] so you can [THE BENEFIT].",
           "Show it in action!",
           "",
-          "[CALL TO ACTION — 0:45-0:60]",
+          "[CALL TO ACTION - 0:45-0:60]",
           'End strong: "Get yours now at [WEBSITE]!"',
           "Show logo + slogan on screen.",
         ].join("\n"),
@@ -644,13 +644,13 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     accent: ["#581c87", "#a855f7"],
     estMinutes: 120,
     overview: [
-      "Now bring your product to life on screen. You'll brainstorm, script, storyboard, film, and edit a 30–60 second commercial that sells your idea.",
+      "Now bring your product to life on screen. You'll brainstorm, script, storyboard, film, and edit a 30-60 second commercial that sells your idea.",
       "A great commercial grabs attention fast, explains the benefit clearly, and ends with a call to action that makes people want to buy.",
     ],
     vocab: [
       { term: "Commercial", definition: "A short video advertisement that promotes a product.", example: "A 30-second ad you'd see between videos." },
       { term: "Script", definition: "The written words and directions for your video.", example: "Every line your narrator says." },
-      { term: "Storyboard", definition: "Sketches of each scene that map out your video before filming.", example: "4–6 boxes showing each shot." },
+      { term: "Storyboard", definition: "Sketches of each scene that map out your video before filming.", example: "4-6 boxes showing each shot." },
       { term: "Call to Action", definition: "A statement telling viewers what to do next.", example: "\"Shop now!\" or \"Buy it today!\"" },
       { term: "Voiceover", definition: "Recorded narration played over video footage.", example: "Your voice describing the product while clips play." },
       { term: "B-roll", definition: "Extra supporting footage that makes a video richer.", example: "Close-up clips of the product in use." },
@@ -659,7 +659,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
       {
         heading: "Commercial Requirements",
         bullets: [
-          "Length: 30–60 seconds",
+          "Length: 30-60 seconds",
           "Clearly describes your product",
           "Has a beginning, middle, and end",
           "Includes your voice (on-camera or voiceover)",
@@ -667,36 +667,36 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
         ],
       },
       {
-        heading: "Step 1 — Brainstorm Ideas",
+        heading: "Step 1 - Brainstorm Ideas",
         body: "List 3 important facts about your product (what it does, cost, what people need to know). Then describe the problem it solves and how it improves lives.",
       },
       {
-        heading: "Step 2 — Script Outline",
+        heading: "Step 2 - Script Outline",
         bullets: [
-          "Intro: Grab attention — ask a question or evoke emotion. e.g. \"Don't you hate it when…\"",
+          "Intro: Grab attention - ask a question or evoke emotion. e.g. \"Don't you hate it when…\"",
           "Body: Explain your product, its benefits, and how it solves the problem.",
           "Call to Action: End with an action statement like \"Shop now\" or \"Buy it now.\"",
         ],
       },
       {
-        heading: "Step 3 — Write the Full Script",
+        heading: "Step 3 - Write the Full Script",
         body: "Write your complete script (or share a Google Doc link to it).",
       },
       {
-        heading: "Step 4 — Storyboard",
-        body: "Fold paper into 4–6 sections and sketch each scene. Photograph it and include it in your submission.",
+        heading: "Step 4 - Storyboard",
+        body: "Fold paper into 4-6 sections and sketch each scene. Photograph it and include it in your submission.",
       },
       {
-        heading: "Step 5 & 6 — Film & Edit",
+        heading: "Step 5 & 6 - Film & Edit",
         bullets: [
-          "Film with any device using a variety of shots and angles — OR use stock footage in WeVideo with a voiceover.",
+          "Film with any device using a variety of shots and angles - OR use stock footage in WeVideo with a voiceover.",
           "Edit in WeVideo: experiment with audio, voiceover, music, titles, b-roll, and transitions.",
           "Add your footage to Google Drive from your phone, and use WeVideo Academy resources for help.",
           "Include your logo.",
         ],
       },
       {
-        heading: "Step 7 — Submit",
+        heading: "Step 7 - Submit",
         body: "Save to Google Drive from WeVideo and paste your video link below.",
       },
     ],
@@ -704,7 +704,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
       {
         id: "storyboard",
         title: "Commercial Storyboard",
-        description: "Fold paper into 4–6 panels and sketch every scene of your commercial before filming.",
+        description: "Fold paper into 4-6 panels and sketch every scene of your commercial before filming.",
         format: "Individual or Group",
       },
       {
@@ -748,19 +748,19 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
         title: "Website Page Map Template",
         blurb: "Plan your 5 pages before you build in Google Sites.",
         body: [
-          "PAGE 1 — Home / Business Info",
+          "PAGE 1 - Home / Business Info",
           "  Company name · logo · slogan · mission statement",
           "",
-          "PAGE 2 — Product Details",
+          "PAGE 2 - Product Details",
           "  What it is · photos of prototype · price",
           "",
-          "PAGE 3 — Business Plan / About",
+          "PAGE 3 - Business Plan / About",
           "  Costs · market research · target customer · competitors",
           "",
-          "PAGE 4 — Vision",
+          "PAGE 4 - Vision",
           "  Where we'll be in 10 years · why Sharks should invest",
           "",
-          "PAGE 5 — Commercial",
+          "PAGE 5 - Commercial",
           "  Embedded video · customer testimonials",
         ].join("\n"),
       },
@@ -769,8 +769,8 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     accent: ["#134e4a", "#14b8a6"],
     estMinutes: 120,
     overview: [
-      "Your website is where everything comes together — your product, pricing, story, and commercial. You'll build a 5+ page site in Google Sites and publish it for the world (and the Sharks).",
-      "Keep it creative, colorful, and neat. Use images and short bullet points instead of long paragraphs — visitors skim, they don't read.",
+      "Your website is where everything comes together - your product, pricing, story, and commercial. You'll build a 5+ page site in Google Sites and publish it for the world (and the Sharks).",
+      "Keep it creative, colorful, and neat. Use images and short bullet points instead of long paragraphs - visitors skim, they don't read.",
     ],
     vocab: [
       { term: "Website", definition: "A set of connected web pages for your business.", example: "Your company's online home." },
@@ -782,7 +782,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     sections: [
       {
         heading: "6 Characteristics of a Successful Website",
-        bullets: WEBSITE_TRAITS.map(t => `${t.title} — ${t.detail}`),
+        bullets: WEBSITE_TRAITS.map(t => `${t.title} - ${t.detail}`),
       },
       {
         heading: "Website Requirements",
@@ -792,7 +792,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
           "Explain what your product is, does, and what problem it solves",
           "Include your commercial (embedded video)",
           "Display the price of your product",
-          "About the owner(s) — how/why you came up with the idea",
+          "About the owner(s) - how/why you came up with the idea",
           "Creative, colorful & neat; images and short bullets over long paragraphs",
         ],
       },
@@ -840,12 +840,12 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
     number: 6,
     title: "Final Activities & Shark Tank Presentation",
     subtitle: "Prepare to face the Sharks",
-    jeffIntro: "This is it — the big one. Let's get you pitch-perfect for the Tank! 🏆",
+    jeffIntro: "This is it - the big one. Let's get you pitch-perfect for the Tank! 🏆",
     icon: "Trophy",
     accent: ["#831843", "#ec4899"],
     estMinutes: 90,
     overview: [
-      "This is it — time to bring everything together and pitch to the Sharks. Review the timeline, study the scoring rubric, and rehearse your presentation until it's sharp.",
+      "This is it - time to bring everything together and pitch to the Sharks. Review the timeline, study the scoring rubric, and rehearse your presentation until it's sharp.",
       "Your final pitch should be persuasive, have a clear beginning and close, introduce your team, state your mission and vision, and ask for financial backing.",
     ],
     vocab: [
@@ -877,7 +877,7 @@ export const BIZ_LAB_PARTS: BizLabPart[] = [
       },
       {
         heading: "Scoring Rubric (130 points)",
-        bullets: RUBRIC.map(r => `${r.name} — ${r.points} pts`),
+        bullets: RUBRIC.map(r => `${r.name} - ${r.points} pts`),
         note: "Product 40 · Website 40 · Presentation 40 · Sharks 10 · Bonus 5",
       },
     ],

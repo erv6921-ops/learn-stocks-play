@@ -76,8 +76,8 @@ export default function ChallengesWidget() {
                 {loading
                   ? "Checking for live challenges…"
                   : active.length > 0
-                    ? `${active.length} challenge${active.length === 1 ? "" : "s"} live — winner takes the pot`
-                    : "Nothing running — start one and challenge your class!"}
+                    ? `${active.length} challenge${active.length === 1 ? "" : "s"} live - winner takes the pot`
+                    : "Nothing running - start one and challenge your class!"}
               </p>
             </div>
           </div>

@@ -155,8 +155,8 @@ export default function TeacherDashboard() {
         }
       })
     const cls: Class[] = [
-      { id: "c1", name: "Finance 101 — Period 3", description: "Intro personal finance", join_code: "ABC123", created_at: new Date().toISOString(), student_count: 6 },
-      { id: "c2", name: "Economics — Period 5", description: "AP Micro elective", join_code: "XYZ789", created_at: new Date().toISOString(), student_count: 4 },
+      { id: "c1", name: "Finance 101 - Period 3", description: "Intro personal finance", join_code: "ABC123", created_at: new Date().toISOString(), student_count: 6 },
+      { id: "c2", name: "Economics - Period 5", description: "AP Micro elective", join_code: "XYZ789", created_at: new Date().toISOString(), student_count: 4 },
       { id: "c3", name: "Money Club", description: null, join_code: "MNY555", created_at: new Date().toISOString(), student_count: 8 },
     ]
     sampleMembersRef.current = { c1: mkMembers("c1", 6), c2: mkMembers("c2", 4), c3: mkMembers("c3", 8) }
@@ -171,7 +171,7 @@ export default function TeacherDashboard() {
   // Guard for data-changing actions while demo data is loaded.
   const blockedInDemo = (): boolean => {
     if (!sampleMode) return false
-    toast({ title: "Demo mode", description: "This is sample data — exit demo to make changes." })
+    toast({ title: "Demo mode", description: "This is sample data - exit demo to make changes." })
     return true
   }
 
@@ -185,7 +185,7 @@ export default function TeacherDashboard() {
 
       const title = lessons.find(l => l.id === classWideLessonId)?.title
 
-      // One class-level assignment — every member (current and future) inherits it.
+      // One class-level assignment - every member (current and future) inherits it.
       const { error } = await supabase
         .from("assigned_lessons")
         .insert({
@@ -279,7 +279,7 @@ export default function TeacherDashboard() {
 
       if (error) throw error
 
-      // Assignments are class-level — load once and share across members.
+      // Assignments are class-level - load once and share across members.
       const { data: assignmentData } = await supabase
         .from("assigned_lessons")
         .select("id, lesson_id, assigned_at")
@@ -606,8 +606,8 @@ export default function TeacherDashboard() {
   const kpis = [
     { label: "Classes", value: String(classes.length), icon: GraduationCap, color: C.green },
     { label: "Students", value: String(totalStudents), icon: Users, color: C.blue },
-    { label: "Avg completion", value: selectedClass ? `${avgCompletion}%` : "—", icon: Percent, color: C.gold },
-    { label: "Assignments", value: selectedClass ? String(assignments.length) : "—", icon: ClipboardList, color: C.purple },
+    { label: "Avg completion", value: selectedClass ? `${avgCompletion}%` : "-", icon: Percent, color: C.gold },
+    { label: "Assignments", value: selectedClass ? String(assignments.length) : "-", icon: ClipboardList, color: C.purple },
   ]
 
   return (
@@ -753,7 +753,7 @@ export default function TeacherDashboard() {
                                 {cls.student_count} students
                               </span>
                             </div>
-                            {/* Micro-business writing workload — per-class word-count control */}
+                            {/* Micro-business writing workload - per-class word-count control */}
                             <div className="mt-3">
                               <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">
                                 Micro-business word count
@@ -863,7 +863,7 @@ export default function TeacherDashboard() {
                         Assign a lesson to the entire class
                       </p>
                       <p className="text-xs text-muted-foreground mb-3">
-                        Pick any lesson — every student in this class will be required to complete it.
+                        Pick any lesson - every student in this class will be required to complete it.
                       </p>
                       <div className="flex gap-2">
                         <Select value={classWideLessonId} onValueChange={setClassWideLessonId} disabled={assigningAll}>

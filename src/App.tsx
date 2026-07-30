@@ -101,7 +101,7 @@ const App = () => (
               <AssignmentNotifications />
               <GradeNotifications />
               <AppRoutes />
-              {/* Persistent animated mascot — z-40 (below modals). Hides itself on
+              {/* Persistent animated mascot - z-40 (below modals). Hides itself on
                   auth/onboarding routes and when signed out. */}
               <JeffWidget />
               {/* One-time guided tour Jeff gives right after onboarding. */}

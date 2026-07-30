@@ -32,7 +32,7 @@ export interface MarketSessionStatus {
   quoteTimeText: string | null;
   lastCloseDate: Date;
   lastCloseText: string;
-  /** Always "4:00 PM ET" (or "1:00 PM ET" on early-close days) — never a quote timestamp */
+  /** Always "4:00 PM ET" (or "1:00 PM ET" on early-close days) - never a quote timestamp */
   regularCloseTimeET: string;
 }
 

@@ -3,7 +3,7 @@
 // Holds everything bank-side: vault savings (with lazy daily interest),
 // active loans, owned bonds, the credit score, and career-sim progress.
 // Persists to localStorage like bizLabStore. InvestiCoins themselves live in
-// AppContext — this store only tracks bank-internal state; the page moves
+// AppContext - this store only tracks bank-internal state; the page moves
 // coins in/out via earnJeffs/awardJeffs/spendJeffs and records amounts here.
 
 import { create } from "zustand"
@@ -17,7 +17,7 @@ export interface ActiveLoan {
   id: string // unique instance id
   productId: string
   principal: number
-  /** Principal + interest — what must be repaid. */
+  /** Principal + interest - what must be repaid. */
   totalDue: number
   takenAt: string // ISO
   dueAt: string // ISO
@@ -51,7 +51,7 @@ export interface WorkMemo {
   savedAt: string
 }
 
-/** Work-file cap — keeps localStorage bounded over a long career. */
+/** Work-file cap - keeps localStorage bounded over a long career. */
 const MAX_MEMOS = 40
 
 interface BankState {
@@ -76,7 +76,7 @@ interface BankState {
   careerXp: Record<string, number>
   /** careerId -> current work week (1-based). Advances when the week's deal closes. */
   careerWeek: Record<string, number>
-  /** careerId -> reputation 0–100. Moved by office moments + deal performance. */
+  /** careerId -> reputation 0-100. Moved by office moments + deal performance. */
   careerRep: Record<string, number>
   /** careerId -> weeks whose office moment was already answered. */
   momentsDone: Record<string, number[]>

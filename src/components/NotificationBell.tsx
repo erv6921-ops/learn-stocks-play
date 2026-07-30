@@ -84,7 +84,7 @@ export default function NotificationBell() {
                       </p>
                     </div>
                     <span className={`text-sm font-bold tabular-nums shrink-0 ${gain ? "text-gold" : "text-destructive"}`}>
-                      {gain ? "+" : "−"}
+                      {gain ? "+" : "-"}
                       {Math.abs(n.amount ?? 0).toLocaleString()}
                     </span>
                   </li>

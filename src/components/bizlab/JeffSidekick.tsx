@@ -3,11 +3,11 @@ import { motion, useAnimationControls, AnimatePresence } from "framer-motion"
 
 const MASCOT_SRC = "/brand/mascot-character.png?v=2"
 
-// Jeff's repertoire — he picks one at random every ~12–20s so he's always
+// Jeff's repertoire - he picks one at random every ~12-20s so he's always
 // doing something. A mix of in-place fidgets, travel ("walk"), hops, and a
 // full backflip keep him lively rather than static in a corner.
 const ACTIONS = [
-  // backflip — hop up and rotate a full 360°
+  // backflip - hop up and rotate a full 360°
   { y: [0, -12, -62, -62, 0], rotate: [0, 0, -180, -360, -360], scaleY: [1, 1.06, 1, 1, 1], transition: { duration: 1.15, times: [0, 0.15, 0.5, 0.82, 1], ease: "easeOut" as const } },
   // walk side to side with a waddle
   { x: [0, -32, 32, -18, 0], rotate: [0, -5, 5, -3, 0], transition: { duration: 2.4, ease: "easeInOut" as const } },
@@ -37,12 +37,12 @@ const pick = <T,>(a: T[]): T => a[Math.floor(Math.random() * a.length)]
 
 /**
  * The single large Jeff for the Biz Lab. Shows the current stage's coaching
- * line and, every ~12–20s, picks a random move (walk, jump, wobble, backflip…)
+ * line and, every ~12-20s, picks a random move (walk, jump, wobble, backflip…)
  * with a quick cheer. Bumping `celebrateKey` triggers a big double-backflip
- * party — used when a student completes a part.
+ * party - used when a student completes a part.
  *
- *  variant="side"    — big, stacked vertically (sticky desktop rail)
- *  variant="compact" — small, horizontal (mobile banner)
+ *  variant="side"    - big, stacked vertically (sticky desktop rail)
+ *  variant="compact" - small, horizontal (mobile banner)
  */
 export default function JeffSidekick({
   message,
@@ -66,7 +66,7 @@ export default function JeffSidekick({
     let alive = true
     let timer: ReturnType<typeof setTimeout>
     const schedule = () => {
-      const delay = 12000 + Math.random() * 8000 // 12–20s
+      const delay = 12000 + Math.random() * 8000 // 12-20s
       timer = setTimeout(async () => {
         if (!alive) return
         busy.current = true

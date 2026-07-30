@@ -1,4 +1,4 @@
-// bizDealSynergy — maps pairs of business types to real B2B deal structures.
+// bizDealSynergy - maps pairs of business types to real B2B deal structures.
 // Each entry defines: deal title, flavor description, and the per-month bonuses
 // each party gets (revenue %, customers, reputation) while the deal is active.
 
@@ -7,7 +7,7 @@ export type BizType = "food" | "tech" | "retail" | "creative";
 export interface BizBonus {
   revenuePct: number;    // extra % applied to monthly revenue
   customers: number;     // flat monthly customer boost
-  reputation: number;    // flat monthly reputation boost (0–100 scale)
+  reputation: number;    // flat monthly reputation boost (0-100 scale)
 }
 
 export interface SynergyEntry {
@@ -87,8 +87,8 @@ const MATRIX: Record<string, SynergyEntry> = {
   "creative:retail": {
     title: "Brand Identity Deal",
     emoji: "🎨🛍️",
-    descriptionAProposing: "You build their brand — logo, signage, in-store visuals, packaging. They feature your portfolio in their flagship space and refer clients.",
-    descriptionBProposing: "They build your brand — logo, signage, in-store visuals, packaging. You feature their portfolio and refer business their way.",
+    descriptionAProposing: "You build their brand - logo, signage, in-store visuals, packaging. They feature your portfolio in their flagship space and refer clients.",
+    descriptionBProposing: "They build your brand - logo, signage, in-store visuals, packaging. You feature their portfolio and refer business their way.",
     bonusA: { revenuePct: 16, customers: 0, reputation: 0 },
     bonusB: { revenuePct: 0, customers: 120, reputation: 10 },
     durationDays: 180,
@@ -127,8 +127,8 @@ const MATRIX: Record<string, SynergyEntry> = {
   "retail:tech": {
     title: "E-Commerce Platform Deal",
     emoji: "🛒💻",
-    descriptionAProposing: "Their tech powers your online store — checkout, inventory sync, and analytics. You drive consistent transaction volume and real-world credibility for their platform.",
-    descriptionBProposing: "Your tech powers their online store — checkout, inventory sync, and analytics. They drive consistent transaction volume and real-world credibility for your platform.",
+    descriptionAProposing: "Their tech powers your online store - checkout, inventory sync, and analytics. You drive consistent transaction volume and real-world credibility for their platform.",
+    descriptionBProposing: "Your tech powers their online store - checkout, inventory sync, and analytics. They drive consistent transaction volume and real-world credibility for your platform.",
     bonusA: { revenuePct: 0, customers: 200, reputation: 6 },
     bonusB: { revenuePct: 18, customers: 0, reputation: 0 },
     durationDays: 180,

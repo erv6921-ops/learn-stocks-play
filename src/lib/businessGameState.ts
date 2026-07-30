@@ -1,4 +1,4 @@
-// businessGameState — persistent state for the Micro-Business "Pro" features
+// businessGameState - persistent state for the Micro-Business "Pro" features
 // (P&L, payroll, investor pitch, credit score, weekly reports, business plan,
 // complaints/star rating, supplier negotiation, quarterly taxes, hiring).
 // Persists to Supabase (business_game_state) when signed in; localStorage otherwise.
@@ -10,14 +10,14 @@ export interface Employee {
   role: string;
   weeklyWage: number;
   hiredWeek: number;
-  badHireUntilWeek?: number; // productivity −20% through this week (inclusive)
+  badHireUntilWeek?: number; // productivity -20% through this week (inclusive)
 }
 
 export interface ComplaintRecord {
   week: number;
   complaint: string;
   response: string;
-  score: number; // 1–10 (professionalism + empathy)
+  score: number; // 1-10 (professionalism + empathy)
 }
 
 export interface WeekRecord {
@@ -45,8 +45,8 @@ export interface BusinessGameState {
   cogs: number;
   expenses: ExpenseCategories;
   // credit & reputation
-  creditScore: number;       // 300–850
-  starRating: number;        // 1.0–5.0
+  creditScore: number;       // 300-850
+  starRating: number;        // 1.0-5.0
   billsOnTime: number;
   billsMissed: number;
   // employees / payroll
@@ -187,11 +187,11 @@ export function pnlToCSV(s: BusinessGameState): string {
   return rows.map(([k, v]) => `"${k}",${typeof v === "number" ? v : `"${v}"`}`).join("\n");
 }
 
-// ── Business credit score (300–850), recomputed weekly ───────────────
+// ── Business credit score (300-850), recomputed weekly ───────────────
 export function computeCreditScore(s: BusinessGameState): number {
   const p = computePnL(s);
   let score = 550;
-  // Payment history (on-time bill payments) — heaviest factor.
+  // Payment history (on-time bill payments) - heaviest factor.
   const totalBills = s.billsOnTime + s.billsMissed;
   const onTimeRate = totalBills > 0 ? s.billsOnTime / totalBills : 1;
   score += Math.round((onTimeRate - 0.5) * 300); // up to ±150

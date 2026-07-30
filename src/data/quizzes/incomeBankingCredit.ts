@@ -1,6 +1,6 @@
 import type { LessonQuiz } from "../lessonQuizzes"
 
-// Authored quiz pools — Income, Banking, and Credit units.
+// Authored quiz pools - Income, Banking, and Credit units.
 export const incomeBankingCreditQuizzes: LessonQuiz[] = [
   // INCOME-1: Active vs Passive Income
   {
@@ -222,7 +222,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "Pay based on a percentage of sales"
         ],
         correctAnswer: 3,
-        explanation: "Commission means earning a cut of what you sell — the more you sell, the more you make. It directly links pay to sales performance."
+        explanation: "Commission means earning a cut of what you sell - the more you sell, the more you make. It directly links pay to sales performance."
       },
       {
         id: "income-3-q2",
@@ -325,7 +325,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "Full-time salaried work at tech companies"
         ],
         correctAnswer: 0,
-        explanation: "The gig economy is built on short-term, task-based, or freelance work — like driving, delivering, tutoring, or designing per project — instead of one permanent job."
+        explanation: "The gig economy is built on short-term, task-based, or freelance work - like driving, delivering, tutoring, or designing per project - instead of one permanent job."
       },
       {
         id: "income-4-q2",
@@ -440,7 +440,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "Take-home pay after deductions are subtracted"
         ],
         correctAnswer: 3,
-        explanation: "Net pay is what's left after taxes and other deductions come out — the amount actually deposited or handed to you. That's why it's called take-home pay."
+        explanation: "Net pay is what's left after taxes and other deductions come out - the amount actually deposited or handed to you. That's why it's called take-home pay."
       },
       {
         id: "income-5-q3",
@@ -476,7 +476,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "Taxes and deductions reduced her take-home pay"
         ],
         correctAnswer: 3,
-        explanation: "The $80 gap is withholding — federal tax, FICA, and possibly state tax came out before she was paid. This is exactly why budgets should use net pay."
+        explanation: "The $80 gap is withholding - federal tax, FICA, and possibly state tax came out before she was paid. This is exactly why budgets should use net pay."
       },
       {
         id: "income-5-q6",
@@ -512,7 +512,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "About 0.5% of gross wages earned"
         ],
         correctAnswer: 0,
-        explanation: "The employee share of FICA is 7.65% — 6.2% for Social Security plus 1.45% for Medicare. Employers pay a matching 7.65% on top."
+        explanation: "The employee share of FICA is 7.65% - 6.2% for Social Security plus 1.45% for Medicare. Employers pay a matching 7.65% on top."
       }
     ]
   },
@@ -531,7 +531,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "To reward employers for hiring new workers"
         ],
         correctAnswer: 2,
-        explanation: "Taxes pay for public goods everyone shares — highways, public schools, national defense, and safety-net programs. They're how government services get funded."
+        explanation: "Taxes pay for public goods everyone shares - highways, public schools, national defense, and safety-net programs. They're how government services get funded."
       },
       {
         id: "income-6-q2",
@@ -579,7 +579,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "A bonus the IRS pays every worker"
         ],
         correctAnswer: 0,
-        explanation: "The standard deduction shields a chunk of income from federal tax — you subtract it before calculating what you owe. It's why low earners often owe little or nothing."
+        explanation: "The standard deduction shields a chunk of income from federal tax - you subtract it before calculating what you owe. It's why low earners often owe little or nothing."
       },
       {
         id: "income-6-q6",
@@ -634,7 +634,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "Earnings gained compared to costs invested"
         ],
         correctAnswer: 3,
-        explanation: "Career ROI weighs what you spend on training — money and time — against the extra income the career produces. A strong ROI means the payoff clearly beats the cost."
+        explanation: "Career ROI weighs what you spend on training - money and time - against the extra income the career produces. A strong ROI means the payoff clearly beats the cost."
       },
       {
         id: "income-7-q2",
@@ -694,7 +694,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "The fee for a diploma frame"
         ],
         correctAnswer: 2,
-        explanation: "Opportunity cost is what you give up by choosing one option — here, years of full-time income you could have earned. It's often larger than tuition itself."
+        explanation: "Opportunity cost is what you give up by choosing one option - here, years of full-time income you could have earned. It's often larger than tuition itself."
       },
       {
         id: "income-7-q7",
@@ -718,7 +718,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "Both are identical no matter the outcomes"
         ],
         correctAnswer: 1,
-        explanation: "The apprenticeship has almost no cost — he's paid to learn — and leads to an in-demand trade. Paying tuition for weak job prospects means high cost with a low return."
+        explanation: "The apprenticeship has almost no cost - he's paid to learn - and leads to an in-demand trade. Paying tuition for weak job prospects means high cost with a low return."
       }
     ]
   },
@@ -840,7 +840,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "Stacking paper certificates in a drawer"
         ],
         correctAnswer: 0,
-        explanation: "Skill stacking means layering complementary abilities — like coding plus design plus writing — so the combination makes you more valuable than any single skill alone."
+        explanation: "Skill stacking means layering complementary abilities - like coding plus design plus writing - so the combination makes you more valuable than any single skill alone."
       },
       {
         id: "income-9-q2",
@@ -912,7 +912,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "Add complementary skills to interests you have"
         ],
         correctAnswer: 3,
-        explanation: "Starting from an existing interest keeps motivation high, and adding a complementary skill — like editing for a gamer who streams — creates value quickly. Free resources make starting cheap."
+        explanation: "Starting from an existing interest keeps motivation high, and adding a complementary skill - like editing for a gamer who streams - creates value quickly. Free resources make starting cheap."
       },
       {
         id: "income-9-q8",
@@ -943,7 +943,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
           "From taxes collected on their behalf"
         ],
         correctAnswer: 1,
-        explanation: "Business owners earn what's left after covering their costs — the profit. Unlike a wage, that amount isn't guaranteed by anyone."
+        explanation: "Business owners earn what's left after covering their costs - the profit. Unlike a wage, that amount isn't guaranteed by anyone."
       },
       {
         id: "income-10-q2",

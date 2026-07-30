@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Lock, CheckCircle, Coins, Plus, Minus, LocateFixed } from "lucide-react";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
 import type { UnitInfo } from "@/types";
-// @ts-ignore — d3-geo / world-atlas ship no local types; runtime only.
+// @ts-ignore - d3-geo / world-atlas ship no local types; runtime only.
 import { geoOrthographic, geoPath, geoGraticule10, geoDistance } from "d3-geo";
 // @ts-ignore
 import { feature, mesh } from "topojson-client";
@@ -15,8 +15,8 @@ import countriesTopo from "world-atlas/countries-110m.json";
 import statesTopo from "us-atlas/states-10m.json";
 
 /* ══════════════════════════════════════════════════════════════════════
-   MISSIONS — HAND-DRAWN GLOBE OF CENTRAL BANKS
-   A round, pencil-sketch planet you can spin & zoom (stays crisp — the map is
+   MISSIONS - HAND-DRAWN GLOBE OF CENTRAL BANKS
+   A round, pencil-sketch planet you can spin & zoom (stays crisp - the map is
    re-projected, never bitmap-scaled). Every unit is a central bank pinned at
    its real spot. Jeff flies the world: all 12 U.S. Federal Reserve banks, then
    the globe spins east to Europe, then Asia.
@@ -276,10 +276,10 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
               <path d={landPath} fill="#d8ecc4" stroke="#6f8a54" strokeWidth={1.1} strokeLinejoin="round" />
               {/* faint pencil hatch on land for texture */}
               <path d={landPath} fill="none" stroke="rgba(91,110,70,0.25)" strokeWidth={0.4} />
-              {/* Country borders — solid pencil lines worldwide */}
+              {/* Country borders - solid pencil lines worldwide */}
               <path d={countryPath} fill="none" stroke="rgba(91,84,74,0.6)" strokeWidth={0.7}
                 strokeLinecap="round" strokeLinejoin="round" />
-              {/* U.S. state borders — lighter dashed pencil lines */}
+              {/* U.S. state borders - lighter dashed pencil lines */}
               <path d={statePath} fill="none" stroke="rgba(91,110,70,0.45)" strokeWidth={0.5}
                 strokeDasharray="1.4 1.6" strokeLinecap="round" strokeLinejoin="round" />
               {routePath && (
@@ -296,7 +296,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
         )}
       </svg>
 
-      {/* Bank pins — HTML overlay, constant size (crisp, no scaling) */}
+      {/* Bank pins - HTML overlay, constant size (crisp, no scaling) */}
       {radius > 0 && slots.map(({ meta, bank }) => {
         if (!isVisible(bank.lon, bank.lat)) return null;
         const [px, py] = project(bank.lon, bank.lat);
@@ -322,7 +322,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
                 border: meta.complete ? "2.5px solid #fff" : meta.unlocked ? "2.5px solid #5b544a" : "2.5px solid #b9ae9c",
                 boxShadow: meta.complete ? "0 3px 9px rgba(29,158,117,0.5)" : "0 2px 7px rgba(80,70,50,0.28)",
               }}
-              aria-label={`${bank.city} — ${meta.unit.title}`}
+              aria-label={`${bank.city} - ${meta.unit.title}`}
             >
               {meta.complete ? <CheckCircle className="w-4 h-4 text-white" />
                 : meta.unlocked ? <span className="text-[13px] leading-none">{bank.flag}</span>
@@ -353,7 +353,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
         );
       })}
 
-      {/* Jeff — parked on the active bank, front of globe */}
+      {/* Jeff - parked on the active bank, front of globe */}
       {radius > 0 && activeSlot && isVisible(activeSlot.bank.lon, activeSlot.bank.lat) && (
         <motion.div className="absolute pointer-events-none" style={{ zIndex: 50 }}
           initial={false} animate={{ left: jeff[0], top: jeff[1] }}
@@ -388,7 +388,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
         </div>
       </div>
 
-      {/* Zoom / recenter controls — right-middle edge */}
+      {/* Zoom / recenter controls - right-middle edge */}
       <div className="absolute top-1/2 -translate-y-1/2 right-3 md:right-4 flex flex-col gap-2">
         {[
           { icon: Plus, fn: () => zoomBy(1.4), label: "Zoom in", solid: false },

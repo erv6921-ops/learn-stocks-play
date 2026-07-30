@@ -7,7 +7,7 @@ import { StructuredLessonContent } from "@/types"
 
 export const budgetExpansionContent: StructuredLessonContent[] = [
   // ─────────────────────────────────────────────
-  // budget-11: Smart Buying — Evaluating Big Purchases (FL.3.3)
+  // budget-11: Smart Buying - Evaluating Big Purchases (FL.3.3)
   // ─────────────────────────────────────────────
   {
     lessonId: "budget-11",
@@ -16,15 +16,15 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "The Sticker Price Is Only the Beginning",
         paragraphs: [
-          "Before any major purchase — a car, laptop, appliance, or furniture — smart buyers look past the sticker price. The real number that matters is the total cost of ownership: the purchase price PLUS maintenance, repairs, fuel or energy, insurance, and supplies over the item's life. A 'cheap' item that breaks constantly can cost far more than a pricier, reliable one.",
-          "Two more questions sharpen your decision. First, durability: how long will it last? Second, features you actually need versus features you merely want — paying for extras you'll never use is wasted money. And every purchase has an opportunity cost: the money you spend here is money you can't use for something else, like saving or investing.",
-          "A simple tool is the 'cost per use' framework. A $200 jacket worn 200 times costs $1 per use. A $50 jacket worn only 5 times costs $10 per use — making the 'expensive' jacket the better deal. Researching reviews, reliability ratings, and total cost before buying turns you from an impulse shopper into a strategic one."
+          "Before any major purchase - a car, laptop, appliance, or furniture - smart buyers look past the sticker price. The real number that matters is the total cost of ownership: the purchase price PLUS maintenance, repairs, fuel or energy, insurance, and supplies over the item's life. A 'cheap' item that breaks constantly can cost far more than a pricier, reliable one.",
+          "Two more questions sharpen your decision. First, durability: how long will it last? Second, features you actually need versus features you merely want - paying for extras you'll never use is wasted money. And every purchase has an opportunity cost: the money you spend here is money you can't use for something else, like saving or investing.",
+          "A simple tool is the 'cost per use' framework. A $200 jacket worn 200 times costs $1 per use. A $50 jacket worn only 5 times costs $10 per use - making the 'expensive' jacket the better deal. Researching reviews, reliability ratings, and total cost before buying turns you from an impulse shopper into a strategic one."
         ],
         bullets: [
           "Total cost of ownership = price + maintenance + repairs + fuel/energy + insurance over time.",
           "Durability and lifespan matter more than the sticker price.",
           "Separate features you truly need from features you merely want.",
-          "Every purchase has an opportunity cost — money that can't go elsewhere.",
+          "Every purchase has an opportunity cost - money that can't go elsewhere.",
           "Cost per use = price ÷ number of times used; it reveals true value."
         ],
         realWorldExample: "A $30 pair of shoes that falls apart in two months costs more per wear than a $90 pair that lasts three years. Buying the cheapest option often means buying it again and again."
@@ -36,13 +36,13 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             id: "budget11-mc1",
             question: "What does 'total cost of ownership' include beyond the purchase price?",
             options: [
-              "Nothing — it's just the sticker price",
+              "Nothing - it's just the sticker price",
               "Maintenance, repairs, fuel/energy, insurance, and supplies over the item's life",
               "Only the sales tax",
               "Only the shipping fee"
             ],
             correctAnswer: 1,
-            explanation: "Total cost of ownership adds all the ongoing costs — maintenance, repairs, fuel, insurance, supplies — to the purchase price for the true lifetime cost."
+            explanation: "Total cost of ownership adds all the ongoing costs - maintenance, repairs, fuel, insurance, supplies - to the purchase price for the true lifetime cost."
           },
           {
             id: "budget11-mc2",
@@ -81,7 +81,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             "Because Dodge cars can't be insured"
           ],
           correctAnswer: 1,
-          explanation: "The Civic's lower purchase price plus $160/month less in insurance dramatically lowers its total cost of ownership — and that's before adding the Charger's higher repair costs."
+          explanation: "The Civic's lower purchase price plus $160/month less in insurance dramatically lowers its total cost of ownership - and that's before adding the Charger's higher repair costs."
         }
       },
       {
@@ -108,11 +108,11 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
               "The price minus any discount"
             ],
             correctAnswer: 1,
-            explanation: "Total cost of ownership captures the full lifetime cost, including upkeep, repairs, fuel, and insurance — not just the sticker price."
+            explanation: "Total cost of ownership captures the full lifetime cost, including upkeep, repairs, fuel, and insurance - not just the sticker price."
           },
           {
             id: "budget11-mastery2",
-            question: "A $400 jacket worn 400 times vs a $100 jacket worn 20 times — which has the lower cost per use?",
+            question: "A $400 jacket worn 400 times vs a $100 jacket worn 20 times - which has the lower cost per use?",
             options: [
               "The $100 jacket ($5/use)",
               "The $400 jacket ($1/use)",
@@ -126,7 +126,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             id: "budget11-mastery3",
             question: "Why does durability matter more than the sticker price for big purchases?",
             options: [
-              "It doesn't — the cheapest item is always best",
+              "It doesn't - the cheapest item is always best",
               "A durable item lasts longer and avoids repeated replacement and repair costs",
               "Durable items are always the most expensive",
               "Durability only matters for cars"
@@ -162,8 +162,8 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
         title: "Stores Are Designed to Make You Spend More",
         paragraphs: [
           "Retailers use psychology to nudge you toward spending more than you planned. One classic trick is charm pricing: $9.99 feels meaningfully cheaper than $10, even though it's a penny apart, because we read the left digit first. Another is anchoring: showing you an expensive item first ($500) so the next item ($200) feels like a bargain by comparison.",
-          "Deals aren't always deals. 'Buy one, get one' (BOGO) only saves you money if you actually need both items — otherwise you spent extra to get something you didn't want. Stores also play with how savings are framed: '$5 off $25' (20%) and '$50 off $250' (also 20%) are the same percentage, but one can feel bigger than the other. Artificial urgency ('Only 3 left!' or 'Sale ends in 1 hour!') pressures you to buy before you think.",
-          "The defense is simple awareness plus math. Calculate the real per-unit price, ask whether you'd buy the item at full price, ignore the countdown timers, and compare the actual discount percentage. When you understand the tricks, you stop reacting emotionally and start deciding rationally — keeping more money in your pocket."
+          "Deals aren't always deals. 'Buy one, get one' (BOGO) only saves you money if you actually need both items - otherwise you spent extra to get something you didn't want. Stores also play with how savings are framed: '$5 off $25' (20%) and '$50 off $250' (also 20%) are the same percentage, but one can feel bigger than the other. Artificial urgency ('Only 3 left!' or 'Sale ends in 1 hour!') pressures you to buy before you think.",
+          "The defense is simple awareness plus math. Calculate the real per-unit price, ask whether you'd buy the item at full price, ignore the countdown timers, and compare the actual discount percentage. When you understand the tricks, you stop reacting emotionally and start deciding rationally - keeping more money in your pocket."
         ],
         bullets: [
           "Charm pricing: $9.99 feels much cheaper than $10 because we read the left digit first.",
@@ -172,7 +172,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
           "The same percentage discount can feel different framed as dollars vs percent.",
           "Artificial urgency ('only 3 left!') pressures you to buy without thinking."
         ],
-        realWorldExample: "A '50% off' sign on an item that was quietly marked up first might be no deal at all. Checking the real price per unit — and whether you'd pay full price — cuts through the illusion."
+        realWorldExample: "A '50% off' sign on an item that was quietly marked up first might be no deal at all. Checking the real price per unit - and whether you'd pay full price - cuts through the illusion."
       },
       {
         type: "micro-check",
@@ -221,12 +221,12 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
           question: "How should Keisha evaluate whether the '$50 off $250' deal is better than the '$5 off $25' deal?",
           options: [
             "The bigger dollar amount is always the better deal",
-            "Compare the discount percentages — both are 20%, so neither is inherently better",
+            "Compare the discount percentages - both are 20%, so neither is inherently better",
             "Whichever has the louder sign",
             "Always pick the more expensive item"
           ],
           correctAnswer: 1,
-          explanation: "Comparing percentages cuts through the framing: $5 off $25 and $50 off $250 are both 20%. The larger dollar figure only feels bigger — the actual discount rate is identical."
+          explanation: "Comparing percentages cuts through the framing: $5 off $25 and $50 off $250 are both 20%. The larger dollar figure only feels bigger - the actual discount rate is identical."
         }
       },
       {
@@ -306,8 +306,8 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Giving Wisely: Make Your Generosity Count",
         paragraphs: [
-          "Charitable giving means donating money or time to organizations that serve others. People give for many reasons: their values, a sense of community, the satisfaction of helping, and sometimes a tax benefit. The most common type of charity is a 501(c)(3) nonprofit — a tax-exempt organization whose name comes from the section of the tax code that defines it. Donations to 501(c)(3) groups can be tax-deductible if you itemize.",
-          "Giving wisely means vetting an organization before you donate. Tools like Charity Navigator and GuideStar rate charities, including their overhead ratio — the share of donations spent on administration and fundraising rather than the cause. A well-run charity typically keeps overhead reasonable (often under about 30%), so more of your money reaches the people it's meant to help.",
+          "Charitable giving means donating money or time to organizations that serve others. People give for many reasons: their values, a sense of community, the satisfaction of helping, and sometimes a tax benefit. The most common type of charity is a 501(c)(3) nonprofit - a tax-exempt organization whose name comes from the section of the tax code that defines it. Donations to 501(c)(3) groups can be tax-deductible if you itemize.",
+          "Giving wisely means vetting an organization before you donate. Tools like Charity Navigator and GuideStar rate charities, including their overhead ratio - the share of donations spent on administration and fundraising rather than the cause. A well-run charity typically keeps overhead reasonable (often under about 30%), so more of your money reaches the people it's meant to help.",
           "Unfortunately, scammers exploit generosity, especially after disasters. Before donating, do a quick three-step check: confirm the organization is a real registered 501(c)(3), look it up on Charity Navigator or GuideStar, and watch for warning signs like high-pressure tactics, vague descriptions of where money goes, or requests for unusual payment methods. A few minutes of research ensures your kindness actually helps."
         ],
         bullets: [
@@ -315,9 +315,9 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
           "People give for values, community, satisfaction, and sometimes tax benefits.",
           "Charity Navigator and GuideStar rate charities, including overhead ratios.",
           "Lower overhead means more of your donation reaches the cause (aim for under ~30%).",
-          "Vet charities before giving — scams spike after disasters."
+          "Vet charities before giving - scams spike after disasters."
         ],
-        realWorldExample: "After a hurricane, dozens of 'relief funds' pop up overnight. Checking each on Charity Navigator quickly separates a legitimate, low-overhead organization from a fund where most donations vanish into 'administration' — or a flat-out scam."
+        realWorldExample: "After a hurricane, dozens of 'relief funds' pop up overnight. Checking each on Charity Navigator quickly separates a legitimate, low-overhead organization from a fund where most donations vanish into 'administration' - or a flat-out scam."
       },
       {
         type: "micro-check",
@@ -344,7 +344,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
               "Nothing useful"
             ],
             correctAnswer: 1,
-            explanation: "Charity Navigator rates charities on factors like financial efficiency and overhead — the share of donations spent on admin/fundraising versus the cause."
+            explanation: "Charity Navigator rates charities on factors like financial efficiency and overhead - the share of donations spent on admin/fundraising versus the cause."
           }
         ]
       },
@@ -434,7 +434,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
               "Transparent financial reports"
             ],
             correctAnswer: 1,
-            explanation: "Red flags include pressure to give immediately, vague claims about where money goes, and requests for odd payment methods — signs to research before donating."
+            explanation: "Red flags include pressure to give immediately, vague claims about where money goes, and requests for odd payment methods - signs to research before donating."
           }
         ]
       }
@@ -449,11 +449,11 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "You Have Rights — and Agencies That Enforce Them",
+        title: "You Have Rights - and Agencies That Enforce Them",
         paragraphs: [
-          "As a buyer, you're protected by laws and government agencies, each with a specific job. The CFPB (Consumer Financial Protection Bureau) handles financial products — credit cards, mortgages, and debt collectors. The FTC (Federal Trade Commission) tackles fraud, deceptive advertising, and identity theft. Knowing which agency does what means you know exactly where to turn when something goes wrong.",
-          "Other agencies protect different parts of your life. The FDA oversees the safety of food and drugs, and the USDA handles food labeling and agricultural products. In Florida, the Department of Agriculture and Consumer Services (DACS) is the go-to place for local consumer complaints — like a dishonest business in your area. The Better Business Bureau (BBB), while not a government agency, lets you check a business's reputation and file complaints.",
-          "When a purchase goes wrong, you often have several tools at once: file a complaint with the right agency, dispute the charge with your credit card company, and document everything. Matching the problem to the right channel — CFPB for a mortgage issue, FL DACS for a shady local shop, FTC for a scam ad — gets you results faster. Being an informed consumer means knowing these resources exist before you need them."
+          "As a buyer, you're protected by laws and government agencies, each with a specific job. The CFPB (Consumer Financial Protection Bureau) handles financial products - credit cards, mortgages, and debt collectors. The FTC (Federal Trade Commission) tackles fraud, deceptive advertising, and identity theft. Knowing which agency does what means you know exactly where to turn when something goes wrong.",
+          "Other agencies protect different parts of your life. The FDA oversees the safety of food and drugs, and the USDA handles food labeling and agricultural products. In Florida, the Department of Agriculture and Consumer Services (DACS) is the go-to place for local consumer complaints - like a dishonest business in your area. The Better Business Bureau (BBB), while not a government agency, lets you check a business's reputation and file complaints.",
+          "When a purchase goes wrong, you often have several tools at once: file a complaint with the right agency, dispute the charge with your credit card company, and document everything. Matching the problem to the right channel - CFPB for a mortgage issue, FL DACS for a shady local shop, FTC for a scam ad - gets you results faster. Being an informed consumer means knowing these resources exist before you need them."
         ],
         bullets: [
           "CFPB handles credit cards, mortgages, and debt collectors.",
@@ -462,7 +462,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
           "Florida's DACS handles local consumer complaints about businesses.",
           "The BBB lets you check business reputations and file complaints."
         ],
-        realWorldExample: "If an online ad promises a 'free' product that secretly enrolls you in $80/month charges, that's a deceptive-practices issue for the FTC — while a local repair shop that rips you off is a complaint for Florida's DACS."
+        realWorldExample: "If an online ad promises a 'free' product that secretly enrolls you in $80/month charges, that's a deceptive-practices issue for the FTC - while a local repair shop that rips you off is a complaint for Florida's DACS."
       },
       {
         type: "micro-check",
@@ -516,7 +516,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             "Call the SEC"
           ],
           correctAnswer: 1,
-          explanation: "A local business dispute fits DACS and the BBB, and a credit card dispute can recover the payment for a product that failed — using the right channels together."
+          explanation: "A local business dispute fits DACS and the BBB, and a credit card dispute can recover the payment for a product that failed - using the right channels together."
         }
       },
       {
@@ -596,9 +596,9 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
         type: "concept",
         title: "Every Signature (and 'I Agree') Is a Promise",
         paragraphs: [
-          "A contract is a legally binding agreement, and breaking it has consequences. Every contract has core components: an offer, acceptance of that offer, consideration (something of value exchanged by each side), and capacity (the parties must be legally able to agree). Once those exist, you're bound — whether you signed paper or just clicked 'I agree' on a website. One note on capacity: minors generally lack full legal capacity, so contracts signed by someone under 18 are often voidable — which is exactly why phone plans, gyms, and landlords usually require a parent or guardian to co-sign.",
+          "A contract is a legally binding agreement, and breaking it has consequences. Every contract has core components: an offer, acceptance of that offer, consideration (something of value exchanged by each side), and capacity (the parties must be legally able to agree). Once those exist, you're bound - whether you signed paper or just clicked 'I agree' on a website. One note on capacity: minors generally lack full legal capacity, so contracts signed by someone under 18 are often voidable - which is exactly why phone plans, gyms, and landlords usually require a parent or guardian to co-sign.",
           "Teens encounter contracts more than they realize: cell phone plans, streaming subscriptions like Spotify or Netflix, car leases, apartment leases, and job offer letters are all contracts. The fine print matters. Watch especially for cancellation fees, automatic renewal clauses (which keep charging you unless you actively cancel), data-sharing language, arbitration clauses (which can limit your right to sue), and late-payment penalties.",
-          "The lesson is simple but powerful: read before you agree, and pay special attention to how you can get OUT of the agreement and what it costs. Clicking 'I agree' on terms and conditions creates a real, enforceable contract — so those long blocks of text you scroll past actually bind you. Spending two minutes on the cancellation and renewal sections can save you hundreds of dollars and a lot of frustration."
+          "The lesson is simple but powerful: read before you agree, and pay special attention to how you can get OUT of the agreement and what it costs. Clicking 'I agree' on terms and conditions creates a real, enforceable contract - so those long blocks of text you scroll past actually bind you. Spending two minutes on the cancellation and renewal sections can save you hundreds of dollars and a lot of frustration."
         ],
         bullets: [
           "A contract needs an offer, acceptance, consideration, and capacity.",
@@ -607,7 +607,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
           "Watch for cancellation fees, auto-renewal, arbitration clauses, and late penalties.",
           "Always read how to exit an agreement and what it will cost you."
         ],
-        realWorldExample: "Many 'free trial' subscriptions hide an auto-renewal clause that charges your card monthly until you cancel. The trial wasn't really free — the contract you clicked through made the recurring charge legal."
+        realWorldExample: "Many 'free trial' subscriptions hide an auto-renewal clause that charges your card monthly until you cancel. The trial wasn't really free - the contract you clicked through made the recurring charge legal."
       },
       {
         type: "micro-check",
@@ -622,14 +622,14 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
               "A discount on the price"
             ],
             correctAnswer: 1,
-            explanation: "Consideration is the value each party gives — like money for a service. It's a required element that makes a contract binding."
+            explanation: "Consideration is the value each party gives - like money for a service. It's a required element that makes a contract binding."
           },
           {
             id: "budget15-mc2",
             question: "Does clicking 'I agree' on a website's terms create a contract?",
             options: [
               "No, only paper signatures count",
-              "Yes — clicking 'I agree' creates a binding contract",
+              "Yes - clicking 'I agree' creates a binding contract",
               "Only if you're over 21",
               "Only for paid services"
             ],
@@ -724,7 +724,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
               "Only for people under 18"
             ],
             correctAnswer: 0,
-            explanation: "True — clicking 'I agree' is a form of acceptance that creates a binding, enforceable contract."
+            explanation: "True - clicking 'I agree' is a form of acceptance that creates a binding, enforceable contract."
           }
         ]
       }
@@ -743,7 +743,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
         paragraphs: [
           "Billing errors happen more than people realize, and federal law gives you the power to fight them. The Fair Credit Billing Act (FCBA) lets you dispute billing errors on credit cards if you act within 60 days of the statement. A billing error includes a wrong amount, a duplicate charge, a charge for goods you never received, or an unauthorized charge you didn't make.",
           "The dispute process has clear timelines. You notify the card issuer in writing within 60 days. The issuer must acknowledge your dispute within 30 days and resolve it within two billing cycles. Crucially, during the investigation you don't have to pay the disputed amount (though you must keep paying the rest of your bill). This protects you from being forced to pay for something that may not be your responsibility.",
-          "These rights extend beyond credit cards. You can also dispute bank errors, utility billing mistakes, and medical billing errors — the last being one of the biggest sources of financial stress in the U.S., where mistakes are common. The key habit is to review every statement, document everything, and act quickly, because deadlines like the 60-day window matter."
+          "These rights extend beyond credit cards. You can also dispute bank errors, utility billing mistakes, and medical billing errors - the last being one of the biggest sources of financial stress in the U.S., where mistakes are common. The key habit is to review every statement, document everything, and act quickly, because deadlines like the 60-day window matter."
         ],
         bullets: [
           "The FCBA lets you dispute credit card billing errors within 60 days.",
@@ -789,9 +789,9 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
         narrative: "Sofia reviews her credit card statement and spots a $340 charge from a store she's never visited. She suspects it's unauthorized and follows a clear, six-step dispute process to fight it.",
         details: [
           "Step 1: She notices the unfamiliar $340 charge while reviewing her statement.",
-          "Step 2–3: She documents it and contacts her card issuer in writing within the 60-day window.",
+          "Step 2-3: She documents it and contacts her card issuer in writing within the 60-day window.",
           "Step 4: The issuer opens an investigation and must respond within 30 days.",
-          "Step 5–6: It's resolved within two billing cycles; if the issuer misses the deadline, rules limit what she owes."
+          "Step 5-6: It's resolved within two billing cycles; if the issuer misses the deadline, rules limit what she owes."
         ]
       },
       {
@@ -803,7 +803,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             "The store she's never visited",
             "Her credit card issuer, which must respond within 30 days and resolve within two billing cycles",
             "The police only",
-            "Nobody — disputes aren't investigated"
+            "Nobody - disputes aren't investigated"
           ],
           correctAnswer: 1,
           explanation: "Under the FCBA, the credit card issuer investigates the dispute, must acknowledge it within 30 days, and must resolve it within two billing cycles."

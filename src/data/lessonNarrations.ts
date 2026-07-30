@@ -596,9 +596,9 @@ Good analysts question their data before trusting it.`,
   "mr-6": `Market sizing estimates how big a business opportunity is in dollar terms.
 It uses three levels: TAM, SAM, and SOM.
 
-TAM is the total addressable market — the entire global demand.
-SAM is the serviceable addressable market — the portion you can realistically reach.
-SOM is the serviceable obtainable market — what you can capture in the near term.
+TAM is the total addressable market - the entire global demand.
+SAM is the serviceable addressable market - the portion you can realistically reach.
+SOM is the serviceable obtainable market - what you can capture in the near term.
 
 Think of them as concentric circles.
 SOM is the most actionable number for immediate business planning.`,

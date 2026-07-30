@@ -389,7 +389,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         options: [
           "It makes you want to spend more money on new things",
           "Financial institutions like you more when you track closely",
-          "It doesn't improve anything — tracking just creates stress",
+          "It doesn't improve anything - tracking just creates stress",
           "It removes guilt by showing you're in control of your choices"
         ],
         correctAnswer: 3,
@@ -490,9 +490,9 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "b4-q8",
         question: "Where does a gym membership fit in the 50/30/20 rule?",
         options: [
-          "Needs (50%) — because physical health is essential for everyone",
-          "Wants (30%) — it's optional since you can exercise for free",
-          "Savings (20%) — it's an investment in your future health",
+          "Needs (50%) - because physical health is essential for everyone",
+          "Wants (30%) - it's optional since you can exercise for free",
+          "Savings (20%) - it's an investment in your future health",
           "It doesn't fit in any standard budgeting category"
         ],
         correctAnswer: 1,
@@ -747,7 +747,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "The market could be down exactly when you need the money",
           "Stocks never make any money for individual investors",
           "Banks don't allow you to invest emergency savings",
-          "There's no reason not to — stocks are always the better choice"
+          "There's no reason not to - stocks are always the better choice"
         ],
         correctAnswer: 0,
         explanation: "Imagine needing $5,000 for a medical emergency when the market just dropped 30%. Your $5,000 is now worth $3,500. Emergency funds prioritize safety and access over growth."
@@ -1011,7 +1011,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "Why might you use multiple budgeting tools?",
         options: [
           "It's more expensive, which means your budget works better",
-          "Different tools serve different purposes — tracking, planning, investing",
+          "Different tools serve different purposes - tracking, planning, investing",
           "Banks require customers to use at least two different tools",
           "Using multiple tools is meant to confuse potential hackers"
         ],
@@ -1101,9 +1101,9 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "b9-q6",
         question: "What percentage of income should variable earners try to save from high months?",
         options: [
-          "0% — spend it while you have it before it's gone",
+          "0% - spend it while you have it before it's gone",
           "10% like regular earners with steady paychecks",
-          "100% — save every single dollar from high months",
+          "100% - save every single dollar from high months",
           "30-50% or more to build a meaningful income buffer"
         ],
         correctAnswer: 3,
@@ -1168,7 +1168,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "b10-q1",
         question: "How does consistent budgeting lead to wealth building?",
         options: [
-          "It doesn't — only direct investing builds any real wealth",
+          "It doesn't - only direct investing builds any real wealth",
           "It increases your salary automatically over time",
           "It frees up money for saving and investing consistently",
           "It reduces your overall taxes automatically each year"
@@ -1229,7 +1229,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "How much can small budget improvements compound over time?",
         options: [
           "Saving $50/month invested over 30 years can exceed $100,000",
-          "They don't matter — only big lifestyle changes help wealth",
+          "They don't matter - only big lifestyle changes help wealth",
           "Small amounts never grow into anything significant over time",
           "Compound growth only works for people who are already millionaires"
         ],
@@ -1252,7 +1252,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "b10-q8",
         question: "Why is 'savings rate' more important than income for building wealth?",
         options: [
-          "It's not — income is everything when it comes to wealth",
+          "It's not - income is everything when it comes to wealth",
           "You can only invest what you save, regardless of how much you earn",
           "Banks prefer savers to high earners for loan approvals",
           "Savings rate doesn't actually matter at all for building wealth"
@@ -1267,7 +1267,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Nothing noticeable happens from such a small change",
           "1% is too small to even calculate or measure accurately",
           "It only matters for rich people with very large incomes",
-          "It compounds significantly over a career — potentially years off retirement"
+          "It compounds significantly over a career - potentially years off retirement"
         ],
         correctAnswer: 3,
         explanation: "1% more of $50,000 income = $500/year. Over 30 years at 10% growth, that's $90,000+ extra for retirement! Each 1% increase can mean retiring months or years earlier."
@@ -1277,7 +1277,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "How does budgeting connect to your 'future self'?",
         options: [
           "Every dollar saved today is a gift to your future self",
-          "It doesn't connect — budgets are only about today's spending",
+          "It doesn't connect - budgets are only about today's spending",
           "Future self should figure things out on their own later",
           "Budgeting only affects your present spending habits"
         ],
@@ -1485,7 +1485,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "No, needs and wants are completely separate categories",
           "Everything is technically a need when you think about it",
           "Everything is technically a want and nothing is a true need",
-          "Yes — food is a need, but a gourmet restaurant meal is a want"
+          "Yes - food is a need, but a gourmet restaurant meal is a want"
         ],
         correctAnswer: 3,
         explanation: "Basic food is a need; a $50 sushi dinner is a want. Basic transportation is a need; a luxury car is a want. The LINE between them depends on what's truly essential."
@@ -1495,7 +1495,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "What's the opportunity cost of keeping $10,000 in a 0% checking account?",
         options: [
           "The interest or returns it could earn elsewhere",
-          "Nothing at all — the money is safe and that's sufficient",
+          "Nothing at all - the money is safe and that's sufficient",
           "Exactly $10,000 since that's the amount being held",
           "The bank's monthly account maintenance fees only"
         ],
@@ -1508,7 +1508,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         options: [
           "Needs are exactly the same for every person everywhere",
           "Needs are determined solely by a person's income level",
-          "Context matters — a car might be a need in rural areas but not in NYC",
+          "Context matters - a car might be a need in rural areas but not in NYC",
           "Needs never vary across different people or circumstances"
         ],
         correctAnswer: 2,
@@ -1519,7 +1519,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "How does opportunity cost apply to time, not just money?",
         options: [
           "Time doesn't have any opportunity cost whatsoever",
-          "Only money has opportunity cost — time is unlimited",
+          "Only money has opportunity cost - time is unlimited",
           "Time is unlimited, so no opportunity cost exists for it",
           "Every hour spent on one activity is an hour not spent on alternatives"
         ],
@@ -1530,7 +1530,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "e2-q10",
         question: "What's the opportunity cost of NOT going to college?",
         options: [
-          "Nothing — college is expensive and has no guaranteed payoff",
+          "Nothing - college is expensive and has no guaranteed payoff",
           "The higher lifetime earnings and career opportunities you might miss",
           "Only the cost of textbooks and school supply materials",
           "There is absolutely no opportunity cost to skipping college"
@@ -1772,7 +1772,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "s1-q9",
         question: "What is an 'IPO'?",
         options: [
-          "Initial Public Offering — when a company first sells stock to the public",
+          "Initial Public Offering - when a company first sells stock to the public",
           "A type of recurring stock dividend payment to shareholders",
           "A government regulation that restricts stock trading",
           "A stock trading strategy used by professional day traders"
@@ -2028,7 +2028,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         options: [
           "About 2-3% annually before adjusting for inflation",
           "About 30% annually making everyone wealthy very quickly",
-          "0% — markets don't grow at all over the long term",
+          "0% - markets don't grow at all over the long term",
           "About 10% annually before adjusting for inflation"
         ],
         correctAnswer: 3,
@@ -2268,9 +2268,9 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "d2-q8",
         question: "Is borrowing to start a business 'good debt'?",
         options: [
-          "Always yes — business loans are inherently good debt",
+          "Always yes - business loans are inherently good debt",
           "It depends on the business plan and likelihood of success",
-          "Always no — business debt is never a wise decision",
+          "Always no - business debt is never a wise decision",
           "Only for restaurant businesses specifically"
         ],
         correctAnswer: 1,
@@ -2298,7 +2298,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Net worth only counts assets and ignores all liabilities"
         ],
         correctAnswer: 1,
-        explanation: "Net worth = Assets - Liabilities. $50,000 in assets with $30,000 debt = $20,000 net worth. Paying down debt cuts your liabilities and the interest they cost you — combined with saving, that's how net worth grows over time."
+        explanation: "Net worth = Assets - Liabilities. $50,000 in assets with $30,000 debt = $20,000 net worth. Paying down debt cuts your liabilities and the interest they cost you - combined with saving, that's how net worth grows over time."
       }
     ]
   },
@@ -2314,10 +2314,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt1-q1",
         question: "Which management function involves monitoring performance and making corrections?",
         options: [
-          "Planning — setting objectives and creating roadmaps",
-          "Organizing — arranging people and allocating resources",
-          "Leading — inspiring and motivating team members",
-          "Controlling — tracking results and adjusting course"
+          "Planning - setting objectives and creating roadmaps",
+          "Organizing - arranging people and allocating resources",
+          "Leading - inspiring and motivating team members",
+          "Controlling - tracking results and adjusting course"
         ],
         correctAnswer: 3,
         explanation: "Controlling is about comparing actual performance to goals and taking corrective action when there's a gap. It closes the management cycle by feeding information back into planning."
@@ -2326,13 +2326,13 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt1-q2",
         question: "A manager creates a weekly schedule assigning tasks to each team member. Which function is this?",
         options: [
-          "Planning — deciding what goals to pursue this quarter",
-          "Organizing — structuring roles and allocating work",
-          "Leading — motivating team members to exceed targets",
-          "Controlling — reviewing last week's performance data"
+          "Planning - deciding what goals to pursue this quarter",
+          "Organizing - structuring roles and allocating work",
+          "Leading - motivating team members to exceed targets",
+          "Controlling - reviewing last week's performance data"
         ],
         correctAnswer: 1,
-        explanation: "Assigning tasks and creating schedules is organizing — it's about structuring who does what and when so resources are used efficiently."
+        explanation: "Assigning tasks and creating schedules is organizing - it's about structuring who does what and when so resources are used efficiently."
       },
       {
         id: "mgmt1-q3",
@@ -2350,10 +2350,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt1-q4",
         question: "A team leader gives a motivational speech before a product launch. Which function is she performing?",
         options: [
-          "Planning — she's setting goals for the product launch",
-          "Organizing — she's assigning launch day responsibilities",
-          "Leading — she's inspiring and energizing her team",
-          "Controlling — she's evaluating the team's readiness"
+          "Planning - she's setting goals for the product launch",
+          "Organizing - she's assigning launch day responsibilities",
+          "Leading - she's inspiring and energizing her team",
+          "Controlling - she's evaluating the team's readiness"
         ],
         correctAnswer: 2,
         explanation: "Motivating and inspiring the team is the leading function. It's about human connection, communication, and driving people toward a shared goal."
@@ -2379,10 +2379,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt2-q1",
         question: "Which leadership style involves the leader making all decisions without team input?",
         options: [
-          "Democratic — decisions are made through team voting",
-          "Laissez-faire — the team operates with minimal direction",
-          "Autocratic — the leader decides unilaterally for the group",
-          "Collaborative — decisions are shared equally among all members"
+          "Democratic - decisions are made through team voting",
+          "Laissez-faire - the team operates with minimal direction",
+          "Autocratic - the leader decides unilaterally for the group",
+          "Collaborative - decisions are shared equally among all members"
         ],
         correctAnswer: 2,
         explanation: "Autocratic leaders centralize decision-making. This can be effective in urgent situations but can harm morale and creativity when used as the default."
@@ -2391,10 +2391,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt2-q2",
         question: "A research lab director lets her PhD scientists choose their own projects. Which style is this?",
         options: [
-          "Autocratic — the director is controlling through indirect means",
-          "Democratic — the team votes on which projects to prioritize",
-          "Laissez-faire — highly skilled team members self-direct their work",
-          "Transactional — scientists receive bonuses for completing projects"
+          "Autocratic - the director is controlling through indirect means",
+          "Democratic - the team votes on which projects to prioritize",
+          "Laissez-faire - highly skilled team members self-direct their work",
+          "Transactional - scientists receive bonuses for completing projects"
         ],
         correctAnswer: 2,
         explanation: "Giving highly skilled professionals autonomy to choose their own work is laissez-faire leadership. It works because PhD scientists are self-motivated experts who thrive with independence."
@@ -2427,10 +2427,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt2-q5",
         question: "A leader uses different styles depending on the situation. What is this approach called?",
         options: [
-          "Inconsistent leadership — changing approaches confuses teams",
-          "Situational leadership — adapting style to match the circumstance",
-          "Passive leadership — avoiding commitment to any single approach",
-          "Micromanagement — controlling every aspect of the team's work"
+          "Inconsistent leadership - changing approaches confuses teams",
+          "Situational leadership - adapting style to match the circumstance",
+          "Passive leadership - avoiding commitment to any single approach",
+          "Micromanagement - controlling every aspect of the team's work"
         ],
         correctAnswer: 1,
         explanation: "Situational or adaptive leadership means matching your approach to the needs of the moment. Research shows this flexibility produces better outcomes than rigidly sticking to one style."
@@ -2456,10 +2456,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt3-q2",
         question: "A manager oversees 25 direct reports. This describes a _______ span of control.",
         options: [
-          "Narrow — because most managers have fewer direct reports",
-          "Wide — the manager oversees many people with less individual oversight",
-          "Hierarchical — this is the standard for all organizational structures",
-          "Flat — all organizations with 25 employees have this span of control"
+          "Narrow - because most managers have fewer direct reports",
+          "Wide - the manager oversees many people with less individual oversight",
+          "Hierarchical - this is the standard for all organizational structures",
+          "Flat - all organizations with 25 employees have this span of control"
         ],
         correctAnswer: 1,
         explanation: "A wide span of control means one manager oversees many direct reports. This is common in flat organizations but means less time for individual attention."
@@ -2498,7 +2498,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "The company's revenue broken down by department and cost center"
         ],
         correctAnswer: 1,
-        explanation: "An org chart visually maps reporting relationships — who reports to whom, how departments are structured, and where authority flows. It's a snapshot of organizational structure."
+        explanation: "An org chart visually maps reporting relationships - who reports to whom, how departments are structured, and where authority flows. It's a snapshot of organizational structure."
       }
     ]
   },
@@ -2509,13 +2509,13 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt4-q1",
         question: "Which SWOT category would 'a trending social media platform your business can leverage' fall into?",
         options: [
-          "Strength — it's something your business already possesses internally",
-          "Weakness — it highlights a gap in your current marketing strategy",
-          "Opportunity — it's an external condition you can capitalize on for growth",
-          "Threat — social media trends are unpredictable and therefore risky"
+          "Strength - it's something your business already possesses internally",
+          "Weakness - it highlights a gap in your current marketing strategy",
+          "Opportunity - it's an external condition you can capitalize on for growth",
+          "Threat - social media trends are unpredictable and therefore risky"
         ],
         correctAnswer: 2,
-        explanation: "A trending platform is an external factor that creates potential for growth — that's an opportunity. It's not something you control internally (strength/weakness) and it's positive, not a risk."
+        explanation: "A trending platform is an external factor that creates potential for growth - that's an opportunity. It's not something you control internally (strength/weakness) and it's positive, not a risk."
       },
       {
         id: "mgmt4-q2",
@@ -2545,13 +2545,13 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt4-q4",
         question: "A small bakery's only supplier of organic flour raises prices by 30%. In the bakery's SWOT, this is:",
         options: [
-          "A weakness — the bakery should have negotiated a better contract earlier",
-          "A strength — organic ingredients justify charging customers higher prices",
-          "An opportunity — the bakery can switch to conventional flour and save money",
-          "A threat — an external supplier decision that increases costs and squeezes margins"
+          "A weakness - the bakery should have negotiated a better contract earlier",
+          "A strength - organic ingredients justify charging customers higher prices",
+          "An opportunity - the bakery can switch to conventional flour and save money",
+          "A threat - an external supplier decision that increases costs and squeezes margins"
         ],
         correctAnswer: 3,
-        explanation: "Supplier price increases are external factors outside the bakery's control — that's a threat. It puts pressure on margins and requires a strategic response."
+        explanation: "Supplier price increases are external factors outside the bakery's control - that's a threat. It puts pressure on margins and requires a strategic response."
       },
       {
         id: "mgmt4-q5",
@@ -2563,7 +2563,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Focus exclusively on threats and stop trying to develop any new strengths"
         ],
         correctAnswer: 1,
-        explanation: "SWOT reveals the current situation — it doesn't determine destiny. A business with many threats and few strengths should prioritize building capabilities while developing contingency plans."
+        explanation: "SWOT reveals the current situation - it doesn't determine destiny. A business with many threats and few strengths should prioritize building capabilities while developing contingency plans."
       }
     ]
   },
@@ -2592,19 +2592,19 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Government agencies track new entrants and penalize existing companies"
         ],
         correctAnswer: 1,
-        explanation: "Even the threat of new competitors entering an industry disciplines existing players — they can't become complacent on price, quality, or innovation."
+        explanation: "Even the threat of new competitors entering an industry disciplines existing players - they can't become complacent on price, quality, or innovation."
       },
       {
         id: "mgmt5-q3",
         question: "Which industry likely has the WEAKEST competitive rivalry?",
         options: [
-          "Fast food — hundreds of chains compete for the same customers daily",
-          "Smartphone manufacturing — dozens of brands compete on features and price",
-          "Local water utility — typically a single provider with a geographic monopoly",
-          "E-commerce — thousands of online retailers sell similar products worldwide"
+          "Fast food - hundreds of chains compete for the same customers daily",
+          "Smartphone manufacturing - dozens of brands compete on features and price",
+          "Local water utility - typically a single provider with a geographic monopoly",
+          "E-commerce - thousands of online retailers sell similar products worldwide"
         ],
         correctAnswer: 2,
-        explanation: "Utility companies often operate as regulated monopolies — there's only one water provider in a given area. With no direct competition, rivalry is essentially nonexistent."
+        explanation: "Utility companies often operate as regulated monopolies - there's only one water provider in a given area. With no direct competition, rivalry is essentially nonexistent."
       },
       {
         id: "mgmt5-q4",
@@ -2616,7 +2616,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "They only matter for manufacturing companies, not service businesses"
         ],
         correctAnswer: 1,
-        explanation: "Good supplier relationships can reduce supplier power through loyalty and partnership. This can lead to better prices, priority during shortages, and more reliable supply — all competitive advantages."
+        explanation: "Good supplier relationships can reduce supplier power through loyalty and partnership. This can lead to better prices, priority during shortages, and more reliable supply - all competitive advantages."
       },
       {
         id: "mgmt5-q5",
@@ -2628,7 +2628,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Strong forces cancel each other out, resulting in a perfectly balanced market"
         ],
         correctAnswer: 2,
-        explanation: "When all five forces are strong — intense rivalry, powerful suppliers and buyers, many substitutes, and easy entry — profits get squeezed from every direction. These industries are challenging."
+        explanation: "When all five forces are strong - intense rivalry, powerful suppliers and buyers, many substitutes, and easy entry - profits get squeezed from every direction. These industries are challenging."
       }
     ]
   },
@@ -2657,7 +2657,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Total revenue from the previous fiscal year across all product lines"
         ],
         correctAnswer: 1,
-        explanation: "Free trial signups predict future revenue — more trials today likely means more paid subscriptions next month. Revenue and profit are lagging indicators that confirm past performance."
+        explanation: "Free trial signups predict future revenue - more trials today likely means more paid subscriptions next month. Revenue and profit are lagging indicators that confirm past performance."
       },
       {
         id: "mgmt6-q3",
@@ -2676,7 +2676,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "Why should a subscription business track churn rate as a KPI alongside revenue?",
         options: [
           "Churn rate is required by accounting standards for subscription companies",
-          "Revenue can grow while churn rises — masking an unsustainable business model",
+          "Revenue can grow while churn rises - masking an unsustainable business model",
           "Churn rate replaces the need to track revenue for subscription businesses",
           "Investors only care about churn rate and ignore revenue during evaluations"
         ],
@@ -2687,13 +2687,13 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt6-q5",
         question: "Net Promoter Score (NPS) measures how likely customers are to recommend a product. Is this a leading or lagging indicator?",
         options: [
-          "Lagging — it only measures past customer satisfaction and experiences",
-          "Leading — high NPS predicts future growth through word-of-mouth referrals",
-          "Neither — NPS is a vanity metric with no connection to business outcomes",
-          "Both — NPS measures past experience and predicts future revenue equally"
+          "Lagging - it only measures past customer satisfaction and experiences",
+          "Leading - high NPS predicts future growth through word-of-mouth referrals",
+          "Neither - NPS is a vanity metric with no connection to business outcomes",
+          "Both - NPS measures past experience and predicts future revenue equally"
         ],
         correctAnswer: 1,
-        explanation: "NPS is a leading indicator — satisfied customers who would recommend your product predict future organic growth through referrals. It signals future revenue before it materializes."
+        explanation: "NPS is a leading indicator - satisfied customers who would recommend your product predict future organic growth through referrals. It signals future revenue before it materializes."
       }
     ]
   },
@@ -2704,10 +2704,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt7-q1",
         question: "According to the U.S. Department of Labor, a bad hire costs approximately what percentage of the position's first-year salary?",
         options: [
-          "About 5% — roughly the cost of posting the original job listing",
-          "About 15% — mainly the cost of interviewing replacement candidates",
-          "About 30% — including recruitment, training, and lost productivity",
-          "About 75% — most of the annual salary is wasted on a bad hire"
+          "About 5% - roughly the cost of posting the original job listing",
+          "About 15% - mainly the cost of interviewing replacement candidates",
+          "About 30% - including recruitment, training, and lost productivity",
+          "About 75% - most of the annual salary is wasted on a bad hire"
         ],
         correctAnswer: 2,
         explanation: "The 30% estimate includes recruiting costs, training investment, lost productivity during the hire's tenure, team disruption, and the cost of finding a replacement."
@@ -2716,10 +2716,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mgmt7-q2",
         question: "Which phase of hiring is MOST responsible for preventing early turnover in the first 90 days?",
         options: [
-          "Recruitment — finding candidates through job boards and referrals",
-          "Interviewing — asking behavioral questions during the selection process",
-          "Onboarding — integrating the new hire into the company culture and tools",
-          "Background checks — verifying the candidate's employment history and references"
+          "Recruitment - finding candidates through job boards and referrals",
+          "Interviewing - asking behavioral questions during the selection process",
+          "Onboarding - integrating the new hire into the company culture and tools",
+          "Background checks - verifying the candidate's employment history and references"
         ],
         correctAnswer: 2,
         explanation: "Studies show that strong onboarding programs reduce early turnover significantly. When new hires feel supported, understand expectations, and connect with their team, they're far more likely to stay."
@@ -2775,7 +2775,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Customers are the only stakeholder group that matters for profitability"
         ],
         correctAnswer: 1,
-        explanation: "Stakeholder theory holds that businesses affect many groups — employees, customers, communities, suppliers, and shareholders. Considering all stakeholders leads to more sustainable decisions."
+        explanation: "Stakeholder theory holds that businesses affect many groups - employees, customers, communities, suppliers, and shareholders. Considering all stakeholders leads to more sustainable decisions."
       },
       {
         id: "mgmt8-q2",
@@ -2799,7 +2799,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Companies can buy reputation insurance to cover any potential damages"
         ],
         correctAnswer: 1,
-        explanation: "When trust is broken, the cascade of consequences — lost customers, lawsuits, difficulty hiring, and regulatory scrutiny — typically costs far more than whatever short-term savings the unethical choice provided."
+        explanation: "When trust is broken, the cascade of consequences - lost customers, lawsuits, difficulty hiring, and regulatory scrutiny - typically costs far more than whatever short-term savings the unethical choice provided."
       },
       {
         id: "mgmt8-q4",
@@ -2846,7 +2846,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "The strategy of offering the lowest price in every product category"
         ],
         correctAnswer: 0,
-        explanation: "Marketing encompasses everything from understanding customer needs to designing products, setting prices, choosing distribution, and promoting — not just the ads people see."
+        explanation: "Marketing encompasses everything from understanding customer needs to designing products, setting prices, choosing distribution, and promoting - not just the ads people see."
       },
       {
         id: "mkt1-q2",
@@ -2882,7 +2882,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "That marketing is unnecessary when a product is of sufficiently high quality"
         ],
         correctAnswer: 1,
-        explanation: "When a company truly solves customer problems and delivers real value, customers naturally share their experience. The marketing is embedded in the product experience itself — no hard sell required."
+        explanation: "When a company truly solves customer problems and delivers real value, customers naturally share their experience. The marketing is embedded in the product experience itself - no hard sell required."
       },
       {
         id: "mkt1-q5",
@@ -2894,7 +2894,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Create fifty more card designs to offer the widest possible selection to potential buyers"
         ],
         correctAnswer: 1,
-        explanation: "Before spending on ads or creating more inventory, understand your customer. Marketing starts with knowing WHO wants your product and WHY — then you can design, price, and promote effectively."
+        explanation: "Before spending on ads or creating more inventory, understand your customer. Marketing starts with knowing WHO wants your product and WHY - then you can design, price, and promote effectively."
       }
     ]
   },
@@ -2925,7 +2925,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Demographics always override psychographics when determining which products people will buy"
         ],
         correctAnswer: 1,
-        explanation: "Demographics are identical, but one might value sustainability while the other values convenience. These psychographic differences — values, interests, lifestyle — mean they respond to completely different messages and products."
+        explanation: "Demographics are identical, but one might value sustainability while the other values convenience. These psychographic differences - values, interests, lifestyle - mean they respond to completely different messages and products."
       },
       {
         id: "mkt2-q3",
@@ -2949,7 +2949,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "How many competitors also target the same eighteen to twenty-four age demographic group"
         ],
         correctAnswer: 1,
-        explanation: "Psychographics reveal the WHY behind purchases — values, motivations, and lifestyle. Knowing your customers value sustainability vs. trendiness vs. comfort completely changes how you design and market your products."
+        explanation: "Psychographics reveal the WHY behind purchases - values, motivations, and lifestyle. Knowing your customers value sustainability vs. trendiness vs. comfort completely changes how you design and market your products."
       },
       {
         id: "mkt2-q5",
@@ -2987,12 +2987,12 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "In the food truck scenario, what specific insight did Diana's research reveal that Carlos missed?",
         options: [
           "That food trucks were illegal in the neighborhood and required special operating permits",
-          "That residents wanted quick healthy lunch options — a gap no existing restaurant was filling",
+          "That residents wanted quick healthy lunch options - a gap no existing restaurant was filling",
           "That Korean food was more popular than grain bowls in every neighborhood nationwide",
           "That Carlos's truck was parked too far from the main road to be visible to customers"
         ],
         correctAnswer: 1,
-        explanation: "Diana's survey of 50 residents revealed unmet demand for healthy lunch options. This primary research insight shaped her entire business model — menu, pricing, and location — giving her a clear competitive advantage."
+        explanation: "Diana's survey of 50 residents revealed unmet demand for healthy lunch options. This primary research insight shaped her entire business model - menu, pricing, and location - giving her a clear competitive advantage."
       },
       {
         id: "mkt3-q3",
@@ -3004,7 +3004,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Analyzing the features and pricing of the top five existing tutoring apps on the market"
         ],
         correctAnswer: 1,
-        explanation: "Interviewing students directly is primary research — you're collecting original data from your exact target market. Reading articles and analyzing competitors is secondary research (useful, but not primary)."
+        explanation: "Interviewing students directly is primary research - you're collecting original data from your exact target market. Reading articles and analyzing competitors is secondary research (useful, but not primary)."
       },
       {
         id: "mkt3-q4",
@@ -3028,12 +3028,12 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Sales data from the cash register showing which menu items are ordered most frequently"
         ],
         correctAnswer: 1,
-        explanation: "Focus groups — a form of primary research — let you hear customers explain their motivations in their own words. They reveal the WHY behind choices, not just the WHAT. Published data and sales figures show patterns but not motivations."
+        explanation: "Focus groups - a form of primary research - let you hear customers explain their motivations in their own words. They reveal the WHY behind choices, not just the WHAT. Published data and sales figures show patterns but not motivations."
       }
     ]
   },
 
-  // MKT-4: The 4 Ps — Product & Price
+  // MKT-4: The 4 Ps - Product & Price
   {
     lessonId: "mkt-4",
     questions: [
@@ -3047,7 +3047,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Creating separate marketing campaigns for each individual product in your lineup"
         ],
         correctAnswer: 0,
-        explanation: "Differentiation is your competitive edge — the specific features, quality, design, or experience that make customers choose YOUR product over similar alternatives. Without it, you compete only on price."
+        explanation: "Differentiation is your competitive edge - the specific features, quality, design, or experience that make customers choose YOUR product over similar alternatives. Without it, you compete only on price."
       },
       {
         id: "mkt4-q2",
@@ -3059,7 +3059,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Marcus had a better location at the holiday market with more foot traffic near his table"
         ],
         correctAnswer: 1,
-        explanation: "Marcus's brand (Thread & Stone), packaging (gift boxes), and positioning transformed a $2 product into a $15 gift. The materials were the same — the perceived value was completely different."
+        explanation: "Marcus's brand (Thread & Stone), packaging (gift boxes), and positioning transformed a $2 product into a $15 gift. The materials were the same - the perceived value was completely different."
       },
       {
         id: "mkt4-q3",
@@ -3071,7 +3071,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Penetration pricing, because the shop set a low price to attract customers from competitors"
         ],
         correctAnswer: 2,
-        explanation: "An 8x markup over cost isn't cost-plus — it's value-based. Customers pay for the experience, ambiance, convenience, and brand — not just the liquid. The price reflects perceived value, not production cost."
+        explanation: "An 8x markup over cost isn't cost-plus - it's value-based. Customers pay for the experience, ambiance, convenience, and brand - not just the liquid. The price reflects perceived value, not production cost."
       },
       {
         id: "mkt4-q4",
@@ -3100,7 +3100,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     ]
   },
 
-  // MKT-5: The 4 Ps — Place & Promotion
+  // MKT-5: The 4 Ps - Place & Promotion
   {
     lessonId: "mkt-5",
     questions: [
@@ -3138,7 +3138,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Using environmentally friendly printing materials for all physical marketing brochures and flyers"
         ],
         correctAnswer: 1,
-        explanation: "Organic marketing — social media content, word-of-mouth, community building — costs time but not money. This levels the playing field for small businesses and student entrepreneurs who can't afford ad budgets."
+        explanation: "Organic marketing - social media content, word-of-mouth, community building - costs time but not money. This levels the playing field for small businesses and student entrepreneurs who can't afford ad budgets."
       },
       {
         id: "mkt5-q4",
@@ -3150,7 +3150,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Reduce the number of art pieces displayed to create a sense of scarcity and exclusivity"
         ],
         correctAnswer: 1,
-        explanation: "Adding online distribution and social media removes time and location constraints. The student can now reach customers 24/7 and beyond the school community — dramatically expanding their addressable market."
+        explanation: "Adding online distribution and social media removes time and location constraints. The student can now reach customers 24/7 and beyond the school community - dramatically expanding their addressable market."
       },
       {
         id: "mkt5-q5",
@@ -3162,7 +3162,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "They paid celebrities millions of dollars for exclusive endorsement deals and appearances"
         ],
         correctAnswer: 2,
-        explanation: "Glossier's Instagram-first strategy focused on real customer stories and community building — organic promotion that generated more trust than traditional ads at a fraction of the cost."
+        explanation: "Glossier's Instagram-first strategy focused on real customer stories and community building - organic promotion that generated more trust than traditional ads at a fraction of the cost."
       }
     ]
   },
@@ -3175,13 +3175,13 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mkt6-q1",
         question: "What is a brand, according to marketing professionals?",
         options: [
-          "The total perception customers have about a business — the feeling, trust, and story they associate with it",
+          "The total perception customers have about a business - the feeling, trust, and story they associate with it",
           "The official logo, color palette, and font selections registered with government trademark offices",
           "The physical products a company manufactures and sells through retail and online channels",
           "The advertising budget a company allocates to television commercials and social media posts"
         ],
         correctAnswer: 0,
-        explanation: "A brand lives in customers' minds — it's the sum total of every interaction, experience, and impression they have. The logo is just a visual shortcut to that deeper perception."
+        explanation: "A brand lives in customers' minds - it's the sum total of every interaction, experience, and impression they have. The logo is just a visual shortcut to that deeper perception."
       },
       {
         id: "mkt6-q2",
@@ -3193,7 +3193,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Sarah tutored more subjects than Jamal which justified her higher hourly rate"
         ],
         correctAnswer: 1,
-        explanation: "Sarah's brand — Apex Tutoring with consistent name, colors, tagline, and professional presence — created a perception of quality and reliability. Parents paid more because the brand signaled professionalism."
+        explanation: "Sarah's brand - Apex Tutoring with consistent name, colors, tagline, and professional presence - created a perception of quality and reliability. Parents paid more because the brand signaled professionalism."
       },
       {
         id: "mkt6-q3",
@@ -3205,7 +3205,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "The legal protection that trademarks provide against competitors copying product designs"
         ],
         correctAnswer: 1,
-        explanation: "Brand equity is the premium customers will pay BECAUSE of the brand — beyond what the product functionally delivers. Strong brands command higher prices, earn more loyalty, and are more resilient during tough times."
+        explanation: "Brand equity is the premium customers will pay BECAUSE of the brand - beyond what the product functionally delivers. Strong brands command higher prices, earn more loyalty, and are more resilient during tough times."
       },
       {
         id: "mkt6-q4",
@@ -3217,7 +3217,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Because consistent brands are automatically protected from competitor imitation by trademark law"
         ],
         correctAnswer: 1,
-        explanation: "Consistency across every touchpoint — website, packaging, social media, interactions — builds the recognition and trust that creates brand equity. Creativity without consistency creates confusion, not connection."
+        explanation: "Consistency across every touchpoint - website, packaging, social media, interactions - builds the recognition and trust that creates brand equity. Creativity without consistency creates confusion, not connection."
       },
       {
         id: "mkt6-q5",
@@ -3229,7 +3229,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "It lowered their advertising costs because the campaign required only one simple printed ad"
         ],
         correctAnswer: 1,
-        explanation: "Patagonia's campaign was authentic — their brand IS environmental activism. Telling customers to repair instead of replace proved their values were real, not marketing spin. This authenticity deepened customer loyalty and trust."
+        explanation: "Patagonia's campaign was authentic - their brand IS environmental activism. Telling customers to repair instead of replace proved their values were real, not marketing spin. This authenticity deepened customer loyalty and trust."
       }
     ]
   },
@@ -3242,10 +3242,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mkt7-q1",
         question: "What are the four stages of the buyer journey in order?",
         options: [
-          "Awareness, Consideration, Decision, Loyalty — from first recognizing a need to becoming a repeat customer",
-          "Research, Comparison, Purchase, Return — from gathering data to potentially returning the product",
-          "Interest, Desire, Action, Satisfaction — from initial curiosity to post-purchase evaluation",
-          "Discovery, Evaluation, Transaction, Feedback — from finding products to rating them online"
+          "Awareness, Consideration, Decision, Loyalty - from first recognizing a need to becoming a repeat customer",
+          "Research, Comparison, Purchase, Return - from gathering data to potentially returning the product",
+          "Interest, Desire, Action, Satisfaction - from initial curiosity to post-purchase evaluation",
+          "Discovery, Evaluation, Transaction, Feedback - from finding products to rating them online"
         ],
         correctAnswer: 0,
         explanation: "The buyer journey moves through Awareness (realizing a need), Consideration (researching options), Decision (choosing and buying), and Loyalty (returning and recommending). Each stage requires different marketing approaches."
@@ -3254,13 +3254,13 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "mkt7-q2",
         question: "In Maya's laptop purchase, which stage did the classmate's recommendation primarily influence?",
         options: [
-          "Awareness — Maya didn't know laptops existed until her friend mentioned one specific model",
-          "Consideration — the personal recommendation helped Maya evaluate and narrow her options",
-          "Decision — the recommendation had no effect since Maya based her choice solely on price",
-          "Loyalty — the friend's recommendation only matters after Maya already owned the laptop"
+          "Awareness - Maya didn't know laptops existed until her friend mentioned one specific model",
+          "Consideration - the personal recommendation helped Maya evaluate and narrow her options",
+          "Decision - the recommendation had no effect since Maya based her choice solely on price",
+          "Loyalty - the friend's recommendation only matters after Maya already owned the laptop"
         ],
         correctAnswer: 1,
-        explanation: "Maya was already aware she needed a laptop. The classmate's enthusiastic recommendation influenced her consideration stage — helping her evaluate options and lean toward the MacBook Air during comparison."
+        explanation: "Maya was already aware she needed a laptop. The classmate's enthusiastic recommendation influenced her consideration stage - helping her evaluate options and lean toward the MacBook Air during comparison."
       },
       {
         id: "mkt7-q3",
@@ -3272,19 +3272,19 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Because loyal customers never experience problems, so they require zero customer service costs"
         ],
         correctAnswer: 1,
-        explanation: "Acquiring a new customer costs 5-7x more than retaining an existing one. Plus, loyal customers become free marketing channels through word-of-mouth referrals — the most trusted form of promotion."
+        explanation: "Acquiring a new customer costs 5-7x more than retaining an existing one. Plus, loyal customers become free marketing channels through word-of-mouth referrals - the most trusted form of promotion."
       },
       {
         id: "mkt7-q4",
         question: "A baking business has many Instagram followers but few orders. Which buyer journey stage is the likely bottleneck?",
         options: [
-          "Awareness — people do not know the business exists or what products are available",
-          "Consideration — followers cannot find reviews or information to feel confident ordering",
-          "Decision — followers want to buy but the purchasing process is unclear or too difficult",
-          "Loyalty — the business needs to focus on getting past customers to reorder more frequently"
+          "Awareness - people do not know the business exists or what products are available",
+          "Consideration - followers cannot find reviews or information to feel confident ordering",
+          "Decision - followers want to buy but the purchasing process is unclear or too difficult",
+          "Loyalty - the business needs to focus on getting past customers to reorder more frequently"
         ],
         correctAnswer: 2,
-        explanation: "Many followers means awareness isn't the problem. The bottleneck is likely at the Decision stage — no clear ordering process, no visible pricing, or no easy way to actually complete a purchase."
+        explanation: "Many followers means awareness isn't the problem. The bottleneck is likely at the Decision stage - no clear ordering process, no visible pricing, or no easy way to actually complete a purchase."
       },
       {
         id: "mkt7-q5",
@@ -3296,7 +3296,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "Requesting five-star reviews from satisfied customers to build social proof and credibility"
         ],
         correctAnswer: 1,
-        explanation: "Awareness is about being SEEN — customers need to discover you exist and understand what you offer. Content, social media, and search visibility put your brand in front of people who don't know about you yet."
+        explanation: "Awareness is about being SEEN - customers need to discover you exist and understand what you offer. Content, social media, and search visibility put your brand in front of people who don't know about you yet."
       }
     ]
   },
@@ -3315,7 +3315,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
           "A product that meets only the minimum legal safety requirements for sale in retail stores"
         ],
         correctAnswer: 0,
-        explanation: "An MVP isn't about poor quality — it's about speed and learning. Build the simplest thing that tests your core assumption, get real feedback, then decide whether to invest more based on evidence."
+        explanation: "An MVP isn't about poor quality - it's about speed and learning. Build the simplest thing that tests your core assumption, get real feedback, then decide whether to invest more based on evidence."
       },
       {
         id: "mkt8-q2",
@@ -3346,12 +3346,12 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "Why did Dropbox create a video instead of building their full product first?",
         options: [
           "Because video production was cheaper than software development at the time they launched",
-          "Because the video served as an MVP to validate demand — 75,000 signups proved people wanted the product",
+          "Because the video served as an MVP to validate demand - 75,000 signups proved people wanted the product",
           "Because investors required a promotional video before they would agree to fund the company",
           "Because the founders did not have the technical skills to build the actual software product"
         ],
         correctAnswer: 1,
-        explanation: "The video was Dropbox's MVP — the simplest way to test their core assumption (do people want easy file syncing?). 75,000 overnight signups proved massive demand before they spent millions building it."
+        explanation: "The video was Dropbox's MVP - the simplest way to test their core assumption (do people want easy file syncing?). 75,000 overnight signups proved massive demand before they spent millions building it."
       },
       {
         id: "mkt8-q5",
@@ -3386,7 +3386,7 @@ export const lessonQuizzes: LessonQuiz[] = [
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
-  // Merge every pool registered for this lesson — lets top-up packs extend an
+  // Merge every pool registered for this lesson - lets top-up packs extend an
   // existing pool without editing the original file.
   return lessonQuizzes.filter(q => q.lessonId === lessonId).flatMap(q => q.questions)
 }

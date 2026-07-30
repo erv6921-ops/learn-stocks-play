@@ -16,7 +16,7 @@ import { useApp } from "@/contexts/AppContext";
 /* ── Fictional household profile ── */
 const HOUSEHOLD = {
   name: "The Martinez Family",
-  members: "Carlos (38) — warehouse logistics manager, Maria (36) — part-time dental hygienist, Sofia (12) — 7th grade, Diego (8) — 3rd grade",
+  members: "Carlos (38) - warehouse logistics manager, Maria (36) - part-time dental hygienist, Sofia (12) - 7th grade, Diego (8) - 3rd grade",
   grossIncome: "Carlos: $52,000/year · Maria: $24,000/year (part-time) · Combined: $76,000/year",
   netMonthlyIncome: "$5,100/month after taxes",
   currentExpenses: {
@@ -64,7 +64,7 @@ const PROJECT_AREAS: ProjectArea[] = [
       { label: "What percentage of their income goes to needs vs. wants? Show your calculation.", type: "textarea", placeholder: "Needs: rent + car + insurance + groceries + utilities + phones + childcare = $___\nWants: clothing + entertainment + dining + subscriptions = $___\n% needs = ___ / 5,100 = ___%..." },
       { label: "Recommended monthly savings amount ($)", type: "number", placeholder: "e.g. 510", prefix: "$" },
       { label: "Which expenses would you recommend reducing, and by how much?", type: "textarea", placeholder: "I would recommend reducing dining out from $180 to $80 because..." },
-      { label: "What should the family prioritize first — emergency fund or paying off credit card debt? Explain your reasoning.", type: "textarea", placeholder: "The family should prioritize... because..." },
+      { label: "What should the family prioritize first - emergency fund or paying off credit card debt? Explain your reasoning.", type: "textarea", placeholder: "The family should prioritize... because..." },
       { label: "Write a recommended monthly budget with specific dollar amounts for each category.", type: "textarea", placeholder: "Rent: $1,450\nCar payment: $380\nGroceries: $650\n..." },
     ],
     calculationHint: "The 50/30/20 rule suggests 50% needs ($2,550), 30% wants ($1,530), 20% savings ($1,020). Compare this to their actual spending."
@@ -92,7 +92,7 @@ const PROJECT_AREAS: ProjectArea[] = [
     number: 3,
     icon: <Home className="w-5 h-5" />,
     description: "Assess the Martinez family's mortgage readiness and recommend a timeline and strategy for purchasing their first home.",
-    context: "The family currently rents at $1,450/month. They want to buy a home within 5 years. Median home price in their area is approximately $320,000. A conventional mortgage typically requires 3.5–20% down payment. Their current credit card debt and limited savings are obstacles. A good credit score (700+) is needed for favorable mortgage rates.",
+    context: "The family currently rents at $1,450/month. They want to buy a home within 5 years. Median home price in their area is approximately $320,000. A conventional mortgage typically requires 3.5-20% down payment. Their current credit card debt and limited savings are obstacles. A good credit score (700+) is needed for favorable mortgage rates.",
     prompts: [
       { label: "Minimum down payment needed (at 10%)", type: "number", placeholder: "e.g. 32000", prefix: "$" },
       { label: "Estimated monthly mortgage payment (30-year at 6.5% on $288,000)", type: "number", placeholder: "e.g. 1820", prefix: "$" },
@@ -108,7 +108,7 @@ const PROJECT_AREAS: ProjectArea[] = [
     number: 4,
     icon: <PiggyBank className="w-5 h-5" />,
     description: "Recommend a retirement savings approach for Carlos and Maria, including account types, contribution rates, and long-term projections.",
-    context: "Carlos is 38, Maria is 36. Neither has any retirement savings. Carlos's employer offers a 401(k) with a 3% match. Maria's part-time employer does not offer retirement benefits. The general guideline is to save 10–15% of gross income for retirement. They want to retire by age 65, giving Carlos 27 years and Maria 29 years.",
+    context: "Carlos is 38, Maria is 36. Neither has any retirement savings. Carlos's employer offers a 401(k) with a 3% match. Maria's part-time employer does not offer retirement benefits. The general guideline is to save 10-15% of gross income for retirement. They want to retire by age 65, giving Carlos 27 years and Maria 29 years.",
     prompts: [
       { label: "Recommended monthly 401(k) contribution for Carlos", type: "number", placeholder: "e.g. 430", prefix: "$" },
       { label: "What percentage of Carlos's salary does your recommendation represent?", type: "number", placeholder: "e.g. 10", prefix: "%" },
@@ -215,7 +215,7 @@ export default function FinancialAdvisor() {
           <Card className="mt-8 p-6 rounded-2xl border shadow-card">
             <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
               <FileText className="w-5 h-5 text-primary" />
-              Client Profile — {HOUSEHOLD.name}
+              Client Profile - {HOUSEHOLD.name}
             </h2>
             <div className="space-y-3 text-sm text-foreground/80">
               <div>
@@ -310,7 +310,7 @@ export default function FinancialAdvisor() {
     );
   }
 
-  // ── Area detail (steps 1–4) ──
+  // ── Area detail (steps 1-4) ──
   if (step >= 1 && step <= 4) {
     const area = PROJECT_AREAS[step - 1];
     const answers = project.areas[area.id] || [];
@@ -476,7 +476,7 @@ export default function FinancialAdvisor() {
         {/* Executive summary */}
         <Card className="mt-6 p-5 rounded-2xl border shadow-card">
           <label className="text-sm font-bold text-foreground block mb-2">
-            Executive Summary — Write a one-paragraph summary of your recommendations for the Martinez family.
+            Executive Summary - Write a one-paragraph summary of your recommendations for the Martinez family.
           </label>
           <Textarea
             placeholder="As the financial advisor for the Martinez family, my key recommendations are..."

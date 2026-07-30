@@ -19,7 +19,7 @@ class TourAnchorRegistry {
   }
 
   // First on-screen node for an id. Skips hidden duplicates (e.g. the desktop vs.
-  // mobile nav share an id — only one is visible) and purges unmounted nodes.
+  // mobile nav share an id - only one is visible) and purges unmounted nodes.
   get(id: string): HTMLElement | null {
     const set = this.nodes.get(id)
     if (!set) return null

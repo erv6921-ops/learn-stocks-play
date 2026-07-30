@@ -1,4 +1,4 @@
-// quarterlyBriefs — a rotating pool of operations activities. After the founding
+// quarterlyBriefs - a rotating pool of operations activities. After the founding
 // quarter (the bespoke Studio activities), each new business quarter serves a
 // FRESH set of these so running the business never repeats the same worksheet.
 // All rule-based, no AI. Effects move the living-business metrics (businessSim).
@@ -42,7 +42,7 @@ const PRODUCT: QuarterlyBrief[] = [
   {
     id: "p_costcut", category: "product", icon: Gauge, title: "Cost-down analysis",
     scenario: "Margins are tight. Find a way to make your product cheaper to produce without wrecking quality.",
-    xp: XP, effect: { cash: 200, reputation: -2, msg: "Cash +200 · Reputation −2" },
+    xp: XP, effect: { cash: 200, reputation: -2, msg: "Cash +200 · Reputation -2" },
     fields: [
       { key: "where", label: "Where the cost goes today (break it down)", min: 50, rows: 3 },
       { key: "plan", label: "Your cost-down plan and the trade-off", min: 50, rows: 3 },
@@ -87,7 +87,7 @@ const PRODUCT: QuarterlyBrief[] = [
   {
     id: "p_iterate", category: "product", icon: Wrench, title: "Fix your weakest product",
     scenario: "One product is dragging. Diagnose why and decide: iterate, reposition, or kill it.",
-    xp: XP, effect: { brand: 6, cash: -60, customers: 80, msg: "Brand +6 · Customers +80 · Cash −60" },
+    xp: XP, effect: { brand: 6, cash: -60, customers: 80, msg: "Brand +6 · Customers +80 · Cash -60" },
     choice: { label: "Your call", options: ["Iterate & relaunch", "Reposition it", "Discontinue"] },
     fields: [
       { key: "diagnosis", label: "Why it's underperforming", min: 45, rows: 3 },
@@ -97,7 +97,7 @@ const PRODUCT: QuarterlyBrief[] = [
   {
     id: "p_sustain", category: "product", icon: Recycle, title: "Sustainability upgrade",
     scenario: "Customers increasingly care how things are made. Plan one real sustainability change for {biz}.",
-    xp: XP, effect: { brand: 10, customers: 120, cash: -90, msg: "Brand +10 · Customers +120 · Cash −90" },
+    xp: XP, effect: { brand: 10, customers: 120, cash: -90, msg: "Brand +10 · Customers +120 · Cash -90" },
     fields: [
       { key: "change", label: "The change and what it costs you", min: 50, rows: 3 },
       { key: "story", label: "How you'll tell customers about it honestly", min: 45, rows: 3 },
@@ -109,7 +109,7 @@ const PRODUCT: QuarterlyBrief[] = [
 const COLLAB: QuarterlyBrief[] = [
   {
     id: "c_renew", category: "collab", icon: Handshake, title: "Renew (or end) a partnership",
-    scenario: "A partner deal is up for renewal. Decide whether to renew, renegotiate, or walk — and why.",
+    scenario: "A partner deal is up for renewal. Decide whether to renew, renegotiate, or walk - and why.",
     xp: XP, effect: { cash: 180, customers: 120, msg: "Cash +180 · Customers +120" },
     choice: { label: "Decision", options: ["Renew as-is", "Renegotiate terms", "Walk away"] },
     fields: [
@@ -119,7 +119,7 @@ const COLLAB: QuarterlyBrief[] = [
   {
     id: "c_hire", category: "collab", icon: Users, title: "Write a job posting",
     scenario: "You're hiring your next team member. Write the role and what makes someone great at it.",
-    xp: XP, effect: { customers: 200, cash: -150, msg: "Customers +200 · Cash −150" },
+    xp: XP, effect: { customers: 200, cash: -150, msg: "Customers +200 · Cash -150" },
     fields: [
       { key: "role", label: "The role, responsibilities, and must-have skills", min: 60, rows: 4 },
       { key: "culture", label: "Why a great person would want to join you", min: 40, rows: 3 },
@@ -137,7 +137,7 @@ const COLLAB: QuarterlyBrief[] = [
   {
     id: "c_supplier", category: "collab", icon: Network, title: "Diversify your suppliers",
     scenario: "Relying on one supplier is risky. Plan how to add a backup without blowing up costs.",
-    xp: XP, effect: { cash: -80, reputation: 5, customers: 60, msg: "Reputation +5 · Customers +60 · Cash −80" },
+    xp: XP, effect: { cash: -80, reputation: 5, customers: 60, msg: "Reputation +5 · Customers +60 · Cash -80" },
     fields: [
       { key: "risk", label: "The risk of your current setup", min: 40, rows: 3 },
       { key: "plan", label: "Your plan to add a second source", min: 50, rows: 3 },
@@ -145,7 +145,7 @@ const COLLAB: QuarterlyBrief[] = [
   },
   {
     id: "c_contract", category: "collab", icon: Scale, title: "Negotiate a bigger contract",
-    scenario: "A wholesale buyer wants a large recurring order — at a discount. Set your terms.",
+    scenario: "A wholesale buyer wants a large recurring order - at a discount. Set your terms.",
     xp: XP, effect: { cash: 320, customers: 140, brand: 2, msg: "Cash +320 · Customers +140" },
     fields: [
       { key: "terms", label: "Your price, volume, and payment terms", min: 50, rows: 3 },
@@ -173,7 +173,7 @@ const COLLAB: QuarterlyBrief[] = [
   {
     id: "c_community", category: "collab", icon: Building2, title: "Partner with the community",
     scenario: "A local school or charity wants to work with you. Plan a partnership that helps both sides.",
-    xp: XP, effect: { brand: 9, reputation: 7, cash: -100, msg: "Brand +9 · Reputation +7 · Cash −100" },
+    xp: XP, effect: { brand: 9, reputation: 7, cash: -100, msg: "Brand +9 · Reputation +7 · Cash -100" },
     fields: [
       { key: "idea", label: "The partnership and what each side gives", min: 50, rows: 3 },
       { key: "measure", label: "How you'll show it made a difference", min: 40, rows: 3 },
@@ -186,7 +186,7 @@ const MARKETING: QuarterlyBrief[] = [
   {
     id: "m_campaign", category: "marketing", icon: Megaphone, title: "Plan a seasonal campaign",
     scenario: "A big season is coming. Plan a campaign for {biz} with a clear message and offer.",
-    xp: XP, effect: { customers: 340, cash: -120, brand: 4, msg: "Customers +340 · Brand +4 · Cash −120" },
+    xp: XP, effect: { customers: 340, cash: -120, brand: 4, msg: "Customers +340 · Brand +4 · Cash -120" },
     fields: [
       { key: "hook", label: "The hook / big idea of the campaign", min: 45, rows: 3 },
       { key: "offer", label: "The offer and how you'll measure success", min: 45, rows: 3 },
@@ -213,7 +213,7 @@ const MARKETING: QuarterlyBrief[] = [
   {
     id: "m_referral", category: "marketing", icon: Gift, title: "Design a referral program",
     scenario: "Happy customers can bring friends. Design a referral offer that's worth sharing.",
-    xp: XP, effect: { customers: 260, cash: -80, msg: "Customers +260 · Cash −80" },
+    xp: XP, effect: { customers: 260, cash: -80, msg: "Customers +260 · Cash -80" },
     fields: [
       { key: "reward", label: "What both sides get, and why it's fair", min: 45, rows: 3 },
       { key: "spread", label: "How you make it easy to share", min: 40, rows: 3 },
@@ -231,7 +231,7 @@ const MARKETING: QuarterlyBrief[] = [
   {
     id: "m_pricing_promo", category: "marketing", icon: TrendingUp, title: "Run a smart promotion",
     scenario: "You want a sales bump without training customers to only buy on discount. Design the promo.",
-    xp: XP, effect: { cash: 220, customers: 160, brand: -2, msg: "Cash +220 · Customers +160 · Brand −2" },
+    xp: XP, effect: { cash: 220, customers: 160, brand: -2, msg: "Cash +220 · Customers +160 · Brand -2" },
     choice: { label: "Promo type", options: ["Bundle", "Limited-time", "Buy-one-give-one", "Loyalty perk"] },
     fields: [
       { key: "why", label: "Why this promo protects your brand", min: 50, rows: 3 },
@@ -260,7 +260,7 @@ const MARKETING: QuarterlyBrief[] = [
 const BY_CAT: Record<BriefCategory, QuarterlyBrief[]> = { product: PRODUCT, collab: COLLAB, marketing: MARKETING };
 export const BRIEFS_PER_CATEGORY = 3;
 
-// Lookup by id — used by the teacher dashboard to label submitted brief work.
+// Lookup by id - used by the teacher dashboard to label submitted brief work.
 export const BRIEF_BY_ID: Record<string, QuarterlyBrief> = Object.fromEntries(
   [...PRODUCT, ...COLLAB, ...MARKETING].map((b) => [b.id, b]),
 );
@@ -268,7 +268,7 @@ export const BRIEF_BY_ID: Record<string, QuarterlyBrief> = Object.fromEntries(
 // Pick a fresh set for a category. `qi` is the 0-based quarter index; the founding
 // quarter (qi 0) uses the bespoke activities, so briefs start at qi 1. Because the
 // pool is 8 and we take 3 with a stride of 3, the set is distinct for 8 quarters
-// before it cycles — that's two years of monthly play.
+// before it cycles - that's two years of monthly play.
 export function briefsForCategory(category: BriefCategory, qi: number): QuarterlyBrief[] {
   const pool = BY_CAT[category];
   const start = (Math.max(1, qi) - 1) * BRIEFS_PER_CATEGORY;

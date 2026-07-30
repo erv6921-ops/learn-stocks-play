@@ -1,4 +1,4 @@
-// Applied Finance Lab — practice filling out real-world financial documents.
+// Applied Finance Lab - practice filling out real-world financial documents.
 //
 // Layout: the NEXT form to complete is featured at the top with a live
 // preview of its first few questions that fades out (a teaser of the real
@@ -233,7 +233,7 @@ export default function AppliedFinanceLab() {
               </div>
 
               {/* Right: the first questions, fading out into the real form.
-                  The whole panel is a click target — tapping any question
+                  The whole panel is a click target - tapping any question
                   opens the actual form. */}
               <div
                 role="button"
@@ -243,7 +243,7 @@ export default function AppliedFinanceLab() {
                 className="relative bg-muted/30 border-t lg:border-t-0 lg:border-l border-border p-6 md:p-8 cursor-pointer group/preview transition-colors hover:bg-muted/50"
               >
                 <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
-                  A peek at the form — tap to open
+                  A peek at the form - tap to open
                 </p>
                 {preview.length > 0 ? (
                   <div
@@ -263,7 +263,7 @@ export default function AppliedFinanceLab() {
                       WebkitMaskImage: "linear-gradient(180deg, black 35%, transparent 96%)",
                     }}
                   >
-                    {/* No field set yet — tease the education intro as the opening questions */}
+                    {/* No field set yet - tease the education intro as the opening questions */}
                     {[
                       { q: "When do you fill this out?", a: nextDoc.education?.whenYouFillItOut },
                       { q: "Why does it matter?", a: nextDoc.education?.whyItMatters },
@@ -282,7 +282,7 @@ export default function AppliedFinanceLab() {
                     onClick={() => navigate(`/lab/${nextDoc.id}`)}
                     className="press-scale rounded-full border border-border bg-card px-4 py-1.5 text-xs font-bold text-muted-foreground shadow-sm hover:text-foreground transition-colors"
                   >
-                    {questions > 3 ? `+ ${questions - 3} more questions — continue inside` : "Continue inside →"}
+                    {questions > 3 ? `+ ${questions - 3} more questions - continue inside` : "Continue inside →"}
                   </button>
                 </div>
               </div>
@@ -290,13 +290,13 @@ export default function AppliedFinanceLab() {
           </section>
         )}
 
-        {/* All available forms finished — celebrate instead of an empty top */}
+        {/* All available forms finished - celebrate instead of an empty top */}
         {!nextDoc && (
           <section className="rounded-2xl border border-success/40 bg-success/5 p-6 md:p-8 mb-8 text-center">
             <CheckCircle2 className="w-10 h-10 text-success mx-auto mb-2" />
             <h2 className="font-display text-xl font-extrabold">All caught up!</h2>
             <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
-              You've completed every form in the lab — {doneCount}/{availableDocs}. New documents unlock soon;
+              You've completed every form in the lab - {doneCount}/{availableDocs}. New documents unlock soon;
               revisit any form below for a refresher.
             </p>
           </section>
@@ -309,7 +309,7 @@ export default function AppliedFinanceLab() {
           All case files · {labCategories.length} topics · {totalDocs} documents
         </p>
 
-        {/* topic chips — the whole catalog in two-ish rows */}
+        {/* topic chips - the whole catalog in two-ish rows */}
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 mb-4">
           {labCategories.map(cat => {
             const hue = catHue(cat.id)
@@ -351,7 +351,7 @@ export default function AppliedFinanceLab() {
               style={{ borderLeft: `3px solid hsl(${hue} 65% 45%)` }}>
               <div className="flex items-center gap-2 mb-3 px-1">
                 <h3 className="font-bold text-sm">{selectedCat.title}</h3>
-                <span className="text-xs text-muted-foreground">— {selectedCat.description}</span>
+                <span className="text-xs text-muted-foreground">- {selectedCat.description}</span>
               </div>
               <div className="grid sm:grid-cols-2 gap-2">
                 {selectedCat.documents.map(doc => {

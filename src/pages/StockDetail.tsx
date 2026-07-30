@@ -282,7 +282,7 @@ export default function StockDetail() {
       }
 
       if (quoteResult.error || !quoteData?.stocks?.[0]) {
-        // Polygon returned nothing — keep existing state (cached or null)
+        // Polygon returned nothing - keep existing state (cached or null)
         return
       }
 
@@ -353,7 +353,7 @@ export default function StockDetail() {
       if (cachedQuote) {
         setStockData(cachedQuote)
       }
-      // If no cache, stockData stays null — loading screen shown
+      // If no cache, stockData stays null - loading screen shown
     } finally {
       if (isInitial) setLoading(false)
     }
@@ -425,7 +425,7 @@ export default function StockDetail() {
           firstLoaded = true
         }
       }
-      // If no data from Polygon, skip this range — don't generate fake data
+      // If no data from Polygon, skip this range - don't generate fake data
     }
 
     allChartsRef.current = chartMap
@@ -467,7 +467,7 @@ export default function StockDetail() {
         }
         applyChart(allChartsRef.current[result.range], selectedRange)
       } else if (!allChartsRef.current[selectedRange]) {
-        // No data for this range — show empty
+        // No data for this range - show empty
         setHistory(null)
         setHistoryLoading(false)
       }
@@ -486,7 +486,7 @@ export default function StockDetail() {
 
     if (!symbol) return
 
-    // Check localStorage cache or hardcoded price — show instantly
+    // Check localStorage cache or hardcoded price - show instantly
     const cachedQuote = readCachedQuote(symbol)
     const hardcodedPrice = HARDCODED_PRICES[symbol]
     if (cachedQuote) {
@@ -898,7 +898,7 @@ export default function StockDetail() {
 
                 {!hasValidPrice && (
                   <div className="flex items-center gap-2 text-destructive text-xs">
-                    <AlertCircle className="w-3.5 h-3.5" /><span>Live price unavailable right now — trading is disabled.</span>
+                    <AlertCircle className="w-3.5 h-3.5" /><span>Live price unavailable right now - trading is disabled.</span>
                   </div>
                 )}
                 {hasValidPrice && buyMode === "buy" && !canAfford && (
@@ -964,8 +964,8 @@ export default function StockDetail() {
                 <div className="grid grid-cols-2 gap-3 text-sm mb-4">
                   {stock.open > 0 && <div><p className="text-[11px] text-white/40">Open</p><p className="font-medium text-white/90">{fmtDollar(stock.open)}</p></div>}
                   {stock.previousClose > 0 && <div><p className="text-[11px] text-white/40">Previous Close</p><p className="font-medium text-white/90">{fmtDollar(stock.previousClose)}</p></div>}
-                  {stock.dayLow > 0 && stock.dayHigh > 0 && <div><p className="text-[11px] text-white/40">Day's Range</p><p className="font-medium text-white/90 text-xs">{fmtDollar(stock.dayLow)} – {fmtDollar(stock.dayHigh)}</p></div>}
-                  {stock.low52Week > 0 && stock.high52Week > 0 && <div><p className="text-[11px] text-white/40">52-Week Range</p><p className="font-medium text-white/90 text-xs">{fmtDollar(stock.low52Week)} – {fmtDollar(stock.high52Week)}</p></div>}
+                  {stock.dayLow > 0 && stock.dayHigh > 0 && <div><p className="text-[11px] text-white/40">Day's Range</p><p className="font-medium text-white/90 text-xs">{fmtDollar(stock.dayLow)} - {fmtDollar(stock.dayHigh)}</p></div>}
+                  {stock.low52Week > 0 && stock.high52Week > 0 && <div><p className="text-[11px] text-white/40">52-Week Range</p><p className="font-medium text-white/90 text-xs">{fmtDollar(stock.low52Week)} - {fmtDollar(stock.high52Week)}</p></div>}
                   {stock.volume > 0 && <div><p className="text-[11px] text-white/40">Volume</p><p className="font-medium text-white/90">{formatVolume(stock.volume)}</p></div>}
                   {stock.avgVolume3M > 0 && <div><p className="text-[11px] text-white/40">Avg Volume (3M)</p><p className="font-medium text-white/90">{formatVolume(stock.avgVolume3M)}</p></div>}
                   {stock.marketCap > 0 && <div><p className="text-[11px] text-white/40">{isETF ? 'Net Assets' : 'Market Cap'}</p><p className="font-medium text-white/90">{formatMarketCap(stock.marketCap)}</p></div>}

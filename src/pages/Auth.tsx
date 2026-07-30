@@ -39,7 +39,7 @@ export default function Auth() {
       if (!data.user) throw new Error("No user returned")
 
       // Post-login routing is handled centrally in AppContext on the
-      // SIGNED_IN event — keep it as the single source of truth.
+      // SIGNED_IN event - keep it as the single source of truth.
     } catch (error: any) {
       toast({
         title: "Login failed",
@@ -187,7 +187,7 @@ export default function Auth() {
     // If a session is already active, sign out first so signUp can succeed
     const { data: existing } = await supabase.auth.getSession()
     if (existing.session) {
-      console.log("[Auth] Existing session detected — signing out before signup")
+      console.log("[Auth] Existing session detected - signing out before signup")
       await supabase.auth.signOut()
     }
 
@@ -252,7 +252,7 @@ export default function Auth() {
             <div className="text-center mb-6">
               <JeffMascot
                 size="sm"
-                message="Almost there! Check your inbox — and your spam folder — to verify your email."
+                message="Almost there! Check your inbox - and your spam folder - to verify your email."
               />
             </div>
             <Card variant="elevated">
@@ -261,7 +261,7 @@ export default function Auth() {
                 <CardDescription>
                   We sent a confirmation link to <span className="font-medium">{email}</span>. Click it to activate your account, then come back and log in.
                   <br /><br />
-                  <span className="font-semibold text-foreground">Don't see it? Check your spam or junk folder</span> — confirmation emails often land there.
+                  <span className="font-semibold text-foreground">Don't see it? Check your spam or junk folder</span> - confirmation emails often land there.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">

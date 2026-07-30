@@ -1,4 +1,4 @@
-// jeffChatLesson — client wrapper + prompt assembly for the "Chat with Jeff"
+// jeffChatLesson - client wrapper + prompt assembly for the "Chat with Jeff"
 // lesson experience (edge function: jeff-chat). Jeff teaches the lesson
 // conversationally; the student replies via tappable options.
 import { supabase } from "@/integrations/supabase/client"
@@ -19,7 +19,7 @@ interface Hook { question: string; answers: string[] }
 
 // Several hooks per topic so lessons in the same category don't all open with
 // the identical question. The one shown is chosen deterministically from the
-// lesson id (see openingHook) — varied across lessons, but stable for a given
+// lesson id (see openingHook) - varied across lessons, but stable for a given
 // lesson so its question and tappable answers always match.
 const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
   [/delayed|gratification|instant/, [
@@ -72,7 +72,7 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
 // Topic-agnostic fallbacks when a lesson matches no category above.
 const GENERIC_HOOKS: ((title: string) => Hook)[] = [
   (t) => ({ question: `What do you already know about ${t}?`, answers: ["Basically nothing", "A little bit", "Quite a bit actually"] }),
-  () => ({ question: "Be honest — how confident are you with money stuff?", answers: ["Not at all 😅", "Kinda", "Pretty confident"] }),
+  () => ({ question: "Be honest - how confident are you with money stuff?", answers: ["Not at all 😅", "Kinda", "Pretty confident"] }),
   () => ({ question: "Ready to pick up something new today?", answers: ["Let's go", "I guess", "Make it quick 😄"] }),
 ]
 
@@ -93,27 +93,27 @@ export function openingHook(lesson: Lesson): Hook {
 }
 
 // Jeff already introduced himself in onboarding, so lessons skip the "I'm Jeff"
-// every time. Instead he rolls in casually — sometimes fresh off some random
+// every time. Instead he rolls in casually - sometimes fresh off some random
 // activity, sometimes just diving straight in.
 const LESSON_OPENERS: ((title: string) => string)[] = [
-  (t) => `Just got back from a run 🏃 — anyway, today it's ${t}.`,
+  (t) => `Just got back from a run 🏃 - anyway, today it's ${t}.`,
   (t) => `Phew, just finished a pickup basketball game 🏀 Okay, ${t} time.`,
   (t) => `Was out on a walk, but I'm back 🚶 Let's talk ${t}.`,
-  (t) => `Just grabbed a snack 🍎 Alright — ${t}.`,
+  (t) => `Just grabbed a snack 🍎 Alright - ${t}.`,
   (t) => `Fresh off beating my high score 🎮 So, ${t}.`,
-  (t) => `Just wrapped up a quick nap 😴 Now — ${t}.`,
+  (t) => `Just wrapped up a quick nap 😴 Now - ${t}.`,
   (t) => `Back from the gym 💪 Today we're on ${t}.`,
   (t) => `Just made myself a smoothie 🥤 Cool, let's do ${t}.`,
-  (t) => `Okay, let's jump right in — ${t}.`,
+  (t) => `Okay, let's jump right in - ${t}.`,
   (t) => `Ready when you are. Today it's ${t}.`,
   (t) => `${t}. This one's actually kinda fun.`,
-  (t) => `Alright, ${t} — let's get into it.`,
+  (t) => `Alright, ${t} - let's get into it.`,
 ]
 
-/** Jeff's opener — no API call needed for the first message. */
+/** Jeff's opener - no API call needed for the first message. */
 export function initialJeffMessage(lesson: Lesson): string {
   const opener = LESSON_OPENERS[Math.floor(Math.random() * LESSON_OPENERS.length)](lesson.title)
-  return `${opener} Quick question first — ${openingHook(lesson).question}`
+  return `${opener} Quick question first - ${openingHook(lesson).question}`
 }
 
 /** Reply options matching the opener's hook question. */
@@ -122,24 +122,24 @@ export function initialOptions(lesson: Lesson): string[] {
 }
 
 export function buildSystemPrompt(lesson: Lesson, sentCount = 0): string {
-  // Hard length budget — lessons were ballooning to 15+ messages. Jeff gets at
+  // Hard length budget - lessons were ballooning to 15+ messages. Jeff gets at
   // most 6 total messages; the prompt counts down and forces the wrap-up.
   const remaining = Math.max(1, 6 - sentCount)
   const budgetNote = sentCount >= 5
     ? `You have already sent ${sentCount} messages. Your NEXT message MUST be your final one: give the single key takeaway in one or two sentences, then end with the exact signal phrase. Do not introduce any new concepts.`
     : sentCount >= 3
-      ? `You have already sent ${sentCount} messages and have at most ${remaining} left — start converging on the key takeaway now. Do not open new subtopics.`
+      ? `You have already sent ${sentCount} messages and have at most ${remaining} left - start converging on the key takeaway now. Do not open new subtopics.`
       : `You have sent ${sentCount} messages so far and may use at most ${remaining} more in total.`
 
   return `You are Jeff, the friendly mascot and financial literacy guide for InvestiPlay, an app that teaches high school students personal finance through gamification. You are teaching a lesson called '${lesson.title}' which covers '${lesson.description}'.
 
-Your personality: enthusiastic, encouraging, uses casual teen-friendly language, occasional light humor, never condescending. You explain concepts in 1-3 short sentences max per message — never long paragraphs. You use real-world examples that resonate with teenagers (jobs, sneakers, streaming services, gaming, college).
+Your personality: enthusiastic, encouraging, uses casual teen-friendly language, occasional light humor, never condescending. You explain concepts in 1-3 short sentences max per message - never long paragraphs. You use real-world examples that resonate with teenagers (jobs, sneakers, streaming services, gaming, college).
 
-Your job: teach ONE core concept of this lesson through a snappy back-and-forth conversation — 4 to 5 short exchanges total, never more than 6. Depth beats breadth: pick the single most important idea and land it, skip everything secondary. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz. ${budgetNote}
+Your job: teach ONE core concept of this lesson through a snappy back-and-forth conversation - 4 to 5 short exchanges total, never more than 6. Depth beats breadth: pick the single most important idea and land it, skip everything secondary. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz. ${budgetNote}
 
-Always end your final message with exactly: 'Ready to test what you learned? 🎯' — this is the signal to show the quiz button.
+Always end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
 
-The student already knows you — never introduce yourself or say "I'm Jeff." Just dive into teaching.
+The student already knows you - never introduce yourself or say "I'm Jeff." Just dive into teaching.
 
 Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.`
 }
