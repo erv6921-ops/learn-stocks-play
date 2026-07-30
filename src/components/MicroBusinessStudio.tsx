@@ -202,6 +202,11 @@ export default function MicroBusinessStudio() {
     toast.success(`${brief.title} submitted`, { description: `+${brief.xp} InvestiCoins · ${brief.effect.msg}` });
   }, [earnJeffs]);
 
+  // Partner-deal bonuses. Must be called unconditionally (before the early
+  // returns below) so hook order stays stable across renders - the hook
+  // accepts a null business type while `a` is still loading.
+  const { totalBonus: dealBonus } = useBizDeals(a?.businessType ?? null);
+
   if (!a) return (<div className="min-h-screen bg-background"><GameNav /><div className="flex items-center justify-center py-24"><Loader2 className="w-7 h-7 animate-spin text-primary" /></div></div>);
 
   // ── Business-type gate ──
@@ -241,7 +246,6 @@ export default function MicroBusinessStudio() {
   const currentIds = qi === 0 ? ALL_ACTIVITIES : allBriefIdsForQuarter(qi);
   const doneCount = currentIds.filter((id) => a.done.includes(id)).length;
   const allDone = currentIds.length > 0 && doneCount === currentIds.length;
-  const { totalBonus: dealBonus } = useBizDeals(bt);
 
   const setSim = (next: BizState) => persist({ ...a, sim: next });
   const generateMonth = () => { if (sim.pending || sim.status === "failed") return; setSim({ ...sim, pending: pickSituation(sim) }); };

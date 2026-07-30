@@ -36,6 +36,7 @@ import { GradeNotifications } from "./components/GradeNotifications";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,10 @@ function AppRoutes() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.24, ease: "easeOut" }}
     >
+    {/* Contain crashes to the current page: a thrown component shows the
+        fallback here instead of blanking the whole app. Keyed by pathname so
+        navigating to another route clears any caught error. */}
+    <ErrorBoundary key={location.pathname}>
     <Routes location={location}>
       <Route path="/" element={import.meta.env.VITE_COASTER_ONLY ? <CoasterJourney /> : <Navigate to={homeTarget} replace />} />
       <Route path="/auth" element={<Auth />} />
@@ -85,6 +90,7 @@ function AppRoutes() {
       <Route path="/coaster-journey" element={<CoasterJourney />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </ErrorBoundary>
     </motion.div>
   );
 }
