@@ -4,6 +4,7 @@
 // generation + implementation intentions beat re-reading every time).
 
 import { LessonCategory } from "@/types"
+import { REFLECTION_PROMPTS_BY_LESSON } from "@/data/reflectionPrompts"
 
 const PROMPTS: Partial<Record<LessonCategory, string>> = {
   // ── Money psychology & behavior ──
@@ -95,6 +96,9 @@ const GENERIC_PROMPT =
 export const MIN_REFLECTION_WORDS = 20
 export const REFLECTION_BONUS = 15
 
-export function getReflectionPrompt(category: LessonCategory, lessonTitle: string): string {
-  return PROMPTS[category] ?? GENERIC_PROMPT
+// Each lesson gets its OWN unique written-reflection prompt so a student never
+// answers the same prompt twice. Falls back to the category prompt (then a
+// generic one) only if a lesson hasn't been given its own yet.
+export function getReflectionPrompt(lessonId: string, category: LessonCategory): string {
+  return REFLECTION_PROMPTS_BY_LESSON[lessonId] ?? PROMPTS[category] ?? GENERIC_PROMPT
 }
