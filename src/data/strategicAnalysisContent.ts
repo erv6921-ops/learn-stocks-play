@@ -148,10 +148,10 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           },
           {
             id: "sa2-mc2",
-            question: "What is the difference between a leading and lagging indicator?",
-            options: ["Leading indicators are more important than lagging ones", "Leading indicators predict future results; lagging indicators measure past results", "Lagging indicators are always financial; leading indicators are not", "There is no meaningful difference between them"],
+            question: "A good KPI follows the SMART framework. Which of these is written as a proper SMART KPI?",
+            options: ["Increase sales as much as we possibly can", "Increase monthly recurring revenue by 15% by the end of Q3", "Become the best company in the entire industry", "Make our customers happier over time"],
             correctAnswer: 1,
-            explanation: "Leading indicators help you anticipate what's coming (like sales pipeline), while lagging indicators tell you what already happened (like last quarter's revenue)."
+            explanation: "SMART KPIs are Specific, Measurable, Achievable, Relevant, and Time-bound. 'Increase MRR by 15% by end of Q3' has a clear target and deadline; the others are too vague to measure or track."
           }
         ]
       },

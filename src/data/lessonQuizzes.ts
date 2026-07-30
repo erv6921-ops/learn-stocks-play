@@ -10,6 +10,7 @@ import { investingStocksCoreQuizzes } from "./quizzes/investingStocksCore"
 import { marketsRatiosValuationQuizzes } from "./quizzes/marketsRatiosValuation"
 import { bubblesMacroIndicatorsQuizzes } from "./quizzes/bubblesMacroIndicators"
 import { optionsAltsPlanningSimsQuizzes } from "./quizzes/optionsAltsPlanningSims"
+import { difficultyQuizzes } from "./quizzes/difficultyPools"
 
 export interface LessonQuiz {
   lessonId: string
@@ -1813,15 +1814,15 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q2",
-        question: "What is a 'dividend'?",
+        question: "Why would a private company decide to 'go public' with an IPO?",
         options: [
-          "A portion of company profits paid to shareholders regularly",
-          "A fee you pay to own stocks in your brokerage account",
-          "The price you pay for a stock when you buy it",
-          "A type of stock trading strategy for short-term gains"
+          "To raise large amounts of money by selling shares to the public",
+          "To avoid ever having to report its financial results",
+          "To become owned and operated by the government",
+          "To guarantee its stock price will only go up"
         ],
         correctAnswer: 0,
-        explanation: "When companies profit, they can share some with owners (shareholders) as dividends. Example: $2/share quarterly means $200/year if you own 100 shares."
+        explanation: "An IPO (initial public offering) lets a company raise capital from many investors at once. The trade-off is more regulation and public disclosure - the opposite of staying private. Going public has nothing to do with government ownership or guaranteed gains."
       },
       {
         id: "s2-q3",
@@ -3383,10 +3384,26 @@ export const lessonQuizzes: LessonQuiz[] = [
   ...marketsRatiosValuationQuizzes,
   ...bubblesMacroIndicatorsQuizzes,
   ...optionsAltsPlanningSimsQuizzes,
+  ...difficultyQuizzes,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
   // Merge every pool registered for this lesson - lets top-up packs extend an
   // existing pool without editing the original file.
   return lessonQuizzes.filter(q => q.lessonId === lessonId).flatMap(q => q.questions)
+}
+
+/**
+ * Same as getQuizForLesson, but prefers a `${lessonId}-hard` / `${lessonId}-remedial`
+ * pool when one exists for "advanced" / "beginner" difficulty. Falls back to the
+ * normal pool for "intermediate" or when no difficulty-specific pool is registered
+ * for this lesson yet (most lessons - this is a pilot on a handful of topics).
+ */
+export function getQuizForLessonByTier(lessonId: string, difficulty: "beginner" | "intermediate" | "advanced"): QuizQuestion[] {
+  const suffix = difficulty === "beginner" ? "-remedial" : difficulty === "advanced" ? "-hard" : null
+  if (suffix) {
+    const tiered = getQuizForLesson(`${lessonId}${suffix}`)
+    if (tiered.length > 0) return tiered
+  }
+  return getQuizForLesson(lessonId)
 }

@@ -219,10 +219,10 @@ export const leadershipManagementContent: StructuredLessonContent[] = [
           },
           {
             id: "lm2-mq5",
-            question: "Which leadership style is most likely to build strong employee buy-in?",
-            options: ["Autocratic", "Democratic", "Laissez-faire", "Bureaucratic"],
-            correctAnswer: 1,
-            explanation: "Democratic leadership involves team members in decisions, which builds ownership and buy-in for the outcomes."
+            question: "In which situation is an autocratic (top-down) leadership style usually the BEST fit?",
+            options: ["A fast-moving emergency that needs quick, decisive action", "A brainstorming session for new product ideas", "A long-term culture-building initiative", "A team of senior experts who work best with autonomy"],
+            correctAnswer: 0,
+            explanation: "Autocratic leadership shines when speed and clear direction matter most, like a crisis or safety emergency. Creative, expert, or culture-focused work usually benefits from more democratic or hands-off styles."
           }
         ]
       }

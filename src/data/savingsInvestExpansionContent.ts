@@ -403,15 +403,15 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
           },
           {
             id: "invest11-mastery2",
-            question: "What does the Federal Reserve control?",
+            question: "When the Federal Reserve lowers interest rates, it is usually trying to…",
             options: [
-              "Interest rates and the money supply",
-              "Individual company profits",
-              "Brokerage account insurance",
-              "Corporate tax rates"
+              "Encourage borrowing and spending to support a slowing economy",
+              "Guarantee that stock prices will rise",
+              "Insure the cash held in brokerage accounts",
+              "Set the maximum profit companies are allowed to earn"
             ],
             correctAnswer: 0,
-            explanation: "The Fed manages interest rates and the money supply and acts as the banks' lender of last resort."
+            explanation: "Cheaper borrowing encourages spending and investment, so the Fed cuts rates to support a slow economy and raises them to cool inflation. It doesn't control stock prices, insure brokerages, or cap company profits."
           },
           {
             id: "invest11-mastery3",

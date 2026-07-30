@@ -570,15 +570,15 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-6-q5",
-        question: "What is 'value-based' pricing?",
+        question: "Why do so many stores price items at $9.99 instead of $10.00?",
         options: [
-          "Pricing based on what the product is worth to customers",
-          "Pricing based only on the exact production cost",
-          "Pricing set by a government agency each year",
-          "Pricing that changes randomly every single day"
+          "Charm pricing - $9.99 reads as 'nine-something' and feels cheaper to shoppers",
+          "A law requires retail prices to end in a 9",
+          "It lowers the sales tax owed on the item",
+          "It makes the item cheaper for the store to stock"
         ],
         correctAnswer: 0,
-        explanation: "Value-based pricing asks what the product is worth to the buyer - a tutoring app that raises grades can charge far more than its costs suggest."
+        explanation: "This is charm (psychological) pricing: shoppers anchor on the left-most digit, so $9.99 feels like 'nine-something' even though it's just a penny under $10. It has nothing to do with tax or stocking costs."
       },
       {
         id: "biz-6-q6",

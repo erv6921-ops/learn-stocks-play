@@ -479,15 +479,15 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
           },
           {
             id: "invfund4-mc2",
-            question: "Why are bonds generally considered less risky than stocks?",
+            question: "When you buy a bond, what are you actually doing?",
             options: [
-              "Bond prices never decrease regardless of market conditions",
-              "Bonds offer fixed, predictable payments and return of principal at maturity",
-              "The government guarantees all bond investments against any possible loss",
-              "Bonds are traded on private exchanges with less volatile pricing algorithms"
+              "Buying a small ownership stake in the company",
+              "Lending money to a company or government in return for interest",
+              "Paying a fee to join a stock exchange",
+              "Insuring your other investments against loss"
             ],
             correctAnswer: 1,
-            explanation: "Bonds provide a known schedule of interest payments and return of principal. This predictability makes them less risky than stocks, whose prices fluctuate daily based on market sentiment and company performance. However, bonds still carry some risks, including default risk and inflation risk."
+            explanation: "A bond is a loan: you lend money to the issuer, which pays you regular interest and returns your principal at maturity. That is different from a stock, which makes you a part-owner. Being a lender rather than an owner is a big reason bonds are generally steadier than stocks."
           }
         ]
       },
@@ -1051,15 +1051,15 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund8-mc1",
-            question: "What defines a 'bear market'?",
+            question: "During a bear market, what tends to be the smartest move for a long-term investor?",
             options: [
-              "Any single day where the stock market drops more than 3% from the open",
-              "A decline of 20% or more in stock prices from their most recent peak",
-              "A period where more companies report losses than profits in one quarter",
-              "A month where trading volume falls below the annual rolling average"
+              "Sell everything immediately to avoid any further losses",
+              "Stay invested and keep contributing, since markets have historically recovered",
+              "Borrow money to buy as much as possible right away",
+              "Move all savings into a single stock that dropped the most"
             ],
             correctAnswer: 1,
-            explanation: "A bear market is technically defined as a 20% or greater decline from a recent peak. A 10-19% drop is called a 'correction.' Single-day drops are just normal volatility. Bear markets typically last months, not days, and are accompanied by widespread pessimism and economic concern."
+            explanation: "Bear markets are painful but historically temporary - markets have recovered from every past downturn. Panic-selling locks in losses, while staying invested (and buying at lower prices) has rewarded patient investors. Trying to time the exact bottom almost never works."
           },
           {
             id: "invfund8-mc2",

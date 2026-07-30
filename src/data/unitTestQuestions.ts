@@ -389,15 +389,15 @@ export const unitTests: UnitTest[] = [
       },
       {
         id: "ut-ins-6",
-        question: "What is the recommended FIRST step if your identity is stolen?",
+        question: "You spot a credit card on your report that you never opened. What is the BEST first move?",
         options: [
-          "Wait and see if it resolves on its own",
-          "Report it at IdentityTheft.gov to get an official recovery plan",
-          "Pay the fraudulent charges to make them disappear",
-          "Post your SSN online to warn others"
+          "Wait a few months to see if the lender removes it",
+          "Report the identity theft at IdentityTheft.gov to get an official recovery plan",
+          "Quietly pay off the fraudulent card so it stops growing",
+          "Post your Social Security number online to warn others"
         ],
         correctAnswer: 1,
-        explanation: "IdentityTheft.gov (the FTC) is the official starting point and creates a personalized recovery plan; you then place a fraud alert and freeze your credit."
+        explanation: "IdentityTheft.gov (the FTC) gives you an official recovery plan and the affidavit lenders need to remove the fraud - then you place a fraud alert and freeze your credit. Paying fraudulent charges or posting personal info only makes it worse."
       },
       {
         id: "ut-ins-7",
@@ -425,15 +425,15 @@ export const unitTests: UnitTest[] = [
       },
       {
         id: "ut-ins-9",
-        question: "What is a key difference between term and whole life insurance?",
+        question: "A healthy 25-year-old wants the most coverage per dollar to protect their family for the next 20 years. Which policy fits best?",
         options: [
-          "Term lasts forever; whole life expires quickly",
-          "Term covers a set period and is cheaper; whole life is permanent, costs more, and builds cash value",
-          "They are identical",
-          "Whole life has no premium"
+          "Whole life, because it is always cheaper than term",
+          "Term life, because it covers a set period at a much lower premium",
+          "Neither, because young adults cannot buy life insurance",
+          "It makes no difference, since both cost exactly the same"
         ],
         correctAnswer: 1,
-        explanation: "Term life covers a fixed number of years at low cost; whole life is permanent, more expensive, and accumulates cash value."
+        explanation: "Term life gives the most coverage per dollar for a fixed period, which fits temporary needs like replacing income while kids grow up. Whole life is permanent and builds cash value, but costs far more per dollar of coverage."
       },
       {
         id: "ut-ins-10",
