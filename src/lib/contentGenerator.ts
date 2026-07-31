@@ -12,6 +12,7 @@
 import { Lesson, StructuredLessonContent, QuizQuestion, LessonCategory, MasteryTier } from "@/types"
 import { getQuizForLesson, getQuizForLessonByTier } from "@/data/lessonQuizzes"
 import { prepareQuestionsForRender, questionPassesQualityChecks } from "@/lib/mcqEngine"
+import { LESSON_SCENARIOS } from "@/data/lessonScenarios"
 
 // ═══════════════════════════════════════════════
 // CATEGORY TEMPLATES - Concept paragraphs, scenarios, and fallback questions
@@ -297,7 +298,9 @@ export function generateStructuredContent(
   }
 
   // ─── Scenario ───
-  const scenario = template.scenario(lesson.title, lesson.description)
+  // Prefer a lesson-specific scenario so no two lessons share one; fall back to
+  // the category template only for lessons that don't have their own yet.
+  const scenario = LESSON_SCENARIOS[lesson.id] ?? template.scenario(lesson.title, lesson.description)
 
   // ─── Applied Question - pick 1 from quiz pool ───
   let appliedQuestion: QuizQuestion
