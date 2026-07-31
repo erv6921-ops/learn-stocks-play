@@ -153,7 +153,7 @@ function CompletedCard({
     <div className="max-w-2xl mx-auto">
       <div
         className="rounded-2xl p-8 text-center relative overflow-hidden mb-5"
-        style={{ backgroundColor: "#0f2d1e" }}
+        style={{ backgroundColor: "hsl(var(--primary))" }}
       >
         <div
           className="absolute inset-0 opacity-[0.04]"

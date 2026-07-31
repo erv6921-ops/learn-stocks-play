@@ -48,7 +48,7 @@ export default function APModeToggle({ apMode, onToggle }: APModeToggleProps) {
           {showTip && (
             <span
               className="absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 rounded-lg px-3 py-2 text-left text-[12px] leading-snug text-white shadow-lg font-normal"
-              style={{ backgroundColor: "#0f2d1e", maxWidth: 220, width: "max-content" }}
+              style={{ backgroundColor: "hsl(var(--primary))", maxWidth: 220, width: "max-content" }}
             >
               Advanced curriculum aligned with AP Economics and AP Personal Finance standards. Recommended for students in AP courses.
             </span>

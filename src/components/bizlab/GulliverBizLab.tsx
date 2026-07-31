@@ -81,7 +81,7 @@ export default function GulliverBizLab() {
       {/* Program hero */}
       <div
         className="relative overflow-hidden rounded-[20px] p-5 md:p-6 text-white"
-        style={{ background: "linear-gradient(135deg, #0f2d1e 0%, #143d29 55%, #1d6b4d 135%)" }}
+        style={{ background: "linear-gradient(135deg, hsl(var(--primary)) 0%, #143d29 55%, #1d6b4d 135%)" }}
       >
         <div
           className="absolute inset-0 opacity-[0.05] pointer-events-none"
@@ -102,7 +102,7 @@ export default function GulliverBizLab() {
           <div className="mt-4 grid grid-cols-3 rounded-2xl bg-white/[0.06] border border-white/10 divide-x divide-white/10">
             {[
               { Icon: Flame, tint: "text-orange-400", value: `${streak}d`, label: "Streak" },
-              { Icon: CheckCircle2, tint: "text-emerald-300", value: `${completedParts.length}/6`, label: "Parts done" },
+              { Icon: CheckCircle2, tint: "text-primary", value: `${completedParts.length}/6`, label: "Parts done" },
               { Icon: Coins, tint: "text-gold", value: TOTAL_BIZ_LAB_XP.toLocaleString(), label: "Coins to earn" },
             ].map(({ Icon, tint, value, label }) => (
               <div key={label} className="px-3 py-3 sm:px-4 flex items-center gap-2.5 min-w-0">

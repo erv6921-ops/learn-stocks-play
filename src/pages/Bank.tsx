@@ -53,8 +53,8 @@ function DeskLabel({ icon: Icon, children }: { icon: LucideIcon; children: React
 
 function LearnCard({ icon: Icon, title, children }: { icon: LucideIcon; title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-dashed p-4 text-sm text-muted-foreground flex gap-3" style={{ borderColor: `${ACCENT}55` }}>
-      <div className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 border" style={{ borderColor: `${ACCENT}55`, background: `${ACCENT}14` }}>
+    <div className="rounded-xl border border-dashed p-4 text-sm text-muted-foreground flex gap-3" style={{ borderColor: `rgba(var(--brand-rgb),0.333)` }}>
+      <div className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 border" style={{ borderColor: `rgba(var(--brand-rgb),0.333)`, background: `rgba(var(--brand-rgb),0.078)` }}>
         <Icon className="h-4 w-4" style={{ color: ACCENT }} />
       </div>
       <p className="leading-relaxed">
@@ -119,11 +119,11 @@ function VaultDesk() {
             </p>
             <p className="text-xs text-white/40 mt-1">coins, locked behind 3 feet of steel</p>
             <div className="flex items-center gap-2 mt-3 flex-wrap">
-              <Badge className="bg-white/5 hover:bg-white/5 border gap-1" style={{ borderColor: `${ACCENT}44`, color: ACCENT_SOFT }}>
+              <Badge className="bg-white/5 hover:bg-white/5 border gap-1" style={{ borderColor: `rgba(var(--brand-rgb),0.267)`, color: ACCENT_SOFT }}>
                 <Sparkles className="h-3 w-3" /> {SAVINGS_DAILY_RATE * 100}% / day, compounding
               </Badge>
               {savings > 0 && (
-                <span className="text-xs font-bold text-emerald-300">≈ +{money(dailyInterest)} tomorrow</span>
+                <span className="text-xs font-bold text-primary">≈ +{money(dailyInterest)} tomorrow</span>
               )}
             </div>
           </div>
@@ -131,10 +131,10 @@ function VaultDesk() {
             <Engraving className="mb-3">If you leave it alone…</Engraving>
             <div className="grid grid-cols-3 gap-2">
               {projection.map(({ days, value }) => (
-                <div key={days} className="rounded-lg border px-2.5 py-2.5 text-center" style={{ borderColor: `${ACCENT}30`, background: "rgba(255,255,255,0.04)" }}>
+                <div key={days} className="rounded-lg border px-2.5 py-2.5 text-center" style={{ borderColor: `rgba(var(--brand-rgb),0.188)`, background: "rgba(255,255,255,0.04)" }}>
                   <p className="text-[10px] uppercase font-bold tracking-wide text-white/40">{days} days</p>
                   <p className="text-sm sm:text-base font-extrabold tabular-nums text-white mt-0.5">{savings > 0 ? money(value) : "-"}</p>
-                  <p className="text-[11px] font-bold text-emerald-300">{savings > 0 ? `+${money(value - savings)}` : " "}</p>
+                  <p className="text-[11px] font-bold text-primary">{savings > 0 ? `+${money(value - savings)}` : " "}</p>
                 </div>
               ))}
             </div>
@@ -297,7 +297,7 @@ function LoansDesk() {
               { label: "Miss a due date", value: "-50", color: "#fca5a5" },
               { label: "Loans repaid so far", value: String(loansRepaid), color: ACCENT_SOFT },
             ].map(r => (
-              <div key={r.label} className="flex items-center justify-between rounded-lg border px-3 py-2" style={{ borderColor: `${ACCENT}30`, background: "rgba(255,255,255,0.04)" }}>
+              <div key={r.label} className="flex items-center justify-between rounded-lg border px-3 py-2" style={{ borderColor: `rgba(var(--brand-rgb),0.188)`, background: "rgba(255,255,255,0.04)" }}>
                 <span className="text-xs font-semibold text-white/60">{r.label}</span>
                 <span className="font-mono text-sm font-extrabold tabular-nums" style={{ color: r.color }}>{r.value}</span>
               </div>
@@ -361,7 +361,7 @@ function LoansDesk() {
           return (
             <Card key={product.id} variant="elevated" className={cn(!qualifies && "opacity-55")}>
               <CardContent className="p-4 flex items-center gap-3.5">
-                <div className="h-11 w-11 rounded-full flex items-center justify-center shrink-0 border" style={{ borderColor: `${ACCENT}44`, background: `${ACCENT}14` }}>
+                <div className="h-11 w-11 rounded-full flex items-center justify-center shrink-0 border" style={{ borderColor: `rgba(var(--brand-rgb),0.267)`, background: `rgba(var(--brand-rgb),0.078)` }}>
                   <Icon className="h-5 w-5" style={{ color: ACCENT }} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -453,9 +453,9 @@ function BondsDesk() {
                 <div
                   key={bond.id}
                   className="rounded-xl border-2 bg-card p-1.5"
-                  style={{ borderColor: mature ? "#34d39988" : `${ACCENT}55` }}
+                  style={{ borderColor: mature ? "#34d39988" : `rgba(var(--brand-rgb),0.333)` }}
                 >
-                  <div className="rounded-lg border border-dashed p-3.5 space-y-2.5" style={{ borderColor: `${ACCENT}44` }}>
+                  <div className="rounded-lg border border-dashed p-3.5 space-y-2.5" style={{ borderColor: `rgba(var(--brand-rgb),0.267)` }}>
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-[9px] font-extrabold uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
                         InvestiBank Bond · Nº {serial}
@@ -466,7 +466,7 @@ function BondsDesk() {
                       <div className="flex-1 min-w-0">
                         <p className="font-display font-extrabold text-sm">{product?.name ?? bond.productId}</p>
                         <p className="text-xs text-muted-foreground">
-                          {money(bond.invested)} → <span className="font-bold text-emerald-600 dark:text-emerald-400">{money(bond.payout)}</span> coins
+                          {money(bond.invested)} → <span className="font-bold text-primary dark:text-primary">{money(bond.payout)}</span> coins
                         </p>
                       </div>
                       <Button size="sm" disabled={!mature} onClick={() => collect(bond.id)} className="shrink-0 press-scale gap-1">
@@ -485,8 +485,8 @@ function BondsDesk() {
             })}
           </div>
         ) : (
-          <div className="rounded-xl border-2 border-dashed p-6 text-center" style={{ borderColor: `${ACCENT}44` }}>
-            <ScrollText className="h-8 w-8 mx-auto mb-2" style={{ color: `${ACCENT}88` }} />
+          <div className="rounded-xl border-2 border-dashed p-6 text-center" style={{ borderColor: `rgba(var(--brand-rgb),0.267)` }}>
+            <ScrollText className="h-8 w-8 mx-auto mb-2" style={{ color: `rgba(var(--brand-rgb),0.533)` }} />
             <p className="font-display font-extrabold text-sm">No certificates yet</p>
             <p className="text-xs text-muted-foreground mt-1">
               Buy a bond from the market and your certificates will live here, each with a countdown to payday.
@@ -509,7 +509,7 @@ function BondsDesk() {
             <Card key={product.id} variant="elevated" className="overflow-hidden">
               <CardContent className="p-4 space-y-3">
                 <div className="flex items-start gap-3.5">
-                  <div className="h-11 w-11 rounded-full flex items-center justify-center shrink-0 border" style={{ borderColor: `${ACCENT}44`, background: `${ACCENT}14` }}>
+                  <div className="h-11 w-11 rounded-full flex items-center justify-center shrink-0 border" style={{ borderColor: `rgba(var(--brand-rgb),0.267)`, background: `rgba(var(--brand-rgb),0.078)` }}>
                     <Icon className="h-5 w-5" style={{ color: ACCENT }} />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -565,11 +565,11 @@ const FLOORS: { id: Floor; num: string; name: string; desc: string; blurb: strin
 
 function BankBuilding({ className }: { className?: string }) {
   const stroke = ACCENT_SOFT
-  const fill = `${ACCENT}26`
+  const fill = `rgba(var(--brand-rgb),0.149)`
   return (
     <svg viewBox="0 0 340 210" className={className} aria-hidden>
       {/* ground */}
-      <line x1="12" y1="196" x2="328" y2="196" stroke={`${ACCENT}55`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="12" y1="196" x2="328" y2="196" stroke={`rgba(var(--brand-rgb),0.333)`} strokeWidth="2.5" strokeLinecap="round" />
       {/* steps */}
       <rect x="52" y="186" width="236" height="10" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
       <rect x="64" y="176" width="212" height="10" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
@@ -582,24 +582,24 @@ function BankBuilding({ className }: { className?: string }) {
         </g>
       ))}
       {/* door between middle columns */}
-      <path d="M 158 176 v-32 a 13 13 0 0 1 26 0 v 32 z" fill={`${ACCENT}40`} stroke={stroke} strokeWidth="2.5" />
+      <path d="M 158 176 v-32 a 13 13 0 0 1 26 0 v 32 z" fill={`rgba(var(--brand-rgb),0.251)`} stroke={stroke} strokeWidth="2.5" />
       {/* entablature */}
       <rect x="66" y="78" width="208" height="14" rx="3" fill={fill} stroke={stroke} strokeWidth="2.5" />
       {/* pediment */}
       <path d="M 170 26 L 62 78 L 278 78 Z" fill={fill} stroke={stroke} strokeWidth="2.5" strokeLinejoin="round" />
       {/* coin emblem in the pediment */}
-      <circle cx="170" cy="60" r="11" fill={`${ACCENT}40`} stroke={stroke} strokeWidth="2.5" />
+      <circle cx="170" cy="60" r="11" fill={`rgba(var(--brand-rgb),0.251)`} stroke={stroke} strokeWidth="2.5" />
       <text x="170" y="65" textAnchor="middle" fontSize="13" fontWeight="800" fill={stroke}>¢</text>
       {/* flag */}
       <line x1="170" y1="26" x2="170" y2="10" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M 170 10 h 20 l -5 5 5 5 h -20 z" fill={`${ACCENT}66`} stroke={stroke} strokeWidth="2" strokeLinejoin="round" />
+      <path d="M 170 10 h 20 l -5 5 5 5 h -20 z" fill={`rgba(var(--brand-rgb),0.4)`} stroke={stroke} strokeWidth="2" strokeLinejoin="round" />
       {/* bushes */}
       <circle cx="40" cy="188" r="9" fill={fill} stroke={stroke} strokeWidth="2.5" />
       <circle cx="302" cy="188" r="9" fill={fill} stroke={stroke} strokeWidth="2.5" />
       {/* floating coins */}
-      <circle cx="46" cy="70" r="8" fill={`${ACCENT}33`} stroke={stroke} strokeWidth="2" />
+      <circle cx="46" cy="70" r="8" fill={`rgba(var(--brand-rgb),0.2)`} stroke={stroke} strokeWidth="2" />
       <text x="46" y="74.5" textAnchor="middle" fontSize="10" fontWeight="800" fill={stroke}>¢</text>
-      <circle cx="298" cy="52" r="6.5" fill={`${ACCENT}33`} stroke={stroke} strokeWidth="2" />
+      <circle cx="298" cy="52" r="6.5" fill={`rgba(var(--brand-rgb),0.2)`} stroke={stroke} strokeWidth="2" />
       <text x="298" y="56" textAnchor="middle" fontSize="8" fontWeight="800" fill={stroke}>¢</text>
     </svg>
   )
@@ -706,11 +706,11 @@ export default function Bank() {
                       {/* Jeff's greeting */}
                       <div
                         className="relative rounded-2xl border px-4 py-3 text-sm text-white/90 leading-relaxed mb-6"
-                        style={{ borderColor: `${ACCENT}44`, background: "rgba(255,255,255,0.07)" }}
+                        style={{ borderColor: `rgba(var(--brand-rgb),0.267)`, background: "rgba(255,255,255,0.07)" }}
                       >
                         <span
                           className="absolute -left-1.5 bottom-4 w-3 h-3 rotate-45 border-l border-b"
-                          style={{ borderColor: `${ACCENT}44`, background: "hsl(169 55% 14%)" }}
+                          style={{ borderColor: `rgba(var(--brand-rgb),0.267)`, background: "hsl(var(--primary))" }}
                         />
                         {firstName ? `Hey ${firstName}! ` : "Hey! "}I'm Jeff, your personal banker. Grow it, borrow it,
                         lend it - or earn it with a real finance job. Which floor are we visiting today?
@@ -742,7 +742,7 @@ export default function Bank() {
                         <div className="flex items-center gap-4">
                           <div
                             className="h-14 w-14 rounded-2xl flex items-center justify-center shrink-0 border-2 transition-transform group-hover:scale-105"
-                            style={{ borderColor: `${ACCENT}55`, background: `${ACCENT}14` }}
+                            style={{ borderColor: `rgba(var(--brand-rgb),0.333)`, background: `rgba(var(--brand-rgb),0.078)` }}
                           >
                             <Icon className="h-7 w-7" style={{ color: ACCENT }} />
                           </div>

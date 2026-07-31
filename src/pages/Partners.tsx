@@ -26,8 +26,8 @@ import {
   BadgeCheck, Handshake, Sparkles, Clock, X, Mail,
 } from "lucide-react"
 
-const ACCENT = "hsl(152 62% 46%)"
-const ACCENT_SOFT = "hsl(152 62% 46% / 0.10)"
+const ACCENT = "hsl(var(--accent))"
+const ACCENT_SOFT = "hsl(var(--accent) / 0.10)"
 
 type PartnerStatus = "none" | "pending_out" | "pending_in" | "accepted"
 
@@ -211,6 +211,13 @@ export default function Partners() {
   const [livePrices, setLivePrices] = useState<Map<string, number>>(new Map())
 
   const loadPartners = useCallback(async () => {
+    // The roster RPCs are SECURITY DEFINER and key off auth.uid(), so they only
+    // return rows once the Supabase session is restored. On a fresh page load
+    // this effect can fire before that recovery finishes; getSession() awaits it,
+    // so we never send the initial request as an anonymous user (which would
+    // return an empty roster and leave it empty — see the "no partners" bug).
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session) { setLoadingPartners(false); return }
     const [{ data: p, error: pErr }, { data: r, error: rErr }] = await Promise.all([
       (supabase as any).rpc("get_partners"),
       (supabase as any).rpc("get_partner_requests"),
@@ -220,7 +227,9 @@ export default function Partners() {
     setLoadingPartners(false)
   }, [])
 
-  useEffect(() => { loadPartners() }, [loadPartners])
+  // Re-run once the signed-in user is known so the roster fills in even if the
+  // very first render happened before auth hydrated.
+  useEffect(() => { loadPartners() }, [loadPartners, user?.id])
 
   // Debounced live search-as-you-type.
   useEffect(() => {
@@ -325,14 +334,14 @@ export default function Partners() {
         {/* Header - directory identity */}
         <div
           className="rounded-2xl p-6 md:p-8 mb-6 border relative overflow-hidden"
-          style={{ background: `linear-gradient(135deg, hsl(158 45% 15%), hsl(152 50% 24%))`, borderColor: "hsl(152 40% 30%)" }}
+          style={{ background: "var(--brand-deep)", borderColor: "rgba(var(--brand-rgb), 0.4)" }}
         >
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-1">
-              <Handshake className="w-7 h-7" style={{ color: "hsl(152 70% 70%)" }} />
+              <Handshake className="w-7 h-7" style={{ color: "var(--brand-bright)" }} />
               <h1 className="text-2xl md:text-3xl font-extrabold text-white">Partners</h1>
             </div>
-            <p className="text-sm md:text-base" style={{ color: "hsl(152 40% 80%)" }}>
+            <p className="text-sm md:text-base" style={{ color: "rgba(255,255,255,0.82)" }}>
               Search any student by name, see their school and grade, and send them a partner invite.
               Once they accept, you're connected - tap a partner to peek at their stocks, business and rank.
             </p>

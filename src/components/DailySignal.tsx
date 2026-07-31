@@ -73,7 +73,7 @@ export default function DailySignal() {
   return (
     <div className="relative rounded-2xl overflow-hidden border border-white/[0.06]"
       style={{
-        background: "linear-gradient(135deg, hsl(170 72% 14%) 0%, hsl(170 55% 18%) 50%, hsl(168 50% 22%) 100%)",
+        background: "var(--brand-deep)",
       }}
     >
       {/* Subtle texture overlay */}

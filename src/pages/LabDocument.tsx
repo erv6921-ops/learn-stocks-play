@@ -260,7 +260,7 @@ export default function LabDocument() {
               <div
                 className="p-5 md:p-6"
                 style={{
-                  background: "linear-gradient(135deg, hsl(170 72% 14%) 0%, hsl(170 55% 18%) 50%, hsl(168 50% 22%) 100%)",
+                  background: "var(--brand-deep)",
                 }}
               >
                 <div className="flex items-center gap-3 mb-3">

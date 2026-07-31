@@ -83,7 +83,7 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
       <div className="max-w-2xl mx-auto">
         <div
           className="rounded-2xl p-8 text-center relative overflow-hidden"
-          style={{ backgroundColor: "#0f2d1e" }}
+          style={{ backgroundColor: "hsl(var(--primary))" }}
         >
           <div className="relative z-10">
             <div className="w-16 h-16 rounded-2xl bg-gold/15 border border-gold/20 flex items-center justify-center mx-auto mb-4">
@@ -116,7 +116,7 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
       {/* Header card */}
       <div
         className="rounded-2xl p-6 mb-5 relative overflow-hidden"
-        style={{ backgroundColor: "#0f2d1e" }}
+        style={{ backgroundColor: "hsl(var(--primary))" }}
       >
         <div className="relative z-10 flex items-start justify-between gap-4">
           <div>
@@ -161,7 +161,7 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
             <div
               key={side}
               className={`rounded-2xl p-5 border-2 text-center transition-all ${cardClasses(side)}`}
-              style={{ backgroundColor: revealed ? undefined : "#0f2d1e" }}
+              style={{ backgroundColor: revealed ? undefined : "hsl(var(--primary))" }}
             >
               <p className={`text-sm font-semibold mb-3 ${revealed ? "" : "text-white/70"}`}>
                 {label}

@@ -563,7 +563,7 @@ export default function Lessons() {
             <button
               onClick={() => setCoasterFull(true)}
               className="shrink-0 inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
-              style={{ background: "linear-gradient(135deg,#2FD39B,#0F7E5C)", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
+              style={{ background: "linear-gradient(135deg,var(--brand-bright),var(--brand-strong))", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
             >
               <Maximize2 className="w-4 h-4" /> Fullscreen
             </button>
@@ -580,7 +580,7 @@ export default function Lessons() {
 
         {/* AP Micro elective banner */}
         {activeTrack === "ap-micro" && (
-          <div className="rounded-2xl p-4 mb-5 text-white" style={{ background: "linear-gradient(135deg,#0f2d1e,#1D9E75)" }}>
+          <div className="rounded-2xl p-4 mb-5 text-white" style={{ background: "linear-gradient(135deg,hsl(var(--primary)),var(--brand))" }}>
             <p className="text-sm font-bold flex items-center gap-2">
               <GraduationCap className="w-4 h-4 text-gold" /> AP Microeconomics - College Board aligned
             </p>
@@ -620,11 +620,11 @@ export default function Lessons() {
                     {completedCount} of {totalLessons} done
                   </p>
                   <div className="flex items-center justify-end gap-2 mt-1">
-                    <span className="text-sm font-bold" style={{ color: "#1D9E75" }}>
+                    <span className="text-sm font-bold" style={{ color: "var(--brand)" }}>
                       {earnedPts.toLocaleString()} pts
                     </span>
                     <span className="text-[11px] font-bold px-2 py-0.5 rounded-full"
-                      style={{ background: "rgba(29,158,117,0.1)", color: "#1D9E75" }}>
+                      style={{ background: "rgba(var(--brand-rgb),0.1)", color: "var(--brand)" }}>
                       ▲ {pctComplete}%
                     </span>
                   </div>
@@ -646,7 +646,7 @@ export default function Lessons() {
                 />
                 {/* Overall track progress (replaces the old pie) */}
                 <div className="mt-2 flex items-center justify-center gap-2 flex-wrap text-center">
-                  <span className="text-sm font-extrabold" style={{ color: "#1D9E75" }}>{trackPct}% of all units complete</span>
+                  <span className="text-sm font-extrabold" style={{ color: "var(--brand)" }}>{trackPct}% of all units complete</span>
                   <span className="text-muted-foreground text-xs">·</span>
                   <span className="text-sm font-bold text-foreground">
                     {lessonsLeft} {lessonsLeft === 1 ? "lesson" : "lessons"} to the finish line
@@ -679,10 +679,10 @@ export default function Lessons() {
 
                     // Same palette as the rest of the page: charcoal active,
                     // light-green complete, warm-grey default; gold/green accents.
-                    const labelColor = isActive ? "rgba(255,255,255,0.55)" : isComplete ? "#1D9E75" : "hsl(215 12% 52%)";
+                    const labelColor = isActive ? "rgba(255,255,255,0.55)" : isComplete ? "var(--brand)" : "hsl(215 12% 52%)";
                     const titleColor = isActive ? "#fff" : isComplete ? "#0f6b4f" : "hsl(215 12% 28%)";
-                    const fill = isActive ? "#EF9F27" : "#1D9E75";
-                    const track = isActive ? "rgba(255,255,255,0.16)" : isComplete ? "rgba(29,158,117,0.18)" : "hsl(45 10% 84%)";
+                    const fill = isActive ? "#EF9F27" : "var(--brand)";
+                    const track = isActive ? "rgba(255,255,255,0.16)" : isComplete ? "rgba(var(--brand-rgb),0.18)" : "hsl(45 10% 84%)";
 
                     return (
                       <button
@@ -695,7 +695,7 @@ export default function Lessons() {
                           background: isActive ? "#2C2C2A" : isComplete ? "#E1F5EE" : "hsl(45 10% 93%)",
                           opacity: isLocked ? 0.55 : 1,
                           boxShadow: isActive ? "0 8px 20px rgba(44,44,42,0.22)" : "none",
-                          border: isActive ? "1px solid #2C2C2A" : isComplete ? "1px solid rgba(29,158,117,0.22)" : "1px solid hsl(45 10% 86%)",
+                          border: isActive ? "1px solid #2C2C2A" : isComplete ? "1px solid rgba(var(--brand-rgb),0.22)" : "1px solid hsl(45 10% 86%)",
                         }}
                       >
                         <div className="flex items-center justify-between">
@@ -704,7 +704,7 @@ export default function Lessons() {
                           </span>
                           <span className="shrink-0 flex items-center">
                             {isLocked ? <Lock className="w-3 h-3" style={{ color: labelColor }} />
-                              : isComplete ? <CheckCircle className="w-4 h-4" style={{ color: "#1D9E75" }} />
+                              : isComplete ? <CheckCircle className="w-4 h-4" style={{ color: "var(--brand)" }} />
                               : <span className="text-[10px] font-extrabold tabular-nums" style={{ color: labelColor }}>{pct}%</span>}
                           </span>
                         </div>
@@ -753,7 +753,7 @@ export default function Lessons() {
             {/* 4. Next lesson CTA / Completion banner */}
             {unitIsComplete ? (
               <div className="rounded-[20px] px-6 py-5 flex items-center justify-between"
-                style={{ background: "#1D9E75" }}>
+                style={{ background: "var(--brand)" }}>
                 <div>
                   <p className="text-white font-extrabold text-base">
                     Unit complete - {earnedPts.toLocaleString()} earned
@@ -788,12 +788,12 @@ export default function Lessons() {
                   <p className="text-[13px] mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>
                     {lessonDescFor(activeUnit?.unitNumber, nextLessonInUnit.lesson.lessonNumber)}
                   </p>
-                  <p className="text-sm font-bold mt-1.5" style={{ color: "#1D9E75" }}>
+                  <p className="text-sm font-bold mt-1.5" style={{ color: "var(--brand)" }}>
                     +{Math.round(nextLessonInUnit.lesson.reward * multiplier).toLocaleString()} pts on completion
                   </p>
                 </div>
                 <Link to={`/lessons/${nextLessonInUnit.lesson.id}`} className="shrink-0">
-                  <Button size="sm" className="bg-[#1D9E75] hover:bg-[#1a8f6a] text-white font-bold gap-1.5 press-scale">
+                  <Button size="sm" className="bg-[var(--brand)] hover:bg-[var(--brand-strong)] text-white font-bold gap-1.5 press-scale">
                     Start <ArrowRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
@@ -819,7 +819,7 @@ export default function Lessons() {
 
                   // Same palette as the unit tabs: charcoal current, light-green
                   // complete, warm-grey default; gold/green accents.
-                  const labelColor = isCurrent ? "rgba(255,255,255,0.55)" : completed ? "#1D9E75" : "hsl(215 12% 52%)";
+                  const labelColor = isCurrent ? "rgba(255,255,255,0.55)" : completed ? "var(--brand)" : "hsl(215 12% 52%)";
                   const titleColor = isCurrent ? "#fff" : completed ? "#0f6b4f" : "hsl(215 12% 28%)";
 
                   const card = (
@@ -829,7 +829,7 @@ export default function Lessons() {
                         background: isCurrent ? "#2C2C2A" : completed ? "#E1F5EE" : "hsl(45 10% 93%)",
                         opacity: locked ? 0.55 : 1,
                         boxShadow: isCurrent ? "0 8px 20px rgba(44,44,42,0.22)" : "none",
-                        border: isCurrent ? "1px solid #2C2C2A" : completed ? "1px solid rgba(29,158,117,0.22)" : "1px solid hsl(45 10% 86%)",
+                        border: isCurrent ? "1px solid #2C2C2A" : completed ? "1px solid rgba(var(--brand-rgb),0.22)" : "1px solid hsl(45 10% 86%)",
                       }}
                     >
                       <div className="flex items-center justify-between">
@@ -838,7 +838,7 @@ export default function Lessons() {
                         </span>
                         <span className="shrink-0 flex items-center">
                           {locked ? <Lock className="w-3 h-3" style={{ color: labelColor }} />
-                            : completed ? <CheckCircle className="w-4 h-4" style={{ color: "#1D9E75" }} />
+                            : completed ? <CheckCircle className="w-4 h-4" style={{ color: "var(--brand)" }} />
                             : isCurrent ? <span className="text-[9px] font-extrabold uppercase tracking-wider" style={{ color: "#EF9F27" }}>Up next</span>
                             : null}
                         </span>
@@ -847,13 +847,13 @@ export default function Lessons() {
                         {lesson.title}
                       </span>
                       <div className="mt-2.5 flex items-center justify-between gap-2">
-                        <span className="text-[11px] font-bold font-mono" style={{ color: completed ? "#1D9E75" : isCurrent ? "#EF9F27" : labelColor }}>
+                        <span className="text-[11px] font-bold font-mono" style={{ color: completed ? "var(--brand)" : isCurrent ? "#EF9F27" : labelColor }}>
                           +{Math.round(lesson.reward * multiplier)} pts
                         </span>
                         {!completed && !locked && (
                           <span title="Chat with Jeff" className="shrink-0 inline-flex"><JeffChatAvatar size={16} /></span>
                         )}
-                        {isValidated && <span className="text-[9px] font-bold" style={{ color: "#1D9E75" }}>Validated</span>}
+                        {isValidated && <span className="text-[9px] font-bold" style={{ color: "var(--brand)" }}>Validated</span>}
                       </div>
                     </div>
                   );
@@ -874,8 +874,8 @@ export default function Lessons() {
 
             {/* AP Micro: unit challenge tie-in (simulator / lab / business mode) */}
             {activeTrack === "ap-micro" && AP_UNIT_CHALLENGES[activeUnitId] && (
-              <div className="rounded-[20px] px-5 py-4 border" style={{ borderColor: "hsl(45 10% 82%)", background: "rgba(29,158,117,0.06)" }}>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-[#1D9E75] flex items-center gap-1.5 mb-1">
+              <div className="rounded-[20px] px-5 py-4 border" style={{ borderColor: "hsl(45 10% 82%)", background: "rgba(var(--brand-rgb),0.06)" }}>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand)] flex items-center gap-1.5 mb-1">
                   <Target className="w-3.5 h-3.5" /> Apply it - challenge
                 </p>
                 <p className="text-sm text-foreground/80">{AP_UNIT_CHALLENGES[activeUnitId]}</p>
@@ -895,8 +895,8 @@ export default function Lessons() {
               const passed = !!unitTestPassed(testCategory);
               return (
                 <div className={`rounded-[20px] bg-card p-4 flex items-center gap-3 ${!allDone && !passed ? "opacity-60" : ""}`}
-                  style={{ border: passed ? "1.5px solid #1D9E75" : "0.5px solid hsl(45 10% 82%)" }}>
-                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${passed ? "bg-[#1D9E75]/10 text-[#1D9E75]" : "bg-[#EF9F27]/10 text-[#EF9F27]"}`}>
+                  style={{ border: passed ? "1.5px solid var(--brand)" : "0.5px solid hsl(45 10% 82%)" }}>
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${passed ? "bg-[rgba(var(--brand-rgb),0.1)] text-[var(--brand)]" : "bg-[#EF9F27]/10 text-[#EF9F27]"}`}>
                     {passed ? <CheckCircle className="w-4.5 h-4.5" /> : <Trophy className="w-4.5 h-4.5" />}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -940,7 +940,7 @@ export default function Lessons() {
                   {badges.map(b => (
                     <div key={b.id} className="flex flex-col items-center gap-1.5 text-center">
                       <div className={`relative w-12 h-12 rounded-full flex items-center justify-center ${b.earned ? "" : "grayscale opacity-50"}`}
-                        style={{ background: b.earned ? "linear-gradient(135deg,#1D9E75,#0f2d1e)" : "hsl(45 10% 88%)" }}>
+                        style={{ background: b.earned ? "linear-gradient(135deg,var(--brand),hsl(var(--primary)))" : "hsl(45 10% 88%)" }}>
                         <b.Icon className={`w-5 h-5 ${b.earned ? "text-white" : "text-muted-foreground"}`} />
                         {!b.earned && (
                           <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-muted-foreground/80 flex items-center justify-center">
@@ -1131,7 +1131,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
               <stop offset="100%" stopColor="#ffffff" />
             </linearGradient>
             <linearGradient id="coasterDone" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#1D9E75" />
+              <stop offset="0%" stopColor="var(--brand)" />
               <stop offset="100%" stopColor="#16b07f" />
             </linearGradient>
             <radialGradient id="coasterSun" cx="50%" cy="50%" r="50%">
@@ -1168,7 +1168,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
 
           {/* soft glow under the ridden track */}
           {doneEnd > 0 && (
-            <path d={railPath(0, 0, doneEnd)} fill="none" stroke="#1D9E75" strokeWidth="16" strokeLinecap="round" opacity="0.14" />
+            <path d={railPath(0, 0, doneEnd)} fill="none" stroke="var(--brand)" strokeWidth="16" strokeLinecap="round" opacity="0.14" />
           )}
 
           {/* cross-ties (sleepers) */}
@@ -1220,14 +1220,14 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
                 cursor: clickable ? "pointer" : "default",
                 zIndex: isCurrent ? 2 : 3,
                 opacity: isCurrent ? 0 : 1, // current station hides behind Jeff's cart
-                background: done ? "#1D9E75" : unlocked ? "#fff" : "hsl(45 10% 90%)",
-                border: done ? "2.5px solid #fff" : unlocked ? "2.5px solid #1D9E75" : "2.5px solid hsl(45 10% 82%)",
-                boxShadow: done ? "0 3px 8px rgba(29,158,117,0.4)" : "0 2px 5px rgba(0,0,0,0.14)",
+                background: done ? "var(--brand)" : unlocked ? "#fff" : "hsl(45 10% 90%)",
+                border: done ? "2.5px solid #fff" : unlocked ? "2.5px solid var(--brand)" : "2.5px solid hsl(45 10% 82%)",
+                boxShadow: done ? "0 3px 8px rgba(var(--brand-rgb),0.4)" : "0 2px 5px rgba(0,0,0,0.14)",
               }}
               aria-label={al.lesson.title}
             >
               {done ? <CheckCircle className="w-5 h-5 text-white" />
-                : unlocked ? <span className="text-[14px] font-extrabold" style={{ color: "#1D9E75" }}>{i + 1}</span>
+                : unlocked ? <span className="text-[14px] font-extrabold" style={{ color: "var(--brand)" }}>{i + 1}</span>
                 : <Lock className="w-4 h-4 text-muted-foreground" />}
               {hovered === i && (
                 <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 max-w-[200px] truncate whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[12px] font-bold text-white pointer-events-none"

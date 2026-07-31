@@ -70,7 +70,7 @@ function NapSkit() {
       <motion.div
         className="absolute left-[40%] bottom-[3%] w-[58%] h-[24%] rounded-t-[2.2rem] rounded-b-md"
         style={{
-          background: "repeating-linear-gradient(45deg, hsl(152 45% 62%) 0 9px, hsl(158 42% 52%) 9px 18px)",
+          background: "repeating-linear-gradient(45deg, hsl(var(--secondary)) 0 9px, hsl(var(--primary-glow)) 9px 18px)",
           boxShadow: "inset 0 4px 0 rgba(255,255,255,0.55), 0 2px 4px rgba(6,41,31,0.15)",
         }}
         initial={{ opacity: 0, y: 10 }}
@@ -81,7 +81,7 @@ function NapSkit() {
       {[0, 1, 2].map(i => (
         <motion.span
           key={i}
-          className="absolute font-extrabold text-emerald-500/80"
+          className="absolute font-extrabold text-primary/80"
           style={{ left: `${14 + i * 8}%`, bottom: `${36 + i * 9}%`, fontSize: `${0.65 + i * 0.18}rem` }}
           animate={{ opacity: [0, 1, 0], y: [6, -8, -20], x: [0, 4, 8] }}
           transition={{ duration: 2.1, repeat: Infinity, delay: 0.9 + i * 0.55, ease: "easeOut" }}
@@ -458,11 +458,11 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   return (
     <div
       className="fixed inset-0 z-50 flex flex-col overflow-hidden"
-      style={{ background: "linear-gradient(180deg, hsl(150 40% 96%) 0%, hsl(152 38% 90%) 55%, hsl(168 45% 84%) 100%)" }}
+      style={{ background: "linear-gradient(180deg, hsl(var(--accent) / 0.06) 0%, hsl(var(--accent) / 0.12) 55%, hsl(var(--primary) / 0.16) 100%)" }}
     >
       {/* soft chalkboard glow behind the stage */}
       <div className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 30% 100%, hsl(170 60% 30% / 0.14), transparent 65%)" }} />
+        style={{ background: "radial-gradient(ellipse at 30% 100%, hsl(var(--primary) / 0.14), transparent 65%)" }} />
 
       {/* ── Top bar: lesson + progress dots + close ── */}
       <div className="relative z-10 flex items-center gap-3 px-4 py-3 shrink-0">
@@ -475,7 +475,7 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
             <span
               key={i}
               className="h-1.5 w-4 rounded-full transition-colors"
-              style={{ background: done || i < jeffTurns ? "hsl(152 62% 42%)" : "hsl(152 20% 78%)" }}
+              style={{ background: done || i < jeffTurns ? "hsl(var(--accent))" : "hsl(var(--accent) / 0.25)" }}
             />
           ))}
         </div>

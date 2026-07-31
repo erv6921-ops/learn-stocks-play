@@ -61,7 +61,7 @@ import {
 
 // ── Chart palette (kept in the app's teal / gold / green family) ──
 const C = {
-  green: "#1D9E75",
+  green: "var(--brand)",
   blue: "#3B82C4",
   gold: "#EF9F27",
   purple: "#9B59B6",

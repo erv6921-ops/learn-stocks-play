@@ -215,7 +215,7 @@ export function JeffMascot({ mood = "idle", waving = false, activity = "none" }:
             ].map((z, i) => (
               <motion.span
                 key={i}
-                className="absolute font-extrabold text-emerald-400/80"
+                className="absolute font-extrabold text-primary/80"
                 style={{ fontSize: z.size, right: `${i * 6}px` }}
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: [0, 1, 0], y: [4, -10, -20] }}

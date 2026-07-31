@@ -192,9 +192,9 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
 
     return (
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="max-w-md mx-auto">
-        <div className="rounded-2xl border-2 bg-card overflow-hidden shadow-card" style={{ borderColor: `${ACCENT}55` }}>
+        <div className="rounded-2xl border-2 bg-card overflow-hidden shadow-card" style={{ borderColor: `rgba(var(--brand-rgb),0.333)` }}>
           {/* stub header */}
-          <div className="px-5 py-4 text-center border-b border-dashed" style={{ borderColor: `${ACCENT}44` }}>
+          <div className="px-5 py-4 text-center border-b border-dashed" style={{ borderColor: `rgba(var(--brand-rgb),0.267)` }}>
             <p className="text-[10px] font-extrabold uppercase tracking-[0.28em]" style={{ color: ACCENT }}>
               InvestiBank · {mode === "weekly" ? "Payroll Dept." : "Promotions Board"}
             </p>
@@ -211,7 +211,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
                 <StubRow label="Base salary" value={String(payout.salary)} />
                 <StubRow label="Performance bonus" value={String(payout.bonus)} />
                 <StubRow label="Writing stipend" value={String(payout.stipend)} />
-                <div className="border-t pt-2.5 mt-1" style={{ borderColor: `${ACCENT}33` }}>
+                <div className="border-t pt-2.5 mt-1" style={{ borderColor: `rgba(var(--brand-rgb),0.2)` }}>
                   <StubRow label="Total paid" value={`${totalPay} coins`} gold />
                 </div>
                 <StubRow label="Rep earned" value={`+${payout.gained}`} />
@@ -269,7 +269,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
             <p className="text-sm leading-relaxed text-foreground/90">{memo.prompt}</p>
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-muted-foreground">Your {memo.title.toLowerCase()}</label>
-              <span className={cn("text-[11px] font-bold tabular-nums", memoOk ? "text-emerald-500" : "text-muted-foreground")}>
+              <span className={cn("text-[11px] font-bold tabular-nums", memoOk ? "text-primary" : "text-muted-foreground")}>
                 {words}/{MEMO_MIN_WORDS} words {memoOk && "✓"}
               </span>
             </div>
@@ -278,7 +278,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
               value={memoText}
               onChange={e => setMemoText(e.target.value)}
               placeholder={`Think about the choices you just made in "${deal.title}" - what did you decide, and why was it right (or wrong)?`}
-              className={cn("text-sm leading-relaxed", memoOk && "border-emerald-500/50")}
+              className={cn("text-sm leading-relaxed", memoOk && "border-primary/50")}
             />
             <Button onClick={submitMemo} disabled={!memoOk} size="lg" className="w-full press-scale gap-1.5">
               <FileSignature className="h-4 w-4" />
@@ -349,7 +349,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
                         "w-full text-left rounded-xl border-2 p-3.5 text-sm transition-all",
                         isPicked
                           ? choice.points === 2
-                            ? "border-emerald-500 bg-emerald-500/10"
+                            ? "border-primary bg-primary/10"
                             : choice.points === 1
                               ? "border-amber-500 bg-amber-500/10"
                               : "border-red-500 bg-red-500/10"

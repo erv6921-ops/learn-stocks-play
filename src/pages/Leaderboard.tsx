@@ -46,7 +46,7 @@ interface Entry {
 
 // Actionable ways to climb - all link to real features, so the motivation is legit.
 const EARN_ACTIONS = [
-  { icon: BookOpen,      label: "Finish a lesson",     detail: "Biggest, steadiest coins", to: "/lessons",  tint: "#1D9E75" },
+  { icon: BookOpen,      label: "Finish a lesson",     detail: "Biggest, steadiest coins", to: "/lessons",  tint: "var(--brand)" },
   { icon: CalendarCheck, label: "Daily missions",      detail: "Fresh coins every day",    to: "/daily",    tint: "#E3A008" },
   { icon: Flame,         label: "Keep your streak",    detail: "Don't break the chain", to: "/lessons",  tint: "#F97316" },
   { icon: Target,        label: "Ace a unit test",     detail: "Big coins for mastery",    to: "/progress", tint: "#8B5CF6" },

@@ -63,7 +63,7 @@ export default function ChallengesWidget() {
   }, [user?.id])
 
   return (
-    <Card className="border-0 overflow-hidden" style={{ background: "linear-gradient(135deg,#0f3d2a,#06291f)" }}>
+    <Card className="border-0 overflow-hidden" style={{ background: "linear-gradient(135deg,hsl(var(--primary)),#06291f)" }}>
       <CardContent className="p-4 md:p-5">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">

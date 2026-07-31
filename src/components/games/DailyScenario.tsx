@@ -34,7 +34,7 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
       {/* Header card */}
       <div
         className="rounded-2xl p-6 mb-5 relative overflow-hidden"
-        style={{ backgroundColor: "#0f2d1e" }}
+        style={{ backgroundColor: "hsl(var(--primary))" }}
       >
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -60,7 +60,7 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
         className="rounded-2xl p-5 mb-5 border border-border"
         style={{ backgroundColor: "#f0f5f3" }}
       >
-        <p className="text-[#0f2d1e] text-base font-medium leading-relaxed">
+        <p className="text-[hsl(var(--primary))] text-base font-medium leading-relaxed">
           {scenario.prompt}
         </p>
       </div>

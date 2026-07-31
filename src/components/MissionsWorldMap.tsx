@@ -318,9 +318,9 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
                 width: 30, height: 30, transform: `translate(-50%,-50%) scale(${isHover ? 1.18 : 1})`,
                 cursor: clickable ? "pointer" : "not-allowed",
                 opacity: isActive ? 0 : 1,
-                background: meta.complete ? "#1D9E75" : meta.unlocked ? "#fdf6e6" : "#e7ded0",
+                background: meta.complete ? "var(--brand)" : meta.unlocked ? "#fdf6e6" : "#e7ded0",
                 border: meta.complete ? "2.5px solid #fff" : meta.unlocked ? "2.5px solid #5b544a" : "2.5px solid #b9ae9c",
-                boxShadow: meta.complete ? "0 3px 9px rgba(29,158,117,0.5)" : "0 2px 7px rgba(80,70,50,0.28)",
+                boxShadow: meta.complete ? "0 3px 9px rgba(var(--brand-rgb),0.5)" : "0 2px 7px rgba(80,70,50,0.28)",
               }}
               aria-label={`${bank.city} - ${meta.unit.title}`}
             >
@@ -339,7 +339,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
                   <div>
                     <p className="text-[12px] font-extrabold leading-tight" style={{ color: "#3f3a31" }}>{bank.flag} {bank.city}</p>
                     <p className="text-[10px] leading-tight mt-0.5" style={{ color: "#8a8172" }}>{bank.name}</p>
-                    <p className="text-[10px] font-bold mt-1 flex items-center gap-1" style={{ color: meta.complete ? "#1D9E75" : "#b8860b" }}>
+                    <p className="text-[10px] font-bold mt-1 flex items-center gap-1" style={{ color: meta.complete ? "var(--brand)" : "#b8860b" }}>
                       {meta.complete ? "Cleared ✓"
                         : meta.unlocked
                           ? <>{meta.done}/{meta.total} lessons · <Coins className="w-2.5 h-2.5" />{reward.toLocaleString()}</>
@@ -381,7 +381,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
         <p className="text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: "#a89a80" }}>Jeff's World Bank Tour</p>
         <h1 className="font-display text-lg md:text-xl font-extrabold tracking-tight leading-tight" style={{ color: "#3f3a31" }}>Bank the whole world 🌍</h1>
         <div className="flex items-center gap-2 mt-1.5">
-          <span className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white" style={{ background: "#1D9E75" }}>
+          <span className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white" style={{ background: "var(--brand)" }}>
             🏦 {totalDone}/{slots.length} banks
           </span>
           {activeSlot && !celebrate && <span className="text-[11px] font-semibold" style={{ color: "#8a8172" }}>✈️ {activeSlot.bank.city}</span>}
@@ -397,7 +397,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
         ].map(({ icon: Icon, fn, label, solid }) => (
           <button key={label} onClick={fn} aria-label={label}
             className="w-10 h-10 rounded-xl shadow-md flex items-center justify-center active:scale-95 transition"
-            style={solid ? { background: "#1D9E75", color: "#fff" } : { background: "#fffdf7", border: "1.5px solid #e4d9c2", color: "#3f3a31" }}>
+            style={solid ? { background: "var(--brand)", color: "#fff" } : { background: "#fffdf7", border: "1.5px solid #e4d9c2", color: "#3f3a31" }}>
             <Icon className="w-5 h-5" />
           </button>
         ))}
@@ -406,7 +406,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
       {/* Legend */}
       <div className="absolute bottom-20 md:bottom-5 left-3 md:left-4 rounded-xl px-3 py-2 shadow-sm flex items-center gap-3 text-[11px] font-semibold pointer-events-none"
         style={{ background: "#fffdf7", border: "1.5px solid #e4d9c2", color: "#6b6459" }}>
-        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full" style={{ background: "#1D9E75" }} /> Cleared</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full" style={{ background: "var(--brand)" }} /> Cleared</span>
         <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full" style={{ background: "#fdf6e6", border: "2px solid #5b544a" }} /> Open</span>
         <span className="flex items-center gap-1.5"><Lock className="w-3 h-3" style={{ color: "#8a8172" }} /> Locked</span>
       </div>

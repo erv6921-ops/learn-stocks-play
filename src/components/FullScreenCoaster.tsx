@@ -243,7 +243,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
                 <stop offset="100%" stopColor="#FFD75E" stopOpacity="0" />
               </radialGradient>
               <linearGradient id="fsc-doneRail" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#0F7E5C" />
+                <stop offset="0%" stopColor="var(--brand-strong)" />
                 <stop offset="50%" stopColor="#22C48C" />
                 <stop offset="100%" stopColor="#16b07f" />
               </linearGradient>
@@ -405,7 +405,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
             <div className={`flex items-center gap-2 sm:gap-3 pointer-events-auto ${embedded ? "mt-9 sm:mt-10" : ""}`}>
               <SkyStat icon={<Flame className="w-5 h-5 text-white" />} value={String(stats.streak)} label="Day streak" tint="linear-gradient(135deg,#FF9A48,#FF5E3A)" glow="rgba(255,94,58,0.45)" delay={0} />
               <SkyStat icon={<Coins className="w-5 h-5 text-white" />} value={stats.points.toLocaleString()} label="Points" tint="linear-gradient(135deg,#FBD05B,#E8A020)" glow="rgba(232,160,32,0.45)" delay={0.15} />
-              <SkyStat icon={<Star className="w-5 h-5 text-white" />} value={`Lv ${stats.level}`} label="Level" tint="linear-gradient(135deg,#2FD39B,#0F7E5C)" glow="rgba(15,126,92,0.45)" delay={0.3} />
+              <SkyStat icon={<Star className="w-5 h-5 text-white" />} value={`Lv ${stats.level}`} label="Level" tint="linear-gradient(135deg,var(--brand-bright),var(--brand-strong))" glow="rgba(15,126,92,0.45)" delay={0.3} />
             </div>
           </div>
 
@@ -444,10 +444,10 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
                   cursor: clickable ? "pointer" : "default",
                   zIndex: isCurrent ? 2 : 4,
                   opacity: isCurrent ? 0 : 1,
-                  background: st.done ? "linear-gradient(150deg,#22C48C,#0F7E5C)" : st.unlocked ? "linear-gradient(150deg,#ffffff,#eef4f0)" : "linear-gradient(150deg,#e9eeeb,#dbe2dd)",
-                  border: st.done ? "3px solid rgba(255,255,255,0.95)" : st.unlocked ? "3px solid #1D9E75" : "3px solid #cdd6d0",
+                  background: st.done ? "linear-gradient(150deg,#22C48C,var(--brand-strong))" : st.unlocked ? "linear-gradient(150deg,#ffffff,#eef4f0)" : "linear-gradient(150deg,#e9eeeb,#dbe2dd)",
+                  border: st.done ? "3px solid rgba(255,255,255,0.95)" : st.unlocked ? "3px solid var(--brand)" : "3px solid #cdd6d0",
                   boxShadow: st.done
-                    ? "0 6px 18px rgba(29,158,117,0.5), inset 0 2px 3px rgba(255,255,255,0.5)"
+                    ? "0 6px 18px rgba(var(--brand-rgb),0.5), inset 0 2px 3px rgba(255,255,255,0.5)"
                     : st.unlocked ? "0 5px 14px rgba(20,60,44,0.2), inset 0 2px 3px rgba(255,255,255,0.8)" : "0 3px 9px rgba(0,0,0,0.14)",
                 }}
                 aria-label={st.title}
@@ -540,7 +540,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
                     <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#2f6b52]/75">Next stop · Lesson {jeffIdx + 1} of {n}</p>
                     <p className="font-black text-[#0d3524] text-lg truncate mt-0.5">{nextStation.title}</p>
                   </div>
-                  <span className="flex items-center gap-1.5 rounded-2xl px-5 py-3 font-black text-white shrink-0" style={{ background: "linear-gradient(135deg,#2FD39B,#0F7E5C)", boxShadow: "0 8px 20px rgba(15,126,92,0.45), inset 0 1px 0 rgba(255,255,255,0.35)" }}>
+                  <span className="flex items-center gap-1.5 rounded-2xl px-5 py-3 font-black text-white shrink-0" style={{ background: "linear-gradient(135deg,var(--brand-bright),var(--brand-strong))", boxShadow: "0 8px 20px rgba(15,126,92,0.45), inset 0 1px 0 rgba(255,255,255,0.35)" }}>
                     Continue <ChevronRight className="w-5 h-5" />
                   </span>
                 </div>
@@ -549,13 +549,13 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
                   <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "rgba(15,126,92,0.14)" }}>
                     <motion.div
                       className="h-full rounded-full"
-                      style={{ background: "linear-gradient(90deg,#2FD39B,#0F7E5C)" }}
+                      style={{ background: "linear-gradient(90deg,var(--brand-bright),var(--brand-strong))" }}
                       initial={{ width: 0 }}
                       animate={{ width: `${pctComplete}%` }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
                     />
                   </div>
-                  <span className="text-[12px] font-black tabular-nums text-[#0F7E5C]">{pctComplete}%</span>
+                  <span className="text-[12px] font-black tabular-nums text-[var(--brand-strong)]">{pctComplete}%</span>
                 </div>
               </button>
             </div>

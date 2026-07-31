@@ -923,20 +923,20 @@ export default function Dashboard() {
                         const maxXp = Math.max(...lbRows.map(r => r.xp), 1);
                         return lbRows.map((r, i) => {
                           const medals = ["🥇", "🥈", "🥉"];
-                          const barColor = r.isMe ? "#1D9E75" : r.rank <= 3 ? ["#E3A008", "#9CA3AF", "#CD7C3A"][r.rank - 1] : "#CBD5E1";
+                          const barColor = r.isMe ? "var(--brand)" : r.rank <= 3 ? ["#E3A008", "#9CA3AF", "#CD7C3A"][r.rank - 1] : "#CBD5E1";
                           return (
                             <motion.div key={r.name + i}
                               initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: 0.75 + i * 0.08, duration: 0.28 }}
                               className="py-2.5"
-                              style={r.isMe ? { borderTop: "1px solid rgba(29,158,117,0.2)", borderBottom: "1px solid rgba(29,158,117,0.2)", marginTop: "2px", marginBottom: "2px" } : { borderTop: "1px solid #f0f5f3" }}>
+                              style={r.isMe ? { borderTop: "1px solid rgba(var(--brand-rgb),0.2)", borderBottom: "1px solid rgba(var(--brand-rgb),0.2)", marginTop: "2px", marginBottom: "2px" } : { borderTop: "1px solid #f0f5f3" }}>
                               <div className={`rounded-xl px-2 py-1 -mx-2 transition-colors ${r.isMe ? "bg-success/5" : ""}`}>
                                 <div className="flex items-center gap-2.5 mb-1">
                                   <span className="text-base shrink-0 w-5 text-center">
                                     {r.rank <= 3 ? medals[r.rank - 1] : <span className="text-[11px] font-extrabold text-muted-foreground">{r.rank}</span>}
                                   </span>
                                   <span className={`text-sm flex-1 truncate ${r.isMe ? "font-extrabold" : "font-semibold"}`}
-                                    style={r.isMe ? { color: "#1D9E75" } : { color: "#374151" }}>
+                                    style={r.isMe ? { color: "var(--brand)" } : { color: "#374151" }}>
                                     {r.name}
                                   </span>
                                   <span className="text-xs font-bold tabular-nums" style={{ color: barColor }}>
@@ -1056,7 +1056,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
     [historicalData]
   );
   const chartUp = chartData.length >= 2 ? chartData[chartData.length - 1].p >= chartData[0].p : true;
-  const chartColor = chartUp ? "#1D9E75" : "#dc2626";
+  const chartColor = chartUp ? "var(--brand)" : "#dc2626";
 
   const activeHolding = portfolio.find((h) => h.symbol === symbol);
   const livePrice = symbol ? (livePrices.get(symbol) ?? activeHolding?.purchasePrice ?? 0) : 0;
