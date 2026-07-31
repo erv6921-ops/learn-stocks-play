@@ -63,7 +63,7 @@ function getStreak(history: { amount: number; reason: string; date: Date }[]) {
 // Each page gets its own icon tint so the menu reads like the app's world map,
 // not a plain settings list.
 const NAV_ITEMS = [
-{ to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", tour: "nav-dashboard", tint: "#1D9E75" },
+{ to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", tour: "nav-dashboard", tint: "var(--brand)" },
 { to: "/lessons", icon: BookOpen, label: "Missions", tour: "nav-lessons", tint: "#8B5CF6" },
 { to: "/lab", icon: FlaskConical, label: "Lab", tour: "nav-lab", tint: "#3BA7C4" },
 { to: "/stocks", icon: LineChart, label: "Stocks", tour: "nav-stocks", tint: "#E3A008" },
@@ -178,10 +178,10 @@ export default function GameNav() {
               transition={{ type: "spring", stiffness: 380, damping: 34 }}
               className="fixed inset-y-0 left-0 z-[60] w-72 max-w-[85vw] bg-background border-r border-border flex flex-col shadow-2xl"
             >
-              {/* Sidebar header - deep-green gradient with the player's card */}
+              {/* Sidebar header - deep brand gradient (follows theme) with the player's card */}
               <div
                 className="relative px-4 pt-4 pb-4 overflow-hidden"
-                style={{ background: "linear-gradient(135deg, hsl(158 45% 15%), hsl(152 50% 24%))" }}
+                style={{ background: "var(--brand-deep)" }}
               >
                 <div className="flex items-center justify-between">
                   <Wordmark className="text-xl !text-white" />
@@ -211,7 +211,7 @@ export default function GameNav() {
                         {streak} day streak
                       </p>
                     ) : (
-                      <p className="text-xs font-semibold" style={{ color: "hsl(152 40% 78%)" }}>Ready to play</p>
+                      <p className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.78)" }}>Ready to play</p>
                     )}
                   </div>
                 </div>
