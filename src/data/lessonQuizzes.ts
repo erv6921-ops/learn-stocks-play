@@ -11,6 +11,8 @@ import { marketsRatiosValuationQuizzes } from "./quizzes/marketsRatiosValuation"
 import { bubblesMacroIndicatorsQuizzes } from "./quizzes/bubblesMacroIndicators"
 import { optionsAltsPlanningSimsQuizzes } from "./quizzes/optionsAltsPlanningSims"
 import { difficultyQuizzes } from "./quizzes/difficultyPools"
+import { topUpBusinessQuizzes } from "./quizzes/topUpBusiness"
+import { topUpMarketingQuizzes } from "./quizzes/topUpMarketing"
 
 export interface LessonQuiz {
   lessonId: string
@@ -3385,6 +3387,8 @@ export const lessonQuizzes: LessonQuiz[] = [
   ...bubblesMacroIndicatorsQuizzes,
   ...optionsAltsPlanningSimsQuizzes,
   ...difficultyQuizzes,
+  ...topUpBusinessQuizzes,
+  ...topUpMarketingQuizzes,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
