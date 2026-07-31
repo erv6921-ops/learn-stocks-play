@@ -280,8 +280,12 @@ export default function Leaderboard() {
   const barPct = (score: number) => `${Math.max(6, Math.round((score / maxScore) * 100))}%`
 
   // Top 3 = the promotion zone / podium; everyone else in the ranked list.
-  const podium = hasOtherUsers ? allEntries.slice(0, 3) : []
-  const restEntries = hasOtherUsers ? allEntries.slice(3) : allEntries
+  // The podium only renders with a full top-3, so with just you + 1 or 2 others
+  // there aren't enough for a podium - put everyone in the ranked list instead,
+  // otherwise the tab renders blank (podium hidden AND restEntries empty).
+  const usePodium = hasOtherUsers && allEntries.length >= 3
+  const podium = usePodium ? allEntries.slice(0, 3) : []
+  const restEntries = usePodium ? allEntries.slice(3) : allEntries
   const PROMO_ZONE = 3
 
   const getRankIcon = (rank: number) => {
