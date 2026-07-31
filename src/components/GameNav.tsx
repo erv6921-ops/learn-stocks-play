@@ -60,19 +60,19 @@ function getStreak(history: { amount: number; reason: string; date: Date }[]) {
   return streak;
 }
 
-// Each page gets its own icon tint so the menu reads like the app's world map,
-// not a plain settings list.
+// Every page shares the app's themed accent tint, so the whole menu stays
+// cohesive with the chosen color.
 const NAV_ITEMS = [
 { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", tour: "nav-dashboard", tint: "var(--brand)" },
-{ to: "/lessons", icon: BookOpen, label: "Missions", tour: "nav-lessons", tint: "#8B5CF6" },
-{ to: "/lab", icon: FlaskConical, label: "Lab", tour: "nav-lab", tint: "#3BA7C4" },
-{ to: "/stocks", icon: LineChart, label: "Stocks", tour: "nav-stocks", tint: "#E3A008" },
-{ to: "/micro-business", icon: Store, label: "Business", tour: "nav-business", tint: "#F97316" },
-{ to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank", tint: "#0F766E" },
-{ to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress", tint: "#6366F1" },
-{ to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard", tint: "#E0457B" },
-{ to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges", tint: "#DC2626" },
-{ to: "/partners", icon: Users, label: "Find Partners", tour: "nav-partners", tint: "#059669" }];
+{ to: "/lessons", icon: BookOpen, label: "Missions", tour: "nav-lessons", tint: "var(--brand)" },
+{ to: "/lab", icon: FlaskConical, label: "Lab", tour: "nav-lab", tint: "var(--brand)" },
+{ to: "/stocks", icon: LineChart, label: "Stocks", tour: "nav-stocks", tint: "var(--brand)" },
+{ to: "/micro-business", icon: Store, label: "Business", tour: "nav-business", tint: "var(--brand)" },
+{ to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank", tint: "var(--brand)" },
+{ to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress", tint: "var(--brand)" },
+{ to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard", tint: "var(--brand)" },
+{ to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges", tint: "var(--brand)" },
+{ to: "/partners", icon: Users, label: "Find Partners", tour: "nav-partners", tint: "var(--brand)" }];
 
 
 export default function GameNav() {

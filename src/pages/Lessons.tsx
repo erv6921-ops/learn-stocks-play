@@ -563,7 +563,7 @@ export default function Lessons() {
             <button
               onClick={() => setCoasterFull(true)}
               className="shrink-0 inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
-              style={{ background: "linear-gradient(135deg,var(--brand-bright),var(--brand-strong))", boxShadow: "0 6px 16px rgba(15,126,92,0.35)" }}
+              style={{ background: "linear-gradient(135deg,var(--brand-bright),var(--brand-strong))", boxShadow: "0 6px 16px rgba(var(--brand-rgb),0.35)" }}
             >
               <Maximize2 className="w-4 h-4" /> Fullscreen
             </button>
@@ -1126,13 +1126,13 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
         <svg viewBox={`0 0 ${W} ${H}`} width={WPX} height={HPX} className="block" style={{ overflow: "visible" }}>
           <defs>
             <linearGradient id="coasterSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#d8f0ff" />
-              <stop offset="55%" stopColor="#eafaf3" />
+              <stop offset="0%" stopColor="hsl(var(--accent) / 0.16)" />
+              <stop offset="55%" stopColor="hsl(var(--accent) / 0.07)" />
               <stop offset="100%" stopColor="#ffffff" />
             </linearGradient>
             <linearGradient id="coasterDone" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="var(--brand)" />
-              <stop offset="100%" stopColor="#16b07f" />
+              <stop offset="100%" stopColor="var(--brand-bright)" />
             </linearGradient>
             <radialGradient id="coasterSun" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#FCD25C" stopOpacity="0.7" />
@@ -1154,9 +1154,9 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
             </g>
           ))}
 
-          {/* grass ground */}
-          <rect x="0" y={groundY} width={W} height={H - groundY} fill="#cdebd5" />
-          <rect x="0" y={groundY} width={W} height="3" fill="#8fd6a8" />
+          {/* grass ground - themed accent wash so it matches the accent */}
+          <rect x="0" y={groundY} width={W} height={H - groundY} fill="hsl(var(--accent) / 0.16)" />
+          <rect x="0" y={groundY} width={W} height="3" fill="hsl(var(--accent) / 0.45)" />
 
           {/* support posts beneath each station */}
           {pts.map((p, i) => (
@@ -1174,7 +1174,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
           {/* cross-ties (sleepers) */}
           {ties.map((t, i) => (
             <line key={`tie${i}`} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
-              stroke={t.done ? "#15805f" : "hsl(45 8% 80%)"} strokeWidth={t.done ? 3 : 2.5} strokeLinecap="round" />
+              stroke={t.done ? "var(--brand-strong)" : "hsl(45 8% 80%)"} strokeWidth={t.done ? 3 : 2.5} strokeLinecap="round" />
           ))}
 
           {/* remaining rails (light) + dashed center hint */}
@@ -1271,7 +1271,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
             <motion.div
               animate={{ y: [0, -4, 0] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-              style={{ filter: "drop-shadow(0 8px 14px rgba(6,41,31,0.26))" }}
+              style={{ filter: "drop-shadow(0 8px 14px rgba(var(--brand-rgb),0.26))" }}
             >
               {/* Coaster car with Jeff seated and strapped in */}
               <div className="relative" style={{ width: 88, height: 92 }}>
@@ -1283,7 +1283,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
                   <JeffMascot mood={celebrate ? "celebrate" : "encourage"} />
                 </div>
                 {/* car body in front of Jeff's legs */}
-                <div className="absolute" style={{ left: 2, right: 2, bottom: 8, height: 46, borderRadius: "11px 11px 20px 20px", background: "linear-gradient(#F2A937,#d9871a)", boxShadow: "inset 0 2px 0 rgba(255,255,255,0.35), 0 4px 8px rgba(6,41,31,0.18)", zIndex: 2 }}>
+                <div className="absolute" style={{ left: 2, right: 2, bottom: 8, height: 46, borderRadius: "11px 11px 20px 20px", background: "linear-gradient(#F2A937,#d9871a)", boxShadow: "inset 0 2px 0 rgba(255,255,255,0.35), 0 4px 8px rgba(var(--brand-rgb),0.18)", zIndex: 2 }}>
                   <div className="absolute" style={{ left: 8, right: 8, top: 6, height: 3, borderRadius: 999, background: "rgba(255,255,255,0.35)" }} />
                 </div>
                 {/* lap bar pulled down across the car lip */}

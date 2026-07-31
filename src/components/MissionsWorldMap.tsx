@@ -366,7 +366,7 @@ export default function MissionsWorldMap({ unitsMeta, activeUnitId, onOpenUnit, 
               </div>
             </div>
             <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-              style={{ width: 50, height: 54, filter: "drop-shadow(0 6px 10px rgba(6,41,31,0.32))" }}>
+              style={{ width: 50, height: 54, filter: "drop-shadow(0 6px 10px rgba(var(--brand-rgb),0.32))" }}>
               <JeffMascot mood={celebrate ? "celebrate" : "encourage"} />
             </motion.div>
             <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2.5 h-2.5 rounded-full"

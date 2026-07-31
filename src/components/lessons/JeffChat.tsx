@@ -71,7 +71,7 @@ function NapSkit() {
         className="absolute left-[40%] bottom-[3%] w-[58%] h-[24%] rounded-t-[2.2rem] rounded-b-md"
         style={{
           background: "repeating-linear-gradient(45deg, hsl(var(--secondary)) 0 9px, hsl(var(--primary-glow)) 9px 18px)",
-          boxShadow: "inset 0 4px 0 rgba(255,255,255,0.55), 0 2px 4px rgba(6,41,31,0.15)",
+          boxShadow: "inset 0 4px 0 rgba(255,255,255,0.55), 0 2px 4px rgba(var(--brand-rgb),0.15)",
         }}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: [0, -2.5, 0] }}
