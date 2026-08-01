@@ -680,7 +680,7 @@ export default function Lessons() {
                     // Same palette as the rest of the page: charcoal active,
                     // light-green complete, warm-grey default; gold/green accents.
                     const labelColor = isActive ? "rgba(255,255,255,0.55)" : isComplete ? "var(--brand)" : "hsl(215 12% 52%)";
-                    const titleColor = isActive ? "#fff" : isComplete ? "#0f6b4f" : "hsl(215 12% 28%)";
+                    const titleColor = isActive ? "#fff" : isComplete ? "hsl(var(--primary))" : "hsl(215 12% 28%)";
                     const fill = isActive ? "#EF9F27" : "var(--brand)";
                     const track = isActive ? "rgba(255,255,255,0.16)" : isComplete ? "rgba(var(--brand-rgb),0.18)" : "hsl(45 10% 84%)";
 
@@ -692,7 +692,7 @@ export default function Lessons() {
                         onClick={() => handleUnitTabClick(unit.id)}
                         className="shrink-0 rounded-2xl p-3 text-left transition-all duration-200 w-[160px] press-scale hover:-translate-y-0.5"
                         style={{
-                          background: isActive ? "#2C2C2A" : isComplete ? "#E1F5EE" : "hsl(45 10% 93%)",
+                          background: isActive ? "#2C2C2A" : isComplete ? "rgba(var(--brand-rgb),0.1)" : "hsl(45 10% 93%)",
                           opacity: isLocked ? 0.55 : 1,
                           boxShadow: isActive ? "0 8px 20px rgba(44,44,42,0.22)" : "none",
                           border: isActive ? "1px solid #2C2C2A" : isComplete ? "1px solid rgba(var(--brand-rgb),0.22)" : "1px solid hsl(45 10% 86%)",
@@ -820,13 +820,13 @@ export default function Lessons() {
                   // Same palette as the unit tabs: charcoal current, light-green
                   // complete, warm-grey default; gold/green accents.
                   const labelColor = isCurrent ? "rgba(255,255,255,0.55)" : completed ? "var(--brand)" : "hsl(215 12% 52%)";
-                  const titleColor = isCurrent ? "#fff" : completed ? "#0f6b4f" : "hsl(215 12% 28%)";
+                  const titleColor = isCurrent ? "#fff" : completed ? "hsl(var(--primary))" : "hsl(215 12% 28%)";
 
                   const card = (
                     <div
                       className={`rounded-2xl p-3 text-left transition-all duration-200 h-full ${locked ? "" : "press-scale hover:-translate-y-0.5"}`}
                       style={{
-                        background: isCurrent ? "#2C2C2A" : completed ? "#E1F5EE" : "hsl(45 10% 93%)",
+                        background: isCurrent ? "#2C2C2A" : completed ? "rgba(var(--brand-rgb),0.1)" : "hsl(45 10% 93%)",
                         opacity: locked ? 0.55 : 1,
                         boxShadow: isCurrent ? "0 8px 20px rgba(44,44,42,0.22)" : "none",
                         border: isCurrent ? "1px solid #2C2C2A" : completed ? "1px solid rgba(var(--brand-rgb),0.22)" : "1px solid hsl(45 10% 86%)",
