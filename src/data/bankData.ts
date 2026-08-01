@@ -75,6 +75,12 @@ export interface BondProduct {
   icon: LucideIcon
   /** Total coupon paid at maturity (e.g. 0.03 = 3%). */
   couponRate: number
+  /**
+   * Chance the issuer defaults at maturity and pays nothing (e.g. 0.13 = 13%).
+   * The flip side, 1 - defaultRate, is the chance you collect in full. Higher-
+   * yield bonds carry a bigger default chance - that's the risk/reward tradeoff.
+   */
+  defaultRate: number
   termDays: number
   minInvestment: number
   risk: "Very Low" | "Low" | "Medium"
@@ -88,6 +94,7 @@ export const BOND_PRODUCTS: BondProduct[] = [
     issuer: "U.S. Treasury (Jr.)",
     icon: Shield,
     couponRate: 0.03,
+    defaultRate: 0.01,
     termDays: 3,
     minInvestment: 100,
     risk: "Very Low",
@@ -99,6 +106,7 @@ export const BOND_PRODUCTS: BondProduct[] = [
     issuer: "Investiville City Hall",
     icon: Landmark,
     couponRate: 0.08,
+    defaultRate: 0.05,
     termDays: 7,
     minInvestment: 250,
     risk: "Low",
@@ -110,6 +118,7 @@ export const BOND_PRODUCTS: BondProduct[] = [
     issuer: "MegaCorp Industries",
     icon: Factory,
     couponRate: 0.2,
+    defaultRate: 0.13,
     termDays: 14,
     minInvestment: 500,
     risk: "Medium",

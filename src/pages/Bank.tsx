@@ -427,7 +427,19 @@ function BondsDesk() {
   const collect = (bondId: string) => {
     const bond = bonds.find(b => b.id === bondId)
     if (!bond) return
+    const product = BOND_PRODUCTS.find(p => p.id === bond.productId)
+    // Roll the issuer's default chance once, at collection. The principal was
+    // already spent on purchase, so a default simply means nothing comes back.
+    const defaulted = Math.random() < (product?.defaultRate ?? 0)
     collectBond(bondId)
+    if (defaulted) {
+      toast({
+        title: "Bond defaulted 💥",
+        description: `${product?.name ?? "The issuer"} couldn't repay - you lost your ${money(bond.invested)} coins. That's the risk of chasing higher yields.`,
+        variant: "destructive",
+      })
+      return
+    }
     awardJeffs(bond.payout, `Bond matured (+${money(bond.payout - bond.invested)} interest)`)
     toast({ title: `Collected ${money(bond.payout)} coins! 💰`, description: `That's ${money(bond.payout - bond.invested)} coins of pure interest.` })
   }
@@ -496,7 +508,8 @@ function BondsDesk() {
 
         <LearnCard icon={CircleDollarSign} title="How bonds work:">
           a bond is a loan <em>you</em> give to a government or company, and they pay you interest for it.
-          Safer issuers pay less; riskier issuers pay more. Your money stays locked until the bond matures.
+          Safer issuers pay less; riskier issuers pay more - but the higher the yield, the bigger the
+          <em> default</em> chance that they can't repay and you lose what you put in. Your money stays locked until it matures.
         </LearnCard>
       </div>
 
@@ -519,6 +532,11 @@ function BondsDesk() {
                       <span className="text-[10px] font-extrabold uppercase tracking-wide" style={{ color: riskColor[product.risk] }}>
                         ● {product.risk} risk
                       </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 mt-1 text-[10px] font-bold">
+                      <span style={{ color: "#f87171" }}>{Math.round(product.defaultRate * 100)}% default</span>
+                      <span className="text-muted-foreground">·</span>
+                      <span style={{ color: "#34d399" }}>{Math.round((1 - product.defaultRate) * 100)}% pays out</span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                       <span className="font-semibold">{product.issuer}</span> - {product.blurb}
