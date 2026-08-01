@@ -13,6 +13,10 @@ import { optionsAltsPlanningSimsQuizzes } from "./quizzes/optionsAltsPlanningSim
 import { difficultyQuizzes } from "./quizzes/difficultyPools"
 import { topUpBusinessQuizzes } from "./quizzes/topUpBusiness"
 import { topUpMarketingQuizzes } from "./quizzes/topUpMarketing"
+import { topUp6Credit } from "./quizzes/topUp6Credit"
+import { topUp6Invest } from "./quizzes/topUp6Invest"
+import { topUp6Banking } from "./quizzes/topUp6Banking"
+import { topUp6Ratios } from "./quizzes/topUp6Ratios"
 
 export interface LessonQuiz {
   lessonId: string
@@ -3389,6 +3393,10 @@ export const lessonQuizzes: LessonQuiz[] = [
   ...difficultyQuizzes,
   ...topUpBusinessQuizzes,
   ...topUpMarketingQuizzes,
+  ...topUp6Credit,
+  ...topUp6Invest,
+  ...topUp6Banking,
+  ...topUp6Ratios,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
