@@ -244,8 +244,8 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
               </radialGradient>
               <linearGradient id="fsc-doneRail" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor="var(--brand-strong)" />
-                <stop offset="50%" stopColor="#22C48C" />
-                <stop offset="100%" stopColor="#16b07f" />
+                <stop offset="50%" stopColor="var(--brand-strong)" />
+                <stop offset="100%" stopColor="var(--brand-strong)" />
               </linearGradient>
               <linearGradient id="fsc-railMetal" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#eef3f0" />
@@ -347,11 +347,11 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
             ))}
 
             {/* glow under ridden track */}
-            {doneEnd > 0 && <path d={railPath(0, 0, doneEnd)} fill="none" stroke="#22C48C" strokeWidth="30" strokeLinecap="round" opacity="0.16" filter="url(#fsc-soft)" />}
+            {doneEnd > 0 && <path d={railPath(0, 0, doneEnd)} fill="none" stroke="var(--brand-strong)" strokeWidth="30" strokeLinecap="round" opacity="0.16" filter="url(#fsc-soft)" />}
 
             {/* cross-ties */}
             {ties.map((t, i) => (
-              <line key={`tie${i}`} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} stroke={t.done ? "#12724f" : "#b7c6bd"} strokeWidth={t.done ? 4.5 : 3.5} strokeLinecap="round" />
+              <line key={`tie${i}`} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} stroke={t.done ? "var(--brand-strong)" : "#b7c6bd"} strokeWidth={t.done ? 4.5 : 3.5} strokeLinecap="round" />
             ))}
 
             {/* upcoming rails (metallic) + dashed hint */}
@@ -397,7 +397,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
           <div className={`absolute left-0 right-0 top-0 flex items-start justify-between gap-3 pointer-events-none ${embedded ? "px-4 pt-4 sm:px-6" : "px-5 pt-5 sm:px-8 sm:pt-7"}`}>
             <div className="pointer-events-auto">
               <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 mb-1.5" style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.7)" }}>
-                <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#22C48C", boxShadow: "0 0 6px #22C48C" }} />
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--brand-strong)", boxShadow: "0 0 6px var(--brand-strong)" }} />
                 <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.16em] text-[#2f6b52]">{unitNumber != null ? `Unit ${unitNumber} · Your ride` : "Your ride"}</p>
               </div>
               <h1 className="font-black tracking-tight text-[#0d3524] text-2xl sm:text-[40px] leading-[1.05] mt-0.5" style={{ textShadow: "0 2px 16px rgba(255,255,255,0.7)" }}>{unitTitle}</h1>
@@ -444,7 +444,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
                   cursor: clickable ? "pointer" : "default",
                   zIndex: isCurrent ? 2 : 4,
                   opacity: isCurrent ? 0 : 1,
-                  background: st.done ? "linear-gradient(150deg,#22C48C,var(--brand-strong))" : st.unlocked ? "linear-gradient(150deg,#ffffff,#eef4f0)" : "linear-gradient(150deg,#e9eeeb,#dbe2dd)",
+                  background: st.done ? "linear-gradient(150deg,var(--brand-strong),var(--brand-strong))" : st.unlocked ? "linear-gradient(150deg,#ffffff,#eef4f0)" : "linear-gradient(150deg,#e9eeeb,#dbe2dd)",
                   border: st.done ? "3px solid rgba(255,255,255,0.95)" : st.unlocked ? "3px solid var(--brand)" : "3px solid #cdd6d0",
                   boxShadow: st.done
                     ? "0 6px 18px rgba(var(--brand-rgb),0.5), inset 0 2px 3px rgba(255,255,255,0.5)"
@@ -453,7 +453,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
                 aria-label={st.title}
               >
                 {st.done ? <CheckCircle style={{ width: stationSize * 0.5, height: stationSize * 0.5 }} className="text-white" />
-                  : st.unlocked ? <span className="font-black" style={{ color: "#128a63", fontSize: stationSize * 0.4 }}>{i + 1}</span>
+                  : st.unlocked ? <span className="font-black" style={{ color: "var(--brand-strong)", fontSize: stationSize * 0.4 }}>{i + 1}</span>
                   : <Lock style={{ width: stationSize * 0.42, height: stationSize * 0.42 }} className="text-[#9fb0a6]" />}
                 {hovered === i && (
                   <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 whitespace-nowrap rounded-xl px-3 py-2 text-[13px] font-bold text-white pointer-events-none shadow-xl" style={{ background: "linear-gradient(#1e4c37,#153a2b)", zIndex: 20 }}>
@@ -472,7 +472,7 @@ export default function FullScreenCoaster({ unitNumber, unitTitle, unitReward, s
                 <motion.span
                   key={k}
                   className="absolute rounded-full"
-                  style={{ left: "50%", top: "50%", width: stationSize, height: stationSize, transform: "translate(-50%,-50%)", border: "2px solid #22C48C" }}
+                  style={{ left: "50%", top: "50%", width: stationSize, height: stationSize, transform: "translate(-50%,-50%)", border: "2px solid var(--brand-strong)" }}
                   animate={{ scale: [1, 2.2], opacity: [0.5, 0] }}
                   transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut", delay: k * 1.2 }}
                 />
