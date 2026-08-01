@@ -458,7 +458,11 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   return (
     <div
       className="fixed inset-0 z-50 flex flex-col overflow-hidden"
-      style={{ background: "linear-gradient(180deg, hsl(var(--accent) / 0.06) 0%, hsl(var(--accent) / 0.12) 55%, hsl(var(--primary) / 0.16) 100%)" }}
+      // The translucent accent tint is layered OVER a solid app-background base
+      // so the overlay fully covers the pre-lesson screen behind it. Without the
+      // opaque base the near-transparent gradient let that screen show through,
+      // making the chat look glitched/overlapping.
+      style={{ background: "linear-gradient(180deg, hsl(var(--accent) / 0.06) 0%, hsl(var(--accent) / 0.12) 55%, hsl(var(--primary) / 0.16) 100%), hsl(var(--background))" }}
     >
       {/* soft chalkboard glow behind the stage */}
       <div className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none"
