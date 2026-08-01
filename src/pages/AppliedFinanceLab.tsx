@@ -23,7 +23,7 @@ import smallBusinessIcon from "@/assets/icons/small-business.png";
 import advancedWealthIcon from "@/assets/icons/advanced-wealth.png";
 import realEstateIcon from "@/assets/icons/real-estate-house.png";
 import {
-  labCategories, w4FormFields, isLabDocDone,
+  labCategories, labFormFields, isLabDocDone,
   type LabDocument, type LabCategory, type FormField,
 } from "@/data/labDocuments";
 import { ArrowRight, Lock, Coins, Clock, FlaskConical, CheckCircle2, Sparkles, FileText } from "lucide-react";
@@ -75,12 +75,12 @@ const CATEGORY_HUE: Record<string, number> = {
 const catIcon = (id: string) => CATEGORY_ICONS[id];
 const catHue = (id: string) => CATEGORY_HUE[id] ?? 170;
 
-/** Form fields for a doc's preview. Only the W-4 has a real field set today. */
+/** Form fields for a doc's preview - first few fields from its field set. */
 function previewFields(docId: string): FormField[] {
-  return docId === "w4" ? w4FormFields.slice(0, 3) : []
+  return (labFormFields[docId] ?? []).slice(0, 3)
 }
 function totalQuestions(docId: string): number {
-  return docId === "w4" ? w4FormFields.length : 0
+  return (labFormFields[docId] ?? []).length
 }
 
 /* ── Read-only mock of one form question for the teaser ── */

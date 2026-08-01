@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
-import { getLabDocument, w4FormFields, markLabDocDone, FormField } from "@/data/labDocuments"
+import { getLabDocument, labFormFields, markLabDocDone, FormField } from "@/data/labDocuments"
 import { supabase } from "@/integrations/supabase/client"
 import GameNav from "@/components/GameNav"
 import { Button } from "@/components/ui/button"
@@ -43,7 +43,7 @@ export default function LabDocument() {
   const formTopRef = useRef<HTMLDivElement>(null)
 
   // ── Derived data ──
-  const fields = docId === "w4" ? w4FormFields : []
+  const fields = labFormFields[docId || ""] ?? []
   const sections = useMemo(() => {
     const seen = new Map<string, number>()
     fields.forEach(f => { if (!seen.has(f.section)) seen.set(f.section, f.sectionNumber) })
@@ -93,7 +93,7 @@ export default function LabDocument() {
     try {
       const { data, error } = await supabase.functions.invoke("lab-feedback", {
         body: {
-          documentType: "W-4 Employee Withholding Certificate",
+          documentType: `${doc.title} - ${doc.subtitle}`,
           fieldName: field.label,
           fieldValue: value,
           allFields: formValues,
@@ -338,7 +338,7 @@ export default function LabDocument() {
             <div className="bg-primary/5 border-b border-border px-5 py-3 flex items-center gap-3">
               <FlaskConical className="w-4 h-4 text-primary" />
               <span className="text-xs font-bold text-primary uppercase tracking-wider flex-1">
-                {doc.title} - Employee Withholding Certificate
+                {doc.title} - {doc.subtitle}
               </span>
               <span className="text-[10px] text-muted-foreground">
                 {filledRequired}/{totalRequired} required fields
