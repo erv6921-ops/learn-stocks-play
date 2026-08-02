@@ -14,10 +14,12 @@ export function useNetWorth() {
   const [loading, setLoading] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const fetchPrices = useCallback(async () => {
+  // Returns how many live prices were successfully fetched, so callers can
+  // retry when a throttled response comes back empty.
+  const fetchPrices = useCallback(async (): Promise<number> => {
     if (portfolio.length === 0) {
       setLivePrices(new Map());
-      return;
+      return 0;
     }
     setLoading(true);
     try {
@@ -26,23 +28,46 @@ export function useNetWorth() {
         body: { symbols }
       });
       if (!error && data?.stocks) {
-        const map = new Map<string, number>();
+        const fresh = new Map<string, number>();
         for (const s of data.stocks) {
           if (typeof s.price === 'number' && s.price > 0) {
-            map.set(s.symbol, s.price);
+            fresh.set(s.symbol, s.price);
           }
         }
-        setLivePrices(map);
+        // Merge, don't replace: on app boot many quote requests fire at once and
+        // Yahoo may throttle this batch to a partial (or empty) response. Merging
+        // keeps already-known prices instead of blanking the dashboard snapshot.
+        if (fresh.size > 0) {
+          setLivePrices(prev => {
+            const next = new Map(prev);
+            for (const [sym, price] of fresh) next.set(sym, price);
+            return next;
+          });
+        }
+        return fresh.size;
       }
     } catch {
       // keep previous prices on failure
     } finally {
       setLoading(false);
     }
+    return 0;
   }, [portfolio]);
 
   useEffect(() => {
-    fetchPrices();
+    let cancelled = false;
+    let retryTimer: ReturnType<typeof setTimeout> | null = null;
+
+    // Fetch immediately on mount / portfolio change. If the initial load gets
+    // throttled and returns nothing, retry with backoff so a page refresh always
+    // ends up showing live prices rather than falling back to purchase price.
+    const loadWithRetry = async (attempt = 0) => {
+      if (cancelled) return;
+      const got = await fetchPrices();
+      if (cancelled || got > 0 || portfolio.length === 0 || attempt >= 4) return;
+      retryTimer = setTimeout(() => loadWithRetry(attempt + 1), 1000 * (attempt + 1));
+    };
+    loadWithRetry();
 
     const startPolling = () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -55,10 +80,12 @@ export function useNetWorth() {
     const freqCheck = setInterval(startPolling, 300_000);
 
     return () => {
+      cancelled = true;
+      if (retryTimer) clearTimeout(retryTimer);
       if (intervalRef.current) clearInterval(intervalRef.current);
       clearInterval(freqCheck);
     };
-  }, [fetchPrices]);
+  }, [fetchPrices, portfolio.length]);
 
   // Compute portfolio value with live prices, falling back to purchasePrice
   const holdings = portfolio.map(h => {
