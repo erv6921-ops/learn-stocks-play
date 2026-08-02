@@ -22,6 +22,12 @@ import { topUp6BubOpt } from "./quizzes/topUp6BubOpt"
 import { topUp6MacroMkt } from "./quizzes/topUp6MacroMkt"
 import { topUp6IndAlt } from "./quizzes/topUp6IndAlt"
 import { topUp6StkSim } from "./quizzes/topUp6StkSim"
+import { topUp8Income } from "./quizzes/topUp8Income"
+import { topUp8Portfolio } from "./quizzes/topUp8Portfolio"
+import { topUp8Etfs } from "./quizzes/topUp8Etfs"
+import { topUp8BondsMkt } from "./quizzes/topUp8BondsMkt"
+import { topUp8StmtComp } from "./quizzes/topUp8StmtComp"
+import { topUp8BehavEntre } from "./quizzes/topUp8BehavEntre"
 
 export interface LessonQuiz {
   lessonId: string
@@ -3407,6 +3413,12 @@ export const lessonQuizzes: LessonQuiz[] = [
   ...topUp6MacroMkt,
   ...topUp6IndAlt,
   ...topUp6StkSim,
+  ...topUp8Income,
+  ...topUp8Portfolio,
+  ...topUp8Etfs,
+  ...topUp8BondsMkt,
+  ...topUp8StmtComp,
+  ...topUp8BehavEntre,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
