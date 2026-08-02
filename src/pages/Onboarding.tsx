@@ -703,7 +703,10 @@ export default function Onboarding() {
                       options: {
                         emailRedirectTo: "https://investiplay.app/auth",
                         // Provisions the profile + 'teacher' role server-side.
-                        data: { role: "teacher" },
+                        // Name goes in metadata so the handle_new_user trigger
+                        // writes it to the profile immediately - even when email
+                        // confirmation bounces the user away before persistProfile.
+                        data: { role: "teacher", first_name: firstName || null, last_name: lastName || null },
                       },
                     })
 
@@ -904,7 +907,10 @@ export default function Onboarding() {
                       password,
                       options: {
                         emailRedirectTo: "https://investiplay.app/auth",
-                        data: { role: "student" },
+                        // Name in metadata so the handle_new_user trigger saves it
+                        // to the profile at creation - the email-confirmation flow
+                        // returns no session here and skips persistProfile below.
+                        data: { role: "student", first_name: firstName || null, last_name: lastName || null },
                       },
                     })
 
