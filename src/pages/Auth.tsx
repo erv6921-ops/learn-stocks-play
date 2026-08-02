@@ -9,7 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
-import { ArrowRight, GraduationCap, Users, Loader2 } from "lucide-react"
+import { ArrowRight, GraduationCap, Users, Loader2, MailCheck, PartyPopper } from "lucide-react"
+import Confetti from "@/components/Confetti"
 
 type AuthMode = "login" | "signup" | "forgot"
 type UserRole = "student" | "teacher" | null
@@ -27,7 +28,10 @@ export default function Auth() {
   // Password reset is a 3-step OTP flow: enter email → enter 6-digit code → set new password.
   const [resetStep, setResetStep] = useState<"email" | "otp" | "password">("email")
   const [otpCode, setOtpCode] = useState("")
-  const [verificationSent, setVerificationSent] = useState(false)
+  // Signup email verification: "" (form) → "code" (enter 6-digit code) → "done"
+  // (confetti "email confirmed" screen with a log-in button).
+  const [signupPhase, setSignupPhase] = useState<"" | "code" | "done">("")
+  const [signupCode, setSignupCode] = useState("")
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -198,7 +202,6 @@ export default function Auth() {
         email,
         password,
         options: {
-          emailRedirectTo: "https://investiplay.app/auth",
           // The on_auth_user_created trigger reads this to provision the
           // profile + user_roles row with the chosen role.
           data: { role },
@@ -209,7 +212,8 @@ export default function Auth() {
 
       // Profile + role are auto-created by the on_auth_user_created trigger
       // from the role metadata above. If a session exists (email confirmation
-      // off), route in; otherwise show the "check your email" screen.
+      // off), route in; otherwise move to the 6-digit code entry step - the
+      // confirm-signup email delivers a {{ .Token }} code, not a link.
       if (data.session) {
         toast({
           title: "Account created!",
@@ -217,7 +221,12 @@ export default function Auth() {
         })
         navigate(role === "teacher" ? "/teacher-dashboard" : "/onboarding")
       } else {
-        setVerificationSent(true)
+        setSignupCode("")
+        setSignupPhase("code")
+        toast({
+          title: "Check your email",
+          description: "We sent a 6-digit code to confirm your address.",
+        })
       }
 
     } catch (error: any) {
@@ -228,6 +237,45 @@ export default function Auth() {
       })
     } finally {
       setLoading(false)
+    }
+  }
+
+  // Verify the 6-digit signup code. A successful verifyOtp confirms the email
+  // and creates a session, so we sign back out to land on a clean "confirmed"
+  // screen with an explicit log-in button.
+  const handleVerifySignup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const { error } = await supabase.auth.verifyOtp({
+        email,
+        token: signupCode.trim(),
+        type: "signup",
+      })
+      if (error) throw error
+
+      await supabase.auth.signOut()
+      setSignupPhase("done")
+    } catch (error: any) {
+      toast({
+        title: "Invalid or expired code",
+        description: error.message,
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleResendSignupCode = async () => {
+    setLoading(true)
+    const { error } = await supabase.auth.resend({ type: "signup", email })
+    setLoading(false)
+    if (error) {
+      toast({ title: "Couldn't resend", description: error.message, variant: "destructive" })
+    } else {
+      toast({ title: "New code sent", description: "Check your inbox (and spam folder)." })
     }
   }
 
