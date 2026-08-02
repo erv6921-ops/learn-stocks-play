@@ -283,75 +283,124 @@ export default function Auth() {
     <div className="relative min-h-screen bg-background flex items-center justify-center p-4">
       <Wordmark className="absolute top-28 md:top-40 left-1/2 -translate-x-1/2 text-3xl md:text-5xl" />
       <AnimatePresence mode="wait">
-        {verificationSent ? (
+        {signupPhase === "done" ? (
           <motion.div
-            key="verify-email"
+            key="email-confirmed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/85 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background"
           >
-           <motion.div
-             initial={{ opacity: 0, scale: 0.94, y: 14 }}
-             animate={{ opacity: 1, scale: 1, y: 0 }}
-             transition={{ type: "spring", stiffness: 220, damping: 22 }}
-             className="w-full max-w-md"
-           >
-            <div className="text-center mb-6">
-              <JeffMascot
-                size="sm"
-                message="Almost there! Check your inbox - and your spam folder - to verify your email."
-              />
-            </div>
-            <Card variant="elevated">
-              <CardHeader>
-                <CardTitle>Check your email to confirm</CardTitle>
-                <CardDescription>
-                  We sent a confirmation link to <span className="font-medium">{email}</span>. Click it to activate your account, then come back and log in.
-                  <br /><br />
-                  <span className="font-semibold text-foreground">Don't see it? Check your spam or junk folder</span> - confirmation emails often land there.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  Didn't get it? Check your spam folder, or resend below.
-                </p>
+            <Confetti />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 18 }}
+              className="w-full max-w-md text-center"
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.15 }}
+                className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-primary shadow-glow"
+              >
+                <PartyPopper className="h-12 w-12 text-white" />
+              </motion.div>
+              <h1 className="font-display text-3xl md:text-4xl font-extrabold mb-2">Email confirmed! 🎉</h1>
+              <p className="text-muted-foreground mb-8">
+                <span className="font-medium text-foreground">{email}</span> is verified. You're all set - log in to jump into InvestiPlay.
+              </p>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55 }}
+              >
                 <Button
-                  variant="outline"
-                  className="w-full"
-                  disabled={loading}
-                  onClick={async () => {
-                    setLoading(true)
-                    const { error } = await supabase.auth.resend({
-                      type: "signup",
-                      email,
-                      options: { emailRedirectTo: "https://investiplay.app/auth" },
-                    })
-                    setLoading(false)
-                    if (error) {
-                      toast({ title: "Couldn't resend", description: error.message, variant: "destructive" })
-                    } else {
-                      toast({ title: "Confirmation email resent", description: "Check your inbox." })
-                    }
-                  }}
-                >
-                  {loading ? <Loader2 className="mr-2 animate-spin" /> : "Resend confirmation email"}
-                </Button>
-                <Button
-                  className="w-full"
+                  size="lg"
+                  className="w-full text-base font-bold"
                   onClick={() => {
-                    setVerificationSent(false)
+                    setSignupPhase("")
+                    setSignupCode("")
                     setMode("login")
                     setPassword("")
                     setConfirmPassword("")
                     setRole(null)
                   }}
                 >
-                  Back to log in
+                  Log in <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        ) : signupPhase === "code" ? (
+          <motion.div
+            key="verify-code"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="w-full max-w-md"
+          >
+            <div className="text-center mb-6">
+              <JeffMascot
+                size="sm"
+                message="I just emailed you a 6-digit code - pop it in here to confirm your email!"
+              />
+            </div>
+            <Card variant="elevated">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><MailCheck className="h-5 w-5 text-primary" /> Enter your code</CardTitle>
+                <CardDescription>
+                  We sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>. It expires in 1 hour.
+                  <br />
+                  <span className="font-semibold text-foreground">Don't see it?</span> Check your spam or junk folder.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleVerifySignup} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="signupCode">Verification Code</Label>
+                    <Input
+                      id="signupCode"
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      placeholder="000000"
+                      maxLength={6}
+                      value={signupCode}
+                      onChange={e => setSignupCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                      className="text-center text-2xl tracking-[0.5em] font-bold"
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={loading || signupCode.length !== 6}>
+                    {loading ? <Loader2 className="mr-2 animate-spin" /> : "Confirm email"}
+                  </Button>
+                </form>
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <button
+                    type="button"
+                    onClick={handleResendSignupCode}
+                    disabled={loading}
+                    className="text-primary hover:underline disabled:opacity-50"
+                  >
+                    Resend code
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSignupPhase("")
+                      setSignupCode("")
+                      setMode("login")
+                      setPassword("")
+                      setConfirmPassword("")
+                      setRole(null)
+                    }}
+                    className="text-muted-foreground hover:underline"
+                  >
+                    Back to log in
+                  </button>
+                </div>
               </CardContent>
             </Card>
-           </motion.div>
           </motion.div>
         ) : mode === "forgot" ? (
 
