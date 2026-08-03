@@ -28,6 +28,10 @@ import { topUp8Etfs } from "./quizzes/topUp8Etfs"
 import { topUp8BondsMkt } from "./quizzes/topUp8BondsMkt"
 import { topUp8StmtComp } from "./quizzes/topUp8StmtComp"
 import { topUp8BehavEntre } from "./quizzes/topUp8BehavEntre"
+import { diffBatch01 } from "./quizzes/diffBatch01"
+import { diffBatch02 } from "./quizzes/diffBatch02"
+import { diffBatch03 } from "./quizzes/diffBatch03"
+import { diffBatch04 } from "./quizzes/diffBatch04"
 
 export interface LessonQuiz {
   lessonId: string
@@ -3419,6 +3423,10 @@ export const lessonQuizzes: LessonQuiz[] = [
   ...topUp8BondsMkt,
   ...topUp8StmtComp,
   ...topUp8BehavEntre,
+  ...diffBatch01,
+  ...diffBatch02,
+  ...diffBatch03,
+  ...diffBatch04,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
