@@ -114,6 +114,18 @@ const GRADE_MAP: Record<string, number> = {
   adult: 0,
 }
 
+// The profiles.grade CHECK constraint only permits integers 7–12 (or NULL).
+// GRADE_MAP deliberately covers options outside that range (6th grade, and
+// "adult" → 0) for the local User object, so before writing to the database we
+// coerce anything out of range — including a skipped ("") or unexpected
+// selection, which maps to undefined — down to NULL to satisfy the constraint.
+function gradeForDb(gradeKey: string): number | null {
+  const mapped = GRADE_MAP[gradeKey]
+  return typeof mapped === "number" && Number.isInteger(mapped) && mapped >= 7 && mapped <= 12
+    ? mapped
+    : null
+}
+
 // ── Guided sign-up header ──────────────────────────────────────────────────
 // A slim progress bar of dots showing how far along the sign-up the user is.
 function StepDots({ current, total }: { current: number; total: number }) {
@@ -324,7 +336,7 @@ export default function Onboarding() {
           first_name: firstName || null,
           last_name: lastName || null,
           school_name: schoolName || null,
-          grade: grade ? GRADE_MAP[grade] ?? null : null,
+          grade: gradeForDb(grade),
           age: age ? parseInt(age) : null,
           state_course: stateCourse || null,
           class_code: classCode || null,
