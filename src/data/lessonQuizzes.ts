@@ -36,6 +36,10 @@ import { diffBatch05 } from "./quizzes/diffBatch05"
 import { diffBatch06 } from "./quizzes/diffBatch06"
 import { diffBatch07 } from "./quizzes/diffBatch07"
 import { diffBatch08 } from "./quizzes/diffBatch08"
+import { diffBatch09 } from "./quizzes/diffBatch09"
+import { diffBatch10 } from "./quizzes/diffBatch10"
+import { diffBatch11 } from "./quizzes/diffBatch11"
+import { diffBatch12 } from "./quizzes/diffBatch12"
 
 export interface LessonQuiz {
   lessonId: string
@@ -3435,6 +3439,10 @@ export const lessonQuizzes: LessonQuiz[] = [
   ...diffBatch06,
   ...diffBatch07,
   ...diffBatch08,
+  ...diffBatch09,
+  ...diffBatch10,
+  ...diffBatch11,
+  ...diffBatch12,
 ]
 
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
