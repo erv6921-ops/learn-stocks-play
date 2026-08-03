@@ -33,6 +33,7 @@ import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
 import { AssignmentNotifications } from "./components/AssignmentNotifications";
 import { GradeNotifications } from "./components/GradeNotifications";
+import { FriendRequestNotifications } from "./components/FriendRequestNotifications";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
@@ -106,6 +107,7 @@ const App = () => (
             <JeffProvider>
               <AssignmentNotifications />
               <GradeNotifications />
+              <FriendRequestNotifications />
               <AppRoutes />
               {/* Persistent animated mascot - z-40 (below modals). Hides itself on
                   auth/onboarding routes and when signed out. */}
