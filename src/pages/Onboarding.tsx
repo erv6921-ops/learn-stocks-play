@@ -16,7 +16,8 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
-import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight } from "lucide-react"
+import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight, MailCheck, PartyPopper } from "lucide-react"
+import Confetti from "@/components/Confetti"
 
 type UserRole = "student" | "teacher"
 type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-account" | "student-details" | "program-select" | "welcome" | "assessment" | "results"
@@ -207,6 +208,10 @@ export default function Onboarding() {
   const [stateCourse, setStateCourse] = useState("")
   const [password, setPassword] = useState("")
   const [signupLoading, setSignupLoading] = useState(false)
+  // Email verification: after signUp with confirmation on, we collect the
+  // 6-digit code here ("code") then celebrate ("done") - no magic link.
+  const [emailStep, setEmailStep] = useState<"" | "code" | "done">("")
+  const [emailCode, setEmailCode] = useState("")
   // Program choice: standard InvestiPlay vs. the Gulliver Biz Lab (Shark Tank).
   const [bizLab, setBizLab] = useState<boolean>(() => !!user?.bizLabEnrolled)
 
@@ -362,6 +367,61 @@ export default function Onboarding() {
     return true
   }
 
+  // Verify the 6-digit signup code. verifyOtp confirms the email and creates a
+  // session; AppContext's SIGNED_IN routing keeps students on /onboarding (a
+  // no-op), so the confetti "done" screen shows. Teachers get routed straight
+  // to their dashboard - their profile is saved from the signup metadata.
+  const handleVerifyEmail = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSignupLoading(true)
+    try {
+      const { error } = await supabase.auth.verifyOtp({
+        email: email.trim(),
+        token: emailCode.trim(),
+        type: "signup",
+      })
+      if (error) throw error
+      setEmailCode("")
+      setEmailStep("done")
+    } catch (err: any) {
+      toast({ title: "Invalid or expired code", description: err.message, variant: "destructive" })
+    } finally {
+      setSignupLoading(false)
+    }
+  }
+
+  const handleResendCode = async () => {
+    setSignupLoading(true)
+    const { error } = await supabase.auth.resend({ type: "signup", email: email.trim() })
+    setSignupLoading(false)
+    if (error) toast({ title: "Couldn't resend", description: error.message, variant: "destructive" })
+    else toast({ title: "New code sent", description: "Check your inbox (and spam folder)." })
+  }
+
+  // From the confetti "Email confirmed" screen - save the collected profile and
+  // continue into the app (teachers → dashboard, students → the rest of onboarding).
+  const handleEnterApp = async () => {
+    setSignupLoading(true)
+    try {
+      if (selectedRole === "teacher") {
+        const saved = await persistProfile({})
+        if (saved) navigate("/teacher-dashboard")
+      } else {
+        const saved = await persistProfile({
+          literacy_level: "explorer",
+          assessment_score: 0,
+          reward_multiplier: 1,
+          benchmark_scores: {},
+          benchmark_category_scores: {},
+          onboarding_complete: false,
+        })
+        if (saved) { setEmailStep(""); setStep("welcome") }
+      }
+    } finally {
+      setSignupLoading(false)
+    }
+  }
+
   const handleComplete = async () => {
     setLoading(true)
 
@@ -493,6 +553,96 @@ export default function Onboarding() {
 
   // How many dots the sign-up progress bar shows (teachers have one fewer step).
   const totalSteps = selectedRole === "teacher" ? 3 : 5
+
+  const pageBg =
+    "radial-gradient(circle at 18% 18%, hsl(var(--primary) / 0.10), transparent 42%)," +
+    "radial-gradient(circle at 85% 82%, hsl(var(--gold) / 0.08), transparent 42%)," +
+    "hsl(var(--background))"
+
+  // ── Email verification takes over the screen while active ──
+  if (emailStep === "done") {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ background: pageBg }}>
+        <Confetti />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 16 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 200, damping: 18 }}
+          className="w-full max-w-md text-center relative z-10"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.15 }}
+            className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-primary shadow-glow"
+          >
+            <PartyPopper className="h-12 w-12 text-white" />
+          </motion.div>
+          <h1 className="font-display text-3xl md:text-4xl font-extrabold mb-2">Email confirmed! 🎉</h1>
+          <p className="text-muted-foreground mb-8">
+            <span className="font-medium text-foreground">{email}</span> is verified. You're logged in - let's get you into InvestiPlay.
+          </p>
+          <Button size="lg" className="w-full text-base font-bold" onClick={handleEnterApp} disabled={signupLoading}>
+            {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : (
+              <>{selectedRole === "teacher" ? "Go to my dashboard" : "Start learning"} <ArrowRight className="ml-1.5 h-4 w-4" /></>
+            )}
+          </Button>
+        </motion.div>
+      </div>
+    )
+  }
+
+  if (emailStep === "code") {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ background: pageBg }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-md relative z-10"
+        >
+          <div className="text-center mb-6">
+            <JeffMascot size="sm" message="I just emailed you a 6-digit code - pop it in here to confirm your email!" />
+          </div>
+          <Card variant="elevated">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><MailCheck className="h-5 w-5 text-primary" /> Enter your code</CardTitle>
+              <CardDescription>
+                We sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>. It expires in 1 hour.
+                <br />
+                <span className="font-semibold text-foreground">Don't see it?</span> Check your spam or junk folder.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleVerifyEmail} className="space-y-4">
+                <Input
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  placeholder="000000"
+                  maxLength={6}
+                  value={emailCode}
+                  onChange={e => setEmailCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                  className="text-center text-2xl tracking-[0.5em] font-bold"
+                  autoFocus
+                  required
+                />
+                <Button type="submit" className="w-full" disabled={signupLoading || emailCode.length !== 6}>
+                  {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : "Confirm email"}
+                </Button>
+              </form>
+              <div className="mt-4 flex items-center justify-between text-sm">
+                <button type="button" onClick={handleResendCode} disabled={signupLoading} className="text-primary hover:underline disabled:opacity-50">
+                  Resend code
+                </button>
+                <button type="button" onClick={() => { setEmailStep(""); setEmailCode("") }} className="text-muted-foreground hover:underline">
+                  Back
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -701,12 +851,11 @@ export default function Onboarding() {
                       email: email.trim(),
                       password,
                       options: {
-                        emailRedirectTo: "https://investiplay.app/auth",
                         // Provisions the profile + 'teacher' role server-side.
-                        // Name goes in metadata so the handle_new_user trigger
-                        // writes it to the profile immediately - even when email
-                        // confirmation bounces the user away before persistProfile.
-                        data: { role: "teacher", first_name: firstName || null, last_name: lastName || null },
+                        // Name + school go in metadata so the handle_new_user
+                        // trigger writes them to the profile immediately - the
+                        // email-confirmation flow has no session here yet.
+                        data: { role: "teacher", first_name: firstName || null, last_name: lastName || null, school_name: schoolName || null },
                       },
                     })
 
@@ -723,15 +872,15 @@ export default function Onboarding() {
                       throw error
                     }
 
-                    // Email confirmation on → no session yet. The account +
-                    // teacher role are already saved by the trigger; finish
-                    // after they confirm and log in.
+                    // Email confirmation on → no session yet. Collect the
+                    // 6-digit code we just emailed, right here.
                     if (!data.session) {
+                      setEmailCode("")
+                      setEmailStep("code")
                       toast({
-                        title: "Account created!",
-                        description: "Check your email to confirm, then log in from any device.",
+                        title: "Check your email",
+                        description: "We sent a 6-digit code to confirm your address.",
                       })
-                      navigate("/auth")
                       return
                     }
 
@@ -906,7 +1055,6 @@ export default function Onboarding() {
                       email: email.trim(),
                       password,
                       options: {
-                        emailRedirectTo: "https://investiplay.app/auth",
                         // Name in metadata so the handle_new_user trigger saves it
                         // to the profile at creation - the email-confirmation flow
                         // returns no session here and skips persistProfile below.
@@ -928,16 +1076,21 @@ export default function Onboarding() {
                       throw error
                     }
 
-                    toast({
-                      title: "Account created!",
-                      description: data.session
-                        ? "You can log back in any time with your email and password."
-                        : "Check your email to confirm your account. You'll be able to log in from any device after.",
-                    })
+                    // Email confirmation on → no session yet. Collect the
+                    // 6-digit code we just emailed, right here.
                     if (!data.session) {
-                      navigate("/auth")
+                      setEmailCode("")
+                      setEmailStep("code")
+                      toast({
+                        title: "Check your email",
+                        description: "We sent a 6-digit code to confirm your address.",
+                      })
                       return
                     }
+                    toast({
+                      title: "Account created!",
+                      description: "You can log back in any time with your email and password.",
+                    })
 
                     const saved = await persistProfile({
                       literacy_level: "explorer",
