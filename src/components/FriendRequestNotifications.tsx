@@ -65,9 +65,29 @@ export function FriendRequestNotifications() {
       setOpen(true)
     }
 
+    // Check once on app open...
     check()
+
+    // ...and stay live: a pending row inserted with partner_id = me means a new
+    // request just landed, so re-query (the payload has only ids; the RPC adds
+    // the sender's name/school) and pop the dialog instantly.
+    const channel = supabase
+      .channel(`friend-requests-${user.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "partners",
+          filter: `partner_id=eq.${user.id}`,
+        },
+        () => { check() },
+      )
+      .subscribe()
+
     return () => {
       cancelled = true
+      supabase.removeChannel(channel)
     }
   }, [user])
 
