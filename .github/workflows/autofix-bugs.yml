@@ -25,4 +25,4 @@ jobs:
             Investigate the codebase, identify the root cause, implement a fix,
             and open a PR referencing this issue (#${{ github.event.issue.number }}).
             Follow CLAUDE.md conventions.
-          claude_args: "--max-turns 15 --model claude-sonnet-5"
+          claude_args: "--max-turns 15 --model claude-sonnet-5 --allowedTools Edit,Write,Bash(git:*),Bash(gh:*)"
