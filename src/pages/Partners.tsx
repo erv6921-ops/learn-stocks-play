@@ -116,13 +116,15 @@ function StudentCard({
             <LeagueChip xp={s.xp} />
           </div>
           <p className="text-xs text-muted-foreground truncate flex items-center gap-2">
+            <span className="inline-flex items-center gap-1 font-semibold text-foreground/80">
+              <Coins className="w-3 h-3 text-warning" />{Math.round(s.xp).toLocaleString()} InvestiCoins
+            </span>
             {s.school_name && (
               <span className="inline-flex items-center gap-1"><School className="w-3 h-3" />{s.school_name}</span>
             )}
             {s.grade != null && (
               <span className="inline-flex items-center gap-1"><GraduationCap className="w-3 h-3" />Grade {s.grade}</span>
             )}
-            {!s.school_name && s.grade == null && <span>InvestiPlay student</span>}
           </p>
         </div>
         {onInvite && s.partner_status === "none" && (
@@ -506,7 +508,6 @@ function SnapshotView({
   const xp = Number(snap.xp ?? fallbackRow?.xp ?? 0)
   const leagueIdx = getLeagueIdx(xp)
   const league = LEAGUES[leagueIdx]
-  const nextLeague = LEAGUES[leagueIdx + 1] ?? null
   const level = getLevel(xp)
   const biz = snap.business
 
@@ -553,11 +554,6 @@ function SnapshotView({
                   <Handshake className="w-3 h-3" /> {Number(snap.partner_count ?? 0).toLocaleString()} {Number(snap.partner_count ?? 0) === 1 ? "partner" : "partners"}
                 </Badge>
               </div>
-              {nextLeague && (
-                <p className="text-xs text-muted-foreground mt-2">
-                  {Math.max(0, nextLeague.min - xp).toLocaleString()} coins to {nextLeague.icon} {nextLeague.name}
-                </p>
-              )}
             </div>
           </div>
         </CardContent>
