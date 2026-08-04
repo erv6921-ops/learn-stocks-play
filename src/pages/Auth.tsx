@@ -688,7 +688,7 @@ export default function Auth() {
                       <Loader2 className="mr-2 animate-spin" />
                     ) : (
                       <>
-                        {mode === "login" ? "Log inn" : "Create Account"}
+                        {mode === "login" ? "Log in" : "Create Account"}
                         <ArrowRight className="ml-2" />
                       </>
                     )}
