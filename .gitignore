@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Tooling scratch output
+graphify-out/
+
 # Supabase CLI local cache
 supabase/.temp/
 supabase/.branches/
