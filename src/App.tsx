@@ -37,6 +37,7 @@ import { FriendRequestNotifications } from "./components/FriendRequestNotificati
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
+import ReportBugButton from "@/components/ReportBugButton";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 const queryClient = new QueryClient();
@@ -112,6 +113,9 @@ const App = () => (
               {/* Persistent animated mascot - z-40 (below modals). Hides itself on
                   auth/onboarding routes and when signed out. */}
               <JeffWidget />
+              {/* Global "Report a bug" button - files a GitHub issue via the
+                  report-bug edge function; shows on every page. */}
+              <ReportBugButton />
               {/* One-time guided tour Jeff gives right after onboarding. */}
               <JeffTour />
             </JeffProvider>
