@@ -1,0 +1,27 @@
+name: Auto-fix Bug Reports
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  autofix:
+    if: contains(github.event.issue.labels.*.name, 'bug-report')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            A user hit a bug and reported it through the in-app "Report Bug" button.
+            Issue title: "${{ github.event.issue.title }}"
+            Issue body: "${{ github.event.issue.body }}"
+
+            Investigate the codebase, identify the root cause, implement a fix,
+            and open a PR referencing this issue (#${{ github.event.issue.number }}).
+            Follow CLAUDE.md conventions.
+          claude_args: "--max-turns 15 --model claude-sonnet-5"
