@@ -27,6 +27,11 @@ jobs:
             summarizing what you've found so far, even if incomplete. A partial explanation is
             always better than running out of turns with no output.
 
+            Do all investigation inline yourself. Do NOT spawn background or async subagents/tasks -
+            in this CI environment, there is no mechanism to resume after a background task completes,
+            so spawning one will cause you to silently stop without finishing your work. Read files
+            and search the codebase directly instead.
+
             Investigate the codebase and identify the root cause.
             Follow CLAUDE.md conventions.
 
