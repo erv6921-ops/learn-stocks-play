@@ -70,12 +70,13 @@ export default function ReportBugButton() {
     <>
       {/* Bottom-left so it never collides with the bottom-right Jeff widget.
           z-40 keeps it under modals/toasts. Nudged up on mobile to clear the
-          bottom tab bar. */}
+          bottom tab bar, plus the safe-area inset so it doesn't sit under
+          iOS Safari's bottom toolbar/home indicator. */}
       <button
         type="button"
         aria-label="Report a bug"
         onClick={() => setOpen(true)}
-        className="fixed left-4 bottom-20 md:bottom-6 z-40 flex items-center gap-1.5 rounded-full border border-border bg-card/95 px-3 py-2 text-xs font-semibold text-muted-foreground shadow-card backdrop-blur transition-colors hover:text-foreground hover:border-primary/40"
+        className="fixed left-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-6 z-40 flex items-center gap-1.5 rounded-full border border-border bg-card/95 px-3 py-2 text-xs font-semibold text-muted-foreground shadow-card backdrop-blur transition-colors hover:text-foreground hover:border-primary/40"
       >
         <Bug className="h-4 w-4" />
         <span className="hidden sm:inline">Report a bug</span>
