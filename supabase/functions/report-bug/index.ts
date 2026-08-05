@@ -37,6 +37,29 @@ interface ReportBody {
   description?: unknown;
   route?: unknown;
   userAgent?: unknown;
+  consoleErrors?: unknown;
+}
+
+// Format the client-captured console errors/warnings into a readable block for
+// the GitHub issue. Returns "None captured" when there's nothing useful.
+function formatConsoleErrors(raw: unknown): string {
+  if (!Array.isArray(raw) || raw.length === 0) return "None captured";
+  const lines: string[] = [];
+  for (const entry of raw.slice(0, 10)) {
+    if (!entry || typeof entry !== "object") continue;
+    const e = entry as Record<string, unknown>;
+    const ts = typeof e.timestamp === "string" ? e.timestamp : "";
+    const level = typeof e.level === "string" ? e.level.toUpperCase() : "ERROR";
+    const message = typeof e.message === "string" ? e.message : String(e.message ?? "");
+    lines.push(`[${ts}] ${level}: ${message}`);
+    if (typeof e.stack === "string" && e.stack.trim()) {
+      // Keep it compact - first few stack frames are usually enough.
+      const stackLines = e.stack.split("\n").slice(0, 4).map((s) => "  " + s.trim());
+      lines.push(...stackLines);
+    }
+  }
+  if (lines.length === 0) return "None captured";
+  return "```\n" + lines.join("\n").slice(0, 6000) + "\n```";
 }
 
 serve(async (req) => {
@@ -64,10 +87,14 @@ serve(async (req) => {
     if (!title) return json({ error: "title is required" }, 400, origin);
 
     const timestamp = new Date().toISOString();
+    const consoleErrors = formatConsoleErrors(parsed.consoleErrors);
     const issueBody = [
       "## 🐛 Bug report",
       "",
       description || "_No description provided._",
+      "",
+      "**Console errors/warnings (if any):**",
+      consoleErrors,
       "",
       "---",
       `**Route:** \`${route}\``,

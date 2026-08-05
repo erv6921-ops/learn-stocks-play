@@ -39,6 +39,11 @@ import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
 import ReportBugButton from "@/components/ReportBugButton";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { installErrorLog } from "@/lib/errorLog";
+
+// Start capturing console errors/warnings + uncaught errors as early as
+// possible, so the in-app bug reporter can attach them to a report.
+installErrorLog();
 
 const queryClient = new QueryClient();
 

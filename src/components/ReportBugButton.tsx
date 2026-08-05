@@ -8,6 +8,7 @@ import { useState } from "react"
 import { useLocation } from "react-router-dom"
 import { Bug, Loader2, Send } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
+import { getRecentErrors } from "@/lib/errorLog"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -40,6 +41,7 @@ export default function ReportBugButton() {
           description: description.trim(),
           route: location.pathname + location.search,
           userAgent: navigator.userAgent,
+          consoleErrors: getRecentErrors(),
         },
       })
       if (error || (data as { error?: string })?.error) {
