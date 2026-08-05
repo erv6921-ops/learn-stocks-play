@@ -22,7 +22,18 @@ jobs:
             Issue title: "${{ github.event.issue.title }}"
             Issue body: "${{ github.event.issue.body }}"
 
-            Investigate the codebase, identify the root cause, implement a fix,
-            and open a PR referencing this issue (#${{ github.event.issue.number }}).
+            Investigate the codebase and identify the root cause.
             Follow CLAUDE.md conventions.
+
+            If you can identify and fix the bug, implement the fix and open a PR referencing
+            this issue (#${{ github.event.issue.number }}).
+
+            If you cannot reproduce or identify the bug with confidence, do NOT stay silent.
+            Instead, leave a comment on the issue explaining:
+            1. What you investigated (files/components checked)
+            2. Why you couldn't pinpoint the bug
+            3. What additional information would help (e.g. screenshots, exact steps to
+               reproduce, browser console errors)
+
+            Always leave a comment on the issue, either way, so there's a record of what happened.
           claude_args: "--max-turns 15 --model claude-sonnet-5 --allowedTools Edit,Write,Bash(git:*),Bash(gh:*)"
