@@ -36,4 +36,4 @@ jobs:
                reproduce, browser console errors)
 
             Always leave a comment on the issue, either way, so there's a record of what happened.
-          claude_args: "--max-turns 15 --model claude-sonnet-5 --allowedTools Edit,Write,Bash(git:*),Bash(gh:*)"
+          claude_args: "--max-turns 30 --model claude-sonnet-5 --allowedTools Edit,Write,Bash(git:*),Bash(gh:*)"
