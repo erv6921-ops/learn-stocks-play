@@ -41,3 +41,4 @@ jobs:
 
             This step is mandatory even if you found nothing conclusive. Do not skip it.
           claude_args: "--max-turns 50 --model claude-sonnet-5 --allowedTools Edit,Write,Bash(git:*),Bash(gh:*)"
+          show_full_output: true
