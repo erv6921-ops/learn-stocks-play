@@ -393,10 +393,18 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
     return () => clearInterval(interval)
   }, [thinking])
 
-  // Persist every state change so closing mid-lesson resumes seamlessly.
+  // Persist every settled state change so closing mid-lesson resumes
+  // seamlessly. Skipped while "thinking": a tap clears options and adds the
+  // user's message before the AI reply lands, so saving mid-request would
+  // persist a dead-end snapshot (no options, not done) that can never
+  // advance if the tab/component is torn down before the reply arrives -
+  // e.g. the student closes the chat (or the tab reloads) right after
+  // tapping a reply. Resuming should always land on the last state that
+  // still had a way forward.
   useEffect(() => {
+    if (thinking) return
     saveChat(lesson.id, { messages, options, done, scriptIdx })
-  }, [lesson.id, messages, options, done, scriptIdx])
+  }, [lesson.id, messages, options, done, scriptIdx, thinking])
 
   // What's on stage right now.
   const current = [...messages].reverse().find(m => m.role === "assistant")?.content ?? ""
