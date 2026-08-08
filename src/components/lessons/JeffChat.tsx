@@ -36,6 +36,11 @@ export function JeffChatAvatar({ size = 16 }: { size?: number }) {
 /* Expected teaching beats - drives the little progress dots up top. */
 const EXPECTED_TURNS = 6
 
+/* Last-resort reply options. Used only to guarantee the student is never left
+   with zero ways to continue (e.g. if a turn ever comes back with no options),
+   so the lesson can never dead-end. */
+const SAFE_OPTIONS = ["Tell me more", "Keep going", "Got it 👍"]
+
 /* ── Thinking skits ──────────────────────────────────────────────────
    While the AI works, Jeff plays a fully staged skit - each one is its
    own little scene where props live WITH his body (pan in hand, blanket
@@ -393,14 +398,23 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
     return () => clearInterval(interval)
   }, [thinking])
 
-  // Persist every state change so closing mid-lesson resumes seamlessly.
-  // Skip while `thinking`: options are momentarily cleared awaiting Jeff's
-  // reply, and saving that snapshot would strand a resumed session with no
-  // options and no reply if the chat closes before the reply lands.
+  // Persist state so closing mid-lesson resumes seamlessly - but NEVER persist
+  // a "dead end": a state with no tappable options that isn't done yet can't be
+  // resumed (nothing to tap, no quiz button, no in-flight request on reload).
+  // Such states are always transient - a reply was just tapped and Jeff's reply
+  // is in flight - so skipping the write simply keeps the last *resumable*
+  // snapshot until the reply lands. This is the core of the stuck-lesson bug:
+  // the old code saved options:[] the instant a reply was tapped, so closing or
+  // refreshing during the ~1s think window stranded the student permanently.
+  //
+  // This guard supersedes the earlier `if (thinking) return` (PR #17): keying on
+  // the actual invariant (no options & not done) also covers the non-thinking
+  // paths that could still land on an empty option set, and it pairs with the
+  // resume-recovery effect below that heals snapshots already stranded on disk.
   useEffect(() => {
-    if (thinking) return
+    if (options.length === 0 && !done) return
     saveChat(lesson.id, { messages, options, done, scriptIdx })
-  }, [lesson.id, messages, options, done, scriptIdx, thinking])
+  }, [lesson.id, messages, options, done, scriptIdx])
 
   // What's on stage right now.
   const current = [...messages].reverse().find(m => m.role === "assistant")?.content ?? ""
@@ -408,23 +422,28 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   const jeffTurns = messages.filter(m => m.role === "assistant").length
   const mood: JeffMoodType = done ? "celebrate" : "encourage"
 
-  const send = async (choice: string) => {
-    if (thinking) return
-    const nextMessages: ChatMessage[] = [...messages, { role: "user", content: choice }]
-    setMessages(nextMessages)
-    setOptions([])
+  // Remember the options that were on screen so an error can restore them.
+  const lastOptionsRef = useRef<string[]>(options)
+  useEffect(() => { if (options.length) lastOptionsRef.current = options }, [options])
+
+  // Fetch Jeff's next reply for a conversation that already ends with the
+  // student's tap, then render it. The single invariant enforced here: when the
+  // lesson isn't done, we ALWAYS leave a non-empty set of options on screen -
+  // the student can never be stranded with nothing to tap. Shared by send()
+  // and the resume-recovery effect below.
+  const requestReply = async (convo: ChatMessage[]) => {
     setThinking(true)
     const minDelay = new Promise(r => setTimeout(r, 800)) // let the think pose land
 
     try {
       const [{ text, options: newOptions }] = await Promise.all([
-        jeffChatTurn(lesson, nextMessages),
+        jeffChatTurn(lesson, convo),
         minDelay,
       ])
       setThinking(false)
       // Hard stop: if the AI ignores its message budget, force the wrap-up at
       // 8 Jeff messages so no lesson chat drags past that.
-      const jeffCount = nextMessages.filter(m => m.role === "assistant").length + 1
+      const jeffCount = convo.filter(m => m.role === "assistant").length + 1
       const forceEnd = jeffCount >= 8 && !text.includes(END_SIGNAL)
       const finalText = forceEnd ? `${text} ${END_SIGNAL} 🎯` : text
       setMessages(prev => [...prev, { role: "assistant", content: finalText }])
@@ -432,7 +451,8 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
         setDone(true)
         setOptions([])
       } else {
-        setOptions(newOptions)
+        // Guarantee a way forward even if a turn ever returns no options.
+        setOptions(newOptions.length ? newOptions : SAFE_OPTIONS)
       }
     } catch {
       await minDelay
@@ -449,15 +469,38 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
           setOptions(scriptOptions(scriptIdx))
         }
       } else {
-        setMessages([...messages, { role: "assistant", content: "Hmm, lost my train of thought for a sec! Try tapping that again." }])
-        setOptions(lastOptionsRef.current)
+        // Couldn't reach Jeff and there's no script. Append onto the *current*
+        // messages (functional update - don't drop the student's just-added
+        // reply) and restore tappable options so a retry is always possible.
+        setMessages(prev => [...prev, { role: "assistant", content: "Hmm, lost my train of thought for a sec! Try tapping that again." }])
+        setOptions(lastOptionsRef.current.length ? lastOptionsRef.current : SAFE_OPTIONS)
       }
     }
   }
 
-  // Remember the options that were on screen so an error can restore them.
-  const lastOptionsRef = useRef<string[]>(options)
-  useEffect(() => { if (options.length) lastOptionsRef.current = options }, [options])
+  const send = async (choice: string) => {
+    if (thinking) return
+    const nextMessages: ChatMessage[] = [...messages, { role: "user", content: choice }]
+    setMessages(nextMessages)
+    setOptions([])
+    await requestReply(nextMessages)
+  }
+
+  // Resume recovery (runs once on mount): if a *previous* session left a saved
+  // dead-end - a reply that was tapped but never answered (last message is the
+  // student's, with no options and not done) - re-issue that turn so Jeff
+  // responds instead of the lesson sitting stuck forever. This heals snapshots
+  // already stranded in localStorage from before the save guard above existed.
+  const recoveredRef = useRef(false)
+  useEffect(() => {
+    if (recoveredRef.current) return
+    recoveredRef.current = true
+    const last = messages[messages.length - 1]
+    if (!done && options.length === 0 && last?.role === "user") {
+      requestReply(messages)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div
