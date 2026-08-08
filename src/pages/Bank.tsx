@@ -41,6 +41,14 @@ import {
 
 const money = (n: number) => Math.floor(n).toLocaleString()
 
+// Human label + color for a 300-850 credit score.
+const creditRating = (s: number): { label: string; color: string } =>
+  s >= 800 ? { label: "Exceptional", color: "#34d399" }
+  : s >= 740 ? { label: "Very good", color: "#4ade80" }
+  : s >= 670 ? { label: "Good", color: "#facc15" }
+  : s >= 580 ? { label: "Fair", color: "#fb923c" }
+  : { label: "Poor", color: "#f87171" }
+
 /* ── shared bits ─────────────────────────────────────────────────────── */
 
 function DeskLabel({ icon: Icon, children }: { icon: LucideIcon; children: React.ReactNode }) {
@@ -631,9 +639,11 @@ export default function Bank() {
   const accrueInterest = useBankStore(s => s.accrueInterest)
   const checkOverdueLoans = useBankStore(s => s.checkOverdueLoans)
   const savings = useBankStore(s => s.savings)
+  const lifetimeInterest = useBankStore(s => s.lifetimeInterest)
   const creditScore = useBankStore(s => s.creditScore)
   const loans = useBankStore(s => s.loans)
   const bonds = useBankStore(s => s.bonds)
+  const careerEarnings = useBankStore(s => s.careerEarnings)
   const activeCareer = useBankStore(s => s.activeCareer)
   const careerWeek = useBankStore(s => s.careerWeek)
   // Every visit starts in the lobby, where Jeff points you to a floor.
@@ -692,6 +702,25 @@ export default function Bank() {
   const meta = floor ? FLOORS.find(f => f.id === floor)! : null
   const firstName = user?.firstName
 
+  // A living greeting: Jeff calls out whatever's most relevant right now instead
+  // of the same canned hello every visit.
+  const rating = creditRating(creditScore)
+  const bankerLine = overdueLoans
+    ? `Heads up${firstName ? `, ${firstName}` : ""} - a loan's gone overdue. Clear it and we'll rebuild that credit together.`
+    : matureBonds > 0
+    ? `${matureBonds} bond${matureBonds === 1 ? "" : "s"} just matured${firstName ? `, ${firstName}` : ""} - let's collect your payday! 💰`
+    : lifetimeInterest > 0
+    ? `Your vault's earned ${money(lifetimeInterest)} coins in interest while you were away${firstName ? `, ${firstName}` : ""}. Compound interest never sleeps. ✨`
+    : `Let's put your ${money(jeffsBalance)} coins to work${firstName ? `, ${firstName}` : ""}. Where to first?`
+
+  // Live lobby stats - each number rolls up on load and re-tweens when it changes.
+  const bankStats: { label: string; value: number; hint: string; color: string }[] = [
+    { label: "In the vault", value: savings, hint: `Growing ${(SAVINGS_DAILY_RATE * 100).toFixed(0)}%/day`, color: "hsl(var(--accent))" },
+    { label: "Compounded", value: lifetimeInterest, hint: "Interest earned", color: "#34d399" },
+    { label: "Credit score", value: creditScore, hint: rating.label, color: rating.color },
+    { label: bonds.length > 0 ? "In bonds" : "Earned working", value: bonds.length > 0 ? bondsValue : careerEarnings, hint: bonds.length > 0 ? "Working for you" : "From finance jobs", color: "#facc15" },
+  ]
+
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
@@ -730,12 +759,32 @@ export default function Bank() {
                           className="absolute -left-1.5 bottom-4 w-3 h-3 rotate-45 border-l border-b"
                           style={{ borderColor: `rgba(var(--brand-rgb),0.267)`, background: "hsl(var(--primary))" }}
                         />
-                        {firstName ? `Hey ${firstName}! ` : "Hey! "}I'm Jeff, your personal banker. Grow it, borrow it,
-                        lend it - or earn it with a real finance job. Which floor are we visiting today?
+                        {bankerLine}
                       </div>
                     </div>
                   </div>
                   <BankBuilding className="w-full max-w-md mx-auto drop-shadow-lg" />
+                </div>
+
+                {/* Live stats strip - Jeff's readout of your bank at a glance,
+                    numbers rolling instead of a static hello. */}
+                <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6">
+                  {bankStats.map((st, i) => (
+                    <motion.div
+                      key={st.label}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + i * 0.07 }}
+                      className="rounded-xl border px-3 py-2.5"
+                      style={{ borderColor: "rgba(var(--brand-rgb),0.25)", background: "rgba(255,255,255,0.06)" }}
+                    >
+                      <p className="text-[9px] font-extrabold uppercase tracking-[0.15em] text-white/55">{st.label}</p>
+                      <p className="font-display text-xl sm:text-2xl font-extrabold tabular-nums leading-none mt-1" style={{ color: st.color }}>
+                        <AnimatedNumber value={st.value} countUp />
+                      </p>
+                      <p className="text-[10px] text-white/50 mt-0.5">{st.hint}</p>
+                    </motion.div>
+                  ))}
                 </div>
               </BankPanel>
 
