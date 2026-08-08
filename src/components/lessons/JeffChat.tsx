@@ -394,9 +394,13 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   }, [thinking])
 
   // Persist every state change so closing mid-lesson resumes seamlessly.
+  // Skip while `thinking`: options are momentarily cleared awaiting Jeff's
+  // reply, and saving that snapshot would strand a resumed session with no
+  // options and no reply if the chat closes before the reply lands.
   useEffect(() => {
+    if (thinking) return
     saveChat(lesson.id, { messages, options, done, scriptIdx })
-  }, [lesson.id, messages, options, done, scriptIdx])
+  }, [lesson.id, messages, options, done, scriptIdx, thinking])
 
   // What's on stage right now.
   const current = [...messages].reverse().find(m => m.role === "assistant")?.content ?? ""
