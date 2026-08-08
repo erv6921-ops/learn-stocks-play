@@ -74,6 +74,7 @@ const VC_BAD = [
   { desc: "a polished demo, a paid celebrity endorsement, zero actual users, and a founder who keeps his 'backup job'", why: "Polish without users is a movie set - and a founder with one foot out the door quits when it gets hard" },
   { desc: "a 'revolutionary' app with 50 features, none finished, whose founder blames users for not understanding it", why: "Unfocused product + founder who doesn't listen = burning money" },
 ]
+const VC_FOUNDERS = ["Ava", "Marcus", "Priya", "Diego", "Nina", "Kofi", "Sofia", "Ren", "Tariq", "Elena", "Jonah", "Mei"]
 
 const WM_CLIENTS = [
   { name: "Maya", age: 24, job: "nurse", horizon: "40 years from retirement" },
@@ -198,53 +199,302 @@ function peDeal(rng: Rng, fee: number, week: number): CareerDeal {
   }
 }
 
-function vcDeal(rng: Rng, fee: number, week: number): CareerDeal {
-  const nameA = pick(rng, VC_STARTUPS)
-  let nameB = pick(rng, VC_STARTUPS)
-  if (nameB === nameA) nameB = VC_STARTUPS[(VC_STARTUPS.indexOf(nameA) + 1) % VC_STARTUPS.length]
-  const good = pick(rng, VC_GOOD)
-  const bad = pick(rng, VC_BAD)
-  const users = int(rng, 3, 40) * 100
-  const growth = int(rng, 25, 60)
-  const goodDesc = good.desc.replace("{n}", users.toLocaleString()).replace("{g}", String(growth))
-  const goodFirst = rng() < 0.5
-  const mult = int(rng, 6, 15)
+// A Venture Capitalist's real job is far more than "pick between two pitches".
+// Each week we compose a deal from THREE distinct scenario archetypes drawn
+// from the actual arc of venture work - sourcing, diligence, term sheets,
+// board seats, down rounds, follow-ons, reserves, secondaries, exits. Picking
+// 3 different ones per week (deterministically) means no two weeks feel alike.
 
-  const stages: CareerStage[] = [
-    {
-      situation: `Two startups pitch you back to back. ${goodFirst ? nameA : nameB} has ${goodDesc}. ${goodFirst ? nameB : nameA} has ${bad.desc}.`,
-      question: "Which one gets your check?",
-      choices: shuffled(rng, [
-        { text: `${goodFirst ? nameA : nameB} - the one with real users and real growth`, points: 2, feedback: good.why + "." },
-        { text: `${goodFirst ? nameB : nameA} - it just *feels* bigger`, points: 0, feedback: bad.why + " - you invested in a story with nothing behind it." },
-        { text: "Split your check between both, just in case", points: 1, feedback: "FOMO investing. Small checks into weak companies still add up to real losses - conviction picks one." },
-      ]),
+interface VcCtx {
+  co: string       // the week's primary portfolio/target company
+  coB: string      // a second company, for comparison scenarios
+  founder: string  // its founder, for continuity across stages
+  users: number
+  growth: number
+}
+
+interface VcArche {
+  id: string
+  /** Fund-level calls list "Your fund" as the client; company calls name the co. */
+  scope: "fund" | "company"
+  title: string
+  tagline: (c: VcCtx) => string
+  build: (rng: Rng, c: VcCtx) => CareerStage
+}
+
+/** Deterministically pick n distinct items from arr (Fisher-Yates prefix). */
+function pickDistinct<T>(rng: Rng, arr: readonly T[], n: number): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a.slice(0, n)
+}
+
+const VC_ARCHES: VcArche[] = [
+  {
+    id: "pitch",
+    scope: "fund",
+    title: "Pitch Day",
+    tagline: () => "Founders pitch you back to back. Spot the one worth backing.",
+    build: (rng, c) => {
+      const good = pick(rng, VC_GOOD)
+      const bad = pick(rng, VC_BAD)
+      const goodDesc = good.desc.replace("{n}", c.users.toLocaleString()).replace("{g}", String(c.growth))
+      const goodFirst = rng() < 0.5
+      return {
+        situation: `Two startups pitch you back to back. ${goodFirst ? c.co : c.coB} has ${goodDesc}. ${goodFirst ? c.coB : c.co} has ${bad.desc}.`,
+        question: "Which one gets your check?",
+        choices: shuffled(rng, [
+          { text: `${goodFirst ? c.co : c.coB} - real users, real growth`, points: 2, feedback: good.why + "." },
+          { text: `${goodFirst ? c.coB : c.co} - it just *feels* bigger`, points: 0, feedback: bad.why + " - a story with nothing behind it." },
+          { text: "Split your check between both, just in case", points: 1, feedback: "FOMO investing. Small checks into weak companies still add up to real losses - conviction picks one." },
+        ]),
+      }
     },
-    {
-      situation: `You have 1M coins to deploy this year. Startup history is brutal: out of 10 companies, about 5 die, 3 give your money back, 1 doubles, and 1 returns 20×. Nobody can tell which is which in advance.`,
+  },
+  {
+    id: "sourcing",
+    scope: "fund",
+    title: "Deal Hunting",
+    tagline: () => "The best startups don't come to you. Go find them first.",
+    build: (rng) => ({
+      situation: "Your fund can only invest in deals it hears about early. This month you need to find promising startups before rival funds do.",
+      question: "What's the best way to find great deals?",
+      choices: shuffled(rng, [
+        { text: "Build a network - ask founders you respect who the smartest people they know are building", points: 2, feedback: "The best deals travel by trusted referral. Great founders know other great founders - warm intros are venture's lifeblood." },
+        { text: "Email 500 random startups the same copy-pasted message", points: 0, feedback: "Spray-and-pray gets ignored and marks you as a tourist. The startups worth backing already get ten of those a day." },
+        { text: "Only invest in companies already famous and in the news", points: 1, feedback: "By the time it's in the news, the round is full and the price is sky-high. VC edge comes from being early, not from headlines." },
+      ]),
+    }),
+  },
+  {
+    id: "diligence",
+    scope: "company",
+    title: "The Reference Call",
+    tagline: c => `Before you wire a coin, do the homework on ${c.co}.`,
+    build: (rng, c) => {
+      const claimed = int(rng, 40, 90) * 1000
+      const real = Math.round(claimed * (0.35 + rng() * 0.2))
+      return {
+        situation: `You love ${c.co} and are ready to invest. But on a reference call, a former colleague reveals ${c.founder} told you it has ${claimed.toLocaleString()} users - when the real number is closer to ${real.toLocaleString()}.`,
+        question: "What do you do?",
+        choices: shuffled(rng, [
+          { text: `Ask ${c.founder} about the gap directly before investing`, points: 2, feedback: "How a founder handles being caught tells you everything. An honest explanation might save the deal; a lie ends it - either way you needed to know." },
+          { text: "Invest anyway - every founder rounds up a little", points: 0, feedback: "A 2× exaggeration isn't 'rounding up' - it's the exact number you're paying for. Founders who inflate now will inflate when it matters most." },
+          { text: "Walk away silently and warn other investors they're frauds", points: 1, feedback: "Right to be cautious, wrong to smear before asking. Maybe it was a typo or a different metric - check first; gossip, never." },
+        ]),
+      }
+    },
+  },
+  {
+    id: "termsheet",
+    scope: "company",
+    title: "The Term Sheet",
+    tagline: c => `${c.founder} wants to raise money. Agree on a fair price.`,
+    build: (rng, c) => {
+      const fair = int(rng, 20, 40)
+      const ask = fair * 2 + int(rng, 0, 20)
+      return {
+        situation: `${c.founder}, founder of ${c.co}, wants to raise at a ${ask}M valuation. Based on real revenue and growth, similar startups are worth around ${fair}M.`,
+        question: "How do you respond to the high asking price?",
+        choices: shuffled(rng, [
+          { text: `Explain a ~${fair}M valuation with real comparisons, and negotiate honestly`, points: 2, feedback: "Anchor to evidence, not ego. A price set too high just forces a painful 'down round' later - a fair price protects the founder too." },
+          { text: `Agree to ${ask}M to win the deal, worry about it later`, points: 0, feedback: "Overpaying feels like winning until the next round prices lower and everyone's shares get crushed. The price you pay is the risk you take." },
+          { text: "Lowball them at half of fair value to grab more ownership", points: 1, feedback: "Squeezing a founder poisons the relationship you'll depend on for years. Fair - not greedy, not generous - wins the best founders' loyalty." },
+        ]),
+      }
+    },
+  },
+  {
+    id: "founder-conflict",
+    scope: "company",
+    title: "Founder Trouble",
+    tagline: c => `${c.co}'s founders are fighting. You're on the board.`,
+    build: (rng, c) => ({
+      situation: `You sit on ${c.co}'s board. The two co-founders - once best friends - now argue in every meeting, and the team is picking sides. ${c.founder} asks you to just fire the other one.`,
+      question: "How do you handle it?",
+      choices: shuffled(rng, [
+        { text: "Sit both down, hear each side, and help them agree on clear roles and how to decide", points: 2, feedback: "Co-founder fights are the #1 startup killer - and usually fixable. A good board member mediates first; clear roles beat forced breakups." },
+        { text: `Take a side and fire the co-founder ${c.founder} dislikes`, points: 0, feedback: "You'd make an enemy, lose half the founding knowledge, and teach the team the board plays favorites. Rushing to fire is rarely the fix." },
+        { text: "Stay out of it entirely - not your job", points: 1, feedback: "Hands-off has its place, but a fight this deep sinks companies while investors watch. Great board members help; they don't hide." },
+      ]),
+    }),
+  },
+  {
+    id: "down-round",
+    scope: "company",
+    title: "The Down Round",
+    tagline: c => `${c.co} is low on cash in a rough market.`,
+    build: (rng, c) => ({
+      situation: `${c.co} is a solid company with growing sales, but it's running low on cash and the whole market is down. The only money available comes at a *lower* price than its last round - a painful "down round."`,
+      question: "What do you advise?",
+      choices: shuffled(rng, [
+        { text: "Take the down round - survival beats pride; a living company can grow back", points: 2, feedback: "A lower valuation stings egos, but a funded company that's still growing recovers. Running out of cash is forever; a down round isn't." },
+        { text: "Refuse on principle - a lower price would be embarrassing", points: 0, feedback: "Pride doesn't pay salaries. Companies die waiting for a better price that never comes. A cap table heals; an empty bank account doesn't." },
+        { text: "Only take it if founders promise to repay investors personally", points: 1, feedback: "That's not how equity works - and it dodges the real question. If the business is sound, fund survival; if it isn't, that's a different call." },
+      ]),
+    }),
+  },
+  {
+    id: "bridge-flat",
+    scope: "company",
+    title: "Emergency Funding",
+    tagline: c => `${c.co}'s growth has stalled - and they need cash.`,
+    build: (rng, c) => {
+      const months = int(rng, 5, 9)
+      return {
+        situation: `${c.co}'s founders work incredibly hard, but growth has been flat for ${months} months - the product just isn't catching on. They're out of money and ask you for emergency funding.`,
+        question: "Do you fund them?",
+        choices: shuffled(rng, [
+          { text: `Decline kindly - ${months} flat months means the market has answered`, points: 2, feedback: "The hardest discipline in VC: don't throw good money after bad. A bridge for a stalled company usually just buys a few more flat months." },
+          { text: "Fund them - never give up on hard-working founders", points: 1, feedback: "Effort is admirable, but effort isn't traction. Back the market's signal, not just the hustle - the extra cash rarely changes the outcome." },
+          { text: "Fund them, but secretly plan to replace the founders", points: 0, feedback: "Funding people you've already decided to betray is the worst of both worlds: you lose the money AND your reputation when word gets out." },
+        ]),
+      }
+    },
+  },
+  {
+    id: "follow-on",
+    scope: "company",
+    title: "Feeding the Winner",
+    tagline: c => `${c.co} is on fire. Do you double down?`,
+    build: (rng, c) => {
+      const mult = int(rng, 6, 15)
+      return {
+        situation: `A year after you invested, ${c.co} is on fire - worth ${mult}× what you paid and growing faster than ever. A new funding round just opened at the higher price.`,
+        question: 'Do you invest more ("follow on")?',
+        choices: shuffled(rng, [
+          { text: "Yes - feed the winner; it's far less risky now than when you first bet", points: 2, feedback: "The golden rule: double down on proven winners. It 'feels' expensive all the way up - that's exactly what winning looks like." },
+          { text: `Sell everything and lock in the ${mult}×`, points: 0, feedback: "You'd sell the fund's rocket at the launchpad. Power-law winners are the ones you must hold - most of the return comes after this point." },
+          { text: "Do nothing, and let your ownership slowly shrink", points: 1, feedback: "Not fatal, but passive. The best VC returns come from concentrating more into what's clearly working, not drifting away from it." },
+        ]),
+      }
+    },
+  },
+  {
+    id: "power-law",
+    scope: "fund",
+    title: "The Power Law",
+    tagline: () => "Deploy your fund and survive the brutal math of startups.",
+    build: (rng) => ({
+      situation: "You have 1M coins to invest this year. Startup history is brutal: out of 10 companies, about 5 die, 3 give your money back, 1 doubles, and 1 returns 20×. Nobody can tell which is which in advance.",
       question: "How do you deploy it?",
       choices: shuffled(rng, [
-        { text: "Spread across ~10 companies - enough shots for the one big winner to show up", points: 2, feedback: "The power law! One 20× winner pays for every loser - but only if you take enough swings." },
+        { text: "Spread across ~10 companies - enough shots for the one big winner to show up", points: 2, feedback: "The power law! One 20× winner pays for every loser - but only if you take enough swings to catch one." },
         { text: "All of it into your single favorite", points: 0, feedback: "A coin flip away from zero. Conviction chooses *which* ten - it doesn't excuse betting on one." },
-        { text: "100 companies, tiny checks each", points: 1, feedback: "Over-diversified - checks that small buy no meaningful ownership and no seat at the table." },
+        { text: "100 companies, tiny checks each", points: 1, feedback: "Over-diversified - checks that small buy no real ownership and no seat at the table to help." },
       ]),
-    },
-    {
-      situation: `A year later your investment in ${goodFirst ? nameA : nameB} is on fire - worth ${mult}× what you paid, growing faster than ever. A new funding round is open: you can invest more at the higher price, or sit tight and let your slice shrink a little.`,
-      question: "Follow on?",
+    }),
+  },
+  {
+    id: "reserves",
+    scope: "fund",
+    title: "Dry Powder",
+    tagline: () => "Spend the whole fund now, or keep some in reserve?",
+    build: (rng) => ({
+      situation: "You have 2M coins for your fund. You could invest all of it into new startups now, or invest half and keep half in reserve to put MORE into the ones that do well later.",
+      question: "What's the smarter plan?",
       choices: shuffled(rng, [
-        { text: "Invest more - feed the winner; the risk is way lower than when you first bet", points: 2, feedback: "The golden rule: double down on proven winners. It 'feels' expensive all the way up - that's what winning looks like." },
-        { text: `Sell everything and lock in the ${mult}×`, points: 0, feedback: `You sold the fund's rocket at the launchpad - power-law winners are exactly the ones you must hold.` },
-        { text: "Do nothing and let your ownership shrink", points: 1, feedback: "Not fatal, but passive - the best VC returns come from concentrating into what's working." },
+        { text: "Keep reserves - save money to follow on into your winners", points: 2, feedback: "Pros keep 'dry powder'. Your best returns come from doubling down on winners you already own - impossible if you're tapped out." },
+        { text: "Invest everything now - more bets means more chances", points: 1, feedback: "More first-bets sounds good, but you'll watch a winner raise again and be unable to join. Reserves are how you press your advantage." },
+        { text: "Keep it all in reserve, make no new investments", points: 0, feedback: "You can't follow on into winners you never bought. Reserves support a portfolio - they aren't the whole plan." },
       ]),
+    }),
+  },
+  {
+    id: "secondary",
+    scope: "company",
+    title: "Cashing Some Chips",
+    tagline: c => `A rival fund wants to buy your ${c.co} stake.`,
+    build: (rng, c) => {
+      const mult = int(rng, 20, 40)
+      return {
+        situation: `Your stake in ${c.co} is now worth ${mult}× on paper. A rival fund offers to buy your whole stake today, in cash, at that price. You still believe ${c.co} has room to grow.`,
+        question: "What's the move?",
+        choices: shuffled(rng, [
+          { text: "Sell a small piece to return your fund's original money, hold the rest", points: 2, feedback: "The pro's balance: take some money off the table to de-risk the fund, but stay on the rocket. It's rarely all-or-nothing." },
+          { text: `Sell all of it - ${mult}× is amazing, lock it in`, points: 1, feedback: `Nobody's fired for ${mult}×… but if it's your one big winner, selling it all can cap the fund's whole return. The question is how much, not whether.` },
+          { text: "Sell nothing, ever - never let go of a winner", points: 0, feedback: "Funds must eventually return cash to their investors. 'Never sell' isn't a strategy - the skill is deciding how much, and when." },
+        ]),
+      }
     },
-  ]
+  },
+  {
+    id: "burn-rate",
+    scope: "company",
+    title: "Burn Rate",
+    tagline: c => `${c.founder} wants to spend big to grow ${c.co} faster.`,
+    build: (rng, c) => ({
+      situation: `${c.co} is growing nicely on a tight budget. ${c.founder} wants to 10× spending overnight - huge ad budgets and dozens of hires - to grow even faster. It would burn through the company's cash in months.`,
+      question: "What do you advise?",
+      choices: shuffled(rng, [
+        { text: "Scale spending in steps - prove each dollar brings growth before adding more", points: 2, feedback: "Growth you can't sustain isn't growth. Smart founders find the engine first, then pour in fuel - not the other way around." },
+        { text: "Go for it - spend everything, growth is all that matters", points: 0, feedback: "10×-ing burn on unproven channels is the classic flameout. Fast growth on top of a leaky bucket just empties the bank faster." },
+        { text: "Freeze all spending and grow only for free", points: 1, feedback: "Too timid - startups that never invest in growth get lapped by braver rivals. The answer is disciplined spending, not zero." },
+      ]),
+    }),
+  },
+  {
+    id: "acq-offer",
+    scope: "company",
+    title: "The Offer",
+    tagline: c => `Someone wants to buy ${c.co}, and ${c.founder} asks your advice.`,
+    build: (rng, c) => {
+      const now = int(rng, 1, 4)
+      return {
+        situation: `A big company offers to buy ${c.co} for ${now}00M coins - life-changing money for ${c.founder}. You believe it could be worth far more in a few years. ${c.founder} asks for your honest advice, and your fund earns either way.`,
+        question: "What do you tell them?",
+        choices: shuffled(rng, [
+          { text: "Lay out both paths honestly - including your own bias - and back whatever they choose", points: 2, feedback: "This is what 'founder-friendly' really means. It's their life and their risk. Honest counsel earns the trust that wins their next company too." },
+          { text: "Push them hard to reject it - you want the bigger outcome", points: 0, feedback: "Gambling with a founder's life-changing money for your fund's upside is remembered forever. That guaranteed money is theirs to weigh, not yours." },
+          { text: "Push them hard to sell - lock in your fund's win now", points: 1, feedback: "Your fund wins, your reputation loses. Steering a founder to sell on your timeline breaks the trust that sourced the deal." },
+        ]),
+      }
+    },
+  },
+  {
+    id: "scaling-team",
+    scope: "company",
+    title: "Scaling the Team",
+    tagline: c => `${c.co} is growing faster than ${c.founder} can manage.`,
+    build: (rng, c) => ({
+      situation: `${c.co} took off and now has 60 employees. ${c.founder} is a brilliant product builder but is drowning in managing people and operations - things are getting chaotic.`,
+      question: "How do you help?",
+      choices: shuffled(rng, [
+        { text: `Help ${c.founder} hire experienced leaders to run what they're weakest at`, points: 2, feedback: "Great founders scale by hiring around their gaps, not pretending they have none. Your network of talent is one of a VC's most valuable gifts." },
+        { text: `Replace ${c.founder} as CEO with a hired manager`, points: 0, feedback: "Ripping out the founder-visionary usually kills the magic. The fix is support and senior hires - reserve a CEO swap for true emergencies." },
+        { text: "Do nothing - founders should figure it out alone", points: 1, feedback: "The whole point of a hands-on investor is help at exactly moments like this. Watching a good company slide into chaos helps no one." },
+      ]),
+    }),
+  },
+]
+
+const VC_TITLE_PREFIX = ["Week on Sand Hill", "Deal Flow", "The Partner Meeting", "Portfolio Review", "Office Hours", "The Monday Meeting"]
+
+function vcDeal(rng: Rng, fee: number, week: number): CareerDeal {
+  const co = pick(rng, VC_STARTUPS)
+  let coB = pick(rng, VC_STARTUPS)
+  if (coB === co) coB = VC_STARTUPS[(VC_STARTUPS.indexOf(co) + 1) % VC_STARTUPS.length]
+  const ctx: VcCtx = {
+    co,
+    coB,
+    founder: pick(rng, VC_FOUNDERS),
+    users: int(rng, 3, 40) * 100,
+    growth: int(rng, 25, 60),
+  }
+
+  // Three DIFFERENT scenario types per week - the whole point: no two alike.
+  const chosen = pickDistinct(rng, VC_ARCHES, 3)
+  const stages: CareerStage[] = chosen.map(arc => arc.build(rng, ctx))
+  const head = chosen[0]
 
   return {
     id: `gen-vc-${week}`,
-    title: `Pitch Day: ${nameA} vs ${nameB}`,
-    client: "Your fund",
-    tagline: `Two pitches, one check, and the brutal math of venture.`,
+    title: `${pick(rng, VC_TITLE_PREFIX)}: ${head.title}`,
+    client: head.scope === "fund" ? "Your fund" : ctx.co,
+    tagline: head.tagline(ctx),
     difficulty: "Junior",
     baseFee: fee,
     stages,

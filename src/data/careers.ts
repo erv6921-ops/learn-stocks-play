@@ -864,6 +864,56 @@ const ventureCapitalist: Career = {
         },
         {
           situation:
+            "A year after you invest, a sudden market crash freezes startup funding everywhere. Nimbus is still growing but will run out of cash in three months. The only money available is a 'down round' - a lower price than you paid in. The founder is devastated and quietly talks about giving up.",
+          question: "As lead investor and board member, what do you do?",
+          choices: [
+            {
+              text: "Lead the down round yourself and rally the founder - a funded, growing company recovers; a dead one never does",
+              points: 2,
+              feedback:
+                "This is when founders learn who their real partners are. Backing your winner in the scary moment - not just the easy one - is how legendary VC reputations get built.",
+            },
+            {
+              text: "Wait and hope the market recovers before the cash runs out",
+              points: 1,
+              feedback:
+                "Hope isn't a plan when the runway is three months. Waiting for a better price that may never arrive is how good companies die with great products still in hand.",
+            },
+            {
+              text: "Refuse to invest at a lower price - it would mark down your own stake",
+              points: 0,
+              feedback:
+                "Protecting your paper markup while the company runs out of cash is backwards. A living company at a lower price beats a proud zero every single time.",
+            },
+          ],
+        },
+        {
+          situation:
+            "Nimbus survives, and eighteen months later it's booming again - revenue tripling, a huge new round forming at 6× your down-round price. You kept reserves ('dry powder') for exactly this moment, but a partner grumbles that the price is 'too expensive' now.",
+          question: "Do you use your reserves to follow on?",
+          choices: [
+            {
+              text: "Yes - defend your ownership in a proven winner; this is what reserves are for",
+              points: 2,
+              feedback:
+                "The whole point of dry powder is to double down when a bet is clearly working. Winners always look 'expensive' on the way up - that's just what winning looks like.",
+            },
+            {
+              text: "Invest a token amount so you don't fully lose your ownership",
+              points: 1,
+              feedback:
+                "Half-measures on your best company leave returns on the table. When the data screams 'winner,' your conviction - and your check - should match it.",
+            },
+            {
+              text: "Pass - let your ownership shrink; the price feels high",
+              points: 0,
+              feedback:
+                "'Feels expensive' has sold more great companies short than any other instinct. Price-per-risk actually improved as Nimbus de-risked - passing here is the classic mistake.",
+            },
+          ],
+        },
+        {
+          situation:
             "Two years later Nimbus is the hottest robotics company alive. A tech giant offers to acquire it for 2B - life-changing money for the founders. But you believe Nimbus could be a 20B public company in five years. The founders ask for your honest advice - and your fund would earn a fortune either way.",
           question: "What do you tell them?",
           choices: [
