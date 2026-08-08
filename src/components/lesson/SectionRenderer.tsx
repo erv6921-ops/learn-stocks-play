@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useJeff } from "@/contexts/JeffContext"
 import { useApp } from "@/contexts/AppContext"
 import { supabase } from "@/integrations/supabase/client"
@@ -17,6 +18,7 @@ import {
 } from "@/types"
 import {
   BookOpen,
+  Check,
   CheckCircle,
   XCircle,
   ArrowRight,
@@ -27,7 +29,12 @@ import {
   FileQuestion,
 } from "lucide-react"
 import { useHints } from "@/components/lesson/HintContext"
+import { useQuizSession } from "@/components/lesson/QuizSessionContext"
+import CoinBurst from "@/components/gamification/CoinBurst"
 // shuffleQuestion import removed - shuffling is handled upstream in LessonDetail
+
+// Seconds allowed per quiz question before it's auto-marked wrong.
+const QUESTION_TIME = 15
 
 // ─── Quiz Answer Component (shared by Micro Check, Applied Question, Mastery) ───
 
@@ -37,13 +44,16 @@ interface QuizAnswerProps {
   onIncorrect: () => void
   onContinue: () => void
   showContinue: boolean
+  // Coins gained on a right answer / lost on a wrong one. Defaults to 50;
+  // the low-stakes micro-check passes 25.
+  coins?: number
   // Optional - only the Mastery Engine's write path (MasteryCheckRenderer)
   // wires this. Micro-check and applied-question are formative practice,
   // not the assessment of mastery, so they never log to question_attempts.
   onAnswered?: (isCorrect: boolean, responseTimeMs: number) => void
 }
 
-function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, onAnswered }: QuizAnswerProps) {
+function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 50, onAnswered }: QuizAnswerProps) {
   // Questions are already shuffled & validated by the MCQ engine in LessonDetail - use as-is
   const shuffledQ = question
   const [selected, setSelected] = useState<number | null>(null)
@@ -51,19 +61,70 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   // Wrong options this question's hints have crossed out.
   const [eliminated, setEliminated] = useState<number[]>([])
   const hints = useHints()
+  const session = useQuizSession()
+
+  // ── Gamification: coin-particle burst on a correct answer ──
+  const [burstId, setBurstId] = useState(0)
+
+  // ── Countdown timer (15s per question) ──
+  const [remainingMs, setRemainingMs] = useState(QUESTION_TIME * 1000)
+  const intervalRef = useRef<ReturnType<typeof setInterval>>()
   // Mount time for THIS question - a fresh QuizAnswer instance is created
-  // per question (parent passes key={question.id}), so this ref naturally
-  // resets per question with no effect/cleanup needed.
+  // per question (parent passes key={question.id}), so these refs naturally
+  // reset per question.
   const shownAtRef = useRef(Date.now())
+  // Guards against double-resolution (a click landing at the same tick the
+  // timer hits zero) - whichever fires first wins.
+  const resolvedRef = useRef(false)
+
+  const handleTimeout = () => {
+    if (resolvedRef.current) return
+    resolvedRef.current = true
+    clearInterval(intervalRef.current)
+    setRevealed(true) // reveals the correct answer highlighted, no selection
+    onAnswered?.(false, QUESTION_TIME * 1000)
+    session.registerWrong(coins) // −coins + toast
+    onIncorrect()
+  }
+
+  // Fully (re)initialise for each question and start its countdown. Keyed on
+  // the question id so this runs whether the component remounted (new key) OR
+  // was reused with a new question prop - either way the speed timer, guards
+  // and answer state all reset, so every question behaves like the first.
+  useEffect(() => {
+    resolvedRef.current = false
+    shownAtRef.current = Date.now()
+    setSelected(null)
+    setRevealed(false)
+    setEliminated([])
+    setRemainingMs(QUESTION_TIME * 1000)
+
+    intervalRef.current = setInterval(() => {
+      const rem = Math.max(0, QUESTION_TIME * 1000 - (Date.now() - shownAtRef.current))
+      setRemainingMs(rem)
+      if (rem <= 0) handleTimeout()
+    }, 200)
+    return () => clearInterval(intervalRef.current)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shuffledQ.id])
 
   const handleSelect = (idx: number) => {
-    if (revealed || eliminated.includes(idx)) return
+    if (resolvedRef.current || revealed || eliminated.includes(idx)) return
+    resolvedRef.current = true
+    clearInterval(intervalRef.current) // pause the timer on answer
+    const responseMs = Date.now() - shownAtRef.current
     setSelected(idx)
     setRevealed(true)
     const isRight = idx === shuffledQ.correctAnswer
-    onAnswered?.(isRight, Date.now() - shownAtRef.current)
-    if (isRight) onCorrect()
-    else onIncorrect()
+    onAnswered?.(isRight, responseMs)
+    if (isRight) {
+      session.registerCorrect(coins, responseMs) // +coins (+speed bonus) + toast
+      setBurstId(b => b + 1)
+      onCorrect()
+    } else {
+      session.registerWrong(coins) // −coins + toast
+      onIncorrect()
+    }
   }
 
   // Cap eliminations so at least two options (incl. the correct one) always
@@ -82,9 +143,98 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
 
   const isCorrect = selected === shuffledQ.correctAnswer
 
+  // Timer bar geometry & colour: green >8s, yellow 4-8s, red <4s.
+  const secsLeft = Math.ceil(remainingMs / 1000)
+  const timerColor =
+    remainingMs > 8000
+      ? "hsl(var(--success))"
+      : remainingMs > 4000
+      ? "hsl(var(--warning))"
+      : "hsl(var(--destructive))"
+  const timerPct = (remainingMs / (QUESTION_TIME * 1000)) * 100
+
+  // Combo pill state, derived from the shared session.
+  const combo = session.combo
+  const comboPill =
+    session.lostCombo != null
+      ? { text: "Combo lost!", broken: true as const, pulse: undefined }
+      : combo >= 10
+      ? { text: "10x COMBO 🚀", broken: false as const, pulse: 0.6 }
+      : combo >= 5
+      ? { text: "5x COMBO ⚡", broken: false as const, pulse: 1 }
+      : combo >= 3
+      ? { text: "3x COMBO 🔥", broken: false as const, pulse: undefined }
+      : null
+
   return (
-    <div className="space-y-3">
-      <p className="font-semibold text-foreground text-base">{shuffledQ.question}</p>
+    <div className="space-y-3 relative">
+      {/* Countdown timer bar. */}
+      <div className="flex items-center gap-2">
+        <div className="relative flex-1 h-2.5 rounded-full bg-muted overflow-hidden">
+          <div
+            className="absolute inset-y-0 left-0 rounded-full"
+            style={{
+              width: `${timerPct}%`,
+              backgroundColor: timerColor,
+              transition: "width 0.2s linear, background-color 0.4s ease",
+            }}
+          />
+        </div>
+        <span className="text-xs font-semibold tabular-nums w-8 text-right" style={{ color: timerColor }}>
+          {secsLeft}s
+        </span>
+      </div>
+
+      {/* Combo banner (persists across questions while the streak lives). */}
+      <AnimatePresence>
+        {comboPill && (
+          <motion.div
+            key={comboPill.broken ? "broken" : comboPill.text}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={
+              comboPill.pulse
+                ? { opacity: 1, scale: [1, 1.05, 1] }
+                : { opacity: 1, scale: 1 }
+            }
+            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
+            transition={
+              comboPill.pulse
+                ? { scale: { duration: comboPill.pulse, repeat: Infinity, ease: "easeInOut" } }
+                : { duration: 0.2 }
+            }
+            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${
+              comboPill.broken
+                ? "bg-destructive/15 text-destructive"
+                : "bg-emerald-900 text-amber-300"
+            }`}
+          >
+            {comboPill.text}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Question, with a checkmark badge that pops in on a correct answer. */}
+      <div className="relative">
+        <p className="font-semibold text-foreground text-base pr-12">{shuffledQ.question}</p>
+        <AnimatePresence>
+          {revealed && isCorrect && (
+            <motion.div
+              key="correct-check"
+              className="absolute -top-1 right-0"
+              initial={{ scale: 0, rotate: -25 }}
+              animate={{ scale: [0, 1.35, 1], rotate: 0 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 320, damping: 13 }}
+            >
+              <div className="relative w-10 h-10 rounded-full bg-success flex items-center justify-center shadow-md">
+                <Check className="w-6 h-6 text-success-foreground" strokeWidth={3} />
+                <CoinBurst burstKey={burstId} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       <div className="space-y-2">
         {shuffledQ.options.map((opt, i) => {
           const isSelected = selected === i
@@ -93,11 +243,15 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
           const showRed = revealed && isSelected && !isRight
           const isEliminated = !revealed && eliminated.includes(i)
 
+          // A wrong pick gives the card a quick shake; everything else keeps the
+          // original clean tinted-card styling.
           return (
-            <button
+            <motion.button
               key={i}
               onClick={() => handleSelect(i)}
               disabled={revealed || isEliminated}
+              animate={showRed ? { x: [0, -8, 8, -6, 6, 0] } : undefined}
+              transition={{ duration: 0.4 }}
               className={`w-full text-left p-3.5 rounded-xl border-2 transition-all flex items-center gap-3 text-sm ${
                 isEliminated
                   ? "border-border/60 bg-muted/40 text-muted-foreground line-through opacity-55"
@@ -114,7 +268,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
               {showRed && <XCircle className="w-4 h-4 flex-shrink-0" />}
               <span className="flex-1">{opt}</span>
               {isEliminated && <span className="text-[10px] font-semibold shrink-0">ruled out</span>}
-            </button>
+            </motion.button>
           )
         })}
       </div>
@@ -239,8 +393,9 @@ export function MicroCheckRenderer({ section, onContinue }: { section: MicroChec
       </div>
       <CardContent className="p-6">
         <QuizAnswer
-          key={section.questions[currentQ].id}
+          key={`mc-${currentQ}`}
           question={section.questions[currentQ]}
+          coins={25}
           onCorrect={() => {}}
           onIncorrect={() => {}}
           onContinue={handleNext}
@@ -291,6 +446,7 @@ export function AppliedQuestionRenderer({ section, onContinue }: { section: Appl
       <CardContent className="p-6">
         <QuizAnswer
           question={section.question}
+          coins={25}
           onCorrect={() => {}}
           onIncorrect={() => {}}
           onContinue={onContinue}
@@ -357,8 +513,26 @@ export function MasteryCheckRenderer({
   const [totalAttempts, setTotalAttempts] = useState(0)
   const [finished, setFinished] = useState(false)
 
-  const total = section.questions.length
   const required = section.requiredCorrect
+
+  // Per-attempt question subset: the authored pool is intentionally larger
+  // than `requiredCorrect`, so a student who fails and retries gets FRESH
+  // questions instead of re-seeing the exact same ones. We draw `required`
+  // questions from the pool starting at an offset that rotates by
+  // `sessionAttemptNumber` (deterministic per attempt, so a mid-attempt
+  // re-render stays stable), cycling through the pool with wrap-around. This
+  // component is remounted (keyed on regenerationCount) on every retry, so the
+  // memo recomputes with the new attempt number each time.
+  const questions = useMemo(() => {
+    const pool = section.questions
+    if (pool.length <= required) return pool
+    // attemptNumber starts at 1; offset advances by `required` each attempt so
+    // successive attempts consume the next slice of the pool before wrapping.
+    const offset = ((sessionAttemptNumber - 1) * required) % pool.length
+    return Array.from({ length: required }, (_, i) => pool[(offset + i) % pool.length])
+  }, [section.questions, required, sessionAttemptNumber])
+
+  const total = questions.length
 
   // Fire-and-forget event log write - never blocks or delays quiz feedback,
   // and a failed write never breaks the lesson (matches the app's existing
@@ -464,12 +638,12 @@ export function MasteryCheckRenderer({
           <Progress value={(correctCount / required) * 100} className="h-2" />
         </div>
         <QuizAnswer
-          key={section.questions[currentQ].id}
-          question={section.questions[currentQ]}
+          key={`mastery-${currentQ}`}
+          question={questions[currentQ]}
           onCorrect={handleCorrect}
           onIncorrect={handleIncorrect}
           onContinue={handleNext}
-          onAnswered={(isCorrect, ms) => logAttempt(section.questions[currentQ], isCorrect, ms)}
+          onAnswered={(isCorrect, ms) => logAttempt(questions[currentQ], isCorrect, ms)}
           showContinue={true}
         />
       </CardContent>

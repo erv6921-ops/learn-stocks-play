@@ -788,9 +788,6 @@ export default function Lessons() {
                   <p className="text-[13px] mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>
                     {lessonDescFor(activeUnit?.unitNumber, nextLessonInUnit.lesson.lessonNumber)}
                   </p>
-                  <p className="text-sm font-bold mt-1.5" style={{ color: "var(--brand)" }}>
-                    +{Math.round(nextLessonInUnit.lesson.reward * multiplier).toLocaleString()} pts on completion
-                  </p>
                 </div>
                 <Link to={`/lessons/${nextLessonInUnit.lesson.id}`} className="shrink-0">
                   <Button size="sm" className="bg-[var(--brand)] hover:bg-[var(--brand-strong)] text-white font-bold gap-1.5 press-scale">
@@ -846,10 +843,7 @@ export default function Lessons() {
                       <span className="text-[12.5px] font-bold block mt-1 leading-snug line-clamp-2 min-h-[2.4em]" style={{ color: titleColor }}>
                         {lesson.title}
                       </span>
-                      <div className="mt-2.5 flex items-center justify-between gap-2">
-                        <span className="text-[11px] font-bold font-mono" style={{ color: completed ? "var(--brand)" : isCurrent ? "#EF9F27" : labelColor }}>
-                          +{Math.round(lesson.reward * multiplier)} pts
-                        </span>
+                      <div className="mt-2.5 flex items-center justify-end gap-2">
                         {!completed && !locked && (
                           <span title="Chat with Jeff" className="shrink-0 inline-flex"><JeffChatAvatar size={16} /></span>
                         )}

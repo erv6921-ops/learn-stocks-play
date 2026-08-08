@@ -38,6 +38,7 @@ import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
 import ReportBugButton from "@/components/ReportBugButton";
+import LevelUpWatcher from "@/components/gamification/LevelUpOverlay";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { installErrorLog } from "@/lib/errorLog";
 
@@ -115,14 +116,23 @@ const App = () => (
               <GradeNotifications />
               <FriendRequestNotifications />
               <AppRoutes />
-              {/* Persistent animated mascot - z-40 (below modals). Hides itself on
-                  auth/onboarding routes and when signed out. */}
-              <JeffWidget />
-              {/* Global "Report a bug" button - files a GitHub issue via the
-                  report-bug edge function; shows on every page. */}
-              <ReportBugButton />
-              {/* One-time guided tour Jeff gives right after onboarding. */}
-              <JeffTour />
+              {/* Non-essential global widgets. Wrapped in a silent error
+                  boundary (fallback=null) so a hiccup in any of them - e.g. the
+                  level-up overlay reacting to a coin change on lesson finish -
+                  can never blank the whole app (the old "white screen"). */}
+              <ErrorBoundary fallback={null}>
+                {/* Persistent animated mascot - z-40 (below modals). Hides itself on
+                    auth/onboarding routes and when signed out. */}
+                <JeffWidget />
+                {/* Global "Report a bug" button - files a GitHub issue via the
+                    report-bug edge function; shows on every page. */}
+                <ReportBugButton />
+                {/* One-time guided tour Jeff gives right after onboarding. */}
+                <JeffTour />
+                {/* Fires the full-screen LEVEL UP! moment when the coin balance
+                    crosses the next level boundary. */}
+                <LevelUpWatcher />
+              </ErrorBoundary>
             </JeffProvider>
           </AppProvider>
         </BrowserRouter>
