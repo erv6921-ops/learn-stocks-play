@@ -406,6 +406,11 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
   // snapshot until the reply lands. This is the core of the stuck-lesson bug:
   // the old code saved options:[] the instant a reply was tapped, so closing or
   // refreshing during the ~1s think window stranded the student permanently.
+  //
+  // This guard supersedes the earlier `if (thinking) return` (PR #17): keying on
+  // the actual invariant (no options & not done) also covers the non-thinking
+  // paths that could still land on an empty option set, and it pairs with the
+  // resume-recovery effect below that heals snapshots already stranded on disk.
   useEffect(() => {
     if (options.length === 0 && !done) return
     saveChat(lesson.id, { messages, options, done, scriptIdx })
