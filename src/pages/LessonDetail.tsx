@@ -21,6 +21,7 @@ import {
   MasteryCheckRenderer,
 } from "@/components/lesson/SectionRenderer"
 import { HintProvider } from "@/components/lesson/HintContext"
+import { QuizSessionProvider, LessonCoinsSummary } from "@/components/lesson/QuizSessionContext"
 import JeffChat from "@/components/lessons/JeffChat"
 import { buildScript } from "@/lib/jeffChatLesson"
 import { Textarea } from "@/components/ui/textarea"
@@ -38,7 +39,7 @@ import {
 export default function LessonDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { user, lessonProgress, updateLessonProgress, earnJeffs, getRewardMultiplier } = useApp()
+  const { user, lessonProgress, updateLessonProgress, earnJeffs } = useApp()
 
   const lesson = lessons.find(l => l.id === id)
   const progress = lessonProgress.find(p => p.lessonId === id)
@@ -127,6 +128,31 @@ export default function LessonDetail() {
       return normalized // no clean replacement available - trimmed original beats nothing
     }
 
+    // Retry variety: a mastery-check pool no larger than requiredCorrect means
+    // a student who fails re-sees the EXACT same questions (SectionRenderer
+    // rotates a per-attempt slice, but only if the pool is bigger than the
+    // slice). Build a supplemental bank from this lesson's OWN already-authored
+    // questions - the micro-check + applied questions, then any unused quiz-pool
+    // questions - so every mastery-check has room to rotate to fresh questions
+    // on a retry. Attempt 1 still shows only the authored mastery questions
+    // (they stay first), so nothing a student just saw is repeated immediately.
+    const masteryIds = new Set<string>()
+    raw.sections.forEach(s => { if (s.type === "mastery-check") s.questions.forEach(q => masteryIds.add(q.id)) })
+    const supplemental: QuizQuestion[] = []
+    const suppSeen = new Set<string>()
+    const addSupp = (q: QuizQuestion) => {
+      if (masteryIds.has(q.id) || suppSeen.has(q.id)) return
+      const norm = normalizeOptionLengths(q)
+      if (!questionPassesQualityChecks(norm)) return
+      suppSeen.add(q.id)
+      supplemental.push(norm)
+    }
+    raw.sections.forEach(s => {
+      if (s.type === "micro-check") s.questions.forEach(addSupp)
+      if (s.type === "applied-question") addSupp(s.question)
+    })
+    pool.forEach(addSupp)
+
     // Process all question sections through the MCQ engine for balanced positions & length normalization
     const processedSections = raw.sections.map(section => {
       if (section.type === "micro-check") {
@@ -137,7 +163,14 @@ export default function LessonDetail() {
         return { ...section, question: processed }
       }
       if (section.type === "mastery-check") {
-        return { ...section, questions: shuffleQuestionSet(section.questions.map(deBias)) }
+        const base = section.questions.map(deBias)
+        // Give the retry rotation headroom: enough distinct questions for a
+        // couple of fresh attempts beyond the first. Extras are drawn from the
+        // supplemental bank and de-duped against the authored mastery questions.
+        const target = section.requiredCorrect + 3
+        const baseIds = new Set(base.map(q => q.id))
+        const extras = supplemental.filter(q => !baseIds.has(q.id)).slice(0, Math.max(0, target - base.length))
+        return { ...section, questions: shuffleQuestionSet([...base, ...extras]) }
       }
       return section
     })
@@ -148,7 +181,6 @@ export default function LessonDetail() {
   const [currentSectionIdx, setCurrentSectionIdx] = useState(0)
   const [lessonStarted, setLessonStarted] = useState(false)
   const [lessonFinished, setLessonFinished] = useState(false)
-  const [jeffsEarned, setJeffsEarned] = useState(false)
   const [totalAttempts, setTotalAttempts] = useState(0)
   // "Chat with Jeff" replaces the paragraph reading for uncompleted lessons.
   const [chatOpen, setChatOpen] = useState(false)
@@ -214,10 +246,9 @@ export default function LessonDetail() {
     setLessonFinished(true)
     const quizScore = attempts > 0 ? Math.round((correct / attempts) * 100) : 100
     updateLessonProgress(lesson.id, true, quizScore)
-    if (!isCompleted) {
-      earnJeffs(lesson.reward, `Completed lesson: ${lesson.title}`)
-      setJeffsEarned(true)
-    }
+    // No flat completion reward - coins are earned per question (right answers
+    // gain coins, wrong ones lose them). The only completion-time bonus is the
+    // optional reflection journal, awarded separately when it's submitted.
   }
 
   // Mastery confidence pacing is read-only advice on top of the pass/fail
@@ -346,6 +377,7 @@ export default function LessonDetail() {
 
   return (
     <HintProvider key={lesson.id} total={2}>
+    <QuizSessionProvider key={`quiz-${lesson.id}`}>
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       {/* Header */}
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
@@ -381,7 +413,7 @@ export default function LessonDetail() {
                       <Clock className="w-4 h-4" /> {lesson.duration} min lesson
                     </p>
                     <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
-                      <Coins className="w-4 h-4 text-gold" /> {lesson.reward.toLocaleString()} InvestiCoins on completion
+                      <Coins className="w-4 h-4 text-gold" /> Earn InvestiCoins for every question you get right
                     </p>
                   </div>
                 </div>
@@ -493,21 +525,15 @@ export default function LessonDetail() {
               </div>
               <h2 className="text-2xl font-bold">Mission Complete! 🎉</h2>
 
-              {jeffsEarned && (
+              <LessonCoinsSummary />
+
+              {reflectionDone && (
                 <div className="bg-gold/10 border border-gold/20 rounded-xl p-4">
                   <div className="flex items-center justify-center gap-2">
                     <Coins className="w-5 h-5 text-gold" />
-                    <span className="text-2xl font-semibold text-gold">
-                      +{Math.round(lesson.reward * getRewardMultiplier()).toLocaleString()}
-                    </span>
+                    <span className="text-2xl font-semibold text-gold">+{REFLECTION_BONUS}</span>
                   </div>
-                  <p className="text-sm text-muted-foreground">InvestiCoins earned!</p>
-                  {getRewardMultiplier() > 1 && (
-                    <p className="text-xs text-gold/70 mt-1">({getRewardMultiplier().toFixed(1)}x multiplier from Benchmark)</p>
-                  )}
-                  {reflectionDone && (
-                    <p className="text-xs text-gold/80 mt-1">+{REFLECTION_BONUS} reflection bonus - plan locked in 📝</p>
-                  )}
+                  <p className="text-sm text-muted-foreground">reflection bonus - plan locked in 📝</p>
                 </div>
               )}
 
@@ -537,6 +563,7 @@ export default function LessonDetail() {
         />
       )}
     </div>
+    </QuizSessionProvider>
     </HintProvider>
   )
 }

@@ -4,6 +4,12 @@ import { AlertTriangle } from "lucide-react";
 
 interface Props {
   children: React.ReactNode;
+  /**
+   * What to render if the subtree throws. Defaults to the full-page fallback
+   * card. Pass `null` for non-essential widgets (overlays, mascots) so a crash
+   * there quietly disappears instead of blanking the whole app.
+   */
+  fallback?: React.ReactNode;
 }
 interface State {
   error: Error | null;
@@ -31,6 +37,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     if (this.state.error) {
+      if (this.props.fallback !== undefined) return this.props.fallback;
       return (
         <div className="min-h-screen bg-background flex items-center justify-center p-6">
           <div className="max-w-md w-full rounded-2xl border border-border bg-card p-6 text-center">

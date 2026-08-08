@@ -17,108 +17,277 @@ export const END_SIGNAL = "Ready to test what you learned?"
 // families).
 interface Hook { question: string; answers: string[] }
 
-// Several hooks per topic so lessons in the same category don't all open with
-// the identical question. The one shown is chosen deterministically from the
-// lesson id (see openingHook) - varied across lessons, but stable for a given
-// lesson so its question and tappable answers always match.
-const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
-  [/delayed|gratification|instant/, [
-    { question: "Would you rather have $50 today or $100 in a month?", answers: ["$50 today, easy", "$100 in a month", "Hmm, depends"] },
-    { question: "Ever bought something instantly and regretted it an hour later?", answers: ["Way too often 😅", "Once or twice", "Nope, I'm disciplined"] },
-    { question: "Could you wait a whole week to buy something you really want?", answers: ["No chance", "Maybe", "Easily"] },
-  ]],
-  [/psychology-of-money|behavioral/, [
-    { question: "If you got $100 right now, what's the FIRST thing you'd do with it?", answers: ["Spend it on something fun 🛍️", "Save every penny", "Half spend, half save"] },
-    { question: "Do you spend more when you pay with a card instead of cash?", answers: ["Definitely card", "Never noticed", "Cash feels more real"] },
-    { question: "What's one thing you ALWAYS talk yourself into buying?", answers: ["Snacks 🍟", "Clothes or shoes", "Games and apps"] },
-  ]],
-  [/budget/, [
-    { question: "Do you actually know where your money goes every month?", answers: ["Yeah, pretty much", "Not really 😅", "I don't track anything"] },
-    { question: "If your money vanished tomorrow, could you say what you spent it on?", answers: ["Not a clue", "Roughly", "Yeah, all of it"] },
-    { question: "What eats up most of your money right now?", answers: ["Food", "Fun stuff", "Honestly no idea"] },
-  ]],
-  [/banking/, [
-    { question: "Do you know how banks make money off your savings account?", answers: ["No idea honestly", "They charge fees, right?", "They invest it somehow?"] },
-    { question: "What's the actual difference between checking and savings?", answers: ["Not sure", "One earns interest?", "I know this one"] },
-    { question: "Ever been surprised by a random bank fee?", answers: ["Ugh, yes", "Not yet", "Wait, what fees?"] },
-  ]],
-  [/credit|debt/, [
-    { question: "Did you know your credit score can affect your rent, job, and even phone plan?", answers: ["Wait, seriously?", "Yeah, I knew that", "What even is a credit score?"] },
-    { question: "Is a credit card free money or a trap?", answers: ["Kinda both?", "A trap", "Free money 😏"] },
-    { question: "What happens if you only pay the minimum on a credit card?", answers: ["No idea", "It piles up?", "Nothing bad?"] },
-  ]],
-  [/invest|stock|portfolio|etf|bond/, [
-    { question: "If I told you $100 invested at 17 beats $1,000 invested at 30, would you believe me?", answers: ["No way, prove it", "I'd believe it", "How does that work?"] },
-    { question: "Is investing basically just gambling?", answers: ["Feels like it", "No, it's different", "Explain the difference"] },
-    { question: "Where does your money actually GO when you buy a stock?", answers: ["No clue", "You own part of a company?", "Somewhere magic ✨"] },
-  ]],
-  [/tax/, [
-    { question: "How much of a $15/hr paycheck do you actually take home?", answers: ["All of it… right?", "Like $12/hr maybe?", "No clue honestly"] },
-    { question: "Why does your paycheck come out smaller than you expected?", answers: ["Taxes?", "No idea", "Some kind of fees"] },
-    { question: "Ever wonder where the money taken out of a paycheck goes?", answers: ["Yeah, actually", "Not really", "Roads and stuff?"] },
-  ]],
-  [/insurance/, [
-    { question: "What would happen if you got in a car accident tomorrow with no insurance?", answers: ["I'd be in big trouble", "My parents would cover it?", "Never thought about it"] },
-    { question: "Is insurance a waste of money or a lifesaver?", answers: ["Waste", "Lifesaver", "No idea"] },
-    { question: "Would you pay $50 a month to avoid a surprise $5,000 bill?", answers: ["Yeah, worth it", "Seems like a lot", "Depends"] },
-  ]],
-  [/entrepreneur|business/, [
-    { question: "What's one problem in your school or neighborhood nobody's solved yet?", answers: ["Ooh, I've got ideas", "Let me think about that", "Why does that matter?"] },
-    { question: "If you started a business tomorrow, what would you sell?", answers: ["I've got an idea", "No clue", "Something food-related 🍔"] },
-    { question: "Why do some businesses blow up while others flop?", answers: ["Luck?", "The product", "Marketing?"] },
-  ]],
-]
-
-// Topic-agnostic fallbacks when a lesson matches no category above.
-const GENERIC_HOOKS: ((title: string) => Hook)[] = [
-  (t) => ({ question: `What do you already know about ${t}?`, answers: ["Basically nothing", "A little bit", "Quite a bit actually"] }),
-  () => ({ question: "Be honest - how confident are you with money stuff?", answers: ["Not at all 😅", "Kinda", "Pretty confident"] }),
-  () => ({ question: "Ready to pick up something new today?", answers: ["Let's go", "I guess", "Make it quick 😄"] }),
-]
-
-// Small stable hash so each lesson deterministically lands on one hook.
+// Small stable hash so each lesson deterministically lands on one option.
 function hashId(s: string): number {
   let h = 0
   for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0
   return Math.abs(h)
 }
 
-export function openingHook(lesson: Lesson): Hook {
+// A second, independent hash so we can make several independent-but-stable
+// choices per lesson (style, hook, framing) without them all lining up.
+function hashId2(s: string): number {
+  let h = 5381
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0
+  return Math.abs(h)
+}
+
+// Many hooks per topic so lessons in the same category don't all open with the
+// identical question. Every hook's answers actually answer its question. The
+// one shown is chosen deterministically from the lesson id (see openingHook) -
+// varied across lessons, but stable for a given lesson so its question and
+// tappable answers always match. Uniqueness across the ~330 lessons is then
+// guaranteed by weaving lesson-specific detail into the framing (see below).
+const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
+  [/delayed|gratification|instant/, [
+    { question: "would you rather have $50 today or $100 in a month?", answers: ["$50 today, easy", "$100 in a month", "Hmm, depends"] },
+    { question: "ever bought something instantly and regretted it an hour later?", answers: ["Way too often 😅", "Once or twice", "Nope, I'm disciplined"] },
+    { question: "could you wait a whole week to buy something you really want?", answers: ["No chance", "Maybe", "Easily"] },
+    { question: "what's harder for you - saving money or waiting for it to grow?", answers: ["Saving it", "Waiting", "Both, honestly"] },
+    { question: "if a snooze button gave you $20 each morning, would you skip it?", answers: ["No way, I'd snooze", "Yeah, take the $20", "Depends on the day"] },
+  ]],
+  [/psychology-of-money|behavioral/, [
+    { question: "if you got $100 right now, what's the FIRST thing you'd do with it?", answers: ["Spend it on something fun 🛍️", "Save every penny", "Half spend, half save"] },
+    { question: "do you spend more when you pay with a card instead of cash?", answers: ["Definitely card", "Never noticed", "Cash feels more real"] },
+    { question: "what's one thing you ALWAYS talk yourself into buying?", answers: ["Snacks 🍟", "Clothes or shoes", "Games and apps"] },
+    { question: "does a sale price make you buy stuff you didn't even want?", answers: ["Every single time", "Sometimes", "Nope, I resist"] },
+    { question: "do your feelings ever decide how you spend money?", answers: ["Way more than I'd admit", "A little", "I keep it logical"] },
+  ]],
+  [/budget/, [
+    { question: "do you actually know where your money goes every month?", answers: ["Yeah, pretty much", "Not really 😅", "I don't track anything"] },
+    { question: "if your money vanished tomorrow, could you say what you spent it on?", answers: ["Not a clue", "Roughly", "Yeah, all of it"] },
+    { question: "what eats up most of your money right now?", answers: ["Food", "Fun stuff", "Honestly no idea"] },
+    { question: "do you have a plan for your money, or does it just... disappear?", answers: ["It disappears 😅", "Kind of a plan", "Yeah, I've got a system"] },
+    { question: "how much of last week's money could you get back if you tried?", answers: ["None of it", "Some of it", "Most of it"] },
+  ]],
+  [/banking/, [
+    { question: "do you know how banks make money off your savings account?", answers: ["No idea honestly", "They charge fees, right?", "They invest it somehow?"] },
+    { question: "what's the actual difference between checking and savings?", answers: ["Not sure", "One earns interest?", "I know this one"] },
+    { question: "ever been surprised by a random bank fee?", answers: ["Ugh, yes", "Not yet", "Wait, what fees?"] },
+    { question: "is your money safer in a bank or under your mattress?", answers: ["Bank, obviously", "Mattress lol", "Wait, are banks even safe?"] },
+    { question: "why would a bank pay YOU to keep money there?", answers: ["No clue", "So they can lend it out?", "They don't, do they?"] },
+  ]],
+  [/credit|debt/, [
+    { question: "did you know your credit score can affect your rent, job, and even phone plan?", answers: ["Wait, seriously?", "Yeah, I knew that", "What even is a credit score?"] },
+    { question: "is a credit card free money or a trap?", answers: ["Kinda both?", "A trap", "Free money 😏"] },
+    { question: "what happens if you only pay the minimum on a credit card?", answers: ["No idea", "It piles up?", "Nothing bad?"] },
+    { question: "would you borrow $10 if paying it back cost you $13?", answers: ["No way", "If I really needed it", "Wait, why does it cost more?"] },
+    { question: "does owing money always mean you messed up?", answers: ["Pretty much", "Not always", "I honestly don't know"] },
+  ]],
+  [/invest|stock|portfolio|etf|bond|fund|valuation|ratio|financial-statement/, [
+    { question: "if I told you $100 invested at 17 beats $1,000 invested at 30, would you believe me?", answers: ["No way, prove it", "I'd believe it", "How does that work?"] },
+    { question: "is investing basically just gambling?", answers: ["Feels like it", "No, it's different", "Explain the difference"] },
+    { question: "where does your money actually GO when you buy a stock?", answers: ["No clue", "You own part of a company?", "Somewhere magic ✨"] },
+    { question: "could your money make money while you literally sleep?", answers: ["That sounds fake", "Yeah, I've heard that", "Show me how"] },
+    { question: "would you rather own $100 of a company or lend it $100?", answers: ["Own it", "Lend it", "What's the difference?"] },
+  ]],
+  [/tax/, [
+    { question: "how much of a $15/hr paycheck do you actually take home?", answers: ["All of it… right?", "Like $12/hr maybe?", "No clue honestly"] },
+    { question: "why does your paycheck come out smaller than you expected?", answers: ["Taxes?", "No idea", "Some kind of fees"] },
+    { question: "ever wonder where the money taken out of a paycheck goes?", answers: ["Yeah, actually", "Not really", "Roads and stuff?"] },
+  ]],
+  [/insurance/, [
+    { question: "what would happen if you crashed a car tomorrow with no insurance?", answers: ["I'd be in big trouble", "My parents would cover it?", "Never thought about it"] },
+    { question: "is insurance a waste of money or a lifesaver?", answers: ["Waste", "Lifesaver", "No idea"] },
+    { question: "would you pay $50 a month to avoid a surprise $5,000 bill?", answers: ["Yeah, worth it", "Seems like a lot", "Depends"] },
+    { question: "why would you pay for something hoping you NEVER use it?", answers: ["That makes no sense", "For peace of mind?", "Huh, good question"] },
+  ]],
+  [/entrepreneur|business|market|leadership|strategy|pestel|ethics|consumer/, [
+    { question: "what's one problem at your school nobody's solved yet?", answers: ["Ooh, I've got ideas", "Let me think about that", "Why does that matter?"] },
+    { question: "if you started a business tomorrow, what would you sell?", answers: ["I've got an idea", "No clue", "Something food-related 🍔"] },
+    { question: "why do some businesses blow up while others flop?", answers: ["Luck?", "The product", "Marketing?"] },
+    { question: "would you rather run the business or own a piece of it?", answers: ["Run it", "Own a piece", "Both?"] },
+    { question: "what makes you pick one brand over another that's basically the same?", answers: ["The vibe", "The price", "Honestly no idea"] },
+  ]],
+  [/econ|macro|indicator|supply|demand|micro/, [
+    { question: "why does the same candy bar cost more some years than others?", answers: ["Inflation?", "No idea", "Stores being greedy?"] },
+    { question: "who decides the price of, like, everything?", answers: ["The government?", "Buyers and sellers?", "No clue"] },
+    { question: "when everyone wants the new sneaker, what happens to the price?", answers: ["It goes up", "It stays put", "Wait, why?"] },
+  ]],
+]
+
+// Topic-agnostic fallbacks when a lesson matches no category above. These use
+// the lesson title so they're already tailored per lesson.
+const GENERIC_HOOKS: ((title: string) => Hook)[] = [
+  (t) => ({ question: `what do you already know about ${t.toLowerCase()}?`, answers: ["Basically nothing", "A little bit", "Quite a bit actually"] }),
+  () => ({ question: "be honest - how confident are you with money stuff?", answers: ["Not at all 😅", "Kinda", "Pretty confident"] }),
+  (t) => ({ question: `on a scale of "huh?" to "got it," where are you with ${t.toLowerCase()}?`, answers: ["Total huh?", "Somewhere in the middle", "Pretty solid"] }),
+  () => ({ question: "want the quick version or the full breakdown?", answers: ["Quick version", "Full breakdown", "Surprise me"] }),
+]
+
+// Ways to frame a question so the SAME underlying hook reads differently across
+// lessons. Each keeps the answer options valid - they only change the wording
+// that leads into the question, never the question's actual ask.
+// Every framing includes the lesson title, and titles are unique across the
+// curriculum - so the framed question is guaranteed unique per lesson even when
+// two lessons happen to share the same underlying hook.
+const QUESTION_FRAMINGS: ((title: string, q: string) => string)[] = [
+  (t, q) => `Before we get into ${t.toLowerCase()} - ${q}`,
+  (t, q) => `Real quick, thinking about ${t.toLowerCase()}: ${q}`,
+  (t, q) => `Okay, ${t.toLowerCase()} gut check - ${q}`,
+  (t, q) => `Here's a ${t.toLowerCase()} warm-up: ${q}`,
+  (t, q) => `We're on ${t.toLowerCase()} today. First though: ${q}`,
+  (t, q) => `To kick off ${t.toLowerCase()}, tell me - ${q}`,
+  (t, q) => `${t.toLowerCase()} is up next, but real talk first - ${q}`,
+]
+
+// The raw (unframed) hook for a lesson - stable per id. Exposed so callers that
+// only need the answers can get them without the lesson-specific framing.
+function rawHook(lesson: Lesson): Hook {
   const hay = `${lesson.category} ${lesson.title.toLowerCase()}`
   const idx = hashId(lesson.id)
   for (const [re, hooks] of CATEGORY_HOOKS) {
     if (re.test(hay)) return hooks[idx % hooks.length]
   }
-  return GENERIC_HOOKS[idx % GENERIC_HOOKS.length](lesson.title.toLowerCase())
+  return GENERIC_HOOKS[idx % GENERIC_HOOKS.length](lesson.title)
+}
+
+// The opening hook shown to a lesson: the raw hook's answers, plus a question
+// framed with lesson-specific detail so no two lessons pose the identical
+// question. Deterministic per id, so the question and its answers always match.
+export function openingHook(lesson: Lesson): Hook {
+  const { question, answers } = rawHook(lesson)
+  const framing = QUESTION_FRAMINGS[hashId2(lesson.id) % QUESTION_FRAMINGS.length]
+  return { question: framing(lesson.title, question), answers }
 }
 
 // Jeff already introduced himself in onboarding, so lessons skip the "I'm Jeff"
 // every time. Instead he rolls in casually - sometimes fresh off some random
-// activity, sometimes just diving straight in.
-const LESSON_OPENERS: ((title: string) => string)[] = [
-  (t) => `Just got back from a run 🏃 - anyway, today it's ${t}.`,
-  (t) => `Phew, just finished a pickup basketball game 🏀 Okay, ${t} time.`,
-  (t) => `Was out on a walk, but I'm back 🚶 Let's talk ${t}.`,
-  (t) => `Just grabbed a snack 🍎 Alright - ${t}.`,
-  (t) => `Fresh off beating my high score 🎮 So, ${t}.`,
-  (t) => `Just wrapped up a quick nap 😴 Now - ${t}.`,
-  (t) => `Back from the gym 💪 Today we're on ${t}.`,
-  (t) => `Just made myself a smoothie 🥤 Cool, let's do ${t}.`,
-  (t) => `Okay, let's jump right in - ${t}.`,
-  (t) => `Ready when you are. Today it's ${t}.`,
-  (t) => `${t}. This one's actually kinda fun.`,
-  (t) => `Alright, ${t} - let's get into it.`,
+// activity. This flavor line is purely cosmetic (carries no answer dependency),
+// so it's fine to pick at random. It does NOT announce the topic - whatever
+// follows (a question, a fact, or a straight dive) handles that.
+const LESSON_OPENERS: string[] = [
+  "Just got back from a run 🏃",
+  "Phew, just finished a pickup basketball game 🏀",
+  "Was out on a walk, but I'm back 🚶",
+  "Just grabbed a snack 🍎",
+  "Fresh off beating my high score 🎮",
+  "Just wrapped up a quick nap 😴",
+  "Back from the gym 💪",
+  "Just made myself a smoothie 🥤",
+  "Okay, I'm all yours.",
+  "Alright, ready when you are.",
+  "",
 ]
+
+// "Dive straight in" openers - no question, just start teaching the topic.
+const DIVE_OPENERS: ((title: string) => string)[] = [
+  (t) => `Today we're doing ${t} - and I promise it's more useful than it sounds.`,
+  (t) => `Let's get into ${t}. I'll keep it quick and actually make it click.`,
+  (t) => `${t}. This is one of those things that seems boring until it saves you money.`,
+  (t) => `Alright - ${t}. Stick with me, this one's genuinely worth knowing.`,
+  (t) => `Time for ${t}. By the end of this you'll get why it matters.`,
+]
+
+// "Surprising fact/statement" openers keyed by topic. These make a bold claim
+// instead of asking anything, so their options are neutral (continue-style).
+const FACT_HOOKS: [RegExp, ((title: string) => string)[]][] = [
+  [/delayed|gratification|instant|psychology-of-money|behavioral/, [
+    () => `Wild fact: most people spend more the second money hits their account - and never notice.`,
+    () => `Here's the truth - your brain is basically wired to want stuff NOW, even when waiting pays way more.`,
+  ]],
+  [/budget/, [
+    () => `Most people underestimate their spending by like 30%. A budget just... shows you the truth.`,
+    () => `Fun fact: writing down where your money goes changes how you spend it - before you even try.`,
+  ]],
+  [/banking/, [
+    () => `Here's something banks don't advertise: they lend out YOUR deposited money and keep most of the profit.`,
+    () => `Wild one - the average person loses hundreds a year to fees they didn't even know existed.`,
+  ]],
+  [/credit|debt/, [
+    () => `Here's the scary part: a single number - your credit score - can decide your rent, your job, even your phone plan.`,
+    () => `Fun fact: minimum payments are designed so you stay in debt as long as possible.`,
+  ]],
+  [/invest|stock|portfolio|etf|bond|fund|valuation|ratio|financial-statement/, [
+    () => `Here's the crazy part: $100 invested young can beat $1,000 invested later. Time does the heavy lifting.`,
+    () => `Wild truth - when you buy a stock, you literally own a slice of a real company.`,
+  ]],
+  [/tax/, [
+    () => `Here's the surprise in your first paycheck: the number on the offer letter is NOT what lands in your account.`,
+  ]],
+  [/insurance/, [
+    () => `Weird truth about insurance: you pay hoping to never use it - and that's exactly the point.`,
+  ]],
+  [/entrepreneur|business|market|leadership|strategy|pestel|ethics|consumer/, [
+    () => `Here's the thing - most businesses don't fail from bad ideas. They fail from problems nobody actually had.`,
+    () => `Fun fact: the brand you "just prefer" was probably engineered to feel that way.`,
+  ]],
+  [/econ|macro|indicator|supply|demand|micro/, [
+    () => `Here's a mind-bender: nobody sets most prices. Millions of tiny buyer-and-seller decisions do.`,
+  ]],
+]
+
+const GENERIC_FACTS: ((title: string) => string)[] = [
+  (t) => `Quick heads up on ${t.toLowerCase()}: it's one of those skills that quietly separates people who stress about money from people who don't.`,
+  (t) => `Here's why ${t.toLowerCase()} matters - small money habits now snowball into huge differences later.`,
+]
+
+type OpenerStyle = "question" | "fact" | "dive"
+
+// Deterministic opener style per lesson - so the same lesson always opens the
+// same way and (crucially) its tap options always match what was asked.
+// Weighted toward questions but with a healthy mix of facts and dives so the
+// experience never feels like the same script every time.
+function openerStyle(lesson: Lesson): OpenerStyle {
+  switch (hashId2(lesson.id) % 5) {
+    case 0:
+    case 1:
+      return "question"
+    case 2:
+    case 3:
+      return "fact"
+    default:
+      return "dive"
+  }
+}
+
+function factOpener(lesson: Lesson): string {
+  const hay = `${lesson.category} ${lesson.title.toLowerCase()}`
+  const idx = hashId(lesson.id)
+  for (const [re, facts] of FACT_HOOKS) {
+    if (re.test(hay)) return facts[idx % facts.length](lesson.title)
+  }
+  return GENERIC_FACTS[idx % GENERIC_FACTS.length](lesson.title)
+}
+
+// Neutral continue-style options for openers that don't ask a question.
+const NEUTRAL_OPTION_SETS: string[][] = [
+  ["Let's go", "Tell me more", "Okay 👍"],
+  ["Go on", "Wait, really?", "Alright"],
+  ["Hit me", "Interesting 🤔", "Keep going"],
+  ["Okay, explain", "Sounds good", "Let's do it"],
+]
+
+function neutralOptions(lesson: Lesson): string[] {
+  return NEUTRAL_OPTION_SETS[hashId(lesson.id) % NEUTRAL_OPTION_SETS.length]
+}
+
+/** Whether a lesson's opener poses a question the student answers via options. */
+export function opensWithQuestion(lesson: Lesson): boolean {
+  return openerStyle(lesson) === "question"
+}
 
 /** Jeff's opener - no API call needed for the first message. */
 export function initialJeffMessage(lesson: Lesson): string {
-  const opener = LESSON_OPENERS[Math.floor(Math.random() * LESSON_OPENERS.length)](lesson.title)
-  return `${opener} Quick question first - ${openingHook(lesson).question}`
+  const flavor = LESSON_OPENERS[Math.floor(Math.random() * LESSON_OPENERS.length)]
+  const lead = flavor ? `${flavor} ` : ""
+  switch (openerStyle(lesson)) {
+    case "question":
+      return `${lead}${openingHook(lesson).question}`
+    case "fact":
+      return `${lead}${factOpener(lesson)}`
+    default:
+      return `${lead}${DIVE_OPENERS[hashId(lesson.id) % DIVE_OPENERS.length](lesson.title)}`
+  }
 }
 
-/** Reply options matching the opener's hook question. */
+/**
+ * Reply options for the opener. Answer-style options when the opener asks a
+ * question; neutral continue-style options when it just dives in or drops a
+ * fact - so a tap never "answers" a question that was never asked.
+ */
 export function initialOptions(lesson: Lesson): string[] {
-  return openingHook(lesson).answers
+  return opensWithQuestion(lesson) ? openingHook(lesson).answers : neutralOptions(lesson)
 }
 
 export function buildSystemPrompt(lesson: Lesson, sentCount = 0): string {
