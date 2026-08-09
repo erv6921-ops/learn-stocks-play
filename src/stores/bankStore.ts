@@ -118,15 +118,8 @@ interface BankState {
 
   /** VC: buy a stake in a startup (coins are spent by the page via spendJeffs). */
   investVC: (company: PortfolioCompany) => void
-  /** VC: apply a weekly "catch up" - updates the company and bumps career rep. */
-  adviseVC: (
-    careerId: string,
-    id: string,
-    week: number,
-    multiple: number,
-    status: PortfolioCompany["status"],
-    repDelta: number,
-  ) => void
+  /** VC: apply a weekly catch-up's outcome - patches the company + bumps rep. */
+  catchUpVC: (careerId: string, id: string, patch: Partial<PortfolioCompany>, repDelta: number) => void
   /** VC: exit a holding (coins are paid out by the page via awardJeffs). */
   exitVC: (id: string, payout: number) => void
 }
@@ -281,11 +274,9 @@ export const useBankStore = create<BankState>()(
             : { vcPortfolio: [...s.vcPortfolio, company] }
         ),
 
-      adviseVC: (careerId, id, week, multiple, status, repDelta) =>
+      catchUpVC: (careerId, id, patch, repDelta) =>
         set(s => ({
-          vcPortfolio: s.vcPortfolio.map(c =>
-            c.id === id ? { ...c, multiple, status, lastAdvisedWeek: week } : c
-          ),
+          vcPortfolio: s.vcPortfolio.map(c => (c.id === id ? { ...c, ...patch } : c)),
           careerRep: {
             ...s.careerRep,
             [careerId]: clampRep((s.careerRep[careerId] ?? 50) + repDelta),
@@ -298,6 +289,20 @@ export const useBankStore = create<BankState>()(
           careerEarnings: s.careerEarnings + payout,
         })),
     }),
-    { name: "investiplay-bank" }
+    {
+      name: "investiplay-bank",
+      version: 1,
+      // v1: the VC portfolio gained full company profiles. Drop any holdings
+      // saved under the earlier shape (no `profile`) so they can't crash the UI.
+      migrate: (persisted: unknown) => {
+        const s = persisted as Partial<BankState> | undefined
+        if (s && Array.isArray(s.vcPortfolio)) {
+          s.vcPortfolio = s.vcPortfolio.filter(
+            c => c && typeof c === "object" && "profile" in c && typeof (c as PortfolioCompany).entryValuation === "number"
+          )
+        }
+        return s as BankState
+      },
+    }
   )
 )

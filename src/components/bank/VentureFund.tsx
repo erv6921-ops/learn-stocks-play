@@ -1,11 +1,9 @@
-// The Venture Capitalist's living portfolio, shown under the weekly deal on
-// the Careers desk. Two tabs:
-//   • Portfolio - the startups you've funded. "Catch up" with a founder once a
-//     week to build reputation and (for good bets) grow the company; "Exit" to
-//     cash out at the current value.
-//   • Invest - browse a fresh set of startups each week and put coins in.
-// Coins move through AppContext (spendJeffs / awardJeffs); the holdings and
-// reputation live in bankStore.
+// The Venture Capitalist's living portfolio, shown under the weekly deal on the
+// Careers desk. Two tabs: Portfolio (startups you've funded) and Invest (browse
+// this week's deals). Clicking any startup opens its full company page
+// (CompanyDetail) - team, mission, metrics, valuation, risks - where you invest,
+// give scenario-based advice to grow it, or exit. Coins flow through AppContext;
+// holdings + reputation live in bankStore.
 
 import { useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -17,13 +15,14 @@ import { useApp } from "@/contexts/AppContext"
 import { useBankStore } from "@/stores/bankStore"
 import type { Career } from "@/data/careers"
 import {
-  generateInvestOptions, adviseOutcome,
+  generateInvestOptions, holdingFromOption, companyMultiple,
   type InvestOption, type PortfolioCompany,
 } from "@/lib/careerSim"
 import {
-  Search, Coins, TrendingUp, TrendingDown, Minus, MessageSquare,
-  LogOut, Sparkles, Building2, Wallet,
+  Search, Coins, TrendingUp, TrendingDown, Minus, Building2, Wallet,
+  ChevronRight, Users, Timer,
 } from "lucide-react"
+import CompanyDetail from "./CompanyDetail"
 
 const NO_PORTFOLIO: PortfolioCompany[] = []
 
@@ -39,22 +38,24 @@ const SIGNAL_VARIANT = {
   "Weak signal": "destructive",
 } as const
 
+type Selected = { mode: "invest" | "holding"; id: string } | null
+
 export default function VentureFund({ career, week }: { career: Career; week: number }) {
   const { jeffsBalance, spendJeffs, awardJeffs } = useApp()
   const portfolio = useBankStore(s => s.vcPortfolio) ?? NO_PORTFOLIO
   const investVC = useBankStore(s => s.investVC)
-  const adviseVC = useBankStore(s => s.adviseVC)
+  const catchUpVC = useBankStore(s => s.catchUpVC)
   const exitVC = useBankStore(s => s.exitVC)
 
   const [tab, setTab] = useState<"portfolio" | "invest">("portfolio")
-  const [advice, setAdvice] = useState<Record<string, string>>({})
+  const [selected, setSelected] = useState<Selected>(null)
   const [flash, setFlash] = useState<string | null>(null)
 
   const options = useMemo(() => generateInvestOptions(week), [week])
   const heldIds = useMemo(() => new Set(portfolio.map(c => c.id)), [portfolio])
 
   const totalInvested = portfolio.reduce((n, c) => n + c.invested, 0)
-  const totalValue = portfolio.reduce((n, c) => n + Math.round(c.invested * c.multiple), 0)
+  const totalValue = portfolio.reduce((n, c) => n + Math.round(c.invested * companyMultiple(c)), 0)
 
   const invest = (opt: InvestOption) => {
     if (heldIds.has(opt.id)) return
@@ -63,36 +64,49 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
       return
     }
     if (!spendJeffs(opt.ask, `Invested in ${opt.name}`)) return
-    investVC({
-      id: opt.id, name: opt.name, founder: opt.founder, sector: opt.sector,
-      pitch: opt.pitch, invested: opt.ask, ownership: opt.ownership,
-      quality: opt.quality, multiple: 1, status: "steady",
-      investedWeek: week, lastAdvisedWeek: 0,
-    })
-    setFlash(`You backed ${opt.name} for ${opt.ask} coins (${opt.ownership}% stake). It's in your portfolio.`)
+    investVC(holdingFromOption(opt, week))
+    setFlash(`You backed ${opt.name} for ${opt.ask} coins (${opt.ownership}% stake).`)
+    setSelected(null)
     setTab("portfolio")
   }
 
-  const advise = (c: PortfolioCompany) => {
-    if (c.lastAdvisedWeek >= week) return
-    const res = adviseOutcome(c, week)
-    adviseVC(career.id, c.id, week, res.multiple, res.status, res.repDelta)
-    setAdvice(m => ({ ...m, [c.id]: res.message }))
-  }
-
   const exit = (c: PortfolioCompany) => {
-    const payout = Math.round(c.invested * c.multiple)
-    awardJeffs(payout, `Exited ${c.name} at ${c.multiple}×`)
+    const payout = Math.round(c.invested * companyMultiple(c))
+    awardJeffs(payout, `Exited ${c.name}`)
     exitVC(c.id, payout)
-    setAdvice(m => { const n = { ...m }; delete n[c.id]; return n })
+    setSelected(null)
     setFlash(
       payout >= c.invested
-        ? `Exited ${c.name} for ${payout} coins - a ${(c.invested ? payout / c.invested : 0).toFixed(1)}× return! 🎉`
-        : `Exited ${c.name} for ${payout} coins, taking a loss. Cutting losers is part of the job.`
+        ? `Exited ${c.name} for ${payout.toLocaleString()} coins - a ${(c.invested ? payout / c.invested : 0).toFixed(1)}× return! 🎉`
+        : `Exited ${c.name} for ${payout.toLocaleString()} coins, taking a loss. Cutting losers is part of the job.`
     )
   }
 
-  const TabButton = ({ id, label, icon: I }: { id: typeof tab; label: string; icon: typeof Search }) => (
+  // ── detail screen ──
+  if (selected) {
+    if (selected.mode === "invest") {
+      const opt = options.find(o => o.id === selected.id)
+      if (!opt) { setSelected(null); return null }
+      return (
+        <CompanyDetail
+          mode="invest" week={week} accent={career.accent} onBack={() => setSelected(null)}
+          option={opt} held={heldIds.has(opt.id)} balance={jeffsBalance} onInvest={invest}
+        />
+      )
+    }
+    const holding = portfolio.find(c => c.id === selected.id)
+    if (!holding) { setSelected(null); return null }
+    return (
+      <CompanyDetail
+        mode="holding" week={week} accent={career.accent} onBack={() => setSelected(null)}
+        holding={holding}
+        onCatchUp={(patch, repDelta) => catchUpVC(career.id, holding.id, patch, repDelta)}
+        onExit={exit}
+      />
+    )
+  }
+
+  const TabButton = ({ id, label, icon: I }: { id: "portfolio" | "invest"; label: string; icon: typeof Search }) => (
     <button
       onClick={() => setTab(id)}
       className={cn(
@@ -103,9 +117,7 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
     >
       <I className="h-3.5 w-3.5" /> {label}
       {id === "portfolio" && portfolio.length > 0 && (
-        <span className={cn("ml-0.5 rounded-full px-1.5 text-[10px]", tab === id ? "bg-white/25" : "bg-muted")}>
-          {portfolio.length}
-        </span>
+        <span className={cn("ml-0.5 rounded-full px-1.5 text-[10px]", tab === id ? "bg-white/25" : "bg-muted")}>{portfolio.length}</span>
       )}
     </button>
   )
@@ -121,9 +133,7 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
             <Wallet className="h-3.5 w-3.5 text-muted-foreground" />
             <span className="text-muted-foreground">Invested {totalInvested.toLocaleString()}</span>
             <span aria-hidden>·</span>
-            <span style={{ color: totalValue >= totalInvested ? "#10b981" : "#ef4444" }}>
-              Worth {totalValue.toLocaleString()}
-            </span>
+            <span style={{ color: totalValue >= totalInvested ? "#10b981" : "#ef4444" }}>Worth {totalValue.toLocaleString()}</span>
           </div>
         )}
       </div>
@@ -150,118 +160,98 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
           {tab === "portfolio" ? (
             portfolio.length === 0 ? (
               <div className="text-center py-8 space-y-2">
-                <Sparkles className="h-7 w-7 mx-auto text-muted-foreground/60" />
+                <Building2 className="h-7 w-7 mx-auto text-muted-foreground/60" />
                 <p className="text-sm font-semibold">Your portfolio is empty</p>
                 <p className="text-xs text-muted-foreground max-w-xs mx-auto">
-                  Head to the <b>Invest</b> tab to back your first startup. Then catch up with the founder each week to grow it.
+                  Open the <b>Invest</b> tab to study startups and back your first one. Then meet each founder weekly to help them grow.
                 </p>
-                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("invest")}>
-                  Browse startups
-                </Button>
+                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("invest")}>Browse startups</Button>
               </div>
             ) : (
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {portfolio.map(c => {
                   const meta = STATUS_META[c.status]
-                  const value = Math.round(c.invested * c.multiple)
-                  const up = value >= c.invested
-                  const advisedThisWeek = c.lastAdvisedWeek >= week
+                  const mult = companyMultiple(c)
+                  const value = Math.round(c.invested * mult)
+                  const needsYou = c.lastAdvisedWeek < week
                   return (
-                    <div key={c.id} className="rounded-xl border border-border/60 p-3">
-                      <div className="flex items-start justify-between gap-2">
+                    <button
+                      key={c.id}
+                      onClick={() => setSelected({ mode: "holding", id: c.id })}
+                      className="w-full text-left rounded-xl border border-border/60 p-3 hover:bg-muted/40 transition-colors"
+                    >
+                      <div className="flex items-center justify-between gap-2">
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-display font-extrabold text-sm">{c.name}</span>
                             <Badge variant="outline" className="text-[9px] capitalize">{c.sector}</Badge>
+                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>Needs you</Badge>}
                           </div>
-                          <p className="text-[11px] text-muted-foreground mt-0.5">
-                            {c.founder} · {c.ownership}% stake · in since week {c.investedWeek}
+                          <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
+                            <span className="flex items-center gap-0.5"><Users className="h-3 w-3" />{c.profile.users.toLocaleString()}</span>
+                            <span className="flex items-center gap-0.5"><Timer className="h-3 w-3" />{c.profile.runwayMonths}mo</span>
+                            <span style={{ color: meta.color }} className="flex items-center gap-0.5 font-semibold"><meta.Icon className="h-3 w-3" />{meta.label}</span>
                           </p>
                         </div>
-                        <div className="text-right shrink-0">
-                          <div className="flex items-center gap-1 justify-end text-xs font-bold" style={{ color: meta.color }}>
-                            <meta.Icon className="h-3.5 w-3.5" /> {c.multiple}×
+                        <div className="flex items-center gap-2 shrink-0">
+                          <div className="text-right">
+                            <p className="text-sm font-extrabold" style={{ color: value >= c.invested ? "#10b981" : "#ef4444" }}>{mult}×</p>
+                            <p className="text-[10px] text-muted-foreground">{value.toLocaleString()}</p>
                           </div>
-                          <p className="text-[10px] text-muted-foreground">{meta.label}</p>
+                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
                         </div>
                       </div>
-
-                      <div className="flex items-center justify-between mt-2 text-[11px]">
-                        <span className="text-muted-foreground">
-                          In {c.invested.toLocaleString()} → now{" "}
-                          <b style={{ color: up ? "#10b981" : "#ef4444" }}>{value.toLocaleString()}</b>
-                        </span>
-                      </div>
-
-                      <AnimatePresence>
-                        {advice[c.id] && (
-                          <motion.p
-                            initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
-                            className="mt-2 text-xs leading-relaxed text-foreground/80 rounded-lg bg-muted/50 px-2.5 py-2"
-                          >
-                            {advice[c.id]}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
-
-                      <div className="flex gap-2 mt-2.5">
-                        <Button
-                          size="sm" variant="outline" className="flex-1 gap-1.5 press-scale"
-                          disabled={advisedThisWeek} onClick={() => advise(c)}
-                        >
-                          <MessageSquare className="h-3.5 w-3.5" />
-                          {advisedThisWeek ? "Caught up this week" : "Catch up (+2 rep)"}
-                        </Button>
-                        <Button size="sm" variant="ghost" className="gap-1.5 press-scale" onClick={() => exit(c)}>
-                          <LogOut className="h-3.5 w-3.5" /> Exit
-                        </Button>
-                      </div>
-                    </div>
+                    </button>
                   )
                 })}
                 <p className="text-[10px] text-muted-foreground text-center pt-1">
-                  Tip: attention compounds great companies - and can't save weak ones. Feed winners, cut losers.
+                  Tap a company to see its full page and meet the founder. Good advice compounds winners; nothing saves a broken bet.
                 </p>
               </div>
             )
           ) : (
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
-                <Coins className="h-3.5 w-3.5" /> You have <b className="text-foreground">{Math.floor(jeffsBalance).toLocaleString()}</b> coins · fresh startups each week
+                <Coins className="h-3.5 w-3.5" /> You have <b className="text-foreground">{Math.floor(jeffsBalance).toLocaleString()}</b> coins · new startups each week
               </p>
               {options.map(opt => {
                 const held = heldIds.has(opt.id)
-                const afford = jeffsBalance >= opt.ask
+                const p = opt.profile
                 return (
-                  <div key={opt.id} className="rounded-xl border border-border/60 p-3">
-                    <div className="flex items-start justify-between gap-2">
+                  <button
+                    key={opt.id}
+                    onClick={() => setSelected({ mode: "invest", id: opt.id })}
+                    className="w-full text-left rounded-xl border border-border/60 p-3 hover:bg-muted/40 transition-colors"
+                  >
+                    <div className="flex items-center justify-between gap-2">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="font-display font-extrabold text-sm">{opt.name}</span>
                           <Badge variant="outline" className="text-[9px] capitalize">{opt.sector}</Badge>
                           <Badge variant={SIGNAL_VARIANT[opt.signal]} className="text-[9px]">{opt.signal}</Badge>
+                          {held && <Badge variant="secondary" className="text-[9px]">Held</Badge>}
                         </div>
-                        <p className="text-[11px] text-muted-foreground mt-0.5">Founder: {opt.founder}</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
+                          <span className="flex items-center gap-0.5"><Users className="h-3 w-3" />{p.users.toLocaleString()}</span>
+                          <span className={cn("flex items-center gap-0.5 font-semibold")} style={{ color: p.growthPct >= 12 ? "#10b981" : p.growthPct < 0 ? "#ef4444" : undefined }}>
+                            {p.growthPct >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}{p.growthPct >= 0 ? "+" : ""}{p.growthPct}%
+                          </span>
+                          <span className="flex items-center gap-0.5"><Timer className="h-3 w-3" />{p.runwayMonths}mo</span>
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <div className="text-right">
+                          <p className="text-xs font-bold">{opt.ask.toLocaleString()}</p>
+                          <p className="text-[10px] text-muted-foreground">{opt.ownership}%</p>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
                       </div>
                     </div>
-                    <p className="text-xs text-foreground/85 leading-relaxed mt-1.5">{opt.pitch}</p>
-                    <div className="flex items-center justify-between mt-2.5">
-                      <span className="text-[11px] font-semibold text-muted-foreground">
-                        {opt.ask.toLocaleString()} coins for {opt.ownership}%
-                      </span>
-                      <Button
-                        size="sm" className="press-scale gap-1.5"
-                        disabled={held || !afford} onClick={() => invest(opt)}
-                      >
-                        <Coins className="h-3.5 w-3.5" />
-                        {held ? "Invested ✓" : afford ? `Invest ${opt.ask}` : "Not enough"}
-                      </Button>
-                    </div>
-                  </div>
+                  </button>
                 )
               })}
               <p className="text-[10px] text-muted-foreground text-center pt-1">
-                Read the signal, not the hype. Strong traction beats a beautiful deck every time.
+                Tap a startup to study its team, mission and numbers before you invest. Read the signal, not the hype.
               </p>
             </div>
           )}
