@@ -720,26 +720,56 @@ export function wordCount(text: string): number {
 }
 
 /* ── VC fund: portfolio + investable deals ─────────────────────────── */
-// The Venture Capitalist career is more than weekly decisions: students build a
-// real portfolio. They browse startups, invest coins to take a stake, then
-// "catch up" with each founder weekly to build reputation and help the company
-// grow. Good bets compound with attention; weak ones can't be saved by it -
-// the core lesson of venture, made playable.
+// The Venture Capitalist career is a real portfolio sim. Students browse fully
+// fleshed-out startups (team, mission, live metrics, valuation, risks), invest
+// coins to take a stake, then each week meet a founder who's hit a real
+// situation - a stalled quarter, a churned customer, a hot new term sheet - and
+// must give ADVICE. Good judgment on a strong company compounds its valuation;
+// bad judgment cuts it (and your reputation); weak companies barely respond to
+// any advice at all. Returns come only when you exit - so picking well and
+// advising well is the whole game, not clicking a button.
+
+export interface TeamMember {
+  name: string
+  role: string
+  blurb: string
+}
+
+/** Everything a student can inspect before/while investing - the "company page". */
+export interface CompanyProfile {
+  /** One-line mission - what winning looks like. */
+  goal: string
+  /** What the company actually does. */
+  product: string
+  stage: "Pre-seed" | "Seed" | "Series A"
+  team: TeamMember[]
+  risks: string[]
+  // Live (mutable) headline metrics.
+  users: number
+  growthPct: number
+  /** Monthly revenue in coins. */
+  revenue: number
+  runwayMonths: number
+  /** Current company valuation in coins. */
+  valuation: number
+}
 
 export interface PortfolioCompany {
   id: string
   name: string
   founder: string
   sector: string
-  pitch: string
+  /** Hidden 0-1 quality driving how the company responds over time. */
+  quality: number
+  /** Ownership % the student holds. */
+  ownership: number
   /** Coins the student put in. */
   invested: number
-  /** Ownership % (flavor). */
-  ownership: number
-  /** Hidden 0-1 quality driving how the company performs over time. */
-  quality: number
-  /** Current value as a multiple of `invested` (starts at 1). */
-  multiple: number
+  /** Company valuation when the student invested. */
+  entryValuation: number
+  profile: CompanyProfile
+  valuationHistory: { week: number; valuation: number }[]
+  events: { week: number; text: string }[]
   status: "growing" | "steady" | "struggling"
   investedWeek: number
   /** Last week the student advised it - "catch up" is once per week. */
@@ -751,17 +781,80 @@ export interface InvestOption {
   name: string
   founder: string
   sector: string
-  pitch: string
   signal: "Strong signal" | "Mixed signal" | "Weak signal"
   /** Coins required to take the stake. */
   ask: number
   ownership: number
   quality: number
+  entryValuation: number
+  profile: CompanyProfile
+}
+
+/** Current value as a multiple of what the student invested. */
+export function companyMultiple(c: PortfolioCompany): number {
+  return Math.round((c.profile.valuation / c.entryValuation) * 100) / 100
 }
 
 const VC_SECTORS = ["consumer app", "fintech", "climate tech", "robotics", "health tech", "gaming", "developer tools", "marketplace", "education", "food delivery", "logistics", "creator tools"]
 
-/** Four fresh startups to browse each week. Deterministic per week. */
+const SECTOR_INFO: Record<string, { goal: string; product: string }> = {
+  "consumer app": { goal: "Become the app millions open every single day", product: "a mobile app that makes an everyday task effortless" },
+  "fintech": { goal: "Make managing money simple for everyone", product: "an app that helps people save, spend, and invest smarter" },
+  "climate tech": { goal: "Cut carbon out of everyday life", product: "technology that helps businesses slash their emissions" },
+  "robotics": { goal: "Let robots do the dangerous, boring work", product: "robots that automate warehouse and factory tasks" },
+  "health tech": { goal: "Make good healthcare reach everyone", product: "software that helps clinics care for patients better" },
+  "gaming": { goal: "Build the game everyone is talking about", product: "a multiplayer game with a passionate community" },
+  "developer tools": { goal: "Help every engineer ship faster", product: "tools that make software teams far more productive" },
+  "marketplace": { goal: "Connect buyers and sellers no one else serves", product: "an online marketplace matching supply and demand" },
+  "education": { goal: "Help anyone learn anything, affordably", product: "a learning platform students actually enjoy" },
+  "food delivery": { goal: "Get great food to people fast", product: "an app that delivers local food in minutes" },
+  "logistics": { goal: "Move goods cheaper and faster", product: "software that optimizes shipping and delivery" },
+  "creator tools": { goal: "Help creators make a living doing what they love", product: "tools that help creators grow and earn" },
+}
+
+const PERSON_NAMES = ["Ava", "Marcus", "Priya", "Diego", "Nina", "Kofi", "Sofia", "Ren", "Tariq", "Elena", "Jonah", "Mei", "Leo", "Zara", "Omar", "Hana", "Ivan", "Lucia", "Noah", "Aisha", "Yuki", "Pablo", "Grace", "Dmitri", "Fatima", "Theo", "Lin", "Cyrus"]
+
+const TEAM_ROLES: { role: string; blurb: string }[] = [
+  { role: "Co-founder & CTO", blurb: "builds the technology and leads engineering" },
+  { role: "Head of Product", blurb: "decides what to build and why" },
+  { role: "Founding Engineer", blurb: "ships the core product day to day" },
+  { role: "Head of Growth", blurb: "finds and keeps new users" },
+  { role: "Head of Design", blurb: "makes the product simple and delightful" },
+  { role: "Head of Sales", blurb: "wins the big customers" },
+  { role: "Operations Lead", blurb: "keeps the whole company running" },
+]
+
+const RISK_POOL = [
+  "A big competitor could copy the product",
+  "Revenue leans on just a few large customers",
+  "The market is still small and unproven",
+  "Burning cash faster than revenue is growing",
+  "Hard to hire the engineers they need",
+  "Rules and regulations could change the game",
+  "Users love it but don't pay yet",
+  "The founder is stretched thin doing too much",
+]
+
+function buildProfile(r: Rng, o: { sector: string; founder: string; quality: number; ask: number; ownership: number }): CompanyProfile {
+  const info = SECTOR_INFO[o.sector] ?? { goal: "Build something people can't live without", product: "a product its users rely on" }
+  const q = o.quality
+  const valuation = Math.max(o.ask, Math.round(o.ask / (o.ownership / 100)))
+  const users = (q >= 0.6 ? int(r, 20, 90) : q >= 0.36 ? int(r, 8, 40) : int(r, 1, 12)) * 100
+  const growthPct = q >= 0.6 ? int(r, 18, 55) : q >= 0.36 ? int(r, 4, 14) : int(r, -4, 6)
+  const revenue = Math.round(users * (0.1 + q * 0.9))
+  const runwayMonths = q >= 0.6 ? int(r, 12, 22) : q >= 0.36 ? int(r, 6, 12) : int(r, 2, 6)
+  const stage: CompanyProfile["stage"] = valuation > 8000 ? "Series A" : valuation > 3000 ? "Seed" : "Pre-seed"
+  const mates = pickDistinct(r, PERSON_NAMES.filter(n => n !== o.founder), 3)
+  const roles = pickDistinct(r, TEAM_ROLES, 3)
+  const team: TeamMember[] = [
+    { name: o.founder, role: "Founder & CEO", blurb: "sets the vision and leads the company" },
+    ...mates.map((n, i) => ({ name: n, role: roles[i].role, blurb: roles[i].blurb })),
+  ]
+  const risks = pickDistinct(r, RISK_POOL, q >= 0.6 ? 2 : 3)
+  return { goal: info.goal, product: info.product, stage, team, risks, users, growthPct, revenue, runwayMonths, valuation }
+}
+
+/** Four fully-fleshed startups to browse each week. Deterministic per week. */
 export function generateInvestOptions(week: number): InvestOption[] {
   const wr = mulberry32(hashStr(`vc-invest:${week}`))
   const names = pickDistinct(wr, VC_STARTUPS, 4)
@@ -770,66 +863,192 @@ export function generateInvestOptions(week: number): InvestOption[] {
     const quality = r()
     const founder = pick(r, VC_FOUNDERS)
     const sector = pick(r, VC_SECTORS)
-    const users = int(r, 3, 60) * 100
-    let pitch: string
-    let signal: InvestOption["signal"]
-    if (quality >= 0.62) {
-      pitch = `${users.toLocaleString()} users growing ${int(r, 22, 55)}% a month - and customers who complain loudly the moment it goes down.`
-      signal = "Strong signal"
-    } else if (quality >= 0.36) {
-      pitch = `A real, working product with ${users.toLocaleString()} users, but growth has cooled to ${int(r, 2, 11)}% a month.`
-      signal = "Mixed signal"
-    } else {
-      pitch = pick(r, [
-        "A slick deck promising a billion users, no working product yet, and 'confidential' answers to every question.",
-        "A paid celebrity endorsement, a beautiful demo, and zero real users so far.",
-        "Fifty half-finished features and a founder who blames users for 'not getting it'.",
-      ])
-      signal = "Weak signal"
-    }
     const ask = int(r, 2, 6) * 100
     const ownership = 5 + Math.floor(r() * 11) // 5-15%
-    return { id: `w${week}-${name}`, name, founder, sector, pitch, signal, ask, ownership, quality }
+    const profile = buildProfile(r, { sector, founder, quality, ask, ownership })
+    const signal: InvestOption["signal"] = quality >= 0.62 ? "Strong signal" : quality >= 0.36 ? "Mixed signal" : "Weak signal"
+    return { id: `w${week}-${name}`, name, founder, sector, signal, ask, ownership, quality, entryValuation: profile.valuation, profile }
   })
 }
 
-/** Reputation earned each time you catch up with a founder. */
-export const ADVISE_REP = 2
-
-export interface AdviseResult {
-  multiple: number
-  status: PortfolioCompany["status"]
-  repDelta: number
-  message: string
+/** Build the initial portfolio record when a student invests. */
+export function holdingFromOption(o: InvestOption, week: number): PortfolioCompany {
+  return {
+    id: o.id, name: o.name, founder: o.founder, sector: o.sector,
+    quality: o.quality, ownership: o.ownership, invested: o.ask,
+    entryValuation: o.entryValuation,
+    profile: { ...o.profile },
+    valuationHistory: [{ week, valuation: o.entryValuation }],
+    events: [{ week, text: `You invested ${o.ask.toLocaleString()} coins for a ${o.ownership}% stake` }],
+    status: "steady", investedWeek: week, lastAdvisedWeek: 0,
+  }
 }
 
-/** One weekly "catch up" with a portfolio founder. Deterministic per week. */
-export function adviseOutcome(c: PortfolioCompany, week: number): AdviseResult {
-  const r = mulberry32(hashStr(`advise:${c.id}:${week}`))
-  // Attention compounds strong companies and barely dents doomed ones.
-  let factor: number
-  if (c.quality >= 0.6) factor = 1.12 + r() * 0.28       // 1.12 - 1.40
-  else if (c.quality >= 0.36) factor = 0.97 + r() * 0.2  // 0.97 - 1.17
-  else factor = 0.78 + r() * 0.2                          // 0.78 - 0.98 (fades)
-  const multiple = Math.max(0.1, Math.round(c.multiple * factor * 100) / 100)
-  const status: PortfolioCompany["status"] =
-    multiple > c.multiple * 1.04 ? "growing" : multiple < c.multiple * 0.98 ? "struggling" : "steady"
+/* ── weekly catch-up scenarios ─────────────────────────────────────── */
+// Each catch-up is a graded decision, not a free click. Choice points: 2 = the
+// pro call, 1 = defensible, 0 = rookie mistake. The point value drives how the
+// company's valuation moves in applyScenarioChoice (scaled by company quality).
 
-  const grew = status === "growing"
-  const sank = status === "struggling"
-  const goodMsgs = [
-    `You introduced ${c.name} to three big customers - growth jumped. Now worth ${multiple}× your entry.`,
-    `A late-night strategy call with ${c.founder} paid off: ${c.name} shipped the right feature and users poured in.`,
-    `You helped ${c.name} recruit a brilliant engineer. The product got faster, and so did growth.`,
-  ]
-  const flatMsgs = [
-    `You checked in with ${c.founder}. Steady as she goes - no fireworks, but the relationship is strong.`,
-    `A useful chat with ${c.name}: a couple of small wins, nothing dramatic. Reputation grows either way.`,
-  ]
-  const badMsgs = [
-    `You spent hours coaching ${c.founder}, but the market just isn't there. Attention can't fix a product nobody wants.`,
-    `You pulled every string in your network, yet ${c.name} keeps sliding. Some bets simply don't work - that's venture.`,
-  ]
-  const message = grew ? pick(r, goodMsgs) : sank ? pick(r, badMsgs) : pick(r, flatMsgs)
-  return { multiple, status, repDelta: ADVISE_REP, message }
+export interface CatchUpChoice {
+  text: string
+  points: 0 | 1 | 2
+  feedback: string
+}
+export interface CatchUpScenario {
+  headline: string
+  situation: string
+  question: string
+  choices: CatchUpChoice[]
+}
+
+type ScenarioFn = (c: PortfolioCompany) => CatchUpScenario
+
+const SCENARIOS: ScenarioFn[] = [
+  // 0 - stalled growth
+  c => ({
+    headline: "Growth has stalled",
+    situation: `${c.name}'s user growth went flat this month - a well-funded competitor just launched a copycat. ${c.founder} is rattled and wants a plan.`,
+    question: "What do you advise?",
+    choices: [
+      { text: "Double down on the one thing users love most and make it undeniably better", points: 2, feedback: "Focus beats feature-matching. You win by being the best at something specific, not by chasing a copycat's every move." },
+      { text: "Copy the competitor's new features to keep pace", points: 1, feedback: "Playing catch-up keeps you a step behind and blurs what made you special. Sometimes necessary, rarely a winning strategy." },
+      { text: "Panic-pivot the whole company to a brand-new idea", points: 0, feedback: "Throwing away real traction the moment things get hard is how startups die. One tough month isn't a reason to abandon ship." },
+    ],
+  }),
+  // 1 - key hire leaving
+  c => ({
+    headline: "A key engineer is quitting",
+    situation: `${c.name}'s best engineer just got a huge offer from a big tech company. Losing them would slow everything down.`,
+    question: `How do you help ${c.founder}?`,
+    choices: [
+      { text: "Re-engage them with real ownership (equity) and a mission they believe in", points: 2, feedback: "Great people stay for meaning and upside, not just salary. Founders who fight for key talent keep their edge." },
+      { text: "Match the salary with cash the company can't really afford", points: 1, feedback: "A cash bidding war with big tech is one you'll lose - and it strains a startup's tight budget. Money alone rarely retains A-players." },
+      { text: "Let them walk - nobody is irreplaceable", points: 0, feedback: "At a 20-person startup your best engineer is close to irreplaceable. Shrugging off top talent leaving is a costly mistake." },
+    ],
+  }),
+  // 2 - customer churn
+  c => ({
+    headline: "Your biggest customer left",
+    situation: `${c.name}'s largest customer - a big chunk of revenue - just cancelled. ${c.founder} wants to win them back at any cost.`,
+    question: "Your advice?",
+    choices: [
+      { text: "First find out WHY they left, fix the real problem, then approach others with the same pain", points: 2, feedback: "Churn is a message. Fixing the root cause protects every other customer - far more valuable than one win-back." },
+      { text: "Offer a steep discount to lure them back immediately", points: 1, feedback: "Discounts can stop the bleeding but train customers that your price isn't real - and don't fix why they left." },
+      { text: "Threaten to sue them for leaving", points: 0, feedback: "Burning a bridge in public scares off future customers too. Reputation travels fast in every industry." },
+    ],
+  }),
+  // 3 - cash crunch (CASH_IDX)
+  c => ({
+    headline: "Cash is running low",
+    situation: `${c.name} has about ${c.profile.runwayMonths} months of cash left and growth is only okay. ${c.founder} isn't sure what to do.`,
+    question: "What do you advise?",
+    choices: [
+      { text: "Tighten spending to extend runway, then raise from a position of calm", points: 2, feedback: "Raising with a gun to your head means bad terms. Buy time first, then negotiate from strength." },
+      { text: "Raise money right now at whatever price you can get", points: 1, feedback: "Better than running out - but a panicked raise usually means a painful price. Cutting burn first buys leverage." },
+      { text: "Spend even more on ads to grow your way out fast", points: 0, feedback: "Flooring the gas as the tank empties is how startups stall on the highway. Unproven spend won't outrun a cash crisis." },
+    ],
+  }),
+  // 4 - new round / up valuation (GROWTH)
+  c => ({
+    headline: "A new term sheet arrived",
+    situation: `A respected fund offers to invest in ${c.name} at a valuation well above your entry. ${c.founder} asks whether to take it - and whether you'll join.`,
+    question: "What's your move?",
+    choices: [
+      { text: "Support the raise and follow on to defend your ownership in a company that's working", points: 2, feedback: "Fuel for a winner, and you protect your stake. Winners look 'expensive' all the way up - that's the point." },
+      { text: "Support the raise but sit it out yourself to save cash", points: 1, feedback: "Fine, but letting your ownership shrink in your best companies leaves your biggest returns on the table." },
+      { text: "Tell them to reject it - outside money means losing control", points: 0, feedback: "Turning down good capital for a growing startup usually starves it. Smart money and fuel beat total control of a stalled company." },
+    ],
+  }),
+  // 5 - founder burnout
+  c => ({
+    headline: `${c.founder} is burning out`,
+    situation: `${c.founder} has been working 90-hour weeks, exhausted and making rushed calls. The team feels the tension.`,
+    question: "As their partner, what do you do?",
+    choices: [
+      { text: "Help them hire a strong #2 and take real time off - a healthy founder is the #1 asset", points: 2, feedback: "Founder health IS company health. Sustainable pace and delegation beat heroic burnout every time." },
+      { text: "Send an encouraging note and hope it passes", points: 1, feedback: "Kind, but hope isn't help. Burnout left alone leads to bad decisions - or a founder who quits." },
+      { text: "Push them to work even harder - this is crunch time", points: 0, feedback: "Pouring pressure on an exhausted founder breaks people and companies. Protecting them protects your investment." },
+    ],
+  }),
+  // 6 - fad pivot temptation
+  c => ({
+    headline: "The founder wants to chase a fad",
+    situation: `A buzzy trend is everywhere, and ${c.founder} wants to drop ${c.name}'s product to chase it - even though real users love what exists today.`,
+    question: "Your advice?",
+    choices: [
+      { text: "Test the idea small with real users before betting the company on a trend", points: 2, feedback: "Evidence over hype. Run a cheap experiment; let real user behavior - not headlines - decide." },
+      { text: "Forbid it outright - stay the course no matter what", points: 1, feedback: "Discipline is good, but a flat 'no' can miss a real opportunity. The answer is test-and-learn, not fear." },
+      { text: "Go all-in on the trend immediately - don't miss out", points: 0, feedback: "Betting the company on a fad because it's loud right now is classic FOMO. Trends fade; loyal users don't." },
+    ],
+  }),
+  // 7 - acquisition offer (GROWTH)
+  c => ({
+    headline: "An acquisition offer",
+    situation: `A larger company offers to buy ${c.name} for a solid sum. It's a nice return for you, but ${c.founder} believes the best is yet to come.`,
+    question: "What do you tell them?",
+    choices: [
+      { text: "Lay out both paths honestly and back the founder's decision - it's their life's work", points: 2, feedback: "Honest counsel over self-interest builds the trust that wins you their next company too." },
+      { text: "Nudge them to sell so your fund locks in the win", points: 1, feedback: "Your fund wins, your reputation takes a hit. Steering founders for your own timeline is remembered." },
+      { text: "Insist they reject it - you want the bigger outcome", points: 0, feedback: "Gambling a founder's life-changing money for your upside isn't your call to force." },
+    ],
+  }),
+]
+
+const CASH_IDX = 3
+const STRUGGLE_IDXS = [0, 1, 2, 3, 5]
+const GROWTH_IDXS = [4, 7, 1, 6]
+
+/** The situation a founder brings to this week's catch-up. Deterministic. */
+export function generateScenario(c: PortfolioCompany, week: number): CatchUpScenario {
+  const r = mulberry32(hashStr(`scenario:${c.id}:${week}`))
+  let idx: number
+  if (c.profile.runwayMonths <= 4 && r() < 0.7) idx = CASH_IDX
+  else if (c.status === "struggling") idx = pick(r, STRUGGLE_IDXS)
+  else if (c.status === "growing") idx = pick(r, GROWTH_IDXS)
+  else idx = Math.floor(r() * SCENARIOS.length)
+  return SCENARIOS[idx](c)
+}
+
+export interface CatchUpResult {
+  patch: Partial<PortfolioCompany>
+  repDelta: number
+  outcome: string
+}
+
+/** Apply the student's advice: move the valuation/metrics, log it, score rep. */
+export function applyScenarioChoice(c: PortfolioCompany, week: number, choice: CatchUpChoice, choiceIdx: number): CatchUpResult {
+  const r = mulberry32(hashStr(`apply:${c.id}:${week}:${choiceIdx}`))
+  let move: number
+  if (choice.points === 2) move = 0.1 + c.quality * 0.35 + r() * 0.1
+  else if (choice.points === 1) move = -0.02 + c.quality * 0.1 + r() * 0.05
+  else move = -(0.14 + (1 - c.quality) * 0.16 + r() * 0.08)
+  // A doomed company barely responds even to brilliant advice.
+  if (c.quality < 0.4) move = Math.min(move, 0.05)
+  move = Math.round(move * 100) / 100
+
+  const oldVal = c.profile.valuation
+  const newVal = Math.max(1, Math.round(oldVal * (1 + move)))
+  const status: PortfolioCompany["status"] = move > 0.04 ? "growing" : move < -0.02 ? "struggling" : "steady"
+  const raised = move > 0.15 // a big win usually comes with a fresh round
+  const profile: CompanyProfile = {
+    ...c.profile,
+    valuation: newVal,
+    users: Math.max(0, Math.round(c.profile.users * (1 + move * 0.8))),
+    growthPct: Math.max(-20, Math.min(80, Math.round(c.profile.growthPct + move * 40))),
+    runwayMonths: Math.max(0, c.profile.runwayMonths - 1 + (raised ? 9 : 0)),
+    revenue: Math.max(0, Math.round(c.profile.revenue * (1 + move * 0.6))),
+  }
+  const pct = Math.round(move * 100)
+  const sign = pct >= 0 ? "+" : ""
+  const grade = choice.points === 2 ? "Great call" : choice.points === 1 ? "Okay call" : "Rough call"
+  const repDelta = choice.points === 2 ? 3 : choice.points === 1 ? 1 : -2
+  const patch: Partial<PortfolioCompany> = {
+    profile,
+    status,
+    valuationHistory: [...c.valuationHistory, { week, valuation: newVal }].slice(-12),
+    events: [...c.events, { week, text: `${grade}: valuation ${sign}${pct}% to ${newVal.toLocaleString()}${raised ? " (new round)" : ""}` }].slice(-10),
+    lastAdvisedWeek: week,
+  }
+  const outcome = `${choice.feedback} ${c.name} is now valued at ${newVal.toLocaleString()} coins (${sign}${pct}%).`
+  return { patch, repDelta, outcome }
 }
