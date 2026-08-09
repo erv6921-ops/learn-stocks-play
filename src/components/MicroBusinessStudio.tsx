@@ -305,40 +305,54 @@ export default function MicroBusinessStudio() {
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 py-6 max-w-6xl">
-        {/* HUD */}
-        <div className="hud-panel p-4 mb-5 relative z-10">
-          <div className="relative z-10 flex items-center justify-between gap-3 flex-wrap">
-            <div className="flex items-center gap-2">
-              <def.icon className="w-5 h-5" style={{ color: def.color }} />
-              <div><p className="font-display text-base font-extrabold text-white leading-none">{def.label}</p><p className="text-white/40 text-xs mt-0.5">Your business studio</p></div>
+        {/* ── Business snapshot: identity, status, and every key number gathered
+            into ONE cohesive header instead of scattered across the page. ── */}
+        <div className="hud-panel p-4 sm:p-5 mb-5 relative z-10">
+          <div className="relative z-10 space-y-4">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div className="flex items-center gap-2.5">
+                <span className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${def.color}22` }}>
+                  <def.icon className="w-5 h-5" style={{ color: def.color }} />
+                </span>
+                <div>
+                  <p className="font-display text-base font-extrabold text-white leading-none">{def.label}</p>
+                  <p className="text-white/40 text-xs mt-0.5">Month {sim.month} · Quarter {quarterOf(sim.month) + 1}</p>
+                </div>
+              </div>
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: `${statusLabel(sim).color}22`, color: statusLabel(sim).color }}>{statusLabel(sim).label}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="bg-white/5 rounded-lg px-3 py-1.5 text-center">
-                <p className="text-[9px] text-white/40 uppercase font-bold">Quarter</p>
-                <p className="text-sm font-extrabold text-white">Q{quarterOf(sim.month) + 1}</p>
+
+            {/* Headline numbers - one clean row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <StatTile label="Customers" value={sim.customers.toLocaleString()} icon={Users} color="#3BA7C4" />
+              <StatTile label="Cash" value={sim.cash.toLocaleString()} suffix="IC" icon={Coins} color={NEON} />
+              <StatTile label="Money / month" value={monthlyRevenue(sim).toLocaleString()} suffix="IC" icon={TrendingUp} color="#F5B301" />
+              <StatTile label="Products" value={String(sim.products.length)} icon={Package} color="#A78BFA" />
+            </div>
+
+            {/* Health meters */}
+            <div className="grid grid-cols-2 gap-2.5">
+              <MetricBar label="Reputation" value={sim.reputation} icon={Heart} />
+              <MetricBar label="Brand" value={sim.brand} icon={Sparkles} />
+            </div>
+
+            {/* Quarter progress */}
+            <div>
+              <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wide text-white/45 mb-1.5">
+                <span>This quarter's operations</span>
+                <span style={{ color: NEON }}>{doneCount}/{ALL_ACTIVITIES.length} done</span>
               </div>
-              <div className="bg-white/5 rounded-lg px-3 py-1.5 text-center">
-                <p className="text-[9px] text-white/40 uppercase font-bold">This quarter</p>
-                <p className="text-sm font-extrabold" style={{ color: NEON }}>{doneCount}/{ALL_ACTIVITIES.length} ops</p>
-              </div>
+              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${(doneCount / ALL_ACTIVITIES.length) * 100}%`, background: NEON }} /></div>
+              <p className="text-[10px] text-white/35 mt-1.5">Operations refresh every quarter - there's always more to run.</p>
             </div>
           </div>
-          <div className="h-1.5 mt-3 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${(doneCount / ALL_ACTIVITIES.length) * 100}%`, background: NEON }} /></div>
-          <p className="text-[10px] text-white/35 mt-1.5">Operations refresh every quarter - there's always more to run.</p>
         </div>
 
-        {/* Two columns on desktop: the running-business cockpit on the left,
-            the quarter's activities on the right - fills the page and keeps the
-            "manage" and "do the work" jobs visually separate. */}
+        {/* Body: the write-it-down workspace takes the stage; the run-your-business
+            cockpit sits beside it. Numbers now live up in the snapshot, so this
+            area stays focused on the work students actually fill in. */}
         <div className="grid lg:grid-cols-5 gap-5 items-start">
-          {/* Cockpit - your live business */}
-          <div className="lg:col-span-2 space-y-4">
-            <BusinessDashboard sim={sim} />
-            <MonthlyOps sim={sim} onGenerate={generateMonth} onResolve={resolveMonth} onRebuild={rebuild} />
-            <ProductLine sim={sim} onAdd={addProductHandler} />
-          </div>
-
-          {/* Workbench - this quarter's activities, one at a time */}
+          {/* Primary - this quarter's activities, one at a time */}
           <div className="lg:col-span-3" ref={anchor("biz-activity")}>
             <Tabs defaultValue="product" className="space-y-4">
               <TabsList className={cn("grid w-full", allDone ? "grid-cols-5" : "grid-cols-4")}>
@@ -367,6 +381,14 @@ export default function MicroBusinessStudio() {
 
               {allDone && <TabsContent value="summary"><SummaryReport a={a} bt={bt} qi={qi} /></TabsContent>}
             </Tabs>
+          </div>
+
+          {/* Secondary - run your live business (the interactive tools, grouped
+              under one clear heading and kept separate from the write-down work) */}
+          <div className="lg:col-span-2 space-y-4">
+            <p className="font-display text-xs font-extrabold uppercase tracking-[0.15em] text-muted-foreground px-1">Run your business</p>
+            <MonthlyOps sim={sim} onGenerate={generateMonth} onResolve={resolveMonth} onRebuild={rebuild} />
+            <ProductLine sim={sim} onAdd={addProductHandler} />
           </div>
         </div>
       </main>
@@ -980,29 +1002,8 @@ function StatTile({ label, value, suffix, icon: Icon, color }: { label: string; 
     </div>
   );
 }
-function BusinessDashboard({ sim }: { sim: BizState }) {
-  const st = statusLabel(sim);
-  return (
-    <div className="hud-panel p-4 mb-4 relative z-10">
-      <div className="relative z-10">
-        <div className="flex items-center justify-between mb-3">
-          <p className="font-display text-base font-extrabold text-white flex items-center gap-2"><Activity className="w-4 h-4" style={{ color: NEON }} /> Business status · Month {sim.month}</p>
-          <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: `${st.color}22`, color: st.color }}>{st.label}</span>
-        </div>
-        <div className="grid grid-cols-2 gap-2.5 mb-3">
-          <StatTile label="Customers" value={sim.customers.toLocaleString()} icon={Users} color="#3BA7C4" />
-          <StatTile label="Cash" value={sim.cash.toLocaleString()} suffix="IC" icon={Coins} color={NEON} />
-          <StatTile label="Products" value={String(sim.products.length)} icon={Package} color="#A78BFA" />
-          <StatTile label="Money / month" value={monthlyRevenue(sim).toLocaleString()} suffix="IC" icon={TrendingUp} color="#F5B301" />
-        </div>
-        <div className="grid grid-cols-2 gap-2.5">
-          <MetricBar label="Reputation" value={sim.reputation} icon={Heart} />
-          <MetricBar label="Brand" value={sim.brand} icon={Sparkles} />
-        </div>
-      </div>
-    </div>
-  );
-}
+// (BusinessDashboard was merged into the unified snapshot header at the top of
+// the studio, so all the business numbers live in one cohesive place.)
 function MonthlyOps({ sim, onGenerate, onResolve, onRebuild }: { sim: BizState; onGenerate: () => void; onResolve: (i: number, w: number) => void; onRebuild: () => void }) {
   const [opt, setOpt] = useState<number | null>(null);
   const [react, setReact] = useState("");
