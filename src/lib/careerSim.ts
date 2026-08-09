@@ -768,6 +768,8 @@ export interface PortfolioCompany {
   /** Company valuation when the student invested. */
   entryValuation: number
   profile: CompanyProfile
+  /** The student's written investment thesis - why they backed it. */
+  thesis: string
   valuationHistory: { week: number; valuation: number }[]
   events: { week: number; text: string }[]
   status: "growing" | "steady" | "struggling"
@@ -871,13 +873,18 @@ export function generateInvestOptions(week: number): InvestOption[] {
   })
 }
 
+/** Minimum words for the two required VC write-ups. */
+export const VC_THESIS_MIN_WORDS = 20
+export const VC_ADVICE_MIN_WORDS = 20
+
 /** Build the initial portfolio record when a student invests. */
-export function holdingFromOption(o: InvestOption, week: number): PortfolioCompany {
+export function holdingFromOption(o: InvestOption, week: number, thesis: string): PortfolioCompany {
   return {
     id: o.id, name: o.name, founder: o.founder, sector: o.sector,
     quality: o.quality, ownership: o.ownership, invested: o.ask,
     entryValuation: o.entryValuation,
     profile: { ...o.profile },
+    thesis,
     valuationHistory: [{ week, valuation: o.entryValuation }],
     events: [{ week, text: `You invested ${o.ask.toLocaleString()} coins for a ${o.ownership}% stake` }],
     status: "steady", investedWeek: week, lastAdvisedWeek: 0,

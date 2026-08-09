@@ -9,14 +9,16 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import {
-  generateScenario, applyScenarioChoice, companyMultiple,
+  generateScenario, applyScenarioChoice, companyMultiple, wordCount,
+  VC_THESIS_MIN_WORDS, VC_ADVICE_MIN_WORDS,
   type InvestOption, type PortfolioCompany, type CatchUpResult, type CompanyProfile,
 } from "@/lib/careerSim"
 import {
   ArrowLeft, Coins, Users, TrendingUp, TrendingDown, Wallet, Timer,
-  Target, Package, AlertTriangle, MessageSquare, LogOut, Building2,
+  Target, Package, AlertTriangle, MessageSquare, LogOut, Building2, PenLine, Quote,
 } from "lucide-react"
 
 const SIGNAL_VARIANT = {
@@ -74,9 +76,13 @@ export default function CompanyDetail(props: {
   option?: InvestOption
   held?: boolean
   balance?: number
-  onInvest?: (o: InvestOption) => void
+  onInvest?: (o: InvestOption, thesis: string) => void
   holding?: PortfolioCompany
-  onCatchUp?: (patch: Partial<PortfolioCompany>, repDelta: number) => void
+  onCatchUp?: (
+    patch: Partial<PortfolioCompany>,
+    repDelta: number,
+    writeUp: { headline: string; question: string; text: string },
+  ) => void
   onExit?: (c: PortfolioCompany) => void
 }) {
   const { mode, week, accent, onBack, option, held, balance = 0, onInvest, holding, onCatchUp, onExit } = props
@@ -96,6 +102,13 @@ export default function CompanyDetail(props: {
   const [picked, setPicked] = useState<number | null>(null)
   const [preview, setPreview] = useState<CatchUpResult | null>(null)
   const [applied, setApplied] = useState<CatchUpResult | null>(null)
+  const [thesis, setThesis] = useState("")
+  const [note, setNote] = useState("")
+
+  const thesisWords = wordCount(thesis)
+  const thesisOk = thesisWords >= VC_THESIS_MIN_WORDS
+  const noteWords = wordCount(note)
+  const noteOk = noteWords >= VC_ADVICE_MIN_WORDS
 
   const pickChoice = (i: number) => {
     if (picked !== null || !scenario || !holding) return
@@ -103,8 +116,12 @@ export default function CompanyDetail(props: {
     setPreview(applyScenarioChoice(holding, week, scenario.choices[i], i))
   }
   const applyAdvice = () => {
-    if (!preview || !onCatchUp) return
-    onCatchUp(preview.patch, preview.repDelta)
+    if (!preview || !onCatchUp || !scenario || picked === null || !noteOk) return
+    onCatchUp(preview.patch, preview.repDelta, {
+      headline: scenario.headline,
+      question: scenario.question,
+      text: note.trim(),
+    })
     setApplied(preview)
   }
 
@@ -194,21 +211,42 @@ export default function CompanyDetail(props: {
 
           {/* ── invest mode ── */}
           {mode === "invest" && (
-            <div className="pt-1 border-t border-border/50 space-y-2">
+            <div className="pt-1 border-t border-border/50 space-y-2.5">
               <div className="flex items-center justify-between text-xs">
                 <span className="text-muted-foreground">Round: <b className="text-foreground">{option!.ask.toLocaleString()} coins</b> for {option!.ownership}%</span>
                 <span className="text-muted-foreground">Values it at {option!.entryValuation.toLocaleString()}</span>
               </div>
+
+              {!held && (
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-bold text-foreground/90 flex items-center gap-1">
+                      <PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> Your investment thesis
+                    </label>
+                    <span className={cn("text-[10px] font-bold tabular-nums", thesisOk ? "text-primary" : "text-muted-foreground")}>
+                      {thesisWords}/{VC_THESIS_MIN_WORDS} words {thesisOk && "✓"}
+                    </span>
+                  </div>
+                  <Textarea
+                    rows={3}
+                    value={thesis}
+                    onChange={e => setThesis(e.target.value)}
+                    placeholder={`Why are you backing ${name}? What in the team, traction, or market convinced you - and what would have to go right?`}
+                    className={cn("text-xs leading-relaxed", thesisOk && "border-primary/50")}
+                  />
+                </div>
+              )}
+
               <Button
                 size="lg" className="w-full press-scale gap-1.5"
-                disabled={held || !afford}
-                onClick={() => onInvest?.(option!)}
+                disabled={held || !afford || !thesisOk}
+                onClick={() => onInvest?.(option!, thesis.trim())}
               >
                 <Coins className="h-4 w-4" />
-                {held ? "Already invested ✓" : afford ? `Invest ${option!.ask.toLocaleString()} coins` : "Not enough coins"}
+                {held ? "Already invested ✓" : !afford ? "Not enough coins" : thesisOk ? `Invest ${option!.ask.toLocaleString()} coins` : `Write your thesis first (${VC_THESIS_MIN_WORDS - thesisWords} more words)`}
               </Button>
               <p className="text-[10px] text-muted-foreground text-center">
-                Study the team, growth, runway and risks - then decide like a real VC.
+                Real VCs write a thesis before wiring a cent. Yours is filed in your work file.
               </p>
             </div>
           )}
@@ -221,6 +259,15 @@ export default function CompanyDetail(props: {
                 <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Now worth</p><p className="text-sm font-extrabold" style={{ color: value >= holding.invested ? "#10b981" : "#ef4444" }}>{value.toLocaleString()}</p></div>
                 <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Your stake</p><p className="text-sm font-extrabold">{holding.ownership}%</p></div>
               </div>
+
+              {holding.thesis && (
+                <div className="rounded-lg bg-muted/40 px-3 py-2">
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground mb-0.5 flex items-center gap-1">
+                    <Quote className="h-3 w-3" /> Your thesis
+                  </p>
+                  <p className="text-xs text-foreground/85 leading-relaxed italic">{holding.thesis}</p>
+                </div>
+              )}
 
               {holding.valuationHistory.length >= 2 && (
                 <div>
@@ -299,9 +346,26 @@ export default function CompanyDetail(props: {
                       })}
                     </div>
                     {picked !== null && (
-                      <Button size="sm" className="w-full press-scale" onClick={applyAdvice}>
-                        Give this advice
-                      </Button>
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between">
+                          <label className="text-[11px] font-bold text-foreground/90 flex items-center gap-1">
+                            <PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> Explain your advice to {founder}
+                          </label>
+                          <span className={cn("text-[10px] font-bold tabular-nums", noteOk ? "text-primary" : "text-muted-foreground")}>
+                            {noteWords}/{VC_ADVICE_MIN_WORDS} words {noteOk && "✓"}
+                          </span>
+                        </div>
+                        <Textarea
+                          rows={3}
+                          value={note}
+                          onChange={e => setNote(e.target.value)}
+                          placeholder={`Why is this the right call for ${name}? What are you weighing, and what's the risk if you're wrong?`}
+                          className={cn("text-xs leading-relaxed", noteOk && "border-primary/50")}
+                        />
+                        <Button size="sm" className="w-full press-scale" disabled={!noteOk} onClick={applyAdvice}>
+                          {noteOk ? "Give this advice" : `Write your reasoning (${VC_ADVICE_MIN_WORDS - noteWords} more words)`}
+                        </Button>
+                      </div>
                     )}
                   </div>
                 ) : null}
