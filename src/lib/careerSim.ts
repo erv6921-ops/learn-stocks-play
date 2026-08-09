@@ -718,3 +718,118 @@ export function memoSpec(careerId: string) {
 export function wordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length
 }
+
+/* ── VC fund: portfolio + investable deals ─────────────────────────── */
+// The Venture Capitalist career is more than weekly decisions: students build a
+// real portfolio. They browse startups, invest coins to take a stake, then
+// "catch up" with each founder weekly to build reputation and help the company
+// grow. Good bets compound with attention; weak ones can't be saved by it -
+// the core lesson of venture, made playable.
+
+export interface PortfolioCompany {
+  id: string
+  name: string
+  founder: string
+  sector: string
+  pitch: string
+  /** Coins the student put in. */
+  invested: number
+  /** Ownership % (flavor). */
+  ownership: number
+  /** Hidden 0-1 quality driving how the company performs over time. */
+  quality: number
+  /** Current value as a multiple of `invested` (starts at 1). */
+  multiple: number
+  status: "growing" | "steady" | "struggling"
+  investedWeek: number
+  /** Last week the student advised it - "catch up" is once per week. */
+  lastAdvisedWeek: number
+}
+
+export interface InvestOption {
+  id: string
+  name: string
+  founder: string
+  sector: string
+  pitch: string
+  signal: "Strong signal" | "Mixed signal" | "Weak signal"
+  /** Coins required to take the stake. */
+  ask: number
+  ownership: number
+  quality: number
+}
+
+const VC_SECTORS = ["consumer app", "fintech", "climate tech", "robotics", "health tech", "gaming", "developer tools", "marketplace", "education", "food delivery", "logistics", "creator tools"]
+
+/** Four fresh startups to browse each week. Deterministic per week. */
+export function generateInvestOptions(week: number): InvestOption[] {
+  const wr = mulberry32(hashStr(`vc-invest:${week}`))
+  const names = pickDistinct(wr, VC_STARTUPS, 4)
+  return names.map(name => {
+    const r = mulberry32(hashStr(`vc-invest:${week}:${name}`))
+    const quality = r()
+    const founder = pick(r, VC_FOUNDERS)
+    const sector = pick(r, VC_SECTORS)
+    const users = int(r, 3, 60) * 100
+    let pitch: string
+    let signal: InvestOption["signal"]
+    if (quality >= 0.62) {
+      pitch = `${users.toLocaleString()} users growing ${int(r, 22, 55)}% a month - and customers who complain loudly the moment it goes down.`
+      signal = "Strong signal"
+    } else if (quality >= 0.36) {
+      pitch = `A real, working product with ${users.toLocaleString()} users, but growth has cooled to ${int(r, 2, 11)}% a month.`
+      signal = "Mixed signal"
+    } else {
+      pitch = pick(r, [
+        "A slick deck promising a billion users, no working product yet, and 'confidential' answers to every question.",
+        "A paid celebrity endorsement, a beautiful demo, and zero real users so far.",
+        "Fifty half-finished features and a founder who blames users for 'not getting it'.",
+      ])
+      signal = "Weak signal"
+    }
+    const ask = int(r, 2, 6) * 100
+    const ownership = 5 + Math.floor(r() * 11) // 5-15%
+    return { id: `w${week}-${name}`, name, founder, sector, pitch, signal, ask, ownership, quality }
+  })
+}
+
+/** Reputation earned each time you catch up with a founder. */
+export const ADVISE_REP = 2
+
+export interface AdviseResult {
+  multiple: number
+  status: PortfolioCompany["status"]
+  repDelta: number
+  message: string
+}
+
+/** One weekly "catch up" with a portfolio founder. Deterministic per week. */
+export function adviseOutcome(c: PortfolioCompany, week: number): AdviseResult {
+  const r = mulberry32(hashStr(`advise:${c.id}:${week}`))
+  // Attention compounds strong companies and barely dents doomed ones.
+  let factor: number
+  if (c.quality >= 0.6) factor = 1.12 + r() * 0.28       // 1.12 - 1.40
+  else if (c.quality >= 0.36) factor = 0.97 + r() * 0.2  // 0.97 - 1.17
+  else factor = 0.78 + r() * 0.2                          // 0.78 - 0.98 (fades)
+  const multiple = Math.max(0.1, Math.round(c.multiple * factor * 100) / 100)
+  const status: PortfolioCompany["status"] =
+    multiple > c.multiple * 1.04 ? "growing" : multiple < c.multiple * 0.98 ? "struggling" : "steady"
+
+  const grew = status === "growing"
+  const sank = status === "struggling"
+  const goodMsgs = [
+    `You introduced ${c.name} to three big customers - growth jumped. Now worth ${multiple}× your entry.`,
+    `A late-night strategy call with ${c.founder} paid off: ${c.name} shipped the right feature and users poured in.`,
+    `You helped ${c.name} recruit a brilliant engineer. The product got faster, and so did growth.`,
+  ]
+  const flatMsgs = [
+    `You checked in with ${c.founder}. Steady as she goes - no fireworks, but the relationship is strong.`,
+    `A useful chat with ${c.name}: a couple of small wins, nothing dramatic. Reputation grows either way.`,
+  ]
+  const badMsgs = [
+    `You spent hours coaching ${c.founder}, but the market just isn't there. Attention can't fix a product nobody wants.`,
+    `You pulled every string in your network, yet ${c.name} keeps sliding. Some bets simply don't work - that's venture.`,
+  ]
+  const message = grew ? pick(r, goodMsgs) : sank ? pick(r, badMsgs) : pick(r, flatMsgs)
+  return { multiple, status, repDelta: ADVISE_REP, message }
+}
