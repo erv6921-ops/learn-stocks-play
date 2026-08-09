@@ -46,6 +46,7 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
   const investVC = useBankStore(s => s.investVC)
   const catchUpVC = useBankStore(s => s.catchUpVC)
   const exitVC = useBankStore(s => s.exitVC)
+  const addMemo = useBankStore(s => s.addMemo)
 
   const [tab, setTab] = useState<"portfolio" | "invest">("portfolio")
   const [selected, setSelected] = useState<Selected>(null)
@@ -57,17 +58,38 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
   const totalInvested = portfolio.reduce((n, c) => n + c.invested, 0)
   const totalValue = portfolio.reduce((n, c) => n + Math.round(c.invested * companyMultiple(c)), 0)
 
-  const invest = (opt: InvestOption) => {
+  const invest = (opt: InvestOption, thesis: string) => {
     if (heldIds.has(opt.id)) return
     if (jeffsBalance < opt.ask) {
       setFlash(`You need ${opt.ask} coins to back ${opt.name} - you have ${Math.floor(jeffsBalance)}.`)
       return
     }
     if (!spendJeffs(opt.ask, `Invested in ${opt.name}`)) return
-    investVC(holdingFromOption(opt, week))
-    setFlash(`You backed ${opt.name} for ${opt.ask} coins (${opt.ownership}% stake).`)
+    investVC(holdingFromOption(opt, week, thesis))
+    addMemo({
+      careerId: career.id, week,
+      dealTitle: `Investment thesis · ${opt.name}`,
+      prompt: `Why did you back ${opt.name}?`,
+      text: thesis,
+    })
+    setFlash(`You backed ${opt.name} for ${opt.ask} coins (${opt.ownership}% stake). Thesis filed.`)
     setSelected(null)
     setTab("portfolio")
+  }
+
+  const catchUp = (
+    holding: PortfolioCompany,
+    patch: Partial<PortfolioCompany>,
+    repDelta: number,
+    writeUp: { headline: string; question: string; text: string },
+  ) => {
+    catchUpVC(career.id, holding.id, patch, repDelta)
+    addMemo({
+      careerId: career.id, week,
+      dealTitle: `Advice · ${holding.name}: ${writeUp.headline}`,
+      prompt: writeUp.question,
+      text: writeUp.text,
+    })
   }
 
   const exit = (c: PortfolioCompany) => {
@@ -100,7 +122,7 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
       <CompanyDetail
         mode="holding" week={week} accent={career.accent} onBack={() => setSelected(null)}
         holding={holding}
-        onCatchUp={(patch, repDelta) => catchUpVC(career.id, holding.id, patch, repDelta)}
+        onCatchUp={(patch, repDelta, writeUp) => catchUp(holding, patch, repDelta, writeUp)}
         onExit={exit}
       />
     )
