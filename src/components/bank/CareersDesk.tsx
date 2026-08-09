@@ -32,6 +32,7 @@ import {
   PenLine, Star,
 } from "lucide-react"
 import { ACCENT, ACCENT_SOFT } from "./theme"
+import VentureFund from "./VentureFund"
 
 /* ══════════════════════════ Career picker ══════════════════════════ */
 
@@ -664,6 +665,9 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
 
           {/* office moment */}
           <OfficeMomentCard career={career} week={week} />
+
+          {/* VC only: living portfolio + deal browser */}
+          {career.id === "venture-capitalist" && <VentureFund career={career} week={week} />}
 
           {/* résumé strip */}
           <div className="grid grid-cols-3 gap-2">

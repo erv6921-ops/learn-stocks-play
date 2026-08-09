@@ -12,6 +12,7 @@ import {
   SAVINGS_DAILY_RATE, CREDIT_START, CREDIT_MIN, CREDIT_MAX,
   CREDIT_ON_TIME, CREDIT_LATE, DAY_MS, isPast,
 } from "@/data/bankData"
+import type { PortfolioCompany } from "@/lib/careerSim"
 
 export interface ActiveLoan {
   id: string // unique instance id
@@ -86,6 +87,8 @@ interface BankState {
   careerEarnings: number
   /** Written deliverables, newest first (capped at MAX_MEMOS). */
   memos: WorkMemo[]
+  /** Venture Capitalist career: startups the student has invested coins in. */
+  vcPortfolio: PortfolioCompany[]
 
   // ── actions ──
   /** Accrue daily compound interest on savings; returns coins of interest added. */
@@ -112,6 +115,20 @@ interface BankState {
   resolveMoment: (careerId: string, week: number, repDelta: number) => void
   /** File a written deliverable into the work file. */
   addMemo: (memo: Omit<WorkMemo, "savedAt">) => void
+
+  /** VC: buy a stake in a startup (coins are spent by the page via spendJeffs). */
+  investVC: (company: PortfolioCompany) => void
+  /** VC: apply a weekly "catch up" - updates the company and bumps career rep. */
+  adviseVC: (
+    careerId: string,
+    id: string,
+    week: number,
+    multiple: number,
+    status: PortfolioCompany["status"],
+    repDelta: number,
+  ) => void
+  /** VC: exit a holding (coins are paid out by the page via awardJeffs). */
+  exitVC: (id: string, payout: number) => void
 }
 
 function clampRep(rep: number): number {
@@ -141,6 +158,7 @@ export const useBankStore = create<BankState>()(
       dealResults: {},
       careerEarnings: 0,
       memos: [],
+      vcPortfolio: [],
 
       accrueInterest: () => {
         const { savings, lastAccrual } = get()
@@ -254,6 +272,30 @@ export const useBankStore = create<BankState>()(
       addMemo: memo =>
         set(s => ({
           memos: [{ ...memo, savedAt: new Date().toISOString() }, ...s.memos].slice(0, MAX_MEMOS),
+        })),
+
+      investVC: company =>
+        set(s =>
+          s.vcPortfolio.some(c => c.id === company.id)
+            ? s // already holding this stake - ignore double-invest
+            : { vcPortfolio: [...s.vcPortfolio, company] }
+        ),
+
+      adviseVC: (careerId, id, week, multiple, status, repDelta) =>
+        set(s => ({
+          vcPortfolio: s.vcPortfolio.map(c =>
+            c.id === id ? { ...c, multiple, status, lastAdvisedWeek: week } : c
+          ),
+          careerRep: {
+            ...s.careerRep,
+            [careerId]: clampRep((s.careerRep[careerId] ?? 50) + repDelta),
+          },
+        })),
+
+      exitVC: (id, payout) =>
+        set(s => ({
+          vcPortfolio: s.vcPortfolio.filter(c => c.id !== id),
+          careerEarnings: s.careerEarnings + payout,
         })),
     }),
     { name: "investiplay-bank" }
