@@ -56,6 +56,32 @@ function WField({ label, value, onChange, min, rows = 3, placeholder }: { label:
     </div>
   );
 }
+// A numbered fill-in list: instead of one blank box, kids get N numbered slots
+// to complete. Each row turns green when filled (or when it hits minWords).
+function ListField({ label, hint, items, onChange, count, minWords = 0, placeholder }: {
+  label: string; hint?: string; items: string[]; onChange: (items: string[]) => void;
+  count: number; minWords?: number; placeholder?: (i: number) => string;
+}) {
+  const rows = Array.from({ length: count }, (_, i) => items[i] ?? "");
+  const setRow = (i: number, v: string) => { const next = [...rows]; next[i] = v; onChange(next); };
+  return (
+    <div>
+      <label className="text-sm font-semibold">{label}</label>
+      {hint && <p className="text-xs text-muted-foreground mt-0.5">{hint}</p>}
+      <div className="space-y-2 mt-1.5">
+        {rows.map((val, i) => {
+          const ok = minWords > 0 ? wc(val) >= minWords : val.trim().length > 0;
+          return (
+            <div key={i} className="flex items-center gap-2">
+              <span className={cn("w-6 h-6 rounded-full flex items-center justify-center text-xs font-extrabold shrink-0", ok && val ? "bg-success/15 text-success" : "bg-muted text-muted-foreground")}>{i + 1}</span>
+              <Input value={val} onChange={(e) => setRow(i, e.target.value)} placeholder={placeholder?.(i)} className={cn("flex-1", ok && val ? "border-success/50" : "")} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 function Incomplete({ items }: { items: { label: string; ok: boolean }[] }) {
   const bad = items.filter((i) => !i.ok);
   if (!bad.length) return null;
@@ -402,15 +428,14 @@ type AProps = { a: ActivitiesState; bt: BusinessType; complete: Complete };
 function ProductDoc({ a, complete }: AProps) {
   const id = "productDoc"; const done = a.done.includes(id); const saved = a.data[id] || {};
   const [editing, setEditing] = useState(false);
-  const [f, set] = useForm(saved, { name: "", problem: "", target: "", feat1: "", feat2: "", feat3: "", diff: "" });
+  const [f, set] = useForm(saved, { name: "", problem: "", target: "", features: (saved.features as string[]) || ["", "", ""], diff: "" });
+  const features = (f.features as string[]) || [];
   const checks = [
-    { label: "Product/Service name (3+ words)", ok: wc(str(f.name)) >= 3 },
-    { label: `Problem it solves (${ws(75)}+ words)`, ok: wc(str(f.problem)) >= ws(75) },
-    { label: `Target customer (${ws(50)}+ words)`, ok: wc(str(f.target)) >= ws(50) },
-    { label: `Feature 1 + why (${ws(30)}+ words)`, ok: wc(str(f.feat1)) >= ws(30) },
-    { label: `Feature 2 + why (${ws(30)}+ words)`, ok: wc(str(f.feat2)) >= ws(30) },
-    { label: `Feature 3 + why (${ws(30)}+ words)`, ok: wc(str(f.feat3)) >= ws(30) },
-    { label: `What makes it different (${ws(50)}+ words)`, ok: wc(str(f.diff)) >= ws(50) },
+    { label: "Name your product (3+ words)", ok: wc(str(f.name)) >= 3 },
+    { label: "Say what problem it solves", ok: wc(str(f.problem)) >= ws(75) },
+    { label: "Say who it's for", ok: wc(str(f.target)) >= ws(50) },
+    { label: "Fill in all 3 special things", ok: features.filter((x) => x.trim()).length >= 3 },
+    { label: "Say why yours is better", ok: wc(str(f.diff)) >= ws(50) },
   ];
   const ready = checks.every((c) => c.ok);
   if (done && !editing) {
@@ -421,11 +446,9 @@ function ProductDoc({ a, complete }: AProps) {
           <p className="font-display text-xl font-extrabold mt-1">{str(saved.name)}</p>
           <p className="text-xs text-muted-foreground mb-2">PRODUCT BRIEF</p>
           <ResultRow label="Problem">{str(saved.problem)}</ResultRow>
-          <ResultRow label="Target customer">{str(saved.target)}</ResultRow>
-          <ResultRow label="Key feature 1">{str(saved.feat1)}</ResultRow>
-          <ResultRow label="Key feature 2">{str(saved.feat2)}</ResultRow>
-          <ResultRow label="Key feature 3">{str(saved.feat3)}</ResultRow>
-          <ResultRow label="Differentiation">{str(saved.diff)}</ResultRow>
+          <ResultRow label="Who it's for">{str(saved.target)}</ResultRow>
+          <ResultRow label="What makes it special">{(((saved.features as string[]) || [str(saved.feat1), str(saved.feat2), str(saved.feat3)]).filter(Boolean)).map((x, i) => `${i + 1}. ${x}`).join("\n")}</ResultRow>
+          <ResultRow label="Why it's better">{str(saved.diff)}</ResultRow>
         </div>
         <Button size="sm" variant="ghost" className="gap-1" onClick={() => setEditing(true)}><Pencil className="w-3.5 h-3.5" /> Edit</Button>
       </ActivityCard>
@@ -434,13 +457,11 @@ function ProductDoc({ a, complete }: AProps) {
   return (
     <ActivityCard icon={FileText} n={1} title="Product Design Document" desc="Write a structured brief for your product or service." xp={XP.pd} done={done}>
       <div className="space-y-3">
-        <WField label="Product / Service name (min 3 words)" value={str(f.name)} onChange={(v) => set("name", v)} min={3} rows={1} placeholder="A short, descriptive name" />
-        <WField label={`Problem it solves (min ${ws(75)} words)`} value={str(f.problem)} onChange={(v) => set("problem", v)} min={ws(75)} rows={4} />
-        <WField label={`Target customer description (min ${ws(50)} words)`} value={str(f.target)} onChange={(v) => set("target", v)} min={ws(50)} rows={3} />
-        <WField label={`Feature 1 - and why it matters (min ${ws(30)} words)`} value={str(f.feat1)} onChange={(v) => set("feat1", v)} min={ws(30)} />
-        <WField label={`Feature 2 - and why it matters (min ${ws(30)} words)`} value={str(f.feat2)} onChange={(v) => set("feat2", v)} min={ws(30)} />
-        <WField label={`Feature 3 - and why it matters (min ${ws(30)} words)`} value={str(f.feat3)} onChange={(v) => set("feat3", v)} min={ws(30)} />
-        <WField label={`What makes it different from competitors (min ${ws(50)} words)`} value={str(f.diff)} onChange={(v) => set("diff", v)} min={ws(50)} rows={3} />
+        <WField label="What's it called?" value={str(f.name)} onChange={(v) => set("name", v)} min={3} rows={1} placeholder="A short, catchy name" />
+        <WField label="What problem does it solve?" value={str(f.problem)} onChange={(v) => set("problem", v)} min={ws(75)} rows={4} placeholder="Describe the everyday problem your product fixes." />
+        <WField label="Who is it for?" value={str(f.target)} onChange={(v) => set("target", v)} min={ws(50)} rows={3} placeholder="Describe the kind of person who'd buy it." />
+        <ListField label="Name 3 things that make it special" hint="A few words each - no full sentences needed." items={features} onChange={(v) => set("features", v)} count={3} placeholder={(i) => ["e.g. Super fast", "e.g. Eco-friendly", "e.g. Cheapest around"][i]} />
+        <WField label="Why is yours better than what's out there?" value={str(f.diff)} onChange={(v) => set("diff", v)} min={ws(50)} rows={3} placeholder="Compare yourself to what people use now." />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => { complete(id, f, XP.pd); setEditing(false); }}><FileText className="w-4 h-4 mr-1.5" /> Generate Product Brief</Button>
       </div>
@@ -487,17 +508,17 @@ function Pricing({ a, bt, complete }: AProps) {
           <div><label className="text-sm font-semibold">Profit margin %</label><Input value={str(f.margin)} onChange={(e) => set("margin", e.target.value)} className="mt-1" placeholder="you calculate it" /></div>
         </div>
         <p className="text-xs text-muted-foreground">Formula: (Price - Cost) ÷ Price × 100{price > 0 ? ` - actual works out to ${actualMargin.toFixed(0)}%` : ""}{marginOff ? " (check your math)" : ""}</p>
-        <WField label={`Justify your price (${ws(40)}+ words)`} value={str(f.justify)} onChange={(v) => set("justify", v)} min={ws(40)} />
+        <WField label="Why is this the right price?" value={str(f.justify)} onChange={(v) => set("justify", v)} min={ws(40)} />
         <div>
           <label className="text-sm font-semibold">Pricing approach</label>
           <div className="flex gap-2 mt-1">{PRICING_TYPES.map((p) => <button key={p} onClick={() => set("ptype", p)} className={cn("flex-1 px-2 py-1.5 rounded-lg text-xs font-bold border press-scale", f.ptype === p ? "border-primary bg-primary/10" : "border-border bg-muted")}>{p}</button>)}</div>
         </div>
-        <WField label={`Explain why you chose that approach (${ws(60)}+ words)`} value={str(f.explain)} onChange={(v) => set("explain", v)} min={ws(60)} rows={3} />
+        <WField label="Why did you pick that approach?" value={str(f.explain)} onChange={(v) => set("explain", v)} min={ws(60)} rows={3} />
         {lowMargin && (
           <div className="rounded-xl border border-destructive/40 bg-destructive/5 p-3">
             <p className="text-sm font-bold text-destructive flex items-center gap-1.5"><AlertTriangle className="w-4 h-4" /> Your margin is dangerously thin.</p>
             <p className="text-xs text-muted-foreground mt-0.5">Most businesses need at least 20% to survive. Raise your price, or justify accepting a low margin below.</p>
-            <div className="mt-2"><WField label={`Why accept a low margin? (${ws(40)}+ words)`} value={str(f.lowReason)} onChange={(v) => set("lowReason", v)} min={ws(40)} /></div>
+            <div className="mt-2"><WField label="Why is a low margin okay here?" value={str(f.lowReason)} onChange={(v) => set("lowReason", v)} min={ws(40)} /></div>
           </div>
         )}
         <Incomplete items={checks} />
@@ -534,13 +555,13 @@ function Feedback({ a, bt, complete }: AProps) {
     <ActivityCard icon={MessageSquare} n={3} title="Product Feedback Response" desc="A beta tester reviewed your product." xp={XP.pd} done={false}>
       <div className="space-y-3">
         <div className="rounded-xl border border-border bg-card p-3"><div className="flex items-center gap-1 text-gold mb-1">{[1, 2, 3].map((i) => <Star key={i} className="w-3.5 h-3.5" fill="#EBB13E" color="#EBB13E" />)}<span className="text-xs text-muted-foreground ml-1">Beta tester</span></div><p className="text-sm italic">"{review}"</p></div>
-        <WField label={`Summarize the feedback in your own words (${ws(40)}+ words)`} value={str(f.summary)} onChange={(v) => set("summary", v)} min={ws(40)} />
+        <WField label="Say the feedback in your own words" value={str(f.summary)} onChange={(v) => set("summary", v)} min={ws(40)} />
         <div>
           <label className="text-sm font-semibold">Will you implement this feedback?</label>
           <div className="flex gap-2 mt-1">{["yes", "no"].map((o) => <button key={o} onClick={() => set("implement", o)} className={cn("flex-1 px-2 py-1.5 rounded-lg text-sm font-bold border press-scale capitalize", f.implement === o ? "border-primary bg-primary/10" : "border-border bg-muted")}>{o === "yes" ? "Implement" : "Don't implement"}</button>)}</div>
         </div>
-        <WField label={`Justify your decision (${ws(50)}+ words)`} value={str(f.why)} onChange={(v) => set("why", v)} min={ws(50)} rows={3} />
-        <WField label={`What would you change in v2? (${ws(60)}+ words)`} value={str(f.v2)} onChange={(v) => set("v2", v)} min={ws(60)} rows={3} />
+        <WField label="Why did you decide that?" value={str(f.why)} onChange={(v) => set("why", v)} min={ws(50)} rows={3} />
+        <WField label="What would you change next time?" value={str(f.v2)} onChange={(v) => set("v2", v)} min={ws(60)} rows={3} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, { ...f, __review: review }, XP.pd)}><MessageSquare className="w-4 h-4 mr-1.5" /> Submit response</Button>
       </div>
@@ -588,8 +609,8 @@ function FindPartner({ a, bt, complete }: AProps) {
             </button>
           ))}
         </div>
-        <WField label={`Why did you choose them over the others? (${ws(60)}+ words)`} value={str(f.why)} onChange={(v) => set("why", v)} min={ws(60)} rows={3} />
-        <WField label={`Collaboration proposal${chosen ? ` to ${chosen.name}` : ""} (100+ words)`} value={str(f.proposal)} onChange={(v) => set("proposal", v)} min={ws(100)} rows={5} placeholder="What the partnership looks like, what each side contributes, and the expected benefit." />
+        <WField label="Why pick them over the others?" value={str(f.why)} onChange={(v) => set("why", v)} min={ws(60)} rows={3} />
+        <WField label={`Your pitch${chosen ? ` to ${chosen.name}` : ""}`} value={str(f.proposal)} onChange={(v) => set("proposal", v)} min={ws(100)} rows={5} placeholder="What does the team-up look like? What does each side give, and what do you both get?" />
         <div className="grid grid-cols-3 gap-2">
           <div><label className="text-xs font-semibold">Revenue split %</label><Input value={str(f.split)} onChange={(e) => set("split", e.target.value)} className="mt-1" placeholder="e.g. 60/40" /></div>
           <div><label className="text-xs font-semibold">Timeline</label><Input value={str(f.timeline)} onChange={(e) => set("timeline", e.target.value)} className="mt-1" placeholder="e.g. 6 months" /></div>
@@ -628,9 +649,9 @@ function PartnerProblem({ a, bt, complete }: AProps) {
     <ActivityCard icon={AlertTriangle} n={2} title="Partnership Problem" desc="A conflict came up with your partner." xp={XP.collab} done={false}>
       <div className="space-y-3">
         <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3"><p className="text-xs font-bold uppercase tracking-wider text-destructive mb-1">Problem</p><p className="text-sm">{problem}</p></div>
-        <WField label={`Write a professional message to your partner (${ws(75)}+ words)`} value={str(f.message)} onChange={(v) => set("message", v)} min={ws(75)} rows={4} />
-        <WField label={`Propose a resolution with specific terms (${ws(50)}+ words)`} value={str(f.resolution)} onChange={(v) => set("resolution", v)} min={ws(50)} rows={3} />
-        <WField label={`What would you do differently choosing a partner next time? (${ws(40)}+ words)`} value={str(f.reflection)} onChange={(v) => set("reflection", v)} min={ws(40)} />
+        <WField label="Write a message to your partner" value={str(f.message)} onChange={(v) => set("message", v)} min={ws(75)} rows={4} placeholder="Stay calm and professional - explain the issue clearly." />
+        <WField label="How would you fix it?" value={str(f.resolution)} onChange={(v) => set("resolution", v)} min={ws(50)} rows={3} />
+        <WField label="What would you do differently next time?" value={str(f.reflection)} onChange={(v) => set("reflection", v)} min={ws(40)} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, { ...f, __problem: problem }, XP.collab)}><ArrowRight className="w-4 h-4 mr-1.5" /> Send & resolve</Button>
       </div>
@@ -680,8 +701,8 @@ function VendorNegotiation({ a, bt, complete }: AProps) {
     <ActivityCard icon={Truck} n={3} title="Vendor Negotiation" desc="A vendor sent a supply offer." xp={XP.collab} done={false}>
       <div className="space-y-3">
         <div className="rounded-xl bg-muted p-3 text-sm"><p className="font-bold mb-1">Vendor opening offer - {offer.item}</p><div className="flex gap-4 text-xs"><span>Price: <b>{offer.unitPrice.toFixed(2)} IC/unit</b></span><span>Min order: <b>{offer.moq}</b></span><span>Delivery: <b>{offer.deliveryDays} days</b></span></div></div>
-        <WField label={`Analyze the offer - good or bad for you, and why? (${ws(60)}+ words)`} value={str(f.analysis)} onChange={(v) => set("analysis", v)} min={ws(60)} rows={3} />
-        <WField label={`Write a counter-offer letter with specific numbers (${ws(75)}+ words)`} value={str(f.counter)} onChange={(v) => set("counter", v)} min={ws(75)} rows={4} placeholder="Tip: ask for a realistic discount (%), and justify it with volume or loyalty." />
+        <WField label="Is this a good deal? Why or why not?" value={str(f.analysis)} onChange={(v) => set("analysis", v)} min={ws(60)} rows={3} />
+        <WField label="Write your counter-offer" value={str(f.counter)} onChange={(v) => set("counter", v)} min={ws(75)} rows={4} placeholder="Tip: ask for a fair discount (a %), and back it up with big orders or loyalty." />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, { ...f, __outcome: evaluate() }, XP.collab)}><Truck className="w-4 h-4 mr-1.5" /> Send counter-offer</Button>
       </div>
@@ -726,7 +747,7 @@ function BrandIdentity({ a, complete }: AProps) {
   return (
     <ActivityCard icon={Palette} n={1} title="Brand Identity" desc="Define your brand from scratch." xp={XP.mkt} done={false}>
       <div className="space-y-3">
-        <WField label={`Brand mission statement (${ws(50)}+ words)`} value={str(f.mission)} onChange={(v) => set("mission", v)} min={ws(50)} rows={3} />
+        <WField label="What's your brand all about?" value={str(f.mission)} onChange={(v) => set("mission", v)} min={ws(50)} rows={3} placeholder="In a few sentences: what you stand for and the feeling you want people to get." />
         <div>
           <label className="text-sm font-semibold">Tagline drafts ({drafts.length}/3 min) <span className="text-muted-foreground font-normal">· max 10 words each</span></label>
           <div className="flex gap-2 mt-1"><Input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Draft a tagline…" /><Button type="button" variant="outline" onClick={addDraft}><Plus className="w-4 h-4" /></Button></div>
@@ -736,8 +757,8 @@ function BrandIdentity({ a, complete }: AProps) {
           <label className="text-sm font-semibold">Brand voice</label>
           <div className="flex flex-wrap gap-2 mt-1">{VOICES.map((v) => <button key={v} onClick={() => set("voice", v)} className={cn("px-3 py-1 rounded-full text-xs font-bold border press-scale", f.voice === v ? "border-primary bg-primary/10" : "border-border bg-muted")}>{v}</button>)}</div>
         </div>
-        <WField label={`Example sentence 1 in your "${f.voice}" voice (${ws(30)}+ words)`} value={str(f.ex1)} onChange={(v) => set("ex1", v)} min={ws(30)} />
-        <WField label={`Example sentence 2 in your "${f.voice}" voice (${ws(30)}+ words)`} value={str(f.ex2)} onChange={(v) => set("ex2", v)} min={ws(30)} />
+        <WField label={`Write a sentence in your "${f.voice}" voice`} value={str(f.ex1)} onChange={(v) => set("ex1", v)} min={ws(30)} />
+        <WField label={`Now one more "${f.voice}" sentence`} value={str(f.ex2)} onChange={(v) => set("ex2", v)} min={ws(30)} />
         <div className="grid grid-cols-3 gap-2">
           {([["cPrimary", "whyP", "Primary"], ["cSecondary", "whyS", "Secondary"], ["cAccent", "whyA", "Accent"]] as const).map(([ck, wk, lbl]) => (
             <div key={ck}>
@@ -746,9 +767,9 @@ function BrandIdentity({ a, complete }: AProps) {
             </div>
           ))}
         </div>
-        <WField label={`Why the primary color fits (${ws(20)}+ words)`} value={str(f.whyP)} onChange={(v) => set("whyP", v)} min={ws(20)} rows={2} />
-        <WField label={`Why the secondary color fits (${ws(20)}+ words)`} value={str(f.whyS)} onChange={(v) => set("whyS", v)} min={ws(20)} rows={2} />
-        <WField label={`Why the accent color fits (${ws(20)}+ words)`} value={str(f.whyA)} onChange={(v) => set("whyA", v)} min={ws(20)} rows={2} />
+        <WField label="Why this main color?" value={str(f.whyP)} onChange={(v) => set("whyP", v)} min={ws(20)} rows={2} />
+        <WField label="Why this second color?" value={str(f.whyS)} onChange={(v) => set("whyS", v)} min={ws(20)} rows={2} />
+        <WField label="Why this accent color?" value={str(f.whyA)} onChange={(v) => set("whyA", v)} min={ws(20)} rows={2} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, f, XP.mkt)}><Palette className="w-4 h-4 mr-1.5" /> Lock in brand</Button>
       </div>
@@ -762,7 +783,7 @@ function MarketingPlan({ a, complete }: AProps) {
   const id = "marketingPlan"; const done = a.done.includes(id); const saved = a.data[id] || {};
   const [f, set] = useForm(saved, {
     audience: "", channels: (saved.channels as string[]) || [], ch0: "", ch1: "",
-    budget: "10", m0: "", m1: "", m2: "", m3: "",
+    budget: "10", milestones: (saved.milestones as string[]) || ["", "", "", ""],
   });
   const channels = (f.channels as string[]) || [];
   const toggleCh = (c: string) => {
@@ -777,35 +798,32 @@ function MarketingPlan({ a, complete }: AProps) {
     { label: `${channels[0] || "Channel 1"} plan (50+ words)`, ok: channels.length >= 1 && wc(str(f.ch0)) >= ws(50) },
     { label: `${channels[1] || "Channel 2"} plan (50+ words)`, ok: channels.length >= 2 && wc(str(f.ch1)) >= ws(50) },
     { label: "Budget 5-30% of revenue", ok: budget >= 5 && budget <= 30 },
-    { label: "4 launch milestones (20+ words each)", ok: [f.m0, f.m1, f.m2, f.m3].every((m) => wc(str(m)) >= ws(20)) },
+    { label: "Fill in all 4 launch steps", ok: ((f.milestones as string[]) || []).filter((m) => m.trim()).length >= 4 },
   ];
   const ready = checks.every((c) => c.ok);
   if (done) {
     return (
       <ActivityCard icon={ClipboardList} n={2} title="Marketing Plan" desc="Your plan." xp={XP.mkt} done>
-        <div className="rounded-xl bg-muted p-4"><ResultRow label="Audience">{str(saved.audience)}</ResultRow><ResultRow label={`Channels (${num(saved.budget)}% budget)`}>{(saved.channels as string[] || []).join(", ")}</ResultRow><ResultRow label="Milestones">{[saved.m0, saved.m1, saved.m2, saved.m3].map((m) => str(m)).join("\n")}</ResultRow></div>
+        <div className="rounded-xl bg-muted p-4"><ResultRow label="Audience">{str(saved.audience)}</ResultRow><ResultRow label={`Channels (${num(saved.budget)}% budget)`}>{(saved.channels as string[] || []).join(", ")}</ResultRow><ResultRow label="Launch steps">{(((saved.milestones as string[]) || [saved.m0, saved.m1, saved.m2, saved.m3]).map((m) => str(m)).filter(Boolean)).map((m, i) => `${i + 1}. ${m}`).join("\n")}</ResultRow></div>
       </ActivityCard>
     );
   }
   return (
     <ActivityCard icon={ClipboardList} n={2} title="Marketing Plan" desc="Plan how you'll reach customers." xp={XP.mkt} done={false}>
       <div className="space-y-3">
-        <WField label={`Target audience description (${ws(60)}+ words)`} value={str(f.audience)} onChange={(v) => set("audience", v)} min={ws(60)} rows={3} />
+        <WField label="Who are you trying to reach?" value={str(f.audience)} onChange={(v) => set("audience", v)} min={ws(60)} rows={3} placeholder="Describe your ideal customer - age, interests, what they care about." />
         <div>
           <label className="text-sm font-semibold">Pick exactly 2 channels</label>
           <div className="flex flex-wrap gap-2 mt-1">{CHANNELS.map((c) => <button key={c} onClick={() => toggleCh(c)} className={cn("px-3 py-1 rounded-full text-xs font-bold border press-scale", channels.includes(c) ? "border-primary bg-primary/10" : "border-border bg-muted")}>{c}</button>)}</div>
         </div>
-        {channels.length >= 1 && <WField label={`${channels[0]} - what you'd post, how often, expected outcome (${ws(50)}+ words)`} value={str(f.ch0)} onChange={(v) => set("ch0", v)} min={ws(50)} rows={3} />}
-        {channels.length >= 2 && <WField label={`${channels[1]} - what you'd post, how often, expected outcome (${ws(50)}+ words)`} value={str(f.ch1)} onChange={(v) => set("ch1", v)} min={ws(50)} rows={3} />}
+        {channels.length >= 1 && <WField label={`${channels[0]}: what will you post, and how often?`} value={str(f.ch0)} onChange={(v) => set("ch0", v)} min={ws(50)} rows={3} />}
+        {channels.length >= 2 && <WField label={`${channels[1]}: what will you post, and how often?`} value={str(f.ch1)} onChange={(v) => set("ch1", v)} min={ws(50)} rows={3} />}
         <div>
           <label className="text-sm font-semibold">Marketing budget (% of revenue)</label>
           <Input type="number" value={str(f.budget)} onChange={(e) => set("budget", e.target.value)} className="mt-1" />
           {budget > 30 && <p className="text-xs text-warning mt-1 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Most small businesses spend 7-12% of revenue on marketing.</p>}
         </div>
-        <div>
-          <label className="text-sm font-semibold">30-day launch plan - 4 milestones (20+ words each)</label>
-          <div className="space-y-2 mt-1">{(["m0", "m1", "m2", "m3"] as const).map((k, i) => <WField key={k} label={`Milestone ${i + 1}`} value={str(f[k])} onChange={(v) => set(k, v)} min={ws(20)} rows={2} />)}</div>
-        </div>
+        <ListField label="Your 30-day launch plan" hint="One short step per line - e.g. 'Week 1: post a teaser video.'" items={(f.milestones as string[]) || []} onChange={(v) => set("milestones", v)} count={4} placeholder={(i) => `Week ${i + 1}: …`} />
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(id, f, XP.mkt)}><Megaphone className="w-4 h-4 mr-1.5" /> Submit plan</Button>
       </div>
@@ -849,7 +867,7 @@ function AdCampaign({ a, complete }: AProps) {
           return (
             <div key={i} className="space-y-2 rounded-xl border border-border p-3">
               <div className="flex flex-wrap gap-2">{PLATFORMS.map((p) => <button key={p} onClick={() => set(pk, p)} className={cn("px-2.5 py-1 rounded-full text-xs font-bold border press-scale", f[pk] === p ? "border-primary bg-primary/10" : "border-border bg-muted")}>{p}</button>)}</div>
-              <WField label={`Ad ${i + 1} copy (${ws(60)}+ words)`} value={str(f[ck])} onChange={(v) => set(ck, v)} min={ws(60)} rows={3} />
+              <WField label={`Ad ${i + 1}: write the words people will see`} value={str(f[ck])} onChange={(v) => set(ck, v)} min={ws(60)} rows={3} />
               <div className="grid sm:grid-cols-3 gap-2">
                 <WField label="Who is this targeting?" value={str(f[wk])} onChange={(v) => set(wk, v)} min={0} rows={2} />
                 <WField label="What action do you want?" value={str(f[ak])} onChange={(v) => set(ak, v)} min={0} rows={2} />

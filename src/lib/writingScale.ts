@@ -26,10 +26,15 @@ function setScale(v: number) {
   listeners.forEach(l => l())
 }
 
+// Lighten every authored word minimum so activities feel quick and doable for
+// kids (the teacher scale still multiplies on top of this). Tune here to make
+// all micro-business writing shorter/longer in one place.
+const KID_FACTOR = 0.6
+
 /** Scale a word minimum. Rounds to the nearest 5 and never drops below 10. */
 export function ws(base: number): number {
   if (base < 20) return base // names/short fields stay as authored
-  return Math.max(10, Math.round((base * _scale) / 5) * 5)
+  return Math.max(10, Math.round((base * _scale * KID_FACTOR) / 5) * 5)
 }
 
 /** Fetch the student's class writing scale (most lenient wins). */
