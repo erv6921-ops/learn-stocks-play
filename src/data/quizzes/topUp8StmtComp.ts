@@ -166,10 +166,10 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
         id: "fin-stmt-6-tu2",
         question: "A company reports a positive gross profit but a negative net income. What most likely happened?",
         options: [
-          "It had no sales at all that year",
-          "Operating expenses, interest, or taxes were larger than the gross profit",
-          "Its revenue was accidentally counted as zero",
-          "Gross profit is always a negative number"
+          "It had no sales at all during that year",
+          "Operating costs, interest, or taxes exceeded gross profit",
+          "Its revenue was accidentally recorded as exactly zero",
+          "Gross profit is always a negative number by definition"
         ],
         correctAnswer: 1,
         explanation: "Gross profit only subtracts COGS, so if operating costs, interest, and taxes exceed it, the bottom line (net income) can still be a loss."
@@ -369,10 +369,10 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
         id: "strategy-4-tu2",
         question: "Why are network effects considered a strong competitive moat?",
         options: [
-          "They legally block competitors from launching apps",
-          "Networked apps never need any future updates",
-          "Rivals can copy features but not the community of users",
-          "Networks make advertising completely unnecessary"
+          "They legally block all competitors from launching apps",
+          "Networked apps never need any future updates at all",
+          "Rivals can copy features but not the user community",
+          "Networks make paid advertising completely unnecessary forever"
         ],
         correctAnswer: 2,
         explanation: "A competitor can clone an app's design in months, but convincing millions of people to leave their friends and move to an empty network is far harder."

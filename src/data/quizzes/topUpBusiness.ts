@@ -46,10 +46,10 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
         id: "mgmt1-q9",
         question: "According to the lesson, at what scale do the four management functions apply?",
         options: [
-          "Only at large Fortune 500 corporations",
-          "Only in businesses that sell physical products",
-          "At every scale, from running a club to leading a corporation",
-          "Only in companies with more than 100 employees"
+          "Only at large Fortune 500 corporations with global reach",
+          "Only in businesses that sell physical products to customers",
+          "At every scale, from a small club to a corporation",
+          "Only in companies with more than 100 salaried employees"
         ],
         correctAnswer: 2,
         explanation: "The lesson emphasizes these functions apply at every scale - whether you are running a Fortune 500 company or a school club, they still apply."
@@ -424,9 +424,9 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
         id: "mgmt7-q8",
         question: "In the Zappos example, why does the company offer new hires 2,000 dollars to quit after training?",
         options: [
-          "To reduce headcount and lower total salary costs",
-          "Because they would rather pay 2,000 dollars now than keep someone who is not truly committed",
-          "Because employment law requires an opt-out payment",
+          "To reduce headcount and cut the total salary budget",
+          "They would rather pay now than keep an uncommitted hire",
+          "Because employment law requires an opt-out severance payment",
           "To recover the cost of the four-week training program"
         ],
         correctAnswer: 1,
@@ -448,10 +448,10 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
         id: "mgmt7-q10",
         question: "According to the lesson, what does the phrase 'hire slow, fire fast' mean?",
         options: [
-          "Firing quickly is more important than hiring carefully",
-          "Taking time to find the right person is almost always cheaper than quickly hiring the wrong one",
-          "Companies should always hire the first impressive candidate",
-          "Slow hiring is legally required in most states"
+          "Firing quickly is more important than hiring people carefully",
+          "Taking time to hire right beats hiring the wrong person",
+          "Companies should always hire the first genuinely impressive candidate",
+          "Slow hiring is legally required in most US states"
         ],
         correctAnswer: 1,
         explanation: "The lesson explains 'hire slow, fire fast' means taking your time to find the right person is almost always cheaper than quickly hiring the wrong one and dealing with the fallout."

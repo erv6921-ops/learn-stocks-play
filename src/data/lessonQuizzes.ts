@@ -79,10 +79,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "b1-q3",
         question: "Which of these is an example of a 'fixed expense'?",
         options: [
-          "Restaurant meals that vary weekly",
-          "New clothes you buy occasionally",
+          "Restaurant meals that vary from week to week",
+          "New clothes that you buy only occasionally",
           "A monthly phone bill that stays the same",
-          "Movie tickets for weekend outings"
+          "Movie tickets for occasional weekend outings"
         ],
         correctAnswer: 2,
         explanation: "Fixed expenses stay the same each month - like a $50 phone bill that's always $50. Movie tickets, restaurants, and clothes vary based on your choices each month. Knowing the difference helps you predict your monthly minimum costs."
@@ -891,8 +891,8 @@ const baseLessonQuizzes: LessonQuiz[] = [
         options: [
           "Buy everything on sale to maximize your total savings",
           "Only shop at full-price stores that never run promotions",
-          "Never look at sale prices or promotional advertisements",
-          "Ask yourself: 'Would I buy this at full price? Do I need it?'"
+          "Never look at any sale prices or promotional ads",
+          "Ask whether you'd still buy it at full price"
         ],
         correctAnswer: 3,
         explanation: "50% off something you don't need is still 100% wasted. Before any sale purchase, ask: 'Is this in my budget? Would I want this at full price?' If not, walk away."
@@ -1591,10 +1591,10 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "bal1-q2",
         question: "If your assets total $10,000 and your liabilities are $3,000, what is your net worth?",
         options: [
-          "$13,000 combining both assets and liabilities together",
-          "$7,000 after subtracting what you owe from what you own",
-          "$3,000 counting only what you currently owe",
-          "$10,000 counting only your total asset value"
+          "$13,000, combining both your assets and liabilities together",
+          "$7,000, subtracting what you owe from your assets",
+          "$3,000, counting only the amount you currently owe",
+          "$10,000, counting only your total gross asset value"
         ],
         correctAnswer: 1,
         explanation: "Net Worth = Assets - Liabilities. So $10,000 - $3,000 = $7,000. Think of it as: if you sold everything and paid off all debts, you'd have $7,000 left."
@@ -1802,9 +1802,9 @@ const baseLessonQuizzes: LessonQuiz[] = [
         id: "s1-q9",
         question: "What is an 'IPO'?",
         options: [
-          "Initial Public Offering - when a company first sells stock to the public",
+          "Initial Public Offering - a company's first stock sale",
           "A type of recurring stock dividend payment to shareholders",
-          "A government regulation that restricts stock trading",
+          "A government regulation that restricts all stock trading",
           "A stock trading strategy used by professional day traders"
         ],
         correctAnswer: 0,
@@ -3376,7 +3376,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
         question: "Why did Dropbox create a video instead of building their full product first?",
         options: [
           "Because video production was cheaper than software development at the time they launched",
-          "Because the video served as an MVP to validate demand - 75,000 signups proved people wanted the product",
+          "Because the video was an MVP - 75,000 signups proved real demand",
           "Because investors required a promotional video before they would agree to fund the company",
           "Because the founders did not have the technical skills to build the actual software product"
         ],

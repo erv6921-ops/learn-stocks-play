@@ -35,7 +35,7 @@ export const businessEthicsContent: StructuredLessonContent[] = [
           {
             id: "ethics-1-mc2",
             question: "Why do ethical businesses tend to perform better long-term?",
-            options: ["They spend less on advertising", "They avoid all government regulation", "They build trust with customers, employees, and investors", "They charge higher prices"],
+            options: ["They spend less on advertising", "They avoid all government regulation", "They build trust with customers, employees", "They charge higher prices"],
             correctAnswer: 2,
             explanation: "Trust is a competitive advantage. Ethical companies attract loyal customers, motivated employees, and confident investors."
           }
@@ -264,7 +264,7 @@ export const businessEthicsContent: StructuredLessonContent[] = [
         question: {
           id: "ethics-3-aq1",
           question: "From a stakeholder perspective, what should the CEO consider MOST?",
-          options: ["Only the 8% increase in shareholder returns", "The impact on all groups: workers, the community, shareholders, and long-term reputation", "Only what is cheapest for the company", "Only what employees want"],
+          options: ["Only the 8% increase in shareholder returns", "The impact on all groups: workers, the community, shareholders", "Only what is cheapest for the company", "Only what employees want"],
           correctAnswer: 1,
           explanation: "Stakeholder theory requires considering the impact on all affected groups - employees, community, shareholders, and the company's long-term reputation."
         }
@@ -413,7 +413,7 @@ export const businessEthicsContent: StructuredLessonContent[] = [
           {
             id: "ethics-4-mq4",
             question: "What is the best approach to an ethical dilemma?",
-            options: ["Always choose the cheapest option", "Identify stakeholders, consider consequences, weigh values, and make a defensible choice", "Avoid making any decision", "Do whatever your boss says"],
+            options: ["Always choose the cheapest option", "Identify stakeholders, consider consequences, weigh values", "Avoid making any decision", "Do whatever your boss says"],
             correctAnswer: 1,
             explanation: "Ethical reasoning requires systematic thinking - not avoiding decisions or defaulting to authority, but carefully weighing impacts and values."
           }
@@ -471,7 +471,7 @@ export const businessEthicsContent: StructuredLessonContent[] = [
         question: {
           id: "ethics-5-aq1",
           question: "Is this company behaving ethically even though it's acting legally?",
-          options: ["Yes - it's following the law so it's fine", "No - burying consent in complex terms and making opt-out difficult is ethically wrong even if legal", "Ethics don't apply to technology companies", "Only if users read the terms of service"],
+          options: ["Yes - it's following the law so it's fine", "No - burying consent in complex terms and making opt-out difficult is ethically wrong", "Ethics don't apply to technology companies", "Only if users read the terms of service"],
           correctAnswer: 1,
           explanation: "Hiding data practices in complex documents and making opt-out deliberately difficult fails the ethical test of transparency and informed consent, even when legal."
         }

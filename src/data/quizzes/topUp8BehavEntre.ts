@@ -96,7 +96,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
         question: "Why does keeping a written journal of your predictions help fight overconfidence?",
         options: [
           "It guarantees your future predictions will be correct",
-          "It creates an honest scorecard showing you are right less often than you recall",
+          "It creates an honest scorecard of your real accuracy",
           "It legally requires you to trade less frequently",
           "It hides your losing predictions so they stop bothering you"
         ],

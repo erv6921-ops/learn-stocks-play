@@ -43,7 +43,7 @@ export const marketingContent: StructuredLessonContent[] = [
             question: "Why does the best marketing often not 'feel' like marketing?",
             options: [
               "Because companies hide their marketing efforts from consumers intentionally",
-              "Because the product delivers genuine value, so customers naturally want to share it",
+              "Because the product delivers genuine value",
               "Because regulations require marketing to be subtle and unnoticeable",
               "Because most consumers are unaware that marketing exists as a business function"
             ],
@@ -71,7 +71,7 @@ export const marketingContent: StructuredLessonContent[] = [
           question: "Based on the scenario, which marketing principle MOST explains why Mia outsold Jake 4-to-1?",
           options: [
             "Mia had a better recipe that tasted significantly different from Jake's lemonade",
-            "Mia communicated her value clearly, chose a strategic location, and actively engaged potential customers",
+            "Mia communicated her value clearly, chose a strategic location",
             "Jake's pricing was too high for the neighborhood festival market",
             "Mia spent more money on her stand setup, which automatically guarantees higher sales"
           ],
@@ -138,7 +138,7 @@ export const marketingContent: StructuredLessonContent[] = [
             id: "mkt2-mc1",
             question: "What is the key difference between demographics and psychographics?",
             options: [
-              "Demographics describe measurable traits like age and income; psychographics describe values, interests, and motivations",
+              "Demographics describe measurable traits like age and income; psychographics describe values, interests",
               "Demographics apply to online customers while psychographics apply to in-store customers",
               "Psychographics are more accurate than demographics for predicting purchase behavior",
               "Demographics are used by large companies while psychographics are for small businesses"
@@ -180,7 +180,7 @@ export const marketingContent: StructuredLessonContent[] = [
           options: [
             "Zara spent more money on advertising and had a bigger marketing budget to work with",
             "Zara chose higher-quality phone case materials that justified a premium price point",
-            "Zara identified a specific target customer and aligned every decision - product, brand, and channel - to that audience",
+            "Zara identified a specific target customer and aligned every decision - product, brand",
             "Zara had more social media followers before launching, giving her an unfair head start"
           ],
           correctAnswer: 2,
@@ -205,7 +205,7 @@ export const marketingContent: StructuredLessonContent[] = [
             question: "A student wants to start a sneaker cleaning service. Which approach demonstrates the strongest use of customer segmentation?",
             options: [
               "Advertising the service to everyone in the school with a generic flyer in the hallway",
-              "Identifying sneaker collectors in the school, learning which platforms they use, and offering premium cleaning for limited-edition shoes",
+              "Identifying sneaker collectors in the school, learning which platforms they use",
               "Offering the lowest price possible to attract the maximum number of customers from any background",
               "Copying the marketing strategy of a professional shoe repair shop in the local mall"
             ],
@@ -313,7 +313,7 @@ export const marketingContent: StructuredLessonContent[] = [
             question: "A student wants to sell custom stickers at school. Which research approach would give them the most useful information before investing in supplies?",
             options: [
               "Look up national sticker industry revenue statistics from a published market report",
-              "Ask 30 classmates what designs they'd buy, what price they'd pay, and where they'd want to buy them",
+              "Ask 30 classmates what designs they'd buy, what price they'd pay",
               "Order 500 stickers in designs they personally like and see how many sell in the first week",
               "Check how many sticker shops exist on Etsy to determine if the market is already saturated"
             ],
@@ -475,7 +475,7 @@ export const marketingContent: StructuredLessonContent[] = [
             question: "What makes organic marketing particularly valuable for student entrepreneurs?",
             options: [
               "Organic marketing guarantees immediate sales without any effort from the business owner",
-              "It builds audience and awareness through free content and community instead of expensive paid ads",
+              "It builds audience and awareness through free content and community",
               "Organic marketing is only effective for businesses with products priced under ten dollars",
               "It requires less creativity and strategic thinking than traditional paid advertising campaigns"
             ],
@@ -571,7 +571,7 @@ export const marketingContent: StructuredLessonContent[] = [
             question: "Why can a strong brand charge higher prices than competitors with similar products?",
             options: [
               "Because branded products are always manufactured with higher quality materials and processes",
-              "Because brand equity creates perceived value, trust, and emotional connection that customers will pay more for",
+              "Because brand equity creates perceived value, trust",
               "Because strong brands have exclusive government licenses that prevent price competition",
               "Because customers with brand loyalty are contractually obligated to continue purchasing"
             ],
@@ -582,7 +582,7 @@ export const marketingContent: StructuredLessonContent[] = [
             id: "mkt6-mc2",
             question: "What does 'brand consistency' mean and why does it matter?",
             options: [
-              "Using the same name, voice, and message everywhere to build recognition and trust over time",
+              "Using the same name, voice",
               "Never changing any aspect of your product or business for any reason whatsoever",
               "Keeping your prices exactly the same across all sales channels and time periods",
               "Ensuring every customer has an identical experience regardless of their preferences"

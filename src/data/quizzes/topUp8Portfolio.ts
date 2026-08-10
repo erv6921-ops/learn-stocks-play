@@ -50,10 +50,10 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
         id: "portfolio-2-tu2",
         question: "Why can a longer time horizon RAISE the amount of risk an investor can reasonably take?",
         options: [
-          "Longer horizons make crashes impossible",
-          "Brokers reward patience with guaranteed gains",
+          "Longer time horizons make sudden market crashes completely impossible",
+          "Brokers reward patient long-term investors with fully guaranteed gains",
           "More years give a portfolio time to recover from downturns",
-          "Stocks are cheaper for long-term holders"
+          "Stocks are always priced cheaper for patient long-term holders"
         ],
         correctAnswer: 2,
         explanation: "Because markets have historically bounced back given enough years, a long horizon gives losses time to recover, supporting a more aggressive mix."
@@ -68,9 +68,9 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
         question: "Adding international stocks to an all-US portfolio is an example of diversifying across what?",
         options: [
           "Different geographies or world regions",
-          "Different app themes",
-          "Different account passwords",
-          "Different brokerage brands"
+          "Different mobile app color themes",
+          "Different online account login passwords",
+          "Different competing brokerage firm brands"
         ],
         correctAnswer: 0,
         explanation: "Spreading holdings across countries and regions is geographic diversification, one of the ways real diversification goes beyond simply owning many stocks."
@@ -79,9 +79,9 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
         id: "portfolio-3-tu2",
         question: "Why does buying one broad index fund count as instant diversification?",
         options: [
-          "The fund is insured against every loss",
-          "It guarantees a profit each year",
-          "It secretly avoids market crashes",
+          "The fund is fully insured by the government against every loss",
+          "It guarantees a positive investment profit every single year",
+          "It somehow secretly avoids every single market crash",
           "A single fund can hold hundreds or thousands of companies"
         ],
         correctAnswer: 3,
@@ -155,9 +155,9 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
         question: "The S&P 500 drops 8% this year. What should an S&P 500 index fund roughly do?",
         options: [
           "Fall about 8%, minus a tiny fee effect",
-          "Rise 8%, moving opposite the index",
-          "Stay perfectly flat regardless",
-          "Fall exactly 20%, tripling the loss"
+          "Rise 8%, somehow moving opposite the index",
+          "Stay perfectly flat regardless of the drop",
+          "Fall exactly 20%, roughly tripling the loss"
         ],
         correctAnswer: 0,
         explanation: "Index funds mirror their benchmark in both directions, so an 8% index drop means the fund falls roughly 8% too - matching crashes as well as gains."
@@ -166,10 +166,10 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
         id: "portfolio-6-tu2",
         question: "Why can an index fund charge fees near zero?",
         options: [
-          "The government subsidizes their costs",
-          "They hold only a handful of stocks",
+          "The federal government directly subsidizes all their costs",
+          "They hold only a small handful of stocks",
           "Copying a list needs no costly stock-picking team",
-          "They trade only on weekends"
+          "They are allowed to trade only on weekends"
         ],
         correctAnswer: 2,
         explanation: "Tracking a fixed list is cheap because there is no team of analysts hunting for winners, which is why index fund fees can be nearly zero."

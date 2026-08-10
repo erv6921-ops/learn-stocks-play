@@ -37,7 +37,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
             question: "What is 'opportunity cost' in the context of choosing an education path?",
             options: [
               "The tuition you pay each semester",
-              "The income you give up by studying instead of working",
+              "The income you give up by studying",
               "The cost of textbooks",
               "The interest on student loans only"
             ],
@@ -76,7 +76,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
           question: "Why might Marco be financially ahead of Lucia for several years after graduation?",
           options: [
             "Because trade work is always better than college",
-            "Because he spent less, finished sooner, and started earning a solid salary earlier with less debt",
+            "Because he spent less, finished sooner",
             "Because Lucia's degree is worthless",
             "Because he avoided all taxes"
           ],
@@ -127,7 +127,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
             question: "Why does opportunity cost make four-year college more expensive than just tuition suggests?",
             options: [
               "Because textbooks are expensive",
-              "Because you also give up years of potential income while studying",
+              "Because you also give up years of potential income",
               "Because college has no opportunity cost",
               "Because tuition is the only real cost"
             ],
@@ -221,7 +221,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
           question: "Using supply and demand, why are plumber and electrician wages rising while some junior coding wages soften?",
           options: [
             "Because trades are more fun",
-            "A shortage of trade workers (low supply) meets steady demand, while AI tools reduce demand for some junior coding work",
+            "A shortage of trade workers (low supply) meets steady demand",
             "Because coding is illegal now",
             "Because employers dislike programmers"
           ],
@@ -339,7 +339,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
             question: "Why is an emergency fund called 'financial armor' during a recession?",
             options: [
               "It earns the highest investment returns",
-              "It covers your expenses if you lose income, so you avoid debt and desperation",
+              "It covers your expenses if you lose income",
               "It guarantees you keep your job",
               "It prevents recessions from happening"
             ],
@@ -511,7 +511,7 @@ export const incomeExpansionContent: StructuredLessonContent[] = [
           question: "Why does consistent work over a career tend to produce a higher Social Security benefit?",
           options: [
             "Because the government rewards loyalty to one company",
-            "Because benefits are based on your 35 highest-earning years, so gaps (counted as low/zero) drag down the average",
+            "Because benefits are based on your 35 highest-earning years",
             "Because only the final year counts",
             "Because consistency lowers your FICA tax"
           ],

@@ -95,7 +95,7 @@ export const marketingMixContent: StructuredLessonContent[] = [
             question: "A student launches a handmade jewelry business with beautiful products but sells only through a hard-to-find website, prices below competitors, and does zero promotion. Using the 4 Ps framework, what is the CORE problem?",
             options: [
               "The product quality is too high for the target market, creating a mismatch between supply and demand",
-              "Three of the four Ps are misaligned - weak place, underpricing, and no promotion undermine the strong product",
+              "Three of the four Ps are misaligned - weak place, underpricing",
               "The student should focus exclusively on lowering production costs to improve profit margins on each sale",
               "The business model is fundamentally flawed because handmade jewelry cannot compete in the modern market"
             ],
@@ -386,7 +386,7 @@ export const marketingMixContent: StructuredLessonContent[] = [
           id: "mix4-aq1",
           question: "Why did Sweet Treats benefit most from adding online ordering rather than opening a second physical location?",
           options: [
-            "Online ordering expanded their reach to the entire city at lower cost than a second storefront while keeping their existing local advantage",
+            "Online ordering expanded their reach to the entire city at lower cost than a second storefront",
             "Physical locations are always less profitable than digital channels in the modern bakery industry",
             "Their downtown storefront was losing money and needed to be replaced by a more cost-effective digital alternative",
             "Online ordering eliminated the need for any employees, dramatically reducing their operating costs"
@@ -678,7 +678,7 @@ export const marketingMixContent: StructuredLessonContent[] = [
             id: "mix7-mc2",
             question: "How does an established brand's promotional strategy typically differ from a startup's?",
             options: [
-              "Established brands can afford mass media, celebrity endorsements, and sophisticated IMC; startups rely on organic and guerrilla tactics",
+              "Established brands can afford mass media, celebrity endorsements",
               "Established brands never use social media because it is primarily a startup marketing channel for new companies",
               "Startups have larger promotional budgets because they need to build awareness faster than established competitors",
               "There is no meaningful difference - both startups and established brands use the exact same promotional approaches"
@@ -705,7 +705,7 @@ export const marketingMixContent: StructuredLessonContent[] = [
           id: "mix7-aq1",
           question: "Why would it be a mistake for FreshStart to copy BluApron's marketing mix exactly?",
           options: [
-            "Because FreshStart lacks the brand equity, budget, and infrastructure to execute a strategy designed for an established market leader",
+            "Because FreshStart lacks the brand equity, budget",
             "Because BluApron's marketing mix is outdated and no longer effective in the modern meal kit market",
             "Because startups are legally prohibited from using mass media advertising until they reach a certain revenue threshold",
             "Because copying a competitor's strategy always results in immediate legal action for intellectual property violation"
@@ -732,7 +732,7 @@ export const marketingMixContent: StructuredLessonContent[] = [
             question: "A two-person startup that makes custom phone cases wants to grow. They have $500/month for marketing. Which marketing mix strategy is MOST realistic?",
             options: [
               "Launch a national TV advertising campaign to build mass brand awareness among phone owners across the country",
-              "Focus on a niche audience on Instagram and TikTok with user-generated content, sell direct through their website, and use penetration pricing for first-time buyers",
+              "Focus on a niche audience on Instagram and TikTok with user-generated content, sell direct through their website",
               "Partner with a major phone manufacturer to include their cases in the box with every new phone sold in stores",
               "Open physical retail locations in three major cities to establish an omnichannel presence for their brand"
             ],
@@ -811,7 +811,7 @@ export const marketingMixContent: StructuredLessonContent[] = [
           id: "mix8-aq1",
           question: "The student planner team considers adding a $9.99/month enterprise tier for schools. How should they evaluate this decision using marketing mix alignment?",
           options: [
-            "They should build a separate marketing mix for the enterprise segment - different product features, pricing, place (direct sales to administrators), and promotion (professional emails, conferences)",
+            "They should build a separate marketing mix for the enterprise segment - different product features, pricing, place (direct sales to administrators)",
             "They should apply the same freemium pricing to schools because consistency across all segments is more important than revenue",
             "They should abandon the student product entirely and pivot to enterprise since schools have larger budgets than individual students",
             "They should add the enterprise tier to their existing TikTok promotional strategy since it already reaches the school community"

@@ -942,7 +942,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
           question: "What was the most costly consequence of Kai's rushed hiring decision?",
           options: [
             "He had to conduct too many interviews before finding a replacement",
-            "The combined cost of wasted spend, salary, and lost time exceeded $250,000",
+            "The combined cost of wasted spend, salary",
             "Elena's company gained a temporary marketing advantage for two weeks",
             "Kai's other employees demanded higher salaries after the bad hire left"
           ],
@@ -1047,7 +1047,7 @@ export const businessManagementContent: StructuredLessonContent[] = [
             question: "What does stakeholder theory argue businesses should consider when making decisions?",
             options: [
               "Only shareholder profit, since they own the company's equity",
-              "The impact on all stakeholders - employees, customers, communities, and investors",
+              "The impact on all stakeholders - employees, customers, communities",
               "Government regulations only, ignoring customer and employee concerns",
               "Only the CEO's personal values and leadership philosophy preferences"
             ],

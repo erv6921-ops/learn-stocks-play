@@ -361,7 +361,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             id: "cb4-mc2",
             question: "How does culture influence consumer behavior?",
             options: [
-              "Culture defines shared values, customs, and beliefs that shape what people consider desirable or appropriate to buy",
+              "Culture defines shared values, customs",
               "Culture only affects food and clothing purchases but has no impact on technology or financial products",
               "Cultural influence has decreased dramatically because of globalization and the internet connecting everyone",
               "Culture only matters for international businesses and has no relevance for companies selling domestically"
@@ -414,7 +414,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             question: "A sneaker company wants to sell a new $200 shoe to high school students. Based on social influence principles, which strategy would be MOST effective?",
             options: [
               "Lower the price to $50 since high school students cannot afford expensive sneakers on limited budgets",
-              "Partner with popular athletes and influencers that students aspire to be like, making the shoe a status symbol",
+              "Partner with popular athletes and influencers that students aspire to be like",
               "Advertise the shoe's technical specifications and manufacturing process to appeal to rational decision-making",
               "Send email newsletters to parents explaining the long-term durability and cost-per-wear value of the shoes"
             ],
@@ -667,7 +667,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             id: "cb7-mc1",
             question: "Why are loyal customers more valuable than new customers to a business?",
             options: [
-              "They buy more frequently, pay premium prices, refer others, and cost less to retain than new customers cost to acquire",
+              "They buy more frequently, pay premium prices, refer others",
               "Loyal customers always spend exactly the same amount, making revenue forecasting easier for accounting teams",
               "New customers are always unprofitable because the cost of their first purchase exceeds the revenue generated",
               "Loyal customers never complain about products, which eliminates the need for customer service departments"
@@ -785,7 +785,7 @@ export const consumerBehaviorContent: StructuredLessonContent[] = [
             id: "cb8-mc2",
             question: "Why does Nike customize products for different geographic markets?",
             options: [
-              "Because consumer behavior varies by culture and geography - different regions have different sports, preferences, and needs",
+              "Because consumer behavior varies by culture and geography - different regions have different sports, preferences",
               "Because Nike is legally required by international trade laws to manufacture different products for each country",
               "Because shipping costs are lower when products are designed specifically for nearby manufacturing facilities",
               "Because Nike uses geographic customization as a cost-cutting measure to reduce their global product inventory"

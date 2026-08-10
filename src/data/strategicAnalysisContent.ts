@@ -562,7 +562,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           {
             id: "sa5-mq5",
             question: "Aisha decided to start her tutoring business with only 3 subjects and 5 students. This decision reflects:",
-            options: ["A lack of ambition", "Strategic mitigation of her time weakness while testing the opportunity", "A failure to understand market demand", "Ignoring the SWOT results entirely"],
+            options: ["A lack of ambition", "Strategic mitigation of her time weakness", "A failure to understand market demand", "Ignoring the SWOT results entirely"],
             correctAnswer: 1,
             explanation: "Starting small directly addresses her time weakness while still allowing her to capture the opportunity - this is smart SWOT-informed strategy."
           }
@@ -598,7 +598,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           {
             id: "sa6-mc1",
             question: "Why are most streaming services unprofitable despite having millions of subscribers?",
-            options: ["They don't charge enough for subscriptions", "All five forces are relatively strong - especially buyer power, rivalry, and substitute threats", "Streaming technology is too expensive to maintain", "There aren't enough people willing to pay for streaming"],
+            options: ["They don't charge enough for subscriptions", "All five forces are relatively strong - especially buyer power, rivalry", "Streaming technology is too expensive to maintain", "There aren't enough people willing to pay for streaming"],
             correctAnswer: 1,
             explanation: "High buyer power (easy to cancel), intense rivalry (many competitors), and strong substitute threats (gaming, YouTube, social media) squeeze profits across the streaming industry."
           },
@@ -905,7 +905,7 @@ export const strategicAnalysisContent: StructuredLessonContent[] = [
           {
             id: "sa8-mq5",
             question: "What makes a strategic analysis 'complete'?",
-            options: ["Having the most items listed in each category", "Combining industry analysis, company assessment, and an actionable recommendation", "Using the most professional-looking templates", "Getting approval from a business professor"],
+            options: ["Having the most items listed in each category", "Combining industry analysis, company assessment", "Using the most professional-looking templates", "Getting approval from a business professor"],
             correctAnswer: 1,
             explanation: "A complete strategic analysis examines the industry (Porter's), assesses the company (SWOT), connects the two, and produces a clear, actionable recommendation."
           }
