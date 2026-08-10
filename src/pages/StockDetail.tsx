@@ -9,12 +9,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
+import { Tooltip as UiTooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 import GameNav from "@/components/GameNav"
-import { ResponsiveContainer, Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts"
+import { ResponsiveContainer, Area, AreaChart, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts"
 import {
   ArrowLeft, TrendingUp, TrendingDown, Star, StarOff, Coins,
   ShoppingCart, Wallet, Plus, Minus, AlertCircle, CheckCircle2,
-  LayoutDashboard, BookOpen, RefreshCw, Loader2, LineChart, Clock
+  LayoutDashboard, BookOpen, RefreshCw, Loader2, LineChart, Clock, HelpCircle
 } from "lucide-react"
 import { toast } from "sonner"
 import { formatHistoryTimestamp, formatLocalTimestamp, getMarketSessionStatus, isLiveMarketSessionNow } from "@/lib/marketSession"
@@ -158,6 +159,102 @@ const HARDCODED_PRICES: Record<string, number> = {
   SPY: 655.46, DIA: 462.08, QQQ: 548.57, IWM: 202.22,
   AAPL: 250.96, MSFT: 382.30, GOOGL: 301.73, AMZN: 210.56,
   TSLA: 377.68, NVDA: 175.32, META: 601.93,
+}
+
+// Kid-friendly, plain-English definitions for every stat shown on this page.
+// Keyed by the exact label text used in the UI (both header + panel variants).
+const STAT_HELP: Record<string, string> = {
+  "Open": "The price of one share when the stock market opened this morning.",
+  "Prev Close": "The price of one share when the market closed yesterday.",
+  "Previous Close": "The price of one share when the market closed yesterday.",
+  "Day's Range": "The lowest and highest price the stock has traded at so far today.",
+  "52-Week Range": "The lowest and highest price this stock hit over the past year.",
+  "Volume": "How many shares were bought and sold today. Bigger means more people are trading it.",
+  "Avg Volume (3M)": "The average number of shares traded each day over the last 3 months.",
+  "Market Cap": "The total value of the whole company — share price times the number of shares that exist.",
+  "Mkt Cap": "The total value of the whole company — share price times the number of shares that exist.",
+  "Net Assets": "The total value of everything this fund holds.",
+  "Shares Outstanding": "The total number of shares the company has created.",
+  "P/E (TTM)": "Price-to-Earnings: how much investors pay for each $1 the company earns. Higher = pricier.",
+  "Forward P/E": "Like P/E, but based on how much the company is expected to earn next year.",
+  "Price/Sales": "The company's value compared to how much money it makes in sales.",
+  "Price/Book": "The company's value compared to what its assets are worth on paper.",
+  "EPS (TTM)": "Earnings Per Share — the profit the company made for each share over the past year.",
+  "Forward EPS": "The profit per share the company is expected to make next year.",
+  "Revenue (TTM)": "All the money the company brought in from sales over the past year.",
+  "EBITDA": "A measure of profit before subtracting things like taxes and interest.",
+  "Profit Margin": "Out of every $1 the company makes, how much is actual profit.",
+  "Operating Margin": "How much profit the company keeps from its main business, before taxes and interest.",
+  "Beta (5Y Monthly)": "How wild the price swings are compared to the whole market. Above 1 means bumpier than average.",
+  "1Y Target Est": "What experts guess the price could be one year from now.",
+  "Dividend Yield": "The yearly cash a company pays you, shown as a % of the share price.",
+  "Dividend Rate": "The amount of cash a company pays you per share each year.",
+  "Ex-Dividend Date": "You need to own the stock before this date to get the next dividend payment.",
+  "Shares Owned": "How many shares of this stock you own right now.",
+  "Avg. Purchase Price": "The average price you paid for each share you own.",
+  "Current Value": "What all of your shares are worth right now.",
+  "Profit/Loss": "How much you've gained or lost since you bought, in coins and percent.",
+}
+
+// Tiny hoverable "?" that explains what a stat means. Works on hover, tap and
+// keyboard focus (Radix Tooltip). stopPropagation keeps it from triggering any
+// clickable parent.
+function HelpTip({ label, dark = false }: { label: string; dark?: boolean }) {
+  const text = STAT_HELP[label]
+  if (!text) return null
+  return (
+    <UiTooltip delayDuration={100}>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); e.preventDefault() }}
+          aria-label={`What does ${label} mean?`}
+          className={`inline-grid place-items-center shrink-0 rounded-full transition-colors ${dark ? 'text-white/30 hover:text-white/80' : 'text-muted-foreground/50 hover:text-muted-foreground'}`}
+        >
+          <HelpCircle className="w-3 h-3" />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="max-w-[220px] text-xs leading-relaxed font-normal">
+        {text}
+      </TooltipContent>
+    </UiTooltip>
+  )
+}
+
+// Compact at-a-glance stat pill for the stock header summary strip.
+function StatChip({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col gap-0.5 rounded-xl bg-muted/60 px-3 py-2 min-w-[88px]">
+      <span className="flex items-center gap-1 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+        <HelpTip label={label} />
+      </span>
+      <span className="text-sm font-semibold tabular-nums whitespace-nowrap">{value}</span>
+    </div>
+  )
+}
+
+// Tiled stat cell used inside the dark Key Statistics panel.
+function DarkStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl bg-white/[0.04] border border-white/[0.06] px-3 py-2.5 transition-colors hover:bg-white/[0.06]">
+      <div className="flex items-center gap-1 mb-1 min-w-0">
+        <p className="text-[10px] text-white/40 truncate">{label}</p>
+        <HelpTip label={label} dark />
+      </div>
+      <p className="text-sm font-semibold text-white/90 tabular-nums">{value}</p>
+    </div>
+  )
+}
+
+// Section heading inside the dark Key Statistics panel.
+function DarkStatSection({ title }: { title: string }) {
+  return (
+    <div className="flex items-center gap-2 mb-2.5 mt-1">
+      <span className="w-1 h-3.5 rounded-full bg-primary/70" />
+      <p className="text-[10px] font-bold text-white/55 uppercase tracking-wider">{title}</p>
+    </div>
+  )
 }
 
 export default function StockDetail() {
@@ -645,15 +742,92 @@ export default function StockDetail() {
       <GameNav />
 
       <main className="container mx-auto px-4 py-6">
+        {/* Back navigation */}
+        <button
+          onClick={() => navigate(-1)}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-4 press-scale"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to markets
+        </button>
+
         {/* Stock Header */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
-          <div className="flex-1">
-            <div className="flex items-center gap-2.5 mb-1">
-              <h1 className="text-2xl font-bold">{stock.symbol}</h1>
-              <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                {stock.type === 'index' ? 'INDEX' : stock.type.toUpperCase()}
-              </Badge>
-              <button onClick={() => {
+        <div className="rounded-2xl border border-border bg-card shadow-sm p-5 md:p-6 mb-6">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2.5 mb-1">
+                <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight">{stock.symbol}</h1>
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                  {stock.type === 'index' ? 'INDEX' : stock.type.toUpperCase()}
+                </Badge>
+              </div>
+              <p className="text-muted-foreground text-sm mb-3 truncate">{displayStockName}</p>
+
+              {(() => {
+                const headerDollar = rangeDollarChange ?? stock.change ?? 0
+                const headerPercent = rangeChangePercent ?? stock.changePercent ?? 0
+                const rangeLabel = selectedRange !== '1d' ? TIME_RANGES.find(r => r.value === selectedRange)?.label : null
+                const up = headerDollar >= 0
+                return (
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <span className="text-[34px] md:text-[40px] font-bold tracking-tight leading-none tabular-nums">
+                      {stock.type === 'index'
+                        ? (Math.round(displayPrice * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                        : fmtDollar(displayPrice)}
+                    </span>
+                    <span className={`inline-flex items-center gap-1 text-sm font-bold px-2.5 py-1 rounded-full tabular-nums ${up ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"}`}>
+                      {up ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+                      {fmtChange(headerDollar)}
+                      {headerPercent != null ? ` (${fmtPct(headerPercent)})` : ""}
+                      {rangeLabel && <span className="text-xs font-normal opacity-70 ml-1">{rangeLabel}</span>}
+                    </span>
+                    <div className="flex flex-col">
+                      {(() => {
+                        const marketStatus = getMarketSessionStatus({
+                          marketState: stock.marketState,
+                          session: stock.session,
+                          quoteTimestamp: stock.quoteTimestamp ?? stock.regularMarketTime,
+                          regularMarketTime: stock.regularMarketTime,
+                        })
+
+                        if (marketStatus.session === 'closed') {
+                          return (
+                            <span className="text-[11px] text-muted-foreground">
+                              Market Closed · Closed at {marketStatus.regularCloseTimeET}
+                            </span>
+                          )
+                        }
+
+                        if (marketStatus.session === 'post') {
+                          return (
+                            <span className="text-[11px] text-muted-foreground">
+                              After Hours · Closed at {marketStatus.regularCloseTimeET}{marketStatus.quoteTimeText ? ` · Quote as of ${marketStatus.quoteTimeText}` : ''}
+                            </span>
+                          )
+                        }
+
+                        if (marketStatus.session === 'pre') {
+                          return (
+                            <span className="text-[11px] text-muted-foreground">
+                              Pre-Market{marketStatus.quoteTimeText ? ` · As of ${marketStatus.quoteTimeText}` : ''} · Opens 9:30 AM ET
+                            </span>
+                          )
+                        }
+
+                        return (
+                          <span className="text-[11px] text-muted-foreground">
+                            Market Open · As of {marketStatus.quoteTimeText || '--'}
+                          </span>
+                        )
+                      })()}
+                    </div>
+                  </div>
+                )
+              })()}
+            </div>
+
+            {/* Watchlist toggle as a pill button */}
+            <button
+              onClick={() => {
                 if (isInWatchlist) {
                   removeFromWatchlist(stock.symbol)
                   toast("Removed from Watchlist", { description: stock.symbol })
@@ -661,76 +835,34 @@ export default function StockDetail() {
                   addToWatchlist(stock.symbol)
                   toast.success("Added to Watchlist", { description: stock.symbol })
                 }
-              }} className="press-scale">
-                {isInWatchlist
-                  ? <Star className="w-4 h-4 text-gold fill-current" />
-                  : <StarOff className="w-4 h-4 text-muted-foreground hover:text-gold transition-colors" />
-                }
-              </button>
-            </div>
-            <p className="text-muted-foreground text-sm mb-3">{displayStockName}</p>
-
-            {(() => {
-              const headerDollar = rangeDollarChange ?? stock.change ?? 0
-              const headerPercent = rangeChangePercent ?? stock.changePercent ?? 0
-              const rangeLabel = selectedRange !== '1d' ? TIME_RANGES.find(r => r.value === selectedRange)?.label : null
-              return (
-                <div className="flex items-baseline gap-3 flex-wrap">
-                  <span className="text-[32px] font-bold tracking-tight">
-                    {stock.type === 'index'
-                      ? (Math.round(displayPrice * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                      : fmtDollar(displayPrice)}
-                  </span>
-                  <span className={`flex items-center gap-1 text-sm font-semibold ${headerDollar >= 0 ? "text-success" : "text-destructive"}`}>
-                    {headerDollar >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
-                    {fmtChange(headerDollar)}
-                    {headerPercent != null ? ` (${fmtPct(headerPercent)})` : ""}
-                    {rangeLabel && <span className="text-xs font-normal text-muted-foreground ml-1">{rangeLabel}</span>}
-                  </span>
-                  <div className="flex flex-col">
-                    {(() => {
-                      const marketStatus = getMarketSessionStatus({
-                        marketState: stock.marketState,
-                        session: stock.session,
-                        quoteTimestamp: stock.quoteTimestamp ?? stock.regularMarketTime,
-                        regularMarketTime: stock.regularMarketTime,
-                      })
-
-                      if (marketStatus.session === 'closed') {
-                        return (
-                          <span className="text-[11px] text-muted-foreground">
-                            Market Closed · Closed at {marketStatus.regularCloseTimeET}
-                          </span>
-                        )
-                      }
-
-                      if (marketStatus.session === 'post') {
-                        return (
-                          <span className="text-[11px] text-muted-foreground">
-                            After Hours · Closed at {marketStatus.regularCloseTimeET}{marketStatus.quoteTimeText ? ` · Quote as of ${marketStatus.quoteTimeText}` : ''}
-                          </span>
-                        )
-                      }
-
-                      if (marketStatus.session === 'pre') {
-                        return (
-                          <span className="text-[11px] text-muted-foreground">
-                            Pre-Market{marketStatus.quoteTimeText ? ` · As of ${marketStatus.quoteTimeText}` : ''} · Opens 9:30 AM ET
-                          </span>
-                        )
-                      }
-
-                      return (
-                        <span className="text-[11px] text-muted-foreground">
-                          Market Open · As of {marketStatus.quoteTimeText || '--'}
-                        </span>
-                      )
-                    })()}
-                  </div>
-                </div>
-              )
-            })()}
+              }}
+              className={`shrink-0 self-start inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border text-sm font-semibold press-scale transition-colors ${
+                isInWatchlist
+                  ? 'border-gold/40 bg-gold/10 text-gold'
+                  : 'border-border bg-card text-muted-foreground hover:text-foreground hover:border-foreground/30'
+              }`}
+            >
+              {isInWatchlist
+                ? <><Star className="w-4 h-4 fill-current" /> Watching</>
+                : <><StarOff className="w-4 h-4" /> Add to watchlist</>}
+            </button>
           </div>
+
+          {/* At-a-glance stat strip */}
+          {(() => {
+            const chips: { label: string; value: string }[] = []
+            if (stock.open > 0) chips.push({ label: 'Open', value: fmtDollar(stock.open) })
+            if (stock.previousClose > 0) chips.push({ label: 'Prev Close', value: fmtDollar(stock.previousClose) })
+            if (stock.dayLow > 0 && stock.dayHigh > 0) chips.push({ label: "Day's Range", value: `${fmtDollar(stock.dayLow)} – ${fmtDollar(stock.dayHigh)}` })
+            if (stock.volume > 0) chips.push({ label: 'Volume', value: formatVolume(stock.volume) })
+            if (stock.marketCap > 0) chips.push({ label: isETF ? 'Net Assets' : 'Mkt Cap', value: formatMarketCap(stock.marketCap) })
+            if (chips.length === 0) return null
+            return (
+              <div className="flex flex-wrap gap-2 mt-5 pt-5 border-t border-border/60">
+                {chips.map(c => <StatChip key={c.label} label={c.label} value={c.value} />)}
+              </div>
+            )
+          })()}
         </div>
 
         {/* Price Chart */}
@@ -775,13 +907,14 @@ export default function StockDetail() {
             {history && history.length > 0 ? (
               <div className="h-80 sm:h-96 md:h-[28rem]">
                 <ResponsiveContainer key={`${symbol}-${selectedRange}`} width="100%" height="100%">
-                  <AreaChart data={history}>
+                  <AreaChart data={history} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
                     <defs>
                       <linearGradient id={`gradient-${symbol}-${selectedRange}`} x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor={chartColor} stopOpacity={0.2} />
-                        <stop offset="95%" stopColor={chartColor} stopOpacity={0} />
+                        <stop offset="0%" stopColor={chartColor} stopOpacity={0.28} />
+                        <stop offset="100%" stopColor={chartColor} stopOpacity={0} />
                       </linearGradient>
                     </defs>
+                    <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
                     <XAxis
                       dataKey="timestamp"
                       tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.3)' }}
@@ -800,24 +933,28 @@ export default function StockDetail() {
                       padding={{ top: 10, bottom: 10 }}
                     />
                     <Tooltip
-                      contentStyle={{
-                        background: '#1a1d21',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: '12px',
-                        fontSize: '12px',
-                        color: '#fff',
+                      cursor={{ stroke: chartColor, strokeWidth: 1, strokeDasharray: '4 4', strokeOpacity: 0.6 }}
+                      content={({ active, payload, label }) => {
+                        if (!active || !payload || !payload.length) return null
+                        return (
+                          <div className="rounded-xl border border-white/10 bg-[#12161c]/95 backdrop-blur px-3 py-2 shadow-xl">
+                            <p className="text-[10px] text-white/45 mb-0.5">{formatHistoryTimestamp(Number(label), selectedRange)}</p>
+                            <p className="text-sm font-bold text-white tabular-nums">{formatChartPrice(Number(payload[0].value))}</p>
+                          </div>
+                        )
                       }}
-                      formatter={(value: number) => [formatChartPrice(value), 'Price']}
-                      labelFormatter={(label) => `Time: ${formatHistoryTimestamp(Number(label), selectedRange)}`}
                     />
                     <Area
-                      type="linear"
+                      type="monotone"
                       dataKey="price"
                       stroke={chartColor}
-                      strokeWidth={1.5}
+                      strokeWidth={2}
                       fill={`url(#gradient-${symbol}-${selectedRange})`}
                       dot={false}
-                      isAnimationActive={false}
+                      activeDot={{ r: 4, fill: chartColor, stroke: '#0b0e12', strokeWidth: 2 }}
+                      isAnimationActive={true}
+                      animationDuration={600}
+                      animationEasing="ease-out"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -937,14 +1074,14 @@ export default function StockDetail() {
                   <CardTitle className="flex items-center gap-2 text-base"><Wallet className="w-4 h-4 text-primary" />Your Position</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm">
-                  <div className="flex justify-between"><span className="text-muted-foreground">Shares Owned</span><span className="font-bold">{holding.shares}</span></div>
-                  <div className="flex justify-between"><span className="text-muted-foreground">Avg. Purchase Price</span><span className="font-medium">{fmtDollar(holding.purchasePrice)}</span></div>
+                  <div className="flex justify-between"><span className="flex items-center gap-1 text-muted-foreground">Shares Owned<HelpTip label="Shares Owned" /></span><span className="font-bold">{holding.shares}</span></div>
+                  <div className="flex justify-between"><span className="flex items-center gap-1 text-muted-foreground">Avg. Purchase Price<HelpTip label="Avg. Purchase Price" /></span><span className="font-medium">{fmtDollar(holding.purchasePrice)}</span></div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Current Value</span>
+                    <span className="flex items-center gap-1 text-muted-foreground">Current Value<HelpTip label="Current Value" /></span>
                     <span className="font-bold flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" />{fmtPrice(holding.shares * stock.price)}</span>
                   </div>
                   <div className="border-t border-border pt-2 flex justify-between">
-                    <span className="text-muted-foreground">Profit/Loss</span>
+                    <span className="flex items-center gap-1 text-muted-foreground">Profit/Loss<HelpTip label="Profit/Loss" /></span>
                     <span className={`font-bold ${profitLoss >= 0 ? "text-success" : "text-destructive"}`}>
                       {profitLoss >= 0 ? "+" : ""}{fmtPrice(Math.abs(profitLoss))} ({profitLossPercent >= 0 ? "+" : ""}{(Math.round(profitLossPercent * 10) / 10).toFixed(1)}%)
                     </span>
@@ -960,56 +1097,56 @@ export default function StockDetail() {
                   <h3 className="text-sm font-bold text-white/90">Key Statistics</h3>
                 </div>
 
-                <p className="text-[10px] font-semibold text-white/50 uppercase tracking-wider mb-2">Trading</p>
-                <div className="grid grid-cols-2 gap-3 text-sm mb-4">
-                  {stock.open > 0 && <div><p className="text-[11px] text-white/40">Open</p><p className="font-medium text-white/90">{fmtDollar(stock.open)}</p></div>}
-                  {stock.previousClose > 0 && <div><p className="text-[11px] text-white/40">Previous Close</p><p className="font-medium text-white/90">{fmtDollar(stock.previousClose)}</p></div>}
-                  {stock.dayLow > 0 && stock.dayHigh > 0 && <div><p className="text-[11px] text-white/40">Day's Range</p><p className="font-medium text-white/90 text-xs">{fmtDollar(stock.dayLow)} - {fmtDollar(stock.dayHigh)}</p></div>}
-                  {stock.low52Week > 0 && stock.high52Week > 0 && <div><p className="text-[11px] text-white/40">52-Week Range</p><p className="font-medium text-white/90 text-xs">{fmtDollar(stock.low52Week)} - {fmtDollar(stock.high52Week)}</p></div>}
-                  {stock.volume > 0 && <div><p className="text-[11px] text-white/40">Volume</p><p className="font-medium text-white/90">{formatVolume(stock.volume)}</p></div>}
-                  {stock.avgVolume3M > 0 && <div><p className="text-[11px] text-white/40">Avg Volume (3M)</p><p className="font-medium text-white/90">{formatVolume(stock.avgVolume3M)}</p></div>}
-                  {stock.marketCap > 0 && <div><p className="text-[11px] text-white/40">{isETF ? 'Net Assets' : 'Market Cap'}</p><p className="font-medium text-white/90">{formatMarketCap(stock.marketCap)}</p></div>}
+                <DarkStatSection title="Trading" />
+                <div className="grid grid-cols-2 gap-2 mb-5">
+                  {stock.open > 0 && <DarkStat label="Open" value={fmtDollar(stock.open)} />}
+                  {stock.previousClose > 0 && <DarkStat label="Previous Close" value={fmtDollar(stock.previousClose)} />}
+                  {stock.dayLow > 0 && stock.dayHigh > 0 && <DarkStat label="Day's Range" value={`${fmtDollar(stock.dayLow)} – ${fmtDollar(stock.dayHigh)}`} />}
+                  {stock.low52Week > 0 && stock.high52Week > 0 && <DarkStat label="52-Week Range" value={`${fmtDollar(stock.low52Week)} – ${fmtDollar(stock.high52Week)}`} />}
+                  {stock.volume > 0 && <DarkStat label="Volume" value={formatVolume(stock.volume)} />}
+                  {stock.avgVolume3M > 0 && <DarkStat label="Avg Volume (3M)" value={formatVolume(stock.avgVolume3M)} />}
+                  {stock.marketCap > 0 && <DarkStat label={isETF ? 'Net Assets' : 'Market Cap'} value={formatMarketCap(stock.marketCap)} />}
                   {stock.sharesOutstanding != null && stock.sharesOutstanding > 0 && (
-                    <div><p className="text-[11px] text-white/40">Shares Outstanding</p><p className="font-medium text-white/90">{formatVolume(stock.sharesOutstanding)}</p></div>
+                    <DarkStat label="Shares Outstanding" value={formatVolume(stock.sharesOutstanding)} />
                   )}
                 </div>
 
                 {!isETF && (stock.peRatio > 0 || (stock.forwardPE != null && stock.forwardPE > 0) || (stock.priceToSales != null && stock.priceToSales > 0) || (stock.priceToBook != null && stock.priceToBook > 0)) && (
                   <>
-                    <p className="text-[10px] font-semibold text-white/50 uppercase tracking-wider mb-2">Valuation</p>
-                    <div className="grid grid-cols-2 gap-3 text-sm mb-4">
-                      {stock.peRatio > 0 && <div><p className="text-[11px] text-white/40">P/E (TTM)</p><p className="font-medium text-white/90">{stock.peRatio.toFixed(2)}</p></div>}
-                      {stock.forwardPE != null && stock.forwardPE > 0 && <div><p className="text-[11px] text-white/40">Forward P/E</p><p className="font-medium text-white/90">{stock.forwardPE.toFixed(2)}</p></div>}
-                      {stock.priceToSales != null && stock.priceToSales > 0 && <div><p className="text-[11px] text-white/40">Price/Sales</p><p className="font-medium text-white/90">{stock.priceToSales.toFixed(2)}</p></div>}
-                      {stock.priceToBook != null && stock.priceToBook > 0 && <div><p className="text-[11px] text-white/40">Price/Book</p><p className="font-medium text-white/90">{stock.priceToBook.toFixed(2)}</p></div>}
+                    <DarkStatSection title="Valuation" />
+                    <div className="grid grid-cols-2 gap-2 mb-5">
+                      {stock.peRatio > 0 && <DarkStat label="P/E (TTM)" value={stock.peRatio.toFixed(2)} />}
+                      {stock.forwardPE != null && stock.forwardPE > 0 && <DarkStat label="Forward P/E" value={stock.forwardPE.toFixed(2)} />}
+                      {stock.priceToSales != null && stock.priceToSales > 0 && <DarkStat label="Price/Sales" value={stock.priceToSales.toFixed(2)} />}
+                      {stock.priceToBook != null && stock.priceToBook > 0 && <DarkStat label="Price/Book" value={stock.priceToBook.toFixed(2)} />}
                     </div>
                   </>
                 )}
 
                 {!isETF && (stock.eps > 0 || (stock.revenue != null && stock.revenue > 0) || (stock.ebitda != null && stock.ebitda > 0)) && (
                   <>
-                    <p className="text-[10px] font-semibold text-white/50 uppercase tracking-wider mb-2">Financial Performance</p>
-                    <div className="grid grid-cols-2 gap-3 text-sm mb-4">
-                      {stock.eps > 0 && <div><p className="text-[11px] text-white/40">EPS (TTM)</p><p className="font-medium text-white/90">{fmtDollar(stock.eps)}</p></div>}
-                      {stock.forwardEPS != null && stock.forwardEPS > 0 && <div><p className="text-[11px] text-white/40">Forward EPS</p><p className="font-medium text-white/90">{fmtDollar(stock.forwardEPS)}</p></div>}
-                      {stock.revenue != null && stock.revenue > 0 && <div><p className="text-[11px] text-white/40">Revenue (TTM)</p><p className="font-medium text-white/90">{formatMarketCap(stock.revenue)}</p></div>}
-                      {stock.ebitda != null && stock.ebitda > 0 && <div><p className="text-[11px] text-white/40">EBITDA</p><p className="font-medium text-white/90">{formatMarketCap(stock.ebitda)}</p></div>}
-                      {stock.profitMargin != null && stock.profitMargin !== 0 && <div><p className="text-[11px] text-white/40">Profit Margin</p><p className="font-medium text-white/90">{`${stock.profitMargin.toFixed(1)}%`}</p></div>}
-                      {stock.operatingMargin != null && stock.operatingMargin !== 0 && <div><p className="text-[11px] text-white/40">Operating Margin</p><p className="font-medium text-white/90">{`${stock.operatingMargin.toFixed(1)}%`}</p></div>}
+                    <DarkStatSection title="Financial Performance" />
+                    <div className="grid grid-cols-2 gap-2 mb-5">
+                      {stock.eps > 0 && <DarkStat label="EPS (TTM)" value={fmtDollar(stock.eps)} />}
+                      {stock.forwardEPS != null && stock.forwardEPS > 0 && <DarkStat label="Forward EPS" value={fmtDollar(stock.forwardEPS)} />}
+                      {stock.revenue != null && stock.revenue > 0 && <DarkStat label="Revenue (TTM)" value={formatMarketCap(stock.revenue)} />}
+                      {stock.ebitda != null && stock.ebitda > 0 && <DarkStat label="EBITDA" value={formatMarketCap(stock.ebitda)} />}
+                      {stock.profitMargin != null && stock.profitMargin !== 0 && <DarkStat label="Profit Margin" value={`${stock.profitMargin.toFixed(1)}%`} />}
+                      {stock.operatingMargin != null && stock.operatingMargin !== 0 && <DarkStat label="Operating Margin" value={`${stock.operatingMargin.toFixed(1)}%`} />}
                     </div>
                   </>
                 )}
 
                 {(stock.beta > 0 || stock.dividendYield > 0 || (stock.dividendRate != null && stock.dividendRate > 0) || (stock.targetEst != null && stock.targetEst > 0)) && (
                   <>
-                    <p className="text-[10px] font-semibold text-white/50 uppercase tracking-wider mb-2">Risk & Dividends</p>
-                    <div className="grid grid-cols-2 gap-3 text-sm">
-                      {stock.beta > 0 && <div><p className="text-[11px] text-white/40">Beta (5Y Monthly)</p><p className="font-medium text-white/90">{stock.beta.toFixed(2)}</p></div>}
-                      {stock.targetEst != null && stock.targetEst > 0 && <div><p className="text-[11px] text-white/40">1Y Target Est</p><p className="font-medium text-white/90">{fmtDollar(stock.targetEst)}</p></div>}
-                      {stock.dividendYield > 0 && <div><p className="text-[11px] text-white/40">Dividend Yield</p><p className="font-medium text-white/90">{fmtPrice(stock.dividendYield)}%</p></div>}
-                      {stock.dividendRate != null && stock.dividendRate > 0 && <div><p className="text-[11px] text-white/40">Dividend Rate</p><p className="font-medium text-white/90">{fmtDollar(stock.dividendRate)}</p></div>}
+                    <DarkStatSection title="Risk & Dividends" />
+                    <div className="grid grid-cols-2 gap-2">
+                      {stock.beta > 0 && <DarkStat label="Beta (5Y Monthly)" value={stock.beta.toFixed(2)} />}
+                      {stock.targetEst != null && stock.targetEst > 0 && <DarkStat label="1Y Target Est" value={fmtDollar(stock.targetEst)} />}
+                      {stock.dividendYield > 0 && <DarkStat label="Dividend Yield" value={`${fmtPrice(stock.dividendYield)}%`} />}
+                      {stock.dividendRate != null && stock.dividendRate > 0 && <DarkStat label="Dividend Rate" value={fmtDollar(stock.dividendRate)} />}
                       {stock.exDividendDate && (
-                        <div className="col-span-2"><p className="text-[11px] text-white/40">Ex-Dividend Date</p><p className="font-medium text-white/90">{stock.exDividendDate}</p></div>
+                        <div className="col-span-2"><DarkStat label="Ex-Dividend Date" value={stock.exDividendDate} /></div>
                       )}
                     </div>
                   </>
