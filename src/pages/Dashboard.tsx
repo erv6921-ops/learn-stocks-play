@@ -114,16 +114,6 @@ function getStreak(history: { amount: number; reason: string; date: Date }[]) {
 type LbRow = { name: string; xp: number; isMe: boolean; rank: number };
 type LbInfo = { rank: number; pts: number; total: number };
 
-// Placeholder national standings (no live national board yet) - mirrors the
-// demo data on the full Leaderboard page so the snapshot isn't empty.
-const NATIONAL_DEMO = [
-  { name: "Alex M.", xp: 87500 }, { name: "Jordan L.", xp: 72300 },
-  { name: "Sam K.", xp: 65100 }, { name: "Casey T.", xp: 51200 },
-  { name: "Riley J.", xp: 48900 }, { name: "Morgan P.", xp: 41000 },
-  { name: "Taylor R.", xp: 35600 }, { name: "Jamie B.", xp: 28400 },
-  { name: "Quinn S.", xp: 21500 }, { name: "Drew W.", xp: 15200 },
-];
-
 // Sort a set of entries, find the current user's rank, and return the top-5
 // rows (always including the user even if they're outside the top 5).
 function buildBoard(all: { name: string; xp: number; isMe: boolean }[]): { rows: LbRow[]; info: LbInfo | null } {
@@ -378,6 +368,21 @@ export default function Dashboard() {
   const [lbScope, setLbScope] = useState<"class" | "national" | "partners">("class");
   const [rankInfo, setRankInfo] = useState<{ rank: number; pts: number; total: number } | null>(null);
   const [lbRows, setLbRows] = useState<{ name: string; xp: number; isMe: boolean; rank: number }[]>([]);
+  // National = every user who picked a US state (excludes self; "You" is added below).
+  const [nationalRows, setNationalRows] = useState<{ name: string; xp: number }[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!user?.id) return;
+      const { data } = await (supabase as any).rpc("get_national_leaderboard");
+      if (cancelled || !data) return;
+      const rows = (data as { user_id: string; first_name: string | null; last_name: string | null; xp: number }[])
+        .filter((r) => r.user_id !== user.id)
+        .map((r) => ({ name: `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim() || "Student", xp: Math.round(Number(r.xp) || 0) }));
+      setNationalRows(rows);
+    })();
+    return () => { cancelled = true; };
+  }, [user?.id]);
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -408,8 +413,8 @@ export default function Dashboard() {
   // National + Partners boards for the snapshot dropdown. "You" is scored by the
   // live coin balance, the same number the full Leaderboard uses.
   const nationalBoard = useMemo(
-    () => buildBoard([...NATIONAL_DEMO.map((d) => ({ ...d, isMe: false })), { name: "You", xp: jeffsBalance, isMe: true }]),
-    [jeffsBalance],
+    () => buildBoard([...nationalRows.map((r) => ({ name: r.name, xp: r.xp, isMe: false })), { name: "You", xp: jeffsBalance, isMe: true }]),
+    [nationalRows, jeffsBalance],
   );
   const partnersBoard = useMemo(
     () => buildBoard([...(friendsInfo?.rows ?? []).map((r) => ({ name: r.name, xp: r.coins, isMe: false })), { name: "You", xp: jeffsBalance, isMe: true }]),

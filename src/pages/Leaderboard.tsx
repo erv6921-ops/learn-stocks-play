@@ -64,6 +64,8 @@ export default function Leaderboard() {
   const [classMembers, setClassMembers] = useState<{ name: string; userId: string; xp: number }[]>([])
   // Accepted partners from the Partners directory - powers the Friends tab.
   const [friendRows, setFriendRows] = useState<{ name: string; xp: number }[]>([])
+  // Every user who picked a US state - powers the National tab.
+  const [nationalRows, setNationalRows] = useState<{ name: string; xp: number }[]>([])
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
   // Mirror of selectedClassId read inside loadMyClasses so that callback can stay
   // stable - depending on the state directly made it re-create itself every time
@@ -152,6 +154,23 @@ export default function Leaderboard() {
 
   useEffect(() => { loadFriends() }, [loadFriends])
 
+  // National tab = every user who picked a US state (their live coin balance in
+  // the xp field). Self is filtered out here; "You" is added in allEntries.
+  const loadNational = useCallback(async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    const { data, error } = await (supabase as any).rpc("get_national_leaderboard")
+    if (!error && data) {
+      setNationalRows((data as { user_id: string; first_name: string | null; last_name: string | null; xp: number }[])
+        .filter(r => r.user_id !== user?.id)
+        .map(r => ({
+          name: `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim() || "Student",
+          xp: Number(r.xp) || 0,
+        })))
+    }
+  }, [])
+
+  useEffect(() => { loadNational() }, [loadNational])
+
   // Near real-time: refresh classmate + friend scores on focus/visibility and
   // every 15s while the tab is visible, so ranks update without a manual reload.
   // (Your own score is already live - it reads jeffsBalance from context.)
@@ -160,6 +179,7 @@ export default function Leaderboard() {
       if (document.hidden) return
       loadMyClasses()
       loadFriends()
+      loadNational()
     }
     window.addEventListener("focus", refresh)
     document.addEventListener("visibilitychange", refresh)
@@ -169,7 +189,7 @@ export default function Leaderboard() {
       document.removeEventListener("visibilitychange", refresh)
       window.clearInterval(interval)
     }
-  }, [loadMyClasses, loadFriends])
+  }, [loadMyClasses, loadFriends, loadNational])
 
   const handleJoinClass = async () => {
     if (!joinCode.trim()) return
@@ -238,6 +258,17 @@ export default function Leaderboard() {
       return entries
     }
 
+    if (scope === "national" && nationalRows.length > 0) {
+      const entries: Entry[] = [
+        ...nationalRows.map(n => ({
+          name: n.name, score: n.xp, scoreLabel: "Coins", level: getLevel(n.xp), streak: 0, isMe: false,
+        })),
+        { name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true },
+      ]
+      entries.sort((a, b) => b.score - a.score)
+      return entries
+    }
+
     if (showDemo) {
       const demoData = scope === "national" ? DEMO_NATIONAL : DEMO_NATIONAL.slice(0, 5)
       const entries: Entry[] = [
@@ -249,7 +280,7 @@ export default function Leaderboard() {
     }
 
     return [{ name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true }]
-  }, [scope, myNetWorth, showDemo, classMembers, friendRows, totalXp])
+  }, [scope, myNetWorth, showDemo, classMembers, friendRows, nationalRows, totalXp])
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
   const myRank = allEntries.findIndex(e => e.isMe) + 1
