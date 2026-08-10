@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { supabase } from "@/integrations/supabase/client"
 
-import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { JeffMascot } from "@/components/JeffMascot"
 import GameNav from "@/components/GameNav"
-import { Search, TrendingUp, TrendingDown, Star, StarOff, Loader2, Coins } from "lucide-react"
+import { Search, TrendingUp, TrendingDown, Star, StarOff, Loader2, Coins, ChevronRight, Sparkles } from "lucide-react"
 import { toast } from "sonner"
 import { anchor } from "@/lib/tourAnchors"
 
@@ -145,9 +144,50 @@ function ChangeBadge({ pct }: { pct: number | null | undefined }) {
   }
   const positive = pct >= 0
   return (
-    <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${positive ? 'bg-success/10 text-success' : 'bg-destructive/10 text-destructive'}`}>
+    <span className={`inline-flex items-center gap-0.5 text-xs font-bold px-2 py-0.5 rounded-full shrink-0 tabular-nums ${positive ? 'bg-success/10 text-success' : 'bg-destructive/10 text-destructive'}`}>
+      {positive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
       {positive ? '+' : ''}{pct.toFixed(1)}%
     </span>
+  )
+}
+
+// One clickable row shared by the Watchlist and Top Movers panels. The star is a
+// nested clickable span (not a <button>) so it stays valid inside the row button.
+function StockRow({
+  symbol, price, changePercent, starred, loading, onClick, onToggleStar, rowRef,
+}: {
+  symbol: string
+  price: number | null | undefined
+  changePercent: number | null | undefined
+  starred: boolean
+  loading?: boolean
+  onClick: () => void
+  onToggleStar: (e: React.MouseEvent) => void
+  rowRef?: (el: HTMLButtonElement | null) => void
+}) {
+  return (
+    <button
+      ref={rowRef}
+      onClick={onClick}
+      className="group w-full flex items-center gap-3 px-2.5 py-2.5 rounded-xl hover:bg-muted/60 transition-colors text-left"
+    >
+      <span
+        role="button"
+        tabIndex={-1}
+        onClick={onToggleStar}
+        className="shrink-0 grid place-items-center w-7 h-7 rounded-lg hover:bg-background transition-colors"
+      >
+        {starred
+          ? <Star className="w-4 h-4 text-warning fill-warning" />
+          : <StarOff className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />}
+      </span>
+      <span className="font-bold text-sm flex-1 truncate">{symbol}</span>
+      {loading && price == null
+        ? <Sk className="h-4 w-14" />
+        : <span className="text-sm font-mono text-muted-foreground tabular-nums">{fmtPrice(price)}</span>}
+      <ChangeBadge pct={changePercent} />
+      <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground/70 transition-colors shrink-0" />
+    </button>
   )
 }
 
@@ -307,8 +347,11 @@ export default function Stocks() {
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       {/* 1. ANIMATED TICKER TAPE - live quotes, at the very top */}
-      <div className="overflow-hidden" style={{ backgroundColor: '#0f2d1e' }}>
-        <div className="ticker-track py-1.5 text-[12px] font-medium">
+      <div className="relative overflow-hidden border-b border-white/5" style={{ backgroundColor: '#0a2016' }}>
+        {/* Soft fade masks on both edges so tickers slide in/out smoothly. */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 z-10" style={{ background: 'linear-gradient(90deg, #0a2016, transparent)' }} />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 z-10" style={{ background: 'linear-gradient(270deg, #0a2016, transparent)' }} />
+        <div className="ticker-track py-2 text-[12px] font-medium">
           {/* Two identical copies → seamless loop. */}
           {[0, 1].map(copy => (
             <div key={copy} className="flex items-center" aria-hidden={copy === 1}>
@@ -317,12 +360,12 @@ export default function Stocks() {
                 const p = quotes[sym]?.price
                 return (
                   <span key={`${copy}-${i}`} className="flex items-center px-4">
-                    <span className="text-white/70 font-semibold mr-1.5">{sym}</span>
-                    <span className="text-white/50 mr-1.5">{fmtPrice(p)}</span>
-                    <span className={c == null ? 'text-white/40' : c >= 0 ? 'text-emerald-400' : 'text-red-400'}>
+                    <span className="text-white/80 font-semibold mr-1.5">{sym}</span>
+                    <span className="text-white/45 mr-1.5 tabular-nums">{fmtPrice(p)}</span>
+                    <span className={`tabular-nums font-semibold ${c == null ? 'text-white/40' : c >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                       {fmtPct(c)}
                     </span>
-                    <span className="text-white/20 ml-4">·</span>
+                    <span className="text-white/15 ml-4">·</span>
                   </span>
                 )
               })}
@@ -335,13 +378,14 @@ export default function Stocks() {
       <main className="container mx-auto px-4 py-6 md:py-10">
         <div className="flex items-start justify-between gap-4 mb-6 md:mb-8">
           <div>
-            <h1 className="font-display text-[28px] md:text-[32px] font-bold mb-1.5 tracking-tight">Stock Market</h1>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-primary/70 mb-1.5">Live Markets</p>
+            <h1 className="font-display text-[30px] md:text-[40px] font-extrabold mb-2.5 tracking-tight text-gradient leading-none">Stock Market</h1>
             {/* 2. MARKET STATUS BADGE */}
-            <div className="flex items-center gap-2 text-sm">
+            <div className="inline-flex items-center gap-2 text-sm rounded-full bg-card border border-border/70 pl-2.5 pr-3.5 py-1 shadow-sm">
               <span
                 className={`w-2 h-2 rounded-full ${marketOpen ? 'bg-success market-dot-breathe' : 'bg-muted-foreground/50'}`}
               />
-              <span className="text-muted-foreground">
+              <span className="text-muted-foreground font-medium">
                 {marketOpen ? 'Market open · Live prices' : 'Market closed · Last close prices'}
               </span>
             </div>
@@ -350,31 +394,32 @@ export default function Stocks() {
         </div>
 
         {/* Search Bar - Front and Center */}
-        <form onSubmit={handleSearchSubmit} className="mb-6 md:mb-10">
+        <form onSubmit={handleSearchSubmit} className="mb-8 md:mb-12">
           <div className="relative max-w-2xl mx-auto" ref={anchor("stocks-search")}>
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground z-10" />
             <Input
               placeholder="Search any ticker or company (e.g. AAPL, Tesla)..."
-              className="pl-12 h-12 text-base rounded-2xl"
+              className="pl-14 h-14 text-base rounded-full shadow-lg border-border/60 bg-card focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/40 transition-shadow"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               autoFocus
             />
-            {searching && <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-muted-foreground" />}
+            {searching && <Loader2 className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-muted-foreground" />}
           </div>
           {searchQuery.trim() && searchResults.length > 0 && (
-            <div className="max-w-2xl mx-auto mt-2 rounded-xl border border-border bg-card shadow-lg overflow-hidden">
+            <div className="max-w-2xl mx-auto mt-2 rounded-2xl border border-border bg-card shadow-xl overflow-hidden">
               {searchResults.slice(0, 8).map(sr => (
                 <button
                   key={sr.symbol}
                   onClick={() => { setSearchQuery(sr.symbol); handleStockClick(sr.symbol) }}
-                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors text-left border-b border-border/50 last:border-b-0"
+                  className="group w-full flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors text-left border-b border-border/50 last:border-b-0"
                 >
                   <span className="font-bold text-sm min-w-[60px]">{sr.symbol}</span>
                   <span className="text-sm text-muted-foreground truncate flex-1">{sr.name}</span>
                   <Badge variant="outline" className="text-[10px] px-1.5 py-0 shrink-0">
                     {sr.type.toUpperCase()}
                   </Badge>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground/70 transition-colors" />
                 </button>
               ))}
             </div>
@@ -389,76 +434,62 @@ export default function Stocks() {
         {/* The rest of the page is hidden while the user is actively searching. */}
         {!searchQuery.trim() && (
           <>
-            {/* 5. MOST ACTIVE STRIP - live */}
-            <div className="mb-6 md:mb-10">
-              <h2 className="font-display text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Most active today</h2>
-              <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
-                {MOST_ACTIVE_SYMBOLS.map(sym => {
-                  const c = quotes[sym]?.changePercent
-                  const p = quotes[sym]?.price
-                  return (
-                    <button
-                      key={sym}
-                      onClick={() => handleStockClick(sym)}
-                      className="shrink-0 w-[140px] text-left rounded-2xl border border-border bg-card p-3 hover:shadow-card transition-all hover:-translate-y-px"
-                    >
-                      <p className="font-bold text-sm">{sym}</p>
-                      {quotesLoading && p == null ? (
-                        <Sk className="h-5 w-16 mt-1" />
-                      ) : (
-                        <p className="text-base font-mono mt-1">{fmtPrice(p)}</p>
-                      )}
-                      <p className={`text-xs font-bold mt-0.5 ${c == null ? 'text-muted-foreground' : c >= 0 ? 'text-success' : 'text-destructive'}`}>
-                        {fmtPct(c)}
-                      </p>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* 3. MAJOR INDEXES - live price, % change, intraday sparkline */}
-            <div className="mb-6 md:mb-10">
-              <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
+            {/* 3. MAJOR INDEXES - the visual anchor: live price, % change, sparkline */}
+            <div className="mb-8 md:mb-12">
+              <h2 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" /> Major Indexes
               </h2>
-              <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4">
                 {MAJOR_INDEXES.map(idx => {
                   const q = quotes[idx.symbol]
                   const change = q?.changePercent
                   const positive = (change ?? 0) >= 0
                   const points = sparks[idx.symbol] || []
+                  const line = positive ? '#34d399' : '#f87171'
                   return (
                     <button
                       key={idx.symbol}
                       onClick={() => handleStockClick(idx.symbol)}
-                      className="trader-panel rounded-2xl relative text-left overflow-hidden hover:-translate-y-px transition-transform"
+                      className="group relative rounded-2xl text-left overflow-hidden border border-white/10 hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-lg"
+                      style={{ background: 'linear-gradient(155deg, hsl(168 45% 10%) 0%, hsl(220 24% 6%) 62%)' }}
                     >
-                      <div className="p-5">
-                        {/* % change badge - top right */}
-                        <span
-                          className={`absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full ${change == null ? 'bg-white/10 text-white/50' : positive ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}
-                        >
-                          {fmtPct(change)}
-                        </span>
-                        <p className="text-[11px] text-white/50 mb-0.5 font-medium uppercase tracking-wider pr-12 truncate">{idx.name}</p>
-                        <p className="text-xs font-mono text-white/30">{idx.symbol}</p>
+                      {/* directional top accent bar */}
+                      <span className={`absolute inset-x-0 top-0 h-[3px] ${change == null ? 'bg-white/10' : positive ? 'bg-emerald-400/80' : 'bg-red-400/80'}`} />
+                      <div className="p-4 md:p-5">
+                        <div className="flex items-start justify-between gap-2 mb-2.5">
+                          <div className="min-w-0">
+                            <p className="text-[11px] text-white/55 font-semibold uppercase tracking-wider truncate">{idx.name}</p>
+                            <p className="text-[10px] font-mono text-white/30 mt-0.5">{idx.symbol}</p>
+                          </div>
+                          <span
+                            className={`shrink-0 text-xs font-bold px-2 py-0.5 rounded-full tabular-nums ${change == null ? 'bg-white/10 text-white/50' : positive ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}
+                          >
+                            {fmtPct(change)}
+                          </span>
+                        </div>
                         {quotesLoading && q?.price == null ? (
-                          <Sk className="h-7 w-24 mt-2 bg-white/10" />
+                          <Sk className="h-8 w-24 mt-1 bg-white/10" />
                         ) : (
-                          <p className={`text-[28px] font-bold mt-2 tracking-tight leading-none ${q?.price == null ? 'text-white' : positive ? 'price-flash-up' : 'price-flash-down'}`}>
+                          <p className={`text-[26px] md:text-[30px] font-bold tracking-tight leading-none tabular-nums ${q?.price == null ? 'text-white' : positive ? 'price-flash-up' : 'price-flash-down'}`}>
                             {fmtPlainPrice(q?.price)}
                           </p>
                         )}
-                        {/* Intraday sparkline */}
-                        <div className="h-8 mt-3">
+                        {/* Intraday sparkline with soft gradient fill */}
+                        <div className="h-10 mt-3 -mx-1">
                           {points.length >= 2 ? (
-                            <svg viewBox="0 0 96 30" className="w-full h-8" preserveAspectRatio="none">
+                            <svg viewBox="0 0 96 30" className="w-full h-10" preserveAspectRatio="none">
+                              <defs>
+                                <linearGradient id={`spark-${idx.symbol}`} x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="0%" stopColor={line} stopOpacity="0.35" />
+                                  <stop offset="100%" stopColor={line} stopOpacity="0" />
+                                </linearGradient>
+                              </defs>
+                              <polygon points={`0,30 ${sparkPoints(points)} 96,30`} fill={`url(#spark-${idx.symbol})`} />
                               <polyline
                                 points={sparkPoints(points)}
                                 fill="none"
-                                stroke={positive ? '#22c55e' : '#ef4444'}
-                                strokeWidth="1.5"
+                                stroke={line}
+                                strokeWidth="1.75"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                               />
@@ -474,109 +505,141 @@ export default function Stocks() {
               </div>
             </div>
 
-            {/* 6. WATCHLIST SECTION */}
-            <div className="mb-6 md:mb-10">
-              <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
-                <Star className="w-5 h-5 text-warning fill-warning" /> Your watchlist
-              </h2>
-              {watchlist.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-10 text-center rounded-2xl border border-dashed border-border bg-card/50">
-                  <Star className="w-6 h-6 text-muted-foreground/50 mb-2" />
-                  <p className="text-sm text-muted-foreground">Star any stock to track it here</p>
-                </div>
-              ) : (
-                <div className="grid gap-2">
-                  {watchlist.map(sym => {
-                    const c = quotes[sym]?.changePercent
-                    const p = quotes[sym]?.price
-                    return (
-                      <Card key={sym} variant="elevated" className="card-tier-3 hover:shadow-card transition-all hover:-translate-y-px cursor-pointer"
-                        onClick={() => handleStockClick(sym)}>
-                        <CardContent className="p-3">
-                          <div className="flex items-center gap-4">
-                            <button onClick={(e) => toggleWatchlist(sym, e)} className="shrink-0">
-                              <Star className="w-4 h-4 text-warning fill-warning" />
-                            </button>
-                            <span className="font-bold text-sm flex-1">{sym}</span>
-                            <span className="text-sm font-mono text-muted-foreground">{fmtPrice(p)}</span>
-                            <ChangeBadge pct={c} />
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* 7. TOP MOVERS - live, sorted */}
-            <div className="mb-6 md:mb-10">
-              <div className="flex items-center gap-2 mb-4" ref={anchor("stocks-movers")}>
-                <h2 className="font-display text-lg font-semibold mr-2">Top movers</h2>
-                <button
-                  onClick={() => setMoverTab('gainers')}
-                  className={`flex items-center gap-1 text-sm font-semibold px-3 py-1.5 rounded-full transition-colors ${moverTab === 'gainers' ? 'bg-success/10 text-success' : 'text-muted-foreground hover:bg-muted/50'}`}
-                >
-                  <TrendingUp className="w-4 h-4" /> Gainers
-                </button>
-                <button
-                  onClick={() => setMoverTab('losers')}
-                  className={`flex items-center gap-1 text-sm font-semibold px-3 py-1.5 rounded-full transition-colors ${moverTab === 'losers' ? 'bg-destructive/10 text-destructive' : 'text-muted-foreground hover:bg-muted/50'}`}
-                >
-                  <TrendingDown className="w-4 h-4" /> Losers
-                </button>
+            {/* 4. MOST ACTIVE STRIP - live */}
+            <div className="mb-8 md:mb-12">
+              <h2 className="font-display text-sm font-bold mb-3 text-muted-foreground uppercase tracking-wider">Most active today</h2>
+              <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1 -mx-1 px-1">
+                {MOST_ACTIVE_SYMBOLS.map(sym => {
+                  const c = quotes[sym]?.changePercent
+                  const p = quotes[sym]?.price
+                  const positive = (c ?? 0) >= 0
+                  return (
+                    <button
+                      key={sym}
+                      onClick={() => handleStockClick(sym)}
+                      className="group shrink-0 w-[150px] text-left rounded-2xl border border-border bg-card p-4 hover:shadow-card hover:border-primary/30 transition-all hover:-translate-y-0.5"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="font-extrabold text-sm">{sym}</p>
+                        <span className={`w-1.5 h-1.5 rounded-full ${c == null ? 'bg-muted-foreground/40' : positive ? 'bg-success' : 'bg-destructive'}`} />
+                      </div>
+                      {quotesLoading && p == null ? (
+                        <Sk className="h-5 w-16" />
+                      ) : (
+                        <p className="text-base font-mono font-semibold tabular-nums">{fmtPrice(p)}</p>
+                      )}
+                      <p className={`inline-flex items-center gap-0.5 text-xs font-bold mt-1 tabular-nums ${c == null ? 'text-muted-foreground' : positive ? 'text-success' : 'text-destructive'}`}>
+                        {c != null && (positive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />)}
+                        {fmtPct(c)}
+                      </p>
+                    </button>
+                  )
+                })}
               </div>
-              {moversLoading && movers.length === 0 ? (
-                <div className="grid gap-2">
-                  {[0, 1, 2, 3, 4].map(i => <Sk key={i} className="h-[58px] w-full" />)}
-                </div>
-              ) : movers.length === 0 ? (
-                <p className="text-sm text-muted-foreground py-6 text-center">
-                  No {moverTab} right now.
-                </p>
-              ) : (
-                <div className="grid gap-2">
-                  {movers.map((row, ri) => (
-                    <Card key={row.symbol} variant="elevated" ref={ri === 0 ? anchor("stocks-row") : undefined} className="card-tier-3 hover:shadow-card transition-all hover:-translate-y-px cursor-pointer"
-                      onClick={() => handleStockClick(row.symbol)}>
-                      <CardContent className="p-3">
-                        <div className="flex items-center gap-4">
-                          <button onClick={(e) => toggleWatchlist(row.symbol, e)} className="shrink-0">
-                            {watchlist.includes(row.symbol)
-                              ? <Star className="w-4 h-4 text-warning fill-warning" />
-                              : <StarOff className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" />}
-                          </button>
-                          <span className="font-bold text-sm flex-1">{row.symbol}</span>
-                          <span className="text-sm font-mono text-muted-foreground">{fmtPrice(row.price)}</span>
-                          <ChangeBadge pct={row.changePercent} />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              )}
             </div>
 
-            {/* 8. ANALYST REPORT BANNER */}
+            {/* 5. WATCHLIST + TOP MOVERS - side by side on desktop to use the width */}
+            <div className="grid lg:grid-cols-2 gap-5 md:gap-6 mb-8 md:mb-12">
+              {/* Watchlist panel */}
+              <section className="rounded-2xl border border-border bg-card p-4 md:p-5 shadow-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  <Star className="w-5 h-5 text-warning fill-warning" />
+                  <h2 className="font-display text-base font-bold">Your watchlist</h2>
+                  {watchlist.length > 0 && (
+                    <span className="ml-auto text-xs font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{watchlist.length}</span>
+                  )}
+                </div>
+                {watchlist.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-12 text-center rounded-xl border border-dashed border-border">
+                    <Star className="w-6 h-6 text-muted-foreground/50 mb-2" />
+                    <p className="text-sm text-muted-foreground">Star any stock to track it here</p>
+                  </div>
+                ) : (
+                  <div className="grid gap-0.5">
+                    {watchlist.map(sym => (
+                      <StockRow
+                        key={sym}
+                        symbol={sym}
+                        price={quotes[sym]?.price}
+                        changePercent={quotes[sym]?.changePercent}
+                        starred
+                        loading={quotesLoading}
+                        onClick={() => handleStockClick(sym)}
+                        onToggleStar={(e) => toggleWatchlist(sym, e)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </section>
+
+              {/* Top movers panel */}
+              <section className="rounded-2xl border border-border bg-card p-4 md:p-5 shadow-sm">
+                <div className="flex items-center gap-2 mb-3" ref={anchor("stocks-movers")}>
+                  <h2 className="font-display text-base font-bold mr-1">Top movers</h2>
+                  <div className="ml-auto flex items-center gap-1 bg-muted/60 rounded-full p-0.5">
+                    <button
+                      onClick={() => setMoverTab('gainers')}
+                      className={`flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full transition-colors ${moverTab === 'gainers' ? 'bg-success/15 text-success shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                      <TrendingUp className="w-3.5 h-3.5" /> Gainers
+                    </button>
+                    <button
+                      onClick={() => setMoverTab('losers')}
+                      className={`flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full transition-colors ${moverTab === 'losers' ? 'bg-destructive/15 text-destructive shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                      <TrendingDown className="w-3.5 h-3.5" /> Losers
+                    </button>
+                  </div>
+                </div>
+                {moversLoading && movers.length === 0 ? (
+                  <div className="grid gap-2 pt-1">
+                    {[0, 1, 2, 3, 4].map(i => <Sk key={i} className="h-[46px] w-full" />)}
+                  </div>
+                ) : movers.length === 0 ? (
+                  <p className="text-sm text-muted-foreground py-10 text-center">
+                    No {moverTab} right now.
+                  </p>
+                ) : (
+                  <div className="grid gap-0.5">
+                    {movers.map((row, ri) => (
+                      <StockRow
+                        key={row.symbol}
+                        symbol={row.symbol}
+                        price={row.price}
+                        changePercent={row.changePercent}
+                        starred={watchlist.includes(row.symbol)}
+                        onClick={() => handleStockClick(row.symbol)}
+                        onToggleStar={(e) => toggleWatchlist(row.symbol, e)}
+                        rowRef={ri === 0 ? anchor("stocks-row") : undefined}
+                      />
+                    ))}
+                  </div>
+                )}
+              </section>
+            </div>
+
+            {/* 6. ANALYST REPORT BANNER */}
             <div
-              className="rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-              style={{ backgroundColor: '#0f2d1e' }}
+              className="relative overflow-hidden rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-white/10"
+              style={{ background: 'linear-gradient(135deg, #124a30 0%, #0a2016 70%)' }}
             >
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-11 h-11 rounded-xl bg-gold/15 border border-gold/20 flex items-center justify-center shrink-0">
-                  <Coins className="w-5 h-5 text-gold" />
+              {/* subtle dotted texture */}
+              <div className="pointer-events-none absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)', backgroundSize: '22px 22px' }} />
+              <div className="relative flex items-center gap-3 min-w-0">
+                <div className="w-11 h-11 rounded-xl bg-gold/15 border border-gold/25 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5 text-gold" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-white font-bold">Unlock analyst reports</p>
-                  <p className="text-white/50 text-sm truncate">Get AI-generated insights for any stock</p>
+                  <p className="text-white/60 text-sm truncate">Get AI-generated insights for any stock</p>
                 </div>
               </div>
               <button
                 onClick={() => toast("Coming soon!")}
-                className="shrink-0 w-full sm:w-auto px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap"
-                style={{ backgroundColor: '#0a2016', color: '#f59e0b', border: '1px solid #f59e0b33' }}
+                className="relative shrink-0 w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap inline-flex items-center justify-center gap-1.5 transition-transform hover:-translate-y-0.5"
+                style={{ backgroundColor: '#0a2016', color: '#f59e0b', border: '1px solid #f59e0b44' }}
               >
-                100 coins · Unlock
+                <Coins className="w-4 h-4" /> 100 coins · Unlock
               </button>
             </div>
           </>

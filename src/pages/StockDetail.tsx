@@ -160,6 +160,16 @@ const HARDCODED_PRICES: Record<string, number> = {
   TSLA: 377.68, NVDA: 175.32, META: 601.93,
 }
 
+// Compact at-a-glance stat pill for the stock header summary strip.
+function StatChip({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col gap-0.5 rounded-xl bg-muted/60 px-3 py-2 min-w-[88px]">
+      <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{label}</span>
+      <span className="text-sm font-semibold tabular-nums whitespace-nowrap">{value}</span>
+    </div>
+  )
+}
+
 export default function StockDetail() {
   const { symbol } = useParams<{ symbol: string }>()
   const { user, watchlist, addToWatchlist, removeFromWatchlist, jeffsBalance, buyStock, sellStock, getHolding } = useApp()
@@ -645,15 +655,92 @@ export default function StockDetail() {
       <GameNav />
 
       <main className="container mx-auto px-4 py-6">
+        {/* Back navigation */}
+        <button
+          onClick={() => navigate(-1)}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-4 press-scale"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to markets
+        </button>
+
         {/* Stock Header */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
-          <div className="flex-1">
-            <div className="flex items-center gap-2.5 mb-1">
-              <h1 className="text-2xl font-bold">{stock.symbol}</h1>
-              <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                {stock.type === 'index' ? 'INDEX' : stock.type.toUpperCase()}
-              </Badge>
-              <button onClick={() => {
+        <div className="rounded-2xl border border-border bg-card shadow-sm p-5 md:p-6 mb-6">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2.5 mb-1">
+                <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight">{stock.symbol}</h1>
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                  {stock.type === 'index' ? 'INDEX' : stock.type.toUpperCase()}
+                </Badge>
+              </div>
+              <p className="text-muted-foreground text-sm mb-3 truncate">{displayStockName}</p>
+
+              {(() => {
+                const headerDollar = rangeDollarChange ?? stock.change ?? 0
+                const headerPercent = rangeChangePercent ?? stock.changePercent ?? 0
+                const rangeLabel = selectedRange !== '1d' ? TIME_RANGES.find(r => r.value === selectedRange)?.label : null
+                const up = headerDollar >= 0
+                return (
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <span className="text-[34px] md:text-[40px] font-bold tracking-tight leading-none tabular-nums">
+                      {stock.type === 'index'
+                        ? (Math.round(displayPrice * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                        : fmtDollar(displayPrice)}
+                    </span>
+                    <span className={`inline-flex items-center gap-1 text-sm font-bold px-2.5 py-1 rounded-full tabular-nums ${up ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"}`}>
+                      {up ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+                      {fmtChange(headerDollar)}
+                      {headerPercent != null ? ` (${fmtPct(headerPercent)})` : ""}
+                      {rangeLabel && <span className="text-xs font-normal opacity-70 ml-1">{rangeLabel}</span>}
+                    </span>
+                    <div className="flex flex-col">
+                      {(() => {
+                        const marketStatus = getMarketSessionStatus({
+                          marketState: stock.marketState,
+                          session: stock.session,
+                          quoteTimestamp: stock.quoteTimestamp ?? stock.regularMarketTime,
+                          regularMarketTime: stock.regularMarketTime,
+                        })
+
+                        if (marketStatus.session === 'closed') {
+                          return (
+                            <span className="text-[11px] text-muted-foreground">
+                              Market Closed · Closed at {marketStatus.regularCloseTimeET}
+                            </span>
+                          )
+                        }
+
+                        if (marketStatus.session === 'post') {
+                          return (
+                            <span className="text-[11px] text-muted-foreground">
+                              After Hours · Closed at {marketStatus.regularCloseTimeET}{marketStatus.quoteTimeText ? ` · Quote as of ${marketStatus.quoteTimeText}` : ''}
+                            </span>
+                          )
+                        }
+
+                        if (marketStatus.session === 'pre') {
+                          return (
+                            <span className="text-[11px] text-muted-foreground">
+                              Pre-Market{marketStatus.quoteTimeText ? ` · As of ${marketStatus.quoteTimeText}` : ''} · Opens 9:30 AM ET
+                            </span>
+                          )
+                        }
+
+                        return (
+                          <span className="text-[11px] text-muted-foreground">
+                            Market Open · As of {marketStatus.quoteTimeText || '--'}
+                          </span>
+                        )
+                      })()}
+                    </div>
+                  </div>
+                )
+              })()}
+            </div>
+
+            {/* Watchlist toggle as a pill button */}
+            <button
+              onClick={() => {
                 if (isInWatchlist) {
                   removeFromWatchlist(stock.symbol)
                   toast("Removed from Watchlist", { description: stock.symbol })
@@ -661,76 +748,34 @@ export default function StockDetail() {
                   addToWatchlist(stock.symbol)
                   toast.success("Added to Watchlist", { description: stock.symbol })
                 }
-              }} className="press-scale">
-                {isInWatchlist
-                  ? <Star className="w-4 h-4 text-gold fill-current" />
-                  : <StarOff className="w-4 h-4 text-muted-foreground hover:text-gold transition-colors" />
-                }
-              </button>
-            </div>
-            <p className="text-muted-foreground text-sm mb-3">{displayStockName}</p>
-
-            {(() => {
-              const headerDollar = rangeDollarChange ?? stock.change ?? 0
-              const headerPercent = rangeChangePercent ?? stock.changePercent ?? 0
-              const rangeLabel = selectedRange !== '1d' ? TIME_RANGES.find(r => r.value === selectedRange)?.label : null
-              return (
-                <div className="flex items-baseline gap-3 flex-wrap">
-                  <span className="text-[32px] font-bold tracking-tight">
-                    {stock.type === 'index'
-                      ? (Math.round(displayPrice * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                      : fmtDollar(displayPrice)}
-                  </span>
-                  <span className={`flex items-center gap-1 text-sm font-semibold ${headerDollar >= 0 ? "text-success" : "text-destructive"}`}>
-                    {headerDollar >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
-                    {fmtChange(headerDollar)}
-                    {headerPercent != null ? ` (${fmtPct(headerPercent)})` : ""}
-                    {rangeLabel && <span className="text-xs font-normal text-muted-foreground ml-1">{rangeLabel}</span>}
-                  </span>
-                  <div className="flex flex-col">
-                    {(() => {
-                      const marketStatus = getMarketSessionStatus({
-                        marketState: stock.marketState,
-                        session: stock.session,
-                        quoteTimestamp: stock.quoteTimestamp ?? stock.regularMarketTime,
-                        regularMarketTime: stock.regularMarketTime,
-                      })
-
-                      if (marketStatus.session === 'closed') {
-                        return (
-                          <span className="text-[11px] text-muted-foreground">
-                            Market Closed · Closed at {marketStatus.regularCloseTimeET}
-                          </span>
-                        )
-                      }
-
-                      if (marketStatus.session === 'post') {
-                        return (
-                          <span className="text-[11px] text-muted-foreground">
-                            After Hours · Closed at {marketStatus.regularCloseTimeET}{marketStatus.quoteTimeText ? ` · Quote as of ${marketStatus.quoteTimeText}` : ''}
-                          </span>
-                        )
-                      }
-
-                      if (marketStatus.session === 'pre') {
-                        return (
-                          <span className="text-[11px] text-muted-foreground">
-                            Pre-Market{marketStatus.quoteTimeText ? ` · As of ${marketStatus.quoteTimeText}` : ''} · Opens 9:30 AM ET
-                          </span>
-                        )
-                      }
-
-                      return (
-                        <span className="text-[11px] text-muted-foreground">
-                          Market Open · As of {marketStatus.quoteTimeText || '--'}
-                        </span>
-                      )
-                    })()}
-                  </div>
-                </div>
-              )
-            })()}
+              }}
+              className={`shrink-0 self-start inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border text-sm font-semibold press-scale transition-colors ${
+                isInWatchlist
+                  ? 'border-gold/40 bg-gold/10 text-gold'
+                  : 'border-border bg-card text-muted-foreground hover:text-foreground hover:border-foreground/30'
+              }`}
+            >
+              {isInWatchlist
+                ? <><Star className="w-4 h-4 fill-current" /> Watching</>
+                : <><StarOff className="w-4 h-4" /> Add to watchlist</>}
+            </button>
           </div>
+
+          {/* At-a-glance stat strip */}
+          {(() => {
+            const chips: { label: string; value: string }[] = []
+            if (stock.open > 0) chips.push({ label: 'Open', value: fmtDollar(stock.open) })
+            if (stock.previousClose > 0) chips.push({ label: 'Prev Close', value: fmtDollar(stock.previousClose) })
+            if (stock.dayLow > 0 && stock.dayHigh > 0) chips.push({ label: "Day's Range", value: `${fmtDollar(stock.dayLow)} – ${fmtDollar(stock.dayHigh)}` })
+            if (stock.volume > 0) chips.push({ label: 'Volume', value: formatVolume(stock.volume) })
+            if (stock.marketCap > 0) chips.push({ label: isETF ? 'Net Assets' : 'Mkt Cap', value: formatMarketCap(stock.marketCap) })
+            if (chips.length === 0) return null
+            return (
+              <div className="flex flex-wrap gap-2 mt-5 pt-5 border-t border-border/60">
+                {chips.map(c => <StatChip key={c.label} label={c.label} value={c.value} />)}
+              </div>
+            )
+          })()}
         </div>
 
         {/* Price Chart */}
