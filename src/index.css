@@ -430,11 +430,6 @@
     transform: scale(0.95);
     transition-duration: 0.08s;
   }
-  /* Don't bounce the whole card when an inner control (e.g. a dropdown pill
-     marked data-noscale) is the thing being pressed. */
-  .press-scale:has([data-noscale]:active) {
-    transform: none !important;
-  }
 
   /* Nav buttons / HUD pills bounce up & down on hover, dip on click */
   .nav-bounce {
