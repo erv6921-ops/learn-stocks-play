@@ -430,6 +430,16 @@
     transform: scale(0.95);
     transition-duration: 0.08s;
   }
+  /* Isolate an inner control (e.g. the leaderboard board-switcher pill, marked
+     data-noscale) from the card's press-scale: hold the card at its resting
+     transform while the pill is pressed so it never scales or jumps. Matched
+     per device - hover devices rest at the hover-lift offset, touch at none. */
+  @media (hover: hover) {
+    .press-scale:has([data-noscale]:active) { transform: translateY(-3px) !important; }
+  }
+  @media (hover: none) {
+    .press-scale:has([data-noscale]:active) { transform: none !important; }
+  }
 
   /* Nav buttons / HUD pills bounce up & down on hover, dip on click */
   .nav-bounce {
