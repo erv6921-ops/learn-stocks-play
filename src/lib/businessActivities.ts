@@ -122,7 +122,9 @@ export const PD_ACTIVITIES = ["productDoc", "pricing", "feedback"] as const;
 export const COLLAB_ACTIVITIES = ["partner", "partnerProblem", "vendor"] as const;
 export const MKT_ACTIVITIES = ["brand", "marketingPlan", "adCampaign"] as const;
 export const ALL_ACTIVITIES: string[] = [...PD_ACTIVITIES, ...COLLAB_ACTIVITIES, ...MKT_ACTIVITIES];
-export const XP = { pd: 150, collab: 175, mkt: 150 };
+// Coins for finishing an activity - kept modest (30-50) so a quarter's work
+// doesn't dwarf everything else the kids earn.
+export const XP = { pd: 40, collab: 50, mkt: 40 };
 
 export const ACTIVITY_TITLES: Record<string, string> = {
   productDoc: "Product Design Document", pricing: "Pricing Strategy", feedback: "Product Feedback Response",
