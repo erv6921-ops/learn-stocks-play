@@ -425,6 +425,28 @@ export default function Dashboard() {
     return { label: "Class rank", short: "Class", noun: "students", info: rankInfo, rows: lbRows, empty: !rankInfo, emptyText: "Join a class to see where you stand against your classmates." };
   }, [lbScope, rankInfo, lbRows, nationalBoard, partnersBoard]);
 
+  // Board switcher pill (Class / National / Partners). The wrapper stops the
+  // click from reaching the card's Link to /leaderboard.
+  const boardSwitcher = (
+    <div className="inline-flex" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button className="flex items-center gap-1 rounded-full bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-white border border-white/20 hover:bg-black/35 transition-colors">
+            {activeBoard.short} <ChevronDown className="w-3 h-3" />
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="min-w-[8.5rem]">
+          {([["class", "Class"], ["national", "National"], ["partners", "Partners"]] as const).map(([s, label]) => (
+            <DropdownMenuItem key={s} onSelect={() => setLbScope(s)} className="text-xs font-semibold gap-2">
+              {label}
+              {lbScope === s && <span className="ml-auto text-primary">✓</span>}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+
   // ── Active class challenge (same table the Challenges page uses) ──
   const [challenge, setChallenge] = useState<{ title: string; pot: number; entry_fee: number; ends_at: string } | null>(null);
   useEffect(() => {
@@ -896,25 +918,6 @@ export default function Dashboard() {
               <div className="group bg-white rounded-3xl overflow-hidden hover-lift press-scale h-full relative"
                 style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
 
-                {/* Board switcher - stops the Link from navigating on interaction */}
-                <div className="absolute top-2.5 right-2.5 z-20" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="flex items-center gap-1 rounded-full bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-white border border-white/20 hover:bg-black/35 transition-colors">
-                        {activeBoard.short} <ChevronDown className="w-3 h-3" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="min-w-[8.5rem]">
-                      {([["class", "Class"], ["national", "National"], ["partners", "Partners"]] as const).map(([s, label]) => (
-                        <DropdownMenuItem key={s} onSelect={() => setLbScope(s)} className="text-xs font-semibold gap-2">
-                          {label}
-                          {lbScope === s && <span className="ml-auto text-primary">✓</span>}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
                 {activeBoard.info && !activeBoard.empty ? (
                   <>
                     {/* ── Hero rank section - dark gradient bg ── */}
@@ -982,6 +985,9 @@ export default function Dashboard() {
                           </div>
                         );
                       })()}
+
+                      {/* Board switcher - sits at the bottom of the banner, above the standings */}
+                      <div className="mt-3">{boardSwitcher}</div>
                     </div>
 
                     {/* ── Standings list ── */}
@@ -1035,6 +1041,7 @@ export default function Dashboard() {
                         <Trophy className="w-4 h-4" />
                       </motion.span>
                       <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{activeBoard.label}</p>
+                      <div className="ml-auto">{boardSwitcher}</div>
                     </div>
                     <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">{activeBoard.label}</p>
                     <p className="text-xs text-muted-foreground mt-1">{activeBoard.emptyText}</p>
