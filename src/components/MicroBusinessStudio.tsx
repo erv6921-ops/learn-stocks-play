@@ -892,12 +892,14 @@ function BriefActivity({ a, bt, brief, n, complete }: { a: ActivitiesState; bt: 
   const done = a.done.includes(id);
   const saved = a.data[id] || {};
   const defaults: Fields = { __choice: "" };
-  brief.fields.forEach((f) => { defaults[f.key] = ""; });
+  brief.fields.forEach((fl) => { defaults[fl.key] = fl.list ? [] : ""; });
   const [f, set] = useForm(saved, defaults);
   const scenario = brief.scenario.replace("{biz}", bizDef(bt).label);
   const checks = [
     ...(brief.choice ? [{ label: `Choose: ${brief.choice.label}`, ok: !!str(f.__choice) }] : []),
-    ...brief.fields.map((fl) => ({ label: `${fl.label} (${ws(fl.min)}+ words)`, ok: wc(str(f[fl.key])) >= ws(fl.min) })),
+    ...brief.fields.map((fl) => fl.list
+      ? { label: `Fill in all ${fl.list}: ${fl.label}`, ok: ((f[fl.key] as string[]) || []).filter((x) => x.trim()).length >= fl.list }
+      : { label: `${fl.label} (${ws(fl.min)}+ words)`, ok: wc(str(f[fl.key])) >= ws(fl.min) }),
   ];
   const ready = checks.every((c) => c.ok);
   const Icon = brief.icon;
@@ -906,7 +908,7 @@ function BriefActivity({ a, bt, brief, n, complete }: { a: ActivitiesState; bt: 
       <ActivityCard icon={Icon} n={n} title={brief.title} desc="Submitted this quarter." xp={brief.xp} done>
         <div className="rounded-xl bg-muted p-4">
           {brief.choice && str(saved.__choice) && <ResultRow label={brief.choice.label}>{str(saved.__choice)}</ResultRow>}
-          {brief.fields.map((fl) => <ResultRow key={fl.key} label={fl.label}>{str(saved[fl.key])}</ResultRow>)}
+          {brief.fields.map((fl) => <ResultRow key={fl.key} label={fl.label}>{fl.list ? ((((saved[fl.key] as string[]) || []).filter(Boolean)).map((x, i) => `${i + 1}. ${x}`).join("\n")) : str(saved[fl.key])}</ResultRow>)}
         </div>
       </ActivityCard>
     );
@@ -926,7 +928,9 @@ function BriefActivity({ a, bt, brief, n, complete }: { a: ActivitiesState; bt: 
             ))}</div>
           </div>
         )}
-        {brief.fields.map((fl) => <WField key={fl.key} label={fl.label} value={str(f[fl.key])} onChange={(v) => set(fl.key, v)} min={ws(fl.min)} rows={fl.rows} placeholder={fl.placeholder} />)}
+        {brief.fields.map((fl) => fl.list
+          ? <ListField key={fl.key} label={fl.label} items={(f[fl.key] as string[]) || []} onChange={(v) => set(fl.key, v)} count={fl.list} placeholder={fl.placeholder ? () => fl.placeholder! : undefined} />
+          : <WField key={fl.key} label={fl.label} value={str(f[fl.key])} onChange={(v) => set(fl.key, v)} min={ws(fl.min)} rows={fl.rows} placeholder={fl.placeholder} />)}
         <Incomplete items={checks} />
         <Button className="w-full press-scale" disabled={!ready} onClick={() => complete(brief, f)}><ArrowRight className="w-4 h-4 mr-1.5" /> Submit brief</Button>
       </div>
