@@ -489,6 +489,7 @@ export function MasteryCheckRenderer({
   sessionAttemptNumber,
   onComplete,
   onFail,
+  onReread,
 }: {
   section: MasteryCheckSection
   // Mastery Engine identifiers - the LessonCategory and lesson id this
@@ -505,6 +506,8 @@ export function MasteryCheckRenderer({
   sessionAttemptNumber: number
   onComplete: (correctCount: number, totalAttempts: number, attemptSessionId: string) => void
   onFail: () => void
+  /** Optional - reopen the Jeff chat so the student rereads the lesson before retrying. */
+  onReread?: () => void
 }) {
   const { react } = useJeff()
   const { user } = useApp()
@@ -606,17 +609,27 @@ export function MasteryCheckRenderer({
         <CardContent className="p-6 text-center space-y-4">
           <XCircle className="w-12 h-12 text-destructive mx-auto" />
           <p className="text-lg font-bold">You got {actualCorrect} / {total} correct</p>
-          <p className="text-sm text-muted-foreground">You need at least {required} correct answers to pass. Review the concepts and try again!</p>
-          <Button onClick={() => {
-            // No local resets needed - onFail() routes to recap, which
-            // unmounts this component entirely; the next attempt's
-            // sessionId/number come back down fresh via props from
-            // LessonDetail, which is what actually survives the remount.
-            react("encourage", "No sweat - we run it back and get it this time. 🔁")
-            onFail()
-          }}>
-            Retry Mastery Check
-          </Button>
+          <p className="text-sm text-muted-foreground">You need at least {required} correct answers to pass. Reread the lesson with Jeff, then run it back!</p>
+          <div className="flex flex-col gap-2 items-stretch max-w-xs mx-auto">
+            {onReread && (
+              <Button onClick={() => {
+                react("encourage", "Smart move - let's run back through it together, then crush it. 📖")
+                onReread()
+              }}>
+                <BookOpen className="w-4 h-4 mr-2" /> Reread the lesson with Jeff
+              </Button>
+            )}
+            <Button variant={onReread ? "outline" : "default"} onClick={() => {
+              // No local resets needed - onFail() routes to recap, which
+              // unmounts this component entirely; the next attempt's
+              // sessionId/number come back down fresh via props from
+              // LessonDetail, which is what actually survives the remount.
+              react("encourage", "No sweat - we run it back and get it this time. 🔁")
+              onFail()
+            }}>
+              Retry Mastery Check
+            </Button>
+          </div>
         </CardContent>
       </Card>
     )
