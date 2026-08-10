@@ -29,6 +29,18 @@ function rewardForSpeed(responseMs?: number): { coins: number; tier: "quick" | "
   return { coins: COINS_REGULAR, tier: "regular" }
 }
 
+/**
+ * Combo multiplier applied to BOTH the coins gained on a correct answer and the
+ * coins lost on a wrong one - matching the on-screen "3x/5x/10x COMBO" pill.
+ * The bigger the streak, the bigger the reward AND the risk.
+ */
+export function comboMultiplier(combo: number): number {
+  if (combo >= 10) return 10
+  if (combo >= 5) return 5
+  if (combo >= 3) return 3
+  return 1
+}
+
 interface QuizSession {
   /** Current consecutive-correct streak within this lesson session. */
   combo: number
@@ -82,12 +94,14 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
     const newCombo = comboRef.current + 1
     comboRef.current = newCombo
     setCombo(newCombo)
-    // Reward is tiered by speed only - the same for every lesson.
-    const { coins, tier } = rewardForSpeed(responseMs)
-    awardJeffs(coins, "Quiz correct answer")
-    setCoinsEarned(c => c + coins)
-    toast.success(`+${coins} coins`, {
-      description: tier === "quick" ? "⚡ Quick answer!" : tier === "slow" ? "Correct 🎉" : "Correct! 🎉",
+    // Base reward is tiered by speed; the active combo then multiplies it.
+    const { coins: base, tier } = rewardForSpeed(responseMs)
+    const mult = comboMultiplier(newCombo)
+    const total = base * mult
+    awardJeffs(total, "Quiz correct answer")
+    setCoinsEarned(c => c + total)
+    toast.success(`+${total} coins`, {
+      description: mult > 1 ? `${mult}x combo 🔥` : tier === "quick" ? "⚡ Quick answer!" : "Correct! 🎉",
     })
   }
 
@@ -100,13 +114,16 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
       clearTimeout(lostTimer.current)
       lostTimer.current = setTimeout(() => setLostCombo(null), 300)
     }
-    // Never drive the balance negative.
-    const penalty = Math.min(coins, Math.max(0, Math.round(balanceRef.current)))
+    // The combo you were on multiplies the stake too - bigger streak, bigger
+    // risk. Capped at the balance so it never drives coins negative.
+    const mult = comboMultiplier(broken)
+    const stake = coins * mult
+    const penalty = Math.min(stake, Math.max(0, Math.round(balanceRef.current)))
     if (penalty > 0) {
       awardJeffs(-penalty, "Quiz wrong answer")
       setCoinsEarned(c => c - penalty)
     }
-    toast.error(penalty > 0 ? `−${penalty} coins` : "Not quite!", {
+    toast.error(penalty > 0 ? `−${penalty} coins${mult > 1 ? ` (${mult}x combo)` : ""}` : "Not quite!", {
       description: penalty > 0 ? "Wrong answer" : undefined,
     })
   }
