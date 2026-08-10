@@ -406,33 +406,74 @@ export default function Stocks() {
             />
             {searching && <Loader2 className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-muted-foreground" />}
           </div>
-          {searchQuery.trim() && searchResults.length > 0 && (
-            <div className="max-w-2xl mx-auto mt-2 rounded-2xl border border-border bg-card shadow-xl overflow-hidden">
-              {searchResults.slice(0, 8).map(sr => (
-                <button
-                  key={sr.symbol}
-                  onClick={() => { setSearchQuery(sr.symbol); handleStockClick(sr.symbol) }}
-                  className="group w-full flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors text-left border-b border-border/50 last:border-b-0"
-                >
-                  <span className="font-bold text-sm min-w-[60px]">{sr.symbol}</span>
-                  <span className="text-sm text-muted-foreground truncate flex-1">{sr.name}</span>
-                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 shrink-0">
-                    {sr.type.toUpperCase()}
-                  </Badge>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground/70 transition-colors" />
-                </button>
-              ))}
-            </div>
-          )}
-          {searchQuery.trim() && !searching && searchResults.length === 0 && (
-            <p className="text-center text-sm text-muted-foreground mt-3">
-              No results found. Press Enter to try loading "{searchQuery.trim().toUpperCase()}" directly.
-            </p>
-          )}
         </form>
 
-        {/* The rest of the page is hidden while the user is actively searching. */}
-        {!searchQuery.trim() && (
+        {/* While searching, take over the whole page with large company blocks. */}
+        {searchQuery.trim() ? (
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-5">
+              <h2 className="font-display text-lg md:text-xl font-bold">
+                Results for <span className="text-primary">"{searchQuery.trim().toUpperCase()}"</span>
+              </h2>
+              {searching && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
+            </div>
+
+            {searchResults.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+                {searchResults.map(sr => {
+                  const q = quotes[sr.symbol.toUpperCase()]
+                  const c = q?.changePercent
+                  const p = q?.price
+                  const positive = (c ?? 0) >= 0
+                  return (
+                    <button
+                      key={sr.symbol}
+                      onClick={() => { setSearchQuery(sr.symbol); handleStockClick(sr.symbol) }}
+                      className="group relative text-left rounded-2xl border border-border bg-card p-5 hover:shadow-card hover:border-primary/40 transition-all hover:-translate-y-0.5 overflow-hidden"
+                    >
+                      <div className="flex items-start justify-between gap-2 mb-4">
+                        {/* Ticker "logo" tile */}
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/15 grid place-items-center shrink-0">
+                          <span className="font-display font-extrabold text-primary text-sm tracking-tight">{sr.symbol.slice(0, 4)}</span>
+                        </div>
+                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 shrink-0">
+                          {sr.type.toUpperCase()}
+                        </Badge>
+                      </div>
+                      <p className="font-display text-lg font-extrabold tracking-tight leading-none">{sr.symbol}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-2 min-h-[2.5rem] mt-1.5">{sr.name}</p>
+                      <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-border/60">
+                        {p != null ? (
+                          <span className="flex items-center gap-2 min-w-0">
+                            <span className="text-sm font-mono font-semibold tabular-nums">{fmtPrice(p)}</span>
+                            {c != null && (
+                              <span className={`text-xs font-bold tabular-nums ${positive ? 'text-success' : 'text-destructive'}`}>{fmtPct(c)}</span>
+                            )}
+                          </span>
+                        ) : (
+                          <span className="text-xs text-muted-foreground truncate">{sr.exchange || 'Tap to view'}</span>
+                        )}
+                        <span className="inline-flex items-center gap-0.5 text-xs font-semibold text-primary shrink-0 group-hover:gap-1.5 transition-all">
+                          View <ChevronRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            ) : searching ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+                {[0, 1, 2, 3].map(i => <Sk key={i} className="h-[168px] rounded-2xl" />)}
+              </div>
+            ) : (
+              <div className="text-center py-16 rounded-2xl border border-dashed border-border">
+                <Search className="w-8 h-8 text-muted-foreground/40 mx-auto mb-3" />
+                <p className="text-sm text-muted-foreground">No matches for "{searchQuery.trim().toUpperCase()}".</p>
+                <p className="text-xs text-muted-foreground/70 mt-1">Press Enter to open it directly.</p>
+              </div>
+            )}
+          </div>
+        ) : (
           <>
             {/* 3. MAJOR INDEXES - the visual anchor: live price, % change, sparkline */}
             <div className="mb-8 md:mb-12">
