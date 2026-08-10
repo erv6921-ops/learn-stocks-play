@@ -26,7 +26,7 @@ export interface QuarterlyBrief {
   fields: BriefField[];
 }
 
-const XP = 150;
+const XP = 45; // coins for finishing a brief - modest, in line with founding activities
 
 // ── PRODUCT operations (8) ──
 const PRODUCT: QuarterlyBrief[] = [
