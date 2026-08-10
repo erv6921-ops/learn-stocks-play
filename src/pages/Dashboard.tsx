@@ -22,12 +22,13 @@ import { getBestStreak } from "@/lib/playerStats";
 import { getLeague } from "@/lib/leagues";
 import { CoasterTrack } from "./Lessons";
 import FullScreenCoaster from "@/components/FullScreenCoaster";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import DailyMissions from "@/components/DailyMissions";
 import { loadActivities, bizDef, type ActivitiesState, type BusinessType } from "@/lib/businessActivities";
 import { type BizState, monthlyRevenue, statusLabel } from "@/lib/businessSim";
 import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
-  Star, StarOff, ChevronRight, Wallet,
+  Star, StarOff, ChevronRight, ChevronDown, Wallet,
   GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical, Maximize2, Minimize2, Users,
   Target, Eye, ArrowRight } from
 "lucide-react";
@@ -108,6 +109,31 @@ function getStreak(history: { amount: number; reason: string; date: Date }[]) {
     else break;
   }
   return streak;
+}
+
+type LbRow = { name: string; xp: number; isMe: boolean; rank: number };
+type LbInfo = { rank: number; pts: number; total: number };
+
+// Placeholder national standings (no live national board yet) - mirrors the
+// demo data on the full Leaderboard page so the snapshot isn't empty.
+const NATIONAL_DEMO = [
+  { name: "Alex M.", xp: 87500 }, { name: "Jordan L.", xp: 72300 },
+  { name: "Sam K.", xp: 65100 }, { name: "Casey T.", xp: 51200 },
+  { name: "Riley J.", xp: 48900 }, { name: "Morgan P.", xp: 41000 },
+  { name: "Taylor R.", xp: 35600 }, { name: "Jamie B.", xp: 28400 },
+  { name: "Quinn S.", xp: 21500 }, { name: "Drew W.", xp: 15200 },
+];
+
+// Sort a set of entries, find the current user's rank, and return the top-5
+// rows (always including the user even if they're outside the top 5).
+function buildBoard(all: { name: string; xp: number; isMe: boolean }[]): { rows: LbRow[]; info: LbInfo | null } {
+  if (all.length === 0) return { rows: [], info: null };
+  const sorted = [...all].sort((a, b) => b.xp - a.xp);
+  const idx = sorted.findIndex((r) => r.isMe);
+  const info: LbInfo | null = idx !== -1 ? { rank: idx + 1, pts: Math.round(sorted[idx].xp), total: sorted.length } : null;
+  const rows: LbRow[] = sorted.slice(0, 5).map((r, i) => ({ name: r.name, xp: Math.round(r.xp), isMe: r.isMe, rank: i + 1 }));
+  if (idx >= 5) rows.push({ name: sorted[idx].name, xp: Math.round(sorted[idx].xp), isMe: true, rank: idx + 1 });
+  return { rows, info };
 }
 
 export default function Dashboard() {
@@ -348,7 +374,8 @@ export default function Dashboard() {
   // Fullscreen roller-coaster overlay toggle.
   const [coasterFull, setCoasterFull] = useState(false);
 
-  // ── Class rank + top-5 leaderboard rows ──
+  // ── Leaderboard snapshot: Class / National / Partners ──
+  const [lbScope, setLbScope] = useState<"class" | "national" | "partners">("class");
   const [rankInfo, setRankInfo] = useState<{ rank: number; pts: number; total: number } | null>(null);
   const [lbRows, setLbRows] = useState<{ name: string; xp: number; isMe: boolean; rank: number }[]>([]);
   useEffect(() => {
@@ -377,6 +404,26 @@ export default function Dashboard() {
     })();
     return () => { cancelled = true; };
   }, [user?.id]);
+
+  // National + Partners boards for the snapshot dropdown. "You" is scored by the
+  // live coin balance, the same number the full Leaderboard uses.
+  const nationalBoard = useMemo(
+    () => buildBoard([...NATIONAL_DEMO.map((d) => ({ ...d, isMe: false })), { name: "You", xp: jeffsBalance, isMe: true }]),
+    [jeffsBalance],
+  );
+  const partnersBoard = useMemo(
+    () => buildBoard([...(friendsInfo?.rows ?? []).map((r) => ({ name: r.name, xp: r.coins, isMe: false })), { name: "You", xp: jeffsBalance, isMe: true }]),
+    [friendsInfo, jeffsBalance],
+  );
+
+  // The board currently shown in the snapshot, chosen by the dropdown.
+  const activeBoard = useMemo(() => {
+    if (lbScope === "national")
+      return { label: "National rank", short: "National", noun: "nationwide", info: nationalBoard.info, rows: nationalBoard.rows, empty: false, emptyText: "" };
+    if (lbScope === "partners")
+      return { label: "Partners rank", short: "Partners", noun: "partners", info: partnersBoard.info, rows: partnersBoard.rows, empty: (partnersBoard.info?.total ?? 0) <= 1, emptyText: "Add partners to compare your coins with friends." };
+    return { label: "Class rank", short: "Class", noun: "students", info: rankInfo, rows: lbRows, empty: !rankInfo, emptyText: "Join a class to see where you stand against your classmates." };
+  }, [lbScope, rankInfo, lbRows, nationalBoard, partnersBoard]);
 
   // ── Active class challenge (same table the Challenges page uses) ──
   const [challenge, setChallenge] = useState<{ title: string; pot: number; entry_fee: number; ends_at: string } | null>(null);
@@ -849,7 +896,26 @@ export default function Dashboard() {
               <div className="group bg-white rounded-3xl overflow-hidden hover-lift press-scale h-full relative"
                 style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
 
-                {lbRows.length > 0 && rankInfo ? (
+                {/* Board switcher - stops the Link from navigating on interaction */}
+                <div className="absolute top-2.5 right-2.5 z-20" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="flex items-center gap-1 rounded-full bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-white border border-white/20 hover:bg-black/35 transition-colors">
+                        {activeBoard.short} <ChevronDown className="w-3 h-3" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="min-w-[8.5rem]">
+                      {([["class", "Class"], ["national", "National"], ["partners", "Partners"]] as const).map(([s, label]) => (
+                        <DropdownMenuItem key={s} onSelect={() => setLbScope(s)} className="text-xs font-semibold gap-2">
+                          {label}
+                          {lbScope === s && <span className="ml-auto text-primary">✓</span>}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+
+                {activeBoard.info && !activeBoard.empty ? (
                   <>
                     {/* ── Hero rank section - dark gradient bg ── */}
                     <div className="px-5 pt-5 pb-4 relative overflow-hidden"
@@ -862,17 +928,17 @@ export default function Dashboard() {
 
                       <div className="relative flex items-start justify-between">
                         <div>
-                          <p className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "#E3A00880" }}>Class rank</p>
+                          <p className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "#E3A00880" }}>{activeBoard.label}</p>
                           <motion.div
                             initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.65, duration: 0.35 }}
                             className="flex items-end gap-2 mt-1">
                             <p className="font-display font-extrabold leading-none" style={{ fontSize: "52px", color: "#E3A008", lineHeight: 1 }}>
-                              #{rankInfo.rank}
+                              #{activeBoard.info!.rank}
                             </p>
                           </motion.div>
                           <p className="text-sm font-bold mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
-                            of {rankInfo.total} students
+                            of {activeBoard.info!.total} {activeBoard.noun}
                           </p>
                         </div>
 
@@ -882,24 +948,25 @@ export default function Dashboard() {
                           transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.7 }}
                           className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mt-1 shrink-0"
                           style={{ background: "rgba(227,160,8,0.15)", border: "1px solid rgba(227,160,8,0.3)" }}>
-                          {rankInfo.rank === 1 ? "🥇" : rankInfo.rank === 2 ? "🥈" : rankInfo.rank === 3 ? "🥉" : "🏅"}
+                          {activeBoard.info!.rank === 1 ? "🥇" : activeBoard.info!.rank === 2 ? "🥈" : activeBoard.info!.rank === 3 ? "🥉" : "🏅"}
                         </motion.div>
                       </div>
 
                       {/* Coins + progress to next rank */}
                       {(() => {
-                        const above = lbRows.find(r => r.rank === rankInfo.rank - 1);
-                        const gap = above ? above.xp - rankInfo.pts : null;
-                        const pctToAbove = above && above.xp > 0 ? Math.min((rankInfo.pts / above.xp) * 100, 100) : null;
+                        const info = activeBoard.info!;
+                        const above = activeBoard.rows.find(r => r.rank === info.rank - 1);
+                        const gap = above ? above.xp - info.pts : null;
+                        const pctToAbove = above && above.xp > 0 ? Math.min((info.pts / above.xp) * 100, 100) : null;
                         return (
                           <div className="mt-3 relative">
                             <div className="flex items-center justify-between mb-1.5">
                               <span className="text-[11px] font-extrabold tabular-nums" style={{ color: "#E3A008" }}>
-                                🪙 {rankInfo.pts.toLocaleString()} coins
+                                🪙 {info.pts.toLocaleString()} coins
                               </span>
                               {gap != null && (
                                 <span className="text-[10px] font-bold" style={{ color: "rgba(255,255,255,0.45)" }}>
-                                  {gap.toLocaleString()} to #{rankInfo.rank - 1}
+                                  {gap.toLocaleString()} to #{info.rank - 1}
                                 </span>
                               )}
                             </div>
@@ -920,8 +987,8 @@ export default function Dashboard() {
                     {/* ── Standings list ── */}
                     <div className="px-5 py-3 space-y-0">
                       {(() => {
-                        const maxXp = Math.max(...lbRows.map(r => r.xp), 1);
-                        return lbRows.map((r, i) => {
+                        const maxXp = Math.max(...activeBoard.rows.map(r => r.xp), 1);
+                        return activeBoard.rows.map((r, i) => {
                           const medals = ["🥇", "🥈", "🥉"];
                           const barColor = r.isMe ? "var(--brand)" : r.rank <= 3 ? ["#E3A008", "#9CA3AF", "#CD7C3A"][r.rank - 1] : "#CBD5E1";
                           return (
@@ -967,10 +1034,10 @@ export default function Dashboard() {
                         style={{ background: "linear-gradient(135deg, #E3A00826, #E3A0080a)", color: "#E3A008", borderColor: "#E3A00826" }}>
                         <Trophy className="w-4 h-4" />
                       </motion.span>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Class rank</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{activeBoard.label}</p>
                     </div>
-                    <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Class rank</p>
-                    <p className="text-xs text-muted-foreground mt-1">Join a class to see where you stand against your classmates.</p>
+                    <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">{activeBoard.label}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{activeBoard.emptyText}</p>
                   </div>
                 )}
               </div>
