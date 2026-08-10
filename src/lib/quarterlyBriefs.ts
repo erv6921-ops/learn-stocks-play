@@ -12,7 +12,9 @@ import type { Delta } from "./businessSim";
 
 export type BriefCategory = "product" | "collab" | "marketing";
 
-export interface BriefField { key: string; label: string; min: number; rows?: number; placeholder?: string }
+// `list: N` turns a field into a numbered fill-in template of N rows instead of
+// a blank paragraph box - better for checklists and "name 3 things" prompts.
+export interface BriefField { key: string; label: string; min: number; rows?: number; placeholder?: string; list?: number }
 export interface BriefChoice { label: string; options: string[] }
 export interface QuarterlyBrief {
   id: string;
@@ -36,7 +38,7 @@ const PRODUCT: QuarterlyBrief[] = [
     xp: XP, effect: { customers: 160, brand: 5, msg: "Customers +160 · Brand +5" },
     fields: [
       { key: "top", label: "Your #1 thing to build - and why", min: 50, rows: 3 },
-      { key: "cut", label: "What you'll skip for now", min: 40, rows: 3 },
+      { key: "cut", label: "2 things you'll skip for now", min: 40, rows: 3, list: 2, placeholder: "Something you'll NOT do" },
     ],
   },
   {
@@ -62,7 +64,7 @@ const PRODUCT: QuarterlyBrief[] = [
     scenario: "A few bad products slipped out last quarter. Write the checklist that stops it happening again.",
     xp: XP, effect: { reputation: 9, brand: 3, msg: "Reputation +9 · Brand +3" },
     fields: [
-      { key: "checks", label: "What you'll check before selling", min: 50, rows: 4 },
+      { key: "checks", label: "Things to check before selling", min: 50, rows: 4, list: 4, placeholder: "e.g. Right size and colour" },
       { key: "fix", label: "What you do if something fails the check", min: 40, rows: 3 },
     ],
   },
@@ -71,7 +73,7 @@ const PRODUCT: QuarterlyBrief[] = [
     scenario: "You're guessing what customers want. Make a quick plan to find out for real.",
     xp: XP, effect: { customers: 140, brand: 4, msg: "Customers +140 · Brand +4" },
     fields: [
-      { key: "questions", label: "3 questions you most want answered", min: 40, rows: 3 },
+      { key: "questions", label: "3 questions you most want answered", min: 40, rows: 3, list: 3, placeholder: "Type a question…" },
       { key: "method", label: "How you'll get honest answers - and from who", min: 50, rows: 3 },
     ],
   },
