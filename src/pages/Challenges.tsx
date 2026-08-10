@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Trophy, Plus, Coins, Users, Sparkles } from "lucide-react"
+import { Trophy, Plus, Coins, Users, Sparkles, Swords } from "lucide-react"
 import GameNav from "@/components/GameNav"
 import { Button } from "@/components/ui/button"
 import { useApp } from "@/contexts/AppContext"
@@ -16,6 +16,8 @@ import {
 import ChallengeCard from "@/components/challenges/ChallengeCard"
 import EnterChallengeModal from "@/components/challenges/EnterChallengeModal"
 import CreateChallengeModal, { type NewChallengePayload } from "@/components/challenges/CreateChallengeModal"
+import ChallengePartnerModal, { type NewDuelPayload, type PartnerOption } from "@/components/challenges/ChallengePartnerModal"
+import DuelCard from "@/components/challenges/DuelCard"
 import ChallengePodium, { type WinnerBanner } from "@/components/challenges/ChallengePodium"
 import { toast } from "sonner"
 import { anchor } from "@/lib/tourAnchors"
@@ -43,6 +45,13 @@ export default function Challenges() {
   const [createOpen, setCreateOpen] = useState(false)
   const [creating, setCreating] = useState(false)
 
+  // Partner duels (1v1).
+  const [partners, setPartners] = useState<PartnerOption[]>([])
+  const [duelOpen, setDuelOpen] = useState(false)
+  const [creatingDuel, setCreatingDuel] = useState(false)
+  const [duelBusyId, setDuelBusyId] = useState<string | null>(null)
+  const partnerNameOf = (id: string | null) => partners.find(p => p.user_id === id)?.name ?? "Partner"
+
   // Latest context values without churning the reload callback identity.
   const ctx = useRef({ user, lessonProgress, jeffsHistory, awardJeffs })
   ctx.current = { user, lessonProgress, jeffsHistory, awardJeffs }
@@ -63,8 +72,7 @@ export default function Challenges() {
       ...(teachRes.data ?? []).map(c => c.id),
     ])]
     setMyClassIds(classIds)
-    if (classIds.length === 0) { setHasClass(false); setLoading(false); return }
-    setHasClass(true)
+    setHasClass(classIds.length > 0)
 
     // 2. Names for standings (classmate profiles aren't directly readable).
     const nameMap = new Map<string, string>()
@@ -76,11 +84,31 @@ export default function Challenges() {
       }
     }
 
-    // 3. Challenges + entries for those classes.
-    const { data: chData } = await supabase
-      .from("class_challenges").select("*").in("class_id", classIds)
+    // 2b. Partners power the duel picker and supply names for cross-class duels.
+    const { data: pData } = await (supabase as any).rpc("get_partners")
+    const partnerOpts: PartnerOption[] = (pData ?? []).map((p: { user_id: string; first_name: string | null; last_name: string | null }) => ({
+      user_id: p.user_id,
+      name: `${p.first_name || ""} ${(p.last_name || "").charAt(0)}`.trim() || "Partner",
+    }))
+    setPartners(partnerOpts)
+    for (const p of partnerOpts) nameMap.set(p.user_id, p.name)
+
+    // 3. Challenges + entries: class challenges (if any) plus my 1v1 duels.
+    let list: ClassChallenge[] = []
+    if (classIds.length) {
+      const { data: chData } = await supabase
+        .from("class_challenges").select("*").in("class_id", classIds)
+        .order("created_at", { ascending: false })
+      list = (chData ?? []) as ClassChallenge[]
+    }
+    const { data: duelData } = await supabase
+      .from("class_challenges").select("*")
+      .or(`created_by.eq.${myId},opponent_user_id.eq.${myId}`)
+      .not("opponent_user_id", "is", null)
       .order("created_at", { ascending: false })
-    const list = (chData ?? []) as ClassChallenge[]
+    const seen = new Set(list.map(c => c.id))
+    for (const d of (duelData ?? []) as ClassChallenge[]) if (!seen.has(d.id)) list.push(d)
+
     const challengeIds = list.map(c => c.id)
     let entries: ChallengeEntry[] = []
     if (challengeIds.length) {
@@ -116,6 +144,15 @@ export default function Challenges() {
       const winnerId = chEntries.filter(e => e.score === max)[0].user_id as string
       await supabase.from("class_challenges").update({ status: "completed", winner_user_id: winnerId }).eq("id", ch.id)
       ch.status = "completed"; ch.winner_user_id = winnerId
+    }
+
+    // 5a. A duel invite that expired before the partner accepted → cancel it so
+    // the challenger's stake is refunded by the cancellation path below.
+    for (const ch of list) {
+      if (ch.opponent_user_id && ch.status === "pending" && isExpired(ch.ends_at)) {
+        await supabase.from("class_challenges").update({ status: "cancelled" }).eq("id", ch.id)
+        ch.status = "cancelled"
+      }
     }
 
     // 5b. Pay myself the pot for any completed challenge I won (once). Runs
@@ -244,6 +281,70 @@ export default function Challenges() {
     reload()
   }
 
+  // Create a 1v1 duel: post it as pending and stake the challenger's coins now.
+  const handleCreateDuel = async (payload: NewDuelPayload) => {
+    if (!user?.id) return
+    if (jeffsBalance < payload.entry_fee) { toast.error("Not enough InvestiCoins."); return }
+    setCreatingDuel(true)
+    const { data, error } = await supabase.from("class_challenges").insert({
+      class_id: null, created_by: user.id, created_by_role: isTeacher ? "teacher" : "student",
+      opponent_user_id: payload.opponent_user_id,
+      title: payload.title, description: payload.description, metric: payload.metric,
+      entry_fee: payload.entry_fee, teacher_bonus: 0, pot: 0,
+      starts_at: payload.starts_at, ends_at: payload.ends_at, status: "pending",
+    }).select("id").single()
+    if (error || !data) {
+      setCreatingDuel(false)
+      console.error("[duel] create failed", error)
+      toast.error("Couldn't send the duel. Try again.")
+      return
+    }
+    // Stake the challenger's coins immediately (refunded if declined or expired).
+    const { error: entryErr } = await supabase.from("challenge_entries")
+      .insert({ challenge_id: data.id, user_id: user.id, coins_contributed: payload.entry_fee, score: 0 })
+    if (entryErr) {
+      await supabase.from("class_challenges").delete().eq("id", data.id)
+      setCreatingDuel(false)
+      toast.error("Couldn't send the duel. Try again.")
+      return
+    }
+    spendJeffs(payload.entry_fee, `Duel stake: ${payload.title}`)
+    await supabase.from("class_challenges").update({ pot: payload.entry_fee }).eq("id", data.id)
+    setCreatingDuel(false)
+    setDuelOpen(false)
+    toast.success(`Duel sent to ${payload.opponent_name}! ⚔️`)
+    reload()
+  }
+
+  // Opponent accepts a duel invite: match the stake and flip it to active.
+  const acceptDuel = async (duel: ClassChallenge) => {
+    if (!user?.id) return
+    if (jeffsBalance < duel.entry_fee) { toast.error("Not enough InvestiCoins."); return }
+    setDuelBusyId(duel.id)
+    const { error: insErr } = await supabase.from("challenge_entries")
+      .insert({ challenge_id: duel.id, user_id: user.id, coins_contributed: duel.entry_fee, score: 0 })
+    if (insErr) {
+      setDuelBusyId(null)
+      toast.error(insErr.code === "23505" ? "You already joined this duel." : "Couldn't accept. Try again.")
+      return
+    }
+    spendJeffs(duel.entry_fee, `Duel stake: ${duel.title}`)
+    await supabase.from("class_challenges").update({ pot: duel.pot + duel.entry_fee, status: "active" }).eq("id", duel.id)
+    setDuelBusyId(null)
+    toast.success("Duel on! Good luck 🏆")
+    reload()
+  }
+
+  // Opponent declines: cancel the duel so the challenger is refunded on load.
+  const declineDuel = async (duel: ClassChallenge) => {
+    setDuelBusyId(duel.id)
+    const { error } = await supabase.from("class_challenges").update({ status: "cancelled" }).eq("id", duel.id)
+    setDuelBusyId(null)
+    if (error) { toast.error("Couldn't decline the duel."); return }
+    toast("Duel declined.")
+    reload()
+  }
+
   const handleCancel = async (ch: ClassChallenge) => {
     const { error } = await supabase.from("class_challenges").update({ status: "cancelled" }).eq("id", ch.id)
     if (error) { toast.error("Couldn't cancel the challenge."); return }
@@ -256,7 +357,13 @@ export default function Challenges() {
     setBanners(prev => prev.filter(b => b.challengeId !== id))
   }
 
-  const activeChallenges = challenges.filter(c => c.status === "active")
+  const activeChallenges = challenges.filter(c => c.status === "active" && !c.opponent_user_id)
+
+  // Duels I'm part of that are live or awaiting a response. Incoming invites
+  // (I'm the opponent and it's still pending) surface first.
+  const myDuels = challenges.filter(c => c.opponent_user_id && (c.status === "active" || c.status === "pending"))
+  const duelInvites = myDuels.filter(c => c.status === "pending" && c.opponent_user_id === user?.id)
+  const orderedDuels = [...duelInvites, ...myDuels.filter(c => !duelInvites.includes(c))]
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
@@ -270,10 +377,13 @@ export default function Challenges() {
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Spend InvestiCoins to compete. Winner takes the pot.</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="inline-flex items-center gap-1.5 bg-gold/10 text-gold px-3 py-1.5 rounded-xl text-sm font-bold border border-gold/15">
               <Coins className="w-4 h-4" /> {Math.floor(jeffsBalance).toLocaleString()}
             </span>
+            <Button variant="secondary" className="press-scale" onClick={() => setDuelOpen(true)}>
+              <Swords className="w-4 h-4 mr-1" /> Challenge a partner
+            </Button>
             {hasClass && (
               <Button className="press-scale" onClick={() => setCreateOpen(true)}>
                 <Plus className="w-4 h-4 mr-1" /> Create Challenge
@@ -283,6 +393,38 @@ export default function Challenges() {
         </motion.div>
 
         {banners.length > 0 && <ChallengePodium banners={banners} onDismiss={dismissBanner} />}
+
+        {/* Partner duels (1v1) — shown regardless of class membership. */}
+        {!loading && orderedDuels.length > 0 && (
+          <section className="mb-8">
+            <h2 className="text-lg font-display font-bold flex items-center gap-2 mb-4">
+              <Swords className="w-5 h-5 text-primary" /> Partner Duels
+            </h2>
+            <div className="grid gap-5 md:grid-cols-2">
+              {orderedDuels.map(ch => {
+                const role = ch.created_by === user?.id ? "challenger" : "opponent"
+                const oppId = role === "challenger" ? ch.opponent_user_id : ch.created_by
+                const es = entriesByChallenge[ch.id] ?? []
+                const mine = es.find(e => e.isMe)
+                const theirs = es.find(e => !e.isMe)
+                return (
+                  <DuelCard
+                    key={ch.id}
+                    duel={ch}
+                    role={role}
+                    oppName={partnerNameOf(oppId)}
+                    myScore={mine ? mine.score : null}
+                    oppScore={theirs ? theirs.score : null}
+                    busy={duelBusyId === ch.id}
+                    onAccept={acceptDuel}
+                    onDecline={declineDuel}
+                    onCancel={handleCancel}
+                  />
+                )
+              })}
+            </div>
+          </section>
+        )}
 
         {loading ? (
           <div className="text-center py-20 text-muted-foreground">Loading challenges…</div>
@@ -337,6 +479,14 @@ export default function Challenges() {
         submitting={creating}
         isTeacher={isTeacher}
         onCreate={handleCreate}
+      />
+      <ChallengePartnerModal
+        open={duelOpen}
+        onOpenChange={setDuelOpen}
+        submitting={creatingDuel}
+        partners={partners}
+        balance={jeffsBalance}
+        onCreate={handleCreateDuel}
       />
     </div>
   )
