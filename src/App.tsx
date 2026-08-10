@@ -38,7 +38,7 @@ import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
 import ReportBugButton from "@/components/ReportBugButton";
-import LevelUpWatcher from "@/components/gamification/LevelUpOverlay";
+import LeagueUpWatcher from "@/components/gamification/LeagueUpOverlay";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { installErrorLog } from "@/lib/errorLog";
 
@@ -129,9 +129,9 @@ const App = () => (
                 <ReportBugButton />
                 {/* One-time guided tour Jeff gives right after onboarding. */}
                 <JeffTour />
-                {/* Fires the full-screen LEVEL UP! moment when the coin balance
-                    crosses the next level boundary. */}
-                <LevelUpWatcher />
+                {/* Big celebration + pick-one gift when the coin balance crosses
+                    into a new league (Bronze → Silver → Gold → …). */}
+                <LeagueUpWatcher />
               </ErrorBoundary>
             </JeffProvider>
           </AppProvider>
