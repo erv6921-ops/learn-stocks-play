@@ -25,6 +25,7 @@ import {
   Flame, Store, BarChart3, Trophy, FlaskConical, Landmark,
   Users, Swords, Menu, X } from
 "lucide-react";
+import { NAV_ICON_COMPONENTS } from "@/components/nav/AnimatedNavIcons";
 
 const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
 
@@ -223,11 +224,17 @@ export default function GameNav() {
               <div className="flex-1 overflow-y-auto p-3 space-y-1">
                 {NAV_ITEMS.map((item, idx) => {
                   const active = isActive(item.to);
+                  const AnimIcon = NAV_ICON_COMPONENTS[item.to] ?? item.icon;
                   return (
                     <motion.div
                       key={item.to}
-                      initial={{ opacity: 0, x: -18 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      // hover propagates the "hover" variant down to the icon's
+                      // moving parts (see AnimatedNavIcons); the entry animation
+                      // rides the same variants (hidden → rest).
+                      variants={{ hidden: { opacity: 0, x: -18 }, rest: { opacity: 1, x: 0 }, hover: {} }}
+                      initial="hidden"
+                      animate="rest"
+                      whileHover="hover"
                       transition={{ delay: 0.04 + idx * 0.03, type: "spring", stiffness: 420, damping: 30 }}
                     >
                       <Link to={item.to} onClick={() => setMenuOpen(false)}>
@@ -245,7 +252,7 @@ export default function GameNav() {
                               ? { background: "rgba(255,255,255,0.18)", color: "#fff" }
                               : { background: `${item.tint}1A`, color: item.tint }}
                           >
-                            <item.icon className="w-[18px] h-[18px]" />
+                            <AnimIcon className="w-[18px] h-[18px]" />
                           </span>
                           {item.label}
                           {active && (
