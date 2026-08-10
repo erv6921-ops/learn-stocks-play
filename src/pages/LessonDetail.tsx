@@ -338,6 +338,16 @@ export default function LessonDetail() {
     if (recapIdx !== -1) setCurrentSectionIdx(recapIdx)
   }
 
+  // Same genuine-retry bookkeeping as a fail, but instead of jumping to the
+  // recap it reopens the Jeff chat so the student rereads the whole
+  // conversational lesson before their fresh mastery attempt.
+  const handleMasteryReread = () => {
+    setMasteryAttempt(prev => ({ sessionId: crypto.randomUUID(), attemptNumber: prev.attemptNumber + 1 }))
+    setRegenerationCount(prev => prev + 1)
+    setChatOpen(true)
+    window.scrollTo({ top: 0 })
+  }
+
   const sectionProgress = sections.length > 0 ? ((currentSectionIdx + 1) / sections.length) * 100 : 0
 
   const renderSection = (section: LessonSection, idx: number) => {
@@ -368,6 +378,9 @@ export default function LessonDetail() {
             sessionAttemptNumber={masteryAttempt.attemptNumber}
             onComplete={handleMasteryComplete}
             onFail={handleMasteryFail}
+            // Rereading opens the Jeff chat, which only exists for
+            // not-yet-completed lessons; omit it on completed replays.
+            onReread={!isCompleted ? handleMasteryReread : undefined}
           />
         )
       default:
