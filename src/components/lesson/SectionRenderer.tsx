@@ -118,7 +118,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     const isRight = idx === shuffledQ.correctAnswer
     onAnswered?.(isRight, responseMs)
     if (isRight) {
-      session.registerCorrect(coins, responseMs) // +coins (+speed bonus) + toast
+      session.registerCorrect(coins, responseMs) // +coins by speed tier + toast
       setBurstId(b => b + 1)
       onCorrect()
     } else {
