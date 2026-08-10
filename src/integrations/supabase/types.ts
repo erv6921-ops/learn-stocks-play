@@ -376,6 +376,7 @@ export type Database = {
           entry_fee: number
           id: string
           metric: string
+          opponent_user_id: string | null
           pot: number
           starts_at: string
           status: string
@@ -393,6 +394,7 @@ export type Database = {
           entry_fee?: number
           id?: string
           metric: string
+          opponent_user_id?: string | null
           pot?: number
           starts_at: string
           status?: string
@@ -410,6 +412,7 @@ export type Database = {
           entry_fee?: number
           id?: string
           metric?: string
+          opponent_user_id?: string | null
           pot?: number
           starts_at?: string
           status?: string
