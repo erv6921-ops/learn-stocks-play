@@ -5,20 +5,29 @@ import { useApp } from "@/contexts/AppContext"
 
 // ─── Coin / combo economy (frontend-only gamification) ───
 //
-// Dead simple: get a question right → gain coins, get it wrong → lose coins,
-// with a toast every single time. The coin amount is passed per question so
-// different quiz types can carry different stakes (e.g. ±25 for the low-stakes
-// micro-check, ±50 for the mastery quiz). The popup is a global Sonner toast
-// (mounted once at the app root), so it fires reliably on every question
-// instead of depending on the per-question quiz component's lifecycle.
+// Get a question right → gain coins, get it wrong → lose coins, with a toast
+// every time. A CORRECT answer pays purely by SPEED, the same tiers for every
+// lesson: answer quickly for the most coins, at a normal pace for the middle
+// amount, or slowly for the least. (This replaces the old flat base + a
+// separate speed bonus.) The popup is a global Sonner toast mounted once at the
+// app root, so it fires reliably on every question.
 
-// Default coins gained/lost per answer when a quiz doesn't specify its own.
+// Coins gained for a correct answer, by how fast it came in.
+export const COINS_QUICK = 60    // answered within QUICK_MS
+export const COINS_REGULAR = 50  // in between
+export const COINS_SLOW = 40     // took longer than SLOW_MS
+const QUICK_MS = 5000
+const SLOW_MS = 10000
+
+// Default coins LOST on a wrong answer when a quiz doesn't specify its own.
 export const DEFAULT_COINS = 50
 
-// Extra coins for answering correctly and quickly - a flat bonus when the
-// response lands within SPEED_BONUS_MS of the question appearing.
-export const SPEED_BONUS = 50
-const SPEED_BONUS_MS = 5000
+/** Coins for a correct answer, tiered by response time. */
+function rewardForSpeed(responseMs?: number): { coins: number; tier: "quick" | "regular" | "slow" } {
+  if (responseMs != null && responseMs <= QUICK_MS) return { coins: COINS_QUICK, tier: "quick" }
+  if (responseMs != null && responseMs > SLOW_MS) return { coins: COINS_SLOW, tier: "slow" }
+  return { coins: COINS_REGULAR, tier: "regular" }
+}
 
 interface QuizSession {
   /** Current consecutive-correct streak within this lesson session. */
@@ -31,8 +40,8 @@ interface QuizSession {
   /** Net coins gained (or lost) across this whole lesson session. */
   coinsEarned: number
   /**
-   * Register a correct answer: +coins, bumps combo, pops a toast. Pass the
-   * response time so a fast answer also earns the speed bonus.
+   * Register a correct answer: +coins by speed tier (quick/regular/slow), bumps
+   * combo, pops a toast. Pass the response time so the tier can be chosen.
    */
   registerCorrect: (coins?: number, responseMs?: number) => void
   /** Register a wrong answer (or timeout): −coins, resets combo, pops a toast. */
@@ -69,19 +78,17 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
   balanceRef.current = jeffsBalance
   const lostTimer = useRef<ReturnType<typeof setTimeout>>()
 
-  const registerCorrect = (coins = DEFAULT_COINS, responseMs?: number) => {
+  const registerCorrect = (_coins?: number, responseMs?: number) => {
     const newCombo = comboRef.current + 1
     comboRef.current = newCombo
     setCombo(newCombo)
+    // Reward is tiered by speed only - the same for every lesson.
+    const { coins, tier } = rewardForSpeed(responseMs)
     awardJeffs(coins, "Quiz correct answer")
     setCoinsEarned(c => c + coins)
-    toast.success(`+${coins} coins`, { description: "Correct! 🎉" })
-    // Speed bonus: a quick correct answer earns extra coins on top.
-    if (responseMs != null && responseMs <= SPEED_BONUS_MS) {
-      awardJeffs(SPEED_BONUS, "Quiz speed bonus")
-      setCoinsEarned(c => c + SPEED_BONUS)
-      toast.success(`+${SPEED_BONUS} speed bonus ⚡`, { description: "Fast answer!" })
-    }
+    toast.success(`+${coins} coins`, {
+      description: tier === "quick" ? "⚡ Quick answer!" : tier === "slow" ? "Correct 🎉" : "Correct! 🎉",
+    })
   }
 
   const registerWrong = (coins = DEFAULT_COINS) => {
