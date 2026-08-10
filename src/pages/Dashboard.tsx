@@ -428,7 +428,7 @@ export default function Dashboard() {
   // Board switcher pill (Class / National / Partners). The wrapper stops the
   // click from reaching the card's Link to /leaderboard.
   const boardSwitcher = (
-    <div className="inline-flex" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+    <div className="inline-flex" data-noscale onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button className="flex items-center gap-1 rounded-full bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-white border border-white/20 hover:bg-black/35 transition-colors">
