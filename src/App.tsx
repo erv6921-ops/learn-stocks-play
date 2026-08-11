@@ -39,6 +39,7 @@ import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
 import ReportBugButton from "@/components/ReportBugButton";
 import LeagueUpWatcher from "@/components/gamification/LeagueUpOverlay";
+import LevelUpWatcher from "@/components/gamification/LevelUpOverlay";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { installErrorLog } from "@/lib/errorLog";
 
@@ -132,6 +133,9 @@ const App = () => (
                 {/* Big celebration + pick-one gift when the coin balance crosses
                     into a new league (Bronze → Silver → Gold → …). */}
                 <LeagueUpWatcher />
+                {/* Fires the full-screen LEVEL UP! moment when the coin balance
+                    crosses the next level boundary. */}
+                <LevelUpWatcher />
               </ErrorBoundary>
             </JeffProvider>
           </AppProvider>

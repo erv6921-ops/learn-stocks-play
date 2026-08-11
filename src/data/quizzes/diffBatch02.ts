@@ -83,8 +83,8 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "A worker sees $180 taken from each biweekly paycheck for federal income tax. Over 26 pay periods, how does this pay-as-you-go system help her?",
         options: [
           "It means she pays no tax at all when filing",
-          "It lets her employer keep $4,680 as profit",
-          "It doubles her total tax bill by year end",
+          "It lets her employer secretly keep the $4,680 as profit",
+          "It doubles her total federal income tax bill by year end",
           "It spreads roughly $4,680 across the year instead of one bill"
         ],
         correctAnswer: 3,
@@ -99,10 +99,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-6-r1",
         question: "What do income taxes help pay for?",
         options: [
-          "Private company advertising",
+          "Advertising for private companies",
           "Roads, schools, and public services",
-          "Free gifts for employers",
-          "Bank account fees"
+          "Free holiday gifts for employers",
+          "Everyday bank account fees"
         ],
         correctAnswer: 1,
         explanation: "Income taxes fund shared public services like roads, schools, and safety programs."
@@ -171,10 +171,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-6-r7",
         question: "Why do employers take a little tax out of each paycheck?",
         options: [
-          "To keep the money as their profit",
-          "Because yearly bills are illegal",
+          "To keep the withheld money as their profit",
+          "Because a single yearly tax bill is illegal",
           "So the cost is spread across the year",
-          "Because banks refuse tax payments"
+          "Because banks refuse to process tax payments"
         ],
         correctAnswer: 2,
         explanation: "Withholding small amounts each payday spreads the tax over the year so you avoid one huge bill."
@@ -202,10 +202,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-7-h2",
         question: "Sofia quits a $30,000-per-year job to attend a 2-year program with $20,000 total tuition. What is the full cost of her choice?",
         options: [
-          "$20,000, since only tuition counts",
+          "$20,000, since only the tuition really counts",
           "$60,000, from two years of lost wages only",
           "$80,000, tuition plus two years of lost wages",
-          "$40,000, from tuition doubled"
+          "$40,000, from her tuition figure simply doubled"
         ],
         correctAnswer: 2,
         explanation: "The true cost adds $20,000 tuition to $60,000 in wages given up over two years, for $80,000 in total."
@@ -238,10 +238,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-7-h5",
         question: "Kai can apprentice as a plumber earning $25,000 while training, or pay $18,000 for a program with weak job prospects. Why is the apprenticeship the stronger ROI?",
         options: [
-          "Because every paid program guarantees wealth",
-          "Because ROI never applies to trades",
+          "Because every paid tuition program guarantees future wealth",
+          "Because ROI thinking never applies to skilled trades",
           "It earns income during training and leads to real demand",
-          "Because plumbing requires no skill at all"
+          "Because plumbing work requires no real training or skill at all"
         ],
         correctAnswer: 2,
         explanation: "The apprenticeship has negative cost since he is paid to learn, and it leads to an in-demand trade, while the tuition program pairs high cost with a low payoff."
@@ -250,10 +250,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-7-h6",
         question: "Nina loves art and also wants strong income. Which move best balances passion with ROI thinking?",
         options: [
-          "Ignore pay entirely and hope it works out",
-          "Take the highest-paying job she would hate",
-          "Abandon art since artists earn nothing",
-          "Research paths like UX or graphic design that use art and pay well"
+          "Ignore the pay entirely and just hope it works out",
+          "Take the single highest-paying job she would truly hate",
+          "Abandon art completely since artists all earn nothing",
+          "Research paths like UX or graphic design that pay well"
         ],
         correctAnswer: 3,
         explanation: "Fields like UX and graphic design pay solidly while using artistic talent, letting her keep her passion without ignoring the numbers."
@@ -264,7 +264,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         options: [
           "Program Y, since higher cost means higher quality",
           "Program X, because it recovers its cost three times faster",
-          "They are equal since the raise is the same",
+          "They are exactly equal since the annual raise is the same",
           "Program Y, because it takes longer to pay off"
         ],
         correctAnswer: 1,
@@ -327,10 +327,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-7-r5",
         question: "Which is a sign of a high-ROI career path?",
         options: [
-          "A famous company name on a card",
-          "The longest possible schooling",
+          "A famous company name printed on a card",
+          "The longest possible years of schooling",
           "Strong demand, good pay, and low training cost",
-          "A fancy office downtown"
+          "A fancy corner office in downtown"
         ],
         correctAnswer: 2,
         explanation: "The best returns come when the skill is needed, pays well, and does not cost a fortune to learn."
@@ -339,10 +339,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-7-r6",
         question: "Opportunity cost of extra years in school mainly means:",
         options: [
-          "The price of a new laptop",
+          "The price of buying a new laptop",
           "The wages you did not earn while studying",
-          "The cost of a graduation gown",
-          "The fee for a class photo"
+          "The cost of renting a formal graduation gown",
+          "The fee charged for a class photo"
         ],
         correctAnswer: 1,
         explanation: "Opportunity cost is the income you give up by staying in school instead of working."
@@ -382,10 +382,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-h2",
         question: "Maria would borrow $80,000 for a degree in a field paying about $35,000 a year. Why is this a warning sign?",
         options: [
-          "Because low-paying-field loans are auto-forgiven",
+          "Because loans in these low-paying fields are automatically forgiven",
           "Her debt would be more than double her starting pay",
-          "Because $80,000 loans are always smart",
-          "Because salary never matters for borrowing"
+          "Because taking a large $80,000 student loan is always smart",
+          "Because salary never matters at all when borrowing"
         ],
         correctAnswer: 1,
         explanation: "A common guideline keeps borrowing near or below first-year pay, but owing more than double her $35,000 salary would make repayment a heavy burden."
@@ -406,10 +406,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-h4",
         question: "Dana wins a $15,000 grant that never has to be repaid, cutting her $50,000 cost. How does this change her education as an investment?",
         options: [
-          "It raises her cost to $65,000",
+          "It raises her total upfront cost up to $65,000",
           "It lowers her cost to $35,000 for the same payoff",
-          "It must be repaid with interest later",
-          "It has no effect on the investment"
+          "It must eventually be fully repaid with added interest later",
+          "It has no real effect on the investment"
         ],
         correctAnswer: 1,
         explanation: "A grant is money never repaid, so it drops her real cost to $35,000 while the career payoff stays the same, improving the return."
@@ -418,10 +418,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-h5",
         question: "Why is it misleading to say a bachelor's degree guarantees you higher pay than a high school diploma?",
         options: [
-          "Because degree holders always earn triple",
-          "Because degrees have no effect at all",
+          "Because degree holders always earn exactly triple the pay",
+          "Because holding a degree has no effect on pay at all",
           "The gap is a real average, but individual results still vary",
-          "Because high school grads always out-earn graduates"
+          "Because high school grads always out-earn most degree graduates"
         ],
         correctAnswer: 2,
         explanation: "Data shows degree holders earn more on average, but averages do not guarantee any single person's outcome, which depends on field, cost, and choices."
@@ -430,9 +430,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-h6",
         question: "Devon wants to be a software developer and is weighing a degree, a bootcamp, and self-study. What best reflects education-as-investment thinking?",
         options: [
-          "Pick whichever school has the coolest mascot",
-          "Choose the most expensive option available",
-          "Follow whatever his friends are doing",
+          "Pick whichever school happens to have the coolest mascot",
+          "Choose the single most expensive option that is available",
+          "Simply follow along with whatever his own friends are doing",
           "Compare each path's real cost against its real job outcomes"
         ],
         correctAnswer: 3,
@@ -445,7 +445,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
           "The tuition you pay each semester",
           "The wages you miss while enrolled",
           "The higher lifetime earnings the training unlocks",
-          "The interest charged on student loans"
+          "The interest charged on your student loans"
         ],
         correctAnswer: 2,
         explanation: "The return is the extra income and expanded options gained over a career, weighed against costs like tuition, lost wages, and loan interest."
@@ -459,10 +459,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-r1",
         question: "On average, workers with a bachelor's degree tend to earn:",
         options: [
-          "Notably more than those with only a high school diploma",
-          "Exactly the same as everyone else",
-          "Much less than high school graduates",
-          "Nothing at all"
+          "Notably more than high school diploma holders",
+          "Exactly the same amount as everyone else",
+          "Much less than most high school graduates",
+          "Almost nothing at all their whole career"
         ],
         correctAnswer: 0,
         explanation: "US data shows degree holders earn more on average over their careers."
@@ -471,10 +471,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-r2",
         question: "In 'education as an investment,' the 'return' is:",
         options: [
-          "The diploma paper itself",
+          "The physical diploma paper by itself",
           "Higher lifetime earnings and more job options",
-          "The interest on your loans",
-          "A refund for dropped classes"
+          "The interest owed on your student loans",
+          "A refund for the dropped classes"
         ],
         correctAnswer: 1,
         explanation: "The return is the extra income and opportunities education unlocks over a lifetime."
@@ -495,9 +495,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-r4",
         question: "Besides a four-year degree, which path can also build strong earning power?",
         options: [
-          "Only a doctoral degree",
-          "Buying lottery tickets",
-          "Skipping all training",
+          "Only a full doctoral degree",
+          "Buying lots of lottery tickets",
+          "Skipping all education and training",
           "Trade school or an apprenticeship"
         ],
         correctAnswer: 3,
@@ -508,9 +508,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "Why do scholarships and grants improve the value of education?",
         options: [
           "They lower the cost and never have to be repaid",
-          "They must be repaid with high interest",
-          "They raise tuition for everyone",
-          "They only exist for athletes"
+          "They must be fully repaid back later with high interest",
+          "They raise the tuition cost for everyone else",
+          "They only ever exist for star college athletes"
         ],
         correctAnswer: 0,
         explanation: "Scholarships and grants cut the cost without adding debt, boosting the return."
@@ -519,10 +519,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-r6",
         question: "A student would owe far more in loans than she would earn in her first year. This is:",
         options: [
-          "Always a smart move",
+          "Always a very smart financial move",
           "A warning sign about the debt",
-          "Proof the loan is free",
-          "Not related to salary"
+          "Clear proof the loan is free",
+          "Not related to her future salary"
         ],
         correctAnswer: 1,
         explanation: "Borrowing much more than your expected starting pay makes repayment a heavy burden."
@@ -531,10 +531,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-8-r7",
         question: "Why does the answer to 'is college worth it?' depend on the situation?",
         options: [
-          "Because tuition is identical everywhere",
-          "Because majors are assigned at random",
+          "Because college tuition is identical everywhere you go",
+          "Because your major is assigned to you at random",
           "Because costs, majors, and debt levels vary widely",
-          "Because employers never check degrees"
+          "Because employers never actually check for degrees"
         ],
         correctAnswer: 2,
         explanation: "A cheap degree in a high-demand field is a very different investment than heavy debt for low pay."
@@ -550,10 +550,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-h1",
         question: "Why can being good at two or three uncommon-together skills beat being world-class at just one?",
         options: [
-          "Because single skills are always useless",
+          "Because a single skill is always completely useless",
           "Because rare combinations face far less direct competition",
-          "Because employers ban specialists",
-          "Because stacked skills never expire"
+          "Because employers openly ban skilled specialists",
+          "Because stacked skills can literally never expire"
         ],
         correctAnswer: 1,
         explanation: "Being the very best at one thing is nearly impossible, but a rare combination few people share makes you scarce, and scarcity raises earning power."
@@ -563,9 +563,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "Ruby offers design for $500 and marketing for $400 separately. A brand needs both as one package. How does her stack most likely help her earn?",
         options: [
           "She can charge a premium as one hire replacing two",
-          "She must abandon her design work",
-          "It makes her design skill worth less",
-          "It guarantees her a government job"
+          "She must completely abandon all her design work",
+          "It makes her existing design skill worth a lot less",
+          "It guarantees her a secure government office job"
         ],
         correctAnswer: 0,
         explanation: "Delivering both visuals and strategy as a package lets Ruby command a premium because she replaces two hires with one."
@@ -574,10 +574,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-h3",
         question: "Two video editors are equal, but one deeply understands basketball and edits highlight reels. Why does she win sports clients?",
         options: [
-          "Because two skills mean double the invoices",
-          "Because clients always pick the cheapest editor",
+          "Because two skills together mean double the invoices",
+          "Because clients always pick the very cheapest editor",
           "Her niche combo matches exactly what those clients need",
-          "Because sports knowledge replaces editing skill"
+          "Because her deep sports knowledge fully replaces editing skill"
         ],
         correctAnswer: 2,
         explanation: "Sports clients want editors who grasp the game's key moments without coaching, so her rare combination fits their needs better than generic editing."
@@ -586,9 +586,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-h4",
         question: "Carlos already repairs bikes and is now learning bookkeeping. Why does this specific pairing boost his income potential?",
         options: [
-          "Bookkeeping makes repairs physically faster",
-          "It qualifies him for pro cycling teams",
-          "Banks pay extra for biking hobbies",
+          "Bookkeeping somehow makes his bike repairs physically faster",
+          "It qualifies him to join a professional pro cycling team",
+          "Banks will pay him extra just for his biking hobbies",
           "Repair plus money management lets him run a profitable shop"
         ],
         correctAnswer: 3,
@@ -598,10 +598,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-h5",
         question: "Why does communication skill act as a multiplier when stacked on top of technical skill?",
         options: [
-          "It replaces the need for technical skill",
+          "It completely replaces the need for any technical skill",
           "Explaining technical work clearly raises the value of everything it produces",
-          "Technical workers are banned from presenting",
-          "Because talking is easier than coding"
+          "Technical workers are officially banned from ever presenting anything",
+          "Because talking to other people is far, far easier than coding"
         ],
         correctAnswer: 1,
         explanation: "When a technical expert can explain ideas to clients and bosses, the work is trusted and used more, so communication amplifies the value of the technical skill."
@@ -622,9 +622,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-h7",
         question: "A teen who streams games wants to build a skill stack cheaply and quickly. What is the smartest approach?",
         options: [
-          "Wait until age thirty to learn anything",
-          "Only study things already mastered",
-          "Buy pricey courses before trying free ones",
+          "Wait until he is age thirty to learn anything new",
+          "Only ever study the things he has already mastered",
+          "Buy pricey courses before trying the free ones",
           "Add a complementary skill like video editing using free resources"
         ],
         correctAnswer: 3,
@@ -663,10 +663,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-r3",
         question: "Ruby knows design and is learning marketing. How does this help her earn more?",
         options: [
-          "It makes her design worthless",
+          "It makes her existing design skills worthless",
           "She can offer brands full campaign packages",
-          "It forces her to quit design",
-          "It guarantees a government job"
+          "It forces her to quit design entirely",
+          "It guarantees her a secure government job"
         ],
         correctAnswer: 1,
         explanation: "Offering both visuals and marketing lets her charge more by delivering the whole package."
@@ -675,7 +675,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-r4",
         question: "Why can a mix of good skills beat being the best at only one?",
         options: [
-          "Single skills are always useless",
+          "Single skills are always totally useless",
           "Specialists are banned from jobs",
           "A rare combination has less competition",
           "Skills expire after five years"
@@ -688,9 +688,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "Carlos fixes bikes and learns bookkeeping. How could that raise his income?",
         options: [
           "He could run his own repair business",
-          "It makes repairs faster physically",
-          "It qualifies him for cycling teams",
-          "Banks pay him for hobbies"
+          "It makes his bike repairs physically faster",
+          "It qualifies him for pro cycling teams",
+          "Banks will pay him for his hobbies"
         ],
         correctAnswer: 0,
         explanation: "Repair plus money skills are what a small business owner needs to keep the profits."
@@ -699,10 +699,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-r6",
         question: "Why does communication pair well with technical skill?",
         options: [
-          "It replaces technical skill",
+          "It fully replaces the underlying technical skill",
           "Explaining the work clearly makes it more valuable",
-          "Techies cannot present ideas",
-          "Talking is easier than coding"
+          "Technical people simply cannot ever present their ideas",
+          "Talking to people is easier than coding"
         ],
         correctAnswer: 1,
         explanation: "Being able to explain technical work clearly makes that work more useful and valuable."
@@ -711,9 +711,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-r7",
         question: "What is a good way for a teen to start a skill stack?",
         options: [
-          "Wait until age thirty",
-          "Only study mastered subjects",
-          "Buy expensive courses first",
+          "Wait until you finally turn age thirty",
+          "Only study the subjects you have already mastered",
+          "Buy only the very most expensive online courses first",
           "Add a skill that fits an interest you have"
         ],
         correctAnswer: 3,
@@ -778,9 +778,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-10-h5",
         question: "Why is entrepreneurship income riskier than a steady wage, even when a business is doing well?",
         options: [
-          "Because owners must always work alone",
+          "Because business owners must always work completely alone",
           "Because profits are capped by law at $50,000",
-          "Because entrepreneurs pay no taxes",
+          "Because entrepreneurs pay no personal income taxes at all",
           "Income is unpredictable and a loss is always possible"
         ],
         correctAnswer: 3,
@@ -791,9 +791,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "Sasha has $50 and wants to launch a sticker shop. Why is testing a small batch the smartest first move?",
         options: [
           "It proves whether customers will pay before risking more money",
-          "Because she should quit school first",
-          "Because ads always guarantee sales",
-          "Because a big loan removes all risk"
+          "Because she should quit school first to focus",
+          "Because paid ads always guarantee plenty of sales",
+          "Because taking a big loan removes all of the risk"
         ],
         correctAnswer: 0,
         explanation: "Testing a small batch shows whether real customers will buy before she risks bigger money, limiting losses while she learns."
@@ -802,10 +802,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-10-h7",
         question: "Instead of spending her first $400 profit, Maya buys a better printer and more supplies. Why might this raise her future income?",
         options: [
-          "Because reinvesting guarantees no taxes",
+          "Because reinvesting the profit guarantees that she owes no taxes",
           "Because it locks in a fixed monthly wage",
           "Reinvesting can grow the business so it earns more later",
-          "Because customers get the money back"
+          "Because her customers eventually get all the money back"
         ],
         correctAnswer: 2,
         explanation: "Reinvesting profits into equipment and inventory trades income today for the chance at bigger income as the business grows."
@@ -820,9 +820,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "How do entrepreneurs mainly earn income?",
         options: [
           "From business profits after paying expenses",
-          "From a guaranteed government wage",
-          "Only from customer tips",
-          "From taxes collected for them"
+          "From a fixed, guaranteed government wage",
+          "Only from occasional customer tips",
+          "From taxes collected on their behalf"
         ],
         correctAnswer: 0,
         explanation: "Business owners earn what is left after covering their costs, which is the profit."
@@ -855,10 +855,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-10-r4",
         question: "Why is entrepreneurship income risky?",
         options: [
-          "Profits are capped by law",
+          "Business profits are capped by law",
           "Income is unpredictable and losses can happen",
-          "Owners must work alone forever",
-          "Entrepreneurs pay no taxes"
+          "Business owners must always work alone forever",
+          "Entrepreneurs never pay any income taxes"
         ],
         correctAnswer: 1,
         explanation: "A business has no guaranteed paycheck, so income is unpredictable and losses are possible."
@@ -868,9 +868,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "One income advantage of owning a business over a job is:",
         options: [
           "Earnings can grow beyond a fixed wage",
-          "Guaranteed profit every month",
-          "Business income is tax free",
-          "No weekend hours ever"
+          "A guaranteed steady profit every month",
+          "All business income is completely tax free",
+          "There are never any weekend hours"
         ],
         correctAnswer: 0,
         explanation: "A wage is capped by your hours, but business profit can scale as sales grow."
@@ -892,9 +892,9 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "What does it mean to reinvest profits?",
         options: [
           "Put profits back into growing the business",
-          "Spend all profits on personal shopping",
-          "Give all profits to customers",
-          "Deposit them in a friend's account"
+          "Spend all the profits on personal shopping",
+          "Give all of the profits away to customers",
+          "Deposit them into a friend's bank account"
         ],
         correctAnswer: 0,
         explanation: "Reinvesting means using earnings to grow the business, like buying more inventory or equipment."

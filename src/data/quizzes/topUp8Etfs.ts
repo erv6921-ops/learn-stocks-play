@@ -10,9 +10,9 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "What does the 'exchange-traded' part of an ETF's name tell you?",
         options: [
           "It is bought and sold on an exchange like a stock",
-          "It can only be exchanged for cash once a year",
-          "It is traded exclusively between fund managers",
-          "It must be exchanged at a bank branch in person"
+          "It can be exchanged for cash only once a year on request",
+          "It is traded exclusively in private between the fund managers",
+          "It must be exchanged in person at a bank branch teller window"
         ],
         correctAnswer: 0,
         explanation: "The name says it: an ETF trades on an exchange throughout the day at live prices, just like buying or selling a single stock."
@@ -21,10 +21,10 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "funds-1-tu2",
         question: "Priya wants exposure to hundreds of companies but can only afford one share. How does an ETF help?",
         options: [
-          "It guarantees her a profit on that share",
+          "It guarantees her a locked-in profit on that single share",
           "One share gives her a tiny slice of the whole basket",
-          "It converts her share into a savings account",
-          "It lets her vote to control every company"
+          "It converts her one share into an interest-paying savings account",
+          "It lets her cast votes to personally control every company inside"
         ],
         correctAnswer: 1,
         explanation: "A single ETF share represents a small stake in everything the fund holds, giving instant diversification for the price of one share."
@@ -38,10 +38,10 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "funds-2-tu1",
         question: "How is a mutual fund's NAV per share calculated?",
         options: [
-          "By the manager's guess each morning",
-          "By counting the number of investors",
+          "By the manager's gut-feel guess each morning before open",
+          "By counting the total number of investors in the fund",
           "Total holdings value minus liabilities, divided by shares outstanding",
-          "By adding up every investor's monthly deposit"
+          "By adding up every investor's monthly deposit into the fund"
         ],
         correctAnswer: 2,
         explanation: "NAV is the fund's total assets minus liabilities divided by shares outstanding, giving the fair value of one share after market close."
@@ -51,9 +51,9 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "Why do many investors pay higher fees for an actively managed mutual fund?",
         options: [
           "The manager tries to pick investments that beat a benchmark",
-          "Active funds are guaranteed to never lose value",
-          "The government requires higher fees on active funds",
-          "Higher fees automatically produce higher returns"
+          "Active funds are legally guaranteed to never lose any value",
+          "The government requires active funds to charge higher fees",
+          "Higher fees automatically produce proportionally higher long-term returns"
         ],
         correctAnswer: 0,
         explanation: "Active managers research and select investments hoping to outperform a benchmark, a service investors pay for through higher fees."
@@ -79,9 +79,9 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "funds-3-tu2",
         question: "Two funds track the same index; one charges 0.05% and one charges 0.90%. What is the reliable difference between them?",
         options: [
-          "The pricier fund holds safer, better stocks",
-          "The pricier fund is guaranteed higher returns",
-          "There is no meaningful difference at all",
+          "The pricier fund secretly holds safer, higher-quality stocks",
+          "The pricier fund is guaranteed to earn higher returns",
+          "There is no meaningful difference at all between the two funds",
           "The cheaper fund lets you keep more of the returns"
         ],
         correctAnswer: 3,
@@ -97,7 +97,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "What is the basic job of an index fund's strategy?",
         options: [
           "To replicate its target index by holding the same securities",
-          "To pick a rotating set of secret winning stocks",
+          "To pick a rotating set of secret market-beating winning stocks",
           "To move opposite to the market to avoid losses",
           "To hold only the single largest company each year"
         ],
@@ -108,10 +108,10 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "funds-4-tu2",
         question: "Devon expects an index fund to exactly match its index but it lagged by about 0.15%. What most likely caused that small gap?",
         options: [
-          "The manager secretly bought different stocks",
+          "The manager secretly bought different off-index stocks",
           "The fund's small expense ratio was deducted from returns",
-          "The index was calculated incorrectly that year",
-          "Too many investors bought in at once"
+          "The index provider calculated the index incorrectly that year",
+          "Too many new investors bought into the fund at once"
         ],
         correctAnswer: 1,
         explanation: "Index funds return the index minus a small expense ratio, so a tiny consistent lag matching the fee is exactly what a healthy fund shows."
@@ -155,9 +155,9 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "In a 'core and satellite' approach, what size should a sector ETF position usually be?",
         options: [
           "A smaller satellite position around a broad core",
-          "The entire portfolio for maximum focus",
-          "Larger than the broad core holding",
-          "Equal to the investor's emergency savings"
+          "The entire portfolio, concentrated for maximum sector focus",
+          "Larger than the broad core index holding itself",
+          "Exactly equal to the investor's emergency savings fund"
         ],
         correctAnswer: 0,
         explanation: "Experts suggest keeping sector bets small as satellites around a broad index core, so a wrong guess cannot sink the whole plan."
@@ -183,9 +183,9 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "funds-7-tu1",
         question: "Why does a typical bond ETF never really mature the way a single bond does?",
         options: [
-          "It locks its value until one fixed date",
-          "It repays face value to every shareholder yearly",
-          "It is legally forbidden from holding old bonds",
+          "It locks its share value in place until one fixed future date",
+          "It repays the full face value to every shareholder once each year",
+          "It is legally forbidden from ever holding older, previously issued bonds",
           "It continually rolls into new bonds, so its price keeps fluctuating"
         ],
         correctAnswer: 3,
@@ -224,10 +224,10 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "funds-8-tu2",
         question: "Maya, 17, is confident she is far more risk-tolerant than average. What fair criticism of target-date funds applies to her?",
         options: [
-          "The funds hold far too few investments",
+          "The funds hold far too few underlying investments to diversify",
           "The glide path is one-size-fits-all and ignores personal risk preferences",
-          "The funds never reduce risk as the date nears",
-          "The funds demand daily attention from her"
+          "The funds never actually reduce risk as the target date nears",
+          "The funds demand constant daily attention and rebalancing from her"
         ],
         correctAnswer: 1,
         explanation: "A target-date glide path is built for a birth-year cohort, so it cannot know if an individual is personally more or less risk-tolerant than average."
@@ -253,9 +253,9 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "funds-9-tu2",
         question: "Why is judging a small-cap fund against the S&P 500 a poor comparison?",
         options: [
-          "The S&P 500 changes its rules every week",
+          "The S&P 500 changes its membership rules every single week",
           "A fund should be judged against its own category benchmark",
-          "Small-cap funds share no benchmark with anything",
+          "Small-cap funds share no valid benchmark with any index",
           "All funds are supposed to use one universal benchmark"
         ],
         correctAnswer: 1,
@@ -270,9 +270,9 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "funds-10-tu1",
         question: "Sam has money he will need in about six months for a trip. Where should it go?",
         options: [
-          "An aggressive small-cap stock fund",
-          "A volatile emerging markets fund",
-          "A concentrated single-sector ETF",
+          "An aggressive small-cap growth stock index fund",
+          "A volatile emerging markets equity fund",
+          "A concentrated, single-sector technology growth ETF",
           "A savings account or similar safe place"
         ],
         correctAnswer: 3,

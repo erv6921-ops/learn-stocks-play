@@ -555,7 +555,7 @@ export const leadershipManagementContent: StructuredLessonContent[] = [
           {
             id: "lm5-mq4",
             question: "What is the primary purpose of a performance review?",
-            options: ["To find reasons to fire employees", "To provide feedback, set goals, and identify growth opportunities", "To justify salary cuts", "To compare employees against each other"],
+            options: ["To find reasons to fire employees", "To provide feedback, set goals", "To justify salary cuts", "To compare employees against each other"],
             correctAnswer: 1,
             explanation: "Performance reviews are development tools - they help employees understand their strengths, areas for improvement, and career growth path."
           },

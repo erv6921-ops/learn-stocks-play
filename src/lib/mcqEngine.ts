@@ -127,7 +127,12 @@ function isBalanced(text: string): boolean {
 function shortenToward(text: string, targetWords: number): string {
   const words = text.trim().replace(/[.!]\s*$/, "").split(/\s+/)
 
-  // Collect clean candidate prefixes at safe boundaries, longest first.
+  // Collect clean candidate prefixes at safe boundaries, longest first. Cuts
+  // are only taken at an approved phrase boundary (a coordinating/prepositional
+  // word or a comma/colon) so the remaining option still reads as a complete
+  // clause. Cutting anywhere else strands dangling grammar ("push pay above…",
+  // "income minus allocations…") or silently drops half the meaning, which is
+  // worse than the length tell it was trying to remove.
   const candidates: string[] = []
   for (let i = words.length - 1; i >= 5; i--) {
     const boundary = CUT_BOUNDARY_WORDS.has(cleanWord(words[i])) || /[,;:]$/.test(words[i - 1])

@@ -20,7 +20,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "A creator spends a weekend making an online course that then sells on its own for years. Why is this passive income?",
         options: [
           "Because upfront work keeps earning without new effort",
-          "Because online courses are exempt from taxes",
+          "Because online courses are fully exempt from all taxes",
           "Because making a course requires zero effort",
           "Because it counts as a government benefit"
         ],
@@ -49,7 +49,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "A nonexempt hourly worker earning $18 an hour puts in 44 hours in one week. How is the pay figured under federal law?",
         options: [
           "All 44 hours are paid at the same $18 rate",
-          "The 4 extra hours are unpaid because they are overtime",
+          "The 4 extra hours are unpaid entirely because they are overtime",
           "The first 40 hours pay $18 and 4 hours pay time-and-a-half",
           "The whole week pays double because it went over 40"
         ],
@@ -77,10 +77,10 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-3-tu2",
         question: "Why might an ambitious seller who is confident about hitting big numbers prefer pure commission over an hourly wage?",
         options: [
-          "Commission guarantees the same pay every week",
+          "Commission always guarantees the exact same steady pay every single week",
           "Strong sales can push pay above a fixed hourly wage",
-          "Commission jobs never involve any risk",
-          "Hourly wages are illegal for sales roles"
+          "Commission sales jobs never involve any financial risk at all",
+          "Hourly wages are strictly illegal for commissioned sales roles"
         ],
         correctAnswer: 1,
         explanation: "Because commission ties pay directly to sales, a high performer can out-earn a capped hourly wage, though slow weeks carry the risk of a small paycheck."
@@ -164,10 +164,10 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-6-tu2",
         question: "In January a worker needs the form showing last year's wages and tax withheld so she can file her return. Which form is it?",
         options: [
-          "A standard deduction voucher",
+          "A standard deduction rebate voucher form",
           "A W-2 form from her employer",
-          "A FICA refund coupon",
-          "A progressive tax certificate"
+          "A FICA payroll refund coupon slip",
+          "An official progressive tax certificate"
         ],
         correctAnswer: 1,
         explanation: "Employers send a W-2 each January reporting yearly wages and the tax withheld, which the worker uses to file her tax return."
@@ -193,10 +193,10 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-7-tu2",
         question: "Two graduates compare offers. One starts at $45,000 with fast raises, the other at $50,000 that plateaus. Why look beyond year one?",
         options: [
-          "First-year pay is always the career peak",
-          "Lifetime earnings are identical across careers",
+          "First-year pay is always the absolute peak of any career",
+          "Lifetime earnings turn out identical across nearly all careers",
           "Careers grow differently, so decades reveal the real difference",
-          "First-year salaries cannot be researched"
+          "First-year starting salaries simply cannot be researched anywhere"
         ],
         correctAnswer: 2,
         explanation: "Some careers start lower but grow faster, so comparing lifetime earnings rather than just first-year pay reveals the true financial difference between paths."
@@ -211,9 +211,9 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "A student wins a $15,000 scholarship toward a degree. Why does this improve the ROI of her education?",
         options: [
           "It lowers the cost side without adding debt",
-          "It must be repaid later with interest",
-          "It raises the tuition she owes",
-          "It only counts for athletes"
+          "It must be fully repaid later with added interest",
+          "It actually raises the total tuition she owes",
+          "It only ever counts for star college athletes"
         ],
         correctAnswer: 0,
         explanation: "Scholarships are money you never repay, so they shrink the investment side of the equation while the career payoff stays the same, boosting the return."
@@ -239,10 +239,10 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-tu1",
         question: "A photographer also learns website building. Why does adding this second skill raise earning power?",
         options: [
-          "It makes her photography skill worthless",
+          "It makes her existing photography skill completely worthless overnight",
           "It lets her offer clients photos plus a finished site",
-          "It forces her to stop taking photos",
-          "It guarantees her a government job"
+          "It forces her to stop taking any photos at all",
+          "It guarantees her a secure lifelong government office job"
         ],
         correctAnswer: 1,
         explanation: "Combining complementary skills lets her deliver a fuller package clients would otherwise need two people for, and that rarer combination commands higher pay."
@@ -251,10 +251,10 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         id: "income-9-tu2",
         question: "Two engineers have equal technical ability, but one can also explain projects clearly to clients and bosses. Why does that one often advance further?",
         options: [
-          "Communication replaces the need for technical skill",
-          "Technical experts are banned from presenting",
+          "Clear communication fully replaces the need for any technical skill",
+          "Technical experts are officially banned from ever presenting anything",
           "Clear communication amplifies the value of the technical work",
-          "Talking is simply easier than engineering"
+          "Talking to clients is simply far easier than engineering"
         ],
         correctAnswer: 2,
         explanation: "Stacking communication on top of technical skill lets the work be understood and trusted by others, which multiplies its value and opens leadership opportunities."
@@ -281,9 +281,9 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
         question: "A young owner uses her first profits to buy a better printer and more supplies instead of spending them. What is she doing?",
         options: [
           "Reinvesting profits to help the business grow",
-          "Guaranteeing herself a fixed monthly wage",
-          "Avoiding all taxes on her earnings",
-          "Returning the profits to her customers"
+          "Guaranteeing herself a fixed steady monthly wage",
+          "Cleverly avoiding all the taxes on her earnings",
+          "Returning all of the profits back to her customers"
         ],
         correctAnswer: 0,
         explanation: "Putting earnings back into equipment and inventory is reinvesting profits, which trades income today for the chance at bigger income later as the business grows."

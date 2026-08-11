@@ -470,7 +470,7 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
             question: "What is the fundamental difference between owning a stock and owning a bond?",
             options: [
               "Stocks can only be bought by institutions while bonds are for individuals",
-              "Stocks represent ownership in a company while bonds represent a loan to one",
+              "Stocks represent ownership in a company",
               "Stocks pay guaranteed interest while bonds fluctuate based on market demand",
               "Stocks are only issued by governments while bonds are issued by corporations"
             ],
@@ -948,7 +948,7 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
           question: "Why was Kevin's portfolio so much more devastated than Sarah's during the 2022 tech crash?",
           options: [
             "Kevin chose companies that were fundamentally weaker than Sarah's selections",
-            "Kevin's stocks were all in the same sector, so a tech downturn hit everything",
+            "Kevin's stocks were all in the same sector",
             "Sarah had access to professional investment advice that Kevin did not have",
             "Kevin invested more total money than Sarah, which increased his total losses"
           ],
@@ -1011,7 +1011,7 @@ export const investingFundamentalsContent: StructuredLessonContent[] = [
             question: "Which combination provides the BEST diversification for a stock portfolio?",
             options: [
               "Apple, Microsoft, Google, Amazon, and Meta from the U.S. tech industry",
-              "A U.S. stock fund, an international stock fund, a bond fund, and a REIT fund",
+              "A U.S. stock fund, an international stock fund, a bond fund",
               "Five different savings accounts spread across five separate banking institutions",
               "The top-performing stock from each of the past five calendar years combined"
             ],

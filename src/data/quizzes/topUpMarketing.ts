@@ -282,10 +282,10 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
         id: "mkt5-q7",
         question: "The lesson lists methods of Promotion. Which of these is included?",
         options: [
-          "Product differentiation",
+          "Detailed product differentiation and market positioning",
           "Public relations, described as earned media",
-          "Customer segmentation",
-          "Cost-plus pricing"
+          "Careful customer segmentation and audience targeting",
+          "Simple cost-plus markup pricing method"
         ],
         correctAnswer: 1,
         explanation: "The lesson lists advertising (paid), public relations (earned media), social media (organic reach), sales promotions, and personal selling as forms of Promotion."
@@ -335,10 +335,10 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
         id: "mkt6-q6",
         question: "According to the lesson, what is a logo in relation to a brand?",
         options: [
-          "The most important part of a brand",
-          "A visual shortcut to the deeper perception people have of the business",
-          "The same thing as brand equity",
-          "A legal requirement for registering a business"
+          "The single most important part of a brand",
+          "A visual shortcut to the deeper brand perception",
+          "Basically the same thing as brand equity",
+          "A legal requirement for registering any business"
         ],
         correctAnswer: 1,
         explanation: "The lesson states a brand is the total perception people have about your business, and a logo is just a visual shortcut to that deeper perception."

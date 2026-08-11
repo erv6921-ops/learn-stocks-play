@@ -242,7 +242,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
             id: "mr3-mc1",
             question: "What is the main advantage of secondary research over primary research?",
             options: [
-              "It is faster and cheaper because the data already exists and does not need to be collected from scratch",
+              "It is faster and cheaper",
               "It is always more accurate because it was collected by professional research organizations with larger budgets",
               "It perfectly answers every specific business question because research firms anticipate all possible needs",
               "It eliminates the need for primary research entirely since all relevant information is already publicly available"
@@ -280,7 +280,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
           id: "mr3-aq1",
           question: "Why did Elena's free secondary research produce more actionable insights than Ryan's $200 survey?",
           options: [
-            "Because secondary research mapped the landscape first - market size, trends, and competitive gaps - making any follow-up research more focused",
+            "Because secondary research mapped the landscape first - market size, trends",
             "Because surveys are fundamentally unreliable and should never be used for market research purposes",
             "Because Elena was more experienced at business research and Ryan was a complete beginner in the field",
             "Because government census data is always more accurate than any survey data collected by private individuals"
@@ -307,7 +307,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
             question: "A student wants to estimate whether there is demand for a pet-sitting service in their neighborhood. Which combination of secondary sources would be MOST useful as a starting point?",
             options: [
               "Fashion industry reports and social media follower counts of pet influencer accounts across major platforms",
-              "Census data on household demographics, pet ownership statistics from the ASPCA, and local competitor pricing from online listings",
+              "Census data on household demographics, pet ownership statistics from the ASPCA",
               "Academic studies on animal psychology and veterinary care trends published in scientific research journals",
               "Stock market performance data for publicly traded pet food companies over the last five years"
             ],
@@ -560,7 +560,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
             id: "mr6-mc1",
             question: "What is the relationship between TAM, SAM, and SOM?",
             options: [
-              "They are concentric circles: TAM is the total market, SAM is the reachable portion, and SOM is the realistic near-term capture",
+              "They are concentric circles: TAM is the total market, SAM is the reachable portion",
               "They are sequential stages: a business first achieves TAM, then SAM, then SOM as it grows over time",
               "They are competing metrics: businesses must choose to focus on one and ignore the other two entirely",
               "They measure different time periods: TAM is short-term, SAM is medium-term, and SOM is long-term potential"
@@ -678,7 +678,7 @@ export const marketResearchContent: StructuredLessonContent[] = [
             id: "mr7-mc2",
             question: "How did Slack use their beta program as a research tool?",
             options: [
-              "They tracked feature usage, complaints, and requests from 8,000 beta companies - using behavioral observation to shape the product",
+              "They tracked feature usage, complaints",
               "They used the beta program exclusively to generate press coverage and early revenue, not for research purposes",
               "They only allowed companies that had already purchased the full product to join the beta testing program",
               "They asked beta companies to submit formal academic research papers about their communication workflow challenges"

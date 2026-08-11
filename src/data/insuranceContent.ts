@@ -220,7 +220,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           question: "Why did insurance pay $0 on Marcus's $400 scratch but $2,700 on his $3,200 crash?",
           options: [
             "Because the insurer ran out of money",
-            "Because the $400 repair was below his $500 deductible, so it never reached the insurer's responsibility",
+            "Because the $400 repair was below his $500 deductible",
             "Because scratches are never covered",
             "Because Marcus forgot to pay his premium"
           ],
@@ -403,7 +403,7 @@ export const insuranceContent: StructuredLessonContent[] = [
             id: "ins3-mastery2",
             question: "What is the difference between collision and comprehensive coverage?",
             options: [
-              "Collision covers crashes with other cars/objects; comprehensive covers theft, fire, and weather",
+              "Collision covers crashes with other cars/objects; comprehensive covers theft, fire",
               "They are identical",
               "Collision covers theft; comprehensive covers crashes",
               "Comprehensive only covers other drivers"
@@ -682,7 +682,7 @@ export const insuranceContent: StructuredLessonContent[] = [
             question: "Why does seeing an out-of-network doctor usually cost more than an in-network one?",
             options: [
               "Out-of-network doctors are always better",
-              "The insurer has negotiated lower rates with in-network providers, so out-of-network care costs you much more",
+              "The insurer has negotiated lower rates with in-network providers",
               "In-network care is illegal",
               "There is no real difference"
             ],
@@ -800,7 +800,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           question: "During his six-month recovery, why was Marcus's family financially stable while Andre's was in crisis?",
           options: [
             "Marcus had a higher salary",
-            "Marcus's disability insurance replaced much of his income while he couldn't work; Andre had none",
+            "Marcus's disability insurance replaced much of his income",
             "Andre's accident was more expensive to treat",
             "Marcus's employer paid his full salary out of kindness"
           ],
@@ -839,7 +839,7 @@ export const insuranceContent: StructuredLessonContent[] = [
             question: "What is the key difference between term and whole life insurance?",
             options: [
               "Term lasts your whole life; whole life expires after a set period",
-              "Term covers a set period and is cheaper; whole life is permanent, costs more, and builds cash value",
+              "Term covers a set period and is cheaper; whole life is permanent, costs",
               "They are identical",
               "Whole life is only for teenagers"
             ],
@@ -1090,7 +1090,7 @@ export const insuranceContent: StructuredLessonContent[] = [
           question: "Why did Camila's assets transfer smoothly while Hector's went through a court-controlled process?",
           options: [
             "Camila had more money",
-            "Camila had a will and beneficiary designations, while Hector died intestate and Florida law took over",
+            "Camila had a will and beneficiary designations",
             "Hector lived outside Florida",
             "Beneficiary designations are illegal in Florida"
           ],

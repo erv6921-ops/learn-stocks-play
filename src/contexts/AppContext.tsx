@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier } from "@/types"
+import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier, EnrollmentTrack } from "@/types"
 import { supabase } from "@/integrations/supabase/client"
 import { recordMoneyEvent } from "@/lib/notifications"
 
@@ -61,21 +61,33 @@ const ls = {
   del(key: string) { try { localStorage.removeItem(key) } catch {} },
 }
 
+const ENROLLMENT_TRACKS: EnrollmentTrack[] = ["regular", "biz_lab", "gulliver_intro"]
+
+// Resolve a profile row to its enrollment track. Reads the new profiles.track
+// enum, falling back to the legacy biz_lab_enrolled boolean for rows written
+// before the enum migration (or fetched before it ran).
+function resolveTrack(profile: any): EnrollmentTrack {
+  const t = profile?.track as EnrollmentTrack | undefined
+  if (t && ENROLLMENT_TRACKS.includes(t)) return t
+  return profile?.biz_lab_enrolled ? "biz_lab" : "regular"
+}
+
 // Onboarding records the program choice in localStorage *before* the account
 // has a session (email-confirmation signups bounce to /auth first). On the
 // first authenticated hydrate we flush that pending choice to the profile and
-// clear the flag, so picking "Gulliver Biz Lab" survives the round-trip.
-function applyPendingBizLab(uid: string, current: boolean): boolean {
+// clear the flag, so picking "Gulliver Introduction to Business" (or Biz Lab)
+// survives the round-trip. biz_lab_enrolled is kept in sync for the rollback path.
+function applyPendingTrack(uid: string, current: EnrollmentTrack): EnrollmentTrack {
   let pending: string | null = null
-  try { pending = localStorage.getItem("investiplay_biz_lab_pending") } catch {}
-  if (pending !== "1" && pending !== "0") return current
-  const want = pending === "1"
+  try { pending = localStorage.getItem("investiplay_track_pending") } catch {}
+  if (!pending || !ENROLLMENT_TRACKS.includes(pending as EnrollmentTrack)) return current
+  const want = pending as EnrollmentTrack
   if (want !== current) {
-    supabase.from("profiles").update({ biz_lab_enrolled: want }).eq("id", uid).then(({ error }) => {
-      if (error) console.error("[biz_lab pending apply]", error)
+    supabase.from("profiles").update({ track: want, biz_lab_enrolled: want === "biz_lab" }).eq("id", uid).then(({ error }) => {
+      if (error) console.error("[track pending apply]", error)
     })
   }
-  try { localStorage.removeItem("investiplay_biz_lab_pending") } catch {}
+  try { localStorage.removeItem("investiplay_track_pending") } catch {}
   return want
 }
 
@@ -255,7 +267,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           benchmarkScores: (profile.benchmark_scores as any) ?? {},
           benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
           rewardMultiplier: profile.reward_multiplier ?? 1,
-          bizLabEnrolled: applyPendingBizLab(uid, !!(profile as any).biz_lab_enrolled),
+          track: applyPendingTrack(uid, resolveTrack(profile)),
           createdAt: new Date(profile.created_at ?? Date.now()),
         }
         setUser(hydrated)
@@ -380,7 +392,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
               benchmarkScores: (existingUser.benchmark_scores as any) ?? {},
               benchmarkCategoryScores: (existingUser.benchmark_category_scores as any) ?? {},
               rewardMultiplier: existingUser.reward_multiplier ?? 1,
-              bizLabEnrolled: applyPendingBizLab(session.user.id, !!(existingUser as any).biz_lab_enrolled),
+              track: applyPendingTrack(session.user.id, resolveTrack(existingUser)),
               createdAt: new Date(existingUser.created_at ?? Date.now()),
             })
           } else {

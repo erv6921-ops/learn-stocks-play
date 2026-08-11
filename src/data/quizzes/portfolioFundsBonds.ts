@@ -917,10 +917,10 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
         id: "portfolio-9-q8",
         question: "Why is 'risk of missing your goals' also a real risk, not just losing money?",
         options: [
-          "Goals are legally binding financial contracts",
-          "Being too cautious can leave you short of what you need",
-          "Missing goals triggers early withdrawal penalties",
-          "Brokers fine investors who miss targets"
+          "Goals are legally binding financial contracts you sign",
+          "Being too cautious can leave you short",
+          "Missing goals triggers early account withdrawal penalties",
+          "Brokers fine investors who repeatedly miss targets"
         ],
         correctAnswer: 1,
         explanation: "Hiding in cash for 40 years feels safe, but inflation and missed growth can leave you far short at retirement. Under-investing is itself a risk."
@@ -1244,10 +1244,10 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
         id: "funds-3-q1",
         question: "What is an expense ratio?",
         options: [
-          "The tax rate on fund profits",
-          "A fund's annual fee as a percent of assets",
-          "The ratio of stocks to bonds",
-          "Your monthly deposit divided by income"
+          "The government tax rate on all fund profits",
+          "A fund's annual fee versus its assets",
+          "The ratio of stocks to bonds held",
+          "Your monthly deposit divided by total income"
         ],
         correctAnswer: 1,
         explanation: "The expense ratio is the yearly fee a fund charges, expressed as a percentage of your invested money - 0.50% means $5 per $1,000 annually."
@@ -1922,10 +1922,10 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
         id: "funds-9-q6",
         question: "Which comparison between two funds is misleading?",
         options: [
-          "Comparing their expense ratios directly",
-          "Comparing their long-term benchmark tracking",
-          "Comparing a stock fund's return against a bond fund's",
-          "Comparing what each fund holds"
+          "Comparing their two expense ratios directly side by side",
+          "Comparing their long-term returns against a benchmark",
+          "Comparing a stock fund's return to a bond's",
+          "Comparing exactly what each of the funds holds"
         ],
         correctAnswer: 2,
         explanation: "Stock and bond funds have different jobs and risk levels - comparing raw returns across categories is apples versus oranges. Compare funds to peers and proper benchmarks."
@@ -1946,10 +1946,10 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
         id: "funds-9-q8",
         question: "Why does 'benchmark-appropriate' comparison matter when judging a fund?",
         options: [
-          "Benchmarks are chosen randomly each year",
-          "Funds pay benchmarks for endorsements",
-          "All funds share one universal benchmark",
-          "A fund should be judged against its own category"
+          "Benchmarks are chosen at random every single year",
+          "Funds secretly pay benchmarks for their endorsements",
+          "All funds share one single universal benchmark",
+          "A fund should be judged against its category"
         ],
         correctAnswer: 3,
         explanation: "A small-cap fund should be measured against a small-cap index, not the S&P 500 - otherwise you're grading it on someone else's test."

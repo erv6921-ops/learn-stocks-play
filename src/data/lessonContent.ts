@@ -19,6 +19,21 @@ import { creditExpansionContent } from "@/data/creditExpansionContent"
 import { incomeExpansionContent } from "@/data/incomeExpansionContent"
 import { budgetExpansionContent } from "@/data/budgetExpansionContent"
 import { savingsInvestExpansionContent } from "@/data/savingsInvestExpansionContent"
+import { deepStocksMarkets } from "@/data/deepStocksMarkets"
+import { deepPortfolioFundsBonds } from "@/data/deepPortfolioFundsBonds"
+import { deepStatementsRatiosVal } from "@/data/deepStatementsRatiosVal"
+import { deepBehavioralMacro } from "@/data/deepBehavioralMacro"
+import { deepOptionsAltPlanSim } from "@/data/deepOptionsAltPlanSim"
+import { deepEntreStrategyPsych } from "@/data/deepEntreStrategyPsych"
+import { deepApMicro } from "@/data/deepApMicro"
+import { deepIncome } from "@/data/deepIncome"
+import { deepBudget } from "@/data/deepBudget"
+import { deepBankingInsurance } from "@/data/deepBankingInsurance"
+import { deepCredit2 } from "@/data/deepCredit2"
+import { deepInvesting2 } from "@/data/deepInvesting2"
+import { deepBizA } from "@/data/deepBizA"
+import { deepBizB } from "@/data/deepBizB"
+import { deepBizC } from "@/data/deepBizC"
 
 /**
  * Structured 6-section lesson content.
@@ -481,7 +496,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
           question: "Why did David's 'safe' approach actually cost him money?",
           options: [
             "The bank charged him hidden fees",
-            "His 0.5% return was lower than inflation (~3%), so his purchasing power decreased",
+            "His 0.5% return was lower than inflation (~3%)",
             "He spent too much from the savings account",
             "The FDIC didn't protect his deposit"
           ],
@@ -515,7 +530,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
             question: "What is 'inflation risk'?",
             options: [
               "The risk that prices will decrease over time",
-              "The risk that your money's purchasing power decreases even while sitting 'safely' in a bank",
+              "The risk that your money's purchasing power decreases",
               "The risk of investing in inflation-protected securities",
               "The risk that the government will print less money"
             ],
@@ -596,7 +611,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
           options: [
             "Add more items to feel even better",
             "Buy just one item as a compromise",
-            "Close the browser, journal about her feelings, and revisit the cart in 24 hours",
+            "Close the browser, journal about her feelings",
             "Switch to a different shopping website with better deals"
           ],
           correctAnswer: 2,
@@ -646,7 +661,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
             question: "During COVID lockdowns, online impulse spending increased primarily because:",
             options: [
               "Products were cheaper online during COVID",
-              "People used shopping to cope with stress, boredom, and loss of control",
+              "People used shopping to cope with stress, boredom",
               "Government stimulus checks made everyone wealthier",
               "Delivery services became faster during the pandemic"
             ],
@@ -890,6 +905,42 @@ export const structuredLessonContent: StructuredLessonContent[] = [
             ],
             correctAnswer: 2,
             explanation: "Shopping with a list and doing independent price research removes the power of anchoring, scarcity, and impulse triggers. You're comparing to real market value rather than manufactured 'original' prices. Sales aren't inherently bad - they're bad when they cause you to buy things you didn't intend to buy or pay more than something is worth."
+          },
+          {
+            id: "psych7-mastery4",
+            question: "A product page bragging '10,000 sold this week' relies on:",
+            options: [
+              "Anchoring against an inflated original price",
+              "Social proof, leaning on our herd instincts",
+              "Decoy pricing built around a throwaway option",
+              "Penetration pricing meant to undercut rivals"
+            ],
+            correctAnswer: 1,
+            explanation: "Social proof leverages herd mentality - if thousands of others bought it, your brain assumes it must be good and your guard drops. The number is designed to reassure you and short-circuit independent judgment, whether or not the product actually fits your needs."
+          },
+          {
+            id: "psych7-mastery5",
+            question: "Why does 'Only 3 left in stock!' push people to buy?",
+            options: [
+              "It proves the product is nearly sold out",
+              "It creates urgency that overrides careful thinking",
+              "It guarantees the lowest price of the year",
+              "It shows the seller is losing money fast"
+            ],
+            correctAnswer: 1,
+            explanation: "Scarcity messaging manufactures urgency. The fear of missing out activates a fast, emotional response and sidelines the rational part of your brain that would otherwise ask whether you even need the item. The '3 left' claim is often not literally true."
+          },
+          {
+            id: "psych7-mastery6",
+            question: "Marketers prefer 'Don't miss out!' over 'You could gain this!' because:",
+            options: [
+              "Gain-focused wording is banned in most ads",
+              "Losses sting more than equal gains do",
+              "The two phrasings perform almost identically",
+              "Shoppers tend to ignore urgency in ads"
+            ],
+            correctAnswer: 1,
+            explanation: "Loss framing is more motivating than gain framing because of loss aversion - psychologically, the pain of losing something feels roughly twice as strong as the pleasure of gaining the same thing. 'Don't miss out' taps that pain, which is why it drives more action."
           }
         ]
       }
@@ -1009,6 +1060,42 @@ export const structuredLessonContent: StructuredLessonContent[] = [
             ],
             correctAnswer: 2,
             explanation: "Systems beat willpower. Stop-losses automatically sell declining investments. Auto-investing removes timing decisions. Checklists ensure you evaluate all factors before buying. These systems work because they're created when you're thinking rationally and executed when you might not be. No one is immune to biases - but good systems neutralize them."
+          },
+          {
+            id: "psych8-mastery4",
+            question: "Leaving all your savings in a 0.1% account for years, never switching, reflects:",
+            options: [
+              "A disciplined and patient long-term savings strategy",
+              "Status quo bias favoring comfort over change",
+              "Confirmation bias about future interest rate trends",
+              "The Dunning-Kruger effect applied to banking"
+            ],
+            correctAnswer: 1,
+            explanation: "Status quo bias is the pull to keep things as they are because change feels risky or effortful. Sticking with a near-zero savings rate for years - when better options are a few clicks away - is that bias quietly costing you real money through inflation."
+          },
+          {
+            id: "psych8-mastery5",
+            question: "Buying a stock only because 'everyone online is buying it' shows:",
+            options: [
+              "Careful independent research into the fundamentals",
+              "Herd mentality replacing your own analysis",
+              "A patient, well-diversified portfolio strategy",
+              "Long-term value investing with discipline"
+            ],
+            correctAnswer: 1,
+            explanation: "Herd mentality means following the crowd instead of doing your own analysis. Bubbles form exactly this way - people buy because others are buying, not because the investment makes sense. The crowd is often most confident right before a reversal."
+          },
+          {
+            id: "psych8-mastery6",
+            question: "The strongest habit for beating confirmation bias when investing is to:",
+            options: [
+              "Read only sources that share your view",
+              "Actively seek out the strongest opposing case",
+              "Trust your first instinct and act fast",
+              "Wait until you feel completely certain"
+            ],
+            correctAnswer: 1,
+            explanation: "Confirmation bias makes you collect evidence that agrees with you and ignore the rest. The antidote is to deliberately hunt for the best argument against your position - a thesis that survives real scrutiny is far stronger than one you only defended."
           }
         ]
       }
@@ -1111,7 +1198,7 @@ export const structuredLessonContent: StructuredLessonContent[] = [
             question: "Someone who believes 'Money is the root of all evil' might unconsciously:",
             options: [
               "Invest aggressively to build wealth",
-              "Sabotage their own financial success because they associate wealth with being bad",
+              "Sabotage their own financial success",
               "Start a successful business",
               "Develop excellent budgeting habits"
             ],
@@ -1351,7 +1438,10 @@ export function getStructuredContent(
   recentQuestionIds: string[] = [],
   studentTier: MasteryTier | null = null
 ): StructuredLessonContent | null {
-  const allContent = [...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...insuranceContent, ...creditExpansionContent, ...incomeExpansionContent, ...budgetExpansionContent, ...savingsInvestExpansionContent, ...apMicroUnit1Content]
+  // deep* content comes FIRST so it wins the `.find()` below for any lessonId
+  // that also has an older, thinner entry (e.g. psych-1..10 in
+  // structuredLessonContent) - the deepened version is the one we want served.
+  const allContent = [...deepStocksMarkets, ...deepPortfolioFundsBonds, ...deepStatementsRatiosVal, ...deepBehavioralMacro, ...deepOptionsAltPlanSim, ...deepEntreStrategyPsych, ...deepApMicro, ...deepIncome, ...deepBudget, ...deepBankingInsurance, ...deepCredit2, ...deepInvesting2, ...deepBizA, ...deepBizB, ...deepBizC, ...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...insuranceContent, ...creditExpansionContent, ...incomeExpansionContent, ...budgetExpansionContent, ...savingsInvestExpansionContent, ...apMicroUnit1Content]
   const handWritten = allContent.find(c => c.lessonId === lessonId)
   const lesson = lessons.find((l) => l.id === lessonId)
 

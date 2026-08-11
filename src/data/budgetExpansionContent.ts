@@ -182,7 +182,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             question: "Why does pricing something at $9.99 instead of $10.00 work on shoppers?",
             options: [
               "Because $9.99 is dramatically cheaper",
-              "Because we read the left digit first, so $9.99 feels closer to $9 than $10",
+              "Because we read the left digit first",
               "Because stores must legally avoid round numbers",
               "Because it includes free shipping"
             ],
@@ -221,7 +221,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
           question: "How should Keisha evaluate whether the '$50 off $250' deal is better than the '$5 off $25' deal?",
           options: [
             "The bigger dollar amount is always the better deal",
-            "Compare the discount percentages - both are 20%, so neither is inherently better",
+            "Compare the discount percentages - both are 20%",
             "Whichever has the louder sign",
             "Always pick the more expensive item"
           ],
@@ -404,7 +404,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             id: "budget13-mastery2",
             question: "What does a charity's overhead ratio measure?",
             options: [
-              "The share of donations spent on administration and fundraising rather than the cause",
+              "The share of donations spent on administration and fundraising",
               "The number of employees",
               "Its social media followers",
               "Its building's height"
@@ -429,7 +429,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             question: "Which is a warning sign of charity fraud?",
             options: [
               "A clear description of how funds are used",
-              "High-pressure tactics, vague spending claims, and unusual payment requests",
+              "High-pressure tactics, vague spending claims",
               "A listing on Charity Navigator",
               "Transparent financial reports"
             ],
@@ -511,7 +511,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
           question: "Which set of actions best fits Maria's situation with a faulty product and an uncooperative store?",
           options: [
             "Do nothing and accept the loss",
-            "File with Florida's DACS, file a BBB complaint, and dispute the charge with her credit card company",
+            "File with Florida's DACS, file a BBB complaint",
             "Report it to the FDA only",
             "Call the SEC"
           ],
@@ -707,7 +707,7 @@ export const budgetExpansionContent: StructuredLessonContent[] = [
             question: "What does an arbitration clause mean for your rights?",
             options: [
               "It guarantees you can sue in court",
-              "It can require disputes to be settled through arbitration instead of a lawsuit, limiting your right to sue",
+              "It can require disputes to be settled through arbitration",
               "It eliminates the contract",
               "It doubles your refund"
             ],

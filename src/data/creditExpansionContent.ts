@@ -7,6 +7,191 @@ import { StructuredLessonContent } from "@/types"
 
 export const creditExpansionContent: StructuredLessonContent[] = [
   // ─────────────────────────────────────────────
+  // credit-8: Mortgages - deepened, replaces the thin generated version
+  // ─────────────────────────────────────────────
+  {
+    lessonId: "credit-8",
+    sections: [
+      {
+        type: "concept",
+        title: "What a Mortgage Actually Is",
+        paragraphs: [
+          "A mortgage is a loan you use to buy a home, and it's the biggest loan most people ever take on. Homes cost far more than anyone keeps in cash - a house might cost $300,000 while the buyer has maybe $30,000 saved. So a bank lends the rest, and you pay it back monthly for 15 to 30 years. Because the loan is so huge, the bank protects itself with a lien on the house: the home is collateral. If you stop paying, the bank can take the home through a legal process called foreclosure and sell it to get its money back.",
+          "The cash you pay upfront is the down payment, usually 3% to 20% of the price. It matters more than people expect. A bigger down payment means you borrow less, so your monthly payment shrinks and you pay less interest over the years. It also helps you skip PMI - Private Mortgage Insurance - an extra monthly fee (often $100 to $250) that lenders add when your down payment is under 20%. The catch that surprises people: PMI protects the lender, not you, so avoiding it saves real money every single month.",
+          "The part of the home you truly own is called equity. On day one, if you put 10% down, you own about 10% and the bank effectively holds the other 90%. Every payment you make, plus any rise in the home's value, grows your equity. This is the core difference between renting and buying: rent disappears forever, while mortgage payments slowly turn into ownership you keep. That's why buying can build wealth - but only if you can comfortably afford the payment, because the risks (foreclosure, repairs, and falling home values) are just as real."
+        ],
+        bullets: [
+          "A mortgage is a home loan; the house is collateral, so missing payments can lead to foreclosure.",
+          "Down payments run 3%-20% of the price; a bigger one is cheaper in the long run.",
+          "A down payment under 20% usually triggers PMI, an extra monthly fee that protects the lender.",
+          "Equity is the share of the home you actually own; it grows as you pay down the loan.",
+          "Rent is gone forever; mortgage payments slowly build ownership you keep."
+        ],
+        realWorldExample: "On a $300,000 home, putting 20% down ($60,000) lets you skip PMI and borrow $240,000. Putting just 5% down ($15,000) means borrowing $285,000 AND paying maybe $150 a month in PMI - about $1,800 a year - until your equity reaches 20%. Same house, very different cost."
+      },
+      {
+        type: "concept",
+        title: "The Real Cost: Rates, Terms, and PITI",
+        paragraphs: [
+          "Not all mortgages charge interest the same way. A fixed-rate mortgage locks your interest rate for the entire loan, so the payment never changes - predictable and safe. An adjustable-rate mortgage (ARM) starts with a lower rate for a few years, then adjusts up or down with the market. An ARM can save money if rates fall, but it's a gamble: if rates jump, your payment can climb by hundreds of dollars. Most first-time buyers choose fixed-rate loans precisely because they don't want surprises on their biggest monthly bill.",
+          "You also pick a term - how many years you have to pay. A 30-year loan has low monthly payments, but you owe interest for three decades, so the total cost is enormous. A 15-year loan has higher monthly payments but saves a fortune in interest. Here's the sneaky part: mortgages are 'amortized,' meaning early payments are mostly interest and barely dent the balance. On a brand-new 30-year loan, your first payment might be 80% interest and only 20% principal. That mix flips slowly over the years, which is why equity builds so slowly at the start.",
+          "Your monthly payment is bigger than just the loan. The shorthand is PITI: Principal (the balance), Interest (the bank's charge), Taxes (property taxes to your city), and Insurance (homeowners insurance). Taxes and insurance are often collected into an 'escrow' account and paid for you. On top of the down payment, buying involves closing costs - fees for the appraisal, title, and paperwork - usually 2% to 5% of the price, due the day you sign. Smart buyers get 'pre-approved' by a lender first, so they know exactly what they can afford before falling in love with a house."
+        ],
+        bullets: [
+          "Fixed-rate = the same payment for the whole loan; ARM = lower at first but can rise with the market.",
+          "30-year loans have lower payments but far more total interest; 15-year loans save huge interest.",
+          "Mortgages are amortized: early payments are mostly interest, so equity builds slowly at first.",
+          "PITI = Principal + Interest + Taxes + Insurance, with taxes and insurance often held in escrow.",
+          "Closing costs (2%-5%) are due at signing, on top of the down payment; get pre-approved first."
+        ],
+        realWorldExample: "A $240,000 loan at 7%: on a 30-year term the payment is about $1,600 a month, and you'd pay roughly $335,000 in interest alone over 30 years. On a 15-year term the payment jumps to about $2,160 - but total interest drops to about $148,000. Paying more each month saves nearly $190,000."
+      },
+      {
+        type: "micro-check",
+        questions: [
+          {
+            id: "credit8-mc1",
+            question: "When does a lender usually require PMI?",
+            options: [
+              "When the down payment is 20% or more",
+              "When the down payment is under 20%",
+              "Only on 15-year fixed mortgages",
+              "Whenever the home value rises quickly"
+            ],
+            correctAnswer: 1,
+            explanation: "PMI is usually required when your down payment is under 20%, because the lender has less equity cushion and takes on more risk. It's an extra monthly fee that protects the lender, not you."
+          },
+          {
+            id: "credit8-mc2",
+            question: "What does 'equity' in a home mean?",
+            options: [
+              "The total price the home originally sold for",
+              "The share of the home you actually own",
+              "The interest the bank charges you each year",
+              "The yearly property tax you owe the city"
+            ],
+            correctAnswer: 1,
+            explanation: "Equity is the portion of the home you truly own - the value minus what you still owe. It grows as you pay down the loan and as the home's value rises."
+          }
+        ]
+      },
+      {
+        type: "scenario",
+        title: "Maya Compares Renting and Buying",
+        narrative: "Maya, 24, pays $1,500 a month to rent an apartment. She's considering buying a $250,000 condo with 10% down on a 30-year fixed mortgage. Her PITI payment would be about $1,750 a month - $250 more than rent. She's trying to decide whether the extra cost is worth it, and what could go wrong.",
+        details: [
+          "Her $25,000 down payment gives her about 10% equity on day one; the bank effectively holds the other 90%.",
+          "Because her down payment is under 20%, her payment includes PMI until she builds more equity.",
+          "Renting, her $1,500 vanishes each month; buying, part of her $1,750 payment builds ownership.",
+          "Risks: if she loses her job and misses payments, the lender can foreclose; if condo values fall, her equity shrinks."
+        ]
+      },
+      {
+        type: "applied-question",
+        question: {
+          id: "credit8-aq1",
+          question: "Maya's monthly payment is $250 more than her rent. Which is the BEST reason buying might still be worth it?",
+          options: [
+            "Owning guarantees the condo will rise in value",
+            "Part of each payment builds equity she keeps",
+            "Homeowners never pay for repairs or taxes",
+            "Mortgage payments are refunded when she sells"
+          ],
+          correctAnswer: 1,
+          explanation: "Unlike rent, which is gone forever, part of every mortgage payment pays down the loan and builds equity Maya keeps. Owning does NOT guarantee gains, and owners still pay for repairs, taxes, and insurance."
+        }
+      },
+      {
+        type: "recap",
+        takeaways: [
+          "A mortgage is a home loan secured by the house itself - miss payments and you risk foreclosure.",
+          "A bigger down payment lowers your cost and helps you avoid PMI.",
+          "Fixed-rate loans keep payments steady; ARMs can rise; 15-year loans cost less interest than 30-year.",
+          "PITI bundles principal, interest, taxes, and insurance into one monthly payment.",
+          "Buying builds equity over time, but only makes sense if you can comfortably afford the full cost."
+        ]
+      },
+      {
+        type: "mastery-check",
+        requiredCorrect: 4,
+        questions: [
+          {
+            id: "credit8-mastery1",
+            question: "A mortgage lender holds a lien on your home. What does that let them do if you stop paying?",
+            options: [
+              "Raise your interest rate to make up the difference",
+              "Take the home through foreclosure and sell it",
+              "Report you to the credit bureau just once",
+              "Charge you a single small one-time fee"
+            ],
+            correctAnswer: 1,
+            explanation: "A lien makes the house collateral. If you default, the lender can foreclose - legally take the home and sell it to recover the loan. That's the core risk of any mortgage."
+          },
+          {
+            id: "credit8-mastery2",
+            question: "You put 5% down instead of 20% on a home. What is the main financial downside?",
+            options: [
+              "You legally cannot ever sell the home later",
+              "You borrow more and usually pay monthly PMI",
+              "Your property taxes automatically double each year",
+              "The interest rate is fixed for only one year"
+            ],
+            correctAnswer: 1,
+            explanation: "A smaller down payment means a bigger loan (more interest) plus PMI until your equity reaches 20%. Taxes don't double and the term isn't shortened - those are distractors."
+          },
+          {
+            id: "credit8-mastery3",
+            question: "Why does a 15-year mortgage cost far less in total than a 30-year one?",
+            options: [
+              "The government subsidizes all shorter mortgages",
+              "You pay interest for fewer years overall",
+              "Shorter loans are legally capped at 2% interest",
+              "Banks waive the principal on 15-year loans"
+            ],
+            correctAnswer: 1,
+            explanation: "Fewer years of interest means far less total interest, even though the monthly payment is higher. There's no legal rate cap or subsidy - the savings come purely from time."
+          },
+          {
+            id: "credit8-mastery4",
+            question: "On a brand-new 30-year mortgage, most of your first payment goes toward…",
+            options: [
+              "Interest, because the loan is amortized",
+              "Principal, shrinking the balance fast",
+              "Property taxes for the whole year",
+              "Homeowners insurance premiums only"
+            ],
+            correctAnswer: 0,
+            explanation: "Amortization front-loads interest: early on, most of each payment is interest and only a little reduces the balance. That's why equity builds slowly in the first years."
+          },
+          {
+            id: "credit8-mastery5",
+            question: "The 'T' and 'I' in PITI refer to…",
+            options: [
+              "Time and Income on the loan",
+              "Property taxes and homeowners insurance",
+              "Total interest paid over time",
+              "Title fees and inspection costs"
+            ],
+            correctAnswer: 1,
+            explanation: "PITI = Principal, Interest, Taxes, and Insurance. The T is property taxes and the I (the second one) is homeowners insurance - often collected in escrow and paid for you."
+          },
+          {
+            id: "credit8-mastery6",
+            question: "Getting 'pre-approved' before house hunting mainly helps you…",
+            options: [
+              "Skip paying any closing costs at signing",
+              "Know the price range you can afford",
+              "Lock a 0% interest rate for life",
+              "Avoid ever needing a down payment"
+            ],
+            correctAnswer: 1,
+            explanation: "Pre-approval tells you how much a lender will actually lend, so you shop in a realistic price range. It doesn't erase closing costs, give a 0% rate, or remove the down payment."
+          }
+        ]
+      }
+    ]
+  },
+  // ─────────────────────────────────────────────
   // credit-11: Getting Out of Debt - Counseling & Negotiation (FL.5.9)
   // ─────────────────────────────────────────────
   {
@@ -139,7 +324,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             question: "In a Debt Management Plan, how do your payments work?",
             options: [
               "You stop paying entirely",
-              "You make one monthly payment to the agency, which distributes it to your creditors, often at lower interest",
+              "You make one monthly payment to the agency",
               "Creditors forgive all your debt instantly",
               "You pay each creditor double"
             ],
@@ -366,7 +551,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
           question: "What happens if the Rodriguezes miss several mortgage payments?",
           options: [
             "Nothing, since the home is already theirs",
-            "The lender can begin foreclosure because the home is collateral for the loan",
+            "The lender can begin foreclosure",
             "Their interest rate automatically drops",
             "The government pays the missed payments"
           ],
@@ -511,7 +696,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
           question: "Where can Devon file a complaint about a debt collector or predatory lender?",
           options: [
             "The local library",
-            "The CFPB (Consumer Financial Protection Bureau), and he can also report to the FTC",
+            "The CFPB (Consumer Financial Protection Bureau)",
             "His cell phone provider",
             "Nowhere - there's no agency for this"
           ],
@@ -562,7 +747,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             question: "What does the Equal Credit Opportunity Act (ECOA) prohibit?",
             options: [
               "Charging any interest at all",
-              "Discriminating in lending based on race, sex, religion, age, and other protected traits",
+              "Discriminating in lending based on race, sex, religion, age",
               "Offering credit cards to students",
               "Disclosing the APR"
             ],
@@ -656,7 +841,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
           question: "What should Carlos do about the erroneous collection account?",
           options: [
             "Ignore it and hope it disappears",
-            "File a written dispute with the credit bureau, which must investigate within about 30 days",
+            "File a written dispute with the credit bureau",
             "Immediately pay the disputed amount even if it's wrong",
             "Open new accounts to raise his score instead"
           ],
@@ -801,7 +986,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
           question: "Why should Priya prefer subsidized loans over unsubsidized loans when she has the choice?",
           options: [
             "Subsidized loans never have to be repaid",
-            "The government pays the interest on subsidized loans while she's in school, so less debt builds up",
+            "The government pays the interest on subsidized loans",
             "Unsubsidized loans are illegal for Florida students",
             "Subsidized loans have higher interest rates"
           ],
@@ -851,7 +1036,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             id: "credit16-mastery3",
             question: "What is the difference between a subsidized and unsubsidized federal loan?",
             options: [
-              "Subsidized loans: the government pays interest while you're in school; unsubsidized loans accrue interest from day one",
+              "Subsidized loans: the government pays interest",
               "They are identical",
               "Unsubsidized loans are free",
               "Subsidized loans charge double interest"
@@ -946,7 +1131,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
           question: "Why does the 48-month loan save Jasmine about $1,800 even though its monthly payment is higher?",
           options: [
             "Because shorter terms have no interest",
-            "Because she pays off the balance faster and at a lower rate, so less total interest accumulates",
+            "Because she pays off the balance faster and at a lower rate",
             "Because the lender made an error",
             "Because longer loans are always cheaper"
           ],
@@ -996,7 +1181,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             id: "credit17-mastery3",
             question: "Which documents do lenders typically require for a loan application?",
             options: [
-              "Pay stubs, tax returns, bank statements, and ID",
+              "Pay stubs, tax returns, bank statements",
               "Only a phone number",
               "Your social media passwords",
               "A letter from a friend"
@@ -1009,7 +1194,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             question: "Why do longer loan terms cost more in total?",
             options: [
               "They don't - they always cost less",
-              "Because you pay interest over a longer period, so more interest accumulates even if monthly payments are lower",
+              "Because you pay interest over a longer period",
               "Because lenders charge a flat penalty",
               "Because the principal doubles"
             ],
@@ -1052,7 +1237,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             question: "What is the key difference between subsidized and unsubsidized federal loans?",
             options: [
               "Subsidized loans never have to be repaid",
-              "On subsidized loans the government pays interest while you're in school; unsubsidized loans accrue interest from day one",
+              "On subsidized loans the government pays interest",
               "Unsubsidized loans are interest-free",
               "They are identical"
             ],
@@ -1117,7 +1302,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             id: "credit18-mastery1",
             question: "What distinguishes a subsidized federal loan from an unsubsidized one?",
             options: [
-              "The government pays interest on subsidized loans while you're in school; unsubsidized loans accrue interest immediately",
+              "The government pays interest on subsidized loans",
               "Subsidized loans are free forever",
               "Unsubsidized loans require no repayment",
               "They are the same"
@@ -1130,7 +1315,7 @@ export const creditExpansionContent: StructuredLessonContent[] = [
             question: "What does Public Service Loan Forgiveness (PSLF) require?",
             options: [
               "Nothing - it's automatic for everyone",
-              "About 10 years of qualifying payments while working in public service, on federal loans",
+              "About 10 years of qualifying payments",
               "Repaying private loans for 5 years",
               "A perfect credit score"
             ],

@@ -274,7 +274,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
           options: [
             "Raise all prices 15% immediately",
             "Keep all prices the same and accept lower profits indefinitely",
-            "Selectively raise prices on some items, reduce portion sizes slightly, and optimize the menu to feature lower-cost ingredients",
+            "Selectively raise prices on some items, reduce portion sizes slightly",
             "Close half the restaurants to cut costs"
           ],
           correctAnswer: 2,
@@ -385,7 +385,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
           options: [
             "Ignore the trend - it's just a fad",
             "Completely rebrand as a plant-based restaurant",
-            "Add plant-based options to the existing menu while maintaining their core identity",
+            "Add plant-based options to the existing menu",
             "Launch negative advertising against plant-based competitors"
           ],
           correctAnswer: 2,
@@ -547,7 +547,7 @@ export const pestelAnalysisContent: StructuredLessonContent[] = [
           {
             id: "pestel-5-mq5",
             question: "The best response to technological disruption in your industry is usually to:",
-            options: ["Resist all change", "Evaluate and integrate relevant technologies while maintaining core strengths", "Abandon your entire business model immediately", "Wait until competitors have fully adopted it"],
+            options: ["Resist all change", "Evaluate and integrate relevant technologies", "Abandon your entire business model immediately", "Wait until competitors have fully adopted it"],
             correctAnswer: 1,
             explanation: "Strategic technology adoption - evaluating what's relevant and integrating it thoughtfully - balances innovation with stability."
           }

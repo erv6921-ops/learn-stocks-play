@@ -50,7 +50,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
             question: "Why is a Roth IRA usually better for a teenager with a part-time job?",
             options: [
               "Because teens pay the highest tax rates",
-              "Because they're in a low tax bracket now, so paying tax upfront is cheap and growth is tax-free later",
+              "Because they're in a low tax bracket now",
               "Because Roth IRAs require no contributions",
               "Because teens can't use Traditional IRAs"
             ],
@@ -285,7 +285,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
             question: "Why does automatic enrollment increase retirement savings?",
             options: [
               "Because it forces people to contribute 50% of pay",
-              "Because most people stick with the default, so inertia keeps them saving",
+              "Because most people stick with the default",
               "Because it's required by law for everyone",
               "Because it pays a guaranteed bonus"
             ],
@@ -328,7 +328,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
             question: "What is the SEC's primary role?",
             options: [
               "Setting interest rates",
-              "Requiring company disclosure, investigating fraud, and overseeing brokers",
+              "Requiring company disclosure, investigating fraud",
               "Printing money",
               "Insuring bank deposits"
             ],
@@ -393,7 +393,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
             id: "invest11-mastery1",
             question: "What is the SEC's main job?",
             options: [
-              "Protecting investors through disclosure rules, fraud investigation, and broker oversight",
+              "Protecting investors through disclosure rules, fraud investigation",
               "Setting the federal interest rate",
               "Printing currency",
               "Running the stock exchanges directly"
@@ -538,7 +538,7 @@ export const savingsInvestExpansionContent: StructuredLessonContent[] = [
             id: "invest12-mastery1",
             question: "What is the main difference between a 403(b) and a 401(k)?",
             options: [
-              "A 403(b) is for schools, nonprofits, and hospitals; a 401(k) is for most private companies - otherwise they work similarly",
+              "A 403(b) is for schools, nonprofits",
               "A 403(b) can't grow in value",
               "A 401(k) is only for teachers",
               "They have nothing in common"
