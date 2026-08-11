@@ -16,8 +16,9 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
-import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight, MailCheck, PartyPopper } from "lucide-react"
+import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight, MailCheck, PartyPopper, Building2 } from "lucide-react"
 import Confetti from "@/components/Confetti"
+import { EnrollmentTrack } from "@/types"
 
 type UserRole = "student" | "teacher"
 type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-account" | "student-details" | "program-select" | "welcome" | "assessment" | "results"
@@ -224,8 +225,10 @@ export default function Onboarding() {
   // 6-digit code here ("code") then celebrate ("done") - no magic link.
   const [emailStep, setEmailStep] = useState<"" | "code" | "done">("")
   const [emailCode, setEmailCode] = useState("")
-  // Program choice: standard InvestiPlay vs. the Gulliver Biz Lab (Shark Tank).
-  const [bizLab, setBizLab] = useState<boolean>(() => !!user?.bizLabEnrolled)
+  // Program choice: Regular Course, Gulliver Biz Lab (Shark Tank), or Gulliver
+  // Introduction to Business. Persisted to profiles.track; biz_lab_enrolled is
+  // kept in sync for rollback.
+  const [track, setTrack] = useState<EnrollmentTrack>(() => user?.track ?? (user?.bizLabEnrolled ? "biz_lab" : "regular"))
 
   // Adaptive assessment state
   const [questionPool] = useState<BenchmarkQuestion[]>(() => buildAdaptivePool())
@@ -455,7 +458,8 @@ export default function Onboarding() {
       reward_multiplier: rewardMultiplier,
       benchmark_scores: benchmarkScoresLegacy,
       benchmark_category_scores: categoryScores,
-      biz_lab_enrolled: bizLab,
+      track,
+      biz_lab_enrolled: track === "biz_lab",
     })
     if (!saved) {
       setLoading(false)
@@ -483,7 +487,8 @@ export default function Onboarding() {
       benchmarkScores: benchmarkScoresLegacy,
       benchmarkCategoryScores: categoryScores,
       rewardMultiplier,
-      bizLabEnrolled: bizLab,
+      track,
+      bizLabEnrolled: track === "biz_lab",
     }
 
     setUser(localUser)
@@ -503,7 +508,8 @@ export default function Onboarding() {
       reward_multiplier: 1,
       benchmark_scores: {},
       benchmark_category_scores: {},
-      biz_lab_enrolled: bizLab,
+      track,
+      biz_lab_enrolled: track === "biz_lab",
     })
     if (!saved) {
       setLoading(false)
@@ -523,7 +529,8 @@ export default function Onboarding() {
       benchmarkScores: {},
       benchmarkCategoryScores: {},
       rewardMultiplier: 1,
-      bizLabEnrolled: bizLab,
+      track,
+      bizLabEnrolled: track === "biz_lab",
       createdAt: new Date()
     }
 
@@ -1130,9 +1137,12 @@ export default function Onboarding() {
           </motion.div>
         )}
 
-        {/* Step 3: Program selection (students) - Standard vs. Gulliver Biz Lab.
-            Comes BEFORE account creation so it always shows even when email
-            confirmation is on (sign-up otherwise bounces to /auth first). */}
+        {/* Step 3: Program selection (students) - Regular Course, Gulliver Biz
+            Lab, or Gulliver Introduction to Business. Comes BEFORE account
+            creation so it always shows even when email confirmation is on
+            (sign-up otherwise bounces to /auth first). The pending flag is
+            applied to the profile on first login, so the choice survives the
+            email-confirmation round-trip. */}
         {step === "program-select" && (
           <motion.div
             key="program-select"
@@ -1147,17 +1157,15 @@ export default function Onboarding() {
               mood="excited"
               message="Pick your adventure! You can explore the full app either way."
               title="Choose your program"
-              subtitle="Are you here for the standard curriculum, or the Shark Tank Biz Lab?"
+              subtitle="Which course is your class using?"
             />
             <div className="w-full max-w-sm space-y-3">
               <button
                 onClick={() => {
-                  setBizLab(false)
+                  setTrack("regular")
                   try {
                     localStorage.setItem("investiplay_active_track", "florida")
-                    // Pending flag is applied to the profile on first login, so the
-                    // choice survives the email-confirmation round-trip.
-                    localStorage.setItem("investiplay_biz_lab_pending", "0")
+                    localStorage.setItem("investiplay_track_pending", "regular")
                   } catch {}
                   setStep("student-account")
                 }}
@@ -1167,17 +1175,17 @@ export default function Onboarding() {
                   <GraduationCap className="w-6 h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-lg">Standard InvestiPlay</div>
+                  <div className="font-semibold text-lg">Regular Course</div>
                   <p className="text-sm text-muted-foreground mt-0.5">The full money-skills curriculum, lessons, stocks, and AP tracks</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
               <button
                 onClick={() => {
-                  setBizLab(true)
+                  setTrack("biz_lab")
                   try {
                     localStorage.setItem("investiplay_active_track", "gulliver-biz-lab")
-                    localStorage.setItem("investiplay_biz_lab_pending", "1")
+                    localStorage.setItem("investiplay_track_pending", "biz_lab")
                   } catch {}
                   setStep("student-account")
                 }}
@@ -1193,6 +1201,28 @@ export default function Onboarding() {
                   <p className="text-sm text-muted-foreground mt-0.5">Build a business and pitch it to the Sharks. Hides the AP elective tabs.</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-gold group-hover:translate-x-0.5 transition-all shrink-0" />
+              </button>
+              <button
+                onClick={() => {
+                  setTrack("gulliver_intro")
+                  try {
+                    // No dedicated CourseTrack view yet (intro content lands in a
+                    // later step), so the Missions tab defaults to the regular course.
+                    localStorage.setItem("investiplay_active_track", "florida")
+                    localStorage.setItem("investiplay_track_pending", "gulliver_intro")
+                  } catch {}
+                  setStep("student-account")
+                }}
+                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <Building2 className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg">Gulliver Introduction to Business</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">The 9th-grade intro business course. Hides the AP elective tabs.</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
             </div>
             <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("name")}>

@@ -20,7 +20,7 @@ import {
   GraduationCap, Target, BookOpen, Medal, Rocket, Compass, Shield, Sparkles, Gem,
   Maximize2, Minimize2,
 } from "lucide-react";
-import { LessonCategory, CourseTrack } from "@/types";
+import { LessonCategory, CourseTrack, EnrollmentTrack } from "@/types";
 import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
 import GulliverBizLab from "@/components/bizlab/GulliverBizLab";
@@ -96,18 +96,22 @@ export default function Lessons() {
     try { localStorage.setItem("investiplay_active_track", activeTrack); } catch { /* storage unavailable */ }
   }, [activeTrack]);
 
-  // Biz Lab students only see Regular Course + Gulliver Biz Lab - never the AP
-  // elective. If a stale track was stored, fall back to the regular course.
-  const bizLabEnrolled = !!user?.bizLabEnrolled;
+  // Persisted enrollment track (profiles.track). `bizLabEnrolled` gates the
+  // Biz Lab tab + content; `hidesApElective` gates the AP elective (hidden for
+  // both Biz Lab and Gulliver Intro). If a stale view-state track was stored,
+  // fall back to the regular course.
+  const enrollmentTrack: EnrollmentTrack = user?.track ?? "regular";
+  const bizLabEnrolled = enrollmentTrack === "biz_lab";
+  const hidesApElective = enrollmentTrack === "biz_lab" || enrollmentTrack === "gulliver_intro";
   useEffect(() => {
-    if (bizLabEnrolled && activeTrack === "ap-micro") setActiveTrack("florida");
+    if (hidesApElective && activeTrack === "ap-micro") setActiveTrack("florida");
     if (!bizLabEnrolled && activeTrack === "gulliver-biz-lab") setActiveTrack("florida");
-  }, [bizLabEnrolled, activeTrack]);
+  }, [hidesApElective, bizLabEnrolled, activeTrack]);
 
-  // Biz Lab students get the original Regular Course format (roller coaster,
-  // badges, etc.) - never the AP Mode layout, even if AP Mode was toggled on
-  // before enrolling and is still stored in localStorage.
-  const effectiveApMode = apMode && !bizLabEnrolled;
+  // Biz Lab / Gulliver Intro students get the original Regular Course format
+  // (roller coaster, badges, etc.) - never the AP Mode layout, even if AP Mode
+  // was toggled on before enrolling and is still stored in localStorage.
+  const effectiveApMode = apMode && !hidesApElective;
   const trackUnits = useMemo(
     () => unitInfo.filter(u => (u.track ?? "florida") === activeTrack).sort((a, b) => a.orderIndex - b.orderIndex),
     [activeTrack]
@@ -430,14 +434,17 @@ export default function Lessons() {
 
   // The immersive world map is the default Missions view. Biz Lab and AP Mode
   // keep their own (container) layouts.
-  const trackTabs = bizLabEnrolled
+  const trackTabs: { key: CourseTrack; label: string }[] = bizLabEnrolled
     ? [
-        { key: "florida" as CourseTrack, label: "Course" },
-        { key: "gulliver-biz-lab" as CourseTrack, label: "Biz Lab" },
+        { key: "florida", label: "Course" },
+        { key: "gulliver-biz-lab", label: "Biz Lab" },
       ]
+    : hidesApElective
+    // Gulliver Intro: no AP elective and no Biz Lab tab - just the course.
+    ? [{ key: "florida", label: "Course" }]
     : [
-        { key: "florida" as CourseTrack, label: "Personal Finance" },
-        { key: "ap-micro" as CourseTrack, label: "AP Micro" },
+        { key: "florida", label: "Personal Finance" },
+        { key: "ap-micro", label: "AP Micro" },
       ];
   const isMapView = activeTrack !== "gulliver-biz-lab" && !(effectiveApMode && activeTrack === "florida");
 
@@ -515,7 +522,7 @@ export default function Lessons() {
                 {tb.label}
               </button>
             ))}
-            {activeTrack === "florida" && !bizLabEnrolled && (
+            {activeTrack === "florida" && !hidesApElective && (
               <button
                 onClick={() => setApMode(true)}
                 className="px-3 py-1 rounded-full text-[12px] font-bold text-muted-foreground hover:text-foreground transition-all"
@@ -540,15 +547,18 @@ export default function Lessons() {
             everyone else keeps the AP Micro elective tab. */}
         <div className="mb-5 flex items-center justify-between gap-3">
           <div className="inline-flex items-center rounded-full bg-muted/60 p-1 border border-border/40">
-            {(bizLabEnrolled
+            {((bizLabEnrolled
               ? [
-                  { key: "florida" as CourseTrack, label: "Regular Course" },
-                  { key: "gulliver-biz-lab" as CourseTrack, label: "Gulliver Biz Lab" },
+                  { key: "florida", label: "Regular Course" },
+                  { key: "gulliver-biz-lab", label: "Gulliver Biz Lab" },
                 ]
+              : hidesApElective
+              // Gulliver Intro: no AP elective and no Biz Lab tab.
+              ? [{ key: "florida", label: "Regular Course" }]
               : [
-                  { key: "florida" as CourseTrack, label: "Personal Finance" },
-                  { key: "ap-micro" as CourseTrack, label: "AP Microeconomics" },
-                ]
+                  { key: "florida", label: "Personal Finance" },
+                  { key: "ap-micro", label: "AP Microeconomics" },
+                ]) as { key: CourseTrack; label: string }[]
             ).map(t => (
               <button
                 key={t.key}
@@ -571,8 +581,8 @@ export default function Lessons() {
         </div>
 
         {/* AP Mode Toggle (business AP tracks - Florida only). Hidden for Biz
-            Lab students, who only have Regular Course + Gulliver Biz Lab. */}
-        {activeTrack === "florida" && !bizLabEnrolled && (
+            Lab and Gulliver Intro students, who don't get the AP elective. */}
+        {activeTrack === "florida" && !hidesApElective && (
           <div className="mb-5">
             <APModeToggle apMode={apMode} onToggle={setApMode} />
           </div>

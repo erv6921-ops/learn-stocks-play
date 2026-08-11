@@ -333,24 +333,6 @@ export default function Partners() {
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
-        {/* Header - directory identity */}
-        <div
-          className="rounded-2xl p-6 md:p-8 mb-6 border relative overflow-hidden"
-          style={{ background: "var(--brand-deep)", borderColor: "rgba(var(--brand-rgb), 0.4)" }}
-        >
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-1">
-              <Handshake className="w-7 h-7" style={{ color: "var(--brand-bright)" }} />
-              <h1 className="text-2xl md:text-3xl font-extrabold text-white">Partners</h1>
-            </div>
-            <p className="text-sm md:text-base" style={{ color: "rgba(255,255,255,0.82)" }}>
-              Search any student by name, see their school and grade, and send them a partner invite.
-              Once they accept, you're connected - tap a partner to peek at their stocks, business and rank.
-            </p>
-          </div>
-          <Sparkles className="absolute right-6 top-6 w-16 h-16 opacity-10 text-white" />
-        </div>
-
         <div className="grid md:grid-cols-5 gap-6 items-start">
           {/* ── Left: search + roster ── */}
           <div className="md:col-span-2 space-y-6">

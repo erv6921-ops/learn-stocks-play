@@ -23,10 +23,20 @@ export interface UserProfile {
   benchmarkScores?: Record<string, number> // per-topic: 0 or 1
   benchmarkCategoryScores?: Record<string, BenchmarkCategoryScore>
   rewardMultiplier?: number
-  // True when the student picked the Gulliver Biz Lab program during onboarding.
+  // The student's program of record, chosen during onboarding and persisted to
+  // profiles.track. Drives AP-tab hiding and which course tabs are shown. This
+  // is DISTINCT from CourseTrack below, which is client-side Missions view state.
+  track?: EnrollmentTrack
+  // Legacy mirror of `track === "biz_lab"`. Kept in sync during the enum
+  // migration for rollback; prefer `track`. See docs .../gulliver-intro/AUDIT.md §1.
   bizLabEnrolled?: boolean
   createdAt: Date
 }
+
+// Persisted enrollment track (profiles.track / the enrollment_track DB enum).
+// The student's program of record. Kept separate from CourseTrack, which is
+// only the Missions page's track-switcher view state.
+export type EnrollmentTrack = "regular" | "biz_lab" | "gulliver_intro"
 
 export interface AssessmentQuestion {
   id: string
@@ -148,6 +158,9 @@ export interface QuizQuestion {
   options: string[]
   correctAnswer: number
   explanation: string
+  // Optional concept tag so per-concept mastery rollups have something to group on.
+  // Used by the Gulliver Intro to Business track; existing content omits it safely.
+  concept?: string
 }
 
 // ═══════════════════════════════════════════════

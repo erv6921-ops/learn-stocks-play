@@ -869,6 +869,7 @@ export type Database = {
           role: Database["public"]["Enums"]["app_role"] | null
           school_name: string | null
           state_course: string | null
+          track: Database["public"]["Enums"]["enrollment_track"]
           updated_at: string | null
         }
         Insert: {
@@ -893,6 +894,7 @@ export type Database = {
           role?: Database["public"]["Enums"]["app_role"] | null
           school_name?: string | null
           state_course?: string | null
+          track?: Database["public"]["Enums"]["enrollment_track"]
           updated_at?: string | null
         }
         Update: {
@@ -917,6 +919,7 @@ export type Database = {
           role?: Database["public"]["Enums"]["app_role"] | null
           school_name?: string | null
           state_course?: string | null
+          track?: Database["public"]["Enums"]["enrollment_track"]
           updated_at?: string | null
         }
         Relationships: []
@@ -1522,6 +1525,7 @@ export type Database = {
     }
     Enums: {
       app_role: "teacher" | "student"
+      enrollment_track: "regular" | "biz_lab" | "gulliver_intro"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1650,6 +1654,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["teacher", "student"],
+      enrollment_track: ["regular", "biz_lab", "gulliver_intro"],
     },
   },
 } as const
