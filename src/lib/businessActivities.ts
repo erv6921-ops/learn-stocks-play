@@ -15,6 +15,88 @@ export const BUSINESS_TYPES: BizTypeDef[] = [
 ];
 export const bizDef = (t: BusinessType) => BUSINESS_TYPES.find((b) => b.id === t)!;
 
+// ── Per-industry identity kit for the product designer ──
+// Each track gets its OWN logos, colour palettes and example hints so a food
+// business never sees app emojis (and vice-versa). Keeps the "design your
+// product" step accurate to the industry the kid picked.
+export interface ProductKit {
+  emojis: string[];
+  palettes: { name: string; primary: string; accent: string }[];
+  logo: string;                // sensible default logo
+  nameHint: string;
+  taglineHint: string;
+  featNameHint: string;
+  featWhyHint: string;
+  problemHint: string;
+  audienceHint: string;
+}
+export const PRODUCT_KITS: Record<BusinessType, ProductKit> = {
+  food: {
+    emojis: ["🍦","🧁","🍔","🍕","🥤","🍩","🌮","🍜","🥗","🍪","☕","🧋","🍰","🥪","🍟","🌭","🍱","🥐","🍫","🧇"],
+    palettes: [
+      { name: "Strawberry", primary: "#e11d48", accent: "#fbbf24" },
+      { name: "Fresh mint", primary: "#10b981", accent: "#f97316" },
+      { name: "Caramel", primary: "#b45309", accent: "#fde68a" },
+      { name: "Berry", primary: "#7c3aed", accent: "#34d399" },
+    ],
+    logo: "🍦",
+    nameHint: "e.g. FrostBite Ice Cream",
+    taglineHint: "e.g. Happiness in every scoop",
+    featNameHint: "e.g. Extra creamy",
+    featWhyHint: "e.g. richer than any other brand",
+    problemHint: "e.g. no good late-night snacks near school",
+    audienceHint: "e.g. students who want a quick treat",
+  },
+  tech: {
+    emojis: ["📱","💻","🎮","🕹️","🤖","⚡","🔋","📡","💾","🖥️","⌚","🎧","🔐","☁️","📊","🧠","👾","🚀","🔎","🛰️"],
+    palettes: [
+      { name: "Neon", primary: "#00c774", accent: "#a855f7" },
+      { name: "Cyber", primary: "#2563eb", accent: "#22d3ee" },
+      { name: "Midnight", primary: "#1f2937", accent: "#38bdf8" },
+      { name: "Grape", primary: "#7c3aed", accent: "#f472b6" },
+    ],
+    logo: "📱",
+    nameHint: "e.g. StudyBuddy App",
+    taglineHint: "e.g. Homework, made easy",
+    featNameHint: "e.g. Offline mode",
+    featWhyHint: "e.g. works even without wifi",
+    problemHint: "e.g. it's hard to stay organised for school",
+    audienceHint: "e.g. busy high-school students",
+  },
+  retail: {
+    emojis: ["👕","👟","🧢","👜","🕶️","💍","⌚","🧥","👗","🧦","🎒","🧣","👖","👚","🥾","💄","💅","🩳","🧤","👛"],
+    palettes: [
+      { name: "Street", primary: "#111827", accent: "#f59e0b" },
+      { name: "Blush", primary: "#ec4899", accent: "#22d3ee" },
+      { name: "Denim", primary: "#1d4ed8", accent: "#fbbf24" },
+      { name: "Forest", primary: "#166534", accent: "#f97316" },
+    ],
+    logo: "👕",
+    nameHint: "e.g. StreetThreads",
+    taglineHint: "e.g. Wear your story",
+    featNameHint: "e.g. 100% organic cotton",
+    featWhyHint: "e.g. soft and better for the planet",
+    problemHint: "e.g. cool clothes cost way too much",
+    audienceHint: "e.g. teens who love streetwear",
+  },
+  creative: {
+    emojis: ["🎨","🎬","📸","🎵","✏️","🖌️","🖼️","🎥","🎤","📝","🎭","🪄","💡","📐","🖊️","🎞️","🧩","📽️","🎙️","🌈"],
+    palettes: [
+      { name: "Popart", primary: "#db2777", accent: "#facc15" },
+      { name: "Studio", primary: "#7c3aed", accent: "#22d3ee" },
+      { name: "Sunset", primary: "#f97316", accent: "#8b5cf6" },
+      { name: "Ink", primary: "#0f172a", accent: "#f472b6" },
+    ],
+    logo: "🎨",
+    nameHint: "e.g. PixelPop Studio",
+    taglineHint: "e.g. Ideas that pop",
+    featNameHint: "e.g. 24-hour turnaround",
+    featWhyHint: "e.g. faster than any freelancer",
+    problemHint: "e.g. small brands can't afford designers",
+    audienceHint: "e.g. small businesses that need a logo",
+  },
+};
+
 // ── Activity 3 (Product Feedback): 5 beta reviews per type, rotate by week ──
 export const BETA_REVIEWS: Record<BusinessType, string[]> = {
   food: [

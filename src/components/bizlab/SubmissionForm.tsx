@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
+import { looksLowEffort, LOW_EFFORT_MESSAGE } from "@/lib/answerQuality"
 import { supabase } from "@/integrations/supabase/client"
 import { SubmissionSpec, SubmissionField } from "@/data/bizLab"
 import { useBizLabStore } from "@/stores/bizLabStore"
@@ -100,6 +101,12 @@ export default function SubmissionForm({ spec }: { spec: SubmissionSpec }) {
         }
       }
     }
+
+    // Block low-effort junk in the written (non-link) fields.
+    const junk = Object.entries(values).find(([, v]) =>
+      typeof v === "string" && v.trim() && !/https?:\/\//.test(v) && looksLowEffort(v)
+    )
+    if (junk) { setError(LOW_EFFORT_MESSAGE); return }
 
     setSaving(true)
     const content: Record<string, string> = {}

@@ -3,6 +3,7 @@ import { BookHeart, Check } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
+import { looksLowEffort, LOW_EFFORT_MESSAGE } from "@/lib/answerQuality"
 import { ReflectionPrompt } from "@/data/bizLab"
 import { useBizLabStore } from "@/stores/bizLabStore"
 import { useApp } from "@/contexts/AppContext"
@@ -38,6 +39,10 @@ export default function ReflectionJournal({
   const allAnswered = prompts.every(p => (drafts[p.id] ?? "").trim().length > 0)
 
   const handleSave = () => {
+    if (Object.values(drafts).some(v => v.trim() && looksLowEffort(v))) {
+      toast({ title: LOW_EFFORT_MESSAGE, variant: "destructive" })
+      return
+    }
     prompts.forEach(p => saveJournal(p.id, drafts[p.id] ?? ""))
     touchStreak()
     if (allAnswered && !alreadyPaid) {
