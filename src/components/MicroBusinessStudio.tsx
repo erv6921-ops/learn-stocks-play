@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
+import { supabase } from "@/integrations/supabase/client";
+import { looksLowEffort, LOW_EFFORT_MESSAGE } from "@/lib/answerQuality";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,10 +17,10 @@ import {
   Loader2, CheckCircle2, AlertTriangle, FileText, Package, Tag, MessageSquare,
   Users, Handshake, Truck, Megaphone, Palette, Rocket, Star, ArrowRight, Plus,
   Briefcase, ClipboardList, DollarSign, Lightbulb, Trophy, Pencil, Activity, Skull, Lock,
-  Coins, TrendingUp, Heart, Sparkles, type LucideIcon,
+  Coins, TrendingUp, Heart, Sparkles, X, type LucideIcon,
 } from "lucide-react";
 import {
-  BUSINESS_TYPES, bizDef, BETA_REVIEWS, PARTNERS, PARTNER_PROBLEMS, VENDOR_OFFERS,
+  BUSINESS_TYPES, bizDef, PRODUCT_KITS, BETA_REVIEWS, PARTNERS, PARTNER_PROBLEMS, VENDOR_OFFERS,
   ALL_ACTIVITIES, ACTIVITY_TITLES, XP, weekIndex, wordCount as wc,
   loadActivities, saveActivities, defaultActivities,
   type ActivitiesState, type BusinessType, type Partner,
@@ -48,11 +50,12 @@ function Counter({ n, min, max }: { n: number; min?: number; max?: number }) {
   return <span className={cn("text-[11px] font-bold tabular-nums", ok ? "text-success" : "text-destructive")}>{n}{max != null ? `/${max} max` : `/${min} words`}</span>;
 }
 function WField({ label, value, onChange, min, rows = 3, placeholder }: { label: string; value: string; onChange: (v: string) => void; min: number; rows?: number; placeholder?: string }) {
-  const n = wc(value); const ok = n >= min;
+  const n = wc(value); const junk = !!value.trim() && looksLowEffort(value); const ok = n >= min && !junk;
   return (
     <div>
       <div className="flex items-center justify-between mb-1"><label className="text-sm font-semibold">{label}</label><Counter n={n} min={min} /></div>
-      <Textarea rows={rows} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={cn(ok && value ? "border-success/50" : value ? "border-destructive/40" : "")} />
+      <Textarea rows={rows} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={cn(junk ? "border-destructive/60" : ok && value ? "border-success/50" : value ? "border-destructive/40" : "")} />
+      {junk && <p className="text-[11px] text-destructive mt-1">Write a real answer - not random letters.</p>}
     </div>
   );
 }
@@ -117,6 +120,13 @@ function useForm<T extends Record<string, unknown>>(saved: Fields, defaults: T) 
   return [f, set] as const;
 }
 const str = (v: unknown) => (typeof v === "string" ? v : "");
+// True if any free-text field in a submission looks like low-effort junk
+// ("asdf", "a a a a"). Skips internal keys (__…) and empty/short values.
+function hasJunkAnswer(fields: Fields): boolean {
+  return Object.entries(fields).some(([k, v]) =>
+    !k.startsWith("__") && typeof v === "string" && v.trim().length > 0 && looksLowEffort(v)
+  );
+}
 const num = (v: unknown) => { const n = parseFloat(String(v).replace(/[^0-9.]/g, "")); return isNaN(n) ? 0 : n; };
 
 /* ──────────────── one-at-a-time activity flow ────────────────
@@ -188,6 +198,7 @@ export default function MicroBusinessStudio() {
 
   const setBusinessType = (bt: BusinessType) => { if (!a) return; persist({ ...a, businessType: bt }); };
   const complete: Complete = useCallback((id, fields, xp) => {
+    if (hasJunkAnswer(fields)) { toast.error(LOW_EFFORT_MESSAGE); return; }
     setA((prev) => {
       if (!prev) return prev;
       const firstTime = !prev.xpAwarded.includes(id);
@@ -210,6 +221,7 @@ export default function MicroBusinessStudio() {
   // Completion for rotating quarterly briefs - same flow as `complete`, but the
   // metric effect and title come from the brief definition rather than a fixed map.
   const completeBrief: BriefComplete = useCallback((brief, fields) => {
+    if (hasJunkAnswer(fields)) { toast.error(LOW_EFFORT_MESSAGE); return; }
     setA((prev) => {
       if (!prev) return prev;
       const firstTime = !prev.xpAwarded.includes(brief.id);
@@ -269,9 +281,6 @@ export default function MicroBusinessStudio() {
   // Quarter 1 (qi 0) = the founding bespoke activities; quarter 2+ = a fresh
   // rotating set of operations briefs, so each quarter brings different work.
   const qi = quarterOf(sim.month);
-  const currentIds = qi === 0 ? ALL_ACTIVITIES : allBriefIdsForQuarter(qi);
-  const doneCount = currentIds.filter((id) => a.done.includes(id)).length;
-  const allDone = currentIds.length > 0 && doneCount === currentIds.length;
 
   const setSim = (next: BizState) => persist({ ...a, sim: next });
   const generateMonth = () => { if (sim.pending || sim.status === "failed") return; setSim({ ...sim, pending: pickSituation(sim) }); };
@@ -312,7 +321,10 @@ export default function MicroBusinessStudio() {
       render: () => <BriefActivity a={a} bt={bt} brief={b} n={i + 1} complete={completeBrief} />,
     }));
   const productSteps: Step[] = qi === 0 ? [
-    { id: "productDoc", title: "Product Design Document", icon: FileText, render: () => <ProductDoc a={a} bt={bt} complete={complete} /> },
+    { id: "productDoc", title: "Design your product", icon: Package, render: () => <ProductStudio a={a} bt={bt} complete={complete} /> },
+    // Food gets a real recipe + ingredient-costing step - a process the other
+    // industries don't have. (More per-industry steps to follow.)
+    ...(bt === "food" ? [{ id: "recipe", title: "Build your recipe", icon: ClipboardList, render: () => <RecipeBuilder a={a} bt={bt} complete={complete} /> }] : []),
     { id: "pricing", title: "Pricing Strategy", icon: Tag, render: () => <Pricing a={a} bt={bt} complete={complete} /> },
     { id: "feedback", title: "Product Feedback Response", icon: MessageSquare, render: () => <Feedback a={a} bt={bt} complete={complete} /> },
   ] : briefSteps("product");
@@ -326,6 +338,12 @@ export default function MicroBusinessStudio() {
     { id: "marketingPlan", title: "Marketing Plan", icon: ClipboardList, render: () => <MarketingPlan a={a} bt={bt} complete={complete} /> },
     { id: "adCampaign", title: "Ad Campaign", icon: Rocket, render: () => <AdCampaign a={a} bt={bt} complete={complete} /> },
   ] : briefSteps("marketing");
+
+  // Progress is derived from the ACTUAL steps this quarter (which now vary by
+  // industry), so per-track step counts and the Report unlock stay correct.
+  const currentIds = [...productSteps, ...collabSteps, ...marketingSteps].map((s) => s.id);
+  const doneCount = currentIds.filter((id) => a.done.includes(id)).length;
+  const allDone = currentIds.length > 0 && doneCount === currentIds.length;
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
@@ -366,9 +384,9 @@ export default function MicroBusinessStudio() {
             <div>
               <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wide text-white/45 mb-1.5">
                 <span>This quarter's operations</span>
-                <span style={{ color: NEON }}>{doneCount}/{ALL_ACTIVITIES.length} done</span>
+                <span style={{ color: NEON }}>{doneCount}/{currentIds.length} done</span>
               </div>
-              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${(doneCount / ALL_ACTIVITIES.length) * 100}%`, background: NEON }} /></div>
+              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full transition-all" style={{ width: `${(doneCount / Math.max(1, currentIds.length)) * 100}%`, background: NEON }} /></div>
               <p className="text-[10px] text-white/35 mt-1.5">Operations refresh every quarter - there's always more to run.</p>
             </div>
           </div>
@@ -405,7 +423,7 @@ export default function MicroBusinessStudio() {
                 <SequentialSteps a={a} steps={marketingSteps} />
               </TabsContent>
 
-              {allDone && <TabsContent value="summary"><SummaryReport a={a} bt={bt} qi={qi} /></TabsContent>}
+              {allDone && <TabsContent value="summary"><SummaryReport a={a} bt={bt} qi={qi} total={currentIds.length} /></TabsContent>}
             </Tabs>
           </div>
 
@@ -424,46 +442,269 @@ export default function MicroBusinessStudio() {
 
 type AProps = { a: ActivitiesState; bt: BusinessType; complete: Complete };
 
-/* ═══ PRODUCT DEV · Activity 1 - Product Design Document ═══ */
-function ProductDoc({ a, complete }: AProps) {
+/* ═══ PRODUCT DEV · Activity 1 - Design your product ═══
+   A hands-on product+identity builder: pick a logo, colour scheme, name and
+   tagline, and add feature cards - all feeding a live product-card preview. */
+type Feat = { name: string; why: string };
+function ProductStudio({ a, bt, complete }: AProps) {
+  const kit = PRODUCT_KITS[bt];
   const id = "productDoc"; const done = a.done.includes(id); const saved = a.data[id] || {};
   const [editing, setEditing] = useState(false);
-  const [f, set] = useForm(saved, { name: "", problem: "", target: "", features: (saved.features as string[]) || ["", "", ""], diff: "" });
-  const features = (f.features as string[]) || [];
+  const [f, set] = useForm(saved, {
+    name: "", logo: kit.logo, tagline: "", primary: kit.palettes[0].primary, accent: kit.palettes[0].accent,
+    problem: "", audience: "", features: (saved.features as Feat[]) || [],
+  });
+  const features = (f.features as Feat[]) || [];
+  const [fName, setFName] = useState(""); const [fWhy, setFWhy] = useState("");
+  const addFeature = () => {
+    if (!fName.trim() || !fWhy.trim()) return;
+    set("features", [...features, { name: fName.trim(), why: fWhy.trim() }]);
+    setFName(""); setFWhy("");
+  };
+  const removeFeature = (i: number) => set("features", features.filter((_, x) => x !== i));
+
   const checks = [
-    { label: "Name your product (3+ words)", ok: wc(str(f.name)) >= 3 },
-    { label: "Say what problem it solves", ok: wc(str(f.problem)) >= ws(75) },
-    { label: "Say who it's for", ok: wc(str(f.target)) >= ws(50) },
-    { label: "Fill in all 3 special things", ok: features.filter((x) => x.trim()).length >= 3 },
-    { label: "Say why yours is better", ok: wc(str(f.diff)) >= ws(50) },
+    { label: "Give your product a name", ok: str(f.name).trim().length >= 2 },
+    { label: "Add at least 3 features", ok: features.length >= 3 },
+    { label: "Say what problem it solves", ok: wc(str(f.problem)) >= ws(40) },
+    { label: "Say who it's for", ok: wc(str(f.audience)) >= ws(30) },
   ];
   const ready = checks.every((c) => c.ok);
+
+  const preview = (
+    <div className="rounded-2xl overflow-hidden border shadow-card" style={{ borderColor: `${str(f.accent)}55` }}>
+      <div className="p-5 text-center" style={{ background: `linear-gradient(160deg, ${str(f.primary)}, ${str(f.primary)}cc)` }}>
+        <div className="text-5xl leading-none">{str(f.logo)}</div>
+        <p className="font-display text-xl font-extrabold text-white mt-2 break-words">{str(f.name) || "Your product"}</p>
+        {str(f.tagline) && <p className="text-sm text-white/85 mt-0.5">{str(f.tagline)}</p>}
+      </div>
+      <div className="bg-card p-4 space-y-2">
+        {features.length === 0
+          ? <p className="text-xs text-muted-foreground text-center py-2">Add features and they'll appear here ✨</p>
+          : features.map((ft, i) => (
+            <div key={i} className="flex items-start gap-2">
+              <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: `${str(f.accent)}22` }}>
+                <CheckCircle2 className="w-3.5 h-3.5" style={{ color: str(f.accent) }} />
+              </span>
+              <div className="min-w-0"><p className="text-sm font-bold leading-tight">{ft.name}</p><p className="text-xs text-muted-foreground">{ft.why}</p></div>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+
   if (done && !editing) {
     return (
-      <ActivityCard icon={FileText} n={1} title="Product Design Document" desc="Your internal product brief." xp={XP.pd} done>
-        <div className="rounded-xl border border-border bg-card p-4 font-mono">
-          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Internal · Confidential</p>
-          <p className="font-display text-xl font-extrabold mt-1">{str(saved.name)}</p>
-          <p className="text-xs text-muted-foreground mb-2">PRODUCT BRIEF</p>
-          <ResultRow label="Problem">{str(saved.problem)}</ResultRow>
-          <ResultRow label="Who it's for">{str(saved.target)}</ResultRow>
-          <ResultRow label="What makes it special">{(((saved.features as string[]) || [str(saved.feat1), str(saved.feat2), str(saved.feat3)]).filter(Boolean)).map((x, i) => `${i + 1}. ${x}`).join("\n")}</ResultRow>
-          <ResultRow label="Why it's better">{str(saved.diff)}</ResultRow>
+      <ActivityCard icon={Package} n={1} title="Your product" desc="The product you designed." xp={XP.pd} done>
+        {preview}
+        <div className="mt-3 rounded-xl bg-muted p-3">
+          <ResultRow label="Problem it solves">{str(saved.problem)}</ResultRow>
+          <ResultRow label="Who it's for">{str(saved.audience)}</ResultRow>
         </div>
-        <Button size="sm" variant="ghost" className="gap-1" onClick={() => setEditing(true)}><Pencil className="w-3.5 h-3.5" /> Edit</Button>
+        <Button size="sm" variant="ghost" className="gap-1 mt-1" onClick={() => setEditing(true)}><Pencil className="w-3.5 h-3.5" /> Edit</Button>
       </ActivityCard>
     );
   }
   return (
-    <ActivityCard icon={FileText} n={1} title="Product Design Document" desc="Write a structured brief for your product or service." xp={XP.pd} done={done}>
-      <div className="space-y-3">
-        <WField label="What's it called?" value={str(f.name)} onChange={(v) => set("name", v)} min={3} rows={1} placeholder="A short, catchy name" />
-        <WField label="What problem does it solve?" value={str(f.problem)} onChange={(v) => set("problem", v)} min={ws(75)} rows={4} placeholder="Describe the everyday problem your product fixes." />
-        <WField label="Who is it for?" value={str(f.target)} onChange={(v) => set("target", v)} min={ws(50)} rows={3} placeholder="Describe the kind of person who'd buy it." />
-        <ListField label="Name 3 things that make it special" hint="A few words each - no full sentences needed." items={features} onChange={(v) => set("features", v)} count={3} placeholder={(i) => ["e.g. Super fast", "e.g. Eco-friendly", "e.g. Cheapest around"][i]} />
-        <WField label="Why is yours better than what's out there?" value={str(f.diff)} onChange={(v) => set("diff", v)} min={ws(50)} rows={3} placeholder="Compare yourself to what people use now." />
-        <Incomplete items={checks} />
-        <Button className="w-full press-scale" disabled={!ready} onClick={() => { complete(id, f, XP.pd); setEditing(false); }}><FileText className="w-4 h-4 mr-1.5" /> Generate Product Brief</Button>
+    <ActivityCard icon={Package} n={1} title="Design your product" desc="Build it and brand it - watch it come to life on the right." xp={XP.pd} done={done}>
+      <div className="grid lg:grid-cols-2 gap-5 items-start">
+        {/* LEFT: the builder */}
+        <div className="space-y-4">
+          {/* Logo */}
+          <div>
+            <label className="text-sm font-semibold flex items-center gap-1.5"><Sparkles className="w-4 h-4 text-primary" /> Pick a logo</label>
+            <div className="flex flex-wrap gap-1.5 mt-1.5">
+              {kit.emojis.map((e) => (
+                <button key={e} type="button" onClick={() => set("logo", e)} className={cn("w-9 h-9 rounded-lg text-xl flex items-center justify-center border press-scale", f.logo === e ? "border-primary bg-primary/10 ring-2 ring-primary/30" : "border-border bg-muted hover:bg-muted/70")}>{e}</button>
+              ))}
+            </div>
+          </div>
+          {/* Colours */}
+          <div>
+            <label className="text-sm font-semibold flex items-center gap-1.5"><Palette className="w-4 h-4 text-primary" /> Choose your colours</label>
+            <div className="flex flex-wrap gap-2 mt-1.5">
+              {kit.palettes.map((c) => (
+                <button key={c.name} type="button" onClick={() => { set("primary", c.primary); set("accent", c.accent); }} className={cn("flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border press-scale text-xs font-bold", f.primary === c.primary && f.accent === c.accent ? "border-primary bg-primary/10" : "border-border bg-muted")}>
+                  <span className="flex"><span className="w-3.5 h-3.5 rounded-l-full" style={{ background: c.primary }} /><span className="w-3.5 h-3.5 rounded-r-full" style={{ background: c.accent }} /></span>
+                  {c.name}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-4 mt-2">
+              <label className="flex items-center gap-1.5 text-xs font-semibold">Main <input type="color" value={str(f.primary)} onChange={(e) => set("primary", e.target.value)} className="w-8 h-8 rounded bg-transparent border border-border cursor-pointer" /></label>
+              <label className="flex items-center gap-1.5 text-xs font-semibold">Accent <input type="color" value={str(f.accent)} onChange={(e) => set("accent", e.target.value)} className="w-8 h-8 rounded bg-transparent border border-border cursor-pointer" /></label>
+            </div>
+          </div>
+          {/* Name + tagline */}
+          <div className="grid gap-2">
+            <div><label className="text-sm font-semibold">Product name</label><Input value={str(f.name)} onChange={(e) => set("name", e.target.value)} placeholder={kit.nameHint} className="mt-1" /></div>
+            <div><label className="text-sm font-semibold">Tagline <span className="text-muted-foreground font-normal">- a short catchphrase</span></label><Input value={str(f.tagline)} onChange={(e) => set("tagline", e.target.value)} placeholder={kit.taglineHint} className="mt-1" /></div>
+          </div>
+          {/* Feature cards */}
+          <div>
+            <label className="text-sm font-semibold flex items-center gap-1.5"><Star className="w-4 h-4 text-primary" /> Add features <span className="text-muted-foreground font-normal">({features.length}/3 min)</span></label>
+            <div className="space-y-2 mt-1.5">
+              {features.map((ft, i) => (
+                <div key={i} className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 p-2.5">
+                  <div className="flex-1 min-w-0"><p className="text-sm font-bold leading-tight">{ft.name}</p><p className="text-xs text-muted-foreground">{ft.why}</p></div>
+                  <button type="button" onClick={() => removeFeature(i)} className="text-muted-foreground hover:text-destructive shrink-0" title="Remove"><X className="w-4 h-4" /></button>
+                </div>
+              ))}
+              <div className="rounded-lg border border-dashed border-border p-2.5 space-y-2">
+                <Input value={fName} onChange={(e) => setFName(e.target.value)} placeholder={`Feature name (${kit.featNameHint})`} />
+                <Input value={fWhy} onChange={(e) => setFWhy(e.target.value)} placeholder={`Why it's great (${kit.featWhyHint})`} onKeyDown={(e) => { if (e.key === "Enter") addFeature(); }} />
+                <Button type="button" variant="outline" size="sm" className="w-full press-scale" disabled={!fName.trim() || !fWhy.trim()} onClick={addFeature}><Plus className="w-4 h-4 mr-1" /> Add feature</Button>
+              </div>
+            </div>
+          </div>
+          {/* Short reasoning */}
+          <WField label="What problem does it solve?" value={str(f.problem)} onChange={(v) => set("problem", v)} min={ws(40)} rows={2} placeholder={kit.problemHint} />
+          <WField label="Who is it for?" value={str(f.audience)} onChange={(v) => set("audience", v)} min={ws(30)} rows={2} placeholder={kit.audienceHint} />
+          <Incomplete items={checks} />
+          <Button className="w-full press-scale" disabled={!ready} onClick={() => { if (looksLowEffort(str(f.problem)) || looksLowEffort(str(f.audience))) { toast.error(LOW_EFFORT_MESSAGE); return; } complete(id, f, XP.pd); setEditing(false); }}><Rocket className="w-4 h-4 mr-1.5" /> Launch your product</Button>
+        </div>
+
+        {/* RIGHT: live preview */}
+        <div className="lg:sticky lg:top-4">
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-muted-foreground mb-2">Live preview</p>
+          {preview}
+        </div>
+      </div>
+    </ActivityCard>
+  );
+}
+
+/* ═══ FOOD · Recipe & ingredient costing (industry-specific step) ═══
+   Teaches real food-business costing: list ingredients with their cost, and
+   watch the total + cost-per-serving update live. Only appears for food. */
+type Ingredient = { name: string; cost: string };
+function RecipeBuilder({ a, complete }: AProps) {
+  const id = "recipe"; const done = a.done.includes(id); const saved = a.data[id] || {};
+  const [editing, setEditing] = useState(false);
+  const [f, set] = useForm(saved, { dish: "", servings: "4", method: "", ingredients: (saved.ingredients as Ingredient[]) || [] });
+  const ingredients = (f.ingredients as Ingredient[]) || [];
+  const [iName, setIName] = useState(""); const [iCost, setICost] = useState("");
+  const [generating, setGenerating] = useState(false);
+  const addIng = () => { if (!iName.trim() || num(iCost) <= 0) return; set("ingredients", [...ingredients, { name: iName.trim(), cost: iCost }]); setIName(""); setICost(""); };
+  const removeIng = (i: number) => set("ingredients", ingredients.filter((_, x) => x !== i));
+  const totalCost = ingredients.reduce((s, ing) => s + num(ing.cost), 0);
+  const servings = Math.max(1, num(f.servings) || 1);
+  const perServing = totalCost / servings;
+
+  // AI recipe generator: build a prompt from the product they designed (its
+  // logo emoji + name + description) and let Claude (via the business-ai proxy)
+  // return a unique recipe, then fill the form. Kids can still edit everything.
+  const design = (a.data.productDoc as Record<string, unknown>) || {};
+  const generate = async () => {
+    setGenerating(true);
+    try {
+      const logo = str(design.logo) || "🍽️";
+      const name = str(design.name) || "my food product";
+      const about = str(design.problem);
+      const prompt = `A student runs a food business. Their product is "${name}" (emoji: ${logo}).${about ? ` What it's about: ${about}.` : ""} Invent a fun, simple recipe that fits this product.\n\nReturn ONLY valid JSON (no markdown, no prose) in exactly this shape:\n{"dish": string, "servings": number, "ingredients": [{"name": string, "cost": number}], "method": string}\nRules: 3-6 ingredients; "cost" is a small whole number of in-game coins (2-15) each; "method" is 2-4 short steps in ONE short string. Keep it kid-friendly and safe.`;
+      const { data, error } = await supabase.functions.invoke("business-ai", {
+        body: { system: "You are a friendly chef helping a kid design a recipe for their food business. Output only JSON.", prompt, max_tokens: 700 },
+      });
+      if (error || (data as { error?: string })?.error) throw new Error(error?.message || (data as { error?: string })?.error || "AI unavailable");
+      const text = String((data as { text?: string })?.text || "");
+      const parsed = JSON.parse(text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1));
+      const ings: Ingredient[] = Array.isArray(parsed.ingredients)
+        ? parsed.ingredients.slice(0, 6).map((x: { name?: unknown; cost?: unknown }) => ({ name: String(x.name ?? "").slice(0, 40), cost: String(Math.max(1, Math.round(Number(x.cost) || 3))) }))
+        : [];
+      set("dish", String(parsed.dish ?? name).slice(0, 60));
+      set("servings", String(Math.max(1, Math.round(Number(parsed.servings) || 4))));
+      set("ingredients", ings);
+      set("method", String(parsed.method ?? "").slice(0, 500));
+      toast.success("Recipe generated! ✨", { description: "Tweak anything you like, then save." });
+    } catch (e) {
+      toast.error("Couldn't generate a recipe", { description: e instanceof Error ? e.message : "Try again in a moment." });
+    } finally {
+      setGenerating(false);
+    }
+  };
+  const checks = [
+    { label: "Name your dish", ok: str(f.dish).trim().length >= 2 },
+    { label: "Add at least 3 ingredients", ok: ingredients.length >= 3 },
+    { label: "Set how many servings it makes", ok: num(f.servings) > 0 },
+    { label: "Write the steps to make it", ok: wc(str(f.method)) >= ws(30) },
+  ];
+  const ready = checks.every((c) => c.ok);
+  const card = (
+    <div className="rounded-2xl border border-border bg-card overflow-hidden">
+      <div className="bg-muted p-3 border-b border-border">
+        <p className="font-display text-lg font-extrabold">{str(f.dish) || "Your dish"}</p>
+        <p className="text-xs text-muted-foreground">Makes {servings} serving{servings === 1 ? "" : "s"}</p>
+      </div>
+      <div className="p-3 space-y-1">
+        {ingredients.length === 0
+          ? <p className="text-xs text-muted-foreground text-center py-2">Add ingredients to see your recipe & cost 🧾</p>
+          : ingredients.map((ing, i) => (
+            <div key={i} className="flex justify-between text-sm"><span>{ing.name}</span><span className="text-muted-foreground tabular-nums">{num(ing.cost)} IC</span></div>
+          ))}
+      </div>
+      {ingredients.length > 0 && (
+        <div className="border-t border-border p-3 flex justify-between items-end">
+          <div><p className="text-sm font-bold">Total cost</p><p className="text-xs text-muted-foreground">Cost per serving</p></div>
+          <div className="text-right"><p className="text-sm font-extrabold tabular-nums" style={{ color: NEON }}>{totalCost.toFixed(0)} IC</p><p className="text-xs font-bold tabular-nums" style={{ color: NEON }}>{perServing.toFixed(2)} IC</p></div>
+        </div>
+      )}
+    </div>
+  );
+  if (done && !editing) {
+    return (
+      <ActivityCard icon={ClipboardList} n={2} title="Your recipe" desc="What you'll make and what it costs." xp={XP.pd} done>
+        {card}
+        <Button size="sm" variant="ghost" className="gap-1 mt-1" onClick={() => setEditing(true)}><Pencil className="w-3.5 h-3.5" /> Edit</Button>
+      </ActivityCard>
+    );
+  }
+  return (
+    <ActivityCard icon={ClipboardList} n={2} title="Build your recipe" desc="List your ingredients and see what one serving really costs to make." xp={XP.pd} done={done}>
+      <div className="grid lg:grid-cols-2 gap-5 items-start">
+        <div className="space-y-4">
+          {/* AI shortcut: generate a recipe from the product they designed. */}
+          <button
+            type="button"
+            onClick={generate}
+            disabled={generating}
+            className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-dashed px-3 py-2.5 text-sm font-bold press-scale disabled:opacity-60"
+            style={{ borderColor: `${NEON}66`, background: `${NEON}0d`, color: "hsl(var(--foreground))" }}
+          >
+            {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" style={{ color: NEON }} />}
+            {generating ? "Cooking up a recipe…" : "✨ Generate a recipe with AI"}
+          </button>
+          <p className="text-[11px] text-muted-foreground -mt-2">Based on the product you designed. You can edit everything after.</p>
+
+          <div className="grid grid-cols-2 gap-2">
+            <div><label className="text-sm font-semibold">Dish name</label><Input value={str(f.dish)} onChange={(e) => set("dish", e.target.value)} placeholder="e.g. Choc-chip cookie" className="mt-1" /></div>
+            <div><label className="text-sm font-semibold">Servings</label><Input type="number" min={1} value={str(f.servings)} onChange={(e) => set("servings", e.target.value)} className="mt-1" /></div>
+          </div>
+          <div>
+            <label className="text-sm font-semibold flex items-center gap-1.5"><Coins className="w-4 h-4 text-primary" /> Ingredients <span className="text-muted-foreground font-normal">({ingredients.length}/3 min)</span></label>
+            <p className="text-xs text-muted-foreground">Add each one and what it costs - the total updates live.</p>
+            <div className="space-y-2 mt-1.5">
+              {ingredients.map((ing, i) => (
+                <div key={i} className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 p-2">
+                  <span className="flex-1 text-sm font-bold">{ing.name}</span>
+                  <span className="text-sm text-muted-foreground tabular-nums">{num(ing.cost)} IC</span>
+                  <button type="button" onClick={() => removeIng(i)} className="text-muted-foreground hover:text-destructive" title="Remove"><X className="w-4 h-4" /></button>
+                </div>
+              ))}
+              <div className="flex gap-2">
+                <Input value={iName} onChange={(e) => setIName(e.target.value)} placeholder="Ingredient (e.g. Flour)" className="flex-1" />
+                <Input type="number" value={iCost} onChange={(e) => setICost(e.target.value)} placeholder="Cost IC" className="w-24" onKeyDown={(e) => { if (e.key === "Enter") addIng(); }} />
+                <Button type="button" variant="outline" size="icon" className="shrink-0" disabled={!iName.trim() || num(iCost) <= 0} onClick={addIng}><Plus className="w-4 h-4" /></Button>
+              </div>
+            </div>
+          </div>
+          <WField label="How do you make it? (the steps)" value={str(f.method)} onChange={(v) => set("method", v)} min={ws(30)} rows={3} placeholder="1. Mix… 2. Bake… keep it simple." />
+          <Incomplete items={checks} />
+          <Button className="w-full press-scale" disabled={!ready} onClick={() => { if (looksLowEffort(str(f.method))) { toast.error(LOW_EFFORT_MESSAGE); return; } complete(id, f, XP.pd); setEditing(false); }}><ClipboardList className="w-4 h-4 mr-1.5" /> Save recipe</Button>
+        </div>
+        <div className="lg:sticky lg:top-4">
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-muted-foreground mb-2">Recipe card</p>
+          {card}
+        </div>
       </div>
     </ActivityCard>
   );
@@ -938,7 +1179,7 @@ function BriefActivity({ a, bt, brief, n, complete }: { a: ActivitiesState; bt: 
   );
 }
 
-function SummaryReport({ a, bt, qi }: { a: ActivitiesState; bt: BusinessType; qi: number }) {
+function SummaryReport({ a, bt, qi, total }: { a: ActivitiesState; bt: BusinessType; qi: number; total: number }) {
   const d = a.data;
   const def = bizDef(bt);
   const S = (id: string, k: string) => str((d[id] as Record<string, unknown>)?.[k]);
@@ -954,7 +1195,7 @@ function SummaryReport({ a, bt, qi }: { a: ActivitiesState; bt: BusinessType; qi
         <div className="rounded-3xl p-6 text-center" style={{ background: "linear-gradient(135deg,#0f2d1e,#06291f)" }}>
           <Trophy className="w-12 h-12 mx-auto mb-1" style={{ color: NEON }} />
           <p className="font-display text-2xl font-extrabold text-white">Quarter {quarter} Operations Report</p>
-          <p className="text-white/55 text-sm">{def.label} · all {ALL_ACTIVITIES.length} ops run this quarter</p>
+          <p className="text-white/55 text-sm">{def.label} · all {total} ops run this quarter</p>
         </div>
         {cats.map(({ t, cat }) => (
           <Card key={t} variant="elevated"><CardContent className="pt-5">
@@ -973,7 +1214,7 @@ function SummaryReport({ a, bt, qi }: { a: ActivitiesState; bt: BusinessType; qi
       <div className="rounded-3xl p-6 text-center" style={{ background: "linear-gradient(135deg,#0f2d1e,#06291f)" }}>
         <Trophy className="w-12 h-12 mx-auto mb-1" style={{ color: NEON }} />
         <p className="font-display text-2xl font-extrabold text-white">Quarter {quarter} Operations Report</p>
-        <p className="text-white/55 text-sm">{def.label} · all {ALL_ACTIVITIES.length} ops run this quarter · {totalXP} InvestiCoins this quarter</p>
+        <p className="text-white/55 text-sm">{def.label} · all {total} ops run this quarter · {totalXP} InvestiCoins this quarter</p>
       </div>
       {[
         { t: "Product", items: [["Product brief", S("productDoc", "name")], ["Problem", S("productDoc", "problem")], ["Pricing", `${num(d.pricing?.["price"])} IC (${str(d.pricing?.["ptype"])})`], ["Feedback v2 plan", S("feedback", "v2")]] },
@@ -1062,7 +1303,7 @@ function MonthlyOps({ sim, onGenerate, onResolve, onRebuild }: { sim: BizState; 
           </div>
           <WField label={s.reactLabel} value={react} onChange={setReact} min={s.reactMin} rows={3} />
           <Incomplete items={[{ label: "Pick a move", ok: opt != null }, { label: `Write your reaction (${s.reactMin}+ words)`, ok: wc(react) >= s.reactMin }]} />
-          <Button className="w-full press-scale" disabled={opt == null || wc(react) < s.reactMin} onClick={() => { onResolve(opt as number, wc(react)); setOpt(null); setReact(""); }}><CheckCircle2 className="w-4 h-4 mr-1.5" /> Resolve month {sim.month}</Button>
+          <Button className="w-full press-scale" disabled={opt == null || wc(react) < s.reactMin} onClick={() => { if (looksLowEffort(react)) { toast.error(LOW_EFFORT_MESSAGE); return; } onResolve(opt as number, wc(react)); setOpt(null); setReact(""); }}><CheckCircle2 className="w-4 h-4 mr-1.5" /> Resolve month {sim.month}</Button>
         </>
       )}
     </CardContent></Card>
@@ -1071,7 +1312,7 @@ function MonthlyOps({ sim, onGenerate, onResolve, onRebuild }: { sim: BizState; 
 function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string; price: number; pitch: string }) => void }) {
   const [name, setName] = useState(""); const [price, setPrice] = useState(""); const [pitch, setPitch] = useState(""); const [open, setOpen] = useState(false);
   const ready = name.trim().length >= 2 && num(price) > 0 && wc(pitch) >= ws(25);
-  const submit = () => { onAdd({ name: name.trim(), price: num(price), pitch: pitch.trim() }); setName(""); setPrice(""); setPitch(""); setOpen(false); };
+  const submit = () => { if (looksLowEffort(pitch)) { toast.error(LOW_EFFORT_MESSAGE); return; } onAdd({ name: name.trim(), price: num(price), pitch: pitch.trim() }); setName(""); setPrice(""); setPitch(""); setOpen(false); };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
       <div className="flex items-start justify-between gap-2">

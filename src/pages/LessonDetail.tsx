@@ -27,6 +27,8 @@ import { buildScript } from "@/lib/jeffChatLesson"
 import { Textarea } from "@/components/ui/textarea"
 import { supabase } from "@/integrations/supabase/client"
 import { getReflectionPrompt, MIN_REFLECTION_WORDS, REFLECTION_BONUS } from "@/lib/reflectionPrompts"
+import { toast } from "sonner"
+import { looksLowEffort, LOW_EFFORT_MESSAGE } from "@/lib/answerQuality"
 import {
   ArrowLeft,
   ArrowRight,
@@ -308,6 +310,7 @@ export default function LessonDetail() {
 
   const handleReflectionSubmit = async () => {
     if (!pendingMastery || reflectionWords < MIN_REFLECTION_WORDS || savingReflection) return
+    if (looksLowEffort(reflectionText)) { toast.error(LOW_EFFORT_MESSAGE); return }
     setSavingReflection(true)
     try {
       if (user?.id) {
