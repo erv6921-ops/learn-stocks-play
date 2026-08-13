@@ -23,12 +23,13 @@ import {
 import { HintProvider } from "@/components/lesson/HintContext"
 import { QuizSessionProvider, LessonCoinsSummary } from "@/components/lesson/QuizSessionContext"
 import JeffChat from "@/components/lessons/JeffChat"
-import { buildScript } from "@/lib/jeffChatLesson"
+import { buildScript, isGulliverIntroLesson } from "@/lib/jeffChatLesson"
 import { Textarea } from "@/components/ui/textarea"
 import { supabase } from "@/integrations/supabase/client"
 import { getReflectionPrompt, MIN_REFLECTION_WORDS, REFLECTION_BONUS } from "@/lib/reflectionPrompts"
 import { toast } from "sonner"
 import { looksLowEffort, LOW_EFFORT_MESSAGE } from "@/lib/answerQuality"
+import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import {
   ArrowLeft,
   ArrowRight,
@@ -222,6 +223,26 @@ export default function LessonDetail() {
 
   const sections = structuredContent.sections
 
+  // Deep (Gulliver Intro) lessons ground the live Jeff chat in the authored
+  // curriculum so it teaches the real material in depth instead of improvising
+  // from the title. Assemble that source text from the concept sections.
+  const deepLesson = isGulliverIntroLesson(lesson)
+  const conceptSource = sections
+    .flatMap(s => (s.type === "concept" ? [s] : []))
+    .map(c => [c.title, ...c.paragraphs, c.realWorldExample ? `Example: ${c.realWorldExample}` : ""].filter(Boolean).join("\n"))
+    .join("\n\n")
+
+  // Every topic the student will be quizzed on, from the question concept tags.
+  // Jeff must teach each one, so no question is ever asked about something the
+  // lesson didn't cover. Slugs are humanized ("risk-and-reward" -> "risk and reward").
+  const mustCoverTopics = Array.from(new Set(
+    sections.flatMap(s => {
+      if (s.type === "micro-check" || s.type === "mastery-check") return s.questions.map(q => q.concept)
+      if (s.type === "applied-question") return [s.question.concept]
+      return []
+    }).filter((c): c is string => !!c)
+  )).map(c => c.replace(/-/g, " "))
+
   // The chat replaces the reading ("concept") sections - after it, students
   // jump straight to the first interactive/quiz section.
   const firstQuizIdx = Math.max(0, sections.findIndex(s => s.type !== "concept"))
@@ -266,7 +287,9 @@ export default function LessonDetail() {
   const evaluateMastery = async (correct: number, attempts: number, attemptSessionId: string) => {
     setCheckingMastery(true)
     let tier: string | null = null
-    const result = await withTimeout(
+    // The mastery-score edge function needs a real session; in the DEV bypass
+    // it 401s. Skip it there and treat the tier as unknown (null).
+    const result = DEV_LOCAL_BYPASS ? null : await withTimeout(
       supabase.functions.invoke("mastery-score", {
         body: { topicId: lesson.category, attemptSessionId, source: "lesson_quiz" },
       })
@@ -313,7 +336,7 @@ export default function LessonDetail() {
     if (looksLowEffort(reflectionText)) { toast.error(LOW_EFFORT_MESSAGE); return }
     setSavingReflection(true)
     try {
-      if (user?.id) {
+      if (user?.id && !DEV_LOCAL_BYPASS) {
         await (supabase as any).from("lesson_reflections").upsert(
           {
             user_id: user.id,
@@ -351,7 +374,12 @@ export default function LessonDetail() {
     window.scrollTo({ top: 0 })
   }
 
-  const sectionProgress = sections.length > 0 ? ((currentSectionIdx + 1) / sections.length) * 100 : 0
+  // The post-mastery "Make It Stick" reflection and the finish screen aren't
+  // section steps, so a raw section index stalls the header at e.g. 5/6. Once
+  // the student is in the reflection/finish phase, show the bar as complete.
+  const inFinalPhase = lessonFinished || reflectionDone || !!pendingMastery || checkingMastery
+  const displayStep = inFinalPhase ? sections.length : currentSectionIdx + 1
+  const sectionProgress = sections.length > 0 ? (displayStep / sections.length) * 100 : 0
 
   const renderSection = (section: LessonSection, idx: number) => {
     switch (section.type) {
@@ -407,7 +435,7 @@ export default function LessonDetail() {
               {lessonStarted && !lessonFinished && (
                 <div className="flex items-center gap-2 mt-0.5">
                   <Progress value={sectionProgress} className="h-1 flex-1 max-w-[120px]" />
-                  <span className="text-[10px] text-muted-foreground">{currentSectionIdx + 1}/{sections.length}</span>
+                  <span className="text-[10px] text-muted-foreground">{displayStep}/{sections.length}</span>
                 </div>
               )}
             </div>
@@ -572,8 +600,13 @@ export default function LessonDetail() {
         <JeffChat
           lesson={lesson}
           // Offline/no-credits fallback: Jeff teaches the lesson's own
-          // concept content as a scripted chat instead of erroring.
-          script={buildScript(sections)}
+          // concept content as a scripted chat instead of erroring. Deep
+          // lessons walk the full curriculum rather than a 7-beat summary.
+          script={buildScript(sections, deepLesson)}
+          // Grounds the live AI in the authored curriculum (deep lessons).
+          source={deepLesson ? conceptSource : undefined}
+          // Forces Jeff to teach every topic the quiz will test (deep lessons).
+          mustCover={deepLesson ? mustCoverTopics : undefined}
           onQuizReady={handleChatQuizReady}
           onClose={() => setChatOpen(false)}
         />

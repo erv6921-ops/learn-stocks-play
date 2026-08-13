@@ -290,7 +290,24 @@ export function initialOptions(lesson: Lesson): string[] {
   return opensWithQuestion(lesson) ? openingHook(lesson).answers : neutralOptions(lesson)
 }
 
-export function buildSystemPrompt(lesson: Lesson, sentCount = 0): string {
+// The Gulliver Introduction to Business track is a rigorous 9th-grade academic
+// course, not the snappy gamified personal-finance track. Its lessons get a
+// deeper, longer teaching mode (see buildDeepPrompt / GULLIVER_DEEP_TURNS).
+export function isGulliverIntroLesson(lesson: Lesson): boolean {
+  return (
+    lesson.track === "gulliver-intro" ||
+    lesson.category === "gulliver-business" ||
+    lesson.category === "gulliver-economics"
+  )
+}
+
+// How many teaching beats a deep (Gulliver) lesson gets before it must wrap up.
+// Lessons are split into short halves (e.g. 1.1, 1.2), so each one is a small,
+// digestible session: a handful of short messages that build on each other.
+export const GULLIVER_DEEP_TURNS = 8
+
+// ── Snappy default prompt (unchanged behavior for every non-Gulliver track) ──
+function buildSnappyPrompt(lesson: Lesson, sentCount: number): string {
   // Hard length budget - lessons were ballooning to 15+ messages. Jeff gets at
   // most 6 total messages; the prompt counts down and forces the wrap-up.
   const remaining = Math.max(1, 6 - sentCount)
@@ -313,14 +330,66 @@ The student already knows you - never introduce yourself or say "I'm Jeff." Just
 Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.`
 }
 
+// ── Deep prompt (Gulliver Intro): a real, rigorous mini-lecture ──
+// Teaches thoroughly from the authored curriculum, covers every key idea in the
+// lesson, and goes into the "why"/mechanisms instead of landing one point.
+function buildDeepPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[]): string {
+  const remaining = Math.max(1, GULLIVER_DEEP_TURNS - sentCount)
+  const budgetNote = sentCount >= GULLIVER_DEEP_TURNS - 2
+    ? `You have sent ${sentCount} messages - you are near the end. If any required topic below is still untaught, teach it now (briefly is fine), then give a short synthesis and end with the exact signal phrase.`
+    : sentCount >= Math.floor(GULLIVER_DEEP_TURNS / 2)
+      ? `You have sent ${sentCount} messages (about ${remaining} left). Check the required-topics list - make sure you still have time to cover every one before you run out, and speed up if needed.`
+      : `You have sent ${sentCount} messages so far and have room for about ${remaining} more. Take your time and build the ideas up properly.`
+
+  // The exact topics the student will be quizzed on (from the lesson's question
+  // concept tags). Every one MUST be taught - never test what wasn't covered.
+  const coverage = mustCover && mustCover.length
+    ? `\n\nREQUIRED TOPICS - the student will be quizzed on EVERY one of these, so you MUST teach each of them clearly at least once before the lesson ends. Do not end while any is untaught; if beats run short, cover the remaining ones more briefly rather than skipping:\n- ${mustCover.join("\n- ")}`
+    : ""
+
+  // The source material goes LAST so that if the edge function clamps the
+  // system prompt (MAX_SYSTEM), only the tail of the source is trimmed - never
+  // the teaching instructions or the required end signal above it.
+  const material = source
+    ? `\n\nSOURCE MATERIAL - this is the authoritative curriculum for this lesson. Teach from it, cover every key idea in it in a sensible order, and do not contradict it:\n"""\n${source.slice(0, 4000)}\n"""`
+    : ""
+
+  return `You are Jeff, the teacher for this lesson in the Gulliver Introduction to Business course - a rigorous 9th-grade (age ~14) academic business class. You are teaching '${lesson.title}', which covers '${lesson.description}'.
+
+This is a real course, not a quick tip. Your job is to actually TEACH the whole lesson - explain the mechanisms and the WHY behind each idea, and cover ALL of the key concepts in it (not just one). But you deliver it in SMALL, readable steps that build on each other.
+
+CRITICAL - message length and pacing:
+- Each message teaches exactly ONE small idea. One idea per message, no more.
+- Keep every message SHORT: 1 to 2 sentences, and under 40 words. It must fit on a phone screen and be readable in a single glance. Never write a long paragraph or cram multiple ideas into one message - that is the most important rule.
+- Then stop and let the student tap a reply before you continue.
+- Build up in order, simplest idea first: teach it, make sure it lands, then add the next idea on top of it. (For example, first WHAT a business is, then goods vs. services, then how each next idea follows.)
+- Use MANY short messages rather than a few long ones - aim for around ${GULLIVER_DEEP_TURNS} short beats total so you can be thorough without any single message getting long.
+- Never just restate the previous point - each message adds one new thing.
+- Highlight key vocabulary: the FIRST time you say an important term or its definition, wrap just that word or short phrase in **double asterisks** (e.g. **revenue**, **a good**). Do this only for the genuinely important terms - a few per lesson - never for whole sentences.
+
+Style: clear, precise, and genuinely interesting - like a great teacher, not a textbook and not a hype account. Occasionally use one vivid real-world example a 14-year-old knows (part-time jobs, phones, sneakers, food trucks, streaming, games) to make an idea concrete - but keep even the example to one short message. Plain language; do not dumb the content down. ${budgetNote}${coverage}
+
+When you have taught the full lesson, give a one-sentence synthesis of how the ideas fit together, then end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
+
+The student already knows you - never introduce yourself. Do not use bullet points or headers; teach in short prose messages.${material}`
+}
+
+export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[]): string {
+  return isGulliverIntroLesson(lesson)
+    ? buildDeepPrompt(lesson, sentCount, source, mustCover)
+    : buildSnappyPrompt(lesson, sentCount)
+}
+
 /** One chat turn: full history in, Jeff's reply + next tap options out. */
 export async function jeffChatTurn(
   lesson: Lesson,
   messages: ChatMessage[],
+  source?: string,
+  mustCover?: string[],
 ): Promise<{ text: string; options: string[] }> {
   const sentCount = messages.filter(m => m.role === "assistant").length
   const { data, error } = await supabase.functions.invoke("jeff-chat", {
-    body: { system: buildSystemPrompt(lesson, sentCount), messages },
+    body: { system: buildSystemPrompt(lesson, sentCount, source, mustCover), messages },
   })
   if (error) throw new Error(error.message || "AI request failed")
   if (data?.error) throw new Error(data.error)
@@ -333,14 +402,17 @@ export async function jeffChatTurn(
 // Chunks concept paragraphs into chat-sized messages (<~45 words each).
 
 const CHUNK_WORDS = 42
+// Deep (Gulliver) fallback beats are kept shorter so no single message fills
+// the screen - matching the short-message rule the live AI is given.
+const DEEP_CHUNK_WORDS = 28
 
-function chunkText(text: string): string[] {
+function chunkText(text: string, maxWords: number = CHUNK_WORDS): string[] {
   const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean)
   const chunks: string[] = []
   let current = ""
   for (const s of sentences) {
     const candidate = current ? `${current} ${s}` : s
-    if (candidate.split(/\s+/).length > CHUNK_WORDS && current) {
+    if (candidate.split(/\s+/).length > maxWords && current) {
       chunks.push(current)
       current = s
     } else {
@@ -351,17 +423,23 @@ function chunkText(text: string): string[] {
   return chunks
 }
 
-/** Jeff's teaching script from the lesson's concept sections. */
-export function buildScript(sections: LessonSection[]): string[] {
+/**
+ * Jeff's teaching script from the lesson's concept sections (used when the AI
+ * is unavailable). `deep` (Gulliver Intro) walks the full authored curriculum -
+ * every concept section, in order - instead of the snappy 7-beat summary.
+ */
+export function buildScript(sections: LessonSection[], deep = false): string[] {
+  const w = deep ? DEEP_CHUNK_WORDS : CHUNK_WORDS
   const out: string[] = []
   for (const s of sections) {
     if (s.type !== "concept") continue
-    for (const p of s.paragraphs) out.push(...chunkText(p))
-    if (s.realWorldExample) out.push(...chunkText(`Real talk: ${s.realWorldExample}`))
+    if (deep && s.title) out.push(chunkText(s.title, w)[0])
+    for (const p of s.paragraphs) out.push(...chunkText(p, w))
+    if (s.realWorldExample) out.push(...chunkText(`${deep ? "For example:" : "Real talk:"} ${s.realWorldExample}`, w))
   }
-  const script = out.slice(0, 7)
+  const script = out.slice(0, deep ? 12 : 7)
   if (script.length === 0) return []
-  script[script.length - 1] += ` That's the big idea! ${END_SIGNAL} 🎯`
+  script[script.length - 1] += deep ? ` ${END_SIGNAL} 🎯` : ` That's the big idea! ${END_SIGNAL} 🎯`
   return script
 }
 

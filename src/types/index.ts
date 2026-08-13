@@ -104,6 +104,9 @@ export type LessonCategory =
   | "pestel-analysis"
   | "business-ethics"
   | "insurance-protection"
+  // Gulliver Introduction to Business course track (Byrnes Ch. 1-2)
+  | "gulliver-business"
+  | "gulliver-economics"
   // AP Microeconomics elective track
   | "micro-basics"
   | "micro-supply-demand"
@@ -115,7 +118,7 @@ export type LessonCategory =
 // Curriculum track. Defaults to the state-required Florida track when omitted.
 // "gulliver-biz-lab" is the optional Shark Tank entrepreneurship program; when a
 // student enrolls, the AP elective tracks are hidden from the course switcher.
-export type CourseTrack = "florida" | "ap-micro" | "gulliver-biz-lab"
+export type CourseTrack = "florida" | "ap-micro" | "gulliver-biz-lab" | "gulliver-intro"
 
 export interface UnitInfo {
   id: string

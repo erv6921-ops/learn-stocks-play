@@ -27,14 +27,31 @@ import {
   ListChecks,
   BrainCircuit,
   FileQuestion,
+  Snowflake,
 } from "lucide-react"
+import { toast } from "sonner"
+import { HighlightedText } from "@/lib/highlightTerms"
+import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { useHints } from "@/components/lesson/HintContext"
 import { useQuizSession } from "@/components/lesson/QuizSessionContext"
 import CoinBurst from "@/components/gamification/CoinBurst"
 // shuffleQuestion import removed - shuffling is handled upstream in LessonDetail
 
-// Seconds allowed per quiz question before it's auto-marked wrong.
+// Minimum seconds allowed per quiz question before it's auto-marked wrong.
 const QUESTION_TIME = 15
+
+// The real per-question budget scales up with how much text there is to read
+// (~1s per 13 characters of question + all options — a comfortable teen
+// reading pace), floored at QUESTION_TIME and capped so it never drags. This
+// keeps the speed-bonus tension while making the first, wordy, full-sentence
+// questions fair — a student is never timed out mid-read.
+function questionSeconds(q: QuizQuestion): number {
+  const chars = q.question.length + q.options.reduce((sum, o) => sum + o.length, 0)
+  return Math.min(40, Math.max(QUESTION_TIME, Math.ceil(chars / 13)))
+}
+
+// Coins to freeze the countdown for the current question (a power-up).
+const FREEZE_COST = 100
 
 // ─── Quiz Answer Component (shared by Micro Check, Applied Question, Mastery) ───
 
@@ -56,18 +73,23 @@ interface QuizAnswerProps {
 function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 50, onAnswered }: QuizAnswerProps) {
   // Questions are already shuffled & validated by the MCQ engine in LessonDetail - use as-is
   const shuffledQ = question
+  // Per-question countdown budget, scaled to reading length (see questionSeconds).
+  const questionMs = questionSeconds(shuffledQ) * 1000
   const [selected, setSelected] = useState<number | null>(null)
   const [revealed, setRevealed] = useState(false)
   // Wrong options this question's hints have crossed out.
   const [eliminated, setEliminated] = useState<number[]>([])
+  // Time-freeze power-up: once bought, the countdown for this question stops.
+  const [frozen, setFrozen] = useState(false)
   const hints = useHints()
   const session = useQuizSession()
+  const { jeffsBalance, spendJeffs } = useApp()
 
   // ── Gamification: coin-particle burst on a correct answer ──
   const [burstId, setBurstId] = useState(0)
 
   // ── Countdown timer (15s per question) ──
-  const [remainingMs, setRemainingMs] = useState(QUESTION_TIME * 1000)
+  const [remainingMs, setRemainingMs] = useState(questionMs)
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
   // Mount time for THIS question - a fresh QuizAnswer instance is created
   // per question (parent passes key={question.id}), so these refs naturally
@@ -82,7 +104,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     resolvedRef.current = true
     clearInterval(intervalRef.current)
     setRevealed(true) // reveals the correct answer highlighted, no selection
-    onAnswered?.(false, QUESTION_TIME * 1000)
+    onAnswered?.(false, questionMs)
     session.registerWrong(coins) // −coins + toast
     onIncorrect()
   }
@@ -97,10 +119,11 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     setSelected(null)
     setRevealed(false)
     setEliminated([])
-    setRemainingMs(QUESTION_TIME * 1000)
+    setFrozen(false)
+    setRemainingMs(questionMs)
 
     intervalRef.current = setInterval(() => {
-      const rem = Math.max(0, QUESTION_TIME * 1000 - (Date.now() - shownAtRef.current))
+      const rem = Math.max(0, questionMs - (Date.now() - shownAtRef.current))
       setRemainingMs(rem)
       if (rem <= 0) handleTimeout()
     }, 200)
@@ -141,6 +164,19 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     if (hints.spendHint()) setEliminated(prev => [...prev, wrong])
   }
 
+  // Spend coins to stop the countdown for this question. Resets next question.
+  const canFreeze = !frozen && !revealed
+  const freezeTime = () => {
+    if (frozen || revealed) return
+    if (!spendJeffs(FREEZE_COST, "Time freeze power-up")) {
+      toast.error("Not enough InvestiCoins", { description: `Time Freeze costs ${FREEZE_COST} coins.` })
+      return
+    }
+    setFrozen(true)
+    clearInterval(intervalRef.current) // stop the countdown; it can't hit zero now
+    toast.success("Time frozen ❄️", { description: "Take your time on this one." })
+  }
+
   const isCorrect = selected === shuffledQ.correctAnswer
 
   // Timer bar geometry & colour: green >8s, yellow 4-8s, red <4s.
@@ -151,7 +187,9 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       : remainingMs > 4000
       ? "hsl(var(--warning))"
       : "hsl(var(--destructive))"
-  const timerPct = (remainingMs / (QUESTION_TIME * 1000)) * 100
+  const timerPct = (remainingMs / (questionMs)) * 100
+  // A frozen timer reads as calm sky-blue and stops draining.
+  const barColor = frozen ? "hsl(199 89% 48%)" : timerColor
 
   // Combo pill state, derived from the shared session.
   const combo = session.combo
@@ -175,14 +213,18 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
             className="absolute inset-y-0 left-0 rounded-full"
             style={{
               width: `${timerPct}%`,
-              backgroundColor: timerColor,
+              backgroundColor: barColor,
               transition: "width 0.2s linear, background-color 0.4s ease",
             }}
           />
         </div>
-        <span className="text-xs font-semibold tabular-nums w-8 text-right" style={{ color: timerColor }}>
-          {secsLeft}s
-        </span>
+        {frozen ? (
+          <span className="w-8 flex justify-end"><Snowflake className="w-4 h-4 text-sky-500" /></span>
+        ) : (
+          <span className="text-xs font-semibold tabular-nums w-8 text-right" style={{ color: barColor }}>
+            {secsLeft}s
+          </span>
+        )}
       </div>
 
       {/* Combo banner (persists across questions while the streak lives). */}
@@ -224,7 +266,14 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
               initial={{ scale: 0, rotate: -25 }}
               animate={{ scale: [0, 1.35, 1], rotate: 0 }}
               exit={{ scale: 0, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 320, damping: 13 }}
+              // NOTE: framer-motion only supports two keyframes with spring, so
+              // the 3-keyframe "pop" (0 → 1.35 → 1) must use a tween. Keeping a
+              // spring here throws "Only two keyframes currently supported…",
+              // which aborts the page-level fade and blanks the next screen.
+              transition={{
+                scale: { type: "tween", duration: 0.4, ease: "easeOut", times: [0, 0.6, 1] },
+                rotate: { type: "spring", stiffness: 320, damping: 13 },
+              }}
             >
               <div className="relative w-10 h-10 rounded-full bg-success flex items-center justify-center shadow-md">
                 <Check className="w-6 h-6 text-success-foreground" strokeWidth={3} />
@@ -273,26 +322,44 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
         })}
       </div>
 
-      {/* Hint control - a shared budget of hints for the whole lesson. Each hint
-          rules out one wrong answer. */}
-      {!revealed && hints && (
+      {/* Power-ups: hints (a shared per-lesson budget, each rules out a wrong
+          answer) and Time Freeze (100 coins to stop this question's countdown). */}
+      {!revealed && (
         <div className="flex items-center justify-between gap-2 flex-wrap">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled={!canHint}
-            onClick={takeHint}
-            className="gap-1.5"
-          >
-            <Lightbulb className={`w-3.5 h-3.5 ${hints.hintsLeft > 0 ? "text-amber-500" : "text-muted-foreground"}`} />
-            {hints.hintsLeft > 0
-              ? `Hint · ${hints.hintsLeft} left`
-              : "No hints left"}
-          </Button>
-          {eliminated.length > 0 ? (
+          <div className="flex items-center gap-2 flex-wrap">
+            {hints && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={!canHint}
+                onClick={takeHint}
+                className="gap-1.5"
+              >
+                <Lightbulb className={`w-3.5 h-3.5 ${hints.hintsLeft > 0 ? "text-amber-500" : "text-muted-foreground"}`} />
+                {hints.hintsLeft > 0
+                  ? `Hint · ${hints.hintsLeft} left`
+                  : "No hints left"}
+              </Button>
+            )}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={!canFreeze || jeffsBalance < FREEZE_COST}
+              onClick={freezeTime}
+              className="gap-1.5"
+              title={jeffsBalance < FREEZE_COST ? `Costs ${FREEZE_COST} coins` : undefined}
+            >
+              <Snowflake className={`w-3.5 h-3.5 ${frozen ? "text-sky-400" : jeffsBalance >= FREEZE_COST ? "text-sky-500" : "text-muted-foreground"}`} />
+              {frozen ? "Time frozen" : `Time Freeze · ${FREEZE_COST}`}
+            </Button>
+          </div>
+          {frozen ? (
+            <span className="text-[11px] text-muted-foreground">❄️ Timer paused for this question</span>
+          ) : hints && eliminated.length > 0 ? (
             <span className="text-[11px] text-muted-foreground">👀 Crossed out a wrong answer</span>
-          ) : hints.hintsLeft > 0 ? (
+          ) : hints && hints.hintsLeft > 0 ? (
             <span className="text-[11px] text-muted-foreground">Stuck? A hint rules one out.</span>
           ) : null}
         </div>
@@ -345,14 +412,14 @@ export function ConceptRenderer({ section, onContinue }: { section: ConceptSecti
       <CardContent className="p-6 space-y-4">
         <h2 className="text-xl font-bold text-foreground">{section.title}</h2>
         {section.paragraphs.map((p, i) => (
-          <p key={i} className="text-sm text-muted-foreground leading-relaxed">{p}</p>
+          <p key={i} className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={p} /></p>
         ))}
         {section.bullets && (
           <ul className="space-y-2 pl-1">
             {section.bullets.map((b, i) => (
               <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>{b}</span>
+                <span><HighlightedText text={b} /></span>
               </li>
             ))}
           </ul>
@@ -362,7 +429,7 @@ export function ConceptRenderer({ section, onContinue }: { section: ConceptSecti
             <p className="text-xs font-semibold text-foreground flex items-center gap-1.5 mb-1.5">
               <Lightbulb className="w-3.5 h-3.5 text-gold" /> Real-World Example
             </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">{section.realWorldExample}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={section.realWorldExample} /></p>
           </div>
         )}
         <div className="pt-2">
@@ -415,13 +482,13 @@ export function ScenarioRenderer({ section, onContinue }: { section: ScenarioSec
       </div>
       <CardContent className="p-6 space-y-4">
         <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">{section.narrative}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={section.narrative} /></p>
         {section.details && (
           <ul className="space-y-2 pl-1">
             {section.details.map((d, i) => (
               <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
                 <span className="text-warning mt-1">▸</span>
-                <span>{d}</span>
+                <span><HighlightedText text={d} /></span>
               </li>
             ))}
           </ul>
@@ -541,7 +608,7 @@ export function MasteryCheckRenderer({
   // and a failed write never breaks the lesson (matches the app's existing
   // pattern for non-critical writes, e.g. the reflection-journal save).
   const logAttempt = (question: QuizQuestion, isCorrect: boolean, responseTimeMs: number) => {
-    if (!user?.id) return
+    if (!user?.id || DEV_LOCAL_BYPASS) return
     supabase.from("question_attempts").insert({
       user_id: user.id,
       question_id: question.id,

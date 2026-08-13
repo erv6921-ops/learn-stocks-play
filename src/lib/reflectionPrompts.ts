@@ -59,6 +59,12 @@ const PROMPTS: Partial<Record<LessonCategory, string>> = {
   "economic-indicators":
     "Next time you hear this indicator in the news, what will it tell YOU to do (or not do) with your money? Write your personal playbook.",
 
+  // ── Gulliver Introduction to Business ──
+  "gulliver-business":
+    "Connect this lesson to a real business you know. In your own words, what would you do differently if you were running it, and why?",
+  "gulliver-economics":
+    "Find this economics idea in your own life or the news. Describe one real example and explain, in your own words, what it means for you.",
+
   // ── Business / entrepreneurship track ──
   entrepreneurship:
     "Apply this straight to your micro-business (or a business idea you have): what will you change or try this week because of this lesson?",

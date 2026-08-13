@@ -34,6 +34,7 @@ import { deepInvesting2 } from "@/data/deepInvesting2"
 import { deepBizA } from "@/data/deepBizA"
 import { deepBizB } from "@/data/deepBizB"
 import { deepBizC } from "@/data/deepBizC"
+import { gullerIntroContent } from "@/content/gullerIntro"
 
 /**
  * Structured 6-section lesson content.
@@ -1441,7 +1442,7 @@ export function getStructuredContent(
   // deep* content comes FIRST so it wins the `.find()` below for any lessonId
   // that also has an older, thinner entry (e.g. psych-1..10 in
   // structuredLessonContent) - the deepened version is the one we want served.
-  const allContent = [...deepStocksMarkets, ...deepPortfolioFundsBonds, ...deepStatementsRatiosVal, ...deepBehavioralMacro, ...deepOptionsAltPlanSim, ...deepEntreStrategyPsych, ...deepApMicro, ...deepIncome, ...deepBudget, ...deepBankingInsurance, ...deepCredit2, ...deepInvesting2, ...deepBizA, ...deepBizB, ...deepBizC, ...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...insuranceContent, ...creditExpansionContent, ...incomeExpansionContent, ...budgetExpansionContent, ...savingsInvestExpansionContent, ...apMicroUnit1Content]
+  const allContent = [...deepStocksMarkets, ...deepPortfolioFundsBonds, ...deepStatementsRatiosVal, ...deepBehavioralMacro, ...deepOptionsAltPlanSim, ...deepEntreStrategyPsych, ...deepApMicro, ...deepIncome, ...deepBudget, ...deepBankingInsurance, ...deepCredit2, ...deepInvesting2, ...deepBizA, ...deepBizB, ...deepBizC, ...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...insuranceContent, ...creditExpansionContent, ...incomeExpansionContent, ...budgetExpansionContent, ...savingsInvestExpansionContent, ...apMicroUnit1Content, ...gullerIntroContent]
   const handWritten = allContent.find(c => c.lessonId === lessonId)
   const lesson = lessons.find((l) => l.id === lessonId)
 

@@ -232,8 +232,8 @@ export const block3: StructuredLessonContent = {
           options: [
             "Born in the 1940s and 1950s",
             "Born roughly the late 1990s to early 2010s",
-            "Born only after 2030",
-            "Born in the 1800s"
+            "Born mostly in the early 1980s",
+            "Born in the 1960s and 1970s"
           ],
           correctAnswer: 1,
           explanation: "Gen Z is generally defined as people born from about the late 1990s to the early 2010s — today's teens and young adults.",

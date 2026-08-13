@@ -6,6 +6,7 @@ import { batch5_business } from "./batch5_business"
 import { batch6_strategy } from "./batch6_strategy"
 import { batch7_statements_econ } from "./batch7_statements_econ"
 import { batch8_micro } from "./batch8_micro"
+import { batch9_gulliver } from "./batch9_gulliver"
 
 // Every lesson id maps to its own written-reflection prompt (no two alike).
 export const REFLECTION_PROMPTS_BY_LESSON: Record<string, string> = {
@@ -17,4 +18,5 @@ export const REFLECTION_PROMPTS_BY_LESSON: Record<string, string> = {
   ...batch6_strategy,
   ...batch7_statements_econ,
   ...batch8_micro,
+  ...batch9_gulliver,
 }

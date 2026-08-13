@@ -102,11 +102,18 @@ export default function Lessons() {
   // fall back to the regular course.
   const enrollmentTrack: EnrollmentTrack = user?.track ?? "regular";
   const bizLabEnrolled = enrollmentTrack === "biz_lab";
+  const gulliverIntroEnrolled = enrollmentTrack === "gulliver_intro";
   const hidesApElective = enrollmentTrack === "biz_lab" || enrollmentTrack === "gulliver_intro";
+  // Gulliver Intro students' single "Course" tab shows the gulliver-intro track
+  // (their six-block Byrnes course), not the Florida personal-finance course.
+  const courseTrack: CourseTrack = gulliverIntroEnrolled ? "gulliver-intro" : "florida";
   useEffect(() => {
-    if (hidesApElective && activeTrack === "ap-micro") setActiveTrack("florida");
-    if (!bizLabEnrolled && activeTrack === "gulliver-biz-lab") setActiveTrack("florida");
-  }, [hidesApElective, bizLabEnrolled, activeTrack]);
+    if (hidesApElective && activeTrack === "ap-micro") setActiveTrack(courseTrack);
+    if (!bizLabEnrolled && activeTrack === "gulliver-biz-lab") setActiveTrack(courseTrack);
+    // Steer Gulliver Intro students onto their course; keep everyone else off it.
+    if (gulliverIntroEnrolled && activeTrack === "florida") setActiveTrack("gulliver-intro");
+    if (!gulliverIntroEnrolled && activeTrack === "gulliver-intro") setActiveTrack("florida");
+  }, [hidesApElective, bizLabEnrolled, gulliverIntroEnrolled, courseTrack, activeTrack]);
 
   // Biz Lab / Gulliver Intro students get the original Regular Course format
   // (roller coaster, badges, etc.) - never the AP Mode layout, even if AP Mode
@@ -440,8 +447,9 @@ export default function Lessons() {
         { key: "gulliver-biz-lab", label: "Biz Lab" },
       ]
     : hidesApElective
-    // Gulliver Intro: no AP elective and no Biz Lab tab - just the course.
-    ? [{ key: "florida", label: "Course" }]
+    // Gulliver Intro: no AP elective and no Biz Lab tab - just the course,
+    // which is the six-block gulliver-intro track for these students.
+    ? [{ key: courseTrack, label: "Course" }]
     : [
         { key: "florida", label: "Personal Finance" },
         { key: "ap-micro", label: "AP Micro" },
@@ -481,6 +489,28 @@ export default function Lessons() {
   // layout + a Fullscreen button that opens the big roller coaster. Only the
   // VITE_COASTER_TAB comparison build (big coaster as the whole tab) opts out.
   const coasterMini = !import.meta.env.VITE_COASTER_TAB;
+
+  // Gulliver Intro: open straight into the fullscreen roller coaster, with every
+  // lesson of the course on one continuous track (both chapters share one unit).
+  if (isMapView && activeTrack === "gulliver-intro") {
+    return (
+      <div className="fixed inset-0 flex flex-col bg-background">
+        <GameNav />
+        <div className="relative flex-1 overflow-hidden">
+          <FullScreenCoaster
+            embedded
+            unitNumber={activeUnit?.unitNumber}
+            unitTitle={activeUnit?.title ?? "Introduction to Business"}
+            unitReward={Math.round(unitTotalPts * multiplier)}
+            stations={coasterStations}
+            currentIdx={currentLessonIdx}
+            stats={{ streak, points: jeffsBalance, level }}
+            onSelectStation={(s) => navigate(`/lessons/${s.id}`)}
+          />
+        </div>
+      </div>
+    );
+  }
 
   if (isMapView && !coasterMini) {
     return (
@@ -553,8 +583,9 @@ export default function Lessons() {
                   { key: "gulliver-biz-lab", label: "Gulliver Biz Lab" },
                 ]
               : hidesApElective
-              // Gulliver Intro: no AP elective and no Biz Lab tab.
-              ? [{ key: "florida", label: "Regular Course" }]
+              // Gulliver Intro: no AP elective and no Biz Lab tab. Their course
+              // is the six-block gulliver-intro track, not the Florida course.
+              ? [{ key: courseTrack, label: "Course" }]
               : [
                   { key: "florida", label: "Personal Finance" },
                   { key: "ap-micro", label: "AP Microeconomics" },

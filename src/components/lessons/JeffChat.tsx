@@ -14,9 +14,11 @@ import { JeffScene } from "@/components/Jeff"
 import type { JeffMoodType, JeffActivity } from "@/contexts/JeffContext"
 import { X, History } from "lucide-react"
 import type { Lesson } from "@/types"
+import { HighlightedText } from "@/lib/highlightTerms"
 import {
   jeffChatTurn, initialJeffMessage, initialOptions, END_SIGNAL,
-  loadChat, saveChat, scriptOptions, type ChatMessage,
+  loadChat, saveChat, scriptOptions, isGulliverIntroLesson, GULLIVER_DEEP_TURNS,
+  type ChatMessage,
 } from "@/lib/jeffChatLesson"
 
 /** Tiny Jeff head for lesson-list indicators (the real mascot art). */
@@ -33,7 +35,8 @@ export function JeffChatAvatar({ size = 16 }: { size?: number }) {
   )
 }
 
-/* Expected teaching beats - drives the little progress dots up top. */
+/* Expected teaching beats - drives the little progress dots up top. Gulliver
+   Intro is a deeper, longer course, so it shows more beats. */
 const EXPECTED_TURNS = 6
 
 /* Last-resort reply options. Used only to guarantee the student is never left
@@ -366,13 +369,20 @@ interface JeffChatProps {
   lesson: Lesson
   /** Scripted fallback: Jeff teaches these when the AI is unavailable. */
   script?: string[]
+  /** Authored curriculum text used to ground the live AI (deep/Gulliver mode). */
+  source?: string
+  /** Topics the student will be quizzed on - Jeff must teach every one (deep mode). */
+  mustCover?: string[]
   /** Student tapped "Take the Quiz →". */
   onQuizReady: () => void
   /** Student closed the stage (progress is saved). */
   onClose: () => void
 }
 
-export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: JeffChatProps) {
+export default function JeffChat({ lesson, script = [], source, mustCover, onQuizReady, onClose }: JeffChatProps) {
+  // Deeper, longer teaching for the Gulliver Intro academic course.
+  const deep = isGulliverIntroLesson(lesson)
+  const expectedTurns = deep ? GULLIVER_DEEP_TURNS : EXPECTED_TURNS
   // Resume a saved conversation, otherwise open with Jeff's hardcoded hook.
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
     loadChat(lesson.id)?.messages ?? [{ role: "assistant", content: initialJeffMessage(lesson) }]
@@ -437,14 +447,14 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
 
     try {
       const [{ text, options: newOptions }] = await Promise.all([
-        jeffChatTurn(lesson, convo),
+        jeffChatTurn(lesson, convo, source, mustCover),
         minDelay,
       ])
       setThinking(false)
-      // Hard stop: if the AI ignores its message budget, force the wrap-up at
-      // 8 Jeff messages so no lesson chat drags past that.
+      // Hard stop: if the AI ignores its message budget, force the wrap-up so no
+      // lesson chat drags on forever. Deep (Gulliver) lessons get more headroom.
       const jeffCount = convo.filter(m => m.role === "assistant").length + 1
-      const forceEnd = jeffCount >= 8 && !text.includes(END_SIGNAL)
+      const forceEnd = jeffCount >= (deep ? GULLIVER_DEEP_TURNS + 3 : 8) && !text.includes(END_SIGNAL)
       const finalText = forceEnd ? `${text} ${END_SIGNAL} 🎯` : text
       setMessages(prev => [...prev, { role: "assistant", content: finalText }])
       if (finalText.includes(END_SIGNAL)) {
@@ -522,13 +532,19 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
           <p className="font-display font-extrabold text-foreground truncate">{lesson.title}</p>
         </div>
         <div className="flex items-center gap-1.5" aria-label="Lesson progress">
-          {Array.from({ length: EXPECTED_TURNS }).map((_, i) => (
-            <span
-              key={i}
-              className="h-1.5 w-4 rounded-full transition-colors"
-              style={{ background: done || i < jeffTurns ? "hsl(var(--accent))" : "hsl(var(--accent) / 0.25)" }}
-            />
-          ))}
+          {(() => {
+            // Cap the rendered dots (deep lessons have many beats) and fill them
+            // proportionally so the strip never overflows a narrow screen.
+            const dotCount = Math.min(expectedTurns, 10)
+            const filled = done ? dotCount : Math.min(dotCount, Math.round((jeffTurns / expectedTurns) * dotCount))
+            return Array.from({ length: dotCount }).map((_, i) => (
+              <span
+                key={i}
+                className="h-1.5 w-4 rounded-full transition-colors"
+                style={{ background: i < filled ? "hsl(var(--accent))" : "hsl(var(--accent) / 0.25)" }}
+              />
+            ))
+          })()}
         </div>
         <button
           onClick={() => setShowHistory(h => !h)}
@@ -556,7 +572,7 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
                 <div className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm ${
                   m.role === "assistant" ? "bg-white/80 border border-border text-foreground" : "bg-primary text-primary-foreground"
                 }`}>
-                  {m.content}
+                  {m.role === "assistant" ? <HighlightedText text={m.content} /> : m.content}
                 </div>
               </div>
             ))}
@@ -609,7 +625,7 @@ export default function JeffChat({ lesson, script = [], onQuizReady, onClose }: 
                     </div>
                   ) : (
                     <p className="text-[17px] sm:text-lg leading-relaxed text-foreground whitespace-pre-wrap">
-                      {current}
+                      <HighlightedText text={current} />
                     </p>
                   )}
                   {/* bubble tail pointing down at Jeff */}

@@ -505,6 +505,9 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   "pestel-analysis": { title: "PESTEL Analysis", icon: "Globe", description: "Political, Economic, Social, Technological, Environmental & Legal factors", color: "primary" },
   "business-ethics": { title: "Business Ethics", icon: "Scale", description: "Ethics, CSR, and responsible business decision-making", color: "accent" },
   "insurance-protection": { title: "Insurance & Protection", icon: "ShieldCheck", description: "Protect yourself, your money, and your future", color: "secondary" },
+  // Gulliver Introduction to Business categories (Byrnes Ch. 1-2)
+  "gulliver-business": { title: "Business & Its Environment", icon: "Briefcase", description: "What a business is and the forces around it", color: "primary" },
+  "gulliver-economics": { title: "How the Economy Works", icon: "TrendingUp", description: "Economics, markets, and economic policy", color: "accent" },
   // AP Microeconomics categories - required by Record<LessonCategory, …>
   "micro-basics": { title: "Micro: Basic Concepts", icon: "TrendingUp", description: "Scarcity, opportunity cost, and the PPC", color: "accent" },
   "micro-supply-demand": { title: "Micro: Supply & Demand", icon: "LineChart", description: "Markets, equilibrium, elasticity, and surplus", color: "primary" },
@@ -534,6 +537,50 @@ export function getUnitRewardTotal(unitId: string): number {
 // ═══════════════════════════════════════════════
 unitInfo.push(...AP_MICRO_UNITS)
 lessons.push(...AP_MICRO_LESSONS)
+
+// ═══════════════════════════════════════════════
+// GULLIVER INTRODUCTION TO BUSINESS - course-content track
+// Byrnes Ch. 1-2, six 85-minute blocks. Surfaced only to students enrolled in
+// the `gulliver_intro` program (profiles.track); tagged CourseTrack
+// "gulliver-intro" so it's filtered out of every other track's course view.
+// Hand-authored StructuredLessonContent (primer + checkpoints + exit ticket +
+// practice pool) lives in src/content/gullerIntro and is keyed by these ids.
+// Lessons use the "investor" tier so the adaptive engine never benchmark-skips
+// a block - all six always appear, in order, as required lessons.
+// ═══════════════════════════════════════════════
+// One combined unit so every lesson (Chapters 1-2) sits on a single continuous
+// roller coaster. Lessons keep their own category for per-topic mastery.
+export const GULLIVER_INTRO_UNITS: UnitInfo[] = [
+  { id: "gulliver-course", unitNumber: 1, title: "Introduction to Business", level: 1, levelTitle: "Gulliver · Intro to Business", categories: ["gulliver-business", "gulliver-economics"], orderIndex: 200, track: "gulliver-intro" },
+]
+
+// L() applies LESSON_REWARD_SCALE; wrap it to also tag the CourseTrack.
+const GI = (id: string, title: string, description: string, category: LessonCategory, unitId: string, lessonNum: string, reward: number): Lesson =>
+  ({ ...L(id, title, description, category, "investor", unitId, lessonNum, reward), track: "gulliver-intro" })
+
+export const GULLIVER_INTRO_LESSONS: Lesson[] = [
+  // Chapter 1 — Unit 1 is split into five short, focused lessons (1.1-1.5)
+  GI("gulliver-1-1", "What a Business Is and What It Sells",  "What a business is, why it must stay useful, and the difference between goods and services.",                 "gulliver-business", "gulliver-course", "1.1", 250),
+  GI("gulliver-1-2", "Revenue, Costs, Profit & Loss",        "How a business keeps score: revenue vs. profit, what counts as a cost, and what a loss really means.",        "gulliver-business", "gulliver-course", "1.2", 250),
+  GI("gulliver-1-3", "Entrepreneurs, Risk & Reward",         "Who the entrepreneur is, why they get paid last, opportunity cost, and why risk and reward rise together.",   "gulliver-business", "gulliver-course", "1.3", 250),
+  GI("gulliver-1-4", "Living Standards & Stakeholders",      "Standard of living vs. quality of life, and the stakeholders a business must balance.",                       "gulliver-business", "gulliver-course", "1.4", 250),
+  GI("gulliver-1-5", "Outsourcing, Insourcing & Nonprofits", "Where the work gets done, the trade-offs of outsourcing, and how nonprofits are different.",                  "gulliver-business", "gulliver-course", "1.5", 250),
+  // Unit 2 — split into five short, focused lessons (2.1-2.5)
+  GI("gulliver-2-1", "The Five Factors of Production",  "Land, labor, capital, entrepreneurship, and knowledge — the five building blocks every business needs.",         "gulliver-business", "gulliver-course", "2.1", 250),
+  GI("gulliver-2-2", "The Entrepreneur's Trade-offs",   "Being your own boss vs. a steady paycheck: the real trade-offs of choosing entrepreneurship over a job.",        "gulliver-business", "gulliver-course", "2.2", 250),
+  GI("gulliver-2-3", "The Economic & Legal Environment","How taxes, laws, fair courts, and the economy help or hinder a business — things an owner can't control.",       "gulliver-business", "gulliver-course", "2.3", 250),
+  GI("gulliver-2-4", "Technology & E-Commerce",         "The technological environment, buying and selling online, and the difference between B2C and B2B.",              "gulliver-business", "gulliver-course", "2.4", 250),
+  GI("gulliver-2-5", "Databases & Identity Theft",      "What a business database holds, why it's a target, and how stolen data leads to identity theft.",                "gulliver-business", "gulliver-course", "2.5", 250),
+  // Unit 3 (single lesson for now; will be split + deepened like Units 1-2)
+  GI("gulliver-3",   "Competitive, Social, Global & Ecological Forces",        "Competition, demographics, globalization, geopolitical risk, greening, and the four eras of U.S. business.",         "gulliver-business", "gulliver-course", "3.1", 500),
+  // Chapter 2 (single lessons for now)
+  GI("gulliver-4",   "What Economics Is & the Foundations of Capitalism",      "Economics, macro vs. micro, Malthus and Adam Smith, the invisible hand, capitalism, and its four basic rights.",    "gulliver-economics", "gulliver-course", "4.1", 500),
+  GI("gulliver-5",   "Supply, Demand & Market Structures",                     "Supply, demand, equilibrium, the four market structures, and socialism, communism, and mixed economies.",           "gulliver-economics", "gulliver-course", "5.1", 500),
+  GI("gulliver-6",   "The U.S. Economy: Indicators, Cycles & Policy",          "GDP, unemployment, inflation and the CPI, the business cycle, and fiscal vs. monetary policy.",                     "gulliver-economics", "gulliver-course", "6.1", 500),
+]
+
+unitInfo.push(...GULLIVER_INTRO_UNITS)
+lessons.push(...GULLIVER_INTRO_LESSONS)
 
 // Units belonging to a given track. Treats untagged units as the Florida track.
 export function getUnitsByTrack(track: CourseTrack = "florida"): UnitInfo[] {

@@ -96,7 +96,7 @@ export const block4: StructuredLessonContent = {
           id: "g4-cpb-1",
           question: "Which of these is one of the four basic rights of capitalism?",
           options: [
-            "The right to a free car from the government",
+            "The right to a guaranteed profit from any business",
             "The right to own private property",
             "The right to never pay any taxes",
             "The right to force others to buy your product"
@@ -247,10 +247,10 @@ export const block4: StructuredLessonContent = {
           id: "g4-prac-7",
           question: "Why did Malthus's gloomy prediction largely NOT come true?",
           options: [
-            "The population stopped growing entirely",
+            "The world's population suddenly stopped growing",
             "Resource development, like better farming and technology, produced far more food than he expected",
-            "Governments banned having children",
-            "People stopped eating"
+            "Farming stayed exactly the same as in Malthus's day",
+            "Food ran out, exactly as he predicted"
           ],
           correctAnswer: 1,
           explanation: "Advances in farming and technology (resource development) let humans produce much more food than Malthus imagined, avoiding his predicted disaster.",
@@ -341,7 +341,7 @@ export const block4: StructuredLessonContent = {
             "Choosing whether to spend your last $10 on lunch or save it",
             "Picking your favorite color",
             "Deciding which song sounds best",
-            "Choosing what to dream about"
+            "Deciding which movie is your favorite"
           ],
           correctAnswer: 0,
           explanation: "Deciding how to use a limited resource (your $10) between competing wants is economics — the study of choices under scarcity.",

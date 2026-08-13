@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react"
+import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
 import { LEAGUES, getLeagueIdx } from "@/lib/leagues"
@@ -213,6 +214,12 @@ export default function LeagueUpWatcher() {
   const idx = getLeagueIdx(jeffsBalance)
   const lastIdxRef = useRef<number | null>(null)
   const [shownIdx, setShownIdx] = useState<number | null>(null)
+  // Don't slam this blocking, gift-picker modal over an active quiz - it would
+  // freeze the lesson mid-combo. While in a lesson/unit-test we hold the
+  // celebration (without advancing the ref), so it fires once when the student
+  // leaves the quiz for the highest league they reached.
+  const { pathname } = useLocation()
+  const inQuiz = pathname.startsWith("/lessons/") || pathname.startsWith("/unit-test/")
 
   useEffect(() => {
     if (!import.meta.env.DEV) return
@@ -225,9 +232,10 @@ export default function LeagueUpWatcher() {
       lastIdxRef.current = idx // seed - never fire on load/login
       return
     }
+    if (inQuiz) return // hold the celebration until the quiz is done
     if (idx > lastIdxRef.current) setShownIdx(idx)
     lastIdxRef.current = idx
-  }, [idx])
+  }, [idx, inQuiz])
 
   return (
     <AnimatePresence>

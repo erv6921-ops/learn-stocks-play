@@ -58,7 +58,7 @@ export const block5: StructuredLessonContent = {
         {
           id: "g5-cpa-1",
           question: "A video game suddenly becomes a viral hit and far more people want it, while the supply stays the same. What usually happens to the price?",
-          options: ["It falls", "It rises", "It stays exactly the same", "It drops to zero"],
+          options: ["It falls", "It rises", "It stays exactly the same", "There's no way to tell — prices are random"],
           correctAnswer: 1,
           explanation: "When demand rises and supply stays put, buyers compete for the same amount of goods, pushing the equilibrium price up.",
           concept: "demand"
@@ -66,7 +66,7 @@ export const block5: StructuredLessonContent = {
         {
           id: "g5-cpa-2",
           question: "A bumper crop means orange growers flood the market with far more oranges than usual, while demand stays the same. The price will most likely:",
-          options: ["Rise", "Fall", "Stay the same", "Become infinite"],
+          options: ["Rise", "Fall", "Stay the same", "It depends only on the brand, not the crop"],
           correctAnswer: 1,
           explanation: "When supply rises and demand is unchanged, sellers must lower prices to sell the extra goods, so the equilibrium price falls.",
           concept: "supply"
@@ -197,7 +197,7 @@ export const block5: StructuredLessonContent = {
         {
           id: "g5-prac-4",
           question: "A weather disaster wipes out half the coffee crop, cutting supply sharply while demand stays high. The price of coffee will most likely:",
-          options: ["Fall", "Rise", "Stay the same", "Disappear"],
+          options: ["Fall", "Rise", "Stay the same", "It can't be predicted from the weather"],
           correctAnswer: 1,
           explanation: "Lower supply with steady demand pushes the equilibrium price up — there's less to go around.",
           concept: "supply"

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
+import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
 import { xpLevelForCoins } from "@/lib/xpLevels"
@@ -116,17 +117,22 @@ export default function LevelUpWatcher() {
   // Seed with the current level on first run so we never fire on load / login.
   const lastLevelRef = useRef<number | null>(null)
   const [shownLevel, setShownLevel] = useState<number | null>(null)
+  // Hold the celebration during an active quiz so it never covers the lesson
+  // mid-combo; it fires once when the student leaves the quiz.
+  const { pathname } = useLocation()
+  const inQuiz = pathname.startsWith("/lessons/") || pathname.startsWith("/unit-test/")
 
   useEffect(() => {
     if (lastLevelRef.current === null) {
       lastLevelRef.current = level
       return
     }
+    if (inQuiz) return // hold until the quiz is done
     if (level > lastLevelRef.current) {
       setShownLevel(level)
     }
     lastLevelRef.current = level
-  }, [level])
+  }, [level, inQuiz])
 
   return (
     <AnimatePresence>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier, EnrollmentTrack } from "@/types"
 import { supabase } from "@/integrations/supabase/client"
 import { recordMoneyEvent } from "@/lib/notifications"
+import { DEV_LOCAL_BYPASS, DEV_LOCAL_USER_ID } from "@/lib/devBypass"
 
 interface UnitTestProgress {
   category: string
@@ -160,11 +161,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // production build, so this can never affect the deployed app. Signs you in
     // as a throwaway, already-onboarded local user. To use real auth on the dev
     // server, set localStorage.investiplay_dev_real_auth = "1".
-    if (import.meta.env.DEV && localStorage.getItem("investiplay_dev_real_auth") !== "1") {
-      userIdRef.current = "dev-local-user"
+    if (DEV_LOCAL_BYPASS) {
+      userIdRef.current = DEV_LOCAL_USER_ID
       authReadyRef.current = true
       setUser({
-        id: "dev-local-user",
+        id: DEV_LOCAL_USER_ID,
         firstName: "Dev",
         age: 16,
         schoolName: "Localhost High",
@@ -175,6 +176,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         benchmarkScores: {},
         benchmarkCategoryScores: {},
         rewardMultiplier: 1,
+        // Enroll the throwaway dev user in the Gulliver Intro track so localhost
+        // lands straight in the six-block course with no auth/onboarding.
+        track: "gulliver_intro",
         createdAt: new Date(),
       })
       setAuthReady(true)
@@ -463,6 +467,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Mutations: update local state immediately, persist to DB
   // ───────────────────────────────────────────────────────────
 
+  // Returns the id to persist under, or null when persistence should be
+  // skipped (DEV bypass has no real session). Every mutation below gates its
+  // network write on this, so local state still updates in dev.
+  const persistUid = (): string | null =>
+    DEV_LOCAL_BYPASS ? null : userIdRef.current
+
   const updateLessonProgress = (lessonId: string, completed: boolean, quizScore?: number) => {
     const now = completed ? new Date() : undefined
     setLessonProgress(prev => {
@@ -473,7 +483,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ls.set("investiplay_progress", updated)
       return updated
     })
-    const uid = userIdRef.current
+    const uid = persistUid()
     if (uid) {
       supabase.from("lesson_progress").upsert({
         user_id: uid,
@@ -497,7 +507,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ls.set("investiplay_unit_tests", updated)
       return updated
     })
-    const uid = userIdRef.current
+    const uid = persistUid()
     if (uid) {
       supabase.from("unit_test_progress").upsert({
         user_id: uid, category, completed, score,
@@ -518,7 +528,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const persistBalance = (newBalance: number) => {
     ls.set("investiplay_jeffs_balance", newBalance)
-    const uid = userIdRef.current
+    const uid = persistUid()
     if (uid) {
       supabase.from("profiles").update({ jeffs_balance: newBalance }).eq("id", uid).then(({ error }) => {
         if (error) console.error("[jeffs_balance update]", error)
@@ -535,7 +545,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ls.set("investiplay_jeffs_history", next)
       return next
     })
-    const uid = userIdRef.current
+    const uid = persistUid()
     if (uid) {
       supabase.from("jeffs_history").insert({
         user_id: uid, amount: entry.amount, reason: entry.reason,
@@ -601,7 +611,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
       ls.set("investiplay_portfolio", updated)
 
-      const uid = userIdRef.current
+      const uid = persistUid()
       if (uid) {
         supabase.from("portfolio").upsert({
           user_id: uid, symbol, shares: newShares, purchase_price: newAvg,
@@ -634,7 +644,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }).filter((h): h is StockHolding => h !== null)
       ls.set("investiplay_portfolio", updated)
 
-      const uid = userIdRef.current
+      const uid = persistUid()
       if (uid) {
         if (removeRow) {
           supabase.from("portfolio").delete().eq("user_id", uid).eq("symbol", symbol).then(({ error }) => {
@@ -671,7 +681,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ls.set("investiplay_tokens", updated)
       return updated
     })
-    const uid = userIdRef.current
+    const uid = persistUid()
     if (uid) {
       supabase.from("user_tokens").insert({
         user_id: uid,
@@ -691,7 +701,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ls.set("investiplay_watchlist", updated)
       return updated
     })
-    const uid = userIdRef.current
+    const uid = persistUid()
     if (uid) {
       supabase.from("watchlist").insert({ user_id: uid, symbol }).then(({ error }) => {
         if (error && !error.message.includes("duplicate")) console.error("[watchlist insert]", error)
@@ -705,7 +715,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ls.set("investiplay_watchlist", updated)
       return updated
     })
-    const uid = userIdRef.current
+    const uid = persistUid()
     if (uid) {
       supabase.from("watchlist").delete().eq("user_id", uid).eq("symbol", symbol).then(({ error }) => {
         if (error) console.error("[watchlist delete]", error)
