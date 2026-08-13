@@ -27,7 +27,9 @@ import {
   ListChecks,
   BrainCircuit,
   FileQuestion,
+  Snowflake,
 } from "lucide-react"
+import { toast } from "sonner"
 import { useHints } from "@/components/lesson/HintContext"
 import { useQuizSession } from "@/components/lesson/QuizSessionContext"
 import CoinBurst from "@/components/gamification/CoinBurst"
@@ -35,6 +37,9 @@ import CoinBurst from "@/components/gamification/CoinBurst"
 
 // Seconds allowed per quiz question before it's auto-marked wrong.
 const QUESTION_TIME = 15
+
+// Coins to freeze the countdown for the current question (a power-up).
+const FREEZE_COST = 100
 
 // ─── Quiz Answer Component (shared by Micro Check, Applied Question, Mastery) ───
 
@@ -60,8 +65,11 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   const [revealed, setRevealed] = useState(false)
   // Wrong options this question's hints have crossed out.
   const [eliminated, setEliminated] = useState<number[]>([])
+  // Time-freeze power-up: once bought, the countdown for this question stops.
+  const [frozen, setFrozen] = useState(false)
   const hints = useHints()
   const session = useQuizSession()
+  const { jeffsBalance, spendJeffs } = useApp()
 
   // ── Gamification: coin-particle burst on a correct answer ──
   const [burstId, setBurstId] = useState(0)
@@ -97,6 +105,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     setSelected(null)
     setRevealed(false)
     setEliminated([])
+    setFrozen(false)
     setRemainingMs(QUESTION_TIME * 1000)
 
     intervalRef.current = setInterval(() => {
@@ -141,6 +150,19 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     if (hints.spendHint()) setEliminated(prev => [...prev, wrong])
   }
 
+  // Spend coins to stop the countdown for this question. Resets next question.
+  const canFreeze = !frozen && !revealed
+  const freezeTime = () => {
+    if (frozen || revealed) return
+    if (!spendJeffs(FREEZE_COST, "Time freeze power-up")) {
+      toast.error("Not enough InvestiCoins", { description: `Time Freeze costs ${FREEZE_COST} coins.` })
+      return
+    }
+    setFrozen(true)
+    clearInterval(intervalRef.current) // stop the countdown; it can't hit zero now
+    toast.success("Time frozen ❄️", { description: "Take your time on this one." })
+  }
+
   const isCorrect = selected === shuffledQ.correctAnswer
 
   // Timer bar geometry & colour: green >8s, yellow 4-8s, red <4s.
@@ -152,6 +174,8 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       ? "hsl(var(--warning))"
       : "hsl(var(--destructive))"
   const timerPct = (remainingMs / (QUESTION_TIME * 1000)) * 100
+  // A frozen timer reads as calm sky-blue and stops draining.
+  const barColor = frozen ? "hsl(199 89% 48%)" : timerColor
 
   // Combo pill state, derived from the shared session.
   const combo = session.combo
@@ -175,14 +199,18 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
             className="absolute inset-y-0 left-0 rounded-full"
             style={{
               width: `${timerPct}%`,
-              backgroundColor: timerColor,
+              backgroundColor: barColor,
               transition: "width 0.2s linear, background-color 0.4s ease",
             }}
           />
         </div>
-        <span className="text-xs font-semibold tabular-nums w-8 text-right" style={{ color: timerColor }}>
-          {secsLeft}s
-        </span>
+        {frozen ? (
+          <span className="w-8 flex justify-end"><Snowflake className="w-4 h-4 text-sky-500" /></span>
+        ) : (
+          <span className="text-xs font-semibold tabular-nums w-8 text-right" style={{ color: barColor }}>
+            {secsLeft}s
+          </span>
+        )}
       </div>
 
       {/* Combo banner (persists across questions while the streak lives). */}
@@ -273,26 +301,44 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
         })}
       </div>
 
-      {/* Hint control - a shared budget of hints for the whole lesson. Each hint
-          rules out one wrong answer. */}
-      {!revealed && hints && (
+      {/* Power-ups: hints (a shared per-lesson budget, each rules out a wrong
+          answer) and Time Freeze (100 coins to stop this question's countdown). */}
+      {!revealed && (
         <div className="flex items-center justify-between gap-2 flex-wrap">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled={!canHint}
-            onClick={takeHint}
-            className="gap-1.5"
-          >
-            <Lightbulb className={`w-3.5 h-3.5 ${hints.hintsLeft > 0 ? "text-amber-500" : "text-muted-foreground"}`} />
-            {hints.hintsLeft > 0
-              ? `Hint · ${hints.hintsLeft} left`
-              : "No hints left"}
-          </Button>
-          {eliminated.length > 0 ? (
+          <div className="flex items-center gap-2 flex-wrap">
+            {hints && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={!canHint}
+                onClick={takeHint}
+                className="gap-1.5"
+              >
+                <Lightbulb className={`w-3.5 h-3.5 ${hints.hintsLeft > 0 ? "text-amber-500" : "text-muted-foreground"}`} />
+                {hints.hintsLeft > 0
+                  ? `Hint · ${hints.hintsLeft} left`
+                  : "No hints left"}
+              </Button>
+            )}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={!canFreeze || jeffsBalance < FREEZE_COST}
+              onClick={freezeTime}
+              className="gap-1.5"
+              title={jeffsBalance < FREEZE_COST ? `Costs ${FREEZE_COST} coins` : undefined}
+            >
+              <Snowflake className={`w-3.5 h-3.5 ${frozen ? "text-sky-400" : jeffsBalance >= FREEZE_COST ? "text-sky-500" : "text-muted-foreground"}`} />
+              {frozen ? "Time frozen" : `Time Freeze · ${FREEZE_COST}`}
+            </Button>
+          </div>
+          {frozen ? (
+            <span className="text-[11px] text-muted-foreground">❄️ Timer paused for this question</span>
+          ) : hints && eliminated.length > 0 ? (
             <span className="text-[11px] text-muted-foreground">👀 Crossed out a wrong answer</span>
-          ) : hints.hintsLeft > 0 ? (
+          ) : hints && hints.hintsLeft > 0 ? (
             <span className="text-[11px] text-muted-foreground">Stuck? A hint rules one out.</span>
           ) : null}
         </div>
