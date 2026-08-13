@@ -131,14 +131,17 @@ export default function Dashboard() {
   const { netWorth, portfolioValue, holdings, livePrices } = useNetWorth();
   const navigate = useNavigate();
 
-  // The dashboard reflects the core (Florida) curriculum only; the optional AP
-  // Micro elective has its own card + track and never affects these stats.
-  const floridaUnits = useMemo(() => unitInfo.filter((u) => (u.track ?? "florida") === "florida"), []);
-  const floridaLessons = useMemo(() => lessons.filter((l) => (l.track ?? "florida") === "florida"), []);
-  const floridaLessonIds = useMemo(() => new Set(floridaLessons.map((l) => l.id)), [floridaLessons]);
+  // The dashboard reflects the student's enrolled curriculum. Gulliver Intro
+  // students see their six-block course; everyone else sees the core Florida
+  // track. (The optional AP Micro elective has its own card and never affects
+  // these stats.)
+  const dashTrack = user?.track === "gulliver_intro" ? "gulliver-intro" : "florida";
+  const dashUnits = useMemo(() => unitInfo.filter((u) => (u.track ?? "florida") === dashTrack), [dashTrack]);
+  const dashLessons = useMemo(() => lessons.filter((l) => (l.track ?? "florida") === dashTrack), [dashTrack]);
+  const dashLessonIds = useMemo(() => new Set(dashLessons.map((l) => l.id)), [dashLessons]);
 
-  const completedLessons = lessonProgress.filter((p) => p.completed && floridaLessonIds.has(p.lessonId)).length;
-  const totalLessons = floridaLessonIds.size;
+  const completedLessons = lessonProgress.filter((p) => p.completed && dashLessonIds.has(p.lessonId)).length;
+  const totalLessons = dashLessonIds.size;
 
   // ── Live watchlist prices ──
   const [watchlistPrices, setWatchlistPrices] = useState<Map<string, {price: number;change: number | null;changePercent: number | null;name?: string;}>>(new Map());
@@ -249,11 +252,11 @@ export default function Dashboard() {
   // Curriculum-based level
   const unitScoresForLevel = useMemo(() => {
     const check = (id: string) => lessonProgress.some((p) => p.lessonId === id && p.completed);
-    return floridaUnits.map(u => {
+    return dashUnits.map(u => {
       const ul = getLessonsByUnit(u.id);
       return { done: ul.filter(l => check(l.id)).length, total: ul.length };
     });
-  }, [lessonProgress, floridaUnits]);
+  }, [lessonProgress, dashUnits]);
   const currLevel = useMemo(() => getCurriculumLevel(completedLessons, totalLessons, unitScoresForLevel), [completedLessons, totalLessons, unitScoresForLevel]);
   // Progress within current level band
   const levelProgressPct = useMemo(() => {
@@ -301,14 +304,14 @@ export default function Dashboard() {
   // Find next incomplete lesson (same logic as Missions page)
   const nextLesson = useMemo(() => {
     const check = (id: string) => lessonProgress.some((p) => p.lessonId === id && p.completed);
-    return floridaLessons.find((l) => !check(l.id));
-  }, [lessonProgress, floridaLessons]);
+    return dashLessons.find((l) => !check(l.id));
+  }, [lessonProgress, dashLessons]);
 
   // Find the unit the next lesson belongs to
   const currentUnit = useMemo(() => {
-    if (!nextLesson) return floridaUnits[floridaUnits.length - 1];
-    return floridaUnits.find((u) => u.id === nextLesson.unitId) || floridaUnits[0];
-  }, [nextLesson, floridaUnits]);
+    if (!nextLesson) return dashUnits[dashUnits.length - 1];
+    return dashUnits.find((u) => u.id === nextLesson.unitId) || dashUnits[0];
+  }, [nextLesson, dashUnits]);
 
   // Current unit progress
   const currentUnitLessons = useMemo(() => getLessonsByUnit(currentUnit.id), [currentUnit]);
@@ -321,7 +324,7 @@ export default function Dashboard() {
   // Unit overview cards (show current + next 3 units with incomplete lessons)
   const unitOverviewCards = useMemo(() => {
     const check = (id: string) => lessonProgress.some((p) => p.lessonId === id && p.completed);
-    return floridaUnits
+    return dashUnits
       .map((unit) => {
         const ul = getLessonsByUnit(unit.id);
         const done = ul.filter((l) => check(l.id)).length;
@@ -332,7 +335,7 @@ export default function Dashboard() {
       })
       .filter((u) => u.progress < 100)
       .slice(0, 4);
-  }, [lessonProgress, floridaUnits]);
+  }, [lessonProgress, dashUnits]);
 
   // Streak ring: 7-day cycle
   const streakDayInCycle = streak % 7;
@@ -1298,12 +1301,16 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
               </div>
             </>
           ) : (
-            <div className="mt-3">
+            <Link to="/stocks" className="block mt-3 group/first">
               <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">First trade</p>
               <p className="text-xs text-muted-foreground mt-1">
                 Buy real companies with virtual cash and watch your chart grow right here.
               </p>
-            </div>
+              <span className="inline-flex items-center gap-1 mt-3 text-xs font-bold px-3 py-1.5 rounded-full press-scale"
+                style={{ background: "#3BA7C4", color: "white" }}>
+                Explore stocks <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/first:translate-x-0.5" />
+              </span>
+            </Link>
           )}
         </div>
       </div>

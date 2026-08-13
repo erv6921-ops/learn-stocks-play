@@ -7,6 +7,7 @@ import { useApp } from "@/contexts/AppContext"
 import { benchmarkQuestions, BenchmarkQuestion, calculateLiteracyLevel, getLevelDescription, computeCategoryScores } from "@/data/assessmentQuestions"
 import { computeBenchmarkScores } from "@/lib/curriculumEngine"
 import { shuffleQuestion } from "@/lib/mcqEngine"
+import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
@@ -252,8 +253,9 @@ export default function Onboarding() {
       if (e) setEmail(e)
 
       // An authenticated user clicking "Take Benchmark" goes straight to the
-      // assessment - no login/signup, no dashboard bounce.
-      if (wantsBenchmark && data.session) {
+      // assessment - no login/signup, no dashboard bounce. (The DEV bypass has
+      // no real session but is effectively "signed in", so allow it there too.)
+      if (wantsBenchmark && (data.session || DEV_LOCAL_BYPASS)) {
         setBenchmarkOnly(true)
         setStep("assessment")
         return
@@ -311,6 +313,9 @@ export default function Onboarding() {
   }
 
   const persistProfile = async (extra: Record<string, any>) => {
+    // DEV bypass has no session; skip the DB round-trip and let the caller
+    // update local state so the benchmark still completes on localhost.
+    if (DEV_LOCAL_BYPASS) return true
     const { data } = await supabase.auth.getSession()
     const uid = data.session?.user?.id
     if (!uid) {

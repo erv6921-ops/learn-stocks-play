@@ -100,7 +100,11 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
     const total = base * mult
     awardJeffs(total, "Quiz correct answer")
     setCoinsEarned(c => c + total)
+    // Reuse one toast id so rapid answers update a single toast in place
+    // instead of stacking a fresh one per question.
     toast.success(`+${total} coins`, {
+      id: "quiz-feedback",
+      duration: 2000,
       description: mult > 1 ? `${mult}x combo 🔥` : tier === "quick" ? "⚡ Quick answer!" : "Correct! 🎉",
     })
   }
@@ -124,6 +128,8 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
       setCoinsEarned(c => c - penalty)
     }
     toast.error(penalty > 0 ? `−${penalty} coins${mult > 1 ? ` (${mult}x combo)` : ""}` : "Not quite!", {
+      id: "quiz-feedback",
+      duration: 2000,
       description: penalty > 0 ? "Wrong answer" : undefined,
     })
   }

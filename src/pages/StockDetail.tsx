@@ -15,7 +15,7 @@ import { ResponsiveContainer, Area, AreaChart, XAxis, YAxis, Tooltip, CartesianG
 import {
   ArrowLeft, TrendingUp, TrendingDown, Star, StarOff, Coins,
   ShoppingCart, Wallet, Plus, Minus, AlertCircle, CheckCircle2,
-  LayoutDashboard, BookOpen, RefreshCw, Loader2, LineChart, Clock, HelpCircle
+  LayoutDashboard, BookOpen, RefreshCw, Loader2, LineChart, Clock, HelpCircle, Search
 } from "lucide-react"
 import { toast } from "sonner"
 import { formatHistoryTimestamp, formatLocalTimestamp, getMarketSessionStatus, isLiveMarketSessionNow } from "@/lib/marketSession"
@@ -666,7 +666,27 @@ export default function StockDetail() {
     )
   }
 
-  if (!stockData) return null
+  // No data after loading finished → the symbol isn't a real, quotable ticker.
+  // Show a clear dead-end with a way back instead of a blank screen.
+  if (!stockData) {
+    return (
+      <div className="min-h-screen bg-background">
+        <GameNav />
+        <div className="container mx-auto px-4 py-24 flex flex-col items-center text-center">
+          <div className="w-16 h-16 rounded-2xl bg-muted flex items-center justify-center mb-5">
+            <Search className="w-7 h-7 text-muted-foreground" />
+          </div>
+          <h1 className="text-2xl font-extrabold mb-2">Stock not found</h1>
+          <p className="text-muted-foreground max-w-sm mb-6">
+            We couldn't find a stock with the symbol <span className="font-mono font-bold">{symbol}</span>. It may be misspelled or not available to trade.
+          </p>
+          <Button asChild variant="hero" size="lg" className="press-scale">
+            <Link to="/stocks">Browse stocks</Link>
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   const stock = stockData
   const displayStockName = getDisplayStockName(stock.symbol, stock.name)

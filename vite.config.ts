@@ -15,9 +15,13 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: "autoUpdate",
+      // Serve the generated manifest during `npm run dev` too. Without this the
+      // dev server falls back to index.html for /manifest.webmanifest, which the
+      // browser rejects as invalid JSON ("Manifest: Syntax error") on every page.
+      devOptions: { enabled: true },
       includeAssets: ["favicon.png", "favicon.ico", "brand/logo.png", "brand/mascot.png"],
       workbox: {
-        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
+        maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
         globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,jpeg,webp,woff,woff2}"],
         navigateFallbackDenylist: [/^\/~oauth/],
         runtimeCaching: [

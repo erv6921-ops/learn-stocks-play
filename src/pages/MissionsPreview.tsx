@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import MissionsWorldMap, { UnitMeta } from "@/components/MissionsWorldMap";
 import { unitInfo } from "@/data/lessons";
 
@@ -8,6 +9,7 @@ import { unitInfo } from "@/data/lessons";
  * Missions tab (/lessons) wires the same component to live curriculum data.
  */
 export default function MissionsPreview() {
+  const navigate = useNavigate();
   const floridaUnits = unitInfo
     .filter(u => (u.track ?? "florida") === "florida")
     .sort((a, b) => a.orderIndex - b.orderIndex);
@@ -36,7 +38,7 @@ export default function MissionsPreview() {
       <MissionsWorldMap
         unitsMeta={unitsMeta}
         activeUnitId={activeUnitId}
-        onOpenUnit={(id) => alert(`Would open unit: ${id}`)}
+        onOpenUnit={() => navigate("/lessons")}
         rewardTotals={rewardTotals}
       />
     </div>

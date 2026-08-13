@@ -71,12 +71,10 @@ const STEPS: Step[] = [
   { route: `/stocks/${DEMO_SYMBOL}`, anchor: "stock-shares", icon: Plus, title: "Choose how many", body: "Use the plus and minus buttons (or type a number) to set how many shares. The cost updates live below.", mood: "thinking" },
   { route: `/stocks/${DEMO_SYMBOL}`, anchor: "stock-trade", icon: CheckCircle2, title: "Place the order", body: "Hit this, then Confirm, and the trade is done. Coins move and the stock is yours. That's buying AND selling! 🎉", mood: "celebrating" },
 
-  // Micro business
-  { route: "/micro-business", anchor: "biz-product", icon: Store, title: "Product", body: "Welcome to your business! Start here by designing your product or service.", mood: "excited" },
-  { route: "/micro-business", anchor: "biz-office", icon: BarChart3, title: "Office", body: "Manage the day to day: money, operations and the decisions a real owner makes.", mood: "teaching" },
-  { route: "/micro-business", anchor: "biz-collab", icon: UserCircle, title: "Collaboration", body: "Find partners and negotiate with vendors. Business is a team sport! 🤝", mood: "thinking" },
-  { route: "/micro-business", anchor: "biz-marketing", icon: Sparkles, title: "Marketing", body: "Build your brand and launch campaigns to get customers in the door.", mood: "happy" },
-  { route: "/micro-business", anchor: "biz-activity", icon: Target, title: "Do the activities", body: "Each tab has tasks right here. Finish them to earn InvestiCoins and grow your empire. 🌱", mood: "excited" },
+  // Micro business. New students land on the industry chooser (the Product /
+  // Office / Collab / Marketing tabs only exist AFTER a business is created),
+  // so this stays a single centered overview that's always accurate.
+  { route: "/micro-business", icon: Store, title: "Your business", body: "This is where you build and run your own business — design a product, manage the money, market it, and finish activities to earn coins. Pick an industry to get started!", mood: "excited" },
 
   // The rest
   { route: "/progress", anchor: "progress-overview", icon: BarChart3, title: "Your progress", body: "This map shows your strengths across every topic. Attack your weak spots to level fast.", mood: "teaching" },
@@ -177,7 +175,15 @@ export default function JeffTour() {
       const el = tourAnchors.get(s.anchor!)
       if (el) lockOn(el)
     })
-    const fallback = window.setTimeout(() => { if (!elRef.current) setRect(null) }, 3500)
+    // If the anchor never mounts on this route (e.g. a control that only exists
+    // after some prior action), don't sit on a bubble describing something the
+    // student can't see — advance to the next step. The final step is a
+    // centered outro, so we never skip past the end.
+    const fallback = window.setTimeout(() => {
+      if (elRef.current) return
+      setRect(null)
+      setI(n => (n < STEPS.length - 1 ? n + 1 : n))
+    }, 3500)
     return () => { cancelled = true; unsub(); clearTimeout(fallback); timers.forEach(clearTimeout) }
     // location is intentionally omitted so navigation doesn't re-trigger resolution
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -105,20 +105,23 @@ export function BusinessIcon({ className }: NavIconProps) {
 
 // ── Bank: the columns settle up and down ──
 export function BankIcon({ className }: NavIconProps) {
-  // Columns are y1=18 (bottom) → y2=11 (top). Animate the top (y2) so they bob
-  // from the base, which is robust for thin <line> elements.
+  // Columns bob from their base. We animate scaleY (not the raw SVG y2
+  // attribute) — animating y2 makes framer-motion transiently emit
+  // y2="undefined", which the browser rejects with a console error on every
+  // render. scaleY from a bottom transform-origin gives the same effect cleanly.
   const col = (d: number): Variants => ({
-    rest: { y2: 11 },
-    hover: { y2: [11, 14, 11], transition: { duration: 0.6, delay: d, ease: "easeInOut" } },
+    rest: { scaleY: 1 },
+    hover: { scaleY: [1, 0.6, 1], transition: { duration: 0.6, delay: d, ease: "easeInOut" } },
   })
+  const base = { transformBox: "fill-box" as const, transformOrigin: "bottom" as const }
   return (
     <Svg className={className}>
       <line x1="3" x2="21" y1="22" y2="22" />
       <polygon points="12 2 20 7 4 7" />
-      <motion.line x1="6" x2="6" y1="18" y2="11" variants={col(0)} />
-      <motion.line x1="10" x2="10" y1="18" y2="11" variants={col(0.08)} />
-      <motion.line x1="14" x2="14" y1="18" y2="11" variants={col(0.16)} />
-      <motion.line x1="18" x2="18" y1="18" y2="11" variants={col(0.24)} />
+      <motion.line x1="6" x2="6" y1="18" y2="11" variants={col(0)} style={base} />
+      <motion.line x1="10" x2="10" y1="18" y2="11" variants={col(0.08)} style={base} />
+      <motion.line x1="14" x2="14" y1="18" y2="11" variants={col(0.16)} style={base} />
+      <motion.line x1="18" x2="18" y1="18" y2="11" variants={col(0.24)} style={base} />
     </Svg>
   )
 }

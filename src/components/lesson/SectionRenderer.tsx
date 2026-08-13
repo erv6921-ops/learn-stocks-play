@@ -174,7 +174,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     }
     setFrozen(true)
     clearInterval(intervalRef.current) // stop the countdown; it can't hit zero now
-    toast.success("Time frozen ❄️", { description: "Take your time on this one." })
+    toast.error(`−${FREEZE_COST} coins`, { description: "Time frozen ❄️ — take your time." })
   }
 
   const isCorrect = selected === shuffledQ.correctAnswer

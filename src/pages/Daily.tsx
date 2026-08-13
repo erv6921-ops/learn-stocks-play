@@ -17,6 +17,7 @@ import {
 } from "@/lib/dailyGames"
 import { toast } from "sonner"
 import { Coins, Lock, Calendar, Loader2, PartyPopper } from "lucide-react"
+import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 
 interface Completion {
   game_type: DailyGameType
@@ -74,13 +75,17 @@ export default function Daily() {
     async (score: number, coins: number) => {
       if (!user?.id || submitting) return
       setSubmitting(true)
-      const { error } = await supabase.from("daily_game_completions").insert({
-        user_id: user.id,
-        game_date: dateKey,
-        game_type: gameType,
-        score,
-        coins_earned: coins,
-      })
+      // DEV bypass has no session, so the completion insert would fail RLS.
+      // Skip the write and award coins locally so the game is still playable.
+      const { error } = DEV_LOCAL_BYPASS
+        ? { error: null }
+        : await supabase.from("daily_game_completions").insert({
+            user_id: user.id,
+            game_date: dateKey,
+            game_type: gameType,
+            score,
+            coins_earned: coins,
+          })
       if (error) {
         // Unique violation → already completed today (e.g. another tab).
         console.error("[daily completion insert]", error)

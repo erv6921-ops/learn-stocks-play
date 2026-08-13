@@ -30,3 +30,5 @@ supabase/.branches/
 *.sln
 *.sw?
 docs/curriculum/**/raw/
+.auth/
+dev-dist/

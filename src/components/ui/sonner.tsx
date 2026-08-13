@@ -14,6 +14,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
       offset="80px"
       richColors
       closeButton
+      // Never let feedback toasts pile up into a wall the student has to clear.
+      visibleToasts={3}
+      duration={3500}
       toastOptions={{
         classNames: {
           toast:

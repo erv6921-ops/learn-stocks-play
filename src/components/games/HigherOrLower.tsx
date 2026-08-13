@@ -41,9 +41,11 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
       if (choice && choice === round.winner) {
         setScore((s) => s + 1)
       }
-      advanceTimer.current = setTimeout(goNext, 1500)
+      // Do NOT auto-advance. Leave the revealed numbers on screen so the
+      // student can actually read the two figures they were comparing; they
+      // move on with the "Next round" button below.
     },
-    [picked, round, goNext]
+    [picked, round]
   )
 
   // Countdown timer for the active round.

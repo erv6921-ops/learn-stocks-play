@@ -377,7 +377,12 @@ export default function Leaderboard() {
               <div className="flex-1 min-w-0">
                 <p className={`text-[13px] font-bold ${reached ? "" : "text-muted-foreground"}`}>
                   {lg.name}
-                  {current && <span className="ml-1.5 text-[10px] font-extrabold" style={{ color: lg.color }}>YOU</span>}
+                  {current && (
+                    <>
+                      {" "}
+                      <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] font-extrabold align-middle" style={{ color: lg.color, background: `${lg.color}1f` }}>YOU</span>
+                    </>
+                  )}
                 </p>
                 <p className="text-[11px] text-muted-foreground">{lg.min.toLocaleString()}+ coins</p>
               </div>

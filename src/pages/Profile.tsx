@@ -29,6 +29,8 @@ import {
   Shield, Banknote, Diamond, BarChart3, Wallet, Compass, Trash2,
 } from "lucide-react"
 import { anchor } from "@/lib/tourAnchors"
+import { loadActivities } from "@/lib/businessActivities"
+import type { BizState } from "@/lib/businessSim"
 import { ACCENT_THEMES, getAccent, applyAccent, type AccentId } from "@/lib/accentTheme"
 
 // ── Curriculum level + progress to next level ─────────────────────────────
@@ -46,6 +48,14 @@ function levelProgress(score: number) {
   const upper = LEVEL_THRESHOLDS[level]
   const pct = Math.max(0, Math.min(100, ((score - lower) / (upper - lower)) * 100))
   return { level, pct }
+}
+
+// Human labels for the local micro-business types (see lib/businessActivities).
+const BUSINESS_TYPE_LABELS: Record<string, string> = {
+  food: "Food & Beverage",
+  tech: "Technology",
+  retail: "Retail",
+  creative: "Creative",
 }
 
 const BUSINESS_PHASES = ["Idea", "Startup", "Growing", "Established", "Scaling", "Empire"]
@@ -205,6 +215,22 @@ export default function Profile() {
           .eq("business_id", biz.id)
         const pnl = (fin ?? []).reduce((s, f) => s + (Number(f.revenue) || 0) - (Number(f.expenses) || 0), 0)
         if (active) setBusiness({ name: biz.name, type: biz.type, level: biz.level, pnl })
+      } else {
+        // No row in the `businesses` table — fall back to the same local
+        // activities/sim state the Dashboard reads, so the two views agree
+        // instead of Profile claiming "No business yet".
+        const acts = await loadActivities()
+        if (active && acts.businessType) {
+          const sim = acts.sim as BizState | undefined
+          const label = BUSINESS_TYPE_LABELS[acts.businessType] ?? "Business"
+          const month = sim?.month ?? 1
+          setBusiness({
+            name: `${label} Business`,
+            type: acts.businessType,
+            level: Math.max(1, Math.ceil(month / 3)),
+            pnl: typeof sim?.cash === "number" ? sim.cash - 500 : 0,
+          })
+        }
       }
       if (active) setExtrasLoaded(true)
     })()

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import FullScreenCoaster, { CoasterStation } from "@/components/FullScreenCoaster";
 
 /**
@@ -27,6 +28,7 @@ const stations: CoasterStation[] = TITLES.map((title, i) => ({
 }));
 
 export default function CoasterJourney() {
+  const navigate = useNavigate();
   return (
     <div className="fixed inset-0">
       <FullScreenCoaster
@@ -36,7 +38,7 @@ export default function CoasterJourney() {
         stations={stations}
         currentIdx={CURRENT_IDX}
         stats={{ streak: 12, points: 3450, level: 7 }}
-        onSelectStation={(s) => alert(`Would open lesson: ${s.title}`)}
+        onSelectStation={() => navigate("/lessons")}
       />
     </div>
   );
