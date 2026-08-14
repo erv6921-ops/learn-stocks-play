@@ -144,20 +144,33 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
     </button>
   )
 
+  const fundMoic = totalInvested > 0 ? Math.round((totalValue / totalInvested) * 100) / 100 : 0
+  const winners = portfolio.filter(c => companyMultiple(c) >= 2).length
+
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between gap-2">
-        <h3 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5">
-          <Building2 className="h-3.5 w-3.5" /> Your fund
-        </h3>
-        {portfolio.length > 0 && (
-          <div className="flex items-center gap-1.5 text-[11px] font-semibold">
-            <Wallet className="h-3.5 w-3.5 text-muted-foreground" />
-            <span className="text-muted-foreground">Invested {totalInvested.toLocaleString()}</span>
-            <span aria-hidden>·</span>
-            <span style={{ color: totalValue >= totalInvested ? "#10b981" : "#ef4444" }}>Worth {totalValue.toLocaleString()}</span>
+      {/* ── VC hero: the fund ── */}
+      <div className={`rounded-2xl overflow-hidden bg-gradient-to-br ${career.gradient} text-white shadow-card`}>
+        <div className="p-4 sm:p-5">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Building2 className="h-3 w-3" /> Seed Fund I</p>
+              <p className="font-display text-xl font-extrabold leading-tight">{portfolio.length} {portfolio.length === 1 ? "startup" : "startups"} backed</p>
+              <p className="text-[11px] text-white/70">One 100× winner pays for all the losers</p>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="text-2xl font-extrabold tabular-nums">{fundMoic ? `${fundMoic}×` : "—"}</p>
+              <p className="text-[10px] text-white/70 uppercase tracking-wide">portfolio</p>
+            </div>
           </div>
-        )}
+          {portfolio.length > 0 && (
+            <div className="flex items-center justify-between mt-3.5 text-[11px] font-semibold text-white/85">
+              <span>Deployed {totalInvested.toLocaleString()}</span>
+              <span className="inline-flex items-center gap-1">🚀 {winners} {winners === 1 ? "winner" : "winners"} (2×+)</span>
+              <span className="font-extrabold">Worth {totalValue.toLocaleString()}</span>
+            </div>
+          )}
+        </div>
       </div>
 
       <Card variant="elevated" className="overflow-hidden">

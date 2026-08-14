@@ -998,28 +998,28 @@ export const deepIncome: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Diego Files His First Return",
-        narrative: "Diego, 18, earned $9,000 at a summer job. Each paycheck had federal income tax withheld. His parents tell him to file a tax return even though he's nervous about owing money. He gathers his W-2 and sits down to file before the April deadline.",
+        title: "Renata Owes a Little Tax",
+        narrative: "Renata, 19, worked full-time all year and earned $24,000 - well above the standard deduction. Unlike a small part-time earner who owes nothing, she'll actually owe some federal income tax. She gathers her W-2 to file and see whether any refund is still coming.",
         details: [
-          "Diego's $9,000 income is below the standard deduction of about $14,000, so his taxable income is zero.",
-          "Because he owed $0 in federal income tax, all the income tax withheld from his checks is refundable.",
-          "His W-2 from the employer shows exactly how much was earned and how much was withheld.",
-          "By filing on time, Diego gets his withheld income tax back instead of leaving it with the government."
+          "After the ~$14,000 standard deduction, Renata's taxable income is about $10,000.",
+          "That $10,000 sits in the lowest (10%) bracket, so she owes roughly $1,000 in federal income tax.",
+          "Her employer withheld $1,300 over the year - a bit more than the $1,000 she actually owes.",
+          "Filing her return, Renata gets the $300 difference back, but not a full refund like a low earner would."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "income6-aq1",
-          question: "Why does Diego get his withheld income tax back as a refund?",
+          question: "Why does Renata owe some income tax when a small part-time earner owes none?",
           options: [
-              "Everyone under 21 pays no taxes ever",
-              "His income was below the standard deduction",
-              "Refunds are free bonuses from the IRS",
-              "He earned money only in the summer"
+              "Older workers always pay a special extra tax",
+              "Her income rose above the standard deduction",
+              "Refunds are only given to part-time workers",
+              "She forgot to file a W-4 with her employer"
             ],
             correctAnswer: 1,
-          explanation: "Diego's $9,000 was under the ~$14,000 standard deduction, so his taxable income and income-tax bill were $0. The tax withheld was overpayment, refunded when he files."
+          explanation: "Only income above the ~$14,000 standard deduction is taxable. Renata's $24,000 left about $10,000 taxable in the 10% bracket, so she owed ~$1,000 - still less than was withheld, so she got a partial refund."
         }
       },
       {
@@ -1307,7 +1307,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "concept",
         title: "The Data Behind College's Payoff",
         paragraphs: [
-          "On average, more education correlates with higher lifetime earnings - that's the data behind treating college as an investment. U.S. figures consistently show bachelor's degree holders earn substantially more over a lifetime than those with only a high school diploma, often hundreds of thousands of dollars more, and they tend to face lower unemployment. This 'college wage premium' is real and is the main argument for the cost. But 'on average' hides huge variation: the payoff depends heavily on what you study, where, how much you borrow, and whether you finish.",
+          "You already have the tool from the Career-ROI lesson: weigh a path's lifetime earnings against its total cost. This lesson aims it at the biggest education decision of all - a four-year college degree. On average, more education correlates with higher lifetime earnings, which is the data behind treating college as an investment. U.S. figures consistently show bachelor's degree holders earn substantially more over a lifetime than those with only a high school diploma, often hundreds of thousands of dollars more, and they tend to face lower unemployment. This 'college wage premium' is real and is the main argument for the cost. But 'on average' hides huge variation: the payoff depends heavily on what you study, where, how much you borrow, and whether you finish.",
           "The cost side is steep and rising. Four years of tuition, fees, housing, and books can total $40,000 at an in-state public school or well over $200,000 at a private one. Add the 'opportunity cost' of four years not working full-time, and the investment is large. This is why the same degree can be a brilliant investment or a costly mistake depending on the price paid. Paying $200,000 for a degree that leads to a $40,000 job is very different from paying $40,000 for one that leads to a $70,000 career.",
           "Finishing matters enormously. Students who take on debt but don't graduate get much of the cost with little of the wage premium - often the worst outcome. Completion rates, the specific major, and the school's real graduate salaries (not glossy brochures) all shape whether the investment pays off. The mature way to view college isn't 'always worth it' or 'a scam,' but as a specific investment whose ROI you can research and improve by choosing an affordable school, a marketable field, and a realistic plan to actually finish."
         ],
@@ -1325,17 +1325,17 @@ export const deepIncome: StructuredLessonContent[] = [
         title: "Making Education Pay Off",
         paragraphs: [
           "You can dramatically improve education's ROI with smart choices before you ever enroll. Starting at a community college for general credits, then transferring, can cut costs by tens of thousands with the same final degree. Choosing in-state public schools, applying aggressively for scholarships and grants (money you never repay), and picking fields with strong demand all tilt the math in your favor. Free money should always come before loans: every scholarship dollar is a dollar of debt you avoid, and grants don't have to be paid back like loans do.",
-          "Not all valuable education is a four-year degree. Trade schools, apprenticeships, certifications, and associate degrees can lead to strong, in-demand careers - electricians, plumbers, technicians, and coders - often with far lower cost and faster entry. Apprenticeships even pay you while you learn, flipping the cost equation entirely. The point isn't that college is bad; it's that 'education as investment' includes many paths, and the best one depends on your goals, the field's demand, and the price. Blindly assuming a pricey four-year degree is the only smart path can wreck your ROI.",
+          "Where you earn the same degree matters as much as whether you earn it. Two years at a community college for general credits, then transferring to finish, can cut the cost of an identical bachelor's by tens of thousands. Dual-enrollment or AP credits earned in high school shave off whole semesters. In-state public tuition is a fraction of private, and living at home removes a huge housing bill. None of these change the diploma you graduate with - they only shrink the price you pay for it, which is the single biggest lever on a degree's return. (A four-year degree isn't the only path, of course; the College-vs-Trade lesson weighs it head-to-head against the trades.)",
           "Whatever path you choose, protect the investment by borrowing carefully and finishing what you start. Prefer federal student loans over private ones (better protections and rates), keep total borrowing below your expected first-year salary, and treat your major as part of the financial decision, not separate from it. Look up real graduate earnings for your intended field and school before committing. Education can be one of the highest-return investments of your life - but only when you match a realistic cost to a realistic payoff and follow through to completion. Treated carelessly, the same education can become one of the heaviest financial burdens instead."
         ],
         bullets: [
           "Community college transfers and in-state schools can slash costs for the same degree.",
           "Scholarships and grants are free money - always pursue them before taking loans.",
-          "Trades, apprenticeships, and certifications can pay off strongly at lower cost.",
+          "AP credits, dual enrollment, and living at home further cut a degree's price.",
           "Prefer federal loans and keep total debt under your expected first-year salary.",
           "Research real graduate salaries for your field and school before committing."
         ],
-        realWorldExample: "Tariq wants to be an electrician. Instead of a $100,000 degree, he joins a paid apprenticeship: he earns about $18 an hour while training and finishes debt-free with a licensed trade in high demand. His 'education investment' cost him nothing out of pocket and started paying immediately - a powerful ROI."
+        realWorldExample: "Fatima wants a business degree without heavy debt. She earns 24 college credits through AP and dual-enrollment in high school, spends two years at a community college, then transfers to an in-state public university. She graduates with the same bachelor's as her classmates but borrowed about a third of what they did - the identical degree at a far better ROI."
       },
       {
         type: "micro-check",
@@ -1399,7 +1399,7 @@ export const deepIncome: StructuredLessonContent[] = [
           "The same degree can be a great investment or a mistake depending on the price paid.",
           "Not finishing is often the worst outcome: much cost, little wage premium.",
           "Scholarships, grants, community college, and in-state schools cut costs sharply.",
-          "Trades and apprenticeships are valid, often high-ROI education paths too."
+          "Where you earn the same degree changes its cost - and its return - enormously."
         ]
       },
       {
@@ -1444,15 +1444,15 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income8-mastery4",
-            question: "What makes a paid apprenticeship attractive as an education path?",
+            question: "Why prefer federal student loans over private ones for a degree?",
             options: [
-              "It costs more than a private college",
-              "You earn while you learn a trade",
-              "It bans you from ever earning raises",
-              "It takes longer than a four-year degree"
+              "Federal loans never have to be repaid at all",
+              "Federal loans offer better protections and rates",
+              "Private loans are free money you never repay",
+              "Federal loans are only for graduate students"
             ],
             correctAnswer: 1,
-            explanation: "Apprenticeships pay you while you train, often finishing debt-free with an in-demand trade. That flips the cost equation and can produce a strong ROI."
+            explanation: "Federal student loans generally carry lower rates and stronger borrower protections than private loans, so they're the safer way to borrow - after you've used up free scholarships and grants."
           },
           {
             id: "income8-mastery5",
@@ -1879,7 +1879,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "concept",
         title: "Comparing the Real Return of Each Path",
         paragraphs: [
-          "To compare fairly, project both paths over a full career, not just year one. Add up total cost (tuition plus lost earning years) and total lifetime income including realistic raises. Trades often win early because of lower cost and earlier earning, but some college fields catch up and pass them thanks to higher ceilings and faster raises. A welder earning $55,000 with steady work can out-earn a college grad in an oversupplied, low-paying field - and lose to an engineer whose pay climbs steeply. Real numbers, not stereotypes, decide it.",
+          "Compare them with the same ROI tool from the Career-ROI lesson: total cost (tuition plus lost earning years) against total lifetime income, raises included. Applied to this choice, trades often win early thanks to lower cost and earlier earning, but some college fields catch up and pass them with higher ceilings and faster raises. A welder earning $55,000 with steady work can out-earn a college grad in an oversupplied, low-paying field - and lose to an engineer whose pay climbs steeply. Real numbers, not stereotypes, decide it.",
           "Job demand and stability matter as much as pay. Many skilled trades face shortages, meaning strong job security and rising wages, and they generally can't be outsourced overseas - you can't wire a house from another country. College fields vary wildly: some are in high demand, others are crowded. Automation and offshoring hit different jobs differently. A smart comparison checks projected demand for the specific field, not just the credential type, because a booming trade can beat a shrinking profession and vice versa.",
           "Fit and follow-through often decide the real winner. The best-paying path is worthless if you drop out or hate the work. Some people thrive with hands-on trade work and would be miserable in an office; others are the reverse. Consider your interests, the physical demands of some trades, and whether you'll actually complete the program. The strongest approach: research real salaries and demand for a few specific careers you'd genuinely pursue, compare total cost and lifetime pay, and pick the path with a strong return that you'll actually stick with. Shadowing someone already doing the work, even for a single day, can reveal whether a well-paid path is one you'd genuinely enjoy for years."
         ],
@@ -2249,7 +2249,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "concept",
         title: "Protecting Yourself Before and During a Downturn",
         paragraphs: [
-          "The single most important protection is an emergency fund - savings set aside to cover your basic expenses if income stops. A common guideline is three to six months of essential costs kept in a safe, accessible account. If you lose your job in a recession, this fund pays rent and food while you search, so you're not forced into debt or a desperate decision. Building it during good times, when income is steady, is exactly why 'save when things are fine' matters - the fund is there precisely for the moment things aren't.",
+          "The single most important protection is an emergency fund - and you'll build the full playbook for it in the Emergency Funds lesson. What matters here is why a recession is exactly the storm it exists for: a layoff can stop your income for months, and the fund pays rent and food while you search, so you're not forced into debt or a desperate first offer. The recession twist is timing - build it during good times, because the fund has to exist before the downturn arrives, not after.",
           "Reducing risk before trouble hits also helps. Avoiding heavy debt means lower required payments if your income drops - someone with big car and credit-card payments is far more fragile in a layoff than someone who kept borrowing modest. Living below your means builds a cushion and habits that survive lean times. Diversifying your income - a side gig alongside a main job - means one setback doesn't wipe out everything. These aren't glamorous, but they're what separate people who weather a recession from those crushed by it.",
           "Your career choices and skills are recession protection too. Staying valuable and hard to replace makes you less likely to be the one laid off, and in-demand, essential skills find work even in downturns. Keep learning and maintain a network, since referrals help most when hiring is slow. And for long-term investors, downturns can even be opportunities: falling stock prices let steady investors buy at a discount, and markets have historically recovered. The mindset shift is treating recessions as a normal risk you prepare for calmly, not a disaster you can only fear. Preparation, not panic, is what separates people who come through a downturn intact."
         ],
@@ -2417,7 +2417,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "concept",
         title: "What Social Security Is and How It's Funded",
         paragraphs: [
-          "Social Security is a U.S. government program that provides income to people who are retired, disabled, or the survivors of workers who died. It's funded by a payroll tax you'll see on every paycheck: the FICA line. Workers pay 6.2% of wages for Social Security, and employers match another 6.2%, so 12.4% total goes toward it (self-employed people pay the full 12.4% themselves). This isn't optional - almost every worker contributes automatically. When you spot 'FICA' or 'OASDI' on a pay stub, that's the money funding Social Security.",
+          "Social Security is a U.S. government program that provides income to people who are retired, disabled, or the survivors of workers who died. It's funded by a payroll tax you already met in the take-home-pay lesson: the FICA line. Zooming in on its Social Security half, workers pay 6.2% of wages, and employers match another 6.2%, so 12.4% total goes toward it (self-employed people pay the full 12.4% themselves). This isn't optional - almost every worker contributes automatically. When you spot 'FICA' or 'OASDI' on a pay stub, that's the money funding Social Security.",
           "A key point many people misunderstand: Social Security is 'pay-as-you-go,' not a personal savings account. The taxes today's workers pay are used to fund today's retirees' benefits, not stored in an account with your name on it. When you retire, the workers of that future will fund your benefits. This is why the ratio of workers to retirees matters for the program's health - fewer workers per retiree strains the system. It's a social insurance program built on the idea that each generation supports the one before it.",
           "You earn access to benefits by working and paying in over time. The system uses 'credits': you earn up to four credits a year based on your earnings, and you generally need 40 credits (about 10 years of work) to qualify for retirement benefits. Your future benefit is based on your highest-earning years of work, so higher lifetime earnings generally mean a larger benefit, up to a cap. Even as a teen, the moment you start working and paying FICA, you begin building toward this future safety net."
         ],

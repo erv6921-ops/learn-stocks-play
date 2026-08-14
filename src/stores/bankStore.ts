@@ -13,6 +13,11 @@ import {
   CREDIT_ON_TIME, CREDIT_LATE, DAY_MS, isPast,
 } from "@/data/bankData"
 import type { PortfolioCompany } from "@/lib/careerSim"
+import type { PortfolioBuyout } from "@/lib/peFund"
+import type { ClientHousehold } from "@/lib/wealthBook"
+import type { Engagement } from "@/lib/dealPipeline"
+import type { PeVars } from "@/lib/peDealRoom"
+import { INITIAL_VARS as PE_DEAL_INITIAL } from "@/lib/peDealRoom"
 
 export interface ActiveLoan {
   id: string // unique instance id
@@ -89,8 +94,21 @@ interface BankState {
   memos: WorkMemo[]
   /** Venture Capitalist career: startups the student has invested coins in. */
   vcPortfolio: PortfolioCompany[]
-
-  // ── actions ──
+  /** Private Equity career: whole companies the student has bought. */
+  pePortfolio: PortfolioBuyout[]
+  /** Wealth Manager career: the book of client households under management. */
+  wmBook: ClientHousehold[]
+  /** Investment Banker career: live deals in the pipeline. */
+  ibPipeline: Engagement[]
+  /** Investment Banker career: total success fees earned (for the league table). */
+  ibFeesYtd: number
+  /** Private Equity career: the immersive deal-room campaign. */
+  /** Which case study is active (null = at the deal picker). */
+  peDealId: string | null
+  peDealStep: number
+  peDealVars: PeVars
+  /** dealId -> best MOIC achieved, for the picker's "completed" badges. */
+  peDealsDone: Record<string, number>
   /** Accrue daily compound interest on savings; returns coins of interest added. */
   accrueInterest: () => number
   deposit: (amount: number) => void
@@ -122,6 +140,35 @@ interface BankState {
   catchUpVC: (careerId: string, id: string, patch: Partial<PortfolioCompany>, repDelta: number) => void
   /** VC: exit a holding (coins are paid out by the page via awardJeffs). */
   exitVC: (id: string, payout: number) => void
+
+  /** PE: buy a company (equity check spent by the page via spendJeffs). */
+  buyPE: (company: PortfolioBuyout) => void
+  /** PE: apply a weekly operating decision - patches the company + bumps rep. */
+  runPE: (careerId: string, id: string, patch: Partial<PortfolioBuyout>, repDelta: number) => void
+  /** PE: exit a buyout (coins paid out by the page via awardJeffs). */
+  exitPE: (id: string, payout: number) => void
+
+  /** WM: sign a new client household into the book. */
+  signClient: (client: ClientHousehold) => void
+  /** WM: apply a weekly review - patches the client, bumps rep; drops them if they left. */
+  reviewClient: (careerId: string, id: string, patch: Partial<ClientHousehold>, repDelta: number, left: boolean) => void
+
+  /** IB: win a mandate, adding a live engagement to the pipeline. */
+  winMandate: (engagement: Engagement) => void
+  /** IB: work a deal a stage - patches it, bumps rep, banks any success fee. The
+   * engagement stays (its status shows closed/dead) until dismissed. */
+  workDeal: (careerId: string, id: string, patch: Partial<Engagement>, repDelta: number, fee: number) => void
+  /** IB: remove a finished (closed/dead) engagement from the pipeline. */
+  dismissDeal: (id: string) => void
+
+  /** PE deal room: begin (or replay) a case study from the top. */
+  peDealStart: (dealId: string, initVars: Partial<PeVars>) => void
+  /** PE deal room: advance to a step, merging any changes into the deal vars. */
+  peDealAdvance: (nextStep: number, patch?: Partial<PeVars>) => void
+  /** PE deal room: leave the active deal, back to the picker. */
+  peDealExit: () => void
+  /** PE deal room: finish a deal, recording its best MOIC, back to the picker. */
+  peDealFinish: (dealId: string, moic: number) => void
 }
 
 function clampRep(rep: number): number {
@@ -152,6 +199,14 @@ export const useBankStore = create<BankState>()(
       careerEarnings: 0,
       memos: [],
       vcPortfolio: [],
+      pePortfolio: [],
+      wmBook: [],
+      ibPipeline: [],
+      ibFeesYtd: 0,
+      peDealId: null,
+      peDealStep: 0,
+      peDealVars: { ...PE_DEAL_INITIAL },
+      peDealsDone: {},
 
       accrueInterest: () => {
         const { savings, lastAccrual } = get()
@@ -288,12 +343,88 @@ export const useBankStore = create<BankState>()(
           vcPortfolio: s.vcPortfolio.filter(c => c.id !== id),
           careerEarnings: s.careerEarnings + payout,
         })),
+
+      buyPE: company =>
+        set(s =>
+          s.pePortfolio.some(c => c.id === company.id)
+            ? s
+            : { pePortfolio: [...s.pePortfolio, company] }
+        ),
+
+      runPE: (careerId, id, patch, repDelta) =>
+        set(s => ({
+          pePortfolio: s.pePortfolio.map(c => (c.id === id ? { ...c, ...patch } : c)),
+          careerRep: {
+            ...s.careerRep,
+            [careerId]: clampRep((s.careerRep[careerId] ?? 50) + repDelta),
+          },
+        })),
+
+      exitPE: (id, payout) =>
+        set(s => ({
+          pePortfolio: s.pePortfolio.filter(c => c.id !== id),
+          careerEarnings: s.careerEarnings + payout,
+        })),
+
+      signClient: client =>
+        set(s =>
+          s.wmBook.some(c => c.id === client.id) ? s : { wmBook: [...s.wmBook, client] }
+        ),
+
+      reviewClient: (careerId, id, patch, repDelta, left) =>
+        set(s => ({
+          wmBook: left
+            ? s.wmBook.filter(c => c.id !== id)
+            : s.wmBook.map(c => (c.id === id ? { ...c, ...patch } : c)),
+          careerRep: {
+            ...s.careerRep,
+            [careerId]: clampRep((s.careerRep[careerId] ?? 50) + repDelta),
+          },
+        })),
+
+      winMandate: engagement =>
+        set(s =>
+          s.ibPipeline.some(e => e.id === engagement.id) ? s : { ibPipeline: [...s.ibPipeline, engagement] }
+        ),
+
+      workDeal: (careerId, id, patch, repDelta, fee) =>
+        set(s => ({
+          ibPipeline: s.ibPipeline.map(e => (e.id === id ? { ...e, ...patch } : e)),
+          ibFeesYtd: s.ibFeesYtd + fee,
+          careerEarnings: s.careerEarnings + fee,
+          careerRep: {
+            ...s.careerRep,
+            [careerId]: clampRep((s.careerRep[careerId] ?? 50) + repDelta),
+          },
+        })),
+
+      dismissDeal: id =>
+        set(s => ({ ibPipeline: s.ibPipeline.filter(e => e.id !== id) })),
+
+      peDealStart: (dealId, initVars) =>
+        set({ peDealId: dealId, peDealStep: 0, peDealVars: { ...PE_DEAL_INITIAL, ...initVars } }),
+
+      peDealAdvance: (nextStep, patch) =>
+        set(s => ({
+          peDealStep: nextStep,
+          peDealVars: patch ? { ...s.peDealVars, ...patch } : s.peDealVars,
+        })),
+
+      peDealExit: () => set({ peDealId: null, peDealStep: 0 }),
+
+      peDealFinish: (dealId, moic) =>
+        set(s => ({
+          peDealId: null,
+          peDealStep: 0,
+          peDealsDone: { ...s.peDealsDone, [dealId]: Math.max(moic, s.peDealsDone[dealId] ?? moic) },
+        })),
     }),
     {
       name: "investiplay-bank",
-      version: 1,
+      version: 4,
       // v1: the VC portfolio gained full company profiles. Drop any holdings
       // saved under the earlier shape (no `profile`) so they can't crash the UI.
+      // v2: added the PE buyout portfolio (default []); guard its shape too.
       migrate: (persisted: unknown) => {
         const s = persisted as Partial<BankState> | undefined
         if (s && Array.isArray(s.vcPortfolio)) {
@@ -301,6 +432,22 @@ export const useBankStore = create<BankState>()(
             c => c && typeof c === "object" && "profile" in c && typeof (c as PortfolioCompany).entryValuation === "number"
           )
         }
+        if (!s || !Array.isArray(s.pePortfolio)) {
+          if (s) s.pePortfolio = []
+        } else {
+          s.pePortfolio = s.pePortfolio.filter(
+            c => c && typeof c === "object" && typeof (c as PortfolioBuyout).equityIn === "number" && "profile" in c
+          )
+        }
+        if (s && !Array.isArray(s.wmBook)) s.wmBook = []
+        if (s && !Array.isArray(s.ibPipeline)) s.ibPipeline = []
+        if (s && typeof s.ibFeesYtd !== "number") s.ibFeesYtd = 0
+        // v3: the immersive PE deal room.
+        if (s && typeof s.peDealStep !== "number") s.peDealStep = 0
+        if (s && (!s.peDealVars || typeof s.peDealVars !== "object")) s.peDealVars = { ...PE_DEAL_INITIAL }
+        // v4: multiple case studies + a picker.
+        if (s && s.peDealId === undefined) s.peDealId = null
+        if (s && (!s.peDealsDone || typeof s.peDealsDone !== "object")) s.peDealsDone = {}
         return s as BankState
       },
     }

@@ -33,6 +33,9 @@ import {
 } from "lucide-react"
 import { ACCENT, ACCENT_SOFT } from "./theme"
 import VentureFund from "./VentureFund"
+import WealthBook from "./WealthBook"
+import DealPipeline from "./DealPipeline"
+import PeDealRoom from "./PeDealRoom"
 
 /* ══════════════════════════ Career picker ══════════════════════════ */
 
@@ -668,6 +671,15 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
 
           {/* VC only: living portfolio + deal browser */}
           {career.id === "venture-capitalist" && <VentureFund career={career} week={week} />}
+
+          {/* PE only: immersive end-to-end deal room */}
+          {career.id === "private-equity" && <PeDealRoom career={career} week={week} />}
+
+          {/* WM only: living client book */}
+          {career.id === "wealth-manager" && <WealthBook career={career} week={week} />}
+
+          {/* IB only: living deal pipeline */}
+          {career.id === "investment-banker" && <DealPipeline career={career} week={week} />}
 
           {/* résumé strip */}
           <div className="grid grid-cols-3 gap-2">
