@@ -582,11 +582,11 @@ export const GULLIVER_INTRO_LESSONS: Lesson[] = [
 unitInfo.push(...GULLIVER_INTRO_UNITS)
 lessons.push(...GULLIVER_INTRO_LESSONS)
 
-// Units belonging to a given track. Treats untagged units as the Florida track.
-export function getUnitsByTrack(track: CourseTrack = "florida"): UnitInfo[] {
-  return unitInfo.filter(u => (u.track ?? "florida") === track)
+// Units belonging to a given track. Untagged units are the default "regular" course.
+export function getUnitsByTrack(track: CourseTrack = "regular"): UnitInfo[] {
+  return unitInfo.filter(u => (u.track ?? "regular") === track)
 }
 
 export function getUnitTrack(unitId: string): CourseTrack {
-  return unitInfo.find(u => u.id === unitId)?.track ?? "florida"
+  return unitInfo.find(u => u.id === unitId)?.track ?? "regular"
 }

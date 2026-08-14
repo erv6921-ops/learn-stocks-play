@@ -88,9 +88,13 @@ export default function Lessons() {
     try { localStorage.setItem("ap-mode", String(apMode)); } catch {}
   }, [apMode]);
 
-  // Course track: Florida Personal Finance (default) or the AP Micro elective.
+  // Course view: the regular curriculum (default) or an elective/alternate view.
   const [activeTrack, setActiveTrack] = useState<CourseTrack>(() => {
-    try { return (localStorage.getItem("investiplay_active_track") as CourseTrack) || "florida"; } catch { return "florida"; }
+    try {
+      // Back-compat: "florida" was the old value for the default course view.
+      const stored = localStorage.getItem("investiplay_active_track");
+      return (stored === "florida" ? "regular" : (stored as CourseTrack)) || "regular";
+    } catch { return "regular"; }
   });
   useEffect(() => {
     try { localStorage.setItem("investiplay_active_track", activeTrack); } catch { /* storage unavailable */ }
@@ -104,15 +108,15 @@ export default function Lessons() {
   const bizLabEnrolled = enrollmentTrack === "biz_lab";
   const gulliverIntroEnrolled = enrollmentTrack === "gulliver_intro";
   const hidesApElective = enrollmentTrack === "biz_lab" || enrollmentTrack === "gulliver_intro";
-  // Gulliver Intro students' single "Course" tab shows the gulliver-intro track
-  // (their six-block Byrnes course), not the Florida personal-finance course.
-  const courseTrack: CourseTrack = gulliverIntroEnrolled ? "gulliver-intro" : "florida";
+  // Gulliver Intro students' single "Course" tab shows the gulliver-intro course
+  // view (their Byrnes course), not the regular personal-finance curriculum.
+  const courseTrack: CourseTrack = gulliverIntroEnrolled ? "gulliver-intro" : "regular";
   useEffect(() => {
     if (hidesApElective && activeTrack === "ap-micro") setActiveTrack(courseTrack);
     if (!bizLabEnrolled && activeTrack === "gulliver-biz-lab") setActiveTrack(courseTrack);
     // Steer Gulliver Intro students onto their course; keep everyone else off it.
-    if (gulliverIntroEnrolled && activeTrack === "florida") setActiveTrack("gulliver-intro");
-    if (!gulliverIntroEnrolled && activeTrack === "gulliver-intro") setActiveTrack("florida");
+    if (gulliverIntroEnrolled && activeTrack === "regular") setActiveTrack("gulliver-intro");
+    if (!gulliverIntroEnrolled && activeTrack === "gulliver-intro") setActiveTrack("regular");
   }, [hidesApElective, bizLabEnrolled, gulliverIntroEnrolled, courseTrack, activeTrack]);
 
   // Biz Lab / Gulliver Intro students get the original Regular Course format
@@ -120,7 +124,7 @@ export default function Lessons() {
   // was toggled on before enrolling and is still stored in localStorage.
   const effectiveApMode = apMode && !hidesApElective;
   const trackUnits = useMemo(
-    () => unitInfo.filter(u => (u.track ?? "florida") === activeTrack).sort((a, b) => a.orderIndex - b.orderIndex),
+    () => unitInfo.filter(u => (u.track ?? "regular") === activeTrack).sort((a, b) => a.orderIndex - b.orderIndex),
     [activeTrack]
   );
 
@@ -252,26 +256,26 @@ export default function Lessons() {
     return trackUnits.find(u => u.orderIndex === activeUnit.orderIndex + 1) || null;
   }, [activeUnit, trackUnits]);
 
-  // ── Player-wide stats (level mirrors the Florida-scoped navbar HUD) ──
-  const floridaUnits = useMemo(() => unitInfo.filter(u => (u.track ?? "florida") === "florida"), []);
-  const floridaLessonIds = useMemo(
-    () => new Set(floridaUnits.flatMap(u => getLessonsByUnit(u.id).map(l => l.id))),
-    [floridaUnits]
+  // ── Player-wide stats (level mirrors the regular-curriculum navbar HUD) ──
+  const regularUnits = useMemo(() => unitInfo.filter(u => (u.track ?? "regular") === "regular"), []);
+  const regularLessonIds = useMemo(
+    () => new Set(regularUnits.flatMap(u => getLessonsByUnit(u.id).map(l => l.id))),
+    [regularUnits]
   );
   const completedLessonsAll = lessonProgress.filter(p => p.completed).length;
-  const completedFloridaLessons = lessonProgress.filter(p => p.completed && floridaLessonIds.has(p.lessonId)).length;
+  const completedRegularLessons = lessonProgress.filter(p => p.completed && regularLessonIds.has(p.lessonId)).length;
   const unitScores = useMemo(() =>
-    floridaUnits.map(u => {
+    regularUnits.map(u => {
       const ul = getLessonsByUnit(u.id);
       return {
         done: ul.filter(l => lessonProgress.find(p => p.lessonId === l.id && p.completed)).length,
         total: ul.length,
       };
-    }), [lessonProgress, floridaUnits]);
+    }), [lessonProgress, regularUnits]);
   const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
   const bestStreak = useMemo(() => getBestStreak(jeffsHistory), [jeffsHistory]);
-  const level = useMemo(() => getCurriculumLevel(completedFloridaLessons, floridaLessonIds.size, unitScores),
-    [completedFloridaLessons, floridaLessonIds, unitScores]);
+  const level = useMemo(() => getCurriculumLevel(completedRegularLessons, regularLessonIds.size, unitScores),
+    [completedRegularLessons, regularLessonIds, unitScores]);
   const totalEarned = useMemo(() => getTotalEarned(jeffsHistory), [jeffsHistory]);
   const coinsThisWeek = useMemo(() => getCoinsThisWeek(jeffsHistory), [jeffsHistory]);
   const anyUnitComplete = unitScores.some(u => u.total > 0 && u.done >= u.total);
@@ -443,7 +447,7 @@ export default function Lessons() {
   // keep their own (container) layouts.
   const trackTabs: { key: CourseTrack; label: string }[] = bizLabEnrolled
     ? [
-        { key: "florida", label: "Course" },
+        { key: "regular", label: "Course" },
         { key: "gulliver-biz-lab", label: "Biz Lab" },
       ]
     : hidesApElective
@@ -451,10 +455,10 @@ export default function Lessons() {
     // which is the six-block gulliver-intro track for these students.
     ? [{ key: courseTrack, label: "Course" }]
     : [
-        { key: "florida", label: "Personal Finance" },
+        { key: "regular", label: "Personal Finance" },
         { key: "ap-micro", label: "AP Micro" },
       ];
-  const isMapView = activeTrack !== "gulliver-biz-lab" && !(effectiveApMode && activeTrack === "florida");
+  const isMapView = activeTrack !== "gulliver-biz-lab" && !(effectiveApMode && activeTrack === "regular");
 
   // Live station + stats data shared by the small coaster and the fullscreen one.
   const coasterStations = activeLessons.map(al => ({
@@ -552,7 +556,7 @@ export default function Lessons() {
                 {tb.label}
               </button>
             ))}
-            {activeTrack === "florida" && !hidesApElective && (
+            {activeTrack === "regular" && !hidesApElective && (
               <button
                 onClick={() => setApMode(true)}
                 className="px-3 py-1 rounded-full text-[12px] font-bold text-muted-foreground hover:text-foreground transition-all"
@@ -579,7 +583,7 @@ export default function Lessons() {
           <div className="inline-flex items-center rounded-full bg-muted/60 p-1 border border-border/40">
             {((bizLabEnrolled
               ? [
-                  { key: "florida", label: "Regular Course" },
+                  { key: "regular", label: "Regular Course" },
                   { key: "gulliver-biz-lab", label: "Gulliver Biz Lab" },
                 ]
               : hidesApElective
@@ -587,7 +591,7 @@ export default function Lessons() {
               // is the six-block gulliver-intro track, not the Florida course.
               ? [{ key: courseTrack, label: "Course" }]
               : [
-                  { key: "florida", label: "Personal Finance" },
+                  { key: "regular", label: "Personal Finance" },
                   { key: "ap-micro", label: "AP Microeconomics" },
                 ]) as { key: CourseTrack; label: string }[]
             ).map(t => (
@@ -613,7 +617,7 @@ export default function Lessons() {
 
         {/* AP Mode Toggle (business AP tracks - Florida only). Hidden for Biz
             Lab and Gulliver Intro students, who don't get the AP elective. */}
-        {activeTrack === "florida" && !hidesApElective && (
+        {activeTrack === "regular" && !hidesApElective && (
           <div className="mb-5">
             <APModeToggle apMode={apMode} onToggle={setApMode} />
           </div>
@@ -629,7 +633,7 @@ export default function Lessons() {
           </div>
         )}
 
-        {activeTrack === "gulliver-biz-lab" ? <GulliverBizLab /> : effectiveApMode && activeTrack === "florida" ? renderAPMode() : coasterMini ? null : (
+        {activeTrack === "gulliver-biz-lab" ? <GulliverBizLab /> : effectiveApMode && activeTrack === "regular" ? renderAPMode() : coasterMini ? null : (
           <MissionsWorldMap
             unitsMeta={worldUnitsMeta}
             activeUnitId={activeUnitId}

@@ -256,14 +256,14 @@ export default function Profile() {
     }).length
   }, [lessonProgress])
 
-  // Level mirrors the navbar HUD (Florida core track only).
+  // Level mirrors the navbar HUD (regular curriculum only).
   const { level, levelPct } = useMemo(() => {
-    const floridaUnits = unitInfo.filter(u => (u.track ?? "florida") === "florida")
-    const floridaLessonIds = new Set(floridaUnits.flatMap(u => getLessonsByUnit(u.id).map(l => l.id)))
-    const totalLessons = floridaLessonIds.size
-    const doneLessons = lessonProgress.filter(p => p.completed && floridaLessonIds.has(p.lessonId)).length
+    const regularUnits = unitInfo.filter(u => (u.track ?? "regular") === "regular")
+    const regularLessonIds = new Set(regularUnits.flatMap(u => getLessonsByUnit(u.id).map(l => l.id)))
+    const totalLessons = regularLessonIds.size
+    const doneLessons = lessonProgress.filter(p => p.completed && regularLessonIds.has(p.lessonId)).length
     const completionPct = totalLessons > 0 ? doneLessons / totalLessons : 0
-    const unitScores = floridaUnits.map(u => {
+    const unitScores = regularUnits.map(u => {
       const ul = getLessonsByUnit(u.id)
       return { done: ul.filter(l => lessonProgress.some(p => p.lessonId === l.id && p.completed)).length, total: ul.length }
     })

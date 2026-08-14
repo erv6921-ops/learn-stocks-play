@@ -133,12 +133,12 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   // The dashboard reflects the student's enrolled curriculum. Gulliver Intro
-  // students see their six-block course; everyone else sees the core Florida
-  // track. (The optional AP Micro elective has its own card and never affects
-  // these stats.)
-  const dashTrack = user?.track === "gulliver_intro" ? "gulliver-intro" : "florida";
-  const dashUnits = useMemo(() => unitInfo.filter((u) => (u.track ?? "florida") === dashTrack), [dashTrack]);
-  const dashLessons = useMemo(() => lessons.filter((l) => (l.track ?? "florida") === dashTrack), [dashTrack]);
+  // students see their six-block course; everyone else sees the regular
+  // curriculum. (The optional AP Micro elective has its own card and never
+  // affects these stats.)
+  const dashTrack = user?.track === "gulliver_intro" ? "gulliver-intro" : "regular";
+  const dashUnits = useMemo(() => unitInfo.filter((u) => (u.track ?? "regular") === dashTrack), [dashTrack]);
+  const dashLessons = useMemo(() => lessons.filter((l) => (l.track ?? "regular") === dashTrack), [dashTrack]);
   const dashLessonIds = useMemo(() => new Set(dashLessons.map((l) => l.id)), [dashLessons]);
 
   const completedLessons = lessonProgress.filter((p) => p.completed && dashLessonIds.has(p.lessonId)).length;

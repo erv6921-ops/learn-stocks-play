@@ -1169,7 +1169,7 @@ export default function Onboarding() {
                 onClick={() => {
                   setTrack("regular")
                   try {
-                    localStorage.setItem("investiplay_active_track", "florida")
+                    localStorage.setItem("investiplay_active_track", "regular")
                     localStorage.setItem("investiplay_track_pending", "regular")
                   } catch {}
                   setStep("student-account")
@@ -1211,9 +1211,9 @@ export default function Onboarding() {
                 onClick={() => {
                   setTrack("gulliver_intro")
                   try {
-                    // No dedicated CourseTrack view yet (intro content lands in a
-                    // later step), so the Missions tab defaults to the regular course.
-                    localStorage.setItem("investiplay_active_track", "florida")
+                    // Gulliver Intro students land on their own course view (the
+                    // fullscreen gulliver-intro coaster), not the regular course.
+                    localStorage.setItem("investiplay_active_track", "gulliver-intro")
                     localStorage.setItem("investiplay_track_pending", "gulliver_intro")
                   } catch {}
                   setStep("student-account")

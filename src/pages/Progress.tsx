@@ -108,7 +108,7 @@ export default function ProgressPage() {
   const [viewMode, setViewMode] = useState<"my" | "class">("my")
   const [chartView, setChartView] = useState<"all" | "grouped">("grouped")
   const [evolutionMode, setEvolutionMode] = useState<"overall" | "category">("overall")
-  const [selectedCategory, setSelectedCategory] = useState(unitInfo.find(u => (u.track ?? "florida") === "florida")?.id || "")
+  const [selectedCategory, setSelectedCategory] = useState(unitInfo.find(u => (u.track ?? "regular") === "regular")?.id || "")
 
   const benchmarkCategoryScores = user?.benchmarkCategoryScores || null
   const benchmarkTaken = !!benchmarkCategoryScores && Object.keys(benchmarkCategoryScores).length > 0
@@ -133,7 +133,7 @@ export default function ProgressPage() {
 
   // ── Compute per-unit completion + mastery from lesson data + benchmark ──
   const unitScores: UnitScore[] = useMemo(() => {
-    return unitInfo.filter(u => (u.track ?? "florida") === "florida").map(unit => {
+    return unitInfo.filter(u => (u.track ?? "regular") === "regular").map(unit => {
       const ul = getLessonsByUnit(unit.id)
       const done = ul.filter(l => lessonProgress.find(p => p.lessonId === l.id && p.completed)).length
       const total = ul.length
@@ -638,7 +638,7 @@ export default function ProgressPage() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            {unitInfo.filter(u => (u.track ?? "florida") === "florida").map(u => (
+                            {unitInfo.filter(u => (u.track ?? "regular") === "regular").map(u => (
                               <SelectItem key={u.id} value={u.id}>Unit {u.unitNumber}: {u.title}</SelectItem>
                             ))}
                           </SelectContent>

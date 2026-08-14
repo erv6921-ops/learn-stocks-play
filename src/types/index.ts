@@ -115,10 +115,12 @@ export type LessonCategory =
   | "micro-factor-markets"
   | "micro-market-failure"
 
-// Curriculum track. Defaults to the state-required Florida track when omitted.
-// "gulliver-biz-lab" is the optional Shark Tank entrepreneurship program; when a
-// student enrolls, the AP elective tracks are hidden from the course switcher.
-export type CourseTrack = "florida" | "ap-micro" | "gulliver-biz-lab" | "gulliver-intro"
+// Client-side Missions view-state — which set of course units to show. This is
+// NOT geography and NOT the persisted program. "regular" is the default ~34-unit
+// curriculum (untagged units); the others are elective/alternate course views.
+// (Geography lives on the profile, e.g. profiles.state_course; the persisted
+// program of record is EnrollmentTrack: regular | biz_lab | gulliver_intro.)
+export type CourseTrack = "regular" | "ap-micro" | "gulliver-biz-lab" | "gulliver-intro"
 
 export interface UnitInfo {
   id: string

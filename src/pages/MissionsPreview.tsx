@@ -10,13 +10,13 @@ import { unitInfo } from "@/data/lessons";
  */
 export default function MissionsPreview() {
   const navigate = useNavigate();
-  const floridaUnits = unitInfo
-    .filter(u => (u.track ?? "florida") === "florida")
+  const regularUnits = unitInfo
+    .filter(u => (u.track ?? "regular") === "regular")
     .sort((a, b) => a.orderIndex - b.orderIndex);
 
   // First 7 banks cleared, 8th is Jeff's current stop, next few unlocked, rest locked.
   const ACTIVE_INDEX = 7;
-  const unitsMeta: UnitMeta[] = floridaUnits.map((unit, i) => {
+  const unitsMeta: UnitMeta[] = regularUnits.map((unit, i) => {
     const complete = i < ACTIVE_INDEX;
     const unlocked = i <= ACTIVE_INDEX + 1;
     const total = 4;
@@ -28,10 +28,10 @@ export default function MissionsPreview() {
       unlocked,
     };
   });
-  const activeUnitId = floridaUnits[ACTIVE_INDEX].id;
+  const activeUnitId = regularUnits[ACTIVE_INDEX].id;
 
   const rewardTotals: Record<string, number> = {};
-  floridaUnits.forEach((u, i) => { rewardTotals[u.id] = 250 + i * 50; });
+  regularUnits.forEach((u, i) => { rewardTotals[u.id] = 250 + i * 50; });
 
   return (
     <div className="fixed inset-0">
