@@ -1494,7 +1494,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "concept",
         title: "The Skill Of Waiting Well",
         paragraphs: [
-          "Delayed gratification is choosing a bigger reward later over a smaller one now. It sounds simple, but it is one of the strongest predictors of financial success. In the famous marshmallow study, kids who could wait to get two treats instead of one tended to do better later in life. The point is not that waiting is magic; it is that the ability to pause a craving lets you make choices that pay off. Money rewards patience directly: waiting to buy, and saving instead, turns small amounts into much larger ones over time.",
+          "In the first lesson you met present bias - the pull toward a reward now over a bigger one later. Delayed gratification is the skill that beats it: choosing a bigger reward later over a smaller one now. It sounds simple, but it is one of the strongest predictors of financial success. In the famous marshmallow study, kids who could wait to get two treats instead of one tended to do better later in life. The point is not that waiting is magic; it is that the ability to pause a craving lets you make choices that pay off. Money rewards patience directly: waiting to buy, and saving instead, turns small amounts into much larger ones over time.",
           "The reason waiting pays is compound growth. If you save $50 a month starting as a teen and it grows around 7% a year, you could have far more than someone who starts ten years later, even if they save more monthly. Time does the heavy lifting. A $200 impulse buy is not really a $200 choice; it is the choice to give up what that $200 could become. Framing purchases this way, as the future money you are spending, makes delayed gratification feel less like sacrifice and more like a smart trade.",
           "Waiting is hard because instant rewards feel vivid while future ones feel fuzzy and far away. Your brain discounts the future automatically. The trick is to make the future concrete: name the goal, picture it, and give it a deadline. Wanting savings in general is weak; wanting $600 for a laptop by December is strong. When the later reward feels real and specific, your brain stops treating it like a vague someday and starts protecting it, which makes saying no to small splurges dramatically easier. Writing the goal somewhere you see it daily, or keeping a photo of it on your phone, keeps the future reward present in your mind exactly when a random craving to spend shows up out of nowhere."
         ],
@@ -1512,12 +1512,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         title: "Building The Habit On Purpose",
         paragraphs: [
           "You do not need superhuman willpower to wait; you need systems. One is the cooling-off rule: for any want over a set amount, say $40, wait 48 hours before buying. Most impulse urges fade, and you keep only the purchases you still want after the craving passes. This works because it separates the emotional spike from the decision. The store designed the moment to feel urgent; the pause returns the choice to the calmer, future-focused part of your brain that would rather save the money.",
-          "Another system is automating the wait. If a set amount moves into savings the second you are paid, you never feel it as money you gave up, so there is no craving to resist. Willpower is a limited battery; systems mean you spend it once, when you set the rule, instead of every single day. Pairing this with a named goal, like a jar or app labeled Concert Fund, keeps the reward visible so waiting feels like progress rather than deprivation you have to grind through.",
+          "The most powerful system of all is automating the wait so a set amount moves to savings the second you are paid - though designing your whole environment that way is the focus of the next lesson, where we go deep on it. Delayed gratification's own signature tool is the visible, named goal: a jar or app labeled Concert Fund keeps the reward in sight, so every day you do not spend becomes progress you can watch instead of grind you have to endure. Willpower is a limited battery, so a goal you can see does the work that daily grit cannot.",
           "It also helps to shrink the pain of waiting by celebrating milestones. If your goal is $600, mark every $150 as a win. Small wins release the same reward feeling that a purchase would, so patience stops feeling empty. Delayed gratification is not about never enjoying anything; it is about timing enjoyment so it does not sabotage bigger goals. People who master it are not more strict than everyone else. They simply built an environment where waiting is the easy default and impulse buying takes effort."
         ],
         bullets: [
           "A 48-hour cooling-off rule lets impulse urges fade before you buy.",
-          "Automating savings removes the daily willpower fight entirely.",
+          "The cooling-off pause hands the choice back to your calmer, future-focused brain.",
           "Willpower is limited; systems let you decide once, not daily.",
           "A named, visible goal makes waiting feel like progress.",
           "Celebrating milestones gives waiting its own reward feeling."
@@ -1631,15 +1631,15 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych2-deepmastery4",
-            question: "Why is automating savings better than relying on daily willpower?",
+            question: "Why does keeping a named goal, like a 'Concert Fund' jar, visible help you wait?",
             options: [
-              "Willpower is limited; a system decides once",
-              "Automation earns a guaranteed 20% return as the years pass",
-              "Banks reward automatic transfers with cash",
-              "It makes spending completely impossible across most markets"
+              "Seeing it turns each day of not spending into visible progress",
+              "It legally prevents you from spending the money",
+              "It automatically doubles your savings rate over the years",
+              "It hides the goal so you forget about spending entirely"
             ],
             correctAnswer: 0,
-            explanation: "Willpower drains with use. Automation moves money before you feel it, so you spend willpower once setting the rule rather than resisting every day."
+            explanation: "A visible, named goal keeps the reward in sight, so waiting reads as progress you can watch rather than deprivation you grind through."
           },
           {
             id: "psych2-deepmastery5",
@@ -1679,7 +1679,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "concept",
         title: "Two Reward Systems, One Brain",
         paragraphs: [
-          "Your brain runs on two competing systems. One is fast and emotional, craving instant rewards like snacks, likes, and quick buys. The other is slow and thoughtful, planning for long-term rewards like savings and skills. Neither is bad; you need both. Trouble starts when the fast system wins choices that the slow system should handle, like spending rent-level money on impulse buys. Learning which system is driving a decision, and slowing down when the stakes are high, is the core skill behind almost every good money habit you will ever build.",
+          "The last lesson showed why waiting pays off; this one shows what you are up against inside your own head. Your brain runs on two competing systems. One is fast and emotional, craving instant rewards like snacks, likes, and quick buys. The other is slow and thoughtful, planning for long-term rewards like savings and skills. Neither is bad; you need both. Trouble starts when the fast system wins choices that the slow system should handle, like spending rent-level money on impulse buys. Learning which system is driving a decision, and slowing down when the stakes are high, is the core skill behind almost every good money habit you will ever build.",
           "The trade-off between instant and long-term reward is real, and often steep. A $5 daily energy drink feels tiny, but it is about $150 a month and roughly $1,800 a year. That is the same money that could fund a whole trip or a solid emergency cushion. Economists call the hidden loss opportunity cost: the value of the best thing you gave up. Every instant reward has one. Seeing the opportunity cost, not just the price tag, is what separates people who feel broke on decent income from those who quietly get ahead.",
           "Instant rewards are not the enemy, though. A life of pure long-term thinking with zero fun is unsustainable and usually collapses into a spending binge. The goal is balance: enjoy small instant rewards on purpose, within a plan, so they do not sabotage the big goals. Deciding in advance, I get $30 a month for fun, no guilt, actually strengthens long-term saving because the planned treats keep you from rebelling against a too-strict budget. Structure, not deprivation, is what makes long-term choices stick over months and years. Think of it like a training plan: rest days are built in on purpose so you can keep going, and planned fun spending works the same way for a budget you actually want to follow."
         ],
@@ -2067,7 +2067,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         title: "Building An Emotional Money Toolkit",
         paragraphs: [
           "The first tool is the pause. When you feel an urge to buy, ask one question: What am I feeling right now? Simply labeling the emotion, bored, stressed, jealous, weakens its grip, because naming a feeling shifts your brain from reacting to reflecting. If the honest answer is that you are trying to fix a mood, that is your signal to wait. Often a ten-minute walk, a message to a friend, or a snack meets the real need for far less than a purchase would, and the urge quietly passes.",
-          "The second tool is separating money from moments. Big money moves made while highly emotional, right after a breakup, a fight, or a huge win, tend to be poor ones. A simple rule helps: no major money decision within 24 hours of a strong emotion. This does not mean never spending; it means letting the emotional storm pass so the calmer part of your brain makes the call. Casinos and flash sales profit from emotional heat; a cooling window quietly takes that advantage back and hands it to you.",
+          "The second tool is the cooling-off pause you met in the Delayed Gratification lesson, aimed now at feelings: no major money decision within 24 hours of a strong emotion. Big money moves made right after a breakup, a fight, or a huge win tend to be poor ones. This does not mean never spending; it means letting the emotional storm pass so the calmer part of your brain makes the call. Casinos and flash sales profit from emotional heat; the cooling window quietly takes that advantage back and hands it to you.",
           "The third tool is building planned outlets so emotions do not ambush your budget. Keep a small, guilt-free fun fund for genuine treats, and a list of free mood-lifters, music, a walk, a game, for the times spending is really about feelings. This way, when emotions rise, you have a plan ready instead of only a shopping app. Managing money emotionally is not about shutting feelings off; it is about designing your responses in advance so that feelings inform your choices without secretly controlling them."
         ],
         bullets: [
@@ -2430,14 +2430,14 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           "One-tap checkout removes the pause that lets you reconsider.",
           "Free-shipping thresholds nudge you to add items you did not want."
         ],
-        realWorldExample: "A store lists headphones at $80, crossed out, now $40. The $80 anchor makes $40 feel like a steal, but the headphones may have always been worth about $40. The fake discount, not the real value, is doing the persuading through simple anchoring."
+        realWorldExample: "A shopping app has saved Dana's card, so buying is a single thumb-tap with no pause to reconsider. That frictionless one-tap design, tested on millions of shoppers, is engineered to remove the exact moment of hesitation that would otherwise save her money."
       },
       {
         type: "concept",
         title: "Becoming A Harder Target",
         paragraphs: [
           "The strongest defense is a simple habit: name the tactic when you feel the urge. If you feel rushed, look for the scarcity trick and remind yourself real needs rarely expire in an hour. If a deal feels amazing, check whether an anchor price is doing the work. Spotting the technique turns you from a target into an observer, and the emotional pull weakens the instant you see the machinery behind it. Advertisers count on you reacting fast; slowing down to label the move is exactly what breaks the spell they built.",
-          "Adding friction on purpose beats the frictionless design of modern buying. Turn off one-tap purchasing, remove saved cards, and unsubscribe from marketing emails that exist only to create wants you did not have. A 24-hour wait on anything over a set amount lets manufactured urgency expire; if the item still makes sense tomorrow, buy it, but most engineered urges will not survive the night. You are restoring the pause that companies spent millions removing, which is often the difference between a purchase you value and one you regret.",
+          "Adding friction on purpose beats the frictionless design of modern buying. Turn off one-tap purchasing, remove saved cards, and unsubscribe from marketing emails that exist only to create wants you did not have. The same cooling-off pause from earlier works against manufactured urgency: a 24-hour wait on anything over a set amount lets engineered urgency expire; if the item still makes sense tomorrow, buy it, but most engineered urges will not survive the night. You are restoring the pause that companies spent millions removing, which is often the difference between a purchase you value and one you regret.",
           "Finally, shift from ad-driven wants to need-driven choices by asking better questions before buying. Would I want this if I had never seen the ad? What problem does it actually solve for me? Is there a cheaper way to solve that same problem? These questions pull the decision back to your real life and away from the feeling the ad installed. You cannot avoid advertising, it is everywhere, but you can build the habit of running purchases through your own judgment instead of the marketer's script."
         ],
         bullets: [
@@ -2466,15 +2466,15 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych7-deepmc2",
-            question: "How does anchoring make a deal feel bigger?",
+            question: "Why does 'free shipping on orders over $50' often make you spend more?",
             options: [
-              "It ships the item faster for brand-new buyers when it is tested",
-              "A fake high original price makes the sale price seem huge",
-              "It adds free items to the order after enough time",
-              "It lowers the sales tax owed right in the moment in plain terms"
+              "It removes the sales tax from your whole order",
+              "It nudges you to add items just to reach the threshold",
+              "It lowers the price of everything in the cart",
+              "It ships every item faster than paid shipping"
             ],
             correctAnswer: 1,
-            explanation: "A crossed-out original price sets a high anchor, so the sale price feels like a steal even if the item was never really worth the higher number."
+            explanation: "The threshold pushes you to add items you did not want just to 'earn' free shipping, so you spend more than the shipping would have cost. It's a nudge, not a saving."
           }
         ]
       },
@@ -2606,7 +2606,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         paragraphs: [
           "A cognitive bias is a built-in thinking shortcut that often misfires with money. Loss aversion is one of the strongest: losing $20 feels about twice as painful as gaining $20 feels good. This makes people hold a failing investment too long to avoid locking in a loss, or refuse a fair risk that would likely pay off. It is not weakness; it is standard human wiring. Knowing that your brain overweights losses helps you check whether fear, rather than facts, is steering a decision you think is perfectly logical.",
           "Confirmation bias makes you seek information that agrees with what you already believe and ignore the rest. If you have decided a certain purchase is smart, you notice every review praising it and skip the warnings. With money this is dangerous, because it lets you talk yourself into bad buys and risky bets by only listening to the cheerleaders. The fix is deliberately hunting for the opposite view: before a big decision, actively look for reasons not to do it. If it still holds up, you can proceed with far more confidence.",
-          "The anchoring bias makes the first number you see stick and warp your judgment. See a $200 price first and a $120 one feels cheap, even if $120 is still too much. Stores exploit this constantly with was-and-now pricing. Then there is the availability bias, where vivid recent events feel more likely than they are, like fearing a rare scam you just heard about while ignoring the boring everyday overspending that actually drains you. Each bias quietly bends your money math, and the antidote is always the same: slow down and check the reasoning."
+          "The anchoring bias - which you met as a store's was-and-now pricing trick in the Advertising lesson - is the machinery underneath it: the first number you see sticks and warps your judgment. See a $200 price first and a $120 one feels cheap, even if $120 is still too much. Then there is the availability bias, where vivid recent events feel more likely than they are, like fearing a rare scam you just heard about while ignoring the boring everyday overspending that actually drains you. Each bias quietly bends your money math, and the antidote is always the same: slow down and check the reasoning."
         ],
         bullets: [
           "Loss aversion makes losses hurt about twice as much as equal gains feel good.",
@@ -2632,7 +2632,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           "Gambler's fallacy makes people chase losses that are not coming back.",
           "Naming a trap builds the pause where good decisions happen."
         ],
-        realWorldExample: "A streaming app offers a free month, then quietly auto-renews at $15. Because it now feels like Priya's service (endowment effect) and auto-renew is the default, she keeps paying for months she barely uses, exactly the outcome the company designed the defaults to produce."
+        realWorldExample: "A streaming app offers a free month, then quietly auto-renews at $15. Because it now feels like Renu's service (endowment effect) and auto-renew is the default, she keeps paying for months she barely uses, exactly the outcome the company designed the defaults to produce."
       },
       {
         type: "micro-check",
@@ -2991,7 +2991,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "concept",
         title: "Building And Keeping Healthy Beliefs",
         paragraphs: [
-          "You build healthy beliefs by challenging the unhealthy ones directly. When a thought like I will never afford anything pops up, treat it as a claim to test, not a fact. Ask, is that fully true, and what small step proves otherwise? Saving even $5 is evidence against I cannot save. This is not fake positivity; it is swapping a defeating belief for an accurate, empowering one backed by action. Over time, repeated small proof rewires the belief, because your brain updates its story about you based on what it repeatedly sees you actually do.",
+          "You practiced rewriting your money identity in the last lesson; healthy beliefs are the everyday version you test and maintain. You build them by challenging the unhealthy ones directly: when a thought like I will never afford anything pops up, treat it as a claim to test, not a fact. Ask, is that fully true, and what small step proves otherwise? Saving even $5 is evidence against I cannot save. This is not fake positivity; it is swapping a defeating belief for an accurate, empowering one backed by action. Over time, repeated small proof rewires the belief, because your brain updates its story about you based on what it repeatedly sees you actually do.",
           "Healthy beliefs also come from good information and good influences. A lot of money fear comes from simply not knowing how things work, so learning the basics, how saving grows, how credit works, how to budget, replaces anxiety with competence. Just as important is the company you keep: surround yourself with people and voices that model calm, capable money habits, and mute the ones that push panic or reckless flexing. Beliefs are contagious, so choosing your inputs is really choosing which money mindset gets reinforced in you day after day.",
           "Finally, healthy beliefs need maintenance, because stress and setbacks pull you back toward old patterns. A tough month can revive I am bad with money in an instant. The practice is to notice the slip, name the unhealthy belief, and gently return to the balanced one, treating a setback as data, not a verdict. Nobody keeps a perfect mindset forever; the skill is recovering quickly. A healthy relationship with money is not a fixed state you reach once, but an ongoing practice of choosing balanced beliefs again and again."
         ],
