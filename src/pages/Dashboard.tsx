@@ -15,6 +15,7 @@ import { Area, AreaChart, ResponsiveContainer, YAxis, Tooltip } from "recharts";
 import GameNav from "@/components/GameNav";
 import { Wordmark } from "@/components/Wordmark";
 import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/lessons";
+import { getGameTypeForDate, gameTypeLabel } from "@/lib/dailyGames";
 import { getAdaptiveUnit } from "@/lib/curriculumEngine";
 import { supabase } from "@/integrations/supabase/client";
 import { anchor } from "@/lib/tourAnchors";
@@ -189,7 +190,9 @@ export default function Dashboard() {
   // ── Daily Challenge: today's game + whether it's already been completed ──
   const dailyDate = new Date();
   const dailyToday = `${dailyDate.getFullYear()}-${String(dailyDate.getMonth() + 1).padStart(2, "0")}-${String(dailyDate.getDate()).padStart(2, "0")}`;
-  const dailyGameName = dailyDate.getDate() % 2 === 0 ? "Higher or Lower" : "Daily Scenario";
+  // Use the shared scheduler so the dashboard label always matches the actual
+  // game served on /daily (the old inline logic was inverted).
+  const dailyGameName = gameTypeLabel(getGameTypeForDate(dailyDate));
   // Live micro-business state so the dashboard snapshot mirrors /micro-business.
   const [bizActivities, setBizActivities] = useState<ActivitiesState | null>(null);
   useEffect(() => { loadActivities().then(setBizActivities); }, []);
