@@ -4,6 +4,7 @@ import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier, Enrollme
 import { supabase } from "@/integrations/supabase/client"
 import { recordMoneyEvent } from "@/lib/notifications"
 import { DEV_LOCAL_BYPASS, DEV_LOCAL_USER_ID } from "@/lib/devBypass"
+import { isExplicitlyNonFlorida } from "@/lib/geography"
 
 interface UnitTestProgress {
   category: string
@@ -67,10 +68,20 @@ const ENROLLMENT_TRACKS: EnrollmentTrack[] = ["regular", "biz_lab", "gulliver_in
 // Resolve a profile row to its enrollment track. Reads the new profiles.track
 // enum, falling back to the legacy biz_lab_enrolled boolean for rows written
 // before the enum migration (or fetched before it ran).
+//
+// Safety clamp: biz_lab and gulliver_intro are Florida-only. If a profile is on
+// one of those but its geography is an EXPLICIT non-Florida state, clamp to
+// "regular". NULL/empty state_course is grandfathered (was write-only until now,
+// so absent data means "never captured", not "not Florida") - see isExplicitlyNonFlorida.
 function resolveTrack(profile: any): EnrollmentTrack {
   const t = profile?.track as EnrollmentTrack | undefined
-  if (t && ENROLLMENT_TRACKS.includes(t)) return t
-  return profile?.biz_lab_enrolled ? "biz_lab" : "regular"
+  const resolved: EnrollmentTrack = (t && ENROLLMENT_TRACKS.includes(t))
+    ? t
+    : (profile?.biz_lab_enrolled ? "biz_lab" : "regular")
+  if ((resolved === "biz_lab" || resolved === "gulliver_intro") && isExplicitlyNonFlorida(profile?.state_course)) {
+    return "regular"
+  }
+  return resolved
 }
 
 // Onboarding records the program choice in localStorage *before* the account
@@ -177,8 +188,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
         benchmarkCategoryScores: {},
         rewardMultiplier: 1,
         // Enroll the throwaway dev user in the Gulliver Intro track so localhost
-        // lands straight in the six-block course with no auth/onboarding.
+        // lands straight in the six-block course with no auth/onboarding. Florida
+        // geography so it's explicitly eligible for the Florida-only tracks.
         track: "gulliver_intro",
+        stateCourse: "Florida",
         createdAt: new Date(),
       })
       setAuthReady(true)
@@ -272,6 +285,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
           rewardMultiplier: profile.reward_multiplier ?? 1,
           track: applyPendingTrack(uid, resolveTrack(profile)),
+          stateCourse: profile.state_course ?? undefined,
           createdAt: new Date(profile.created_at ?? Date.now()),
         }
         setUser(hydrated)
@@ -397,6 +411,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
               benchmarkCategoryScores: (existingUser.benchmark_category_scores as any) ?? {},
               rewardMultiplier: existingUser.reward_multiplier ?? 1,
               track: applyPendingTrack(session.user.id, resolveTrack(existingUser)),
+              stateCourse: existingUser.state_course ?? undefined,
               createdAt: new Date(existingUser.created_at ?? Date.now()),
             })
           } else {

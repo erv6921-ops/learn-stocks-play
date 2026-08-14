@@ -27,6 +27,10 @@ export interface UserProfile {
   // profiles.track. Drives AP-tab hiding and which course tabs are shown. This
   // is DISTINCT from CourseTrack below, which is client-side Missions view state.
   track?: EnrollmentTrack
+  // Geography (the student's state), from profiles.state_course. SEPARATE from
+  // track: it does not decide the curriculum, but gates the Florida-only tracks
+  // (biz_lab, gulliver_intro). NULL means "never captured", not "not Florida".
+  stateCourse?: string
   // Legacy mirror of `track === "biz_lab"`. Kept in sync during the enum
   // migration for rollback; prefer `track`. See docs .../gulliver-intro/AUDIT.md §1.
   bizLabEnrolled?: boolean

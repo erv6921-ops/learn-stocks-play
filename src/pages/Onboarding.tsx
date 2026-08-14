@@ -8,6 +8,7 @@ import { benchmarkQuestions, BenchmarkQuestion, calculateLiteracyLevel, getLevel
 import { computeBenchmarkScores } from "@/lib/curriculumEngine"
 import { shuffleQuestion } from "@/lib/mcqEngine"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
+import { eligibleForFloridaTracks, US_STATES } from "@/lib/geography"
 import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
@@ -24,14 +25,7 @@ import { EnrollmentTrack } from "@/types"
 type UserRole = "student" | "teacher"
 type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-account" | "student-details" | "program-select" | "welcome" | "assessment" | "results"
 
-const US_STATES = [
-  "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia",
-  "Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland",
-  "Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey",
-  "New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina",
-  "South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming",
-  "Washington D.C."
-]
+// US_STATES lives in @/lib/geography (shared with the Florida-track gating).
 
 // ═══════════════════════════════════════════════════
 // ADAPTIVE BENCHMARK ENGINE
@@ -493,6 +487,7 @@ export default function Onboarding() {
       benchmarkCategoryScores: categoryScores,
       rewardMultiplier,
       track,
+      stateCourse: stateCourse || undefined,
       bizLabEnrolled: track === "biz_lab",
     }
 
@@ -535,6 +530,7 @@ export default function Onboarding() {
       benchmarkCategoryScores: {},
       rewardMultiplier: 1,
       track,
+      stateCourse: stateCourse || undefined,
       bizLabEnrolled: track === "biz_lab",
       createdAt: new Date()
     }
@@ -787,6 +783,25 @@ export default function Onboarding() {
                   onChange={e => setLastName(e.target.value)}
                 />
               </div>
+              {/* Geography is asked here (before program selection) so we can gate
+                  the Florida-only programs. Students only. */}
+              {selectedRole === "student" && (
+                <div>
+                  <label className="text-sm font-medium mb-1.5 block">State / Course</label>
+                  <Select value={stateCourse} onValueChange={setStateCourse}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your state or course" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="AP Financial Literacy">AP Financial Literacy</SelectItem>
+                      {US_STATES.map(s => (
+                        <SelectItem key={s} value={s}>{s}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground mt-1.5">Some programs are only offered in certain states.</p>
+                </div>
+              )}
             </div>
             <div className="flex gap-3 mt-6">
               <Button variant="outline" onClick={() => setStep("role-select")}>
@@ -795,7 +810,7 @@ export default function Onboarding() {
               <Button
                 size="xl"
                 variant="hero"
-                disabled={!firstName.trim()}
+                disabled={!firstName.trim() || (selectedRole === "student" && !stateCourse)}
                 onClick={() => setStep(selectedRole === "teacher" ? "teacher-details" : "program-select")}
               >
                 Continue <ArrowRight className="ml-2" />
@@ -1034,20 +1049,8 @@ export default function Onboarding() {
                   onChange={e => setAge(e.target.value)}
                 />
               </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">State / Course</label>
-                <Select value={stateCourse} onValueChange={setStateCourse}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your state or course" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="AP Financial Literacy">AP Financial Literacy</SelectItem>
-                    {US_STATES.map(s => (
-                      <SelectItem key={s} value={s}>{s}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              {/* State / Course is captured earlier (in the name step, before
+                  program-select) so it can gate the Florida-only programs. */}
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Class Code <span className="text-muted-foreground font-normal">(optional)</span></label>
                 <Input
@@ -1185,6 +1188,11 @@ export default function Onboarding() {
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
+              {/* Biz Lab and Gulliver Intro are Florida-only programs — hidden
+                  for students who selected an explicit non-Florida state. NULL
+                  geography is grandfathered (eligibleForFloridaTracks). */}
+              {eligibleForFloridaTracks(stateCourse) && (
+              <>
               <button
                 onClick={() => {
                   setTrack("biz_lab")
@@ -1229,6 +1237,8 @@ export default function Onboarding() {
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
+              </>
+              )}
             </div>
             <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("name")}>
               <ArrowLeft className="mr-2 w-4 h-4" /> Back
