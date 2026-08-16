@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* Soft mint-tinted background (brand green family) */
-    --background: 152 33% 95%;
+    --background: 0 100% 50%;
     --foreground: 220 30% 10%;
 
     --card: 0 0% 100%;
@@ -68,7 +68,7 @@
     --shadow-accent: 0 4px 16px hsl(152 62% 46% / 0.12);
     --shadow-gold: 0 4px 16px hsl(42 85% 48% / 0.15);
 
-    --sidebar-background: 152 33% 95%;
+    --sidebar-background: 0 100% 50%;
     --sidebar-foreground: 220 30% 14%;
     --sidebar-primary: 170 72% 21%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -164,40 +164,40 @@
      default green keeps its shipped values in the base :root / .dark blocks.
      Financial semantics (--success / --destructive / --gold) are never themed. */
   :root[data-accent="blue"]:not(.dark) {
-    --background: 210 38% 95%;
-    --sidebar-background: 210 38% 95%;
+    --background: 0 100% 50%;
+    --sidebar-background: 0 100% 50%;
     --sidebar-accent-foreground: 212 74% 22%;
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 38% 95%) 100%);
   }
   .dark[data-accent="blue"] {
-    --background: 212 44% 8%;
-    --sidebar-background: 212 44% 9%;
+    --background: 0 100% 50%;
+    --sidebar-background: 0 100% 50%;
   }
 
   :root[data-accent="red"]:not(.dark) {
-    --background: 6 42% 96%;
-    --sidebar-background: 6 42% 96%;
+    --background: 0 100% 50%;
+    --sidebar-background: 0 100% 50%;
     --sidebar-accent-foreground: 2 60% 30%;
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(6 42% 96%) 100%);
   }
   .dark[data-accent="red"] {
-    --background: 4 46% 8%;
-    --sidebar-background: 4 46% 9%;
+    --background: 0 100% 50%;
+    --sidebar-background: 0 100% 50%;
   }
 
   :root[data-accent="yellow"]:not(.dark) {
-    --background: 42 55% 95%;
-    --sidebar-background: 42 55% 95%;
+    --background: 0 100% 50%;
+    --sidebar-background: 0 100% 50%;
     --sidebar-accent-foreground: 38 80% 26%;
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(42 55% 95%) 100%);
   }
   .dark[data-accent="yellow"] {
-    --background: 40 42% 9%;
-    --sidebar-background: 40 42% 10%;
+    --background: 0 100% 50%;
+    --sidebar-background: 0 100% 50%;
   }
 
   .dark {
-    --background: 220 30% 7%;
+    --background: 0 100% 50%;
     --foreground: 48 10% 93%;
 
     --card: 220 22% 11%;
@@ -253,7 +253,7 @@
     --trader-bg: 220 24% 6%;
     --trader-border: 220 16% 14%;
 
-    --sidebar-background: 220 30% 8%;
+    --sidebar-background: 0 100% 50%;
     --sidebar-foreground: 48 10% 88%;
     --sidebar-primary: 168 50% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
