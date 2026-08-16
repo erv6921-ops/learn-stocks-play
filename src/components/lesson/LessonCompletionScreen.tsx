@@ -52,7 +52,7 @@ export function LessonCompletionScreen({
   }, [pct])
 
   // Circular progress geometry for the accuracy ring.
-  const R = 52
+  const R = 66
   const CIRC = 2 * Math.PI * R
   const dash = (pct / 100) * CIRC
 
@@ -82,11 +82,11 @@ export function LessonCompletionScreen({
           </motion.h2>
 
           {/* Accuracy ring - the number rolls up from zero. */}
-          <div className="relative mx-auto w-[132px] h-[132px]">
-            <svg width="132" height="132" viewBox="0 0 132 132" className="-rotate-90">
-              <circle cx="66" cy="66" r={R} fill="none" stroke="hsl(var(--muted))" strokeWidth="10" />
+          <div className="relative mx-auto w-[168px] h-[168px]">
+            <svg width="168" height="168" viewBox="0 0 168 168" className="-rotate-90">
+              <circle cx="84" cy="84" r={R} fill="none" stroke="hsl(var(--muted))" strokeWidth="10" />
               <motion.circle
-                cx="66" cy="66" r={R} fill="none" stroke={tier.ring} strokeWidth="10" strokeLinecap="round"
+                cx="84" cy="84" r={R} fill="none" stroke={tier.ring} strokeWidth="10" strokeLinecap="round"
                 strokeDasharray={CIRC}
                 initial={{ strokeDashoffset: CIRC }}
                 animate={{ strokeDashoffset: CIRC - dash }}
@@ -94,7 +94,7 @@ export function LessonCompletionScreen({
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-extrabold tabular-nums" style={{ color: tier.color }}>
+              <span className="text-5xl font-extrabold tabular-nums" style={{ color: tier.color }}>
                 <AnimatedNumber value={pct} countUp format={(n) => `${n}%`} />
               </span>
               <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
