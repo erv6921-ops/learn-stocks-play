@@ -21,7 +21,8 @@ import {
   MasteryCheckRenderer,
 } from "@/components/lesson/SectionRenderer"
 import { HintProvider } from "@/components/lesson/HintContext"
-import { QuizSessionProvider, LessonCoinsSummary } from "@/components/lesson/QuizSessionContext"
+import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext"
+import { LessonCompletionScreen } from "@/components/lesson/LessonCompletionScreen"
 import JeffChat from "@/components/lessons/JeffChat"
 import { buildScript, isGulliverIntroLesson } from "@/lib/jeffChatLesson"
 import { Textarea } from "@/components/ui/textarea"
@@ -33,7 +34,6 @@ import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import {
   ArrowLeft,
   ArrowRight,
-  CheckCircle,
   Clock,
   Coins,
   Target,
@@ -185,6 +185,7 @@ export default function LessonDetail() {
   const [lessonStarted, setLessonStarted] = useState(false)
   const [lessonFinished, setLessonFinished] = useState(false)
   const [totalAttempts, setTotalAttempts] = useState(0)
+  const [totalCorrect, setTotalCorrect] = useState(0)
   // "Chat with Jeff" replaces the paragraph reading for uncompleted lessons.
   const [chatOpen, setChatOpen] = useState(false)
   // "Make It Stick" reflection - after mastery, before the completion screen.
@@ -266,6 +267,7 @@ export default function LessonDetail() {
 
   const finishLesson = (correct: number, attempts: number) => {
     setTotalAttempts(attempts)
+    setTotalCorrect(correct)
     setLessonFinished(true)
     const quizScore = attempts > 0 ? Math.round((correct / attempts) * 100) : 100
     updateLessonProgress(lesson.id, true, quizScore)
@@ -561,32 +563,15 @@ export default function LessonDetail() {
             </CardContent>
           </Card>
         ) : lessonFinished || isCompleted ? (
-          /* ─── Completion screen ─── */
-          <Card variant="elevated">
-            <CardContent className="p-8 text-center space-y-4">
-              <div className="w-20 h-20 mx-auto rounded-full bg-success/20 flex items-center justify-center">
-                <CheckCircle className="w-10 h-10 text-success" />
-              </div>
-              <h2 className="text-2xl font-bold">Mission Complete! 🎉</h2>
-
-              <LessonCoinsSummary />
-
-              {reflectionDone && (
-                <div className="bg-gold/10 border border-gold/20 rounded-xl p-4">
-                  <div className="flex items-center justify-center gap-2">
-                    <Coins className="w-5 h-5 text-gold" />
-                    <span className="text-2xl font-semibold text-gold">+{REFLECTION_BONUS}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">reflection bonus - plan locked in 📝</p>
-                </div>
-              )}
-
-              <p className="text-muted-foreground">You've successfully completed this mission!</p>
-              <Button onClick={() => navigate("/lessons?category=" + lesson.category)}>
-                Continue Learning <ArrowRight className="ml-2" />
-              </Button>
-            </CardContent>
-          </Card>
+          /* ─── Completion screen: satisfying, numbers roll up, Jeff above ─── */
+          <LessonCompletionScreen
+            correct={totalCorrect}
+            attempts={totalAttempts}
+            storedQuizScore={progress?.quizScore}
+            reflectionDone={reflectionDone}
+            reflectionBonus={REFLECTION_BONUS}
+            onContinue={() => navigate("/lessons?category=" + lesson.category)}
+          />
         ) : (
           /* ─── Active section rendering ─── */
           <div className="space-y-6">

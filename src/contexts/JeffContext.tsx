@@ -112,7 +112,7 @@ const ENCOURAGEMENTS = [
 
 export function JeffProvider({ children }: { children: ReactNode }) {
   const location = useLocation()
-  const { jeffsHistory, lessonProgress } = useApp()
+  const { jeffsHistory } = useApp()
 
   const [state, setState] = useState<JeffState>({ mood: "idle", message: null, visible: false, activity: "none" })
 
@@ -242,11 +242,14 @@ export function JeffProvider({ children }: { children: ReactNode }) {
     }
   }, [scheduleRoam])
 
-  // React to coin awards / lesson completions (single wiring point). `armed`
-  // stays false through the initial async hydrate so loading data doesn't fake
-  // a celebration.
+  // React to coin awards (single wiring point). `armed` stays false through the
+  // initial async hydrate so loading data doesn't fake a celebration.
+  //
+  // Lesson completions deliberately do NOT fire the center-stage "party" Jeff
+  // anymore - that mid-screen jump is replaced by the celebration baked into the
+  // lesson completion screen itself (see LessonDetail). A coin gain still gives
+  // Jeff a small corner reaction.
   const prevCoins = useRef(0)
-  const prevDone = useRef(0)
   const armed = useRef(false)
   useEffect(() => {
     const t = setTimeout(() => { armed.current = true }, 2500)
@@ -254,15 +257,11 @@ export function JeffProvider({ children }: { children: ReactNode }) {
   }, [])
   useEffect(() => {
     const coins = jeffsHistory.filter(h => h.amount > 0).length
-    const done = lessonProgress.filter(p => p.completed).length
-    if (!armed.current) { prevCoins.current = coins; prevDone.current = done; return }
-    const lessonUp = done > prevDone.current
+    if (!armed.current) { prevCoins.current = coins; return }
     const coinsUp = coins > prevCoins.current
     prevCoins.current = coins
-    prevDone.current = done
-    if (lessonUp) triggerJeff("lesson_complete")
-    else if (coinsUp) triggerJeff("coins_earned")
-  }, [jeffsHistory, lessonProgress, triggerJeff])
+    if (coinsUp) triggerJeff("coins_earned")
+  }, [jeffsHistory, triggerJeff])
 
   return (
     <JeffContext.Provider value={{ ...state, triggerJeff, nudge, dismiss, react }}>

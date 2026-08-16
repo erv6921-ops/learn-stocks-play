@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useRef, useState, ReactNode } from "react"
 import { toast } from "sonner"
-import { Coins } from "lucide-react"
 import { useApp } from "@/contexts/AppContext"
 
 // ─── Coin / combo economy (frontend-only gamification) ───
@@ -51,6 +50,10 @@ interface QuizSession {
   lostCombo: number | null
   /** Net coins gained (or lost) across this whole lesson session. */
   coinsEarned: number
+  /** Total coins gained from correct answers this session (always ≥ 0). */
+  coinsGained: number
+  /** Total coins lost to wrong answers this session (always ≥ 0). */
+  coinsLost: number
   /**
    * Register a correct answer: +coins by speed tier (quick/regular/slow), bumps
    * combo, pops a toast. Pass the response time so the tier can be chosen.
@@ -64,6 +67,8 @@ const noop: QuizSession = {
   combo: 0,
   lostCombo: null,
   coinsEarned: 0,
+  coinsGained: 0,
+  coinsLost: 0,
   registerCorrect: () => {},
   registerWrong: () => {},
 }
@@ -84,6 +89,8 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
   const [combo, setCombo] = useState(0)
   const [lostCombo, setLostCombo] = useState<number | null>(null)
   const [coinsEarned, setCoinsEarned] = useState(0)
+  const [coinsGained, setCoinsGained] = useState(0)
+  const [coinsLost, setCoinsLost] = useState(0)
   // Synchronous mirrors so a rapid answer reads up-to-date values.
   const comboRef = useRef(0)
   const balanceRef = useRef(jeffsBalance)
@@ -100,6 +107,7 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
     const total = base * mult
     awardJeffs(total, "Quiz correct answer")
     setCoinsEarned(c => c + total)
+    setCoinsGained(g => g + total)
     // Reuse one toast id so rapid answers update a single toast in place
     // instead of stacking a fresh one per question.
     toast.success(`+${total} coins`, {
@@ -126,6 +134,7 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
     if (penalty > 0) {
       awardJeffs(-penalty, "Quiz wrong answer")
       setCoinsEarned(c => c - penalty)
+      setCoinsLost(l => l + penalty)
     }
     toast.error(penalty > 0 ? `−${penalty} coins${mult > 1 ? ` (${mult}x combo)` : ""}` : "Not quite!", {
       id: "quiz-feedback",
@@ -135,33 +144,8 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <QuizSessionCtx.Provider value={{ combo, lostCombo, coinsEarned, registerCorrect, registerWrong }}>
+    <QuizSessionCtx.Provider value={{ combo, lostCombo, coinsEarned, coinsGained, coinsLost, registerCorrect, registerWrong }}>
       {children}
     </QuizSessionCtx.Provider>
-  )
-}
-
-/**
- * Completion-screen summary of the net coins the student earned (or lost)
- * answering questions this lesson. Renders nothing if it netted to zero.
- * Must be rendered inside a QuizSessionProvider.
- */
-export function LessonCoinsSummary() {
-  const { coinsEarned } = useQuizSession()
-  if (coinsEarned === 0) return null
-  const positive = coinsEarned > 0
-  return (
-    <div className="bg-gold/10 border border-gold/20 rounded-xl p-4">
-      <div className="flex items-center justify-center gap-2">
-        <Coins className="w-5 h-5 text-gold" />
-        <span className="text-2xl font-semibold text-gold">
-          {positive ? "+" : "−"}
-          {Math.abs(coinsEarned).toLocaleString()}
-        </span>
-      </div>
-      <p className="text-sm text-muted-foreground">
-        InvestiCoins {positive ? "earned" : "lost"} this lesson
-      </p>
-    </div>
   )
 }
