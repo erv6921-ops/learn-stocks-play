@@ -26,8 +26,7 @@ import {
   Users, Swords, Menu, X } from
 "lucide-react";
 import { NAV_ICON_COMPONENTS } from "@/components/nav/AnimatedNavIcons";
-
-const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
+import { getStreak } from "@/lib/playerStats";
 
 // Compact large balances (e.g. 12,300 → "12.3K") so the coin pill stays narrow
 // on phones and never widens the top-right cluster into the centered wordmark.
@@ -35,31 +34,6 @@ const compactBalance = (n: number) =>
   Math.abs(n) >= 10_000
     ? Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(n)
     : n.toLocaleString();
-
-function getStreak(history: { amount: number; reason: string; date: Date }[]) {
-  if (history.length === 0) return 0;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const dates = new Set(
-    history
-      .filter((h) => MEANINGFUL_REASONS.some(r => h.reason.toLowerCase().includes(r)))
-      .map((h) => {
-        const d = new Date(h.date);
-        d.setHours(0, 0, 0, 0);
-        return d.getTime();
-      })
-  );
-  let streak = 0;
-  const day = new Date(today);
-  if (dates.has(day.getTime())) streak++;
-  else return 0;
-  for (let i = 1; i < 365; i++) {
-    day.setDate(day.getDate() - 1);
-    if (dates.has(day.getTime())) streak++;
-    else break;
-  }
-  return streak;
-}
 
 // Every page shares the app's themed accent tint, so the whole menu stays
 // cohesive with the chosen color.

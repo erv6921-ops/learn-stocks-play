@@ -19,7 +19,7 @@ import { getGameTypeForDate, gameTypeLabel } from "@/lib/dailyGames";
 import { getAdaptiveUnit } from "@/lib/curriculumEngine";
 import { supabase } from "@/integrations/supabase/client";
 import { anchor } from "@/lib/tourAnchors";
-import { getBestStreak } from "@/lib/playerStats";
+import { getStreak, getBestStreak, getStreakRestore, streakRepairReason } from "@/lib/playerStats";
 import { getLeague } from "@/lib/leagues";
 import { CoasterTrack } from "./Lessons";
 import FullScreenCoaster from "@/components/FullScreenCoaster";
@@ -31,7 +31,7 @@ import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, ChevronDown, Wallet,
   GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical, Maximize2, Minimize2, Users,
-  Target, Eye, ArrowRight } from
+  Target, Eye, ArrowRight, RotateCcw } from
 "lucide-react";
 
 const LEVEL_NAMES = [
@@ -82,35 +82,6 @@ const BADGES = [
 { name: "Portfolio Pro", icon: Shield, unlockAt: 25 },
 { name: "Market Expert", icon: Zap, unlockAt: 50 }];
 
-// Streak logic: only counts days with meaningful activity (lesson/quiz/trade)
-// We filter jeffsHistory for reasons that indicate real engagement
-const MEANINGFUL_REASONS = ["lesson", "quiz", "mission", "assessment", "bought", "sold", "unit test"];
-
-function getStreak(history: { amount: number; reason: string; date: Date }[]) {
-  if (history.length === 0) return 0;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  // Only count days with meaningful activity
-  const dates = new Set(
-    history
-      .filter((h) => MEANINGFUL_REASONS.some(r => h.reason.toLowerCase().includes(r)))
-      .map((h) => {
-        const d = new Date(h.date);
-        d.setHours(0, 0, 0, 0);
-        return d.getTime();
-      })
-  );
-  let streak = 0;
-  const day = new Date(today);
-  if (dates.has(day.getTime())) streak++;
-  else return 0;
-  for (let i = 1; i < 365; i++) {
-    day.setDate(day.getDate() - 1);
-    if (dates.has(day.getTime())) streak++;
-    else break;
-  }
-  return streak;
-}
 
 type LbRow = { name: string; xp: number; isMe: boolean; rank: number };
 type LbInfo = { rank: number; pts: number; total: number };
@@ -128,7 +99,7 @@ function buildBoard(all: { name: string; xp: number; isMe: boolean }[]): { rows:
 }
 
 export default function Dashboard() {
-  const { user, authReady, lessonProgress, watchlist, jeffsBalance, portfolio, jeffsHistory, earnJeffs, getRewardMultiplier } = useApp();
+  const { user, authReady, lessonProgress, watchlist, jeffsBalance, portfolio, jeffsHistory, earnJeffs, spendJeffs, getRewardMultiplier } = useApp();
   const { netWorth, portfolioValue, holdings, livePrices } = useNetWorth();
   const navigate = useNavigate();
 
@@ -343,6 +314,25 @@ export default function Dashboard() {
   // Streak ring: 7-day cycle
   const streakDayInCycle = streak % 7;
   const streakRingProgress = streakDayInCycle / 7 * 100;
+
+  // Streak restore: offered only when the student returned today but missed
+  // exactly yesterday (see getStreakRestore). Cost scales with the lost streak.
+  const streakRestore = useMemo(() => getStreakRestore(jeffsHistory), [jeffsHistory]);
+  const [restoring, setRestoring] = useState(false);
+  const handleRestoreStreak = () => {
+    if (!streakRestore || restoring) return;
+    if (jeffsBalance < streakRestore.cost) {
+      toast.error(`You need ${streakRestore.cost.toLocaleString()} coins to restore your streak.`);
+      return;
+    }
+    setRestoring(true);
+    // The reason string doubles as the repair record: it's a spend (the cost)
+    // AND declares which day is bridged, so getStreak picks it up on recompute.
+    const ok = spendJeffs(streakRestore.cost, streakRepairReason(streakRestore.repairDate));
+    if (ok) toast.success(`🔥 Streak restored! You're back to ${streakRestore.lostStreak + 1} days.`);
+    else toast.error("Couldn't restore your streak. Try again.");
+    setRestoring(false);
+  };
 
   // Friends snapshot - accepted partners + waiting invites (Partners page RPCs).
   const [friendsInfo, setFriendsInfo] = useState<{ count: number; rows: { name: string; coins: number }[]; invites: number } | null>(null);
@@ -692,6 +682,39 @@ export default function Dashboard() {
             />
           </div>
         </MCard>
+        )}
+
+        {/* ═══ Streak restore - only when exactly yesterday was missed ═══ */}
+        {streakRestore && (
+          <MCard i={5} className="mt-3">
+            <div className="rounded-3xl p-5 relative overflow-hidden text-white"
+              style={{ background: "linear-gradient(135deg,#f97316,#ef4444)" }}>
+              <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+                style={{ background: "rgba(255,255,255,0.18)" }} />
+              <div className="relative flex items-center justify-between gap-4 flex-wrap">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border border-white/20" style={{ background: "rgba(255,255,255,0.15)" }}>
+                    <Flame className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">Streak broken</p>
+                    <p className="font-display font-extrabold text-lg mt-0.5">
+                      You missed a day - restore your {streakRestore.lostStreak}-day streak
+                    </p>
+                    <p className="text-sm text-white/80 mt-0.5">Bridges yesterday so your streak keeps going.</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleRestoreStreak}
+                  disabled={restoring || jeffsBalance < streakRestore.cost}
+                  className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 disabled:opacity-50 disabled:hover:bg-white/15 text-white text-sm font-bold transition-colors press-scale border border-white/20"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Restore · {streakRestore.cost.toLocaleString()} coins
+                </button>
+              </div>
+            </div>
+          </MCard>
         )}
 
         {/* ═══ 3. TODAY - daily challenge + missions, one unified card ═══ */}
