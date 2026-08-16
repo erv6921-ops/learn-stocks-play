@@ -533,6 +533,27 @@ export default function TeacherDashboard() {
     navigate("/auth")
   }
 
+  // ── Delete-account (self-service, permanent) ──
+  const [deleteAccountOpen, setDeleteAccountOpen] = useState(false)
+  const [deleteAccountConfirm, setDeleteAccountConfirm] = useState("")
+  const [deletingAccount, setDeletingAccount] = useState(false)
+
+  const handleDeleteAccount = async () => {
+    setDeletingAccount(true)
+    try {
+      // Deletes the caller's own account (identified from their JWT) via the
+      // delete-account edge function; same flow the student Profile page uses.
+      const { error } = await supabase.functions.invoke("delete-account")
+      if (error) throw error
+      toast({ title: "Your account has been deleted." })
+      await supabase.auth.signOut()
+      navigate("/auth", { replace: true })
+    } catch (e: any) {
+      toast({ title: "Couldn't delete your account", description: e?.message || "Please try again.", variant: "destructive" })
+      setDeletingAccount(false)
+    }
+  }
+
   const selectClass = async (cls: Class) => {
     if (sampleMode) {
       setSelectedClass(cls)
@@ -641,8 +662,49 @@ export default function TeacherDashboard() {
               <LogOut className="w-4 h-4 mr-2" />
               Log Out
             </Button>
+            <Button
+              variant="outline"
+              onClick={() => { setDeleteAccountConfirm(""); setDeleteAccountOpen(true) }}
+              className="text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/40"
+              title="Permanently delete your account"
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Delete Account
+            </Button>
           </div>
         </div>
+
+        {/* Permanent self-service account deletion (typed confirmation). */}
+        <Dialog open={deleteAccountOpen} onOpenChange={(o) => { if (!deletingAccount) setDeleteAccountOpen(o) }}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Delete your account?</DialogTitle>
+              <DialogDescription>
+                This permanently deletes your teacher account and sign-in, and cannot be undone. Your classes and their data may be removed with it.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-2">
+              <Label htmlFor="delete-account-confirm">Type <span className="font-bold">DELETE</span> to confirm</Label>
+              <Input
+                id="delete-account-confirm"
+                value={deleteAccountConfirm}
+                autoComplete="off"
+                onChange={(e) => setDeleteAccountConfirm(e.target.value)}
+                placeholder="DELETE"
+              />
+            </div>
+            <div className="flex justify-end gap-2 mt-4">
+              <Button variant="outline" onClick={() => setDeleteAccountOpen(false)} disabled={deletingAccount}>Cancel</Button>
+              <Button
+                variant="destructive"
+                onClick={handleDeleteAccount}
+                disabled={deletingAccount || deleteAccountConfirm.trim().toUpperCase() !== "DELETE"}
+              >
+                {deletingAccount ? "Deleting…" : "Delete account"}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </header>
 
       <main className="container mx-auto px-4 py-8 space-y-6">
