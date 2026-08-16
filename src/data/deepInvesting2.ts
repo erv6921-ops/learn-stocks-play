@@ -1860,20 +1860,20 @@ export const deepInvesting2: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "You Can't Save Your Way to Wealth",
+        title: "Why Investing Is the Second Half of the Plan",
         paragraphs: [
-          "Most people assume that working hard and saving money is enough to become financially secure. But saving alone rarely builds real wealth, because money sitting in a bank barely grows and slowly loses value to rising prices. Investing is what turns saved money into growing money. When you invest, your dollars go to work earning returns, and those returns earn more returns - so your wealth can grow even while you sleep. This is how ordinary people with ordinary incomes end up financially free, and it's a choice available to almost anyone who starts.",
-          "Consider the math. If you save $200 a month under a mattress for 40 years, you'll have $96,000 - the exact amount you set aside, and worth far less than $96,000 feels today. Invest that same $200 a month at an 8% average return, and after 40 years you'd have around $620,000. You contributed the same money out of pocket, but investing added over half a million dollars in growth. That gap isn't luck or a high salary; it's the difference between money that sits still and money that works.",
-          "This matters because you'll face huge future costs - a home, emergencies, and especially retirement, which could last 20 to 30 years without a paycheck. Relying only on savings or a shrinking safety net is risky. Investing lets your money help fund those decades, so you're not depending entirely on working forever. The earlier you understand this, the more powerful it becomes: a teen who grasps why investing matters has a decades-long head start that a high earner starting at 45 can never fully recover."
+          "The Investing Fundamentals unit already showed why investing beats saving over long stretches - the gap between money that sits still and money that grows. This lesson picks up where that leaves off and asks a bigger question: what role does investing play in a whole financial life? The short answer is that saving and investing are two halves of one plan. Saving handles the near term - emergencies and goals within a few years. Investing handles the far term - the decades-long costs that saving alone can never reach.",
+          "The biggest of those far-term costs is retirement, which could stretch 20 to 30 years with no paycheck arriving. Think about what that requires: enough money to replace an income for a quarter of your life. Saving a slice of each paycheck helps, but on its own it would demand setting aside an unrealistic amount every month. Investing does the heavy lifting instead, letting growth cover much of that future bill so you aren't forced to depend on working forever or on a safety net that may shrink.",
+          "This is also why understanding investing early is such an advantage - not because a teen has much money, but because a teen has time, the one ingredient that can't be bought back later. A high earner who starts at 45 can pour in far more cash yet still trail someone who started small at 20, because the late starter is missing the decades that do the real work. Grasping this now reframes investing from 'something rich adults do' into 'the tool that turns an ordinary income into long-term security.'"
         ],
         bullets: [
-          "Saving alone rarely builds wealth; investing makes money grow over time.",
-          "Invested money earns returns, and those returns earn more returns.",
-          "$200/month saved for 40 years is $96,000; invested at 8% it's about $620,000.",
-          "You'll face big future costs like a home and a decades-long retirement.",
-          "Starting young gives a head start that high earners starting late can't recover."
+          "Saving and investing are two halves of one plan: near term versus far term.",
+          "Saving covers emergencies and goals within a few years; investing covers the decades.",
+          "Retirement can last 20-30 years with no paycheck - saving alone can't fund it.",
+          "Investing lets growth cover much of that future bill instead of working forever.",
+          "Starting young trades money you don't have for time, which can't be bought back later."
         ],
-        realWorldExample: "Two workers each earn the same salary and each set aside $300 a month. One keeps it in a bank account earning almost nothing; after 35 years they have about $126,000. The other invests it at 8%; after 35 years they have roughly $690,000. Same jobs, same deposits - investing made the difference of over half a million dollars."
+        realWorldExample: "Two workers earn the same salary. One relies only on saving and sets aside a large slice of every paycheck for retirement, still falling short of a 25-year retirement's cost. The other saves a smaller amount but invests it for decades, and growth closes most of the gap. Same income - investing turned a strained plan into a workable one."
       },
       {
         type: "concept",
@@ -1923,38 +1923,38 @@ export const deepInvesting2: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Two Coworkers, One Big Difference",
-        narrative: "Aisha and Ben start the same job at 25, earning identical salaries. Both set aside $300 a month for the future. Aisha invests hers in a diversified fund averaging 8%. Ben, nervous about losing money, keeps his in a basic savings account earning almost nothing. At 60, they compare balances.",
+        title: "Aisha Plans for a 25-Year Retirement",
+        narrative: "Aisha, 25, wants enough saved to cover about 25 years of retirement starting at 65. She estimates she'll need a large nest egg to replace her income for that long. She's deciding whether to reach it by saving alone in a bank account or by investing a smaller monthly amount and letting it grow.",
         details: [
-          "Both contributed the same $300 a month out of their own pockets for 35 years.",
-          "Ben's savings grew only slightly, ending near $126,000 plus tiny interest.",
-          "Aisha's investments compounded to roughly $690,000 over the same period.",
-          "The half-million-dollar gap came entirely from investing versus only saving."
+          "To hit her target by saving alone, she'd have to set aside far more than her budget allows.",
+          "Investing a smaller monthly amount at about 8% lets growth cover most of the target instead.",
+          "Her near-term emergency fund still stays in savings, where it's safe and reachable.",
+          "The 40-year runway to 65 is exactly what makes the investing path realistic for her."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "invest1-aq1",
-          question: "What best explains why Aisha ended up with so much more than Ben?",
+          question: "Why does investing make Aisha's 25-year retirement goal realistic?",
           options: [
-            "Aisha secretly earned a higher salary",
-            "Her invested money compounded over decades",
-            "Ben's bank stole most of his savings",
-            "Saving always beats investing long term"
+            "It removes the need to save any money at all",
+            "Growth over 40 years covers much of the target for her",
+            "It guarantees she'll never face a market drop",
+            "Saving alone would clearly be the easier path"
           ],
           correctAnswer: 1,
-          explanation: "Same salary, same deposits - the difference was that Aisha's money earned returns that compounded for 35 years, while Ben's savings barely grew at all."
+          explanation: "With a 40-year runway, investment growth does much of the heavy lifting, so Aisha needs to contribute far less each month than saving alone would demand. Her emergency fund still stays in savings."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Saving preserves money; investing grows it into real wealth.",
-          "Invested returns compound, adding far more than your deposits alone.",
+          "Saving and investing are two halves of one plan: near term and far term.",
+          "Investing covers decades-long costs like retirement that saving alone can't reach.",
           "You either work for money or make your money work for you.",
           "Starting needs only a few dollars and an app, not wealth or a degree.",
-          "Waiting costs you compounding you can never get back."
+          "Time is the ingredient you can't buy back later, so starting young is the edge."
         ]
       },
       {
@@ -1963,15 +1963,15 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest1-mastery1",
-            question: "$200 a month saved for 40 years versus invested at 8% - what's the rough difference?",
+            question: "Why can't saving alone realistically fund a 20-30 year retirement?",
             options: [
-              "About $96,000 versus about $620,000",
-              "They end up nearly equal",
-              "Saving ends higher than investing",
-              "Both reach exactly one million"
+              "Banks close accounts after retirement",
+              "It would demand setting aside an unrealistic amount each month",
+              "Saving is not allowed once you retire",
+              "Retirement never actually costs much money"
             ],
-            correctAnswer: 0,
-            explanation: "Saved, it's the $96,000 you set aside. Invested at 8%, it grows to about $620,000 - over half a million dollars more, purely from compounding growth."
+            correctAnswer: 1,
+            explanation: "Replacing an income for decades takes a huge sum. Saving alone would require an impractical monthly amount, so investment growth is what makes the goal reachable."
           },
           {
             id: "invest1-mastery2",
@@ -2230,20 +2230,20 @@ export const deepInvesting2: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "Two Very Different Ways Money Grows",
+        title: "Where Compounding Shows Up in Real Investments",
         paragraphs: [
-          "There are two ways interest can be calculated, and the difference decides how rich your money makes you. Simple interest is calculated only on your original amount, called the principal. If you invest $1,000 at 5% simple interest, you earn exactly $50 every year - year one, year two, forever - because the 5% always applies to just the original $1,000. It grows in a perfectly straight line, predictable but limited. Simple interest is common in some loans and short-term situations, and it's the easy math most people picture when they think of interest.",
-          "Compound interest is calculated on your principal PLUS all the interest you've already earned. That same $1,000 at 5% compound interest earns $50 the first year, giving you $1,050. The second year, 5% applies to $1,050, so you earn $52.50, not $50. Each year your interest is a little bigger because it's calculated on a growing balance. It doesn't sound like much at first, but this small difference snowballs dramatically over long periods, which is why compound interest is often called the most powerful force in finance.",
-          "Watch the gap widen over time. At 5% on $1,000, after 30 years simple interest gives you $2,500 - the original $1,000 plus $1,500 in interest. Compound interest over the same 30 years gives you about $4,320. Same principal, same rate, same time - but compounding produced nearly $1,800 more, purely because it kept paying interest on interest. The longer the time frame, the more enormous this gap becomes, which is why time is compounding's best friend. Doubling the number of years does far more than doubling the gap, because compound growth curves upward ever more steeply the longer it runs, turning a modest early head start into a commanding lead by the end."
+          "You already met simple versus compound interest and the Rule of 72 in the Investing Fundamentals lesson on compound interest, so here we focus on where compounding actually shows up once you're a real investor - because the mechanics look different in a brokerage account than in a textbook. In investments, your 'interest on interest' comes from two engines: reinvested dividends and rising share prices that grow off an already-larger base. A quick refresher on the core idea: simple interest pays only on your original principal, while compound interest pays on principal plus everything it has already earned, so the balance snowballs.",
+          "Reinvested dividends are the clearest example. Many stocks and funds pay you a small slice of profits regularly - a dividend. If you spend those payments, your money grows in a straight line, much like simple interest. If instead you automatically reinvest them to buy more shares, those new shares earn their own dividends next time, and the snowball begins. Over decades, reinvested dividends have historically supplied a large chunk of the stock market's total growth, which is why 'total return' funds assume you plow dividends back in rather than pocket them.",
+          "The second engine is price growth on a growing base, and it compounds for the same reason a savings balance does. A fund worth $10,000 that gains 8% adds $800; the next year's 8% is figured on $10,800, so it adds $864, then more the year after. Nothing was deposited - the gains themselves became the base for future gains. This is why patient, hands-off investing tends to beat frequent trading: every time you sell, you interrupt the snowball and often trigger taxes and fees that shrink the base compounding builds on. Left alone, that upward curve steepens the longer it runs."
         ],
         bullets: [
-          "Simple interest is calculated only on your original principal.",
-          "Compound interest is calculated on principal plus previously earned interest.",
-          "Simple interest grows in a straight line; compound interest snowballs.",
-          "$1,000 at 5% for 30 years: simple gives $2,500, compound about $4,320.",
-          "The longer the time frame, the bigger compounding's advantage grows."
+          "Simple interest pays only on principal; compound pays on principal plus prior earnings (see the invfund compound-interest lesson).",
+          "In investments, compounding comes from reinvested dividends and price growth on a larger base.",
+          "Reinvesting dividends buys more shares that earn their own dividends - the snowball.",
+          "Price gains compound too: 8% on a grown balance adds more dollars each year.",
+          "Selling often interrupts the snowball and adds taxes and fees that shrink the base."
         ],
-        realWorldExample: "Put $2,000 in an account at 6%. With simple interest you'd earn a flat $120 every year - $2,400 in interest over 20 years, reaching $4,400. With compound interest, that $2,000 grows to about $6,400 in 20 years. The extra $2,000 came entirely from interest earning its own interest."
+        realWorldExample: "Two investors each hold $2,000 in the same dividend-paying fund for 20 years. One cashes out every dividend and spends it; her money grows mostly from price alone. The other reinvests every dividend into new shares that then pay their own dividends. After 20 years the reinvestor's balance is thousands of dollars larger - the gap is compounding at work inside a real portfolio."
       },
       {
         type: "concept",
@@ -2267,15 +2267,15 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest3-mc1",
-            question: "How is simple interest calculated?",
+            question: "How do reinvested dividends create compounding in a portfolio?",
             options: [
-              "On your principal plus all past interest",
-              "Only on your original principal",
-              "On the bank's total profits",
-              "On next year's expected balance"
+              "They are paid only on your original shares forever",
+              "New shares bought with dividends earn their own dividends",
+              "They lower the fund's price each quarter",
+              "They replace price growth entirely"
             ],
             correctAnswer: 1,
-            explanation: "Simple interest applies only to the original principal, so it pays the same fixed amount each year and grows in a straight line - unlike compound interest."
+            explanation: "Reinvesting a dividend buys more shares, and those shares pay dividends too. That is interest-on-interest inside a real investment - the snowball compounding relies on."
           },
           {
             id: "invest3-mc2",
@@ -2293,38 +2293,38 @@ export const deepInvesting2: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Nadia Compares Two Accounts",
-        narrative: "Nadia, 17, has $1,000 to invest for 30 years. One option pays 5% simple interest; another pays 5% compound interest. The rates look identical, so she's tempted to think it won't matter much. She decides to calculate both before choosing.",
+        title: "Nadia Sets Up Her Dividends",
+        narrative: "Nadia, 17, is buying her first shares of a broad stock fund that pays a small dividend every quarter. Her app asks a simple question: should the dividends be paid out as cash or automatically reinvested into more shares? She wants the choice that compounds best over the 30 years she plans to hold.",
         details: [
-          "At 5% simple interest, she earns a flat $50 each year for 30 years.",
-          "That gives her $1,500 in interest, ending at $2,500 after 30 years.",
-          "At 5% compound interest, her balance grows to about $4,320.",
-          "The same rate and time produced nearly $1,800 more with compounding."
+          "Taking the dividends as cash lets her spend them, but her shares then grow mostly from price alone.",
+          "Reinvesting buys fractional new shares each quarter, and those shares pay dividends too.",
+          "Over 30 years, reinvested dividends historically add a large share of total return.",
+          "Because she won't touch this money for decades, reinvesting keeps the snowball rolling."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "invest3-aq1",
-          question: "Why does the compound option beat the simple option despite the same 5% rate?",
+          question: "Why does reinvesting dividends grow Nadia's money faster than taking the cash?",
           options: [
-              "Compound interest secretly uses a higher rate",
-              "It pays interest on previously earned interest",
-              "Simple interest charges hidden fees according to most guides",
-              "The bank adds a bonus to compound accounts"
+              "Reinvesting secretly raises the fund's dividend rate",
+              "New shares from dividends earn dividends of their own",
+              "Cash dividends are taxed at 100% according to most guides",
+              "The fund adds a bonus only to cash payouts"
             ],
           correctAnswer: 1,
-          explanation: "Compound interest earns on the growing balance - principal plus prior interest - so each year's interest is bigger. Over 30 years that snowball adds nearly $1,800 more."
+          explanation: "Reinvested dividends buy more shares, which pay their own dividends next time. That interest-on-interest snowball beats spending the cash and growing from price alone."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Simple interest pays only on principal; compound pays on principal plus interest.",
-          "Simple grows in a straight line; compound snowballs over time.",
-          "Longer time frames dramatically widen compounding's advantage.",
+          "The simple-vs-compound basics live in the invfund compound-interest lesson; here we applied them to investing.",
+          "In a portfolio, compounding comes from reinvested dividends and price growth on a larger base.",
+          "Reinvesting dividends buys shares that earn their own dividends - the snowball.",
           "APY reflects compounding frequency for honest comparisons.",
-          "Compounding helps you when investing but hurts you on high-interest debt."
+          "Compounding helps you when investing but hurts you on high-interest debt (see the Credit unit)."
         ]
       },
       {
@@ -2333,27 +2333,27 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest3-mastery1",
-            question: "You invest $1,000 at 5% simple interest. How much interest in year two?",
+            question: "In a portfolio, what are the two engines that make money compound?",
             options: [
-              "$52.50",
-              "$50",
-              "$100",
-              "$25"
+              "Bank fees and account minimums",
+              "Reinvested dividends and price growth on a larger base",
+              "Selling often and timing the market",
+              "Cash payouts and spending them quickly"
             ],
             correctAnswer: 1,
-            explanation: "Simple interest always applies to the original $1,000, so it's $50 every year, including year two. Only compound interest would pay more as the balance grows."
+            explanation: "Compounding inside investments comes from reinvested dividends buying more shares and from gains that grow off an already-larger balance - both build on themselves."
           },
           {
             id: "invest3-mastery2",
-            question: "What makes compound interest grow faster than simple?",
+            question: "Why does frequent trading tend to weaken an investor's compounding?",
             options: [
-              "It uses a higher secret rate",
-              "It earns interest on past interest",
-              "It ignores the principal according to most guides",
-              "It compounds only once ever"
+              "It raises the dividend rate too high",
+              "Each sale interrupts the snowball and adds taxes and fees",
+              "It converts stocks into simple interest",
+              "It forces the fund to stop paying dividends"
             ],
             correctAnswer: 1,
-            explanation: "Compounding calculates interest on principal plus all previously earned interest, so the balance - and each year's interest - keeps growing."
+            explanation: "Selling stops gains from building on themselves and often triggers taxes and fees, shrinking the base compounding grows from. Patient holding lets the snowball keep rolling."
           },
           {
             id: "invest3-mastery3",
@@ -2434,18 +2434,18 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "concept",
         title: "Why Waiting to Invest Is So Costly",
         paragraphs: [
-          "The time value of money is the deepest reason to start investing young. Because money grows over time, the earliest dollars you invest are the most valuable - they have the longest runway to compound. This creates a startling result: a person who invests for just 10 years starting young can end up with more than someone who invests for 30 years starting later, even though the late starter contributes far more money. The early dollars simply had more time to multiply, and that head start is nearly impossible to overcome.",
-          "Picture two investors. Amara invests $2,000 a year from age 18 to 28 - ten years, $20,000 total - then stops and never adds another cent. Ben waits and invests $2,000 a year from age 28 to 58 - thirty years, $60,000 total. Assuming 8% growth, Amara often ends up with roughly the same or even more at 60, despite investing a third of what Ben did. Her money had a decade's head start to compound, proving that when you start can matter more than how much you invest.",
+          "The time value of money is the deepest reason to start investing young - the Investing Fundamentals unit made the 'start early' case behaviorally, and here you can see the exact math behind it. Because a present dollar is worth more than a future one, the earliest dollars you invest are the most valuable: they have the longest runway to compound. This creates a startling result: a person who invests for just 10 years starting young can end up with more than someone who invests for 30 years starting later, even though the late starter contributes far more money. The early dollars simply had more time to multiply.",
+          "Picture two investors. Renata invests $2,000 a year from age 18 to 28 - ten years, $20,000 total - then stops and never adds another cent. Marcus waits and invests $2,000 a year from age 28 to 58 - thirty years, $60,000 total. Assuming 8% growth, Renata often ends up with roughly the same or even more at 60, despite investing a third of what Marcus did. Her money had a decade's head start to compound, proving that when you start can matter more than how much you invest.",
           "The flip side is the hidden cost of delay. Every year you wait to start investing isn't just one lost year - it's a lost year at the far end, when your balance would have been largest and its growth greatest. Waiting from 22 to 32 to 'get serious' about investing could cost you hundreds of thousands of dollars by retirement, all from ten years of missed compounding on your earliest, most powerful dollars. Understanding the time value of money turns 'I'll start later' into an obviously expensive decision."
         ],
         bullets: [
           "Your earliest invested dollars are the most valuable - they compound longest.",
           "Someone investing 10 early years can beat someone investing 30 later years.",
-          "Amara ($20k over 10 early years) can match or beat Ben ($60k over 30 later years).",
+          "Renata ($20k over 10 early years) can match or beat Marcus ($60k over 30 later years).",
           "When you start can matter more than how much you invest.",
           "Every year you delay is a lost year at the far, most powerful end."
         ],
-        realWorldExample: "Amara invests $2,000 yearly from 18-28, then stops - $20,000 in. Ben invests $2,000 yearly from 28-58 - $60,000 in. At 8%, both reach around $300,000 by age 60. Amara invested one-third as much yet matched Ben, purely because her dollars had a decade's extra head start to compound."
+        realWorldExample: "Renata invests $2,000 yearly from 18-28, then stops - $20,000 in. Marcus invests $2,000 yearly from 28-58 - $60,000 in. At 8%, both reach around $300,000 by age 60. Renata invested one-third as much yet matched Marcus, purely because her dollars had a decade's extra head start to compound."
       },
       {
         type: "micro-check",
@@ -2478,28 +2478,28 @@ export const deepInvesting2: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Amara and Ben's Head Start",
-        narrative: "Amara starts investing $2,000 a year at age 18 and stops completely at 28 - just ten years. Ben doesn't start until 28, then invests $2,000 a year all the way to 58 - thirty years. Both earn about 8%. At age 60, they compare their totals, expecting Ben to be far ahead.",
+        title: "Renata and Marcus's Head Start",
+        narrative: "Renata starts investing $2,000 a year at age 18 and stops completely at 28 - just ten years. Marcus doesn't start until 28, then invests $2,000 a year all the way to 58 - thirty years. Both earn about 8%. At age 60, they compare their totals, expecting Marcus to be far ahead.",
         details: [
-          "Amara invested only $20,000 total, all during her early years.",
-          "Ben invested $60,000 total, three times as much as Amara.",
-          "Amara's early dollars compounded for decades, giving them a huge head start.",
-          "At 60, both end up around $300,000 despite Ben investing far more."
+          "Renata invested only $20,000 total, all during her early years.",
+          "Marcus invested $60,000 total, three times as much as Renata.",
+          "Renata's early dollars compounded for decades, giving them a huge head start.",
+          "At 60, both end up around $300,000 despite Marcus investing far more."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "invest4-aq1",
-          question: "How did Amara match Ben despite investing only a third as much?",
+          question: "How did Renata match Marcus despite investing only a third as much?",
           options: [
               "Her early dollars compounded far longer",
               "She earned a much higher interest rate",
-              "Ben's money was taxed away according to most guides",
+              "Marcus's money was taxed away according to most guides",
               "She kept secretly adding money"
             ],
           correctAnswer: 0,
-          explanation: "Amara's earliest dollars had decades to compound, making them the most powerful. Starting early gave her a head start that Ben's larger but later contributions couldn't overcome."
+          explanation: "Renata's earliest dollars had decades to compound, making them the most powerful. Starting early gave her a head start that Marcus's larger but later contributions couldn't overcome."
         }
       },
       {
@@ -2600,28 +2600,28 @@ export const deepInvesting2: StructuredLessonContent[] = [
     sections: [
       {
         type: "concept",
-        title: "The Trade-Off Behind Every Investment",
+        title: "The Two Forms Every Return Takes",
         paragraphs: [
-          "Every investment decision is really a balancing act between risk and return. Return is the reward - how much your money might grow. Risk is the uncertainty - the chance you lose money or earn less than hoped. The fundamental law of investing is that these two are linked: to have a shot at higher returns, you must accept higher risk. There is no investment that reliably pays big returns with no risk, and understanding this saves you from scams that promise exactly that impossible combination.",
-          "Think of a spectrum. On the low-risk end sit things like savings accounts and government bonds - your money is very safe, but it grows slowly. In the middle are diversified stock funds - real growth potential with moderate ups and downs. On the high-risk end are individual stocks, crypto, and speculative bets - they can multiply your money or destroy it. Each step up the spectrum offers a bigger possible reward only by adding a bigger chance of loss. Where you choose to sit is the central decision of investing.",
-          "Return itself comes in two forms worth naming. There's income, like interest from bonds or dividends from stocks - money paid to you while you hold the investment. And there's capital appreciation - the investment's price rising so it's worth more than you paid. Total return combines both. When you compare investments, you're weighing their potential total return against how much risk you'd have to stomach to chase it, and whether that trade-off fits your goals. Two investments might advertise the same expected return, yet the one with wilder swings demands more nerve to hold, so the smoother path can be the wiser choice even when the headline number looks identical."
+          "You met the golden rule of risk and return - higher potential reward always demands higher risk - in the Investing Fundamentals risk lesson, so here we go a layer deeper into what 'return' actually is. Return isn't a single thing; it arrives in two distinct forms, and knowing them changes how you judge an investment. The first is income: money paid to you while you simply hold the investment, like interest from a bond or a dividend from a stock. Income tends to be steadier and shows up as cash you can spend or reinvest.",
+          "The second form is capital appreciation - the investment's price rising so it's worth more than you paid. If you buy a share at $50 and it climbs to $70, that $20 gain is appreciation, but it's only real once you could sell. Appreciation is usually where the big long-term growth comes from, yet it's also where most of the ups and downs live, because prices swing far more than dividend payments do. Total return combines the two: income received plus price change. A fund up 6% in price that also paid a 2% dividend delivered an 8% total return.",
+          "Naming these two forms sharpens every comparison. A bond fund might deliver almost all its return as income with little price movement, while a growth-stock fund might pay no dividend at all and rely entirely on appreciation. Neither is automatically better - they suit different goals. Someone wanting cash flow now leans toward income; someone building wealth for decades can favor appreciation and reinvest along the way. When you weigh two investments, compare their total return and ask which mix of income and appreciation fits what you actually need the money to do."
         ],
         bullets: [
-          "Every investment balances return (reward) against risk (uncertainty).",
-          "Higher potential returns require accepting higher risk - they're linked.",
-          "Risk spectrum: savings and government bonds (low) → stock funds → speculation (high).",
-          "Return comes as income (interest, dividends) and capital appreciation (price rising).",
-          "No reliable investment pays high returns with no risk - beware such promises."
+          "The risk-return golden rule is taught in the invfund risk lesson; here we unpack return itself.",
+          "Return comes in two forms: income (interest, dividends) and capital appreciation (price rising).",
+          "Income is steadier cash; appreciation drives long-term growth but swings more.",
+          "Total return = income received plus price change over the period.",
+          "Income suits those wanting cash flow now; appreciation suits long-term wealth building."
         ],
-        realWorldExample: "A government bond might reliably pay 4% with almost no chance of loss. A diversified stock fund might average 8% but swing wildly year to year. A single new crypto coin could 5x or lose 90%. Higher up the ladder, the potential reward grows only because the risk of losing your money grows too."
+        realWorldExample: "Maya holds two investments for a year. A bond fund pays her $40 in interest on $1,000 and its price barely moves - almost all income. A stock fund pays a $10 dividend on $1,000 but its price rises to $1,090 - mostly appreciation. Both delivered about the same total return, roughly 8%, but in very different forms."
       },
       {
         type: "concept",
         title: "Turning Risk Into a Tool You Control",
         paragraphs: [
-          "Since you can't escape risk, the skill is measuring and managing it. One measure is volatility - how much an investment's value swings around. High volatility means big, stomach-churning moves; low volatility means a smoother ride. But volatility isn't the same as danger for a long-term investor: a diversified stock fund is volatile year to year yet has been reliable over decades. The real question is whether you can hold through the swings without panicking, because the biggest losses come from selling low in fear, not from the swings themselves.",
-          "You manage risk with a few proven tools. Diversification spreads money across many investments so no single loss is fatal. Time horizon lets you take more risk when your goal is far away, since you can recover from downturns. Asset allocation blends risky and safe assets to match your comfort level. And the risk-reward trade-off means you should only accept risk you're being fairly paid for - taking huge risk for tiny extra reward is a bad deal, while taking modest risk for strong long-term growth can be a great one.",
-          "Matching risk to your situation is everything. A teen investing for retirement should embrace higher-risk stocks, because decades of time turn short-term volatility into long-term growth, and playing it too safe would lose to inflation. Someone saving for next year's tuition should stay low-risk, because they can't afford a crash right before they need the cash. There's no universally 'right' amount of risk - only the amount that fits your goals, timeline, and ability to stay calm when markets get scary."
+          "Risk can actually be measured, and the most common measure is volatility - how much an investment's value swings around its average. An asset that bounces between +30% and -25% in different years is highly volatile; one that drifts gently between +6% and +2% is not. Analysts often express this as 'standard deviation,' a single number capturing the typical size of those swings. You don't need the math, just the intuition: bigger swings mean a bumpier ride, and knowing an investment's volatility tells you what kind of ride to brace for before you buy.",
+          "The crucial insight is that volatility is not the same as danger for a long-term investor. A diversified stock fund swings a lot year to year yet has been reliable over decades, because the swings largely cancel out over time. The real damage comes from reacting to volatility - selling low in a panic - not from the swings themselves. This is also why a single stock is far more volatile than a broad fund: one company's bad news can crater its price, while a fund holding hundreds of companies smooths those individual shocks into a gentler overall path. The tools for handling this - diversification, time horizon, and asset allocation - are covered in the Investing Fundamentals lessons on risk and diversification.",
+          "Matching risk to your situation is everything. A teen investing for retirement can embrace higher-volatility stocks, because decades of time turn short-term swings into long-term growth, and playing it too safe would lose to inflation. Someone saving for next year's tuition should stay low-volatility, because they can't afford a crash right before they need the cash. There's no universally 'right' amount of risk - only the amount that fits your goals, timeline, and ability to stay calm when markets get scary."
         ],
         bullets: [
           "Volatility measures how much an investment's value swings around.",
@@ -2637,15 +2637,15 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest5-mc1",
-            question: "What is the fundamental relationship between risk and return?",
+            question: "What is 'total return' on an investment?",
             options: [
-              "Lower risk always earns higher returns according to most guides",
-              "Higher potential returns require accepting higher risk",
-              "Risk and return are completely unrelated",
-              "High returns can be earned with zero risk"
+              "Only the dividends it pays over a year",
+              "Income received plus the change in price",
+              "Just the price gain, ignoring any income",
+              "The fees subtracted from your deposit"
             ],
             correctAnswer: 1,
-            explanation: "Risk and return are linked: chasing higher potential returns means accepting more risk. Any claim of high returns with no risk is a red flag for a scam."
+            explanation: "Total return combines both forms: the income you're paid (interest or dividends) plus any capital appreciation from the price rising above what you paid."
           },
           {
             id: "invest5-mc2",
@@ -2703,27 +2703,27 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest5-mastery1",
-            question: "An ad promises 'guaranteed 20% returns with no risk.' What is the smart response?",
+            question: "A fund's price rises 6% and it also pays a 2% dividend. Its total return is about…",
             options: [
-              "Invest everything immediately according to most guides",
-              "Be very skeptical; it's likely a scam",
-              "Assume it's a government program as a general rule",
-              "Only wealthy people can join"
+              "2%, counting only the dividend",
+              "8%, combining price gain and income",
+              "6%, counting only the price gain",
+              "4%, the difference between them"
             ],
             correctAnswer: 1,
-            explanation: "High returns always require real risk. A promise of big guaranteed returns with no risk is a classic scam signal - that combination doesn't exist."
+            explanation: "Total return adds income to price change: a 6% price gain plus a 2% dividend is roughly an 8% total return for the year."
           },
           {
             id: "invest5-mastery2",
-            question: "Which investment sits at the low-risk end of the spectrum?",
+            question: "Which investment delivers its return mostly as income rather than appreciation?",
             options: [
-              "A new speculative crypto coin",
-              "A government bond",
-              "A single small-company stock",
-              "An aggressive growth fund"
+              "A growth stock that pays no dividend",
+              "A bond fund paying steady interest",
+              "A speculative coin bought to flip",
+              "A startup share with no payouts"
             ],
             correctAnswer: 1,
-            explanation: "Government bonds are low-risk with modest returns. Crypto, single small stocks, and aggressive funds sit higher on the spectrum with more risk and reward."
+            explanation: "A bond fund pays regular interest with little price movement, so its return is mostly income. Growth stocks and speculative bets rely on appreciation instead."
           },
           {
             id: "invest5-mastery3",
@@ -2751,15 +2751,15 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest5-mastery5",
-            question: "Which tool spreads money so no single loss is fatal?",
+            question: "Why is a single stock usually more volatile than a broad fund?",
             options: [
-              "Diversification",
-              "Higher fees",
-              "Panic-selling",
-              "Market timing"
+              "Single stocks are taxed at a higher rate",
+              "One company's bad news can crater its price",
+              "Funds are legally guaranteed against loss",
+              "Single stocks never pay any dividends"
             ],
-            correctAnswer: 0,
-            explanation: "Diversification spreads your money across many investments, so one failure is only a small dent - a core tool for managing risk."
+            correctAnswer: 1,
+            explanation: "A broad fund holds hundreds of companies, so one firm's shock is smoothed out. A single stock has no such cushion, so its price swings far more."
           },
           {
             id: "invest5-mastery6",

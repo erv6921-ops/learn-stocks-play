@@ -568,32 +568,32 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         title: "How Interest Pays You (and Compounds)",
         paragraphs: [
           "Interest is the price of money over time. When you keep money in a savings account, the bank pays you interest for letting it use your funds - it's like rent the bank pays you. The rate is usually shown as an annual percentage. At 4% on $1,000, you'd earn about $40 in a year. Simple interest would stop there, but banks usually pay compound interest, which is where the magic happens. Compounding means you earn interest on your interest, so your balance grows faster and faster the longer you leave it alone.",
-          "Here's compounding in action. Put $1,000 in at 5%, compounded yearly. After year one you have $1,050. In year two you earn 5% on $1,050, not just the original $1,000, so you get $52.50, ending at $1,102.50. Each year the base grows, so each year's interest is bigger than the last. Over decades this snowballs dramatically. The key drivers are the rate, how often it compounds (daily beats yearly), and above all time. Starting early is the single biggest advantage a teen has - time turns small amounts into large ones.",
-          "A handy shortcut is the Rule of 72: divide 72 by your interest rate to estimate how many years it takes your money to double. At 6%, money doubles in about 12 years (72 ÷ 6). At 8%, about 9 years. This shows why the rate matters so much: a few extra percent slices years off the doubling time. It also reveals why high-interest debt is so dangerous - the same compounding that grows your savings works against you when you owe money, ballooning a credit card balance if you only pay the minimum."
+          "Compound interest - earning interest on your interest, and the Rule of 72 for estimating doubling time - is taught in depth in the Investing Fundamentals compound-interest lesson, so here we look at how a bank actually pays it. Most savings accounts compound daily but credit the interest to your balance monthly, so your statement shows one interest line per month even though the math runs every day. Daily compounding is why an account quoted at 5% ends the year slightly above 5% of your average balance. The three levers are still the rate, how often it compounds, and time, but at a bank the rate is the one you can most easily improve by shopping around.",
+          "Banks also set rates in ways worth knowing. Some pay 'tiered' rates - a higher rate once your balance passes a threshold - while others offer a relationship bonus for keeping a checking account there too. Rates on savings are variable, meaning the bank can raise or lower them as the broader economy shifts, so the great rate you open with today can quietly drop next year. Certificates of deposit (CDs) work differently: you lock a fixed rate for a set term, from months to years, which protects you if rates fall but ties up your cash and usually charges a penalty for early withdrawal."
         ],
         bullets: [
           "Interest is what the bank pays you for keeping your money - like rent on your cash.",
-          "Compound interest means earning interest on your interest, so growth accelerates over time.",
-          "The drivers of growth are the rate, how often it compounds, and especially time.",
-          "Rule of 72: divide 72 by the rate to estimate years for money to double (72 ÷ 6% ≈ 12 years).",
-          "Compounding also works against you on debt - balances balloon if you pay only the minimum."
+          "Compounding and the Rule of 72 are covered in the invfund compound-interest lesson.",
+          "Banks usually compound daily but credit interest to your balance monthly.",
+          "Savings rates are variable and can drop; watch for tiered or relationship-bonus rates.",
+          "CDs lock a fixed rate for a set term but penalize early withdrawal."
         ],
-        realWorldExample: "Two teens each save $1,000 at 7%. Ava starts at 15 and leaves it 50 years; using the Rule of 72 it doubles about every 10 years, growing to roughly $32,000. Ben starts at 35 with the same $1,000, so it doubles fewer times and reaches only about $8,000. Same money - starting 20 years earlier quadrupled it."
+        realWorldExample: "Priya opens a savings account quoted at 5%, compounded daily. Over a year her average $4,000 balance earns a little more than a flat 5% would - about $205 instead of $200 - because each day's interest starts earning interest itself the very next day. The bank shows it as twelve small monthly deposits."
       },
       {
         type: "concept",
         title: "APY, APR, and Reading the Fine Print",
         paragraphs: [
-          "Two terms trip people up: APY and APR. APY - annual percentage yield - is what you EARN on savings, and it already includes the effect of compounding, so it's the honest, all-in rate for comparing accounts. APR - annual percentage rate - is what you PAY on loans and credit cards, and it's the rate before compounding, often shown without fees. When you're saving, look for the highest APY. When you're borrowing, look for the lowest APR. Mixing them up can cost you real money, so always check which one a product is quoting.",
-          "Not all savings rates are equal. A big traditional bank might advertise 0.40% APY while an online high-yield savings account offers 4.50% APY for the exact same safety and FDIC coverage. On $5,000, that's the difference between about $20 and $225 a year - over $200 extra for simply choosing a better account. Rates on savings are 'variable,' meaning the bank can change them as the broader economy shifts. CDs, by contrast, lock a fixed rate for a set term, protecting you if rates fall but locking you out if rates rise.",
-          "On the borrowing side, APR is the number to fear. A credit card at 24% APR compounds against you: carry a $1,000 balance and you're charged interest monthly, so the debt grows if you don't pay it off. This is why paying your full statement balance each month - avoiding interest entirely - is one of the most powerful money habits. The same force that grows your savings destroys your budget when it's working on debt. Master interest, and you'll instinctively chase high APY on savings while refusing to carry high-APR debt."
+          "The full APY-versus-APR distinction - APY is what you EARN and includes compounding, APR is what you PAY and comes before compounding - is taught in the Credit unit's lesson on the two rates, so for saving just remember one rule: compare accounts by APY, because it already bakes in compounding for an honest, all-in number. A '5% rate' with no APY stated is a red flag; a stated APY tells you exactly what a dollar left alone for a year will earn.",
+          "Not all savings APYs are equal, and the gap is larger than most people expect. A big traditional bank might advertise 0.40% APY while an online high-yield savings account offers 4.50% APY for the exact same safety and FDIC coverage. On $5,000, that's the difference between about $20 and $225 a year - over $200 extra for simply choosing a better account. Because rates are variable, it pays to check yours once a year and move if your bank has fallen far behind the best insured offers.",
+          "For money you won't touch for a while, a CD ladder squeezes out more yield without fully locking you up. Instead of putting $5,000 in one 5-year CD, you split it across CDs maturing in 1, 2, 3, 4, and 5 years. Each year one rung matures, giving you access to some cash or the chance to reinvest at current rates, while the rest keeps earning the higher long-term rate. It's a simple way to balance a CD's better rate against the flexibility a plain savings account gives you."
         ],
         bullets: [
-          "APY is what you EARN (includes compounding) - seek the highest when saving.",
-          "APR is what you PAY on loans/cards - seek the lowest when borrowing.",
-          "Online high-yield savings can pay 4.5% APY vs 0.4% at big banks, for the same safety.",
-          "Savings rates are variable; CDs lock a fixed rate for a set term.",
-          "High-APR debt compounds against you - pay statements in full to avoid interest entirely."
+          "Compare savings accounts by APY, which already includes compounding.",
+          "The full APR-vs-APY distinction lives in the Credit unit's two-rates lesson.",
+          "Online high-yield savings can pay 4.5% APY vs 0.4% at big banks, for the same FDIC safety.",
+          "Variable rates drift - check yours yearly and switch if it lags the best insured offers.",
+          "A CD ladder blends a CD's higher rate with regular access to some of your cash.",
         ],
         realWorldExample: "Leo keeps $5,000 in a big-bank account at 0.40% APY, earning about $20 a year. He moves it to an FDIC-insured online bank at 4.50% APY and earns about $225 - an extra $205 a year for a ten-minute switch, with identical safety."
       },
@@ -602,15 +602,15 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking4-mc1",
-            question: "What makes compound interest more powerful than simple interest?",
+            question: "How does a typical savings account usually pay compound interest?",
             options: [
-              "It pays interest only on the original amount",
-              "It pays interest on your interest too",
-              "It is guaranteed by the government",
-              "It never changes no matter the rate"
+              "It compounds once at year-end only",
+              "It compounds daily but credits the interest monthly",
+              "It pays interest only if you never withdraw",
+              "It pays the same fixed dollars every month"
             ],
             correctAnswer: 1,
-            explanation: "Compound interest pays you interest on your accumulated interest, not just the original deposit. That makes your balance grow faster and faster the longer you leave it alone."
+            explanation: "Most savings accounts compound daily and add the interest to your balance monthly, so you see one interest line per statement even though the math runs every day."
           },
           {
             id: "banking4-mc2",
@@ -628,38 +628,38 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Nina Uses the Rule of 72",
-        narrative: "Nina, 16, has $2,000 saved and is deciding between her current bank at 0.5% APY and an FDIC-insured online bank at 5% APY. She wants to understand roughly how her money could grow and uses the Rule of 72 to compare.",
+        title: "Nina Shops for a Better APY",
+        narrative: "Nina, 16, has $2,000 sitting in her family's big bank at 0.5% APY. She finds an FDIC-insured online bank offering 5% APY and a 12-month CD at 5.3%. She wants the most growth without locking up cash she might need for a school trip in a few months.",
         details: [
-          "At 5% APY, the Rule of 72 (72 ÷ 5) says her money doubles in about 14 years.",
-          "At 0.5% APY, doubling would take roughly 144 years - essentially never in her lifetime.",
-          "Both accounts are FDIC-insured, so the higher-APY online bank is just as safe.",
-          "Starting now at 16 gives compounding decades to work, her single biggest advantage."
+          "The online savings at 5% APY would earn about $100 in a year versus about $10 at 0.5%.",
+          "Both banks are FDIC-insured, so the online account is exactly as safe as her big bank.",
+          "The 12-month CD pays a bit more but penalizes her if she withdraws before it matures.",
+          "Because she may need cash for the trip soon, liquid high-yield savings fits better than a locked CD."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "banking4-aq1",
-          question: "Using the Rule of 72, which choice best helps Nina's money grow?",
+          question: "Given her possible school-trip cost, which choice fits Nina best?",
           options: [
             "Keep it at 0.5% since it feels familiar",
-            "Move it to the 5% APY insured account",
-            "Wait until age 40 to start saving in most cases",
-            "Split it evenly to avoid all interest"
+            "Move it to the 5% APY insured savings account",
+            "Lock all $2,000 in the 12-month CD",
+            "Leave the cash in checking earning nothing"
           ],
           correctAnswer: 1,
-          explanation: "At 5% APY her money doubles in about 14 years versus about 144 years at 0.5%, and both are equally FDIC-insured. Moving to the higher-APY account and starting young lets compounding do the heavy lifting."
+          explanation: "The 5% APY insured savings earns far more than 0.5% while keeping her cash reachable for the trip. The CD pays slightly more but its early-withdrawal penalty makes it a poor fit for money she may need soon."
         }
       },
       {
         type: "recap",
         takeaways: [
-          "Interest is what the bank pays you for keeping your money; compounding pays interest on interest.",
-          "Growth depends on the rate, compounding frequency, and above all time - start early.",
-          "Rule of 72: divide 72 by the rate to estimate years to double your money.",
-          "APY is what you earn (seek high); APR is what you pay (seek low).",
-          "The same compounding that grows savings balloons high-APR debt, so pay balances in full."
+          "Interest is what the bank pays you for keeping your money - like rent on your cash.",
+          "Most savings accounts compound daily but credit the interest monthly.",
+          "Compare savings by APY; the APR-vs-APY details are in the Credit unit's two-rates lesson.",
+          "Online high-yield savings often pays far more than big banks for the same FDIC safety.",
+          "CDs and CD ladders trade some access for a higher fixed rate."
         ]
       },
       {
@@ -668,27 +668,27 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking4-mastery1",
-            question: "$1,000 at 5% compounded yearly. After two years you have about…",
+            question: "An account quoted at 5% and compounded daily earns, over a full year, about…",
             options: [
-              "$1,100, just simple interest twice",
-              "$1,102.50, thanks to compounding",
-              "$1,050, only one year of growth",
-              "$1,010, a rounding of the rate"
+              "Less than 5% because daily is slower",
+              "A little more than 5% of your balance",
+              "Exactly 5%, unaffected by compounding",
+              "Double the 5%, thanks to daily interest"
             ],
             correctAnswer: 1,
-            explanation: "Year one adds $50 for $1,050. Year two earns 5% on $1,050, which is $52.50, ending at $1,102.50. Compounding pays interest on the interest, so it beats simple interest of $1,100."
+            explanation: "Daily compounding starts each day's interest earning interest the next day, so a 5% quoted rate ends the year slightly above 5% - which is why the APY reads a bit higher than 5%."
           },
           {
             id: "banking4-mastery2",
-            question: "By the Rule of 72, money at 8% roughly doubles in…",
+            question: "Why is comparing accounts by APY better than by a plain 'rate'?",
             options: [
-              "About 9 years (72 ÷ 8)",
-              "About 8 years, matching the rate",
-              "About 72 years, always fixed in most cases",
-              "About 40 years, half a lifetime"
+              "APY hides the compounding to look smaller",
+              "APY already includes compounding for an honest, all-in number",
+              "APY is only used for credit cards in most cases",
+              "APY ignores the interest rate entirely"
             ],
-            correctAnswer: 0,
-            explanation: "The Rule of 72 divides 72 by the rate: 72 ÷ 8 = 9 years to double. A higher rate shortens the doubling time, which is why the rate matters so much over the long run."
+            correctAnswer: 1,
+            explanation: "APY bakes in how often interest compounds, so it tells you exactly what a dollar left alone for a year earns. A bare 'rate' with no APY can hide a worse deal."
           },
           {
             id: "banking4-mastery3",
@@ -728,15 +728,15 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking4-mastery6",
-            question: "Why is carrying a 24% APR credit card balance dangerous?",
+            question: "Why can no savings APY beat carrying a high-APR credit card balance?",
             options: [
-              "The bank freezes your account for it",
-              "Compounding makes the debt grow fast",
-              "It raises your savings APY too high",
-              "It doubles your paycheck each month"
+              "Savings APYs are illegal above 4%",
+              "The debt's rate is far higher than any safe savings rate",
+              "Banks refuse to pay APY to cardholders",
+              "Credit cards pay you interest instead"
             ],
             correctAnswer: 1,
-            explanation: "At 24% APR, interest compounds against you monthly, so an unpaid balance grows quickly if you only pay the minimum. The same compounding that helps savings works against you on debt."
+            explanation: "A card at 20%+ APR costs you far more than a savings account can earn, so clearing that debt beats chasing yield. The Credit unit covers debt compounding in depth."
           }
         ]
       }

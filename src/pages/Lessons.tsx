@@ -100,6 +100,10 @@ export default function Lessons() {
     try { localStorage.setItem("investiplay_active_track", activeTrack); } catch { /* storage unavailable */ }
   }, [activeTrack]);
 
+  // Gulliver Intro opens fullscreen by default; the minimize button drops to the
+  // normal Missions view. Not persisted, so it re-opens fullscreen each visit.
+  const [gulliverMinimized, setGulliverMinimized] = useState(false);
+
   // Persisted enrollment track (profiles.track). `bizLabEnrolled` gates the
   // Biz Lab tab + content; `hidesApElective` gates the AP elective (hidden for
   // both Biz Lab and Gulliver Intro). If a stale view-state track was stored,
@@ -496,7 +500,7 @@ export default function Lessons() {
 
   // Gulliver Intro: open straight into the fullscreen roller coaster, with every
   // lesson of the course on one continuous track (both chapters share one unit).
-  if (isMapView && activeTrack === "gulliver-intro") {
+  if (isMapView && activeTrack === "gulliver-intro" && !gulliverMinimized) {
     return (
       <div className="fixed inset-0 flex flex-col bg-background">
         <GameNav />
@@ -511,6 +515,15 @@ export default function Lessons() {
             stats={{ streak, points: jeffsBalance, level }}
             onSelectStation={(s) => navigate(`/lessons/${s.id}`)}
           />
+          {/* Minimize: drop from the fullscreen coaster to the normal Missions view. */}
+          <button
+            onClick={() => setGulliverMinimized(true)}
+            aria-label="Minimize"
+            className="absolute top-3 right-3 z-20 inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-[#0d3524] shadow-lg transition-transform active:scale-95"
+            style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.9)" }}
+          >
+            <Minimize2 className="w-4 h-4" /> Minimize
+          </button>
         </div>
       </div>
     );
@@ -606,7 +619,7 @@ export default function Lessons() {
           </div>
           {coasterMini && isMapView && (
             <button
-              onClick={() => setCoasterFull(true)}
+              onClick={() => activeTrack === "gulliver-intro" ? setGulliverMinimized(false) : setCoasterFull(true)}
               className="shrink-0 inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
               style={{ background: "linear-gradient(135deg,var(--brand-bright),var(--brand-strong))", boxShadow: "0 6px 16px rgba(var(--brand-rgb),0.35)" }}
             >
