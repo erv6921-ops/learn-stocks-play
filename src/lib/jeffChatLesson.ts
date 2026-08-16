@@ -306,8 +306,12 @@ export function isGulliverIntroLesson(lesson: Lesson): boolean {
 // digestible session: a handful of short messages that build on each other.
 export const GULLIVER_DEEP_TURNS = 8
 
-// ── Snappy default prompt (unchanged behavior for every non-Gulliver track) ──
-function buildSnappyPrompt(lesson: Lesson, sentCount: number): string {
+// ── Snappy default prompt (the gamified personal-finance track) ──
+// When `source` is provided (the lesson's authored concept content), Jeff is
+// grounded in it and told to cover the ideas the quiz is written from - so the
+// questions never test something the chat didn't teach. Without a source it
+// behaves exactly as before (improvise one core idea from the title).
+function buildSnappyPrompt(lesson: Lesson, sentCount: number, source?: string): string {
   // Hard length budget - lessons were ballooning to 15+ messages. Jeff gets at
   // most 6 total messages; the prompt counts down and forces the wrap-up.
   const remaining = Math.max(1, 6 - sentCount)
@@ -317,17 +321,29 @@ function buildSnappyPrompt(lesson: Lesson, sentCount: number): string {
       ? `You have already sent ${sentCount} messages and have at most ${remaining} left - start converging on the key takeaway now. Do not open new subtopics.`
       : `You have sent ${sentCount} messages so far and may use at most ${remaining} more in total.`
 
+  // Grounded vs. improvised job description. Grounded still stays snappy (short
+  // messages, <=6 total) but must cover the tested ideas rather than just one.
+  const job = source
+    ? `Your job: teach this lesson through a snappy back-and-forth conversation - 4 to 6 short exchanges. Teach the KEY ideas from the SOURCE MATERIAL below, because the quiz is written straight from it - so cover every idea it emphasizes and do NOT test-drift into outside facts. Stay snappy: one small idea per message, simplest first, building up. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
+    : `Your job: teach ONE core concept of this lesson through a snappy back-and-forth conversation - 4 to 5 short exchanges total, never more than 6. Depth beats breadth: pick the single most important idea and land it, skip everything secondary. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
+
+  // Placed LAST so a system-prompt clamp trims only the tail of the source,
+  // never the teaching rules or the required end signal above it.
+  const material = source
+    ? `\n\nSOURCE MATERIAL - the authoritative content for this lesson; the quiz is written from it. Teach the ideas it contains and do not contradict it or introduce facts it doesn't cover:\n"""\n${source.slice(0, 3500)}\n"""`
+    : ""
+
   return `You are Jeff, the friendly mascot and financial literacy guide for InvestiPlay, an app that teaches high school students personal finance through gamification. You are teaching a lesson called '${lesson.title}' which covers '${lesson.description}'.
 
 Your personality: enthusiastic, encouraging, uses casual teen-friendly language, occasional light humor, never condescending. You explain concepts in 1-3 short sentences max per message - never long paragraphs. You use real-world examples that resonate with teenagers (jobs, sneakers, streaming services, gaming, college).
 
-Your job: teach ONE core concept of this lesson through a snappy back-and-forth conversation - 4 to 5 short exchanges total, never more than 6. Depth beats breadth: pick the single most important idea and land it, skip everything secondary. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz. ${budgetNote}
+${job} ${budgetNote}
 
 Always end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
 
 The student already knows you - never introduce yourself or say "I'm Jeff." Just dive into teaching.
 
-Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.`
+Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.${material}`
 }
 
 // ── Deep prompt (Gulliver Intro): a real, rigorous mini-lecture ──
@@ -377,7 +393,7 @@ The student already knows you - never introduce yourself. Do not use bullet poin
 export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[]): string {
   return isGulliverIntroLesson(lesson)
     ? buildDeepPrompt(lesson, sentCount, source, mustCover)
-    : buildSnappyPrompt(lesson, sentCount)
+    : buildSnappyPrompt(lesson, sentCount, source)
 }
 
 /** One chat turn: full history in, Jeff's reply + next tap options out. */

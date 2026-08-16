@@ -588,10 +588,14 @@ export default function LessonDetail() {
           // concept content as a scripted chat instead of erroring. Deep
           // lessons walk the full curriculum rather than a 7-beat summary.
           script={buildScript(sections, deepLesson)}
-          // Grounds the live AI in the authored curriculum (deep lessons).
-          source={deepLesson ? conceptSource : undefined}
-          // Forces Jeff to teach every topic the quiz will test (deep lessons).
-          mustCover={deepLesson ? mustCoverTopics : undefined}
+          // Grounds the live AI in the lesson's authored concept content for
+          // EVERY track, so Jeff teaches the same material the quiz is written
+          // from - fixing questions that tested things the chat never covered.
+          source={conceptSource || undefined}
+          // Forces Jeff to teach every topic the quiz will test, when the
+          // questions carry concept tags (Gulliver Intro today; harmless empty
+          // elsewhere until more lessons are tagged).
+          mustCover={mustCoverTopics.length ? mustCoverTopics : undefined}
           onQuizReady={handleChatQuizReady}
           onClose={() => setChatOpen(false)}
         />
