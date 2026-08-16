@@ -28,10 +28,16 @@ export function LessonCompletionScreen({
   reflectionBonus: number
   onContinue: () => void
 }) {
-  const { coinsGained, coinsLost } = useQuizSession()
+  const { coinsGained, coinsLost, answeredTotal, answeredCorrect } = useQuizSession()
 
-  const pct = attempts > 0
-    ? Math.round((correct / attempts) * 100)
+  // Whole-lesson accuracy: every question answered this session - micro-checks,
+  // applied questions, and mastery-check questions, including failed mastery
+  // retries. Falls back to the mastery-only counts, then the stored score, for
+  // replays where this session answered nothing.
+  const shownCorrect = answeredTotal > 0 ? answeredCorrect : correct
+  const shownTotal = answeredTotal > 0 ? answeredTotal : attempts
+  const pct = shownTotal > 0
+    ? Math.round((shownCorrect / shownTotal) * 100)
     : Math.max(0, Math.min(100, storedQuizScore ?? 100))
 
   const bonus = reflectionDone ? reflectionBonus : 0
@@ -97,10 +103,10 @@ export function LessonCompletionScreen({
             </div>
           </div>
 
-          {attempts > 0 && (
+          {shownTotal > 0 && (
             <p className="text-sm text-muted-foreground -mt-2">
-              <span className="font-semibold text-foreground">{correct}</span> of{" "}
-              <span className="font-semibold text-foreground">{attempts}</span> answered correctly
+              <span className="font-semibold text-foreground">{shownCorrect}</span> of{" "}
+              <span className="font-semibold text-foreground">{shownTotal}</span> questions correct
             </p>
           )}
 

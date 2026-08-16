@@ -55,6 +55,15 @@ interface QuizSession {
   /** Total coins lost to wrong answers this session (always ≥ 0). */
   coinsLost: number
   /**
+   * Every question answered this session across ALL sections - micro-checks,
+   * applied questions, and mastery-check questions, INCLUDING answers on failed
+   * mastery attempts and timeouts. This is the denominator for whole-lesson
+   * accuracy on the completion screen.
+   */
+  answeredTotal: number
+  /** Of `answeredTotal`, how many were correct. */
+  answeredCorrect: number
+  /**
    * Register a correct answer: +coins by speed tier (quick/regular/slow), bumps
    * combo, pops a toast. Pass the response time so the tier can be chosen.
    */
@@ -69,6 +78,8 @@ const noop: QuizSession = {
   coinsEarned: 0,
   coinsGained: 0,
   coinsLost: 0,
+  answeredTotal: 0,
+  answeredCorrect: 0,
   registerCorrect: () => {},
   registerWrong: () => {},
 }
@@ -91,6 +102,8 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
   const [coinsEarned, setCoinsEarned] = useState(0)
   const [coinsGained, setCoinsGained] = useState(0)
   const [coinsLost, setCoinsLost] = useState(0)
+  const [answeredTotal, setAnsweredTotal] = useState(0)
+  const [answeredCorrect, setAnsweredCorrect] = useState(0)
   // Synchronous mirrors so a rapid answer reads up-to-date values.
   const comboRef = useRef(0)
   const balanceRef = useRef(jeffsBalance)
@@ -108,6 +121,8 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
     awardJeffs(total, "Quiz correct answer")
     setCoinsEarned(c => c + total)
     setCoinsGained(g => g + total)
+    setAnsweredCorrect(c => c + 1)
+    setAnsweredTotal(t => t + 1)
     // Reuse one toast id so rapid answers update a single toast in place
     // instead of stacking a fresh one per question.
     toast.success(`+${total} coins`, {
@@ -121,6 +136,9 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
     const broken = comboRef.current
     comboRef.current = 0
     setCombo(0)
+    // Count the answer even when no coins are lost (zero balance) or it was a
+    // timeout - whole-lesson accuracy counts every attempt.
+    setAnsweredTotal(t => t + 1)
     if (broken >= 3) {
       setLostCombo(broken)
       clearTimeout(lostTimer.current)
@@ -144,7 +162,7 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <QuizSessionCtx.Provider value={{ combo, lostCombo, coinsEarned, coinsGained, coinsLost, registerCorrect, registerWrong }}>
+    <QuizSessionCtx.Provider value={{ combo, lostCombo, coinsEarned, coinsGained, coinsLost, answeredTotal, answeredCorrect, registerCorrect, registerWrong }}>
       {children}
     </QuizSessionCtx.Provider>
   )
