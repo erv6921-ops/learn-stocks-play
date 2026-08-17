@@ -219,21 +219,33 @@ export default function LeagueUpWatcher() {
   const { pathname } = useLocation()
   const inQuiz = pathname.startsWith("/lessons/") || pathname.startsWith("/unit-test/")
 
-  // The highest league already celebrated, PERSISTED. This is what makes the
-  // celebration fire exactly once per real promotion and never again on reload
-  // or login - even though the balance loads/syncs upward a moment after mount.
+  // The highest league already celebrated, PERSISTED. Combined with the settle
+  // logic below this makes the celebration fire exactly once per REAL promotion
+  // and never on reload/login - even though on login the balance is reset to 0
+  // and then synced up from the server a moment (or several seconds) after mount.
   const readCelebrated = () => {
-    const n = Number(localStorage.getItem("investiplay_celebrated_league"))
+    const raw = localStorage.getItem("investiplay_celebrated_league")
+    const n = raw == null ? -1 : Number(raw) // getItem null -> Number(null) is 0, guard it
     return Number.isFinite(n) ? n : -1
   }
-  // Settle-grace window: for the first few seconds after mount (login + data
-  // sync) we absorb any league jump silently into the baseline instead of
-  // celebrating it, so the initial load is never mistaken for a promotion.
+
+  // "Settled" = the balance has stopped changing, so the whole login/server-sync
+  // burst is finished. We go live only ONCE (1.5s after the last balance change,
+  // or a 6s hard cap) and never reset - so the initial load is always absorbed
+  // silently no matter how slow the sync is, while genuine in-session promotions
+  // still celebrate.
   const readyRef = useRef(false)
+  const settleRef = useRef<ReturnType<typeof setTimeout>>()
   useEffect(() => {
-    const t = setTimeout(() => { readyRef.current = true }, 4000)
-    return () => clearTimeout(t)
+    const hard = setTimeout(() => { readyRef.current = true }, 6000)
+    return () => clearTimeout(hard)
   }, [])
+  useEffect(() => {
+    if (readyRef.current) return // already live - don't reset on in-game earnings
+    clearTimeout(settleRef.current)
+    settleRef.current = setTimeout(() => { readyRef.current = true }, 1500)
+    return () => clearTimeout(settleRef.current)
+  }, [jeffsBalance])
 
   useEffect(() => {
     if (!import.meta.env.DEV) return
@@ -243,9 +255,9 @@ export default function LeagueUpWatcher() {
 
   useEffect(() => {
     const celebrated = readCelebrated()
-    // First time ever, or still in the settling grace window: adopt the current
-    // league silently (bump the baseline up, never celebrate the load).
-    if (celebrated < 0 || !readyRef.current) {
+    // Still settling (login + data sync): adopt the current league as the
+    // baseline silently - never celebrate a load.
+    if (!readyRef.current) {
       if (idx > celebrated) localStorage.setItem("investiplay_celebrated_league", String(idx))
       return
     }
