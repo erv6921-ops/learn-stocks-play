@@ -61,8 +61,8 @@ interface QuizAnswerProps {
   onIncorrect: () => void
   onContinue: () => void
   showContinue: boolean
-  // Coins gained on a right answer / lost on a wrong one. Defaults to 50;
-  // the low-stakes micro-check passes 25.
+  // Coins LOST on a wrong answer (gains are the speed tiers). Defaults to 20;
+  // the low-stakes micro-check passes 10.
   coins?: number
   // Optional - only the Mastery Engine's write path (MasteryCheckRenderer)
   // wires this. Micro-check and applied-question are formative practice,
@@ -70,7 +70,7 @@ interface QuizAnswerProps {
   onAnswered?: (isCorrect: boolean, responseTimeMs: number) => void
 }
 
-function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 50, onAnswered }: QuizAnswerProps) {
+function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 20, onAnswered }: QuizAnswerProps) {
   // Questions are already shuffled & validated by the MCQ engine in LessonDetail - use as-is
   const shuffledQ = question
   // Per-question countdown budget, scaled to reading length (see questionSeconds).
@@ -462,7 +462,7 @@ export function MicroCheckRenderer({ section, onContinue }: { section: MicroChec
         <QuizAnswer
           key={`mc-${currentQ}`}
           question={section.questions[currentQ]}
-          coins={25}
+          coins={10}
           onCorrect={() => {}}
           onIncorrect={() => {}}
           onContinue={handleNext}
@@ -513,7 +513,7 @@ export function AppliedQuestionRenderer({ section, onContinue }: { section: Appl
       <CardContent className="p-6">
         <QuizAnswer
           question={section.question}
-          coins={25}
+          coins={10}
           onCorrect={() => {}}
           onIncorrect={() => {}}
           onContinue={onContinue}

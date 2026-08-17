@@ -212,14 +212,28 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
 export default function LeagueUpWatcher() {
   const { jeffsBalance } = useApp()
   const idx = getLeagueIdx(jeffsBalance)
-  const lastIdxRef = useRef<number | null>(null)
   const [shownIdx, setShownIdx] = useState<number | null>(null)
   // Don't slam this blocking, gift-picker modal over an active quiz - it would
   // freeze the lesson mid-combo. While in a lesson/unit-test we hold the
-  // celebration (without advancing the ref), so it fires once when the student
-  // leaves the quiz for the highest league they reached.
+  // celebration, so it fires once when the student leaves the quiz.
   const { pathname } = useLocation()
   const inQuiz = pathname.startsWith("/lessons/") || pathname.startsWith("/unit-test/")
+
+  // The highest league already celebrated, PERSISTED. This is what makes the
+  // celebration fire exactly once per real promotion and never again on reload
+  // or login - even though the balance loads/syncs upward a moment after mount.
+  const readCelebrated = () => {
+    const n = Number(localStorage.getItem("investiplay_celebrated_league"))
+    return Number.isFinite(n) ? n : -1
+  }
+  // Settle-grace window: for the first few seconds after mount (login + data
+  // sync) we absorb any league jump silently into the baseline instead of
+  // celebrating it, so the initial load is never mistaken for a promotion.
+  const readyRef = useRef(false)
+  useEffect(() => {
+    const t = setTimeout(() => { readyRef.current = true }, 4000)
+    return () => clearTimeout(t)
+  }, [])
 
   useEffect(() => {
     if (!import.meta.env.DEV) return
@@ -228,13 +242,18 @@ export default function LeagueUpWatcher() {
   }, [])
 
   useEffect(() => {
-    if (lastIdxRef.current === null) {
-      lastIdxRef.current = idx // seed - never fire on load/login
+    const celebrated = readCelebrated()
+    // First time ever, or still in the settling grace window: adopt the current
+    // league silently (bump the baseline up, never celebrate the load).
+    if (celebrated < 0 || !readyRef.current) {
+      if (idx > celebrated) localStorage.setItem("investiplay_celebrated_league", String(idx))
       return
     }
     if (inQuiz) return // hold the celebration until the quiz is done
-    if (idx > lastIdxRef.current) setShownIdx(idx)
-    lastIdxRef.current = idx
+    if (idx > celebrated) {
+      setShownIdx(idx)
+      localStorage.setItem("investiplay_celebrated_league", String(idx))
+    }
   }, [idx, inQuiz])
 
   return (

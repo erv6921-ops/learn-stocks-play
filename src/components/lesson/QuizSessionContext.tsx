@@ -12,14 +12,14 @@ import { useApp } from "@/contexts/AppContext"
 // app root, so it fires reliably on every question.
 
 // Coins gained for a correct answer, by how fast it came in.
-export const COINS_QUICK = 60    // answered within QUICK_MS
-export const COINS_REGULAR = 50  // in between
-export const COINS_SLOW = 40     // took longer than SLOW_MS
+export const COINS_QUICK = 30    // answered within QUICK_MS
+export const COINS_REGULAR = 20  // in between
+export const COINS_SLOW = 10     // took longer than SLOW_MS
 const QUICK_MS = 5000
 const SLOW_MS = 10000
 
 // Default coins LOST on a wrong answer when a quiz doesn't specify its own.
-export const DEFAULT_COINS = 50
+export const DEFAULT_COINS = 20
 
 /** Coins for a correct answer, tiered by response time. */
 function rewardForSpeed(responseMs?: number): { coins: number; tier: "quick" | "regular" | "slow" } {
