@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo, useRef, useContext, createContext } from "react";
 import { motion } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -38,8 +38,22 @@ import PartnerDealsPanel from "@/components/PartnerDealsPanel";
 // Teacher-adjustable writing workload: ws() scales every word minimum by the
 // class's writing_scale setting (Light/Standard/Extended in TeacherDashboard).
 import { ws, initWritingScale, subscribeWritingScale } from "@/lib/writingScale";
+import {
+  generateProductProfile, generateCoach, coinsForScore, gradeLabel, PROFILE_KEY, coachKey,
+  type ProductProfile, type CoachNote,
+} from "@/lib/productProfile";
+
+// Where an activity's base (pre-grade) coin reward is stashed so the async
+// grader knows how much to scale when it lands.
+const xpBaseKey = (activityId: string) => `__xpbase_${activityId}`;
 
 const NEON = "#00ff88";
+
+// Studio-wide context so any activity can read the AI-generated product profile
+// (real unit economics) and its own personalized coach note without prop drilling.
+type StudioCtx = { profile: ProductProfile | null; coach: (activityId: string) => CoachNote | null };
+const StudioContext = createContext<StudioCtx>({ profile: null, coach: () => null });
+const useStudio = () => useContext(StudioContext);
 type Fields = Record<string, unknown>;
 type Complete = (id: string, fields: Fields, xp: number) => void;
 type BriefComplete = (brief: QuarterlyBrief, fields: Fields) => void;
@@ -114,6 +128,43 @@ function ActivityCard({ icon: Icon, n, title, desc, xp, done, children }: { icon
 function ResultRow({ label, children }: { label: string; children: React.ReactNode }) {
   return <div className="border-b border-border/60 py-2"><p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{label}</p><div className="text-sm text-foreground/90 mt-0.5 whitespace-pre-wrap">{children}</div></div>;
 }
+// Jeff's personalized reaction to a finished activity - reads the student's real
+// product + what they wrote, and previews the next module. Shows a gentle
+// "reviewing" state until the note (AI or fallback) lands.
+function CoachPanel({ id }: { id: string }) {
+  const { coach } = useStudio();
+  const note = coach(id);
+  return (
+    <div className="rounded-2xl border p-3.5 flex gap-3" style={{ borderColor: `${NEON}55`, background: `${NEON}0d` }}>
+      <span className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 self-start" style={{ background: `${NEON}22` }}>
+        <Sparkles className="w-4 h-4" style={{ color: NEON }} />
+      </span>
+      <div className="min-w-0 space-y-1.5">
+        <div className="flex items-center gap-2 flex-wrap">
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.15em]" style={{ color: NEON }}>Coach Jeff</p>
+          {note && (() => { const g = gradeLabel(note.score); return (
+            <span className="text-[10px] font-extrabold uppercase tracking-wide px-1.5 py-0.5 rounded-full" style={{ background: `${g.color}22`, color: g.color }}>
+              {g.label} · {note.score}/100
+            </span>
+          ); })()}
+        </div>
+        {note ? (
+          <>
+            <p className="text-sm text-foreground/90 leading-relaxed">{note.message}</p>
+            {note.nextHint && (
+              <p className="text-xs text-muted-foreground flex items-start gap-1.5 pt-0.5">
+                <ArrowRight className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: NEON }} />
+                <span>{note.nextHint}</span>
+              </p>
+            )}
+          </>
+        ) : (
+          <p className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Reading your work…</p>
+        )}
+      </div>
+    </div>
+  );
+}
 function useForm<T extends Record<string, unknown>>(saved: Fields, defaults: T) {
   const [f, setF] = useState<T>(() => ({ ...defaults, ...(saved as Partial<T>) }));
   const set = (k: keyof T, v: unknown) => setF((p) => ({ ...p, [k]: v }));
@@ -171,7 +222,7 @@ function SequentialSteps({ a, steps }: { a: ActivitiesState; steps: Step[] }) {
     <div className="space-y-4">
       <StepRail total={steps.length} done={doneCount} />
       {steps.map((s, i) => {
-        if (a.done.includes(s.id)) return <React.Fragment key={s.id}>{s.render()}</React.Fragment>;
+        if (a.done.includes(s.id)) return <React.Fragment key={s.id}>{s.render()}<CoachPanel id={s.id} /></React.Fragment>;
         if (!activeShown) { activeShown = true; return <React.Fragment key={s.id}>{s.render()}</React.Fragment>; }
         return <LockedStep key={s.id} n={i + 1} title={s.title} />;
       })}
@@ -195,55 +246,125 @@ export default function MicroBusinessStudio() {
     return unsub;
   }, []);
   const persist = useCallback((next: ActivitiesState) => { setA(next); saveActivities(next); }, []);
+  // Merge keys into `data` without clobbering a concurrent `complete()` write.
+  const patchData = useCallback((patch: Record<string, unknown>) => {
+    setA((prev) => {
+      if (!prev) return prev;
+      const next = { ...prev, data: { ...prev.data, ...patch } };
+      saveActivities(next);
+      return next;
+    });
+  }, []);
 
   const setBusinessType = (bt: BusinessType) => { if (!a) return; persist({ ...a, businessType: bt }); };
   const complete: Complete = useCallback((id, fields, xp) => {
     if (hasJunkAnswer(fields)) { toast.error(LOW_EFFORT_MESSAGE); return; }
+    // Coins are no longer awarded here - Coach Jeff grades the answer async and
+    // awards a scaled amount when the grade lands (see the coach effect below).
+    // We stash the base reward so the grader knows what to scale.
     setA((prev) => {
       if (!prev) return prev;
-      const firstTime = !prev.xpAwarded.includes(id);
+      const firstDone = !prev.done.includes(id);
       const prevSim = (prev.sim as BizState) || defaultBizState();
       const next: ActivitiesState = {
         ...prev,
-        data: { ...prev.data, [id]: fields },
-        done: prev.done.includes(id) ? prev.done : [...prev.done, id],
-        xpAwarded: firstTime ? [...prev.xpAwarded, id] : prev.xpAwarded,
-        sim: firstTime ? applyEffect(prevSim, id) : prev.sim,
+        data: { ...prev.data, [id]: fields, [xpBaseKey(id)]: xp },
+        done: firstDone ? [...prev.done, id] : prev.done,
+        sim: firstDone ? applyEffect(prevSim, id) : prev.sim,
       };
-      if (firstTime) earnJeffs(xp, `Completed: ${ACTIVITY_TITLES[id] || id}`);
       saveActivities(next);
       return next;
     });
     const eff = ACTIVITY_EFFECTS[id];
-    toast.success(`${ACTIVITY_TITLES[id] || "Activity"} submitted`, { description: `+${xp} InvestiCoins${eff ? ` · ${eff.msg}` : ""}` });
-  }, [earnJeffs]);
+    toast.success(`${ACTIVITY_TITLES[id] || "Activity"} submitted`, { description: `Coach Jeff is grading your work…${eff ? ` · ${eff.msg}` : ""}` });
+  }, []);
 
   // Completion for rotating quarterly briefs - same flow as `complete`, but the
   // metric effect and title come from the brief definition rather than a fixed map.
   const completeBrief: BriefComplete = useCallback((brief, fields) => {
     if (hasJunkAnswer(fields)) { toast.error(LOW_EFFORT_MESSAGE); return; }
+    // Same deferred-grading flow as `complete`.
     setA((prev) => {
       if (!prev) return prev;
-      const firstTime = !prev.xpAwarded.includes(brief.id);
+      const firstDone = !prev.done.includes(brief.id);
       const prevSim = (prev.sim as BizState) || defaultBizState();
       const next: ActivitiesState = {
         ...prev,
-        data: { ...prev.data, [brief.id]: fields },
-        done: prev.done.includes(brief.id) ? prev.done : [...prev.done, brief.id],
-        xpAwarded: firstTime ? [...prev.xpAwarded, brief.id] : prev.xpAwarded,
-        sim: firstTime ? applyDelta(prevSim, brief.effect) : prev.sim,
+        data: { ...prev.data, [brief.id]: fields, [xpBaseKey(brief.id)]: brief.xp },
+        done: firstDone ? [...prev.done, brief.id] : prev.done,
+        sim: firstDone ? applyDelta(prevSim, brief.effect) : prev.sim,
       };
-      if (firstTime) earnJeffs(brief.xp, `Completed: ${brief.title}`);
       saveActivities(next);
       return next;
     });
-    toast.success(`${brief.title} submitted`, { description: `+${brief.xp} InvestiCoins · ${brief.effect.msg}` });
-  }, [earnJeffs]);
+    toast.success(`${brief.title} submitted`, { description: `Coach Jeff is grading your work… · ${brief.effect.msg}` });
+  }, []);
 
   // Partner-deal bonuses. Must be called unconditionally (before the early
   // returns below) so hook order stays stable across renders - the hook
   // accepts a null business type while `a` is still loading.
   const { totalBonus: dealBonus } = useBizDeals(a?.businessType ?? null);
+
+  // ── AI personalization ──────────────────────────────────────────────
+  // 1) Once the product is designed, build a realistic economic profile FROM
+  //    that product (so a phone isn't "2 IC to make"). 2) After each activity,
+  //    generate a coach note that reads the product + what they wrote. Both
+  //    persist into `data` and have deterministic fallbacks (see productProfile).
+  const profileInflight = useRef(false);
+  useEffect(() => {
+    if (!a || !a.businessType) return;
+    const design = a.data.productDoc;
+    if (!a.done.includes("productDoc") || !design || !(typeof design.name === "string" && design.name.trim())) return;
+    if (a.data[PROFILE_KEY] || profileInflight.current) return;
+    profileInflight.current = true;
+    generateProductProfile(a.businessType, design)
+      .then((p) => patchData({ [PROFILE_KEY]: p }))
+      .finally(() => { profileInflight.current = false; });
+  }, [a?.businessType, a?.done, a?.data?.productDoc, patchData]);
+
+  const coachInflight = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!a || !a.businessType) return;
+    const profile = (a.data[PROFILE_KEY] as ProductProfile | undefined) ?? null;
+    const design = a.data.productDoc;
+    for (const id of a.done) {
+      if (a.data[coachKey(id)] || coachInflight.current.has(id)) continue;
+      coachInflight.current.add(id);
+      generateCoach(a.businessType, id, design, a.data[id], profile)
+        .then((note) => {
+          // Save the coach note AND award coins scaled by the grade - exactly
+          // once (xpAwarded guards against a re-award on re-render/StrictMode).
+          let awarded = 0;
+          let label = "";
+          setA((prev) => {
+            if (!prev) return prev;
+            const already = prev.xpAwarded.includes(id);
+            if (!already) {
+              const base = Number(prev.data[xpBaseKey(id)]) || XP.pd;
+              awarded = coinsForScore(base, note.score);
+              label = gradeLabel(note.score).label;
+            }
+            const next: ActivitiesState = {
+              ...prev,
+              data: { ...prev.data, [coachKey(id)]: note },
+              xpAwarded: already ? prev.xpAwarded : [...prev.xpAwarded, id],
+            };
+            saveActivities(next);
+            return next;
+          });
+          if (awarded > 0) {
+            earnJeffs(awarded, `${ACTIVITY_TITLES[id] || id} · ${label}`);
+            toast.success(`Coach Jeff graded it: ${label}`, { description: `+${awarded} InvestiCoins` });
+          }
+        })
+        .finally(() => coachInflight.current.delete(id));
+    }
+  }, [a?.businessType, a?.done, a?.data, earnJeffs]);
+
+  const studioCtx = useMemo<StudioCtx>(() => ({
+    profile: (a?.data?.[PROFILE_KEY] as ProductProfile | undefined) ?? null,
+    coach: (id: string) => (a?.data?.[coachKey(id)] as CoachNote | undefined) ?? null,
+  }), [a?.data]);
 
   if (!a) return (<div className="min-h-screen bg-background"><GameNav /><div className="flex items-center justify-center py-24"><Loader2 className="w-7 h-7 animate-spin text-primary" /></div></div>);
 
@@ -346,6 +467,7 @@ export default function MicroBusinessStudio() {
   const allDone = currentIds.length > 0 && doneCount === currentIds.length;
 
   return (
+    <StudioContext.Provider value={studioCtx}>
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
       <main className="container mx-auto px-4 py-6 max-w-6xl">
@@ -437,6 +559,7 @@ export default function MicroBusinessStudio() {
         </div>
       </main>
     </div>
+    </StudioContext.Provider>
   );
 }
 
@@ -714,7 +837,11 @@ function RecipeBuilder({ a, complete }: AProps) {
 const PRICING_TYPES = ["Cost-plus", "Value-based", "Competitive"];
 function Pricing({ a, bt, complete }: AProps) {
   const id = "pricing"; const done = a.done.includes(id); const saved = a.data[id] || {};
-  const cost = bizDef(bt).unitCost;
+  // Use the AI product profile's real unit cost (a phone ≠ 2 IC) when it exists,
+  // falling back to the industry estimate before the profile has generated.
+  const { profile } = useStudio();
+  const cost = profile?.unitCost ?? bizDef(bt).unitCost;
+  const unitLabel = profile?.unitLabel ?? bizDef(bt).unitLabel;
   const [f, set] = useForm(saved, { price: "", justify: "", margin: "", ptype: "Cost-plus", explain: "", lowReason: "" });
   const price = num(f.price);
   const actualMargin = price > 0 ? ((price - cost) / price) * 100 : 0;
@@ -743,7 +870,20 @@ function Pricing({ a, bt, complete }: AProps) {
   return (
     <ActivityCard icon={Tag} n={2} title="Pricing Strategy" desc="Price your product and defend it." xp={XP.pd} done={false}>
       <div className="space-y-3">
-        <div className="rounded-xl bg-muted p-3 text-sm flex items-center gap-2"><DollarSign className="w-4 h-4 text-primary" /> Estimated cost to produce/deliver one unit: <b>{cost} IC</b> ({bizDef(bt).unitLabel})</div>
+        {profile ? (
+          <div className="rounded-xl border p-3 space-y-2 text-sm" style={{ borderColor: `${NEON}44`, background: `${NEON}0d` }}>
+            <div className="flex items-center gap-2 font-bold"><DollarSign className="w-4 h-4" style={{ color: NEON }} /> What one {unitLabel} really costs you</div>
+            <div className="space-y-0.5">
+              {profile.breakdown.map((b, i) => (
+                <div key={i} className="flex justify-between text-xs text-muted-foreground"><span>{b.item}</span><span className="tabular-nums">{b.cost} IC</span></div>
+              ))}
+              <div className="flex justify-between text-sm font-extrabold pt-1 border-t border-border/50"><span>Cost to make one</span><span className="tabular-nums" style={{ color: NEON }}>{cost} IC</span></div>
+            </div>
+            <p className="text-xs text-muted-foreground">Products like yours sell for ~{profile.priceLow}–{profile.priceHigh} IC (a fair price is around {profile.suggestedPrice} IC).{profile.note ? ` ${profile.note}` : ""}</p>
+          </div>
+        ) : (
+          <div className="rounded-xl bg-muted p-3 text-sm flex items-center gap-2"><DollarSign className="w-4 h-4 text-primary" /> Estimated cost to produce/deliver one unit: <b>{cost} IC</b> ({unitLabel})</div>
+        )}
         <div className="grid grid-cols-2 gap-3">
           <div><label className="text-sm font-semibold">Your price (IC)</label><Input type="number" value={str(f.price)} onChange={(e) => set("price", e.target.value)} className="mt-1" /></div>
           <div><label className="text-sm font-semibold">Profit margin %</label><Input value={str(f.margin)} onChange={(e) => set("margin", e.target.value)} className="mt-1" placeholder="you calculate it" /></div>

@@ -81,10 +81,10 @@ function AppRoutes() {
       <Route path="/unit-test/:category" element={<UnitTest />} />
       <Route path="/stocks" element={<Stocks />} />
       <Route path="/stocks/:symbol" element={<StockDetail />} />
-      <Route path="/micro-business" element={<ComingSoon title="Micro Business" />} />
+      <Route path="/micro-business" element={import.meta.env.DEV ? <MicroBusiness /> : <ComingSoon title="Micro Business" />} />
       <Route path="/bank" element={<Bank />} />
-      <Route path="/business" element={<ComingSoon title="Micro Business" />} />
-      <Route path="/tokens" element={<ComingSoon title="Micro Business" />} />
+      <Route path="/business" element={import.meta.env.DEV ? <MicroBusiness /> : <ComingSoon title="Micro Business" />} />
+      <Route path="/tokens" element={import.meta.env.DEV ? <MicroBusiness /> : <ComingSoon title="Micro Business" />} />
       <Route path="/progress" element={<ProgressPage />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/daily" element={<Daily />} />
