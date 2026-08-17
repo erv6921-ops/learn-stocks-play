@@ -544,7 +544,17 @@ export default function TeacherDashboard() {
       // Deletes the caller's own account (identified from their JWT) via the
       // delete-account edge function; same flow the student Profile page uses.
       const { error } = await supabase.functions.invoke("delete-account")
-      if (error) throw error
+      if (error) {
+        // invoke() reports non-2xx responses with a generic message; pull the
+        // edge function's real error out of the response body so failures
+        // (e.g. a foreign-key block) are actually diagnosable.
+        let detail = error.message
+        try {
+          const body = await (error as any)?.context?.json?.()
+          if (body?.error) detail = body.error
+        } catch { /* body already consumed or not JSON */ }
+        throw new Error(detail)
+      }
       toast({ title: "Your account has been deleted." })
       await supabase.auth.signOut()
       navigate("/auth", { replace: true })
