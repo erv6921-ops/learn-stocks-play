@@ -38,3 +38,31 @@ lessons (`psych-*`, `income-14`, `income-15`, `invest-11`, `invest-12`, `banking
 this cycle.
 
 Result: 0 lessons flagged, 0 new/updated standards requiring a content change, nothing urgent.
+
+## 2026-08-17 — no changes needed
+
+Checked sources (all reviewed for updates in the trailing 30 days, i.e. since 2026-07-18):
+
+- Florida DOE / CPALMS — Personal Financial Literacy (2102372 / course code family 210237201) and
+  Personal Financial Literacy Honors (2102374 / 210237401), SS.912.FL benchmark strand. No
+  benchmark or course-description changes found in the trailing 30 days (CPALMS/DOE pages could
+  not be fetched directly this cycle either — see Caveat below).
+- Florida Legislature — no new financial-literacy statute changes found. HB 1261 "Smart Living Act"
+  remains dead (died in committee 6/16/2025, not reintroduced). No FAFSA/consumer-content bills
+  beyond the already-covered 2025 CS/CS/HB 1255 & CS/CS/SB 1618.
+- Jump$tart Coalition / Council for Economic Education — National Standards for Personal Financial
+  Education, current edition remains the 2021 joint revision (6 categories). No newer edition found.
+- EverFi — no material alignment update found.
+- Next Gen Personal Finance (NGPF) — 2026 bill tracker still active; no newly adopted standard
+  affecting Florida found. NGPF is also running a Stiles-Nicholson-funded $500 PD stipend for
+  Florida teachers (deadline 12/31/2026) — a funding/PD program, not a standards change, no action
+  needed.
+- Banzai — no new Florida-specific alignment change found this cycle.
+- Ramsey Education — no Florida-specific change found.
+- NCSL 2026 financial-literacy legislation tracker (last updated 2026-05-18 per search results) —
+  no new Florida entry found.
+
+No lesson-content drift or standards gaps identified against the SS.912.FL benchmarks spot-checked
+last cycle; no re-scope of the comparison was triggered since no source changed.
+
+Result: 0 lessons flagged, 0 new/updated standards requiring a content change, nothing urgent.
