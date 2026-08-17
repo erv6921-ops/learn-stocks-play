@@ -15,8 +15,13 @@ const json = (body: unknown, status = 200) =>
 
 // Permanently deletes the calling user's account. The caller is identified from
 // their own JWT; deletion is performed with the service role. Deleting the auth
-// user cascades to profile data via the schema's ON DELETE CASCADE FKs; we also
-// best-effort remove the profile row first in case a cascade isn't configured.
+// user cascades to the profile and all user data via the schema's ON DELETE
+// CASCADE FKs (profiles.id references auth.users ON DELETE CASCADE), so a single
+// deleteUser() is sufficient. We deliberately do NOT pre-delete the profile: if
+// deleteUser() fails (e.g. a foreign-key block), pre-deleting would leave a
+// half-dead account — profile gone but login intact — which strands the user at
+// onboarding. The lone deleteUser() is atomic: it either fully succeeds or
+// changes nothing.
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
@@ -35,9 +40,11 @@ serve(async (req) => {
     const { data: { user }, error: userErr } = await caller.auth.getUser();
     if (userErr || !user) return json({ error: "Unauthorized" }, 401);
 
-    // Delete with elevated privileges.
+    // Delete with elevated privileges. Deleting the auth user cascades to the
+    // profile and all user data. This is the only mutation, so a failure here
+    // (e.g. a foreign-key block) leaves the account fully intact and usable —
+    // never half-deleted.
     const admin = createClient(url, serviceKey);
-    await admin.from("profiles").delete().eq("id", user.id); // best-effort
     const { error: delErr } = await admin.auth.admin.deleteUser(user.id);
     if (delErr) return json({ error: delErr.message }, 400);
 
