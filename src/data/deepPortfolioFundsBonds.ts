@@ -13,7 +13,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "concept",
         title: "Dividing Your Money Into Buckets",
         paragraphs: [
-          "Asset allocation is the decision of how to split your money across the big categories of investments - mainly stocks, bonds, and cash. It sounds boring, but studies show this single decision drives most of your long-term results, far more than which exact stock you pick. Think of it like building a meal: the balance of protein, carbs, and vegetables matters more than the specific brand of each. If you have $10,000 and put $7,000 in stocks and $3,000 in bonds, you have a 70/30 allocation, and that mix shapes both your growth and your risk.",
+          "You met asset allocation - splitting money across stocks, bonds, and cash - back in the Investing Fundamentals unit; this whole Portfolio Construction unit is where we actually build one. Quick refresher: studies show this single decision drives most of your long-term results, far more than which exact stock you pick. Think of it like building a meal: the balance of protein, carbs, and vegetables matters more than the specific brand of each. If you have $10,000 and put $7,000 in stocks and $3,000 in bonds, you have a 70/30 allocation, and that mix shapes both your growth and your risk.",
           "Each category behaves differently. Stocks are the growth engine: over decades they've returned roughly 10% a year on average, but they can drop 30% or 40% in a bad year. Bonds are steadier: they pay smaller, more predictable returns (often 3% to 5%) and usually fall less when stocks crash. Cash - money in a savings account - barely grows but never suddenly loses value. A smart allocation blends these so you capture stock growth while bonds and cash cushion the scary drops. The goal isn't to avoid all risk; it's to take the right amount for your situation.",
           "Your ideal mix depends on two things: your time horizon and your stomach for risk. A 16-year-old investing money they won't touch for 40 years can hold mostly stocks, because they have decades to recover from any crash. A 60-year-old about to retire needs more bonds and cash, since a big loss right before retirement could be devastating. There's no single 'right' allocation - only the one that fits your goals, your timeline, and how well you sleep at night when the market drops."
         ],
@@ -383,7 +383,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "concept",
         title: "Don't Put All Your Eggs in One Basket",
         paragraphs: [
-          "Diversification means spreading your money across many different investments so that no single failure can wreck you. The classic image is eggs and baskets: if you carry all your eggs in one basket and drop it, every egg breaks. Split them across ten baskets, and dropping one costs you only a few. In investing, the 'eggs' are your dollars and the 'baskets' are different companies, industries, and asset types. If you put your entire $5,000 into one stock and that company goes bankrupt, you lose everything. Spread across 100 companies, one bankruptcy barely dents you.",
+          "You met the basic idea of diversification - the eggs-and-baskets rule - in the Investing Fundamentals unit; here we put it to work building a real portfolio. The one-line reminder: spreading your money across many different investments means no single failure can wreck you. In investing, the 'eggs' are your dollars and the 'baskets' are different companies, industries, and asset types. If you put your entire $5,000 into one stock and that company goes bankrupt, you lose everything. Spread across 100 companies, one bankruptcy barely dents you. The deeper question this lesson answers is what 'enough' diversification actually looks like.",
           "The magic of diversification is that different investments don't all move together. When one industry struggles, another often thrives - if oil prices spike, airlines suffer but energy companies boom. By owning both, the gains in one soften the losses in the other, smoothing your ride. This is why a diversified portfolio can earn solid returns with far less gut-wrenching volatility than a single stock. You're not trying to eliminate risk entirely; you're eliminating the specific risk that any one company or sector blows up and takes your whole savings with it.",
           "There's a crucial distinction here. Diversification wipes out 'company-specific risk' - the danger that one firm's scandal, lawsuit, or bankruptcy sinks you. But it can't erase 'market risk' - the danger that the whole market falls together, as in a recession. When the 2008 crash hit, nearly everything dropped at once, and diversification across stocks alone didn't save anyone. That's why true diversification also spans asset types - adding bonds, which often hold up when stocks fall - not just many different stocks."
         ],
@@ -938,7 +938,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "concept",
         title: "Owning the Whole Market at Once",
         paragraphs: [
-          "Index investing means buying a fund that copies a whole market index instead of trying to pick winners. An index is just a list that tracks a slice of the market - the S&P 500, for example, tracks 500 big US companies. When you buy an S&P 500 index fund, one purchase makes you a tiny part-owner of all 500, from Apple to Coca-Cola. Instead of betting your $500 on one stock that might soar or crash, you spread it across hundreds. Your return simply matches whatever that basket of companies does as a group.",
+          "The Investing Fundamentals unit already introduced index funds as a low-cost way to own many companies at once; this lesson treats index investing as a whole PORTFOLIO strategy - the decision to build your plan around matching the market rather than beating it. As a quick recap, an index is a list that tracks a slice of the market: the S&P 500, for example, tracks 500 big US companies, and one purchase of an S&P 500 fund makes you a tiny part-owner of all of them. Your return simply matches whatever that basket does as a group - and this lesson is about why choosing that as your core is so powerful.",
           "The magic is that matching the market beats most attempts to outsmart it. It sounds like settling for average, but 'average' here is powerful: the US market has returned roughly 10% a year over the long run. Over decades, most professional stock-pickers fail to beat a plain index fund, mostly because their fees and trading costs eat their gains. If a pro charges 1% a year and the index charges 0.03%, that gap compounds into a huge difference over 40 years. By not trying to be clever, index investors quietly win.",
           "Index funds also make investing simple and calm. You don't spend hours researching companies or panic when one stock tanks - if one company fails, it's a tiny slice of hundreds, so the damage is small. You just keep buying the whole market and let it grow. A teen who invests $100 a month into an S&P 500 index fund from age 18 owns a piece of the entire American economy without ever reading a single earnings report. That mix of low effort, low cost, and broad ownership is why index investing became so popular."
         ],
@@ -953,20 +953,20 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
       },
       {
         type: "concept",
-        title: "Why 'Average' Quietly Wins",
+        title: "What You're Really Buying - and Giving Up",
         paragraphs: [
-          "To see why index investing works, picture the whole market as a giant tug-of-war. For every investor who beats the market this year, someone else must lag it, because everyone's trades together ARE the market. After subtracting fees, the average active investor must trail the index. So an index fund, by charging almost nothing and simply riding along, lands ahead of most competitors automatically. It's not that indexing is brilliant - it's that trying to beat the market is a costly game most players lose.",
-          "Costs are the quiet killer. Imagine two investors each put in $10,000 and both earn 8% before fees for 40 years. One pays a 1% yearly fee, the other pays 0.05%. The low-fee investor ends with roughly $210,000; the high-fee one ends near $150,000. Same market, same time - the only difference is fees, and it cost the second investor about $60,000. Index funds keep fees tiny precisely because they don't pay expensive managers to research and trade. Every dollar not lost to fees stays invested and compounds.",
+          "It's worth understanding what happens under the hood. An index fund holds every company on the index in proportion to its size, and when the index changes its list - adding a fast-growing firm, dropping a shrinking one - the fund quietly adjusts to match. You never have to make those calls yourself. This is why a single fund can own the whole market and still charge almost nothing: there's no team of analysts, just a rule that copies a list. (The next lesson, on active versus passive, digs into why this cheapness so reliably beats managers who try to outguess the list.)",
+          "But 'owning the whole market' hides a subtle catch worth knowing. Because most indexes weight by company size, a broad index fund is more concentrated at the top than it looks - the largest handful of companies can make up a big chunk of your money, so if those giants stumble, your 'diversified' fund feels it. That's not a reason to avoid indexing; it's a reason to understand that a total-market fund still leans toward today's biggest winners, and pairing it with other assets keeps you from riding on just a few names.",
           "Index investing isn't magic and it isn't risk-free. When the whole market drops, your index fund drops too - it won't dodge a crash. And it will never beat the market, only match it, so you give up the dream of picking the next huge winner. But for most people, matching a market that historically climbs over decades, at almost no cost and no stress, is a fantastic deal. The trade-off - no chance to be a hero, in exchange for reliable, cheap, broad growth - is one most long-term investors happily accept."
         ],
         bullets: [
-          "All investors' trades together ARE the market, so after fees the average must trail the index.",
-          "A 1% yearly fee versus 0.05% can cost tens of thousands over decades of compounding.",
-          "Index funds stay cheap because they skip expensive managers and heavy trading.",
+          "An index fund copies the index's list automatically, so no analysts are needed.",
+          "When the index adds or drops a company, the fund rebalances to match with no work from you.",
+          "Cap weighting means a few giant firms can dominate a 'broad' fund - it leans toward the biggest.",
           "You still fall when the whole market falls - indexing does not dodge crashes.",
           "You match the market rather than beat it, trading hero potential for cheap, steady growth."
         ],
-        realWorldExample: "Over the 20 years ending in 2023, studies found that around 90% of actively managed US stock funds failed to beat their index benchmark. A teenager who ignored all the stock tips and just bought the index would have outperformed the vast majority of highly paid professionals."
+        realWorldExample: "A total US stock index fund holds thousands of companies, yet its largest handful of tech giants can make up a fifth or more of the money. When those few names have a rough year, even a 'fully diversified' index holder feels it - a reminder that broad still leans toward the biggest."
       },
       {
         type: "micro-check",
@@ -985,34 +985,34 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mc2",
-            question: "Why do most active stock-pickers fail to beat a cheap index fund?",
+            question: "What happens inside an index fund when the index adds or drops a company?",
             options: [
-              "Index funds are somehow legally allowed to openly cheat",
-              "Their fees and trading costs eat their gains",
-              "Picking individual stocks is strictly banned for professionals",
-              "The index always rises and stocks never do"
+              "A manager votes on whether to allow the change",
+              "The fund quietly adjusts its holdings to match",
+              "The fund must be shut down and relaunched",
+              "Nothing - index funds never change their holdings"
             ],
             correctAnswer: 1,
-            explanation: "After subtracting higher fees and trading costs, the average active investor trails the index. Low-cost index funds quietly win by simply riding along cheaply."
+            explanation: "An index fund just copies the list, so it rebalances to match whenever the index changes - no analyst decisions needed, which is why it stays cheap."
           }
         ]
       },
       {
         type: "scenario",
-        title: "Marcus Compares Two Paths",
-        narrative: "Marcus, 18, has $3,000 to invest for the next 30 years. A friend pushes him toward a managed fund with a 1.1% yearly fee that promises to beat the market. Marcus also sees a plain S&P 500 index fund charging 0.04%. He wants the best long-term outcome.",
+        title: "Elena Compares Two Paths",
+        narrative: "Elena, 18, has $3,000 to invest for the next 30 years. A friend pushes her toward a managed fund with a 1.1% yearly fee that promises to beat the market. Elena also sees a plain S&P 500 index fund charging 0.04%. She wants the best long-term outcome.",
         details: [
           "History shows most managed funds fail to beat the index after their fees.",
           "The fee gap is about 1% per year, which compounds heavily over 30 years.",
           "The index fund gives instant ownership of 500 companies with almost no cost.",
-          "Marcus won't check on it often, so a simple, cheap, hands-off option suits him."
+          "Elena won't check on it often, so a simple, cheap, hands-off option suits her."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "portfolio6-aq1",
-          question: "Which choice best fits Marcus's long-term, hands-off goal?",
+          question: "Which choice best fits Elena's long-term, hands-off goal?",
           options: [
             "The managed fund, because its fee proves quality",
             "The 0.04% S&P 500 index fund",
@@ -1020,7 +1020,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
             "Cash, to guarantee he never loses a cent"
           ],
           correctAnswer: 1,
-          explanation: "The cheap index fund gives broad ownership and, historically, beats most managed funds after fees. Over 30 years the 1% fee gap alone would cost Marcus a large sum."
+          explanation: "The cheap index fund gives broad ownership and, historically, beats most managed funds after fees. Over 30 years the 1% fee gap alone would cost Elena a large sum."
         }
       },
       {
@@ -1051,27 +1051,27 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mastery2",
-            question: "Why must the average active investor trail the index after fees?",
+            question: "Why can one index fund own the whole market yet charge almost nothing?",
             options: [
-              "Government regulators always secretly favor index funds",
-              "All investors' trades together ARE the market",
-              "Active funds are forbidden from owning stocks",
-              "The index gets a special tax discount"
+              "The government pays its costs for it",
+              "It just copies a list instead of paying analysts",
+              "It secretly charges hidden fees elsewhere",
+              "It only holds one company at a time"
             ],
             correctAnswer: 1,
-            explanation: "Since everyone's trades combined make up the market, the average investor gets the market return minus their fees - so higher costs push them below the index."
+            explanation: "An index fund mechanically mirrors the index's list, so there's no expensive research team to pay - which is exactly why its fees can be tiny."
           },
           {
             id: "portfolio6-mastery3",
-            question: "Two investors earn the same 8% for 40 years but pay 1% versus 0.05% fees. The result is…",
+            question: "A subtle catch of a cap-weighted 'total market' index fund is that…",
             options: [
-              "The high-fee one ends with far less money",
-              "Both end up with exactly the same total amount",
-              "The high-fee one always ends up slightly ahead",
-              "Fees make no difference over long periods"
+              "The largest few firms can dominate your money",
+              "It secretly holds only bonds instead of stocks",
+              "It equally weights every single company in it",
+              "It refuses to ever add any new companies"
             ],
             correctAnswer: 0,
-            explanation: "Fees compound too. A 1% versus 0.05% gap can cost tens of thousands over 40 years, even with identical market returns."
+            explanation: "Cap weighting means a handful of giant firms can make up a big chunk of a 'broad' fund, so it leans toward today's biggest names more than it appears."
           },
           {
             id: "portfolio6-mastery4",
@@ -1099,15 +1099,15 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mastery6",
-            question: "Why did Warren Buffett recommend index funds to ordinary people?",
+            question: "Even a broad index fund still exposes you to which risk?",
             options: [
-              "They let you skip all of the investing entirely",
-              "Cheap broad funds beat most experts over time",
-              "They promise a fixed 20% return each year",
-              "They are fully insured against any possible loss"
+              "Falling when the whole market falls",
+              "One company's failure wiping you out",
+              "Paying the very highest fees available",
+              "Being unable to ever sell your shares"
             ],
-            correctAnswer: 1,
-            explanation: "Buffett even won a bet that a low-cost index fund would beat expert hedge funds over ten years, because their high fees dragged them below the simple index."
+            correctAnswer: 0,
+            explanation: "Indexing spreads out single-company risk, but it can't dodge a market-wide crash - when the whole market drops, your index fund drops right along with it."
           }
         ]
       }
@@ -1369,8 +1369,8 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Leo Checks His First Year",
-        narrative: "Leo, 18, is proud that his stock portfolio gained 9% in his first year. He's about to tell everyone he's a great investor. Before he does, he decides to look a little closer at the full picture.",
+        title: "Owen Checks His First Year",
+        narrative: "Owen, 18, is proud that his stock portfolio gained 9% in his first year. He's about to tell everyone he's a great investor. Before he does, he decides to look a little closer at the full picture.",
         details: [
           "The S&P 500 index returned 22% over the same year.",
           "His portfolio also charged him about 0.9% in fees, which he hadn't subtracted.",
@@ -1382,7 +1382,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio8-aq1",
-          question: "What is the most honest conclusion for Leo?",
+          question: "What is the most honest conclusion for Owen?",
           options: [
             "He's a truly great investor simply because that 9% is positive",
             "He actually lagged the market and should consider indexing",
@@ -1390,7 +1390,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
             "One single winning stock clearly proves his real skill"
           ],
           correctAnswer: 1,
-          explanation: "Against a 22% benchmark, Leo's 9% (even less after fees) badly underperformed. Honest tracking reveals he'd have done far better in an index fund - useful information, not an insult."
+          explanation: "Against a 22% benchmark, Owen's 9% (even less after fees) badly underperformed. Honest tracking reveals he'd have done far better in an index fund - useful information, not an insult."
         }
       },
       {
@@ -1678,7 +1678,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "concept",
         title: "The Engine: Time and Compounding",
         paragraphs: [
-          "Building wealth over decades comes down to a simple engine: invest steadily, keep costs low, and let compounding run for a very long time. Compounding means your gains earn gains. If $1,000 grows 10% this year to $1,100, next year the 10% is on $1,100, not the original $1,000. Early on this feels slow, but the curve bends sharply upward the longer it runs. The single most powerful advantage a teen has isn't money - it's time. Forty years of compounding turns modest contributions into a fortune that a late starter can't catch, no matter how much they save later.",
+          "This capstone lesson assembles everything into one wealth-building engine: invest steadily, keep costs low, and let compounding run for a very long time. You already met compounding in the Investing Fundamentals unit - gains earning gains - so here we just apply it at the portfolio level. Early on the growth feels slow, but the curve bends sharply upward the longer it runs. The single most powerful advantage a teen has isn't money - it's time. Forty years of compounding turns modest contributions into a fortune that a late starter can't catch, no matter how much they save later.",
           "The numbers are dramatic. Invest $200 a month from age 18 at a 9% average return, and by 65 you'd have well over half a million dollars - even though you only put in about $113,000 of your own money. The rest is compounding doing the heavy lifting. Wait until 30 to start the same $200 a month, and you'd end with less than half as much, despite contributing nearly as much cash. Those twelve early years are worth more than all the later ones combined, because they had the longest time to compound. Starting early is the closest thing investing has to a cheat code.",
           "Consistency beats brilliance. You don't need to pick perfect stocks or time the market; you need to keep investing through good times and bad. Automating contributions - a set amount every month regardless of headlines - removes emotion and guarantees you keep buying, including when prices are low during scary periods. A boring plan followed for 40 years crushes a brilliant plan abandoned after two. Wealth building rewards the disciplined tortoise, not the flashy hare who jumps in and out chasing excitement and ends up buying high and selling low."
         ],
@@ -1739,12 +1739,12 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Sam's Two-Decade Head Start",
-        narrative: "Sam, 18, can invest $150 a month into a low-cost index fund inside a Roth IRA. His older cousin, 32, plans to invest the same $150 a month. Both expect about a 9% long-run return and will hold until 65.",
+        title: "Nate's Two-Decade Head Start",
+        narrative: "Nate, 18, can invest $150 a month into a low-cost index fund inside a Roth IRA. His older cousin, 32, plans to invest the same $150 a month. Both expect about a 9% long-run return and will hold until 65.",
         details: [
-          "Sam has 47 years for compounding; his cousin has 33.",
+          "Nate has 47 years for compounding; his cousin has 33.",
           "Those extra 14 early years compound far longer than any later contribution.",
-          "The Roth IRA lets Sam's money grow without yearly tax drag.",
+          "The Roth IRA lets Nate's money grow without yearly tax drag.",
           "Both invest the same monthly amount, so time is the key difference."
         ]
       },
@@ -1752,7 +1752,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio10-aq1",
-          question: "What best explains why Sam is likely to end far ahead?",
+          question: "What best explains why Nate is likely to end far ahead?",
           options: [
             "He simply invests a much larger amount every month",
             "His early start gives compounding many more years",
@@ -1760,7 +1760,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
             "Roth IRAs always fully guarantee higher returns"
           ],
           correctAnswer: 1,
-          explanation: "With the same $150 a month, Sam's 14-year head start lets his money compound far longer. Early years matter most, so time - not amount - is the decisive edge."
+          explanation: "With the same $150 a month, Nate's 14-year head start lets his money compound far longer. Early years matter most, so time - not amount - is the decisive edge."
         }
       },
       {

@@ -947,7 +947,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "concept",
         title: "Prices Reflect Expectations About the Future",
         paragraphs: [
-          "A stock's price is not set by the company - it's set by millions of buyers and sellers agreeing on a price moment by moment. At its core, a share price reflects what investors collectively believe the company will be worth in the future. When people expect a company to earn more money down the road, they're willing to pay more for its shares today, and the price rises. When they expect trouble, they pay less, and the price falls. Price is really a giant, constantly-updating vote on the future.",
+          "The next lesson covers the exact mechanics of how buyers and sellers set a price; here the focus is deeper - WHY they decide to pay more or less in the first place. At its core, a share price reflects what investors collectively believe the company will be worth in the future. When people expect a company to earn more money down the road, they're willing to pay more for its shares today, and the price rises. When they expect trouble, they pay less, and the price falls. Price is really a giant, constantly-updating vote on the future, and expectations are the fuel behind that vote.",
           "This is why stocks often move on news before anything actually changes at the company. If a phone maker announces a hot new product, its stock might jump the same day - long before a single unit is sold - because investors now expect higher future profits. The reverse happens too: bad news, like a lawsuit or a weak sales forecast, can sink a stock instantly. The company hasn't lost money yet, but expectations about its future have darkened, and price follows expectations.",
           "Earnings reports are the biggest single driver. Every quarter, public companies report how much they made, and investors compare the result to what they expected. A company can post record profits and still see its stock fall if the profits were lower than Wall Street predicted. That's the famous 'beat or miss' - it's not the raw number that moves the price, but how it compares to expectations. This is why a company can have a great quarter and a bad stock day at the same time."
         ],
@@ -2128,20 +2128,20 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Leo Sells Into a Quiet Moment",
-        narrative: "Leo, 16, wants to sell 10 shares at 2:15 p.m. No other regular investor is buying at that exact second, yet his order fills instantly at $45.00. He's puzzled about who bought his shares so fast, since the app showed no other buyer waiting.",
+        title: "Marco Sells Into a Quiet Moment",
+        narrative: "Marco, 16, wants to sell 10 shares at 2:15 p.m. No other regular investor is buying at that exact second, yet his order fills instantly at $45.00. He is puzzled about who bought his shares so fast, since the app showed no other buyer waiting.",
         details: [
-          "A market maker was quoting a $45.00 bid, ready to buy Leo's shares at any moment.",
-          "It bought Leo's 10 shares and will resell them near its $45.03 ask to another trader.",
+          "A market maker was quoting a $45.00 bid, ready to buy Marco's shares at any moment.",
+          "It bought Marco's 10 shares and will resell them near its $45.03 ask to another trader.",
           "The 3-cent spread is the market maker's small reward for standing ready to deal.",
-          "Because the stock is popular and liquid, Leo's cost from that spread was tiny."
+          "Because the stock is popular and liquid, Marco's cost from that spread was tiny."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "market2-aq1",
-          question: "Why did Leo's sell order fill instantly even with no regular buyer waiting?",
+          question: "Why did Marco's sell order fill instantly even with no regular buyer waiting?",
           options: [
             "The app invented a fake buyer to help him",
             "A market maker bought his shares into inventory",
@@ -2149,7 +2149,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
             "His broker paid him from its own profits"
           ],
           correctAnswer: 1,
-          explanation: "A market maker stands ready to buy at its bid, so it took Leo's shares instantly into inventory. There's no fake buyer, no government mandate, and the broker isn't paying out of its profits."
+          explanation: "A market maker stands ready to buy at its bid, so it took Marco's shares instantly into inventory. There's no fake buyer, no government mandate, and the broker isn't paying out of its profits."
         }
       },
       {
@@ -2456,18 +2456,18 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "concept",
         title: "How to Act in Bulls and Bears",
         paragraphs: [
-          "The natural human reaction is exactly backward. In a bull market, when prices keep rising, people feel confident and pour money in near the top. In a bear market, when prices fall and headlines turn scary, people panic and sell near the bottom - locking in losses. This 'buy high, sell low' cycle is why emotion is an investor's biggest enemy. The whole point of understanding bulls and bears is to recognize the emotional trap and not fall into it.",
-          "A steadier approach is to keep investing regularly regardless of the mood, a habit called dollar-cost averaging. If you invest $50 every month, you automatically buy fewer shares when prices are high in a bull market and more shares when prices are low in a bear market. Over time this smooths out your average price and removes the impossible job of timing the top or bottom. A bear market, painful as it feels, actually lets long-term investors buy quality companies 'on sale.'",
-          "History offers real comfort here: every past bear market has eventually been followed by a recovery and new highs. That doesn't mean any single stock will bounce back, but the broad market has repeatedly clawed its way to new records after crashes. So the calm response to a bear market is usually to keep contributing and wait, and the calm response to a euphoric bull market is to avoid getting greedy or overconfident. Discipline, not prediction, is what turns market moods into an advantage."
+          "The natural human reaction is exactly backward. In a bull market, when prices keep rising, people feel confident and pour money in near the top. In a bear market, when prices fall and headlines turn scary, people panic and sell near the bottom - locking in losses. This 'buy high, sell low' cycle is why emotion is an investor's biggest enemy. The whole point of understanding bulls and bears is to recognize the emotional trap and not fall into it. (The Portfolio Construction unit shows the habit that automates the fix - investing a fixed amount on a schedule - so here we focus on surviving the mood itself.)",
+          "The first defense against a bear market is set up long before it arrives: keep money you'll need soon in cash, separate from your investments. If your next year of expenses is safe in savings, a 30% drop in your stock fund is just a number on a screen - you're never forced to sell at the bottom to pay rent. Bear markets destroy the investors who have to sell; they barely scratch the ones who can afford to wait. Deciding your emergency cushion while calm is what lets you stay calm when the headlines scream.",
+          "History offers real comfort about how long the wait tends to be. Bear markets are usually far shorter than the bull markets around them - many have bottomed within a year or so, even when the recovery to old highs took longer. Every past bear market has eventually been followed by new record highs; none has lasted forever. That doesn't guarantee any single stock bounces back, but the broad market has repeatedly clawed its way to new records after crashes. So the calm response to a bear market is to keep your plan and wait, and the calm response to a euphoric bull is to avoid getting greedy or overconfident. Discipline, not prediction, turns market moods into an advantage."
         ],
         bullets: [
           "Emotion pushes people to buy high in bulls and panic-sell low in bears.",
-          "Dollar-cost averaging means investing a fixed amount on a regular schedule.",
-          "That habit buys fewer shares when prices are high and more when they're low.",
-          "Bear markets let long-term investors buy quality companies at lower prices.",
-          "Historically, every bear market has eventually been followed by a recovery."
+          "Keep near-term cash separate so a bear market never forces you to sell.",
+          "Investors who can afford to wait survive bears; those forced to sell get hurt.",
+          "Bear markets tend to be shorter than the bull markets around them.",
+          "Historically, every bear market has eventually been followed by new highs."
         ],
-        realWorldExample: "An investor puts in $100 monthly. In a bull month shares cost $50, so $100 buys 2 shares. In a bear month shares cost $25, so the same $100 buys 4 shares. Buying more when cheap lowers her average cost over time."
+        realWorldExample: "Two investors each hold a stock fund when it drops 30%. One kept a year of expenses in cash, so she simply waits and recovers. The other had rent money tied up in stocks, is forced to sell at the bottom, and locks in the loss - same market, opposite outcome."
       },
       {
         type: "micro-check",
@@ -2500,28 +2500,28 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Sam Faces His First Bear Market",
-        narrative: "Sam, 17, has invested $50 a month for a year in a broad fund. Suddenly the market drops 25% and news headlines sound frightening. His account balance is down, and his instinct is to sell everything before it gets worse.",
+        title: "Tomas Faces His First Bear Market",
+        narrative: "Tomas, 17, has a broad stock fund and also keeps a separate cash cushion for the year ahead. Suddenly the market drops 25% and news headlines sound frightening. His fund balance is down, and his instinct is to sell everything before it gets worse.",
         details: [
           "The 25% drop means the market has entered a bear market, a normal repeating event.",
           "Selling now would lock in his losses at what could be near the bottom.",
-          "By continuing his $50 monthly plan, his money now buys more shares at lower prices.",
-          "History shows past bear markets have eventually been followed by recoveries."
+          "Because his near-term expenses sit in cash, he is not forced to sell his fund to get by.",
+          "History shows bear markets are usually shorter than the bulls around them and have been followed by recoveries."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "market4-aq1",
-          question: "Why might continuing his $50 monthly plan help Sam during the bear market?",
+          question: "Why does Tomas's separate cash cushion help him during the bear market?",
           options: [
             "It fully guarantees that the whole market rebounds next week",
-            "His fixed amount buys more shares at lower prices",
+            "It means he is not forced to sell his fund at the bottom",
             "It legally forces the fund to repay his losses",
-            "Monthly investing completely stops all stock prices from ever falling"
+            "Holding some cash completely stops stock prices from ever falling"
           ],
           correctAnswer: 1,
-          explanation: "With prices low, a fixed $50 buys more shares, lowering his average cost over time. It can't guarantee a rebound, force repayment, or stop prices from falling."
+          explanation: "With expenses covered by cash, Tomas can wait out the drop instead of selling low to pay bills. Cash can't guarantee a rebound, force repayment, or stop prices from falling."
         }
       },
       {
@@ -2530,7 +2530,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           "A bull market is a sustained rise; a bear market is a sustained fall of about 20%+.",
           "These labels describe the whole market's trend, not one single stock.",
           "Emotion tempts investors to buy high in bulls and panic-sell low in bears.",
-          "Dollar-cost averaging buys more shares when prices are low and fewer when high.",
+          "Keep near-term cash separate so a bear market never forces you to sell low.",
           "Historically, every bear market has eventually been followed by a recovery."
         ]
       },
@@ -2564,15 +2564,15 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market4-mastery3",
-            question: "What is dollar-cost averaging?",
+            question: "What best protects you from being forced to sell in a bear market?",
             options: [
               "Timing the market's exact top and bottom perfectly",
-              "Investing a fixed amount on a regular schedule",
+              "Keeping near-term cash separate from your investments",
               "Selling off everything the very moment prices fall",
               "Buying only when everyone else is clearly excited"
             ],
             correctAnswer: 1,
-            explanation: "Dollar-cost averaging means investing a set amount regularly, no matter the mood. It's the opposite of market timing, panic selling, or chasing excitement."
+            explanation: "A separate cash cushion for near-term needs means a drop can't force you to sell your fund at the bottom. Timing, panic selling, and chasing excitement all backfire."
           },
           {
             id: "market4-mastery4",
@@ -3058,8 +3058,8 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Priya Sees a Scary Headline",
-        narrative: "Priya, 17, is checking the news when she sees that the market fell 7% and 'trading was halted.' Her account is down for the day and the headlines sound alarming. Her first instinct is to sell all her investments before things get even worse.",
+        title: "Hana Sees a Scary Headline",
+        narrative: "Hana, 17, is checking the news when she sees that the market fell 7% and 'trading was halted.' Her account is down for the day and the headlines sound alarming. Her first instinct is to sell all her investments before things get even worse.",
         details: [
           "The 7% drop triggered a Level 1 circuit breaker, pausing trading for 15 minutes.",
           "The halt means the safety system worked, not that her money disappeared.",
@@ -3071,7 +3071,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market7-aq1",
-          question: "What does the 15-minute halt after a 7% drop actually mean for Priya?",
+          question: "What does the 15-minute halt after a 7% drop actually mean for Hana?",
           options: [
             "Her invested money has been permanently erased",
             "The safety system paused trading to restore order",
@@ -3244,12 +3244,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Marcus Gets a Hot Tip",
-        narrative: "Marcus, 17, has an uncle who works at a company. One night the uncle whispers that the company will announce surprise bad news tomorrow and says, 'Sell your shares tonight.' Marcus owns a few shares and feels tempted to dump them before the news hits.",
+        title: "Cole Gets a Hot Tip",
+        narrative: "Cole, 17, has an uncle who works at a company. One night the uncle whispers that the company will announce surprise bad news tomorrow and says, 'Sell your shares tonight.' Cole owns a few shares and feels tempted to dump them before the news hits.",
         details: [
           "The tip is material, nonpublic information the public does not yet have.",
           "Selling on that secret would be illegal insider trading, even for a teen.",
-          "Because Marcus got the tip, acting on it puts both him and his uncle at risk.",
+          "Because Cole got the tip, acting on it puts both him and his uncle at risk.",
           "The safe, legal choice is to ignore the tip and not trade on the secret."
         ]
       },
@@ -3257,7 +3257,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market8-aq1",
-          question: "Why would selling on his uncle's tip be illegal for Marcus?",
+          question: "Why would selling on his uncle's tip be illegal for Cole?",
           options: [
             "Teens are banned from ever selling any stock",
             "He'd be trading on material, nonpublic information",
@@ -3570,20 +3570,20 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
       },
       {
         type: "concept",
-        title: "Why Indexes Are a Beginner's Best Friend",
+        title: "How an Index Is Actually Built",
         paragraphs: [
-          "You can't buy an index directly - it's just a number - but you can buy an 'index fund' that holds all the stocks in an index in the same proportions. Buy an S&P 500 index fund and, with one purchase, you own a tiny slice of 500 huge companies at once. This instant diversification is powerful: if one company stumbles, it's a small piece of the whole, so your money isn't riding on a single bet. For most beginners, a broad index fund is the simplest smart way to invest.",
-          "Index funds are also cheap and low-effort, which is a big deal. Because the fund just mirrors the index instead of paying experts to pick stocks, its fees are tiny - often a fraction of a percent per year. Over decades, those low fees leave far more money in your pocket than expensive funds that try, and usually fail, to beat the market. Study after study shows that most professional stock-pickers don't outperform a simple S&P 500 index fund over the long run.",
-          "The big-picture lesson ties everything together: rather than gambling on which single stock will soar, a beginner can quietly own the whole market through an index fund and ride its long-term growth. The S&P 500's history of climbing over decades, despite crashes, rewards patient index investors. It's not flashy, but buying a low-cost, broad index fund and holding it for years is one of the most reliable wealth-building strategies ever discovered - and it starts with understanding what an index is."
+          "Not all indexes are counted the same way, and the method changes what the number tells you. Most modern indexes, including the S&P 500, are 'market-cap weighted': bigger companies count more. A giant firm worth 6% of the index moves it six times as much as a firm worth 1%. This means a handful of the largest companies can drive the whole S&P 500 up or down on a given day, even if hundreds of smaller members went the other way. When you hear 'the market' rose, it's often really the biggest few names doing the heavy lifting.",
+          "The Dow is the odd one out: it's 'price weighted,' meaning a company with a high share price sways it more than a company with a bigger business but a lower share price. That's a quirk of history, not logic, and it's a big reason professionals trust the S&P 500 more. Indexes also come in 'price return' and 'total return' versions - the total-return figure adds in dividends, so it's higher over time. The headline number you see on the news is usually price return, which quietly understates how much a long-term holder actually earned.",
+          "Beyond the famous three, indexes exist for almost every slice of the market: the Russell 2000 tracks small companies, and other indexes follow international stocks, bonds, or single sectors. Each is a different scoreboard measuring a different game, which is why comparing your investment to the RIGHT index matters - beating the small-cap Russell while trailing the S&P 500 tells two different stories. You can't buy an index directly since it's just a number, but funds that mirror them exist; the Investing Fundamentals and Funds units cover those index FUNDS in depth."
         ],
         bullets: [
-          "An index fund holds all the stocks in an index in the same proportions.",
-          "One purchase gives instant diversification across many companies at once.",
-          "Index funds charge tiny fees because they just mirror the index.",
-          "Most professional stock-pickers fail to beat a simple S&P 500 fund long-term.",
-          "Owning a broad index fund for years is a reliable wealth-building strategy."
+          "Most indexes are market-cap weighted, so the biggest companies move them most.",
+          "A few giant firms can swing the whole S&P 500 even if many members disagree.",
+          "The Dow is price weighted - a historical quirk that makes it less trusted than the S&P 500.",
+          "'Total return' index figures include dividends; the headline number usually doesn't.",
+          "Other indexes (like the Russell 2000) track small caps, international stocks, or single sectors."
         ],
-        realWorldExample: "With one purchase of an S&P 500 index fund, a teen owns a sliver of 500 giant companies. If one of them has a terrible year, it barely dents her holding - the other 499 cushion the blow, which is diversification in action."
+        realWorldExample: "On some days the S&P 500 finishes up while most of its 500 companies actually fell - because a few of the very largest, heaviest-weighted firms rose enough to lift the whole cap-weighted average. The 'market' went up, but the typical stock in it did not."
       },
       {
         type: "micro-check",
@@ -3616,28 +3616,28 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
       },
       {
         type: "scenario",
-        title: "Kai Wants to Own the Market",
-        narrative: "Kai, 17, is overwhelmed trying to pick the one 'perfect' stock. A mentor suggests he instead buy a low-cost S&P 500 index fund. Kai wonders how buying one thing could be safer than carefully choosing a single hot company.",
+        title: "Kai Reads a Confusing Headline",
+        narrative: "Kai, 17, reads that 'the S&P 500 rose today,' but when he clicks through, he sees that most of the 500 companies actually fell. He's confused about how the index could go up while the majority of its members went down.",
         details: [
-          "The index fund holds all 500 S&P 500 companies in the same proportions.",
-          "One purchase gives Kai instant diversification across 500 large companies.",
-          "If a single company has a bad year, the other 499 cushion the blow.",
-          "Low fees and broad ownership make this a reliable long-term strategy."
+          "The S&P 500 is market-cap weighted, so the largest companies count the most.",
+          "A few of the very biggest firms rose enough to lift the whole average.",
+          "The many smaller members that fell each moved the index only slightly.",
+          "So an index number can climb even when the typical stock inside it drops."
         ]
       },
       {
         type: "applied-question",
         question: {
           id: "market10-aq1",
-          question: "Why is Kai's index fund safer than betting on one hot company?",
+          question: "How could the S&P 500 rise while most of its companies fell?",
           options: [
-            "Index funds are always legally guaranteed to only rise",
-            "It spreads his money across 500 companies at once",
-            "The government fully insures every single index fund completely",
-            "Index funds always pay a fixed 40% return yearly"
+            "The index secretly ignores any company that drops",
+            "A few huge, heavily-weighted firms rose enough to lift it",
+            "Falling companies are always removed from it instantly",
+            "The index is required to rise on a fixed schedule"
           ],
           correctAnswer: 1,
-          explanation: "Owning 500 companies spreads risk, so one failure barely dents his holding. Index funds aren't guaranteed to rise, government-insured, or paying fixed 40% returns."
+          explanation: "Cap weighting means the biggest firms move the index most, so a few large gainers can outweigh many small decliners. The index doesn't drop or remove members automatically."
         }
       },
       {
@@ -3646,8 +3646,8 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           "A market index is one number tracking how a group of stocks is doing.",
           "The S&P 500 (500 firms), Dow (30 firms), and Nasdaq Composite differ in scope.",
           "Indexes are the benchmark for judging whether investments 'beat the market.'",
-          "An index fund holds all the index's stocks, giving instant diversification.",
-          "Low-cost broad index funds held for years are a reliable wealth-building tool."
+          "Most indexes are cap-weighted, so the biggest firms move them the most.",
+          "Compare an investment to the RIGHT index; other indexes track small caps and sectors."
         ]
       },
       {
@@ -3692,39 +3692,39 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market10-mastery4",
-            question: "What is an index fund?",
+            question: "What does 'market-cap weighted' mean for an index?",
             options: [
-              "A fund holding all the stocks in an index",
-              "A single stock hand-chosen by just one paid expert",
-              "A basic savings account that pays a fixed interest",
-              "A loan you take out to buy one stock"
+              "Every company counts exactly equally in it",
+              "Bigger companies move the index more",
+              "Only the cheapest-priced stocks are counted",
+              "The index tracks a loan you take out"
             ],
-            correctAnswer: 0,
-            explanation: "An index fund holds all the stocks in an index in the same proportions. It's not a single stock, a savings account, or a loan."
+            correctAnswer: 1,
+            explanation: "In a cap-weighted index the largest companies count most, so they move the number more. It isn't equal-weighted, price-only, or a loan."
           },
           {
             id: "market10-mastery5",
-            question: "Why does buying an S&P 500 fund reduce risk?",
+            question: "Which index is unusual for being 'price weighted'?",
             options: [
-              "It guarantees the price only ever rises",
-              "It spreads money across 500 companies",
-              "The government refunds any losses",
-              "It doubles your money each year"
+              "The S&P 500, the pros' benchmark",
+              "The Dow Jones Industrial Average",
+              "The Nasdaq Composite of tech stocks",
+              "The small-cap Russell 2000"
             ],
             correctAnswer: 1,
-            explanation: "Owning 500 companies means one failure barely dents your holding - that's diversification. It doesn't guarantee gains, refund losses, or double your money."
+            explanation: "The Dow is price weighted, a historical quirk that makes a high share price sway it more. The others weight by market value, not share price."
           },
           {
             id: "market10-mastery6",
-            question: "What do most professional stock-pickers fail to do long-term?",
+            question: "A 'total return' version of an index differs from the headline number by including…",
             options: [
-              "Beat a simple S&P 500 index fund",
-              "Charge any high fees for their services",
-              "Own more than one stock at a time",
-              "Ever make a single profitable trade"
+              "The dividends the companies paid out",
+              "A special tax charged on every trade",
+              "The fees a broker charges you",
+              "Only the single largest company"
             ],
             correctAnswer: 0,
-            explanation: "Studies show most pros fail to beat a simple S&P 500 index fund over the long run. They do charge fees, own many stocks, and make profitable trades sometimes."
+            explanation: "Total-return figures add in dividends, so they run higher over time. The headline price-return number leaves dividends out and understates a long-term holder's gain."
           }
         ]
       }
