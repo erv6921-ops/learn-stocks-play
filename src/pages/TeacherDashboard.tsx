@@ -41,6 +41,7 @@ import { useToast } from "@/hooks/use-toast"
 import { lessons } from "@/data/lessons"
 import {
   Plus,
+  UserPlus,
   Users,
   Copy,
   Trash2,
@@ -121,6 +122,10 @@ export default function TeacherDashboard() {
   const { toast } = useToast()
 
   const [classes, setClasses] = useState<Class[]>([])
+  // Unclaimed classes (teacher_id null) left behind when their teacher deleted
+  // their account; any teacher can take one over. See loadClasses / claimClass.
+  const [unclaimed, setUnclaimed] = useState<Class[]>([])
+  const [claimingId, setClaimingId] = useState<string | null>(null)
   const [selectedClass, setSelectedClass] = useState<Class | null>(null)
   const [classMembers, setClassMembers] = useState<ClassMember[]>([])
   const [loading, setLoading] = useState(true)
@@ -258,6 +263,17 @@ export default function TeacherDashboard() {
       )
 
       setClasses(classesWithCounts)
+
+      // Unclaimed classes: orphaned when their teacher deleted their account.
+      // RLS (see 20260817000000_orphan_class_takeover.sql) exposes teacher_id=null
+      // rows to any teacher so they can adopt one. No student count here — the
+      // class_members policy hides members until you own the class.
+      const { data: orphans } = await supabase
+        .from("classes")
+        .select("*")
+        .is("teacher_id", null)
+        .order("created_at", { ascending: false })
+      setUnclaimed(orphans || [])
     } catch (error: any) {
       toast({
         title: "Failed to load classes",
@@ -266,6 +282,27 @@ export default function TeacherDashboard() {
       })
     } finally {
       setLoading(false)
+    }
+  }
+
+  // Take over an unclaimed class: assign yourself as its teacher. The UPDATE is
+  // allowed by the "claim unclaimed classes" RLS policy; students ride along.
+  const claimClass = async (cls: Class) => {
+    setClaimingId(cls.id)
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+      const { error } = await supabase
+        .from("classes")
+        .update({ teacher_id: user.id })
+        .eq("id", cls.id)
+      if (error) throw error
+      toast({ title: `You now own "${cls.name}"`, description: "The class and its students are on your dashboard." })
+      await loadClasses()
+    } catch (e: any) {
+      toast({ title: "Couldn't take over the class", description: e?.message || "Please try again.", variant: "destructive" })
+    } finally {
+      setClaimingId(null)
     }
   }
 
@@ -876,6 +913,46 @@ export default function TeacherDashboard() {
                     </Card>
                   )
                 })}
+              </div>
+            )}
+
+            {/* Unclaimed classes: adopt a class left behind by a departed teacher. */}
+            {unclaimed.length > 0 && (
+              <div className="mt-6">
+                <h2 className="font-display text-lg font-bold mb-1">Unclaimed classes</h2>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Left behind when a teacher deleted their account. Take one over to become its teacher — the students come with it.
+                </p>
+                <div className="space-y-3">
+                  {unclaimed.map((cls) => (
+                    <Card key={cls.id} variant="default" className="border-dashed border-warning/50">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold truncate">{cls.name}</h3>
+                            {cls.description && (
+                              <p className="text-sm text-muted-foreground mt-1 line-clamp-1">{cls.description}</p>
+                            )}
+                            <Badge variant="secondary" className="font-mono mt-2">{cls.join_code}</Badge>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled={claimingId === cls.id}
+                            onClick={() => claimClass(cls)}
+                          >
+                            {claimingId === cls.id ? (
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            ) : (
+                              <UserPlus className="w-4 h-4 mr-2" />
+                            )}
+                            Take over
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
               </div>
             )}
           </div>

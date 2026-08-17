@@ -1494,14 +1494,14 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "concept",
         title: "The Skill Of Waiting Well",
         paragraphs: [
-          "In the first lesson you met present bias - the pull toward a reward now over a bigger one later. Delayed gratification is the skill that beats it: choosing a bigger reward later over a smaller one now. It sounds simple, but it is one of the strongest predictors of financial success. In the famous marshmallow study, kids who could wait to get two treats instead of one tended to do better later in life. The point is not that waiting is magic; it is that the ability to pause a craving lets you make choices that pay off. Money rewards patience directly: waiting to buy, and saving instead, turns small amounts into much larger ones over time.",
-          "The reason waiting pays is compound growth. If you save $50 a month starting as a teen and it grows around 7% a year, you could have far more than someone who starts ten years later, even if they save more monthly. Time does the heavy lifting. A $200 impulse buy is not really a $200 choice; it is the choice to give up what that $200 could become. Framing purchases this way, as the future money you are spending, makes delayed gratification feel less like sacrifice and more like a smart trade.",
+          "In the first lesson you met present bias - the pull toward a reward now over a bigger one later. It happens because your brain runs two competing systems: a fast, emotional one that craves instant rewards like snacks, likes, and quick buys, and a slow, thoughtful one that plans for the future. Delayed gratification is the skill of letting the slow system win the choices that matter: taking a bigger reward later over a smaller one now. In the famous marshmallow study, kids who could wait for two treats instead of one tended to do better later in life - not because waiting is magic, but because pausing a craving lets you make choices that pay off.",
+          "The reason waiting pays is compound growth. Save $50 a month starting as a teen at around 7% a year and you could end up with far more than someone who starts ten years later, even if they save more monthly - time does the heavy lifting. The flip side is opportunity cost: every instant reward quietly costs whatever that money could have become. A $5 daily energy drink is about $150 a month and roughly $1,800 a year - the same money that could fund a trip or an emergency cushion. So a $200 impulse buy is not really a $200 choice; it is the choice to give up what that $200 could grow into.",
           "Waiting is hard because instant rewards feel vivid while future ones feel fuzzy and far away. Your brain discounts the future automatically. The trick is to make the future concrete: name the goal, picture it, and give it a deadline. Wanting savings in general is weak; wanting $600 for a laptop by December is strong. When the later reward feels real and specific, your brain stops treating it like a vague someday and starts protecting it, which makes saying no to small splurges dramatically easier. Writing the goal somewhere you see it daily, or keeping a photo of it on your phone, keeps the future reward present in your mind exactly when a random craving to spend shows up out of nowhere."
         ],
         bullets: [
-          "Delayed gratification means choosing a larger later reward over a smaller now.",
+          "Your brain has a fast reward system and a slow planning system.",
           "Compound growth rewards early savers because time multiplies money.",
-          "A purchase is really the future value of that money you give up.",
+          "Every instant reward has an opportunity cost - what that money could become.",
           "The brain discounts fuzzy future rewards, so waiting feels hard.",
           "Concrete goals with deadlines make the future reward feel real."
         ],
@@ -1512,15 +1512,15 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         title: "Building The Habit On Purpose",
         paragraphs: [
           "You do not need superhuman willpower to wait; you need systems. One is the cooling-off rule: for any want over a set amount, say $40, wait 48 hours before buying. Most impulse urges fade, and you keep only the purchases you still want after the craving passes. This works because it separates the emotional spike from the decision. The store designed the moment to feel urgent; the pause returns the choice to the calmer, future-focused part of your brain that would rather save the money.",
-          "The most powerful system of all is automating the wait so a set amount moves to savings the second you are paid - though designing your whole environment that way is the focus of the next lesson, where we go deep on it. Delayed gratification's own signature tool is the visible, named goal: a jar or app labeled Concert Fund keeps the reward in sight, so every day you do not spend becomes progress you can watch instead of grind you have to endure. Willpower is a limited battery, so a goal you can see does the work that daily grit cannot.",
-          "It also helps to shrink the pain of waiting by celebrating milestones. If your goal is $600, mark every $150 as a win. Small wins release the same reward feeling that a purchase would, so patience stops feeling empty. Delayed gratification is not about never enjoying anything; it is about timing enjoyment so it does not sabotage bigger goals. People who master it are not more strict than everyone else. They simply built an environment where waiting is the easy default and impulse buying takes effort."
+          "The most powerful systems redesign your environment so the good choice is the easy one. Your fast brain reacts to whatever is in front of it: if a store's app is one tap away, you buy. Make instant rewards harder to reach - delete shopping apps, leave cards at home - and make saving effortless by automating it, so a set amount moves to savings the second you are paid. You never feel automated savings as money given up, so there is no craving to resist. Willpower is a limited battery; a well-designed setup spends it once, when you set the rules, instead of every single day.",
+          "Finally, make waiting feel rewarding instead of empty. Keep the goal visible and named - a jar or app labeled Concert Fund - so every day you do not spend reads as progress you can watch. Celebrate milestones: if the goal is $600, mark every $150 as a win, which releases the same reward feeling a purchase would. You can even bundle a dull saving habit with a small treat - like logging your spending only while watching a favorite show - so your fast brain cooperates instead of fighting. People who master patience are not stricter than everyone else; they simply built a life where waiting is the easy default and impulse buying takes effort."
         ],
         bullets: [
           "A 48-hour cooling-off rule lets impulse urges fade before you buy.",
-          "The cooling-off pause hands the choice back to your calmer, future-focused brain.",
-          "Willpower is limited; systems let you decide once, not daily.",
+          "Redesign your setup: make impulse buys hard and saving automatic.",
+          "Willpower is limited; a good environment decides once, not daily.",
           "A named, visible goal makes waiting feel like progress.",
-          "Celebrating milestones gives waiting its own reward feeling."
+          "Milestones and bundling give waiting its own reward feeling."
         ],
         realWorldExample: "Leo wants $600 for a used bike. He automates $60 a month into a Bike Fund and celebrates each $150 mark with a cheap treat. The visible progress and small wins make waiting ten months feel motivating instead of miserable, and he never once relies on raw willpower to resist."
       },
@@ -1582,11 +1582,11 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
       {
         type: "recap",
         takeaways: [
-          "Delayed gratification means trading a smaller reward now for a bigger one later.",
-          "Compound growth makes early saving far more powerful than late saving.",
-          "Concrete goals with deadlines make future rewards feel real.",
-          "Cooling-off rules and automation beat impulse without heavy willpower.",
-          "Celebrating milestones makes patience feel rewarding, not empty."
+          "Your brain's fast system craves now; the slow one plans for later.",
+          "Compound growth and opportunity cost both reward patience.",
+          "Concrete goals with deadlines make the future reward feel real.",
+          "Environment design, automation, and cooling-off beat willpower.",
+          "Milestones and bundling make patience feel rewarding, not empty."
         ]
       },
       {
@@ -1664,191 +1664,6 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
             ],
             correctAnswer: 1,
             explanation: "Your brain automatically shrinks the value of vague, distant rewards. Making the future concrete counteracts this so waiting becomes far easier."
-          }
-        ]
-      }
-    ]
-  },
-  // ─────────────────────────────────────────────
-  // psych-3: Instant vs Long-Term Reward
-  // ─────────────────────────────────────────────
-  {
-    lessonId: "psych-3",
-    sections: [
-      {
-        type: "concept",
-        title: "Two Reward Systems, One Brain",
-        paragraphs: [
-          "The last lesson showed why waiting pays off; this one shows what you are up against inside your own head. Your brain runs on two competing systems. One is fast and emotional, craving instant rewards like snacks, likes, and quick buys. The other is slow and thoughtful, planning for long-term rewards like savings and skills. Neither is bad; you need both. Trouble starts when the fast system wins choices that the slow system should handle, like spending rent-level money on impulse buys. Learning which system is driving a decision, and slowing down when the stakes are high, is the core skill behind almost every good money habit you will ever build.",
-          "The trade-off between instant and long-term reward is real, and often steep. A $5 daily energy drink feels tiny, but it is about $150 a month and roughly $1,800 a year. That is the same money that could fund a whole trip or a solid emergency cushion. Economists call the hidden loss opportunity cost: the value of the best thing you gave up. Every instant reward has one. Seeing the opportunity cost, not just the price tag, is what separates people who feel broke on decent income from those who quietly get ahead.",
-          "Instant rewards are not the enemy, though. A life of pure long-term thinking with zero fun is unsustainable and usually collapses into a spending binge. The goal is balance: enjoy small instant rewards on purpose, within a plan, so they do not sabotage the big goals. Deciding in advance, I get $30 a month for fun, no guilt, actually strengthens long-term saving because the planned treats keep you from rebelling against a too-strict budget. Structure, not deprivation, is what makes long-term choices stick over months and years. Think of it like a training plan: rest days are built in on purpose so you can keep going, and planned fun spending works the same way for a budget you actually want to follow."
-        ],
-        bullets: [
-          "The brain has a fast emotional system and a slow planning system.",
-          "Instant rewards carry opportunity cost: the best thing you gave up.",
-          "Small daily buys add up to large yearly amounts, like $5 a day being $1,800.",
-          "Pure deprivation usually backfires into a spending binge.",
-          "Planned fun money keeps long-term budgets sustainable."
-        ],
-        realWorldExample: "Marcus buys a $5 energy drink every school day without thinking. Over a year that is about $900. When he swaps to buying them twice a week, he keeps the treat but frees roughly $540 a year toward a used car fund, proving balance beats both extremes."
-      },
-      {
-        type: "concept",
-        title: "Tilting Choices Toward Your Future",
-        paragraphs: [
-          "Because the fast system reacts to what is in front of you, one powerful move is to redesign your environment. If snacks are on the counter, you eat them; if a store's app is one tap away, you buy. Making instant rewards slightly harder to reach, like deleting shopping apps or leaving cards at home, weakens the fast system's grip without any willpower. On the flip side, making long-term rewards easier, like an automatic transfer to savings, lets the slow system win by default. You are engineering the choice before the craving arrives.",
-          "Another tool is bundling, pairing a long-term action with a small instant reward so your fast brain cooperates. Let yourself watch a favorite show only while logging your spending, or reward a week of saving with a cheap treat. The instant reward pulls you toward the long-term habit instead of fighting it. This is how people make boring but valuable tasks stick: they attach a little now-pleasure to the delayed payoff, so both systems point the same direction instead of tearing the decision apart.",
-          "Finally, translate future goals into today's language. The slow system knows a car matters, but the fast system feels nothing about it. So convert it: this $12 movie snack is one gallon of gas toward my car. Suddenly the trade is vivid and immediate. People who consistently choose long-term rewards are rarely just more disciplined; they have made the future feel present. When the payoff of waiting is easy to picture and the cost of splurging is easy to feel, good choices stop requiring a fight."
-        ],
-        bullets: [
-          "Redesign your environment so instant rewards are harder, long-term easier.",
-          "Automatic savings lets the planning system win by default.",
-          "Bundling pairs a boring long-term task with a small instant reward.",
-          "Translating goals into today's terms makes the future feel real.",
-          "Good choosers make the future present, not just show more discipline."
-        ],
-        realWorldExample: "Ella deletes two shopping apps from her phone and sets a $40 automatic transfer to savings each payday. With impulse buying now a hassle and saving effortless, she saves $480 in a year mostly by changing her setup, not by fighting cravings every day."
-      },
-      {
-        type: "micro-check",
-        questions: [
-          {
-            id: "psych3-deepmc1",
-            question: "What is the opportunity cost of a purchase?",
-            options: [
-              "The sales tax added at checkout",
-              "The best alternative you gave up",
-              "The time spent shopping for it",
-              "The shipping fee for the item"
-            ],
-            correctAnswer: 1,
-            explanation: "Opportunity cost is the value of the best thing you did not choose. Every instant reward quietly costs whatever that money could have done instead."
-          },
-          {
-            id: "psych3-deepmc2",
-            question: "Why can deleting a store's app help you save?",
-            options: [
-              "It lowers the store's prices for brand-new buyers",
-              "It makes impulse buying harder to do",
-              "It earns you cash back automatically right in the moment",
-              "It blocks the store from existing"
-            ],
-            correctAnswer: 1,
-            explanation: "The fast reward system reacts to what is easy and in front of you. Adding friction to impulse buys weakens it without needing willpower."
-          }
-        ]
-      },
-      {
-        type: "scenario",
-        title: "Ben's Daily Small Choices",
-        narrative: "Ben, 16, wants to save $500 for summer but feels like his money vanishes. He spends about $5 a day on snacks, keeps a shopping app one tap away, and has no savings transfer set up. He is not making one big mistake; his fast reward system wins dozens of tiny choices each week.",
-        details: [
-          "His $5 daily snack habit quietly costs roughly $900 a year in opportunity cost.",
-          "The one-tap shopping app lets his fast system win before the slow one can weigh in.",
-          "With no automatic transfer, saving depends on daily willpower he keeps losing.",
-          "Cutting snacks to a planned few per week would keep the treat and free real money."
-        ]
-      },
-      {
-        type: "applied-question",
-        question: {
-          id: "psych3-deepaq1",
-          question: "Which change best helps Ben's long-term system win by default?",
-          options: [
-            "Rely on more willpower each day",
-            "Set an automatic transfer to savings",
-            "Buy snacks in even larger amounts",
-            "Add three more shopping apps whenever money feels tight"
-          ],
-          correctAnswer: 1,
-          explanation: "An automatic transfer moves money to savings before his fast system can spend it, so the long-term choice happens with zero daily willpower. Relying on willpower is exactly what keeps failing."
-        }
-      },
-      {
-        type: "recap",
-        takeaways: [
-          "The brain has a fast reward system and a slow planning system.",
-          "Every instant reward has an opportunity cost worth noticing.",
-          "Small daily spending adds up to large yearly amounts.",
-          "Environment design and automation make long-term choices the default.",
-          "Making the future feel present turns good choices into the easy path."
-        ]
-      },
-      {
-        type: "mastery-check",
-        requiredCorrect: 4,
-        questions: [
-          {
-            id: "psych3-deepmastery1",
-            question: "Which best describes the brain's two reward systems?",
-            options: [
-              "One for money and one for food only",
-              "A fast emotional one and a slow planning one",
-              "One that is smart and one that is broken",
-              "One for teens and one for adults when it is tested"
-            ],
-            correctAnswer: 1,
-            explanation: "A fast, emotional system chases instant rewards while a slow, thoughtful system plans ahead. You need both; problems come when the fast one wins high-stakes choices."
-          },
-          {
-            id: "psych3-deepmastery2",
-            question: "A $5 daily drink really costs about how much per year?",
-            options: [
-              "Around $60",
-              "Around $1,800",
-              "Around $200",
-              "Around $9,000"
-            ],
-            correctAnswer: 1,
-            explanation: "About $5 times roughly 360 days is near $1,800. Small daily amounts compound into large yearly totals, which is the hidden cost of instant rewards."
-          },
-          {
-            id: "psych3-deepmastery3",
-            question: "Why does pure deprivation usually fail as a strategy?",
-            options: [
-              "It is illegal to budget too strictly",
-              "It often triggers a later spending binge",
-              "Banks penalize people who never spend in plain terms",
-              "It makes savings lose all their value"
-            ],
-            correctAnswer: 1,
-            explanation: "A too-strict, zero-fun plan is hard to sustain and often collapses into a binge. Planned small treats keep the overall long-term plan realistic."
-          },
-          {
-            id: "psych3-deepmastery4",
-            question: "What is bundling as a money tool?",
-            options: [
-              "Buying items in bulk to save almost every time",
-              "Pairing a long-term task with a small instant reward",
-              "Combining several loans into one for people in general",
-              "Hiding purchases inside a budget in the long run"
-            ],
-            correctAnswer: 1,
-            explanation: "Bundling attaches a small now-pleasure to a valuable long-term action, so your fast system helps rather than fights the habit."
-          },
-          {
-            id: "psych3-deepmastery5",
-            question: "How does translating a goal into today's terms help?",
-            options: [
-              "It makes the abstract future feel immediate",
-              "It doubles the money you have saved",
-              "It removes the goal's deadline under real pressure",
-              "It lowers the price of the goal"
-            ],
-            correctAnswer: 0,
-            explanation: "Saying this snack is a gallon of gas toward my car makes the trade vivid now. The fast system feels the cost, so waiting stops requiring a fight."
-          },
-          {
-            id: "psych3-deepmastery6",
-            question: "What most reliably makes long-term rewards the default choice?",
-            options: [
-              "Feeling guilty after every purchase in a typical week",
-              "Designing your setup so saving is automatic",
-              "Keeping shopping apps easy to reach",
-              "Trusting daily willpower alone sooner or later"
-            ],
-            correctAnswer: 1,
-            explanation: "When savings is automatic and impulse buying has friction, the long-term choice wins without daily effort. Environment design beats willpower over time."
           }
         ]
       }

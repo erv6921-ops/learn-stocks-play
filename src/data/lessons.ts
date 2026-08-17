@@ -84,15 +84,14 @@ export const lessons: Lesson[] = [
 
   // Unit 1: Psychology of Money
   L("psych-1",  "Why People Mismanage Money",         "Explore the common psychological traps that lead to poor financial decisions",   "psychology-of-money", "explorer", "unit-1", "1.1",  250),
-  L("psych-2",  "Delayed Gratification",              "Learn why waiting for rewards leads to better financial outcomes",              "psychology-of-money", "explorer", "unit-1", "1.2",  250),
-  L("psych-3",  "Instant vs Long-Term Reward",        "Understand the trade-offs between immediate and future benefits",              "psychology-of-money", "explorer", "unit-1", "1.3",  300),
-  L("psych-4",  "Scarcity vs Abundance Mindset",      "How your mindset about money shapes your financial future",                    "psychology-of-money", "explorer", "unit-1", "1.4",  300),
-  L("psych-5",  "Money & Emotions",                   "Discover how feelings influence spending and saving habits",                   "psychology-of-money", "explorer", "unit-1", "1.5",  300),
-  L("psych-6",  "Social Influence & Spending",        "Learn how peer pressure and social media affect your wallet",                  "psychology-of-money", "explorer", "unit-1", "1.6",  350),
-  L("psych-7",  "Advertising & Consumer Behavior",    "Understand how marketing tries to manipulate your spending",                   "psychology-of-money", "explorer", "unit-1", "1.7",  350),
-  L("psych-8",  "Behavioral Traps",                   "Identify cognitive biases that lead to bad financial choices",                 "psychology-of-money", "builder",  "unit-1", "1.8",  400),
-  L("psych-9",  "Identity & Money Habits",            "How your self-image shapes your relationship with money",                      "psychology-of-money", "builder",  "unit-1", "1.9",  400),
-  L("psych-10", "Healthy Financial Beliefs",          "Build a positive and productive money mindset",                                "psychology-of-money", "builder",  "unit-1", "1.10", 500),
+  L("psych-2",  "Delayed Gratification",              "Why the brain craves rewards now - and how to choose the bigger reward later",  "psychology-of-money", "explorer", "unit-1", "1.2",  250),
+  L("psych-4",  "Scarcity vs Abundance Mindset",      "How your mindset about money shapes your financial future",                    "psychology-of-money", "explorer", "unit-1", "1.3",  300),
+  L("psych-5",  "Money & Emotions",                   "Discover how feelings influence spending and saving habits",                   "psychology-of-money", "explorer", "unit-1", "1.4",  300),
+  L("psych-6",  "Social Influence & Spending",        "Learn how peer pressure and social media affect your wallet",                  "psychology-of-money", "explorer", "unit-1", "1.5",  350),
+  L("psych-7",  "Advertising & Consumer Behavior",    "Understand how marketing tries to manipulate your spending",                   "psychology-of-money", "explorer", "unit-1", "1.6",  350),
+  L("psych-8",  "Behavioral Traps",                   "Identify cognitive biases that lead to bad financial choices",                 "psychology-of-money", "builder",  "unit-1", "1.7",  400),
+  L("psych-9",  "Identity & Money Habits",            "How your self-image shapes your relationship with money",                      "psychology-of-money", "builder",  "unit-1", "1.8",  400),
+  L("psych-10", "Healthy Financial Beliefs",          "Build a positive and productive money mindset",                                "psychology-of-money", "builder",  "unit-1", "1.9",  500),
 
   // Unit 2: Income & Earning Power
   L("income-1",  "Active vs Passive Income",   "Learn the two main ways to earn money",                        "income-earning", "explorer", "unit-2", "2.1",  250),

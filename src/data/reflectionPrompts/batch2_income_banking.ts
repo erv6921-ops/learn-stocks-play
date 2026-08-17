@@ -3,7 +3,6 @@
 export const batch2_income_banking: Record<string, string> = {
   "psych-1": "Think about a recent money decision you regret. Which psychological trap tripped you up, and what will you check for next time before you spend?",
   "psych-2": "Name one thing you want that would be better if you waited for it. How long will you make yourself wait, and what will you do in the meantime to stay patient?",
-  "psych-3": "Picture a small reward you could grab today versus a bigger one later. Which will you choose this week, and what makes the wait worth it to you?",
   "psych-4": "Do you catch yourself thinking there is never enough money, or that more can always be earned? Write one sentence you will tell yourself to shift toward an abundance mindset.",
   "psych-5": "Recall the last time a strong feeling drove you to spend or save. How will you pause and check your emotions before your next purchase?",
   "psych-6": "Think of a time friends or social media pushed you to buy something. What will you say or do to hold your ground the next time that pressure hits?",
