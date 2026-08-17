@@ -32,6 +32,16 @@ function hashId2(s: string): number {
   return Math.abs(h)
 }
 
+// The lesson's zero-based position within its unit, parsed from lessonNumber
+// ("10.3" -> 2). Used to index the opener pools so consecutive lessons in a
+// unit walk through the pool in order - no two lessons in a unit up to the
+// pool's size ever land on the same opener. Falls back to the id hash for any
+// lesson without a clean numeric position.
+function unitPos(lesson: Lesson): number {
+  const minor = Number(lesson.lessonNumber?.split(".")[1])
+  return Number.isFinite(minor) && minor > 0 ? minor - 1 : hashId(lesson.id)
+}
+
 // Many hooks per topic so lessons in the same category don't all open with the
 // identical question. Every hook's answers actually answer its question. The
 // one shown is chosen deterministically from the lesson id (see openingHook) -
@@ -45,6 +55,11 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
     { question: "could you wait a whole week to buy something you really want?", answers: ["No chance", "Maybe", "Easily"] },
     { question: "what's harder for you - saving money or waiting for it to grow?", answers: ["Saving it", "Waiting", "Both, honestly"] },
     { question: "if a snooze button gave you $20 each morning, would you skip it?", answers: ["No way, I'd snooze", "Yeah, take the $20", "Depends on the day"] },
+    { question: "if waiting one year doubled your money, could you actually leave it alone?", answers: ["No chance", "Maybe", "Yeah, easily"] },
+    { question: "what's your track record with 'I'll save the rest' - honestly?", answers: ["Terrible 😅", "Hit or miss", "Pretty solid"] },
+    { question: "would you rather a small reward now or a bigger one you earn over time?", answers: ["Small now", "Bigger later", "Depends how much bigger"] },
+    { question: "ever told yourself 'just this once' and then it became every day?", answers: ["Story of my life", "Sometimes", "Not really"] },
+    { question: "does 'future you' end up paying for what 'today you' buys?", answers: ["All the time", "A little", "I plan ahead"] },
   ]],
   [/psychology-of-money|behavioral/, [
     { question: "if you got $100 right now, what's the FIRST thing you'd do with it?", answers: ["Spend it on something fun 🛍️", "Save every penny", "Half spend, half save"] },
@@ -52,6 +67,11 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
     { question: "what's one thing you ALWAYS talk yourself into buying?", answers: ["Snacks 🍟", "Clothes or shoes", "Games and apps"] },
     { question: "does a sale price make you buy stuff you didn't even want?", answers: ["Every single time", "Sometimes", "Nope, I resist"] },
     { question: "do your feelings ever decide how you spend money?", answers: ["Way more than I'd admit", "A little", "I keep it logical"] },
+    { question: "do you spend differently when you're stressed or bored?", answers: ["Definitely", "A bit", "Nope"] },
+    { question: "ever kept spending on something just because you'd already spent a lot on it?", answers: ["Yeah, oops", "Maybe once", "No, I cut losses"] },
+    { question: "does seeing other people buy something make you want it too?", answers: ["Way too much", "Sometimes", "I don't care"] },
+    { question: "would a '90% of people bought this' label make you more likely to buy?", answers: ["Honestly yes", "Maybe", "No"] },
+    { question: "do you check the price before or after you've decided you want it?", answers: ["After 😅", "Before", "Depends"] },
   ]],
   [/budget/, [
     { question: "do you actually know where your money goes every month?", answers: ["Yeah, pretty much", "Not really 😅", "I don't track anything"] },
@@ -59,6 +79,11 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
     { question: "what eats up most of your money right now?", answers: ["Food", "Fun stuff", "Honestly no idea"] },
     { question: "do you have a plan for your money, or does it just... disappear?", answers: ["It disappears 😅", "Kind of a plan", "Yeah, I've got a system"] },
     { question: "how much of last week's money could you get back if you tried?", answers: ["None of it", "Some of it", "Most of it"] },
+    { question: "if I asked for a plan for your next $100, could you give me one?", answers: ["Not really", "Roughly", "Yeah, easily"] },
+    { question: "does your money feel like it has a job, or does it just wander off?", answers: ["It wanders 😅", "Kinda", "Every dollar's assigned"] },
+    { question: "what's the first thing you'd cut if money got tight?", answers: ["No idea", "Fun stuff", "I know exactly"] },
+    { question: "do you know your 'needs' vs 'wants' split for last week?", answers: ["Nope", "Sort of", "Yeah"] },
+    { question: "if your income doubled tomorrow, would your savings actually grow?", answers: ["Probably not", "Maybe", "Definitely"] },
   ]],
   [/banking/, [
     { question: "do you know how banks make money off your savings account?", answers: ["No idea honestly", "They charge fees, right?", "They invest it somehow?"] },
@@ -66,6 +91,11 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
     { question: "ever been surprised by a random bank fee?", answers: ["Ugh, yes", "Not yet", "Wait, what fees?"] },
     { question: "is your money safer in a bank or under your mattress?", answers: ["Bank, obviously", "Mattress lol", "Wait, are banks even safe?"] },
     { question: "why would a bank pay YOU to keep money there?", answers: ["No clue", "So they can lend it out?", "They don't, do they?"] },
+    { question: "do you know what APY on a savings account even means?", answers: ["No clue", "Something about interest?", "Yeah I do"] },
+    { question: "would you notice if a subscription quietly charged you every month?", answers: ["Probably not 😬", "Eventually", "Yeah, I check"] },
+    { question: "which should hold money you won't touch for a while - checking or savings?", answers: ["Checking", "Savings", "Aren't they the same?"] },
+    { question: "is there a real difference between a bank and a credit union?", answers: ["No idea", "Kind of?", "Yeah"] },
+    { question: "what actually happens to your paycheck the second it's deposited?", answers: ["No clue", "It just sits there?", "The bank uses it?"] },
   ]],
   [/credit|debt/, [
     { question: "did you know your credit score can affect your rent, job, and even phone plan?", answers: ["Wait, seriously?", "Yeah, I knew that", "What even is a credit score?"] },
@@ -73,6 +103,11 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
     { question: "what happens if you only pay the minimum on a credit card?", answers: ["No idea", "It piles up?", "Nothing bad?"] },
     { question: "would you borrow $10 if paying it back cost you $13?", answers: ["No way", "If I really needed it", "Wait, why does it cost more?"] },
     { question: "does owing money always mean you messed up?", answers: ["Pretty much", "Not always", "I honestly don't know"] },
+    { question: "would you know how to start building credit from zero?", answers: ["Nope", "Sort of", "Yeah"] },
+    { question: "is all debt bad, or can some of it actually be smart?", answers: ["All bad", "Some is smart", "Not sure"] },
+    { question: "what do you think 20% APR costs you on a $500 balance in a year?", answers: ["No idea", "Like $100?", "Depends"] },
+    { question: "is a lower monthly payment always the better deal?", answers: ["Yeah, right?", "Not always", "Why wouldn't it be?"] },
+    { question: "is a credit limit a budget to hit or a ceiling to avoid?", answers: ["A target 😬", "A ceiling to avoid", "Not sure"] },
   ]],
   [/invest|stock|portfolio|etf|bond|fund|valuation|ratio|financial-statement/, [
     { question: "if I told you $100 invested at 17 beats $1,000 invested at 30, would you believe me?", answers: ["No way, prove it", "I'd believe it", "How does that work?"] },
@@ -80,17 +115,35 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
     { question: "where does your money actually GO when you buy a stock?", answers: ["No clue", "You own part of a company?", "Somewhere magic ✨"] },
     { question: "could your money make money while you literally sleep?", answers: ["That sounds fake", "Yeah, I've heard that", "Show me how"] },
     { question: "would you rather own $100 of a company or lend it $100?", answers: ["Own it", "Lend it", "What's the difference?"] },
+    { question: "would you rather double your money slowly or gamble it fast?", answers: ["Slow and steady", "Gamble it", "Depends"] },
+    { question: "does the stock market feel more like saving or betting to you?", answers: ["Betting", "Saving-ish", "No idea"] },
+    { question: "if a company you love jumps 50%, should you sell or hold?", answers: ["Sell, lock it in", "Hold", "How would I know?"] },
+    { question: "can regular people actually make money in the market, or just the pros?", answers: ["Just the pros", "Regular people too", "Not sure"] },
+    { question: "would you invest in something you don't understand if a friend swore by it?", answers: ["Probably 😅", "No way", "Depends on the friend"] },
   ]],
   [/tax/, [
     { question: "how much of a $15/hr paycheck do you actually take home?", answers: ["All of it… right?", "Like $12/hr maybe?", "No clue honestly"] },
     { question: "why does your paycheck come out smaller than you expected?", answers: ["Taxes?", "No idea", "Some kind of fees"] },
     { question: "ever wonder where the money taken out of a paycheck goes?", answers: ["Yeah, actually", "Not really", "Roads and stuff?"] },
+    { question: "if you make $1,000, how much is actually yours to keep?", answers: ["All of it", "Like $850?", "No idea"] },
+    { question: "do you know the difference between gross pay and net pay?", answers: ["Nope", "Kinda", "Yeah"] },
+    { question: "why do two people with the same salary take home different amounts?", answers: ["No clue", "Different deductions?", "Taxes?"] },
+    { question: "is a tax refund free money, or your own money coming back?", answers: ["Free money!", "My own money", "Wait, which?"] },
+    { question: "could earning more ever leave you with less after taxes?", answers: ["No way", "Maybe?", "How?"] },
+    { question: "besides income tax, do you know what else gets taken from a paycheck?", answers: ["No", "Some stuff?", "Yeah"] },
+    { question: "when you start earning, should you keep any forms or receipts?", answers: ["Why would I?", "Probably", "Definitely"] },
   ]],
   [/insurance/, [
     { question: "what would happen if you crashed a car tomorrow with no insurance?", answers: ["I'd be in big trouble", "My parents would cover it?", "Never thought about it"] },
     { question: "is insurance a waste of money or a lifesaver?", answers: ["Waste", "Lifesaver", "No idea"] },
     { question: "would you pay $50 a month to avoid a surprise $5,000 bill?", answers: ["Yeah, worth it", "Seems like a lot", "Depends"] },
     { question: "why would you pay for something hoping you NEVER use it?", answers: ["That makes no sense", "For peace of mind?", "Huh, good question"] },
+    { question: "who pays if you break something expensive that isn't yours?", answers: ["Me, I guess 😬", "Insurance?", "No idea"] },
+    { question: "is it worth insuring stuff you'll probably never damage?", answers: ["No", "For big stuff, yeah", "Depends"] },
+    { question: "what's a 'deductible,' and why should you care about it?", answers: ["No clue", "What I pay first?", "Yeah, I know"] },
+    { question: "would you rather a low monthly cost or a low surprise bill later?", answers: ["Low monthly", "Low surprise", "Can't I have both?"] },
+    { question: "does more coverage always mean a better deal?", answers: ["Yeah", "Not really", "Not sure"] },
+    { question: "why do younger drivers usually pay more for car insurance?", answers: ["No idea", "More risk?", "That's unfair"] },
   ]],
   [/entrepreneur|business|market|leadership|strategy|pestel|ethics|consumer/, [
     { question: "what's one problem at your school nobody's solved yet?", answers: ["Ooh, I've got ideas", "Let me think about that", "Why does that matter?"] },
@@ -98,11 +151,23 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
     { question: "why do some businesses blow up while others flop?", answers: ["Luck?", "The product", "Marketing?"] },
     { question: "would you rather run the business or own a piece of it?", answers: ["Run it", "Own a piece", "Both?"] },
     { question: "what makes you pick one brand over another that's basically the same?", answers: ["The vibe", "The price", "Honestly no idea"] },
+    { question: "would you rather invent something new or improve something that exists?", answers: ["Invent it", "Improve it", "Either one"] },
+    { question: "what matters more for a business - a great product or great marketing?", answers: ["Product", "Marketing", "Both equally"] },
+    { question: "if two shops sell the exact same thing, why does one win?", answers: ["Price", "The experience", "Luck?"] },
+    { question: "could you name the actual customer for something you use every day?", answers: ["Easily", "Maybe", "Isn't it just me?"] },
+    { question: "is it smarter to be first to an idea, or best at it?", answers: ["First", "Best", "Depends"] },
   ]],
   [/econ|macro|indicator|supply|demand|micro/, [
     { question: "why does the same candy bar cost more some years than others?", answers: ["Inflation?", "No idea", "Stores being greedy?"] },
     { question: "who decides the price of, like, everything?", answers: ["The government?", "Buyers and sellers?", "No clue"] },
     { question: "when everyone wants the new sneaker, what happens to the price?", answers: ["It goes up", "It stays put", "Wait, why?"] },
+    { question: "if everyone suddenly had twice the money, would stuff get cheaper or pricier?", answers: ["Cheaper", "Pricier", "No change?"] },
+    { question: "why do jobs seem easy to get some years and impossible in others?", answers: ["No idea", "The economy?", "Luck"] },
+    { question: "when prices rise fast, who wins and who loses?", answers: ["No idea", "Savers lose?", "Everyone loses"] },
+    { question: "does the government run the whole economy, or just parts of it?", answers: ["The whole thing", "Just parts", "Not sure"] },
+    { question: "if a factory across the world closes, could it change your prices?", answers: ["No", "Yeah, actually", "How?"] },
+    { question: "is a country doing well just because its prices keep going up?", answers: ["Yeah", "No", "Not sure"] },
+    { question: "what actually makes one country richer than another?", answers: ["Its resources?", "No idea", "How it uses them?"] },
   ]],
 ]
 
@@ -157,7 +222,7 @@ function rawHook(lesson: Lesson): Hook {
   const dedicated = LESSON_HOOKS[lesson.id]
   if (dedicated) return dedicated
   const hay = `${lesson.category} ${lesson.title.toLowerCase()}`
-  const idx = hashId(lesson.id)
+  const idx = unitPos(lesson)
   for (const [re, hooks] of CATEGORY_HOOKS) {
     if (re.test(hay)) return hooks[idx % hooks.length]
   }
@@ -254,23 +319,41 @@ function openerStyle(lesson: Lesson): OpenerStyle {
   // A lesson with a dedicated hook always opens with that question (so its
   // unique, hand-written opener wins over the fact/dive rotation).
   if (LESSON_HOOKS[lesson.id]) return "question"
+  // Lean on questions (a rich 10-deep pool, indexed by unit position) and dives
+  // (title-based, unique per lesson); keep facts as a lighter accent. Style is
+  // still stable per lesson so tap options always match what was asked.
   switch (hashId2(lesson.id) % 5) {
     case 0:
     case 1:
-      return "question"
     case 2:
+      return "question"
     case 3:
-      return "fact"
-    default:
       return "dive"
+    default:
+      return "fact"
   }
 }
 
+// Short title-woven tie-ins appended to a category fact, so two fact-style
+// lessons in the same unit never render the identical opener (the title is
+// unique per lesson) - and it ties the surprising claim to today's topic.
+const FACT_TIES: ((title: string) => string)[] = [
+  (t) => `That's the door into ${t.toLowerCase()}.`,
+  (t) => `Which is exactly why ${t.toLowerCase()} matters.`,
+  (t) => `Keep that in mind as we get into ${t.toLowerCase()}.`,
+  (t) => `And ${t.toLowerCase()} is where it starts to click.`,
+  (t) => `Let's see how ${t.toLowerCase()} plays into that.`,
+]
+
 function factOpener(lesson: Lesson): string {
   const hay = `${lesson.category} ${lesson.title.toLowerCase()}`
-  const idx = hashId(lesson.id)
+  const idx = unitPos(lesson)
   for (const [re, facts] of FACT_HOOKS) {
-    if (re.test(hay)) return facts[idx % facts.length](lesson.title)
+    if (re.test(hay)) {
+      const fact = facts[idx % facts.length](lesson.title)
+      const tie = FACT_TIES[idx % FACT_TIES.length](lesson.title)
+      return `${fact} ${tie}`
+    }
   }
   return GENERIC_FACTS[idx % GENERIC_FACTS.length](lesson.title)
 }
@@ -284,7 +367,7 @@ const NEUTRAL_OPTION_SETS: string[][] = [
 ]
 
 function neutralOptions(lesson: Lesson): string[] {
-  return NEUTRAL_OPTION_SETS[hashId(lesson.id) % NEUTRAL_OPTION_SETS.length]
+  return NEUTRAL_OPTION_SETS[unitPos(lesson) % NEUTRAL_OPTION_SETS.length]
 }
 
 /** Whether a lesson's opener poses a question the student answers via options. */
@@ -302,7 +385,7 @@ export function initialJeffMessage(lesson: Lesson): string {
     case "fact":
       return `${lead}${factOpener(lesson)}`
     default:
-      return `${lead}${DIVE_OPENERS[hashId(lesson.id) % DIVE_OPENERS.length](lesson.title)}`
+      return `${lead}${DIVE_OPENERS[unitPos(lesson) % DIVE_OPENERS.length](lesson.title)}`
   }
 }
 
