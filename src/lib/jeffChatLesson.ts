@@ -106,6 +106,26 @@ const CATEGORY_HOOKS: [RegExp, Hook[]][] = [
   ]],
 ]
 
+// Dedicated, hand-written opening hooks for specific lessons. The shared category
+// pools are small, so units with many lessons (e.g. Portfolio Construction has
+// 10) kept reusing the same handful of questions. When a lesson id appears here
+// it ALWAYS opens with this exact hook (see rawHook + openerStyle), so every
+// lesson in the unit gets a distinct opener. Each unit's set must be internally
+// unique. Answers must actually answer the question (first tap never irrelevant).
+const LESSON_HOOKS: Record<string, Hook> = {
+  // Unit 10 - Portfolio Construction: one unique hook per lesson.
+  "portfolio-1":  { question: "if you had $1,000 to invest, would you dump it all into one stock or spread it around?", answers: ["All in one 🎯", "Spread it around", "Depends on the stock"] },
+  "portfolio-2":  { question: "if your investments dropped 30% overnight, would you sell, hold, or buy more?", answers: ["Sell, I'd panic", "Hold and wait", "Buy the dip 😤"] },
+  "portfolio-3":  { question: "does \"don't put all your eggs in one basket\" actually apply to money?", answers: ["Totally", "Kinda cliché", "Explain how"] },
+  "portfolio-4":  { question: "smarter to invest $1,200 all at once, or $100 every month for a year?", answers: ["All at once", "$100 monthly", "No idea honestly"] },
+  "portfolio-5":  { question: "if one investment grew way bigger than the rest, would you leave it or trim it back?", answers: ["Leave it, it's winning", "Trim it back", "Why trim a winner?"] },
+  "portfolio-6":  { question: "could buying a tiny slice of 500 companies at once beat picking your own?", answers: ["No way", "Probably yeah", "How's that possible?"] },
+  "portfolio-7":  { question: "do you think a pro stock-picker can reliably beat the whole market?", answers: ["Definitely", "Probably not", "Isn't that their job?"] },
+  "portfolio-8":  { question: "how would you even know if your investing is actually working?", answers: ["Check if it's up", "Compare it to something", "No clue"] },
+  "portfolio-9":  { question: "what's your plan if the market crashes right when you need the money?", answers: ["Don't have one 😬", "Keep some cash safe", "Panic, probably"] },
+  "portfolio-10": { question: "think you could actually become a millionaire on a normal salary?", answers: ["No chance", "Maybe, slowly", "Show me the math"] },
+}
+
 // Topic-agnostic fallbacks when a lesson matches no category above. These use
 // the lesson title so they're already tailored per lesson.
 const GENERIC_HOOKS: ((title: string) => Hook)[] = [
@@ -134,6 +154,8 @@ const QUESTION_FRAMINGS: ((title: string, q: string) => string)[] = [
 // The raw (unframed) hook for a lesson - stable per id. Exposed so callers that
 // only need the answers can get them without the lesson-specific framing.
 function rawHook(lesson: Lesson): Hook {
+  const dedicated = LESSON_HOOKS[lesson.id]
+  if (dedicated) return dedicated
   const hay = `${lesson.category} ${lesson.title.toLowerCase()}`
   const idx = hashId(lesson.id)
   for (const [re, hooks] of CATEGORY_HOOKS) {
@@ -229,6 +251,9 @@ type OpenerStyle = "question" | "fact" | "dive"
 // Weighted toward questions but with a healthy mix of facts and dives so the
 // experience never feels like the same script every time.
 function openerStyle(lesson: Lesson): OpenerStyle {
+  // A lesson with a dedicated hook always opens with that question (so its
+  // unique, hand-written opener wins over the fact/dive rotation).
+  if (LESSON_HOOKS[lesson.id]) return "question"
   switch (hashId2(lesson.id) % 5) {
     case 0:
     case 1:
