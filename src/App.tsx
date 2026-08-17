@@ -39,6 +39,7 @@ import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
 import ReportBugButton from "@/components/ReportBugButton";
 import LeagueUpWatcher from "@/components/gamification/LeagueUpOverlay";
+import { ComingSoon, CoinsGate } from "@/components/LockScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { installErrorLog } from "@/lib/errorLog";
 
@@ -80,19 +81,19 @@ function AppRoutes() {
       <Route path="/unit-test/:category" element={<UnitTest />} />
       <Route path="/stocks" element={<Stocks />} />
       <Route path="/stocks/:symbol" element={<StockDetail />} />
-      <Route path="/micro-business" element={<MicroBusiness />} />
+      <Route path="/micro-business" element={<ComingSoon title="Micro Business" />} />
       <Route path="/bank" element={<Bank />} />
-      <Route path="/business" element={<MicroBusiness />} />
-      <Route path="/tokens" element={<MicroBusiness />} />
+      <Route path="/business" element={<ComingSoon title="Micro Business" />} />
+      <Route path="/tokens" element={<ComingSoon title="Micro Business" />} />
       <Route path="/progress" element={<ProgressPage />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/daily" element={<Daily />} />
-      <Route path="/lab" element={<AppliedFinanceLab />} />
-      <Route path="/lab/:docId" element={<LabDocument />} />
+      <Route path="/lab" element={<CoinsGate required={600} title="Lab"><AppliedFinanceLab /></CoinsGate>} />
+      <Route path="/lab/:docId" element={<CoinsGate required={600} title="Lab"><LabDocument /></CoinsGate>} />
       <Route path="/business-canvas" element={<BusinessCanvas />} />
       <Route path="/financial-advisor" element={<FinancialAdvisor />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/challenges" element={<Challenges />} />
+      <Route path="/challenges" element={<CoinsGate required={1000} title="Challenges"><Challenges /></CoinsGate>} />
       <Route path="/partners" element={<Partners />} />
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />

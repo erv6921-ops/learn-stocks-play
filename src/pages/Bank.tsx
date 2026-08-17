@@ -17,6 +17,7 @@ import { useEffect, useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import GameNav from "@/components/GameNav"
 import CareersDesk from "@/components/bank/CareersDesk"
+import { ComingSoon } from "@/components/LockScreen"
 import AnimatedNumber from "@/components/AnimatedNumber"
 import { BankPanel, Engraving, ACCENT, ACCENT_SOFT } from "@/components/bank/theme"
 import { JeffMascot } from "@/components/Jeff/JeffMascot"
@@ -694,7 +695,7 @@ export default function Bank() {
       case "vault": return <VaultDesk />
       case "lending": return <LoansDesk />
       case "bonds": return <BondsDesk />
-      case "careers": return <CareersDesk />
+      case "careers": return <ComingSoon title="Executive Floor" bare />
       default: return null
     }
   }
