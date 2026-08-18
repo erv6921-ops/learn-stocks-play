@@ -712,7 +712,7 @@ export default function Onboarding() {
           </motion.div>
           <h1 className="font-display text-3xl md:text-4xl font-extrabold mb-2">Email confirmed! 🎉</h1>
           <p className="text-muted-foreground mb-8">
-            <span className="font-medium text-foreground">{email}</span> is verified. You're logged in - let's get you into InvestiPlay.
+            <span className="font-medium text-foreground">{email}</span> is verified. You're logged in. Let's get you into InvestiPlay.
           </p>
           <Button size="lg" className="w-full text-base font-bold" onClick={handleEnterApp} disabled={signupLoading}>
             {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : (
@@ -733,7 +733,7 @@ export default function Onboarding() {
           className="w-full max-w-md relative z-10"
         >
           <div className="text-center mb-6">
-            <JeffMascot size="sm" message="I just emailed you a 6-digit code - pop it in here to confirm your email!" />
+            <JeffMascot size="sm" message="I just emailed you a 6 digit code. Pop it in here to confirm your email!" />
           </div>
           <Card variant="elevated">
             <CardHeader>
@@ -816,9 +816,9 @@ export default function Onboarding() {
               current={0}
               total={totalSteps}
               mood="excited"
-              message="Hi, I'm Jeff! I'll guide you through setup. First up - who are you?"
+              message="Hi, I'm Jeff! I'll guide you through setup. First up, who are you?"
               title="Welcome to InvestiPlay"
-              subtitle="Let's get started - are you a student or a teacher?"
+              subtitle="Let's get started. Are you a student or a teacher?"
             />
             <div className="w-full max-w-sm space-y-3">
               <button
@@ -922,7 +922,7 @@ export default function Onboarding() {
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Confirm Password</label>
-                <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder="Re-enter your password" />
+                <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder="Enter your password again" />
                 {confirmPassword.length > 0 && password !== confirmPassword && (
                   <p className="text-xs text-destructive mt-1">Passwords don't match.</p>
                 )}
@@ -1053,7 +1053,7 @@ export default function Onboarding() {
             mood="happy"
             message="How old are you? This one's optional."
             title="How old are you?"
-            subtitle="Optional - it helps me use examples that fit"
+            subtitle="Optional. It helps me use examples that fit"
             onBack={() => setStep("grade")}
             onContinue={() => setStep("state-course")}
           >
@@ -1070,7 +1070,7 @@ export default function Onboarding() {
             current={STUDENT_STEP_INDEX["state-course"]}
             total={totalSteps}
             mood="thinking"
-            message="Where are you learning? Some programs are state-specific."
+            message="Where are you learning? Some programs are only in certain states."
             title="Your state or course"
             subtitle="Some programs are only offered in certain states"
             onBack={() => setStep("age")}
@@ -1096,9 +1096,9 @@ export default function Onboarding() {
             current={STUDENT_STEP_INDEX["class-code"]}
             total={totalSteps}
             mood="excited"
-            message="Got a class code from your teacher? Pop it in - or skip it."
+            message="Got a class code from your teacher? Pop it in, or skip it."
             title="Class code"
-            subtitle="Optional - you can add this later from the Leaderboard"
+            subtitle="Optional. You can add this later from the Leaderboard"
             onBack={() => setStep("state-course")}
             continueLabel={classCode.trim() ? "Continue" : "Skip"}
             onContinue={() => setStep("program-select")}
@@ -1206,7 +1206,7 @@ export default function Onboarding() {
             </div>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Confirm Password</label>
-              <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder="Re-enter your password" />
+              <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder="Enter your password again" />
               {confirmPassword.length > 0 && password !== confirmPassword && (
                 <p className="text-xs text-destructive mt-1">Passwords don't match.</p>
               )}
@@ -1253,7 +1253,7 @@ export default function Onboarding() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-semibold text-lg">Regular Course</div>
-                  <p className="text-sm text-muted-foreground mt-0.5">The full money-skills curriculum, lessons, stocks, and AP tracks</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">The full money skills curriculum, lessons, stocks, and AP tracks</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
@@ -1302,7 +1302,7 @@ export default function Onboarding() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-semibold text-lg">Gulliver Introduction to Business</div>
-                  <p className="text-sm text-muted-foreground mt-0.5">The 9th-grade intro business course. Hides the AP elective tabs.</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">The 9th grade intro business course. Hides the AP elective tabs.</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
@@ -1335,7 +1335,7 @@ export default function Onboarding() {
               Learn money skills that last a lifetime through interactive lessons and simulations
             </p>
             <p className="text-sm text-muted-foreground mb-8 max-w-sm">
-              Take a quick benchmark to personalize your curriculum - or skip to start from the beginning.
+              Take a quick benchmark to personalize your curriculum, or skip to start from the beginning.
             </p>
             <Button size="xl" variant="hero" onClick={() => setStep("assessment")}>
               Take Benchmark Assessment <ArrowRight className="ml-2" />
@@ -1397,7 +1397,7 @@ export default function Onboarding() {
                       <DialogHeader>
                         <DialogTitle>Are you sure you want to skip?</DialogTitle>
                         <DialogDescription>
-                          The Benchmark Assessment personalizes everything - your lessons, difficulty, recommendations, and reward multiplier are all tailored based on your results. Without it, you'll start at the foundational level in every unit.
+                          The Benchmark Assessment personalizes everything. Your lessons, difficulty, recommendations, and reward multiplier are all tailored based on your results. Without it, you'll start at the foundational level in every unit.
                         </DialogDescription>
                       </DialogHeader>
                       <DialogFooter>
@@ -1576,8 +1576,8 @@ export default function Onboarding() {
                 {/* What this means */}
                 <div className="bg-muted rounded-xl p-4 text-sm text-muted-foreground space-y-1">
                   <p><strong>What happens now:</strong></p>
-                  <p>• Strong areas ({'>'}75%): Foundational content is validated - you'll skip ahead to advanced scenarios</p>
-                  <p>• Growing areas (50-74%): Applied-level entry with moderate scaffolding</p>
+                  <p>• Strong areas ({'>'}75%): Foundational content is validated, so you'll skip ahead to advanced scenarios</p>
+                  <p>• Growing areas (50 to 74%): Applied level entry with moderate scaffolding</p>
                   <p>• Development areas ({'<'}50%): Full foundational coverage with extra practice</p>
                   <p>• Reward multiplier: <strong>{Math.min(1 + Math.round((score / totalQuestions) * 100) / 200, 1.5).toFixed(2)}x</strong> on all InvestiCoins earned</p>
                 </div>

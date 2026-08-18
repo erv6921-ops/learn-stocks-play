@@ -7,11 +7,16 @@ import { Button } from "@/components/ui/button"
 import { tourAnchors } from "@/lib/tourAnchors"
 import {
   BookOpen, FlaskConical, LineChart, Store,
-  Trophy, X, ArrowRight, ArrowLeft, Target,
+  Trophy, X, ArrowRight, ArrowLeft, Target, Coins, Sparkles,
 } from "lucide-react"
 
 const SHOW_FLAG = "investiplay_show_tour"
 const doneKey = (uid: string) => `investiplay_tour_done_${uid}`
+
+// One-time reward for finishing the tour (not for skipping it). Gated by this
+// exact reason in the coin ledger so it's granted once, ever.
+const TOUR_REWARD_AMOUNT = 10
+const TOUR_REWARD_REASON = "Tour reward 🎉"
 
 type Mood = "happy" | "thinking" | "excited" | "teaching" | "celebrating"
 type Placement = "bottom" | "top" | "right" | "left"
@@ -31,11 +36,16 @@ interface Step {
 // greeting and sign-off are folded into the first and last slides to keep it to
 // exactly five taps.
 const STEPS: Step[] = [
-  { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: "Hi, I'm Jeff! 👋", body: "Quick tour. Start with Missions — your lessons. Finish them to earn InvestiCoins and level up!", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-lab", icon: FlaskConical, title: "The Lab", body: "Real-life money stuff — taxes, banking, credit — through hands-on scenarios.", mood: "teaching" },
+  // Centered welcome (no anchor -> Jeff sits in the middle of the screen, then
+  // glides to the side on the next slide).
+  { route: "/dashboard", icon: Sparkles, title: "Hey, I'm Jeff! 👋", body: "I'm your money coach. Quick tour of the app. Let's go!", mood: "happy" },
+  { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: "Missions", body: "Start here. These are your lessons. Finish them to earn InvestiCoins and level up!", mood: "excited" },
+  { route: "/dashboard", anchor: "nav-lab", icon: FlaskConical, title: "The Lab", body: "Real life money stuff like taxes, banking, and credit, through hands on scenarios.", mood: "teaching" },
   { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: "Stocks", body: "Trade real companies with virtual cash and watch your portfolio grow.", mood: "thinking" },
   { route: "/dashboard", anchor: "nav-business", icon: Store, title: "Business", body: "Build and run your own business like a real CEO.", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard & Challenges", body: "Compete with your class and win coin pots. That's the tour — tap me in the corner anytime you need a hand! 🚀", mood: "celebrating" },
+  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard & Challenges", body: "Compete with your class and win coin pots. Tap me in the corner anytime you need a hand!", mood: "happy" },
+  // Reward slide (centered, no anchor). Finishing here pays out the coins.
+  { route: "/dashboard", icon: Coins, title: "You're all set! 🎉", body: "Here's 10 InvestiCoins for finishing the tour. Now go stack some more!", mood: "celebrating" },
 ]
 
 interface Rect { top: number; left: number; width: number; height: number }
@@ -43,7 +53,7 @@ interface Rect { top: number; left: number; width: number; height: number }
 const close = (a: number, b: number) => Math.abs(a - b) < 0.5
 
 export default function JeffTour() {
-  const { user } = useApp()
+  const { user, awardJeffs, jeffsHistory } = useApp()
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -170,7 +180,12 @@ export default function JeffTour() {
     return () => ro.disconnect()
   }, [open])
 
-  const finish = () => {
+  const finish = (completed = false) => {
+    // Reward only a genuine completion (reaching the final slide), never a skip,
+    // and only once ever - gated by the ledger so it can't double-pay.
+    if (completed && user?.id && !jeffsHistory.some(e => e.reason === TOUR_REWARD_REASON)) {
+      awardJeffs(TOUR_REWARD_AMOUNT, TOUR_REWARD_REASON)
+    }
     setOpen(false)
     elRef.current = null
     // Make sure the nav sidebar isn't left open if the tour is skipped mid-nav-step.
@@ -275,7 +290,7 @@ export default function JeffTour() {
         <div className="relative rounded-2xl bg-card border border-border shadow-xl p-4">
           {arrow && <div style={arrow} />}
 
-          <button onClick={finish} aria-label="Skip tour"
+          <button onClick={() => finish(false)} aria-label="Skip tour"
             className="absolute top-2.5 right-2.5 w-7 h-7 rounded-lg text-muted-foreground hover:bg-muted/60 flex items-center justify-center">
             <X className="w-4 h-4" />
           </button>
@@ -307,7 +322,7 @@ export default function JeffTour() {
           </div>
 
           <div className="flex items-center justify-between gap-2">
-            <button onClick={finish} className="text-xs font-semibold text-muted-foreground hover:text-foreground">Skip</button>
+            <button onClick={() => finish(false)} className="text-xs font-semibold text-muted-foreground hover:text-foreground">Skip</button>
             <div className="flex items-center gap-2">
               {i > 0 && (
                 <Button variant="outline" size="sm" onClick={() => setI(n => n - 1)} className="press-scale h-8 px-2.5">
@@ -315,7 +330,7 @@ export default function JeffTour() {
                 </Button>
               )}
               {isLast ? (
-                <Button size="sm" onClick={finish} className="press-scale h-8">Let's go! 🚀</Button>
+                <Button size="sm" onClick={() => finish(true)} className="press-scale h-8">Claim 10 coins 🎉</Button>
               ) : (
                 <Button size="sm" onClick={() => setI(n => n + 1)} className="press-scale h-8">
                   Next <ArrowRight className="w-4 h-4 ml-1" />
