@@ -564,7 +564,9 @@ export const GULLIVER_INTRO_LESSONS: Lesson[] = [
   GI("gulliver-1-3", "Entrepreneurs, Risk & Reward",         "Who the entrepreneur is, why they get paid last, opportunity cost, and why risk and reward rise together.",   "gulliver-business", "gulliver-course", "1.3", 250),
   GI("gulliver-1-4", "Living Standards & Stakeholders",      "Standard of living vs. quality of life, and the stakeholders a business must balance.",                       "gulliver-business", "gulliver-course", "1.4", 250),
   GI("gulliver-1-5", "Outsourcing, Insourcing & Nonprofits", "Where the work gets done, the trade-offs of outsourcing, and how nonprofits are different.",                  "gulliver-business", "gulliver-course", "1.5", 250),
-  // Chapter 1 — learning-objective-aligned lessons (Byrnes Ch.1, LO 1-3 through 1-8)
+  // Chapter 1 — learning-objective-aligned lessons (Byrnes Ch.1, LO 1-1 through 1-8)
+  GI("gulliver-lo-1-1", "Profit, Risk & Stakeholders", "The relationship between profit and risk, and how businesses and nonprofits raise the standard of living for everyone.", "gulliver-business", "gulliver-course", "1.1-LO", 250),
+  GI("gulliver-lo-1-2", "Entrepreneurship & the Five Factors of Production", "Entrepreneurship vs. working for someone else, the five factors of production, and how they create wealth.", "gulliver-business", "gulliver-course", "1.2-LO", 250),
   GI("gulliver-lo-1-3", "The Economic Environment & Taxes", "How government, taxes, and regulation shape the risk of starting and running a business.", "gulliver-business", "gulliver-course", "1.3-LO", 250),
   GI("gulliver-lo-1-4", "Technology's Effects on Business", "Effectiveness, efficiency, and productivity — how technology benefits workers, businesses, and consumers.", "gulliver-business", "gulliver-course", "1.4-LO", 250),
   GI("gulliver-lo-1-5", "Meeting & Beating Competition", "Competitive edge, zero defects, exceeding customer expectations, and empowering frontline workers.", "gulliver-business", "gulliver-course", "1.5-LO", 250),

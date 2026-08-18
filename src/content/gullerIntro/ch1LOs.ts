@@ -5,12 +5,365 @@ import { StructuredLessonContent } from "@/types"
 // One StructuredLessonContent per Byrnes Ch.1 learning objective, following the
 // concept → micro-check[2] → scenario → applied-question → mastery-check[7]
 // pattern used in block1. Audience: 9th grade. Key terms wrapped in **…**.
-//
-// NOTE: LO 1-1 and LO 1-2 were not created in a prior pass (the file they were
-// supposedly appended to never existed), so this file currently begins at
-// LO 1-3. Add gulliverLO1_1 / gulliverLO1_2 above these when their source
-// content is available.
 // ═══════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────
+// LO 1-1 — Profit, Risk, and Stakeholders
+// Byrnes Ch.1, LO 1-1: Describe the relationship between profit and risk,
+// and show how businesses and nonprofits can raise the standard of living.
+// ─────────────────────────────────────────────────────────────
+export const gulliverLO1_1: StructuredLessonContent = {
+  lessonId: "gulliver-lo-1-1",
+  sections: [
+    {
+      type: "concept",
+      title: "Profit, Risk, and Who a Business Answers To",
+      paragraphs: [
+        "**Profit** is the money a business earns above and beyond what it spends on salaries and other expenses. **Risk** is the chance of losing time and money on a business that doesn't turn out to be profitable — a **loss** happens when a business's costs and expenses end up higher than its revenues. Profit and risk move together: the bigger the risk an entrepreneur takes on, the bigger the potential profit usually needs to be to make that risk worth taking. Nobody risks their savings on a business that can only ever break even.",
+        "Businesses raise the **standard of living** for everyone — not just their owners — by creating jobs, paying taxes that fund public services, and producing the goods and services people need. That only works if the business is actually profitable enough to keep operating and growing. **Nonprofit organizations** work toward a different central goal — a mission, not owner profit — but they still rely on the same business principles: watching costs, using resources efficiently, and bringing in enough revenue to keep the mission going. A nonprofit that ignores those principles can't help anyone for long.",
+        "A **stakeholder** is any person or group affected by, or with an interest in, how a business behaves. That's a longer list than most people expect: customers, employees, stockholders, suppliers, dealers, bankers, people in the local community, environmentalists, the media, and elected government officials. Each group wants something a little different from the business — employees want fair pay, customers want quality and fair prices, the community wants jobs and responsible behavior, stockholders want returns.",
+        "A business's real job is to recognize and respond to the needs of all of these stakeholders while still making a profit — not to chase profit alone. A business that squeezes stakeholders to boost short-term profit (underpaying workers, cutting corners with the community, misleading customers) usually creates bigger risks for itself down the road: lawsuits, boycotts, bad press, or losing the trust it needs to keep operating."
+      ],
+      bullets: [
+        "Profit = money earned above and beyond costs and expenses; risk = the chance of a loss when costs exceed revenue.",
+        "Profit and risk rise together — bigger risk generally requires the possibility of bigger profit to be worth taking.",
+        "Businesses (and nonprofits) raise the standard of living for all through jobs, taxes, and the goods/services they provide.",
+        "Stakeholders = customers, employees, stockholders, suppliers, dealers, bankers, the community, environmentalists, media, and government.",
+        "A business balances stakeholder needs WHILE making a profit — ignoring stakeholders to chase short-term profit usually backfires."
+      ],
+      realWorldExample: "A clothing brand could cut costs by using cheaper, riskier overseas factories with poor labor conditions — boosting profit in the short term. But if that gets exposed, customers boycott, the media covers it, and stockholders lose confidence. The 'profit' from ignoring stakeholders turned into a much bigger risk than the one they were trying to avoid."
+    },
+    {
+      type: "micro-check",
+      questions: [
+        {
+          id: "glo11-mc-1",
+          question: "In general, how are risk and potential profit related in business?",
+          options: [
+            "They have nothing to do with each other",
+            "Bigger risk generally needs the potential for bigger profit to be worth taking",
+            "Higher risk always guarantees higher profit",
+            "Profit only exists when there is zero risk"
+          ],
+          correctAnswer: 1,
+          explanation: "Risk and potential profit move together — the more an entrepreneur risks, the bigger the potential payoff usually needs to be for that risk to make sense.",
+          concept: "profit-and-risk"
+        },
+        {
+          id: "glo11-mc-2",
+          question: "Which of these is a stakeholder in a business?",
+          options: [
+            "Only the people who own the company",
+            "Only the customers who buy from it",
+            "Customers, employees, suppliers, the community, and stockholders, among others",
+            "Only competitors trying to beat the business"
+          ],
+          correctAnswer: 2,
+          explanation: "Stakeholders are everyone affected by or invested in the business — a much wider group than just owners or customers.",
+          concept: "stakeholders"
+        }
+      ]
+    },
+    {
+      type: "scenario",
+      title: "The Food Truck's Big Decision",
+      narrative: "Maria's food truck is doing well, and a bank has offered her a loan to buy a second truck. Taking the loan means real risk — if the second truck doesn't earn enough, she'll still owe the bank every month. But if it works, her profit could roughly double.",
+      details: [
+        "The bank (a stakeholder) cares about her risk because they need to know she can repay the loan.",
+        "Her employees (stakeholders) care because a failed expansion could mean fewer hours or even layoffs.",
+        "Her regular customers (stakeholders) benefit if a second truck means shorter lines and more locations.",
+        "The bigger the risk Maria takes on with the loan, the bigger the profit she needs the second truck to generate for it to be worth it."
+      ]
+    },
+    {
+      type: "applied-question",
+      question: {
+        id: "glo11-aq1",
+        question: "Why does the bank care about how much risk Maria is taking on with the second truck?",
+        options: [
+          "Banks only care about advertising, not risk",
+          "As a stakeholder, the bank needs Maria's business to stay profitable enough to repay the loan",
+          "Banks are not considered stakeholders in a small business",
+          "The bank's only goal is for Maria to fail"
+        ],
+        correctAnswer: 1,
+        explanation: "The bank is a stakeholder with a direct financial interest — it needs Maria's business to generate enough profit to repay what she borrowed.",
+        concept: "stakeholders"
+      }
+    },
+    {
+      type: "mastery-check",
+      requiredCorrect: 3,
+      questions: [
+        {
+          id: "glo11-mx-1",
+          question: "What is profit?",
+          options: [
+            "The total amount of money a business takes in from sales",
+            "The money a business earns above and beyond its salaries and other expenses",
+            "The amount of money a business borrows from a bank",
+            "The number of stakeholders a business has"
+          ],
+          correctAnswer: 1,
+          explanation: "Profit is what's left after all costs and expenses are subtracted — not the total money that comes in.",
+          concept: "profit-and-risk"
+        },
+        {
+          id: "glo11-mx-2",
+          question: "What causes a business to have a loss?",
+          options: [
+            "Its costs and expenses are higher than its revenues",
+            "It has too many stakeholders",
+            "It raises the standard of living",
+            "It refuses to take on any risk"
+          ],
+          correctAnswer: 0,
+          explanation: "A loss happens when costs and expenses exceed revenue — the business spent more than it took in.",
+          concept: "profit-and-risk"
+        },
+        {
+          id: "glo11-mx-3",
+          question: "How do businesses generally raise the standard of living for people beyond just their owners?",
+          options: [
+            "By avoiding paying any taxes",
+            "By creating jobs, paying taxes that fund public services, and producing goods and services people need",
+            "By only hiring stockholders",
+            "By eliminating competition entirely"
+          ],
+          correctAnswer: 1,
+          explanation: "Jobs, tax revenue, and the goods/services produced are how businesses raise living standards for the wider community, not just owners.",
+          concept: "standard-of-living"
+        },
+        {
+          id: "glo11-mx-4",
+          question: "How are nonprofit organizations similar to for-profit businesses?",
+          options: [
+            "They both exist mainly to make owners wealthy",
+            "They both use business principles like efficiency and managing costs, even though a nonprofit's central goal is its mission, not profit",
+            "Nonprofits never have to worry about revenue or costs",
+            "They are identical in every way"
+          ],
+          correctAnswer: 1,
+          explanation: "Nonprofits pursue a mission rather than owner profit, but still need to run efficiently and bring in enough revenue to keep operating.",
+          concept: "standard-of-living"
+        },
+        {
+          id: "glo11-mx-5",
+          question: "Which group would NOT typically be considered a stakeholder in a business?",
+          options: [
+            "Employees",
+            "Suppliers",
+            "The local community",
+            "A person who has never heard of the business and never will interact with it"
+          ],
+          correctAnswer: 3,
+          explanation: "A stakeholder has some connection to or interest in the business. Someone with zero connection to it isn't a stakeholder.",
+          concept: "stakeholders"
+        },
+        {
+          id: "glo11-mx-6",
+          question: "A business cuts corners with suppliers and underpays workers to boost this quarter's profit. What's the likely long-term risk?",
+          options: [
+            "There is no long-term risk to this strategy",
+            "Ignoring stakeholders for short-term profit often creates bigger risks later, like lawsuits, bad press, or lost trust",
+            "Stakeholders will not notice or react",
+            "Profit and risk are unrelated to stakeholder treatment"
+          ],
+          correctAnswer: 1,
+          explanation: "Squeezing stakeholders for short-term gain tends to create larger risks down the road — reputational, legal, or financial.",
+          concept: "stakeholders"
+        },
+        {
+          id: "glo11-mx-7",
+          question: "What is the core balancing act every business has to manage?",
+          options: [
+            "Making a profit while ignoring all outside groups",
+            "Recognizing and responding to stakeholder needs while still making a profit",
+            "Avoiding profit entirely to please stakeholders",
+            "Taking on zero risk under any circumstances"
+          ],
+          correctAnswer: 1,
+          explanation: "The core balancing act is meeting stakeholder needs AND making a profit — not one at the total expense of the other.",
+          concept: "stakeholders"
+        }
+      ]
+    }
+  ]
+}
+
+// ─────────────────────────────────────────────────────────────
+// LO 1-2 — Entrepreneurship & the Five Factors of Production
+// Byrnes Ch.1, LO 1-2: Explain how entrepreneurship and the other factors
+// of production contribute to the creation of wealth.
+// ─────────────────────────────────────────────────────────────
+export const gulliverLO1_2: StructuredLessonContent = {
+  lessonId: "gulliver-lo-1-2",
+  sections: [
+    {
+      type: "concept",
+      title: "Entrepreneurship, Knowledge, and the Five Factors of Production",
+      paragraphs: [
+        "Working for someone else has real advantages: a steady paycheck and benefits like paid vacation and health insurance that come from someone else taking on the business risk. **Entrepreneurs** trade those guaranteed benefits away — they take on more risk and lose those safety nets — in exchange for the freedom to make their own decisions, more opportunity, and the chance at real wealth if the business succeeds.",
+        "Every business, no matter how big or small, is built from the same five ingredients, called the **factors of production**: **land** (natural resources like soil, water, oil, timber), **labor** (the workers who do the work), **capital** (money, tools, equipment, buildings — the resources needed to operate and grow), **entrepreneurship** (people willing to risk their time and money to start and manage a business), and **knowledge** (the information and skill needed to combine the other four factors effectively).",
+        "Of those five, **entrepreneurship** and **knowledge** are widely considered the most important today. A country can have abundant land, labor, and capital and still stay poor if nobody knows how to combine them productively, and nobody is willing to take the risk of trying. What actually makes rich countries rich today is a combination of entrepreneurship and the effective use of knowledge — not just having more raw resources sitting around.",
+        "That's really the definition of how wealth gets created: it doesn't come from resources just existing. Land, labor, and capital sitting idle create nothing. Wealth is created the moment an entrepreneur uses knowledge to combine land, labor, and capital into something people actually want — which is exactly why entrepreneurship is often called the 'spark' factor of production."
+      ],
+      bullets: [
+        "Working for others = steady paycheck + benefits (paid vacation, health insurance); entrepreneurs give those up for freedom and upside.",
+        "The five factors of production: land, labor, capital, entrepreneurship, and knowledge.",
+        "Entrepreneurship and knowledge are considered the most important factors driving wealth today.",
+        "Rich countries today are rich mainly from combining entrepreneurship with the effective use of knowledge — not just abundant resources.",
+        "Wealth is created when an entrepreneur uses knowledge to combine land, labor, and capital — resources sitting idle create nothing."
+      ],
+      realWorldExample: "Two countries could each have plenty of land, labor, and capital available. If one has entrepreneurs who know how to combine those resources into businesses people want, and the other doesn't, the first country ends up dramatically wealthier — even starting with the exact same raw materials."
+    },
+    {
+      type: "micro-check",
+      questions: [
+        {
+          id: "glo12-mc-1",
+          question: "Which of these lists all five factors of production?",
+          options: [
+            "Land, labor, capital, entrepreneurship, and knowledge",
+            "Money, employees, buildings, taxes, and marketing",
+            "Land, labor, profit, risk, and stakeholders",
+            "Capital, knowledge, advertising, sales, and profit"
+          ],
+          correctAnswer: 0,
+          explanation: "The five factors of production are land, labor, capital, entrepreneurship, and knowledge.",
+          concept: "factors-of-production"
+        },
+        {
+          id: "glo12-mc-2",
+          question: "What does an entrepreneur typically give up compared to working for someone else?",
+          options: [
+            "The chance to ever make money",
+            "Guaranteed benefits like a steady paycheck and health insurance, in exchange for more freedom and opportunity",
+            "The ability to make their own decisions",
+            "Nothing — entrepreneurs keep every benefit an employee has, plus more"
+          ],
+          correctAnswer: 1,
+          explanation: "Entrepreneurs trade the safety net of a steady paycheck and benefits for freedom, more opportunity, and the risk/reward of running their own business.",
+          concept: "entrepreneurship-tradeoffs"
+        }
+      ]
+    },
+    {
+      type: "scenario",
+      title: "Two Summers, Two Paths",
+      narrative: "Jordan takes a summer job at a local store — steady hours, a guaranteed paycheck every two weeks. Ava starts a small lawn-care business instead, buying her own equipment and finding her own clients. Both are working hard, but the trade-offs they've each accepted are very different.",
+      details: [
+        "Jordan has predictable income and no financial risk, but a fixed ceiling on how much she can earn this summer.",
+        "Ava risked her own money on equipment (capital) and has no guaranteed income, but keeps 100% of what her business earns and can grow it however she wants.",
+        "Ava is combining capital (mower, tools), labor (her own work), and knowledge (how to run a lawn business) — she's acting as the entrepreneur who sparks it all together.",
+        "If Ava's business takes off, her upside is much bigger than what Jordan's paycheck could ever be — but so is her risk if it doesn't."
+      ]
+    },
+    {
+      type: "applied-question",
+      question: {
+        id: "glo12-aq1",
+        question: "In Ava's lawn-care business, what role is SHE playing among the five factors of production?",
+        options: [
+          "Land",
+          "Entrepreneurship — she's the one risking her time and money to start and run the business",
+          "Labor only, with no other role",
+          "She isn't part of the factors of production"
+        ],
+        correctAnswer: 1,
+        explanation: "Ava is the entrepreneur — the person willing to risk time and money to start and manage the business, combining the other factors together.",
+        concept: "entrepreneurship-tradeoffs"
+      }
+    },
+    {
+      type: "mastery-check",
+      requiredCorrect: 3,
+      questions: [
+        {
+          id: "glo12-mx-1",
+          question: "Which factor of production refers to natural resources like water, soil, and oil?",
+          options: ["Labor", "Land", "Capital", "Knowledge"],
+          correctAnswer: 1,
+          explanation: "Land refers to natural resources used to produce goods and services.",
+          concept: "factors-of-production"
+        },
+        {
+          id: "glo12-mx-2",
+          question: "Which factor of production is 'the money, tools, equipment, and buildings needed to operate and grow a business'?",
+          options: ["Capital", "Land", "Entrepreneurship", "Labor"],
+          correctAnswer: 0,
+          explanation: "Capital is the money and physical resources — tools, equipment, buildings — a business needs to operate.",
+          concept: "factors-of-production"
+        },
+        {
+          id: "glo12-mx-3",
+          question: "Why are entrepreneurship and knowledge considered the most important factors of production today?",
+          options: [
+            "Because land, labor, and capital no longer matter at all",
+            "Because a country can have abundant resources and still stay poor without people who know how to combine them productively and are willing to take the risk",
+            "Because they are the easiest factors to obtain",
+            "Because entrepreneurship guarantees success every time"
+          ],
+          correctAnswer: 1,
+          explanation: "Resources alone don't create wealth — it takes entrepreneurship and knowledge to combine them productively.",
+          concept: "factors-of-production"
+        },
+        {
+          id: "glo12-mx-4",
+          question: "What is the main advantage of working for someone else instead of starting your own business?",
+          options: [
+            "Unlimited potential earnings",
+            "Complete control over every decision",
+            "A steady paycheck and benefits like paid vacation and health insurance",
+            "No boss to answer to"
+          ],
+          correctAnswer: 2,
+          explanation: "Employees trade away entrepreneurial upside for the security of a steady paycheck and benefits.",
+          concept: "entrepreneurship-tradeoffs"
+        },
+        {
+          id: "glo12-mx-5",
+          question: "What is the main advantage an entrepreneur gains by giving up those guaranteed benefits?",
+          options: [
+            "Nothing of real value",
+            "Freedom to make their own decisions, more opportunity, and the possibility of greater wealth",
+            "A guarantee that the business will succeed",
+            "Automatic access to unlimited capital"
+          ],
+          correctAnswer: 1,
+          explanation: "Entrepreneurs gain freedom, opportunity, and upside potential — in exchange for taking on more risk.",
+          concept: "entrepreneurship-tradeoffs"
+        },
+        {
+          id: "glo12-mx-6",
+          question: "Two countries have identical amounts of land, labor, and capital. What would most likely make one of them wealthier than the other?",
+          options: [
+            "Having a larger population",
+            "Stronger entrepreneurship and more effective use of knowledge to combine those resources",
+            "Having a warmer climate",
+            "Nothing — they would automatically be equally wealthy"
+          ],
+          correctAnswer: 1,
+          explanation: "Wealth comes from how effectively entrepreneurship and knowledge combine the other resources — not just from having them.",
+          concept: "factors-of-production"
+        },
+        {
+          id: "glo12-mx-7",
+          question: "Why is entrepreneurship sometimes called the 'spark' factor of production?",
+          options: [
+            "Because it literally involves electricity",
+            "Because land, labor, and capital create nothing on their own until an entrepreneur combines them into something people want",
+            "Because it is the least important factor",
+            "Because it always requires the least amount of risk"
+          ],
+          correctAnswer: 1,
+          explanation: "Resources sitting idle create no wealth — entrepreneurship is what combines and activates them.",
+          concept: "factors-of-production"
+        }
+      ]
+    }
+  ]
+}
 
 // ─────────────────────────────────────────────────────────────
 // LO 1-3 — The Economic Environment and Taxes

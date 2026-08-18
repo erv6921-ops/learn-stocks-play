@@ -14,7 +14,11 @@ export const batch9_gulliver: Record<string, string> = {
   "gulliver-1-5":
     "Pick a product you own. Would you rather the company make it cheaply far away (outsourcing) or locally with more control (insourcing)? Explain your choice and one trade-off it comes with.",
   // ── Unit 2 (split into 2.1-2.5) ──
-  // ── Chapter 1 LO-aligned lessons (LO 1-3 through 1-8) ──
+  // ── Chapter 1 LO-aligned lessons (LO 1-1 through 1-8) ──
+  "gulliver-lo-1-1":
+    "Think of a business you've noticed cutting corners somewhere (with workers, the environment, or customers). Which stakeholder got hurt, and what risk did that create for the business later?",
+  "gulliver-lo-1-2":
+    "Would you rather have Jordan's steady summer job or Ava's lawn-care business? Name the one thing you'd be trading away with your choice, and the one thing you'd gain.",
   "gulliver-lo-1-3":
     "Imagine you're starting a business in a country with unstable currency and no enforceable contracts. Describe one specific risk you'd face that you wouldn't face starting the same business in the U.S.",
   "gulliver-lo-1-4":
