@@ -109,20 +109,39 @@ function Incomplete({ items }: { items: { label: string; ok: boolean }[] }) {
     </div>
   );
 }
+// Apple-style surface: a frosted, hairline-bordered card with a big corner
+// radius, soft depth and a gentle spring entrance. The studio's signature
+// material - used for activities and the run-your-business tools.
+function AppleCard({ className, children }: { className?: string; children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.99 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ type: "spring", stiffness: 260, damping: 26 }}
+      className={cn(
+        "rounded-[26px] border border-black/[0.06] dark:border-white/10 bg-card/80 backdrop-blur-xl",
+        "shadow-[0_12px_40px_-16px_rgba(0,0,0,0.28)]",
+        className,
+      )}
+    >
+      {children}
+    </motion.div>
+  );
+}
 function ActivityCard({ icon: Icon, n, title, desc, xp, done, children }: { icon: LucideIcon; n: number; title: string; desc: string; xp: number; done: boolean; children: React.ReactNode }) {
   return (
-    <Card variant="elevated"><CardContent className="pt-5 space-y-3">
+    <AppleCard className="p-5 space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2"><span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `${NEON}1a` }}><Icon className="w-4 h-4" style={{ color: NEON }} /></span>
-            <span className="text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ color: NEON }}>Activity {n}</span></div>
-          <h3 className="font-display text-lg font-extrabold mt-1">{title}</h3>
-          <p className="text-sm text-muted-foreground">{desc}</p>
+          <div className="flex items-center gap-2"><span className="w-7 h-7 rounded-[10px] flex items-center justify-center" style={{ background: `${NEON}1a` }}><Icon className="w-4 h-4" style={{ color: NEON }} /></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: NEON }}>Activity {n}</span></div>
+          <h3 className="font-display text-[19px] font-extrabold tracking-tight mt-1.5">{title}</h3>
+          <p className="text-sm text-muted-foreground mt-0.5">{desc}</p>
         </div>
-        {done ? <Badge variant="success" className="gap-1 shrink-0"><CheckCircle2 className="w-3.5 h-3.5" /> Done</Badge> : <Badge variant="outline" className="shrink-0">+{xp} 🪙</Badge>}
+        {done ? <Badge variant="success" className="gap-1 shrink-0 rounded-full"><CheckCircle2 className="w-3.5 h-3.5" /> Done</Badge> : <Badge variant="outline" className="shrink-0 rounded-full">+{xp} 🪙</Badge>}
       </div>
       {children}
-    </CardContent></Card>
+    </AppleCard>
   );
 }
 function ResultRow({ label, children }: { label: string; children: React.ReactNode }) {
@@ -135,7 +154,12 @@ function CoachPanel({ id }: { id: string }) {
   const { coach } = useStudio();
   const note = coach(id);
   return (
-    <div className="rounded-2xl border p-3.5 flex gap-3" style={{ borderColor: `${NEON}55`, background: `${NEON}0d` }}>
+    <motion.div
+      initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 26 }}
+      className="rounded-[22px] border p-4 flex gap-3 backdrop-blur-md shadow-[0_8px_28px_-16px_rgba(0,0,0,0.25)]"
+      style={{ borderColor: `${NEON}44`, background: `${NEON}12` }}
+    >
       <span className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 self-start" style={{ background: `${NEON}22` }}>
         <Sparkles className="w-4 h-4" style={{ color: NEON }} />
       </span>
@@ -162,7 +186,7 @@ function CoachPanel({ id }: { id: string }) {
           <p className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Reading your work…</p>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 function useForm<T extends Record<string, unknown>>(saved: Fields, defaults: T) {
@@ -521,12 +545,14 @@ export default function MicroBusinessStudio() {
           {/* Primary - this quarter's activities, one at a time */}
           <div className="lg:col-span-3" ref={anchor("biz-activity")}>
             <Tabs defaultValue="product" className="space-y-4">
-              <TabsList className={cn("grid w-full", allDone ? "grid-cols-5" : "grid-cols-4")}>
-                <TabsTrigger value="product" ref={anchor("biz-product")} className="text-xs"><Package className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Product</TabsTrigger>
-                <TabsTrigger value="office" ref={anchor("biz-office")} className="text-xs"><Briefcase className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Office</TabsTrigger>
-                <TabsTrigger value="collab" ref={anchor("biz-collab")} className="text-xs"><Handshake className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Collab</TabsTrigger>
-                <TabsTrigger value="marketing" ref={anchor("biz-marketing")} className="text-xs"><Megaphone className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Marketing</TabsTrigger>
-                {allDone && <TabsTrigger value="summary" className="text-xs"><Trophy className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Report</TabsTrigger>}
+              <TabsList className={cn("grid w-full h-auto gap-1 rounded-2xl bg-muted/70 p-1 backdrop-blur-md border border-black/[0.04] dark:border-white/5", allDone ? "grid-cols-5" : "grid-cols-4")}>
+                {(() => { const seg = "text-xs rounded-xl py-1.5 font-semibold transition-all data-[state=active]:bg-background data-[state=active]:shadow-[0_1px_3px_rgba(0,0,0,0.12)] data-[state=inactive]:text-muted-foreground"; return (<>
+                <TabsTrigger value="product" ref={anchor("biz-product")} className={seg}><Package className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Product</TabsTrigger>
+                <TabsTrigger value="office" ref={anchor("biz-office")} className={seg}><Briefcase className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Office</TabsTrigger>
+                <TabsTrigger value="collab" ref={anchor("biz-collab")} className={seg}><Handshake className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Collab</TabsTrigger>
+                <TabsTrigger value="marketing" ref={anchor("biz-marketing")} className={seg}><Megaphone className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Marketing</TabsTrigger>
+                {allDone && <TabsTrigger value="summary" className={seg}><Trophy className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Report</TabsTrigger>}
+                </>); })()}
               </TabsList>
 
               <TabsContent value="product">
@@ -1376,7 +1402,7 @@ function SummaryReport({ a, bt, qi, total }: { a: ActivitiesState; bt: BusinessT
 function MetricBar({ label, value, icon: Icon }: { label: string; value: number; icon: LucideIcon }) {
   const color = value >= 66 ? "#1D9E75" : value >= 33 ? "#EF9F27" : "#dc2626";
   return (
-    <div className="bg-white/5 rounded-xl p-3">
+    <div className="bg-white/[0.06] border border-white/5 rounded-2xl p-3 backdrop-blur-sm">
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white/50">
           <Icon className="w-3.5 h-3.5" style={{ color }} /> {label}
@@ -1392,9 +1418,9 @@ function MetricBar({ label, value, icon: Icon }: { label: string; value: number;
 // Each headline number gets its own icon + color so kids can tell them apart fast.
 function StatTile({ label, value, suffix, icon: Icon, color }: { label: string; value: string; suffix?: string; icon: LucideIcon; color: string }) {
   return (
-    <div className="bg-white/5 rounded-xl px-3 py-3">
+    <div className="bg-white/[0.06] border border-white/5 rounded-2xl px-3 py-3 backdrop-blur-sm">
       <div className="flex items-center gap-1.5">
-        <span className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${color}22` }}>
+        <span className="w-6 h-6 rounded-[10px] flex items-center justify-center shrink-0" style={{ background: `${color}22` }}>
           <Icon className="w-3.5 h-3.5" style={{ color }} />
         </span>
         <p className="text-[11px] text-white/55 uppercase font-bold tracking-wide leading-tight">{label}</p>
@@ -1422,8 +1448,8 @@ function MonthlyOps({ sim, onGenerate, onResolve, onRebuild }: { sim: BizState; 
     );
   }
   return (
-    <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <h3 className="font-display text-lg font-extrabold flex items-center gap-2"><Activity className="w-5 h-5" style={{ color: NEON }} /> Run the business - Month {sim.month}</h3>
+    <AppleCard className="p-5 space-y-3">
+      <h3 className="font-display text-lg font-extrabold tracking-tight flex items-center gap-2"><Activity className="w-5 h-5" style={{ color: NEON }} /> Run the business - Month {sim.month}</h3>
       {!s ? (
         <>
           <p className="text-sm text-muted-foreground">A new situation hits every month and demands a decision. Keep your business alive and growing - for months.</p>
@@ -1446,7 +1472,7 @@ function MonthlyOps({ sim, onGenerate, onResolve, onRebuild }: { sim: BizState; 
           <Button className="w-full press-scale" disabled={opt == null || wc(react) < s.reactMin} onClick={() => { if (looksLowEffort(react)) { toast.error(LOW_EFFORT_MESSAGE); return; } onResolve(opt as number, wc(react)); setOpt(null); setReact(""); }}><CheckCircle2 className="w-4 h-4 mr-1.5" /> Resolve month {sim.month}</Button>
         </>
       )}
-    </CardContent></Card>
+    </AppleCard>
   );
 }
 function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string; price: number; pitch: string }) => void }) {
@@ -1454,10 +1480,10 @@ function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string;
   const ready = name.trim().length >= 2 && num(price) > 0 && wc(pitch) >= ws(25);
   const submit = () => { if (looksLowEffort(pitch)) { toast.error(LOW_EFFORT_MESSAGE); return; } onAdd({ name: name.trim(), price: num(price), pitch: pitch.trim() }); setName(""); setPrice(""); setPitch(""); setOpen(false); };
   return (
-    <Card variant="elevated"><CardContent className="pt-5 space-y-3">
+    <AppleCard className="p-5 space-y-3">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <h3 className="font-display text-lg font-extrabold flex items-center gap-2"><Package className="w-5 h-5 text-primary" /> Your product line</h3>
+          <h3 className="font-display text-lg font-extrabold tracking-tight flex items-center gap-2"><Package className="w-5 h-5 text-primary" /> Your product line</h3>
           <p className="text-sm text-muted-foreground">Keep adding items - a bigger catalog grows your customer base.</p>
         </div>
         <Badge variant="outline" className="shrink-0">{sim.products.length} items</Badge>
@@ -1478,6 +1504,6 @@ function ProductLine({ sim, onAdd }: { sim: BizState; onAdd: (p: { name: string;
       ) : (
         <Button variant="outline" className="w-full press-scale" onClick={() => setOpen(true)}><Plus className="w-4 h-4 mr-1.5" /> Add a product to your line</Button>
       )}
-    </CardContent></Card>
+    </AppleCard>
   );
 }
