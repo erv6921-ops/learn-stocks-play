@@ -1175,6 +1175,370 @@ const VC_ARCHES: VcArche[] = [
       ]),
     }),
   },
+  {
+    id: "thesis", scope: "fund", title: "The Thesis",
+    tagline: () => "Anyone can write checks. What will your fund actually be great at?",
+    build: (rng) => ({
+      situation: "Your partners debate whether the fund should back a focused area you know deeply, or invest a little in every trend that's hot this year.",
+      question: "How do you position the fund?",
+      choices: shuffled(rng, [
+        { text: "Build an edge in a focused area you understand deeply", points: 2, feedback: "A clear thesis wins the best founders and sharper judgment. Funds that chase every trend rarely have an edge in any of them." },
+        { text: "Invest a bit in whatever is trending each year", points: 0, feedback: "Chasing every hot sector means competing on price with no real insight. Without an edge, you overpay for the same deals everyone sees." },
+        { text: "Refuse to invest until one perfect area appears", points: 1, feedback: "A focus is good; paralysis isn't. You sharpen a thesis by investing and learning, not by waiting for certainty that never comes." },
+      ]),
+    }),
+  },
+  {
+    id: "hot-market", scope: "fund", title: "The Frothy Market",
+    tagline: () => "Prices are soaring and everyone's bidding. Do you keep pace?",
+    build: (rng) => ({
+      situation: "Valuations across startups have doubled in a year and rival funds are bidding fast with little diligence. Your team feels pressure to keep up or miss out.",
+      question: "How do you invest in a frothy market?",
+      choices: shuffled(rng, [
+        { text: "Hold your discipline and pay only what a company is worth", points: 2, feedback: "Bubbles reward patience. Overpaying at the peak is how funds post terrible returns - the price you pay sets the risk you carry." },
+        { text: "Match every bid so you never miss a hot deal", points: 0, feedback: "FOMO investing at the top is how the worst vintages are made. Fear of missing out is not an investment thesis." },
+        { text: "Stop investing entirely until prices crash", points: 1, feedback: "Sitting out completely can miss great companies too. Stay disciplined on price - don't freeze the fund waiting for a crash." },
+      ]),
+    }),
+  },
+  {
+    id: "conviction", scope: "fund", title: "The Lone Yes",
+    tagline: () => "You love a deal the whole partnership dislikes. Now what?",
+    build: (rng, c) => ({
+      situation: `In the partner meeting, everyone is lukewarm on ${c.co} except you - you see something they don't and feel strong conviction.`,
+      question: "How do you handle the disagreement?",
+      choices: shuffled(rng, [
+        { text: "Make your sharpest case with evidence, then respect the vote", points: 2, feedback: "Conviction backed by real work is how great deals get championed. You argue hard, show the evidence, and trust the process." },
+        { text: "Go around the partners and wire the money quietly", points: 0, feedback: "Bypassing your own partnership breaks the trust a fund runs on. One rogue check can poison a firm for years." },
+        { text: "Drop your view instantly to avoid any friction", points: 1, feedback: "Caving at the first pushback wastes your judgment. Some of the best deals were one partner's unpopular, well-argued yes." },
+      ]),
+    }),
+  },
+  {
+    id: "contrarian", scope: "fund", title: "The Contrarian Bet",
+    tagline: c => `Everyone laughs at ${c.co}'s idea. You're not so sure.`,
+    build: (rng, c) => ({
+      situation: `${c.co} is building something most investors think is silly. But a small, obsessed group of users absolutely love it and use it every day.`,
+      question: "What weighs most in your decision?",
+      choices: shuffled(rng, [
+        { text: "That a small group loves it intensely - not that many scoff", points: 2, feedback: "The biggest wins look like bad ideas that turn out right. Intense love from a few often beats mild interest from many." },
+        { text: "That most investors think the idea is silly", points: 0, feedback: "If the crowd already agreed, the price would be sky-high. Consensus is comfortable and cheap on returns." },
+        { text: "That it isn't in the news or trending anywhere", points: 1, feedback: "Hype is a poor signal either way. Judge the real user love, not whether the idea is currently fashionable." },
+      ]),
+    }),
+  },
+  {
+    id: "lp-update", scope: "fund", title: "The LP Letter",
+    tagline: () => "Your fund had a rough year. What do you tell your investors?",
+    build: (rng) => ({
+      situation: "Two of your startups just failed and the fund is down this year. It's time to write the update to the investors whose money you manage.",
+      question: "How do you write it?",
+      choices: shuffled(rng, [
+        { text: "Report the losses plainly and explain what you learned", points: 2, feedback: "Investors fund honest partners for the long haul. Straight talk in a bad year builds the trust that fills your next fund." },
+        { text: "Hide the failures and highlight only the good news", points: 0, feedback: "Spin gets discovered, and then no one believes your good news either. Losing trust is far costlier than losing a deal." },
+        { text: "Skip the update entirely until results improve", points: 1, feedback: "Going silent in a downturn scares investors more than bad news. Communicate most when things are hard, not least." },
+      ]),
+    }),
+  },
+  {
+    id: "fund-size", scope: "fund", title: "The Right Fund Size",
+    tagline: () => "A bigger fund means bigger fees. Is bigger better?",
+    build: (rng) => ({
+      situation: "Investors offer to let you raise a fund three times larger than planned. The management fees would be huge - but you'd have to write far bigger checks to deploy it all.",
+      question: "How big a fund do you raise?",
+      choices: shuffled(rng, [
+        { text: "Size it to the deals you can actually win and return well", points: 2, feedback: "Returns, not fees, build a reputation. A fund too big for its strategy forces bad deals just to put money to work." },
+        { text: "Take the maximum to collect the biggest fees", points: 0, feedback: "Chasing fees over returns is how funds bloat and underperform. A giant fund you can't deploy well hurts your investors." },
+        { text: "Raise the smallest amount possible to stay safe", points: 1, feedback: "Too small can starve your winners of follow-on money. Match the size to the strategy - not to fear or to greed." },
+      ]),
+    }),
+  },
+  {
+    id: "recycling", scope: "fund", title: "Returning Capital",
+    tagline: () => "A winner exits. Reinvest the gains or pay your investors?",
+    build: (rng) => ({
+      situation: "One of your startups just sold and returned a big gain. You could send it straight back to your investors, or reinvest some to grow the fund's overall result.",
+      question: "What guides the choice?",
+      choices: shuffled(rng, [
+        { text: "Honor the fund's terms and your investors' expectations first", points: 2, feedback: "A fund exists to return money to the people who trusted you with it. Their agreed terms - not your ambition - lead the call." },
+        { text: "Reinvest everything into new bets no matter the rules", points: 1, feedback: "Redeploying can help, but ignoring the fund's terms and your investors' needs breaks the deal you made with them." },
+        { text: "Quietly keep the gains inside the fund for extra fees", points: 0, feedback: "Bending the rules to earn more on your investors' money is exactly how a firm loses the trust it can never rebuild." },
+      ]),
+    }),
+  },
+  {
+    id: "pro-rata", scope: "company", title: "The Pro-Rata Right",
+    tagline: c => `${c.co} is raising again. Do you defend your ownership?`,
+    build: (rng, c) => ({
+      situation: `${c.co} is doing great and raising a new round. You have the right to invest more to keep your ownership percentage from shrinking.`,
+      question: "How do you use that right?",
+      choices: shuffled(rng, [
+        { text: "Exercise it for your winners to protect your ownership", points: 2, feedback: "Follow-on into proven winners is where the biggest returns live. Letting your best stake dilute away wastes your early edge." },
+        { text: "Skip it every time to save the reserve cash", points: 0, feedback: "Passing on your winners' rounds lets your best positions shrink. That right exists precisely to press your advantage." },
+        { text: "Always max it out on every company, winner or not", points: 1, feedback: "Doubling down blindly on strugglers burns reserves you'll want for winners. Use the right selectively, not automatically." },
+      ]),
+    }),
+  },
+  {
+    id: "board-role", scope: "company", title: "The Board Seat",
+    tagline: c => `You just took a board seat at ${c.co}. What kind of member are you?`,
+    build: (rng, c) => ({
+      situation: `You joined ${c.co}'s board. The founder is talented but new to running a company and looks to you for how involved you'll be.`,
+      question: "How do you serve on the board?",
+      choices: shuffled(rng, [
+        { text: "Advise and open doors, but let the founder run the company", points: 2, feedback: "Great board members coach and connect without seizing the wheel. Support that respects the founder builds trust and results." },
+        { text: "Take over day-to-day decisions to keep things safe", points: 0, feedback: "Micromanaging from the board smothers the founder you backed. If you wanted to run it, you should have started it." },
+        { text: "Show up only to collect updates and stay hands-off", points: 1, feedback: "Pure passivity wastes the help a good investor can give. Be available and useful - just don't take over." },
+      ]),
+    }),
+  },
+  {
+    id: "sales-hire", scope: "company", title: "The First Sales Hire",
+    tagline: c => `${c.co} has a great product but no one selling it.`,
+    build: (rng, c) => ({
+      situation: `${c.founder} built a product customers love in demos, but growth is slow because no one is focused on actually selling it.`,
+      question: "What do you push for?",
+      choices: shuffled(rng, [
+        { text: "Hire a strong first salesperson once the founder can sell it", points: 2, feedback: "Founders should learn to sell before delegating it. Once the pitch works, a real sales hire pours fuel on proven demand." },
+        { text: "Hire a huge sales team immediately before it's proven", points: 0, feedback: "A big sales team selling an unproven pitch just burns cash fast. Prove the sale works before scaling the people." },
+        { text: "Never hire sales - great products sell themselves", points: 1, feedback: "'It sells itself' is a myth for almost every business. Even loved products need someone driving distribution." },
+      ]),
+    }),
+  },
+  {
+    id: "pivot", scope: "company", title: "The Pivot",
+    tagline: c => `${c.founder} wants to throw out the plan and change direction.`,
+    build: (rng, c) => ({
+      situation: `${c.co}'s original idea isn't working, but the team noticed customers love one small feature. ${c.founder} wants to pivot the whole company toward it.`,
+      question: "How do you react?",
+      choices: shuffled(rng, [
+        { text: "Support a pivot toward the thing customers actually pull for", points: 2, feedback: "Many giant companies began as pivots. Following real customer demand beats clinging to a plan that isn't landing." },
+        { text: "Forbid it - founders must stick to the original pitch", points: 0, feedback: "Punishing a founder for following evidence is how you kill the next big thing. The plan serves the goal, not the other way around." },
+        { text: "Demand they pivot every time growth dips at all", points: 1, feedback: "Constant pivoting means never going deep enough to win. Pivot on real signal, not on every bad week." },
+      ]),
+    }),
+  },
+  {
+    id: "market-size", scope: "company", title: "The Small Market",
+    tagline: c => `${c.co} is winning - but is the pond big enough?`,
+    build: (rng, c) => ({
+      situation: `${c.co} dominates its niche, but that entire market may be too small to ever become a huge company - a real concern for a venture return.`,
+      question: "How does market size affect your call?",
+      choices: shuffled(rng, [
+        { text: "Weigh whether the market can grow or expand into bigger ones", points: 2, feedback: "Venture math needs a path to something huge. A small market can work only if it's growing or a doorway to a larger one." },
+        { text: "Ignore market size since the team is executing well", points: 0, feedback: "Great execution in a tiny market still caps the outcome. Even a perfect company can't outgrow the pond it's swimming in." },
+        { text: "Reject any company not already in a giant market", points: 1, feedback: "Some markets look small but explode. Judge where it can go, not just today's size - but don't ignore the ceiling either." },
+      ]),
+    }),
+  },
+  {
+    id: "moat", scope: "company", title: "The Copycat",
+    tagline: c => `A giant just cloned ${c.co}'s product. Is it over?`,
+    build: (rng, c) => ({
+      situation: `${c.co} is taking off, and now a huge company has copied its product feature for feature with far more money behind it.`,
+      question: `What decides if ${c.co} survives?`,
+      choices: shuffled(rng, [
+        { text: "Whether it has a real moat - loyalty, network, or speed", points: 2, feedback: "Clones are inevitable for anything good. What protects you is a moat: brand love, network effects, or simply moving faster." },
+        { text: "Nothing - the bigger company always wins outright", points: 0, feedback: "Giants copy constantly and lose constantly. Focus and a real moat let startups beat far larger, slower rivals." },
+        { text: "Only whichever company spends the most on ads", points: 1, feedback: "Ad budgets can't buy a moat. Startups win by being better and stickier where the giant is clumsy - not by outspending it." },
+      ]),
+    }),
+  },
+  {
+    id: "unit-econ", scope: "company", title: "The Leaky Bucket",
+    tagline: c => `${c.co} grows fast but loses money on every customer.`,
+    build: (rng, c) => ({
+      situation: `${c.co} is adding users quickly, but it spends more to win each customer than that customer ever pays back. Growth is really just burning cash.`,
+      question: "What do you tell the founder?",
+      choices: shuffled(rng, [
+        { text: "Fix the economics so each customer earns more than they cost", points: 2, feedback: "Growth on broken unit economics just loses money faster. A customer must be worth more than you pay to get them - full stop." },
+        { text: "Grow even faster and worry about the math later", points: 0, feedback: "Scaling a money-losing model multiplies the losses. 'We'll fix it at scale' is how cash-burning startups implode." },
+        { text: "Stop all growth until every cost is zero", points: 1, feedback: "You don't need zero cost - you need each customer to pay back more than they cost. Fix the ratio, don't freeze the company." },
+      ]),
+    }),
+  },
+  {
+    id: "liq-pref", scope: "company", title: "The Preference",
+    tagline: c => `The term sheet for ${c.co} has a tricky downside clause.`,
+    build: (rng, c) => ({
+      situation: `You're negotiating to invest in ${c.co}. A partner suggests demanding terms that pay you back several times over before the founders see a coin if things go sideways.`,
+      question: "How aggressive should the terms be?",
+      choices: shuffled(rng, [
+        { text: "Keep terms standard and fair so founders stay motivated", points: 2, feedback: "Reasonable downside protection is normal; greedy terms wreck the founders' incentive and your reputation with future founders." },
+        { text: "Demand the most aggressive payout terms you can get", points: 0, feedback: "Stacking heavy preferences can leave founders with nothing and kill their drive - and word spreads to every founder you'll want." },
+        { text: "Take no protections at all to seem founder-friendly", points: 1, feedback: "Some downside protection is standard and smart. Being naive isn't the same as being kind - fair terms protect everyone." },
+      ]),
+    }),
+  },
+  {
+    id: "option-pool", scope: "company", title: "The Option Pool",
+    tagline: c => `How much equity should ${c.co} set aside for employees?`,
+    build: (rng, c) => ({
+      situation: `${c.co} needs to reserve stock to hire great early employees. ${c.founder} wants to keep the pool tiny to hold onto more ownership.`,
+      question: "What do you advise?",
+      choices: shuffled(rng, [
+        { text: "Set a pool big enough to attract the talent it needs", points: 2, feedback: "Early employees make or break a startup, and equity is how you win them. A stingy pool starves the company of great people." },
+        { text: "Keep the pool as tiny as possible to protect ownership", points: 0, feedback: "Hoarding equity leaves nothing to hire with. A bigger slice of a company that can't attract talent is worth less." },
+        { text: "Give away almost all the equity to every early hire", points: 1, feedback: "Over-generous grants dilute everyone and leave nothing for later key hires. Size the pool thoughtfully, not extremes either way." },
+      ]),
+    }),
+  },
+  {
+    id: "runway", scope: "company", title: "Six Months Left",
+    tagline: c => `${c.co} has six months of cash and a big decision.`,
+    build: (rng, c) => ({
+      situation: `${c.co} has about six months of money left. ${c.founder} can raise now on so-so terms, cut costs to buy time, or spend big hoping to hit a milestone that unlocks a great round.`,
+      question: "What's the safest smart play?",
+      choices: shuffled(rng, [
+        { text: "Extend runway and hit a clear milestone before raising", points: 2, feedback: "Raising from strength beats raising from desperation. Buying time to prove a milestone gets a far better round." },
+        { text: "Spend the whole reserve now chasing one big bet", points: 0, feedback: "Betting the last of the cash on a maybe can leave the company with zero runway and no round. Protect the lifeline first." },
+        { text: "Do nothing and hope money appears later", points: 1, feedback: "Runway doesn't refill by hoping. Act early - cut costs or raise - while there's still time to negotiate from strength." },
+      ]),
+    }),
+  },
+  {
+    id: "vanity-metrics", scope: "company", title: "The Vanity Metric",
+    tagline: c => `${c.founder} keeps bragging about downloads, not dollars.`,
+    build: (rng, c) => ({
+      situation: `${c.founder} proudly shows millions of app downloads. But almost no one comes back after the first day, and the company earns almost nothing.`,
+      question: "Which numbers should you focus on?",
+      choices: shuffled(rng, [
+        { text: "Retention and revenue - do people stay and pay?", points: 2, feedback: "Downloads are a vanity metric. Whether users keep coming back and paying is what actually predicts a real business." },
+        { text: "Total downloads - a big number means big success", points: 0, feedback: "A huge top-of-funnel number that no one sticks with is a leaky bucket. Vanity metrics hide a business that isn't working." },
+        { text: "Only how much press coverage the app gets", points: 1, feedback: "Press is nice but fleeting. Engagement and revenue - not headlines or downloads - tell you if there's a real company." },
+      ]),
+    }),
+  },
+  {
+    id: "syndicate", scope: "company", title: "The Co-Investors",
+    tagline: c => `Who else joins the round can matter as much as the price.`,
+    build: (rng, c) => ({
+      situation: `You're leading ${c.co}'s round and can invite other investors. Some are helpful and respected; one offers the most money but has a reputation for hurting founders.`,
+      question: "Who do you bring into the deal?",
+      choices: shuffled(rng, [
+        { text: "Investors who genuinely help, even for a bit less money", points: 2, feedback: "The people around the table shape the company for years. Great co-investors add help and reputation money can't buy." },
+        { text: "Whoever writes the biggest check, reputation aside", points: 0, feedback: "A toxic investor can wreck a startup no matter how big the check. The cheapest money can end up the most expensive." },
+        { text: "As many investors as possible to fill the round fast", points: 1, feedback: "A crowded, unhelpful cap table creates chaos. Quality and fit beat simply cramming in the most names quickly." },
+      ]),
+    }),
+  },
+  {
+    id: "founder-pay", scope: "company", title: "The Founder's Salary",
+    tagline: c => `${c.founder} asks what salary to take after raising.`,
+    build: (rng, c) => ({
+      situation: `After a big round, ${c.founder} asks how much salary to pay themselves. They could take a huge paycheck or a modest one and keep the cash in the business.`,
+      question: "What do you advise?",
+      choices: shuffled(rng, [
+        { text: "A reasonable salary - enough to live, focused on the equity", points: 2, feedback: "Founders should be paid enough not to stress, but their real upside is the company's success. Balance keeps them motivated and aligned." },
+        { text: "A giant salary since they raised the money", points: 0, feedback: "Draining the round into founder pay burns the very fuel meant to grow the company - and signals the wrong priorities to everyone." },
+        { text: "No salary at all to prove pure dedication", points: 1, feedback: "A broke, stressed founder makes bad decisions. Martyrdom isn't a strategy - pay enough to keep them steady and focused." },
+      ]),
+    }),
+  },
+  {
+    id: "global-early", scope: "company", title: "Going Global",
+    tagline: c => `${c.founder} wants to launch ${c.co} in ten countries at once.`,
+    build: (rng, c) => ({
+      situation: `${c.co} is doing well in its home market, and ${c.founder} is eager to expand into ten new countries all at the same time.`,
+      question: "How do you guide the expansion?",
+      choices: shuffled(rng, [
+        { text: "Win the home market first, then expand where it's proven", points: 2, feedback: "Spreading thin across ten countries before nailing one usually fails everywhere. Depth first, then careful expansion, wins." },
+        { text: "Launch everywhere at once to grab land fast", points: 0, feedback: "Ten launches at once splits focus and cash into failure on all fronts. Global too early is a classic startup killer." },
+        { text: "Never expand beyond the first city, ever", points: 1, feedback: "Refusing all expansion caps a company that could scale. The point is sequencing - not staying forever in one town." },
+      ]),
+    }),
+  },
+  {
+    id: "gray-zone", scope: "company", title: "The Gray Zone",
+    tagline: c => `${c.co}'s clever idea lives in a legal gray area.`,
+    build: (rng, c) => ({
+      situation: `${c.co} has a brilliant idea, but it operates in a murky legal area where rules could change and shut it down overnight.`,
+      question: "How do you factor in the risk?",
+      choices: shuffled(rng, [
+        { text: "Back it only with a clear plan to get onside with the rules", points: 2, feedback: "Regulatory risk is real but manageable with a plan to engage lawmakers. Go in eyes open, with a path to legitimacy." },
+        { text: "Invest and ignore the legal risk entirely", points: 0, feedback: "Pretending the rules don't exist is how a hot startup vanishes overnight when regulators act. Price and plan for the risk." },
+        { text: "Refuse any company touching regulation at all", points: 1, feedback: "Some of the biggest companies started in gray areas and won by shaping the rules. Manage the risk - don't reflexively flee it." },
+      ]),
+    }),
+  },
+  {
+    id: "ip-ownership", scope: "company", title: "Who Owns the Code",
+    tagline: c => `Does ${c.co} actually own the technology it's built on?`,
+    build: (rng, c) => ({
+      situation: `You're about to invest in ${c.co}, whose whole value is its technology. During diligence you realize it's unclear whether the company - or a former contractor - actually owns that code.`,
+      question: "How important is this?",
+      choices: shuffled(rng, [
+        { text: "Critical - confirm the company owns its core IP before investing", points: 2, feedback: "If the company doesn't own what it's built on, you're funding a lawsuit waiting to happen. Clean IP ownership is non-negotiable." },
+        { text: "Minor - ownership paperwork can be sorted out later", points: 0, feedback: "Unclear IP can blow up the entire company if a contractor claims the code. This gets fixed before the wire, not after." },
+        { text: "Irrelevant, since the team can just rebuild it", points: 1, feedback: "Rebuilding wastes the very head start you're paying for - and may not even be legal. Confirm ownership up front." },
+      ]),
+    }),
+  },
+  {
+    id: "exit-path", scope: "company", title: "IPO or Sale",
+    tagline: c => `${c.co} is thriving. How should it eventually cash out?`,
+    build: (rng, c) => ({
+      situation: `${c.co} has grown into a real business. The board debates whether to aim for going public someday or to sell to a larger company.`,
+      question: "How do you frame the exit?",
+      choices: shuffled(rng, [
+        { text: "Let the company's strength and options decide when the time comes", points: 2, feedback: "The best exit depends on the market and the company's readiness. Build a great business first; the right door opens later." },
+        { text: "Force an immediate sale to lock in a quick win", points: 1, feedback: "Rushing to sell a rocket can cap the fund's biggest return. Sometimes the patient path to going public is worth far more." },
+        { text: "Refuse to ever sell no matter what buyers offer", points: 0, feedback: "'Never sell' ignores that funds must return cash and markets shift. Stay flexible - the right exit is a judgment, not a vow." },
+      ]),
+    }),
+  },
+  {
+    id: "fire-drill", scope: "company", title: "The Fire Drill",
+    tagline: c => `${c.founder} just quietly buried some very bad news.`,
+    build: (rng, c) => ({
+      situation: `You learn ${c.founder} hid a serious problem at ${c.co} - a lost key customer - from the board, hoping to fix it before anyone noticed.`,
+      question: "How do you respond?",
+      choices: shuffled(rng, [
+        { text: "Address it directly and set an expectation of full transparency", points: 2, feedback: "Hidden problems grow in the dark. Insisting on honesty - firmly, not cruelly - is how boards catch fires while they're small." },
+        { text: "Ignore it since the founder is trying to handle it", points: 0, feedback: "Letting a founder hide bad news trains them to hide worse. Small buried problems become the ones that sink companies." },
+        { text: "Immediately move to fire the founder over it", points: 1, feedback: "One hidden problem warrants a hard conversation, not always a firing. Overreacting teaches the team to hide even more." },
+      ]),
+    }),
+  },
+  {
+    id: "talk-to-users", scope: "company", title: "Talk to Users",
+    tagline: c => `${c.founder} is guessing what customers want instead of asking.`,
+    build: (rng, c) => ({
+      situation: `${c.co}'s team keeps building features based on their own hunches, and growth has stalled. They rarely actually talk to the people using the product.`,
+      question: "What do you push them toward?",
+      choices: shuffled(rng, [
+        { text: "Get the team talking to real users to learn what they need", points: 2, feedback: "The answers are with the customers, not in a conference room. Founders who obsess over users build things people actually want." },
+        { text: "Keep guessing and build faster to make up for it", points: 0, feedback: "Shipping more of the wrong thing faster just wastes runway. Speed without customer insight builds features nobody uses." },
+        { text: "Hire an expensive agency to run huge surveys only", points: 1, feedback: "Big impersonal surveys miss the depth of a real conversation. Founders should talk to users directly, not outsource all listening." },
+      ]),
+    }),
+  },
+  {
+    id: "pass-graciously", scope: "fund", title: "The Polite No",
+    tagline: () => "You're passing on a startup. How you say no still matters.",
+    build: (rng, c) => ({
+      situation: `You've decided not to invest in ${c.co}. The founder poured months into the pitch and asks you for honest feedback.`,
+      question: "How do you deliver the no?",
+      choices: shuffled(rng, [
+        { text: "Give a clear, kind reason and offer to stay in touch", points: 2, feedback: "Today's pass can be tomorrow's best deal. Founders remember who treated them well - a gracious no protects your reputation and deal flow." },
+        { text: "Ghost them and simply never reply again", points: 0, feedback: "Disappearing burns a relationship in a small world where founders all talk. A quick, honest no costs nothing and earns respect." },
+        { text: "String them along with vague maybes for months", points: 1, feedback: "False hope wastes a founder's precious time and sours them on you. A clear no is far kinder than an endless maybe." },
+      ]),
+    }),
+  },
+  {
+    id: "hype-round", scope: "company", title: "The Hype Round",
+    tagline: c => `${c.co} is suddenly hot and raising at a wild price.`,
+    build: (rng, c) => ({
+      situation: `${c.co} caught a wave of hype and can raise a giant round at a sky-high price far above what its actual numbers support.`,
+      question: "What's the risk you flag to the founder?",
+      choices: shuffled(rng, [
+        { text: "A price they can't grow into forces a painful down round later", points: 2, feedback: "Raising far above your fundamentals sets a bar you may not clear, leading to a demoralizing down round. Price for reality, not hype." },
+        { text: "Nothing - take the highest price available, always", points: 0, feedback: "The highest price feels great until the next round prices lower and crushes everyone. Overpricing borrows pain from the future." },
+        { text: "Refuse to raise at all while the hype lasts", points: 1, feedback: "Some extra capital in good times is wise; you just shouldn't overprice wildly. Raise sensibly - don't sit out entirely." },
+      ]),
+    }),
+  },
 ]
 
 const VC_TITLE_PREFIX = ["Week on Sand Hill", "Deal Flow", "The Partner Meeting", "Portfolio Review", "Office Hours", "The Monday Meeting"]
