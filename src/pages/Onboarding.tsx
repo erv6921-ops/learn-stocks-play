@@ -23,7 +23,22 @@ import Confetti from "@/components/Confetti"
 import { EnrollmentTrack } from "@/types"
 
 type UserRole = "student" | "teacher"
-type OnboardingStep = "role-select" | "name" | "teacher-details" | "student-account" | "student-details" | "program-select" | "welcome" | "assessment" | "results"
+// Each student data point is now its own screen (one question per tab). Order:
+// role -> name -> grade -> age -> school -> state/course -> class code ->
+// program -> login. Teachers keep their short two-screen path.
+type OnboardingStep =
+  | "role-select" | "name" | "teacher-details"
+  | "grade" | "age" | "school" | "state-course" | "class-code"
+  | "program-select" | "student-account"
+  | "welcome" | "assessment" | "results"
+
+// Progress-dot index for each student screen (role-select is 0). Teachers use a
+// separate 3-dot count (see totalSteps).
+const STUDENT_STEP_INDEX: Record<string, number> = {
+  "role-select": 0, "name": 1, "grade": 2, "age": 3, "school": 4,
+  "state-course": 5, "class-code": 6, "program-select": 7, "student-account": 8,
+}
+const STUDENT_TOTAL_STEPS = 9
 
 // US_STATES lives in @/lib/geography (shared with the Florida-track gating).
 
@@ -188,6 +203,65 @@ function StepHeader({
       <h1 className="font-display text-3xl md:text-4xl font-bold text-gradient mb-2">{title}</h1>
       {subtitle && <p className="text-muted-foreground text-sm mb-6">{subtitle}</p>}
     </>
+  )
+}
+
+// One animated single-question screen: Jeff header + progress dots, the field(s)
+// sliding in, and a Back/Continue footer. Every student data step is built from
+// this so the whole flow shares one polished animation and Jeff on each screen.
+function FieldStep({
+  stepKey, current, total, mood, message, title, subtitle,
+  onBack, onContinue, continueDisabled = false, continueLabel = "Continue",
+  loading = false, children,
+}: {
+  stepKey: string
+  current: number
+  total: number
+  mood?: "happy" | "thinking" | "excited" | "teaching" | "celebrating"
+  message: string
+  title: string
+  subtitle?: string
+  onBack?: () => void
+  onContinue: () => void
+  continueDisabled?: boolean
+  continueLabel?: string
+  loading?: boolean
+  children: ReactNode
+}) {
+  // Enter submits when the step is completable, so keyboard users fly through.
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !continueDisabled && !loading) { e.preventDefault(); onContinue() }
+  }
+  return (
+    <motion.div
+      key={stepKey}
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -40 }}
+      transition={{ type: "spring", stiffness: 260, damping: 26 }}
+      className="flex flex-col items-center text-center max-w-lg"
+      onKeyDown={handleKeyDown}
+    >
+      <StepHeader current={current} total={total} mood={mood} message={message} title={title} subtitle={subtitle} />
+      <motion.div
+        className="w-full max-w-sm space-y-4 text-left"
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.14, type: "spring", stiffness: 240, damping: 24 }}
+      >
+        {children}
+      </motion.div>
+      <div className="flex gap-3 mt-6">
+        {onBack && (
+          <Button variant="outline" onClick={onBack} disabled={loading}>
+            <ArrowLeft className="mr-2 w-4 h-4" /> Back
+          </Button>
+        )}
+        <Button size="xl" variant="hero" disabled={continueDisabled || loading} onClick={onContinue}>
+          {loading ? <Loader2 className="mr-2 animate-spin" /> : <>{continueLabel} <ArrowRight className="ml-2" /></>}
+        </Button>
+      </div>
+    </motion.div>
   )
 }
 
@@ -572,7 +646,7 @@ export default function Onboarding() {
   }, [correctHistory])
 
   // How many dots the sign-up progress bar shows (teachers have one fewer step).
-  const totalSteps = selectedRole === "teacher" ? 3 : 5
+  const totalSteps = selectedRole === "teacher" ? 3 : STUDENT_TOTAL_STEPS
 
   const pageBg =
     "radial-gradient(circle at 18% 18%, hsl(var(--primary) / 0.10), transparent 42%)," +
@@ -750,73 +824,27 @@ export default function Onboarding() {
 
         {/* Step 2: Name (both roles) */}
         {step === "name" && (
-          <motion.div
-            key="name"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="flex flex-col items-center text-center max-w-lg"
+          <FieldStep
+            stepKey="name"
+            current={1}
+            total={totalSteps}
+            mood="happy"
+            message={firstName.trim() ? `Nice to meet you, ${firstName.trim()}! 👋` : "Awesome! What should I call you?"}
+            title="What's your name?"
+            subtitle={selectedRole === "teacher" ? "We'll use this for your teacher profile" : "We'll use this to personalize your experience"}
+            onBack={() => setStep("role-select")}
+            continueDisabled={!firstName.trim()}
+            onContinue={() => setStep(selectedRole === "teacher" ? "teacher-details" : "grade")}
           >
-            <StepHeader
-              current={1}
-              total={totalSteps}
-              mood="happy"
-              message={firstName.trim() ? `Nice to meet you, ${firstName.trim()}! 👋` : "Awesome! What should I call you?"}
-              title="What's your name?"
-              subtitle={selectedRole === "teacher" ? "We'll use this for your teacher profile" : "We'll use this to personalize your experience"}
-            />
-            <div className="w-full max-w-sm space-y-4 text-left">
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">First Name</label>
-                <Input
-                  placeholder="e.g. Emma"
-                  value={firstName}
-                  onChange={e => setFirstName(e.target.value)}
-                  autoFocus
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Last Name</label>
-                <Input
-                  placeholder="e.g. Johnson"
-                  value={lastName}
-                  onChange={e => setLastName(e.target.value)}
-                />
-              </div>
-              {/* Geography is asked here (before program selection) so we can gate
-                  the Florida-only programs. Students only. */}
-              {selectedRole === "student" && (
-                <div>
-                  <label className="text-sm font-medium mb-1.5 block">State / Course</label>
-                  <Select value={stateCourse} onValueChange={setStateCourse}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your state or course" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="AP Financial Literacy">AP Financial Literacy</SelectItem>
-                      {US_STATES.map(s => (
-                        <SelectItem key={s} value={s}>{s}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-muted-foreground mt-1.5">Some programs are only offered in certain states.</p>
-                </div>
-              )}
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">First Name</label>
+              <Input placeholder="e.g. Emma" value={firstName} onChange={e => setFirstName(e.target.value)} autoFocus />
             </div>
-            <div className="flex gap-3 mt-6">
-              <Button variant="outline" onClick={() => setStep("role-select")}>
-                <ArrowLeft className="mr-2 w-4 h-4" /> Back
-              </Button>
-              <Button
-                size="xl"
-                variant="hero"
-                disabled={!firstName.trim() || (selectedRole === "student" && !stateCourse)}
-                onClick={() => setStep(selectedRole === "teacher" ? "teacher-details" : "program-select")}
-              >
-                Continue <ArrowRight className="ml-2" />
-              </Button>
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Last Name</label>
+              <Input placeholder="e.g. Johnson" value={lastName} onChange={e => setLastName(e.target.value)} />
             </div>
-          </motion.div>
+          </FieldStep>
         )}
 
         {/* Step 3a: Teacher Details */}
@@ -947,202 +975,225 @@ export default function Onboarding() {
         )}
 
         {/* Step 3b: Student Account (login credentials) */}
-        {step === "student-account" && (
-          <motion.div
-            key="student-account"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="flex flex-col items-center text-center max-w-lg"
+        {/* Student data, one question per screen: grade -> age -> school ->
+            state/course -> class code. State/course stays before program-select
+            so it can still gate the Florida-only programs. */}
+        {step === "grade" && (
+          <FieldStep
+            stepKey="grade"
+            current={STUDENT_STEP_INDEX["grade"]}
+            total={totalSteps}
+            mood="teaching"
+            message={firstName.trim() ? `Nice, ${firstName.trim()}! What grade are you in?` : "What grade are you in?"}
+            title="What grade are you in?"
+            subtitle="This helps me pitch lessons at the right level"
+            onBack={() => setStep("name")}
+            continueDisabled={!grade}
+            onContinue={() => setStep("age")}
           >
-            <StepHeader
-              current={3}
-              total={totalSteps}
-              mood="happy"
-              message="Let's set up your login so your progress is saved on any device."
-              title="Create your login"
-              subtitle="You'll use these to sign back in anytime"
-            />
-            <div className="w-full max-w-sm space-y-4 text-left">
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Email</label>
-                <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoFocus />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Password</label>
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="At least 6 characters"
-                  minLength={6}
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  You'll use this with your email to log back in from any device.
-                </p>
-              </div>
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Grade</label>
+              <Select value={grade} onValueChange={setGrade}>
+                <SelectTrigger><SelectValue placeholder="Select your grade" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="6">6th Grade</SelectItem>
+                  <SelectItem value="7">7th Grade</SelectItem>
+                  <SelectItem value="8">8th Grade</SelectItem>
+                  <SelectItem value="9">9th Grade</SelectItem>
+                  <SelectItem value="10">10th Grade</SelectItem>
+                  <SelectItem value="11">11th Grade</SelectItem>
+                  <SelectItem value="12">12th Grade</SelectItem>
+                  <SelectItem value="freshman">Freshman</SelectItem>
+                  <SelectItem value="sophomore">Sophomore</SelectItem>
+                  <SelectItem value="junior">Junior</SelectItem>
+                  <SelectItem value="senior">Senior</SelectItem>
+                  <SelectItem value="adult">Adult</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            <div className="flex gap-3 mt-6">
-              <Button variant="outline" onClick={() => setStep("program-select")}>
-                <ArrowLeft className="mr-2 w-4 h-4" /> Back
-              </Button>
-              <Button
-                size="xl"
-                variant="hero"
-                disabled={!email.trim() || password.length < 6}
-                onClick={() => setStep("student-details")}
-              >
-                Continue <ArrowRight className="ml-2" />
-              </Button>
-            </div>
-          </motion.div>
+          </FieldStep>
         )}
 
-        {/* Step 3c: Student Details */}
-        {step === "student-details" && (
-          <motion.div
-            key="student-details"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="flex flex-col items-center text-center max-w-lg"
+        {step === "age" && (
+          <FieldStep
+            stepKey="age"
+            current={STUDENT_STEP_INDEX["age"]}
+            total={totalSteps}
+            mood="happy"
+            message="How old are you? This one's optional."
+            title="How old are you?"
+            subtitle="Optional - it helps me use examples that fit"
+            onBack={() => setStep("grade")}
+            onContinue={() => setStep("school")}
           >
-            <StepHeader
-              current={4}
-              total={totalSteps}
-              mood="teaching"
-              message={firstName.trim() ? `Almost there, ${firstName.trim()}! This helps me tailor your lessons.` : "Almost there! This helps me tailor your lessons."}
-              title="A bit about you"
-              subtitle="A few details to personalize your learning"
-            />
-            <div className="w-full max-w-sm space-y-4 text-left">
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Grade</label>
-                <Select value={grade} onValueChange={setGrade}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your grade" />
-                  </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="6">6th Grade</SelectItem>
-                    <SelectItem value="7">7th Grade</SelectItem>
-                    <SelectItem value="8">8th Grade</SelectItem>
-                    <SelectItem value="9">9th Grade</SelectItem>
-                    <SelectItem value="10">10th Grade</SelectItem>
-                    <SelectItem value="11">11th Grade</SelectItem>
-                    <SelectItem value="12">12th Grade</SelectItem>
-                    <SelectItem value="freshman">Freshman</SelectItem>
-                    <SelectItem value="sophomore">Sophomore</SelectItem>
-                    <SelectItem value="junior">Junior</SelectItem>
-                    <SelectItem value="senior">Senior</SelectItem>
-                    <SelectItem value="adult">Adult</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Age</label>
-                <Input
-                  type="number"
-                  min={8}
-                  max={99}
-                  placeholder="e.g. 16"
-                  value={age}
-                  onChange={e => setAge(e.target.value)}
-                />
-              </div>
-              {/* State / Course is captured earlier (in the name step, before
-                  program-select) so it can gate the Florida-only programs. */}
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Class Code <span className="text-muted-foreground font-normal">(optional)</span></label>
-                <Input
-                  placeholder="e.g. ABC123"
-                  value={classCode}
-                  onChange={e => setClassCode(e.target.value.toUpperCase())}
-                  maxLength={6}
-                />
-              </div>
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Age</label>
+              <Input type="number" min={8} max={99} placeholder="e.g. 16" value={age} onChange={e => setAge(e.target.value)} autoFocus />
             </div>
-            <div className="flex gap-3 mt-6">
-              <Button variant="outline" onClick={() => setStep("student-account")} disabled={signupLoading}>
-                <ArrowLeft className="mr-2 w-4 h-4" /> Back
-              </Button>
-              <Button
-                size="xl"
-                variant="hero"
-                disabled={!grade || !email.trim() || password.length < 6 || signupLoading}
-                onClick={async () => {
-                  setSignupLoading(true)
-                  try {
-                    // If already signed in with a different account, sign out first
-                    const { data: existing } = await supabase.auth.getSession()
-                    if (existing.session && existing.session.user.email !== email.trim()) {
-                      await supabase.auth.signOut()
-                    }
+          </FieldStep>
+        )}
 
-                    const { data, error } = await supabase.auth.signUp({
-                      email: email.trim(),
-                      password,
-                      options: {
-                        // Name in metadata so the handle_new_user trigger saves it
-                        // to the profile at creation - the email-confirmation flow
-                        // returns no session here and skips persistProfile below.
-                        data: { role: "student", first_name: firstName || null, last_name: lastName || null },
-                      },
-                    })
+        {step === "school" && (
+          <FieldStep
+            stepKey="school"
+            current={STUDENT_STEP_INDEX["school"]}
+            total={totalSteps}
+            mood="teaching"
+            message="Which school are you at?"
+            title="What's your school?"
+            subtitle="So your teacher can find you on their roster"
+            onBack={() => setStep("age")}
+            continueDisabled={!schoolName.trim()}
+            onContinue={() => setStep("state-course")}
+          >
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">School Name</label>
+              <Input placeholder="e.g. Lincoln High School" value={schoolName} onChange={e => setSchoolName(e.target.value)} autoFocus />
+            </div>
+          </FieldStep>
+        )}
 
-                    if (error) {
-                      // If user already exists, let them know to log in
-                      if (error.message.toLowerCase().includes("registered") || error.message.toLowerCase().includes("already")) {
-                        toast({
-                          title: "Account already exists",
-                          description: "Use the Log in link to sign back into your progress.",
-                          variant: "destructive",
-                        })
-                        setSignupLoading(false)
-                        return
-                      }
-                      throw error
-                    }
+        {step === "state-course" && (
+          <FieldStep
+            stepKey="state-course"
+            current={STUDENT_STEP_INDEX["state-course"]}
+            total={totalSteps}
+            mood="thinking"
+            message="Where are you learning? Some programs are state-specific."
+            title="Your state or course"
+            subtitle="Some programs are only offered in certain states"
+            onBack={() => setStep("school")}
+            continueDisabled={!stateCourse}
+            onContinue={() => setStep("class-code")}
+          >
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">State / Course</label>
+              <Select value={stateCourse} onValueChange={setStateCourse}>
+                <SelectTrigger><SelectValue placeholder="Select your state or course" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="AP Financial Literacy">AP Financial Literacy</SelectItem>
+                  {US_STATES.map(s => (<SelectItem key={s} value={s}>{s}</SelectItem>))}
+                </SelectContent>
+              </Select>
+            </div>
+          </FieldStep>
+        )}
 
-                    // Email confirmation on → no session yet. Collect the
-                    // 6-digit code we just emailed, right here.
-                    if (!data.session) {
-                      setEmailCode("")
-                      setEmailStep("code")
-                      toast({
-                        title: "Check your email",
-                        description: "We sent a 6-digit code to confirm your address.",
-                      })
-                      return
-                    }
+        {step === "class-code" && (
+          <FieldStep
+            stepKey="class-code"
+            current={STUDENT_STEP_INDEX["class-code"]}
+            total={totalSteps}
+            mood="excited"
+            message="Got a class code from your teacher? Pop it in - or skip it."
+            title="Class code"
+            subtitle="Optional - you can add this later from the Leaderboard"
+            onBack={() => setStep("state-course")}
+            continueLabel={classCode.trim() ? "Continue" : "Skip"}
+            onContinue={() => setStep("program-select")}
+          >
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Class Code <span className="text-muted-foreground font-normal">(optional)</span></label>
+              <Input placeholder="e.g. ABC123" value={classCode} onChange={e => setClassCode(e.target.value.toUpperCase())} maxLength={6} autoFocus />
+            </div>
+          </FieldStep>
+        )}
+
+        {/* Final student step: create the login + sign up. All the profile
+            fields are already collected on the screens before this. */}
+        {step === "student-account" && (
+          <FieldStep
+            stepKey="student-account"
+            current={STUDENT_STEP_INDEX["student-account"]}
+            total={totalSteps}
+            mood="happy"
+            message="Last step! Set up your login so your progress saves on any device."
+            title="Create your login"
+            subtitle="You'll use these to sign back in anytime"
+            onBack={() => setStep("program-select")}
+            continueDisabled={!email.trim() || password.length < 6}
+            continueLabel="Create account"
+            loading={signupLoading}
+            onContinue={async () => {
+              setSignupLoading(true)
+              try {
+                // If already signed in with a different account, sign out first
+                const { data: existing } = await supabase.auth.getSession()
+                if (existing.session && existing.session.user.email !== email.trim()) {
+                  await supabase.auth.signOut()
+                }
+
+                const { data, error } = await supabase.auth.signUp({
+                  email: email.trim(),
+                  password,
+                  options: {
+                    // Name in metadata so the handle_new_user trigger saves it
+                    // to the profile at creation - the email-confirmation flow
+                    // returns no session here and skips persistProfile below.
+                    data: { role: "student", first_name: firstName || null, last_name: lastName || null },
+                  },
+                })
+
+                if (error) {
+                  // If user already exists, let them know to log in
+                  if (error.message.toLowerCase().includes("registered") || error.message.toLowerCase().includes("already")) {
                     toast({
-                      title: "Account created!",
-                      description: "You can log back in any time with your email and password.",
-                    })
-
-                    const saved = await persistProfile({
-                      literacy_level: "explorer",
-                      assessment_score: 0,
-                      reward_multiplier: 1,
-                      benchmark_scores: {},
-                      benchmark_category_scores: {},
-                      onboarding_complete: false,
-                    })
-                    if (saved) setStep("welcome")
-                  } catch (err: any) {
-                    toast({
-                      title: "Couldn't create account",
-                      description: err.message,
+                      title: "Account already exists",
+                      description: "Use the Log in link to sign back into your progress.",
                       variant: "destructive",
                     })
-                  } finally {
                     setSignupLoading(false)
+                    return
                   }
-                }}
-              >
-                {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : <>Continue <ArrowRight className="ml-2" /></>}
-              </Button>
+                  throw error
+                }
+
+                // Email confirmation on → no session yet. Collect the
+                // 6-digit code we just emailed, right here.
+                if (!data.session) {
+                  setEmailCode("")
+                  setEmailStep("code")
+                  toast({
+                    title: "Check your email",
+                    description: "We sent a 6-digit code to confirm your address.",
+                  })
+                  return
+                }
+                toast({
+                  title: "Account created!",
+                  description: "You can log back in any time with your email and password.",
+                })
+
+                const saved = await persistProfile({
+                  literacy_level: "explorer",
+                  assessment_score: 0,
+                  reward_multiplier: 1,
+                  benchmark_scores: {},
+                  benchmark_category_scores: {},
+                  onboarding_complete: false,
+                })
+                if (saved) setStep("welcome")
+              } catch (err: any) {
+                toast({
+                  title: "Couldn't create account",
+                  description: err.message,
+                  variant: "destructive",
+                })
+              } finally {
+                setSignupLoading(false)
+              }
+            }}
+          >
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Email</label>
+              <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoFocus />
             </div>
-          </motion.div>
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Password</label>
+              <Input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 6 characters" minLength={6} />
+              <p className="text-xs text-muted-foreground mt-1">You'll use this with your email to log back in from any device.</p>
+            </div>
+          </FieldStep>
         )}
 
         {/* Step 3: Program selection (students) - Regular Course, Gulliver Biz
@@ -1160,7 +1211,7 @@ export default function Onboarding() {
             className="flex flex-col items-center text-center max-w-lg"
           >
             <StepHeader
-              current={2}
+              current={STUDENT_STEP_INDEX["program-select"]}
               total={totalSteps}
               mood="excited"
               message="Pick your adventure! You can explore the full app either way."
@@ -1240,7 +1291,7 @@ export default function Onboarding() {
               </>
               )}
             </div>
-            <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("name")}>
+            <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("class-code")}>
               <ArrowLeft className="mr-2 w-4 h-4" /> Back
             </Button>
           </motion.div>

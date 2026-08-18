@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier, EnrollmentTrack } from "@/types"
+import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { recordMoneyEvent } from "@/lib/notifications"
 import { DEV_LOCAL_BYPASS, DEV_LOCAL_USER_ID } from "@/lib/devBypass"
@@ -62,6 +63,11 @@ const ls = {
   },
   del(key: string) { try { localStorage.removeItem(key) } catch {} },
 }
+
+// One-time "welcome / thanks for logging in" gift from Jeff. Granted once ever,
+// gated by the presence of this exact reason in the coin ledger (see hydrate).
+const WELCOME_GIFT_AMOUNT = 15
+const WELCOME_GIFT_REASON = "Welcome gift from Jeff 🎉"
 
 const ENROLLMENT_TRACKS: EnrollmentTrack[] = ["regular", "biz_lab", "gulliver_intro"]
 
@@ -131,6 +137,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Track the currently-signed-in user id so writes can target the right rows.
   const userIdRef = useRef<string | null>(null)
   const authReadyRef = useRef(false)
+  // Guards the one-time welcome gift against a double-grant when hydrate runs
+  // twice on initial load (getSession + onAuthStateChange both fire) before the
+  // first ledger row lands. The ledger check handles cross-session idempotency;
+  // this handles the within-session race.
+  const welcomeGiftedRef = useRef(false)
 
   const setUser = (newUser: UserProfile | null) => {
     setUserState(newUser)
@@ -331,6 +342,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const balance = h.reduce((sum, e) => sum + e.amount, 0)
         setJeffsBalance(balance)
         ls.set("investiplay_jeffs_balance", balance)
+
+        // One-time welcome gift: the first time a user's ledger has no welcome
+        // entry, Jeff hands them coins for signing in. Keying off the ledger
+        // (the synced source of truth) makes it idempotent - granted once, ever,
+        // even across devices and reinstalls. awardJeffs appends its own ledger
+        // row + fires the coin notification.
+        if (!welcomeGiftedRef.current && !h.some(e => e.reason === WELCOME_GIFT_REASON)) {
+          welcomeGiftedRef.current = true
+          awardJeffs(WELCOME_GIFT_AMOUNT, WELCOME_GIFT_REASON)
+          toast.success(`Jeff gifted you ${WELCOME_GIFT_AMOUNT} coins for signing in! 🎉`, { duration: 5000 })
+        }
       }
 
       if (portfolioRes?.data) {
