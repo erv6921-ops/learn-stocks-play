@@ -226,6 +226,246 @@ const IB_ARCHES: IbArche[] = [
       ]),
     }),
   },
+  {
+    id: "synergies", title: "The Synergy Math",
+    build: (rng, c) => ({
+      situation: `${c.buyer}'s team says merging with ${c.target} unlocks big cost savings, so they want to raise the bid to ${money(Math.round(c.fair * 1.4))}.`,
+      question: "How much of those synergies should the price reflect?",
+      choices: shuffled(rng, [
+        { text: "Pay for the value today and keep synergies as upside", points: 2, feedback: "Synergies are promises, not cash. Pay for what exists now and the reward is yours if they actually show up." },
+        { text: "Bake every projected synergy into the price you offer", points: 0, feedback: "Handing sellers 100% of savings you haven't earned means you paid for your own future work. They usually come in late and light." },
+        { text: "Refuse the deal since synergies are only guesses", points: 1, feedback: "Synergies are uncertain, but good deals still create value. Discount them - don't walk from a solid acquisition over them." },
+      ]),
+    }),
+  },
+  {
+    id: "accretion", title: "Accretive or Not",
+    build: (rng, c) => ({
+      situation: `To buy ${c.target}'s ${money(c.profit)} of yearly profit, ${c.buyer} must issue a pile of new shares to pay for it.`,
+      question: "What really decides if this helps shareholders?",
+      choices: shuffled(rng, [
+        { text: "Whether the profit added outweighs the new shares issued", points: 2, feedback: "That's accretion vs. dilution: if each share ends up with more earnings behind it, holders win. Compare profit added to stock printed." },
+        { text: "Whether the headline purchase price sounds impressive", points: 0, feedback: "A big price tag says nothing about value per share. Issue too much stock and existing owners are quietly diluted." },
+        { text: "Whether the CEO personally likes the target company", points: 1, feedback: "Fit matters, but taste isn't math. The deal has to add more earnings per share than the stock it costs to buy." },
+      ]),
+    }),
+  },
+  {
+    id: "earnout", title: "The Gap",
+    build: (rng, c) => ({
+      situation: `${c.target}'s owners want ${money(c.demand)}; your value is ${money(c.fair)}. They swear next year's growth justifies the gap.`,
+      question: "How do you bridge it?",
+      choices: shuffled(rng, [
+        { text: "Pay fair now, plus an earnout if the growth is real", points: 2, feedback: "An earnout ties the extra money to results they promised. If they're right, they earn it; if not, you didn't overpay." },
+        { text: "Just pay the higher number on their word", points: 0, feedback: "Paying today for growth that may never arrive is how buyers overpay. Make the promised future actually show up first." },
+        { text: "Refuse any structure but a single flat cash price", points: 1, feedback: "Flat cash is clean, but with a real gap it means overpaying or no deal. Earnouts exist to bridge exactly this." },
+      ]),
+    }),
+  },
+  {
+    id: "exclusivity", title: "The Exclusive Window",
+    build: (rng, c) => ({
+      situation: `${c.buyer} wants ${c.target} to stop talking to everyone else while it runs diligence, and asks you to grant exclusivity early.`,
+      question: "What do you advise the seller?",
+      choices: shuffled(rng, [
+        { text: "Grant it only after they commit to a strong price", points: 2, feedback: "Exclusivity kills your leverage, so sell it dearly - lock in the number before you turn off the competition." },
+        { text: "Grant it immediately to keep the eager buyer happy", points: 0, feedback: "Give exclusivity for free and the buyer can grind the price down with no rival in the room. That's the trap." },
+        { text: "Refuse exclusivity to any buyer under all conditions", points: 1, feedback: "Serious buyers need some exclusivity to spend on diligence. Never granting it can scare off your best bidder." },
+      ]),
+    }),
+  },
+  {
+    id: "breakupFee", title: "The Break Fee",
+    build: (rng, c) => ({
+      situation: `${c.buyer} will spend months and millions on the ${c.target} deal, and wants a fee if the seller walks to another bidder.`,
+      question: "How do you handle the break fee?",
+      choices: shuffled(rng, [
+        { text: "Agree to a modest fee that courts consider reasonable", points: 2, feedback: "A sensible break fee protects the buyer's costs without locking out better offers - that balance keeps the deal legal." },
+        { text: "Demand a huge fee that scares off every rival bidder", points: 0, feedback: "A fee so big it blocks all competition can be struck down and makes the board look disloyal to its own owners." },
+        { text: "Skip any break fee to keep the contract simple", points: 1, feedback: "No protection at all leaves the buyer exposed after huge spend, so serious bidders may walk. Some fee is standard." },
+      ]),
+    }),
+  },
+  {
+    id: "leak", title: "The Leak",
+    build: (rng, c) => ({
+      situation: `News of the ${c.buyer}-${c.target} talks leaks to the press before you're ready, and ${c.target}'s stock jumps.`,
+      question: "What's your first move?",
+      choices: shuffled(rng, [
+        { text: "Manage it with a careful, truthful public statement", points: 2, feedback: "You can't un-leak news. Controlling the message and following disclosure rules limits the damage to the process." },
+        { text: "Deny everything even though the talks are real", points: 0, feedback: "A flat lie about a real deal can break securities law and torch your credibility with regulators and investors alike." },
+        { text: "Rush to sign tonight before anyone can react", points: 1, feedback: "Panic-signing to beat a headline invites mistakes on price and terms. Steady the process, don't stampede it." },
+      ]),
+    }),
+  },
+  {
+    id: "fairness", title: "The Board's Duty",
+    build: (rng, c) => ({
+      situation: `${c.target}'s board must vote on the ${money(c.fair)} offer and asks you, as banker, to weigh in on whether it's fair.`,
+      question: "What do you give them?",
+      choices: shuffled(rng, [
+        { text: "An honest fairness view grounded in the real numbers", points: 2, feedback: "A fairness opinion protects shareholders and the board's duty to them. It has to reflect the math, not the pressure." },
+        { text: "Whatever opinion gets the deal signed fastest", points: 0, feedback: "Bending your fairness view to close a deal betrays the shareholders it exists to protect - and invites lawsuits." },
+        { text: "No opinion at all - let the board just guess", points: 1, feedback: "Boards rely on your analysis to meet their duty. Staying silent leaves them exposed on the biggest vote they'll take." },
+      ]),
+    }),
+  },
+  {
+    id: "hostile", title: "The Cold Shoulder",
+    build: (rng, c) => ({
+      situation: `${c.target}'s board keeps refusing to even discuss a sale, but ${c.buyer} is convinced the owners would want the offer.`,
+      question: `How should ${c.buyer} approach it?`,
+      choices: shuffled(rng, [
+        { text: "Try hard to win the board over before going around it", points: 2, feedback: "A friendly deal is cheaper and cleaner. Exhaust real negotiation before ever considering a hostile route." },
+        { text: "Launch a hostile takeover the moment they say no", points: 1, feedback: "Hostile bids are costly, public wars that often overpay. They're a last resort, not an opening move." },
+        { text: "Secretly buy shares to seize control by surprise", points: 0, feedback: "Quietly crossing ownership thresholds without disclosure breaks the rules fast. Control has to be won in the open." },
+      ]),
+    }),
+  },
+  {
+    id: "retention", title: "The Key People",
+    build: (rng, c) => ({
+      situation: `Much of ${c.target}'s value walks out the door each night - its best ${c.sector} people could leave once the deal closes.`,
+      question: "How do you protect that value?",
+      choices: shuffled(rng, [
+        { text: "Build retention packages so the key people stay on", points: 2, feedback: "You paid for a team, not just an office. Retention deals keep the value you bought from quitting a week later." },
+        { text: "Assume everyone stays because the logo is the same", points: 0, feedback: "A merger unsettles people; the best ones have options. Hope isn't a plan for keeping the talent you paid for." },
+        { text: "Replace the whole team right after closing", points: 1, feedback: `Clearing out the people who know the business throws away exactly what made ${c.target} worth buying.` },
+      ]),
+    }),
+  },
+  {
+    id: "crossBorder", title: "The Foreign Buyer",
+    build: (rng, c) => ({
+      situation: `An overseas company wants to buy ${c.target}, but currency swings and its home regulators add real uncertainty.`,
+      question: "How do you protect your client?",
+      choices: shuffled(rng, [
+        { text: "Price the currency and regulatory risk into the terms", points: 2, feedback: "Cross-border deals carry FX and approval risk. Building protections into the contract is how you keep surprises off your client." },
+        { text: "Treat it exactly like a plain domestic deal", points: 0, feedback: "Ignoring currency moves and foreign approvals is how cross-border deals blow up between signing and closing." },
+        { text: "Reject all foreign buyers as too complicated", points: 1, feedback: "Overseas buyers often pay the most. Managing the risk beats refusing the strongest bidder outright." },
+      ]),
+    }),
+  },
+  {
+    id: "carveOut", title: "The Division",
+    build: (rng, c) => ({
+      situation: `${c.buyer} wants just one division of ${c.target}, not the whole company - but that unit shares staff and systems with the rest.`,
+      question: "What's the hard part to nail?",
+      choices: shuffled(rng, [
+        { text: "Untangling shared people, systems and contracts cleanly", points: 2, feedback: "In a carve-out the separation IS the deal. Get the shared services split right or the unit can't stand alone." },
+        { text: "Only the headline price for the division", points: 0, feedback: "Price is the easy part. A carve-out that can't operate on day one after separation is worth far less than the sticker." },
+        { text: "Nothing - a division sells just like a whole company", points: 1, feedback: "It really doesn't. Pulling a unit out of its parent is delicate surgery, and the details decide the value." },
+      ]),
+    }),
+  },
+  {
+    id: "goShop", title: "The Go-Shop",
+    build: (rng, c) => ({
+      situation: `${c.target} signed with ${c.buyer}, but the board wants a window to check whether anyone will pay more than ${money(c.fair)}.`,
+      question: "How do you advise the board?",
+      choices: shuffled(rng, [
+        { text: "Use a short go-shop to test for a genuinely higher bid", points: 2, feedback: "A go-shop lets the board honor its duty to shareholders by confirming the signed price is really the best available." },
+        { text: "Sign and forbid the board from looking at all", points: 0, feedback: "Blocking the board from testing the market can breach its duty to shareholders and draw lawsuits. Let them look." },
+        { text: "Re-open the whole auction from scratch for months", points: 1, feedback: "A full re-run risks losing the bird in hand. A tight go-shop gets the same comfort without blowing up the deal." },
+      ]),
+    }),
+  },
+  {
+    id: "macClause", title: "The Downturn",
+    build: (rng, c) => ({
+      situation: `Between signing and closing the ${c.target} deal, the ${c.sector} market suddenly slumps and ${c.buyer} wants out.`,
+      question: "Can they simply walk?",
+      choices: shuffled(rng, [
+        { text: "Only if the contract's material-adverse-change bar is met", points: 2, feedback: "A signed deal is binding. Buyers can exit only if a real, lasting MAC clause is triggered - courts set that bar high." },
+        { text: "Yes - any dip in the market lets a buyer bail", points: 0, feedback: "Ordinary market wobbles almost never clear the MAC bar. Walking on a normal downturn means breaching the contract." },
+        { text: "No - a signed deal can never be exited for any reason", points: 1, feedback: "Deals do have escape hatches for genuine disasters. It's not 'never' - it's 'only for a true material change'." },
+      ]),
+    }),
+  },
+  {
+    id: "financingCert", title: "The Staple",
+    build: (rng, c) => ({
+      situation: `Bidders for ${c.target} worry they can't line up loans fast enough, and your firm could offer pre-arranged financing to all of them.`,
+      question: "Why might the seller want that?",
+      choices: shuffled(rng, [
+        { text: "It lets more buyers bid with certainty, lifting the price", points: 2, feedback: "'Stapled' financing removes a buyer's biggest worry, so more can compete - and competition is what raises the price." },
+        { text: "It guarantees the seller a specific final buyer", points: 0, feedback: "Staple financing doesn't pick the winner; it widens the field. Its value is more credible bidders, not a chosen one." },
+        { text: "It has no effect on the sale process at all", points: 1, feedback: "It matters: financing certainty turns hesitant bidders into real ones, and a fuller room means a better outcome." },
+      ]),
+    }),
+  },
+  {
+    id: "minorityStake", title: "Piece or Whole",
+    build: (rng, c) => ({
+      situation: `${c.buyer} can buy all of ${c.target} for ${money(c.fair)}, or a minority slice for less with no real say in decisions.`,
+      question: "Which should it weigh?",
+      choices: shuffled(rng, [
+        { text: "Match the stake to how much control it actually needs", points: 2, feedback: "Control has a price. If the buyer needs to run it, buy control; if it just wants exposure, a minority stake is cheaper." },
+        { text: "Always buy 100% no matter the strategic goal", points: 1, feedback: "Full ownership is powerful but pricey. Overpaying for control you don't need wastes capital a minority stake would save." },
+        { text: "Always take the cheapest slice regardless of goals", points: 0, feedback: "A minority stake with no say is useless if the buyer needed to steer the company. Cheap isn't the goal - fit is." },
+      ]),
+    }),
+  },
+  {
+    id: "lockUp", title: "After the Bell",
+    build: (rng, c) => ({
+      situation: `${c.target} just went public. Its insiders want to sell shares immediately, but the bankers set a lock-up period first.`,
+      question: "Why does the lock-up matter?",
+      choices: shuffled(rng, [
+        { text: "It stops a flood of insider selling from crushing the price", points: 2, feedback: "A lock-up reassures new investors that insiders won't dump on day one - protecting the freshly public stock's price." },
+        { text: "It's just paperwork with no effect on the stock", points: 0, feedback: "It's very real: without it, insiders selling at once can tank the price and betray the investors who just bought in." },
+        { text: "It exists only to punish the company's founders", points: 1, feedback: "It's not a punishment - it's protection for the stock and its new holders while the company finds its footing." },
+      ]),
+    }),
+  },
+  {
+    id: "escrow", title: "The Holdback",
+    build: (rng, c) => ({
+      situation: `${c.buyer} worries a hidden problem could surface after buying ${c.target}, and wants part of the price held back for a while.`,
+      question: "How do you structure it?",
+      choices: shuffled(rng, [
+        { text: "Hold a fair slice in escrow to cover surprises for a set time", points: 2, feedback: "An escrow holdback protects the buyer if the seller's promises prove wrong - a standard, balanced way to share that risk." },
+        { text: "Hand over every coin at closing with no protection", points: 0, feedback: "Paying in full with no holdback leaves the buyer no recourse if a buried problem surfaces the next month." },
+        { text: "Hold back nearly the whole price for years", points: 1, feedback: "An excessive, endless holdback insults the seller and can break the deal. Protection should be proportional." },
+      ]),
+    }),
+  },
+  {
+    id: "listingRoute", title: "Two Doors Public",
+    build: (rng, c) => ({
+      situation: `${c.target} wants to go public. It can run a traditional IPO or merge into an already-listed shell to get there faster.`,
+      question: "How do you advise?",
+      choices: shuffled(rng, [
+        { text: "Weigh speed against price, scrutiny and investor trust", points: 2, feedback: "Each route trades off differently. A shell merger is faster but often values worse and draws more suspicion - it's a real choice." },
+        { text: "Always take the fastest route regardless of the cost", points: 1, feedback: "Speed can mean a worse price and weaker investor confidence. Fast isn't automatically right for going public." },
+        { text: "Tell them the two routes are basically identical", points: 0, feedback: "They're not - price, timeline, disclosure and reputation all differ. Advising 'same thing' misleads the client." },
+      ]),
+    }),
+  },
+  {
+    id: "confidentiality", title: "The Books",
+    build: (rng, c) => ({
+      situation: `${c.buyer} wants to see ${c.target}'s private financials, but ${c.target} fears a rival could use that data against it.`,
+      question: "How do you open the books safely?",
+      choices: shuffled(rng, [
+        { text: "Share sensitive data only under a signed confidentiality deal", points: 2, feedback: "An NDA lets diligence happen while legally binding the buyer not to misuse secrets - standard practice before books open." },
+        { text: "Hand over everything freely to show good faith", points: 0, feedback: "Dumping trade secrets with no protection is reckless - if talks fail, a rival now knows exactly how you operate." },
+        { text: "Refuse to share any real numbers whatsoever", points: 1, feedback: "No buyer commits blind. Total secrecy kills the deal - the fix is protected disclosure, not none at all." },
+      ]),
+    }),
+  },
+  {
+    id: "relationship", title: "The Long Game",
+    build: (rng, c) => ({
+      situation: `You could push ${c.buyer} into a shaky deal for a fat fee now, or advise patience and earn nothing this quarter.`,
+      question: "What guides your advice?",
+      choices: shuffled(rng, [
+        { text: "The client's long-term trust, which wins many more fees", points: 2, feedback: "Banking runs on repeat clients. One honest 'don't do this deal' earns the trust behind a decade of mandates." },
+        { text: "This quarter's fee, whatever it does to the client", points: 0, feedback: "Milking a client for one bad-deal fee is how a banker gets a single payday and then never a call again." },
+        { text: "Whichever choice needs the least work from you", points: 1, feedback: "Coasting serves no one. Real advice sometimes means the harder conversation that protects the relationship." },
+      ]),
+    }),
+  },
 ]
 
 function ibDeal(rng: Rng, fee: number, week: number): CareerDeal {
@@ -390,6 +630,246 @@ const PE_ARCHES: PeArche[] = [
         { text: "Run all three against each other for the best price", points: 2, feedback: "Competition among buyers is what lifts the exit price. A real process beats quietly taking the first offer." },
         { text: "Grab the first fair offer to avoid the hassle", points: 1, feedback: "Certainty has value, but skipping competition usually leaves money behind. Make them bid before you sign." },
         { text: "Hold out for a dream price and reject them all", points: 0, feedback: "Waiting for a fantasy number is how live offers expire and windows slam shut. Sell into real demand." },
+      ]),
+    }),
+  },
+  {
+    id: "diligence", title: "Kick the Tires",
+    build: (rng, c) => ({
+      situation: `Before wiring ${money(c.buyPrice)} for ${c.target}, your team has two weeks to dig into its books and customers.`,
+      question: "How deep do you dig?",
+      choices: shuffled(rng, [
+        { text: "Pressure-test the numbers and the flaw you're underwriting", points: 2, feedback: "Diligence exists to confirm the story before you pay. You verify the very problem your whole thesis rests on." },
+        { text: "Trust the seller's polished deck and skip the digging", points: 0, feedback: "Sellers show their best face. Buying on the pitch deck alone is how funds inherit nasty surprises after closing." },
+        { text: "Delay for six months to check every tiny detail", points: 1, feedback: "Diligence has diminishing returns and deals have clocks. Verify what matters, not every atom, before the deal dies." },
+      ]),
+    }),
+  },
+  {
+    id: "alignment", title: "The Manager's Stake",
+    build: (rng, c) => ({
+      situation: `${c.target}'s managers will stay on, and you decide how they're rewarded for the years of hard work ahead.`,
+      question: "How do you motivate them?",
+      choices: shuffled(rng, [
+        { text: "Give them equity so they win only if the company wins", points: 2, feedback: "Skin in the game aligns managers with your return. When they own a slice, their late nights build your value too." },
+        { text: "Pay flat salaries with no link to performance", points: 0, feedback: "A fixed check rewards showing up, not results. Without upside, managers have no reason to chase the plan hard." },
+        { text: "Promise huge bonuses no matter how the company does", points: 1, feedback: "Guaranteed bonuses cost cash and still don't tie pay to results. Ownership beats a check that pays win or lose." },
+      ]),
+    }),
+  },
+  {
+    id: "workingCapital", title: "The Trapped Cash",
+    build: (rng, c) => ({
+      situation: `${c.target} has coins locked up in slow-moving inventory and customers who pay late, starving it of cash.`,
+      question: "What's the quick win?",
+      choices: shuffled(rng, [
+        { text: "Free the cash by tightening inventory and collections", points: 2, feedback: "Working-capital cleanup is free money - it releases cash already inside the business without selling a single extra thing." },
+        { text: "Ignore it since the profit line looks fine", points: 0, feedback: "Profit can look great while cash is trapped in the warehouse. Cash pays the debt, so freeing it is a fast, real win." },
+        { text: "Borrow more to cover the cash squeeze instead", points: 1, feedback: "Piling on debt to plug a gap you could fix operationally adds risk for nothing. Free your own cash first." },
+      ]),
+    }),
+  },
+  {
+    id: "growthBet", title: "The Growth Bet",
+    build: (rng, c) => ({
+      situation: `${c.target} could invest heavily to open new locations, or harvest cash and stay the size it is.`,
+      question: "Which path builds more value?",
+      choices: shuffled(rng, [
+        { text: "Invest where the returns clearly beat the cost of capital", points: 2, feedback: "Growth is only good if each coin invested earns more than it costs. Disciplined expansion compounds your equity." },
+        { text: "Chase growth everywhere regardless of the returns", points: 1, feedback: "Growth for its own sake can burn cash on projects that never pay back. Expand where the math actually works." },
+        { text: "Never reinvest - always pull every coin out", points: 0, feedback: "Starving a healthy business of investment caps its value. Refusing all growth leaves easy returns on the table." },
+      ]),
+    }),
+  },
+  {
+    id: "concentration", title: "The One Big Customer",
+    build: (rng, c) => ({
+      situation: `Nearly half of ${c.target}'s sales come from a single customer who could leave at any time.`,
+      question: "How do you handle that risk?",
+      choices: shuffled(rng, [
+        { text: "Lock in that customer while winning new ones to diversify", points: 2, feedback: "Concentration is fragile. Deepening the key relationship while broadening the base makes the whole company safer and worth more." },
+        { text: "Do nothing and hope the big customer stays forever", points: 0, feedback: "Betting the business on one account that can walk is how a single lost contract wipes out your return overnight." },
+        { text: "Fire the big customer to force everyone to diversify", points: 1, feedback: "Dumping your biggest source of sales to 'fix' concentration is self-harm. Grow around it - don't detonate it." },
+      ]),
+    }),
+  },
+  {
+    id: "systems", title: "The Old Software",
+    build: (rng, c) => ({
+      situation: `${c.target} still runs on spreadsheets and paper, so no one really knows its numbers until months later.`,
+      question: "What do you do about it?",
+      choices: shuffled(rng, [
+        { text: "Invest in systems that show the numbers in real time", points: 2, feedback: "You can't improve what you can't see. Better systems turn a foggy business into one you can actually steer and value." },
+        { text: "Leave the paper process since it 'still works'", points: 0, feedback: "Flying blind is expensive. Without timely data, problems fester for months before anyone even notices them." },
+        { text: "Rip out everything and rebuild all systems overnight", points: 1, feedback: "A big-bang tech replacement can halt the business. Upgrade what matters most first, then build from there." },
+      ]),
+    }),
+  },
+  {
+    id: "hundredDay", title: "The First 100 Days",
+    build: (rng, c) => ({
+      situation: `You've just closed on ${c.target} and the whole company is watching to see what the new owners do first.`,
+      question: "How do you spend the first 100 days?",
+      choices: shuffled(rng, [
+        { text: "Execute a focused plan on the few things that matter most", points: 2, feedback: "The early days set the tone. A tight plan hitting the biggest levers builds momentum and trust from day one." },
+        { text: "Change nothing for a year to keep everyone calm", points: 1, feedback: "Total stillness wastes the fresh mandate. The first 100 days are when change is easiest - use them, don't sleep them." },
+        { text: "Overhaul every single thing at once for shock value", points: 0, feedback: "Changing everything at once overwhelms the team and breaks what worked. Focus beats chaos in the opening stretch." },
+      ]),
+    }),
+  },
+  {
+    id: "secondaryExit", title: "The Fund-to-Fund Sale",
+    build: (rng, c) => ({
+      situation: `Another PE fund offers ${c.nowMult}× your money for ${c.target}, saying it can push growth to a level you can't.`,
+      question: "Do you sell to a rival fund?",
+      choices: shuffled(rng, [
+        { text: `Sell if ${c.nowMult}× hits your return and the next owner adds real value`, points: 2, feedback: "A secondary buyout is fine when the price is right and the buyer can genuinely take it further. Return the cash and move on." },
+        { text: "Refuse on principle to ever sell to a competitor", points: 1, feedback: "Pride isn't a strategy. If a rival fund pays your number, taking it and recycling capital is exactly the job." },
+        { text: "Sell at any price just to be rid of the company", points: 0, feedback: "Dumping a good asset below its worth to save effort torches your investors' return. Sell well, not just fast." },
+      ]),
+    }),
+  },
+  {
+    id: "addBacks", title: "The Adjusted Profit",
+    build: (rng, c) => ({
+      situation: `A banker selling ${c.rival} shows profit boosted by lots of 'one-time' add-backs that make it look far healthier.`,
+      question: "How do you read those numbers?",
+      choices: shuffled(rng, [
+        { text: "Accept only add-backs that are truly one-off and provable", points: 2, feedback: "Add-backs can be fair or fiction. Underwriting only the genuine, documented ones keeps you from overpaying on hot air." },
+        { text: "Take every add-back at face value to close faster", points: 0, feedback: "Swallowing inflated add-backs means paying for profit that isn't real. Sellers pad these numbers on purpose." },
+        { text: "Reject all adjustments and only look at raw numbers", points: 1, feedback: "Some add-backs are legitimately one-time. Ignoring them all can make you miss a genuinely good business." },
+      ]),
+    }),
+  },
+  {
+    id: "covenant", title: "The Covenant",
+    build: (rng, c) => ({
+      situation: `A soft quarter pushes ${c.target} close to breaking a promise it made to its lenders about its debt.`,
+      question: "What's the right move?",
+      choices: shuffled(rng, [
+        { text: "Get ahead of it - talk to lenders early with a real plan", points: 2, feedback: "Lenders hate surprises more than problems. Coming to them early with a fix usually earns room; hiding it never does." },
+        { text: "Say nothing and hope next quarter fixes itself", points: 0, feedback: "A quiet covenant breach discovered by the bank can trigger default. Silence turns a manageable dip into a crisis." },
+        { text: "Immediately fire-sale assets in a panic to raise cash", points: 1, feedback: "Panic-selling good assets cheap destroys value you'll want back. Talk first - most covenant issues get worked out." },
+      ]),
+    }),
+  },
+  {
+    id: "culture", title: "The Two Cultures",
+    build: (rng, c) => ({
+      situation: `You bolt ${c.rival} onto ${c.target}, but the two teams work in totally different ways and friction is rising.`,
+      question: "How do you handle it?",
+      choices: shuffled(rng, [
+        { text: "Blend the best of both and set one clear shared way", points: 2, feedback: "Deals fail on culture as often as on numbers. Actively merging how people work protects the value you paid for." },
+        { text: "Force the acquired team to change everything instantly", points: 1, feedback: "Steamrolling one culture breeds resentment and quiet quitting. Integration works better as a two-way blend." },
+        { text: "Ignore the friction and let the teams sort it out", points: 0, feedback: "Cultural clashes left alone fester into lost people and stalled savings - the exact synergies you bought disappear." },
+      ]),
+    }),
+  },
+  {
+    id: "expansion", title: "The New Market",
+    build: (rng, c) => ({
+      situation: `${c.target} could enter a nearby region where it has no track record but sees real demand.`,
+      question: "How do you approach it?",
+      choices: shuffled(rng, [
+        { text: "Test small, learn, then scale what actually works", points: 2, feedback: "A cheap pilot tells you if the demand is real before you bet big. Expansion works best as a staged, evidence-led move." },
+        { text: "Go all-in immediately with a massive rollout", points: 1, feedback: "Betting the fund on an untested market can blow up fast. Prove the model in one spot before you flood the region." },
+        { text: "Never leave the home market under any circumstances", points: 0, feedback: "Refusing all expansion caps growth and value. Real demand next door is worth a careful, tested step toward it." },
+      ]),
+    }),
+  },
+  {
+    id: "supplier", title: "The Single Supplier",
+    build: (rng, c) => ({
+      situation: `${c.target} buys a crucial part from just one supplier who keeps hiking prices, knowing there's no backup.`,
+      question: "What's the fix?",
+      choices: shuffled(rng, [
+        { text: "Qualify a second source to restore your bargaining power", points: 2, feedback: "A backup supplier ends the squeeze - competition on your buy side lowers costs and de-risks the whole operation." },
+        { text: "Keep paying the rising prices to avoid any disruption", points: 0, feedback: "A sole supplier who knows you're trapped will keep raising prices. Dependence like that quietly eats your margin." },
+        { text: "Threaten the supplier without any real alternative", points: 1, feedback: "Bluffing with no backup fails - they know you can't leave. Build the alternative first, then you have real leverage." },
+      ]),
+    }),
+  },
+  {
+    id: "quality", title: "The Reputation",
+    build: (rng, c) => ({
+      situation: `To lift short-term profit, someone suggests cheapening ${c.target}'s product in ways customers might eventually notice.`,
+      question: "Do you cut the quality?",
+      choices: shuffled(rng, [
+        { text: "Protect quality - the brand is the reason customers pay", points: 2, feedback: "Quietly gutting quality trades tomorrow's brand for today's margin. Reputation is a moat you don't sell for a quick bump." },
+        { text: "Cheapen it everywhere for an immediate profit jump", points: 0, feedback: "Customers notice, and a wrecked reputation shrinks your exit price far more than the short-term savings ever added." },
+        { text: "Cut quality only on the products nobody buys anyway", points: 1, feedback: "Trimming dead products is fine, but if they don't sell it barely helps. Don't dress up a quality cut as strategy." },
+      ]),
+    }),
+  },
+  {
+    id: "turnaround", title: "The Bleeding Unit",
+    build: (rng, c) => ({
+      situation: `One division of ${c.target} loses money every month, and the flaw you underwrote lives mostly there.`,
+      question: "What do you do with it?",
+      choices: shuffled(rng, [
+        { text: "Decide fast: fix it with a real plan or cut it loose", points: 2, feedback: "A losing unit needs a clear verdict, not drift. Either a credible turnaround or a clean exit - both beat slow bleeding." },
+        { text: "Keep funding the losses indefinitely and hope", points: 0, feedback: "Feeding a money-loser with no plan drains the healthy business. Hope is not a turnaround strategy." },
+        { text: "Cut it instantly without checking if it's fixable", points: 1, feedback: "Some bleeding units are fixable gold. Snap-cutting without analysis can throw away the very upside you bought." },
+      ]),
+    }),
+  },
+  {
+    id: "talentUpgrade", title: "The New CFO",
+    build: (rng, c) => ({
+      situation: `${c.target}'s finance chief was fine for a small firm but is out of their depth for the bigger company you're building.`,
+      question: "How do you handle leadership?",
+      choices: shuffled(rng, [
+        { text: "Upgrade the role with someone built for the next stage", points: 2, feedback: "Companies outgrow their early leaders. Putting the right person in the seat is one of PE's highest-return moves." },
+        { text: "Keep them out of loyalty despite the growing gaps", points: 1, feedback: "Loyalty is admirable, but a mismatched leader caps the whole company. Support them into a fitting role instead." },
+        { text: "Fire the entire management team on day one", points: 0, feedback: "Clearing out everyone destroys the knowledge that runs the place. Upgrade specific gaps - don't torch the team." },
+      ]),
+    }),
+  },
+  {
+    id: "refinance", title: "The Refinance",
+    build: (rng, c) => ({
+      situation: `Rates have dropped since you bought ${c.target}, and its debt could be refinanced at a much lower cost.`,
+      question: "Should you refinance?",
+      choices: shuffled(rng, [
+        { text: "Refinance if the savings clearly beat the fees to do it", points: 2, feedback: "Cheaper debt drops interest straight to equity value. When the math nets out positive, refinancing is easy money." },
+        { text: "Refinance constantly regardless of the fees involved", points: 1, feedback: "Every refinance has costs. Doing it without checking that savings exceed fees can quietly lose money." },
+        { text: "Never touch the original debt out of habit", points: 0, feedback: "Sticking with expensive debt when far cheaper money is available leaves real return on the table for no reason." },
+      ]),
+    }),
+  },
+  {
+    id: "exitPrep", title: "The Cleanup",
+    build: (rng, c) => ({
+      situation: `You'll sell ${c.target} next year and want buyers to pay full price for the improved business.`,
+      question: "How do you prepare for sale?",
+      choices: shuffled(rng, [
+        { text: "Tidy the numbers and document the story before you list", points: 2, feedback: "Buyers pay up for a clean, well-evidenced business. Prepping the data and the narrative early lifts the exit price." },
+        { text: "Slap it on the market as-is with messy records", points: 0, feedback: "A messy company invites lowball bids and scary diligence findings. Clean it up first or leave money on the table." },
+        { text: "Inflate the numbers with tricks to fool buyers", points: 1, feedback: "Sophisticated buyers see through window dressing, and it blows up trust in diligence. Real improvement sells; gimmicks don't." },
+      ]),
+    }),
+  },
+  {
+    id: "downsidePlan", title: "The Rainy Day",
+    build: (rng, c) => ({
+      situation: `A recession could hit before you exit ${c.target}, and its debt still needs to be paid either way.`,
+      question: "How do you prepare for a downturn?",
+      choices: shuffled(rng, [
+        { text: "Stress-test the plan and keep a cushion for bad times", points: 2, feedback: "Good investors plan for the storm before it comes. A tested downside case and some breathing room keep the deal alive." },
+        { text: "Assume good times continue and plan only for those", points: 0, feedback: "Betting the deal on permanent sunshine is how leveraged buyouts fail. The downside always eventually arrives." },
+        { text: "Sell everything now at any price to dodge the risk", points: 1, feedback: "Panic-exiting a healthy company for fear of a maybe-recession sacrifices real value. Prepare - don't flee." },
+      ]),
+    }),
+  },
+  {
+    id: "reRating", title: "The Re-Rating",
+    build: (rng, c) => ({
+      situation: `You bought small ${c.target} at a low multiple; grown much bigger, similar companies trade at a higher multiple.`,
+      question: "Why can that lift your return?",
+      choices: shuffled(rng, [
+        { text: "A bigger, safer company earns a higher multiple at exit", points: 2, feedback: "Scale and stability re-rate a business: buyers pay a higher multiple for the same profit, boosting your return on top of growth." },
+        { text: "Multiples never change no matter the company's size", points: 0, feedback: "They do change - larger, more resilient companies command richer multiples. That re-rating is a core PE value driver." },
+        { text: "Only luck decides what multiple a buyer will pay", points: 1, feedback: "Luck plays a part, but size, growth and quality genuinely move the multiple. It's earned, not just rolled on dice." },
       ]),
     }),
   },
@@ -860,6 +1340,246 @@ const WM_ARCHES: WmArche[] = [
         { text: "The low-cost index - fees compound against you", points: 2, feedback: "High fees quietly eat returns every year, and most 'star' funds don't beat the index after costs." },
         { text: "The pricey fund - you get what you pay for", points: 0, feedback: "With funds, you often get what you DON'T pay for. High fees are the surest predictor of lower net returns." },
         { text: "Split between both to hedge your bets", points: 1, feedback: "Half-measures still bleed fees on half the money. When the cheap option usually wins, why fund the expensive one?" },
+      ]),
+    }),
+  },
+  {
+    id: "taxShelter", title: "The Tax Shelter",
+    build: (rng, c) => ({
+      situation: `${c.name} invests in a plain account and pays tax every year, while their workplace retirement account sits half-empty.`,
+      question: "Where should new savings go first?",
+      choices: shuffled(rng, [
+        { text: "Fill tax-advantaged accounts before the taxable one", points: 2, feedback: "Tax-advantaged accounts let money compound untaxed for years - using them first is one of the biggest free wins in investing." },
+        { text: "Keep everything in the regular taxable account", points: 0, feedback: "Paying tax on gains every year is a needless drag when tax-sheltered accounts sit unused right beside it." },
+        { text: "Stop investing until they fully understand taxes", points: 1, feedback: "Waiting for perfect knowledge wastes years of compounding. Use the sheltered accounts now and learn the details later." },
+      ]),
+    }),
+  },
+  {
+    id: "lumpSum", title: "The Lump Sum",
+    build: (rng, c) => ({
+      situation: `${c.name} has a large sum to invest but is terrified of putting it all in right before a possible dip.`,
+      question: "How do you invest it?",
+      choices: shuffled(rng, [
+        { text: "Spread it in over months to ease the timing fear", points: 2, feedback: "Investing gradually smooths out the fear of a bad day and keeps them from freezing - the plan they'll actually stick to wins." },
+        { text: "Wait in cash until the market clearly looks safe", points: 0, feedback: "Nobody rings a bell at the bottom. 'Waiting for safe' usually means missing the recovery entirely." },
+        { text: "Dump it all in on a single day and look away", points: 1, feedback: "Investing at once is fine mathematically, but a nervous client who panics at the first drop is the real risk here." },
+      ]),
+    }),
+  },
+  {
+    id: "goals", title: "The Goal First",
+    build: (rng, c) => ({
+      situation: `${c.name} asks you to buy 'whatever's hot right now' without saying what the money is even for.`,
+      question: "What do you do first?",
+      choices: shuffled(rng, [
+        { text: "Define the goal and timeline before picking anything", points: 2, feedback: "The goal decides the plan. Money needed in two years and money for retirement belong in completely different places." },
+        { text: "Buy whatever's trending to keep the client happy", points: 0, feedback: "Investing with no goal is gambling with extra steps. Without a target you can't tell success from luck." },
+        { text: "Put it all in cash so no goal is ever needed", points: 1, feedback: "All-cash dodges the question but loses to inflation. First find the goal, then match the mix to it." },
+      ]),
+    }),
+  },
+  {
+    id: "lifeInsurance", title: "The Dependents",
+    build: (rng, c) => ({
+      situation: `${c.name}, ${c.age}, supports young kids on their income but has no life insurance in place.`,
+      question: "What do you raise with them?",
+      choices: shuffled(rng, [
+        { text: "Cover the income their family relies on with term insurance", points: 2, feedback: "When people depend on your paycheck, protecting it comes before fancy investing. Simple term insurance does exactly that." },
+        { text: "Skip insurance and just invest more aggressively", points: 0, feedback: "No amount of investing helps the family if the earner is suddenly gone next year. Protection comes first." },
+        { text: "Buy the priciest whole-life policy the agent pitches", points: 1, feedback: "Expensive bundled policies often over-serve the need. Right-sized term coverage usually protects the family for far less." },
+      ]),
+    }),
+  },
+  {
+    id: "estate", title: "The Beneficiaries",
+    build: (rng, c) => ({
+      situation: `${c.name} has never named who inherits their accounts, assuming it'll 'just sort itself out' someday.`,
+      question: "How important is this?",
+      choices: shuffled(rng, [
+        { text: "Set beneficiaries and a basic plan now to avoid chaos", points: 2, feedback: "Named beneficiaries route money quickly and privately. Skipping it can drag loved ones through a slow, public legal mess." },
+        { text: "Leave it - the law will guess their wishes fine", points: 0, feedback: "Default laws may send money to the wrong people entirely. A few forms now spare the family a painful, costly tangle." },
+        { text: "Only worry about it once they're elderly", points: 1, feedback: "Accidents don't check your age. Basic beneficiary paperwork matters the moment there are assets and people you care about." },
+      ]),
+    }),
+  },
+  {
+    id: "college", title: "The College Fund",
+    build: (rng, c) => ({
+      situation: `${c.name} wants to save for a child's college, 15 years away, and asks where that money should sit.`,
+      question: "Your recommendation?",
+      choices: shuffled(rng, [
+        { text: "A tax-advantaged college account invested for growth", points: 2, feedback: "With 15 years to run, growth investments in a tax-advantaged college account let compounding do the heavy lifting." },
+        { text: "A plain savings account earning almost nothing", points: 0, feedback: "Cash barely grows and loses to inflation over 15 years - a long runway is exactly when you want it invested." },
+        { text: "One hand-picked stock they feel lucky about", points: 1, feedback: "A single stock could soar or crater right before tuition is due. Diversified growth is far safer for a real goal." },
+      ]),
+    }),
+  },
+  {
+    id: "mortgageVsInvest", title: "The Mortgage",
+    build: (rng, c) => ({
+      situation: `${c.name} has spare cash and asks whether to overpay their low-rate mortgage or invest the money instead.`,
+      question: "How do you frame it?",
+      choices: shuffled(rng, [
+        { text: "Weigh the mortgage rate against expected returns and their comfort", points: 2, feedback: "It's a rate-vs-return call plus peace of mind. A low mortgage rate often loses to investing, but guaranteed debt relief has real value too." },
+        { text: "Always pay off any mortgage as fast as humanly possible", points: 1, feedback: "Debt-free feels great, but rushing a cheap mortgage can mean skipping higher expected returns. It's a trade-off, not a rule." },
+        { text: "Never pay extra - always invest every spare coin", points: 0, feedback: "Ignoring the guaranteed 'return' of clearing debt - and the client's need to sleep at night - misses half the picture." },
+      ]),
+    }),
+  },
+  {
+    id: "inheritedStock", title: "The Inherited Shares",
+    build: (rng, c) => ({
+      situation: `${c.name} inherited a huge position in one company's stock and feels it would be 'disloyal' to sell any of it.`,
+      question: "Your advice?",
+      choices: shuffled(rng, [
+        { text: "Trim it gradually to reduce the single-company risk", points: 2, feedback: "One stock holding most of your wealth is dangerous no matter the sentiment. Easing out spreads the risk while respecting the emotion." },
+        { text: "Keep every share forever out of family loyalty", points: 0, feedback: "Sentiment doesn't protect a portfolio. If that one company stumbles, a lifetime of wealth can vanish with it." },
+        { text: "Sell all of it in a single day right now", points: 1, feedback: "Diversifying is right, but a rushed all-at-once sale can trigger a big tax bill. Do it thoughtfully, not overnight." },
+      ]),
+    }),
+  },
+  {
+    id: "annuity", title: "The Complex Product",
+    build: (rng, c) => ({
+      situation: `A salesperson pitched ${c.name} a complicated product with high fees and terms nobody at the table can fully explain.`,
+      question: "What do you tell them?",
+      choices: shuffled(rng, [
+        { text: "Don't buy what you can't understand or easily exit", points: 2, feedback: "Opaque, high-fee, hard-to-exit products usually serve the seller. If it can't be explained simply, that's the answer." },
+        { text: "Buy it since the salesperson sounded confident", points: 0, feedback: "Confidence isn't disclosure. Complex products with big commissions are designed to sound better than they are." },
+        { text: "Put their entire portfolio into it to keep things simple", points: 1, feedback: "Concentrating everything in one confusing, costly product is the opposite of simple - it stacks fee risk on top of complexity." },
+      ]),
+    }),
+  },
+  {
+    id: "sidelines", title: "The Sidelines",
+    build: (rng, c) => ({
+      situation: `${c.name} has sat in cash for two years 'waiting for the right moment' while markets drifted higher.`,
+      question: "How do you coach them?",
+      choices: shuffled(rng, [
+        { text: "Get invested on a plan - time in beats timing the market", points: 2, feedback: "Waiting for the perfect entry usually costs more than it saves. A steady plan beats forever guessing the top and bottom." },
+        { text: "Keep waiting until the news finally feels calm", points: 0, feedback: "By the time news feels calm, prices have already moved. 'Waiting for certainty' is how people miss whole bull markets." },
+        { text: "Go all-in today because they're clearly behind", points: 1, feedback: "The instinct to invest is right, but shoving it all in from guilt can spook them into panic-selling. Ease in on a plan." },
+      ]),
+    }),
+  },
+  {
+    id: "activeVsIndex", title: "The Star Manager",
+    build: (rng, c) => ({
+      situation: `${c.name} wants to chase a fund that beat the market last year, sure the streak will continue.`,
+      question: "Your guidance?",
+      choices: shuffled(rng, [
+        { text: "Warn that last year's winners rarely repeat after fees", points: 2, feedback: "Past performance chases itself in circles. Most hot funds cool off, and their high fees keep dragging every year." },
+        { text: "Pile in - a winning streak proves real skill", points: 0, feedback: "One good year is mostly luck. Buying last year's chart is how investors consistently arrive right before the fade." },
+        { text: "Sell everything else to fund this one bet", points: 1, feedback: "Even if the fund were great, concentrating the whole portfolio into it throws away diversification for a hunch." },
+      ]),
+    }),
+  },
+  {
+    id: "cashDrag", title: "The Idle Cash",
+    build: (rng, c) => ({
+      situation: `Half of ${c.name}'s long-term portfolio has quietly sat in cash for years, well beyond any emergency need.`,
+      question: "What's the issue?",
+      choices: shuffled(rng, [
+        { text: "Idle long-term cash loses ground to inflation over time", points: 2, feedback: "Cash beyond the emergency fund is a slow leak - inflation shrinks its buying power while it should be invested for the goal." },
+        { text: "Nothing - more cash is always the safest choice", points: 0, feedback: "Cash feels safe but guarantees a real loss to inflation over the long run. Safe-feeling isn't the same as safe." },
+        { text: "Move every last coin into stocks immediately", points: 1, feedback: "Right that it's over-cashed, wrong to leave zero buffer. Keep the emergency fund; invest only the truly long-term excess." },
+      ]),
+    }),
+  },
+  {
+    id: "socialSecurity", title: "The Claiming Age",
+    build: (rng, c) => ({
+      situation: `${c.name} is nearing retirement and is tempted to claim government benefits as early as possible.`,
+      question: "How do you frame the choice?",
+      choices: shuffled(rng, [
+        { text: "Weigh their health and needs - waiting boosts the check", points: 2, feedback: "Claiming later permanently raises the payment. For someone healthy who can afford to wait, that guaranteed increase is valuable." },
+        { text: "Always claim the second they're eligible, no exceptions", points: 1, feedback: "Early claiming locks in a smaller check for life. Sometimes it's right, but 'always as early as possible' ignores the trade-off." },
+        { text: "Ignore the decision since the amount can't change", points: 0, feedback: "It very much changes with timing. Treating it as fixed can cost a retiree a meaningfully larger lifetime income." },
+      ]),
+    }),
+  },
+  {
+    id: "sleepTest", title: "The Sleep Test",
+    build: (rng, c) => ({
+      situation: `${c.name}'s plan is technically optimal, but the ups and downs make them so anxious they can't sleep.`,
+      question: "What do you adjust?",
+      choices: shuffled(rng, [
+        { text: "Dial risk to a level they can actually stick with", points: 2, feedback: "The best plan is the one a client won't abandon in a panic. A slightly calmer portfolio they keep beats a 'perfect' one they ditch." },
+        { text: "Force them to hold the optimal plan regardless", points: 0, feedback: "An 'optimal' plan the client bails on at the first drop is worthless. Fit the risk to the person, not just the spreadsheet." },
+        { text: "Move them entirely to cash to end all worry", points: 1, feedback: "Zero risk brings its own risk - inflation and falling short of goals. Ease the anxiety without abandoning growth entirely." },
+      ]),
+    }),
+  },
+  {
+    id: "speculation", title: "The Speculative Bet",
+    build: (rng, c) => ({
+      situation: `${c.name} is desperate to put a big slice of savings into a highly speculative, volatile asset.`,
+      question: "How do you handle it?",
+      choices: shuffled(rng, [
+        { text: "Cap it to a small slice they can afford to lose", points: 2, feedback: "Speculation is fine in a small, defined dose. Sizing it so a total loss won't derail the plan keeps the fun from becoming a disaster." },
+        { text: "Approve a huge allocation since they feel sure", points: 0, feedback: "Certainty about a volatile bet is a warning sign. A large position can wipe out years of careful saving overnight." },
+        { text: "Ban it completely and lecture them about it", points: 1, feedback: "A flat 'no' often pushes clients to do it behind your back. A sensible, capped allocation keeps it safe and in the open." },
+      ]),
+    }),
+  },
+  {
+    id: "lifestyleCreep", title: "The Raise",
+    build: (rng, c) => ({
+      situation: `${c.name} just got a big raise and their spending has quietly climbed to match every extra coin.`,
+      question: "What do you suggest?",
+      choices: shuffled(rng, [
+        { text: "Bank a chunk of each raise before lifestyle absorbs it", points: 2, feedback: "Paying the future self first, right when income jumps, turns raises into wealth instead of just bigger bills." },
+        { text: "Enjoy it all - a raise is meant to be spent", points: 0, feedback: "If every raise vanishes into lifestyle, income rises but net worth never does. Some enjoyment is fine; all of it isn't." },
+        { text: "Freeze all spending and live exactly as before forever", points: 1, feedback: "Total deprivation rarely sticks. The durable move is capturing part of the raise while still enjoying some of it." },
+      ]),
+    }),
+  },
+  {
+    id: "layoff", title: "The Layoff",
+    build: (rng, c) => ({
+      situation: `${c.name} just lost their job and nervously asks whether they should sell their investments to get by.`,
+      question: "What's the plan?",
+      choices: shuffled(rng, [
+        { text: "Lean on the emergency fund and trim spending first", points: 2, feedback: "That's exactly what the emergency fund is for. Using cash and cutting costs avoids selling investments at a bad moment." },
+        { text: "Sell the whole portfolio immediately to be safe", points: 0, feedback: "Liquidating everything in a crisis can lock in losses and blow up the long-term plan. Tap cash reserves first." },
+        { text: "Change nothing and keep spending as before", points: 1, feedback: "Ignoring a lost paycheck drains reserves fast. Adjust the budget now so the safety net actually lasts." },
+      ]),
+    }),
+  },
+  {
+    id: "hsa", title: "The Health Account",
+    build: (rng, c) => ({
+      situation: `${c.name} qualifies for a special tax-advantaged health savings account but treats it like a plain checking account.`,
+      question: "What's the smarter use?",
+      choices: shuffled(rng, [
+        { text: "Fund it and, if possible, invest it for the long run", points: 2, feedback: "A health savings account can offer rare triple tax benefits. Funding and investing it makes it a quietly powerful long-term tool." },
+        { text: "Ignore it - health accounts aren't worth the effort", points: 0, feedback: "Skipping a triple-tax-advantaged account leaves real money on the table. Few accounts offer benefits this good." },
+        { text: "Pull all the money out every year for anything", points: 1, feedback: "Draining it for non-medical spending forfeits its tax edge. Let it grow for future health costs when you can." },
+      ]),
+    }),
+  },
+  {
+    id: "giving", title: "The Donation",
+    build: (rng, c) => ({
+      situation: `${c.name} plans to donate to charity and was about to sell appreciated stock first to give the cash.`,
+      question: "Is there a smarter way?",
+      choices: shuffled(rng, [
+        { text: "Donate the appreciated shares directly to skip the tax", points: 2, feedback: "Giving appreciated stock straight to the charity can avoid the gains tax entirely - more reaches the cause, less to taxes." },
+        { text: "Sell first, pay the tax, then donate what's left", points: 0, feedback: "Selling first triggers a needless tax bill, shrinking both the gift and their pocket. Donating the shares directly is cleaner." },
+        { text: "Skip giving since taxes make it pointless", points: 1, feedback: "Taxes don't ruin generosity - there's a smart structure for it. Don't abandon the goal; just do it tax-efficiently." },
+      ]),
+    }),
+  },
+  {
+    id: "dailyCheck", title: "The Daily Check",
+    build: (rng, c) => ({
+      situation: `${c.name} checks their portfolio ten times a day and trades on every wiggle, feeling stressed and doing worse for it.`,
+      question: "How do you coach the behavior?",
+      choices: shuffled(rng, [
+        { text: "Set a schedule to review rarely and stop the tinkering", points: 2, feedback: "Constant checking breeds panic trades that quietly bleed returns. Reviewing on a calm schedule lets the plan actually work." },
+        { text: "Tell them to watch even more closely to stay in control", points: 0, feedback: "More screen time means more emotional trades, not more control. Over-monitoring is one of the surest ways to underperform." },
+        { text: "Have them trade on every headline to stay ahead", points: 1, feedback: "Reacting to every headline is noise, not strategy. It racks up costs and stress while the disciplined investor quietly wins." },
       ]),
     }),
   },

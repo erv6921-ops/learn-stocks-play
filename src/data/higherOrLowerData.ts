@@ -75,9 +75,129 @@ export const higherOrLowerSets: HoLSet[] = [
       { aLabel: "Amazon revenue per day", aValue: "$1.4B", bLabel: "Apple revenue per day", bValue: "$1.2B", winner: "A" },
     ],
   },
+  {
+    title: "Big Tech Market Caps",
+    rounds: [
+      { aLabel: "Apple", aValue: "$3.4T", bLabel: "Microsoft", bValue: "$3.1T", winner: "A" },
+      { aLabel: "Amazon", aValue: "$1.9T", bLabel: "Nvidia", bValue: "$3.0T", winner: "B" },
+      { aLabel: "Alphabet (Google)", aValue: "$2.1T", bLabel: "Meta", bValue: "$1.3T", winner: "A" },
+      { aLabel: "Tesla", aValue: "$0.8T", bLabel: "Berkshire Hathaway", bValue: "$0.9T", winner: "B" },
+      { aLabel: "Netflix", aValue: "$0.30T", bLabel: "Disney", bValue: "$0.20T", winner: "A" },
+    ],
+  },
+  {
+    title: "Monthly Subscription Costs",
+    rounds: [
+      { aLabel: "Disney+", aValue: "$13.99", bLabel: "Hulu (no ads)", bValue: "$18.99", winner: "B" },
+      { aLabel: "YouTube Premium", aValue: "$13.99", bLabel: "Apple Music", bValue: "$10.99", winner: "A" },
+      { aLabel: "Amazon Prime", aValue: "$14.99", bLabel: "Costco membership", bValue: "$5.00", winner: "A" },
+      { aLabel: "ChatGPT Plus", aValue: "$20.00", bLabel: "Adobe Photoshop", bValue: "$22.99", winner: "B" },
+      { aLabel: "Xbox Game Pass", aValue: "$19.99", bLabel: "PlayStation Plus", bValue: "$17.99", winner: "A" },
+    ],
+  },
+  {
+    title: "Starting Salaries by Major",
+    rounds: [
+      { aLabel: "Nursing", aValue: "$60,000", bLabel: "Computer Science", bValue: "$75,000", winner: "B" },
+      { aLabel: "Mechanical Engineering", aValue: "$70,000", bLabel: "Marketing", bValue: "$52,000", winner: "A" },
+      { aLabel: "Psychology", aValue: "$42,000", bLabel: "Finance", bValue: "$62,000", winner: "B" },
+      { aLabel: "Education", aValue: "$44,000", bLabel: "Accounting", bValue: "$58,000", winner: "B" },
+      { aLabel: "Petroleum Engineering", aValue: "$87,000", bLabel: "Graphic Design", bValue: "$48,000", winner: "A" },
+    ],
+  },
+  {
+    title: "College Costs Per Year",
+    rounds: [
+      { aLabel: "Private university avg", aValue: "$56,000", bLabel: "Public in-state avg", bValue: "$11,000", winner: "A" },
+      { aLabel: "Community college", aValue: "$3,900", bLabel: "Public out-of-state", bValue: "$28,000", winner: "B" },
+      { aLabel: "Room & board avg", aValue: "$12,000", bLabel: "Textbooks per year", bValue: "$1,200", winner: "A" },
+      { aLabel: "State flagship in-state", aValue: "$12,000", bLabel: "Harvard tuition", bValue: "$56,000", winner: "B" },
+      { aLabel: "Undergrad avg", aValue: "$17,000", bLabel: "Grad school avg", bValue: "$20,000", winner: "B" },
+    ],
+  },
+  {
+    title: "Crypto & Digital Assets",
+    rounds: [
+      { aLabel: "Ethereum", aValue: "$3,400", bLabel: "Bitcoin", bValue: "$65,000", winner: "B" },
+      { aLabel: "Dogecoin", aValue: "$0.15", bLabel: "Cardano", bValue: "$0.45", winner: "B" },
+      { aLabel: "Ethereum", aValue: "$3,400", bLabel: "Solana", bValue: "$150", winner: "A" },
+      { aLabel: "Litecoin", aValue: "$80", bLabel: "BNB", bValue: "$580", winner: "B" },
+      { aLabel: "XRP", aValue: "$0.55", bLabel: "Dogecoin", bValue: "$0.15", winner: "A" },
+    ],
+  },
+  {
+    title: "Monthly Household Bills",
+    rounds: [
+      { aLabel: "Water bill", aValue: "$46", bLabel: "Electricity bill", bValue: "$137", winner: "B" },
+      { aLabel: "Home internet", aValue: "$75", bLabel: "Cell phone plan", bValue: "$114", winner: "B" },
+      { aLabel: "Car insurance", aValue: "$167", bLabel: "Renters insurance", bValue: "$15", winner: "A" },
+      { aLabel: "Streaming services (all)", aValue: "$46", bLabel: "Natural gas bill", bValue: "$63", winner: "B" },
+      { aLabel: "Gym membership", aValue: "$50", bLabel: "Groceries (1 person)", bValue: "$475", winner: "B" },
+    ],
+  },
+  {
+    title: "Retirement & Savings Numbers",
+    rounds: [
+      { aLabel: "401(k) contribution limit", aValue: "$23,000", bLabel: "IRA contribution limit", bValue: "$7,000", winner: "A" },
+      { aLabel: "Avg savings account balance", aValue: "$8,000", bLabel: "Avg 401(k) balance", bValue: "$112,000", winner: "B" },
+      { aLabel: "6-month emergency fund", aValue: "$18,000", bLabel: "Avg credit card debt", bValue: "$6,500", winner: "A" },
+      { aLabel: "Federal poverty line (monthly)", aValue: "$1,255", bLabel: "Avg Social Security check", bValue: "$1,900", winner: "B" },
+      { aLabel: "Median savings at age 60", aValue: "$172,000", bLabel: "Median savings at age 30", bValue: "$35,000", winner: "A" },
+    ],
+  },
+  {
+    title: "Company Revenue Per Year",
+    rounds: [
+      { aLabel: "Amazon", aValue: "$575B", bLabel: "Walmart", bValue: "$648B", winner: "B" },
+      { aLabel: "Apple", aValue: "$383B", bLabel: "Alphabet (Google)", bValue: "$307B", winner: "A" },
+      { aLabel: "Costco", aValue: "$242B", bLabel: "ExxonMobil", bValue: "$345B", winner: "B" },
+      { aLabel: "McDonald's", aValue: "$25B", bLabel: "Starbucks", bValue: "$36B", winner: "B" },
+      { aLabel: "Coca-Cola", aValue: "$46B", bLabel: "Nike", bValue: "$51B", winner: "B" },
+    ],
+  },
+  {
+    title: "Cars & Transportation Costs",
+    rounds: [
+      { aLabel: "Avg new car price", aValue: "$47,000", bLabel: "Avg used car price", bValue: "$27,000", winner: "A" },
+      { aLabel: "Tesla Model 3", aValue: "$39,000", bLabel: "Toyota Camry", bValue: "$28,000", winner: "A" },
+      { aLabel: "Gallon of gas (US avg)", aValue: "$3.40", bLabel: "Gallon of milk", bValue: "$4.00", winner: "B" },
+      { aLabel: "New-car monthly payment", aValue: "$738", bLabel: "Used-car monthly payment", bValue: "$525", winner: "A" },
+      { aLabel: "Full EV charge cost", aValue: "$12", bLabel: "Full tank of gas", bValue: "$55", winner: "B" },
+    ],
+  },
+  {
+    title: "World Economies (GDP)",
+    rounds: [
+      { aLabel: "China", aValue: "$18T", bLabel: "United States", bValue: "$27T", winner: "B" },
+      { aLabel: "Japan", aValue: "$4.2T", bLabel: "Germany", bValue: "$4.5T", winner: "B" },
+      { aLabel: "India", aValue: "$3.7T", bLabel: "United Kingdom", bValue: "$3.3T", winner: "A" },
+      { aLabel: "Canada", aValue: "$2.1T", bLabel: "Brazil", bValue: "$2.2T", winner: "B" },
+      { aLabel: "Italy", aValue: "$2.2T", bLabel: "France", bValue: "$3.0T", winner: "B" },
+    ],
+  },
+  {
+    title: "Debt & Credit Stats",
+    rounds: [
+      { aLabel: "Total student loan debt", aValue: "$1.7T", bLabel: "Total auto loan debt", bValue: "$1.6T", winner: "A" },
+      { aLabel: "Avg mortgage balance", aValue: "$244,000", bLabel: "Avg auto loan balance", bValue: "$24,000", winner: "A" },
+      { aLabel: "Avg credit card balance", aValue: "$6,500", bLabel: "Avg personal loan balance", bValue: "$11,000", winner: "B" },
+      { aLabel: "Avg student loan balance", aValue: "$37,000", bLabel: "Avg credit card balance", bValue: "$6,500", winner: "A" },
+      { aLabel: "Max FICO score", aValue: "850", bLabel: "Minimum 'good' FICO", bValue: "670", winner: "A" },
+    ],
+  },
+  {
+    title: "Sports & Entertainment Money",
+    rounds: [
+      { aLabel: "Avg NFL salary", aValue: "$2.7M", bLabel: "Avg NBA salary", bValue: "$9.7M", winner: "B" },
+      { aLabel: "Taylor Swift Eras Tour gross", aValue: "$1B", bLabel: "Avg Hollywood movie budget", bValue: "$65M", winner: "A" },
+      { aLabel: "Avg US home price", aValue: "$420,000", bLabel: "Super Bowl 30-sec ad", bValue: "$7M", winner: "B" },
+      { aLabel: "Lionel Messi salary", aValue: "$135M", bLabel: "Cristiano Ronaldo salary", bValue: "$200M", winner: "B" },
+      { aLabel: "Top streamer per year", aValue: "$30M", bLabel: "NFL rookie minimum", bValue: "$750,000", winner: "A" },
+    ],
+  },
 ]
 
-// Pick the set of 5 rounds for the day using (dayOfYear % 6) as the seed.
+// Pick the set of 5 rounds for the day using (dayOfYear % bank size) as the seed.
 export function getHoLSetForDay(dayOfYear: number): HoLSet {
   return higherOrLowerSets[dayOfYear % higherOrLowerSets.length]
 }
