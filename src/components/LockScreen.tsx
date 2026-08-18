@@ -7,7 +7,7 @@
 
 import React from "react"
 import { Link } from "react-router-dom"
-import { Construction, Lock, Coins, ArrowRight } from "lucide-react"
+import { Construction, Lock, Coins, ArrowRight, type LucideIcon } from "lucide-react"
 import GameNav from "@/components/GameNav"
 import { useApp } from "@/contexts/AppContext"
 
@@ -34,12 +34,13 @@ function GateCard({ icon: Icon, heading, sub }: { icon: typeof Lock; heading: st
   )
 }
 
-// The frosted "coming soon" glass card that floats over the teaser.
-function ComingSoonCard({ title }: { title: string }) {
+// The frosted "coming soon" glass card. `icon` defaults to the construction
+// icon but callers pass the feature's own nav icon (Store / Landmark).
+function ComingSoonCard({ title, icon: Icon = Construction }: { title: string; icon?: LucideIcon }) {
   return (
     <div className="text-center flex flex-col items-center gap-4 rounded-[28px] border border-black/10 dark:border-white/10 bg-card/70 backdrop-blur-2xl p-8 shadow-[0_24px_70px_-24px_rgba(0,0,0,0.5)] max-w-sm">
       <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-        <Construction className="h-8 w-8 text-primary" />
+        <Icon className="h-8 w-8 text-primary" />
       </div>
       <div className="space-y-1.5">
         <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-primary">In development</span>
@@ -57,34 +58,20 @@ function ComingSoonCard({ title }: { title: string }) {
 }
 
 /**
- * A fully-locked "coming soon" screen.
- *  - `preview`: render the real feature behind a heavy blur as an inert teaser
- *    (a live nav stays clickable on top so the user can still navigate away).
+ * A fully-locked "coming soon" screen: nav on top, a frosted card centered on a
+ * clean background, with a "Go to Missions" CTA.
+ *  - `icon`: the feature's own icon to show in the card (Store / Landmark).
  *  - `bare`: skip the nav (for embedding inside a page that has its own chrome).
  */
-export function ComingSoon({ title, bare = false, preview }: { title: string; bare?: boolean; preview?: React.ReactNode }) {
-  if (preview) {
-    return (
-      // Pin to exactly one viewport and clip overflow, so the blurred studio
-      // (which grows very tall once its data loads) can't push the centered
-      // card off-screen. The card stays fixed in the middle of the screen.
-      <div className="fixed inset-0 h-screen overflow-hidden bg-background">
-        {/* The real feature, blurred & non-interactive, clipped to the viewport.
-            Its own nav is hidden so we don't get a doubled bar through the blur. */}
-        <div aria-hidden className="absolute inset-0 h-full overflow-hidden pointer-events-none select-none blur-xl scale-[1.06] opacity-70 [&_nav]:opacity-0">
-          {preview}
-        </div>
-        {/* Dim + frost overlay with the coming-soon card centered on top. */}
-        <div className="absolute inset-0 z-40 flex items-center justify-center px-6 bg-gradient-to-b from-background/50 via-background/65 to-background/90">
-          <ComingSoonCard title={title} />
-        </div>
-        {/* A real, interactive nav on the very top so the page isn't a dead-end. */}
-        <div className="absolute top-0 inset-x-0 z-50"><GameNav /></div>
-      </div>
-    )
-  }
-  const card = <ComingSoonCard title={title} />
-  return bare ? <div className="max-w-md mx-auto px-6 py-12">{card}</div> : <Frame>{card}</Frame>
+export function ComingSoon({ title, bare = false, icon }: { title: string; bare?: boolean; icon?: LucideIcon }) {
+  const card = <ComingSoonCard title={title} icon={icon} />
+  if (bare) return <div className="flex items-center justify-center px-6 py-16">{card}</div>
+  return (
+    <div className="min-h-screen bg-background">
+      <GameNav />
+      <div className="flex items-center justify-center px-6 pb-24 min-h-[calc(100vh-4rem)]">{card}</div>
+    </div>
+  )
 }
 
 /** Gate a page behind a coin threshold; renders children once the balance clears it. */

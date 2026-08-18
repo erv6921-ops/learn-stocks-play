@@ -695,7 +695,7 @@ export default function Bank() {
       case "vault": return <VaultDesk />
       case "lending": return <LoansDesk />
       case "bonds": return <BondsDesk />
-      case "careers": return import.meta.env.DEV ? <CareersDesk /> : <ComingSoon title="Executive Floor" bare />
+      case "careers": return import.meta.env.DEV ? <CareersDesk /> : <ComingSoon title="Executive Floor" bare icon={Landmark} />
       default: return null
     }
   }

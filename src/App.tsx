@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Store } from "lucide-react";
 import { AppProvider, useApp } from "@/contexts/AppContext";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
@@ -59,7 +60,7 @@ function AppRoutes() {
   // routes to preview the locked teaser without a production build.
   const mbLocked = !import.meta.env.DEV || new URLSearchParams(location.search).has("locked");
   const microBusinessEl = mbLocked
-    ? <ComingSoon title="Micro Business" preview={<MicroBusiness />} />
+    ? <ComingSoon title="Micro Business" icon={Store} />
     : <MicroBusiness />;
 
   if (!authReady && !user) return null;
