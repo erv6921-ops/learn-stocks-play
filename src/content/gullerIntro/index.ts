@@ -5,6 +5,7 @@ import { block3 } from "./block3"
 import { block4 } from "./block4"
 import { block5 } from "./block5"
 import { block6 } from "./block6"
+import { gulliverLO1_3, gulliverLO1_4, gulliverLO1_5, gulliverLO1_6, gulliverLO1_7, gulliverLO1_8 } from "./ch1LOs"
 
 // ═══════════════════════════════════════════════
 // GULLIVER INTRODUCTION TO BUSINESS
@@ -15,6 +16,7 @@ import { block6 } from "./block6"
 // ═══════════════════════════════════════════════
 
 export { block1a, block1b, block1c, block1d, block1e, block2a, block2b, block2c, block2d, block2e, block3, block4, block5, block6 }
+export { gulliverLO1_3, gulliverLO1_4, gulliverLO1_5, gulliverLO1_6, gulliverLO1_7, gulliverLO1_8 }
 
 // Spreadable array matching the insuranceContent / creditExpansionContent export pattern.
 export const gullerIntroContent: StructuredLessonContent[] = [
@@ -31,5 +33,11 @@ export const gullerIntroContent: StructuredLessonContent[] = [
   block3,
   block4,
   block5,
-  block6
+  block6,
+  gulliverLO1_3,
+  gulliverLO1_4,
+  gulliverLO1_5,
+  gulliverLO1_6,
+  gulliverLO1_7,
+  gulliverLO1_8
 ]

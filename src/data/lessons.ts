@@ -564,6 +564,13 @@ export const GULLIVER_INTRO_LESSONS: Lesson[] = [
   GI("gulliver-1-3", "Entrepreneurs, Risk & Reward",         "Who the entrepreneur is, why they get paid last, opportunity cost, and why risk and reward rise together.",   "gulliver-business", "gulliver-course", "1.3", 250),
   GI("gulliver-1-4", "Living Standards & Stakeholders",      "Standard of living vs. quality of life, and the stakeholders a business must balance.",                       "gulliver-business", "gulliver-course", "1.4", 250),
   GI("gulliver-1-5", "Outsourcing, Insourcing & Nonprofits", "Where the work gets done, the trade-offs of outsourcing, and how nonprofits are different.",                  "gulliver-business", "gulliver-course", "1.5", 250),
+  // Chapter 1 — learning-objective-aligned lessons (Byrnes Ch.1, LO 1-3 through 1-8)
+  GI("gulliver-lo-1-3", "The Economic Environment & Taxes", "How government, taxes, and regulation shape the risk of starting and running a business.", "gulliver-business", "gulliver-course", "1.3-LO", 250),
+  GI("gulliver-lo-1-4", "Technology's Effects on Business", "Effectiveness, efficiency, and productivity — how technology benefits workers, businesses, and consumers.", "gulliver-business", "gulliver-course", "1.4-LO", 250),
+  GI("gulliver-lo-1-5", "Meeting & Beating Competition", "Competitive edge, zero defects, exceeding customer expectations, and empowering frontline workers.", "gulliver-business", "gulliver-course", "1.5-LO", 250),
+  GI("gulliver-lo-1-6", "Social Changes Affecting Business", "The modern, broader definition of diversity, and how an aging population and Social Security affect business.", "gulliver-business", "gulliver-course", "1.6-LO", 250),
+  GI("gulliver-lo-1-7", "Global Challenges, War & Terrorism", "China and India as competitive challenges, and how war and terrorism affect different industries.", "gulliver-business", "gulliver-course", "1.7-LO", 250),
+  GI("gulliver-lo-1-8", "Historical Trends & Your Future in Business", "How past economic trends repeat, and what they mean for tomorrow's college graduates.", "gulliver-business", "gulliver-course", "1.8-LO", 250),
   // Unit 2 — split into five short, focused lessons (2.1-2.5)
   GI("gulliver-2-1", "The Five Factors of Production",  "Land, labor, capital, entrepreneurship, and knowledge — the five building blocks every business needs.",         "gulliver-business", "gulliver-course", "2.1", 250),
   GI("gulliver-2-2", "The Entrepreneur's Trade-offs",   "Being your own boss vs. a steady paycheck: the real trade-offs of choosing entrepreneurship over a job.",        "gulliver-business", "gulliver-course", "2.2", 250),

@@ -14,6 +14,19 @@ export const batch9_gulliver: Record<string, string> = {
   "gulliver-1-5":
     "Pick a product you own. Would you rather the company make it cheaply far away (outsourcing) or locally with more control (insourcing)? Explain your choice and one trade-off it comes with.",
   // ── Unit 2 (split into 2.1-2.5) ──
+  // ── Chapter 1 LO-aligned lessons (LO 1-3 through 1-8) ──
+  "gulliver-lo-1-3":
+    "Imagine you're starting a business in a country with unstable currency and no enforceable contracts. Describe one specific risk you'd face that you wouldn't face starting the same business in the U.S.",
+  "gulliver-lo-1-4":
+    "Think of a piece of technology you use that makes something more efficient, effective, or productive (pick one). Explain, in your own words, which of the three it actually improves and how.",
+  "gulliver-lo-1-5":
+    "Describe a real time a business either impressed you by exceeding your expectations, or let you down by not empowering an employee to fix a problem. What would you change?",
+  "gulliver-lo-1-6":
+    "Name one group included in the modern definition of diversity that you think gets overlooked most often, and explain why a business should take it seriously.",
+  "gulliver-lo-1-7":
+    "Pick an industry (not defense or tourism) and explain how you think global instability in another part of the world could affect it, positively or negatively.",
+  "gulliver-lo-1-8":
+    "Based on this historical pattern of displacement and adaptation, what's one skill you think will matter most in your future career, and why?",
   "gulliver-2-1":
     "Pick a business you know and figure out its 'ingredients': name one real example each of the land, labor, and capital it needs to run. Which factor do you think is hardest for it to get, and why?",
   "gulliver-2-2":
