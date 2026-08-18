@@ -6,17 +6,12 @@ import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
 import { tourAnchors } from "@/lib/tourAnchors"
 import {
-  LayoutDashboard, BookOpen, FlaskConical, LineChart, Store, BarChart3,
-  Trophy, Swords, UserCircle, Sparkles, X, ArrowRight, ArrowLeft,
-  Coins, Flame, Target, Search, TrendingUp, ShoppingCart,
-  Plus, Clock, CheckCircle2, Palette,
+  BookOpen, FlaskConical, LineChart, Store,
+  Trophy, X, ArrowRight, ArrowLeft, Target,
 } from "lucide-react"
 
 const SHOW_FLAG = "investiplay_show_tour"
 const doneKey = (uid: string) => `investiplay_tour_done_${uid}`
-
-// A symbol used for the live "how to trade" deep-dive.
-const DEMO_SYMBOL = "AAPL"
 
 type Mood = "happy" | "thinking" | "excited" | "teaching" | "celebrating"
 type Placement = "bottom" | "top" | "right" | "left"
@@ -31,59 +26,16 @@ interface Step {
   pad?: number             // spotlight padding around the element
 }
 
-// Jeff physically walks to each real control. Nav + HUD live in GameNav (present
-// on every page), so those steps stay on /dashboard; the rest drill into pages.
+// A short 5-slide tour: Jeff points out the main pages from the nav (which lives
+// in GameNav on every screen), so we stay on /dashboard and never page-hop. The
+// greeting and sign-off are folded into the first and last slides to keep it to
+// exactly five taps.
 const STEPS: Step[] = [
-  // Welcome
-  { route: "/dashboard", icon: Sparkles, title: "Hey, I'm Jeff! 👋", body: "I'm your money coach. Stick with me and I'll walk you around the whole app and show you what every button does. Let's go!", mood: "happy" },
-
-  // The nav bar
-  { route: "/dashboard", anchor: "nav-dashboard", icon: LayoutDashboard, title: "Dashboard", body: "Your home base. Tap here anytime to see your coins, level, streak and what to do next.", mood: "teaching" },
-  { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: "Missions", body: "This button opens your lessons. Finish them to earn InvestiCoins and level up!", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-lab", icon: FlaskConical, title: "Lab", body: "The Applied Finance Lab covers real life money stuff like taxes, banking and credit.", mood: "teaching" },
-  { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: "Stocks", body: "Trade real companies with virtual cash. We'll come back here in a sec and I'll show you how!", mood: "thinking" },
-  { route: "/dashboard", anchor: "nav-business", icon: Store, title: "Business", body: "Build your own business and run it like a real CEO. So much fun in here.", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-progress", icon: BarChart3, title: "Progress", body: "See where you're strong and what to study next.", mood: "teaching" },
-  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard", body: "Climb the rankings against your class. A little competition never hurts! 😏", mood: "happy" },
-  { route: "/dashboard", anchor: "nav-challenges", icon: Swords, title: "Challenges", body: "Spend coins to enter class challenges, win and take the whole pot! 🏆", mood: "excited" },
-
-  // HUD pills
-  { route: "/dashboard", anchor: "hud-coins", icon: Coins, title: "Your InvestiCoins", body: "This is your money counter. Everything you earn shows up right here. Watch it grow!", mood: "celebrating" },
-  { route: "/dashboard", anchor: "hud-profile", icon: UserCircle, title: "Your profile", body: "Tap your avatar to see your stats and badges, and to switch light or dark mode.", mood: "happy" },
-
-  // Daily challenge
-  { route: "/dashboard", anchor: "dash-today", icon: Flame, title: "Daily challenge", body: "Come back every day and tap Play Now for quick coins. That's how you build a streak!", mood: "excited" },
-
-  // Missions page
-  { route: "/lessons", anchor: "lesson-node", icon: BookOpen, title: "Pick a unit", body: "Each card is a unit of lessons. Tap one to start learning and earning. Easy!", mood: "excited" },
-
-  // Lab page
-  { route: "/lab", anchor: "lab-doc", icon: FlaskConical, title: "Open a lab doc", body: "Tap a document to work through a real world money scenario. This stuff is gold. ✨", mood: "teaching" },
-
-  // Stocks list
-  { route: "/stocks", anchor: "stocks-search", icon: Search, title: "Search any stock", body: "Type a ticker or company name here, like AAPL or Tesla, to pull up its page.", mood: "thinking" },
-  { route: "/stocks", anchor: "stocks-movers", icon: TrendingUp, title: "Top movers", body: "See which stocks are jumping or dropping today. Flip between gainers and losers.", mood: "teaching" },
-  { route: "/stocks", anchor: "stocks-row", icon: LineChart, title: "Open a stock", body: "Tap any stock to see its chart and trade it. Let me show you how to buy one!", mood: "excited" },
-
-  // Stock detail: the trade flow
-  { route: `/stocks/${DEMO_SYMBOL}`, anchor: "stock-range", icon: Clock, title: "Read the chart", body: "Tap these to zoom the chart from a day all the way out to years. Spot the trend!", mood: "thinking" },
-  { route: `/stocks/${DEMO_SYMBOL}`, anchor: "stock-trade-toggle", icon: ShoppingCart, title: "Buy or Sell", body: "Here's the big one. Pick Buy to invest, or Sell to cash out shares you already own.", mood: "teaching" },
-  { route: `/stocks/${DEMO_SYMBOL}`, anchor: "stock-shares", icon: Plus, title: "Choose how many", body: "Use the plus and minus buttons (or type a number) to set how many shares. The cost updates live below.", mood: "thinking" },
-  { route: `/stocks/${DEMO_SYMBOL}`, anchor: "stock-trade", icon: CheckCircle2, title: "Place the order", body: "Hit this, then Confirm, and the trade is done. Coins move and the stock is yours. That's buying AND selling! 🎉", mood: "celebrating" },
-
-  // Micro business. New students land on the industry chooser (the Product /
-  // Office / Collab / Marketing tabs only exist AFTER a business is created),
-  // so this stays a single centered overview that's always accurate.
-  { route: "/micro-business", icon: Store, title: "Your business", body: "This is where you build and run your own business — design a product, manage the money, market it, and finish activities to earn coins. Pick an industry to get started!", mood: "excited" },
-
-  // The rest
-  { route: "/progress", anchor: "progress-overview", icon: BarChart3, title: "Your progress", body: "This map shows your strengths across every topic. Attack your weak spots to level fast.", mood: "teaching" },
-  { route: "/leaderboard", anchor: "lead-podium", icon: Trophy, title: "Switch the board", body: "Flip between your class, partners and national rankings. Go climb! 🧗", mood: "happy" },
-  { route: "/challenges", anchor: "challenge-enter", icon: Swords, title: "Join a challenge", body: "Jump into a challenge here, beat the goal and win the pot of coins. 💪", mood: "excited" },
-  { route: "/profile", anchor: "profile-theme", icon: Palette, title: "Make it yours", body: "Switch between light and dark mode right here whenever you like.", mood: "happy" },
-
-  // Done
-  { route: "/dashboard", icon: Sparkles, title: "You're all set! 🚀", body: "That's the whole tour! Tap me in the corner anytime you need a hand. Now go stack some coins!", mood: "celebrating" },
+  { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: "Hi, I'm Jeff! 👋", body: "Quick tour. Start with Missions — your lessons. Finish them to earn InvestiCoins and level up!", mood: "excited" },
+  { route: "/dashboard", anchor: "nav-lab", icon: FlaskConical, title: "The Lab", body: "Real-life money stuff — taxes, banking, credit — through hands-on scenarios.", mood: "teaching" },
+  { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: "Stocks", body: "Trade real companies with virtual cash and watch your portfolio grow.", mood: "thinking" },
+  { route: "/dashboard", anchor: "nav-business", icon: Store, title: "Business", body: "Build and run your own business like a real CEO.", mood: "excited" },
+  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard & Challenges", body: "Compete with your class and win coin pots. That's the tour — tap me in the corner anytime you need a hand! 🚀", mood: "celebrating" },
 ]
 
 interface Rect { top: number; left: number; width: number; height: number }
