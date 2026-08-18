@@ -18,27 +18,27 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
-import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight, MailCheck, PartyPopper, Building2 } from "lucide-react"
+import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight, MailCheck, PartyPopper, Building2, Eye, EyeOff } from "lucide-react"
 import Confetti from "@/components/Confetti"
 import { EnrollmentTrack } from "@/types"
 
 type UserRole = "student" | "teacher"
-// Each student data point is now its own screen (one question per tab). Order:
-// role -> name -> grade -> age -> school -> state/course -> class code ->
-// program -> login. Teachers keep their short two-screen path.
+// Each student data point is its own screen (one question per tab). Order:
+// role -> name -> grade -> age -> state/course -> class code -> program ->
+// login. Teachers keep their short two-screen path.
 type OnboardingStep =
   | "role-select" | "name" | "teacher-details"
-  | "grade" | "age" | "school" | "state-course" | "class-code"
+  | "grade" | "age" | "state-course" | "class-code"
   | "program-select" | "student-account"
   | "welcome" | "assessment" | "results"
 
 // Progress-dot index for each student screen (role-select is 0). Teachers use a
 // separate 3-dot count (see totalSteps).
 const STUDENT_STEP_INDEX: Record<string, number> = {
-  "role-select": 0, "name": 1, "grade": 2, "age": 3, "school": 4,
-  "state-course": 5, "class-code": 6, "program-select": 7, "student-account": 8,
+  "role-select": 0, "name": 1, "grade": 2, "age": 3,
+  "state-course": 4, "class-code": 5, "program-select": 6, "student-account": 7,
 }
-const STUDENT_TOTAL_STEPS = 9
+const STUDENT_TOTAL_STEPS = 8
 
 // US_STATES lives in @/lib/geography (shared with the Florida-track gating).
 
@@ -265,6 +265,41 @@ function FieldStep({
   )
 }
 
+// Password field with a show/hide eye toggle. Manages its own reveal state so
+// the password and confirm fields can be revealed independently.
+function PasswordInput({
+  value, onChange, placeholder = "At least 6 characters", autoFocus = false,
+}: {
+  value: string
+  onChange: (v: string) => void
+  placeholder?: string
+  autoFocus?: boolean
+}) {
+  const [show, setShow] = useState(false)
+  return (
+    <div className="relative">
+      <Input
+        type={show ? "text" : "password"}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        placeholder={placeholder}
+        minLength={6}
+        autoFocus={autoFocus}
+        className="pr-10"
+      />
+      <button
+        type="button"
+        tabIndex={-1}
+        onClick={() => setShow(s => !s)}
+        aria-label={show ? "Hide password" : "Show password"}
+        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors"
+      >
+        {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+      </button>
+    </div>
+  )
+}
+
 export default function Onboarding() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -289,6 +324,9 @@ export default function Onboarding() {
   const [classCode, setClassCode] = useState("")
   const [stateCourse, setStateCourse] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  // Both signup steps require a 6+ char password that matches its confirmation.
+  const passwordsMatch = password.length >= 6 && password === confirmPassword
   const [signupLoading, setSignupLoading] = useState(false)
   // Email verification: after signUp with confirmation on, we collect the
   // 6-digit code here ("code") then celebrate ("done") - no magic link.
@@ -860,20 +898,11 @@ export default function Onboarding() {
               current={2}
               total={totalSteps}
               mood="teaching"
-              message="Last step! Tell me about your school and set up your login."
+              message="Last step! Set up your login and you're in."
               title="Teacher Info"
-              subtitle="Tell us a bit about your school"
+              subtitle="Set up your login so you can manage your classes"
             />
             <div className="w-full max-w-sm space-y-4 text-left">
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">School Name</label>
-                <Input
-                  placeholder="e.g. Lincoln High School"
-                  value={schoolName}
-                  onChange={e => setSchoolName(e.target.value)}
-                  autoFocus
-                />
-              </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Email</label>
                 <Input
@@ -881,20 +910,22 @@ export default function Onboarding() {
                   placeholder="e.g. emma@school.edu"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
+                  autoFocus
                 />
               </div>
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Password</label>
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="At least 6 characters"
-                  minLength={6}
-                />
+                <PasswordInput value={password} onChange={setPassword} />
                 <p className="text-xs text-muted-foreground mt-1">
                   You'll use this with your email to log back in from any device.
                 </p>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Confirm Password</label>
+                <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder="Re-enter your password" />
+                {confirmPassword.length > 0 && password !== confirmPassword && (
+                  <p className="text-xs text-destructive mt-1">Passwords don't match.</p>
+                )}
               </div>
             </div>
             <div className="flex gap-3 mt-6">
@@ -904,7 +935,7 @@ export default function Onboarding() {
               <Button
                 size="xl"
                 variant="hero"
-                disabled={!schoolName.trim() || !email.trim() || password.length < 6 || signupLoading}
+                disabled={!email.trim() || !passwordsMatch || signupLoading}
                 onClick={async () => {
                   setSignupLoading(true)
                   try {
@@ -1024,31 +1055,11 @@ export default function Onboarding() {
             title="How old are you?"
             subtitle="Optional - it helps me use examples that fit"
             onBack={() => setStep("grade")}
-            onContinue={() => setStep("school")}
+            onContinue={() => setStep("state-course")}
           >
             <div>
               <label className="text-sm font-medium mb-1.5 block">Age</label>
               <Input type="number" min={8} max={99} placeholder="e.g. 16" value={age} onChange={e => setAge(e.target.value)} autoFocus />
-            </div>
-          </FieldStep>
-        )}
-
-        {step === "school" && (
-          <FieldStep
-            stepKey="school"
-            current={STUDENT_STEP_INDEX["school"]}
-            total={totalSteps}
-            mood="teaching"
-            message="Which school are you at?"
-            title="What's your school?"
-            subtitle="So your teacher can find you on their roster"
-            onBack={() => setStep("age")}
-            continueDisabled={!schoolName.trim()}
-            onContinue={() => setStep("state-course")}
-          >
-            <div>
-              <label className="text-sm font-medium mb-1.5 block">School Name</label>
-              <Input placeholder="e.g. Lincoln High School" value={schoolName} onChange={e => setSchoolName(e.target.value)} autoFocus />
             </div>
           </FieldStep>
         )}
@@ -1062,7 +1073,7 @@ export default function Onboarding() {
             message="Where are you learning? Some programs are state-specific."
             title="Your state or course"
             subtitle="Some programs are only offered in certain states"
-            onBack={() => setStep("school")}
+            onBack={() => setStep("age")}
             continueDisabled={!stateCourse}
             onContinue={() => setStep("class-code")}
           >
@@ -1111,7 +1122,7 @@ export default function Onboarding() {
             title="Create your login"
             subtitle="You'll use these to sign back in anytime"
             onBack={() => setStep("program-select")}
-            continueDisabled={!email.trim() || password.length < 6}
+            continueDisabled={!email.trim() || !passwordsMatch}
             continueLabel="Create account"
             loading={signupLoading}
             onContinue={async () => {
@@ -1190,8 +1201,15 @@ export default function Onboarding() {
             </div>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Password</label>
-              <Input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 6 characters" minLength={6} />
+              <PasswordInput value={password} onChange={setPassword} />
               <p className="text-xs text-muted-foreground mt-1">You'll use this with your email to log back in from any device.</p>
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Confirm Password</label>
+              <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder="Re-enter your password" />
+              {confirmPassword.length > 0 && password !== confirmPassword && (
+                <p className="text-xs text-destructive mt-1">Passwords don't match.</p>
+              )}
             </div>
           </FieldStep>
         )}
