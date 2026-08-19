@@ -7,12 +7,16 @@
 
 // Drop into a system prompt to tell the model to avoid dashes up front.
 export const NO_DASH_RULE =
-  'PUNCTUATION: Write with normal punctuation only. Never use em dashes or en dashes (the "—" or "–" characters). Where you would pause or add an aside, use a comma, a period, or parentheses instead. Overusing dashes makes writing look AI-generated, so avoid them entirely.'
+  'PUNCTUATION: Write with normal punctuation only. Never use em dashes or en dashes (the "—" or "–" characters), and do NOT substitute a spaced hyphen ( - ) as a stand-in dash. Where you would pause or add an aside, use a comma, a period, or parentheses instead. Overusing dashes makes writing look AI-generated, so avoid them entirely.'
 
-// Strip any em/en dashes the model still emits: an em dash used for a pause
-// becomes a comma; an en dash (usually a numeric range) becomes a hyphen.
+// Strip the em/en dashes the model uses as a pause so text never looks
+// AI-written. These characters are never math (math uses a hyphen/minus), so
+// this is safe: an em/en dash pause becomes a comma, and a numeric range like
+// "3–5" keeps a tight hyphen. Spaced-hyphen pauses are handled by NO_DASH_RULE
+// in the prompt rather than here, so real math ("Revenue - Costs") is untouched.
 export function stripDashes(s: string): string {
   return (s || "")
+    .replace(/(\d)\s*[–—]\s*(\d)/g, "$1-$2")
     .replace(/\s*—\s*/g, ", ")
-    .replace(/\s*–\s*/g, "-")
+    .replace(/\s*–\s*/g, ", ")
 }

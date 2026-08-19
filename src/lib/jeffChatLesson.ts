@@ -3,7 +3,7 @@
 // conversationally; the student replies via tappable options.
 import { supabase } from "@/integrations/supabase/client"
 import type { Lesson, LessonSection } from "@/types"
-import { stripDashes } from "@/lib/text"
+import { stripDashes, NO_DASH_RULE } from "@/lib/text"
 
 export interface ChatMessage {
   role: "user" | "assistant"
@@ -723,7 +723,7 @@ The student already knows you - never introduce yourself or say "I'm Jeff." Just
 
 Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.
 
-PUNCTUATION: Write with normal punctuation only. Never use em dashes or en dashes (the "—" or "–" characters). Where you'd pause or add an aside, use a comma, a period, or parentheses instead. Overusing dashes makes writing look AI-generated, so avoid them entirely.${material}`
+${NO_DASH_RULE}${material}`
 }
 
 // ── Deep prompt (Gulliver Intro): a real, rigorous mini-lecture ──
@@ -769,7 +769,7 @@ When you have taught the full lesson, give a one-sentence synthesis of how the i
 
 The student already knows you - never introduce yourself. Do not use bullet points or headers; teach in short prose messages.
 
-PUNCTUATION: Write with normal punctuation only. Never use em dashes or en dashes (the "—" or "–" characters). Where you'd pause or add an aside, use a comma, a period, or parentheses instead. Overusing dashes makes writing look AI-generated, so avoid them entirely.${material}`
+${NO_DASH_RULE}${material}`
 }
 
 export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[]): string {
