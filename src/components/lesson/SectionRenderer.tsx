@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useJeff } from "@/contexts/JeffContext"
 import { useApp } from "@/contexts/AppContext"
+import { useClassSettings } from "@/contexts/ClassSettingsContext"
 import { supabase } from "@/integrations/supabase/client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -73,8 +74,11 @@ interface QuizAnswerProps {
 function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 20, onAnswered }: QuizAnswerProps) {
   // Questions are already shuffled & validated by the MCQ engine in LessonDetail - use as-is
   const shuffledQ = question
-  // Per-question countdown budget, scaled to reading length (see questionSeconds).
-  const questionMs = questionSeconds(shuffledQ) * 1000
+  // Per-question countdown budget. Defaults to a reading-length scale, but a
+  // teacher can pin a fixed limit for their class (secondsPerQuestion), which
+  // overrides the default for every question.
+  const classSettings = useClassSettings()
+  const questionMs = (classSettings.secondsPerQuestion ?? questionSeconds(shuffledQ)) * 1000
   const [selected, setSelected] = useState<number | null>(null)
   const [revealed, setRevealed] = useState(false)
   // Wrong options this question's hints have crossed out.

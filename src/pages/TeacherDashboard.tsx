@@ -40,6 +40,13 @@ import {
 import { useToast } from "@/hooks/use-toast"
 import { lessons, getLessonsByTrack } from "@/data/lessons"
 import { useApp } from "@/contexts/AppContext"
+import { Switch } from "@/components/ui/switch"
+import {
+  ClassSettings,
+  DEFAULT_CLASS_SETTINGS,
+  CONTROLLABLE_PAGES,
+  normalizeClassSettings,
+} from "@/lib/classSettings"
 import {
   Plus,
   UserPlus,
@@ -59,6 +66,7 @@ import {
   BarChart3,
   TrendingUp,
   Sparkles,
+  Settings,
 } from "lucide-react"
 
 // ── Chart palette (kept in the app's teal / gold / green family) ──
@@ -115,7 +123,12 @@ const shorten = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "�
 const memberName = (m: ClassMember) => {
   const f = m.profile?.first_name?.trim()
   const l = m.profile?.last_name?.trim()
-  return f || l ? `${f || ""} ${l || ""}`.trim() : "Unknown Student"
+  if (f || l) return `${f || ""} ${l || ""}`.trim()
+  // No name on file (or the profile row wasn't readable) - fall back to the
+  // email's local part so the student is still identifiable, then a generic.
+  const email = m.profile?.email?.trim()
+  if (email) return email.split("@")[0]
+  return "Student"
 }
 
 export default function TeacherDashboard() {
@@ -145,6 +158,9 @@ export default function TeacherDashboard() {
   const [assigning, setAssigning] = useState<string | null>(null) // user_id currently being assigned
   const [classWideLessonId, setClassWideLessonId] = useState<string>("")
   const [assigningAll, setAssigningAll] = useState(false)
+  // Teacher-controlled settings for the selected class (page access, timers…).
+  const [classSettings, setClassSettings] = useState<ClassSettings>(DEFAULT_CLASS_SETTINGS)
+  const [savingSettings, setSavingSettings] = useState(false)
 
   // ── Demo mode: load sample classes/students into local state so the
   //    dashboard and its charts can be shown off without real data. Nothing is
@@ -364,6 +380,42 @@ export default function TeacherDashboard() {
         description: error.message,
         variant: "destructive",
       })
+    }
+  }
+
+  // Load the selected class's teacher-controlled settings. Fails soft (defaults)
+  // if the class_settings table isn't migrated yet.
+  useEffect(() => {
+    if (!selectedClass) { setClassSettings(DEFAULT_CLASS_SETTINGS); return }
+    let cancelled = false
+    ;(async () => {
+      const { data, error } = await (supabase as any)
+        .from("class_settings")
+        .select("settings")
+        .eq("class_id", selectedClass.id)
+        .maybeSingle()
+      if (cancelled) return
+      setClassSettings(error || !data ? DEFAULT_CLASS_SETTINGS : normalizeClassSettings(data.settings))
+    })()
+    return () => { cancelled = true }
+  }, [selectedClass])
+
+  // Persist a settings change (optimistic) to class_settings.
+  const saveClassSettings = async (next: ClassSettings) => {
+    if (!selectedClass) return
+    const prev = classSettings
+    setClassSettings(next)
+    setSavingSettings(true)
+    const { error } = await (supabase as any)
+      .from("class_settings")
+      .upsert(
+        { class_id: selectedClass.id, settings: next, updated_at: new Date().toISOString() },
+        { onConflict: "class_id" }
+      )
+    setSavingSettings(false)
+    if (error) {
+      setClassSettings(prev) // roll back
+      toast({ title: "Couldn't save settings", description: error.message, variant: "destructive" })
     }
   }
 
@@ -1046,6 +1098,67 @@ export default function TeacherDashboard() {
                         </Button>
                       </div>
                     </div>
+                  </CardContent>
+                </Card>
+
+                {/* Class controls: what students can access + how the class runs */}
+                <Card variant="elevated">
+                  <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <Settings className="w-4 h-4 text-primary" /> Class controls
+                    </CardTitle>
+                    <CardDescription>
+                      Turn student features on or off and set limits. Changes apply live to every student in this class.
+                      {savingSettings && <span className="ml-2 text-primary">Saving…</span>}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-5">
+                    {/* Page access */}
+                    <div>
+                      <p className="text-sm font-semibold mb-2">Pages students can open</p>
+                      <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
+                        {CONTROLLABLE_PAGES.map((page) => {
+                          const allowed = !classSettings.lockedPages.includes(page.key)
+                          return (
+                            <div key={page.key} className="flex items-center justify-between py-1.5">
+                              <Label htmlFor={`pg-${page.key}`} className="text-sm cursor-pointer">{page.label}</Label>
+                              <Switch
+                                id={`pg-${page.key}`}
+                                checked={allowed}
+                                onCheckedChange={(on) => {
+                                  const locked = new Set(classSettings.lockedPages)
+                                  if (on) locked.delete(page.key); else locked.add(page.key)
+                                  saveClassSettings({ ...classSettings, lockedPages: Array.from(locked) })
+                                }}
+                              />
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Per-question time limit */}
+                    <div className="flex items-center justify-between gap-4 border-t pt-4">
+                      <div>
+                        <p className="text-sm font-semibold">Time limit per question</p>
+                        <p className="text-xs text-muted-foreground">Seconds a student gets to answer each quiz question. Blank = no limit.</p>
+                      </div>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <Input
+                          type="number"
+                          min={0}
+                          className="w-24"
+                          placeholder="none"
+                          value={classSettings.secondsPerQuestion ?? ""}
+                          onChange={(e) => {
+                            const n = parseInt(e.target.value, 10)
+                            saveClassSettings({ ...classSettings, secondsPerQuestion: Number.isFinite(n) && n > 0 ? n : null })
+                          }}
+                        />
+                        <span className="text-sm text-muted-foreground">sec</span>
+                      </div>
+                    </div>
+
                   </CardContent>
                 </Card>
 

@@ -3,10 +3,13 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Store } from "lucide-react";
 import { AppProvider, useApp } from "@/contexts/AppContext";
+import { ClassSettingsProvider, useClassSettings } from "@/contexts/ClassSettingsContext";
+import { isPageLocked } from "@/lib/classSettings";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
@@ -49,6 +52,21 @@ import { installErrorLog } from "@/lib/errorLog";
 installErrorLog();
 
 const queryClient = new QueryClient();
+
+// Redirects a student off any page their teacher has locked (covers direct-URL
+// access, not just hidden nav). Teachers/unrestricted students get the
+// permissive default, so this never fires for them.
+function LockedRouteWatcher() {
+  const settings = useClassSettings();
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isPageLocked(settings, location.pathname)) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [settings, location.pathname, navigate]);
+  return null;
+}
 
 function AppRoutes() {
   const { user, authReady } = useApp();
@@ -121,10 +139,12 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <AppProvider>
+            <ClassSettingsProvider>
             <JeffProvider>
               <AssignmentNotifications />
               <GradeNotifications />
               <FriendRequestNotifications />
+              <LockedRouteWatcher />
               <AppRoutes />
               {/* Non-essential global widgets. Wrapped in a silent error
                   boundary (fallback=null) so a hiccup in any of them - e.g. the
@@ -144,6 +164,7 @@ const App = () => (
                 <LeagueUpWatcher />
               </ErrorBoundary>
             </JeffProvider>
+            </ClassSettingsProvider>
           </AppProvider>
         </BrowserRouter>
       </TooltipProvider>

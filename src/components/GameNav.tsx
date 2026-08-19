@@ -13,6 +13,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
+import { useClassSettings } from "@/contexts/ClassSettingsContext";
+import { isPageLocked } from "@/lib/classSettings";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Wordmark } from "@/components/Wordmark";
@@ -60,6 +62,13 @@ export default function GameNav() {
     navigate("/auth", { replace: true });
   };
   const location = useLocation();
+
+  // Hide any pages the student's teacher has locked for their class.
+  const classSettings = useClassSettings();
+  const navItems = useMemo(
+    () => NAV_ITEMS.filter((item) => !isPageLocked(classSettings, item.to)),
+    [classSettings]
+  );
 
   const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
 
@@ -196,7 +205,7 @@ export default function GameNav() {
 
               {/* Nav links - staggered entrance, bouncy hover */}
               <div className="flex-1 overflow-y-auto p-3 space-y-1">
-                {NAV_ITEMS.map((item, idx) => {
+                {navItems.map((item, idx) => {
                   const active = isActive(item.to);
                   const AnimIcon = NAV_ICON_COMPONENTS[item.to] ?? item.icon;
                   return (
