@@ -11,9 +11,8 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { motion } from "framer-motion"
 import { Lock, TrendingUp, TrendingDown, Loader2, Check } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import {
-  Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription,
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog"
 import { supabase } from "@/integrations/supabase/client"
 import { useApp } from "@/contexts/AppContext"
@@ -22,6 +21,7 @@ import { STOCK_PREDICTION_TICKERS, type CuratedTicker } from "@/content/stockPre
 import {
   fetchQuotes, isLocked, formatEditWindow, pctChange, hundredNow, type LiveQuote,
 } from "@/lib/stockPredictionDraft"
+import StockPickDetail from "./StockPickDetail"
 import type { StockPrediction } from "@/types"
 
 interface DbRow {
@@ -109,10 +109,12 @@ export default function PickScreen({ classId, onPicked, forcePick = false }: Pic
     ? isLocked({ locked: existing.locked, pickDate: existing.pickDate })
     : false
 
-  const confirmPick = async () => {
+  // livePrice is the price the student is looking at in the detail view; fall
+  // back to the grid quote so we always snapshot something sensible.
+  const confirmPick = async (livePrice?: number) => {
     if (!confirmTarget || !user?.id) return
-    const quote = quotes[confirmTarget.ticker]
-    if (!quote) {
+    const price = livePrice && livePrice > 0 ? livePrice : quotes[confirmTarget.ticker]?.price
+    if (!price || price <= 0) {
       toast.error("Couldn't fetch a live price for that stock — try again in a moment.")
       return
     }
@@ -125,7 +127,7 @@ export default function PickScreen({ classId, onPicked, forcePick = false }: Pic
         const update: Record<string, unknown> = {
           ticker: confirmTarget.ticker,
           company_name: confirmTarget.companyName,
-          pick_price: quote.price,
+          pick_price: price,
         }
         if (forcePick) {
           update.pick_date = new Date().toISOString()
@@ -142,7 +144,7 @@ export default function PickScreen({ classId, onPicked, forcePick = false }: Pic
           class_id: classId,
           ticker: confirmTarget.ticker,
           company_name: confirmTarget.companyName,
-          pick_price: quote.price,
+          pick_price: price,
         })
         if (error) throw error
       }
@@ -272,26 +274,22 @@ export default function PickScreen({ classId, onPicked, forcePick = false }: Pic
         </div>
       ))}
 
-      <Dialog open={!!confirmTarget} onOpenChange={(o) => { if (!o) setConfirmTarget(null) }}>
-        <DialogContent>
+      <Dialog open={!!confirmTarget} onOpenChange={(o) => { if (!o && !submitting) setConfirmTarget(null) }}>
+        <DialogContent className="max-w-lg max-h-[88vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>
-              Lock in {confirmTarget?.companyName} ({confirmTarget?.ticker}) as your semester pick?
-            </DialogTitle>
+            <DialogTitle>Review the stats, then lock in your pick</DialogTitle>
             <DialogDescription>
-              {confirmTarget && quotes[confirmTarget.ticker]
-                ? <>Your pick will be snapshotted at <span className="font-semibold text-foreground">{fmtUSD(quotes[confirmTarget.ticker].price)}</span>. You can change it for the next 48 hours.</>
-                : "Fetching the current price…"}
+              Snapshotted at the current price. You can change it for 48 hours.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setConfirmTarget(null)} disabled={submitting}>
-              Cancel
-            </Button>
-            <Button onClick={confirmPick} disabled={submitting || !confirmTarget || !quotes[confirmTarget.ticker]}>
-              {submitting ? <><Loader2 className="w-4 h-4 animate-spin mr-2" />Saving…</> : "Confirm"}
-            </Button>
-          </DialogFooter>
+          {confirmTarget && (
+            <StockPickDetail
+              ticker={confirmTarget}
+              submitting={submitting}
+              onCancel={() => setConfirmTarget(null)}
+              onConfirm={(livePrice) => confirmPick(livePrice)}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>
