@@ -246,13 +246,13 @@ export const block1b: StructuredLessonContent = {
       title: "How a Business Keeps Score: Revenue, Costs, Profit, and Loss",
       paragraphs: [
         "To know whether a business is actually working, you have to follow the money, and the single most confused pair of words in all of business is revenue versus profit. **Revenue** (also called sales) is the total money that comes in from selling, before anything is subtracted. Sell 100 smoothies at $5 each and your revenue is $500. Revenue measures how much you *sold*, not how much you *kept*.",
-        "**Costs** are everything you have to pay to run the business: ingredients, rent, wages, shipping, equipment, permits. **Profit** is what's left after you subtract all of those costs from revenue: **Profit = Revenue − Costs**. If those 100 smoothies cost you $320, your profit is $180. If costs are higher than revenue, the number goes negative, and that's a **loss**, meaning the business ended up with less money than it started with.",
+        "**Costs** are everything you have to pay to run the business: ingredients, rent, wages, shipping, equipment, permits. **Profit** is what's left after you subtract all of those costs from revenue: **Profit = Revenue - Costs**. If those 100 smoothies cost you $320, your profit is $180. If costs are higher than revenue, the number goes negative, and that's a **loss**, meaning the business ended up with less money than it started with.",
         "This is why a business can have huge revenue and still be losing money. A company that rings up millions in sales but spends even more to make them is running a loss, which is the trap that sinks fast-growing businesses that 'bleed cash.' Big revenue is not the same as being healthy; only profit tells you that.",
         "There are exactly two ways to raise profit: bring in more revenue (sell more, or charge more) or cut costs (spend less making each sale). Smart owners watch both. And profit isn't just 'greed'; it's a **signal**: steady profit tells the owner customers value this more than it costs to provide, so it's worth continuing; a loss is a warning to change something. Profit earned can be reinvested to grow, saved as a cushion, or paid back to the owner for the risk they took."
       ],
       bullets: [
         "Revenue = total money in from sales, before costs (how much you sold).",
-        "Costs = everything you pay to operate; Profit = Revenue − Costs.",
+        "Costs = everything you pay to operate; Profit = Revenue - Costs.",
         "A negative result is a loss: high revenue with even higher costs still loses money.",
         "Two ways to raise profit: increase revenue or cut costs.",
         "Profit is also a signal that a business is worth continuing, and it funds growth."
@@ -305,7 +305,7 @@ export const block1b: StructuredLessonContent = {
       details: [
         "Sofia's **revenue** was $3,000, the total money customers paid her.",
         "Her **costs**: $1,200 for ingredients, $600 to rent the festival spot, $400 for gas and propane, and $300 to pay a helper.",
-        "That's $2,500 in total costs, so her **profit** was $3,000 − $2,500 = $500.",
+        "That's $2,500 in total costs, so her **profit** was $3,000 - $2,500 = $500.",
         "The giant $3,000 number felt like the whole story, but the $500 profit is what she actually gets to keep."
       ]
     },
@@ -408,7 +408,7 @@ export const block1b: StructuredLessonContent = {
             "Nothing a business does can change its profit"
           ],
           correctAnswer: 1,
-          explanation: "Profit = Revenue − Costs, so you can raise profit from either side: sell more (or charge more), or spend less per sale.",
+          explanation: "Profit = Revenue - Costs, so you can raise profit from either side: sell more (or charge more), or spend less per sale.",
           concept: "revenue-profit-loss"
         },
         {

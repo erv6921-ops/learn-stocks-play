@@ -1619,7 +1619,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "$7,000"
             ],
             correctAnswer: 1,
-            explanation: "Economic profit subtracts both explicit and implicit costs: $10,000 − $4,000 − $3,000 = $3,000. Accounting profit would be the larger $6,000."
+            explanation: "Economic profit subtracts both explicit and implicit costs: $10,000 - $4,000 - $3,000 = $3,000. Accounting profit would be the larger $6,000."
           },
           {
             id: "apm-1-5-mastery5",

@@ -21,7 +21,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
           "$1,600: combining the needs and wants percentages instead of using needs alone"
         ],
         correctAnswer: 0,
-        explanation: "50% of $2,000 = $1,000 is her total needs budget. She's already spent $150 + $250 = $400 of it, so $1,000 − $400 = $600 remains. The 30% wants budget is separate, so don't add the two percentages together."
+        explanation: "50% of $2,000 = $1,000 is her total needs budget. She's already spent $150 + $250 = $400 of it, so $1,000 - $400 = $600 remains. The 30% wants budget is separate, so don't add the two percentages together."
       },
       {
         id: "bh2",
@@ -33,7 +33,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
           "$0 to each: assuming there's nothing left once fixed costs are covered"
         ],
         correctAnswer: 0,
-        explanation: "$800 + $400 + $300 + $200 = $1,700 assigned to fixed categories, leaving $2,000 − $1,700 = $300. Zero-based budgeting means that $300 still needs a job too. Split evenly, that's $150 to savings and $150 to fun money. 'Zero-based' means every dollar is assigned, not that nothing is left for savings or fun."
+        explanation: "$800 + $400 + $300 + $200 = $1,700 assigned to fixed categories, leaving $2,000 - $1,700 = $300. Zero-based budgeting means that $300 still needs a job too. Split evenly, that's $150 to savings and $150 to fun money. 'Zero-based' means every dollar is assigned, not that nothing is left for savings or fun."
       },
       {
         id: "bh3",
@@ -69,7 +69,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
           "$1,200: confusing the total emergency fund goal with the monthly amount available"
         ],
         correctAnswer: 0,
-        explanation: "$700 is left after needs. $200 of that is already committed to the emergency fund goal, so $700 − $200 = $500 is the most he can put toward the credit card without missing the 6-month deadline."
+        explanation: "$700 is left after needs. $200 of that is already committed to the emergency fund goal, so $700 - $200 = $500 is the most he can put toward the credit card without missing the 6-month deadline."
       },
       {
         id: "bh6",
@@ -113,7 +113,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
           "Neither: surplus and deficit only apply to government budgets"
         ],
         correctAnswer: 0,
-        explanation: "$300 − $250 = $50 left over. Spending LESS than you earn is a surplus. Spending MORE than you earn would be a deficit. Since $250 is less than $300, this is a $50 surplus."
+        explanation: "$300 - $250 = $50 left over. Spending LESS than you earn is a surplus. Spending MORE than you earn would be a deficit. Since $250 is less than $300, this is a $50 surplus."
       },
       {
         id: "br2",
@@ -253,7 +253,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
           "$90 per month: mistaking her total 3-month passive income for the monthly job amount"
         ],
         correctAnswer: 0,
-        explanation: "Passive income over 3 months: $30 × 3 = $90. Remaining needed: $450 − $90 = $360. Split evenly across 3 months: $360 ÷ 3 = $120 per month from her job."
+        explanation: "Passive income over 3 months: $30 × 3 = $90. Remaining needed: $450 - $90 = $360. Split evenly across 3 months: $360 ÷ 3 = $120 per month from her job."
       },
       {
         id: "ih6",
@@ -493,7 +493,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
           "$0: interest only applies to loans from banks, not everyday borrowing"
         ],
         correctAnswer: 0,
-        explanation: "$110 total paid − $100 originally borrowed = $10. That extra $10 is the interest: the cost of borrowing instead of paying with money you already had."
+        explanation: "$110 total paid - $100 originally borrowed = $10. That extra $10 is the interest: the cost of borrowing instead of paying with money you already had."
       },
       {
         id: "cr3",
@@ -541,7 +541,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
           "$1,600: adding the balance and the limit together instead of subtracting"
         ],
         correctAnswer: 0,
-        explanation: "$1,000 limit − $600 already owed = $400 still available to charge before hitting the limit."
+        explanation: "$1,000 limit - $600 already owed = $400 still available to charge before hitting the limit."
       },
       {
         id: "cr7",
