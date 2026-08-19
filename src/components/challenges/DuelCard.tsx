@@ -21,7 +21,7 @@ function Side({ name, score, unit, leading, isMe }: { name: string; score: numbe
   return (
     <div className={`flex-1 rounded-xl p-3 text-center ${leading ? "bg-gold/10 ring-1 ring-gold/30" : "bg-muted/50"}`}>
       <p className="text-xs font-semibold truncate mb-1">{isMe ? "You" : name}</p>
-      <p className="text-2xl font-bold tabular-nums leading-none">{score == null ? "–" : score.toLocaleString()}</p>
+      <p className="text-2xl font-bold tabular-nums leading-none">{score == null ? "-" : score.toLocaleString()}</p>
       <p className="text-[10px] text-muted-foreground mt-1">{unit}</p>
     </div>
   )

@@ -118,7 +118,7 @@ export default function WealthBook({ career, week }: { career: Career; week: num
             </div>
             <div className="flex gap-2 shrink-0 text-center">
               <div><p className="text-lg font-extrabold tabular-nums">{(totalAUM / 1000).toFixed(totalAUM >= 10000 ? 0 : 1)}k</p><p className="text-[9px] text-white/70 uppercase">AUM</p></div>
-              <div><p className="text-lg font-extrabold tabular-nums">{book.length ? avgTrust : "—"}</p><p className="text-[9px] text-white/70 uppercase">trust</p></div>
+              <div><p className="text-lg font-extrabold tabular-nums">{book.length ? avgTrust : "-"}</p><p className="text-[9px] text-white/70 uppercase">trust</p></div>
             </div>
           </div>
           {needsReview > 0 && (

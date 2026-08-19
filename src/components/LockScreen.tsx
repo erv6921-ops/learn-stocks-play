@@ -45,7 +45,7 @@ function ComingSoonCard({ title, icon: Icon = Construction }: { title: string; i
       <div className="space-y-1.5">
         <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-primary">In development</span>
         <h1 className="font-display text-2xl font-extrabold tracking-tight">{title}</h1>
-        <p className="text-sm text-muted-foreground leading-relaxed">Coming soon — we're putting the finishing touches on this. Check back shortly!</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">Coming soon. We're putting the finishing touches on this. Check back shortly!</p>
       </div>
       <Link
         to="/lessons"
@@ -90,8 +90,7 @@ export function CoinsGate({ required, title, children }: { required: number; tit
             <span className="inline-flex items-center gap-0.5 font-bold text-foreground">
               <Coins className="h-3.5 w-3.5" />
               {coins.toLocaleString()}
-            </span>{" "}
-            — keep learning to get there!
+            </span>. Keep learning to get there!
           </>
         }
       />

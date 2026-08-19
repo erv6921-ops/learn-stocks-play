@@ -71,6 +71,8 @@ const fmtDate = (s?: string) =>
 
 interface Reflection { lesson_id: string; prompt: string; response: string; updated_at: string }
 interface Submission { type: string; title: string; fields: WorkField[]; link: string | null; updated_at: string }
+interface ProgressRow { lesson_id: string; completed: boolean; completed_at: string | null; quiz_score: number | null }
+interface LessonGrade { grade: string; feedback: string }
 interface ActivityEvent {
   kind: string
   route: string | null
@@ -119,7 +121,11 @@ export default function StudentWork() {
   const [bizSections, setBizSections] = useState<WorkSection[]>([])
   const [submissions, setSubmissions] = useState<Submission[]>([])
   const [events, setEvents] = useState<ActivityEvent[]>([])
+  const [progress, setProgress] = useState<ProgressRow[]>([])
+  const [grades, setGrades] = useState<Map<string, LessonGrade>>(new Map())
 
+  // The lesson block the teacher is currently inspecting, + its editable grade.
+  const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null)
   const [grade, setGrade] = useState("")
   const [feedback, setFeedback] = useState("")
   const [saving, setSaving] = useState(false)
@@ -130,11 +136,11 @@ export default function StudentWork() {
       if (!userId) return
       setLoading(true)
       try {
-        const [refRes, gsRes, subRes, grRes, profRes, actRes] = await Promise.all([
+        const [refRes, gsRes, subRes, lgRes, profRes, actRes, lpRes] = await Promise.all([
           (supabase as any).from("lesson_reflections").select("lesson_id, prompt, response, updated_at").eq("user_id", userId),
           (supabase as any).from("business_game_state").select("activities").eq("user_id", userId).maybeSingle(),
           (supabase as any).from("entrepreneurship_submissions").select("submission_type, content, link, updated_at").eq("user_id", userId),
-          (supabase as any).from("business_grades").select("grade, feedback").eq("user_id", userId).maybeSingle(),
+          (supabase as any).from("lesson_grades").select("lesson_id, grade, feedback").eq("user_id", userId),
           (supabase as any).from("profiles").select("first_name, last_name").eq("id", userId).maybeSingle(),
           (supabase as any)
             .from("student_activity_events")
@@ -142,11 +148,20 @@ export default function StudentWork() {
             .eq("user_id", userId)
             .order("created_at", { ascending: false })
             .limit(4000),
+          (supabase as any).from("lesson_progress").select("lesson_id, completed, completed_at, quiz_score").eq("user_id", userId),
         ])
         if (cancelled) return
 
         // Activity telemetry (fails soft if the table isn't migrated yet).
         setEvents((actRes?.data ?? []) as ActivityEvent[])
+        setProgress((lpRes?.data ?? []) as ProgressRow[])
+
+        // Per-lesson grades → map keyed by lesson id.
+        const gm = new Map<string, LessonGrade>()
+        for (const g of (lgRes?.data ?? []) as { lesson_id: string; grade: string | null; feedback: string | null }[]) {
+          gm.set(g.lesson_id, { grade: g.grade || "", feedback: g.feedback || "" })
+        }
+        setGrades(gm)
 
         // Lesson reflections - sorted into curriculum order.
         const refs = ((refRes?.data ?? []) as Reflection[])
@@ -180,7 +195,6 @@ export default function StudentWork() {
           .filter((s) => s.fields.length || s.link)
         setSubmissions(subs)
 
-        if (grRes?.data) { setGrade(grRes.data.grade || ""); setFeedback(grRes.data.feedback || "") }
         if (profRes?.data && !navState.name) {
           const nm = `${profRes.data.first_name || ""} ${profRes.data.last_name || ""}`.trim()
           if (nm) setStudentName(nm)
@@ -196,22 +210,36 @@ export default function StudentWork() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId])
 
-  const saveGrade = async () => {
-    if (!userId) return
+  // Populate the grade editor whenever the teacher opens a different lesson.
+  useEffect(() => {
+    const g = selectedLessonId ? grades.get(selectedLessonId) : undefined
+    setGrade(g?.grade || "")
+    setFeedback(g?.feedback || "")
+  }, [selectedLessonId, grades])
+
+  // Save (upsert) the grade + feedback for the currently-selected lesson.
+  const saveLessonGrade = async () => {
+    if (!userId || !selectedLessonId) return
     setSaving(true)
     try {
       const { data: { user } } = await supabase.auth.getUser()
-      const { error } = await (supabase as any).from("business_grades").upsert({
+      const { error } = await (supabase as any).from("lesson_grades").upsert({
         user_id: userId,
+        lesson_id: selectedLessonId,
         grade: grade.trim() || null,
         feedback: feedback.trim() || null,
         graded_by: user?.id,
         updated_at: new Date().toISOString(),
-      }, { onConflict: "user_id" })
+      }, { onConflict: "user_id,lesson_id" })
       if (error) throw error
-      toast({ title: "Grade saved", description: "The student can see your feedback." })
+      setGrades((prev) => {
+        const next = new Map(prev)
+        next.set(selectedLessonId, { grade: grade.trim(), feedback: feedback.trim() })
+        return next
+      })
+      toast({ title: "Grade saved", description: "The student can see your feedback for this lesson." })
     } catch (e) {
-      console.error("[StudentWork] saveGrade", e)
+      console.error("[StudentWork] saveLessonGrade", e)
       toast({ title: "Failed to save grade", variant: "destructive" })
     } finally {
       setSaving(false)
@@ -265,7 +293,7 @@ export default function StudentWork() {
       .filter((q) => q.is_correct === false)
       .map((q) => ({
         key: (q.question_id || "") + q.created_at,
-        lessonTitle: q.lesson_id ? LESSON_BY_ID.get(q.lesson_id)?.title || humanize(q.lesson_id) : "—",
+        lessonTitle: q.lesson_id ? LESSON_BY_ID.get(q.lesson_id)?.title || humanize(q.lesson_id) : "-",
         questionText:
           q.meta && typeof q.meta.questionText === "string" ? (q.meta.questionText as string) : q.question_id || "",
         timedOut: !!(q.meta && (q.meta as Record<string, unknown>).timedOut),
@@ -276,7 +304,51 @@ export default function StudentWork() {
     return { hasData: events.length > 0, answered, correct, accuracy, avgMs, activeMs, lastActive, days, pages, missed }
   }, [events])
 
-  const isEmpty = !loading && reflections.length === 0 && bizSections.length === 0 && submissions.length === 0
+  // One block per lesson the student has touched (completed, answered a
+  // question in, or reflected on), each with its own analytics + reflection.
+  const lessonBlocks = useMemo(() => {
+    const ids = new Set<string>()
+    reflections.forEach((r) => ids.add(r.lesson_id))
+    progress.forEach((p) => ids.add(p.lesson_id))
+    events.forEach((e) => { if (e.kind === "question_answered" && e.lesson_id) ids.add(e.lesson_id) })
+
+    return Array.from(ids)
+      .map((id) => {
+        const lesson = LESSON_BY_ID.get(id)
+        const unit = lesson ? UNIT_BY_ID.get(lesson.unitId) : undefined
+        const qs = events.filter((e) => e.kind === "question_answered" && e.lesson_id === id)
+        const answered = qs.length
+        const correct = qs.filter((q) => q.is_correct === true).length
+        const accuracy = answered ? Math.round((correct / answered) * 100) : null
+        const avgMs = answered ? Math.round(qs.reduce((s, q) => s + (q.duration_ms || 0), 0) / answered) : 0
+        const missed = qs
+          .filter((q) => q.is_correct === false)
+          .map((q) => ({
+            key: (q.question_id || "") + q.created_at,
+            questionText: q.meta && typeof q.meta.questionText === "string" ? (q.meta.questionText as string) : q.question_id || "",
+            timedOut: !!(q.meta && (q.meta as Record<string, unknown>).timedOut),
+            durationMs: q.duration_ms || 0,
+          }))
+        const prog = progress.find((p) => p.lesson_id === id)
+        return {
+          id,
+          title: lesson?.title || humanize(id),
+          unitLabel: unit ? `Unit ${unit.unitNumber}` : undefined,
+          order: lesson?.order ?? 999,
+          answered, correct, accuracy, avgMs, missed,
+          completed: !!prog?.completed,
+          completedAt: prog?.completed_at || null,
+          quizScore: prog?.quiz_score ?? null,
+          reflection: reflections.find((r) => r.lesson_id === id) || null,
+          graded: !!grades.get(id)?.grade,
+        }
+      })
+      .sort((a, b) => a.order - b.order)
+  }, [reflections, progress, events, grades])
+
+  const selectedBlock = lessonBlocks.find((b) => b.id === selectedLessonId) || null
+
+  const isEmpty = !loading && lessonBlocks.length === 0 && bizSections.length === 0 && submissions.length === 0
 
   return (
     <div className="min-h-screen bg-background">
@@ -332,7 +404,7 @@ export default function StudentWork() {
                       { icon: Clock, label: "Time on app", value: fmtDuration(analytics.activeMs) },
                       { icon: Target, label: "Accuracy", value: `${analytics.accuracy}%` },
                       { icon: ClipboardCheck, label: "Questions", value: String(analytics.answered) },
-                      { icon: Timer, label: "Avg / question", value: analytics.avgMs ? fmtDuration(analytics.avgMs) : "—" },
+                      { icon: Timer, label: "Avg / question", value: analytics.avgMs ? fmtDuration(analytics.avgMs) : "-" },
                     ].map(({ icon: Icon, label, value }) => (
                       <div key={label} className="rounded-2xl bg-card border border-border/60 px-4 py-3 shadow-sm">
                         <Icon className="w-4 h-4 text-primary" />

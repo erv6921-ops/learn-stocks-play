@@ -6,7 +6,7 @@ export const batch9_gulliver: Record<string, string> = {
   "gulliver-1-1":
     "Think of a business you actually use (an app, a store, a food spot). In your own words, what good or service does it really sell you, and what would make you stop being a customer?",
   "gulliver-1-2":
-    "Imagine you sold something this weekend for $100. Make up realistic costs for it, then calculate your profit — and explain in your own words why the $100 wasn't the number that mattered most.",
+    "Imagine you sold something this weekend for $100. Make up realistic costs for it, then calculate your profit, and explain in your own words why the $100 wasn't the number that mattered most.",
   "gulliver-1-3":
     "Describe a real chance you'd have to take to start something (a job, a team, a project). What would you be risking, what's your opportunity cost, and what reward would make it worth it?",
   "gulliver-1-4":

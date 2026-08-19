@@ -1,7 +1,7 @@
 import { StructuredLessonContent } from "@/types"
 
 // ═══════════════════════════════════════════════
-// GULLIVER INTRO TO BUSINESS — UNIT 1, split into FIVE short, deep lessons so
+// GULLIVER INTRO TO BUSINESS, UNIT 1, split into FIVE short, deep lessons so
 // each important idea gets its own focused session (~8 teaching beats):
 //   1.1  What a Business Is and What It Sells   (business, goods-vs-services)
 //   1.2  Revenue, Costs, Profit & Loss          (revenue-profit-loss)
@@ -12,27 +12,27 @@ import { StructuredLessonContent } from "@/types"
 // ═══════════════════════════════════════════════
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 1.1 — What a Business Is and What It Sells
+// LESSON 1.1: What a Business Is and What It Sells
 // ─────────────────────────────────────────────────────────────
 export const block1a: StructuredLessonContent = {
   lessonId: "gulliver-1-1",
   sections: [
     {
       type: "concept",
-      title: "What a Business Really Is — and Why It Exists",
+      title: "What a Business Really Is, and Why It Exists",
       paragraphs: [
-        "A **business** is an organization that provides **goods** or **services** to other people in order to earn money. That short definition hides the important part: a business only survives if it gives people something they actually want or need. Nobody has to buy from you. So every business, from a taco truck to the company that built your phone, is really answering one question over and over — what do people want badly enough to pay for? When the answer is good, customers come back; when it's wrong, the business disappears. That constant pressure to be useful is what separates a business from a hobby.",
-        "The 'something' a business provides comes in two forms, and the difference matters more than it first looks. A **good** is a physical, tangible item you can hold, own, and keep — sneakers, a burger, a phone. A **service** is work or expertise performed for you that you cannot hold — a haircut, a streaming subscription, a tutor, a ride across town. Services have two tricky features: they're **intangible** (you can't inspect one before it's done), and they're often **perishable** (an empty seat on a bus or an unbooked appointment is value that vanishes forever). That's why services lean so heavily on trust and reputation.",
+        "A **business** is an organization that provides **goods** or **services** to other people in order to earn money. That short definition hides the important part: a business only survives if it gives people something they actually want or need. Nobody has to buy from you. So every business, from a taco truck to the company that built your phone, is really answering one question over and over. What do people want badly enough to pay for? When the answer is good, customers come back; when it's wrong, the business disappears. That constant pressure to be useful is what separates a business from a hobby.",
+        "The 'something' a business provides comes in two forms, and the difference matters more than it first looks. A **good** is a physical, tangible item you can hold, own, and keep, such as sneakers, a burger, or a phone. A **service** is work or expertise performed for you that you cannot hold, like a haircut, a streaming subscription, a tutor, or a ride across town. Services have two tricky features: they're **intangible** (you can't inspect one before it's done), and they're often **perishable** (an empty seat on a bus or an unbooked appointment is value that vanishes forever). That's why services lean so heavily on trust and reputation.",
         "In the real world the line blurs, and smart businesses blur it on purpose. A phone store sells you the phone (a good) and also fixes your cracked screen (a service). A restaurant sells food (a good) but also the experience of being served (a service). Bundling a good with a service is a common way to stand out, because the service is much harder for a competitor to copy than the product itself.",
-        "Businesses matter because they're how a society turns raw resources into things people can actually use. A farmer's wheat, a designer's idea, and a worker's time are worth little sitting apart; a business is the machine that combines them into bread on a shelf. Economists call the value a business adds **utility**. Creating utility — making something more useful, or getting it to the right place at the right time — is the real product of every business, whether it sells goods, services, or both."
+        "Businesses matter because they're how a society turns raw resources into things people can actually use. A farmer's wheat, a designer's idea, and a worker's time are worth little sitting apart; a business is the machine that combines them into bread on a shelf. Economists call the value a business adds **utility**. Creating utility, whether that means making something more useful or getting it to the right place at the right time, is the real product of every business, whether it sells goods, services, or both."
       ],
       bullets: [
-        "Business = providing goods or services to others to earn money — and only lasts if it stays useful.",
+        "Business = providing goods or services to others to earn money, and it only lasts if it stays useful.",
         "A good is tangible and ownable; a service is intangible work, and it's often perishable.",
         "Many businesses bundle a good with a service because the service is harder to copy.",
-        "Businesses create 'utility' — they turn separate resources into something people can actually use."
+        "Businesses create 'utility': they turn separate resources into something people can actually use."
       ],
-      realWorldExample: "A sneaker brand doesn't just sell shoes (a good). It also offers fast shipping, easy returns, and a members-only app (services). A rival can copy the shoe design in a season, but the trusted service and community are far harder to steal — which is often where the real advantage lives."
+      realWorldExample: "A sneaker brand doesn't just sell shoes (a good). It also offers fast shipping, easy returns, and a members-only app (services). A rival can copy the shoe design in a season, but the trusted service and community are far harder to steal, which is often where the real advantage lives."
     },
     {
       type: "micro-check",
@@ -81,11 +81,11 @@ export const block1a: StructuredLessonContent = {
     {
       type: "scenario",
       title: "Two Weekend Hustles",
-      narrative: "Two friends each start something over the summer. Maria buys a bubble-tea cart and sells drinks at the park. Devon starts a phone-repair service, fixing cracked screens at people's homes. Both take in money, but what they actually sell is different — and that difference shapes how each business works.",
+      narrative: "Two friends each start something over the summer. Maria buys a bubble-tea cart and sells drinks at the park. Devon starts a phone-repair service, fixing cracked screens at people's homes. Both take in money, but what they actually sell is different, and that difference shapes how each business works.",
       details: [
         "Maria sells a good: a physical bubble tea the customer holds, keeps, and drinks.",
         "Devon sells a service: the work of repairing a screen, which can't be held or resold.",
-        "If Maria doesn't sell a drink today, she can still use the ingredients tomorrow. If Devon has no bookings, that hour of his time is gone forever — a service is perishable.",
+        "If Maria doesn't sell a drink today, she can still use the ingredients tomorrow. If Devon has no bookings, that hour of his time is gone forever, because a service is perishable.",
         "Both are real businesses, because both provide something people will pay for."
       ]
     },
@@ -96,7 +96,7 @@ export const block1a: StructuredLessonContent = {
         question: "Why is an unbooked hour a bigger loss for Devon's repair service than an unsold drink is for Maria's cart?",
         options: [
           "Because Devon's business isn't a real business",
-          "Because a service is perishable — unused time can't be saved, while unsold ingredients can be used later",
+          "Because a service is perishable: unused time can't be saved, while unsold ingredients can be used later",
           "Because goods are always worth more than services",
           "Because Maria simply has more customers"
         ],
@@ -114,7 +114,7 @@ export const block1a: StructuredLessonContent = {
           question: "Which of these is a SERVICE rather than a good?",
           options: ["A pair of headphones", "A haircut", "A slice of pizza", "A video game disc"],
           correctAnswer: 1,
-          explanation: "A haircut is work done for you that you can't hold — a service. The others are physical things you keep, which are goods.",
+          explanation: "A haircut is work done for you that you can't hold, which makes it a service. The others are physical things you keep, which are goods.",
           concept: "goods-vs-services"
         },
         {
@@ -127,7 +127,7 @@ export const block1a: StructuredLessonContent = {
             "Because usefulness has nothing to do with staying in business"
           ],
           correctAnswer: 1,
-          explanation: "Customers choose freely. A business earns money only by giving people something they actually want or need — that pressure to stay useful is what keeps it alive.",
+          explanation: "Customers choose freely. A business earns money only by giving people something they actually want or need, and that pressure to stay useful is what keeps it alive.",
           concept: "business"
         }
       ]
@@ -141,7 +141,7 @@ export const block1a: StructuredLessonContent = {
           question: "A student charges neighbors to walk their dogs after school. Is this a business?",
           options: [
             "No, because it's done by a student",
-            "Yes — it provides a service to others in exchange for money",
+            "Yes, it provides a service to others in exchange for money",
             "No, because dog walking isn't a real job",
             "Only if it happens inside a store"
           ],
@@ -159,7 +159,7 @@ export const block1a: StructuredLessonContent = {
             "Whether it has a downtown address"
           ],
           correctAnswer: 0,
-          explanation: "Customers buy freely, so a business keeps them only by staying genuinely useful — providing something people want enough to pay for.",
+          explanation: "Customers buy freely, so a business keeps them only by staying genuinely useful, providing something people want enough to pay for.",
           concept: "business"
         },
         {
@@ -167,7 +167,7 @@ export const block1a: StructuredLessonContent = {
           question: "Which of these is a GOOD?",
           options: ["A ride share across town", "A pair of basketball shoes", "A month of music streaming", "A tutoring session"],
           correctAnswer: 1,
-          explanation: "Basketball shoes are a physical item you can hold, own, and keep — a good. The others are work or access provided to you (services).",
+          explanation: "Basketball shoes are a physical item you can hold, own, and keep, which makes it a good. The others are work or access provided to you (services).",
           concept: "goods-vs-services"
         },
         {
@@ -175,7 +175,7 @@ export const block1a: StructuredLessonContent = {
           question: "Which of these is a SERVICE?",
           options: ["A bottle of shampoo", "A frozen pizza", "A haircut at a salon", "A phone charger"],
           correctAnswer: 2,
-          explanation: "A haircut is work performed for you that you can't hold — a service. The rest are tangible goods.",
+          explanation: "A haircut is work performed for you that you can't hold, which makes it a service. The rest are tangible goods.",
           concept: "goods-vs-services"
         },
         {
@@ -183,7 +183,7 @@ export const block1a: StructuredLessonContent = {
           question: "Which feature is TRUE of a service but not a physical good?",
           options: [
             "You can hold it in your hand before buying",
-            "It is often perishable — an unbooked appointment or empty seat is value gone forever",
+            "It is often perishable: an unbooked appointment or empty seat is value gone forever",
             "It can be stacked in a warehouse for years",
             "It can be re-sold used, unopened"
           ],
@@ -201,7 +201,7 @@ export const block1a: StructuredLessonContent = {
             "Because customers dislike buying products"
           ],
           correctAnswer: 1,
-          explanation: "A competitor can copy a product quickly, but trusted service and experience are much harder to imitate — so bundling helps a business stand out.",
+          explanation: "A competitor can copy a product quickly, but trusted service and experience are much harder to imitate, so bundling helps a business stand out.",
           concept: "goods-vs-services"
         },
         {
@@ -214,7 +214,7 @@ export const block1a: StructuredLessonContent = {
             "It keeps its products locked away"
           ],
           correctAnswer: 1,
-          explanation: "Utility is the added usefulness a business creates — turning separate resources (materials, ideas, labor) into something people can actually use.",
+          explanation: "Utility is the added usefulness a business creates by turning separate resources (materials, ideas, labor) into something people can actually use.",
           concept: "business"
         },
         {
@@ -227,7 +227,7 @@ export const block1a: StructuredLessonContent = {
             "There is no real difference between a business and a hobby"
           ],
           correctAnswer: 1,
-          explanation: "The defining feature of a business is providing something others will pay for and needing to stay useful to keep earning — a hobby has no such requirement.",
+          explanation: "The defining feature of a business is providing something others will pay for and needing to stay useful to keep earning; a hobby has no such requirement.",
           concept: "business"
         }
       ]
@@ -236,7 +236,7 @@ export const block1a: StructuredLessonContent = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 1.2 — Revenue, Costs, Profit & Loss
+// LESSON 1.2: Revenue, Costs, Profit & Loss
 // ─────────────────────────────────────────────────────────────
 export const block1b: StructuredLessonContent = {
   lessonId: "gulliver-1-2",
@@ -245,19 +245,19 @@ export const block1b: StructuredLessonContent = {
       type: "concept",
       title: "How a Business Keeps Score: Revenue, Costs, Profit, and Loss",
       paragraphs: [
-        "To know whether a business is actually working, you have to follow the money — and the single most confused pair of words in all of business is revenue versus profit. **Revenue** (also called sales) is the total money that comes in from selling, before anything is subtracted. Sell 100 smoothies at $5 each and your revenue is $500. Revenue measures how much you *sold*, not how much you *kept*.",
-        "**Costs** are everything you have to pay to run the business: ingredients, rent, wages, shipping, equipment, permits. **Profit** is what's left after you subtract all of those costs from revenue: **Profit = Revenue − Costs**. If those 100 smoothies cost you $320, your profit is $180. If costs are higher than revenue, the number goes negative — that's a **loss**, meaning the business ended up with less money than it started with.",
-        "This is why a business can have huge revenue and still be losing money. A company that rings up millions in sales but spends even more to make them is running a loss — that's the trap that sinks fast-growing businesses that 'bleed cash.' Big revenue is not the same as being healthy; only profit tells you that.",
-        "There are exactly two ways to raise profit: bring in more revenue (sell more, or charge more) or cut costs (spend less making each sale). Smart owners watch both. And profit isn't just 'greed' — it's a **signal**: steady profit tells the owner customers value this more than it costs to provide, so it's worth continuing; a loss is a warning to change something. Profit earned can be reinvested to grow, saved as a cushion, or paid back to the owner for the risk they took."
+        "To know whether a business is actually working, you have to follow the money, and the single most confused pair of words in all of business is revenue versus profit. **Revenue** (also called sales) is the total money that comes in from selling, before anything is subtracted. Sell 100 smoothies at $5 each and your revenue is $500. Revenue measures how much you *sold*, not how much you *kept*.",
+        "**Costs** are everything you have to pay to run the business: ingredients, rent, wages, shipping, equipment, permits. **Profit** is what's left after you subtract all of those costs from revenue: **Profit = Revenue − Costs**. If those 100 smoothies cost you $320, your profit is $180. If costs are higher than revenue, the number goes negative, and that's a **loss**, meaning the business ended up with less money than it started with.",
+        "This is why a business can have huge revenue and still be losing money. A company that rings up millions in sales but spends even more to make them is running a loss, which is the trap that sinks fast-growing businesses that 'bleed cash.' Big revenue is not the same as being healthy; only profit tells you that.",
+        "There are exactly two ways to raise profit: bring in more revenue (sell more, or charge more) or cut costs (spend less making each sale). Smart owners watch both. And profit isn't just 'greed'; it's a **signal**: steady profit tells the owner customers value this more than it costs to provide, so it's worth continuing; a loss is a warning to change something. Profit earned can be reinvested to grow, saved as a cushion, or paid back to the owner for the risk they took."
       ],
       bullets: [
         "Revenue = total money in from sales, before costs (how much you sold).",
         "Costs = everything you pay to operate; Profit = Revenue − Costs.",
-        "A negative result is a loss — high revenue with even higher costs still loses money.",
+        "A negative result is a loss: high revenue with even higher costs still loses money.",
         "Two ways to raise profit: increase revenue or cut costs.",
-        "Profit is also a signal that a business is worth continuing — and it funds growth."
+        "Profit is also a signal that a business is worth continuing, and it funds growth."
       ],
-      realWorldExample: "You buy candy in bulk for $30 and sell it for $75 — revenue $75, profit $45. Now imagine you'd bought $90 of candy and sold $75: still $75 in revenue, but a $15 loss. The revenue looked identical; the profit told the truth."
+      realWorldExample: "You buy candy in bulk for $30 and sell it for $75, giving revenue of $75 and profit of $45. Now imagine you'd bought $90 of candy and sold $75: still $75 in revenue, but a $15 loss. The revenue looked identical; the profit told the truth."
     },
     {
       type: "micro-check",
@@ -301,9 +301,9 @@ export const block1b: StructuredLessonContent = {
     {
       type: "scenario",
       title: "The Food-Truck Weekend",
-      narrative: "Sofia runs a taco truck. Over one busy festival weekend she rings up $3,000 in sales and is thrilled — until she sits down to add up what the weekend actually cost her.",
+      narrative: "Sofia runs a taco truck. Over one busy festival weekend she rings up $3,000 in sales and is thrilled, until she sits down to add up what the weekend actually cost her.",
       details: [
-        "Sofia's **revenue** was $3,000 — the total money customers paid her.",
+        "Sofia's **revenue** was $3,000, the total money customers paid her.",
         "Her **costs**: $1,200 for ingredients, $600 to rent the festival spot, $400 for gas and propane, and $300 to pay a helper.",
         "That's $2,500 in total costs, so her **profit** was $3,000 − $2,500 = $500.",
         "The giant $3,000 number felt like the whole story, but the $500 profit is what she actually gets to keep."
@@ -382,16 +382,16 @@ export const block1b: StructuredLessonContent = {
           question: "A shop sells 40 hoodies at $25 each. What is its revenue?",
           options: ["$25", "$65", "$1,000", "It depends on the cost of the hoodies"],
           correctAnswer: 2,
-          explanation: "Revenue is price × quantity: 40 × $25 = $1,000. Costs aren't part of revenue — they come out later to find profit.",
+          explanation: "Revenue is price × quantity: 40 × $25 = $1,000. Costs aren't part of revenue; they come out later to find profit.",
           concept: "revenue-profit-loss"
         },
         {
           id: "g12-p2",
           question: "Two food trucks both had $5,000 in revenue. Truck A spent $3,000; Truck B spent $4,800. Which did better, and why?",
           options: [
-            "They did equally well — same revenue",
-            "Truck A — same revenue but lower costs means more profit ($2,000 vs $200)",
-            "Truck B — higher costs means a bigger business",
+            "They did equally well, with the same revenue",
+            "Truck A, because same revenue but lower costs means more profit ($2,000 vs $200)",
+            "Truck B, because higher costs means a bigger business",
             "You can't tell without knowing their prices"
           ],
           correctAnswer: 1,
@@ -415,7 +415,7 @@ export const block1b: StructuredLessonContent = {
           id: "g12-p4",
           question: "A clothing brand posts record revenue but announces it lost money this year. How is that possible?",
           options: [
-            "Record revenue always means record profit — this is a mistake",
+            "Record revenue always means record profit (this is a mistake)",
             "Its costs (making, shipping, ads) were even higher than that record revenue",
             "Revenue and profit are the same, so it can't be true",
             "The company forgot to count its sales"
@@ -430,7 +430,7 @@ export const block1b: StructuredLessonContent = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 1.3 — Entrepreneurs, Risk & Reward
+// LESSON 1.3: Entrepreneurs, Risk & Reward
 // ─────────────────────────────────────────────────────────────
 export const block1c: StructuredLessonContent = {
   lessonId: "gulliver-1-3",
@@ -439,18 +439,18 @@ export const block1c: StructuredLessonContent = {
       type: "concept",
       title: "The Person Who Bets on the Idea",
       paragraphs: [
-        "Someone has to start a business in the first place — come up with the idea, gather the money and people, and accept that it might fail. That person is the **entrepreneur**. Their real contribution isn't just 'having an idea.' It's organizing resources — money, workers, equipment — into a working business, and then personally carrying the risk if it flops. That risk-bearing is the actual job.",
-        "Here's the sharpest way to see it: an employee gets paid whether the company has a good month or a bad one. The entrepreneur **gets paid last**, and only if there's money left after every cost is covered. When times are bad, everyone else still gets a paycheck — the owner might get nothing, or lose money they already put in.",
-        "That's why **risk** and **reward** always travel together. Risk is the chance of losing what you put in — your savings, your time, and your **opportunity cost** (the paycheck or plans you gave up to do this instead). Reward is what you gain if it works: profit, independence, and something that's truly yours.",
-        "And they rise together for a logical reason, not by accident. If some venture were both totally safe AND highly profitable, everyone would rush in, compete, and drive the easy money away — so it wouldn't stay safe-and-rich for long. Bigger potential rewards almost always sit behind bigger risks. That trade-off is the heart of every decision an entrepreneur makes."
+        "Someone has to start a business in the first place: come up with the idea, gather the money and people, and accept that it might fail. That person is the **entrepreneur**. Their real contribution isn't just 'having an idea.' It's organizing resources (money, workers, equipment) into a working business, and then personally carrying the risk if it flops. That risk-bearing is the actual job.",
+        "Here's the sharpest way to see it: an employee gets paid whether the company has a good month or a bad one. The entrepreneur **gets paid last**, and only if there's money left after every cost is covered. When times are bad, everyone else still gets a paycheck, while the owner might get nothing, or lose money they already put in.",
+        "That's why **risk** and **reward** always travel together. Risk is the chance of losing what you put in: your savings, your time, and your **opportunity cost** (the paycheck or plans you gave up to do this instead). Reward is what you gain if it works: profit, independence, and something that's truly yours.",
+        "And they rise together for a logical reason, not by accident. If some venture were both totally safe AND highly profitable, everyone would rush in, compete, and drive the easy money away, so it wouldn't stay safe-and-rich for long. Bigger potential rewards almost always sit behind bigger risks. That trade-off is the heart of every decision an entrepreneur makes."
       ],
       bullets: [
-        "The **entrepreneur** organizes the resources and personally bears the risk — that's the job, not just the idea.",
+        "The **entrepreneur** organizes the resources and personally bears the risk, and that's the job, not just the idea.",
         "Employees get paid regardless; the entrepreneur gets paid last, only if money remains.",
         "**Risk** = what you might lose (savings, time, opportunity cost); **reward** = what you gain if it works.",
         "Risk and reward rise together, because easy, safe profit gets competed away."
       ],
-      realWorldExample: "A teen quits their steady $15/hr summer job to run a sneaker-customizing business. The lost paycheck is their opportunity cost; the money for supplies is at risk. If it flops they're out both. If it takes off, they keep every dollar of profit — that's the reward they were betting on."
+      realWorldExample: "A teen quits their steady $15/hr summer job to run a sneaker-customizing business. The lost paycheck is their opportunity cost; the money for supplies is at risk. If it flops they're out both. If it takes off, they keep every dollar of profit, which is the reward they were betting on."
     },
     {
       type: "micro-check",
@@ -468,12 +468,12 @@ export const block1c: StructuredLessonContent = {
           question: "Why is it said that the entrepreneur 'gets paid last'?",
           options: [
             "The law requires owners to be paid last",
-            "They keep only what's left after all costs — and nothing if there's a loss",
+            "They keep only what's left after all costs, and nothing if there's a loss",
             "Banks hold the owner's money for a year",
             "Employees refuse to let the owner get paid"
           ],
           correctAnswer: 1,
-          explanation: "Employees are paid whether the business profits or not. The entrepreneur takes whatever is left over — which is why they carry the risk.",
+          explanation: "Employees are paid whether the business profits or not. The entrepreneur takes whatever is left over, which is why they carry the risk.",
           concept: "entrepreneur"
         },
         {
@@ -489,12 +489,12 @@ export const block1c: StructuredLessonContent = {
     {
       type: "scenario",
       title: "Jordan's Big Decision",
-      narrative: "Jordan, 17, has a steady after-school job earning $200 a week. A local market offers a booth where Jordan could sell custom hoodies — but the booth, blank hoodies, and printing supplies would cost $1,500 up front, and Jordan would have to quit the job to have time for it. Nobody knows yet if the hoodies will sell.",
+      narrative: "Jordan, 17, has a steady after-school job earning $200 a week. A local market offers a booth where Jordan could sell custom hoodies, but the booth, blank hoodies, and printing supplies would cost $1,500 up front, and Jordan would have to quit the job to have time for it. Nobody knows yet if the hoodies will sell.",
       details: [
-        "The $1,500 for supplies is money Jordan puts at **risk** — it's gone if nobody buys.",
-        "Quitting the $200/week job is Jordan's **opportunity cost** — the sure money given up to chase this.",
+        "The $1,500 for supplies is money Jordan puts at **risk**, and it's gone if nobody buys.",
+        "Quitting the $200/week job is Jordan's **opportunity cost**, the sure money given up to chase this.",
         "By organizing the supplies, booth, and their own time into a business, Jordan becomes the **entrepreneur**.",
-        "If the hoodies sell out, Jordan keeps all the profit; if they don't, Jordan carries the whole loss — that's the **reward** and the risk, together."
+        "If the hoodies sell out, Jordan keeps all the profit; if they don't, Jordan carries the whole loss. That's the **reward** and the risk, together."
       ]
     },
     {
@@ -527,7 +527,7 @@ export const block1c: StructuredLessonContent = {
             "Because businesses never fail"
           ],
           correctAnswer: 2,
-          explanation: "Entrepreneurs take on risk hoping for reward. Risk and reward rise together — the chance of losing is real, but so is the chance of a big payoff.",
+          explanation: "Entrepreneurs take on risk hoping for reward. Risk and reward rise together: the chance of losing is real, but so is the chance of a big payoff.",
           concept: "risk-and-reward"
         },
         {
@@ -540,7 +540,7 @@ export const block1c: StructuredLessonContent = {
             "Making sure employees are paid before anyone else"
           ],
           correctAnswer: 1,
-          explanation: "The entrepreneur pulls the money, people, and equipment together and shoulders the risk — that organizing-and-risk-bearing role is the job.",
+          explanation: "The entrepreneur pulls the money, people, and equipment together and shoulders the risk, and that organizing-and-risk-bearing role is the job.",
           concept: "entrepreneur"
         }
       ]
@@ -585,7 +585,7 @@ export const block1c: StructuredLessonContent = {
             "Everyone is always paid the same amount"
           ],
           correctAnswer: 1,
-          explanation: "Employees get their wages regardless. The entrepreneur is paid last and may get nothing — or lose money — in a bad stretch.",
+          explanation: "Employees get their wages regardless. The entrepreneur is paid last and may get nothing, or even lose money, in a bad stretch.",
           concept: "entrepreneur"
         },
         {
@@ -593,7 +593,7 @@ export const block1c: StructuredLessonContent = {
           question: "'Opportunity cost' when starting a business means:",
           options: [
             "The taxes you owe on profit",
-            "The next-best thing you gave up — like a steady paycheck — to pursue the business",
+            "The next-best thing you gave up, like a steady paycheck, to pursue the business",
             "The cost of buying supplies",
             "The reward you earn if it succeeds"
           ],
@@ -620,7 +620,7 @@ export const block1c: StructuredLessonContent = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 1.4 — Living Standards & Stakeholders
+// LESSON 1.4: Living Standards & Stakeholders
 // ─────────────────────────────────────────────────────────────
 export const block1d: StructuredLessonContent = {
   lessonId: "gulliver-1-4",
@@ -629,18 +629,18 @@ export const block1d: StructuredLessonContent = {
       type: "concept",
       title: "Two Ways to Measure a Better Life",
       paragraphs: [
-        "When businesses succeed on a large scale, they raise the **standard of living** — the quantity of goods and services people can afford. More jobs, cheaper phones, better food, reliable cars: that's a rising standard of living, and it's usually measured in money and stuff.",
+        "When businesses succeed on a large scale, they raise the **standard of living**, meaning the quantity of goods and services people can afford. More jobs, cheaper phones, better food, reliable cars: that's a rising standard of living, and it's usually measured in money and stuff.",
         "But money and stuff aren't the whole story. **Quality of life** is how good life actually *feels*: your free time, health, safety, relationships, and environment. It's harder to put a number on, but it's just as real.",
-        "The key insight is that these two can move in *opposite directions*. A person can get a huge raise (standard of living up) but work 80-hour weeks and never see friends (quality of life down). A country can grow richer while its cities get more polluted and stressful. That's why smart decisions weigh both — a change that buys more things but costs you your health or time isn't always a win.",
-        "Businesses also affect far more people than just their owner. A company's **stakeholders** are everyone touched by what it does: owners, employees, customers, suppliers, the surrounding community, and the government. The tricky part is that their interests often *compete* — customers want low prices, workers want high wages, owners want profit, neighbors want no pollution. Running a business well means constantly balancing these groups, because a decision that helps one can hurt another."
+        "The key insight is that these two can move in *opposite directions*. A person can get a huge raise (standard of living up) but work 80-hour weeks and never see friends (quality of life down). A country can grow richer while its cities get more polluted and stressful. That's why smart decisions weigh both: a change that buys more things but costs you your health or time isn't always a win.",
+        "Businesses also affect far more people than just their owner. A company's **stakeholders** are everyone touched by what it does: owners, employees, customers, suppliers, the surrounding community, and the government. The tricky part is that their interests often *compete*: customers want low prices, workers want high wages, owners want profit, neighbors want no pollution. Running a business well means constantly balancing these groups, because a decision that helps one can hurt another."
       ],
       bullets: [
         "**Standard of living** = how many goods and services you can afford (money and stuff).",
         "**Quality of life** = how good life feels (time, health, safety, relationships).",
-        "The two can move in opposite directions — richer isn't automatically better.",
+        "The two can move in opposite directions, so richer isn't automatically better.",
         "**Stakeholders** are everyone a business affects; their interests often compete, so the owner must balance them."
       ],
-      realWorldExample: "A factory that pays great wages (raising workers' standard of living) but pollutes the river hurts the community's quality of life. The workers, neighbors, owners, and local government are all stakeholders — and their interests pull in different directions."
+      realWorldExample: "A factory that pays great wages (raising workers' standard of living) but pollutes the river hurts the community's quality of life. The workers, neighbors, owners, and local government are all stakeholders, and their interests pull in different directions."
     },
     {
       type: "micro-check",
@@ -655,7 +655,7 @@ export const block1d: StructuredLessonContent = {
             "How close someone is with their friends"
           ],
           correctAnswer: 0,
-          explanation: "Standard of living is about the amount of goods, services, and money you can afford. The others describe quality of life — how good life feels.",
+          explanation: "Standard of living is about the amount of goods, services, and money you can afford. The others describe quality of life, meaning how good life feels.",
           concept: "standard-of-living-vs-quality-of-life"
         },
         {
@@ -691,10 +691,10 @@ export const block1d: StructuredLessonContent = {
       title: "The New Warehouse Next Door",
       narrative: "A big online retailer wants to build a warehouse on the edge of a small town. It would bring 400 jobs and cheaper delivery, but also heavy truck traffic, noise, and pollution. The town holds a meeting, and very different groups show up to speak.",
       details: [
-        "Workers who'd get hired want the jobs — a boost to their **standard of living**.",
-        "Neighbors worry about traffic, noise, and air quality — their **quality of life**.",
+        "Workers who'd get hired want the jobs, a boost to their **standard of living**.",
+        "Neighbors worry about traffic, noise, and air quality, which is their **quality of life**.",
         "The company (owner) wants the profit; shoppers want the faster, cheaper delivery.",
-        "Every one of these groups — workers, neighbors, owners, shoppers, the town government — is a **stakeholder**, and their interests don't all line up."
+        "Every one of these groups (workers, neighbors, owners, shoppers, the town government) is a **stakeholder**, and their interests don't all line up."
       ]
     },
     {
@@ -704,7 +704,7 @@ export const block1d: StructuredLessonContent = {
         question: "The warehouse decision is hard mainly because:",
         options: [
           "Only the company owner is affected by it",
-          "Its stakeholders have competing interests — jobs and cheap delivery for some, noise and pollution for others",
+          "Its stakeholders have competing interests: jobs and cheap delivery for some, noise and pollution for others",
           "Warehouses are illegal near towns",
           "Nobody in the town cares either way"
         ],
@@ -722,25 +722,25 @@ export const block1d: StructuredLessonContent = {
           question: "Who counts as a business's 'stakeholders'?",
           options: [
             "Only the people who own it",
-            "Everyone it affects — owners, employees, customers, suppliers, the community, and the government",
+            "Everyone it affects: owners, employees, customers, suppliers, the community, and the government",
             "Only its paying customers",
             "Only the government that taxes it"
           ],
           correctAnswer: 1,
-          explanation: "Stakeholders are all the groups touched by a business's actions, not just the owners — which is why decisions ripple far beyond one person.",
+          explanation: "Stakeholders are all the groups touched by a business's actions, not just the owners, which is why decisions ripple far beyond one person.",
           concept: "stakeholders"
         },
         {
           id: "g14-exit2",
           question: "How can standard of living and quality of life move in OPPOSITE directions?",
           options: [
-            "They can't — more money always means a better life",
+            "They can't, because more money always means a better life",
             "Someone can earn much more (standard of living up) while becoming stressed, unhealthy, or time-starved (quality of life down)",
             "They are just two names for the same thing",
             "Quality of life is only about money"
           ],
           correctAnswer: 1,
-          explanation: "More money and stuff (standard of living) doesn't guarantee a life that feels better (quality of life) — the two can pull apart.",
+          explanation: "More money and stuff (standard of living) doesn't guarantee a life that feels better (quality of life); the two can pull apart.",
           concept: "standard-of-living-vs-quality-of-life"
         }
       ]
@@ -759,7 +759,7 @@ export const block1d: StructuredLessonContent = {
             "A person who is both broke and miserable"
           ],
           correctAnswer: 1,
-          explanation: "Little money means a low standard of living, but free time, health, and strong relationships can still add up to a high quality of life — the two don't always move together.",
+          explanation: "Little money means a low standard of living, but free time, health, and strong relationships can still add up to a high quality of life, so the two don't always move together.",
           concept: "standard-of-living-vs-quality-of-life"
         },
         {
@@ -769,10 +769,10 @@ export const block1d: StructuredLessonContent = {
             "Only the company's owner",
             "Only the customers",
             "Owners, workers, customers, and the communities near the factories",
-            "Nobody — business decisions affect no one"
+            "Nobody, because business decisions affect no one"
           ],
           correctAnswer: 2,
-          explanation: "Stakeholders are everyone affected by a business's actions — here that includes owners, workers, customers, and the surrounding communities.",
+          explanation: "Stakeholders are everyone affected by a business's actions, which here includes owners, workers, customers, and the surrounding communities.",
           concept: "stakeholders"
         },
         {
@@ -780,7 +780,7 @@ export const block1d: StructuredLessonContent = {
           question: "Why is running a business partly about 'balancing' stakeholders?",
           options: [
             "Because all stakeholders always want the exact same thing",
-            "Because their interests often compete — customers want low prices, workers want high pay, owners want profit",
+            "Because their interests often compete: customers want low prices, workers want high pay, owners want profit",
             "Because only the owner's opinion matters",
             "Because stakeholders never disagree"
           ],
@@ -811,7 +811,7 @@ export const block1d: StructuredLessonContent = {
             "Only competitors in another city"
           ],
           correctAnswer: 0,
-          explanation: "Customers are stakeholders too, and a price increase works against their interest — a good example of competing stakeholder interests.",
+          explanation: "Customers are stakeholders too, and a price increase works against their interest, a good example of competing stakeholder interests.",
           concept: "stakeholders"
         }
       ]
@@ -820,28 +820,28 @@ export const block1d: StructuredLessonContent = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 1.5 — Outsourcing, Insourcing & Nonprofits
+// LESSON 1.5: Outsourcing, Insourcing & Nonprofits
 // ─────────────────────────────────────────────────────────────
 export const block1e: StructuredLessonContent = {
   lessonId: "gulliver-1-5",
   sections: [
     {
       type: "concept",
-      title: "Where the Work Gets Done — and Businesses That Skip the Profit",
+      title: "Where the Work Gets Done, and Businesses That Skip the Profit",
       paragraphs: [
-        "Every business has to decide *who* actually does each piece of its work. **Outsourcing** means paying an outside company — often in another country — to handle part of the job, like a clothing brand paying a foreign factory to sew its shirts. Businesses do it mainly to cut costs, or to get expertise they don't have in-house.",
-        "But outsourcing is a trade-off, not a free win. You gain lower costs; you give up **control** over quality and timing, and the jobs go to the outside company instead of your own community. The opposite move is **insourcing** — bringing that work back in-house, paying more but getting tighter control and keeping the jobs at home. There's no automatically 'right' choice; it depends on what a business values most.",
-        "Not every organization is chasing profit at all. A **nonprofit** exists to serve a mission — feeding people, rescuing animals, running a free clinic — rather than to make an owner rich. Its structure is genuinely different from a normal business.",
-        "That difference is about where the money goes. A nonprofit can absolutely take in money; the key is that any **surplus** (money left after costs) is reinvested into the mission instead of paid out to an owner. And here's the part students miss: a nonprofit *still* has to bring in more than it spends. If it runs out of money, it can't keep serving its cause — so even a mission-driven organization has to cover its costs to survive."
+        "Every business has to decide *who* actually does each piece of its work. **Outsourcing** means paying an outside company, often in another country, to handle part of the job, like a clothing brand paying a foreign factory to sew its shirts. Businesses do it mainly to cut costs, or to get expertise they don't have in-house.",
+        "But outsourcing is a trade-off, not a free win. You gain lower costs; you give up **control** over quality and timing, and the jobs go to the outside company instead of your own community. The opposite move is **insourcing**: bringing that work back in-house, paying more but getting tighter control and keeping the jobs at home. There's no automatically 'right' choice; it depends on what a business values most.",
+        "Not every organization is chasing profit at all. A **nonprofit** exists to serve a mission (feeding people, rescuing animals, running a free clinic) rather than to make an owner rich. Its structure is genuinely different from a normal business.",
+        "That difference is about where the money goes. A nonprofit can absolutely take in money; the key is that any **surplus** (money left after costs) is reinvested into the mission instead of paid out to an owner. And here's the part students miss: a nonprofit *still* has to bring in more than it spends. If it runs out of money, it can't keep serving its cause, so even a mission-driven organization has to cover its costs to survive."
       ],
       bullets: [
         "**Outsourcing** = paying an outside company (often abroad) to do part of the work, usually to cut costs.",
         "It's a trade-off: lower cost, but less control and jobs sent elsewhere.",
         "**Insourcing** = bringing that work back in-house for more control, at higher cost.",
-        "A **nonprofit** serves a mission, not an owner — surplus is reinvested into the cause.",
+        "A **nonprofit** serves a mission, not an owner, and surplus is reinvested into the cause.",
         "Even a nonprofit must earn more than it spends, or it can't keep going."
       ],
-      realWorldExample: "A sneaker brand outsources sewing to a factory overseas to keep prices low — but when quality complaints pile up, it insources a small line back home for more control. Meanwhile the local food bank takes in donations and grant money (revenue), spends it all on meals (mission), and still has to stay in the black to keep its doors open."
+      realWorldExample: "A sneaker brand outsources sewing to a factory overseas to keep prices low, but when quality complaints pile up, it insources a small line back home for more control. Meanwhile the local food bank takes in donations and grant money (revenue), spends it all on meals (mission), and still has to stay in the black to keep its doors open."
     },
     {
       type: "micro-check",
@@ -851,7 +851,7 @@ export const block1e: StructuredLessonContent = {
           question: "A clothing brand pays a factory in another country to sew its shirts instead of hiring its own sewers. This is called:",
           options: ["Insourcing", "Outsourcing", "A nonprofit", "A loss"],
           correctAnswer: 1,
-          explanation: "Hiring an outside company to do part of the work — often overseas — is outsourcing. Bringing that work back in-house would be insourcing.",
+          explanation: "Hiring an outside company to do part of the work, often overseas, is outsourcing. Bringing that work back in-house would be insourcing.",
           concept: "outsourcing-insourcing"
         },
         {
@@ -859,7 +859,7 @@ export const block1e: StructuredLessonContent = {
           question: "A company that had been paying an overseas call center decides to build its own support team at home instead. This move is:",
           options: ["Outsourcing", "Insourcing", "A loss", "A nonprofit"],
           correctAnswer: 1,
-          explanation: "Bringing work back in-house rather than hiring outside is insourcing — the opposite of outsourcing.",
+          explanation: "Bringing work back in-house rather than hiring outside is insourcing, the opposite of outsourcing.",
           concept: "outsourcing-insourcing"
         },
         {
@@ -882,10 +882,10 @@ export const block1e: StructuredLessonContent = {
       title: "One Brand, Two Choices",
       narrative: "A backpack company is trying to keep prices low while customers keep asking for better quality. Its founder weighs two decisions at once: where to make the bags, and whether to start a small giving program.",
       details: [
-        "Right now the bags are sewn by a cheaper factory overseas — that's **outsourcing**, which keeps costs down but makes quality harder to control.",
-        "The founder considers moving one premium line back to a local workshop — that's **insourcing**: more expensive, but tighter control and local jobs.",
+        "Right now the bags are sewn by a cheaper factory overseas, which is **outsourcing**: it keeps costs down but makes quality harder to control.",
+        "The founder considers moving one premium line back to a local workshop, which is **insourcing**: more expensive, but tighter control and local jobs.",
         "She also starts a side program that gives free backpacks to kids in need, funded by donations, run as a **nonprofit**.",
-        "The nonprofit can take in donation money, but every surplus dollar goes back into more backpacks — not into her pocket."
+        "The nonprofit can take in donation money, but every surplus dollar goes back into more backpacks, not into her pocket."
       ]
     },
     {
@@ -896,7 +896,7 @@ export const block1e: StructuredLessonContent = {
         options: [
           "Lower quality for higher profit",
           "Higher cost for more control over quality and local jobs",
-          "Nothing — it's identical to outsourcing",
+          "Nothing, it's identical to outsourcing",
           "More control for lower cost"
         ],
         correctAnswer: 1,
@@ -918,7 +918,7 @@ export const block1e: StructuredLessonContent = {
             "To give up all their profit"
           ],
           correctAnswer: 1,
-          explanation: "Outsourcing is mainly about lower costs and access to outside expertise — while trading away some control and local jobs.",
+          explanation: "Outsourcing is mainly about lower costs and access to outside expertise, while trading away some control and local jobs.",
           concept: "outsourcing-insourcing"
         },
         {
@@ -931,7 +931,7 @@ export const block1e: StructuredLessonContent = {
             "It is destroyed"
           ],
           correctAnswer: 1,
-          explanation: "A nonprofit reinvests its surplus into its cause rather than paying an owner — that's the defining difference from a regular business.",
+          explanation: "A nonprofit reinvests its surplus into its cause rather than paying an owner, which is the defining difference from a regular business.",
           concept: "nonprofits"
         }
       ]
@@ -947,10 +947,10 @@ export const block1e: StructuredLessonContent = {
             "So the owner can get rich",
             "Because if it runs out of money it can't keep serving its mission",
             "Because nonprofits pay the highest taxes",
-            "It doesn't — nonprofits never need money"
+            "It doesn't, because nonprofits never need money"
           ],
           correctAnswer: 1,
-          explanation: "A nonprofit reinvests its surplus into the cause instead of paying an owner, but it still needs revenue above costs — otherwise it can't keep the doors open.",
+          explanation: "A nonprofit reinvests its surplus into the cause instead of paying an owner, but it still needs revenue above costs, otherwise it can't keep the doors open.",
           concept: "nonprofits"
         },
         {
@@ -976,7 +976,7 @@ export const block1e: StructuredLessonContent = {
             "Turn itself into a nonprofit"
           ],
           correctAnswer: 1,
-          explanation: "Insourcing typically costs more but buys tighter control over quality — the opposite trade-off from outsourcing.",
+          explanation: "Insourcing typically costs more but buys tighter control over quality, the opposite trade-off from outsourcing.",
           concept: "outsourcing-insourcing"
         },
         {
@@ -989,7 +989,7 @@ export const block1e: StructuredLessonContent = {
             "A food truck run to support its owner's family"
           ],
           correctAnswer: 1,
-          explanation: "A food bank serves a mission and reinvests surplus into that cause rather than paying owners — the defining feature of a nonprofit.",
+          explanation: "A food bank serves a mission and reinvests surplus into that cause rather than paying owners, which is the defining feature of a nonprofit.",
           concept: "nonprofits"
         },
         {
@@ -1002,7 +1002,7 @@ export const block1e: StructuredLessonContent = {
             "They exist to make their founders wealthy"
           ],
           correctAnswer: 1,
-          explanation: "Nonprofits can bring in revenue; the difference is where surplus goes (the mission) — and they still have to earn more than they spend to survive.",
+          explanation: "Nonprofits can bring in revenue; the difference is where surplus goes (the mission), and they still have to earn more than they spend to survive.",
           concept: "nonprofits"
         }
       ]

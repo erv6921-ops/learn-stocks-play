@@ -125,11 +125,11 @@ const GRADE_MAP: Record<string, number> = {
   adult: 0,
 }
 
-// The profiles.grade CHECK constraint only permits integers 7–12 (or NULL).
+// The profiles.grade CHECK constraint only permits integers 7 to 12 (or NULL).
 // GRADE_MAP deliberately covers options outside that range (6th grade, and
 // "adult" → 0) for the local User object, so before writing to the database we
-// coerce anything out of range — including a skipped ("") or unexpected
-// selection, which maps to undefined — down to NULL to satisfy the constraint.
+// coerce anything out of range (including a skipped ("") or unexpected
+// selection, which maps to undefined) down to NULL to satisfy the constraint.
 function gradeForDb(gradeKey: string): number | null {
   const mapped = GRADE_MAP[gradeKey]
   return typeof mapped === "number" && Number.isInteger(mapped) && mapped >= 7 && mapped <= 12
@@ -967,7 +967,7 @@ export default function Onboarding() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="font-semibold">Gulliver Intro to Business</div>
-                      <p className="text-xs text-muted-foreground mt-0.5">The 9th grade course — assign the 8 learning objectives (LO 1–8).</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">The 9th grade course: assign the 8 learning objectives (LO 1 to 8).</p>
                     </div>
                     <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
                   </button>
@@ -1074,7 +1074,7 @@ export default function Onboarding() {
                         bizLabEnrolled: track === "biz_lab",
                         createdAt: new Date(),
                       })
-                      toast({ title: "Welcome aboard!", description: "Teacher account ready (dev mode — no email needed)." })
+                      toast({ title: "Welcome aboard!", description: "Teacher account ready (dev mode, no email needed)." })
                       navigate("/teacher-dashboard")
                       return
                     }
@@ -1399,7 +1399,7 @@ export default function Onboarding() {
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
-              {/* Biz Lab and Gulliver Intro are Florida-only programs — hidden
+              {/* Biz Lab and Gulliver Intro are Florida-only programs, hidden
                   for students who selected an explicit non-Florida state. NULL
                   geography is grandfathered (eligibleForFloridaTracks). */}
               {eligibleForFloridaTracks(stateCourse) && (

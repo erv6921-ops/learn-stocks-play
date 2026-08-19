@@ -263,7 +263,7 @@ export const STEPS: Step[] = [
   },
   {
     kind: "document", id: "cim", phase: "Sourcing",
-    title: "Coastal Crunch — Confidential Information Memorandum",
+    title: "Coastal Crunch: Confidential Information Memorandum",
     subtitle: "Prepared by Harbor Point Advisors · Project Maple",
     rows: [
       { k: "Business", v: "Premium kettle chips & snacks, founded 1984" },
@@ -355,7 +355,7 @@ export const STEPS: Step[] = [
   {
     kind: "negotiation", id: "loi", phase: "Negotiation",
     neg: {
-      id: "loi", title: "The LOI — agree the price", counterparty: "Marcus Lin", role: "Seller's banker (Harbor Point)", youWant: "low", unit: "×",
+      id: "loi", title: "The LOI: agree the price", counterparty: "Marcus Lin", role: "Seller's banker (Harbor Point)", youWant: "low", unit: "×",
       start: 8, floor: 6, resultVar: "entryMultiple",
       intro: [
         "Time for the binding LOI. Marcus is on the phone for Rosa.",
@@ -434,7 +434,7 @@ export const STEPS: Step[] = [
   },
   {
     kind: "milestone", id: "closed", phase: "Closing", variant: "closed",
-    title: "Deal closed — you own Coastal Crunch",
+    title: "Deal closed: you own Coastal Crunch",
     body: [
       "The wire hits. Meridian Capital now owns Coastal Crunch. Rosa hands you the keys (and a bag of sea-salt & vinegar).",
       "Now the real work begins: four years to make this good company great.",
@@ -485,7 +485,7 @@ export const STEPS: Step[] = [
   {
     kind: "negotiation", id: "exit", phase: "Exit",
     neg: {
-      id: "exit", title: "The exit — sell for the most", counterparty: "Big Snack Co.", role: "Strategic buyer's head of M&A", youWant: "high", unit: "×",
+      id: "exit", title: "The exit: sell for the most", counterparty: "Big Snack Co.", role: "Strategic buyer's head of M&A", youWant: "high", unit: "×",
       start: 6.5, floor: 8.5, resultVar: "exitMultiple",
       intro: [
         "A strategic buyer - a national snack giant - wants Coastal Crunch for its brand and your new distribution. Now you're the seller.",
@@ -513,7 +513,7 @@ export const STEPS: Step[] = [
   },
   {
     kind: "milestone", id: "exit-done", phase: "Exit", variant: "exit",
-    title: "Exited — the results are in",
+    title: "Exited: the results are in",
     body: [
       "The deal closes. Coastal Crunch, once a sleepy 4-state brand, sells to a national giant that will take it everywhere.",
       "Rosa's rollover pays off handsomely - she calls to thank you for keeping her people and her name. Diane forwards the LP letter with a single line: \"This is exactly how it's supposed to work.\"",
@@ -539,7 +539,7 @@ export const DEAL_COASTAL: Deal = {
   company: "Coastal Crunch",
   strategy: "Founder buyout",
   sector: "Consumer snacks",
-  tagline: "A retiring founder's beloved snack brand — buy it, grow it, sell it.",
+  tagline: "A retiring founder's beloved snack brand: buy it, grow it, sell it.",
   difficulty: "Core",
   emoji: "🥔",
   initVars: { ebitda: 8 },

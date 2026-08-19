@@ -217,7 +217,7 @@ export default function Partners() {
     // return rows once the Supabase session is restored. On a fresh page load
     // this effect can fire before that recovery finishes; getSession() awaits it,
     // so we never send the initial request as an anonymous user (which would
-    // return an empty roster and leave it empty — see the "no partners" bug).
+    // return an empty roster and leave it empty (see the "no partners" bug).
     const { data: { session } } = await supabase.auth.getSession()
     if (!session) { setLoadingPartners(false); return }
     const [{ data: p, error: pErr }, { data: r, error: rErr }] = await Promise.all([

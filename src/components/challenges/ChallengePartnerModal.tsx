@@ -72,7 +72,7 @@ export default function ChallengePartnerModal({ open, onOpenChange, submitting, 
       opponent_user_id: opponent.user_id,
       opponent_name: opponent.name,
       title: `Duel vs ${opponent.name}`,
-      description: `${meta.tracking} — head to head. Winner takes the pot.`,
+      description: `${meta.tracking}, head to head. Winner takes the pot.`,
       metric,
       entry_fee: fee,
       starts_at: starts.toISOString(),
@@ -85,7 +85,7 @@ export default function ChallengePartnerModal({ open, onOpenChange, submitting, 
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2"><Swords className="w-5 h-5 text-primary" /> Challenge a partner</DialogTitle>
-          <DialogDescription>Pick one partner for a 1v1 duel. You both stake coins — winner takes the pot.</DialogDescription>
+          <DialogDescription>Pick one partner for a 1v1 duel. You both stake coins, and the winner takes the pot.</DialogDescription>
         </DialogHeader>
 
         {partners.length === 0 ? (

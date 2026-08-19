@@ -1,7 +1,7 @@
 import { StructuredLessonContent } from "@/types"
 
 // ═══════════════════════════════════════════════
-// GULLIVER INTRO TO BUSINESS — UNIT 2, split into FIVE short, deep lessons:
+// GULLIVER INTRO TO BUSINESS, UNIT 2, split into FIVE short, deep lessons:
 //   2.1  The Five Factors of Production        (factors-of-production)
 //   2.2  The Entrepreneur's Trade-offs         (entrepreneurship-tradeoffs)
 //   2.3  The Economic & Legal Environment      (economic-legal-environment)
@@ -11,7 +11,7 @@ import { StructuredLessonContent } from "@/types"
 // ═══════════════════════════════════════════════
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 2.1 — The Five Factors of Production
+// LESSON 2.1: The Five Factors of Production
 // ─────────────────────────────────────────────────────────────
 export const block2a: StructuredLessonContent = {
   lessonId: "gulliver-2-1",
@@ -20,14 +20,14 @@ export const block2a: StructuredLessonContent = {
       type: "concept",
       title: "The Five Building Blocks Every Business Needs",
       paragraphs: [
-        "Before a business can sell anything, it has to gather the things it needs to make its product or service. Economists sort all of those things into five **factors of production** — think of them as the five ingredients of any business. Combine them the right way and you can build almost anything, from a lemonade stand to a car company.",
-        "The first two are the most obvious. **Land** means all the natural resources a business uses — not just the ground it sits on, but the water, oil, minerals, and crops that come from nature. **Labor** is the human work that goes into producing something: the people who cook, build, code, sell, and manage. Every hour a worker puts in is labor.",
-        "**Capital** is the one people mix up the most. In business, capital does NOT mean money — it means the tools, machines, buildings, and equipment used to make things. A pizza oven, a delivery truck, and a laptop are all capital. (The money used to buy that equipment is called financial capital, but the factor of production is the equipment itself.)",
-        "The last two turn the first three into an actual business. **Entrepreneurship** is the factor that organizes the other four and takes the risk — the person who decides what to make, gathers the land, labor, and capital, and accepts the loss if it fails. **Knowledge** is the skills, information, and know-how that make everything run smarter: a secret recipe, a trained mechanic, or knowing exactly where the lunch crowds gather. Miss any one of the five and the business can't really run."
+        "Before a business can sell anything, it has to gather the things it needs to make its product or service. Economists sort all of those things into five **factors of production**, and you can think of them as the five ingredients of any business. Combine them the right way and you can build almost anything, from a lemonade stand to a car company.",
+        "The first two are the most obvious. **Land** means all the natural resources a business uses, not just the ground it sits on, but the water, oil, minerals, and crops that come from nature. **Labor** is the human work that goes into producing something: the people who cook, build, code, sell, and manage. Every hour a worker puts in is labor.",
+        "**Capital** is the one people mix up the most. In business, capital does NOT mean money. It means the tools, machines, buildings, and equipment used to make things. A pizza oven, a delivery truck, and a laptop are all capital. (The money used to buy that equipment is called financial capital, but the factor of production is the equipment itself.)",
+        "The last two turn the first three into an actual business. **Entrepreneurship** is the factor that organizes the other four and takes the risk: the person who decides what to make, gathers the land, labor, and capital, and accepts the loss if it fails. **Knowledge** is the skills, information, and know-how that make everything run smarter: a secret recipe, a trained mechanic, or knowing exactly where the lunch crowds gather. Miss any one of the five and the business can't really run."
       ],
       bullets: [
         "The five **factors of production**: land, labor, capital, entrepreneurship, and knowledge.",
-        "**Capital** = tools, machines, and buildings — NOT the money itself.",
+        "**Capital** = tools, machines, and buildings, NOT the money itself.",
         "**Entrepreneurship** organizes the other four factors and bears the risk.",
         "**Knowledge** (skills and information) makes the other factors more productive."
       ],
@@ -41,7 +41,7 @@ export const block2a: StructuredLessonContent = {
           question: "A bakery's brick oven and mixing machines are an example of which factor of production?",
           options: ["Land", "Labor", "Capital", "Knowledge"],
           correctAnswer: 2,
-          explanation: "Machines, tools, and equipment used to make things are capital — note that capital means the equipment itself, not the money used to buy it.",
+          explanation: "Machines, tools, and equipment used to make things are capital. Note that capital means the equipment itself, not the money used to buy it.",
           concept: "factors-of-production"
         },
         {
@@ -65,11 +65,11 @@ export const block2a: StructuredLessonContent = {
     {
       type: "scenario",
       title: "Maya Gathers Her Ingredients",
-      narrative: "Maya wants to start a small bakery. Before she can sell a single cupcake, she has to pull together everything the business needs — and she quickly realizes it takes more than just 'money and an idea.'",
+      narrative: "Maya wants to start a small bakery. Before she can sell a single cupcake, she has to pull together everything the business needs, and she quickly realizes it takes more than just 'money and an idea.'",
       details: [
-        "She rents a small kitchen and buys flour, sugar, and eggs — natural resources and space, which are **land**.",
-        "She hires two part-time bakers — that human work is **labor**.",
-        "She buys ovens, mixers, and display cases — equipment used to make the product, which is **capital**.",
+        "She rents a small kitchen and buys flour, sugar, and eggs, which are natural resources and space, or **land**.",
+        "She hires two part-time bakers, and that human work is **labor**.",
+        "She buys ovens, mixers, and display cases, which is equipment used to make the product, or **capital**.",
         "She organized it all and put her savings on the line (**entrepreneurship**), and her grandmother's recipes are her **knowledge**."
       ]
     },
@@ -130,7 +130,7 @@ export const block2a: StructuredLessonContent = {
             "The workers a business hires"
           ],
           correctAnswer: 1,
-          explanation: "Capital is the equipment and buildings used in production — the ovens, trucks, and factories — not the money itself.",
+          explanation: "Capital is the equipment and buildings used in production, like the ovens, trucks, and factories, not the money itself.",
           concept: "factors-of-production"
         },
         {
@@ -138,7 +138,7 @@ export const block2a: StructuredLessonContent = {
           question: "Farmland, water, and the oil pumped from the ground all count as which factor?",
           options: ["Labor", "Land", "Capital", "Entrepreneurship"],
           correctAnswer: 1,
-          explanation: "Land covers natural resources — soil, water, minerals, oil — plus the physical space itself.",
+          explanation: "Land covers natural resources like soil, water, minerals, and oil, plus the physical space itself.",
           concept: "factors-of-production"
         },
         {
@@ -146,7 +146,7 @@ export const block2a: StructuredLessonContent = {
           question: "The people a company hires to do its work are which factor of production?",
           options: ["Capital", "Labor", "Land", "Knowledge"],
           correctAnswer: 1,
-          explanation: "Labor is the human work — physical and mental — that goes into producing a good or service.",
+          explanation: "Labor is the human work, physical and mental, that goes into producing a good or service.",
           concept: "factors-of-production"
         },
         {
@@ -162,7 +162,7 @@ export const block2a: StructuredLessonContent = {
           question: "A juice bar has a blender, fresh oranges, one worker, an owner who set it all up, and a secret recipe. The BLENDER is which factor?",
           options: ["Land", "Labor", "Capital", "Knowledge"],
           correctAnswer: 2,
-          explanation: "The blender is a tool used to make the product — capital. (The oranges are land, the worker is labor, the owner is entrepreneurship, the recipe is knowledge.)",
+          explanation: "The blender is a tool used to make the product, which is capital. (The oranges are land, the worker is labor, the owner is entrepreneurship, the recipe is knowledge.)",
           concept: "factors-of-production"
         },
         {
@@ -170,7 +170,7 @@ export const block2a: StructuredLessonContent = {
           question: "Why can't a business run on money alone, no matter how much it has?",
           options: [
             "Money is illegal to use in business",
-            "Money still has to be turned into the actual factors — land, labor, capital, an organizer, and know-how — to make anything",
+            "Money still has to be turned into the actual factors (land, labor, capital, an organizer, and know-how) to make anything",
             "Businesses never use money",
             "Money is the sixth factor of production"
           ],
@@ -184,7 +184,7 @@ export const block2a: StructuredLessonContent = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 2.2 — The Entrepreneur's Trade-offs
+// LESSON 2.2: The Entrepreneur's Trade-offs
 // ─────────────────────────────────────────────────────────────
 export const block2b: StructuredLessonContent = {
   lessonId: "gulliver-2-2",
@@ -193,10 +193,10 @@ export const block2b: StructuredLessonContent = {
       type: "concept",
       title: "Your Own Boss, or a Steady Paycheck?",
       paragraphs: [
-        "Being the **entrepreneur** — the person who starts and runs the business — is a real choice with real trade-offs. It isn't automatically better or worse than having a regular job; it's a different deal, and understanding that deal is the whole point.",
-        "On the upside, you're your own **boss**: you make the decisions, you keep the **profits** if it works, and you build something that is yours. There's no ceiling on what you can earn — a successful business can pay far more than any salary ever would.",
-        "On the downside, there's no steady **paycheck**. An employee gets paid whether the company has a good month or a bad one; the entrepreneur gets paid last, and only if money is left after all the costs. You also work long hours and, at the start, do every job yourself — cook, cashier, bookkeeper, and marketer all at once, because a brand-new business can't afford to hire specialists.",
-        "So the real trade-off is **security versus freedom and upside**. A regular job trades away some freedom and the big payoff in exchange for a reliable paycheck and less stress. Entrepreneurship trades that security for control, ownership, and a shot at a much bigger reward. Neither is simply 'right' — it depends on how much risk a person can handle and what they want out of their working life."
+        "Being the **entrepreneur**, the person who starts and runs the business, is a real choice with real trade-offs. It isn't automatically better or worse than having a regular job; it's a different deal, and understanding that deal is the whole point.",
+        "On the upside, you're your own **boss**: you make the decisions, you keep the **profits** if it works, and you build something that is yours. There's no ceiling on what you can earn, and a successful business can pay far more than any salary ever would.",
+        "On the downside, there's no steady **paycheck**. An employee gets paid whether the company has a good month or a bad one; the entrepreneur gets paid last, and only if money is left after all the costs. You also work long hours and, at the start, do every job yourself as cook, cashier, bookkeeper, and marketer all at once, because a brand-new business can't afford to hire specialists.",
+        "So the real trade-off is **security versus freedom and upside**. A regular job trades away some freedom and the big payoff in exchange for a reliable paycheck and less stress. Entrepreneurship trades that security for control, ownership, and a shot at a much bigger reward. Neither is simply 'right'; it depends on how much risk a person can handle and what they want out of their working life."
       ],
       bullets: [
         "Being an entrepreneur is a trade-off, not automatically better than a job.",
@@ -204,7 +204,7 @@ export const block2b: StructuredLessonContent = {
         "Downside: no steady **paycheck**, long hours, and you wear every hat at first.",
         "The core trade: **security** (a job) vs. **freedom, ownership, and upside** (a business)."
       ],
-      realWorldExample: "Two friends graduate. One takes a $50,000 salaried job — steady, predictable, low stress. The other opens a sneaker-customizing business that might earn $10,000 this year or $150,000, nobody knows yet. Same year, completely different trade between security and upside."
+      realWorldExample: "Two friends graduate. One takes a $50,000 salaried job that is steady, predictable, and low stress. The other opens a sneaker-customizing business that might earn $10,000 this year or $150,000, nobody knows yet. Same year, completely different trade between security and upside."
     },
     {
       type: "micro-check",
@@ -219,7 +219,7 @@ export const block2b: StructuredLessonContent = {
             "You are not allowed to hire anyone"
           ],
           correctAnswer: 1,
-          explanation: "Entrepreneurs trade the security of a steady paycheck for freedom, control, and the upside of profit — while carrying the risk if the business fails.",
+          explanation: "Entrepreneurs trade the security of a steady paycheck for freedom, control, and the upside of profit, while carrying the risk if the business fails.",
           concept: "entrepreneurship-tradeoffs"
         },
         {
@@ -232,7 +232,7 @@ export const block2b: StructuredLessonContent = {
             "You can't make any decisions yourself"
           ],
           correctAnswer: 1,
-          explanation: "Entrepreneurs give up the safety of a steady paycheck and shoulder the risk — that's the trade for freedom and potential profit.",
+          explanation: "Entrepreneurs give up the safety of a steady paycheck and shoulder the risk, which is the trade for freedom and potential profit.",
           concept: "entrepreneurship-tradeoffs"
         },
         {
@@ -245,7 +245,7 @@ export const block2b: StructuredLessonContent = {
             "Zero chance of losing money"
           ],
           correctAnswer: 1,
-          explanation: "Entrepreneurs get independence and keep the profits if the business succeeds — the reward side of the trade-off.",
+          explanation: "Entrepreneurs get independence and keep the profits if the business succeeds, the reward side of the trade-off.",
           concept: "entrepreneurship-tradeoffs"
         }
       ]
@@ -253,12 +253,12 @@ export const block2b: StructuredLessonContent = {
     {
       type: "scenario",
       title: "Two Job Offers",
-      narrative: "After graduation, Priya has two paths. A local company offers her a salaried job: $48,000 a year, predictable hours, and a steady paycheck every two weeks. At the same time, she has a chance to run her own tutoring business — her income could be anywhere from $20,000 to $90,000, she'd set her own schedule, but nothing is guaranteed and she'd do every job herself at first.",
+      narrative: "After graduation, Priya has two paths. A local company offers her a salaried job: $48,000 a year, predictable hours, and a steady paycheck every two weeks. At the same time, she has a chance to run her own tutoring business, where her income could be anywhere from $20,000 to $90,000, she'd set her own schedule, but nothing is guaranteed and she'd do every job herself at first.",
       details: [
         "The salaried job offers **security**: a reliable paycheck and set hours, win or lose.",
         "The tutoring business offers **freedom and upside**: she's her own **boss** and keeps the **profits**, with no ceiling on earnings.",
         "But the business has no steady **paycheck**, and she'd be tutor, scheduler, and bookkeeper all at once.",
-        "Neither choice is 'right' — it comes down to how much risk Priya can handle and what she values most."
+        "Neither choice is 'right'; it comes down to how much risk Priya can handle and what she values most."
       ]
     },
     {
@@ -269,7 +269,7 @@ export const block2b: StructuredLessonContent = {
         options: [
           "The tutoring business, because it's always more profitable",
           "The salaried job, because it trades upside for security and a steady paycheck",
-          "Neither — the two options are identical",
+          "Neither, the two options are identical",
           "The tutoring business, because it has no risk"
         ],
         correctAnswer: 1,
@@ -286,7 +286,7 @@ export const block2b: StructuredLessonContent = {
           question: "Why is it said that the entrepreneur 'gets paid last'?",
           options: [
             "Because the law requires owners to be paid last",
-            "Because they only keep what's left after all the costs are paid — and nothing if there's a loss",
+            "Because they only keep what's left after all the costs are paid, and nothing if there's a loss",
             "Because banks hold their money for a year",
             "Because employees refuse to let them get paid"
           ],
@@ -331,7 +331,7 @@ export const block2b: StructuredLessonContent = {
           question: "Being 'your own boss' as an entrepreneur mainly means:",
           options: [
             "You never have to work",
-            "You make the decisions — and you live with the results, good or bad",
+            "You make the decisions, and you live with the results, good or bad",
             "Someone else is responsible for everything",
             "You are guaranteed to succeed"
           ],
@@ -371,7 +371,7 @@ export const block2b: StructuredLessonContent = {
           options: [
             "Starting a risky business",
             "A regular salaried job",
-            "Neither — those don't differ",
+            "Neither, those don't differ",
             "Whichever is louder"
           ],
           correctAnswer: 1,
@@ -397,7 +397,7 @@ export const block2b: StructuredLessonContent = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 2.3 — The Economic & Legal Environment
+// LESSON 2.3: The Economic & Legal Environment
 // ─────────────────────────────────────────────────────────────
 export const block2c: StructuredLessonContent = {
   lessonId: "gulliver-2-3",
@@ -406,10 +406,10 @@ export const block2c: StructuredLessonContent = {
       type: "concept",
       title: "The Rules and Conditions a Business Can't Control",
       paragraphs: [
-        "No business exists in a bubble. Every one operates inside an **economic and legal environment** — the taxes, laws, court system, and overall economy set by the world around it. An owner doesn't control these things, but they shape how hard or easy it is to succeed.",
+        "No business exists in a bubble. Every one operates inside an **economic and legal environment**: the taxes, laws, court system, and overall economy set by the world around it. An owner doesn't control these things, but they shape how hard or easy it is to succeed.",
         "The government can **help** business or **hinder** it. It helps when it enforces contracts fairly, keeps prices stable, keeps rules simple, and provides useful public services like roads. It hinders when it piles on heavy taxes, changes the rules unpredictably, or lets the economy swing wildly. Same business, very different odds depending on the environment.",
-        "Fair courts matter more than people think. When a business signs a deal, it needs to trust that the deal will be honored — that a customer who owes money can be made to pay, or a supplier who breaks a contract can be held responsible. That trust, backed by courts, is what makes people willing to do business with strangers at all.",
-        "The broader economy matters just as much. When the economy is growing and people have money, businesses find it easier to sell. When it's shrinking or prices are unstable, even a good business struggles. That's why owners watch the economic environment closely — a great product can still fail in a bad economy, and a mediocre one can coast in a booming one."
+        "Fair courts matter more than people think. When a business signs a deal, it needs to trust that the deal will be honored, that a customer who owes money can be made to pay, or a supplier who breaks a contract can be held responsible. That trust, backed by courts, is what makes people willing to do business with strangers at all.",
+        "The broader economy matters just as much. When the economy is growing and people have money, businesses find it easier to sell. When it's shrinking or prices are unstable, even a good business struggles. That's why owners watch the economic environment closely: a great product can still fail in a bad economy, and a mediocre one can coast in a booming one."
       ],
       bullets: [
         "The **economic and legal environment** is the taxes, laws, courts, and economy a business operates in.",
@@ -417,7 +417,7 @@ export const block2c: StructuredLessonContent = {
         "Government **hinders** with heavy taxes, confusing rules, and instability.",
         "A booming economy makes selling easier; a shaky one makes even good businesses struggle."
       ],
-      realWorldExample: "Two identical coffee shops open the same week — one where taxes are low, courts are fair, and the economy is growing; the other where taxes are high, rules change monthly, and the economy is shrinking. The shops are the same, but their odds of survival are not."
+      realWorldExample: "Two identical coffee shops open the same week. One is where taxes are low, courts are fair, and the economy is growing; the other is where taxes are high, rules change monthly, and the economy is shrinking. The shops are the same, but their odds of survival are not."
     },
     {
       type: "micro-check",
@@ -432,7 +432,7 @@ export const block2c: StructuredLessonContent = {
             "Adding heavy new taxes on small startups"
           ],
           correctAnswer: 0,
-          explanation: "Fair courts let businesses trust their deals, and stable, predictable taxes and rules make a business easier and less risky to run — that's the legal environment helping business.",
+          explanation: "Fair courts let businesses trust their deals, and stable, predictable taxes and rules make a business easier and less risky to run, which is the legal environment helping business.",
           concept: "economic-legal-environment"
         },
         {
@@ -458,7 +458,7 @@ export const block2c: StructuredLessonContent = {
             "It only matters to huge corporations"
           ],
           correctAnswer: 1,
-          explanation: "The economic and legal environment — taxes, regulations, enforcement, and the economy — directly affects how easy and profitable it is to start and run any business.",
+          explanation: "The economic and legal environment (taxes, regulations, enforcement, and the economy) directly affects how easy and profitable it is to start and run any business.",
           concept: "economic-legal-environment"
         }
       ]
@@ -481,7 +481,7 @@ export const block2c: StructuredLessonContent = {
         question: "Leo's smoothie shop is identical in both towns. Why might it succeed in Town A but struggle in Town B?",
         options: [
           "Because smoothies taste different in different towns",
-          "Because the economic and legal environment — taxes, rules, and the economy — shapes a business's odds, even when the business itself is the same",
+          "Because the economic and legal environment (taxes, rules, and the economy) shapes a business's odds, even when the business itself is the same",
           "Because Town B is farther away",
           "Because the environment has no effect on business"
         ],
@@ -504,7 +504,7 @@ export const block2c: StructuredLessonContent = {
             "Committing identity theft"
           ],
           correctAnswer: 1,
-          explanation: "Simpler, cheaper rules make it easier to start a company — that's the legal environment helping business.",
+          explanation: "Simpler, cheaper rules make it easier to start a company, which is the legal environment helping business.",
           concept: "economic-legal-environment"
         },
         {
@@ -549,7 +549,7 @@ export const block2c: StructuredLessonContent = {
             "They force all prices to be equal"
           ],
           correctAnswer: 1,
-          explanation: "If a deal can be enforced, businesses can trust customers and suppliers they don't personally know — that trust makes trade possible.",
+          explanation: "If a deal can be enforced, businesses can trust customers and suppliers they don't personally know, and that trust makes trade possible.",
           concept: "economic-legal-environment"
         },
         {
@@ -562,7 +562,7 @@ export const block2c: StructuredLessonContent = {
             "The economy only affects bad businesses"
           ],
           correctAnswer: 1,
-          explanation: "In a weak economy, customers spend less, so even a well-run business finds it harder to sell — the environment affects everyone.",
+          explanation: "In a weak economy, customers spend less, so even a well-run business finds it harder to sell, because the environment affects everyone.",
           concept: "economic-legal-environment"
         },
         {
@@ -610,7 +610,7 @@ export const block2c: StructuredLessonContent = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 2.4 — Technology & E-Commerce
+// LESSON 2.4: Technology & E-Commerce
 // ─────────────────────────────────────────────────────────────
 export const block2d: StructuredLessonContent = {
   lessonId: "gulliver-2-4",
@@ -619,14 +619,14 @@ export const block2d: StructuredLessonContent = {
       type: "concept",
       title: "How Technology Rewrote What a Business Can Do",
       paragraphs: [
-        "The **technological environment** is the fast-changing world of tools and tech a business lives in — and it has completely rewritten what's possible. Technology now lets a tiny business do what only big companies used to be able to: reach customers anywhere, take payments instantly, and run the whole thing from a bedroom.",
-        "Not long ago, selling to customers in another state meant being a big company with warehouses, catalogs, and lots of money for shipping and ads. Technology tore down that barrier — now a teenager with a phone and a free storefront app can do the same thing. That's a huge shift in who gets to start a business.",
-        "The clearest example is **e-commerce** — buying and selling online. A teenager can run a store from their phone and ship to another state. There are two main kinds. When a business sells straight to everyday shoppers, that's **B2C** (business-to-consumer) — like an online sneaker shop selling to teens. When a business sells to *other businesses*, that's **B2B** (business-to-business) — like a company that supplies the cardboard boxes that sneaker shop ships in.",
-        "The difference between B2C and B2B isn't just trivia — it changes everything about how you sell. B2C often means lots of small orders, catchy ads, and building a brand people love. B2B usually means fewer, bigger orders, long-term contracts, and selling on reliability and price. Same internet, two very different games."
+        "The **technological environment** is the fast-changing world of tools and tech a business lives in, and it has completely rewritten what's possible. Technology now lets a tiny business do what only big companies used to be able to: reach customers anywhere, take payments instantly, and run the whole thing from a bedroom.",
+        "Not long ago, selling to customers in another state meant being a big company with warehouses, catalogs, and lots of money for shipping and ads. Technology tore down that barrier, and now a teenager with a phone and a free storefront app can do the same thing. That's a huge shift in who gets to start a business.",
+        "The clearest example is **e-commerce**: buying and selling online. A teenager can run a store from their phone and ship to another state. There are two main kinds. When a business sells straight to everyday shoppers, that's **B2C** (business-to-consumer), like an online sneaker shop selling to teens. When a business sells to *other businesses*, that's **B2B** (business-to-business), like a company that supplies the cardboard boxes that sneaker shop ships in.",
+        "The difference between B2C and B2B isn't just trivia; it changes everything about how you sell. B2C often means lots of small orders, catchy ads, and building a brand people love. B2B usually means fewer, bigger orders, long-term contracts, and selling on reliability and price. Same internet, two very different games."
       ],
       bullets: [
         "The **technological environment** is the ever-changing set of tech tools a business must keep up with.",
-        "Technology let small businesses reach far-away customers — something that used to require a big company.",
+        "Technology let small businesses reach far-away customers, something that used to require a big company.",
         "**E-commerce** is buying and selling online.",
         "**B2C** sells to everyday shoppers; **B2B** sells to other businesses."
       ],
@@ -666,7 +666,7 @@ export const block2d: StructuredLessonContent = {
             "A government tax"
           ],
           correctAnswer: 1,
-          explanation: "E-commerce is trade done online — buying and selling over the internet rather than only in a physical store.",
+          explanation: "E-commerce is trade done online, buying and selling over the internet rather than only in a physical store.",
           concept: "e-commerce"
         }
       ]
@@ -676,10 +676,10 @@ export const block2d: StructuredLessonContent = {
       title: "A Store From a Bedroom",
       narrative: "Sixteen-year-old Riya starts a custom phone-case business from her bedroom. She designs the cases, lists them on a free online store, and ships them across the country. She buys her blank cases and packaging from an online supplier that only sells to businesses in bulk.",
       details: [
-        "Riya's whole business runs on the **technological environment** — a phone, a free storefront, and online payments.",
+        "Riya's whole business runs on the **technological environment**: a phone, a free storefront, and online payments.",
         "Selling her cases directly to teenagers online is **e-commerce**, and specifically **B2C** (business-to-consumer).",
         "Her supplier, which sells blank cases in bulk to businesses like Riya, is doing **B2B** (business-to-business).",
-        "None of this was easy for a solo teen before the internet — reaching customers nationwide used to require a big company."
+        "None of this was easy for a solo teen before the internet, since reaching customers nationwide used to require a big company."
       ]
     },
     {
@@ -712,7 +712,7 @@ export const block2d: StructuredLessonContent = {
             "It has no effect on business"
           ],
           correctAnswer: 1,
-          explanation: "Technology lets small businesses sell online and reach distant customers — something that used to require a big company.",
+          explanation: "Technology lets small businesses sell online and reach distant customers, something that used to require a big company.",
           concept: "technological-environment"
         },
         {
@@ -744,7 +744,7 @@ export const block2d: StructuredLessonContent = {
             "Skip needing a product at all"
           ],
           correctAnswer: 1,
-          explanation: "E-commerce lets even a tiny business sell to distant customers online — a reach that used to require a large company.",
+          explanation: "E-commerce lets even a tiny business sell to distant customers online, a reach that used to require a large company.",
           concept: "e-commerce"
         },
         {
@@ -752,7 +752,7 @@ export const block2d: StructuredLessonContent = {
           question: "A brand sells hoodies straight to teenagers through its own website. This is:",
           options: ["B2B", "B2C", "A nonprofit", "Insourcing"],
           correctAnswer: 1,
-          explanation: "Selling directly to individual shoppers (the teens) is B2C — business-to-consumer.",
+          explanation: "Selling directly to individual shoppers (the teens) is B2C, or business-to-consumer.",
           concept: "e-commerce"
         },
         {
@@ -760,7 +760,7 @@ export const block2d: StructuredLessonContent = {
           question: "A factory sells fabric in huge rolls to clothing companies. This is:",
           options: ["B2C", "B2B", "A nonprofit", "A loss"],
           correctAnswer: 1,
-          explanation: "Selling to other businesses (the clothing companies) rather than everyday shoppers is B2B — business-to-business.",
+          explanation: "Selling to other businesses (the clothing companies) rather than everyday shoppers is B2B, or business-to-business.",
           concept: "e-commerce"
         },
         {
@@ -799,7 +799,7 @@ export const block2d: StructuredLessonContent = {
             "B2C businesses aren't allowed to advertise"
           ],
           correctAnswer: 1,
-          explanation: "Selling to shoppers (B2C) and selling to businesses (B2B) are different games — different order sizes, relationships, and ways of competing.",
+          explanation: "Selling to shoppers (B2C) and selling to businesses (B2B) are different games, with different order sizes, relationships, and ways of competing.",
           concept: "e-commerce"
         }
       ]
@@ -808,27 +808,27 @@ export const block2d: StructuredLessonContent = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// LESSON 2.5 — Databases & Identity Theft
+// LESSON 2.5: Databases & Identity Theft
 // ─────────────────────────────────────────────────────────────
 export const block2e: StructuredLessonContent = {
   lessonId: "gulliver-2-5",
   sections: [
     {
       type: "concept",
-      title: "The Data a Business Keeps — and Why It's a Target",
+      title: "The Data a Business Keeps, and Why It's a Target",
       paragraphs: [
-        "To run an online business, companies rely on **databases** — organized digital collections of information like customer names, addresses, orders, and payment details. A database is powerful because it lets a business remember and use everything about its customers: who bought what, where to ship it, and how to reach them again. That memory is a huge advantage.",
-        "But that same pile of personal information also makes a business a target. A database full of real names, addresses, and card numbers is exactly what criminals want — which is why data is both a business's biggest asset and its biggest responsibility.",
-        "When criminals break into a database and steal personal information, it can lead to **identity theft** — someone using your name, card number, or Social Security number to commit fraud in your name. They might open credit cards you never asked for, make purchases you never made, or file for benefits pretending to be you. The victim often doesn't find out until the damage is done.",
-        "That's why protecting data is now part of running any business, and why you protect yourself too. Use strong, unique **passwords** (not the same one everywhere), be careful about who you share personal info with, and pay attention to how companies store your data. In the technological environment, information is valuable — to the business, and unfortunately to thieves — so guarding it matters for everyone."
+        "To run an online business, companies rely on **databases**: organized digital collections of information like customer names, addresses, orders, and payment details. A database is powerful because it lets a business remember and use everything about its customers: who bought what, where to ship it, and how to reach them again. That memory is a huge advantage.",
+        "But that same pile of personal information also makes a business a target. A database full of real names, addresses, and card numbers is exactly what criminals want, which is why data is both a business's biggest asset and its biggest responsibility.",
+        "When criminals break into a database and steal personal information, it can lead to **identity theft**, where someone uses your name, card number, or Social Security number to commit fraud in your name. They might open credit cards you never asked for, make purchases you never made, or file for benefits pretending to be you. The victim often doesn't find out until the damage is done.",
+        "That's why protecting data is now part of running any business, and why you protect yourself too. Use strong, unique **passwords** (not the same one everywhere), be careful about who you share personal info with, and pay attention to how companies store your data. In the technological environment, information is valuable to the business, and unfortunately to thieves, so guarding it matters for everyone."
       ],
       bullets: [
-        "A **database** is an organized digital store of info — customers, orders, addresses, payments.",
+        "A **database** is an organized digital store of info: customers, orders, addresses, payments.",
         "Databases make a business powerful, but a pile of personal data is a target for criminals.",
-        "Stolen data can cause **identity theft** — someone committing fraud in your name.",
+        "Stolen data can cause **identity theft**, with someone committing fraud in your name.",
         "Protect yourself with strong, unique **passwords** and by guarding your personal info."
       ],
-      realWorldExample: "An online shop's database of thousands of customers' names and card numbers is gold to a hacker. If it's stolen, those customers can face identity theft — charges and accounts opened in their names — which is why the shop has to guard its data as carefully as its cash."
+      realWorldExample: "An online shop's database of thousands of customers' names and card numbers is gold to a hacker. If it's stolen, those customers can face identity theft, with charges and accounts opened in their names, which is why the shop has to guard its data as carefully as its cash."
     },
     {
       type: "micro-check",
@@ -843,7 +843,7 @@ export const block2e: StructuredLessonContent = {
             "A government tax form"
           ],
           correctAnswer: 1,
-          explanation: "A database is an organized digital store of information — customers, orders, payments — that a business uses to run.",
+          explanation: "A database is an organized digital store of information (customers, orders, payments) that a business uses to run.",
           concept: "databases"
         },
         {
@@ -856,7 +856,7 @@ export const block2e: StructuredLessonContent = {
             "Because it is the only backup the business keeps"
           ],
           correctAnswer: 1,
-          explanation: "Databases hold personal details. If stolen, criminals can use names, card numbers, or IDs to commit fraud — that's identity theft.",
+          explanation: "Databases hold personal details. If stolen, criminals can use names, card numbers, or IDs to commit fraud, which is identity theft.",
           concept: "databases"
         },
         {
@@ -869,7 +869,7 @@ export const block2e: StructuredLessonContent = {
             "Because identity theft only happens offline"
           ],
           correctAnswer: 1,
-          explanation: "Databases hold personal information. If stolen, criminals can use it to open accounts or make charges in your name — that's identity theft.",
+          explanation: "Databases hold personal information. If stolen, criminals can use it to open accounts or make charges in your name, which is identity theft.",
           concept: "identity-theft"
         }
       ]
@@ -879,10 +879,10 @@ export const block2e: StructuredLessonContent = {
       title: "The Sticker Shop Gets Hacked",
       narrative: "Jordan runs a small online sticker shop from home. Orders arrive through the website, and every customer's name, address, and card details are saved in the shop's database. One morning, Jordan gets an alert: someone broke into that database overnight.",
       details: [
-        "The shop is pure e-commerce — everything happens online, and it ships nationwide.",
+        "The shop is pure e-commerce: everything happens online, and it ships nationwide.",
         "All that customer information lived in a **database**, which is exactly what the thieves were after.",
         "With stolen names and card numbers, criminals can commit **identity theft** against Jordan's customers.",
-        "Jordan realizes protecting the database is as important as making sales — customer data is a responsibility, not just an asset."
+        "Jordan realizes protecting the database is as important as making sales, because customer data is a responsibility, not just an asset."
       ]
     },
     {
@@ -897,7 +897,7 @@ export const block2e: StructuredLessonContent = {
           "Because the shop's card reader would stop working"
         ],
         correctAnswer: 1,
-        explanation: "A database holds personal details like names and card numbers. If stolen, criminals can use them to commit identity theft — fraud in someone else's name.",
+        explanation: "A database holds personal details like names and card numbers. If stolen, criminals can use them to commit identity theft, meaning fraud in someone else's name.",
         concept: "identity-theft"
       }
     },
@@ -928,7 +928,7 @@ export const block2e: StructuredLessonContent = {
             "Because only the government can hold data"
           ],
           correctAnswer: 1,
-          explanation: "A database is a huge advantage, but the personal info it holds must be guarded — if stolen, it can harm customers through identity theft.",
+          explanation: "A database is a huge advantage, but the personal info it holds must be guarded, because if stolen, it can harm customers through identity theft.",
           concept: "databases"
         }
       ]
@@ -947,7 +947,7 @@ export const block2e: StructuredLessonContent = {
             "Nothing personal at all"
           ],
           correctAnswer: 1,
-          explanation: "Databases store the details a business needs to run — who its customers are, what they ordered, where to ship, and how they paid.",
+          explanation: "Databases store the details a business needs to run: who its customers are, what they ordered, where to ship, and how they paid.",
           concept: "databases"
         },
         {
@@ -955,12 +955,12 @@ export const block2e: StructuredLessonContent = {
           question: "Identity theft is best described as:",
           options: [
             "Losing your phone",
-            "Someone using your personal information — like your name, card number, or SSN — to commit fraud in your name",
+            "Someone using your personal information, like your name, card number, or SSN, to commit fraud in your name",
             "Forgetting your password",
             "A store running out of a product"
           ],
           correctAnswer: 1,
-          explanation: "Identity theft is when a criminal uses your personal info to pretend to be you — opening accounts or making charges in your name.",
+          explanation: "Identity theft is when a criminal uses your personal info to pretend to be you, opening accounts or making charges in your name.",
           concept: "identity-theft"
         },
         {
@@ -970,7 +970,7 @@ export const block2e: StructuredLessonContent = {
             "Their favorite product might be discontinued",
             "Their stolen personal information can be used for identity theft",
             "The store's colors might change",
-            "Nothing — a hack never affects customers"
+            "Nothing, a hack never affects customers"
           ],
           correctAnswer: 1,
           explanation: "The real danger of a breach is that customers' personal data can be used to commit fraud in their names.",
@@ -999,7 +999,7 @@ export const block2e: StructuredLessonContent = {
             "Because the government pays businesses to keep one"
           ],
           correctAnswer: 1,
-          explanation: "A database lets a business remember and use everything about its customers — a powerful advantage, as long as it's protected.",
+          explanation: "A database lets a business remember and use everything about its customers, a powerful advantage as long as it's protected.",
           concept: "databases"
         },
         {

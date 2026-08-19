@@ -119,7 +119,7 @@ export type LessonCategory =
   | "micro-factor-markets"
   | "micro-market-failure"
 
-// Client-side Missions view-state — which set of course units to show. This is
+// Client-side Missions view-state: which set of course units to show. This is
 // NOT geography and NOT the persisted program. "regular" is the default ~34-unit
 // curriculum (untagged units); the others are elective/alternate course views.
 // (Geography lives on the profile, e.g. profiles.state_course; the persisted

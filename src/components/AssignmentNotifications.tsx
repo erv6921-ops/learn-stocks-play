@@ -128,7 +128,7 @@ export function AssignmentNotifications() {
           </DialogTitle>
           <DialogDescription className="text-center text-base">
             You have {pending.length} lesson{pending.length === 1 ? "" : "s"} to complete.
-            Tap a lesson below to get started — you can’t skip this.
+            Tap a lesson below to get started. You can’t skip this.
           </DialogDescription>
         </DialogHeader>
 

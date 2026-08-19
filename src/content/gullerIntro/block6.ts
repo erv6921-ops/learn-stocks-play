@@ -1,7 +1,7 @@
 import { StructuredLessonContent } from "@/types"
 
 // ═══════════════════════════════════════════════
-// GULLIVER INTRO TO BUSINESS — BLOCK 6
+// GULLIVER INTRO TO BUSINESS, BLOCK 6
 // The US economy: indicators, cycles, policy (Byrnes Ch. 2)
 // Concepts: gdp, gross-output, unemployment-types, inflation-types, cpi, core-inflation,
 //           ppi, productivity, business-cycle, fiscal-policy, keynes,
@@ -19,9 +19,9 @@ export const block6: StructuredLessonContent = {
       type: "concept",
       title: "The Numbers That Measure a Whole Economy",
       paragraphs: [
-        "To know if a country's economy is healthy, economists watch a few key numbers. The most famous is GDP (Gross Domestic Product): the total value of all the final goods and services a country produces in a year. When GDP is growing, the economy is generally producing more and doing well; when it shrinks, that's a warning sign. A broader, less-famous cousin is gross output, which adds up sales at every stage of production, not just the final products — so it's an even bigger number that shows all the activity behind the scenes.",
-        "The second headline number is the unemployment rate — the share of people who want a job but can't find one. There are four main types. Frictional unemployment is people between jobs or just entering the workforce (normal and short). Structural unemployment happens when someone's skills no longer match available jobs, often because of technology or automation. Cyclical unemployment rises when the economy slumps and businesses lay people off. Seasonal unemployment comes from jobs that only exist part of the year, like holiday retail or summer lifeguarding.",
-        "The third headline is about prices. Inflation is when prices rise across the economy, so your money buys less. There are related terms: disinflation is when inflation is still happening but slowing down; deflation is when prices actually fall; and stagflation is the nasty combo of high inflation plus a weak economy and high unemployment. To measure inflation, the government tracks the CPI (Consumer Price Index), which follows the price of a 'basket' of everyday things people buy. Core inflation is the CPI with food and energy stripped out, because those two bounce around a lot. The PPI (Producer Price Index) tracks prices earlier in the chain — what businesses pay — which can hint at where consumer prices are headed. One more number matters: productivity, or how much output each worker produces per hour. Rising productivity means more gets made with the same effort, which helps the whole economy grow."
+        "To know if a country's economy is healthy, economists watch a few key numbers. The most famous is GDP (Gross Domestic Product): the total value of all the final goods and services a country produces in a year. When GDP is growing, the economy is generally producing more and doing well; when it shrinks, that's a warning sign. A broader, less-famous cousin is gross output, which adds up sales at every stage of production, not just the final products, so it's an even bigger number that shows all the activity behind the scenes.",
+        "The second headline number is the unemployment rate: the share of people who want a job but can't find one. There are four main types. Frictional unemployment is people between jobs or just entering the workforce (normal and short). Structural unemployment happens when someone's skills no longer match available jobs, often because of technology or automation. Cyclical unemployment rises when the economy slumps and businesses lay people off. Seasonal unemployment comes from jobs that only exist part of the year, like holiday retail or summer lifeguarding.",
+        "The third headline is about prices. Inflation is when prices rise across the economy, so your money buys less. There are related terms: disinflation is when inflation is still happening but slowing down; deflation is when prices actually fall; and stagflation is the nasty combo of high inflation plus a weak economy and high unemployment. To measure inflation, the government tracks the CPI (Consumer Price Index), which follows the price of a 'basket' of everyday things people buy. Core inflation is the CPI with food and energy stripped out, because those two bounce around a lot. The PPI (Producer Price Index) tracks prices earlier in the chain, meaning what businesses pay, which can hint at where consumer prices are headed. One more number matters: productivity, or how much output each worker produces per hour. Rising productivity means more gets made with the same effort, which helps the whole economy grow."
       ],
       bullets: [
         "GDP = total value of all final goods and services a country makes in a year; gross output is broader, counting every stage.",
@@ -30,14 +30,14 @@ export const block6: StructuredLessonContent = {
         "CPI measures inflation with a basket of consumer goods; core inflation removes food and energy; PPI tracks producer prices.",
         "Productivity is output per worker per hour; rising productivity helps the economy grow."
       ],
-      realWorldExample: "If your $5 used to buy a full combo meal but now only buys the burger, that's inflation — and the CPI is the tool tracking exactly how much prices like that have risen."
+      realWorldExample: "If your $5 used to buy a full combo meal but now only buys the burger, that's inflation, and the CPI is the tool tracking exactly how much prices like that have risen."
     },
     {
       type: "concept",
-      title: "The Economy Moves in Cycles — and Two Kinds of Response",
+      title: "The Economy Moves in Cycles, and Two Kinds of Response",
       paragraphs: [
         "Economies don't grow in a straight line; they move through a business cycle with repeating phases. In an expansion, the economy grows, businesses hire, and GDP rises. At the peak, growth tops out. Then comes a contraction (also called a recession if it's deep enough): the economy shrinks, businesses cut back, and unemployment rises. At the bottom, the trough, things stop falling and a recovery begins, starting the cycle again. Knowing which phase you're in helps explain why jobs are easy or hard to find.",
-        "When the economy struggles, the government can respond in two very different ways. The first is fiscal policy — decisions about government spending and taxes, made by Congress and the President. To fight a slump, the government can spend more (on roads, schools, aid) or cut taxes to put money in people's pockets. This idea was championed by the economist John Maynard Keynes, who argued that government spending can revive a weak economy by boosting demand. The catch: spending more than the government collects creates a deficit for that year, and years of deficits pile up into the national debt — the total the country owes.",
+        "When the economy struggles, the government can respond in two very different ways. The first is fiscal policy: decisions about government spending and taxes, made by Congress and the President. To fight a slump, the government can spend more (on roads, schools, aid) or cut taxes to put money in people's pockets. This idea was championed by the economist John Maynard Keynes, who argued that government spending can revive a weak economy by boosting demand. The catch: spending more than the government collects creates a deficit for that year, and years of deficits pile up into the national debt, the total the country owes.",
         "The second response is monetary policy, run by the Federal Reserve (the 'Fed'), the nation's central bank. Instead of taxes and spending, the Fed controls the money supply and interest rates. To cool down an overheating economy or fight inflation, the Fed raises interest rates, which makes borrowing more expensive and slows spending. To boost a weak economy, it lowers rates, making loans cheaper so people and businesses spend and invest more. So the two levers are: fiscal policy (Congress and the President, using taxes and spending) and monetary policy (the Fed, using interest rates and the money supply)."
       ],
       bullets: [
@@ -47,10 +47,10 @@ export const block6: StructuredLessonContent = {
         "A deficit is spending more than you collect in a year; the national debt is the total piled up over time.",
         "Monetary policy = the Federal Reserve (the Fed) adjusting interest rates and the money supply; raising rates fights inflation, lowering rates boosts a weak economy."
       ],
-      realWorldExample: "When the Fed raises interest rates, car loans and credit cards get more expensive, so people borrow and buy less — the Fed is tapping the brakes on the economy to bring inflation down. That's monetary policy in action, separate from anything Congress does."
+      realWorldExample: "When the Fed raises interest rates, car loans and credit cards get more expensive, so people borrow and buy less, and the Fed is tapping the brakes on the economy to bring inflation down. That's monetary policy in action, separate from anything Congress does."
     },
     // ─────────────────────────────────────────────
-    // CHECKPOINT A (3 questions) — identify the business-cycle phase
+    // CHECKPOINT A (3 questions): identify the business-cycle phase
     // ─────────────────────────────────────────────
     {
       type: "micro-check",
@@ -68,7 +68,7 @@ export const block6: StructuredLessonContent = {
           question: "GDP is rising, companies are hiring, and jobs are easy to find. Which phase is this?",
           options: ["Expansion", "Contraction", "Trough", "Recession"],
           correctAnswer: 0,
-          explanation: "Growing GDP and lots of hiring describe an expansion — the growth phase of the business cycle.",
+          explanation: "Growing GDP and lots of hiring describe an expansion, the growth phase of the business cycle.",
           concept: "business-cycle"
         },
         {
@@ -82,7 +82,7 @@ export const block6: StructuredLessonContent = {
       ]
     },
     // ─────────────────────────────────────────────
-    // CHECKPOINT B (3 questions) — fiscal vs. monetary: who acts, what tool
+    // CHECKPOINT B (3 questions): fiscal vs. monetary, who acts and what tool
     // ─────────────────────────────────────────────
     {
       type: "micro-check",
@@ -100,7 +100,7 @@ export const block6: StructuredLessonContent = {
           question: "The Federal Reserve raises interest rates to slow down inflation. This is:",
           options: ["Fiscal policy", "Monetary policy", "A trough", "Productivity"],
           correctAnswer: 1,
-          explanation: "The Fed adjusting interest rates and the money supply is monetary policy — a separate lever from Congress's taxes and spending.",
+          explanation: "The Fed adjusting interest rates and the money supply is monetary policy, a separate lever from Congress's taxes and spending.",
           concept: "monetary-policy-fed"
         },
         {
@@ -135,7 +135,7 @@ export const block6: StructuredLessonContent = {
             "The price of a single company's stock"
           ],
           correctAnswer: 1,
-          explanation: "GDP (Gross Domestic Product) is the total value of all final goods and services a country produces in a year — the headline measure of economic size.",
+          explanation: "GDP (Gross Domestic Product) is the total value of all final goods and services a country produces in a year, the headline measure of economic size.",
           concept: "gdp"
         },
         {
@@ -148,7 +148,7 @@ export const block6: StructuredLessonContent = {
             "Cut taxes for everyone"
           ],
           correctAnswer: 1,
-          explanation: "Raising rates makes borrowing more expensive, which slows spending — the Fed's way of cooling an overheating economy and fighting inflation.",
+          explanation: "Raising rates makes borrowing more expensive, which slows spending, and that's the Fed's way of cooling an overheating economy and fighting inflation.",
           concept: "monetary-policy-fed"
         }
       ]
@@ -165,7 +165,7 @@ export const block6: StructuredLessonContent = {
           question: "If a country's GDP grows for several years in a row, that generally means the economy is:",
           options: ["Shrinking", "Producing more and doing well", "Out of money", "In a permanent recession"],
           correctAnswer: 1,
-          explanation: "Rising GDP means the country is producing more goods and services — usually a sign of a healthy, growing economy.",
+          explanation: "Rising GDP means the country is producing more goods and services, usually a sign of a healthy, growing economy.",
           concept: "gdp"
         },
         {
@@ -202,7 +202,7 @@ export const block6: StructuredLessonContent = {
           question: "Lots of workers get laid off because the whole economy has slumped into a recession. This is:",
           options: ["Cyclical unemployment", "Seasonal unemployment", "Frictional unemployment", "Core inflation"],
           correctAnswer: 0,
-          explanation: "Cyclical unemployment rises and falls with the business cycle — it climbs during recessions.",
+          explanation: "Cyclical unemployment rises and falls with the business cycle, climbing during recessions.",
           concept: "unemployment-types"
         },
         {
@@ -257,7 +257,7 @@ export const block6: StructuredLessonContent = {
             "Of houses only"
           ],
           correctAnswer: 1,
-          explanation: "The PPI tracks producer-level prices — what businesses pay — which can signal where consumer prices are heading.",
+          explanation: "The PPI tracks producer-level prices, meaning what businesses pay, which can signal where consumer prices are heading.",
           concept: "ppi"
         },
         {
@@ -304,7 +304,7 @@ export const block6: StructuredLessonContent = {
             "Raising tariffs on imports"
           ],
           correctAnswer: 0,
-          explanation: "Lowering interest rates is monetary policy — cheaper loans encourage spending and investment. Taxes, spending, and tariffs are fiscal or trade decisions, not the Fed's tools.",
+          explanation: "Lowering interest rates is monetary policy: cheaper loans encourage spending and investment. Taxes, spending, and tariffs are fiscal or trade decisions, not the Fed's tools.",
           concept: "monetary-policy-fed"
         },
         {

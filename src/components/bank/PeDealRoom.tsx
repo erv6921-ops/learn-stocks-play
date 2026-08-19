@@ -175,7 +175,7 @@ function TermSheet({ v, company }: { v: PeVars; company: string }) {
   const Row = ({ k, val, show = true }: { k: string; val: string; show?: boolean }) => (
     <div className="flex items-baseline justify-between gap-2 py-1">
       <span className="text-[11px] text-muted-foreground">{k}</span>
-      <span className="text-xs font-bold tabular-nums">{show ? val : "—"}</span>
+      <span className="text-xs font-bold tabular-nums">{show ? val : "-"}</span>
     </div>
   )
   const ex = v.exitMultiple > 0 ? computeExit(v) : null
@@ -262,7 +262,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
           <h3 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5"><Landmark className="h-3.5 w-3.5" /> Case-study library</h3>
           <span className="text-[11px] text-muted-foreground">{Object.keys(done).length}/{DEALS.length} closed</span>
         </div>
-        <p className="text-xs text-muted-foreground -mt-1">Nine real deals, each a different PE playbook. Pick one and run it end to end — emails, negotiations, and all.</p>
+        <p className="text-xs text-muted-foreground -mt-1">Nine real deals, each a different PE playbook. Pick one and run it end to end: emails, negotiations, and all.</p>
         <div className="grid sm:grid-cols-2 gap-2.5">
           {DEALS.map(d => {
             const best = done[d.id]
@@ -353,7 +353,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
                 </div>
                 <CardContent className="p-4 space-y-3">
                   {cur.body.map((p, i) => <p key={i} className="text-sm leading-relaxed text-foreground/90">{p}</p>)}
-                  <p className="text-xs text-muted-foreground italic">— {cur.from.name}</p>
+                  <p className="text-xs text-muted-foreground italic">From {cur.from.name}</p>
                   <Button size="lg" className="w-full press-scale gap-1.5" onClick={() => go()}>{cur.cta} <ChevronRight className="h-4 w-4" /></Button>
                 </CardContent>
               </Card>
@@ -500,9 +500,9 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
                 onContinue={() => {
                   if (!paid) {
                     if (cur.variant === "closed") {
-                      const b = closeBonus(vars); earnJeffs(b, `${deal.company} closed — associate bonus`)
+                      const b = closeBonus(vars); earnJeffs(b, `${deal.company} closed: associate bonus`)
                     } else {
-                      const ex = computeExit(vars); const carry = exitCarry(vars, ex.moic); earnJeffs(carry, `${deal.company} exit — carry (${ex.moic}×)`)
+                      const ex = computeExit(vars); const carry = exitCarry(vars, ex.moic); earnJeffs(carry, `${deal.company} exit: carry (${ex.moic}×)`)
                     }
                     setPaid(true)
                   }

@@ -1,7 +1,7 @@
 import { StructuredLessonContent } from "@/types"
 
 // ═══════════════════════════════════════════════
-// GULLIVER INTRO TO BUSINESS — BLOCK 4
+// GULLIVER INTRO TO BUSINESS, BLOCK 4
 // What economics is; capitalism's foundations (Byrnes Ch. 2)
 // Concepts: economics, macro-vs-micro, resource-development, malthus, adam-smith,
 //           invisible-hand, capitalism, state-capitalism, four-basic-rights
@@ -18,9 +18,9 @@ export const block4: StructuredLessonContent = {
       type: "concept",
       title: "What Economics Actually Studies",
       paragraphs: [
-        "Economics is the study of how people choose to use limited resources to get the things they want and need. There's never enough of everything to go around — not enough money, time, workers, or materials — so choices have to be made. Economics is really the study of those choices. Every time you decide to spend your last $10 on lunch instead of saving it, you're doing economics.",
-        "Economists zoom in and out. Macroeconomics looks at the big picture — the whole country or world. It asks things like: Is the nation's economy growing? How many people are unemployed? Are prices rising everywhere? Microeconomics zooms in on the small picture — single people, families, and businesses. It asks things like: Why did this coffee shop raise its prices? How does one family decide what to buy? 'Macro' means large; 'micro' means small. Same subject, different zoom level.",
-        "One hopeful idea in economics is resource development: instead of accepting that resources are fixed, people find ways to create more or use what we have far more efficiently. Farmers learned to grow much more food on the same land. Engineers made phones that do the work of a dozen old devices. Resource development is why the doom-and-gloom predictions of the past often didn't come true — human creativity keeps stretching what our resources can do."
+        "Economics is the study of how people choose to use limited resources to get the things they want and need. There's never enough of everything to go around (not enough money, time, workers, or materials), so choices have to be made. Economics is really the study of those choices. Every time you decide to spend your last $10 on lunch instead of saving it, you're doing economics.",
+        "Economists zoom in and out. Macroeconomics looks at the big picture: the whole country or world. It asks things like: Is the nation's economy growing? How many people are unemployed? Are prices rising everywhere? Microeconomics zooms in on the small picture: single people, families, and businesses. It asks things like: Why did this coffee shop raise its prices? How does one family decide what to buy? 'Macro' means large; 'micro' means small. Same subject, different zoom level.",
+        "One hopeful idea in economics is resource development: instead of accepting that resources are fixed, people find ways to create more or use what we have far more efficiently. Farmers learned to grow much more food on the same land. Engineers made phones that do the work of a dozen old devices. Resource development is why the doom-and-gloom predictions of the past often didn't come true: human creativity keeps stretching what our resources can do."
       ],
       bullets: [
         "Economics is the study of how people use limited resources to meet their wants and needs.",
@@ -29,28 +29,28 @@ export const block4: StructuredLessonContent = {
         "Microeconomics = the small picture (one person, family, or business).",
         "Resource development means creating more resources or using them more efficiently."
       ],
-      realWorldExample: "Deciding how your whole country handles rising prices is macroeconomics. Deciding whether your favorite taco spot should raise its prices by a dollar is microeconomics. Both are economics — just different zoom levels."
+      realWorldExample: "Deciding how your whole country handles rising prices is macroeconomics. Deciding whether your favorite taco spot should raise its prices by a dollar is microeconomics. Both are economics, just at different zoom levels."
     },
     {
       type: "concept",
       title: "Where Capitalism Comes From",
       paragraphs: [
-        "Long ago, an economist named Thomas Malthus made a gloomy prediction: he thought the population would grow faster than the food supply, so people would be stuck in poverty and hunger forever. He turned out to be too pessimistic — he didn't foresee how resource development (better farming, new technology) would let us produce far more food than he imagined. His famous mistake is a lesson in underestimating human creativity.",
-        "A more optimistic thinker, Adam Smith, is often called the father of modern economics. His big idea was the invisible hand: when people are free to pursue their own self-interest — trying to earn a living and improve their own lives — they end up helping society as a whole, as if guided by an invisible hand. A baker doesn't bake bread out of kindness; they do it to make money. But in chasing that profit, they feed the neighborhood. Millions of people each chasing their own gain can add up to a productive society.",
-        "That idea is the foundation of capitalism — an economic system where private individuals (not the government) own businesses and resources and are free to compete and keep their profits. Capitalism generally rests on four basic rights: the right to own private property, the right to own a business and keep its profits, the right to free competition, and the right to freedom of choice in what you buy and sell. Not every country runs pure capitalism. In state capitalism, the government owns or tightly controls many big businesses while still allowing some markets to operate — a blend of government control and capitalist activity."
+        "Long ago, an economist named Thomas Malthus made a gloomy prediction: he thought the population would grow faster than the food supply, so people would be stuck in poverty and hunger forever. He turned out to be too pessimistic, because he didn't foresee how resource development (better farming, new technology) would let us produce far more food than he imagined. His famous mistake is a lesson in underestimating human creativity.",
+        "A more optimistic thinker, Adam Smith, is often called the father of modern economics. His big idea was the invisible hand: when people are free to pursue their own self-interest, trying to earn a living and improve their own lives, they end up helping society as a whole, as if guided by an invisible hand. A baker doesn't bake bread out of kindness; they do it to make money. But in chasing that profit, they feed the neighborhood. Millions of people each chasing their own gain can add up to a productive society.",
+        "That idea is the foundation of capitalism: an economic system where private individuals (not the government) own businesses and resources and are free to compete and keep their profits. Capitalism generally rests on four basic rights: the right to own private property, the right to own a business and keep its profits, the right to free competition, and the right to freedom of choice in what you buy and sell. Not every country runs pure capitalism. In state capitalism, the government owns or tightly controls many big businesses while still allowing some markets to operate, a blend of government control and capitalist activity."
       ],
       bullets: [
-        "Malthus predicted population would outrun the food supply — he was too pessimistic and underestimated resource development.",
+        "Malthus predicted population would outrun the food supply, but he was too pessimistic and underestimated resource development.",
         "Adam Smith is called the father of modern economics.",
         "The invisible hand: people pursuing their own self-interest unintentionally benefit society.",
         "Capitalism = private individuals own businesses and resources and keep their profits.",
         "The four basic rights: own property, own a business and keep profits, free competition, freedom of choice.",
         "State capitalism blends heavy government control with some market activity."
       ],
-      realWorldExample: "A teen who starts selling custom hoodies just to make money is following self-interest — but they also give classmates something they want and maybe hire a friend to help. Their private profit ends up creating jobs and products. That's the invisible hand in a hallway."
+      realWorldExample: "A teen who starts selling custom hoodies just to make money is following self-interest, but they also give classmates something they want and maybe hire a friend to help. Their private profit ends up creating jobs and products. That's the invisible hand in a hallway."
     },
     // ─────────────────────────────────────────────
-    // CHECKPOINT A (3 questions) — classify as macro or micro
+    // CHECKPOINT A (3 questions): classify as macro or micro
     // ─────────────────────────────────────────────
     {
       type: "micro-check",
@@ -60,7 +60,7 @@ export const block4: StructuredLessonContent = {
           question: "\"How many people across the whole country are unemployed this year?\" This question is:",
           options: ["Microeconomics", "Macroeconomics", "Not economics at all", "Resource development"],
           correctAnswer: 1,
-          explanation: "A question about the entire country's economy is macroeconomics — the big picture. 'Macro' means large.",
+          explanation: "A question about the entire country's economy is macroeconomics, the big picture. 'Macro' means large.",
           concept: "macro-vs-micro"
         },
         {
@@ -68,7 +68,7 @@ export const block4: StructuredLessonContent = {
           question: "\"Why did the sandwich shop on my street raise its prices?\" This question is:",
           options: ["Macroeconomics", "Microeconomics", "Geopolitical risk", "State capitalism"],
           correctAnswer: 1,
-          explanation: "A question about one single business is microeconomics — the small picture. 'Micro' means small.",
+          explanation: "A question about one single business is microeconomics, the small picture. 'Micro' means small.",
           concept: "macro-vs-micro"
         },
         {
@@ -87,7 +87,7 @@ export const block4: StructuredLessonContent = {
       ]
     },
     // ─────────────────────────────────────────────
-    // CHECKPOINT B (3 questions) — the four basic rights of capitalism
+    // CHECKPOINT B (3 questions): the four basic rights of capitalism
     // ─────────────────────────────────────────────
     {
       type: "micro-check",
@@ -150,7 +150,7 @@ export const block4: StructuredLessonContent = {
             "Prices are set by a magic force nobody understands"
           ],
           correctAnswer: 1,
-          explanation: "Adam Smith's invisible hand means individuals chasing their own gain unintentionally help society — the baker seeking profit also feeds the town.",
+          explanation: "Adam Smith's invisible hand means individuals chasing their own gain unintentionally help society: the baker seeking profit also feeds the town.",
           concept: "invisible-hand"
         },
         {
@@ -163,7 +163,7 @@ export const block4: StructuredLessonContent = {
             "Only nonprofits are allowed to exist"
           ],
           correctAnswer: 1,
-          explanation: "Capitalism is an economic system where private individuals — not the government — own businesses and resources and keep the profits they earn.",
+          explanation: "Capitalism is an economic system where private individuals, not the government, own businesses and resources and keep the profits they earn.",
           concept: "capitalism"
         }
       ]
@@ -198,7 +198,7 @@ export const block4: StructuredLessonContent = {
             "Because governments require it"
           ],
           correctAnswer: 1,
-          explanation: "Scarcity — limited resources — forces people to make choices, and studying those choices is the heart of economics.",
+          explanation: "Scarcity, meaning limited resources, forces people to make choices, and studying those choices is the heart of economics.",
           concept: "economics"
         },
         {
@@ -214,7 +214,7 @@ export const block4: StructuredLessonContent = {
           question: "Studying how one family budgets its monthly income is an example of:",
           options: ["Macroeconomics", "Microeconomics", "Geopolitical risk", "Malthus's theory"],
           correctAnswer: 1,
-          explanation: "One family's decisions are the small picture — microeconomics.",
+          explanation: "One family's decisions are the small picture: microeconomics.",
           concept: "macro-vs-micro"
         },
         {
@@ -227,7 +227,7 @@ export const block4: StructuredLessonContent = {
             "A type of tax"
           ],
           correctAnswer: 1,
-          explanation: "Resource development is human creativity expanding what resources can do — growing more food per acre, making more efficient tools.",
+          explanation: "Resource development is human creativity expanding what resources can do, such as growing more food per acre or making more efficient tools.",
           concept: "resource-development"
         },
         {
@@ -240,7 +240,7 @@ export const block4: StructuredLessonContent = {
             "The government should own all farms"
           ],
           correctAnswer: 1,
-          explanation: "Malthus predicted population would outrun food. He was too pessimistic — he underestimated resource development.",
+          explanation: "Malthus predicted population would outrun food. He was too pessimistic and underestimated resource development.",
           concept: "malthus"
         },
         {
@@ -292,7 +292,7 @@ export const block4: StructuredLessonContent = {
             "Nobody"
           ],
           correctAnswer: 1,
-          explanation: "Under capitalism, private individuals — not the government — own businesses and resources and keep their profits.",
+          explanation: "Under capitalism, private individuals, not the government, own businesses and resources and keep their profits.",
           concept: "capitalism"
         },
         {
@@ -305,7 +305,7 @@ export const block4: StructuredLessonContent = {
             "Another name for microeconomics"
           ],
           correctAnswer: 1,
-          explanation: "State capitalism mixes heavy government control of major businesses with some market activity — a blend rather than pure capitalism.",
+          explanation: "State capitalism mixes heavy government control of major businesses with some market activity, a blend rather than pure capitalism.",
           concept: "state-capitalism"
         },
         {
@@ -344,7 +344,7 @@ export const block4: StructuredLessonContent = {
             "Deciding which movie is your favorite"
           ],
           correctAnswer: 0,
-          explanation: "Deciding how to use a limited resource (your $10) between competing wants is economics — the study of choices under scarcity.",
+          explanation: "Deciding how to use a limited resource (your $10) between competing wants is economics: the study of choices under scarcity.",
           concept: "economics"
         }
       ]

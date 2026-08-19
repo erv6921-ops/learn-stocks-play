@@ -159,7 +159,7 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
               <p className="text-[11px] text-white/70">One 100× winner pays for all the losers</p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-2xl font-extrabold tabular-nums">{fundMoic ? `${fundMoic}×` : "—"}</p>
+              <p className="text-2xl font-extrabold tabular-nums">{fundMoic ? `${fundMoic}×` : "-"}</p>
               <p className="text-[10px] text-white/70 uppercase tracking-wide">portfolio</p>
             </div>
           </div>

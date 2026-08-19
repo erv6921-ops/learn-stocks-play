@@ -139,7 +139,7 @@ export default function JeffTour() {
     })
     // If the anchor never mounts on this route (e.g. a control that only exists
     // after some prior action), don't sit on a bubble describing something the
-    // student can't see — advance to the next step. The final step is a
+    // student can't see, so advance to the next step. The final step is a
     // centered outro, so we never skip past the end.
     const fallback = window.setTimeout(() => {
       if (elRef.current) return

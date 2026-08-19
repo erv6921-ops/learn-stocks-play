@@ -1,7 +1,7 @@
 import { StructuredLessonContent } from "@/types"
 
 // ═══════════════════════════════════════════════
-// GULLIVER INTRO TO BUSINESS — BLOCK 5
+// GULLIVER INTRO TO BUSINESS, BLOCK 5
 // Supply, demand, equilibrium; market structures; other systems (Byrnes Ch. 2)
 // Concepts: supply, demand, equilibrium-market-price, perfect-competition,
 //           monopolistic-competition, oligopoly, monopoly, free-market-benefits-limits,
@@ -19,9 +19,9 @@ export const block5: StructuredLessonContent = {
       type: "concept",
       title: "Supply and Demand: The Two Forces Behind Every Price",
       paragraphs: [
-        "Almost every price you see is the result of a tug-of-war between two forces. Demand is how much of something buyers are willing to buy at different prices. The rule is simple: when the price goes up, people usually want less; when the price drops, people usually want more. Cheap concert tickets sell out; expensive ones sit unsold. Supply is the flip side: how much of something sellers are willing to make and offer at different prices. Sellers want the opposite — the higher the price, the more they're eager to produce, because there's more money in it.",
-        "These two forces pull against each other. Buyers want low prices; sellers want high prices. The price where they finally agree — where the amount buyers want to buy exactly equals the amount sellers want to sell — is called the equilibrium, or the market price. At that price, the market is balanced: no big pile of unsold goods and no long line of people who can't get any.",
-        "When something changes, the balance point moves. If a new phone becomes super popular, demand rises, and the price usually climbs until a new equilibrium is reached. If a great harvest floods the market with oranges, supply rises, and the price usually falls. Picture two lines on a graph — a demand line sloping down and a supply line sloping up. Where they cross is the equilibrium price. Move either line, and the crossing point moves with it."
+        "Almost every price you see is the result of a tug-of-war between two forces. Demand is how much of something buyers are willing to buy at different prices. The rule is simple: when the price goes up, people usually want less; when the price drops, people usually want more. Cheap concert tickets sell out; expensive ones sit unsold. Supply is the flip side: how much of something sellers are willing to make and offer at different prices. Sellers want the opposite: the higher the price, the more they're eager to produce, because there's more money in it.",
+        "These two forces pull against each other. Buyers want low prices; sellers want high prices. The price where they finally agree, where the amount buyers want to buy exactly equals the amount sellers want to sell, is called the equilibrium, or the market price. At that price, the market is balanced: no big pile of unsold goods and no long line of people who can't get any.",
+        "When something changes, the balance point moves. If a new phone becomes super popular, demand rises, and the price usually climbs until a new equilibrium is reached. If a great harvest floods the market with oranges, supply rises, and the price usually falls. Picture two lines on a graph: a demand line sloping down and a supply line sloping up. Where they cross is the equilibrium price. Move either line, and the crossing point moves with it."
       ],
       bullets: [
         "Demand: how much buyers will buy at each price (lower price → they want more).",
@@ -36,9 +36,9 @@ export const block5: StructuredLessonContent = {
       type: "concept",
       title: "Market Structures and Other Economic Systems",
       paragraphs: [
-        "Not all markets look the same. Economists sort them by how many sellers compete. In perfect competition, there are many sellers offering nearly identical products, and no single one can control the price — think of farmers all selling the same corn. In monopolistic competition, there are still many sellers, but each makes its product a little different through branding or features — think of the countless restaurants or clothing brands, each with its own twist. In an oligopoly, just a few large companies dominate, like the handful of major phone carriers or airlines. In a monopoly, a single company controls the entire market with no real competition — like the one electric company serving a town.",
-        "Free markets — where supply, demand, and competition set prices — have real benefits: they push businesses to innovate, keep prices in check, and give people huge choice. But they have limits too. Free markets can ignore things that don't earn profit, let a few players get too powerful, create big gaps between rich and poor, and pollute if nobody stops them. That's why no country runs on a totally free market with zero rules.",
-        "Other systems handle these limits differently. In socialism, the government owns or runs key industries and uses higher taxes to fund services like healthcare and education, aiming for more equality — but often with less individual profit incentive. In communism, the government owns almost everything and plans the entire economy, with very little private business. Most real countries, including the United States, are actually mixed economies: a blend of free-market capitalism and government involvement, trying to keep the benefits of markets while using rules and programs to cover their limits."
+        "Not all markets look the same. Economists sort them by how many sellers compete. In perfect competition, there are many sellers offering nearly identical products, and no single one can control the price, like farmers all selling the same corn. In monopolistic competition, there are still many sellers, but each makes its product a little different through branding or features, like the countless restaurants or clothing brands, each with its own twist. In an oligopoly, just a few large companies dominate, like the handful of major phone carriers or airlines. In a monopoly, a single company controls the entire market with no real competition, like the one electric company serving a town.",
+        "Free markets, where supply, demand, and competition set prices, have real benefits: they push businesses to innovate, keep prices in check, and give people huge choice. But they have limits too. Free markets can ignore things that don't earn profit, let a few players get too powerful, create big gaps between rich and poor, and pollute if nobody stops them. That's why no country runs on a totally free market with zero rules.",
+        "Other systems handle these limits differently. In socialism, the government owns or runs key industries and uses higher taxes to fund services like healthcare and education, aiming for more equality, but often with less individual profit incentive. In communism, the government owns almost everything and plans the entire economy, with very little private business. Most real countries, including the United States, are actually mixed economies: a blend of free-market capitalism and government involvement, trying to keep the benefits of markets while using rules and programs to cover their limits."
       ],
       bullets: [
         "Perfect competition: many sellers, identical products, nobody controls the price.",
@@ -47,10 +47,10 @@ export const block5: StructuredLessonContent = {
         "Free markets encourage innovation and choice but can ignore non-profit needs, allow big inequality, and pollute.",
         "Socialism: government runs key industries for more equality; communism: government controls almost everything; mixed economy: a blend (like the U.S.)."
       ],
-      realWorldExample: "Your town's water company is likely a monopoly — one provider, no competition. The three or four big cell carriers are an oligopoly. The dozens of pizza places, each with its own recipe and brand, are monopolistic competition. Different structures, all around you."
+      realWorldExample: "Your town's water company is likely a monopoly, with one provider and no competition. The three or four big cell carriers are an oligopoly. The dozens of pizza places, each with its own recipe and brand, are monopolistic competition. Different structures, all around you."
     },
     // ─────────────────────────────────────────────
-    // CHECKPOINT A (3 questions) — shift a curve, predict the new price
+    // CHECKPOINT A (3 questions): shift a curve, predict the new price
     // ─────────────────────────────────────────────
     {
       type: "micro-check",
@@ -58,7 +58,7 @@ export const block5: StructuredLessonContent = {
         {
           id: "g5-cpa-1",
           question: "A video game suddenly becomes a viral hit and far more people want it, while the supply stays the same. What usually happens to the price?",
-          options: ["It falls", "It rises", "It stays exactly the same", "There's no way to tell — prices are random"],
+          options: ["It falls", "It rises", "It stays exactly the same", "There's no way to tell, prices are random"],
           correctAnswer: 1,
           explanation: "When demand rises and supply stays put, buyers compete for the same amount of goods, pushing the equilibrium price up.",
           concept: "demand"
@@ -87,7 +87,7 @@ export const block5: StructuredLessonContent = {
       ]
     },
     // ─────────────────────────────────────────────
-    // CHECKPOINT B (3 questions) — name the market structure from a description
+    // CHECKPOINT B (3 questions): name the market structure from a description
     // ─────────────────────────────────────────────
     {
       type: "micro-check",
@@ -140,7 +140,7 @@ export const block5: StructuredLessonContent = {
             "At the bottom of the supply line"
           ],
           correctAnswer: 1,
-          explanation: "Equilibrium is the crossing point of the supply and demand lines — the price where the quantities supplied and demanded match.",
+          explanation: "Equilibrium is the crossing point of the supply and demand lines: the price where the quantities supplied and demanded match.",
           concept: "equilibrium-market-price"
         },
         {
@@ -191,7 +191,7 @@ export const block5: StructuredLessonContent = {
             "The profit margin"
           ],
           correctAnswer: 0,
-          explanation: "The market price is the equilibrium price — where supply and demand balance.",
+          explanation: "The market price is the equilibrium price, where supply and demand balance.",
           concept: "equilibrium-market-price"
         },
         {
@@ -199,7 +199,7 @@ export const block5: StructuredLessonContent = {
           question: "A weather disaster wipes out half the coffee crop, cutting supply sharply while demand stays high. The price of coffee will most likely:",
           options: ["Fall", "Rise", "Stay the same", "It can't be predicted from the weather"],
           correctAnswer: 1,
-          explanation: "Lower supply with steady demand pushes the equilibrium price up — there's less to go around.",
+          explanation: "Lower supply with steady demand pushes the equilibrium price up, since there's less to go around.",
           concept: "supply"
         },
         {
@@ -272,7 +272,7 @@ export const block5: StructuredLessonContent = {
             "It has no downsides at all"
           ],
           correctAnswer: 0,
-          explanation: "Free markets can produce large inequality, ignore needs that aren't profitable, and allow pollution — which is why rules exist.",
+          explanation: "Free markets can produce large inequality, ignore needs that aren't profitable, and allow pollution, which is why rules exist.",
           concept: "free-market-benefits-limits"
         },
         {
@@ -311,7 +311,7 @@ export const block5: StructuredLessonContent = {
             "An economy run entirely by one company"
           ],
           correctAnswer: 1,
-          explanation: "A mixed economy combines free markets with government rules and programs — the model most countries, including the U.S., actually use.",
+          explanation: "A mixed economy combines free markets with government rules and programs, the model most countries, including the U.S., actually use.",
           concept: "mixed-economies"
         },
         {

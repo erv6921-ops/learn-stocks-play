@@ -1,5 +1,5 @@
 /**
- * MCQ Engine — render-time shuffling + anti-pattern validation.
+ * MCQ Engine: render-time shuffling + anti-pattern validation.
  *
  * Goals:
  * - Balanced correct-answer distribution across sets
@@ -89,7 +89,7 @@ const WEAK_TAIL_WORDS = new Set([
 ])
 
 // Phrase-boundary words where a trailing cut is grammatically safe-ish.
-// Note: no "to" — infinitives bind too tightly ("the desire to match…").
+// Note: no "to", since infinitives bind too tightly ("the desire to match…").
 const CUT_BOUNDARY_WORDS = new Set([
   "for", "with", "by", "in", "on", "so", "that", "which", "because",
   "while", "without", "across", "over", "instead", "rather", "and", "or",
@@ -120,7 +120,7 @@ function isBalanced(text: string): boolean {
 /**
  * Shorten `text` toward `targetWords` by cutting trailing phrases at safe
  * boundaries. Returns the original text when no clean cut exists. A vaguer but
- * still-true correct answer beats a guessable one — distractors are factually
+ * still-true correct answer beats a guessable one; distractors are factually
  * wrong, so the trimmed correct option remains the best choice, and the full
  * reasoning still appears in the explanation after answering.
  */
@@ -163,7 +163,7 @@ export function normalizeOptionLengths(question: QuizQuestion): QuizQuestion {
     options[longestIdx] = trimmed
   }
 
-  // Pass 2: kill the "pick the longest" tell outright — if the CORRECT answer
+  // Pass 2: kill the "pick the longest" tell outright. If the CORRECT answer
   // is still strictly the longest, shorten it toward the second-longest
   // option at safe phrase boundaries.
   const counts = options.map(countWords)
@@ -198,7 +198,7 @@ function hasWeakDistractor(question: QuizQuestion): boolean {
 }
 
 function validateQuestion(question: QuizQuestion): boolean {
-  // Support standard 4-option and AP-style 5-option (A–E) questions.
+  // Support standard 4-option and AP-style 5-option (A-E) questions.
   if (question.options.length < 4 || question.options.length > 5) return false
   if (hasLengthBias(question)) return false
   if (hasWeakDistractor(question)) return false
@@ -215,7 +215,7 @@ function fisherYates<T>(items: T[]): T[] {
 }
 
 export function shuffleQuestion(question: QuizQuestion): QuizQuestion {
-  // Strip length bias first — position shuffling can't fix option text.
+  // Strip length bias first; position shuffling can't fix option text.
   const q = normalizeOptionLengths(question)
   let fallback: QuizQuestion | null = null
 

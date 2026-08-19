@@ -120,7 +120,7 @@ export default function PeFund({ career, week }: { career: Career; week: number 
               <p className="text-[11px] text-white/70">Buy it with debt · fix it · sell it for more</p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-2xl font-extrabold tabular-nums">{fundMoic ? `${fundMoic}×` : "—"}</p>
+              <p className="text-2xl font-extrabold tabular-nums">{fundMoic ? `${fundMoic}×` : "-"}</p>
               <p className="text-[10px] text-white/70 uppercase tracking-wide">fund MOIC</p>
             </div>
           </div>

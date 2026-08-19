@@ -291,7 +291,7 @@ export default function TeacherDashboard() {
 
       // Unclaimed classes: orphaned when their teacher deleted their account.
       // RLS (see 20260817000000_orphan_class_takeover.sql) exposes teacher_id=null
-      // rows to any teacher so they can adopt one. No student count here — the
+      // rows to any teacher so they can adopt one. No student count here; the
       // class_members policy hides members until you own the class.
       const { data: orphans } = await supabase
         .from("classes")
@@ -982,7 +982,7 @@ export default function TeacherDashboard() {
               <div className="mt-6">
                 <h2 className="font-display text-lg font-bold mb-1">Unclaimed classes</h2>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Left behind when a teacher deleted their account. Take one over to become its teacher — the students come with it.
+                  Left behind when a teacher deleted their account. Take one over to become its teacher, and the students come with it.
                 </p>
                 <div className="space-y-3">
                   {unclaimed.map((cls) => (

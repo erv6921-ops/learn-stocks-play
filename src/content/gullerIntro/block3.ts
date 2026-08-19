@@ -1,7 +1,7 @@
 import { StructuredLessonContent } from "@/types"
 
 // ═══════════════════════════════════════════════
-// GULLIVER INTRO TO BUSINESS — BLOCK 3
+// GULLIVER INTRO TO BUSINESS, BLOCK 3
 // Competitive, social, global, ecological environments; evolution of US business (Byrnes Ch. 1)
 // Concepts: competitive-environment, demography-diversity, aging-population, gen-z-consumers,
 //           globalization, geopolitical-risk, climate-and-greening, business-evolution-eras
@@ -19,8 +19,8 @@ export const block3: StructuredLessonContent = {
       title: "How the U.S. Economy Grew Up: Four Eras",
       paragraphs: [
         "The kind of work most Americans do has changed completely over time, and it moved through four big eras. Knowing the order helps you understand why your job options look nothing like your great-great-grandparents' did.",
-        "First came the agriculture era, when most people were farmers and the economy ran on growing food. Then the manufacturing era arrived: factories, assembly lines, and making physical products like cars and steel became the biggest source of jobs. Next was the service era, when more people started getting paid to do things for others — nursing, teaching, food, repairs, entertainment — instead of making products. Today we're in the information era, where handling knowledge and data (software, media, apps, analytics) drives a huge share of the economy.",
-        "The pattern is a slow shift from growing things, to making things, to doing things for people, to working with information. Each era didn't erase the one before it — we still farm and manufacture — but the biggest share of jobs kept moving. That's why 'learn to code' and 'work with data' are common advice today, the way 'get a factory job' would have been generations ago."
+        "First came the agriculture era, when most people were farmers and the economy ran on growing food. Then the manufacturing era arrived: factories, assembly lines, and making physical products like cars and steel became the biggest source of jobs. Next was the service era, when more people started getting paid to do things for others (nursing, teaching, food, repairs, entertainment) instead of making products. Today we're in the information era, where handling knowledge and data (software, media, apps, analytics) drives a huge share of the economy.",
+        "The pattern is a slow shift from growing things, to making things, to doing things for people, to working with information. Each era didn't erase the one before it (we still farm and manufacture), but the biggest share of jobs kept moving. That's why 'learn to code' and 'work with data' are common advice today, the way 'get a factory job' would have been generations ago."
       ],
       bullets: [
         "The four eras, in order: agriculture → manufacturing → service → information.",
@@ -36,8 +36,8 @@ export const block3: StructuredLessonContent = {
       title: "The Forces Pushing on Business Today",
       paragraphs: [
         "Businesses have to react to the world around them, and several big forces are shaping decisions right now. The competitive environment is the pressure from rival companies fighting for the same customers. When two sneaker brands or two burger chains battle, they cut prices, add features, and improve service to win you over. Competition is why you get better products for less.",
-        "Social forces matter too. Demography is the study of a population's traits — age, race, income, where people live — and businesses watch it closely. The U.S. is growing more diverse, so companies design products and ads for many different groups. The population is also aging: as a huge generation gets older, demand grows for healthcare, medicine, and retirement services. Meanwhile Gen Z (people born roughly the late 1990s to early 2010s — that's you) is a massive group of consumers, and businesses study your habits, values, and phones constantly because you shape what sells next.",
-        "Finally, business is global and fragile in new ways. Globalization means companies buy, sell, and build across the whole world, so a phone might be designed in one country and assembled in another. That brings geopolitical risk: wars, trade fights, and tensions between countries can suddenly break supply chains and raise prices. And the ecological environment now drives decisions too — concern about climate change pushes companies toward greening, meaning cutting waste and pollution, using cleaner energy, and marketing themselves as environmentally responsible because customers increasingly expect it."
+        "Social forces matter too. Demography is the study of a population's traits (age, race, income, where people live), and businesses watch it closely. The U.S. is growing more diverse, so companies design products and ads for many different groups. The population is also aging: as a huge generation gets older, demand grows for healthcare, medicine, and retirement services. Meanwhile Gen Z (people born roughly the late 1990s to early 2010s, which is you) is a massive group of consumers, and businesses study your habits, values, and phones constantly because you shape what sells next.",
+        "Finally, business is global and fragile in new ways. Globalization means companies buy, sell, and build across the whole world, so a phone might be designed in one country and assembled in another. That brings geopolitical risk: wars, trade fights, and tensions between countries can suddenly break supply chains and raise prices. And the ecological environment now drives decisions too, since concern about climate change pushes companies toward greening, meaning cutting waste and pollution, using cleaner energy, and marketing themselves as environmentally responsible because customers increasingly expect it."
       ],
       bullets: [
         "The competitive environment is the pressure from rival companies chasing the same customers.",
@@ -46,10 +46,10 @@ export const block3: StructuredLessonContent = {
         "Gen Z is a huge group of consumers whose habits businesses study closely.",
         "Globalization spreads business worldwide but adds geopolitical risk; climate concerns push companies toward greening."
       ],
-      realWorldExample: "When a global chip shortage during trade tensions made game consoles hard to find, that was geopolitical risk hitting a globalized supply chain — and when a brand switches to recyclable packaging to win over eco-conscious Gen Z shoppers, that's greening plus demography at work."
+      realWorldExample: "When a global chip shortage during trade tensions made game consoles hard to find, that was geopolitical risk hitting a globalized supply chain. And when a brand switches to recyclable packaging to win over eco-conscious Gen Z shoppers, that's greening plus demography at work."
     },
     // ─────────────────────────────────────────────
-    // CHECKPOINT A (3 questions) — match a decision to which environment drove it
+    // CHECKPOINT A (3 questions): match a decision to which environment drove it
     // ─────────────────────────────────────────────
     {
       type: "micro-check",
@@ -64,7 +64,7 @@ export const block3: StructuredLessonContent = {
             "Geopolitical risk"
           ],
           correctAnswer: 1,
-          explanation: "Reacting to a rival by cutting prices and adding features is the competitive environment — the pressure of companies fighting for the same customers.",
+          explanation: "Reacting to a rival by cutting prices and adding features is the competitive environment: the pressure of companies fighting for the same customers.",
           concept: "competitive-environment"
         },
         {
@@ -77,7 +77,7 @@ export const block3: StructuredLessonContent = {
             "The information era"
           ],
           correctAnswer: 0,
-          explanation: "Designing for older customers responds to the aging population — a demographic force raising demand for products that fit older people's needs.",
+          explanation: "Designing for older customers responds to the aging population, a demographic force raising demand for products that fit older people's needs.",
           concept: "aging-population"
         },
         {
@@ -90,13 +90,13 @@ export const block3: StructuredLessonContent = {
             "The aging population"
           ],
           correctAnswer: 1,
-          explanation: "Cutting pollution and promoting it is greening — a response to the ecological environment and customer concern about climate.",
+          explanation: "Cutting pollution and promoting it is greening, a response to the ecological environment and customer concern about climate.",
           concept: "climate-and-greening"
         }
       ]
     },
     // ─────────────────────────────────────────────
-    // CHECKPOINT B (3 questions) — era identification
+    // CHECKPOINT B (3 questions): era identification
     // ─────────────────────────────────────────────
     {
       type: "micro-check",
@@ -127,7 +127,7 @@ export const block3: StructuredLessonContent = {
           question: "An economy where software, data, media, and apps drive most growth is in which era?",
           options: ["Agriculture era", "Manufacturing era", "Service era", "Information era"],
           correctAnswer: 3,
-          explanation: "When knowledge, data, and technology lead the economy, that's the information era — where we are today.",
+          explanation: "When knowledge, data, and technology lead the economy, that's the information era, where we are today.",
           concept: "business-evolution-eras"
         }
       ]
@@ -197,7 +197,7 @@ export const block3: StructuredLessonContent = {
             "The rules governments make"
           ],
           correctAnswer: 1,
-          explanation: "Demography looks at the makeup of a population — age, race, income, where people live — which businesses use to plan.",
+          explanation: "Demography looks at the makeup of a population (age, race, income, where people live) that businesses use to plan.",
           concept: "demography-diversity"
         },
         {
@@ -236,7 +236,7 @@ export const block3: StructuredLessonContent = {
             "Born in the 1960s and 1970s"
           ],
           correctAnswer: 1,
-          explanation: "Gen Z is generally defined as people born from about the late 1990s to the early 2010s — today's teens and young adults.",
+          explanation: "Gen Z is generally defined as people born from about the late 1990s to the early 2010s, meaning today's teens and young adults.",
           concept: "gen-z-consumers"
         },
         {
@@ -249,7 +249,7 @@ export const block3: StructuredLessonContent = {
             "Only existed in the agriculture era"
           ],
           correctAnswer: 1,
-          explanation: "Globalization is business operating worldwide — sourcing, producing, and selling across many countries.",
+          explanation: "Globalization is business operating worldwide: sourcing, producing, and selling across many countries.",
           concept: "globalization"
         },
         {
@@ -262,7 +262,7 @@ export const block3: StructuredLessonContent = {
             "A shop stays open an extra hour"
           ],
           correctAnswer: 1,
-          explanation: "Geopolitical risk is the danger that conflicts or tensions between countries disrupt trade — breaking supply chains and raising costs.",
+          explanation: "Geopolitical risk is the danger that conflicts or tensions between countries disrupt trade, breaking supply chains and raising costs.",
           concept: "geopolitical-risk"
         },
         {
@@ -275,7 +275,7 @@ export const block3: StructuredLessonContent = {
             "Moving factories to bigger cities"
           ],
           correctAnswer: 1,
-          explanation: "Greening is reducing environmental harm — less pollution, cleaner energy — often to meet customer expectations about climate.",
+          explanation: "Greening is reducing environmental harm, such as less pollution and cleaner energy, often to meet customer expectations about climate.",
           concept: "climate-and-greening"
         },
         {

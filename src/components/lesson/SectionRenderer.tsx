@@ -43,10 +43,10 @@ import CoinBurst from "@/components/gamification/CoinBurst"
 const QUESTION_TIME = 15
 
 // The real per-question budget scales up with how much text there is to read
-// (~1s per 13 characters of question + all options — a comfortable teen
+// (~1s per 13 characters of question + all options, a comfortable teen
 // reading pace), floored at QUESTION_TIME and capped so it never drags. This
 // keeps the speed-bonus tension while making the first, wordy, full-sentence
-// questions fair — a student is never timed out mid-read.
+// questions fair, so a student is never timed out mid-read.
 function questionSeconds(q: QuizQuestion): number {
   const chars = q.question.length + q.options.reduce((sum, o) => sum + o.length, 0)
   return Math.min(40, Math.max(QUESTION_TIME, Math.ceil(chars / 13)))
@@ -194,7 +194,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     }
     setFrozen(true)
     clearInterval(intervalRef.current) // stop the countdown; it can't hit zero now
-    toast.error(`−${FREEZE_COST} coins`, { description: "Time frozen ❄️ — take your time." })
+    toast.error(`−${FREEZE_COST} coins`, { description: "Time frozen ❄️, take your time." })
   }
 
   const isCorrect = selected === shuffledQ.correctAnswer

@@ -3,7 +3,7 @@
 // Geography (a student's state) lives on profiles.state_course and is SEPARATE
 // from the curriculum track (profiles.track: regular | biz_lab | gulliver_intro).
 //
-// IMPORTANT — grandfather anything that isn't a definite other state:
+// IMPORTANT: grandfather anything that isn't a definite other state:
 //   • NULL/empty  → "never captured" (state_course was write-only until now)
 //   • a course label like "AP Financial Literacy", or any value not in
 //     US_STATES → not a place, so we can't say the student is outside Florida

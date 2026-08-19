@@ -171,15 +171,15 @@ const STAT_HELP: Record<string, string> = {
   "52-Week Range": "The lowest and highest price this stock hit over the past year.",
   "Volume": "How many shares were bought and sold today. Bigger means more people are trading it.",
   "Avg Volume (3M)": "The average number of shares traded each day over the last 3 months.",
-  "Market Cap": "The total value of the whole company — share price times the number of shares that exist.",
-  "Mkt Cap": "The total value of the whole company — share price times the number of shares that exist.",
+  "Market Cap": "The total value of the whole company: share price times the number of shares that exist.",
+  "Mkt Cap": "The total value of the whole company: share price times the number of shares that exist.",
   "Net Assets": "The total value of everything this fund holds.",
   "Shares Outstanding": "The total number of shares the company has created.",
   "P/E (TTM)": "Price-to-Earnings: how much investors pay for each $1 the company earns. Higher = pricier.",
   "Forward P/E": "Like P/E, but based on how much the company is expected to earn next year.",
   "Price/Sales": "The company's value compared to how much money it makes in sales.",
   "Price/Book": "The company's value compared to what its assets are worth on paper.",
-  "EPS (TTM)": "Earnings Per Share — the profit the company made for each share over the past year.",
+  "EPS (TTM)": "Earnings Per Share: the profit the company made for each share over the past year.",
   "Forward EPS": "The profit per share the company is expected to make next year.",
   "Revenue (TTM)": "All the money the company brought in from sales over the past year.",
   "EBITDA": "A measure of profit before subtracting things like taxes and interest.",
@@ -873,7 +873,7 @@ export default function StockDetail() {
             const chips: { label: string; value: string }[] = []
             if (stock.open > 0) chips.push({ label: 'Open', value: fmtDollar(stock.open) })
             if (stock.previousClose > 0) chips.push({ label: 'Prev Close', value: fmtDollar(stock.previousClose) })
-            if (stock.dayLow > 0 && stock.dayHigh > 0) chips.push({ label: "Day's Range", value: `${fmtDollar(stock.dayLow)} – ${fmtDollar(stock.dayHigh)}` })
+            if (stock.dayLow > 0 && stock.dayHigh > 0) chips.push({ label: "Day's Range", value: `${fmtDollar(stock.dayLow)} to ${fmtDollar(stock.dayHigh)}` })
             if (stock.volume > 0) chips.push({ label: 'Volume', value: formatVolume(stock.volume) })
             if (stock.marketCap > 0) chips.push({ label: isETF ? 'Net Assets' : 'Mkt Cap', value: formatMarketCap(stock.marketCap) })
             if (chips.length === 0) return null
@@ -1121,8 +1121,8 @@ export default function StockDetail() {
                 <div className="grid grid-cols-2 gap-2 mb-5">
                   {stock.open > 0 && <DarkStat label="Open" value={fmtDollar(stock.open)} />}
                   {stock.previousClose > 0 && <DarkStat label="Previous Close" value={fmtDollar(stock.previousClose)} />}
-                  {stock.dayLow > 0 && stock.dayHigh > 0 && <DarkStat label="Day's Range" value={`${fmtDollar(stock.dayLow)} – ${fmtDollar(stock.dayHigh)}`} />}
-                  {stock.low52Week > 0 && stock.high52Week > 0 && <DarkStat label="52-Week Range" value={`${fmtDollar(stock.low52Week)} – ${fmtDollar(stock.high52Week)}`} />}
+                  {stock.dayLow > 0 && stock.dayHigh > 0 && <DarkStat label="Day's Range" value={`${fmtDollar(stock.dayLow)} to ${fmtDollar(stock.dayHigh)}`} />}
+                  {stock.low52Week > 0 && stock.high52Week > 0 && <DarkStat label="52-Week Range" value={`${fmtDollar(stock.low52Week)} to ${fmtDollar(stock.high52Week)}`} />}
                   {stock.volume > 0 && <DarkStat label="Volume" value={formatVolume(stock.volume)} />}
                   {stock.avgVolume3M > 0 && <DarkStat label="Avg Volume (3M)" value={formatVolume(stock.avgVolume3M)} />}
                   {stock.marketCap > 0 && <DarkStat label={isETF ? 'Net Assets' : 'Market Cap'} value={formatMarketCap(stock.marketCap)} />}

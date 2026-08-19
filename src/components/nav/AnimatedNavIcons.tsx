@@ -106,7 +106,7 @@ export function BusinessIcon({ className }: NavIconProps) {
 // ── Bank: the columns settle up and down ──
 export function BankIcon({ className }: NavIconProps) {
   // Columns bob from their base. We animate scaleY (not the raw SVG y2
-  // attribute) — animating y2 makes framer-motion transiently emit
+  // attribute), animating y2 makes framer-motion transiently emit
   // y2="undefined", which the browser rejects with a console error on every
   // render. scaleY from a bottom transform-origin gives the same effect cleanly.
   const col = (d: number): Variants => ({

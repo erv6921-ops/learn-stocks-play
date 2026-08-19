@@ -566,7 +566,7 @@ const GI = (id: string, title: string, description: string, category: LessonCate
   ({ ...L(id, title, description, category, "investor", unitId, lessonNum, reward), track: "gulliver-intro" })
 
 export const GULLIVER_INTRO_LESSONS: Lesson[] = [
-  // Chapter 1 — learning-objective-aligned lessons (Byrnes Ch.1, LO 1-1 through 1-8).
+  // Chapter 1: learning-objective-aligned lessons (Byrnes Ch.1, LO 1-1 through 1-8).
   // These 8 LO lessons are the active course. The earlier topic-based breakdown
   // (gulliver-1-x / gulliver-2-x / gulliver-3..6) has been retired from the
   // course listing during the LO-alignment rebuild; its content files remain in
@@ -574,7 +574,7 @@ export const GULLIVER_INTRO_LESSONS: Lesson[] = [
   GI("gulliver-lo-1-1", "LO 1", "The relationship between profit and risk, and how businesses and nonprofits raise the standard of living for everyone.", "gulliver-business", "gulliver-course", "1.1-LO", 250),
   GI("gulliver-lo-1-2", "LO 2", "Entrepreneurship vs. working for someone else, the five factors of production, and how they create wealth.", "gulliver-business", "gulliver-course", "1.2-LO", 250),
   GI("gulliver-lo-1-3", "LO 3", "How government, taxes, and regulation shape the risk of starting and running a business.", "gulliver-business", "gulliver-course", "1.3-LO", 250),
-  GI("gulliver-lo-1-4", "LO 4", "Effectiveness, efficiency, and productivity — how technology benefits workers, businesses, and consumers.", "gulliver-business", "gulliver-course", "1.4-LO", 250),
+  GI("gulliver-lo-1-4", "LO 4", "Effectiveness, efficiency, and productivity: how technology benefits workers, businesses, and consumers.", "gulliver-business", "gulliver-course", "1.4-LO", 250),
   GI("gulliver-lo-1-5", "LO 5", "Competitive edge, zero defects, exceeding customer expectations, and empowering frontline workers.", "gulliver-business", "gulliver-course", "1.5-LO", 250),
   GI("gulliver-lo-1-6", "LO 6", "The modern, broader definition of diversity, and how an aging population and Social Security affect business.", "gulliver-business", "gulliver-course", "1.6-LO", 250),
   GI("gulliver-lo-1-7", "LO 7", "China and India as competitive challenges, and how war and terrorism affect different industries.", "gulliver-business", "gulliver-course", "1.7-LO", 250),

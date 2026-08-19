@@ -394,7 +394,7 @@ export default function Challenges() {
 
         {banners.length > 0 && <ChallengePodium banners={banners} onDismiss={dismissBanner} />}
 
-        {/* Partner duels (1v1) — shown regardless of class membership. */}
+        {/* Partner duels (1v1), shown regardless of class membership. */}
         {!loading && orderedDuels.length > 0 && (
           <section className="mb-8">
             <h2 className="text-lg font-display font-bold flex items-center gap-2 mb-4">

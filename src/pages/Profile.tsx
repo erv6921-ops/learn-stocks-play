@@ -216,7 +216,7 @@ export default function Profile() {
         const pnl = (fin ?? []).reduce((s, f) => s + (Number(f.revenue) || 0) - (Number(f.expenses) || 0), 0)
         if (active) setBusiness({ name: biz.name, type: biz.type, level: biz.level, pnl })
       } else {
-        // No row in the `businesses` table — fall back to the same local
+        // No row in the `businesses` table, so fall back to the same local
         // activities/sim state the Dashboard reads, so the two views agree
         // instead of Profile claiming "No business yet".
         const acts = await loadActivities()

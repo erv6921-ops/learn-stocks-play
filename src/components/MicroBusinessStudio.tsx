@@ -905,7 +905,7 @@ function Pricing({ a, bt, complete }: AProps) {
               ))}
               <div className="flex justify-between text-sm font-extrabold pt-1 border-t border-border/50"><span>Cost to make one</span><span className="tabular-nums" style={{ color: NEON }}>{cost} IC</span></div>
             </div>
-            <p className="text-xs text-muted-foreground">Products like yours sell for ~{profile.priceLow}–{profile.priceHigh} IC (a fair price is around {profile.suggestedPrice} IC).{profile.note ? ` ${profile.note}` : ""}</p>
+            <p className="text-xs text-muted-foreground">Products like yours sell for ~{profile.priceLow} to {profile.priceHigh} IC (a fair price is around {profile.suggestedPrice} IC).{profile.note ? ` ${profile.note}` : ""}</p>
           </div>
         ) : (
           <div className="rounded-xl bg-muted p-3 text-sm flex items-center gap-2"><DollarSign className="w-4 h-4 text-primary" /> Estimated cost to produce/deliver one unit: <b>{cost} IC</b> ({unitLabel})</div>
