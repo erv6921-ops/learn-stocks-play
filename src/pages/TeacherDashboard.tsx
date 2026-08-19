@@ -42,6 +42,7 @@ import TeacherPredictionView from "@/components/StockPredictionDraft/TeacherPred
 import { lessons, getLessonsByTrack } from "@/data/lessons"
 import { useApp } from "@/contexts/AppContext"
 import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import {
   ClassSettings,
   DEFAULT_CLASS_SETTINGS,
@@ -1048,7 +1049,21 @@ export default function TeacherDashboard() {
                       </Button>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                </Card>
+
+                <Tabs defaultValue="students" className="w-full">
+                  <TabsList className="grid w-full grid-cols-5">
+                    <TabsTrigger value="students">Students</TabsTrigger>
+                    <TabsTrigger value="assign">Assign</TabsTrigger>
+                    <TabsTrigger value="analytics">Analytics</TabsTrigger>
+                    <TabsTrigger value="settings">Settings</TabsTrigger>
+                    <TabsTrigger value="draft">Stock Draft</TabsTrigger>
+                  </TabsList>
+
+                  {/* ── Assign a lesson to the whole class ── */}
+                  <TabsContent value="assign" className="mt-4">
+                    <Card variant="elevated">
+                      <CardContent className="pt-6">
                     <div className="p-4 rounded-lg border bg-muted/30">
                       <p className="text-sm font-semibold mb-2 flex items-center gap-2">
                         <BookOpen className="w-4 h-4" />
@@ -1080,11 +1095,12 @@ export default function TeacherDashboard() {
                         </Button>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
 
-                {/* Stock Prediction Draft — the semester-long pick leaderboard
-                    to pull up periodically during class. */}
+                  {/* ── Stock Prediction Draft ── */}
+                  <TabsContent value="draft" className="mt-4">
                 <Card variant="elevated">
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
@@ -1098,8 +1114,10 @@ export default function TeacherDashboard() {
                     <TeacherPredictionView classId={selectedClass.id} />
                   </CardContent>
                 </Card>
+                  </TabsContent>
 
-                {/* Class controls: what students can access + how the class runs */}
+                  {/* ── Class controls / settings ── */}
+                  <TabsContent value="settings" className="mt-4">
                 <Card variant="elevated">
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
@@ -1159,9 +1177,11 @@ export default function TeacherDashboard() {
 
                   </CardContent>
                 </Card>
+                  </TabsContent>
 
-                {/* Analytics */}
-                {classMembers.length > 0 && (
+                  {/* ── Analytics ── */}
+                  <TabsContent value="analytics" className="space-y-4 mt-4">
+                {classMembers.length > 0 ? (
                   <>
                     <div className="grid sm:grid-cols-2 gap-4">
                       {/* Completion donut */}
@@ -1252,9 +1272,17 @@ export default function TeacherDashboard() {
                       </Card>
                     )}
                   </>
+                ) : (
+                  <Card variant="elevated">
+                    <CardContent className="p-8 text-center text-muted-foreground text-sm">
+                      Analytics show up once students join and you've assigned a lesson.
+                    </CardContent>
+                  </Card>
                 )}
+                  </TabsContent>
 
-                {/* Students roster */}
+                  {/* ── Students roster ── */}
+                  <TabsContent value="students" className="mt-4">
                 <Card variant="elevated">
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
@@ -1392,6 +1420,8 @@ export default function TeacherDashboard() {
                     )}
                   </CardContent>
                 </Card>
+                  </TabsContent>
+                </Tabs>
               </>
             )}
           </div>
