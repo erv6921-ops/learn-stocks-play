@@ -82,11 +82,24 @@ export default function JeffTour() {
     return () => window.removeEventListener("resize", onResize)
   }, [])
 
-  // Show the tour once per account: the first time an onboarded user lands on the
-  // dashboard. It's marked done (per account) on finish/skip so it never repeats.
+  // Show the tour once per account, the first time an onboarded user lands on
+  // the dashboard. It's marked done (per account) on finish/skip so it never
+  // repeats.
   useEffect(() => {
-    if (started.current || !user?.id || !user.onboardingComplete) return
+    if (started.current) return
     if (!location.pathname.startsWith("/dashboard")) return
+
+    // Fast path: onboarding sets SHOW_FLAG synchronously right before it
+    // navigates here, so we can open the instant the dashboard mounts, without
+    // waiting for the user profile to finish (re)hydrating from the database
+    // (which is what onboardingComplete depends on and can lag by a second+).
+    let showFlag = false
+    try { showFlag = localStorage.getItem(SHOW_FLAG) === "1" } catch { /* ignore */ }
+    if (showFlag) { started.current = true; setI(0); setOpen(true); return }
+
+    // Fallback: first time an already-onboarded user reaches the dashboard
+    // (e.g. the flag was never set, or was cleared on another device).
+    if (!user?.id || !user.onboardingComplete) return
     let done = false
     try { done = localStorage.getItem(doneKey(user.id)) === "1" } catch { /* ignore */ }
     if (!done) { started.current = true; setI(0); setOpen(true) }
