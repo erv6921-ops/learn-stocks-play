@@ -118,68 +118,84 @@ export default function StockPickDetail({ ticker, submitting, onCancel, onConfir
   }, [details])
 
   return (
-    <div className="space-y-4">
-      <div>
-        <div className="text-xl font-display font-bold">{ticker.companyName}</div>
-        <div className="text-sm text-muted-foreground">{ticker.ticker} · {ticker.category}</div>
-      </div>
-
-      {loading ? (
-        <div className="flex items-center justify-center py-12 text-muted-foreground">
-          <Loader2 className="w-5 h-5 animate-spin mr-2" /> Loading stats…
+    <div className="space-y-6">
+      {/* Header: big company name + price side by side. */}
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
+          <div className="text-2xl sm:text-3xl font-display font-bold leading-tight">{ticker.companyName}</div>
+          <div className="mt-1 flex items-center gap-2">
+            <span className="font-mono text-sm font-semibold">{ticker.ticker}</span>
+            <span className="text-xs rounded-full bg-muted px-2 py-0.5 text-muted-foreground">{ticker.category}</span>
+          </div>
         </div>
-      ) : failed || !details ? (
-        <div className="py-8 text-center text-sm text-muted-foreground">
-          Couldn't load live data for {ticker.ticker}. You can still pick it, or try another.
-        </div>
-      ) : (
-        <>
-          <div className="flex items-end gap-3">
-            <div className="text-3xl font-bold tabular-nums">{fmtUSD(details.price)}</div>
-            <div className={`flex items-center gap-1 pb-1 font-semibold ${up ? "text-success" : "text-destructive"}`}>
+        {details && (
+          <div className="text-right">
+            <div className="text-3xl sm:text-4xl font-bold tabular-nums leading-none">{fmtUSD(details.price)}</div>
+            <div className={`mt-1.5 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-sm font-bold tabular-nums ${up ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"}`}>
               {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
               {up ? "+" : ""}{details.change.toFixed(2)} ({up ? "+" : ""}{details.changePercent.toFixed(2)}%)
             </div>
           </div>
+        )}
+      </div>
 
+      {loading ? (
+        <div className="flex items-center justify-center py-24 text-muted-foreground">
+          <Loader2 className="w-6 h-6 animate-spin mr-2" /> Loading stats…
+        </div>
+      ) : failed || !details ? (
+        <div className="py-16 text-center text-sm text-muted-foreground">
+          Couldn't load live data for {ticker.ticker}. You can still pick it, or try another.
+        </div>
+      ) : (
+        <>
           {details.history.length > 1 && (
-            <div className="h-40 -mx-1">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={details.history}>
-                  <defs>
-                    <linearGradient id="pickChart" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor={up ? "#3DDC97" : "#FF5A5F"} stopOpacity={0.35} />
-                      <stop offset="100%" stopColor={up ? "#3DDC97" : "#FF5A5F"} stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <YAxis domain={["dataMin", "dataMax"]} hide />
-                  <XAxis dataKey="timestamp" hide />
-                  <Tooltip
-                    labelFormatter={(t) => new Date(Number(t) * 1000).toLocaleDateString()}
-                    formatter={(v: number | string) => [fmtUSD(Number(v)), "Price"]}
-                    contentStyle={{ fontSize: 12, borderRadius: 8 }}
-                  />
-                  <Area type="monotone" dataKey="price" stroke={up ? "#3DDC97" : "#FF5A5F"} strokeWidth={2} fill="url(#pickChart)" />
-                </AreaChart>
-              </ResponsiveContainer>
-              <div className="text-center text-[11px] text-muted-foreground">Past 6 months</div>
+            <div className="rounded-xl border bg-card p-3">
+              <div className="mb-1 flex items-center justify-between">
+                <span className="text-xs font-semibold text-muted-foreground">Price history</span>
+                <span className="text-xs text-muted-foreground">Past 6 months</span>
+              </div>
+              <div className="h-56 sm:h-64 -mx-1">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={details.history} margin={{ top: 6, right: 6, bottom: 0, left: 6 }}>
+                    <defs>
+                      <linearGradient id="pickChart" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={up ? "#3DDC97" : "#FF5A5F"} stopOpacity={0.35} />
+                        <stop offset="100%" stopColor={up ? "#3DDC97" : "#FF5A5F"} stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <YAxis domain={["dataMin", "dataMax"]} hide />
+                    <XAxis dataKey="timestamp" hide />
+                    <Tooltip
+                      labelFormatter={(t) => new Date(Number(t) * 1000).toLocaleDateString()}
+                      formatter={(v: number | string) => [fmtUSD(Number(v)), "Price"]}
+                      contentStyle={{ fontSize: 12, borderRadius: 8 }}
+                    />
+                    <Area type="monotone" dataKey="price" stroke={up ? "#3DDC97" : "#FF5A5F"} strokeWidth={2.5} fill="url(#pickChart)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {stats.map((s) => (
-              <div key={s.label} className="rounded-lg bg-muted/40 p-2.5">
-                <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{s.label}</div>
-                <div className="text-sm font-semibold tabular-nums">{s.value}</div>
-              </div>
-            ))}
+          <div>
+            <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Key stats</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
+              {stats.map((s) => (
+                <div key={s.label} className="rounded-xl border bg-muted/30 p-3">
+                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{s.label}</div>
+                  <div className="mt-1 text-base font-semibold tabular-nums">{s.value}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </>
       )}
 
-      <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-2">
-        <Button variant="outline" onClick={onCancel} disabled={submitting}>Cancel</Button>
+      <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 border-t pt-4">
+        <Button variant="outline" size="lg" onClick={onCancel} disabled={submitting}>Cancel</Button>
         <Button
+          size="lg"
           onClick={() => onConfirm(details?.price ?? 0)}
           disabled={submitting || loading || !details}
         >

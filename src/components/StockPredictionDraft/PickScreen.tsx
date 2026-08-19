@@ -275,7 +275,7 @@ export default function PickScreen({ classId, onPicked, forcePick = false }: Pic
       ))}
 
       <Dialog open={!!confirmTarget} onOpenChange={(o) => { if (!o && !submitting) setConfirmTarget(null) }}>
-        <DialogContent className="max-w-lg max-h-[88vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Review the stats, then lock in your pick</DialogTitle>
             <DialogDescription>
