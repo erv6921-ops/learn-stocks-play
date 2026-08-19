@@ -13,7 +13,7 @@ import { BIZ_LAB_PARTS } from "@/data/bizLab"
 import {
   ArrowLeft, BookOpen, Store, Briefcase, Save, Loader2,
   GraduationCap, Link as LinkIcon, ClipboardCheck, PenLine,
-  Clock, Activity, Target, XCircle, Eye, Timer,
+  Clock, Target, XCircle, Timer, CheckCircle,
 } from "lucide-react"
 import { CONTROLLABLE_PAGES } from "@/lib/classSettings"
 
@@ -376,182 +376,206 @@ export default function StudentWork() {
             <Loader2 className="w-5 h-5 animate-spin" /> Loading written work…
           </div>
         ) : (
-          <div className="grid lg:grid-cols-[1fr_320px] gap-6 items-start">
-            {/* ── Written work ── */}
-            <div className="space-y-6 min-w-0">
-              {/* Summary chips */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {[
-                  { icon: BookOpen, label: "Reflections", value: totals.reflections },
-                  { icon: Store, label: "Biz answers", value: totals.bizFields },
-                  { icon: Briefcase, label: "Lab submissions", value: totals.submissions },
-                  { icon: PenLine, label: "Total words", value: totals.words },
-                ].map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="rounded-2xl bg-card border border-border/60 px-4 py-3 shadow-sm">
-                    <Icon className="w-4 h-4 text-primary" />
-                    <p className="text-2xl font-extrabold tabular-nums mt-1.5 leading-none">{value}</p>
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-1">{label}</p>
-                  </div>
-                ))}
+          <div className="space-y-6">
+            {/* ── Overall snapshot ── */}
+            {analytics.hasData && (
+              <div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {[
+                    { icon: Clock, label: "Time on app", value: fmtDuration(analytics.activeMs) },
+                    { icon: Target, label: "Accuracy", value: `${analytics.accuracy}%` },
+                    { icon: ClipboardCheck, label: "Questions", value: String(analytics.answered) },
+                    { icon: Timer, label: "Avg / question", value: analytics.avgMs ? fmtDuration(analytics.avgMs) : "-" },
+                  ].map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="rounded-2xl bg-card border border-border/60 px-4 py-3 shadow-sm">
+                      <Icon className="w-4 h-4 text-primary" />
+                      <p className="text-2xl font-extrabold tabular-nums mt-1.5 leading-none">{value}</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-1">{label}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  {analytics.correct}/{analytics.answered} correct · active on {analytics.days} day{analytics.days === 1 ? "" : "s"}
+                  {analytics.lastActive && <> · last seen {fmtDateTime(analytics.lastActive)}</>}
+                  {analytics.pages.length > 0 && <> · explored {analytics.pages.length} page{analytics.pages.length === 1 ? "" : "s"}</>}
+                </p>
               </div>
+            )}
 
-              {/* ── Activity & analytics ── */}
-              {analytics.hasData && (
-                <Section icon={Activity} title="Activity & analytics">
-                  {/* KPI row */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {[
-                      { icon: Clock, label: "Time on app", value: fmtDuration(analytics.activeMs) },
-                      { icon: Target, label: "Accuracy", value: `${analytics.accuracy}%` },
-                      { icon: ClipboardCheck, label: "Questions", value: String(analytics.answered) },
-                      { icon: Timer, label: "Avg / question", value: analytics.avgMs ? fmtDuration(analytics.avgMs) : "-" },
-                    ].map(({ icon: Icon, label, value }) => (
-                      <div key={label} className="rounded-2xl bg-card border border-border/60 px-4 py-3 shadow-sm">
-                        <Icon className="w-4 h-4 text-primary" />
-                        <p className="text-2xl font-extrabold tabular-nums mt-1.5 leading-none">{value}</p>
-                        <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-1">{label}</p>
-                      </div>
-                    ))}
+            {isEmpty && (
+              <div className="rounded-2xl border border-dashed border-border py-20 text-center text-muted-foreground">
+                <ClipboardCheck className="w-8 h-8 mx-auto mb-3 opacity-40" />
+                <p className="font-semibold">No activity yet</p>
+                <p className="text-sm mt-1">This student hasn't done any lessons or explored the app yet.</p>
+              </div>
+            )}
+
+            {/* ── Lessons: click a block to see its analytics, reflection & grade ── */}
+            {lessonBlocks.length > 0 && (
+              <div className="grid lg:grid-cols-[1fr_380px] gap-6 items-start">
+                {/* Lesson blocks */}
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-3">
+                    <BookOpen className="w-4 h-4 text-primary" />
+                    <h2 className="font-display font-extrabold tracking-tight">Lessons</h2>
+                    <span className="text-xs font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">{lessonBlocks.length}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-3">
-                    {analytics.correct}/{analytics.answered} correct · active on {analytics.days} day{analytics.days === 1 ? "" : "s"}
-                    {analytics.lastActive && <> · last seen {fmtDateTime(analytics.lastActive)}</>}
-                  </p>
-
-                  {/* Pages explored */}
-                  {analytics.pages.length > 0 && (
-                    <div className="mt-5">
-                      <p className="text-sm font-semibold flex items-center gap-2 mb-2"><Eye className="w-4 h-4 text-primary" /> Pages explored</p>
-                      <div className="space-y-1.5">
-                        {analytics.pages.map((p) => (
-                          <div key={p.route} className="flex items-center justify-between gap-3 text-sm rounded-lg border bg-card/60 px-3 py-2">
-                            <span className="font-medium truncate">{routeLabel(p.route)}</span>
-                            <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
-                              {p.visits} visit{p.visits === 1 ? "" : "s"} · {fmtDuration(p.ms)}
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {lessonBlocks.map((b) => {
+                      const active = b.id === selectedLessonId
+                      return (
+                        <button
+                          key={b.id}
+                          onClick={() => setSelectedLessonId(b.id)}
+                          className={`text-left rounded-2xl border-2 p-4 transition shadow-sm ${active ? "border-primary bg-primary/5" : "border-border/60 bg-card hover:border-primary/50"}`}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground truncate">
+                              {b.unitLabel || "Lesson"}
                             </span>
+                            {b.completed && <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />}
+                          </div>
+                          <p className="font-bold leading-snug mt-1 line-clamp-2">{b.title}</p>
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-xs text-muted-foreground">
+                            {b.accuracy !== null && <span className="tabular-nums">{b.accuracy}% correct</span>}
+                            <span className="tabular-nums">{b.answered} Q</span>
+                            {b.reflection && <span className="inline-flex items-center gap-1"><PenLine className="w-3 h-3" /> reflection</span>}
+                          </div>
+                          {b.graded ? (
+                            <span className="inline-flex items-center gap-1 mt-2 text-[11px] font-bold text-emerald-600">
+                              <GraduationCap className="w-3.5 h-3.5" /> Graded
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-amber-600">
+                              Not graded
+                            </span>
+                          )}
+                        </button>
+                      )
+                    })}
+                  </div>
+
+                  {/* Micro-business + Biz Lab work (not tied to a lesson block) */}
+                  {bizSections.length > 0 && (
+                    <div className="mt-6">
+                      <Section icon={Store} title="Micro-business" count={bizSections.length}>
+                        {bizSections.map((sec, i) => (
+                          <WorkCard key={sec.id + i} index={i} title={sec.title}>
+                            <div className="space-y-3">
+                              {sec.fields.map((f, k) => <FieldBlock key={k} label={f.label} value={f.value} />)}
+                            </div>
+                          </WorkCard>
+                        ))}
+                      </Section>
+                    </div>
+                  )}
+                  {submissions.length > 0 && (
+                    <div className="mt-6">
+                      <Section icon={Briefcase} title="Biz Lab submissions" count={submissions.length}>
+                        {submissions.map((sub, i) => (
+                          <WorkCard key={sub.type + i} index={i} title={sub.title} date={sub.updated_at}>
+                            <div className="space-y-3">
+                              {sub.fields.map((f, k) => <FieldBlock key={k} label={f.label} value={f.value} />)}
+                              {sub.link && (
+                                <a href={sub.link} target="_blank" rel="noreferrer"
+                                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline break-all">
+                                  <LinkIcon className="w-3.5 h-3.5 shrink-0" /> {sub.link}
+                                </a>
+                              )}
+                            </div>
+                          </WorkCard>
+                        ))}
+                      </Section>
+                    </div>
+                  )}
+                </div>
+
+                {/* ── Selected lesson detail: analytics + reflection + grade ── */}
+                <div className="lg:sticky lg:top-20">
+                  {!selectedBlock ? (
+                    <div className="rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">
+                      <ClipboardCheck className="w-7 h-7 mx-auto mb-2 opacity-40" />
+                      <p className="text-sm font-semibold">Pick a lesson</p>
+                      <p className="text-xs mt-1">Click a lesson block to see its analytics, the student's reflection, and grade it.</p>
+                    </div>
+                  ) : (
+                    <div className="rounded-2xl bg-card border border-border/60 shadow-sm p-5 space-y-4">
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{selectedBlock.unitLabel || "Lesson"}</p>
+                        <h3 className="font-display font-extrabold tracking-tight leading-tight">{selectedBlock.title}</h3>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {selectedBlock.completed
+                            ? <>Completed{selectedBlock.completedAt ? ` · ${fmtDate(selectedBlock.completedAt)}` : ""}</>
+                            : "In progress"}
+                          {selectedBlock.quizScore !== null && <> · quiz {selectedBlock.quizScore}%</>}
+                        </p>
+                      </div>
+
+                      {/* Per-lesson KPIs */}
+                      <div className="grid grid-cols-3 gap-2">
+                        {[
+                          { label: "Questions", value: String(selectedBlock.answered) },
+                          { label: "Accuracy", value: selectedBlock.accuracy !== null ? `${selectedBlock.accuracy}%` : "-" },
+                          { label: "Avg time", value: selectedBlock.avgMs ? fmtDuration(selectedBlock.avgMs) : "-" },
+                        ].map((s) => (
+                          <div key={s.label} className="rounded-xl bg-muted/40 px-3 py-2 text-center">
+                            <p className="text-lg font-extrabold tabular-nums leading-none">{s.value}</p>
+                            <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mt-1">{s.label}</p>
                           </div>
                         ))}
+                      </div>
+
+                      {/* Missed questions for this lesson */}
+                      <div>
+                        <p className="text-xs font-semibold flex items-center gap-1.5 mb-1.5">
+                          <XCircle className="w-3.5 h-3.5 text-destructive" /> Missed ({selectedBlock.missed.length})
+                        </p>
+                        {selectedBlock.missed.length === 0 ? (
+                          <p className="text-xs text-muted-foreground">No wrong answers. 🎉</p>
+                        ) : (
+                          <div className="space-y-1.5 max-h-[200px] overflow-y-auto">
+                            {selectedBlock.missed.map((m) => (
+                              <div key={m.key} className="rounded-lg border border-destructive/30 bg-destructive/5 px-2.5 py-1.5">
+                                <p className="text-xs">{m.questionText}</p>
+                                <p className="text-[10px] text-muted-foreground mt-0.5">{m.timedOut ? "timed out" : fmtDuration(m.durationMs)}</p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Written reflection */}
+                      {selectedBlock.reflection && (
+                        <div className="border-t pt-4">
+                          <p className="text-xs font-semibold flex items-center gap-1.5 mb-1.5"><PenLine className="w-3.5 h-3.5 text-primary" /> Written reflection</p>
+                          {selectedBlock.reflection.prompt && (
+                            <p className="text-xs italic text-muted-foreground mb-1.5">"{selectedBlock.reflection.prompt}"</p>
+                          )}
+                          <Response text={selectedBlock.reflection.response} />
+                        </div>
+                      )}
+
+                      {/* Grade this lesson */}
+                      <div className="border-t pt-4">
+                        <div className="flex items-center gap-2 mb-3">
+                          <GraduationCap className="w-4 h-4 text-primary" />
+                          <p className="font-bold text-sm">Grade this lesson</p>
+                        </div>
+                        <label className="text-xs font-semibold text-muted-foreground">Grade</label>
+                        <Input value={grade} onChange={(e) => setGrade(e.target.value)} placeholder="e.g. A, 92%, 4/5" className="mt-1 mb-3" />
+                        <label className="text-xs font-semibold text-muted-foreground">Feedback</label>
+                        <Textarea value={feedback} onChange={(e) => setFeedback(e.target.value)}
+                          placeholder="Feedback for this lesson…" rows={4} className="mt-1 mb-3 resize-none" />
+                        <Button onClick={saveLessonGrade} disabled={saving} className="w-full gap-1.5">
+                          {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                          {saving ? "Saving…" : "Save grade"}
+                        </Button>
                       </div>
                     </div>
                   )}
-
-                  {/* Questions missed */}
-                  <div className="mt-5">
-                    <p className="text-sm font-semibold flex items-center gap-2 mb-2">
-                      <XCircle className="w-4 h-4 text-destructive" /> Questions missed ({analytics.missed.length})
-                    </p>
-                    {analytics.missed.length === 0 ? (
-                      <p className="text-sm text-muted-foreground">No wrong answers logged yet. 🎉</p>
-                    ) : (
-                      <div className="space-y-1.5 max-h-[360px] overflow-y-auto">
-                        {analytics.missed.map((m) => (
-                          <div key={m.key} className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2">
-                            <div className="flex items-center justify-between gap-3">
-                              <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground truncate">{m.lessonTitle}</span>
-                              <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
-                                {m.timedOut ? "timed out" : fmtDuration(m.durationMs)}
-                              </span>
-                            </div>
-                            <p className="text-sm mt-0.5">{m.questionText}</p>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </Section>
-              )}
-
-              {isEmpty && !analytics.hasData && (
-                <div className="rounded-2xl border border-dashed border-border py-20 text-center text-muted-foreground">
-                  <ClipboardCheck className="w-8 h-8 mx-auto mb-3 opacity-40" />
-                  <p className="font-semibold">No activity yet</p>
-                  <p className="text-sm mt-1">This student hasn't done any lessons or explored the app yet.</p>
                 </div>
-              )}
-
-              {/* Lesson reflections */}
-              {reflections.length > 0 && (
-                <Section icon={BookOpen} title="Lesson reflections" count={reflections.length}>
-                  {reflections.map((r, i) => {
-                    const lesson = LESSON_BY_ID.get(r.lesson_id)
-                    const unit = lesson ? UNIT_BY_ID.get(lesson.unitId) : undefined
-                    return (
-                      <WorkCard key={r.lesson_id + i} index={i}
-                        eyebrow={unit ? `Unit ${unit.unitNumber}` : undefined}
-                        title={lesson?.title || humanize(r.lesson_id)}
-                        date={r.updated_at}>
-                        {r.prompt && <p className="text-sm italic text-muted-foreground mb-2">"{r.prompt}"</p>}
-                        <Response text={r.response} />
-                      </WorkCard>
-                    )
-                  })}
-                </Section>
-              )}
-
-              {/* Micro-business */}
-              {bizSections.length > 0 && (
-                <Section icon={Store} title="Micro-business" count={bizSections.length}>
-                  {bizSections.map((sec, i) => (
-                    <WorkCard key={sec.id + i} index={i} title={sec.title}>
-                      <div className="space-y-3">
-                        {sec.fields.map((f, k) => (
-                          <FieldBlock key={k} label={f.label} value={f.value} />
-                        ))}
-                      </div>
-                    </WorkCard>
-                  ))}
-                </Section>
-              )}
-
-              {/* Biz Lab submissions */}
-              {submissions.length > 0 && (
-                <Section icon={Briefcase} title="Biz Lab submissions" count={submissions.length}>
-                  {submissions.map((sub, i) => (
-                    <WorkCard key={sub.type + i} index={i} title={sub.title} date={sub.updated_at}>
-                      <div className="space-y-3">
-                        {sub.fields.map((f, k) => (
-                          <FieldBlock key={k} label={f.label} value={f.value} />
-                        ))}
-                        {sub.link && (
-                          <a href={sub.link} target="_blank" rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline break-all">
-                            <LinkIcon className="w-3.5 h-3.5 shrink-0" /> {sub.link}
-                          </a>
-                        )}
-                      </div>
-                    </WorkCard>
-                  ))}
-                </Section>
-              )}
-            </div>
-
-            {/* ── Grading panel ── */}
-            <div className="lg:sticky lg:top-20">
-              <div className="rounded-2xl bg-card border border-border/60 shadow-sm p-5">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <GraduationCap className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm leading-tight">Assessment</p>
-                    <p className="text-xs text-muted-foreground">Only visible to you & the student</p>
-                  </div>
-                </div>
-
-                <label className="text-xs font-semibold text-muted-foreground">Grade</label>
-                <Input value={grade} onChange={(e) => setGrade(e.target.value)}
-                  placeholder="e.g. A, 92%, 4/5" className="mt-1 mb-4" />
-
-                <label className="text-xs font-semibold text-muted-foreground">Feedback</label>
-                <Textarea value={feedback} onChange={(e) => setFeedback(e.target.value)}
-                  placeholder="Leave written feedback for the student…" rows={6} className="mt-1 mb-4 resize-none" />
-
-                <Button onClick={saveGrade} disabled={saving} className="w-full gap-1.5">
-                  {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                  {saving ? "Saving…" : "Save grade & feedback"}
-                </Button>
               </div>
-            </div>
+            )}
           </div>
         )}
       </main>
