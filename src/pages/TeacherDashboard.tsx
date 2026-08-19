@@ -38,7 +38,8 @@ import {
   Cell,
 } from "recharts"
 import { useToast } from "@/hooks/use-toast"
-import { lessons } from "@/data/lessons"
+import { lessons, getLessonsByTrack } from "@/data/lessons"
+import { useApp } from "@/contexts/AppContext"
 import {
   Plus,
   UserPlus,
@@ -120,6 +121,14 @@ const memberName = (m: ClassMember) => {
 export default function TeacherDashboard() {
   const navigate = useNavigate()
   const { toast } = useToast()
+  const { user: appUser } = useApp()
+
+  // Scope the assignable-lesson list to the teacher's program. A Gulliver Intro
+  // teacher only assigns the 8 LO lessons; every other track keeps the full
+  // curriculum. (CourseTrack "gulliver-intro" vs the enrollment "gulliver_intro".)
+  const assignableLessons = appUser?.track === "gulliver_intro"
+    ? getLessonsByTrack("gulliver-intro")
+    : lessons
 
   const [classes, setClasses] = useState<Class[]>([])
   // Unclaimed classes (teacher_id null) left behind when their teacher deleted
@@ -619,7 +628,7 @@ export default function TeacherDashboard() {
 
   const getUnassignedLessons = (member: ClassMember) => {
     const assignedIds = new Set(member.assignedLessons.map(a => a.lesson_id))
-    return lessons.filter(l => !assignedIds.has(l.id))
+    return assignableLessons.filter(l => !assignedIds.has(l.id))
   }
 
   // ── Derived analytics for the charts ──
@@ -1020,7 +1029,7 @@ export default function TeacherDashboard() {
                             <SelectValue placeholder="Choose a lesson..." />
                           </SelectTrigger>
                           <SelectContent className="max-h-[400px]">
-                            {lessons.map((lesson) => (
+                            {assignableLessons.map((lesson) => (
                               <SelectItem key={lesson.id} value={lesson.id}>
                                 {lesson.title}
                               </SelectItem>

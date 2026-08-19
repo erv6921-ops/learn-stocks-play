@@ -528,6 +528,14 @@ export function getUnitRewardTotal(unitId: string): number {
   return getLessonsByUnit(unitId).reduce((sum, l) => sum + l.reward, 0)
 }
 
+// Lessons belonging to a given CourseTrack. Untagged lessons are the default
+// "regular" course. Used e.g. by the teacher dashboard to scope the
+// assignable-lesson list to the teacher's program (a Gulliver Intro teacher
+// only assigns the 8 LO lessons, not the whole regular curriculum).
+export function getLessonsByTrack(track: CourseTrack): Lesson[] {
+  return lessons.filter(l => (l.track ?? "regular") === track)
+}
+
 // ═══════════════════════════════════════════════
 // AP MICROECONOMICS - additive elective track
 // Appended to the shared arrays so the existing lesson UI, routing, and

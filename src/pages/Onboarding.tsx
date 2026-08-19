@@ -27,7 +27,7 @@ type UserRole = "student" | "teacher"
 // role -> name -> grade -> age -> state/course -> class code -> program ->
 // login. Teachers keep their short two-screen path.
 type OnboardingStep =
-  | "role-select" | "name" | "teacher-details"
+  | "role-select" | "name" | "teacher-school" | "teacher-details"
   | "grade" | "age" | "state-course" | "class-code"
   | "program-select" | "student-account"
   | "welcome" | "assessment" | "results"
@@ -336,6 +336,9 @@ export default function Onboarding() {
   // Introduction to Business. Persisted to profiles.track; biz_lab_enrolled is
   // kept in sync for rollback.
   const [track, setTrack] = useState<EnrollmentTrack>(() => user?.track ?? (user?.bizLabEnrolled ? "biz_lab" : "regular"))
+  // Teacher school step: once "Gulliver Preparatory" is picked we reveal its two
+  // program tracks (Biz Lab / Intro to Business) inline.
+  const [gulliverPrep, setGulliverPrep] = useState(false)
 
   // Adaptive assessment state
   const [questionPool] = useState<BenchmarkQuestion[]>(() => buildAdaptivePool())
@@ -683,8 +686,9 @@ export default function Onboarding() {
     return "Foundational"
   }, [correctHistory])
 
-  // How many dots the sign-up progress bar shows (teachers have one fewer step).
-  const totalSteps = selectedRole === "teacher" ? 3 : STUDENT_TOTAL_STEPS
+  // How many dots the sign-up progress bar shows. Teachers: name → school →
+  // account.
+  const totalSteps = selectedRole === "teacher" ? 4 : STUDENT_TOTAL_STEPS
 
   const pageBg =
     "radial-gradient(circle at 18% 18%, hsl(var(--primary) / 0.10), transparent 42%)," +
@@ -872,7 +876,7 @@ export default function Onboarding() {
             subtitle={selectedRole === "teacher" ? "We'll use this for your teacher profile" : "We'll use this to personalize your experience"}
             onBack={() => setStep("role-select")}
             continueDisabled={!firstName.trim()}
-            onContinue={() => setStep(selectedRole === "teacher" ? "teacher-details" : "grade")}
+            onContinue={() => setStep(selectedRole === "teacher" ? "teacher-school" : "grade")}
           >
             <div>
               <label className="text-sm font-medium mb-1.5 block">First Name</label>
@@ -885,10 +889,10 @@ export default function Onboarding() {
           </FieldStep>
         )}
 
-        {/* Step 3a: Teacher Details */}
-        {step === "teacher-details" && (
+        {/* Step 3a: Teacher School + Program */}
+        {step === "teacher-school" && (
           <motion.div
-            key="teacher-details"
+            key="teacher-school"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -898,9 +902,115 @@ export default function Onboarding() {
               current={2}
               total={totalSteps}
               mood="teaching"
+              message="Which school are you teaching at?"
+              title="Your school"
+              subtitle="Pick your school, or type in another one"
+            />
+            <div className="w-full max-w-sm space-y-3 text-left">
+              {/* Quick-pick: Gulliver Preparatory reveals its two programs. */}
+              <button
+                onClick={() => { setSchoolName("Gulliver Preparatory"); setGulliverPrep(true) }}
+                className={`group w-full p-5 rounded-2xl border-2 transition-all text-left flex items-center gap-4 hover-lift press-scale ${gulliverPrep ? "border-primary bg-primary/5 shadow-card" : "border-border bg-card hover:border-primary hover:shadow-card"}`}
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <Building2 className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg">Gulliver Preparatory</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">{gulliverPrep ? "Now pick your program below" : "Pick your program next"}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+              </button>
+
+              {/* Gulliver's two programs, revealed after the school is chosen. */}
+              {gulliverPrep && (
+                <div className="space-y-2 pl-3 ml-3 border-l-2 border-primary/30">
+                  <button
+                    onClick={() => {
+                      setTrack("biz_lab")
+                      try {
+                        localStorage.setItem("investiplay_active_track", "gulliver-biz-lab")
+                        localStorage.setItem("investiplay_track_pending", "biz_lab")
+                      } catch {}
+                      setStep("teacher-details")
+                    }}
+                    className="group w-full p-4 rounded-xl border-2 border-border bg-card hover:border-gold hover:shadow-card transition-all text-left flex items-center gap-3 hover-lift press-scale"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold flex items-center gap-2">
+                        Gulliver Biz Lab <span className="text-[10px] font-bold uppercase bg-gold/15 text-gold rounded-full px-2 py-0.5">Shark Tank</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">Build a business and pitch it to the Sharks.</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-gold group-hover:translate-x-0.5 transition-all shrink-0" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setTrack("gulliver_intro")
+                      try {
+                        localStorage.setItem("investiplay_active_track", "gulliver-intro")
+                        localStorage.setItem("investiplay_track_pending", "gulliver_intro")
+                      } catch {}
+                      setStep("teacher-details")
+                    }}
+                    className="group w-full p-4 rounded-xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-3 hover-lift press-scale"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                      <GraduationCap className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold">Gulliver Intro to Business</div>
+                      <p className="text-xs text-muted-foreground mt-0.5">The 9th grade course — assign the 8 learning objectives (LO 1–8).</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+                  </button>
+                </div>
+              )}
+
+              {/* Or type a different school (defaults to the regular course). */}
+              <div className="pt-2">
+                <label className="text-sm font-medium mb-1.5 block">Or type your school</label>
+                <Input
+                  placeholder="e.g. Lincoln High School"
+                  value={gulliverPrep ? "" : schoolName}
+                  onChange={e => { setGulliverPrep(false); setTrack("regular"); setSchoolName(e.target.value) }}
+                />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <Button variant="outline" onClick={() => setStep("name")}>
+                <ArrowLeft className="mr-2 w-4 h-4" /> Back
+              </Button>
+              {/* Gulliver Prep advances via a program pick above; the typed-school
+                  path uses this Continue (regular course). */}
+              {!gulliverPrep && (
+                <Button size="xl" variant="hero" disabled={!schoolName.trim()} onClick={() => setStep("teacher-details")}>
+                  Continue <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Step 3b: Teacher Details */}
+        {step === "teacher-details" && (
+          <motion.div
+            key="teacher-details"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="flex flex-col items-center text-center max-w-lg"
+          >
+            <StepHeader
+              current={3}
+              total={totalSteps}
+              mood="teaching"
               message="Last step! Set up your login and you're in."
               title="Teacher Info"
-              subtitle="Set up your login so you can manage your classes"
+              subtitle={schoolName ? `${schoolName} · set up your login` : "Set up your login so you can manage your classes"}
             />
             <div className="w-full max-w-sm space-y-4 text-left">
               <div>
@@ -929,7 +1039,7 @@ export default function Onboarding() {
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <Button variant="outline" onClick={() => setStep("name")} disabled={signupLoading}>
+              <Button variant="outline" onClick={() => setStep("teacher-school")} disabled={signupLoading}>
                 <ArrowLeft className="mr-2 w-4 h-4" /> Back
               </Button>
               <Button
@@ -982,8 +1092,10 @@ export default function Onboarding() {
                       return
                     }
 
-                    // Session active - save the rest of the teacher profile.
-                    const saved = await persistProfile({})
+                    // Session active - save the rest of the teacher profile,
+                    // including the chosen program track (scopes the dashboard's
+                    // assignable-lesson list to e.g. the 8 Gulliver Intro LOs).
+                    const saved = await persistProfile({ track, biz_lab_enrolled: track === "biz_lab" })
                     if (saved) {
                       toast({ title: "Welcome aboard!", description: "Your teacher account is ready." })
                       navigate("/teacher-dashboard")
