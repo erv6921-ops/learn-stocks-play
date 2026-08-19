@@ -720,7 +720,9 @@ Always end your final message with exactly: 'Ready to test what you learned? �
 
 The student already knows you - never introduce yourself or say "I'm Jeff." Just dive into teaching.
 
-Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.${material}`
+Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.
+
+PUNCTUATION: Write with normal punctuation only. Never use em dashes or en dashes (the "—" or "–" characters). Where you'd pause or add an aside, use a comma, a period, or parentheses instead. Overusing dashes makes writing look AI-generated, so avoid them entirely.${material}`
 }
 
 // ── Deep prompt (Gulliver Intro): a real, rigorous mini-lecture ──
@@ -764,13 +766,25 @@ Style: clear, precise, and genuinely interesting - like a great teacher, not a t
 
 When you have taught the full lesson, give a one-sentence synthesis of how the ideas fit together, then end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
 
-The student already knows you - never introduce yourself. Do not use bullet points or headers; teach in short prose messages.${material}`
+The student already knows you - never introduce yourself. Do not use bullet points or headers; teach in short prose messages.
+
+PUNCTUATION: Write with normal punctuation only. Never use em dashes or en dashes (the "—" or "–" characters). Where you'd pause or add an aside, use a comma, a period, or parentheses instead. Overusing dashes makes writing look AI-generated, so avoid them entirely.${material}`
 }
 
 export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[]): string {
   return isGulliverIntroLesson(lesson)
     ? buildDeepPrompt(lesson, sentCount, source, mustCover)
     : buildSnappyPrompt(lesson, sentCount, source)
+}
+
+// Safety net: even with the punctuation rule in the prompt, models occasionally
+// still emit an em/en dash. Strip them from Jeff's output so lessons never look
+// AI-generated: an em dash used for a pause becomes a comma; an en dash (usually
+// a numeric range) becomes a hyphen.
+function stripDashes(s: string): string {
+  return s
+    .replace(/\s*—\s*/g, ", ")
+    .replace(/\s*–\s*/g, "-")
 }
 
 /** One chat turn: full history in, Jeff's reply + next tap options out. */
@@ -786,7 +800,10 @@ export async function jeffChatTurn(
   })
   if (error) throw new Error(error.message || "AI request failed")
   if (data?.error) throw new Error(data.error)
-  return { text: (data?.text as string) || "", options: (data?.options as string[]) || [] }
+  return {
+    text: stripDashes((data?.text as string) || ""),
+    options: ((data?.options as string[]) || []).map(stripDashes),
+  }
 }
 
 // ── Scripted fallback ──────────────────────────────────────────────
