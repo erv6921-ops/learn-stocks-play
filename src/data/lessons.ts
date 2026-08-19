@@ -550,7 +550,7 @@ lessons.push(...AP_MICRO_LESSONS)
 // One combined unit so every lesson (Chapters 1-2) sits on a single continuous
 // roller coaster. Lessons keep their own category for per-topic mastery.
 export const GULLIVER_INTRO_UNITS: UnitInfo[] = [
-  { id: "gulliver-course", unitNumber: 1, title: "Introduction to Business", level: 1, levelTitle: "Gulliver · Intro to Business", categories: ["gulliver-business", "gulliver-economics"], orderIndex: 200, track: "gulliver-intro" },
+  { id: "gulliver-course", unitNumber: 1, title: "Introduction to Business", level: 1, levelTitle: "Gulliver · Intro to Business", categories: ["gulliver-business"], orderIndex: 200, track: "gulliver-intro" },
 ]
 
 // L() applies LESSON_REWARD_SCALE; wrap it to also tag the CourseTrack.
@@ -558,33 +558,19 @@ const GI = (id: string, title: string, description: string, category: LessonCate
   ({ ...L(id, title, description, category, "investor", unitId, lessonNum, reward), track: "gulliver-intro" })
 
 export const GULLIVER_INTRO_LESSONS: Lesson[] = [
-  // Chapter 1 — Unit 1 is split into five short, focused lessons (1.1-1.5)
-  GI("gulliver-1-1", "What a Business Is and What It Sells",  "What a business is, why it must stay useful, and the difference between goods and services.",                 "gulliver-business", "gulliver-course", "1.1", 250),
-  GI("gulliver-1-2", "Revenue, Costs, Profit & Loss",        "How a business keeps score: revenue vs. profit, what counts as a cost, and what a loss really means.",        "gulliver-business", "gulliver-course", "1.2", 250),
-  GI("gulliver-1-3", "Entrepreneurs, Risk & Reward",         "Who the entrepreneur is, why they get paid last, opportunity cost, and why risk and reward rise together.",   "gulliver-business", "gulliver-course", "1.3", 250),
-  GI("gulliver-1-4", "Living Standards & Stakeholders",      "Standard of living vs. quality of life, and the stakeholders a business must balance.",                       "gulliver-business", "gulliver-course", "1.4", 250),
-  GI("gulliver-1-5", "Outsourcing, Insourcing & Nonprofits", "Where the work gets done, the trade-offs of outsourcing, and how nonprofits are different.",                  "gulliver-business", "gulliver-course", "1.5", 250),
-  // Chapter 1 — learning-objective-aligned lessons (Byrnes Ch.1, LO 1-1 through 1-8)
-  GI("gulliver-lo-1-1", "Profit, Risk & Stakeholders", "The relationship between profit and risk, and how businesses and nonprofits raise the standard of living for everyone.", "gulliver-business", "gulliver-course", "1.1-LO", 250),
-  GI("gulliver-lo-1-2", "Entrepreneurship & the Five Factors of Production", "Entrepreneurship vs. working for someone else, the five factors of production, and how they create wealth.", "gulliver-business", "gulliver-course", "1.2-LO", 250),
-  GI("gulliver-lo-1-3", "The Economic Environment & Taxes", "How government, taxes, and regulation shape the risk of starting and running a business.", "gulliver-business", "gulliver-course", "1.3-LO", 250),
-  GI("gulliver-lo-1-4", "Technology's Effects on Business", "Effectiveness, efficiency, and productivity — how technology benefits workers, businesses, and consumers.", "gulliver-business", "gulliver-course", "1.4-LO", 250),
-  GI("gulliver-lo-1-5", "Meeting & Beating Competition", "Competitive edge, zero defects, exceeding customer expectations, and empowering frontline workers.", "gulliver-business", "gulliver-course", "1.5-LO", 250),
-  GI("gulliver-lo-1-6", "Social Changes Affecting Business", "The modern, broader definition of diversity, and how an aging population and Social Security affect business.", "gulliver-business", "gulliver-course", "1.6-LO", 250),
-  GI("gulliver-lo-1-7", "Global Challenges, War & Terrorism", "China and India as competitive challenges, and how war and terrorism affect different industries.", "gulliver-business", "gulliver-course", "1.7-LO", 250),
-  GI("gulliver-lo-1-8", "Historical Trends & Your Future in Business", "How past economic trends repeat, and what they mean for tomorrow's college graduates.", "gulliver-business", "gulliver-course", "1.8-LO", 250),
-  // Unit 2 — split into five short, focused lessons (2.1-2.5)
-  GI("gulliver-2-1", "The Five Factors of Production",  "Land, labor, capital, entrepreneurship, and knowledge — the five building blocks every business needs.",         "gulliver-business", "gulliver-course", "2.1", 250),
-  GI("gulliver-2-2", "The Entrepreneur's Trade-offs",   "Being your own boss vs. a steady paycheck: the real trade-offs of choosing entrepreneurship over a job.",        "gulliver-business", "gulliver-course", "2.2", 250),
-  GI("gulliver-2-3", "The Economic & Legal Environment","How taxes, laws, fair courts, and the economy help or hinder a business — things an owner can't control.",       "gulliver-business", "gulliver-course", "2.3", 250),
-  GI("gulliver-2-4", "Technology & E-Commerce",         "The technological environment, buying and selling online, and the difference between B2C and B2B.",              "gulliver-business", "gulliver-course", "2.4", 250),
-  GI("gulliver-2-5", "Databases & Identity Theft",      "What a business database holds, why it's a target, and how stolen data leads to identity theft.",                "gulliver-business", "gulliver-course", "2.5", 250),
-  // Unit 3 (single lesson for now; will be split + deepened like Units 1-2)
-  GI("gulliver-3",   "Competitive, Social, Global & Ecological Forces",        "Competition, demographics, globalization, geopolitical risk, greening, and the four eras of U.S. business.",         "gulliver-business", "gulliver-course", "3.1", 500),
-  // Chapter 2 (single lessons for now)
-  GI("gulliver-4",   "What Economics Is & the Foundations of Capitalism",      "Economics, macro vs. micro, Malthus and Adam Smith, the invisible hand, capitalism, and its four basic rights.",    "gulliver-economics", "gulliver-course", "4.1", 500),
-  GI("gulliver-5",   "Supply, Demand & Market Structures",                     "Supply, demand, equilibrium, the four market structures, and socialism, communism, and mixed economies.",           "gulliver-economics", "gulliver-course", "5.1", 500),
-  GI("gulliver-6",   "The U.S. Economy: Indicators, Cycles & Policy",          "GDP, unemployment, inflation and the CPI, the business cycle, and fiscal vs. monetary policy.",                     "gulliver-economics", "gulliver-course", "6.1", 500),
+  // Chapter 1 — learning-objective-aligned lessons (Byrnes Ch.1, LO 1-1 through 1-8).
+  // These 8 LO lessons are the active course. The earlier topic-based breakdown
+  // (gulliver-1-x / gulliver-2-x / gulliver-3..6) has been retired from the
+  // course listing during the LO-alignment rebuild; its content files remain in
+  // src/content/gullerIntro and can be re-registered here if needed.
+  GI("gulliver-lo-1-1", "LO 1", "The relationship between profit and risk, and how businesses and nonprofits raise the standard of living for everyone.", "gulliver-business", "gulliver-course", "1.1-LO", 250),
+  GI("gulliver-lo-1-2", "LO 2", "Entrepreneurship vs. working for someone else, the five factors of production, and how they create wealth.", "gulliver-business", "gulliver-course", "1.2-LO", 250),
+  GI("gulliver-lo-1-3", "LO 3", "How government, taxes, and regulation shape the risk of starting and running a business.", "gulliver-business", "gulliver-course", "1.3-LO", 250),
+  GI("gulliver-lo-1-4", "LO 4", "Effectiveness, efficiency, and productivity — how technology benefits workers, businesses, and consumers.", "gulliver-business", "gulliver-course", "1.4-LO", 250),
+  GI("gulliver-lo-1-5", "LO 5", "Competitive edge, zero defects, exceeding customer expectations, and empowering frontline workers.", "gulliver-business", "gulliver-course", "1.5-LO", 250),
+  GI("gulliver-lo-1-6", "LO 6", "The modern, broader definition of diversity, and how an aging population and Social Security affect business.", "gulliver-business", "gulliver-course", "1.6-LO", 250),
+  GI("gulliver-lo-1-7", "LO 7", "China and India as competitive challenges, and how war and terrorism affect different industries.", "gulliver-business", "gulliver-course", "1.7-LO", 250),
+  GI("gulliver-lo-1-8", "LO 8", "How past economic trends repeat, and what they mean for tomorrow's college graduates.", "gulliver-business", "gulliver-course", "1.8-LO", 250),
 ]
 
 unitInfo.push(...GULLIVER_INTRO_UNITS)
