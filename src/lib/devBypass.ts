@@ -6,8 +6,12 @@
 // localStorage state still work, so gameplay is unchanged — we simply skip the
 // doomed persistence calls. `import.meta.env.DEV` is false in every production
 // build, so this can never affect the deployed app.
-export const DEV_LOCAL_BYPASS =
-  import.meta.env.DEV && localStorage.getItem("investiplay_dev_real_auth") !== "1"
+//
+// NOTE: the real-auth escape hatch (localStorage.investiplay_dev_real_auth)
+// is intentionally disabled — auth is fully skipped on any dev server so
+// localhost never shows a login screen. Re-add the flag check here if you
+// ever need to exercise real Supabase auth locally again.
+export const DEV_LOCAL_BYPASS = import.meta.env.DEV
 
 // A syntactically valid placeholder UUID for the throwaway dev user, so any
 // read that does reach the DB fails on RLS (empty result) rather than on uuid

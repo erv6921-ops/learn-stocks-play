@@ -354,6 +354,9 @@ export default function Onboarding() {
 
   useEffect(() => {
     const wantsBenchmark = searchParams.get("benchmark") === "1"
+    // ?preview=1 walks the whole onboarding flow even when already onboarded
+    // (e.g. under the DEV auth bypass) so the sign-up screens can be reviewed.
+    const previewMode = searchParams.get("preview") === "1"
 
     supabase.auth.getSession().then(({ data }) => {
       // Prefill email from the authenticated session so the user sees it's linked
@@ -371,8 +374,9 @@ export default function Onboarding() {
       }
 
       // Otherwise, if the user already finished onboarding, send them home.
+      // (Skipped in preview mode so the flow stays reviewable.)
       const stored = localStorage.getItem("investiplay_user")
-      if (stored) {
+      if (stored && !previewMode) {
         try {
           const parsed = JSON.parse(stored)
           if (parsed?.onboardingComplete) {
@@ -1045,10 +1049,36 @@ export default function Onboarding() {
               <Button
                 size="xl"
                 variant="hero"
-                disabled={!email.trim() || !passwordsMatch || signupLoading}
+                disabled={signupLoading || (!DEV_LOCAL_BYPASS && (!email.trim() || !passwordsMatch))}
                 onClick={async () => {
                   setSignupLoading(true)
                   try {
+                    // DEV bypass: skip Supabase signup + email confirmation
+                    // entirely and drop straight into the teacher dashboard with
+                    // the chosen school + program. Local-only; never runs in a
+                    // production build (import.meta.env.DEV is false there).
+                    if (DEV_LOCAL_BYPASS) {
+                      setUser({
+                        id: `teacher-${Date.now()}`,
+                        firstName: firstName || "Teacher",
+                        age: 30,
+                        schoolName: schoolName || "",
+                        grade: 12,
+                        literacyLevel: "explorer",
+                        onboardingComplete: true,
+                        assessmentScore: 0,
+                        benchmarkScores: {},
+                        benchmarkCategoryScores: {},
+                        rewardMultiplier: 1,
+                        track,
+                        bizLabEnrolled: track === "biz_lab",
+                        createdAt: new Date(),
+                      })
+                      toast({ title: "Welcome aboard!", description: "Teacher account ready (dev mode — no email needed)." })
+                      navigate("/teacher-dashboard")
+                      return
+                    }
+
                     // If already signed in with a different account, sign out first
                     const { data: existing } = await supabase.auth.getSession()
                     if (existing.session && existing.session.user.email !== email.trim()) {
