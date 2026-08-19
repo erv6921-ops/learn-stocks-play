@@ -41,6 +41,8 @@ export function comboMultiplier(combo: number): number {
 }
 
 interface QuizSession {
+  /** The lesson this quiz session belongs to (for activity logging). */
+  lessonId?: string
   /** Current consecutive-correct streak within this lesson session. */
   combo: number
   /**
@@ -73,6 +75,7 @@ interface QuizSession {
 }
 
 const noop: QuizSession = {
+  lessonId: undefined,
   combo: 0,
   lostCombo: null,
   coinsEarned: 0,
@@ -95,7 +98,7 @@ export function useQuizSession(): QuizSession {
  * coin nudges. Combo persists across questions while mounted and resets when
  * the provider unmounts (exiting the lesson) - so key it on the lesson id.
  */
-export function QuizSessionProvider({ children }: { children: ReactNode }) {
+export function QuizSessionProvider({ children, lessonId }: { children: ReactNode; lessonId?: string }) {
   const { awardJeffs, jeffsBalance } = useApp()
   const [combo, setCombo] = useState(0)
   const [lostCombo, setLostCombo] = useState<number | null>(null)
@@ -162,7 +165,7 @@ export function QuizSessionProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <QuizSessionCtx.Provider value={{ combo, lostCombo, coinsEarned, coinsGained, coinsLost, answeredTotal, answeredCorrect, registerCorrect, registerWrong }}>
+    <QuizSessionCtx.Provider value={{ lessonId, combo, lostCombo, coinsEarned, coinsGained, coinsLost, answeredTotal, answeredCorrect, registerCorrect, registerWrong }}>
       {children}
     </QuizSessionCtx.Provider>
   )

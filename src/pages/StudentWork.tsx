@@ -13,7 +13,9 @@ import { BIZ_LAB_PARTS } from "@/data/bizLab"
 import {
   ArrowLeft, BookOpen, Store, Briefcase, Save, Loader2,
   GraduationCap, Link as LinkIcon, ClipboardCheck, PenLine,
+  Clock, Activity, Target, XCircle, Eye, Timer,
 } from "lucide-react"
+import { CONTROLLABLE_PAGES } from "@/lib/classSettings"
 
 // ── Lookups ────────────────────────────────────────────────────────────────
 const LESSON_BY_ID = new Map(lessons.map((l, i) => [l.id, { ...l, order: i }]))
@@ -69,6 +71,39 @@ const fmtDate = (s?: string) =>
 
 interface Reflection { lesson_id: string; prompt: string; response: string; updated_at: string }
 interface Submission { type: string; title: string; fields: WorkField[]; link: string | null; updated_at: string }
+interface ActivityEvent {
+  kind: string
+  route: string | null
+  lesson_id: string | null
+  question_id: string | null
+  is_correct: boolean | null
+  selected_index: number | null
+  duration_ms: number | null
+  meta: Record<string, unknown> | null
+  created_at: string
+}
+
+// Friendly labels for the routes we log. Falls back to a humanized path.
+const ROUTE_LABELS: Record<string, string> = {
+  "/dashboard": "Dashboard",
+  "/lessons": "Missions",
+  ...Object.fromEntries(CONTROLLABLE_PAGES.map((p) => [p.route, p.label])),
+  "/profile": "Profile",
+}
+const routeLabel = (route: string): string => {
+  const base = "/" + (route.split("/")[1] || "")
+  return ROUTE_LABELS[route] || ROUTE_LABELS[base] || humanize(route.replace(/^\//, "") || "Home")
+}
+const fmtDuration = (ms: number): string => {
+  const s = Math.round(ms / 1000)
+  if (s < 60) return `${s}s`
+  const m = Math.round(s / 60)
+  if (m < 60) return `${m} min`
+  const h = Math.floor(m / 60)
+  return `${h}h ${m % 60}m`
+}
+const fmtDateTime = (s: string): string =>
+  new Date(s).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })
 
 export default function StudentWork() {
   const { userId } = useParams<{ userId: string }>()
@@ -83,6 +118,7 @@ export default function StudentWork() {
   const [reflections, setReflections] = useState<Reflection[]>([])
   const [bizSections, setBizSections] = useState<WorkSection[]>([])
   const [submissions, setSubmissions] = useState<Submission[]>([])
+  const [events, setEvents] = useState<ActivityEvent[]>([])
 
   const [grade, setGrade] = useState("")
   const [feedback, setFeedback] = useState("")
@@ -94,14 +130,23 @@ export default function StudentWork() {
       if (!userId) return
       setLoading(true)
       try {
-        const [refRes, gsRes, subRes, grRes, profRes] = await Promise.all([
+        const [refRes, gsRes, subRes, grRes, profRes, actRes] = await Promise.all([
           (supabase as any).from("lesson_reflections").select("lesson_id, prompt, response, updated_at").eq("user_id", userId),
           (supabase as any).from("business_game_state").select("activities").eq("user_id", userId).maybeSingle(),
           (supabase as any).from("entrepreneurship_submissions").select("submission_type, content, link, updated_at").eq("user_id", userId),
           (supabase as any).from("business_grades").select("grade, feedback").eq("user_id", userId).maybeSingle(),
           (supabase as any).from("profiles").select("first_name, last_name").eq("id", userId).maybeSingle(),
+          (supabase as any)
+            .from("student_activity_events")
+            .select("kind, route, lesson_id, question_id, is_correct, selected_index, duration_ms, meta, created_at")
+            .eq("user_id", userId)
+            .order("created_at", { ascending: false })
+            .limit(4000),
         ])
         if (cancelled) return
+
+        // Activity telemetry (fails soft if the table isn't migrated yet).
+        setEvents((actRes?.data ?? []) as ActivityEvent[])
 
         // Lesson reflections - sorted into curriculum order.
         const refs = ((refRes?.data ?? []) as Reflection[])
@@ -187,6 +232,50 @@ export default function StudentWork() {
     }
   }, [reflections, bizSections, submissions])
 
+  // ── Activity analytics derived from the event log ──
+  const analytics = useMemo(() => {
+    const questions = events.filter((e) => e.kind === "question_answered")
+    const pageViews = events.filter((e) => e.kind === "page_view")
+    const answered = questions.length
+    const correct = questions.filter((q) => q.is_correct === true).length
+    const accuracy = answered ? Math.round((correct / answered) * 100) : 0
+    const avgMs = answered ? Math.round(questions.reduce((s, q) => s + (q.duration_ms || 0), 0) / answered) : 0
+
+    // Active time = summed page dwell, each view capped at 5 min so an idle open
+    // tab can't inflate it.
+    const CAP = 5 * 60 * 1000
+    const activeMs = pageViews.reduce((s, e) => s + Math.min(e.duration_ms || 0, CAP), 0)
+
+    const lastActive = events[0]?.created_at
+    const days = new Set(events.map((e) => new Date(e.created_at).toDateString())).size
+
+    const pageMap = new Map<string, { visits: number; ms: number }>()
+    for (const e of pageViews) {
+      const r = e.route || "?"
+      const cur = pageMap.get(r) || { visits: 0, ms: 0 }
+      cur.visits += 1
+      cur.ms += Math.min(e.duration_ms || 0, CAP)
+      pageMap.set(r, cur)
+    }
+    const pages = Array.from(pageMap.entries())
+      .map(([route, v]) => ({ route, ...v }))
+      .sort((a, b) => b.ms - a.ms)
+
+    const missed = questions
+      .filter((q) => q.is_correct === false)
+      .map((q) => ({
+        key: (q.question_id || "") + q.created_at,
+        lessonTitle: q.lesson_id ? LESSON_BY_ID.get(q.lesson_id)?.title || humanize(q.lesson_id) : "—",
+        questionText:
+          q.meta && typeof q.meta.questionText === "string" ? (q.meta.questionText as string) : q.question_id || "",
+        timedOut: !!(q.meta && (q.meta as Record<string, unknown>).timedOut),
+        durationMs: q.duration_ms || 0,
+        at: q.created_at,
+      }))
+
+    return { hasData: events.length > 0, answered, correct, accuracy, avgMs, activeMs, lastActive, days, pages, missed }
+  }, [events])
+
   const isEmpty = !loading && reflections.length === 0 && bizSections.length === 0 && submissions.length === 0
 
   return (
@@ -234,11 +323,77 @@ export default function StudentWork() {
                 ))}
               </div>
 
-              {isEmpty && (
+              {/* ── Activity & analytics ── */}
+              {analytics.hasData && (
+                <Section icon={Activity} title="Activity & analytics">
+                  {/* KPI row */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {[
+                      { icon: Clock, label: "Time on app", value: fmtDuration(analytics.activeMs) },
+                      { icon: Target, label: "Accuracy", value: `${analytics.accuracy}%` },
+                      { icon: ClipboardCheck, label: "Questions", value: String(analytics.answered) },
+                      { icon: Timer, label: "Avg / question", value: analytics.avgMs ? fmtDuration(analytics.avgMs) : "—" },
+                    ].map(({ icon: Icon, label, value }) => (
+                      <div key={label} className="rounded-2xl bg-card border border-border/60 px-4 py-3 shadow-sm">
+                        <Icon className="w-4 h-4 text-primary" />
+                        <p className="text-2xl font-extrabold tabular-nums mt-1.5 leading-none">{value}</p>
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-1">{label}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    {analytics.correct}/{analytics.answered} correct · active on {analytics.days} day{analytics.days === 1 ? "" : "s"}
+                    {analytics.lastActive && <> · last seen {fmtDateTime(analytics.lastActive)}</>}
+                  </p>
+
+                  {/* Pages explored */}
+                  {analytics.pages.length > 0 && (
+                    <div className="mt-5">
+                      <p className="text-sm font-semibold flex items-center gap-2 mb-2"><Eye className="w-4 h-4 text-primary" /> Pages explored</p>
+                      <div className="space-y-1.5">
+                        {analytics.pages.map((p) => (
+                          <div key={p.route} className="flex items-center justify-between gap-3 text-sm rounded-lg border bg-card/60 px-3 py-2">
+                            <span className="font-medium truncate">{routeLabel(p.route)}</span>
+                            <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
+                              {p.visits} visit{p.visits === 1 ? "" : "s"} · {fmtDuration(p.ms)}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Questions missed */}
+                  <div className="mt-5">
+                    <p className="text-sm font-semibold flex items-center gap-2 mb-2">
+                      <XCircle className="w-4 h-4 text-destructive" /> Questions missed ({analytics.missed.length})
+                    </p>
+                    {analytics.missed.length === 0 ? (
+                      <p className="text-sm text-muted-foreground">No wrong answers logged yet. 🎉</p>
+                    ) : (
+                      <div className="space-y-1.5 max-h-[360px] overflow-y-auto">
+                        {analytics.missed.map((m) => (
+                          <div key={m.key} className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2">
+                            <div className="flex items-center justify-between gap-3">
+                              <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground truncate">{m.lessonTitle}</span>
+                              <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
+                                {m.timedOut ? "timed out" : fmtDuration(m.durationMs)}
+                              </span>
+                            </div>
+                            <p className="text-sm mt-0.5">{m.questionText}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </Section>
+              )}
+
+              {isEmpty && !analytics.hasData && (
                 <div className="rounded-2xl border border-dashed border-border py-20 text-center text-muted-foreground">
                   <ClipboardCheck className="w-8 h-8 mx-auto mb-3 opacity-40" />
-                  <p className="font-semibold">No written work yet</p>
-                  <p className="text-sm mt-1">This student hasn't submitted any reflections or projects.</p>
+                  <p className="font-semibold">No activity yet</p>
+                  <p className="text-sm mt-1">This student hasn't done any lessons or explored the app yet.</p>
                 </div>
               )}
 
@@ -335,14 +490,16 @@ export default function StudentWork() {
 /* ── Presentational sub-components ── */
 
 function Section({ icon: Icon, title, count, children }: {
-  icon: React.ComponentType<{ className?: string }>; title: string; count: number; children: React.ReactNode
+  icon: React.ComponentType<{ className?: string }>; title: string; count?: number; children: React.ReactNode
 }) {
   return (
     <section>
       <div className="flex items-center gap-2 mb-3">
         <Icon className="w-4 h-4 text-primary" />
         <h2 className="font-display font-extrabold tracking-tight">{title}</h2>
-        <span className="text-xs font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">{count}</span>
+        {count !== undefined && (
+          <span className="text-xs font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">{count}</span>
+        )}
       </div>
       <div className="space-y-3">{children}</div>
     </section>

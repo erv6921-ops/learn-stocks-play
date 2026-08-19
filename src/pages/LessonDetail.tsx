@@ -423,7 +423,7 @@ export default function LessonDetail() {
 
   return (
     <HintProvider key={lesson.id} total={2}>
-    <QuizSessionProvider key={`quiz-${lesson.id}`}>
+    <QuizSessionProvider key={`quiz-${lesson.id}`} lessonId={lesson.id}>
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       {/* Header */}
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">

@@ -4,12 +4,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Store } from "lucide-react";
 import { AppProvider, useApp } from "@/contexts/AppContext";
 import { ClassSettingsProvider, useClassSettings } from "@/contexts/ClassSettingsContext";
 import { isPageLocked } from "@/lib/classSettings";
+import { useAuth } from "@/hooks/useAuth";
+import { logActivity } from "@/lib/analytics";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
@@ -65,6 +67,38 @@ function LockedRouteWatcher() {
       navigate("/dashboard", { replace: true });
     }
   }, [settings, location.pathname, navigate]);
+  return null;
+}
+
+// Logs student activity for the teacher analytics view: dwell time on each page
+// as they navigate, plus a periodic "still active" ping so long single-page
+// sessions still register time and the teacher can see WHEN they were on. No-ops
+// for teachers and (via logActivity) under the dev bypass / when signed out.
+function ActivityTracker() {
+  const { user, isTeacher } = useAuth();
+  const location = useLocation();
+  const lastRef = useRef<{ path: string; t: number } | null>(null);
+
+  useEffect(() => {
+    if (!user || isTeacher) return;
+    const now = Date.now();
+    const prev = lastRef.current;
+    if (prev && prev.path !== location.pathname) {
+      logActivity(user.id, "page_view", { route: prev.path, durationMs: now - prev.t });
+    }
+    if (!prev || prev.path !== location.pathname) lastRef.current = { path: location.pathname, t: now };
+  }, [location.pathname, user, isTeacher]);
+
+  useEffect(() => {
+    if (!user || isTeacher) return;
+    const id = setInterval(() => {
+      if (document.visibilityState === "visible") {
+        logActivity(user.id, "session_ping", { route: location.pathname });
+      }
+    }, 60000);
+    return () => clearInterval(id);
+  }, [user, isTeacher, location.pathname]);
+
   return null;
 }
 
@@ -145,6 +179,7 @@ const App = () => (
               <GradeNotifications />
               <FriendRequestNotifications />
               <LockedRouteWatcher />
+              <ActivityTracker />
               <AppRoutes />
               {/* Non-essential global widgets. Wrapped in a silent error
                   boundary (fallback=null) so a hiccup in any of them - e.g. the

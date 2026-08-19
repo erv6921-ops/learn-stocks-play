@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useJeff } from "@/contexts/JeffContext"
 import { useApp } from "@/contexts/AppContext"
 import { useClassSettings } from "@/contexts/ClassSettingsContext"
+import { logActivity } from "@/lib/analytics"
 import { supabase } from "@/integrations/supabase/client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -87,7 +88,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   const [frozen, setFrozen] = useState(false)
   const hints = useHints()
   const session = useQuizSession()
-  const { jeffsBalance, spendJeffs } = useApp()
+  const { jeffsBalance, spendJeffs, user } = useApp()
 
   // ── Gamification: coin-particle burst on a correct answer ──
   const [burstId, setBurstId] = useState(0)
@@ -109,6 +110,13 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     clearInterval(intervalRef.current)
     setRevealed(true) // reveals the correct answer highlighted, no selection
     onAnswered?.(false, questionMs)
+    logActivity(user?.id, "question_answered", {
+      lessonId: session.lessonId,
+      questionId: shuffledQ.id,
+      isCorrect: false,
+      durationMs: questionMs,
+      meta: { timedOut: true, questionText: shuffledQ.question },
+    })
     session.registerWrong(coins) // −coins + toast
     onIncorrect()
   }
@@ -144,6 +152,14 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     setRevealed(true)
     const isRight = idx === shuffledQ.correctAnswer
     onAnswered?.(isRight, responseMs)
+    logActivity(user?.id, "question_answered", {
+      lessonId: session.lessonId,
+      questionId: shuffledQ.id,
+      isCorrect: isRight,
+      selectedIndex: idx,
+      durationMs: responseMs,
+      meta: { questionText: shuffledQ.question },
+    })
     if (isRight) {
       session.registerCorrect(coins, responseMs) // +coins by speed tier + toast
       setBurstId(b => b + 1)
