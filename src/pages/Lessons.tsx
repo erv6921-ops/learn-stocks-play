@@ -93,7 +93,13 @@ export default function Lessons() {
     try {
       // Back-compat: "florida" was the old value for the default course view.
       const stored = localStorage.getItem("investiplay_active_track");
-      return (stored === "florida" ? "regular" : (stored as CourseTrack)) || "regular";
+      if (stored === "florida") return "regular";
+      if (stored) return stored as CourseTrack;
+      // No saved choice yet: default Gulliver Intro students to their own
+      // course; everyone else to the regular curriculum. (Read the persisted
+      // profile so this holds on the very first Missions visit.)
+      const u = JSON.parse(localStorage.getItem("investiplay_user") || "null");
+      return u?.track === "gulliver_intro" ? "gulliver-intro" : "regular";
     } catch { return "regular"; }
   });
   useEffect(() => {
@@ -118,8 +124,9 @@ export default function Lessons() {
   useEffect(() => {
     if (hidesApElective && activeTrack === "ap-micro") setActiveTrack(courseTrack);
     if (!bizLabEnrolled && activeTrack === "gulliver-biz-lab") setActiveTrack(courseTrack);
-    // Steer Gulliver Intro students onto their course; keep everyone else off it.
-    if (gulliverIntroEnrolled && activeTrack === "regular") setActiveTrack("gulliver-intro");
+    // Keep non-Gulliver students off the Gulliver Intro course. Gulliver Intro
+    // students may now sit on either their Intro course OR the regular
+    // curriculum (both tabs are offered), so we no longer force them onto Intro.
     if (!gulliverIntroEnrolled && activeTrack === "gulliver-intro") setActiveTrack("regular");
   }, [hidesApElective, bizLabEnrolled, gulliverIntroEnrolled, courseTrack, activeTrack]);
 
@@ -455,9 +462,13 @@ export default function Lessons() {
         { key: "gulliver-biz-lab", label: "Biz Lab" },
       ]
     : hidesApElective
-    // Gulliver Intro: no AP elective and no Biz Lab tab - just the course,
-    // which is the six-block gulliver-intro track for these students.
-    ? [{ key: courseTrack, label: "Course" }]
+    // Gulliver Intro: no AP elective and no Biz Lab tab. They get their own
+    // Intro course PLUS the full regular curriculum (all 34 units), so they can
+    // also work through the standard course.
+    ? [
+        { key: courseTrack, label: "Intro" },
+        { key: "regular", label: "Personal Finance" },
+      ]
     : [
         { key: "regular", label: "Personal Finance" },
         { key: "ap-micro", label: "AP Micro" },
@@ -600,9 +611,13 @@ export default function Lessons() {
                   { key: "gulliver-biz-lab", label: "Gulliver Biz Lab" },
                 ]
               : hidesApElective
-              // Gulliver Intro: no AP elective and no Biz Lab tab. Their course
-              // is the six-block gulliver-intro track, not the Florida course.
-              ? [{ key: courseTrack, label: "Course" }]
+              // Gulliver Intro: no AP elective and no Biz Lab tab. They get
+              // their own Intro course PLUS the full regular curriculum (all 34
+              // units) so they can also work through the standard course.
+              ? [
+                  { key: courseTrack, label: "Intro" },
+                  { key: "regular", label: "Personal Finance" },
+                ]
               : [
                   { key: "regular", label: "Personal Finance" },
                   { key: "ap-micro", label: "AP Microeconomics" },
