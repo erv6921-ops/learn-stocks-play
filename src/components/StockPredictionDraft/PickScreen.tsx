@@ -157,7 +157,8 @@ export default function PickScreen({ classId, onPicked, forcePick = false }: Pic
       onPicked?.()
     } catch (err) {
       console.error("[PickScreen] pick failed:", err)
-      toast.error("Something went wrong saving your pick. Please try again.")
+      const msg = err instanceof Error ? err.message : String(err)
+      toast.error(`Couldn't save your pick: ${msg}`)
     } finally {
       setSubmitting(false)
     }
