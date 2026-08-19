@@ -106,9 +106,10 @@ export default function Lessons() {
     try { localStorage.setItem("investiplay_active_track", activeTrack); } catch { /* storage unavailable */ }
   }, [activeTrack]);
 
-  // Gulliver Intro opens fullscreen by default; the minimize button drops to the
-  // normal Missions view. Not persisted, so it re-opens fullscreen each visit.
-  const [gulliverMinimized, setGulliverMinimized] = useState(false);
+  // Gulliver Intro opens in the normal Missions view; the Fullscreen button
+  // expands to the roller-coaster overlay. (Starts minimized so Missions no
+  // longer auto-opens fullscreen for Intro students.)
+  const [gulliverMinimized, setGulliverMinimized] = useState(true);
 
   // Persisted enrollment track (profiles.track). `bizLabEnrolled` gates the
   // Biz Lab tab + content; `hidesApElective` gates the AP elective (hidden for
