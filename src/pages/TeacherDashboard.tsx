@@ -923,29 +923,10 @@ export default function TeacherDashboard() {
                                 {cls.student_count} students
                               </span>
                             </div>
-                            {/* Micro-business writing workload - per-class word-count control */}
-                            <div className="mt-3">
-                              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">
-                                Micro-business word count
-                              </p>
-                              <div className="inline-flex items-center rounded-lg bg-muted/60 p-0.5 border border-border/40">
-                                {WRITING_LEVELS.map(lvl => {
-                                  const active = (cls.writing_scale ?? 1) === lvl.value
-                                  return (
-                                    <button
-                                      key={lvl.value}
-                                      title={lvl.hint}
-                                      onClick={(e) => { e.stopPropagation(); setWritingScale(cls.id, lvl.value) }}
-                                      className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
-                                        active ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                                      }`}
-                                    >
-                                      {lvl.label}
-                                    </button>
-                                  )
-                                })}
-                              </div>
-                            </div>
+                            {/* Micro-business word-count control temporarily hidden
+                                (feature still in progress). Restore this block to
+                                bring back the per-class Light/Standard/Extended
+                                writing-workload picker. */}
                           </div>
                           <div className="flex gap-1">
                             <Button
