@@ -240,7 +240,11 @@ export default function StudentWork() {
       toast({ title: "Grade saved", description: "The student can see your feedback for this lesson." })
     } catch (e) {
       console.error("[StudentWork] saveLessonGrade", e)
-      toast({ title: "Failed to save grade", variant: "destructive" })
+      toast({
+        title: "Failed to save grade",
+        description: (e as { message?: string })?.message || "Please try again.",
+        variant: "destructive",
+      })
     } finally {
       setSaving(false)
     }

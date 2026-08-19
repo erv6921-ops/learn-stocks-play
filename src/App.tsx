@@ -39,6 +39,7 @@ import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
 import { AssignmentNotifications } from "./components/AssignmentNotifications";
 import { GradeNotifications } from "./components/GradeNotifications";
+import { LessonGradeNotifications } from "./components/LessonGradeNotifications";
 import { FriendRequestNotifications } from "./components/FriendRequestNotifications";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
@@ -177,6 +178,7 @@ const App = () => (
             <JeffProvider>
               <AssignmentNotifications />
               <GradeNotifications />
+              <LessonGradeNotifications />
               <FriendRequestNotifications />
               <LockedRouteWatcher />
               <ActivityTracker />
