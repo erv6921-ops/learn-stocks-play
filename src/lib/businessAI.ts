@@ -3,14 +3,18 @@
 // features: weekly report insight, business-plan scoring, complaint grading,
 // supplier negotiation, and the AI interview candidate.
 import { supabase } from "@/integrations/supabase/client";
+import { NO_DASH_RULE, stripDashes } from "@/lib/text";
 
 export async function businessAI(system: string, prompt: string, maxTokens = 1000): Promise<string> {
   const { data, error } = await supabase.functions.invoke("business-ai", {
-    body: { system, prompt, max_tokens: Math.min(1000, maxTokens) },
+    // Append the no-dash rule so AI feedback reads human, not machine-written.
+    body: { system: `${system}\n\n${NO_DASH_RULE}`, prompt, max_tokens: Math.min(1000, maxTokens) },
   });
   if (error) throw new Error(error.message || "AI request failed");
   if (data?.error) throw new Error(data.error);
-  return (data?.text as string) || "";
+  // Safety net: strip any dashes that slipped through. Harmless for JSON
+  // responses (dashes only ever appear inside string values, not JSON syntax).
+  return stripDashes((data?.text as string) || "");
 }
 
 // Best-effort JSON extraction - models sometimes wrap JSON in prose or fences.

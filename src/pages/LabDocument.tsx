@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import { toast } from "@/hooks/use-toast"
+import { stripDashes } from "@/lib/text"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   ArrowLeft, ArrowRight, ArrowDown, CheckCircle, XCircle, Coins,
@@ -100,9 +101,11 @@ export default function LabDocument() {
         },
       })
       if (error) throw error
+      const fb = data as { correct: boolean; feedback: string; tip: string }
       setFieldFeedback(prev => ({
         ...prev,
-        [field.id]: data as { correct: boolean; feedback: string; tip: string },
+        // Strip dashes so AI feedback reads human, not machine-written.
+        [field.id]: { ...fb, feedback: stripDashes(fb.feedback || ""), tip: stripDashes(fb.tip || "") },
       }))
 
       // In guided mode, advance to next field after feedback

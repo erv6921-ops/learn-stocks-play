@@ -3,6 +3,7 @@
 // conversationally; the student replies via tappable options.
 import { supabase } from "@/integrations/supabase/client"
 import type { Lesson, LessonSection } from "@/types"
+import { stripDashes } from "@/lib/text"
 
 export interface ChatMessage {
   role: "user" | "assistant"
@@ -775,16 +776,6 @@ export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string
   return isGulliverIntroLesson(lesson)
     ? buildDeepPrompt(lesson, sentCount, source, mustCover)
     : buildSnappyPrompt(lesson, sentCount, source)
-}
-
-// Safety net: even with the punctuation rule in the prompt, models occasionally
-// still emit an em/en dash. Strip them from Jeff's output so lessons never look
-// AI-generated: an em dash used for a pause becomes a comma; an en dash (usually
-// a numeric range) becomes a hyphen.
-function stripDashes(s: string): string {
-  return s
-    .replace(/\s*—\s*/g, ", ")
-    .replace(/\s*–\s*/g, "-")
 }
 
 /** One chat turn: full history in, Jeff's reply + next tap options out. */
