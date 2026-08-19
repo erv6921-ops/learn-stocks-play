@@ -53,10 +53,10 @@ export const gulliverLO1_1: StructuredLessonContent = {
           id: "glo11-mc-2",
           question: "Which of these is a stakeholder in a business?",
           options: [
-            "Only the people who own the company",
-            "Only the customers who buy from it",
-            "Customers, employees, suppliers, the community, and stockholders, among others",
-            "Only competitors trying to beat the business"
+            "Only the people who own the company itself",
+            "Only the paying customers who buy from it",
+            "Customers, employees, suppliers, and the local community",
+            "Only rival competitors trying to beat the business"
           ],
           correctAnswer: 2,
           explanation: "Stakeholders are everyone affected by or invested in the business — a much wider group than just owners or customers.",
@@ -81,10 +81,10 @@ export const gulliverLO1_1: StructuredLessonContent = {
         id: "glo11-aq1",
         question: "Why does the bank care about how much risk Maria is taking on with the second truck?",
         options: [
-          "Banks only care about advertising, not risk",
-          "As a stakeholder, the bank needs Maria's business to stay profitable enough to repay the loan",
+          "Banks only care about advertising, not about risk",
+          "As a stakeholder, it needs her business profitable enough to repay the loan",
           "Banks are not considered stakeholders in a small business",
-          "The bank's only goal is for Maria to fail"
+          "The bank's only real goal is for Maria's business to fail"
         ],
         correctAnswer: 1,
         explanation: "The bank is a stakeholder with a direct financial interest — it needs Maria's business to generate enough profit to repay what she borrowed.",
@@ -125,10 +125,10 @@ export const gulliverLO1_1: StructuredLessonContent = {
           id: "glo11-mx-3",
           question: "How do businesses generally raise the standard of living for people beyond just their owners?",
           options: [
-            "By avoiding paying any taxes",
-            "By creating jobs, paying taxes that fund public services, and producing goods and services people need",
-            "By only hiring stockholders",
-            "By eliminating competition entirely"
+            "By avoiding paying any taxes to the government",
+            "By creating jobs, paying taxes, and producing needed goods",
+            "By only hiring their own stockholders as employees",
+            "By eliminating all of their competition entirely"
           ],
           correctAnswer: 1,
           explanation: "Jobs, tax revenue, and the goods/services produced are how businesses raise living standards for the wider community, not just owners.",
@@ -138,10 +138,10 @@ export const gulliverLO1_1: StructuredLessonContent = {
           id: "glo11-mx-4",
           question: "How are nonprofit organizations similar to for-profit businesses?",
           options: [
-            "They both exist mainly to make owners wealthy",
-            "They both use business principles like efficiency and managing costs, even though a nonprofit's central goal is its mission, not profit",
+            "They both exist mainly to make their owners wealthy",
+            "They both use business principles like efficiency and managing costs",
             "Nonprofits never have to worry about revenue or costs",
-            "They are identical in every way"
+            "They are completely identical to each other in every way"
           ],
           correctAnswer: 1,
           explanation: "Nonprofits pursue a mission rather than owner profit, but still need to run efficiently and bring in enough revenue to keep operating.",
@@ -151,10 +151,10 @@ export const gulliverLO1_1: StructuredLessonContent = {
           id: "glo11-mx-5",
           question: "Which group would NOT typically be considered a stakeholder in a business?",
           options: [
-            "Employees",
-            "Suppliers",
-            "The local community",
-            "A person who has never heard of the business and never will interact with it"
+            "Employees who work for the business",
+            "Suppliers who sell it materials",
+            "The local community around the business",
+            "A person who has never heard of it and never will"
           ],
           correctAnswer: 3,
           explanation: "A stakeholder has some connection to or interest in the business. Someone with zero connection to it isn't a stakeholder.",
@@ -164,10 +164,10 @@ export const gulliverLO1_1: StructuredLessonContent = {
           id: "glo11-mx-6",
           question: "A business cuts corners with suppliers and underpays workers to boost this quarter's profit. What's the likely long-term risk?",
           options: [
-            "There is no long-term risk to this strategy",
-            "Ignoring stakeholders for short-term profit often creates bigger risks later, like lawsuits, bad press, or lost trust",
-            "Stakeholders will not notice or react",
-            "Profit and risk are unrelated to stakeholder treatment"
+            "There is no real long-term risk to this strategy",
+            "Ignoring stakeholders can bring lawsuits, bad press, or lost trust",
+            "The affected stakeholders will not notice or react at all",
+            "Profit and risk are unrelated to how stakeholders are treated"
           ],
           correctAnswer: 1,
           explanation: "Squeezing stakeholders for short-term gain tends to create larger risks down the road — reputational, legal, or financial.",
@@ -178,9 +178,9 @@ export const gulliverLO1_1: StructuredLessonContent = {
           question: "What is the core balancing act every business has to manage?",
           options: [
             "Making a profit while ignoring all outside groups",
-            "Recognizing and responding to stakeholder needs while still making a profit",
-            "Avoiding profit entirely to please stakeholders",
-            "Taking on zero risk under any circumstances"
+            "Responding to stakeholder needs while still making a profit",
+            "Avoiding profit entirely just to please stakeholders",
+            "Taking on absolutely zero risk under any circumstances"
           ],
           correctAnswer: 1,
           explanation: "The core balancing act is meeting stakeholder needs AND making a profit — not one at the total expense of the other.",
@@ -237,10 +237,10 @@ export const gulliverLO1_2: StructuredLessonContent = {
           id: "glo12-mc-2",
           question: "What does an entrepreneur typically give up compared to working for someone else?",
           options: [
-            "The chance to ever make money",
-            "Guaranteed benefits like a steady paycheck and health insurance, in exchange for more freedom and opportunity",
-            "The ability to make their own decisions",
-            "Nothing — entrepreneurs keep every benefit an employee has, plus more"
+            "The chance to ever make any money at all",
+            "Guaranteed benefits like a steady paycheck and health insurance",
+            "The ability to make their own business decisions",
+            "Nothing at all — entrepreneurs keep every benefit plus more"
           ],
           correctAnswer: 1,
           explanation: "Entrepreneurs trade the safety net of a steady paycheck and benefits for freedom, more opportunity, and the risk/reward of running their own business.",
@@ -265,9 +265,9 @@ export const gulliverLO1_2: StructuredLessonContent = {
         id: "glo12-aq1",
         question: "In Ava's lawn-care business, what role is SHE playing among the five factors of production?",
         options: [
-          "Land",
-          "Entrepreneurship — she's the one risking her time and money to start and run the business",
-          "Labor only, with no other role",
+          "Land, since she uses natural resources",
+          "Entrepreneurship — she risks time and money to run it",
+          "Labor only, with no other role at all",
           "She isn't part of the factors of production"
         ],
         correctAnswer: 1,
@@ -300,9 +300,9 @@ export const gulliverLO1_2: StructuredLessonContent = {
           question: "Why are entrepreneurship and knowledge considered the most important factors of production today?",
           options: [
             "Because land, labor, and capital no longer matter at all",
-            "Because a country can have abundant resources and still stay poor without people who know how to combine them productively and are willing to take the risk",
-            "Because they are the easiest factors to obtain",
-            "Because entrepreneurship guarantees success every time"
+            "Because resources stay idle without people who can combine them",
+            "Because they are the easiest factors for a country to obtain",
+            "Because entrepreneurship guarantees business success every time"
           ],
           correctAnswer: 1,
           explanation: "Resources alone don't create wealth — it takes entrepreneurship and knowledge to combine them productively.",
@@ -325,10 +325,10 @@ export const gulliverLO1_2: StructuredLessonContent = {
           id: "glo12-mx-5",
           question: "What is the main advantage an entrepreneur gains by giving up those guaranteed benefits?",
           options: [
-            "Nothing of real value",
-            "Freedom to make their own decisions, more opportunity, and the possibility of greater wealth",
-            "A guarantee that the business will succeed",
-            "Automatic access to unlimited capital"
+            "Nothing of any real value to them",
+            "Freedom, more opportunity, and the chance at greater wealth",
+            "A guarantee that the business will always succeed",
+            "Automatic access to unlimited capital and funding"
           ],
           correctAnswer: 1,
           explanation: "Entrepreneurs gain freedom, opportunity, and upside potential — in exchange for taking on more risk.",
@@ -338,9 +338,9 @@ export const gulliverLO1_2: StructuredLessonContent = {
           id: "glo12-mx-6",
           question: "Two countries have identical amounts of land, labor, and capital. What would most likely make one of them wealthier than the other?",
           options: [
-            "Having a larger population",
-            "Stronger entrepreneurship and more effective use of knowledge to combine those resources",
-            "Having a warmer climate",
+            "Simply having a much larger population",
+            "Stronger entrepreneurship and better use of knowledge",
+            "Simply having a warmer, more pleasant climate",
             "Nothing — they would automatically be equally wealthy"
           ],
           correctAnswer: 1,
@@ -351,9 +351,9 @@ export const gulliverLO1_2: StructuredLessonContent = {
           id: "glo12-mx-7",
           question: "Why is entrepreneurship sometimes called the 'spark' factor of production?",
           options: [
-            "Because it literally involves electricity",
-            "Because land, labor, and capital create nothing on their own until an entrepreneur combines them into something people want",
-            "Because it is the least important factor",
+            "Because it literally involves electricity and sparks",
+            "Because it activates land, labor, and capital that are otherwise idle",
+            "Because it is the least important of all the factors",
             "Because it always requires the least amount of risk"
           ],
           correctAnswer: 1,
@@ -409,10 +409,10 @@ export const gulliverLO1_3: StructuredLessonContent = {
           id: "glo13-mc-2",
           question: "From a business perspective, what do lower taxes and lighter regulation generally mean?",
           options: [
-            "Higher risk and less growth",
-            "Lower risk, more growth, and more money for workers and government",
-            "No effect on risk or growth at all",
-            "Businesses always prefer higher taxes"
+            "Higher risk and much less room to grow",
+            "Lower risk, more growth, and more money kept",
+            "No real effect on business risk or growth",
+            "That businesses will always prefer higher taxes"
           ],
           correctAnswer: 1,
           explanation: "Lower taxes and regulation reduce cost and risk, which generally supports more growth and leaves more money for workers and the government both.",
@@ -437,10 +437,10 @@ export const gulliverLO1_3: StructuredLessonContent = {
         id: "glo13-aq1",
         question: "Why might the entrepreneur choose Country A even though Country B has more potential customers?",
         options: [
-          "Because customer base never matters in business",
-          "Because Country A's stronger economic environment (enforceable contracts, stable currency, less corruption) lowers the overall risk of doing business there",
-          "Because Country B doesn't allow any businesses to open",
-          "Because taxes are irrelevant to this decision"
+          "Because a customer base never really matters in business",
+          "Because Country A's stronger economic environment lowers the risk",
+          "Because Country B doesn't allow any businesses to open at all",
+          "Because taxes are completely irrelevant to this kind of decision"
         ],
         correctAnswer: 1,
         explanation: "A stronger economic environment can outweigh a bigger customer base, because it directly lowers the risk of operating and protects the business's profits.",
@@ -456,9 +456,9 @@ export const gulliverLO1_3: StructuredLessonContent = {
           question: "What does 'enforceable contracts' mean for a business owner?",
           options: [
             "Contracts are optional suggestions with no legal weight",
-            "Courts will make sure agreements are honored, giving businesspeople real legal protection",
-            "Only the government can sign contracts",
-            "Contracts can be broken with no consequences"
+            "Courts will make sure agreements are actually honored",
+            "Only the government is allowed to sign any contracts",
+            "Contracts can be broken freely with no consequences"
           ],
           correctAnswer: 1,
           explanation: "Enforceable contracts mean the courts back up business agreements, which protects entrepreneurs from being cheated.",
@@ -468,10 +468,10 @@ export const gulliverLO1_3: StructuredLessonContent = {
           id: "glo13-mx-2",
           question: "Why does a stable, tradable currency matter to a business?",
           options: [
-            "It has no real effect on a business",
-            "It protects the value of profits and makes it possible to trade in world markets",
-            "It only matters for governments, not businesses",
-            "It guarantees a business will be profitable"
+            "It has no real effect on a business at all",
+            "It protects profits and enables trade in world markets",
+            "It only matters for governments, never for businesses",
+            "It guarantees a business will always be profitable"
           ],
           correctAnswer: 1,
           explanation: "A stable currency protects the real value of a business's earnings and enables trade with the rest of the world.",
@@ -481,10 +481,10 @@ export const gulliverLO1_3: StructuredLessonContent = {
           id: "glo13-mx-3",
           question: "How does corruption in business and government generally affect entrepreneurs?",
           options: [
-            "It has no impact on risk",
-            "It increases risk and cost, making it harder to start and run a business fairly",
+            "It has no real impact on business risk",
+            "It raises risk and cost, making business harder",
             "It always lowers taxes for entrepreneurs",
-            "It guarantees enforceable contracts"
+            "It guarantees fully enforceable contracts"
           ],
           correctAnswer: 1,
           explanation: "Corruption raises the cost and unpredictability of doing business, increasing overall risk for entrepreneurs.",
@@ -494,10 +494,10 @@ export const gulliverLO1_3: StructuredLessonContent = {
           id: "glo13-mx-4",
           question: "What is the general relationship between tax/regulation levels and business risk?",
           options: [
-            "Higher taxes and regulation generally lower risk",
-            "Lower taxes and lighter regulation generally mean lower risk and more room to grow",
-            "Taxes and regulation have no connection to risk",
-            "Regulation always increases growth regardless of level"
+            "Higher taxes and heavier regulation generally lower risk",
+            "Lower taxes and lighter regulation generally lower risk",
+            "Taxes and regulation have no connection to business risk",
+            "Regulation always increases growth regardless of its level"
           ],
           correctAnswer: 1,
           explanation: "Lower taxes and lighter regulation reduce the cost and risk of doing business, generally supporting more growth.",
@@ -508,8 +508,8 @@ export const gulliverLO1_3: StructuredLessonContent = {
           question: "A country allows private ownership but has an unstable, hard-to-trade currency. What's the likely effect on entrepreneurs there?",
           options: [
             "Zero risk, since private ownership solves everything",
-            "Private ownership helps, but the unstable currency still adds real risk to running a business there",
-            "The currency situation is irrelevant to business",
+            "Ownership helps, but the unstable currency still adds real risk",
+            "The currency situation is completely irrelevant to business",
             "Businesses cannot legally operate under any currency instability"
           ],
           correctAnswer: 1,
@@ -520,10 +520,10 @@ export const gulliverLO1_3: StructuredLessonContent = {
           id: "glo13-mx-6",
           question: "From a government's perspective, why might keeping taxes and regulations moderate benefit the country overall?",
           options: [
-            "It has no effect on the country",
-            "It can encourage more business growth, which means more jobs and more overall tax revenue in the long run",
-            "It guarantees zero business failures",
-            "It eliminates the need for enforceable contracts"
+            "It has no real effect on the country at all",
+            "It encourages growth, meaning more jobs and tax revenue",
+            "It guarantees that zero businesses will ever fail",
+            "It eliminates the need for any enforceable contracts"
           ],
           correctAnswer: 1,
           explanation: "Moderate taxes and regulation can encourage more business activity, which can grow the overall tax base even at a lower rate.",
@@ -533,10 +533,10 @@ export const gulliverLO1_3: StructuredLessonContent = {
           id: "glo13-mx-7",
           question: "Which combination describes an economic environment that LOWERS risk for entrepreneurs?",
           options: [
-            "High corruption, unstable currency, unenforceable contracts",
-            "Private ownership, enforceable contracts, a stable tradable currency, low corruption",
-            "No laws about business ownership at all",
-            "Unpredictable, constantly changing tax rates"
+            "High corruption, unstable currency, and unenforceable contracts",
+            "Private ownership, enforceable contracts, and a stable currency",
+            "No laws about business ownership or contracts at all",
+            "Unpredictable, constantly changing, and unclear tax rates"
           ],
           correctAnswer: 1,
           explanation: "Private ownership, enforceable contracts, currency stability, and low corruption together create a lower-risk environment for entrepreneurs.",
@@ -618,9 +618,9 @@ export const gulliverLO1_4: StructuredLessonContent = {
         id: "glo14-aq1",
         question: "Why did the new ordering system improve efficiency specifically, not just productivity?",
         options: [
-          "It didn't improve efficiency at all",
-          "It reduced wasted food from wrong orders, meaning fewer resources were used per correct meal produced",
-          "It only affected how fast orders were placed",
+          "It didn't actually improve efficiency at all",
+          "It cut wasted food from wrong orders, using fewer resources",
+          "It only affected how fast the orders were placed",
           "Efficiency and productivity mean the exact same thing"
         ],
         correctAnswer: 1,
@@ -649,10 +649,10 @@ export const gulliverLO1_4: StructuredLessonContent = {
           id: "glo14-mx-2",
           question: "A worker perfectly completes a task that didn't actually need to be done. What does this describe?",
           options: [
-            "High effectiveness, high efficiency",
-            "Possibly high efficiency, but LOW effectiveness, since it wasn't the right task",
-            "High productivity only",
-            "This scenario is impossible"
+            "High effectiveness and high efficiency at once",
+            "Possibly high efficiency, but LOW effectiveness",
+            "High productivity, but nothing else changed",
+            "This scenario is completely impossible in practice"
           ],
           correctAnswer: 1,
           explanation: "You can execute a task efficiently (with little waste) while still being ineffective, because it wasn't the right task to do in the first place.",
@@ -662,10 +662,10 @@ export const gulliverLO1_4: StructuredLessonContent = {
           id: "glo14-mx-3",
           question: "Which best defines productivity?",
           options: [
-            "The amount of output generated given a certain amount of input, like hours worked",
-            "How much a business spends on advertising",
-            "The number of stakeholders a business has",
-            "Whether a task was the right one to do"
+            "The amount of output generated per unit of input",
+            "How much a business chooses to spend on advertising",
+            "The total number of stakeholders that a business has",
+            "Whether or not a task was the right one to do"
           ],
           correctAnswer: 0,
           explanation: "Productivity measures output relative to input — such as units produced per hour worked.",
@@ -675,10 +675,10 @@ export const gulliverLO1_4: StructuredLessonContent = {
           id: "glo14-mx-4",
           question: "How do consumers typically benefit when a business becomes more productive?",
           options: [
-            "Consumers never benefit from productivity gains",
-            "A more productive business can often produce more at a lower cost per unit, which can mean lower prices or better products",
-            "Prices always go up when productivity increases",
-            "Productivity gains only benefit the business, never customers"
+            "Consumers never benefit from any productivity gains",
+            "Lower cost per unit can mean lower prices or better products",
+            "Prices always go up whenever productivity increases",
+            "Productivity gains only benefit the business, never its customers"
           ],
           correctAnswer: 1,
           explanation: "Lower cost per unit from higher productivity can translate into lower prices and better products for consumers.",
@@ -688,10 +688,10 @@ export const gulliverLO1_4: StructuredLessonContent = {
           id: "glo14-mx-5",
           question: "A company invests in expensive new equipment even though it costs a lot upfront. Why might this make sense?",
           options: [
-            "It never makes sense to spend money on equipment",
-            "Gains in effectiveness, efficiency, and productivity from the technology usually pay for the upfront cost over time",
-            "Businesses only buy equipment for appearance",
-            "New equipment always decreases productivity at first and forever"
+            "It never makes sense to spend money on new equipment",
+            "The gains it brings usually pay for the upfront cost over time",
+            "Businesses only ever buy new equipment for appearance",
+            "New equipment always decreases productivity, forever"
           ],
           correctAnswer: 1,
           explanation: "Even with a high upfront cost, technology that improves effectiveness, efficiency, and productivity typically pays for itself.",
@@ -715,9 +715,9 @@ export const gulliverLO1_4: StructuredLessonContent = {
           question: "Why does technology's 'real payoff' come from improving effectiveness, efficiency, AND productivity together, rather than just one?",
           options: [
             "Because only one of them ever matters in real business",
-            "Because doing the right work (effectiveness), with less waste (efficiency), and more output (productivity) compound into the biggest overall gain",
-            "Because they are all the exact same concept",
-            "Because businesses can only improve one of the three, ever"
+            "Because right work, less waste, and more output compound together",
+            "Because all three are really the exact same concept",
+            "Because businesses can only ever improve one of the three"
           ],
           correctAnswer: 1,
           explanation: "The three concepts reinforce each other — the biggest gains come from improving all three together, not just one in isolation.",
@@ -773,9 +773,9 @@ export const gulliverLO1_5: StructuredLessonContent = {
           question: "What does it mean to 'empower' frontline workers?",
           options: [
             "Giving them less responsibility so they make fewer mistakes",
-            "Giving them more training, responsibility, and authority to make decisions",
+            "Giving them more training, responsibility, and authority",
             "Removing them from contact with customers entirely",
-            "Paying them the same as every other employee"
+            "Paying them exactly the same as every other employee"
           ],
           correctAnswer: 1,
           explanation: "Empowering frontline workers means equipping them with training and giving them real authority to solve problems on the spot.",
@@ -800,10 +800,10 @@ export const gulliverLO1_5: StructuredLessonContent = {
         id: "glo15-aq1",
         question: "Why does Store B have a competitive edge over Store A, even though they sell the exact same products?",
         options: [
-          "Store B's products are physically different",
-          "Store B empowers frontline workers to solve problems immediately, exceeding customer expectations",
-          "Store A has better products",
-          "Competitive edge has nothing to do with customer service"
+          "Store B's products are physically different and better",
+          "Store B empowers workers to fix problems immediately",
+          "Store A simply has higher-quality products overall",
+          "A competitive edge has nothing to do with customer service"
         ],
         correctAnswer: 1,
         explanation: "Empowering the frontline worker let Store B exceed customer expectations, creating a real competitive edge unrelated to the product itself.",
@@ -845,9 +845,9 @@ export const gulliverLO1_5: StructuredLessonContent = {
           question: "Why would a business aim for 'zero defects' instead of just 'mostly good' products?",
           options: [
             "Because zero defects is impossible and not worth pursuing",
-            "Because near-flawless quality can be a strong competitive edge over rivals with more errors",
-            "Because it has no effect on customer satisfaction",
-            "Because defects always cost less than fixing them"
+            "Because near-flawless quality can be a strong competitive edge",
+            "Because product quality has no effect on customer satisfaction",
+            "Because defects always cost less than actually fixing them"
           ],
           correctAnswer: 1,
           explanation: "Aiming for essentially flawless quality helps a business stand out against competitors with more frequent mistakes.",
@@ -859,8 +859,8 @@ export const gulliverLO1_5: StructuredLessonContent = {
           options: [
             "An employee who never interacts with the public",
             "An employee who deals directly with customers",
-            "Only the CEO of a company",
-            "A government inspector"
+            "Only the CEO or top executives of a company",
+            "A government inspector who visits the business"
           ],
           correctAnswer: 1,
           explanation: "Frontline workers are the employees who directly interact with customers, like cashiers, servers, or support reps.",
@@ -870,10 +870,10 @@ export const gulliverLO1_5: StructuredLessonContent = {
           id: "glo15-mx-5",
           question: "Why might a business that empowers its frontline workers create a better customer experience?",
           options: [
-            "Because problems can be solved immediately instead of always being escalated to a manager",
-            "Because empowered employees are paid less",
-            "Because it removes the need for training entirely",
-            "Because it has no real effect on customer experience"
+            "Because problems get solved right away, not escalated",
+            "Because empowered employees are always paid much less",
+            "Because it removes the need for any training entirely",
+            "Because it has no real effect on the customer experience"
           ],
           correctAnswer: 0,
           explanation: "When frontline workers have real authority, they can fix issues on the spot, which usually improves the customer's experience.",
@@ -883,10 +883,10 @@ export const gulliverLO1_5: StructuredLessonContent = {
           id: "glo15-mx-6",
           question: "Two businesses sell identical products at the same price. How could one still gain a real competitive edge?",
           options: [
-            "It's impossible for either to gain an edge if products are identical",
-            "By having higher-quality service, empowered frontline workers, and exceeding customer expectations",
-            "By lowering product quality to save money",
-            "By removing all customer service entirely"
+            "It's impossible to gain an edge if the products are identical",
+            "By offering better service and exceeding customer expectations",
+            "By lowering its product quality in order to save money",
+            "By removing all of its customer service entirely"
           ],
           correctAnswer: 1,
           explanation: "Even with identical products, service quality, empowered employees, and exceeding expectations can still create a real competitive edge.",
@@ -896,10 +896,10 @@ export const gulliverLO1_5: StructuredLessonContent = {
           id: "glo15-mx-7",
           question: "What is the connection between empowering frontline workers and exceeding customer expectations?",
           options: [
-            "There is no connection between the two",
-            "Empowered workers can act immediately to solve problems, which is often what turns an average experience into one that exceeds expectations",
+            "There is no real connection between the two at all",
+            "Acting fast to solve problems is what exceeds expectations",
             "Empowering workers always lowers customer satisfaction",
-            "Exceeding expectations requires removing all frontline workers"
+            "Exceeding expectations means removing all frontline workers"
           ],
           correctAnswer: 1,
           explanation: "Giving frontline workers the authority to act fast is often exactly what allows a business to exceed, not just meet, customer expectations.",
@@ -940,10 +940,10 @@ export const gulliverLO1_6: StructuredLessonContent = {
           id: "glo16-mc-1",
           question: "According to the modern definition, what does diversity in the workplace include?",
           options: [
-            "Only race and ethnicity",
-            "A wide range of groups: age, disability, sexual orientation, religion, personality type, and marital status, among others",
-            "Only gender",
-            "Only job title and seniority"
+            "Only a worker's race and ethnicity",
+            "Age, disability, orientation, religion, and personality too",
+            "Only a worker's gender or sex",
+            "Only a worker's job title and seniority"
           ],
           correctAnswer: 1,
           explanation: "Modern diversity efforts cover a much wider range of groups than race and gender alone.",
@@ -954,9 +954,9 @@ export const gulliverLO1_6: StructuredLessonContent = {
           question: "What is Social Security?",
           options: [
             "A private company benefit only some businesses offer",
-            "A government program that provides benefits to older citizens, funded largely by the working population",
-            "A tax that only businesses pay, never individuals",
-            "A type of business insurance"
+            "A government program giving benefits to older citizens",
+            "A tax that only businesses pay, and never individuals",
+            "A type of private insurance that businesses buy"
           ],
           correctAnswer: 1,
           explanation: "Social Security is a government program funded by the working population that provides benefits to older citizens.",
@@ -981,9 +981,9 @@ export const gulliverLO1_6: StructuredLessonContent = {
         id: "glo16-aq1",
         question: "Why was the first draft of the diversity policy incomplete?",
         options: [
-          "Because diversity policies aren't necessary for businesses",
-          "Because it only covered race and gender, leaving out age, disability, orientation, religion, and other groups that diversity today includes",
-          "Because it mentioned too many groups",
+          "Because diversity policies aren't necessary for any business",
+          "Because it covered only race and gender, leaving out many groups",
+          "Because it mentioned far too many different groups at once",
           "Because diversity has nothing to do with company policy"
         ],
         correctAnswer: 1,
@@ -1012,10 +1012,10 @@ export const gulliverLO1_6: StructuredLessonContent = {
           id: "glo16-mx-2",
           question: "What does 'managing diversity' actually require from a business?",
           options: [
-            "Ignoring differences among employees entirely",
-            "Dealing sensitively with a wide range of workers and cultures, both locally and around the world",
-            "Only hiring people who are exactly alike",
-            "Avoiding any policy about diversity at all"
+            "Ignoring the differences among employees entirely",
+            "Dealing sensitively with a wide range of workers and cultures",
+            "Only ever hiring people who are exactly alike",
+            "Avoiding having any policy about diversity at all"
           ],
           correctAnswer: 1,
           explanation: "Managing diversity means actively and sensitively handling differences among a wide range of workers and cultures.",
@@ -1025,10 +1025,10 @@ export const gulliverLO1_6: StructuredLessonContent = {
           id: "glo16-mx-3",
           question: "Why is Social Security discussed so much in the media today?",
           options: [
-            "Because it has nothing to do with the economy",
-            "Because an aging population means it's expected to draw huge amounts of money from the working population",
-            "Because it is a brand-new government program",
-            "Because businesses are exempt from any impact of it"
+            "Because it has nothing at all to do with the economy",
+            "Because an aging population will draw more money from workers",
+            "Because it is a brand-new government program this year",
+            "Because businesses are fully exempt from any impact of it"
           ],
           correctAnswer: 1,
           explanation: "The aging population means Social Security will require increasingly large amounts of money from current workers, making it a major ongoing topic.",
@@ -1038,10 +1038,10 @@ export const gulliverLO1_6: StructuredLessonContent = {
           id: "glo16-mx-4",
           question: "Which statement BEST reflects how diversity has changed as a concept over time?",
           options: [
-            "It has stayed exactly the same — only race and gender have ever mattered",
-            "It has expanded to include age, disability, orientation, religion, personality type, and marital status, among other groups",
-            "It has narrowed to include fewer groups than before",
-            "It no longer applies to modern businesses"
+            "It has stayed the same — only race and gender ever mattered",
+            "It has expanded to include age, disability, religion, and more",
+            "It has narrowed to include fewer groups than it did before",
+            "It no longer applies to modern businesses in any way"
           ],
           correctAnswer: 1,
           explanation: "The concept of diversity has broadened significantly beyond just race and gender.",
@@ -1051,10 +1051,10 @@ export const gulliverLO1_6: StructuredLessonContent = {
           id: "glo16-mx-5",
           question: "How does an aging population connect to businesses, not just government?",
           options: [
-            "It doesn't connect to businesses at all",
-            "It affects how much workers and employers pay into programs like Social Security, and how businesses plan around employees nearing retirement",
+            "It doesn't really connect to businesses at all",
+            "It affects contributions and how firms plan for retirements",
             "It only affects businesses that operate outside the country",
-            "It guarantees businesses will need fewer employees overall"
+            "It guarantees that businesses will need far fewer employees"
           ],
           correctAnswer: 1,
           explanation: "An aging population changes worker contributions, retirement planning, and staffing decisions — all things businesses have to account for.",
@@ -1065,9 +1065,9 @@ export const gulliverLO1_6: StructuredLessonContent = {
           question: "A company assumes diversity only means hiring people of different races. What is this company most likely to overlook?",
           options: [
             "Nothing — that is a complete definition of diversity",
-            "Age, disability, sexual orientation, religion, personality type, and marital status differences among its workforce",
-            "The company's tax rate",
-            "Its total revenue for the year"
+            "Age, disability, religion, and personality among its workers",
+            "The company's overall tax rate for the year",
+            "Its total sales revenue for the entire year"
           ],
           correctAnswer: 1,
           explanation: "Limiting diversity to race alone overlooks the much wider range of groups that modern diversity actually includes.",
@@ -1135,10 +1135,10 @@ export const gulliverLO1_7: StructuredLessonContent = {
           id: "glo17-mc-2",
           question: "How does war or terrorism typically affect the tourism industry?",
           options: [
-            "It usually has no effect on tourism",
-            "It tends to hurt tourism, since people avoid traveling to or through unstable regions",
-            "It always increases tourism",
-            "It only affects the defense industry, never tourism"
+            "It usually has no real effect on the tourism industry",
+            "It hurts tourism, since people avoid unstable regions",
+            "It almost always increases tourism to those regions",
+            "It only affects the defense industry, and never tourism"
           ],
           correctAnswer: 1,
           explanation: "Tourism tends to suffer during periods of war or terrorism, as travelers avoid unstable areas.",
@@ -1163,10 +1163,10 @@ export const gulliverLO1_7: StructuredLessonContent = {
         id: "glo17-aq1",
         question: "Why do the defense manufacturer and the travel company react so differently to the same conflict?",
         options: [
-          "Because global events affect every business identically",
-          "Because war and terrorism affect industries unevenly — demand can rise for defense while tourism suffers from travelers avoiding instability",
-          "Because the travel company made a bad decision unrelated to the conflict",
-          "Because only U.S. businesses are affected by global conflict"
+          "Because global events affect every single business identically",
+          "Because conflict raises defense demand but drives tourism down",
+          "Because the travel company made a bad, unrelated decision",
+          "Because only U.S. businesses are ever affected by global conflict"
         ],
         correctAnswer: 1,
         explanation: "Global instability affects industries unevenly — some, like defense, can see rising demand, while others, like tourism, tend to suffer.",
@@ -1181,10 +1181,10 @@ export const gulliverLO1_7: StructuredLessonContent = {
           id: "glo17-mx-1",
           question: "Why are China and India specifically named as major competitive challenges for U.S. businesses?",
           options: [
-            "Because they have no economic activity",
-            "Because their large workforces and growing economies mean increasing competition for customers, workers, and resources",
+            "Because they have almost no economic activity",
+            "Because their large workforces and growing economies compete hard",
             "Because they only compete in the tourism industry",
-            "Because they have no impact on global business"
+            "Because they have no real impact on global business"
           ],
           correctAnswer: 1,
           explanation: "Their scale and economic growth make China and India major sources of competitive pressure on U.S. businesses.",
@@ -1194,8 +1194,8 @@ export const gulliverLO1_7: StructuredLessonContent = {
           id: "glo17-mx-2",
           question: "Which industry tends to PROSPER during periods of war, according to the chapter?",
           options: [
-            "Tourism",
-            "The defense industry",
+            "The tourism and travel industry",
+            "The defense and weapons industry",
             "Only the restaurant industry",
             "No industry ever benefits from war"
           ],
@@ -1220,9 +1220,9 @@ export const gulliverLO1_7: StructuredLessonContent = {
           id: "glo17-mx-4",
           question: "How does this LO connect back to the economic environment factors from LO 1-3 (enforceable contracts, stable currency, low corruption)?",
           options: [
-            "It has no connection at all",
-            "More prosperous, stable countries with strong economic environments have less incentive toward the instability that can lead to conflict",
-            "Enforceable contracts cause more wars",
+            "It has no connection to those factors at all",
+            "Prosperous, stable countries have less incentive toward conflict",
+            "Enforceable contracts actually tend to cause more wars",
             "Currency stability has nothing to do with global tension"
           ],
           correctAnswer: 1,
@@ -1246,8 +1246,8 @@ export const gulliverLO1_7: StructuredLessonContent = {
           id: "glo17-mx-6",
           question: "Why do businesses need to track global events, not just domestic ones?",
           options: [
-            "Because global events never affect U.S. businesses",
-            "Because global instability, competition from countries like China and India, and conflict can all directly impact different industries in different ways",
+            "Because global events never actually affect U.S. businesses",
+            "Because instability and foreign competition hit industries hard",
             "Because only government agencies need to track global events",
             "Because domestic events are always more important than global ones"
           ],
@@ -1259,10 +1259,10 @@ export const gulliverLO1_7: StructuredLessonContent = {
           id: "glo17-mx-7",
           question: "What is the key takeaway about how war and terrorism affect businesses overall?",
           options: [
-            "Every business is affected identically",
-            "The effects vary by industry — some, like defense, may prosper, while others, like tourism, tend to suffer",
-            "No business is ever affected by war or terrorism",
-            "Only foreign businesses are affected, never U.S. ones"
+            "Every single business is affected in an identical way",
+            "Effects vary — defense may prosper while tourism suffers",
+            "No business is ever really affected by war or terrorism",
+            "Only foreign businesses are affected, and never U.S. ones"
           ],
           correctAnswer: 1,
           explanation: "War and terrorism affect industries unevenly, helping some (like defense) while hurting others (like tourism).",
@@ -1311,10 +1311,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
           id: "glo18-mc-1",
           question: "What happened to many agricultural workers as farm technology improved?",
           options: [
-            "They lost their jobs permanently with nowhere to go",
-            "They were displaced by improved technology and moved into factory jobs",
-            "Farm technology had no effect on agricultural employment",
-            "They all became factory owners"
+            "They lost their jobs permanently with nowhere else to go",
+            "They were displaced by technology and moved into factory jobs",
+            "Farm technology had no real effect on agricultural employment",
+            "They all went on to become wealthy factory owners themselves"
           ],
           correctAnswer: 1,
           explanation: "Improved farm technology displaced many agricultural workers, who then moved into factory jobs as manufacturing grew.",
@@ -1324,10 +1324,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
           id: "glo18-mc-2",
           question: "What two factors combined to reduce the number of workers needed in manufacturing?",
           options: [
-            "Lower taxes and less regulation",
-            "Improved manufacturing productivity and increased competition from foreign firms",
-            "A growing agricultural sector",
-            "Rising Social Security costs"
+            "Lower business taxes and much less regulation",
+            "Improved productivity and more foreign competition",
+            "A rapidly growing domestic agricultural sector",
+            "Rising Social Security costs for older workers"
           ],
           correctAnswer: 1,
           explanation: "Improved productivity and foreign competition together reduced the number of workers manufacturing needed, pushing many into service industries.",
@@ -1352,10 +1352,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
         id: "glo18-aq1",
         question: "What is the main lesson this family's history illustrates for someone heading into college and a career today?",
         options: [
-          "That jobs never change generation to generation",
-          "That the specific jobs available keep changing, so adaptability and continuous learning matter more than locking into one fixed skill set",
-          "That only farming jobs are ever displaced by technology",
-          "That college has no connection to this historical pattern"
+          "That jobs never really change from generation to generation",
+          "That jobs keep changing, so adaptability matters most of all",
+          "That only farming jobs are ever displaced by new technology",
+          "That college has no real connection to this historical pattern"
         ],
         correctAnswer: 1,
         explanation: "The repeating pattern of displacement and adaptation shows why staying adaptable and continuing to learn new skills matters for future graduates.",
@@ -1370,10 +1370,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
           id: "glo18-mx-1",
           question: "What is the general repeating pattern described in U.S. economic history?",
           options: [
-            "Jobs never change from generation to generation",
-            "Improved technology displaces workers from one sector, who then move into a different, growing sector",
-            "Every worker stays in the exact same job for their entire life",
-            "Technology has no effect on which jobs exist"
+            "Jobs simply never change from generation to generation",
+            "Technology displaces workers, who move to a growing sector",
+            "Every worker stays in the exact same job for their whole life",
+            "Technology has no real effect on which jobs actually exist"
           ],
           correctAnswer: 1,
           explanation: "The core pattern is technology-driven displacement followed by workers moving into a new, growing sector.",
@@ -1383,10 +1383,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
           id: "glo18-mx-2",
           question: "Why did many agricultural workers move into factory jobs historically?",
           options: [
-            "Because factories paid less than farming",
-            "Because improved farm technology reduced the need for agricultural labor, displacing workers into the growing manufacturing sector",
-            "Because agricultural jobs no longer existed anywhere",
-            "Because factories required no skills at all"
+            "Because factories generally paid much less than farming",
+            "Because farm technology cut the need for agricultural labor",
+            "Because agricultural jobs no longer existed anywhere at all",
+            "Because factory work required no real skills whatsoever"
           ],
           correctAnswer: 1,
           explanation: "Improved farm technology reduced the need for farm labor, and displaced workers moved into the growing factory sector.",
@@ -1396,10 +1396,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
           id: "glo18-mx-3",
           question: "What combination of factors pushed many factory workers into service industries?",
           options: [
-            "Lower taxes alone",
-            "Improved manufacturing productivity combined with increased competition from foreign firms",
-            "A shortage of raw materials",
-            "An increase in agricultural jobs"
+            "Lower business taxes on factories, all by themselves",
+            "Improved manufacturing productivity plus foreign competition",
+            "A sudden nationwide shortage of key raw materials",
+            "A large increase in available agricultural jobs"
           ],
           correctAnswer: 1,
           explanation: "Rising manufacturing productivity and foreign competition together reduced the number of factory jobs needed, pushing workers into services.",
@@ -1410,8 +1410,8 @@ export const gulliverLO1_8: StructuredLessonContent = {
           question: "How does the shift toward the information age relate to earlier economic shifts?",
           options: [
             "It is completely unrelated to any past economic pattern",
-            "It's a continuation of the same historical pattern of technology-driven displacement and workers moving into a new, growing area",
-            "It is the first time in history that technology has changed available jobs",
+            "It continues the same pattern of displacement into new sectors",
+            "It is the first time technology has ever changed available jobs",
             "It guarantees no future job changes will ever happen again"
           ],
           correctAnswer: 1,
@@ -1422,10 +1422,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
           id: "glo18-mx-5",
           question: "What is the main takeaway from this repeating pattern for a student planning a future career?",
           options: [
-            "That they should pick one skill and never learn anything new again",
-            "That adaptability and continuous learning matter, since the specific jobs available will likely keep changing",
-            "That this pattern only applied in the past and will never happen again",
-            "That career planning is pointless given this pattern"
+            "That they should pick one skill and never learn anything new",
+            "That adaptability matters, since available jobs keep changing",
+            "That this pattern only applied in the past, never again",
+            "That career planning is completely pointless given this pattern"
           ],
           correctAnswer: 1,
           explanation: "Since this displacement-and-adaptation pattern keeps repeating, staying adaptable and continuing to learn is the practical takeaway for future graduates.",
@@ -1435,10 +1435,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
           id: "glo18-mx-6",
           question: "A worker in a shrinking industry retrains for a role in a growing, technology-driven field. What historical pattern does this best match?",
           options: [
-            "It matches no historical pattern at all",
-            "It matches the same pattern of technology-driven displacement followed by a move into a growing sector, seen with agriculture and manufacturing",
-            "It only applies to agricultural workers, not other industries",
-            "It shows the pattern has ended permanently"
+            "It matches no real historical pattern at all",
+            "It matches displacement followed by a move to a growing sector",
+            "It only applies to farm workers, not other industries",
+            "It shows the historical pattern has now ended permanently"
           ],
           correctAnswer: 1,
           explanation: "This worker's experience mirrors the same historical pattern of displacement and adaptation into a growing sector.",
@@ -1448,10 +1448,10 @@ export const gulliverLO1_8: StructuredLessonContent = {
           id: "glo18-mx-7",
           question: "Which best summarizes what U.S. economic history shows about jobs over time?",
           options: [
-            "Jobs have remained completely static since the founding of the country",
-            "Specific jobs change as technology and competition evolve, but the pattern of displacement and adaptation into new sectors keeps repeating",
-            "Only farming and manufacturing have ever been affected by economic change",
-            "Technology has never displaced any workers in U.S. history"
+            "Jobs have stayed completely static since the country's founding",
+            "Jobs change, but the cycle of displacement keeps repeating",
+            "Only farming and manufacturing have ever felt economic change",
+            "Technology has never displaced any workers in all of U.S. history"
           ],
           correctAnswer: 1,
           explanation: "The specific jobs change, but the underlying cycle of displacement and adaptation into new, growing sectors is a consistent historical pattern.",
