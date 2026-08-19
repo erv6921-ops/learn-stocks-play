@@ -34,6 +34,7 @@ import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
 import Profile from "./pages/Profile";
 import Challenges from "./pages/Challenges";
+import StockDraft from "./pages/StockDraft";
 import Partners from "./pages/Partners";
 import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
@@ -41,6 +42,7 @@ import { AssignmentNotifications } from "./components/AssignmentNotifications";
 import { GradeNotifications } from "./components/GradeNotifications";
 import { LessonGradeNotifications } from "./components/LessonGradeNotifications";
 import { FriendRequestNotifications } from "./components/FriendRequestNotifications";
+import { StockDraftNotification } from "./components/StockPredictionDraft/StockDraftNotification";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
@@ -156,6 +158,8 @@ function AppRoutes() {
       <Route path="/financial-advisor" element={<FinancialAdvisor />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/challenges" element={<CoinsGate required={1000} title="Challenges"><Challenges /></CoinsGate>} />
+      {/* Day-one icebreaker — ungated so students can pick before earning coins. */}
+      <Route path="/stock-draft" element={<StockDraft />} />
       <Route path="/partners" element={<Partners />} />
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />
@@ -180,6 +184,7 @@ const App = () => (
               <GradeNotifications />
               <LessonGradeNotifications />
               <FriendRequestNotifications />
+              <StockDraftNotification />
               <LockedRouteWatcher />
               <ActivityTracker />
               <AppRoutes />

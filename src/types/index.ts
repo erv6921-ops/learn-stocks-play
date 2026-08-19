@@ -237,6 +237,20 @@ export interface StockHolding {
   purchasedAt: Date
 }
 
+// Stock Prediction Draft: one semester-long passive pick per student per class.
+// Mirrors the stock_predictions table (see the matching Supabase migration).
+export interface StockPrediction {
+  id: string
+  studentId: string
+  classId: string
+  ticker: string
+  companyName: string
+  pickPrice: number
+  pickDate: string // ISO timestamp
+  locked: boolean
+  createdAt?: string
+}
+
 export const MASTERY_TIERS: Record<MasteryTier, { label: string; emoji: string; color: string }> = {
   "explorer": { label: "Foundational", emoji: "🌱", color: "success" },
   "builder": { label: "Applied", emoji: "📈", color: "primary" },

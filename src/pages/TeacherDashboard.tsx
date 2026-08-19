@@ -38,6 +38,7 @@ import {
   Cell,
 } from "recharts"
 import { useToast } from "@/hooks/use-toast"
+import TeacherPredictionView from "@/components/StockPredictionDraft/TeacherPredictionView"
 import { lessons, getLessonsByTrack } from "@/data/lessons"
 import { useApp } from "@/contexts/AppContext"
 import { Switch } from "@/components/ui/switch"
@@ -1079,6 +1080,22 @@ export default function TeacherDashboard() {
                         </Button>
                       </div>
                     </div>
+                  </CardContent>
+                </Card>
+
+                {/* Stock Prediction Draft — the semester-long pick leaderboard
+                    to pull up periodically during class. */}
+                <Card variant="elevated">
+                  <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <TrendingUp className="w-4 h-4 text-primary" /> Stock Prediction Draft
+                    </CardTitle>
+                    <CardDescription>
+                      Every student's semester stock pick, ranked by return since pick day.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <TeacherPredictionView classId={selectedClass.id} />
                   </CardContent>
                 </Card>
 
