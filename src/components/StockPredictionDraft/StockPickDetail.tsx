@@ -102,19 +102,21 @@ export default function StockPickDetail({ ticker, submitting, onCancel, onConfir
   const stats = useMemo(() => {
     if (!details) return []
     const d = details
-    return [
-      { label: "Open", value: fmtUSD(d.open) },
-      { label: "Prev Close", value: fmtUSD(d.previousClose) },
-      { label: "Day's Range", value: d.dayLow && d.dayHigh ? `${fmtUSD(d.dayLow)} – ${fmtUSD(d.dayHigh)}` : "—" },
-      { label: "52-Week Range", value: d.low52Week && d.high52Week ? `${fmtUSD(d.low52Week)} – ${fmtUSD(d.high52Week)}` : "—" },
-      { label: "Volume", value: d.volume ? formatVolume(d.volume) : "—" },
-      { label: "Avg Volume (3M)", value: d.avgVolume3M ? formatVolume(d.avgVolume3M) : "—" },
-      { label: "Market Cap", value: d.marketCap ? formatMarketCap(d.marketCap) : "—" },
-      { label: "P/E Ratio", value: d.peRatio != null ? d.peRatio.toFixed(2) : "—" },
-      { label: "EPS", value: d.eps != null ? fmtUSD(d.eps) : "—" },
-      { label: "Beta", value: d.beta != null ? d.beta.toFixed(2) : "—" },
-      { label: "Dividend Yield", value: d.dividendYield != null ? `${(d.dividendYield * (d.dividendYield < 1 ? 100 : 1)).toFixed(2)}%` : "—" },
+    // Only surface stats we actually have a value for — no empty "—" tiles.
+    const all: { label: string; value: string | null }[] = [
+      { label: "Open", value: d.open ? fmtUSD(d.open) : null },
+      { label: "Prev Close", value: d.previousClose ? fmtUSD(d.previousClose) : null },
+      { label: "Day's Range", value: d.dayLow && d.dayHigh ? `${fmtUSD(d.dayLow)} – ${fmtUSD(d.dayHigh)}` : null },
+      { label: "52-Week Range", value: d.low52Week && d.high52Week ? `${fmtUSD(d.low52Week)} – ${fmtUSD(d.high52Week)}` : null },
+      { label: "Volume", value: d.volume ? formatVolume(d.volume) : null },
+      { label: "Avg Volume (3M)", value: d.avgVolume3M ? formatVolume(d.avgVolume3M) : null },
+      { label: "Market Cap", value: d.marketCap ? formatMarketCap(d.marketCap) : null },
+      { label: "P/E Ratio", value: d.peRatio != null ? d.peRatio.toFixed(2) : null },
+      { label: "EPS", value: d.eps != null ? fmtUSD(d.eps) : null },
+      { label: "Beta", value: d.beta != null ? d.beta.toFixed(2) : null },
+      { label: "Dividend Yield", value: d.dividendYield != null ? `${(d.dividendYield * (d.dividendYield < 1 ? 100 : 1)).toFixed(2)}%` : null },
     ]
+    return all.filter((s): s is { label: string; value: string } => s.value != null)
   }, [details])
 
   return (
@@ -178,17 +180,19 @@ export default function StockPickDetail({ ticker, submitting, onCancel, onConfir
             </div>
           )}
 
-          <div>
-            <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Key stats</div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-              {stats.map((s) => (
-                <div key={s.label} className="rounded-xl border bg-muted/30 p-3">
-                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{s.label}</div>
-                  <div className="mt-1 text-base font-semibold tabular-nums">{s.value}</div>
-                </div>
-              ))}
+          {stats.length > 0 && (
+            <div>
+              <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Key stats</div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
+                {stats.map((s) => (
+                  <div key={s.label} className="rounded-xl border bg-muted/30 p-3">
+                    <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{s.label}</div>
+                    <div className="mt-1 text-base font-semibold tabular-nums">{s.value}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
 
