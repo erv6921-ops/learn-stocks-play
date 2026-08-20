@@ -295,8 +295,10 @@ export default function Auth() {
   }
 
   return (
-    <div className="relative min-h-screen bg-background flex items-center justify-center p-4">
-      <Wordmark className="absolute top-28 md:top-40 left-1/2 -translate-x-1/2 text-3xl md:text-5xl" />
+    <div className="relative min-h-screen bg-background flex flex-col items-center justify-center gap-6 md:gap-8 p-4 py-10">
+      {/* In normal flow (not absolutely pinned) so the wordmark always sits
+          directly above the card, whichever auth view is showing. */}
+      <Wordmark className="text-3xl md:text-5xl" />
       <AnimatePresence mode="wait">
         {signupPhase === "done" ? (
           <motion.div
