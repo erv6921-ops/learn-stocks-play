@@ -107,7 +107,12 @@ function ActivityTracker() {
 function AppRoutes() {
   const { user, authReady } = useApp();
   const location = useLocation();
-  const homeTarget = user?.onboardingComplete ? "/dashboard" : "/onboarding";
+  // Home ("/") routing. Teachers must land on their dashboard, not the student
+  // one - otherwise a page refresh or typing the base URL (no fresh SIGNED_IN
+  // event to trigger AppContext's role routing) drops them on /dashboard.
+  const homeTarget = user?.role === "teacher"
+    ? "/teacher-dashboard"
+    : user?.onboardingComplete ? "/dashboard" : "/onboarding";
 
   // Micro Business is locked (a blurred "Coming Soon" teaser) in production. On
   // localhost it's unlocked for development - append ?locked=1 to any of its

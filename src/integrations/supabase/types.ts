@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           assigned_at: string
           assigned_by: string
+          assignment_type: string
           class_id: string
           id: string
           lesson_id: string
@@ -25,6 +26,7 @@ export type Database = {
         Insert: {
           assigned_at?: string
           assigned_by: string
+          assignment_type?: string
           class_id: string
           id?: string
           lesson_id: string
@@ -32,6 +34,7 @@ export type Database = {
         Update: {
           assigned_at?: string
           assigned_by?: string
+          assignment_type?: string
           class_id?: string
           id?: string
           lesson_id?: string

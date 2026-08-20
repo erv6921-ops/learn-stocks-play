@@ -18,6 +18,9 @@ export interface UserProfile {
   schoolName: string
   grade: number
   literacyLevel: MasteryTier
+  // The account's role (profiles.role). Drives post-login/home routing so a
+  // teacher lands on /teacher-dashboard instead of the student /dashboard.
+  role?: "student" | "teacher" | null
   onboardingComplete: boolean
   assessmentScore: number
   benchmarkScores?: Record<string, number> // per-topic: 0 or 1

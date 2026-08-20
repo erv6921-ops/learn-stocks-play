@@ -152,6 +152,11 @@ export default function TeacherDashboard() {
   const [claimingId, setClaimingId] = useState<string | null>(null)
   const [selectedClass, setSelectedClass] = useState<Class | null>(null)
   const [classMembers, setClassMembers] = useState<ClassMember[]>([])
+  // Class-level assignments, held independently of students so they still show
+  // (and count) when a class has no members yet. Previously these were only
+  // reachable via classMembers[0], so assigning to an empty class looked like a
+  // no-op.
+  const [classAssignments, setClassAssignments] = useState<AssignedLesson[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
   const [newClassName, setNewClassName] = useState("")
@@ -159,6 +164,8 @@ export default function TeacherDashboard() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [assigning, setAssigning] = useState<string | null>(null) // user_id currently being assigned
   const [classWideLessonId, setClassWideLessonId] = useState<string>("")
+  // Classwork forces a lock-in pop-up; homework offers "Do now / Do later".
+  const [classWideType, setClassWideType] = useState<"classwork" | "homework">("classwork")
   const [assigningAll, setAssigningAll] = useState(false)
   // Teacher-controlled settings for the selected class (page access, timers…).
   const [classSettings, setClassSettings] = useState<ClassSettings>(DEFAULT_CLASS_SETTINGS)
@@ -196,6 +203,7 @@ export default function TeacherDashboard() {
     setClasses(cls)
     setSelectedClass(cls[0])
     setClassMembers(sampleMembersRef.current["c1"])
+    setClassAssignments(sampleMembersRef.current["c1"]?.[0]?.assignedLessons ?? [])
     setLoading(false)
     toast({ title: "Demo mode on", description: "Showing sample classes & students. Refresh to exit." })
   }
@@ -224,15 +232,17 @@ export default function TeacherDashboard() {
           class_id: selectedClass.id,
           lesson_id: classWideLessonId,
           assigned_by: user.id,
+          assignment_type: classWideType,
         })
 
       if (error && error.code !== "23505") throw error
 
+      const kind = classWideType === "homework" ? "homework" : "classwork"
       toast({
         title: error?.code === "23505" ? "Already assigned" : `Assigned "${title}" to class`,
         description: error?.code === "23505"
           ? "This lesson is already assigned to the class."
-          : "Every student in this class now has this lesson.",
+          : `Every student in this class now has this ${kind}.`,
       })
       setClassWideLessonId("")
       await loadClassMembers(selectedClass.id)
@@ -350,6 +360,7 @@ export default function TeacherDashboard() {
         .eq("class_id", classId)
         .order("assigned_at", { ascending: false })
       const classAssignments = (assignmentData || []) as AssignedLesson[]
+      setClassAssignments(classAssignments)
 
       const membersWithProfiles = await Promise.all(
         (data || []).map(async (member) => {
@@ -562,6 +573,7 @@ export default function TeacherDashboard() {
       if (selectedClass?.id === classId) {
         setSelectedClass(null)
         setClassMembers([])
+        setClassAssignments([])
       }
 
       await loadClasses()
@@ -668,6 +680,7 @@ export default function TeacherDashboard() {
     if (sampleMode) {
       setSelectedClass(cls)
       setClassMembers(sampleMembersRef.current[cls.id] || [])
+      setClassAssignments(sampleMembersRef.current[cls.id]?.[0]?.assignedLessons ?? [])
       return
     }
     setSelectedClass(cls)
@@ -687,7 +700,7 @@ export default function TeacherDashboard() {
 
   // ── Derived analytics for the charts ──
   const totalStudents = classes.reduce((s, c) => s + (c.student_count || 0), 0)
-  const assignments = classMembers[0]?.assignedLessons ?? []
+  const assignments = classAssignments
 
   const studentChartData = useMemo(
     () => classMembers
@@ -1094,6 +1107,43 @@ export default function TeacherDashboard() {
                           Assign to Class
                         </Button>
                       </div>
+                    </div>
+
+                    {/* Currently-assigned lessons - visible feedback that an
+                        assignment landed, even before any student has joined. */}
+                    <div className="mt-4">
+                      <p className="text-sm font-semibold mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary" />
+                        Assigned to this class ({assignments.length})
+                      </p>
+                      {assignments.length === 0 ? (
+                        <p className="text-sm text-muted-foreground italic">
+                          No lessons assigned yet. Pick one above to get started.
+                        </p>
+                      ) : (
+                        <div className="space-y-2">
+                          {assignments.map((a) => {
+                            const lesson = lessons.find((l) => l.id === a.lesson_id)
+                            return (
+                              <div key={a.id} className="flex items-center justify-between gap-2 p-3 rounded-lg border bg-card">
+                                <span className="flex items-center gap-2 min-w-0">
+                                  <BookOpen className="w-4 h-4 text-primary shrink-0" />
+                                  <span className="truncate font-medium">{lesson?.title || a.lesson_id}</span>
+                                </span>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="shrink-0"
+                                  onClick={() => removeAssignment(a.id)}
+                                  title="Remove assignment from class"
+                                >
+                                  <Trash2 className="w-4 h-4 text-destructive" />
+                                </Button>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
                     </div>
                       </CardContent>
                     </Card>
