@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 import { JeffMascot } from "@/components/Jeff/JeffMascot"
 import { JeffScene } from "@/components/Jeff"
 import type { JeffMoodType, JeffActivity } from "@/contexts/JeffContext"
-import { X, History } from "lucide-react"
+import { History } from "lucide-react"
 import type { Lesson } from "@/types"
 import { HighlightedText } from "@/lib/highlightTerms"
 import {
@@ -553,13 +553,11 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
         >
           <History className="w-4.5 h-4.5" />
         </button>
-        <button
-          onClick={onClose}
-          aria-label="Leave class"
-          className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:bg-black/5 transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
+        {/* No exit (X) here: the chat only ever renders for an unfinished
+            lesson, so the student is locked in until they complete Jeff's
+            teaching and move on to the quiz via the "Start quiz" button below.
+            (onClose stays on the props API; it's just no longer exposed as a
+            tappable escape.) */}
       </div>
 
       {/* ── The stage ── */}
