@@ -25,7 +25,7 @@ import AnimatedNumber from "@/components/AnimatedNumber";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
   Flame, Store, BarChart3, Trophy, FlaskConical, Landmark,
-  Users, Swords, Menu, X } from
+  Users, Swords, NotebookPen, Menu, X } from
 "lucide-react";
 import { NAV_ICON_COMPONENTS } from "@/components/nav/AnimatedNavIcons";
 import { getStreak } from "@/lib/playerStats";
@@ -48,7 +48,7 @@ const NAV_ITEMS = [
 { to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank", tint: "var(--brand)" },
 { to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress", tint: "var(--brand)" },
 { to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard", tint: "var(--brand)" },
-{ to: "/challenges", icon: Swords, label: "Challenges", tour: "nav-challenges", tint: "var(--brand)" },
+{ to: "/homework", icon: NotebookPen, label: "Homework", tour: "nav-challenges", tint: "var(--brand)" },
 { to: "/partners", icon: Users, label: "Find Partners", tour: "nav-partners", tint: "var(--brand)" }];
 
 

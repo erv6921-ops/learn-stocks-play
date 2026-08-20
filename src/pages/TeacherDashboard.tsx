@@ -1083,8 +1083,35 @@ export default function TeacherDashboard() {
                         Assign a lesson to the entire class
                       </p>
                       <p className="text-xs text-muted-foreground mb-3">
-                        Pick any lesson - every student in this class will be required to complete it.
+                        Pick any lesson, then choose how it's assigned. <strong>Classwork</strong> locks
+                        students into a do-it-now pop-up; <strong>homework</strong> lets them choose "Do now"
+                        or "Do later" and shows up on their Homework page.
                       </p>
+                      {/* Classwork vs. homework toggle */}
+                      <div className="grid grid-cols-2 gap-2 mb-3 max-w-sm">
+                        {([
+                          { key: "classwork", label: "Classwork", hint: "Do it now" },
+                          { key: "homework", label: "Homework", hint: "Do now or later" },
+                        ] as const).map((opt) => {
+                          const active = classWideType === opt.key
+                          return (
+                            <button
+                              key={opt.key}
+                              type="button"
+                              onClick={() => setClassWideType(opt.key)}
+                              disabled={assigningAll}
+                              className={`rounded-lg border-2 px-3 py-2 text-left transition ${
+                                active
+                                  ? "border-primary bg-primary/10"
+                                  : "border-border bg-card hover:border-primary/40"
+                              }`}
+                            >
+                              <span className="block text-sm font-semibold">{opt.label}</span>
+                              <span className="block text-xs text-muted-foreground">{opt.hint}</span>
+                            </button>
+                          )
+                        })}
+                      </div>
                       <div className="flex gap-2">
                         <Select value={classWideLessonId} onValueChange={setClassWideLessonId} disabled={assigningAll}>
                           <SelectTrigger className="flex-1">

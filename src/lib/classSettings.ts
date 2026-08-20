@@ -21,7 +21,7 @@ export const CONTROLLABLE_PAGES: ControllablePage[] = [
   { key: "bank", label: "Bank", route: "/bank" },
   { key: "progress", label: "Progress", route: "/progress" },
   { key: "leaderboard", label: "Leaderboard", route: "/leaderboard" },
-  { key: "challenges", label: "Challenges", route: "/challenges" },
+  { key: "homework", label: "Homework", route: "/homework" },
   { key: "partners", label: "Find Partners", route: "/partners" },
   { key: "daily", label: "Daily Challenge", route: "/daily" },
 ]

@@ -34,6 +34,7 @@ import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
 import Profile from "./pages/Profile";
 import Challenges from "./pages/Challenges";
+import Homework from "./pages/Homework";
 import Partners from "./pages/Partners";
 import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
@@ -161,6 +162,7 @@ function AppRoutes() {
       <Route path="/business-canvas" element={<BusinessCanvas />} />
       <Route path="/financial-advisor" element={<FinancialAdvisor />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/homework" element={<Homework />} />
       <Route path="/challenges" element={<CoinsGate required={1000} title="Challenges"><Challenges /></CoinsGate>} />
       <Route path="/partners" element={<Partners />} />
       <Route path="/missions-preview" element={<MissionsPreview />} />
