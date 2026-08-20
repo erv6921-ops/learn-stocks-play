@@ -45,6 +45,21 @@ export default function Auth() {
       // Post-login routing is handled centrally in AppContext on the
       // SIGNED_IN event - keep it as the single source of truth.
     } catch (error: any) {
+      // The account exists but the email was never confirmed (signup gates on
+      // a 6-digit code that can get abandoned). Rather than dead-end with an
+      // "invalid credentials" toast, drop the user into the code-entry step and
+      // send a fresh code right away so they can finish setting up the account.
+      if (error?.code === "email_not_confirmed") {
+        setSignupCode("")
+        setSignupPhase("code")
+        const { error: resendError } = await supabase.auth.resend({ type: "signup", email })
+        toast(
+          resendError
+            ? { title: "Couldn't send a new code", description: resendError.message, variant: "destructive" }
+            : { title: "Confirm your email", description: "We sent a fresh 6-digit code to finish setting up your account." }
+        )
+        return
+      }
       toast({
         title: "Login failed",
         description: error.message,
