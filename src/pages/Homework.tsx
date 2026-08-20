@@ -13,7 +13,17 @@ interface HomeworkItem {
   id: string
   lesson_id: string
   assigned_at: string
+  due_date: string | null
   completed: boolean
+}
+
+// Format a DB date ("YYYY-MM-DD") as "Aug 25", parsed at local midnight so it
+// never shifts a day. Returns days-until (negative = overdue) too.
+const parseDue = (d: string) => new Date(`${d}T00:00:00`)
+const fmtDue = (d: string) => parseDue(d).toLocaleDateString(undefined, { month: "short", day: "numeric" })
+const daysUntil = (d: string) => {
+  const today = new Date(); today.setHours(0, 0, 0, 0)
+  return Math.round((parseDue(d).getTime() - today.getTime()) / 86400000)
 }
 
 // The student's homework hub (replaces the old Challenges tab). Lists homework
@@ -45,7 +55,7 @@ export default function Homework() {
 
     const { data: assignments } = await supabase
       .from("assigned_lessons")
-      .select("id, lesson_id, assigned_at, assignment_type")
+      .select("id, lesson_id, assigned_at, assignment_type, due_date")
       .in("class_id", classIds)
       .eq("assignment_type", "homework")
       .order("assigned_at", { ascending: false })
@@ -64,7 +74,7 @@ export default function Homework() {
     for (const a of assignments || []) {
       if (seen.has(a.lesson_id)) continue
       seen.add(a.lesson_id)
-      list.push({ id: a.id, lesson_id: a.lesson_id, assigned_at: a.assigned_at, completed: done.has(a.lesson_id) })
+      list.push({ id: a.id, lesson_id: a.lesson_id, assigned_at: a.assigned_at, due_date: a.due_date, completed: done.has(a.lesson_id) })
     }
     setItems(list)
     setLoading(false)
@@ -88,13 +98,33 @@ export default function Homework() {
     return () => { supabase.removeChannel(channel) }
   }, [load, user, isTeacher])
 
-  const upcoming = items.filter((i) => !i.completed)
+  // Upcoming sorted by due date (soonest first); undated homework sinks to the
+  // bottom so time-sensitive work is on top.
+  const upcoming = items.filter((i) => !i.completed).sort((a, b) => {
+    if (a.due_date && b.due_date) return a.due_date.localeCompare(b.due_date)
+    if (a.due_date) return -1
+    if (b.due_date) return 1
+    return 0
+  })
   const completed = items.filter((i) => i.completed)
 
   const Row = ({ item }: { item: HomeworkItem }) => {
     const lesson = lessons.find((l) => l.id === item.lesson_id)
+    // Due-date label + urgency (only meaningful for not-yet-done work).
+    const dleft = item.due_date ? daysUntil(item.due_date) : null
+    const overdue = !item.completed && dleft !== null && dleft < 0
+    let dueLabel = ""
+    if (item.due_date) {
+      dueLabel =
+        dleft === 0 ? "Due today"
+        : dleft === 1 ? "Due tomorrow"
+        : dleft !== null && dleft < 0 ? `Overdue · was due ${fmtDue(item.due_date)}`
+        : `Due ${fmtDue(item.due_date)}`
+    }
     return (
-      <div className="w-full flex items-center gap-3 p-4 rounded-xl border-2 bg-card">
+      <div className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 bg-card ${
+        overdue ? "border-destructive/40" : ""
+      }`}>
         <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
           item.completed ? "bg-emerald-500/10 text-emerald-600" : "bg-primary/10 text-primary"
         }`}>
@@ -102,12 +132,21 @@ export default function Homework() {
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-semibold truncate">{lesson?.title || item.lesson_id}</p>
-          <div className="flex items-center gap-2 mt-1">
+          <div className="flex items-center gap-2 mt-1 flex-wrap">
             {lesson?.level && <Badge variant="secondary" className="text-xs">Level {lesson.level}</Badge>}
-            <span className="text-xs text-muted-foreground flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              Assigned {new Date(item.assigned_at).toLocaleDateString()}
-            </span>
+            {item.due_date ? (
+              <span className={`text-xs font-semibold flex items-center gap-1 ${
+                item.completed ? "text-muted-foreground" : overdue ? "text-destructive" : dleft === 0 ? "text-amber-600" : "text-foreground"
+              }`}>
+                <Clock className="w-3 h-3" />
+                {dueLabel}
+              </span>
+            ) : (
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                Assigned {new Date(item.assigned_at).toLocaleDateString()}
+              </span>
+            )}
           </div>
         </div>
         {item.completed ? (

@@ -76,6 +76,11 @@ import {
   Check,
 } from "lucide-react"
 
+// Format a DB date ("YYYY-MM-DD") as e.g. "Aug 25". Parsed at local midnight so
+// it never shifts a day in negative-offset timezones.
+const fmtDue = (d?: string | null): string =>
+  d ? new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : ""
+
 // ── Chart palette (kept in the app's teal / gold / green family) ──
 const C = {
   green: "var(--brand)",
@@ -109,6 +114,8 @@ interface AssignedLesson {
   id: string
   lesson_id: string
   assigned_at: string
+  assignment_type?: string
+  due_date?: string | null
 }
 
 interface ClassMember {
@@ -232,6 +239,9 @@ export default function TeacherDashboard() {
   const [classWideLessonId, setClassWideLessonId] = useState<string>("")
   // Classwork forces a lock-in pop-up; homework offers "Do now / Do later".
   const [classWideType, setClassWideType] = useState<"classwork" | "homework">("classwork")
+  // Optional due date (YYYY-MM-DD) for homework - shown to students on their
+  // Homework page and used to flag overdue work.
+  const [classWideDueDate, setClassWideDueDate] = useState<string>("")
   const [assigningAll, setAssigningAll] = useState(false)
   // Teacher-controlled settings for the selected class (page access, timers…).
   const [classSettings, setClassSettings] = useState<ClassSettings>(DEFAULT_CLASS_SETTINGS)
@@ -299,6 +309,8 @@ export default function TeacherDashboard() {
           lesson_id: classWideLessonId,
           assigned_by: user.id,
           assignment_type: classWideType,
+          // Due date only applies to homework; classwork is do-it-now.
+          due_date: classWideType === "homework" && classWideDueDate ? classWideDueDate : null,
         })
 
       if (error && error.code !== "23505") throw error
@@ -311,6 +323,7 @@ export default function TeacherDashboard() {
           : `Every student in this class now has this ${kind}.`,
       })
       setClassWideLessonId("")
+      setClassWideDueDate("")
       await loadClassMembers(selectedClass.id)
     } catch (error: any) {
       toast({ title: "Failed to assign", description: error.message, variant: "destructive" })
@@ -422,7 +435,7 @@ export default function TeacherDashboard() {
       // Assignments are class-level - load once and share across members.
       const { data: assignmentData } = await supabase
         .from("assigned_lessons")
-        .select("id, lesson_id, assigned_at")
+        .select("id, lesson_id, assigned_at, assignment_type, due_date")
         .eq("class_id", classId)
         .order("assigned_at", { ascending: false })
       const classAssignments = (assignmentData || []) as AssignedLesson[]
@@ -1178,6 +1191,21 @@ export default function TeacherDashboard() {
                           )
                         })}
                       </div>
+                      {/* Due date - homework only (classwork is do-it-now). */}
+                      {classWideType === "homework" && (
+                        <div className="mb-3 max-w-sm">
+                          <label className="text-xs font-semibold text-muted-foreground mb-1 block">
+                            Due date <span className="font-normal">(optional)</span>
+                          </label>
+                          <Input
+                            type="date"
+                            value={classWideDueDate}
+                            onChange={(e) => setClassWideDueDate(e.target.value)}
+                            disabled={assigningAll}
+                            className="max-w-[200px]"
+                          />
+                        </div>
+                      )}
                       <div className="flex gap-2">
                         <LessonPicker
                           lessons={assignableLessons}
@@ -1215,7 +1243,13 @@ export default function TeacherDashboard() {
                               <div key={a.id} className="flex items-center justify-between gap-2 p-3 rounded-lg border bg-card">
                                 <span className="flex items-center gap-2 min-w-0">
                                   <BookOpen className="w-4 h-4 text-primary shrink-0" />
-                                  <span className="truncate font-medium">{lesson?.title || a.lesson_id}</span>
+                                  <span className="min-w-0">
+                                    <span className="block truncate font-medium">{lesson?.title || a.lesson_id}</span>
+                                    <span className="block text-xs text-muted-foreground">
+                                      {a.assignment_type === "homework" ? "Homework" : "Classwork"}
+                                      {a.due_date && <> · Due {fmtDue(a.due_date)}</>}
+                                    </span>
+                                  </span>
                                 </span>
                                 <Button
                                   variant="ghost"

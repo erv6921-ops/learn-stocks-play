@@ -20,7 +20,13 @@ interface PendingAssignment {
   lesson_id: string
   assigned_at: string
   assignment_type: string
+  due_date: string | null
 }
+
+// Format a DB date ("YYYY-MM-DD") as "Aug 25", parsed at local midnight so it
+// never shifts a day in negative-offset timezones.
+const fmtDue = (d: string) =>
+  new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
 
 // Per-device record of which assigned lessons the student has already been
 // prompted for, so a prompt pops exactly once per assignment instead of nagging
@@ -79,7 +85,7 @@ export function AssignmentNotifications() {
     // Class-level assignments for those classes.
     const { data: assignments, error } = await supabase
       .from("assigned_lessons")
-      .select("id, lesson_id, assigned_at, assignment_type")
+      .select("id, lesson_id, assigned_at, assignment_type, due_date")
       .in("class_id", classIds)
       .order("assigned_at", { ascending: false })
     if (error || !assignments || assignments.length === 0) return
@@ -268,7 +274,9 @@ export function AssignmentNotifications() {
                       <p className="font-semibold truncate">{lesson?.title || a.lesson_id}</p>
                       <span className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                         <Clock className="w-3 h-3" />
-                        Assigned {new Date(a.assigned_at).toLocaleDateString()}
+                        {a.due_date
+                          ? <span className="font-semibold text-foreground">Due {fmtDue(a.due_date)}</span>
+                          : <>Assigned {new Date(a.assigned_at).toLocaleDateString()}</>}
                       </span>
                     </div>
                     <Button size="sm" onClick={() => homeworkDoNow(a.lesson_id)} className="shrink-0">

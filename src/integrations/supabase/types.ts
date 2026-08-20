@@ -20,6 +20,7 @@ export type Database = {
           assigned_by: string
           assignment_type: string
           class_id: string
+          due_date: string | null
           id: string
           lesson_id: string
         }
@@ -28,6 +29,7 @@ export type Database = {
           assigned_by: string
           assignment_type?: string
           class_id: string
+          due_date?: string | null
           id?: string
           lesson_id: string
         }
@@ -36,6 +38,7 @@ export type Database = {
           assigned_by?: string
           assignment_type?: string
           class_id?: string
+          due_date?: string | null
           id?: string
           lesson_id?: string
         }
