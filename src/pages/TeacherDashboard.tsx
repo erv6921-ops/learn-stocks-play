@@ -17,13 +17,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
 import {
   ResponsiveContainer,
   BarChart,
@@ -37,6 +39,7 @@ import {
   Pie,
   Cell,
 } from "recharts"
+import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
 import TeacherPredictionView from "@/components/StockPredictionDraft/TeacherPredictionView"
 import { lessons, getLessonsByTrack } from "@/data/lessons"
@@ -69,6 +72,8 @@ import {
   TrendingUp,
   Sparkles,
   Settings,
+  ChevronsUpDown,
+  Check,
 } from "lucide-react"
 
 // ── Chart palette (kept in the app's teal / gold / green family) ──
@@ -131,6 +136,67 @@ const memberName = (m: ClassMember) => {
   const email = m.profile?.email?.trim()
   if (email) return email.split("@")[0]
   return "Student"
+}
+
+// Searchable lesson picker. Replaces a plain <Select> for assigning lessons:
+// the assignable list can run to ~300 lessons, and a Radix Select renders every
+// item inside a MODAL overlay that locks body scroll (pointer-events: none on
+// <body>). On touch devices that lock could strand the whole page frozen and
+// unclickable. This Popover + Command combobox is non-modal (no scroll lock) and
+// filters as you type, so it stays fast and never freezes.
+function LessonPicker({
+  lessons: opts,
+  value,
+  onSelect,
+  placeholder = "Choose a lesson...",
+  disabled,
+}: {
+  lessons: { id: string; title: string }[]
+  value?: string
+  onSelect: (id: string) => void
+  placeholder?: string
+  disabled?: boolean
+}) {
+  const [open, setOpen] = useState(false)
+  const selected = opts.find((l) => l.id === value)
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          disabled={disabled}
+          className="flex-1 justify-between font-normal min-w-0"
+        >
+          <span className="truncate">{selected?.title ?? placeholder}</span>
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[260px]" align="start">
+        <Command>
+          <CommandInput placeholder="Search lessons..." />
+          <CommandList>
+            <CommandEmpty>No lesson found.</CommandEmpty>
+            <CommandGroup>
+              {opts.map((l) => (
+                <CommandItem
+                  key={l.id}
+                  // Include the id so lessons that share a title stay unique to
+                  // cmdk; typing the title still matches (substring filter).
+                  value={`${l.title}::${l.id}`}
+                  onSelect={() => { onSelect(l.id); setOpen(false) }}
+                >
+                  <Check className={cn("mr-2 h-4 w-4 shrink-0", value === l.id ? "opacity-100" : "opacity-0")} />
+                  <span className="truncate">{l.title}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
 }
 
 export default function TeacherDashboard() {
@@ -1113,18 +1179,12 @@ export default function TeacherDashboard() {
                         })}
                       </div>
                       <div className="flex gap-2">
-                        <Select value={classWideLessonId} onValueChange={setClassWideLessonId} disabled={assigningAll}>
-                          <SelectTrigger className="flex-1">
-                            <SelectValue placeholder="Choose a lesson..." />
-                          </SelectTrigger>
-                          <SelectContent className="max-h-[400px]">
-                            {assignableLessons.map((lesson) => (
-                              <SelectItem key={lesson.id} value={lesson.id}>
-                                {lesson.title}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                        <LessonPicker
+                          lessons={assignableLessons}
+                          value={classWideLessonId}
+                          onSelect={setClassWideLessonId}
+                          disabled={assigningAll}
+                        />
                         <Button onClick={assignLessonToClass} disabled={!classWideLessonId || assigningAll}>
                           {assigningAll ? (
                             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -1463,21 +1523,12 @@ export default function TeacherDashboard() {
                                 {/* Assign Lesson Dropdown */}
                                 {unassigned.length > 0 && (
                                   <div className="flex items-center gap-2">
-                                    <Select
-                                      onValueChange={(lessonId) => assignLesson(member.user_id, lessonId)}
+                                    <LessonPicker
+                                      lessons={unassigned}
+                                      placeholder="Assign a lesson..."
+                                      onSelect={(lessonId) => assignLesson(member.user_id, lessonId)}
                                       disabled={assigning === member.user_id}
-                                    >
-                                      <SelectTrigger className="flex-1">
-                                        <SelectValue placeholder="Assign a lesson..." />
-                                      </SelectTrigger>
-                                      <SelectContent>
-                                        {unassigned.map((lesson) => (
-                                          <SelectItem key={lesson.id} value={lesson.id}>
-                                            {lesson.title}
-                                          </SelectItem>
-                                        ))}
-                                      </SelectContent>
-                                    </Select>
+                                    />
                                     {assigning === member.user_id && (
                                       <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
                                     )}
