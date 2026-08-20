@@ -72,7 +72,7 @@ const fmtDate = (s?: string) =>
 interface Reflection { lesson_id: string; prompt: string; response: string; updated_at: string }
 interface Submission { type: string; title: string; fields: WorkField[]; link: string | null; updated_at: string }
 interface ProgressRow { lesson_id: string; completed: boolean; completed_at: string | null; quiz_score: number | null }
-interface LessonGrade { grade: string; feedback: string }
+interface LessonGrade { grade: string; feedback: string; percent: number | null }
 interface ActivityEvent {
   kind: string
   route: string | null
@@ -126,7 +126,7 @@ export default function StudentWork() {
 
   // The lesson block the teacher is currently inspecting, + its editable grade.
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null)
-  const [grade, setGrade] = useState("")
+  const [gradePercent, setGradePercent] = useState("")
   const [feedback, setFeedback] = useState("")
   const [saving, setSaving] = useState(false)
 
@@ -140,7 +140,7 @@ export default function StudentWork() {
           (supabase as any).from("lesson_reflections").select("lesson_id, prompt, response, updated_at").eq("user_id", userId),
           (supabase as any).from("business_game_state").select("activities").eq("user_id", userId).maybeSingle(),
           (supabase as any).from("entrepreneurship_submissions").select("submission_type, content, link, updated_at").eq("user_id", userId),
-          (supabase as any).from("lesson_grades").select("lesson_id, grade, feedback").eq("user_id", userId),
+          (supabase as any).from("lesson_grades").select("lesson_id, grade, feedback, grade_percent").eq("user_id", userId),
           (supabase as any).from("profiles").select("first_name, last_name").eq("id", userId).maybeSingle(),
           (supabase as any)
             .from("student_activity_events")
@@ -158,8 +158,8 @@ export default function StudentWork() {
 
         // Per-lesson grades → map keyed by lesson id.
         const gm = new Map<string, LessonGrade>()
-        for (const g of (lgRes?.data ?? []) as { lesson_id: string; grade: string | null; feedback: string | null }[]) {
-          gm.set(g.lesson_id, { grade: g.grade || "", feedback: g.feedback || "" })
+        for (const g of (lgRes?.data ?? []) as { lesson_id: string; grade: string | null; feedback: string | null; grade_percent: number | null }[]) {
+          gm.set(g.lesson_id, { grade: g.grade || "", feedback: g.feedback || "", percent: g.grade_percent ?? null })
         }
         setGrades(gm)
 
@@ -213,20 +213,30 @@ export default function StudentWork() {
   // Populate the grade editor whenever the teacher opens a different lesson.
   useEffect(() => {
     const g = selectedLessonId ? grades.get(selectedLessonId) : undefined
-    setGrade(g?.grade || "")
+    setGradePercent(g?.percent != null ? String(g.percent) : "")
     setFeedback(g?.feedback || "")
   }, [selectedLessonId, grades])
 
   // Save (upsert) the grade + feedback for the currently-selected lesson.
   const saveLessonGrade = async () => {
     if (!userId || !selectedLessonId) return
+    // Clamp the entered percentage to 0-100; blank clears the grade.
+    const raw = gradePercent.trim()
+    const pct = raw === "" ? null : Math.max(0, Math.min(100, Math.round(Number(raw))))
+    if (raw !== "" && Number.isNaN(Number(raw))) {
+      toast({ title: "Enter a number 0-100", variant: "destructive" })
+      return
+    }
+    // Keep the text `grade` column in sync as the display label (e.g. "92%").
+    const gradeLabel = pct != null ? `${pct}%` : null
     setSaving(true)
     try {
       const { data: { user } } = await supabase.auth.getUser()
       const { error } = await (supabase as any).from("lesson_grades").upsert({
         user_id: userId,
         lesson_id: selectedLessonId,
-        grade: grade.trim() || null,
+        grade: gradeLabel,
+        grade_percent: pct,
         feedback: feedback.trim() || null,
         graded_by: user?.id,
         updated_at: new Date().toISOString(),
@@ -234,10 +244,10 @@ export default function StudentWork() {
       if (error) throw error
       setGrades((prev) => {
         const next = new Map(prev)
-        next.set(selectedLessonId, { grade: grade.trim(), feedback: feedback.trim() })
+        next.set(selectedLessonId, { grade: gradeLabel || "", feedback: feedback.trim(), percent: pct })
         return next
       })
-      toast({ title: "Grade saved", description: "The student can see your feedback for this lesson." })
+      toast({ title: "Grade saved", description: "The student can see this grade and feedback." })
     } catch (e) {
       console.error("[StudentWork] saveLessonGrade", e)
       toast({
@@ -344,13 +354,22 @@ export default function StudentWork() {
           completedAt: prog?.completed_at || null,
           quizScore: prog?.quiz_score ?? null,
           reflection: reflections.find((r) => r.lesson_id === id) || null,
-          graded: !!grades.get(id)?.grade,
+          gradePct: grades.get(id)?.percent ?? null,
+          graded: grades.get(id)?.percent != null,
         }
       })
       .sort((a, b) => a.order - b.order)
   }, [reflections, progress, events, grades])
 
   const selectedBlock = lessonBlocks.find((b) => b.id === selectedLessonId) || null
+
+  // Average percentage across every lesson the teacher has graded.
+  const gradedPercents = Array.from(grades.values())
+    .map((g) => g.percent)
+    .filter((p): p is number => p != null)
+  const gradeAvg = gradedPercents.length
+    ? Math.round(gradedPercents.reduce((a, b) => a + b, 0) / gradedPercents.length)
+    : null
 
   const isEmpty = !loading && lessonBlocks.length === 0 && bizSections.length === 0 && submissions.length === 0
 
@@ -381,6 +400,22 @@ export default function StudentWork() {
           </div>
         ) : (
           <div className="space-y-6">
+            {/* ── Report card: average of the teacher's per-lesson grades ── */}
+            {gradeAvg != null && (
+              <div className="rounded-2xl bg-gradient-primary text-white px-5 py-4 shadow-sm flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <GraduationCap className="w-8 h-8 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-bold uppercase tracking-wider opacity-90">Grade average</p>
+                    <p className="text-xs opacity-90">
+                      Across {gradedPercents.length} graded lesson{gradedPercents.length === 1 ? "" : "s"}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-4xl font-extrabold tabular-nums leading-none shrink-0">{gradeAvg}%</p>
+              </div>
+            )}
+
             {/* ── Overall snapshot ── */}
             {analytics.hasData && (
               <div>
@@ -447,7 +482,7 @@ export default function StudentWork() {
                           </div>
                           {b.graded ? (
                             <span className="inline-flex items-center gap-1 mt-2 text-[11px] font-bold text-emerald-600">
-                              <GraduationCap className="w-3.5 h-3.5" /> Graded
+                              <GraduationCap className="w-3.5 h-3.5" /> {b.gradePct}%
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-amber-600">
@@ -569,8 +604,20 @@ export default function StudentWork() {
                           <GraduationCap className="w-4 h-4 text-primary" />
                           <p className="font-bold text-sm">Grade this lesson</p>
                         </div>
-                        <label className="text-xs font-semibold text-muted-foreground">Grade</label>
-                        <Input value={grade} onChange={(e) => setGrade(e.target.value)} placeholder="e.g. A, 92%, 4/5" className="mt-1 mb-3" />
+                        <label className="text-xs font-semibold text-muted-foreground">Grade (%)</label>
+                        <div className="relative mt-1 mb-3">
+                          <Input
+                            type="number"
+                            inputMode="numeric"
+                            min={0}
+                            max={100}
+                            value={gradePercent}
+                            onChange={(e) => setGradePercent(e.target.value)}
+                            placeholder="e.g. 92"
+                            className="pr-8"
+                          />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none">%</span>
+                        </div>
                         <label className="text-xs font-semibold text-muted-foreground">Feedback</label>
                         <Textarea value={feedback} onChange={(e) => setFeedback(e.target.value)}
                           placeholder="Feedback for this lesson…" rows={4} className="mt-1 mb-3 resize-none" />

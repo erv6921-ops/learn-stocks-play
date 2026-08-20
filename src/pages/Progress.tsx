@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { useAuth } from "@/hooks/useAuth"
+import { supabase } from "@/integrations/supabase/client"
 import GameNav from "@/components/GameNav"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { anchor } from "@/lib/tourAnchors"
@@ -102,9 +103,39 @@ function CustomRadarTooltip({ active, payload }: any) {
   )
 }
 
+// Lesson id -> title, for labelling teacher grades.
+const LESSON_TITLE = new Map(lessons.map((l) => [l.id, l.title]))
+
+interface StudentGrade { lesson_id: string; grade_percent: number | null; feedback: string | null }
+
 export default function ProgressPage() {
   const { user, lessonProgress, unitTestProgress } = useApp()
   const { isTeacher } = useAuth()
+
+  // Teacher-assigned per-lesson grades for this student (their report card).
+  const [lessonGrades, setLessonGrades] = useState<StudentGrade[]>([])
+  useEffect(() => {
+    if (!user?.id) return
+    let cancelled = false
+    ;(async () => {
+      const { data } = await (supabase as any)
+        .from("lesson_grades")
+        .select("lesson_id, grade_percent, feedback")
+        .eq("user_id", user.id)
+      if (!cancelled) setLessonGrades((data ?? []) as StudentGrade[])
+    })()
+    return () => { cancelled = true }
+  }, [user?.id])
+
+  const gradedLessons = useMemo(
+    () => lessonGrades
+      .filter((g) => g.grade_percent != null)
+      .sort((a, b) => (LESSON_TITLE.get(a.lesson_id) || a.lesson_id).localeCompare(LESSON_TITLE.get(b.lesson_id) || b.lesson_id)),
+    [lessonGrades]
+  )
+  const gradeAverage = gradedLessons.length
+    ? Math.round(gradedLessons.reduce((s, g) => s + (g.grade_percent as number), 0) / gradedLessons.length)
+    : null
   const [viewMode, setViewMode] = useState<"my" | "class">("my")
   const [chartView, setChartView] = useState<"all" | "grouped">("grouped")
   const [evolutionMode, setEvolutionMode] = useState<"overall" | "category">("overall")
@@ -284,6 +315,60 @@ export default function ProgressPage() {
           </div>
           <p className="text-muted-foreground text-sm mb-8">Track your learning journey and measure growth</p>
         </motion.div>
+
+        {/* ─── REPORT CARD: teacher's per-lesson grades + average ─── */}
+        {gradeAverage != null && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-6"
+          >
+            <Card variant="elevated">
+              <CardHeader>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <GraduationCap className="w-5 h-5 text-primary" />
+                      Report Card
+                    </CardTitle>
+                    <CardDescription>
+                      Grades your teacher gave you across {gradedLessons.length} lesson{gradedLessons.length === 1 ? "" : "s"}
+                    </CardDescription>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Average</p>
+                    <p className="text-3xl font-extrabold tabular-nums text-primary leading-none">{gradeAverage}%</p>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {gradedLessons.map((g) => (
+                    <div key={g.lesson_id} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-muted/30">
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold truncate">{LESSON_TITLE.get(g.lesson_id) || g.lesson_id}</p>
+                        {g.feedback && (
+                          <p className="text-xs text-muted-foreground truncate">{g.feedback}</p>
+                        )}
+                      </div>
+                      <Badge
+                        variant="outline"
+                        className={`font-bold tabular-nums shrink-0 ${
+                          (g.grade_percent as number) >= 75 ? "text-success border-success/20"
+                          : (g.grade_percent as number) >= 50 ? "text-warning border-warning/20"
+                          : "text-destructive border-destructive/20"
+                        }`}
+                      >
+                        {g.grade_percent}%
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
 
         {!benchmarkTaken ? (
           /* ── Benchmark not taken - CTA + skeleton ── */
