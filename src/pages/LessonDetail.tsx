@@ -429,9 +429,14 @@ export default function LessonDetail() {
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex items-center h-14 gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/lessons")}>
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
+            {/* Locked in: once a lesson is in progress there's no exit button -
+                the student can only leave by finishing it. The back arrow
+                returns only on the pre-start overview and after completion. */}
+            {(!lessonStarted || lessonFinished || isCompleted) && (
+              <Button variant="ghost" size="icon" onClick={() => navigate("/lessons")}>
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+            )}
             <div className="flex-1 min-w-0">
               <h1 className="font-semibold text-sm truncate">{lesson.title}</h1>
               {lessonStarted && !lessonFinished && (

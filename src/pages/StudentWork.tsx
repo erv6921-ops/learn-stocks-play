@@ -494,8 +494,12 @@ export default function StudentWork() {
                   )}
                 </div>
 
-                {/* ── Selected lesson detail: analytics + reflection + grade ── */}
-                <div className="lg:sticky lg:top-20">
+                {/* ── Selected lesson detail: analytics + reflection + grade ──
+                    Cap the sticky panel to the viewport and let it scroll
+                    internally - otherwise a tall panel (missed Qs + reflection +
+                    grade form) clips its own bottom and the Save button is
+                    unreachable. */}
+                <div className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:pr-1">
                   {!selectedBlock ? (
                     <div className="rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">
                       <ClipboardCheck className="w-7 h-7 mx-auto mb-2 opacity-40" />

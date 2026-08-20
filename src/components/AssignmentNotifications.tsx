@@ -19,6 +19,30 @@ interface PendingAssignment {
   assigned_at: string
 }
 
+// Per-device record of which assigned lessons the student has already been
+// prompted for, so the forcing modal pops exactly once per assignment instead
+// of nagging on every app load. A brand-new assignment (a lesson_id we haven't
+// stored) still forces the modal; once the student opens it, we record it here.
+const ackKey = (uid: string) => `investiplay_assignment_ack_${uid}`
+const readAck = (uid: string): Set<string> => {
+  try {
+    const raw = localStorage.getItem(ackKey(uid))
+    const arr = raw ? JSON.parse(raw) : []
+    return new Set(Array.isArray(arr) ? (arr as string[]) : [])
+  } catch {
+    return new Set()
+  }
+}
+const writeAck = (uid: string, lessonId: string) => {
+  try {
+    const next = readAck(uid)
+    next.add(lessonId)
+    localStorage.setItem(ackKey(uid), JSON.stringify([...next]))
+  } catch {
+    /* ignore */
+  }
+}
+
 // A forcing, non-dismissible pop-up: the moment a teacher assigns a lesson, the
 // student sees a modal they can't close except by opening a lesson. It reappears
 // on every load while any assigned lesson is still incomplete, and updates live
@@ -60,10 +84,12 @@ export function AssignmentNotifications() {
       .eq("completed", true)
     const done = new Set((progress || []).map((p) => p.lesson_id))
 
-    // Unique, not-yet-completed assignments.
+    // Unique, not-yet-completed assignments the student hasn't already been
+    // prompted for (acked) - so the modal forces once per assignment.
+    const acked = readAck(user.id)
     const seen = new Set<string>()
     const pendingList = assignments.filter((a) => {
-      if (done.has(a.lesson_id) || seen.has(a.lesson_id)) return false
+      if (done.has(a.lesson_id) || seen.has(a.lesson_id) || acked.has(a.lesson_id)) return false
       seen.add(a.lesson_id)
       return true
     })
@@ -103,6 +129,9 @@ export function AssignmentNotifications() {
   }, [user, isTeacher, checkAssignments])
 
   const startLesson = (lessonId: string) => {
+    // Record this assignment so the modal won't force again on future loads -
+    // the student is now locked into the lesson until they complete it.
+    if (user) writeAck(user.id, lessonId)
     setOpen(false)
     navigate(`/lessons/${lessonId}`)
   }

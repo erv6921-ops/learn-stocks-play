@@ -41,12 +41,34 @@ const writeAck = (uid: string, classId: string, launchedAt: string) => {
   }
 }
 
+// Once the student has made a pick, the forcing modal is done for good - it
+// won't re-prompt on later app opens or teacher relaunches. (The draft is a
+// one-time, day-one icebreaker; we don't want to nag them every session.)
+const doneKey = (uid: string) => `investiplay_stock_draft_done_${uid}`
+const hasPickedEver = (uid: string): boolean => {
+  try {
+    return localStorage.getItem(doneKey(uid)) === "1"
+  } catch {
+    return false
+  }
+}
+const markPickedEver = (uid: string) => {
+  try {
+    localStorage.setItem(doneKey(uid), "1")
+  } catch {
+    /* ignore */
+  }
+}
+
 export function StockDraftNotification() {
   const { user, isTeacher } = useAuth()
   const [due, setDue] = useState<DueDraft | null>(null)
 
   const check = useCallback(async () => {
     if (!user || isTeacher) { setDue(null); return }
+
+    // Already picked once - never force the modal again.
+    if (hasPickedEver(user.id)) { setDue(null); return }
 
     // Classes I'm a student in.
     const { data: mem } = await supabase
@@ -86,9 +108,10 @@ export function StockDraftNotification() {
   }, [user, isTeacher, check])
 
   const handlePicked = () => {
-    // Mark this launch complete so the modal closes and doesn't re-open until
-    // the teacher launches again (a new launched_at).
+    // Mark this launch complete AND flag that the student has now picked at all,
+    // so the forcing modal never re-opens (relaunch or new session).
     if (user && due) writeAck(user.id, due.classId, due.launchedAt)
+    if (user) markPickedEver(user.id)
     void check()
   }
 
