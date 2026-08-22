@@ -21,6 +21,7 @@ export type Database = {
           assignment_type: string
           class_id: string
           due_date: string | null
+          due_time: string | null
           id: string
           lesson_id: string
         }
@@ -30,6 +31,7 @@ export type Database = {
           assignment_type?: string
           class_id: string
           due_date?: string | null
+          due_time?: string | null
           id?: string
           lesson_id: string
         }
@@ -39,6 +41,7 @@ export type Database = {
           assignment_type?: string
           class_id?: string
           due_date?: string | null
+          due_time?: string | null
           id?: string
           lesson_id?: string
         }

@@ -40,6 +40,7 @@ import {
   Cell,
 } from "recharts"
 import { cn } from "@/lib/utils"
+import { fmtDue } from "@/lib/dueDate"
 import { useToast } from "@/hooks/use-toast"
 import TeacherPredictionView from "@/components/StockPredictionDraft/TeacherPredictionView"
 import { lessons, getLessonsByTrack } from "@/data/lessons"
@@ -76,11 +77,6 @@ import {
   Check,
 } from "lucide-react"
 
-// Format a DB date ("YYYY-MM-DD") as e.g. "Aug 25". Parsed at local midnight so
-// it never shifts a day in negative-offset timezones.
-const fmtDue = (d?: string | null): string =>
-  d ? new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : ""
-
 // ── Chart palette (kept in the app's teal / gold / green family) ──
 const C = {
   green: "var(--brand)",
@@ -116,6 +112,7 @@ interface AssignedLesson {
   assigned_at: string
   assignment_type?: string
   due_date?: string | null
+  due_time?: string | null
 }
 
 interface ClassMember {
@@ -239,9 +236,10 @@ export default function TeacherDashboard() {
   const [classWideLessonId, setClassWideLessonId] = useState<string>("")
   // Classwork forces a lock-in pop-up; homework offers "Do now / Do later".
   const [classWideType, setClassWideType] = useState<"classwork" | "homework">("classwork")
-  // Optional due date (YYYY-MM-DD) for homework - shown to students on their
-  // Homework page and used to flag overdue work.
+  // Optional due date (YYYY-MM-DD) + time (HH:MM) for homework - shown to
+  // students on their Homework page and used to flag overdue work.
   const [classWideDueDate, setClassWideDueDate] = useState<string>("")
+  const [classWideDueTime, setClassWideDueTime] = useState<string>("")
   const [assigningAll, setAssigningAll] = useState(false)
   // Teacher-controlled settings for the selected class (page access, timers…).
   const [classSettings, setClassSettings] = useState<ClassSettings>(DEFAULT_CLASS_SETTINGS)
@@ -309,8 +307,10 @@ export default function TeacherDashboard() {
           lesson_id: classWideLessonId,
           assigned_by: user.id,
           assignment_type: classWideType,
-          // Due date only applies to homework; classwork is do-it-now.
+          // Due date/time only apply to homework; classwork is do-it-now. A time
+          // without a date is meaningless, so it's dropped unless a date is set.
           due_date: classWideType === "homework" && classWideDueDate ? classWideDueDate : null,
+          due_time: classWideType === "homework" && classWideDueDate && classWideDueTime ? classWideDueTime : null,
         })
 
       if (error && error.code !== "23505") throw error
@@ -324,6 +324,7 @@ export default function TeacherDashboard() {
       })
       setClassWideLessonId("")
       setClassWideDueDate("")
+      setClassWideDueTime("")
       await loadClassMembers(selectedClass.id)
     } catch (error: any) {
       toast({ title: "Failed to assign", description: error.message, variant: "destructive" })
@@ -435,7 +436,7 @@ export default function TeacherDashboard() {
       // Assignments are class-level - load once and share across members.
       const { data: assignmentData } = await supabase
         .from("assigned_lessons")
-        .select("id, lesson_id, assigned_at, assignment_type, due_date")
+        .select("id, lesson_id, assigned_at, assignment_type, due_date, due_time")
         .eq("class_id", classId)
         .order("assigned_at", { ascending: false })
       const classAssignments = (assignmentData || []) as AssignedLesson[]
@@ -1191,19 +1192,34 @@ export default function TeacherDashboard() {
                           )
                         })}
                       </div>
-                      {/* Due date - homework only (classwork is do-it-now). */}
+                      {/* Due date + optional time - homework only (classwork is
+                          do-it-now). The time is disabled until a date is set. */}
                       {classWideType === "homework" && (
-                        <div className="mb-3 max-w-sm">
-                          <label className="text-xs font-semibold text-muted-foreground mb-1 block">
-                            Due date <span className="font-normal">(optional)</span>
-                          </label>
-                          <Input
-                            type="date"
-                            value={classWideDueDate}
-                            onChange={(e) => setClassWideDueDate(e.target.value)}
-                            disabled={assigningAll}
-                            className="max-w-[200px]"
-                          />
+                        <div className="mb-3 flex flex-wrap gap-4">
+                          <div>
+                            <label className="text-xs font-semibold text-muted-foreground mb-1 block">
+                              Due date <span className="font-normal">(optional)</span>
+                            </label>
+                            <Input
+                              type="date"
+                              value={classWideDueDate}
+                              onChange={(e) => setClassWideDueDate(e.target.value)}
+                              disabled={assigningAll}
+                              className="w-[170px]"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs font-semibold text-muted-foreground mb-1 block">
+                              Due time <span className="font-normal">(optional)</span>
+                            </label>
+                            <Input
+                              type="time"
+                              value={classWideDueTime}
+                              onChange={(e) => setClassWideDueTime(e.target.value)}
+                              disabled={assigningAll || !classWideDueDate}
+                              className="w-[140px]"
+                            />
+                          </div>
                         </div>
                       )}
                       <div className="flex gap-2">
@@ -1247,7 +1263,7 @@ export default function TeacherDashboard() {
                                     <span className="block truncate font-medium">{lesson?.title || a.lesson_id}</span>
                                     <span className="block text-xs text-muted-foreground">
                                       {a.assignment_type === "homework" ? "Homework" : "Classwork"}
-                                      {a.due_date && <> · Due {fmtDue(a.due_date)}</>}
+                                      {a.due_date && <> · Due {fmtDue(a.due_date, a.due_time)}</>}
                                     </span>
                                   </span>
                                 </span>

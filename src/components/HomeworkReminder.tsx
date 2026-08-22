@@ -18,11 +18,13 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { NotebookPen, Clock, Play } from "lucide-react"
+import { dueLabel as fmtDueLabel, isOverdue as pastDue } from "@/lib/dueDate"
 
 interface PendingHw {
   id: string
   lesson_id: string
   due_date: string | null
+  due_time: string | null
 }
 
 // Local calendar day as YYYY-MM-DD (en-CA formats that way) so "once per day"
@@ -49,13 +51,6 @@ const readHwAck = (uid: string): Set<string> => {
   }
 }
 
-const parseDue = (d: string) => new Date(`${d}T00:00:00`)
-const fmtDue = (d: string) => parseDue(d).toLocaleDateString(undefined, { month: "short", day: "numeric" })
-const daysUntil = (d: string) => {
-  const t = new Date(); t.setHours(0, 0, 0, 0)
-  return Math.round((parseDue(d).getTime() - t.getTime()) / 86400000)
-}
-
 export function HomeworkReminder() {
   const { user, isTeacher } = useAuth()
   const navigate = useNavigate()
@@ -76,7 +71,7 @@ export function HomeworkReminder() {
 
     const { data: assignments } = await supabase
       .from("assigned_lessons")
-      .select("id, lesson_id, due_date, assignment_type")
+      .select("id, lesson_id, due_date, due_time, assignment_type")
       .in("class_id", classIds)
       .eq("assignment_type", "homework")
     if (!assignments || assignments.length === 0) return
@@ -95,14 +90,16 @@ export function HomeworkReminder() {
       if (done.has(a.lesson_id) || seen.has(a.lesson_id)) continue
       seen.add(a.lesson_id)
       if (!ack.has(a.lesson_id)) hasUnacked = true
-      incomplete.push({ id: a.id, lesson_id: a.lesson_id, due_date: a.due_date })
+      incomplete.push({ id: a.id, lesson_id: a.lesson_id, due_date: a.due_date, due_time: a.due_time })
     }
     if (incomplete.length === 0 || hasUnacked) return
 
-    // Soonest due first; undated homework sinks to the bottom.
-    incomplete.sort((a, b) =>
-      a.due_date && b.due_date ? a.due_date.localeCompare(b.due_date) : a.due_date ? -1 : b.due_date ? 1 : 0
-    )
+    // Soonest due first (date+time); undated homework sinks to the bottom.
+    incomplete.sort((a, b) => {
+      const ak = a.due_date ? `${a.due_date}T${a.due_time ?? "23:59"}` : ""
+      const bk = b.due_date ? `${b.due_date}T${b.due_time ?? "23:59"}` : ""
+      return ak && bk ? ak.localeCompare(bk) : ak ? -1 : bk ? 1 : 0
+    })
     setPending(incomplete)
     setOpen(true)
     markShownToday(user.id)
@@ -112,7 +109,7 @@ export function HomeworkReminder() {
 
   if (!open || pending.length === 0) return null
 
-  const overdueCount = pending.filter((p) => p.due_date && daysUntil(p.due_date) < 0).length
+  const overdueCount = pending.filter((p) => p.due_date && pastDue(p.due_date, p.due_time)).length
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -133,14 +130,10 @@ export function HomeworkReminder() {
         <div className="space-y-2 my-2 max-h-[260px] overflow-y-auto">
           {pending.map((p) => {
             const lesson = lessons.find((l) => l.id === p.lesson_id)
-            const dleft = p.due_date ? daysUntil(p.due_date) : null
-            const overdue = dleft !== null && dleft < 0
-            const dueLabel = p.due_date
-              ? dleft === 0 ? "Due today"
-              : dleft === 1 ? "Due tomorrow"
-              : overdue ? `Overdue · was due ${fmtDue(p.due_date)}`
-              : `Due ${fmtDue(p.due_date)}`
-              : ""
+            const overdue = !!p.due_date && pastDue(p.due_date, p.due_time)
+            const dueToday = !!p.due_date && !overdue &&
+              new Date(`${p.due_date}T00:00:00`).toDateString() === new Date().toDateString()
+            const dueLabel = p.due_date ? fmtDueLabel(p.due_date, p.due_time) : ""
             return (
               <button
                 key={p.id}
@@ -156,7 +149,7 @@ export function HomeworkReminder() {
                   <p className="font-semibold truncate">{lesson?.title || p.lesson_id}</p>
                   {p.due_date && (
                     <span className={`text-xs font-semibold flex items-center gap-1 mt-0.5 ${
-                      overdue ? "text-destructive" : dleft === 0 ? "text-amber-600" : "text-muted-foreground"
+                      overdue ? "text-destructive" : dueToday ? "text-amber-600" : "text-muted-foreground"
                     }`}>
                       <Clock className="w-3 h-3" /> {dueLabel}
                     </span>

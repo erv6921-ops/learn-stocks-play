@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
 import { lessons } from "@/data/lessons"
+import { dueLabel as fmtDueLabel, isOverdue as pastDue } from "@/lib/dueDate"
 
 interface Grade {
   label: string          // display text, e.g. "92%"
@@ -23,17 +24,19 @@ interface HomeworkItem {
   lesson_id: string
   assigned_at: string
   due_date: string | null
+  due_time: string | null
   completed: boolean
   grade: Grade | null
 }
 
-// Format a DB date ("YYYY-MM-DD") as "Aug 25", parsed at local midnight so it
-// never shifts a day. daysUntil is negative when overdue.
-const parseDue = (d: string) => new Date(`${d}T00:00:00`)
-const fmtDue = (d: string) => parseDue(d).toLocaleDateString(undefined, { month: "short", day: "numeric" })
-const daysUntil = (d: string) => {
-  const today = new Date(); today.setHours(0, 0, 0, 0)
-  return Math.round((parseDue(d).getTime() - today.getTime()) / 86400000)
+// Sort dated work by due date+time (soonest first); undated sinks to the bottom.
+const byDue = (a: HomeworkItem, b: HomeworkItem) => {
+  const ak = a.due_date ? `${a.due_date}T${a.due_time ?? "23:59"}` : ""
+  const bk = b.due_date ? `${b.due_date}T${b.due_time ?? "23:59"}` : ""
+  if (ak && bk) return ak.localeCompare(bk)
+  if (ak) return -1
+  if (bk) return 1
+  return 0
 }
 
 // Grade → color family (green good, amber ok, red weak). Falls back to neutral
@@ -79,7 +82,7 @@ export default function Homework() {
     const [{ data: assignments }, { data: progress }, { data: gradeRows }] = await Promise.all([
       supabase
         .from("assigned_lessons")
-        .select("id, lesson_id, assigned_at, assignment_type, due_date")
+        .select("id, lesson_id, assigned_at, assignment_type, due_date, due_time")
         .in("class_id", classIds)
         .eq("assignment_type", "homework")
         .order("assigned_at", { ascending: false }),
@@ -120,6 +123,7 @@ export default function Homework() {
         lesson_id: a.lesson_id,
         assigned_at: a.assigned_at,
         due_date: a.due_date,
+        due_time: a.due_time,
         completed: done.has(a.lesson_id),
         grade: grades.get(a.lesson_id) || null,
       })
@@ -152,19 +156,13 @@ export default function Homework() {
   }, [load, user, isTeacher])
 
   // Split into buckets. Overdue is surfaced separately so time-sensitive work is
-  // impossible to miss even in a long list. Each bucket is sorted by due date
+  // impossible to miss even in a long list. Each bucket is sorted by due date/time
   // (soonest first); undated work sinks below dated work.
-  const byDue = (a: HomeworkItem, b: HomeworkItem) => {
-    if (a.due_date && b.due_date) return a.due_date.localeCompare(b.due_date)
-    if (a.due_date) return -1
-    if (b.due_date) return 1
-    return 0
-  }
   const { overdue, upcoming, completed } = useMemo(() => {
     const notDone = items.filter((i) => !i.completed)
     return {
-      overdue: notDone.filter((i) => i.due_date && daysUntil(i.due_date) < 0).sort(byDue),
-      upcoming: notDone.filter((i) => !i.due_date || daysUntil(i.due_date) >= 0).sort(byDue),
+      overdue: notDone.filter((i) => i.due_date && pastDue(i.due_date, i.due_time)).sort(byDue),
+      upcoming: notDone.filter((i) => !i.due_date || !pastDue(i.due_date, i.due_time)).sort(byDue),
       completed: items.filter((i) => i.completed),
     }
   }, [items])
@@ -179,21 +177,14 @@ export default function Homework() {
 
   const Row = ({ item }: { item: HomeworkItem }) => {
     const lesson = lessons.find((l) => l.id === item.lesson_id)
-    const dleft = item.due_date ? daysUntil(item.due_date) : null
-    const isOverdue = !item.completed && dleft !== null && dleft < 0
+    const isOverdue = !item.completed && !!item.due_date && pastDue(item.due_date, item.due_time)
+    const dueToday = !!item.due_date && !isOverdue && !item.completed &&
+      new Date(`${item.due_date}T00:00:00`).toDateString() === new Date().toDateString()
     const grade = item.grade
     const hasFeedback = !!grade?.feedback
     const feedbackOpen = openFeedback.has(item.id)
 
-    let dueLabel = ""
-    if (item.due_date) {
-      dueLabel =
-        dleft === 0 ? "Due today"
-        : dleft === 1 ? "Due tomorrow"
-        : dleft !== null && dleft < 0 ? `Overdue · was due ${fmtDue(item.due_date)}`
-        : dleft !== null && dleft <= 6 ? `Due ${parseDue(item.due_date).toLocaleDateString(undefined, { weekday: "short" })} · ${fmtDue(item.due_date)}`
-        : `Due ${fmtDue(item.due_date)}`
-    }
+    const dueLabel = item.due_date ? fmtDueLabel(item.due_date, item.due_time, { completed: item.completed }) : ""
 
     return (
       <div className={`w-full rounded-xl border-2 bg-card transition-colors ${
@@ -218,7 +209,7 @@ export default function Homework() {
                 <span className={`text-xs font-semibold flex items-center gap-1 ${
                   item.completed ? "text-muted-foreground"
                   : isOverdue ? "text-destructive"
-                  : dleft === 0 ? "text-amber-600"
+                  : dueToday ? "text-amber-600"
                   : "text-muted-foreground"
                 }`}>
                   <Clock className="w-3 h-3" />
@@ -227,7 +218,7 @@ export default function Homework() {
               ) : (
                 <span className="text-xs text-muted-foreground flex items-center gap-1">
                   <Clock className="w-3 h-3" />
-                  Assigned {new Date(item.assigned_at).toLocaleDateString()}
+                  No due date
                 </span>
               )}
             </div>
