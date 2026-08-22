@@ -3,11 +3,10 @@ import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import {
   NotebookPen, Play, Clock, CheckCircle2, BookOpen, Loader2,
-  AlertTriangle, ChevronDown, MessageSquareText,
+  AlertTriangle, ChevronDown, MessageSquareText, Sparkles, Trophy,
 } from "lucide-react"
 import GameNav from "@/components/GameNav"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
 import { lessons } from "@/data/lessons"
@@ -43,11 +42,11 @@ const byDue = (a: HomeworkItem, b: HomeworkItem) => {
 // when the teacher left a text grade with no percent.
 const gradeClasses = (pct: number | null) => {
   if (pct == null) return "bg-muted text-foreground border-border"
-  if (pct >= 90) return "bg-emerald-500/15 text-emerald-700 border-emerald-500/30"
-  if (pct >= 80) return "bg-green-500/15 text-green-700 border-green-500/30"
-  if (pct >= 70) return "bg-amber-500/15 text-amber-700 border-amber-500/30"
-  if (pct >= 60) return "bg-orange-500/15 text-orange-700 border-orange-500/30"
-  return "bg-destructive/15 text-destructive border-destructive/30"
+  if (pct >= 90) return "bg-emerald-500/15 text-emerald-700 border-emerald-500/40"
+  if (pct >= 80) return "bg-green-500/15 text-green-700 border-green-500/40"
+  if (pct >= 70) return "bg-amber-500/15 text-amber-700 border-amber-500/40"
+  if (pct >= 60) return "bg-orange-500/15 text-orange-700 border-orange-500/40"
+  return "bg-destructive/15 text-destructive border-destructive/40"
 }
 
 // The student's homework hub (replaces the old Challenges tab). Built to scale to
@@ -167,6 +166,9 @@ export default function Homework() {
     }
   }, [items])
 
+  const todo = overdue.length + upcoming.length
+  const donePct = items.length ? Math.round((completed.length / items.length) * 100) : 0
+
   const toggleFeedback = (id: string) =>
     setOpenFeedback((prev) => {
       const next = new Set(prev)
@@ -175,7 +177,7 @@ export default function Homework() {
       return next
     })
 
-  const Row = ({ item }: { item: HomeworkItem }) => {
+  const Row = ({ item, index }: { item: HomeworkItem; index: number }) => {
     const lesson = lessons.find((l) => l.id === item.lesson_id)
     const isOverdue = !item.completed && !!item.due_date && pastDue(item.due_date, item.due_time)
     const dueToday = !!item.due_date && !isOverdue && !item.completed &&
@@ -183,44 +185,45 @@ export default function Homework() {
     const grade = item.grade
     const hasFeedback = !!grade?.feedback
     const feedbackOpen = openFeedback.has(item.id)
+    const dueText = item.due_date ? fmtDueLabel(item.due_date, item.due_time, { completed: item.completed }) : "No due date"
 
-    const dueLabel = item.due_date ? fmtDueLabel(item.due_date, item.due_time, { completed: item.completed }) : ""
+    // One accent color drives the left bar, icon chip, and due pill so each card
+    // reads as a single status at a glance.
+    const accent =
+      item.completed ? { bar: "bg-emerald-500", chip: "bg-emerald-500/12 text-emerald-600", pill: "bg-emerald-500/10 text-emerald-700" }
+      : isOverdue ? { bar: "bg-destructive", chip: "bg-destructive/12 text-destructive", pill: "bg-destructive/12 text-destructive" }
+      : dueToday ? { bar: "bg-amber-500", chip: "bg-amber-500/15 text-amber-600", pill: "bg-amber-500/15 text-amber-700" }
+      : { bar: "bg-primary", chip: "bg-primary/12 text-primary", pill: "bg-muted text-muted-foreground" }
 
     return (
-      <div className={`w-full rounded-xl border-2 bg-card transition-colors ${
-        isOverdue ? "border-destructive/40" : "border-border hover:border-primary/30"
-      }`}>
-        <div className="flex items-center gap-3 p-3.5">
-          <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
-            item.completed ? "bg-emerald-500/10 text-emerald-600"
-            : isOverdue ? "bg-destructive/10 text-destructive"
-            : "bg-primary/10 text-primary"
-          }`}>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, delay: Math.min(index * 0.035, 0.3) }}
+        className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+      >
+        {/* status accent bar */}
+        <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${accent.bar}`} />
+
+        <div className="flex items-center gap-3.5 p-4 pl-5">
+          <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 ${accent.chip}`}>
             {item.completed ? <CheckCircle2 className="w-5 h-5" />
               : isOverdue ? <AlertTriangle className="w-5 h-5" />
               : <NotebookPen className="w-5 h-5" />}
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className="font-semibold truncate">{lesson?.title || item.lesson_id}</p>
-            <div className="flex items-center gap-2 mt-1 flex-wrap">
-              {lesson?.level && <Badge variant="secondary" className="text-xs">Level {lesson.level}</Badge>}
-              {item.due_date ? (
-                <span className={`text-xs font-semibold flex items-center gap-1 ${
-                  item.completed ? "text-muted-foreground"
-                  : isOverdue ? "text-destructive"
-                  : dueToday ? "text-amber-600"
-                  : "text-muted-foreground"
-                }`}>
-                  <Clock className="w-3 h-3" />
-                  {dueLabel}
-                </span>
-              ) : (
-                <span className="text-xs text-muted-foreground flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  No due date
+            <p className="font-bold truncate leading-tight">{lesson?.title || item.lesson_id}</p>
+            <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+              {lesson?.level && (
+                <span className="text-[11px] font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">
+                  Level {lesson.level}
                 </span>
               )}
+              <span className={`text-[11px] font-bold flex items-center gap-1 rounded-full px-2 py-0.5 ${accent.pill}`}>
+                <Clock className="w-3 h-3" />
+                {dueText}
+              </span>
             </div>
           </div>
 
@@ -228,53 +231,65 @@ export default function Homework() {
               Do-now action (still outstanding). */}
           {grade ? (
             <div className="flex items-center gap-1.5 shrink-0">
-              <span className={`px-2.5 py-1 rounded-lg border text-sm font-bold ${gradeClasses(grade.percent)}`}>
+              <span className={`px-3 py-1.5 rounded-xl border text-sm font-extrabold tabular-nums ${gradeClasses(grade.percent)}`}>
                 {grade.label || "Graded"}
               </span>
               {hasFeedback && (
                 <button
                   onClick={() => toggleFeedback(item.id)}
                   title="Teacher feedback"
-                  className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+                  className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-colors ${
+                    feedbackOpen ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                  }`}
                 >
                   <MessageSquareText className="w-4 h-4" />
                 </button>
               )}
             </div>
           ) : item.completed ? (
-            <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 shrink-0">
+            <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-500/10 rounded-full px-3 py-1.5 shrink-0">
               <CheckCircle2 className="w-4 h-4" /> Done
             </span>
           ) : (
-            <Button size="sm" onClick={() => navigate(`/lessons/${item.lesson_id}`)} className="shrink-0">
-              <Play className="w-3.5 h-3.5 mr-1" /> {isOverdue ? "Finish" : "Do now"}
+            <Button
+              size="sm"
+              onClick={() => navigate(`/lessons/${item.lesson_id}`)}
+              className="shrink-0 press-scale rounded-xl font-bold"
+              variant={isOverdue ? "destructive" : "default"}
+            >
+              <Play className="w-3.5 h-3.5 mr-1" /> {isOverdue ? "Finish" : "Start"}
             </Button>
           )}
         </div>
 
         {/* Expandable teacher feedback (completed + graded work). */}
         {hasFeedback && feedbackOpen && (
-          <div className="mx-3.5 mb-3.5 -mt-1 rounded-lg bg-muted/50 border border-border p-3 text-sm">
-            <p className="text-xs font-semibold text-muted-foreground mb-1 flex items-center gap-1">
+          <div className="mx-4 mb-4 ml-5 rounded-xl bg-muted/50 border border-border p-3 text-sm">
+            <p className="text-xs font-bold text-muted-foreground mb-1 flex items-center gap-1">
               <MessageSquareText className="w-3.5 h-3.5" /> Teacher feedback
             </p>
             <p className="text-foreground whitespace-pre-wrap">{grade!.feedback}</p>
           </div>
         )}
-      </div>
+      </motion.div>
     )
   }
 
-  const StatChip = ({ label, value, tone }: { label: string; value: number; tone: "primary" | "destructive" | "emerald" }) => {
+  const SectionHeader = ({
+    icon: Icon, title, count, tone,
+  }: { icon: typeof NotebookPen; title: string; count: number; tone: "primary" | "destructive" | "emerald" }) => {
     const tones = {
-      primary: "bg-primary/10 text-primary border-primary/20",
-      destructive: "bg-destructive/10 text-destructive border-destructive/25",
-      emerald: "bg-emerald-500/10 text-emerald-700 border-emerald-500/25",
+      primary: "bg-primary/12 text-primary",
+      destructive: "bg-destructive/12 text-destructive",
+      emerald: "bg-emerald-500/12 text-emerald-600",
     }
     return (
-      <div className={`flex-1 min-w-[92px] rounded-xl border px-3 py-2.5 ${tones[tone]}`}>
-        <p className="text-2xl font-display font-extrabold leading-none tabular-nums">{value}</p>
-        <p className="text-xs font-semibold mt-1 opacity-80">{label}</p>
+      <div className="flex items-center gap-2.5 mb-3">
+        <span className={`w-8 h-8 rounded-xl flex items-center justify-center ${tones[tone]}`}>
+          <Icon className="w-[18px] h-[18px]" />
+        </span>
+        <h2 className="text-lg font-display font-extrabold">{title}</h2>
+        <span className="text-xs font-extrabold text-muted-foreground bg-muted rounded-full px-2.5 py-1 tabular-nums">{count}</span>
       </div>
     )
   }
@@ -282,19 +297,62 @@ export default function Homework() {
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       <GameNav />
-      <main className="container mx-auto px-4 py-8 max-w-3xl">
+      <main className="container mx-auto px-4 py-6 md:py-8 max-w-3xl">
+        {/* ── Hero: gradient banner with progress + at-a-glance stats ── */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mb-6"
+          className="relative overflow-hidden rounded-3xl p-5 md:p-6 text-white mb-6 shadow-lg"
+          style={{ background: "linear-gradient(135deg, hsl(var(--primary)), var(--brand))" }}
         >
-          <h1 className="text-2xl md:text-3xl font-display font-bold flex items-center gap-2">
-            <NotebookPen className="w-7 h-7 text-primary" /> Homework
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Everything your teacher assigned as homework, with due dates and your grades.
-          </p>
+          {/* soft glow flourishes */}
+          <div className="absolute -right-10 -top-12 w-40 h-40 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+          <div className="absolute -left-8 -bottom-12 w-36 h-36 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+
+          <div className="relative flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center shrink-0 backdrop-blur-sm">
+              <NotebookPen className="w-6 h-6" />
+            </div>
+            <div className="min-w-0">
+              <h1 className="text-2xl md:text-3xl font-display font-extrabold leading-none">My Homework</h1>
+              <p className="text-white/75 text-sm mt-1">Stay on top of what your teacher assigned.</p>
+            </div>
+          </div>
+
+          {!loading && hasClass && items.length > 0 && (
+            <div className="relative mt-5">
+              {/* progress bar */}
+              <div className="flex items-center justify-between text-xs font-bold text-white/85 mb-1.5">
+                <span className="flex items-center gap-1">
+                  {donePct === 100 ? <><Trophy className="w-3.5 h-3.5 text-gold" /> All done — nice work!</> : <><Sparkles className="w-3.5 h-3.5 text-gold" /> {completed.length} of {items.length} done</>}
+                </span>
+                <span className="tabular-nums">{donePct}%</span>
+              </div>
+              <div className="h-2.5 rounded-full bg-white/20 overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full bg-white"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${donePct}%` }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                />
+              </div>
+
+              {/* stat trio */}
+              <div className="grid grid-cols-3 gap-2.5 mt-4">
+                {[
+                  { label: "To do", value: todo },
+                  { label: "Overdue", value: overdue.length },
+                  { label: "Completed", value: completed.length },
+                ].map((s) => (
+                  <div key={s.label} className="rounded-2xl bg-white/12 backdrop-blur-sm px-3 py-2.5 text-center">
+                    <p className="text-2xl font-display font-extrabold leading-none tabular-nums">{s.value}</p>
+                    <p className="text-[11px] font-bold text-white/75 mt-1">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </motion.div>
 
         {loading ? (
@@ -302,53 +360,51 @@ export default function Homework() {
             <Loader2 className="w-6 h-6 animate-spin" />
           </div>
         ) : !hasClass ? (
-          <div className="text-center py-20 text-muted-foreground">
-            <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-50" />
-            <p className="font-semibold">Join a class to get homework</p>
-            <p className="text-sm mt-1">Ask your teacher for a class code, then add it in your profile.</p>
-          </div>
-        ) : items.length === 0 ? (
-          <div className="text-center py-20 text-muted-foreground">
-            <NotebookPen className="w-10 h-10 mx-auto mb-3 opacity-50" />
-            <p className="font-semibold">No homework yet</p>
-            <p className="text-sm mt-1">
-              When your teacher assigns homework, it'll show up here.{" "}
-              <Link to="/lessons" className="text-primary underline">Browse Missions</Link>
+          <div className="text-center py-16 rounded-3xl border-2 border-dashed border-border">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-8 h-8" />
+            </div>
+            <p className="font-extrabold text-lg">Join a class to get homework</p>
+            <p className="text-sm text-muted-foreground mt-1 max-w-xs mx-auto">
+              Ask your teacher for a class code, then add it in your profile.
             </p>
           </div>
-        ) : (
-          <div className="space-y-6">
-            {/* At-a-glance counts - the fast read when there's a lot to do. */}
-            <div className="flex gap-2.5">
-              <StatChip label="To do" value={overdue.length + upcoming.length} tone="primary" />
-              <StatChip label="Overdue" value={overdue.length} tone="destructive" />
-              <StatChip label="Completed" value={completed.length} tone="emerald" />
+        ) : items.length === 0 ? (
+          <div className="text-center py-16 rounded-3xl border-2 border-dashed border-border">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+              <NotebookPen className="w-8 h-8" />
             </div>
-
+            <p className="font-extrabold text-lg">No homework yet 🎉</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              When your teacher assigns homework, it'll show up here.
+            </p>
+            <Button asChild variant="outline" className="mt-4 rounded-xl font-bold">
+              <Link to="/lessons">Browse Missions</Link>
+            </Button>
+          </div>
+        ) : (
+          <div className="space-y-7">
             {overdue.length > 0 && (
               <section>
-                <h2 className="text-sm font-bold uppercase tracking-wide text-destructive flex items-center gap-2 mb-2.5">
-                  <AlertTriangle className="w-4 h-4" /> Overdue
-                  <Badge variant="secondary" className="ml-0.5">{overdue.length}</Badge>
-                </h2>
-                <div className="space-y-2">
-                  {overdue.map((i) => <Row key={i.id} item={i} />)}
+                <SectionHeader icon={AlertTriangle} title="Overdue" count={overdue.length} tone="destructive" />
+                <div className="space-y-2.5">
+                  {overdue.map((i, idx) => <Row key={i.id} item={i} index={idx} />)}
                 </div>
               </section>
             )}
 
             <section>
-              <h2 className="text-lg font-display font-bold flex items-center gap-2 mb-2.5">
-                <NotebookPen className="w-5 h-5 text-primary" /> Upcoming
-                <Badge variant="secondary" className="ml-0.5">{upcoming.length}</Badge>
-              </h2>
+              <SectionHeader icon={NotebookPen} title="Upcoming" count={upcoming.length} tone="primary" />
               {upcoming.length === 0 ? (
-                <p className="text-sm text-muted-foreground px-1">
-                  {overdue.length > 0 ? "Nothing else on deck — clear the overdue work above." : "You're all caught up. 🎉"}
-                </p>
+                <div className="rounded-2xl border-2 border-dashed border-border py-8 text-center">
+                  <p className="text-2xl mb-1">{overdue.length > 0 ? "⏰" : "🎉"}</p>
+                  <p className="text-sm font-semibold text-muted-foreground">
+                    {overdue.length > 0 ? "Clear the overdue work above." : "You're all caught up!"}
+                  </p>
+                </div>
               ) : (
-                <div className="space-y-2">
-                  {upcoming.map((i) => <Row key={i.id} item={i} />)}
+                <div className="space-y-2.5">
+                  {upcoming.map((i, idx) => <Row key={i.id} item={i} index={idx} />)}
                 </div>
               )}
             </section>
@@ -357,16 +413,18 @@ export default function Homework() {
               <section>
                 <button
                   onClick={() => setShowCompleted((s) => !s)}
-                  className="w-full flex items-center gap-2 mb-2.5 group"
+                  className="w-full flex items-center gap-2.5 mb-3 group"
                 >
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                  <span className="text-lg font-display font-bold">Completed</span>
-                  <Badge variant="secondary" className="ml-0.5">{completed.length}</Badge>
+                  <span className="w-8 h-8 rounded-xl bg-emerald-500/12 text-emerald-600 flex items-center justify-center">
+                    <CheckCircle2 className="w-[18px] h-[18px]" />
+                  </span>
+                  <h2 className="text-lg font-display font-extrabold">Completed</h2>
+                  <span className="text-xs font-extrabold text-muted-foreground bg-muted rounded-full px-2.5 py-1 tabular-nums">{completed.length}</span>
                   <ChevronDown className={`w-5 h-5 ml-auto text-muted-foreground transition-transform ${showCompleted ? "" : "-rotate-90"}`} />
                 </button>
                 {showCompleted && (
-                  <div className="space-y-2">
-                    {completed.map((i) => <Row key={i.id} item={i} />)}
+                  <div className="space-y-2.5">
+                    {completed.map((i, idx) => <Row key={i.id} item={i} index={idx} />)}
                   </div>
                 )}
               </section>
