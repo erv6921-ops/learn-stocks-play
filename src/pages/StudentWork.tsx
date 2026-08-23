@@ -85,6 +85,24 @@ interface ActivityEvent {
   created_at: string
 }
 
+// Collapse a question-answered event list (newest-first) to one entry per
+// question - its LATEST attempt. Without this, retries and re-plays of the same
+// lesson each log fresh events, so a student who replayed a 6-question lesson
+// would look like they answered 18. Keying by question_id (falling back to a
+// unique token when it's missing) gives the true distinct-question count and an
+// accuracy that reflects where they ended up, not every practice try.
+const distinctQuestions = (qs: ActivityEvent[]): ActivityEvent[] => {
+  const seen = new Set<string>()
+  const out: ActivityEvent[] = []
+  for (const q of qs) {
+    const key = q.question_id || `__noid_${out.length}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    out.push(q)
+  }
+  return out
+}
+
 interface AbilityRow {
   concept: string
   theta: number
@@ -309,7 +327,8 @@ export default function StudentWork() {
 
   // ── Activity analytics derived from the event log ──
   const analytics = useMemo(() => {
-    const questions = events.filter((e) => e.kind === "question_answered")
+    // Distinct questions (latest attempt each) so retries/re-plays don't inflate.
+    const questions = distinctQuestions(events.filter((e) => e.kind === "question_answered"))
     const pageViews = events.filter((e) => e.kind === "page_view")
     const answered = questions.length
     const correct = questions.filter((q) => q.is_correct === true).length
@@ -363,7 +382,8 @@ export default function StudentWork() {
       .map((id) => {
         const lesson = LESSON_BY_ID.get(id)
         const unit = lesson ? UNIT_BY_ID.get(lesson.unitId) : undefined
-        const qs = events.filter((e) => e.kind === "question_answered" && e.lesson_id === id)
+        // Distinct questions (latest attempt each) - see distinctQuestions.
+        const qs = distinctQuestions(events.filter((e) => e.kind === "question_answered" && e.lesson_id === id))
         const answered = qs.length
         const correct = qs.filter((q) => q.is_correct === true).length
         const accuracy = answered ? Math.round((correct / answered) * 100) : null
@@ -509,8 +529,14 @@ export default function StudentWork() {
                           </div>
                           <p className="font-bold leading-snug mt-1 line-clamp-2">{b.title}</p>
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-xs text-muted-foreground">
-                            {b.accuracy !== null && <span className="tabular-nums">{b.accuracy}% correct</span>}
-                            <span className="tabular-nums">{b.answered} Q</span>
+                            {/* Quiz score = the graded end-of-lesson result the student
+                                sees. Shown prominently so it's read as THE score. */}
+                            {b.quizScore !== null && (
+                              <span className="tabular-nums font-bold text-foreground">Quiz {b.quizScore}%</span>
+                            )}
+                            {b.answered > 0 && (
+                              <span className="tabular-nums">{b.answered} Q · {b.accuracy}% overall</span>
+                            )}
                             {b.reflection && <span className="inline-flex items-center gap-1"><PenLine className="w-3 h-3" /> reflection</span>}
                           </div>
                           {b.graded ? (
@@ -618,15 +644,21 @@ export default function StudentWork() {
                           {selectedBlock.completed
                             ? <>Completed{selectedBlock.completedAt ? ` · ${fmtDate(selectedBlock.completedAt)}` : ""}</>
                             : "In progress"}
-                          {selectedBlock.quizScore !== null && <> · quiz {selectedBlock.quizScore}%</>}
                         </p>
+                        {selectedBlock.quizScore !== null && (
+                          <span className="inline-flex items-center gap-1 mt-2 text-sm font-extrabold text-primary bg-primary/10 rounded-lg px-2.5 py-1 tabular-nums">
+                            Quiz score {selectedBlock.quizScore}%
+                          </span>
+                        )}
                       </div>
 
-                      {/* Per-lesson KPIs */}
+                      {/* Per-lesson KPIs. "Overall" is accuracy across every question
+                          answered (practice + quiz), which is why it can differ from
+                          the quiz score above - the quiz score is the graded result. */}
                       <div className="grid grid-cols-3 gap-2">
                         {[
                           { label: "Questions", value: String(selectedBlock.answered) },
-                          { label: "Accuracy", value: selectedBlock.accuracy !== null ? `${selectedBlock.accuracy}%` : "-" },
+                          { label: "Overall", value: selectedBlock.accuracy !== null ? `${selectedBlock.accuracy}%` : "-" },
                           { label: "Avg time", value: selectedBlock.avgMs ? fmtDuration(selectedBlock.avgMs) : "-" },
                         ].map((s) => (
                           <div key={s.label} className="rounded-xl bg-muted/40 px-3 py-2 text-center">
@@ -635,6 +667,13 @@ export default function StudentWork() {
                           </div>
                         ))}
                       </div>
+                      {selectedBlock.quizScore !== null && selectedBlock.accuracy !== null && selectedBlock.accuracy !== selectedBlock.quizScore && (
+                        <p className="text-[11px] text-muted-foreground -mt-1">
+                          <span className="font-semibold">Quiz score {selectedBlock.quizScore}%</span> is the graded end-of-lesson
+                          result. <span className="font-semibold">Overall {selectedBlock.accuracy}%</span> counts every question
+                          the student answered, including practice tries.
+                        </p>
+                      )}
 
                       {/* Missed questions for this lesson */}
                       <div>
