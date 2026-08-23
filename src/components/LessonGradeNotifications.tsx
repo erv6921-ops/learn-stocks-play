@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react"
 import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
 import { lessons } from "@/data/lessons"
+import { usePopupSlot, POPUP } from "@/components/popups/PopupCoordinator"
 import {
   Dialog,
   DialogContent,
@@ -43,6 +44,7 @@ export function LessonGradeNotifications() {
   const { user, isTeacher } = useAuth()
   const [grades, setGrades] = useState<LessonGradeRow[]>([])
   const [open, setOpen] = useState(false)
+  const allowed = usePopupSlot("lessonGrade", POPUP.lessonGrade, grades.length > 0 && open)
 
   const check = useCallback(async () => {
     if (!user || isTeacher) return
@@ -88,7 +90,7 @@ export function LessonGradeNotifications() {
   if (grades.length === 0) return null
 
   return (
-    <Dialog open={open} onOpenChange={(o) => { if (!o) dismiss() }}>
+    <Dialog open={open && allowed} onOpenChange={(o) => { if (!o) dismiss() }}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <div className="mx-auto w-16 h-16 rounded-full bg-gold/10 flex items-center justify-center mb-2">

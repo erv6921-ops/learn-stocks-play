@@ -13,7 +13,7 @@ import { BIZ_LAB_PARTS } from "@/data/bizLab"
 import {
   ArrowLeft, BookOpen, Store, Briefcase, Save, Loader2,
   GraduationCap, Link as LinkIcon, ClipboardCheck, PenLine,
-  Clock, Target, XCircle, Timer, CheckCircle,
+  Clock, Target, XCircle, Timer, CheckCircle, Gauge,
 } from "lucide-react"
 import { CONTROLLABLE_PAGES } from "@/lib/classSettings"
 
@@ -85,6 +85,28 @@ interface ActivityEvent {
   created_at: string
 }
 
+interface AbilityRow {
+  concept: string
+  theta: number
+  attempts: number
+}
+
+// Plain-language read on a theta value. Time is already baked into theta by the
+// adaptive engine, so a high value means fast + accurate (genuine mastery) and a
+// low one means slow + wrong (genuine struggle) - a fast guesser lands only
+// mildly negative because careless-fast-wrong answers are discounted.
+function abilityRead(theta: number): { label: string; color: string } {
+  if (theta >= 1.0) return { label: "Mastering", color: "hsl(142 71% 40%)" }
+  if (theta >= 0.3) return { label: "On track", color: "hsl(142 60% 45%)" }
+  if (theta > -0.3) return { label: "Developing", color: "hsl(38 92% 45%)" }
+  if (theta > -1.0) return { label: "Needs support", color: "hsl(25 90% 50%)" }
+  return { label: "Struggling", color: "hsl(0 72% 51%)" }
+}
+// Position on a 0-100 bar, theta clamped to a readable [-2.5, 2.5] window.
+function abilityBarPct(theta: number): number {
+  return Math.round(((Math.max(-2.5, Math.min(2.5, theta)) + 2.5) / 5) * 100)
+}
+
 // Friendly labels for the routes we log. Falls back to a humanized path.
 const ROUTE_LABELS: Record<string, string> = {
   "/dashboard": "Dashboard",
@@ -123,6 +145,8 @@ export default function StudentWork() {
   const [events, setEvents] = useState<ActivityEvent[]>([])
   const [progress, setProgress] = useState<ProgressRow[]>([])
   const [grades, setGrades] = useState<Map<string, LessonGrade>>(new Map())
+  // Per-topic adaptive ability (theta) - highest first.
+  const [abilities, setAbilities] = useState<AbilityRow[]>([])
 
   // The lesson block the teacher is currently inspecting, + its editable grade.
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null)
@@ -136,7 +160,7 @@ export default function StudentWork() {
       if (!userId) return
       setLoading(true)
       try {
-        const [refRes, gsRes, subRes, lgRes, profRes, actRes, lpRes] = await Promise.all([
+        const [refRes, gsRes, subRes, lgRes, profRes, actRes, lpRes, saRes] = await Promise.all([
           (supabase as any).from("lesson_reflections").select("lesson_id, prompt, response, updated_at").eq("user_id", userId),
           (supabase as any).from("business_game_state").select("activities").eq("user_id", userId).maybeSingle(),
           (supabase as any).from("entrepreneurship_submissions").select("submission_type, content, link, updated_at").eq("user_id", userId),
@@ -149,8 +173,17 @@ export default function StudentWork() {
             .order("created_at", { ascending: false })
             .limit(4000),
           (supabase as any).from("lesson_progress").select("lesson_id, completed, completed_at, quiz_score").eq("user_id", userId),
+          (supabase as any).from("student_ability").select("concept, theta, attempts").eq("user_id", userId),
         ])
         if (cancelled) return
+
+        // Adaptive ability per topic (fails soft if the table isn't migrated yet),
+        // strongest topic first.
+        setAbilities(
+          ((saRes?.data ?? []) as AbilityRow[])
+            .slice()
+            .sort((a, b) => b.theta - a.theta)
+        )
 
         // Activity telemetry (fails soft if the table isn't migrated yet).
         setEvents((actRes?.data ?? []) as ActivityEvent[])
@@ -524,6 +557,41 @@ export default function StudentWork() {
                             </div>
                           </WorkCard>
                         ))}
+                      </Section>
+                    </div>
+                  )}
+                  {/* Adaptive ability per topic - how the difficulty engine reads this student */}
+                  {abilities.length > 0 && (
+                    <div className="mt-6">
+                      <Section icon={Gauge} title="Adaptive ability by topic" count={abilities.length}>
+                        <div className="rounded-2xl bg-card border border-border/60 shadow-sm p-5 space-y-3">
+                          <p className="text-xs text-muted-foreground -mt-1">
+                            The engine tunes question difficulty from each answer's correctness <em>and</em> speed.
+                            Higher = faster and more accurate.
+                          </p>
+                          {abilities.map((a) => {
+                            const read = abilityRead(a.theta)
+                            return (
+                              <div key={a.concept}>
+                                <div className="flex items-center justify-between gap-2 mb-1">
+                                  <span className="text-sm font-semibold capitalize">{humanize(a.concept)}</span>
+                                  <span className="text-xs font-bold" style={{ color: read.color }}>
+                                    {read.label}
+                                  </span>
+                                </div>
+                                <div className="relative h-2 rounded-full bg-muted overflow-hidden">
+                                  <div
+                                    className="absolute inset-y-0 left-0 rounded-full"
+                                    style={{ width: `${abilityBarPct(a.theta)}%`, backgroundColor: read.color }}
+                                  />
+                                </div>
+                                <p className="text-[10px] text-muted-foreground mt-0.5 tabular-nums">
+                                  {a.attempts} answer{a.attempts === 1 ? "" : "s"}
+                                </p>
+                              </div>
+                            )
+                          })}
+                        </div>
                       </Section>
                     </div>
                   )}

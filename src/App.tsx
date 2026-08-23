@@ -38,12 +38,7 @@ import Homework from "./pages/Homework";
 import Partners from "./pages/Partners";
 import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
-import { AssignmentNotifications } from "./components/AssignmentNotifications";
-import { HomeworkReminder } from "./components/HomeworkReminder";
-import { GradeNotifications } from "./components/GradeNotifications";
-import { LessonGradeNotifications } from "./components/LessonGradeNotifications";
-import { FriendRequestNotifications } from "./components/FriendRequestNotifications";
-import { StockDraftNotification } from "./components/StockPredictionDraft/StockDraftNotification";
+import { DashboardPopups } from "./components/popups/DashboardPopups";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
@@ -185,12 +180,9 @@ const App = () => (
           <AppProvider>
             <ClassSettingsProvider>
             <JeffProvider>
-              <AssignmentNotifications />
-              <HomeworkReminder />
-              <GradeNotifications />
-              <LessonGradeNotifications />
-              <FriendRequestNotifications />
-              <StockDraftNotification />
+              {/* All forcing / celebratory pop-ups - only ever shown on the
+                  dashboard, one at a time (see DashboardPopups). */}
+              <DashboardPopups />
               <LockedRouteWatcher />
               <ActivityTracker />
               <AppRoutes />

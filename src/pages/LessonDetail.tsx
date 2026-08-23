@@ -4,7 +4,7 @@ import { useApp } from "@/contexts/AppContext"
 import { lessons } from "@/data/lessons"
 import { getStructuredContent } from "@/data/lessonContent"
 import { generateStructuredContent, tierDifficulty } from "@/lib/contentGenerator"
-import { LessonSection, StructuredLessonContent, QuizQuestion } from "@/types"
+import { LessonSection, StructuredLessonContent, QuizQuestion, MasteryTier } from "@/types"
 import { shuffleQuestionSet, normalizeOptionLengths, questionPassesQualityChecks } from "@/lib/mcqEngine"
 import { getQuizForLesson, getQuizForLessonByTier } from "@/data/lessonQuizzes"
 import { Button } from "@/components/ui/button"
@@ -62,6 +62,11 @@ export default function LessonDetail() {
   // know what that set actually was - the question ids from this lesson's
   // most recent completed mastery-check session.
   const [recentQuestionIds, setRecentQuestionIds] = useState<string[]>([])
+  // Standing adaptive ability (theta) for THIS topic, coming into the lesson.
+  // Picks the initial pool difficulty (remedial/base/hard) for a fresh lesson,
+  // superseding the coarse literacyLevel. Null = no estimate yet (cold start),
+  // which falls back to literacyLevel - exactly today's behavior.
+  const [abilityTheta, setAbilityTheta] = useState<number | null>(null)
 
   useEffect(() => {
     // Replays already have a fixed quiz_score on record - don't let content
@@ -92,6 +97,17 @@ export default function LessonDetail() {
         const latestSession = data[0].attempt_session_id
         setRecentQuestionIds([...new Set(data.filter(r => r.attempt_session_id === latestSession).map(r => r.question_id))])
       })
+    // Standing ability for this topic, to pick the initial pool difficulty.
+    ;(supabase as any)
+      .from("student_ability")
+      .select("theta")
+      .eq("user_id", user.id)
+      .eq("concept", lesson.category)
+      .maybeSingle()
+      .then(({ data, error }: { data: { theta: number } | null; error: unknown }) => {
+        if (cancelled || error || !data) return
+        setAbilityTheta(data.theta)
+      })
     return () => { cancelled = true }
   }, [lesson, user?.id, isCompleted])
 
@@ -104,7 +120,17 @@ export default function LessonDetail() {
   // off-topic generic template questions.)
   const structuredContent: StructuredLessonContent | null = useMemo(() => {
     if (!lesson) return null
-    const raw = getStructuredContent(lesson.id, regenerationCount, contentConfidenceTier, recentQuestionIds, user?.literacyLevel ?? null)
+    // Prefer the live per-topic ability (theta) over the coarse account-wide
+    // literacyLevel: a theta above/below a neutral band pulls the hard/remedial
+    // pool. Cold start (no theta yet) falls back to literacyLevel - today's
+    // behavior. Mapped onto MasteryTier so it reuses tierDifficulty's existing
+    // beginner/intermediate/advanced pool routing.
+    const effectiveTier: MasteryTier | null =
+      abilityTheta == null ? (user?.literacyLevel ?? null)
+      : abilityTheta > 0.5 ? "investor"
+      : abilityTheta < -0.5 ? "explorer"
+      : "builder"
+    const raw = getStructuredContent(lesson.id, regenerationCount, contentConfidenceTier, recentQuestionIds, effectiveTier)
     if (!raw) return null
 
     // Guessability guard: authored questions often have the correct answer
@@ -112,8 +138,8 @@ export default function LessonDetail() {
     // can hide. For each quiz question: (1) trim trailing elaboration off
     // standout-long options, and (2) if it STILL fails the length/quality
     // checks, swap in a clean unused question from this lesson's quiz pool.
-    const pool = user?.literacyLevel
-      ? getQuizForLessonByTier(lesson.id, tierDifficulty(user.literacyLevel))
+    const pool = effectiveTier
+      ? getQuizForLessonByTier(lesson.id, tierDifficulty(effectiveTier))
       : getQuizForLesson(lesson.id)
     const usedIds = new Set<string>()
     raw.sections.forEach(s => {
@@ -178,7 +204,7 @@ export default function LessonDetail() {
       return section
     })
     return { ...raw, sections: processedSections }
-  }, [lesson, regenerationCount, contentConfidenceTier, recentQuestionIds, user?.literacyLevel])
+  }, [lesson, regenerationCount, contentConfidenceTier, recentQuestionIds, user?.literacyLevel, abilityTheta])
 
   // ─── Lesson state ───
   const [currentSectionIdx, setCurrentSectionIdx] = useState(0)
@@ -423,7 +449,7 @@ export default function LessonDetail() {
 
   return (
     <HintProvider key={lesson.id} total={2}>
-    <QuizSessionProvider key={`quiz-${lesson.id}`} lessonId={lesson.id}>
+    <QuizSessionProvider key={`quiz-${lesson.id}`} lessonId={lesson.id} concept={lesson.category}>
     <div className="min-h-screen bg-background pb-24 md:pb-8">
       {/* Header */}
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">

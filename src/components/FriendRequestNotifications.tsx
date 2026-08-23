@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
+import { usePopupSlot, POPUP } from "@/components/popups/PopupCoordinator"
 import {
   Dialog,
   DialogContent,
@@ -47,6 +48,7 @@ export function FriendRequestNotifications() {
   const navigate = useNavigate()
   const [requests, setRequests] = useState<RequestRow[]>([])
   const [open, setOpen] = useState(false)
+  const allowed = usePopupSlot("friendRequest", POPUP.friendRequest, requests.length > 0 && open)
 
   useEffect(() => {
     if (!user) return
@@ -116,7 +118,7 @@ export function FriendRequestNotifications() {
   const others = count - 1
 
   return (
-    <Dialog open={open} onOpenChange={(o) => { if (!o) dismiss() }}>
+    <Dialog open={open && allowed} onOpenChange={(o) => { if (!o) dismiss() }}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <div className="mx-auto w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-2">

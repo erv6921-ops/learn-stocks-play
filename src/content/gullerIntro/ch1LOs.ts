@@ -38,6 +38,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
       questions: [
         {
           id: "glo11-mc-1",
+          difficulty: -1.0,
           question: "In general, how are risk and potential profit related in business?",
           options: [
             "They have nothing to do with each other",
@@ -51,6 +52,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
         },
         {
           id: "glo11-mc-2",
+          difficulty: -1.5,
           question: "Which of these is a stakeholder in a business?",
           options: [
             "Only the people who own the company itself",
@@ -79,6 +81,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
       type: "applied-question",
       question: {
         id: "glo11-aq1",
+        difficulty: 0.5,
         question: "Why does the bank care about how much risk Maria is taking on with the second truck?",
         options: [
           "Banks only care about advertising, not about risk",
@@ -97,6 +100,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
       questions: [
         {
           id: "glo11-mx-1",
+          difficulty: -1.5,
           question: "What is profit?",
           options: [
             "The total amount of money a business takes in from sales",
@@ -110,6 +114,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
         },
         {
           id: "glo11-mx-2",
+          difficulty: -1.0,
           question: "What causes a business to have a loss?",
           options: [
             "Its costs and expenses are higher than its revenues",
@@ -123,6 +128,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
         },
         {
           id: "glo11-mx-3",
+          difficulty: -0.5,
           question: "How do businesses generally raise the standard of living for people beyond just their owners?",
           options: [
             "By avoiding paying any taxes to the government",
@@ -136,6 +142,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
         },
         {
           id: "glo11-mx-4",
+          difficulty: 0.5,
           question: "How are nonprofit organizations similar to for-profit businesses?",
           options: [
             "They both exist mainly to make their owners wealthy",
@@ -149,6 +156,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
         },
         {
           id: "glo11-mx-5",
+          difficulty: 0.0,
           question: "Which group would NOT typically be considered a stakeholder in a business?",
           options: [
             "Employees who work for the business",
@@ -162,6 +170,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
         },
         {
           id: "glo11-mx-6",
+          difficulty: 1.0,
           question: "A business cuts corners with suppliers and underpays workers to boost this quarter's profit. What's the likely long-term risk?",
           options: [
             "There is no real long-term risk to this strategy",
@@ -175,6 +184,7 @@ export const gulliverLO1_1: StructuredLessonContent = {
         },
         {
           id: "glo11-mx-7",
+          difficulty: 1.0,
           question: "What is the core balancing act every business has to manage?",
           options: [
             "Making a profit while ignoring all outside groups",
@@ -222,6 +232,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
       questions: [
         {
           id: "glo12-mc-1",
+          difficulty: -0.5,
           question: "Which of these lists all five factors of production?",
           options: [
             "Land, labor, capital, entrepreneurship, and knowledge",
@@ -235,6 +246,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
         },
         {
           id: "glo12-mc-2",
+          difficulty: -1.0,
           question: "What does an entrepreneur typically give up compared to working for someone else?",
           options: [
             "The chance to ever make any money at all",
@@ -263,6 +275,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
       type: "applied-question",
       question: {
         id: "glo12-aq1",
+        difficulty: 0.5,
         question: "In Ava's lawn-care business, what role is SHE playing among the five factors of production?",
         options: [
           "Land, since she uses natural resources",
@@ -281,6 +294,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
       questions: [
         {
           id: "glo12-mx-1",
+          difficulty: -1.5,
           question: "Which factor of production refers to natural resources like water, soil, and oil?",
           options: ["Labor", "Land", "Capital", "Knowledge"],
           correctAnswer: 1,
@@ -289,6 +303,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
         },
         {
           id: "glo12-mx-2",
+          difficulty: -1.0,
           question: "Which factor of production is 'the money, tools, equipment, and buildings needed to operate and grow a business'?",
           options: ["Capital", "Land", "Entrepreneurship", "Labor"],
           correctAnswer: 0,
@@ -297,6 +312,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
         },
         {
           id: "glo12-mx-3",
+          difficulty: 0.5,
           question: "Why are entrepreneurship and knowledge considered the most important factors of production today?",
           options: [
             "Because land, labor, and capital no longer matter at all",
@@ -310,6 +326,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
         },
         {
           id: "glo12-mx-4",
+          difficulty: -1.0,
           question: "What is the main advantage of working for someone else instead of starting your own business?",
           options: [
             "Unlimited potential earnings",
@@ -323,6 +340,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
         },
         {
           id: "glo12-mx-5",
+          difficulty: -0.5,
           question: "What is the main advantage an entrepreneur gains by giving up those guaranteed benefits?",
           options: [
             "Nothing of any real value to them",
@@ -336,6 +354,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
         },
         {
           id: "glo12-mx-6",
+          difficulty: 1.5,
           question: "Two countries have identical amounts of land, labor, and capital. What would most likely make one of them wealthier than the other?",
           options: [
             "Simply having a much larger population",
@@ -349,6 +368,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
         },
         {
           id: "glo12-mx-7",
+          difficulty: 1.0,
           question: "Why is entrepreneurship sometimes called the 'spark' factor of production?",
           options: [
             "Because it literally involves electricity and sparks",
@@ -394,6 +414,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
       questions: [
         {
           id: "glo13-mc-1",
+          difficulty: -1.0,
           question: "Which government action helps REDUCE the risk of starting a business?",
           options: [
             "Making contracts unenforceable in court",
@@ -407,6 +428,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
         },
         {
           id: "glo13-mc-2",
+          difficulty: -1.0,
           question: "From a business perspective, what do lower taxes and lighter regulation generally mean?",
           options: [
             "Higher risk and much less room to grow",
@@ -435,6 +457,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
       type: "applied-question",
       question: {
         id: "glo13-aq1",
+        difficulty: 0.5,
         question: "Why might the entrepreneur choose Country A even though Country B has more potential customers?",
         options: [
           "Because a customer base never really matters in business",
@@ -453,6 +476,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
       questions: [
         {
           id: "glo13-mx-1",
+          difficulty: -1.0,
           question: "What does 'enforceable contracts' mean for a business owner?",
           options: [
             "Contracts are optional suggestions with no legal weight",
@@ -466,6 +490,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
         },
         {
           id: "glo13-mx-2",
+          difficulty: -1.0,
           question: "Why does a stable, tradable currency matter to a business?",
           options: [
             "It has no real effect on a business at all",
@@ -479,6 +504,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
         },
         {
           id: "glo13-mx-3",
+          difficulty: -0.5,
           question: "How does corruption in business and government generally affect entrepreneurs?",
           options: [
             "It has no real impact on business risk",
@@ -492,6 +518,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
         },
         {
           id: "glo13-mx-4",
+          difficulty: 0.0,
           question: "What is the general relationship between tax/regulation levels and business risk?",
           options: [
             "Higher taxes and heavier regulation generally lower risk",
@@ -505,6 +532,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
         },
         {
           id: "glo13-mx-5",
+          difficulty: 1.0,
           question: "A country allows private ownership but has an unstable, hard-to-trade currency. What's the likely effect on entrepreneurs there?",
           options: [
             "Zero risk, since private ownership solves everything",
@@ -518,6 +546,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
         },
         {
           id: "glo13-mx-6",
+          difficulty: 1.0,
           question: "From a government's perspective, why might keeping taxes and regulations moderate benefit the country overall?",
           options: [
             "It has no real effect on the country at all",
@@ -531,6 +560,7 @@ export const gulliverLO1_3: StructuredLessonContent = {
         },
         {
           id: "glo13-mx-7",
+          difficulty: 0.0,
           question: "Which combination describes an economic environment that LOWERS risk for entrepreneurs?",
           options: [
             "High corruption, unstable currency, and unenforceable contracts",
@@ -540,6 +570,20 @@ export const gulliverLO1_3: StructuredLessonContent = {
           ],
           correctAnswer: 1,
           explanation: "Private ownership, enforceable contracts, currency stability, and low corruption together create a lower-risk environment for entrepreneurs.",
+          concept: "economic-environment"
+        },
+        {
+          id: "glo13-mx-8",
+          difficulty: -1.5,
+          question: "What does it mean for a country to allow 'private ownership' of businesses?",
+          options: [
+            "Individual people and companies are allowed to own businesses themselves",
+            "Only the national government is allowed to own businesses",
+            "Every business must be owned equally by all citizens",
+            "No one is permitted to own a business at all"
+          ],
+          correctAnswer: 0,
+          explanation: "Private ownership means individuals and companies, not just the government, can own businesses, one of the basic protections that lowers risk for entrepreneurs.",
           concept: "economic-environment"
         }
       ]
@@ -575,6 +619,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
       questions: [
         {
           id: "glo14-mc-1",
+          difficulty: -0.5,
           question: "What does 'efficiency' mean in a business context?",
           options: [
             "Doing the right thing in the right way",
@@ -588,6 +633,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
         },
         {
           id: "glo14-mc-2",
+          difficulty: 0.0,
           question: "A factory doubles the number of units it produces per hour after adding new equipment. Which concept does this describe?",
           options: [
             "Effectiveness",
@@ -616,6 +662,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
       type: "applied-question",
       question: {
         id: "glo14-aq1",
+        difficulty: 1.0,
         question: "Why did the new ordering system improve efficiency specifically, not just productivity?",
         options: [
           "It didn't actually improve efficiency at all",
@@ -634,6 +681,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
       questions: [
         {
           id: "glo14-mx-1",
+          difficulty: -0.5,
           question: "What is 'effectiveness'?",
           options: [
             "Producing with the least waste possible",
@@ -647,6 +695,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
         },
         {
           id: "glo14-mx-2",
+          difficulty: 1.0,
           question: "A worker perfectly completes a task that didn't actually need to be done. What does this describe?",
           options: [
             "High effectiveness and high efficiency at once",
@@ -660,6 +709,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
         },
         {
           id: "glo14-mx-3",
+          difficulty: -1.0,
           question: "Which best defines productivity?",
           options: [
             "The amount of output generated per unit of input",
@@ -673,6 +723,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
         },
         {
           id: "glo14-mx-4",
+          difficulty: 0.0,
           question: "How do consumers typically benefit when a business becomes more productive?",
           options: [
             "Consumers never benefit from any productivity gains",
@@ -686,6 +737,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
         },
         {
           id: "glo14-mx-5",
+          difficulty: 0.5,
           question: "A company invests in expensive new equipment even though it costs a lot upfront. Why might this make sense?",
           options: [
             "It never makes sense to spend money on new equipment",
@@ -699,6 +751,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
         },
         {
           id: "glo14-mx-6",
+          difficulty: 1.0,
           question: "Which scenario is the BEST example of a technology improving efficiency specifically?",
           options: [
             "A machine that uses less raw material to make the same product",
@@ -712,6 +765,7 @@ export const gulliverLO1_4: StructuredLessonContent = {
         },
         {
           id: "glo14-mx-7",
+          difficulty: 1.5,
           question: "Why does technology's 'real payoff' come from improving effectiveness, efficiency, AND productivity together, rather than just one?",
           options: [
             "Because only one of them ever matters in real business",
@@ -721,6 +775,20 @@ export const gulliverLO1_4: StructuredLessonContent = {
           ],
           correctAnswer: 1,
           explanation: "The three concepts reinforce each other: the biggest gains come from improving all three together, not just one in isolation.",
+          concept: "technology-effects"
+        },
+        {
+          id: "glo14-mx-8",
+          difficulty: -1.0,
+          question: "Which term means 'the amount of output produced for a given amount of input, such as units made per hour worked'?",
+          options: [
+            "Productivity",
+            "Effectiveness",
+            "Efficiency",
+            "Revenue"
+          ],
+          correctAnswer: 0,
+          explanation: "Productivity is output per unit of input (e.g., units per hour). Effectiveness is doing the right thing; efficiency is using the least resources.",
           concept: "technology-effects"
         }
       ]
@@ -757,6 +825,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
       questions: [
         {
           id: "glo15-mc-1",
+          difficulty: -1.5,
           question: "What does 'zero defects' represent for a business?",
           options: [
             "A goal of essentially no flaws in the product",
@@ -770,6 +839,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
         },
         {
           id: "glo15-mc-2",
+          difficulty: -1.0,
           question: "What does it mean to 'empower' frontline workers?",
           options: [
             "Giving them less responsibility so they make fewer mistakes",
@@ -798,6 +868,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
       type: "applied-question",
       question: {
         id: "glo15-aq1",
+        difficulty: 0.5,
         question: "Why does Store B have a competitive edge over Store A, even though they sell the exact same products?",
         options: [
           "Store B's products are physically different and better",
@@ -816,6 +887,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
       questions: [
         {
           id: "glo15-mx-1",
+          difficulty: -1.5,
           question: "What is a 'competitive edge'?",
           options: [
             "A legal requirement all businesses must follow",
@@ -829,6 +901,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
         },
         {
           id: "glo15-mx-2",
+          difficulty: -1.0,
           question: "What does it mean to exceed customer expectations, rather than just meet them?",
           options: [
             "Giving customers exactly what they asked for and nothing more",
@@ -842,6 +915,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
         },
         {
           id: "glo15-mx-3",
+          difficulty: 0.5,
           question: "Why would a business aim for 'zero defects' instead of just 'mostly good' products?",
           options: [
             "Because zero defects is impossible and not worth pursuing",
@@ -855,6 +929,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
         },
         {
           id: "glo15-mx-4",
+          difficulty: -1.0,
           question: "What is a 'frontline worker'?",
           options: [
             "An employee who never interacts with the public",
@@ -868,6 +943,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
         },
         {
           id: "glo15-mx-5",
+          difficulty: -0.5,
           question: "Why might a business that empowers its frontline workers create a better customer experience?",
           options: [
             "Because problems get solved right away, not escalated",
@@ -881,6 +957,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
         },
         {
           id: "glo15-mx-6",
+          difficulty: 1.0,
           question: "Two businesses sell identical products at the same price. How could one still gain a real competitive edge?",
           options: [
             "It's impossible to gain an edge if the products are identical",
@@ -894,6 +971,7 @@ export const gulliverLO1_5: StructuredLessonContent = {
         },
         {
           id: "glo15-mx-7",
+          difficulty: 1.0,
           question: "What is the connection between empowering frontline workers and exceeding customer expectations?",
           options: [
             "There is no real connection between the two at all",
@@ -938,6 +1016,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
       questions: [
         {
           id: "glo16-mc-1",
+          difficulty: -1.0,
           question: "According to the modern definition, what does diversity in the workplace include?",
           options: [
             "Only a worker's race and ethnicity",
@@ -951,6 +1030,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
         },
         {
           id: "glo16-mc-2",
+          difficulty: -1.5,
           question: "What is Social Security?",
           options: [
             "A private company benefit only some businesses offer",
@@ -979,6 +1059,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
       type: "applied-question",
       question: {
         id: "glo16-aq1",
+        difficulty: 0.0,
         question: "Why was the first draft of the diversity policy incomplete?",
         options: [
           "Because diversity policies aren't necessary for any business",
@@ -997,6 +1078,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
       questions: [
         {
           id: "glo16-mx-1",
+          difficulty: -1.5,
           question: "Which of these groups is part of the modern definition of workplace diversity?",
           options: [
             "Only people under 30",
@@ -1010,6 +1092,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
         },
         {
           id: "glo16-mx-2",
+          difficulty: -0.5,
           question: "What does 'managing diversity' actually require from a business?",
           options: [
             "Ignoring the differences among employees entirely",
@@ -1023,6 +1106,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
         },
         {
           id: "glo16-mx-3",
+          difficulty: 0.5,
           question: "Why is Social Security discussed so much in the media today?",
           options: [
             "Because it has nothing at all to do with the economy",
@@ -1036,6 +1120,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
         },
         {
           id: "glo16-mx-4",
+          difficulty: 0.0,
           question: "Which statement BEST reflects how diversity has changed as a concept over time?",
           options: [
             "It has stayed the same, since only race and gender ever mattered",
@@ -1049,6 +1134,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
         },
         {
           id: "glo16-mx-5",
+          difficulty: 1.0,
           question: "How does an aging population connect to businesses, not just government?",
           options: [
             "It doesn't really connect to businesses at all",
@@ -1062,6 +1148,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
         },
         {
           id: "glo16-mx-6",
+          difficulty: 0.5,
           question: "A company assumes diversity only means hiring people of different races. What is this company most likely to overlook?",
           options: [
             "Nothing, that is a complete definition of diversity",
@@ -1075,6 +1162,7 @@ export const gulliverLO1_6: StructuredLessonContent = {
         },
         {
           id: "glo16-mx-7",
+          difficulty: 0.5,
           question: "Which of the following is an accurate description of Social Security's funding?",
           options: [
             "It is funded entirely by businesses, with no worker contribution",
@@ -1084,6 +1172,34 @@ export const gulliverLO1_6: StructuredLessonContent = {
           ],
           correctAnswer: 1,
           explanation: "Social Security benefits for older citizens are funded largely by drawing on the current working population.",
+          concept: "social-security"
+        },
+        {
+          id: "glo16-mx-8",
+          difficulty: 1.0,
+          question: "A company operates in five countries with a workforce spanning four generations, several religions, and many first languages. Which approach best reflects managing diversity WELL?",
+          options: [
+            "Apply one identical policy everywhere and ignore local and cultural differences",
+            "Deal sensitively with the range of workers and cultures in each location",
+            "Hire only workers who share the manager's own background to avoid friction",
+            "Treat diversity purely as a legal box to check and nothing more"
+          ],
+          correctAnswer: 1,
+          explanation: "Managing diversity well means dealing sensitively with a wide range of workers and cultures, including across countries, not applying one rigid policy or avoiding differences.",
+          concept: "diversity"
+        },
+        {
+          id: "glo16-mx-9",
+          difficulty: 1.0,
+          question: "As the population ages, a large employer sees many workers nearing retirement and rising payroll contributions. Which combination of effects is it most likely planning around?",
+          options: [
+            "Replacing retiring workers, plus higher Social Security contributions drawn from current workers",
+            "Falling demand for all of its products, with zero staffing impact",
+            "A brand-new government program that has replaced Social Security entirely",
+            "No change to its workforce or its contributions at all"
+          ],
+          correctAnswer: 0,
+          explanation: "An aging population means employers plan for waves of retirements AND for Social Security drawing more from the current working population, connecting the social change directly to business planning.",
           concept: "social-security"
         }
       ]
@@ -1120,6 +1236,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
       questions: [
         {
           id: "glo17-mc-1",
+          difficulty: -1.5,
           question: "Which two countries are identified as creating the greatest competitive challenges for U.S. businesses?",
           options: [
             "Canada and Mexico",
@@ -1133,6 +1250,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
         },
         {
           id: "glo17-mc-2",
+          difficulty: -1.0,
           question: "How does war or terrorism typically affect the tourism industry?",
           options: [
             "It usually has no real effect on the tourism industry",
@@ -1161,6 +1279,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
       type: "applied-question",
       question: {
         id: "glo17-aq1",
+        difficulty: 0.5,
         question: "Why do the defense manufacturer and the travel company react so differently to the same conflict?",
         options: [
           "Because global events affect every single business identically",
@@ -1179,6 +1298,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
       questions: [
         {
           id: "glo17-mx-1",
+          difficulty: -0.5,
           question: "Why are China and India specifically named as major competitive challenges for U.S. businesses?",
           options: [
             "Because they have almost no economic activity",
@@ -1192,6 +1312,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
         },
         {
           id: "glo17-mx-2",
+          difficulty: -1.0,
           question: "Which industry tends to PROSPER during periods of war, according to the chapter?",
           options: [
             "The tourism and travel industry",
@@ -1205,6 +1326,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
         },
         {
           id: "glo17-mx-3",
+          difficulty: -0.5,
           question: "What is one suggested way to help minimize world tensions?",
           options: [
             "Isolating less-developed countries completely",
@@ -1218,6 +1340,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
         },
         {
           id: "glo17-mx-4",
+          difficulty: 1.5,
           question: "How does this LO connect back to the economic environment factors from LO 1-3 (enforceable contracts, stable currency, low corruption)?",
           options: [
             "It has no connection to those factors at all",
@@ -1231,6 +1354,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
         },
         {
           id: "glo17-mx-5",
+          difficulty: 0.5,
           question: "A U.S. airline's bookings to a region drop sharply after reports of instability there. What does this best illustrate?",
           options: [
             "That war and terrorism have no real effect on business",
@@ -1244,6 +1368,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
         },
         {
           id: "glo17-mx-6",
+          difficulty: 0.0,
           question: "Why do businesses need to track global events, not just domestic ones?",
           options: [
             "Because global events never actually affect U.S. businesses",
@@ -1257,6 +1382,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
         },
         {
           id: "glo17-mx-7",
+          difficulty: 0.5,
           question: "What is the key takeaway about how war and terrorism affect businesses overall?",
           options: [
             "Every single business is affected in an identical way",
@@ -1309,6 +1435,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
       questions: [
         {
           id: "glo18-mc-1",
+          difficulty: -1.0,
           question: "What happened to many agricultural workers as farm technology improved?",
           options: [
             "They lost their jobs permanently with nowhere else to go",
@@ -1322,6 +1449,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
         },
         {
           id: "glo18-mc-2",
+          difficulty: -0.5,
           question: "What two factors combined to reduce the number of workers needed in manufacturing?",
           options: [
             "Lower business taxes and much less regulation",
@@ -1350,6 +1478,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
       type: "applied-question",
       question: {
         id: "glo18-aq1",
+        difficulty: 0.0,
         question: "What is the main lesson this family's history illustrates for someone heading into college and a career today?",
         options: [
           "That jobs never really change from generation to generation",
@@ -1368,6 +1497,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
       questions: [
         {
           id: "glo18-mx-1",
+          difficulty: -0.5,
           question: "What is the general repeating pattern described in U.S. economic history?",
           options: [
             "Jobs simply never change from generation to generation",
@@ -1381,6 +1511,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
         },
         {
           id: "glo18-mx-2",
+          difficulty: -1.0,
           question: "Why did many agricultural workers move into factory jobs historically?",
           options: [
             "Because factories generally paid much less than farming",
@@ -1394,6 +1525,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
         },
         {
           id: "glo18-mx-3",
+          difficulty: 0.0,
           question: "What combination of factors pushed many factory workers into service industries?",
           options: [
             "Lower business taxes on factories, all by themselves",
@@ -1407,6 +1539,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
         },
         {
           id: "glo18-mx-4",
+          difficulty: 0.5,
           question: "How does the shift toward the information age relate to earlier economic shifts?",
           options: [
             "It is completely unrelated to any past economic pattern",
@@ -1420,6 +1553,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
         },
         {
           id: "glo18-mx-5",
+          difficulty: -0.5,
           question: "What is the main takeaway from this repeating pattern for a student planning a future career?",
           options: [
             "That they should pick one skill and never learn anything new",
@@ -1433,6 +1567,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
         },
         {
           id: "glo18-mx-6",
+          difficulty: 0.5,
           question: "A worker in a shrinking industry retrains for a role in a growing, technology-driven field. What historical pattern does this best match?",
           options: [
             "It matches no real historical pattern at all",
@@ -1446,6 +1581,7 @@ export const gulliverLO1_8: StructuredLessonContent = {
         },
         {
           id: "glo18-mx-7",
+          difficulty: 1.0,
           question: "Which best summarizes what U.S. economic history shows about jobs over time?",
           options: [
             "Jobs have stayed completely static since the country's founding",

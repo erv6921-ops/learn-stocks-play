@@ -1,6 +1,6 @@
 import React, { useMemo } from "react"
 import { motion } from "framer-motion"
-import { Coins, ArrowRight, Target, TrendingUp, TrendingDown } from "lucide-react"
+import { Coins, ArrowRight, Target, TrendingUp, TrendingDown, Gauge } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import AnimatedNumber from "@/components/AnimatedNumber"
@@ -28,7 +28,10 @@ export function LessonCompletionScreen({
   reflectionBonus: number
   onContinue: () => void
 }) {
-  const { coinsGained, coinsLost, answeredTotal, answeredCorrect } = useQuizSession()
+  const { coinsGained, coinsLost, answeredTotal, answeredCorrect, getAttempts } = useQuizSession()
+  // Show a subtle "it's adapting" signal only when this session actually fed the
+  // adaptive engine at least one answer. No numbers - students never see theta.
+  const adaptiveActive = getAttempts() > 0
 
   // Whole-lesson accuracy: every question answered this session - micro-checks,
   // applied questions, and mastery-check questions, including failed mastery
@@ -155,6 +158,15 @@ export function LessonCompletionScreen({
                 {net >= 0 ? "+" : "−"}<AnimatedNumber value={Math.abs(net)} countUp /> net
               </span>
             </motion.div>
+          )}
+
+          {adaptiveActive && (
+            <motion.p
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}
+              className="flex items-center justify-center gap-1.5 text-[11px] font-semibold text-muted-foreground"
+            >
+              <Gauge className="w-3.5 h-3.5 text-primary" /> Questions adapted to your level
+            </motion.p>
           )}
 
           <Button size="lg" className="w-full" onClick={onContinue}>

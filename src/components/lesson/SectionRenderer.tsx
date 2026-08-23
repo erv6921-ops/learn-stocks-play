@@ -36,6 +36,7 @@ import { HighlightedText } from "@/lib/highlightTerms"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { useHints } from "@/components/lesson/HintContext"
 import { useQuizSession } from "@/components/lesson/QuizSessionContext"
+import { selectNextQuestion } from "@/lib/adaptiveEngine"
 import CoinBurst from "@/components/gamification/CoinBurst"
 // shuffleQuestion import removed - shuffling is handled upstream in LessonDetail
 
@@ -117,7 +118,8 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       durationMs: questionMs,
       meta: { timedOut: true, questionText: shuffledQ.question },
     })
-    session.registerWrong(coins) // −coins + toast
+    // Timeout counts as a wrong answer at the full time budget.
+    session.registerWrong(coins, { responseMs: questionMs, questionB: shuffledQ.difficulty ?? 0, expectedMs: questionMs }) // −coins + toast
     onIncorrect()
   }
 
@@ -160,12 +162,13 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       durationMs: responseMs,
       meta: { questionText: shuffledQ.question },
     })
+    const answerCtx = { responseMs, questionB: shuffledQ.difficulty ?? 0, expectedMs: questionMs }
     if (isRight) {
-      session.registerCorrect(coins, responseMs) // +coins by speed tier + toast
+      session.registerCorrect(coins, answerCtx) // +coins by speed tier + toast, feeds theta
       setBurstId(b => b + 1)
       onCorrect()
     } else {
-      session.registerWrong(coins) // −coins + toast
+      session.registerWrong(coins, answerCtx) // −coins + toast, feeds theta
       onIncorrect()
     }
   }
@@ -598,6 +601,7 @@ export function MasteryCheckRenderer({
 }) {
   const { react } = useJeff()
   const { user } = useApp()
+  const session = useQuizSession()
   const [currentQ, setCurrentQ] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
   const [totalAttempts, setTotalAttempts] = useState(0)
@@ -605,24 +609,24 @@ export function MasteryCheckRenderer({
 
   const required = section.requiredCorrect
 
-  // Per-attempt question subset: the authored pool is intentionally larger
-  // than `requiredCorrect`, so a student who fails and retries gets FRESH
-  // questions instead of re-seeing the exact same ones. We draw `required`
-  // questions from the pool starting at an offset that rotates by
-  // `sessionAttemptNumber` (deterministic per attempt, so a mid-attempt
-  // re-render stays stable), cycling through the pool with wrap-around. This
-  // component is remounted (keyed on regenerationCount) on every retry, so the
-  // memo recomputes with the new attempt number each time.
-  const questions = useMemo(() => {
-    const pool = section.questions
-    if (pool.length <= required) return pool
-    // attemptNumber starts at 1; offset advances by `required` each attempt so
-    // successive attempts consume the next slice of the pool before wrapping.
-    const offset = ((sessionAttemptNumber - 1) * required) % pool.length
-    return Array.from({ length: required }, (_, i) => pool[(offset + i) % pool.length])
-  }, [section.questions, required, sessionAttemptNumber])
+  // Adaptive question selection: instead of a fixed slice, each question is
+  // drawn from the (padded) authored pool to match the student's LIVE ability
+  // (theta) - a student who's crushing it gets harder questions, one who's
+  // struggling gets easier ones. We still present `total` questions and require
+  // `required` correct to pass. A wrong-then-retry naturally serves a different
+  // (easier) set because theta has dropped. Selection excludes already-asked
+  // questions so nothing repeats within an attempt.
+  const pool = section.questions
+  const total = Math.min(required, pool.length)
 
-  const total = questions.length
+  // Questions asked so far this attempt, chosen adaptively. The first is picked
+  // from the student's standing ability on entry; later ones react to how the
+  // attempt is going.
+  const [asked, setAsked] = useState<QuizQuestion[]>(() => {
+    const first = selectNextQuestion(pool, session.getTheta(), [])
+    return first ? [first] : []
+  })
+  const currentQuestion = asked[currentQ]
 
   // Fire-and-forget event log write - never blocks or delays quiz feedback,
   // and a failed write never breaks the lesson (matches the app's existing
@@ -669,6 +673,10 @@ export function MasteryCheckRenderer({
 
   const handleNext = () => {
     if (currentQ < total - 1) {
+      // Pick the next question adaptively from this answer's fresh ability read,
+      // excluding everything asked so far this attempt.
+      const nextQ = selectNextQuestion(pool, session.getTheta(), asked.map(q => q.id))
+      if (nextQ) setAsked(prev => [...prev, nextQ])
       setCurrentQ(currentQ + 1)
       // Clutch moment: one correct answer away from passing.
       if (required > 1 && correctCount === required - 1) {
@@ -737,15 +745,17 @@ export function MasteryCheckRenderer({
           </div>
           <Progress value={(correctCount / required) * 100} className="h-2" />
         </div>
-        <QuizAnswer
-          key={`mastery-${currentQ}`}
-          question={questions[currentQ]}
-          onCorrect={handleCorrect}
-          onIncorrect={handleIncorrect}
-          onContinue={handleNext}
-          onAnswered={(isCorrect, ms) => logAttempt(questions[currentQ], isCorrect, ms)}
-          showContinue={true}
-        />
+        {currentQuestion && (
+          <QuizAnswer
+            key={`mastery-${currentQ}`}
+            question={currentQuestion}
+            onCorrect={handleCorrect}
+            onIncorrect={handleIncorrect}
+            onContinue={handleNext}
+            onAnswered={(isCorrect, ms) => logAttempt(currentQuestion, isCorrect, ms)}
+            showContinue={true}
+          />
+        )}
       </CardContent>
     </Card>
   )

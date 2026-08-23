@@ -173,6 +173,12 @@ export interface QuizQuestion {
   // Optional concept tag so per-concept mastery rollups have something to group on.
   // Used by the Gulliver Intro to Business track; existing content omits it safely.
   concept?: string
+  // IRT difficulty parameter (b) on the same logit scale as a student's ability
+  // (theta) in the adaptive engine. Negative = easier, positive = harder, 0 =
+  // medium. Backfilled from the question's pool (remedial/base/hard) by the pool
+  // accessors in lessonQuizzes.ts; the adaptive engine treats a missing value as
+  // 0 (medium). See src/lib/adaptiveEngine.ts.
+  difficulty?: number
 }
 
 // ═══════════════════════════════════════════════

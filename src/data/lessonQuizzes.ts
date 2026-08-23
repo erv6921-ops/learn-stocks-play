@@ -1,4 +1,5 @@
 import { QuizQuestion } from "@/types"
+import { poolDifficultyFor } from "@/lib/adaptiveEngine"
 import { incomeBankingCreditQuizzes } from "./quizzes/incomeBankingCredit"
 import { stocksAndMarketsQuizzes } from "./quizzes/stocksAndMarkets"
 import { portfolioFundsBondsQuizzes } from "./quizzes/portfolioFundsBonds"
@@ -3448,7 +3449,15 @@ export const lessonQuizzes: LessonQuiz[] = [
 export function getQuizForLesson(lessonId: string): QuizQuestion[] {
   // Merge every pool registered for this lesson - lets top-up packs extend an
   // existing pool without editing the original file.
-  return lessonQuizzes.filter(q => q.lessonId === lessonId).flatMap(q => q.questions)
+  const questions = lessonQuizzes.filter(q => q.lessonId === lessonId).flatMap(q => q.questions)
+  // Backfill the adaptive engine's difficulty (b) from which pool this lesson id
+  // resolves to: `-remedial` -> easier, `-hard` -> harder, otherwise medium. A
+  // question that already carries an explicit difficulty keeps it. This is the
+  // single choke point every question is served through, so tagging here covers
+  // all tiered pools (the budget/income/credit/banking hard+remedial packs) at
+  // once without hand-editing thousands of question objects.
+  const b = poolDifficultyFor(lessonId)
+  return questions.map(q => (q.difficulty != null ? q : { ...q, difficulty: b }))
 }
 
 /**

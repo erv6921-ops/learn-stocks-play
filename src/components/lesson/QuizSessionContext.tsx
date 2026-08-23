@@ -1,6 +1,19 @@
 import React, { createContext, useContext, useRef, useState, ReactNode } from "react"
 import { toast } from "sonner"
 import { useApp } from "@/contexts/AppContext"
+import { useAbility } from "@/hooks/useAbility"
+
+/**
+ * Per-answer signal the adaptive engine needs, gathered by the question UI
+ * (QuizAnswer): how fast the answer came, the difficulty (b) of the question,
+ * and how long it was expected to take. Correctness is implied by which
+ * register* function is called.
+ */
+export interface AnswerContext {
+  responseMs: number
+  questionB: number
+  expectedMs: number
+}
 
 // ─── Coin / combo economy (frontend-only gamification) ───
 //
@@ -67,11 +80,16 @@ interface QuizSession {
   answeredCorrect: number
   /**
    * Register a correct answer: +coins by speed tier (quick/regular/slow), bumps
-   * combo, pops a toast. Pass the response time so the tier can be chosen.
+   * combo, pops a toast. Pass the answer context so the speed tier can be chosen
+   * AND the adaptive ability estimate can be updated.
    */
-  registerCorrect: (coins?: number, responseMs?: number) => void
+  registerCorrect: (coins?: number, ctx?: AnswerContext) => void
   /** Register a wrong answer (or timeout): −coins, resets combo, pops a toast. */
-  registerWrong: (coins?: number) => void
+  registerWrong: (coins?: number, ctx?: AnswerContext) => void
+  /** Live adaptive ability (theta) for this lesson's topic - drives question selection. */
+  getTheta: () => number
+  /** How many answers have fed the adaptive estimate this session (for the completion cue). */
+  getAttempts: () => number
 }
 
 const noop: QuizSession = {
@@ -85,6 +103,8 @@ const noop: QuizSession = {
   answeredCorrect: 0,
   registerCorrect: () => {},
   registerWrong: () => {},
+  getTheta: () => 0,
+  getAttempts: () => 0,
 }
 
 const QuizSessionCtx = createContext<QuizSession>(noop)
@@ -98,8 +118,11 @@ export function useQuizSession(): QuizSession {
  * coin nudges. Combo persists across questions while mounted and resets when
  * the provider unmounts (exiting the lesson) - so key it on the lesson id.
  */
-export function QuizSessionProvider({ children, lessonId }: { children: ReactNode; lessonId?: string }) {
+export function QuizSessionProvider({ children, lessonId, concept }: { children: ReactNode; lessonId?: string; concept?: string }) {
   const { awardJeffs, jeffsBalance } = useApp()
+  // Live per-topic ability estimate: loaded on entry, updated per answer,
+  // debounce-persisted on exit. Drives adaptive question selection.
+  const ability = useAbility(concept)
   const [combo, setCombo] = useState(0)
   const [lostCombo, setLostCombo] = useState<number | null>(null)
   const [coinsEarned, setCoinsEarned] = useState(0)
@@ -113,7 +136,10 @@ export function QuizSessionProvider({ children, lessonId }: { children: ReactNod
   balanceRef.current = jeffsBalance
   const lostTimer = useRef<ReturnType<typeof setTimeout>>()
 
-  const registerCorrect = (_coins?: number, responseMs?: number) => {
+  const registerCorrect = (_coins?: number, ctx?: AnswerContext) => {
+    const responseMs = ctx?.responseMs
+    // Feed the adaptive engine: a correct answer, weighted by speed.
+    if (ctx) ability.record({ isCorrect: true, responseMs: ctx.responseMs, questionB: ctx.questionB, expectedMs: ctx.expectedMs })
     const newCombo = comboRef.current + 1
     comboRef.current = newCombo
     setCombo(newCombo)
@@ -135,7 +161,9 @@ export function QuizSessionProvider({ children, lessonId }: { children: ReactNod
     })
   }
 
-  const registerWrong = (coins = DEFAULT_COINS) => {
+  const registerWrong = (coins = DEFAULT_COINS, ctx?: AnswerContext) => {
+    // Feed the adaptive engine: a wrong answer (or timeout), weighted by speed.
+    if (ctx) ability.record({ isCorrect: false, responseMs: ctx.responseMs, questionB: ctx.questionB, expectedMs: ctx.expectedMs })
     const broken = comboRef.current
     comboRef.current = 0
     setCombo(0)
@@ -165,7 +193,7 @@ export function QuizSessionProvider({ children, lessonId }: { children: ReactNod
   }
 
   return (
-    <QuizSessionCtx.Provider value={{ lessonId, combo, lostCombo, coinsEarned, coinsGained, coinsLost, answeredTotal, answeredCorrect, registerCorrect, registerWrong }}>
+    <QuizSessionCtx.Provider value={{ lessonId, combo, lostCombo, coinsEarned, coinsGained, coinsLost, answeredTotal, answeredCorrect, registerCorrect, registerWrong, getTheta: ability.getTheta, getAttempts: ability.getAttempts }}>
       {children}
     </QuizSessionCtx.Provider>
   )

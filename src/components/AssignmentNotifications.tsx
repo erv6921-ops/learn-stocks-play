@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { BookOpen, Play, Clock, AlertCircle, NotebookPen } from "lucide-react"
 import { fmtDue } from "@/lib/dueDate"
+import { usePopupSlot, POPUP } from "@/components/popups/PopupCoordinator"
 
 interface PendingAssignment {
   id: string
@@ -67,6 +68,8 @@ export function AssignmentNotifications() {
   const [homework, setHomework] = useState<PendingAssignment[]>([])
   const [open, setOpen] = useState(false)
   const [hwOpen, setHwOpen] = useState(false)
+  // The dashboard pop-up coordinator only lets one pop-up show at a time.
+  const allowed = usePopupSlot("assignments", POPUP.assignments, classwork.length > 0 || homework.length > 0)
 
   const checkAssignments = useCallback(async () => {
     if (!user || isTeacher) return
@@ -180,7 +183,7 @@ export function AssignmentNotifications() {
     <>
       {/* ── Classwork: forcing modal ── */}
       {classwork.length > 0 && (
-        <Dialog open={open} onOpenChange={(o) => { /* forcing: ignore close attempts */ if (o) setOpen(true) }}>
+        <Dialog open={open && allowed} onOpenChange={(o) => { /* forcing: ignore close attempts */ if (o) setOpen(true) }}>
           <DialogContent
             // Hide the built-in close (X) and block escape / click-outside so the
             // only way forward is to open a lesson.
@@ -241,7 +244,7 @@ export function AssignmentNotifications() {
 
       {/* ── Homework: softer "Do now / Do later" prompt ── */}
       {homework.length > 0 && (
-        <Dialog open={hwOpen} onOpenChange={setHwOpen}>
+        <Dialog open={hwOpen && allowed} onOpenChange={setHwOpen}>
           <DialogContent className="max-w-lg border-2 border-primary">
             <DialogHeader>
               <div className="mx-auto w-20 h-20 rounded-full bg-primary/15 flex items-center justify-center mb-2">
