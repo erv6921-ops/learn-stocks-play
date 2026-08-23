@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { NotebookPen, Clock, Play } from "lucide-react"
 import { dueLabel as fmtDueLabel, isOverdue as pastDue } from "@/lib/dueDate"
+import { usePopupSlot, POPUP } from "@/components/popups/PopupCoordinator"
 
 interface PendingHw {
   id: string
@@ -57,6 +58,7 @@ export function HomeworkReminder() {
   const location = useLocation()
   const [pending, setPending] = useState<PendingHw[]>([])
   const [open, setOpen] = useState(false)
+  const allowed = usePopupSlot("homeworkReminder", POPUP.homeworkReminder, open && pending.length > 0)
 
   const check = useCallback(async () => {
     if (!user || isTeacher) return
@@ -107,7 +109,7 @@ export function HomeworkReminder() {
 
   useEffect(() => { void check() }, [check])
 
-  if (!open || pending.length === 0) return null
+  if (!open || pending.length === 0 || !allowed) return null
 
   const overdueCount = pending.filter((p) => p.due_date && pastDue(p.due_date, p.due_time)).length
 

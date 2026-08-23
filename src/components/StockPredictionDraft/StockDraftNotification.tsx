@@ -16,6 +16,7 @@ import { useAuth } from "@/hooks/useAuth"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { TrendingUp } from "lucide-react"
 import PickScreen from "./PickScreen"
+import { usePopupSlot, POPUP } from "@/components/popups/PopupCoordinator"
 
 interface DueDraft {
   classId: string
@@ -60,15 +61,26 @@ const markPickedEver = (uid: string) => {
   }
 }
 
+// The draft pop-up is a one-time event: once it has been shown a single time
+// (whether or not the student picked), it never pops again on this device.
+const shownKey = (uid: string) => `investiplay_stock_draft_shown_${uid}`
+const hasShownEver = (uid: string): boolean => {
+  try { return localStorage.getItem(shownKey(uid)) === "1" } catch { return false }
+}
+const markShownEver = (uid: string) => {
+  try { localStorage.setItem(shownKey(uid), "1") } catch { /* ignore */ }
+}
+
 export function StockDraftNotification() {
   const { user, isTeacher } = useAuth()
   const [due, setDue] = useState<DueDraft | null>(null)
+  const allowed = usePopupSlot("stockDraft", POPUP.stockDraft, !!due)
 
   const check = useCallback(async () => {
     if (!user || isTeacher) { setDue(null); return }
 
-    // Already picked once - never force the modal again.
-    if (hasPickedEver(user.id)) { setDue(null); return }
+    // Already picked once, or already shown once - never pop the modal again.
+    if (hasPickedEver(user.id) || hasShownEver(user.id)) { setDue(null); return }
 
     // Classes I'm a student in.
     const { data: mem } = await supabase
@@ -107,6 +119,11 @@ export function StockDraftNotification() {
     return () => { cancelled = true; supabase.removeChannel(channel) }
   }, [user, isTeacher, check])
 
+  // The moment it actually shows, record that so it never pops again.
+  useEffect(() => {
+    if (allowed && due && user) markShownEver(user.id)
+  }, [allowed, due, user])
+
   const handlePicked = () => {
     // Mark this launch complete AND flag that the student has now picked at all,
     // so the forcing modal never re-opens (relaunch or new session).
@@ -115,7 +132,7 @@ export function StockDraftNotification() {
     void check()
   }
 
-  if (!due) return null
+  if (!due || !allowed) return null
 
   return (
     <Dialog open onOpenChange={() => { /* blocking — no manual dismiss */ }}>
