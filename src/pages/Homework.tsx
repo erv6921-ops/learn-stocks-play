@@ -190,6 +190,17 @@ export default function Homework() {
     (a.due_time || "23:59").localeCompare(b.due_time || "23:59")
   )
 
+  // Every overdue assignment, soonest-missed first, for the side-rail callout.
+  const overdueItems = useMemo(
+    () =>
+      items
+        .filter((i) => statusOf(i) === "overdue")
+        .sort((a, b) =>
+          `${a.due_date}T${a.due_time || "23:59"}`.localeCompare(`${b.due_date}T${b.due_time || "23:59"}`)
+        ),
+    [items]
+  )
+
   const toggleFeedback = (id: string) =>
     setOpenFeedback((prev) => {
       const next = new Set(prev)
@@ -453,6 +464,18 @@ export default function Homework() {
                   </div>
                 )}
               </div>
+
+              {overdueItems.length > 0 && (
+                <div>
+                  <h3 className="text-base font-display font-extrabold mb-2.5 flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 text-destructive" /> Overdue
+                    <span className="text-xs font-extrabold text-destructive bg-destructive/15 rounded-full px-2 py-0.5 tabular-nums">{overdueItems.length}</span>
+                  </h3>
+                  <div className="space-y-2.5">
+                    {overdueItems.map((i) => <ItemCard key={i.id} item={i} />)}
+                  </div>
+                </div>
+              )}
 
               {undated.length > 0 && (
                 <div>
