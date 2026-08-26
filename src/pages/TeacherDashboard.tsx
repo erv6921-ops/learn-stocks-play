@@ -827,12 +827,21 @@ export default function TeacherDashboard() {
     )
   }
 
-  const kpis = [
+  // Global at-a-glance stats for the sidebar. Class-scoped numbers live in the
+  // selected class's summary strip instead, so nothing shifts under you when you
+  // switch which class is active.
+  const globalStats = [
     { label: "Classes", value: String(classes.length), icon: GraduationCap, color: C.green },
     { label: "Students", value: String(totalStudents), icon: Users, color: C.blue },
-    { label: "Avg completion", value: selectedClass ? `${avgCompletion}%` : "-", icon: Percent, color: C.gold },
-    { label: "Assignments", value: selectedClass ? String(assignments.length) : "-", icon: ClipboardList, color: C.purple },
   ]
+
+  // Stat pills shown in the selected class's summary strip.
+  const classStats = selectedClass ? [
+    { label: "Students", value: String(classMembers.length), icon: Users, color: C.blue },
+    { label: "Assignments", value: String(assignments.length), icon: ClipboardList, color: C.purple },
+    { label: "Avg completion", value: `${avgCompletion}%`, icon: Percent, color: C.gold },
+    { label: "Class done", value: `${classCompletion.pct}%`, icon: CheckCircle2, color: C.green },
+  ] : []
 
   return (
     <div className="min-h-screen bg-background">
@@ -910,28 +919,27 @@ export default function TeacherDashboard() {
         </Dialog>
       </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-6">
-        {/* KPI row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {kpis.map((k) => (
-            <Card key={k.label} variant="elevated">
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${k.color}1a` }}>
-                  <k.icon className="w-5 h-5" style={{ color: k.color }} />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-2xl font-extrabold leading-none tabular-nums">{k.value}</p>
-                  <p className="text-xs text-muted-foreground mt-1 truncate">{k.label}</p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+      <main className="container mx-auto px-4 py-6">
+        <div className="grid lg:grid-cols-[320px_1fr] gap-6 items-start">
+          {/* ── Sidebar: at-a-glance stats + class switcher ── */}
+          <div className="space-y-4 lg:sticky lg:top-24">
+            <div className="grid grid-cols-2 gap-3">
+              {globalStats.map((k) => (
+                <Card key={k.label} variant="elevated">
+                  <CardContent className="p-3.5 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${k.color}1a` }}>
+                      <k.icon className="w-5 h-5" style={{ color: k.color }} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xl font-extrabold leading-none tabular-nums">{k.value}</p>
+                      <p className="text-xs text-muted-foreground mt-1 truncate">{k.label}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
 
-        <div className="grid lg:grid-cols-3 gap-6 items-start">
-          {/* Classes List */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between">
               <h2 className="font-display text-lg font-bold">Your Classes</h2>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
@@ -1094,8 +1102,8 @@ export default function TeacherDashboard() {
             )}
           </div>
 
-          {/* Right column */}
-          <div className="lg:col-span-2 space-y-6">
+          {/* ── Main panel: overview, or the selected class ── */}
+          <div className="space-y-6 min-w-0">
             {!selectedClass ? (
               <>
                 {classes.length > 0 && (
@@ -1126,22 +1134,40 @@ export default function TeacherDashboard() {
               </>
             ) : (
               <>
-                {/* Class header + class-wide assign */}
-                <Card variant="elevated">
-                  <CardHeader>
-                    <div className="flex items-center justify-between gap-3">
+                {/* ── Class summary: identity, join code, at-a-glance stats ── */}
+                <Card variant="elevated" className="overflow-hidden">
+                  <div className="p-5 border-b bg-muted/20">
+                    <div className="flex items-start justify-between gap-3 flex-wrap">
                       <div className="min-w-0">
-                        <CardTitle className="truncate">{selectedClass.name}</CardTitle>
-                        <CardDescription>
-                          Share code <strong className="font-mono text-primary">{selectedClass.join_code}</strong> with students to join
-                        </CardDescription>
+                        <h2 className="font-display text-xl font-bold truncate">{selectedClass.name}</h2>
+                        {selectedClass.description && (
+                          <p className="text-sm text-muted-foreground mt-0.5 line-clamp-1">{selectedClass.description}</p>
+                        )}
                       </div>
-                      <Button variant="outline" onClick={() => copyJoinCode(selectedClass.join_code)} className="shrink-0">
-                        <Copy className="w-4 h-4 mr-2" />
-                        Copy Code
-                      </Button>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <div className="flex items-center gap-2 rounded-lg border bg-card px-3 py-1.5">
+                          <span className="text-xs text-muted-foreground">Join code</span>
+                          <span className="font-mono font-bold text-primary tracking-wide">{selectedClass.join_code}</span>
+                        </div>
+                        <Button variant="outline" size="icon" onClick={() => copyJoinCode(selectedClass.join_code)} title="Copy join code">
+                          <Copy className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
-                  </CardHeader>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0">
+                    {classStats.map((s) => (
+                      <div key={s.label} className="flex items-center gap-2.5 p-4">
+                        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${s.color}1a` }}>
+                          <s.icon className="w-4 h-4" style={{ color: s.color }} />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-lg font-extrabold leading-none tabular-nums">{s.value}</p>
+                          <p className="text-[11px] text-muted-foreground mt-1 truncate">{s.label}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </Card>
 
                 <Tabs defaultValue="students" className="w-full">
