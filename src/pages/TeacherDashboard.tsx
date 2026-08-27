@@ -156,7 +156,7 @@ function LessonPicker({
   placeholder = "Choose a lesson...",
   disabled,
 }: {
-  lessons: { id: string; title: string }[]
+  lessons: { id: string; title: string; lessonNumber?: string }[]
   value?: string
   onSelect: (id: string) => void
   placeholder?: string
@@ -164,6 +164,10 @@ function LessonPicker({
 }) {
   const [open, setOpen] = useState(false)
   const selected = opts.find((l) => l.id === value)
+  // "1.1 · Title" so a teacher can tell which chapter/unit a lesson belongs
+  // to at a glance, matching the lessonNumber shown elsewhere (Profile, Lessons).
+  const label = (l: { title: string; lessonNumber?: string }) =>
+    l.lessonNumber ? `${l.lessonNumber} · ${l.title}` : l.title
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -174,7 +178,7 @@ function LessonPicker({
           disabled={disabled}
           className="flex-1 justify-between font-normal min-w-0"
         >
-          <span className="truncate">{selected?.title ?? placeholder}</span>
+          <span className="truncate">{selected ? label(selected) : placeholder}</span>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -188,12 +192,12 @@ function LessonPicker({
                 <CommandItem
                   key={l.id}
                   // Include the id so lessons that share a title stay unique to
-                  // cmdk; typing the title still matches (substring filter).
-                  value={`${l.title}::${l.id}`}
+                  // cmdk; typing the title or lesson number still matches (substring filter).
+                  value={`${l.lessonNumber ?? ""} ${l.title}::${l.id}`}
                   onSelect={() => { onSelect(l.id); setOpen(false) }}
                 >
                   <Check className={cn("mr-2 h-4 w-4 shrink-0", value === l.id ? "opacity-100" : "opacity-0")} />
-                  <span className="truncate">{l.title}</span>
+                  <span className="truncate">{label(l)}</span>
                 </CommandItem>
               ))}
             </CommandGroup>
