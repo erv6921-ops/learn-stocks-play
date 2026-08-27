@@ -69,7 +69,8 @@ import {
   Save,
   Percent,
   ClipboardList,
-  BarChart3,
+  ChevronRight,
+  ChevronLeft,
   TrendingUp,
   Sparkles,
   Settings,
@@ -814,11 +815,6 @@ export default function TeacherDashboard() {
     return Math.round(withWork.reduce((s, x) => s + x.percent, 0) / withWork.length)
   }, [studentChartData])
 
-  const studentsPerClass = useMemo(
-    () => classes.map((c) => ({ name: shorten(c.name, 16), students: c.student_count || 0 })),
-    [classes]
-  )
-
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -919,10 +915,22 @@ export default function TeacherDashboard() {
         </Dialog>
       </header>
 
-      <main className="container mx-auto px-4 py-6">
-        <div className="grid lg:grid-cols-[320px_1fr] gap-6 items-start">
-          {/* ── Sidebar: at-a-glance stats + class switcher ── */}
-          <div className="space-y-4 lg:sticky lg:top-24">
+      <main className="container mx-auto px-4 py-6 space-y-6">
+        {/* When a class is open, the only navigation is this one button back to
+            the classroom blocks - no competing sidebar list to click. */}
+        {selectedClass && (
+          <Button
+            variant="ghost"
+            className="gap-1.5 -ml-2 text-muted-foreground hover:text-foreground"
+            onClick={() => { setSelectedClass(null); setClassMembers([]); setClassAssignments([]) }}
+          >
+            <ChevronLeft className="w-4 h-4" /> All classrooms
+          </Button>
+        )}
+
+        {/* ── Landing: at-a-glance stats + New Class (only when no class open) ── */}
+        {!selectedClass && (
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="grid grid-cols-2 gap-3">
               {globalStats.map((k) => (
                 <Card key={k.label} variant="elevated">
@@ -939,9 +947,7 @@ export default function TeacherDashboard() {
               ))}
             </div>
 
-            <div className="flex items-center justify-between">
-              <h2 className="font-display text-lg font-bold">Your Classes</h2>
-              <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
                   <Button size="sm">
                     <Plus className="w-4 h-4 mr-2" />
@@ -987,151 +993,64 @@ export default function TeacherDashboard() {
                 </DialogContent>
               </Dialog>
             </div>
+        )}
 
-            {classes.length === 0 ? (
-              <Card variant="elevated">
-                <CardContent className="p-6 text-center">
-                  <GraduationCap className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="text-muted-foreground">
-                    No classes yet. Create your first class to get started!
-                  </p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="space-y-3">
-                {classes.map((cls) => {
-                  const active = selectedClass?.id === cls.id
-                  return (
-                    <Card
-                      key={cls.id}
-                      variant={active ? "elevated" : "default"}
-                      className={`cursor-pointer transition-all hover:shadow-md ${active ? "ring-2 ring-primary" : ""}`}
-                      onClick={() => selectClass(cls)}
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold truncate">{cls.name}</h3>
-                            {cls.description && (
-                              <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
-                                {cls.description}
-                              </p>
-                            )}
-                            <div className="flex items-center gap-3 mt-2">
-                              <Badge variant="secondary" className="font-mono">
-                                {cls.join_code}
-                              </Badge>
-                              <span className="text-sm text-muted-foreground flex items-center gap-1">
-                                <Users className="w-3 h-3" />
-                                {cls.student_count} students
-                              </span>
-                            </div>
-                            {/* Micro-business word-count control temporarily hidden
-                                (feature still in progress). Restore this block to
-                                bring back the per-class Light/Standard/Extended
-                                writing-workload picker. */}
-                          </div>
-                          <div className="flex gap-1">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                copyJoinCode(cls.join_code)
-                              }}
-                            >
-                              <Copy className="w-4 h-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                deleteClass(cls.id)
-                              }}
-                            >
-                              <Trash2 className="w-4 h-4 text-destructive" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )
-                })}
-              </div>
-            )}
-
-            {/* Unclaimed classes: adopt a class left behind by a departed teacher. */}
-            {unclaimed.length > 0 && (
-              <div className="mt-6">
-                <h2 className="font-display text-lg font-bold mb-1">Unclaimed classes</h2>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Left behind when a teacher deleted their account. Take one over to become its teacher, and the students come with it.
-                </p>
-                <div className="space-y-3">
-                  {unclaimed.map((cls) => (
-                    <Card key={cls.id} variant="default" className="border-dashed border-warning/50">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold truncate">{cls.name}</h3>
-                            {cls.description && (
-                              <p className="text-sm text-muted-foreground mt-1 line-clamp-1">{cls.description}</p>
-                            )}
-                            <Badge variant="secondary" className="font-mono mt-2">{cls.join_code}</Badge>
-                          </div>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            disabled={claimingId === cls.id}
-                            onClick={() => claimClass(cls)}
-                          >
-                            {claimingId === cls.id ? (
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                            ) : (
-                              <UserPlus className="w-4 h-4 mr-2" />
-                            )}
-                            Take over
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* ── Main panel: overview, or the selected class ── */}
-          <div className="space-y-6 min-w-0">
+        {/* Classroom blocks (landing) or the selected class's detail. */}
+        <div className="space-y-6 min-w-0">
             {!selectedClass ? (
-              <>
-                {classes.length > 0 && (
-                  <Card variant="elevated">
-                    <CardHeader>
-                      <CardTitle className="text-base flex items-center gap-2">
-                        <BarChart3 className="w-4 h-4 text-primary" /> Students per class
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <ResponsiveContainer width="100%" height={Math.max(180, studentsPerClass.length * 42)}>
-                        <BarChart data={studentsPerClass} layout="vertical" margin={{ left: 8, right: 16, top: 4, bottom: 4 }}>
-                          <CartesianGrid horizontal={false} stroke={C.grid} />
-                          <XAxis type="number" allowDecimals={false} tick={{ fontSize: 11 }} />
-                          <YAxis type="category" dataKey="name" width={100} tick={{ fontSize: 11 }} />
-                          <Tooltip cursor={{ fill: "rgba(0,0,0,0.03)" }} contentStyle={{ borderRadius: 12, border: "1px solid #eee", fontSize: 12 }} />
-                          <Bar dataKey="students" fill={C.blue} radius={[0, 6, 6, 0]} barSize={18} />
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </CardContent>
-                  </Card>
-                )}
+              classes.length > 0 ? (
+                <>
+                  <div className="flex items-center gap-2">
+                    <GraduationCap className="w-5 h-5 text-primary" />
+                    <h2 className="font-display text-lg font-bold">Your classrooms</h2>
+                    <span className="text-sm text-muted-foreground">Tap a classroom to open it</span>
+                  </div>
+                  {/* Classroom blocks - a big, glanceable tile per class (name + how
+                      many students), styled like the stock tiles. Opens the class. */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {classes.map((cls) => (
+                      <button
+                        key={cls.id}
+                        onClick={() => selectClass(cls)}
+                        className="group relative text-left rounded-2xl border border-border bg-card p-6 hover:shadow-card hover:border-primary/40 transition-all hover:-translate-y-0.5 overflow-hidden"
+                      >
+                        <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-primary/5 blur-xl pointer-events-none" />
+                        <div className="relative flex items-start justify-between gap-3 mb-5">
+                          <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/15 grid place-items-center shrink-0">
+                            <span className="font-display font-extrabold text-primary text-lg tracking-tight">
+                              {cls.name.trim().slice(0, 2).toUpperCase()}
+                            </span>
+                          </div>
+                          <Badge variant="secondary" className="font-mono shrink-0">{cls.join_code}</Badge>
+                        </div>
+                        <h3 className="relative font-display text-2xl font-extrabold tracking-tight leading-tight line-clamp-2">
+                          {cls.name}
+                        </h3>
+                        {cls.description && (
+                          <p className="relative text-sm text-muted-foreground line-clamp-1 mt-1">{cls.description}</p>
+                        )}
+                        <div className="relative flex items-center justify-between gap-2 mt-5 pt-4 border-t border-border/60">
+                          <span className="flex items-baseline gap-1.5">
+                            <span className="font-display text-3xl font-extrabold tabular-nums leading-none">{cls.student_count ?? 0}</span>
+                            <span className="text-sm text-muted-foreground">
+                              {cls.student_count === 1 ? "student" : "students"}
+                            </span>
+                          </span>
+                          <span className="inline-flex items-center gap-0.5 text-sm font-semibold text-primary shrink-0 group-hover:gap-1.5 transition-all">
+                            Open <ChevronRight className="w-4 h-4" />
+                          </span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : (
                 <Card variant="elevated">
                   <CardContent className="p-12 text-center">
-                    <JeffMascot size="lg" mood="teaching" message="Select a class to view students & analytics" />
+                    <JeffMascot size="lg" mood="teaching" message="Create a class to get started, then tap it to view students & analytics" />
                   </CardContent>
                 </Card>
-              </>
+              )
             ) : (
               <>
                 {/* ── Class summary: identity, join code, at-a-glance stats ── */}
@@ -1628,8 +1547,48 @@ export default function TeacherDashboard() {
                 </Tabs>
               </>
             )}
+
+            {/* Unclaimed classes: adopt a class left behind by a departed teacher.
+                Landing-only, below the classroom blocks. */}
+            {!selectedClass && unclaimed.length > 0 && (
+              <div>
+                <h2 className="font-display text-lg font-bold mb-1">Unclaimed classes</h2>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Left behind when a teacher deleted their account. Take one over to become its teacher, and the students come with it.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                  {unclaimed.map((cls) => (
+                    <Card key={cls.id} variant="default" className="border-dashed border-warning/50">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold truncate">{cls.name}</h3>
+                            {cls.description && (
+                              <p className="text-sm text-muted-foreground mt-1 line-clamp-1">{cls.description}</p>
+                            )}
+                            <Badge variant="secondary" className="font-mono mt-2">{cls.join_code}</Badge>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled={claimingId === cls.id}
+                            onClick={() => claimClass(cls)}
+                          >
+                            {claimingId === cls.id ? (
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            ) : (
+                              <UserPlus className="w-4 h-4 mr-2" />
+                            )}
+                            Take over
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        </div>
       </main>
     </div>
   )
