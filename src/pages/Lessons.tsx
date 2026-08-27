@@ -98,6 +98,7 @@ export default function Lessons() {
       // No saved choice yet: default Gulliver Intro students to their own
       // course; everyone else to the regular curriculum. (Read the persisted
       // profile so this holds on the very first Missions visit.)
+      if (localStorage.getItem("investiplay_ib_econ_enrolled") === "true") return "ib-econ";
       const u = JSON.parse(localStorage.getItem("investiplay_user") || "null");
       return u?.track === "gulliver_intro" ? "gulliver-intro" : "regular";
     } catch { return "regular"; }
@@ -119,6 +120,13 @@ export default function Lessons() {
   const bizLabEnrolled = enrollmentTrack === "biz_lab";
   const gulliverIntroEnrolled = enrollmentTrack === "gulliver_intro";
   const hidesApElective = enrollmentTrack === "biz_lab" || enrollmentTrack === "gulliver_intro";
+  // IB Economics is a CLIENT-SIDE track (no profiles.track enum value), chosen in
+  // onboarding and flagged in localStorage. IB Econ students get their own IB
+  // Econ course tab PLUS a Personal Finance tab to switch to the regular course,
+  // mirroring the Gulliver Intro two-tab layout. They don't see AP/Biz Lab.
+  const ibEconEnrolled = useMemo(() => {
+    try { return localStorage.getItem("investiplay_ib_econ_enrolled") === "true"; } catch { return false; }
+  }, []);
   // Gulliver Intro students' single "Course" tab shows the gulliver-intro course
   // view (their Byrnes course), not the regular personal-finance curriculum.
   const courseTrack: CourseTrack = gulliverIntroEnrolled ? "gulliver-intro" : "regular";
@@ -129,12 +137,14 @@ export default function Lessons() {
     // students may now sit on either their Intro course OR the regular
     // curriculum (both tabs are offered), so we no longer force them onto Intro.
     if (!gulliverIntroEnrolled && activeTrack === "gulliver-intro") setActiveTrack("regular");
-  }, [hidesApElective, bizLabEnrolled, gulliverIntroEnrolled, courseTrack, activeTrack]);
+    // Keep non-IB-Econ students off the IB Econ course view.
+    if (!ibEconEnrolled && activeTrack === "ib-econ") setActiveTrack("regular");
+  }, [hidesApElective, bizLabEnrolled, gulliverIntroEnrolled, ibEconEnrolled, courseTrack, activeTrack]);
 
   // Biz Lab / Gulliver Intro students get the original Regular Course format
   // (roller coaster, badges, etc.) - never the AP Mode layout, even if AP Mode
   // was toggled on before enrolling and is still stored in localStorage.
-  const effectiveApMode = apMode && !hidesApElective;
+  const effectiveApMode = apMode && !hidesApElective && !ibEconEnrolled;
   const trackUnits = useMemo(
     () => unitInfo.filter(u => (u.track ?? "regular") === activeTrack).sort((a, b) => a.orderIndex - b.orderIndex),
     [activeTrack]
@@ -470,6 +480,13 @@ export default function Lessons() {
         { key: courseTrack, label: "Intro" },
         { key: "regular", label: "Personal Finance" },
       ]
+    : ibEconEnrolled
+    // IB Econ: their own IB Econ course tab + Personal Finance to switch to the
+    // regular curriculum. No AP/Biz Lab.
+    ? [
+        { key: "ib-econ", label: "IB Econ" },
+        { key: "regular", label: "Personal Finance" },
+      ]
     : [
         { key: "regular", label: "Personal Finance" },
         { key: "ap-micro", label: "AP Micro" },
@@ -617,6 +634,12 @@ export default function Lessons() {
               // units) so they can also work through the standard course.
               ? [
                   { key: courseTrack, label: "Intro" },
+                  { key: "regular", label: "Personal Finance" },
+                ]
+              : ibEconEnrolled
+              // IB Econ course + Personal Finance switch tab.
+              ? [
+                  { key: "ib-econ", label: "IB Economics" },
                   { key: "regular", label: "Personal Finance" },
                 ]
               : [

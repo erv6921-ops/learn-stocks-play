@@ -1385,6 +1385,7 @@ export default function Onboarding() {
                   try {
                     localStorage.setItem("investiplay_active_track", "regular")
                     localStorage.setItem("investiplay_track_pending", "regular")
+                    localStorage.removeItem("investiplay_ib_econ_enrolled")
                   } catch {}
                   setStep("student-account")
                 }}
@@ -1399,6 +1400,32 @@ export default function Onboarding() {
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
+              {/* IB Economics: a client-side course track (no profiles.track enum
+                  change). Selecting it flags the browser and opens the IB Econ
+                  course view (3 lessons) with a Personal Finance switch tab.
+                  Persisted enrollment stays "regular" so the DB enum is untouched.
+                  Not Florida-gated - available to everyone. */}
+              <button
+                onClick={() => {
+                  setTrack("regular")
+                  try {
+                    localStorage.setItem("investiplay_active_track", "ib-econ")
+                    localStorage.setItem("investiplay_track_pending", "regular")
+                    localStorage.setItem("investiplay_ib_econ_enrolled", "true")
+                  } catch {}
+                  setStep("student-account")
+                }}
+                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-accent hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
+              >
+                <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                  <BarChart3 className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg">IB Economics</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">The IB Economics course. Personal Finance stays available on a side tab.</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0" />
+              </button>
               {/* Biz Lab and Gulliver Intro are Florida-only programs, hidden
                   for students who selected an explicit non-Florida state. NULL
                   geography is grandfathered (eligibleForFloridaTracks). */}
@@ -1410,6 +1437,7 @@ export default function Onboarding() {
                   try {
                     localStorage.setItem("investiplay_active_track", "gulliver-biz-lab")
                     localStorage.setItem("investiplay_track_pending", "biz_lab")
+                    localStorage.removeItem("investiplay_ib_econ_enrolled")
                   } catch {}
                   setStep("student-account")
                 }}
@@ -1434,6 +1462,7 @@ export default function Onboarding() {
                     // fullscreen gulliver-intro coaster), not the regular course.
                     localStorage.setItem("investiplay_active_track", "gulliver-intro")
                     localStorage.setItem("investiplay_track_pending", "gulliver_intro")
+                    localStorage.removeItem("investiplay_ib_econ_enrolled")
                   } catch {}
                   setStep("student-account")
                 }}

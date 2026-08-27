@@ -114,6 +114,8 @@ export type LessonCategory =
   // Gulliver Introduction to Business course track (Byrnes Ch. 1-2)
   | "gulliver-business"
   | "gulliver-economics"
+  // IB Economics course track (standalone)
+  | "ib-economics"
   // AP Microeconomics elective track
   | "micro-basics"
   | "micro-supply-demand"
@@ -127,7 +129,7 @@ export type LessonCategory =
 // curriculum (untagged units); the others are elective/alternate course views.
 // (Geography lives on the profile, e.g. profiles.state_course; the persisted
 // program of record is EnrollmentTrack: regular | biz_lab | gulliver_intro.)
-export type CourseTrack = "regular" | "ap-micro" | "gulliver-biz-lab" | "gulliver-intro"
+export type CourseTrack = "regular" | "ap-micro" | "gulliver-biz-lab" | "gulliver-intro" | "ib-econ"
 
 export interface UnitInfo {
   id: string

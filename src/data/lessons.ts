@@ -507,6 +507,8 @@ export const categoryInfo: Record<LessonCategory, { title: string; icon: string;
   // Gulliver Introduction to Business categories (Byrnes Ch. 1-2)
   "gulliver-business": { title: "Business & Its Environment", icon: "Briefcase", description: "What a business is and the forces around it", color: "primary" },
   "gulliver-economics": { title: "How the Economy Works", icon: "TrendingUp", description: "Economics, markets, and economic policy", color: "accent" },
+  // IB Economics category (standalone track)
+  "ib-economics": { title: "IB Economics", icon: "TrendingUp", description: "Foundations of economics, economic systems, and models", color: "accent" },
   // AP Microeconomics categories - required by Record<LessonCategory, …>
   "micro-basics": { title: "Micro: Basic Concepts", icon: "TrendingUp", description: "Scarcity, opportunity cost, and the PPC", color: "accent" },
   "micro-supply-demand": { title: "Micro: Supply & Demand", icon: "LineChart", description: "Markets, equilibrium, elasticity, and surplus", color: "primary" },
@@ -583,6 +585,31 @@ export const GULLIVER_INTRO_LESSONS: Lesson[] = [
 
 unitInfo.push(...GULLIVER_INTRO_UNITS)
 lessons.push(...GULLIVER_INTRO_LESSONS)
+
+// ═══════════════════════════════════════════════
+// IB ECONOMICS - standalone course-content track
+// Unit 1: Introduction to Economics. Hand-authored StructuredLessonContent lives
+// in src/content/ibEcon and is keyed by these ids (ib-econ-1-1 … 1-3). Tagged
+// CourseTrack "ib-econ" so it's filtered out of every other track's course view,
+// mirroring the Gulliver Intro track. Lessons use the "investor" tier so the
+// adaptive engine never benchmark-skips a lesson - all appear, in order.
+// ═══════════════════════════════════════════════
+export const IB_ECON_UNITS: UnitInfo[] = [
+  { id: "ib-econ-course", unitNumber: 1, title: "Introduction to Economics", level: 1, levelTitle: "IB Economics · Unit 1", categories: ["ib-economics"], orderIndex: 210, track: "ib-econ" },
+]
+
+// L() applies LESSON_REWARD_SCALE; wrap it to also tag the CourseTrack.
+const IE = (id: string, title: string, description: string, category: LessonCategory, unitId: string, lessonNum: string, reward: number): Lesson =>
+  ({ ...L(id, title, description, category, "investor", unitId, lessonNum, reward), track: "ib-econ" })
+
+export const IB_ECON_LESSONS: Lesson[] = [
+  IE("ib-econ-1-1", "The Foundations of Economics", "Micro vs. macro, economics as a social science, the 9 key concepts, the four factors of production, opportunity cost, and free vs. economic goods.", "ib-economics", "ib-econ-course", "1.1", 250),
+  IE("ib-econ-1-2", "The Three Basic Economic Questions & Economic Systems", "The three basic questions, resource allocation vs. distribution, market vs. command methods, and free market / planned / mixed economies.", "ib-economics", "ib-econ-course", "1.2", 250),
+  IE("ib-econ-1-3", "Modeling the Economy — PPC & Circular Flow", "Economic models, reading a production possibilities curve, opportunity cost and growth on the PPC, and the circular flow of income with leakages and injections.", "ib-economics", "ib-econ-course", "1.3", 250),
+]
+
+unitInfo.push(...IB_ECON_UNITS)
+lessons.push(...IB_ECON_LESSONS)
 
 // Units belonging to a given track. Untagged units are the default "regular" course.
 export function getUnitsByTrack(track: CourseTrack = "regular"): UnitInfo[] {
