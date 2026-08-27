@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { motion } from "framer-motion"
 import { supabase } from "@/integrations/supabase/client"
@@ -13,7 +13,7 @@ import { BIZ_LAB_PARTS } from "@/data/bizLab"
 import {
   ArrowLeft, BookOpen, Store, Briefcase, Save, Loader2,
   GraduationCap, Link as LinkIcon, ClipboardCheck, PenLine,
-  Clock, Target, XCircle, Timer, CheckCircle, Gauge,
+  Clock, Target, XCircle, Timer, CheckCircle, Gauge, Search, X,
 } from "lucide-react"
 import { CONTROLLABLE_PAGES } from "@/lib/classSettings"
 
@@ -370,51 +370,66 @@ export default function StudentWork() {
     return { hasData: events.length > 0, answered, correct, accuracy, avgMs, activeMs, lastActive, days, pages, missed }
   }, [events])
 
+  // Build the analytics/reflection/grade block for ANY lesson id - whether or
+  // not the student has touched it - so the search can surface catalog lessons
+  // that have no activity yet (a teacher may still want to open/grade one).
+  const buildBlock = useCallback((id: string) => {
+    const lesson = LESSON_BY_ID.get(id)
+    const unit = lesson ? UNIT_BY_ID.get(lesson.unitId) : undefined
+    // Distinct questions (latest attempt each) - see distinctQuestions.
+    const qs = distinctQuestions(events.filter((e) => e.kind === "question_answered" && e.lesson_id === id))
+    const answered = qs.length
+    const correct = qs.filter((q) => q.is_correct === true).length
+    const accuracy = answered ? Math.round((correct / answered) * 100) : null
+    const avgMs = answered ? Math.round(qs.reduce((s, q) => s + (q.duration_ms || 0), 0) / answered) : 0
+    const missed = qs
+      .filter((q) => q.is_correct === false)
+      .map((q) => ({
+        key: (q.question_id || "") + q.created_at,
+        questionText: q.meta && typeof q.meta.questionText === "string" ? (q.meta.questionText as string) : q.question_id || "",
+        timedOut: !!(q.meta && (q.meta as Record<string, unknown>).timedOut),
+        durationMs: q.duration_ms || 0,
+      }))
+    const prog = progress.find((p) => p.lesson_id === id)
+    return {
+      id,
+      title: lesson?.title || humanize(id),
+      unitLabel: unit ? `Unit ${unit.unitNumber}` : undefined,
+      order: lesson?.order ?? 999,
+      answered, correct, accuracy, avgMs, missed,
+      completed: !!prog?.completed,
+      completedAt: prog?.completed_at || null,
+      quizScore: prog?.quiz_score ?? null,
+      reflection: reflections.find((r) => r.lesson_id === id) || null,
+      gradePct: grades.get(id)?.percent ?? null,
+      graded: grades.get(id)?.percent != null,
+    }
+  }, [events, progress, reflections, grades])
+
   // One block per lesson the student has touched (completed, answered a
-  // question in, or reflected on), each with its own analytics + reflection.
+  // question in, or reflected on).
   const lessonBlocks = useMemo(() => {
     const ids = new Set<string>()
     reflections.forEach((r) => ids.add(r.lesson_id))
     progress.forEach((p) => ids.add(p.lesson_id))
     events.forEach((e) => { if (e.kind === "question_answered" && e.lesson_id) ids.add(e.lesson_id) })
+    return Array.from(ids).map(buildBlock).sort((a, b) => a.order - b.order)
+  }, [reflections, progress, events, buildBlock])
 
-    return Array.from(ids)
-      .map((id) => {
-        const lesson = LESSON_BY_ID.get(id)
-        const unit = lesson ? UNIT_BY_ID.get(lesson.unitId) : undefined
-        // Distinct questions (latest attempt each) - see distinctQuestions.
-        const qs = distinctQuestions(events.filter((e) => e.kind === "question_answered" && e.lesson_id === id))
-        const answered = qs.length
-        const correct = qs.filter((q) => q.is_correct === true).length
-        const accuracy = answered ? Math.round((correct / answered) * 100) : null
-        const avgMs = answered ? Math.round(qs.reduce((s, q) => s + (q.duration_ms || 0), 0) / answered) : 0
-        const missed = qs
-          .filter((q) => q.is_correct === false)
-          .map((q) => ({
-            key: (q.question_id || "") + q.created_at,
-            questionText: q.meta && typeof q.meta.questionText === "string" ? (q.meta.questionText as string) : q.question_id || "",
-            timedOut: !!(q.meta && (q.meta as Record<string, unknown>).timedOut),
-            durationMs: q.duration_ms || 0,
-          }))
-        const prog = progress.find((p) => p.lesson_id === id)
-        return {
-          id,
-          title: lesson?.title || humanize(id),
-          unitLabel: unit ? `Unit ${unit.unitNumber}` : undefined,
-          order: lesson?.order ?? 999,
-          answered, correct, accuracy, avgMs, missed,
-          completed: !!prog?.completed,
-          completedAt: prog?.completed_at || null,
-          quizScore: prog?.quiz_score ?? null,
-          reflection: reflections.find((r) => r.lesson_id === id) || null,
-          gradePct: grades.get(id)?.percent ?? null,
-          graded: grades.get(id)?.percent != null,
-        }
-      })
+  // Type-to-search over the FULL curriculum. Matches show as lesson blocks
+  // (like the stock search); an empty query falls back to the touched lessons.
+  const [lessonQuery, setLessonQuery] = useState("")
+  const displayedBlocks = useMemo(() => {
+    const q = lessonQuery.trim().toLowerCase()
+    if (!q) return lessonBlocks
+    return lessons
+      .filter((l) => l.title.toLowerCase().includes(q))
+      .slice(0, 30)
+      .map((l) => buildBlock(l.id))
       .sort((a, b) => a.order - b.order)
-  }, [reflections, progress, events, grades])
+  }, [lessonQuery, lessonBlocks, buildBlock])
 
-  const selectedBlock = lessonBlocks.find((b) => b.id === selectedLessonId) || null
+  const selectedBlock = selectedLessonId ? buildBlock(selectedLessonId) : null
 
   // Average percentage across every lesson the teacher has graded.
   const gradedPercents = Array.from(grades.values())
@@ -503,17 +518,49 @@ export default function StudentWork() {
             )}
 
             {/* ── Lessons: click a block to see its analytics, reflection & grade ── */}
-            {lessonBlocks.length > 0 && (
+            {!isEmpty && (
               <div className="grid lg:grid-cols-[1fr_380px] gap-6 items-start">
                 {/* Lesson blocks */}
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-3">
                     <BookOpen className="w-4 h-4 text-primary" />
                     <h2 className="font-display font-extrabold tracking-tight">Lessons</h2>
-                    <span className="text-xs font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">{lessonBlocks.length}</span>
+                    <span className="text-xs font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">{displayedBlocks.length}</span>
                   </div>
+
+                  {/* Type-to-search across every lesson - matches pop up as blocks. */}
+                  <div className="relative mb-3">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                    <Input
+                      value={lessonQuery}
+                      onChange={(e) => setLessonQuery(e.target.value)}
+                      placeholder="Search all lessons…"
+                      className="pl-9 pr-9"
+                    />
+                    {lessonQuery && (
+                      <button
+                        type="button"
+                        onClick={() => setLessonQuery("")}
+                        title="Clear search"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 grid place-items-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                  {lessonQuery.trim() && (
+                    <p className="text-xs text-muted-foreground mb-2">
+                      {displayedBlocks.length} lesson{displayedBlocks.length === 1 ? "" : "s"} matching "{lessonQuery.trim()}"
+                    </p>
+                  )}
+
+                  {lessonQuery.trim() && displayedBlocks.length === 0 ? (
+                    <div className="rounded-2xl border border-dashed border-border py-10 text-center text-sm text-muted-foreground">
+                      No lessons match "{lessonQuery.trim()}".
+                    </div>
+                  ) : (
                   <div className="grid sm:grid-cols-2 gap-3">
-                    {lessonBlocks.map((b) => {
+                    {displayedBlocks.map((b) => {
                       const active = b.id === selectedLessonId
                       return (
                         <button
@@ -552,6 +599,7 @@ export default function StudentWork() {
                       )
                     })}
                   </div>
+                  )}
 
                   {/* Micro-business + Biz Lab work (not tied to a lesson block) */}
                   {bizSections.length > 0 && (
