@@ -48,7 +48,7 @@ const NAV_ITEMS = [
 { to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank", tint: "var(--brand)" },
 { to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress", tint: "var(--brand)" },
 { to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard", tint: "var(--brand)" },
-{ to: "/homework", icon: NotebookPen, label: "Homework", tour: "nav-challenges", tint: "var(--brand)" },
+{ to: "/homework", icon: NotebookPen, label: "Homework", tour: "nav-homework", tint: "var(--brand)" },
 { to: "/partners", icon: Users, label: "Find Partners", tour: "nav-partners", tint: "var(--brand)" }];
 
 

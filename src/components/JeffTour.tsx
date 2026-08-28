@@ -6,7 +6,7 @@ import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
 import { tourAnchors } from "@/lib/tourAnchors"
 import {
-  BookOpen, FlaskConical, LineChart, Store,
+  BookOpen, FlaskConical, LineChart, NotebookPen,
   Trophy, X, ArrowRight, ArrowLeft, Target, Coins, Sparkles,
 } from "lucide-react"
 
@@ -40,10 +40,10 @@ const STEPS: Step[] = [
   // glides to the side on the next slide).
   { route: "/dashboard", icon: Sparkles, title: "Hey, I'm Jeff! 👋", body: "I'm your money coach. Quick tour of the app. Let's go!", mood: "happy" },
   { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: "Missions", body: "Start here. These are your lessons. Finish them to earn InvestiCoins and level up!", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-lab", icon: FlaskConical, title: "The Lab", body: "Real life money stuff like taxes, banking, and credit, through hands on scenarios.", mood: "teaching" },
-  { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: "Stocks", body: "Trade real companies with virtual cash and watch your portfolio grow.", mood: "thinking" },
-  { route: "/dashboard", anchor: "nav-business", icon: Store, title: "Business", body: "Build and run your own business like a real CEO.", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard & Challenges", body: "Compete with your class and win coin pots. Tap me in the corner anytime you need a hand!", mood: "happy" },
+  { route: "/dashboard", anchor: "nav-lab", icon: FlaskConical, title: "The Lab", body: "Real life money stuff like taxes, banking, and credit, through hands on scenarios, all played out with InvestiCoins, never real money.", mood: "teaching" },
+  { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: "Stocks", body: "Trade real companies using InvestiCoins and watch your portfolio grow to earn even more coins.", mood: "thinking" },
+  { route: "/dashboard", anchor: "nav-homework", icon: NotebookPen, title: "Homework", body: "Any assignments your teacher sets land right here, so you always know what's due.", mood: "excited" },
+  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard & Partners", body: "See how you rank against your class, and find partners to team up with. Tap me in the corner anytime you need a hand!", mood: "happy" },
   // Reward slide (centered, no anchor). Finishing here pays out the coins.
   { route: "/dashboard", icon: Coins, title: "You're all set! 🎉", body: "Here's 10 InvestiCoins for finishing the tour. Now go stack some more!", mood: "celebrating" },
 ]
