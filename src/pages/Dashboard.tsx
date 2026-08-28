@@ -530,7 +530,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "#f0f5f3" }}>
+    <div className="min-h-screen bg-background">
       <GameNav />
 
       <main className="p-4 pb-28 md:pb-6">
@@ -719,7 +719,7 @@ export default function Dashboard() {
 
         {/* ═══ 3. TODAY - daily challenge + missions, one unified card ═══ */}
         <MCard i={6} className="mt-3">
-          <div className="bg-white rounded-3xl p-5 relative overflow-hidden" style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
+          <div className="bg-card border border-border/60 shadow-card rounded-3xl p-5 relative overflow-hidden">
             <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
               style={{ background: "rgba(var(--brand-rgb),0.06)" }} />
             <p className="relative text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Today</p>
@@ -774,8 +774,7 @@ export default function Dashboard() {
           {/* ── Micro-business: revenue hero + radial rep + customer dots ── */}
           <MCard i={8}>
             <Link to="/micro-business" className="block h-full">
-              <div className="group bg-white rounded-3xl p-5 relative overflow-hidden hover-lift press-scale h-full"
-                style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
+              <div className="group bg-card border border-border/60 shadow-card rounded-3xl p-5 relative overflow-hidden hover-lift press-scale h-full">
                 <div className="absolute -right-7 -top-7 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: "#0F766E1f" }} />
                 <div className="relative">
                   <div className="flex items-center justify-between">
@@ -949,8 +948,7 @@ export default function Dashboard() {
           {/* ── Class Leaderboard snapshot ── */}
           <MCard i={10}>
             <Link to="/leaderboard" className="block h-full">
-              <div className="group bg-white rounded-3xl overflow-hidden hover-lift press-scale h-full relative"
-                style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
+              <div className="group bg-card border border-border/60 shadow-card rounded-3xl overflow-hidden hover-lift press-scale h-full relative">
 
                 {activeBoard.info && !activeBoard.empty ? (
                   <>
@@ -1036,14 +1034,14 @@ export default function Dashboard() {
                               initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: 0.75 + i * 0.08, duration: 0.28 }}
                               className="py-2.5"
-                              style={r.isMe ? { borderTop: "1px solid rgba(var(--brand-rgb),0.2)", borderBottom: "1px solid rgba(var(--brand-rgb),0.2)", marginTop: "2px", marginBottom: "2px" } : { borderTop: "1px solid #f0f5f3" }}>
+                              style={r.isMe ? { borderTop: "1px solid rgba(var(--brand-rgb),0.2)", borderBottom: "1px solid rgba(var(--brand-rgb),0.2)", marginTop: "2px", marginBottom: "2px" } : { borderTop: "1px solid hsl(var(--border))" }}>
                               <div className={`rounded-xl px-2 py-1 -mx-2 transition-colors ${r.isMe ? "bg-success/5" : ""}`}>
                                 <div className="flex items-center gap-2.5 mb-1">
                                   <span className="text-base shrink-0 w-5 text-center">
                                     {r.rank <= 3 ? medals[r.rank - 1] : <span className="text-[11px] font-extrabold text-muted-foreground">{r.rank}</span>}
                                   </span>
-                                  <span className={`text-sm flex-1 truncate ${r.isMe ? "font-extrabold" : "font-semibold"}`}
-                                    style={r.isMe ? { color: "var(--brand)" } : { color: "#374151" }}>
+                                  <span className={`text-sm flex-1 truncate ${r.isMe ? "font-extrabold" : "font-semibold text-foreground"}`}
+                                    style={r.isMe ? { color: "var(--brand)" } : undefined}>
                                     {r.name}
                                   </span>
                                   <span className="text-xs font-bold tabular-nums" style={{ color: barColor }}>
@@ -1177,8 +1175,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
   return (
     <MCard i={9}>
       <div
-        className="bg-white rounded-3xl p-5 relative overflow-hidden h-full hover-lift"
-        style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}
+        className="bg-card border border-border/60 shadow-card rounded-3xl p-5 relative overflow-hidden h-full hover-lift"
       >
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(59,167,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,167,196,0.04) 1px,transparent 1px)",
