@@ -141,7 +141,7 @@ export const ibEcon1_1: StructuredLessonContent = {
         {
           id: "ie11-mc-4",
           question: "A factory's industrial ovens and assembly-line robots are an example of which factor of production?",
-          options: ["Land", "Labour", "Capital (physical capital)", "Entrepreneurship"],
+          options: ["Land", "Labour", "Capital", "Entrepreneurship"],
           correctAnswer: 2,
           explanation: "Machines, tools, and factories are man-made, produced inputs used to make other goods — that's physical capital, an investment good.",
           concept: "factors-of-production"
@@ -235,10 +235,10 @@ export const ibEcon1_1: StructuredLessonContent = {
           id: "ie11-mx-2",
           question: "Economics is best described as…",
           options: [
-            "a natural science like chemistry that studies matter",
+            "a natural science, like chemistry, that studies matter and energy",
             "a social science that studies human behavior to satisfy needs and wants",
-            "a branch of pure mathematics",
-            "an art with no method or evidence"
+            "a branch of mathematics built on numbers, logic, and proofs",
+            "an art form guided by personal opinion rather than any method"
           ],
           correctAnswer: 1,
           explanation: "It's a social science — it studies people and society (how they act to satisfy needs and wants) using the scientific method.",
@@ -254,8 +254,13 @@ export const ibEcon1_1: StructuredLessonContent = {
         },
         {
           id: "ie11-mx-4",
-          question: "Using scarce resources in the way that best satisfies society's needs and wants is called…",
-          options: ["equity", "allocative efficiency", "interdependence", "scarcity"],
+          question: "Using scarce resources in the way that best satisfies society's needs and wants is…",
+          options: [
+            "equity, meaning fairness in how income is shared out",
+            "allocative efficiency, the best possible use of scarce resources",
+            "interdependence, the way decision-makers rely on each other",
+            "scarcity, the gap between unlimited wants and limited resources"
+          ],
           correctAnswer: 1,
           explanation: "Allocative efficiency is directing resources to the uses that best satisfy society — a specific form of efficiency.",
           concept: "nine-concepts"
@@ -293,10 +298,10 @@ export const ibEcon1_1: StructuredLessonContent = {
           id: "ie11-mx-8",
           question: "Which best describes a free good?",
           options: [
-            "Any good the government gives away for a low price",
-            "A good that is not scarce and has zero opportunity cost",
-            "A scarce good that is produced very cheaply",
-            "Any good sold in a competitive market"
+            "a good the government hands out at a very low price",
+            "a good that is not scarce and has zero opportunity cost",
+            "a scarce good that happens to be cheap to produce",
+            "a good sold freely in an open, competitive market"
           ],
           correctAnswer: 1,
           explanation: "A free good is not scarce and carries zero opportunity cost — using it takes no alternative away (e.g., clean air in an empty area). 'Free' here means no opportunity cost, not a low price.",
@@ -306,10 +311,10 @@ export const ibEcon1_1: StructuredLessonContent = {
           id: "ie11-mx-9",
           question: "Why can the same land be a free good in one situation and an economic good in another?",
           options: [
-            "Because the government changes its official price",
-            "Because once people compete to use it, it becomes scarce and gains a positive opportunity cost",
-            "Because land is always a free good no matter what",
-            "Because economic goods can never come from nature"
+            "because the government steps in and sets an official price for it",
+            "because once people compete to use it, it becomes scarce with an opportunity cost",
+            "because land counts as a free good no matter who is using it",
+            "because a resource drawn from nature can never be an economic good"
           ],
           correctAnswer: 1,
           explanation: "In an empty region land may be non-scarce (free good). Once people move in and compete for it, it becomes scarce with a positive opportunity cost — an economic good. Context decides.",
@@ -484,10 +489,10 @@ export const ibEcon1_2: StructuredLessonContent = {
         id: "ie12-aq-1",
         question: "Country A relies mostly on private ownership and market prices, yet runs tax-funded public schools and defense. How should it be classified?",
         options: [
-          "A pure free market economy, because prices dominate",
-          "A pure planned economy, because the government does anything at all",
-          "A mixed economy that leans market-oriented",
-          "Not an economy, because it uses two methods at once"
+          "a pure free market economy, since market prices clearly dominate here",
+          "a pure planned economy, since the government is involved at all",
+          "a mixed economy that leans toward the market-oriented end",
+          "not really an economy, since it blends two different methods"
         ],
         correctAnswer: 2,
         explanation: "Any real economy that combines private and public ownership and both price and non-price rationing is mixed. Because markets and prices dominate here, it's a mixed economy leaning market-oriented — not a pure system.",
@@ -520,10 +525,10 @@ export const ibEcon1_2: StructuredLessonContent = {
           id: "ie12-mx-2",
           question: "The 'for whom to produce' question is really about…",
           options: [
-            "resource allocation into different industries",
+            "steering scarce resources into different industries",
             "the distribution of output and income among people",
-            "which technology to use",
-            "whether wants are unlimited"
+            "which technology and methods a firm should use",
+            "whether human wants are truly unlimited or not"
           ],
           correctAnswer: 1,
           explanation: "'For whom' is the distribution-of-output/income question — who ends up with what gets produced.",
@@ -593,10 +598,10 @@ export const ibEcon1_2: StructuredLessonContent = {
           id: "ie12-mx-8",
           question: "Which is an example of price rationing?",
           options: [
-            "Waiting in line overnight for a limited release",
-            "Receiving fuel only with a government-issued coupon",
-            "A scarce product going to whoever is willing and able to pay its market price",
-            "Being assigned an apartment by a housing ministry"
+            "waiting overnight in a long line for a limited product release",
+            "getting fuel only by handing over a government-issued ration coupon",
+            "a scarce product going to whoever is willing to pay its price",
+            "being handed an apartment that a housing ministry assigned to you"
           ],
           correctAnswer: 2,
           explanation: "Price rationing allocates a scarce good to those willing and able to pay the market price. The other three are non-price rationing (queues, coupons, government assignment).",
@@ -614,10 +619,10 @@ export const ibEcon1_2: StructuredLessonContent = {
           id: "ie12-mx-10",
           question: "Which statement reflects the 'markets work reasonably well' school of thought?",
           options: [
-            "Government should own all major industries",
-            "Government intervention should be kept minimal because markets mostly self-correct",
-            "Prices should be set by central planners",
-            "All goods should be rationed by queues"
+            "the government should own and run all of the major industries",
+            "government should intervene only lightly, since markets mostly self-correct",
+            "prices across the economy are best set by central government planners",
+            "most goods should be shared out by queues and waiting lists"
           ],
           correctAnswer: 1,
           explanation: "That school holds markets largely work on their own, so intervention should be minimal — the opposite view stresses correcting significant market imperfections.",
@@ -798,10 +803,10 @@ export const ibEcon1_3: StructuredLessonContent = {
           id: "ie13-mx-1",
           question: "Why do economists use simplified models like the PPC instead of describing the whole economy in full detail?",
           options: [
-            "Because full detail is illegal to publish",
-            "Because a model keeps the key relationships and strips out noise, making them easier to study",
-            "Because models are always perfectly accurate",
-            "Because the real economy has no relationships worth studying"
+            "because publishing the full detail of an economy is against the law",
+            "because a model keeps the key relationships and strips out the noise",
+            "because a good model is always a perfectly accurate copy of reality",
+            "because the real economy holds no relationships actually worth studying"
           ],
           correctAnswer: 1,
           explanation: "A model deliberately simplifies — keeping the essentials and dropping detail — so the key relationships stand out and can be analyzed.",
@@ -824,10 +829,10 @@ export const ibEcon1_3: StructuredLessonContent = {
           id: "ie13-mx-3",
           question: "A PPC that bows outward (is concave to the origin) reflects…",
           options: [
-            "constant opportunity cost",
+            "constant opportunity cost from equally suited factors",
             "increasing opportunity cost from specialized factors",
-            "zero opportunity cost",
-            "an economy in a recession"
+            "zero opportunity cost between the two goods",
+            "an economy stuck in a deep recession"
           ],
           correctAnswer: 1,
           explanation: "A bowed-out PPC means each extra unit of one good costs more of the other — increasing opportunity cost — because factors aren't equally suited to both goods.",
@@ -876,10 +881,10 @@ export const ibEcon1_3: StructuredLessonContent = {
           id: "ie13-mx-7",
           question: "In the circular flow, in which direction do the factors of production and the payments for them move?",
           options: [
-            "Factors flow firms → households; income flows households → firms",
-            "Factors flow households → firms; income (rent, wages, interest, profit) flows firms → households",
-            "Both factors and income flow only from firms to households",
-            "Neither factors nor income actually move"
+            "factors flow from firms to households, and income flows from households to firms",
+            "factors flow from households to firms, and income flows from firms to households",
+            "both the factors and the income flow only from firms to households",
+            "neither the factors nor the income payments ever actually move at all"
           ],
           correctAnswer: 1,
           explanation: "Households own the factors and supply them to firms via resource markets; firms pay for them (rent, wages, interest, profit), so income flows firms → households.",

@@ -64,6 +64,8 @@ const PROMPTS: Partial<Record<LessonCategory, string>> = {
     "Connect this lesson to a real business you know. In your own words, what would you do differently if you were running it, and why?",
   "gulliver-economics":
     "Find this economics idea in your own life or the news. Describe one real example and explain, in your own words, what it means for you.",
+  "ib-economics":
+    "Find this economics idea in your own life or the news. Describe one real example and explain, in your own words, what it means for you and the choices you make.",
 
   // ── Business / entrepreneurship track ──
   entrepreneurship:

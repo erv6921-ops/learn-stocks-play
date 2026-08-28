@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Coins, ArrowRight, Target, TrendingUp, TrendingDown, Gauge, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -20,6 +20,7 @@ export function LessonCompletionScreen({
   reflectionBonus,
   onContinue,
   onRetake,
+  onScore,
 }: {
   correct: number
   attempts: number
@@ -30,6 +31,13 @@ export function LessonCompletionScreen({
   onContinue: () => void
   /** Restart the whole lesson from the top (Jeff's teaching + every question). */
   onRetake?: () => void
+  /**
+   * Persist the REAL whole-lesson accuracy shown here (every question this run,
+   * including the ones missed), so a later replay shows the true score instead
+   * of the mastery-only ~100%. Fires once, only when this session actually
+   * answered questions - a pure replay (nothing answered) must not overwrite it.
+   */
+  onScore?: (pct: number) => void
 }) {
   const { coinsGained, coinsLost, answeredTotal, answeredCorrect, getAttempts } = useQuizSession()
   // Show a subtle "it's adapting" signal only when this session actually fed the
@@ -56,6 +64,14 @@ export function LessonCompletionScreen({
     if (pct >= 50) return { label: "Nice work!", color: "#d97706", ring: "hsl(38 92% 50%)", mood: "excited" as const }
     return { label: "Mission complete", color: "#dc2626", ring: "hsl(0 72% 51%)", mood: "happy" as const }
   }, [pct])
+
+  // Persist the true whole-lesson accuracy once, only for a real run (this
+  // session answered at least one question). Replays answer nothing, so they
+  // skip this and keep the stored score intact.
+  useEffect(() => {
+    if (shownTotal > 0) onScore?.(pct)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Circular progress geometry for the accuracy ring.
   const R = 66

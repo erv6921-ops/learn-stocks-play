@@ -654,6 +654,10 @@ export default function LessonDetail() {
             reflectionBonus={REFLECTION_BONUS}
             onContinue={() => navigate("/lessons?category=" + lesson.category)}
             onRetake={handleRetake}
+            // Store the true whole-lesson accuracy so a later replay shows the
+            // real score, not the mastery-only ~100%. (finishLesson marks the
+            // lesson complete; this refines the persisted score to the honest one.)
+            onScore={(pct) => updateLessonProgress(lesson.id, true, pct)}
           />
         ) : (
           /* ─── Active section rendering (interactive walk, no concept steps) ─── */
