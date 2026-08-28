@@ -12,12 +12,12 @@ import { Button } from "@/components/ui/button"
 import { JeffMascot } from "@/components/Jeff/JeffMascot"
 import { JeffScene } from "@/components/Jeff"
 import type { JeffMoodType, JeffActivity } from "@/contexts/JeffContext"
-import { History } from "lucide-react"
+import { History, X } from "lucide-react"
 import type { Lesson } from "@/types"
 import { HighlightedText } from "@/lib/highlightTerms"
 import {
   jeffChatTurn, initialJeffMessage, initialOptions, END_SIGNAL,
-  loadChat, saveChat, scriptOptions, isGulliverIntroLesson, GULLIVER_DEEP_TURNS,
+  loadChat, saveChat, scriptOptions, isDeepLesson, GULLIVER_DEEP_TURNS,
   type ChatMessage,
 } from "@/lib/jeffChatLesson"
 
@@ -381,7 +381,7 @@ interface JeffChatProps {
 
 export default function JeffChat({ lesson, script = [], source, mustCover, onQuizReady, onClose }: JeffChatProps) {
   // Deeper, longer teaching for the Gulliver Intro academic course.
-  const deep = isGulliverIntroLesson(lesson)
+  const deep = isDeepLesson(lesson)
   const expectedTurns = deep ? GULLIVER_DEEP_TURNS : EXPECTED_TURNS
   // Resume a saved conversation, otherwise open with Jeff's hardcoded hook.
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
@@ -553,11 +553,16 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
         >
           <History className="w-4.5 h-4.5" />
         </button>
-        {/* No exit (X) here: the chat only ever renders for an unfinished
-            lesson, so the student is locked in until they complete Jeff's
-            teaching and move on to the quiz via the "Start quiz" button below.
-            (onClose stays on the props API; it's just no longer exposed as a
-            tappable escape.) */}
+        {/* Exit: leave the lesson. The conversation is saved per-lesson, so
+            reopening the lesson later resumes Jeff's class where it left off. */}
+        <button
+          onClick={onClose}
+          aria-label="Exit lesson"
+          title="Exit lesson"
+          className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:bg-black/5 transition-colors"
+        >
+          <X className="w-4.5 h-4.5" />
+        </button>
       </div>
 
       {/* ── The stage ── */}

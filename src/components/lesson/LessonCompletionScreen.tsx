@@ -1,6 +1,6 @@
 import React, { useMemo } from "react"
 import { motion } from "framer-motion"
-import { Coins, ArrowRight, Target, TrendingUp, TrendingDown, Gauge } from "lucide-react"
+import { Coins, ArrowRight, Target, TrendingUp, TrendingDown, Gauge, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import AnimatedNumber from "@/components/AnimatedNumber"
@@ -19,6 +19,7 @@ export function LessonCompletionScreen({
   reflectionDone,
   reflectionBonus,
   onContinue,
+  onRetake,
 }: {
   correct: number
   attempts: number
@@ -27,6 +28,8 @@ export function LessonCompletionScreen({
   reflectionDone: boolean
   reflectionBonus: number
   onContinue: () => void
+  /** Restart the whole lesson from the top (Jeff's teaching + every question). */
+  onRetake?: () => void
 }) {
   const { coinsGained, coinsLost, answeredTotal, answeredCorrect, getAttempts } = useQuizSession()
   // Show a subtle "it's adapting" signal only when this session actually fed the
@@ -172,6 +175,12 @@ export function LessonCompletionScreen({
           <Button size="lg" className="w-full" onClick={onContinue}>
             Continue Learning <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
+
+          {onRetake && (
+            <Button variant="ghost" size="lg" className="w-full text-muted-foreground" onClick={onRetake}>
+              <RotateCcw className="mr-2 w-4 h-4" /> Retake lesson
+            </Button>
+          )}
         </CardContent>
       </Card>
     </div>

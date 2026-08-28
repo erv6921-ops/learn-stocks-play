@@ -679,6 +679,28 @@ export function isGulliverIntroLesson(lesson: Lesson): boolean {
   )
 }
 
+// IB Economics is a standalone academic course (like Gulliver Intro), so its
+// lessons get the same deep, teach-every-concept chat mode rather than the
+// snappy one-idea personal-finance mode.
+export function isIbEconLesson(lesson: Lesson): boolean {
+  return lesson.track === "ib-econ" || lesson.category === "ib-economics"
+}
+
+// Any lesson that should use the deep (thorough, multi-beat, teach-everything)
+// Jeff teaching mode instead of the snappy one-concept mode. Both academic
+// course tracks qualify.
+export function isDeepLesson(lesson: Lesson): boolean {
+  return isGulliverIntroLesson(lesson) || isIbEconLesson(lesson)
+}
+
+// The course descriptor woven into the deep teaching prompt, so Jeff frames the
+// lesson as part of the right class (business vs. economics).
+function deepCourseLabel(lesson: Lesson): string {
+  return isIbEconLesson(lesson)
+    ? "IB Economics course, a rigorous academic economics class"
+    : "Gulliver Introduction to Business course, a rigorous 9th-grade (age ~14) academic business class"
+}
+
 // How many teaching beats a deep (Gulliver) lesson gets before it must wrap up.
 // Lessons are split into short halves (e.g. 1.1, 1.2), so each one is a small,
 // digestible session: a handful of short messages that build on each other.
@@ -750,7 +772,7 @@ function buildDeepPrompt(lesson: Lesson, sentCount: number, source?: string, mus
     ? `\n\nSOURCE MATERIAL - this is the authoritative curriculum for this lesson. Teach from it, cover every key idea in it in a sensible order, and do not contradict it:\n"""\n${source.slice(0, 4000)}\n"""`
     : ""
 
-  return `You are Jeff, the teacher for this lesson in the Gulliver Introduction to Business course - a rigorous 9th-grade (age ~14) academic business class. You are teaching '${lesson.title}', which covers '${lesson.description}'.
+  return `You are Jeff, the teacher for this lesson in the ${deepCourseLabel(lesson)}. You are teaching '${lesson.title}', which covers '${lesson.description}'.
 
 This is a real course, not a quick tip. Your job is to actually TEACH the whole lesson - explain the mechanisms and the WHY behind each idea, and cover ALL of the key concepts in it (not just one). But you deliver it in SMALL, readable steps that build on each other.
 
@@ -758,7 +780,7 @@ CRITICAL - message length and pacing:
 - Each message teaches exactly ONE small idea. One idea per message, no more.
 - Keep every message SHORT: 1 to 2 sentences, and under 40 words. It must fit on a phone screen and be readable in a single glance. Never write a long paragraph or cram multiple ideas into one message - that is the most important rule.
 - Then stop and let the student tap a reply before you continue.
-- Build up in order, simplest idea first: teach it, make sure it lands, then add the next idea on top of it. (For example, first WHAT a business is, then goods vs. services, then how each next idea follows.)
+- Build up in order, simplest idea first: teach it, make sure it lands, then add the next idea on top of it. (Teach the most basic idea first, then the one that builds directly on it, and so on.)
 - Use MANY short messages rather than a few long ones - aim for around ${GULLIVER_DEEP_TURNS} short beats total so you can be thorough without any single message getting long.
 - Never just restate the previous point - each message adds one new thing.
 - Highlight key vocabulary: the FIRST time you say an important term or its definition, wrap just that word or short phrase in **double asterisks** (e.g. **revenue**, **a good**). Do this only for the genuinely important terms - a few per lesson - never for whole sentences.
@@ -773,7 +795,7 @@ ${NO_DASH_RULE}${material}`
 }
 
 export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[]): string {
-  return isGulliverIntroLesson(lesson)
+  return isDeepLesson(lesson)
     ? buildDeepPrompt(lesson, sentCount, source, mustCover)
     : buildSnappyPrompt(lesson, sentCount, source)
 }
@@ -874,4 +896,10 @@ export function loadChat(lessonId: string): SavedChat | null {
 
 export function saveChat(lessonId: string, chat: SavedChat) {
   try { localStorage.setItem(storeKey(lessonId), JSON.stringify(chat)) } catch { /* ignore */ }
+}
+
+// Wipe a lesson's saved conversation so the next open starts Jeff's class from
+// the top - used when a student chooses to retake a completed lesson.
+export function clearChat(lessonId: string) {
+  try { localStorage.removeItem(storeKey(lessonId)) } catch { /* ignore */ }
 }
