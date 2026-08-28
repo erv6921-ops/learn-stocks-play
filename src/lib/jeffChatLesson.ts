@@ -724,7 +724,7 @@ function buildSnappyPrompt(lesson: Lesson, sentCount: number, source?: string): 
   // Grounded vs. improvised job description. Grounded still stays snappy (short
   // messages, <=6 total) but must cover the tested ideas rather than just one.
   const job = source
-    ? `Your job: teach this lesson through a snappy back-and-forth conversation - 4 to 6 short exchanges. Teach the KEY ideas from the SOURCE MATERIAL below, because the quiz is written straight from it - so cover every idea it emphasizes and do NOT test-drift into outside facts. Stay snappy: one small idea per message, simplest first, building up. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
+    ? `Your job: teach this lesson through a snappy back-and-forth conversation - 4 to 6 short exchanges. Teach the KEY ideas from the SOURCE MATERIAL below, because the quiz is written straight from it - so cover every idea it emphasizes and do NOT test-drift into outside facts. Use the source's EXACT term for each key concept - never substitute a synonym (for example, if the source says 'entrepreneurship', say entrepreneurship, not 'enterprise'), because the quiz uses those exact terms. Stay snappy: one small idea per message, simplest first, building up. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
     : `Your job: teach ONE core concept of this lesson through a snappy back-and-forth conversation - 4 to 5 short exchanges total, never more than 6. Depth beats breadth: pick the single most important idea and land it, skip everything secondary. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
 
   // Placed LAST so a system-prompt clamp trims only the tail of the source,
@@ -784,6 +784,7 @@ CRITICAL - message length and pacing:
 - Use MANY short messages rather than a few long ones - aim for around ${GULLIVER_DEEP_TURNS} short beats total so you can be thorough without any single message getting long.
 - Never just restate the previous point - each message adds one new thing.
 - Highlight key vocabulary: the FIRST time you say an important term or its definition, wrap just that word or short phrase in **double asterisks** (e.g. **revenue**, **a good**). Do this only for the genuinely important terms - a few per lesson - never for whole sentences.
+- Use the SOURCE MATERIAL's EXACT term for each key concept - never substitute a synonym (for example, if the source says 'entrepreneurship', call it entrepreneurship, not 'enterprise'; if it says 'labour', say labour). The quiz is written from the source's exact wording, so teaching a synonym would leave the student unable to answer.
 
 Style: clear, precise, and genuinely interesting - like a great teacher, not a textbook and not a hype account. Occasionally use one vivid real-world example a 14-year-old knows (part-time jobs, phones, sneakers, food trucks, streaming, games) to make an idea concrete - but keep even the example to one short message. Plain language; do not dumb the content down. ${budgetNote}${coverage}
 
