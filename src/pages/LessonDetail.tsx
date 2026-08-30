@@ -558,10 +558,15 @@ export default function LessonDetail() {
             </Card>
 
             <div className="text-center">
-              <Button size="lg" variant="hero" onClick={() => setChatOpen(true)}>
-                Start Mission <ArrowRight className="ml-2" />
+              <Button
+                size="lg"
+                variant="hero"
+                onClick={() => setChatOpen(true)}
+                className="w-full h-16 text-xl font-bold rounded-2xl shadow-lg shadow-primary/30"
+              >
+                Start Mission <ArrowRight className="ml-2 w-6 h-6" />
               </Button>
-              <p className="text-xs text-muted-foreground mt-2">💬 Jeff will teach you this one in chat</p>
+              <p className="text-sm text-muted-foreground mt-3">👆 Tap here to begin — 💬 Jeff will teach you this one in chat</p>
             </div>
           </div>
         ) : checkingMastery ? (

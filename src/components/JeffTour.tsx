@@ -5,9 +5,10 @@ import { useApp } from "@/contexts/AppContext"
 import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
 import { tourAnchors } from "@/lib/tourAnchors"
+import { getFirstLessonId } from "@/data/lessons"
 import {
-  BookOpen, FlaskConical, LineChart, NotebookPen,
-  Trophy, X, ArrowRight, ArrowLeft, Target, Coins, Sparkles,
+  BookOpen, LineChart, NotebookPen,
+  Trophy, X, ArrowRight, ArrowLeft, Coins, Sparkles,
 } from "lucide-react"
 
 const SHOW_FLAG = "investiplay_show_tour"
@@ -38,14 +39,17 @@ interface Step {
 const STEPS: Step[] = [
   // Centered welcome (no anchor -> Jeff sits in the middle of the screen, then
   // glides to the side on the next slide).
-  { route: "/dashboard", icon: Sparkles, title: "Hey, I'm Jeff! 👋", body: "I'm your money coach. Quick tour of the app. Let's go!", mood: "happy" },
-  { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: "Missions", body: "Start here. These are your lessons. Finish them to earn InvestiCoins and level up!", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-lab", icon: FlaskConical, title: "The Lab", body: "Real life money stuff like taxes, banking, and credit, through hands on scenarios, all played out with InvestiCoins, never real money.", mood: "teaching" },
-  { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: "Stocks", body: "Trade real companies using InvestiCoins and watch your portfolio grow to earn even more coins.", mood: "thinking" },
+  { route: "/dashboard", icon: Sparkles, title: "Hey, I'm Jeff! 👋", body: "I'm your money coach. Quick tour of the app, then we'll do your first lesson together. Let's go!", mood: "happy" },
+  // Tabs are pointed out in the order a student meets them: what's due
+  // (Homework), how they stack up (Leaderboard), the trading floor (Stocks),
+  // and finally Missions - which is where the tour drops them to start lesson #1.
   { route: "/dashboard", anchor: "nav-homework", icon: NotebookPen, title: "Homework", body: "Any assignments your teacher sets land right here, so you always know what's due.", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard & Partners", body: "See how you rank against your class, and find partners to team up with. Tap me in the corner anytime you need a hand!", mood: "happy" },
-  // Reward slide (centered, no anchor). Finishing here pays out the coins.
-  { route: "/dashboard", icon: Coins, title: "You're all set! 🎉", body: "Here's 10 InvestiCoins for finishing the tour. Now go stack some more!", mood: "celebrating" },
+  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard", body: "See how you rank against your class. Tap me in the corner anytime you need a hand!", mood: "happy" },
+  { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: "Stocks", body: "Trade real companies using InvestiCoins and watch your portfolio grow to earn even more coins.", mood: "thinking" },
+  { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: "Missions", body: "This is the heart of the app - your lessons. Finish them to earn InvestiCoins and level up. Let's start your first one right now!", mood: "excited" },
+  // Reward slide (centered, no anchor). Finishing here pays out the coins and
+  // then sends the student straight into their first lesson (see finish()).
+  { route: "/dashboard", icon: Coins, title: "You're all set! 🎉", body: "Here's 10 InvestiCoins for finishing the tour. Now let's do your very first lesson!", mood: "celebrating" },
 ]
 
 interface Rect { top: number; left: number; width: number; height: number }
@@ -207,7 +211,12 @@ export default function JeffTour() {
       localStorage.removeItem(SHOW_FLAG)
       if (user?.id) localStorage.setItem(doneKey(user.id), "1")
     } catch { /* ignore */ }
-    navigate("/dashboard")
+    // Drop students straight into lesson #1 so they know exactly what to do next -
+    // but it's not enforced: they're free to exit the lesson and roam the app.
+    const isStudent = !!user?.id && user.role !== "teacher"
+    const track = user?.track === "gulliver_intro" ? "gulliver-intro" : "regular"
+    const firstLesson = isStudent ? getFirstLessonId(track) : null
+    navigate(firstLesson ? `/lessons/${firstLesson}` : "/dashboard")
   }
 
   // Where to put Jeff + the bubble, and which way the arrow points.
@@ -273,8 +282,9 @@ export default function JeffTour() {
 
   return (
     <div className="fixed inset-0 z-[100]" style={{ pointerEvents: "none" }}>
-      {/* Click-blocker + dim. When anchored we use a spotlight cutout; otherwise a flat dim. */}
-      <div className="absolute inset-0" style={{ pointerEvents: "auto", background: rect ? "transparent" : "rgba(2,15,10,0.5)" }} />
+      {/* Click-blocker + dim. When anchored we use a spotlight cutout; otherwise a
+          flat dim - darkened hard on the final slide so the big "Start" CTA pops. */}
+      <div className="absolute inset-0" style={{ pointerEvents: "auto", background: rect ? "transparent" : isLast ? "rgba(2,15,10,0.82)" : "rgba(2,15,10,0.55)" }} />
 
       {box && (
         <>
@@ -334,23 +344,36 @@ export default function JeffTour() {
             <span className="text-[11px] font-semibold text-muted-foreground tabular-nums">{i + 1}/{STEPS.length}</span>
           </div>
 
-          <div className="flex items-center justify-between gap-2">
-            <button onClick={() => finish(false)} className="text-xs font-semibold text-muted-foreground hover:text-foreground">Skip</button>
+          {isLast ? (
+            /* Final slide: one big, full-width CTA that's the obvious thing to
+               tap. No "Skip" here - the tour's already done, they're just
+               launching lesson #1. */
             <div className="flex items-center gap-2">
               {i > 0 && (
-                <Button variant="outline" size="sm" onClick={() => setI(n => n - 1)} className="press-scale h-8 px-2.5">
-                  <ArrowLeft className="w-4 h-4" />
+                <Button variant="outline" size="lg" onClick={() => setI(n => n - 1)} className="press-scale h-12 px-3 shrink-0">
+                  <ArrowLeft className="w-5 h-5" />
                 </Button>
               )}
-              {isLast ? (
-                <Button size="sm" onClick={() => finish(true)} className="press-scale h-8">Claim 10 coins 🎉</Button>
-              ) : (
+              <Button size="lg" onClick={() => finish(true)}
+                className="press-scale h-12 flex-1 text-[15px] font-bold shadow-lg shadow-primary/30">
+                Start my first lesson 🚀
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between gap-2">
+              <button onClick={() => finish(false)} className="text-xs font-semibold text-muted-foreground hover:text-foreground">Skip</button>
+              <div className="flex items-center gap-2">
+                {i > 0 && (
+                  <Button variant="outline" size="sm" onClick={() => setI(n => n - 1)} className="press-scale h-8 px-2.5">
+                    <ArrowLeft className="w-4 h-4" />
+                  </Button>
+                )}
                 <Button size="sm" onClick={() => setI(n => n + 1)} className="press-scale h-8">
                   Next <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </motion.div>
     </div>

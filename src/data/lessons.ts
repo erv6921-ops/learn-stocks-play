@@ -619,3 +619,15 @@ export function getUnitsByTrack(track: CourseTrack = "regular"): UnitInfo[] {
 export function getUnitTrack(unitId: string): CourseTrack {
   return unitInfo.find(u => u.id === unitId)?.track ?? "regular"
 }
+
+// The very first lesson of a track's curriculum: first unit by orderIndex, then
+// that unit's first lesson (array order = the order shown on the mission map).
+// Used to drop brand-new students straight into lesson #1 after the Jeff tour.
+export function getFirstLessonId(track: CourseTrack = "regular"): string | null {
+  const units = getUnitsByTrack(track).slice().sort((a, b) => a.orderIndex - b.orderIndex)
+  for (const u of units) {
+    const first = getLessonsByUnit(u.id)[0]
+    if (first) return first.id
+  }
+  return null
+}
