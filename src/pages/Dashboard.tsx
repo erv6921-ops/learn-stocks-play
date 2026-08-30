@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useCallback } from "react";
+import React, { useMemo, useState, useEffect, useCallback, useRef } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import { useNetWorth } from "@/hooks/useNetWorth";
@@ -371,6 +371,17 @@ export default function Dashboard() {
   const { missions: heroMissions, completedCount: missionsCompleted, total: missionsTotal } =
     useDailyMissions();
   const allMissionsDone = missionsCompleted >= missionsTotal;
+
+  // Once all daily missions are done, auto-flip the hero to the Lessons view.
+  // Fires once (after the "All done!" gold flash plays) so it never traps the
+  // student if they manually switch back to Daily afterward.
+  const autoSwitchedRef = useRef(false);
+  useEffect(() => {
+    if (!allMissionsDone || autoSwitchedRef.current) return;
+    autoSwitchedRef.current = true;
+    const t = setTimeout(() => setHeroView("lessons"), 1200);
+    return () => clearTimeout(t);
+  }, [allMissionsDone]);
 
   // ── Leaderboard snapshot: Class / National / Partners ──
   const [lbScope, setLbScope] = useState<"class" | "national" | "partners">("class");
