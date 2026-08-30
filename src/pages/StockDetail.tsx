@@ -20,6 +20,7 @@ import {
 import { toast } from "sonner"
 import { formatHistoryTimestamp, formatLocalTimestamp, getMarketSessionStatus, isLiveMarketSessionNow } from "@/lib/marketSession"
 import { anchor } from "@/lib/tourAnchors"
+import { recordStockView } from "@/lib/dailyMissions"
 
 interface StockData {
   symbol: string
@@ -262,12 +263,10 @@ export default function StockDetail() {
   const { user, watchlist, addToWatchlist, removeFromWatchlist, jeffsBalance, buyStock, sellStock, getHolding } = useApp()
   const navigate = useNavigate()
 
-  // Mark that the student viewed a stock today, for the "View 1 stock" daily mission.
+  // Record each distinct stock viewed today, for the "Market watch" daily mission.
   useEffect(() => {
     if (!symbol) return
-    const d = new Date()
-    const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
-    try { localStorage.setItem("investiplay_stock_viewed", today) } catch { /* ignore */ }
+    recordStockView(symbol)
   }, [symbol])
 
   const [stockData, setStockData] = useState<StockData | null>(null)

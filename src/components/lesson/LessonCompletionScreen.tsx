@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react"
+import React, { useMemo, useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Coins, ArrowRight, Target, TrendingUp, TrendingDown, Gauge, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -7,6 +7,7 @@ import AnimatedNumber from "@/components/AnimatedNumber"
 import { JeffMascot } from "@/components/JeffMascot"
 import Confetti from "@/components/Confetti"
 import { useQuizSession } from "./QuizSessionContext"
+import { DailyMissionScreen } from "./DailyMissionScreen"
 
 // The satisfying end-of-lesson screen. Numbers roll up from zero (accuracy,
 // coins gained, coins lost), Jeff celebrates above the card, and confetti fires
@@ -44,6 +45,9 @@ export function LessonCompletionScreen({
   // adaptive engine at least one answer. No numbers - students never see theta.
   const adaptiveActive = getAttempts() > 0
 
+  // Two-step flow: "stats" (accuracy + coins) then "missions" (daily missions).
+  const [step, setStep] = useState<"stats" | "missions">("stats")
+
   // Whole-lesson accuracy: every question answered this session - micro-checks,
   // applied questions, and mastery-check questions, including failed mastery
   // retries. Falls back to the mastery-only counts, then the stored score, for
@@ -77,6 +81,11 @@ export function LessonCompletionScreen({
   const R = 66
   const CIRC = 2 * Math.PI * R
   const dash = (pct / 100) * CIRC
+
+  // Step 2: the dedicated daily-missions screen.
+  if (step === "missions") {
+    return <DailyMissionScreen onContinue={onContinue} />
+  }
 
   return (
     <div className="relative">
@@ -188,8 +197,8 @@ export function LessonCompletionScreen({
             </motion.p>
           )}
 
-          <Button size="lg" className="w-full" onClick={onContinue}>
-            Continue Learning <ArrowRight className="ml-2 w-4 h-4" />
+          <Button size="lg" className="w-full" onClick={() => setStep("missions")}>
+            See daily missions <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
 
           {onRetake && (

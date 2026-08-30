@@ -121,6 +121,21 @@ serve(async (req) => {
       });
     }
 
+    // Raw mode — a single model call that returns just { text } with no reply
+    // options generated. Used by the lesson interrupter ("quick check"), which
+    // packs its whole instruction into the system prompt and needs the JSON
+    // straight back. Provider is whatever's configured (Gemini first, else
+    // Anthropic claude-sonnet-4-6). maxTokens defaults to 400 (interrupter cap).
+    if (body.raw === true) {
+      const maxTokens = typeof body.maxTokens === "number"
+        ? Math.min(Math.max(1, body.maxTokens), 1000)
+        : 400;
+      const rawText = await call(system, messages, maxTokens);
+      return new Response(JSON.stringify({ text: rawText }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // 1) Jeff's next teaching message.
     const text = await call(system, messages, 300);
 

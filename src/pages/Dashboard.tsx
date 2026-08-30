@@ -25,6 +25,8 @@ import { CoasterTrack } from "./Lessons";
 import FullScreenCoaster from "@/components/FullScreenCoaster";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import DailyMissions from "@/components/DailyMissions";
+import { useDailyMissions } from "@/hooks/useDailyMissions";
+import { DIFFICULTY_META } from "@/lib/dailyMissions";
 import { loadActivities, bizDef, type ActivitiesState, type BusinessType } from "@/lib/businessActivities";
 import { type BizState, monthlyRevenue, statusLabel } from "@/lib/businessSim";
 import {
@@ -33,13 +35,6 @@ import {
   GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical, Maximize2, Minimize2, Users,
   Target, Eye, ArrowRight, RotateCcw, Check } from
 "lucide-react";
-
-// Local calendar day key ("2026-08-30"), mirroring DailyMissions so the hero
-// banner's daily-mission detection agrees with the missions section below.
-const heroDayKey = (d: Date = new Date()) =>
-  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-const heroHappenedToday = (d?: Date | string | null) =>
-  !!d && heroDayKey(new Date(d)) === heroDayKey();
 
 const LEVEL_NAMES = [
 "Beginner Learner",
@@ -369,24 +364,13 @@ export default function Dashboard() {
 
   // ── Hero banner view toggle: "daily" (missions) vs "lessons" (level/stats) ──
   const [heroView, setHeroView] = useState<"daily" | "lessons">("daily");
-  // The three daily missions surfaced inside the hero banner. Completion mirrors
-  // the DailyMissions component's live checks so both stay in sync.
-  const heroMissions = [
-    {
-      id: "lesson", label: "Complete 1 lesson", Icon: BookOpen, reward: 100,
-      done: lessonProgress.some((p) => p.completed && heroHappenedToday(p.completedAt)),
-    },
-    {
-      id: "quiz", label: "Answer 1 quiz", Icon: Target, reward: 150,
-      done: lessonProgress.some((p) => p.quizScore != null && p.quizScore > 0 && heroHappenedToday(p.completedAt)),
-    },
-    {
-      id: "stock", label: "View 1 stock", Icon: Eye, reward: 75,
-      done: localStorage.getItem("investiplay_stock_viewed") === heroDayKey(),
-    },
-  ];
-  const missionsCompleted = heroMissions.filter((m) => m.done).length;
-  const allMissionsDone = missionsCompleted >= 3;
+  // Today's rotating daily missions (3 of 7), with live progress. Sourced from
+  // the shared hook so the hero and the end-of-lesson screen never drift. The
+  // headless <DailyMissions> below owns the coin awarding; this instance is
+  // display-only.
+  const { missions: heroMissions, completedCount: missionsCompleted, total: missionsTotal } =
+    useDailyMissions();
+  const allMissionsDone = missionsCompleted >= missionsTotal;
 
   // ── Leaderboard snapshot: Class / National / Partners ──
   const [lbScope, setLbScope] = useState<"class" | "national" | "partners">("class");
@@ -654,7 +638,7 @@ export default function Dashboard() {
                       ) : (
                         <>
                           <span style={{ color: "#f59e0b" }}>Daily Missions</span>
-                          <span className="text-white/45 font-semibold"> · {missionsCompleted}/3 done</span>
+                          <span className="text-white/45 font-semibold"> · {missionsCompleted}/{missionsTotal} done</span>
                         </>
                       )}
                     </p>
@@ -674,7 +658,7 @@ export default function Dashboard() {
                   <div
                     className="h-full rounded-full"
                     style={{
-                      width: heroView === "daily" ? `${(missionsCompleted / 3) * 100}%` : `${levelProgressPct}%`,
+                      width: heroView === "daily" ? `${(missionsCompleted / missionsTotal) * 100}%` : `${levelProgressPct}%`,
                       background: heroView === "daily"
                         ? "#f59e0b"
                         : "linear-gradient(90deg, #E3A008, var(--brand-bright))",
@@ -692,7 +676,12 @@ export default function Dashboard() {
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}
                   className="mt-6 rounded-2xl grid grid-cols-3 overflow-hidden"
                   style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
-                  {heroMissions.map(({ id, label, Icon, reward, done }, idx) => (
+                  {heroMissions.map((m, idx) => {
+                    const { id, blurb, icon: Icon, reward, done, progress, target, ratio } = m;
+                    const diff = DIFFICULTY_META[m.difficulty];
+                    // Show a "1/2" style counter for multi-step goals still in flight.
+                    const showCounter = !done && target > 1;
+                    return (
                     <div key={id}
                       className={`relative flex items-center gap-3 px-4 py-3.5 min-w-0 border-white/10 ${idx > 0 ? "border-l" : ""}`}
                       style={{ background: done ? "rgba(34,197,94,0.12)" : "transparent" }}>
@@ -703,9 +692,25 @@ export default function Dashboard() {
                         }}>
                         <Icon className="w-4 h-4" style={{ color: done ? "#4ade80" : "#f59e0b" }} />
                       </span>
-                      <div className="min-w-0">
-                        <p className="text-[12px] md:text-[13px] font-bold leading-tight">{label}</p>
-                        <p className="text-[12px] font-extrabold leading-none mt-1" style={{ color: "#f59e0b" }}>+{reward}</p>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <p className="text-[12px] md:text-[13px] font-bold leading-tight truncate">{blurb}</p>
+                          <span className="text-[8px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-full shrink-0"
+                            style={{ color: diff.color, background: diff.bg }}>
+                            {diff.label}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <p className="text-[12px] font-extrabold leading-none" style={{ color: "#f59e0b" }}>+{reward}</p>
+                          {showCounter && (
+                            <span className="text-[11px] font-bold tabular-nums text-white/50">{progress}/{target}</span>
+                          )}
+                        </div>
+                        {showCounter && (
+                          <div className="h-1 rounded-full overflow-hidden mt-1.5" style={{ background: "rgba(255,255,255,0.12)" }}>
+                            <div className="h-full rounded-full" style={{ width: `${ratio * 100}%`, background: "#f59e0b", transition: "width 0.4s ease" }} />
+                          </div>
+                        )}
                       </div>
                       {done && (
                         <motion.span
@@ -717,7 +722,8 @@ export default function Dashboard() {
                         </motion.span>
                       )}
                     </div>
-                  ))}
+                    );
+                  })}
                 </motion.div>
               ) : (
                 <motion.div
@@ -827,7 +833,7 @@ export default function Dashboard() {
         {/* ═══ 3. DAILY CHALLENGE - its own card (missions now live in the hero) ═══ */}
         {/* Headless DailyMissions keeps detecting + awarding the daily missions;
             the hero banner's Daily view is what displays them now. */}
-        <DailyMissions headless lessonProgress={lessonProgress} portfolio={portfolio} earnJeffs={earnJeffs} />
+        <DailyMissions headless />
         <MCard i={6} className="mt-3">
           <div className="bg-white rounded-3xl p-5 relative overflow-hidden" style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
             <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"

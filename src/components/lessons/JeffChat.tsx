@@ -15,6 +15,11 @@ import type { JeffMoodType, JeffActivity } from "@/contexts/JeffContext"
 import { History, X } from "lucide-react"
 import type { Lesson } from "@/types"
 import { HighlightedText } from "@/lib/highlightTerms"
+import { useApp } from "@/contexts/AppContext"
+import JeffInterrupter, { type InterrupterResult } from "@/components/lessons/JeffInterrupter"
+import {
+  generateInterrupter, randomInterrupterType, type Interrupter,
+} from "@/lib/jeffInterrupter"
 import {
   jeffChatTurn, initialJeffMessage, initialOptions, END_SIGNAL,
   loadChat, saveChat, scriptOptions, isDeepLesson, GULLIVER_DEEP_TURNS,
@@ -43,6 +48,17 @@ const EXPECTED_TURNS = 6
    with zero ways to continue (e.g. if a turn ever comes back with no options),
    so the lesson can never dead-end. */
 const SAFE_OPTIONS = ["Tell me more", "Keep going", "Got it 👍"]
+
+/* Interrupter cadence: pause for a "quick check" every this-many Jeff messages,
+   but never before the student has had time to settle in (see MIN_TURNS). */
+const INTERRUPT_EVERY = 3
+const INTERRUPT_MIN_TURNS = 3
+
+/* The hidden system note appended to the conversation after an interrupter, so
+   Jeff acknowledges what the student just did. Prefixed so it's filtered from
+   every on-screen view (never shown to the student). */
+const SYSTEM_NOTE_PREFIX = "[SYSTEM:"
+const isSystemNote = (content: string) => content.startsWith(SYSTEM_NOTE_PREFIX)
 
 /* ── Thinking skits ──────────────────────────────────────────────────
    While the AI works, Jeff plays a fully staged skit - each one is its
@@ -397,6 +413,15 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
   const [showHistory, setShowHistory] = useState(false)
   const [skit, setSkit] = useState<Skit>(SKITS[0])
 
+  // Interrupter ("quick check") state. `interrupter` holds the generated
+  // activity while it's on screen; `interrupterLoading` shows the skeleton
+  // while it's being generated. Neither persists - the counter deliberately
+  // resets to 0 on every mount so exiting and resuming never mid-fires one.
+  const { earnJeffs } = useApp()
+  const [interrupter, setInterrupter] = useState<Interrupter | null>(null)
+  const [interrupterLoading, setInterrupterLoading] = useState(false)
+  const interruptCounterRef = useRef(0)
+
   // Pick a fresh skit whenever thinking starts, and rotate to a new one
   // every few seconds if the AI takes its time - keeps Jeff feeling alive.
   useEffect(() => {
@@ -428,7 +453,9 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
 
   // What's on stage right now.
   const current = [...messages].reverse().find(m => m.role === "assistant")?.content ?? ""
-  const lastChoice = messages[messages.length - 1]?.role === "user" ? messages[messages.length - 1].content : null
+  const lastMsg = messages[messages.length - 1]
+  // The student's own last tap - but never the hidden interrupter system note.
+  const lastChoice = lastMsg?.role === "user" && !isSystemNote(lastMsg.content) ? lastMsg.content : null
   const jeffTurns = messages.filter(m => m.role === "assistant").length
   const mood: JeffMoodType = done ? "celebrate" : "encourage"
 
@@ -462,7 +489,18 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
         setOptions([])
       } else {
         // Guarantee a way forward even if a turn ever returns no options.
-        setOptions(newOptions.length ? newOptions : SAFE_OPTIONS)
+        const safeOptions = newOptions.length ? newOptions : SAFE_OPTIONS
+        // Every few Jeff messages (but not before he's warmed up), pause for a
+        // quick check tied to what he just said. On any generation hiccup the
+        // interrupter is skipped and these options show instead.
+        interruptCounterRef.current += 1
+        if (interruptCounterRef.current >= INTERRUPT_EVERY && jeffCount >= INTERRUPT_MIN_TURNS) {
+          interruptCounterRef.current = 0
+          setOptions([])
+          fireInterrupter(finalText, safeOptions)
+        } else {
+          setOptions(safeOptions)
+        }
       }
     } catch {
       await minDelay
@@ -493,6 +531,49 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
     const nextMessages: ChatMessage[] = [...messages, { role: "user", content: choice }]
     setMessages(nextMessages)
     setOptions([])
+    await requestReply(nextMessages)
+  }
+
+  // Generate + show a quick-check interrupter for Jeff's just-sent message. Runs
+  // in parallel with the student reading that message. A skeleton shows for at
+  // least 800ms (so it reads as intentional, not slow) and at most 3s; if
+  // generation fails or times out we silently fall back to the normal reply
+  // options and the lesson continues as if no interrupter fired.
+  const fireInterrupter = async (jeffText: string, fallbackOptions: string[]) => {
+    setInterrupterLoading(true)
+    const type = randomInterrupterType()
+    const minDelay = new Promise(r => setTimeout(r, 800))
+    // Generous ceiling: Supabase edge functions can cold-start slowly, so a
+    // tight cap would make the very first quick-check of a session always miss.
+    const timeout = new Promise<null>(r => setTimeout(() => r(null), 8000))
+    try {
+      const generated = await Promise.race([
+        (async () => {
+          const [gen] = await Promise.all([generateInterrupter(lesson, jeffText, type), minDelay])
+          return gen
+        })(),
+        timeout,
+      ])
+      setInterrupterLoading(false)
+      if (generated) {
+        setInterrupter(generated)
+      } else {
+        setOptions(fallbackOptions)
+      }
+    } catch {
+      setInterrupterLoading(false)
+      setOptions(fallbackOptions)
+    }
+  }
+
+  // Student finished the interrupter and tapped "Continue →". Drop a hidden
+  // system note describing what they did so Jeff acknowledges it, then fetch his
+  // next message - which becomes the lesson's continuation.
+  const resumeAfterInterrupter = async (result: InterrupterResult) => {
+    const note = `${SYSTEM_NOTE_PREFIX} The student just completed a quick check activity about '${result.description}' and got it ${result.outcome}. Jeff should briefly acknowledge this in his next message before continuing the lesson, one sentence max, then move on.]`
+    const nextMessages: ChatMessage[] = [...messages, { role: "user", content: note }]
+    setInterrupter(null)
+    setMessages(nextMessages)
     await requestReply(nextMessages)
   }
 
@@ -570,7 +651,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
         {showHistory ? (
           /* transcript review */
           <div className="flex-1 min-h-0 overflow-y-auto py-2 space-y-2 pr-1">
-            {messages.map((m, i) => (
+            {messages.filter(m => !isSystemNote(m.content)).map((m, i) => (
               <div key={i} className={`flex ${m.role === "user" ? "justify-end" : ""}`}>
                 <div className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm ${
                   m.role === "assistant" ? "bg-white/80 border border-border text-foreground" : "bg-primary text-primary-foreground"
@@ -673,6 +754,15 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
                 Take the Quiz →
               </Button>
             </motion.div>
+          ) : (interrupterLoading || interrupter) ? (
+            /* Quick check: the reply pills go quiet and the activity card slides
+               up in their place until the student taps Continue. */
+            <JeffInterrupter
+              interrupter={interrupter}
+              loading={interrupterLoading}
+              onCoins={earnJeffs}
+              onComplete={resumeAfterInterrupter}
+            />
           ) : (
             <div className="grid gap-2 min-h-[3rem]">
               {!thinking && options.map((opt, i) => (
