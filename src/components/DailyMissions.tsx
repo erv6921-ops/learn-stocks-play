@@ -16,6 +16,9 @@ interface DailyMissionsProps {
   lessonProgress: LessonProgress[]
   portfolio: StockHolding[]
   earnJeffs: (amount: number, reason: string) => void
+  /** When true, still detects + awards missions but renders no UI (the hero
+   * banner shows the missions instead, so we avoid a duplicate list). */
+  headless?: boolean
 }
 
 // Local calendar day, e.g. "2026-06-23". Used both for the daily reset and to
@@ -48,7 +51,7 @@ function saveDailyState(completed: Record<string, boolean>) {
   }))
 }
 
-export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: DailyMissionsProps) {
+export default function DailyMissions({ lessonProgress, portfolio, earnJeffs, headless }: DailyMissionsProps) {
   const [completed, setCompleted] = useState<Record<string, boolean>>(getDailyState)
 
   // Check conditions on mount and when deps change
@@ -58,7 +61,7 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
       label: "Complete 1 lesson",
       icon: BookOpen,
       xp: 50,
-      coins: 10,
+      coins: 100,
       check: () => lessonProgress.some(p => p.completed && happenedToday(p.completedAt))
     },
     {
@@ -66,7 +69,7 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
       label: "Answer 1 quiz",
       icon: Target,
       xp: 75,
-      coins: 15,
+      coins: 150,
       check: () => lessonProgress.some(p => p.quizScore != null && p.quizScore > 0 && happenedToday(p.completedAt))
     },
     {
@@ -74,7 +77,7 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
       label: "View 1 stock",
       icon: Eye,
       xp: 25,
-      coins: 5,
+      coins: 75,
       // Set when the student actually opens a stock's detail page today.
       check: () => localStorage.getItem("investiplay_stock_viewed") === getTodayKey()
     },
@@ -108,6 +111,9 @@ export default function DailyMissions({ lessonProgress, portfolio, earnJeffs }: 
   }, [checkAndAward])
 
   const completedCount = Object.values(completed).filter(Boolean).length
+
+  // Headless: the award effect above still runs; just skip rendering the list.
+  if (headless) return null
 
   return (
     <div>

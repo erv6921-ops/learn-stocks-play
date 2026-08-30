@@ -31,8 +31,15 @@ import {
   BookOpen, LineChart, Coins, TrendingUp, TrendingDown,
   Star, StarOff, ChevronRight, ChevronDown, Wallet,
   GraduationCap, Flame, Lock, Trophy, Shield, Zap, Award, Store, Landmark, FlaskConical, Maximize2, Minimize2, Users,
-  Target, Eye, ArrowRight, RotateCcw } from
+  Target, Eye, ArrowRight, RotateCcw, Check } from
 "lucide-react";
+
+// Local calendar day key ("2026-08-30"), mirroring DailyMissions so the hero
+// banner's daily-mission detection agrees with the missions section below.
+const heroDayKey = (d: Date = new Date()) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const heroHappenedToday = (d?: Date | string | null) =>
+  !!d && heroDayKey(new Date(d)) === heroDayKey();
 
 const LEVEL_NAMES = [
 "Beginner Learner",
@@ -360,6 +367,27 @@ export default function Dashboard() {
   // Fullscreen roller-coaster overlay toggle.
   const [coasterFull, setCoasterFull] = useState(false);
 
+  // ── Hero banner view toggle: "daily" (missions) vs "lessons" (level/stats) ──
+  const [heroView, setHeroView] = useState<"daily" | "lessons">("daily");
+  // The three daily missions surfaced inside the hero banner. Completion mirrors
+  // the DailyMissions component's live checks so both stay in sync.
+  const heroMissions = [
+    {
+      id: "lesson", label: "Complete 1 lesson", Icon: BookOpen, reward: 100,
+      done: lessonProgress.some((p) => p.completed && heroHappenedToday(p.completedAt)),
+    },
+    {
+      id: "quiz", label: "Answer 1 quiz", Icon: Target, reward: 150,
+      done: lessonProgress.some((p) => p.quizScore != null && p.quizScore > 0 && heroHappenedToday(p.completedAt)),
+    },
+    {
+      id: "stock", label: "View 1 stock", Icon: Eye, reward: 75,
+      done: localStorage.getItem("investiplay_stock_viewed") === heroDayKey(),
+    },
+  ];
+  const missionsCompleted = heroMissions.filter((m) => m.done).length;
+  const allMissionsDone = missionsCompleted >= 3;
+
   // ── Leaderboard snapshot: Class / National / Partners ──
   const [lbScope, setLbScope] = useState<"class" | "national" | "partners">("class");
   const [rankInfo, setRankInfo] = useState<{ rank: number; pts: number; total: number } | null>(null);
@@ -593,52 +621,131 @@ export default function Dashboard() {
                       <Trophy className="w-3.5 h-3.5" /> #{rankInfo.rank} in class
                     </div>
                   )}
+                  {/* Daily / Lessons view switcher */}
+                  <div className="inline-flex items-center gap-0.5 rounded-full p-0.5"
+                    style={{ background: "rgba(0,0,0,0.22)", border: "1px solid rgba(255,255,255,0.12)" }}>
+                    {(["daily", "lessons"] as const).map((v) => {
+                      const active = heroView === v;
+                      return (
+                        <button
+                          key={v}
+                          onClick={() => setHeroView(v)}
+                          className="text-[11px] font-bold rounded-full transition-colors"
+                          style={{
+                            width: 70, height: 24,
+                            background: active ? "#ffffff" : "transparent",
+                            color: active ? "#12281f" : "rgba(255,255,255,0.55)",
+                          }}>
+                          {v === "daily" ? "Daily" : "Lessons"}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
-              {/* Level progress bar */}
+              {/* Progress bar - switches between Daily missions and Lessons */}
               <div className="mt-6">
                 <div className="flex items-end justify-between gap-3 mb-2">
-                  <p className="text-[13px] font-bold">
-                    <span style={{ color: "var(--brand-bright)" }}>Level {currLevel}</span>
-                    <span className="text-white/45 font-semibold"> · {LEVEL_NAMES[currLevel - 1]}</span>
-                  </p>
-                  <p className="text-[11px] font-semibold text-white/45 tabular-nums">
-                    {completedLessons}/{totalLessons} lessons
-                  </p>
+                  {heroView === "daily" ? (
+                    <p className="text-[13px] font-bold">
+                      {allMissionsDone ? (
+                        <span style={{ color: "#f59e0b" }}>All done! 🎉</span>
+                      ) : (
+                        <>
+                          <span style={{ color: "#f59e0b" }}>Daily Missions</span>
+                          <span className="text-white/45 font-semibold"> · {missionsCompleted}/3 done</span>
+                        </>
+                      )}
+                    </p>
+                  ) : (
+                    <>
+                      <p className="text-[13px] font-bold">
+                        <span style={{ color: "var(--brand-bright)" }}>Level {currLevel}</span>
+                        <span className="text-white/45 font-semibold"> · {LEVEL_NAMES[currLevel - 1]}</span>
+                      </p>
+                      <p className="text-[11px] font-semibold text-white/45 tabular-nums">
+                        {completedLessons}/{totalLessons} lessons
+                      </p>
+                    </>
+                  )}
                 </div>
                 <div className="h-2.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.09)" }}>
-                  <motion.div
-                    initial={{ width: 0 }} animate={{ width: `${levelProgressPct}%` }}
-                    transition={{ duration: 1.1, delay: 0.3, ease: "easeOut" }}
+                  <div
                     className="h-full rounded-full"
-                    style={{ background: "linear-gradient(90deg, #E3A008, var(--brand-bright))" }} />
+                    style={{
+                      width: heroView === "daily" ? `${(missionsCompleted / 3) * 100}%` : `${levelProgressPct}%`,
+                      background: heroView === "daily"
+                        ? "#f59e0b"
+                        : "linear-gradient(90deg, #E3A008, var(--brand-bright))",
+                      transition: "width 0.4s ease",
+                      boxShadow: heroView === "daily" && allMissionsDone ? "0 0 12px rgba(245,158,11,0.75)" : "none",
+                      animation: heroView === "daily" && allMissionsDone ? "heroGoldFlash 0.6s ease" : "none",
+                    }} />
                 </div>
               </div>
 
-              {/* Stats - one cohesive frosted tray, icon chips, hairline dividers */}
-              <div className="mt-6 rounded-2xl grid grid-cols-2 sm:grid-cols-5 overflow-hidden"
-                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
-                {[
-                  { Icon: Flame, tint: "#fb923c", value: String(streak), label: "Day streak" },
-                  { Icon: Coins, tint: "#F5C26B", value: jeffsBalance.toLocaleString(), label: "Coins" },
-                  { Icon: Star, tint: "#fde047", value: `Lv ${currLevel}`, label: "Level" },
-                  { Icon: Flame, tint: "#fdba74", value: `${bestStreak}d`, label: "Best streak" },
-                  { Icon: BookOpen, tint: "#6ee7b7", value: `${completedLessons}/${totalLessons}`, label: "Lessons" },
-                ].map(({ Icon, tint, value, label }, idx) => (
-                  <div key={label}
-                    className={`flex items-center gap-3 px-4 py-3.5 min-w-0 border-white/10 ${idx > 0 ? "sm:border-l" : ""} ${idx >= 2 ? "border-t sm:border-t-0" : ""} ${idx % 2 === 1 ? "border-l sm:border-l" : ""}`}>
-                    <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                      style={{ background: `${tint}1f`, border: `1px solid ${tint}33` }}>
-                      <Icon className="w-4 h-4" style={{ color: tint }} />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-xl md:text-2xl font-extrabold leading-none tabular-nums">{value}</p>
-                      <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 truncate">{label}</p>
+              {/* Stats row - switches between daily missions and the 5 stats */}
+              {heroView === "daily" ? (
+                <motion.div
+                  key="hero-stats-daily"
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}
+                  className="mt-6 rounded-2xl grid grid-cols-3 overflow-hidden"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
+                  {heroMissions.map(({ id, label, Icon, reward, done }, idx) => (
+                    <div key={id}
+                      className={`relative flex items-center gap-3 px-4 py-3.5 min-w-0 border-white/10 ${idx > 0 ? "border-l" : ""}`}
+                      style={{ background: done ? "rgba(34,197,94,0.12)" : "transparent" }}>
+                      <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                        style={{
+                          background: done ? "rgba(34,197,94,0.16)" : "rgba(245,158,11,0.14)",
+                          border: `1px solid ${done ? "rgba(34,197,94,0.32)" : "rgba(245,158,11,0.28)"}`,
+                        }}>
+                        <Icon className="w-4 h-4" style={{ color: done ? "#4ade80" : "#f59e0b" }} />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-[12px] md:text-[13px] font-bold leading-tight">{label}</p>
+                        <p className="text-[12px] font-extrabold leading-none mt-1" style={{ color: "#f59e0b" }}>+{reward}</p>
+                      </div>
+                      {done && (
+                        <motion.span
+                          initial={{ scale: 0 }} animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 16 }}
+                          className="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center"
+                          style={{ background: "#22c55e" }}>
+                          <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                        </motion.span>
+                      )}
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="hero-stats-lessons"
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}
+                  className="mt-6 rounded-2xl grid grid-cols-2 sm:grid-cols-5 overflow-hidden"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
+                  {[
+                    { Icon: Flame, tint: "#fb923c", value: String(streak), label: "Day streak" },
+                    { Icon: Coins, tint: "#F5C26B", value: jeffsBalance.toLocaleString(), label: "Coins" },
+                    { Icon: Star, tint: "#fde047", value: `Lv ${currLevel}`, label: "Level" },
+                    { Icon: Flame, tint: "#fdba74", value: `${bestStreak}d`, label: "Best streak" },
+                    { Icon: BookOpen, tint: "#6ee7b7", value: `${completedLessons}/${totalLessons}`, label: "Lessons" },
+                  ].map(({ Icon, tint, value, label }, idx) => (
+                    <div key={label}
+                      className={`flex items-center gap-3 px-4 py-3.5 min-w-0 border-white/10 ${idx > 0 ? "sm:border-l" : ""} ${idx >= 2 ? "border-t sm:border-t-0" : ""} ${idx % 2 === 1 ? "border-l sm:border-l" : ""}`}>
+                      <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                        style={{ background: `${tint}1f`, border: `1px solid ${tint}33` }}>
+                        <Icon className="w-4 h-4" style={{ color: tint }} />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-xl md:text-2xl font-extrabold leading-none tabular-nums">{value}</p>
+                        <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 truncate">{label}</p>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
             </div>
           </div>
         </MCard>
@@ -717,7 +824,10 @@ export default function Dashboard() {
           </MCard>
         )}
 
-        {/* ═══ 3. TODAY - daily challenge + missions, one unified card ═══ */}
+        {/* ═══ 3. DAILY CHALLENGE - its own card (missions now live in the hero) ═══ */}
+        {/* Headless DailyMissions keeps detecting + awarding the daily missions;
+            the hero banner's Daily view is what displays them now. */}
+        <DailyMissions headless lessonProgress={lessonProgress} portfolio={portfolio} earnJeffs={earnJeffs} />
         <MCard i={6} className="mt-3">
           <div className="bg-white rounded-3xl p-5 relative overflow-hidden" style={{ border: "1px solid #e7ede9", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
             <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
@@ -750,14 +860,6 @@ export default function Dashboard() {
                   </Link>
                 )}
               </div>
-            </div>
-
-            {/* Daily missions - light rows, same card */}
-            <div className="mt-4 pt-4 border-t border-black/[0.06]">
-              <DailyMissions
-                lessonProgress={lessonProgress}
-                portfolio={portfolio}
-                earnJeffs={earnJeffs} />
             </div>
           </div>
         </MCard>
