@@ -96,3 +96,37 @@ No lesson-content drift or standards gaps identified against the SS.912.FL bench
 in prior cycles; no re-scope of the comparison was triggered since no source changed.
 
 Result: 0 lessons flagged, 0 new/updated standards requiring a content change, nothing urgent.
+
+## 2026-08-31 — no changes needed
+
+Checked sources (all reviewed for updates in the trailing 30 days, i.e. since 2026-08-01):
+
+- Florida DOE / CPALMS — Personal Financial Literacy (2102372 / course code family 210237201) and
+  Personal Financial Literacy Honors (2102374 / 210237401), SS.912.FL benchmark strand. Search
+  results still show the course versioned "2022 and beyond" with no newer revision surfaced. Direct
+  fetch of cpalms.org and ncsl.org is still blocked by this session's network egress proxy — see
+  Caveat below — so this remains a search-snippet-only check.
+- Florida Legislature — no new financial-literacy statute changes found this cycle. HB 1261 "Smart
+  Living Act" remains dead (died in committee 6/16/2025, not reintroduced). No bills beyond the
+  already-covered 2025 CS/CS/HB 1255 & CS/CS/SB 1618 (FAFSA/college-cost content, covered by
+  `credit-16`).
+- Jump$tart Coalition / Council for Economic Education — National Standards for Personal Financial
+  Education, current edition remains the 2021 joint revision (6 categories). No newer edition found.
+  Florida Jump$tart Coalition is running 2026 NEC teacher-scholarship applications (deadline
+  8/14/2026) — a PD/funding item, not a standards change, no action needed.
+- EverFi — no material alignment update found; still maps to Jump$tart + state standards. Pinellas
+  County Schools (FL) case study on EverFi's site describes normal 2025-26 rollout, not a standards
+  or content change.
+- Next Gen Personal Finance (NGPF) — 2026 bill tracker still active; no newly adopted standard
+  affecting Florida found.
+- Banzai — no new Florida-specific alignment change found this cycle.
+- Ramsey Education — no Florida-specific change found; curriculum remains aligned to Jump$tart +
+  all-50-states standards.
+- Noted, not actionable: Pennsylvania's new mandatory personal-finance course takes effect for the
+  2026-27 school year (per SAS/PA DOE materials surfaced in search) — Pennsylvania-specific, does
+  not affect InvestiPlay's Florida-course-code standards mapping (2102372/2102374).
+
+No lesson-content drift or standards gaps identified against the SS.912.FL benchmarks spot-checked
+in prior cycles; no re-scope of the comparison was triggered since no source changed.
+
+Result: 0 lessons flagged, 0 new/updated standards requiring a content change, nothing urgent.
