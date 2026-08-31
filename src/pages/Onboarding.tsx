@@ -14,11 +14,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
-import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight, MailCheck, PartyPopper, Building2, Eye, EyeOff } from "lucide-react"
+import { CheckCircle, XCircle, ArrowRight, ArrowLeft, X, Sparkles, Loader2, BarChart3, GraduationCap, Users, ChevronRight, MailCheck, PartyPopper, Building2, Eye, EyeOff, Check, ChevronsUpDown } from "lucide-react"
 import Confetti from "@/components/Confetti"
 import { EnrollmentTrack } from "@/types"
 
@@ -323,6 +325,7 @@ export default function Onboarding() {
   const [age, setAge] = useState("")
   const [classCode, setClassCode] = useState("")
   const [stateCourse, setStateCourse] = useState("")
+  const [stateOpen, setStateOpen] = useState(false)
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   // Both signup steps require a 6+ char password that matches its confirmation.
@@ -1221,21 +1224,42 @@ export default function Onboarding() {
           >
             <div>
               <label className="text-sm font-medium mb-1.5 block">State</label>
-              {/* Pick from the list, or type your own state below. */}
-              <Select value={US_STATES.includes(stateCourse) ? stateCourse : ""} onValueChange={setStateCourse}>
-                <SelectTrigger><SelectValue placeholder="Select your state" /></SelectTrigger>
-                <SelectContent>
-                  {US_STATES.map(s => (<SelectItem key={s} value={s}>{s}</SelectItem>))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label className="text-sm font-medium mb-1.5 block">Or type your state</label>
-              <Input
-                placeholder="e.g. Ontario"
-                value={US_STATES.includes(stateCourse) ? "" : stateCourse}
-                onChange={e => setStateCourse(e.target.value)}
-              />
+              {/* Type to filter, then click your state so it's never misspelled. */}
+              <Popover open={stateOpen} onOpenChange={setStateOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={stateOpen}
+                    className="w-full justify-between font-normal"
+                  >
+                    <span className={cn(!stateCourse && "text-muted-foreground")}>
+                      {stateCourse || "Type your state..."}
+                    </span>
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                  <Command>
+                    <CommandInput placeholder="Type your state..." />
+                    <CommandList>
+                      <CommandEmpty>No state found.</CommandEmpty>
+                      <CommandGroup>
+                        {US_STATES.map(s => (
+                          <CommandItem
+                            key={s}
+                            value={s}
+                            onSelect={() => { setStateCourse(s); setStateOpen(false) }}
+                          >
+                            <Check className={cn("mr-2 h-4 w-4", stateCourse === s ? "opacity-100" : "opacity-0")} />
+                            {s}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
           </FieldStep>
         )}

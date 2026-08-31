@@ -275,6 +275,22 @@ export default function LessonDetail() {
   // / `buildScript` below.
   const walkSections = sections.filter(s => s.type !== "concept")
 
+  // DEV-ONLY shortcut: /lessons/<id>?dev=mastery drops you straight onto the
+  // mastery-check quiz, skipping Jeff's chat and the practice walk. Gated on
+  // import.meta.env.DEV so it can never fire in a production build. Handy for
+  // eyeballing authored quiz questions without playing the whole lesson.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return
+    const jump = new URLSearchParams(window.location.search).get("dev")
+    if (jump !== "mastery") return
+    const masteryIdx = walkSections.findIndex(s => s.type === "mastery-check")
+    if (masteryIdx === -1) return
+    setChatOpen(false)
+    setLessonStarted(true)
+    setCurrentSectionIdx(masteryIdx)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lesson?.id])
+
   // Deep (academic-course) lessons ground the live Jeff chat in the authored
   // curriculum so it teaches the real material in depth instead of improvising
   // from the title. Assemble that source text from the concept sections.
