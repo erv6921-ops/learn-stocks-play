@@ -76,11 +76,8 @@ export default function VocabGlossary() {
                 className="rounded-2xl p-3.5"
                 style={{ background: "hsl(45 10% 96%)", border: "1px solid hsl(45 10% 88%)" }}
               >
-                <div className="flex items-center justify-between gap-2 mb-1">
+                <div className="mb-1">
                   <span className="font-display font-bold text-[14px] text-success">{v.term}</span>
-                  <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Chapter {v.chapter}
-                  </span>
                 </div>
                 <p className="text-[13px] leading-snug text-foreground/80">{v.definition}</p>
               </div>

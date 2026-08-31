@@ -40,8 +40,7 @@ function VocabTerm({ word, children }: { word: VocabWord; children: React.ReactN
           onMouseLeave={() => setOpen(false)}
           className="z-[70] w-64 rounded-xl border border-border bg-popover p-3.5 text-popover-foreground shadow-lg outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95"
         >
-          <p className="font-display font-bold text-[13px] text-success leading-tight">{word.term}</p>
-          <p className="text-[11px] text-muted-foreground mt-0.5 mb-1.5">Chapter {word.chapter}</p>
+          <p className="font-display font-bold text-[13px] text-success leading-tight mb-1.5">{word.term}</p>
           <p className="text-[13px] leading-snug text-foreground">{word.definition}</p>
           <PopoverPrimitive.Arrow className="fill-popover" />
         </PopoverPrimitive.Content>
