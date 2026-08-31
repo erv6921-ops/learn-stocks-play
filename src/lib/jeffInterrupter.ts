@@ -95,10 +95,13 @@ export type Interrupter =
   | RankIt
   | SmartMove
 
+// The in-chat "Quick Check" rotation. `poll` (an opinion prompt with no right
+// answer) is intentionally excluded: these checks exist to verify the student
+// actually grasped the material, so every rotated type has a correct answer.
+// The `poll` type/schema stay defined below in case it's ever re-added.
 export const INTERRUPTER_TYPES: InterrupterType[] = [
   "true_or_false",
   "fill_in_blank",
-  "poll",
   "spot_the_mistake",
   "sort_it",
   "rank_it",

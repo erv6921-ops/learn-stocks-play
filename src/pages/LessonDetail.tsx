@@ -20,6 +20,7 @@ import {
   RecapRenderer,
   MasteryCheckRenderer,
 } from "@/components/lesson/SectionRenderer"
+import { ActivityCheckRenderer } from "@/components/lesson/ActivityCheckRenderer"
 import { HintProvider } from "@/components/lesson/HintContext"
 import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext"
 import { LessonCompletionScreen } from "@/components/lesson/LessonCompletionScreen"
@@ -455,6 +456,8 @@ export default function LessonDetail() {
         return <ConceptRenderer key={idx} section={section} onContinue={handleSectionContinue} />
       case "micro-check":
         return <MicroCheckRenderer key={idx} section={section} onContinue={handleSectionContinue} />
+      case "activity-check":
+        return <ActivityCheckRenderer key={idx} section={section} onContinue={handleSectionContinue} />
       case "scenario":
         return <ScenarioRenderer key={idx} section={section} onContinue={handleSectionContinue} />
       case "applied-question":

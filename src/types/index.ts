@@ -188,7 +188,7 @@ export interface QuizQuestion {
 // ═══════════════════════════════════════════════
 
 export interface LessonContentSection {
-  type: "concept" | "micro-check" | "scenario" | "applied-question" | "recap" | "mastery-check"
+  type: "concept" | "micro-check" | "scenario" | "applied-question" | "recap" | "mastery-check" | "activity-check"
 }
 
 export interface ConceptSection extends LessonContentSection {
@@ -227,7 +227,100 @@ export interface MasteryCheckSection extends LessonContentSection {
   requiredCorrect: number
 }
 
-export type LessonSection = ConceptSection | MicroCheckSection | ScenarioSection | AppliedQuestionSection | RecapSection | MasteryCheckSection
+// ═══════════════════════════════════════════════
+// ACTIVITY MICRO-CHECKS
+// Interactive, tap-based baseline checks that replace a plain multiple-choice
+// micro-check. Every one has an objectively correct answer (no polls/opinions)
+// and, for the multi-step kinds, can only be "solved" when EVERY element is
+// right — so there's no partial-credit guessing. Rendered by ActivityCheck-
+// Renderer in SectionRenderer.tsx; scored through the shared QuizSession.
+//
+// Authoring rule for all distractors: keep every wrong option realistic and
+// on-topic. A distractor should be something a student who half-learned the
+// material might genuinely pick — never an obvious outlier (a joke answer, a
+// wildly off-topic term) that gives the answer away by elimination.
+// ═══════════════════════════════════════════════
+
+/** Match each term to its definition (tap a term, then its match). */
+export interface VocabMatchActivity {
+  kind: "vocab-match"
+  // Both columns are drawn from these pairs and shuffled independently. Aim for
+  // 3–5 pairs; keep the definitions parallel in length/specificity so the match
+  // can't be won on surface cues alone.
+  pairs: { term: string; definition: string }[]
+  explanation?: string
+}
+
+/** Tap the word that correctly fills the [BLANK] in a sentence. */
+export interface FillBlankActivity {
+  kind: "fill-blank"
+  sentence: string // must contain the literal token [BLANK]
+  answer: string
+  // Includes the answer plus 2–3 realistic distractors (real terms from the
+  // lesson that a student could plausibly confuse for the answer).
+  options: string[]
+  explanation: string
+}
+
+/** Drop each item into its correct group. Solved only when all are right. */
+export interface CategorizeActivity {
+  kind: "categorize"
+  bins: string[]
+  // `bin` indexes into `bins`. Every item must be a genuine, arguable member of
+  // its group — not a giveaway. Aim for 4–6 items across 2–3 bins.
+  items: { text: string; bin: number }[]
+  explanation?: string
+}
+
+/** Put the steps in the correct order (tap them in sequence). */
+export interface SequenceActivity {
+  kind: "sequence"
+  prompt: string
+  // Steps in their CORRECT order; the renderer shuffles them for display. The
+  // ordering must be genuinely determinable from one clear dimension (time,
+  // cause→effect, magnitude), so every wrong order is defensibly wrong.
+  steps: string[]
+  explanation?: string
+}
+
+/** Four on-topic items; tap the single one that doesn't belong. */
+export interface OddOneOutActivity {
+  kind: "odd-one-out"
+  prompt: string
+  // All four must be same-category, plausible members; only `oddIndex` breaks
+  // the shared trait. No joke/off-topic options.
+  options: string[]
+  oddIndex: number
+  explanation: string
+}
+
+/** Three plausible statements about one idea; tap the one that's false. */
+export interface TwoTruthsActivity {
+  kind: "two-truths-a-lie"
+  prompt?: string
+  // Exactly three statements. The lie must be subtly wrong (a believable
+  // misconception), not obviously absurd — that's what makes it a real check.
+  statements: string[]
+  lieIndex: number
+  explanation: string
+}
+
+export type ActivityCheck =
+  | VocabMatchActivity
+  | FillBlankActivity
+  | CategorizeActivity
+  | SequenceActivity
+  | OddOneOutActivity
+  | TwoTruthsActivity
+
+/** A micro-check rendered as an interactive activity instead of an MCQ. */
+export interface ActivityCheckSection extends LessonContentSection {
+  type: "activity-check"
+  title?: string
+  activity: ActivityCheck
+}
+
+export type LessonSection = ConceptSection | MicroCheckSection | ScenarioSection | AppliedQuestionSection | RecapSection | MasteryCheckSection | ActivityCheckSection
 
 export interface StructuredLessonContent {
   lessonId: string

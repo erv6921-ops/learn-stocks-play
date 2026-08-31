@@ -35,48 +35,49 @@ export const block1a: StructuredLessonContent = {
       realWorldExample: "A sneaker brand doesn't just sell shoes (a good). It also offers fast shipping, easy returns, and a members-only app (services). A rival can copy the shoe design in a season, but the trusted service and community are far harder to steal, which is often where the real advantage lives."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "g1-prac-1",
-          question: "What is the simplest definition of a business?",
-          options: [
-            "Any group of friends who hang out",
-            "An organization that makes or does something for others in exchange for money",
-            "A building downtown with an office in it",
-            "A place where only rich people work"
-          ],
-          correctAnswer: 1,
-          explanation: "A business provides a good or service to others and gets paid for it. Size and location don't decide whether something is a business.",
-          concept: "business"
-        },
-        {
-          id: "g1-prac-2",
-          question: "Which pairing correctly labels a good and a service?",
-          options: [
-            "Sneakers = service; dog walking = good",
-            "A burger = good; a streaming subscription = service",
-            "A haircut = good; a phone = service",
-            "Both a burger and a haircut are goods"
-          ],
-          correctAnswer: 1,
-          explanation: "A burger is a physical good; a streaming subscription is a service (work/access provided to you). Goods you can hold; services you can't.",
-          concept: "goods-vs-services"
-        },
-        {
-          id: "g1-prac-12",
-          question: "Which is the BEST example of a business selling both a good AND a service?",
-          options: [
-            "A vending machine that only dispenses cans of soda to buyers",
-            "A phone store that sells phones and also repairs cracked screens",
-            "A babysitter who only watches kids while their parents are away",
-            "A website that only streams movies you can watch online"
-          ],
-          correctAnswer: 1,
-          explanation: "The phone store sells a physical product (the phone, a good) and also performs work (screen repair, a service).",
-          concept: "goods-vs-services"
-        }
-      ]
+      // Recall check: the four core terms of the lesson, matched to parallel
+      // definitions so it can't be won on length/keyword cues alone.
+      type: "activity-check",
+      activity: {
+        kind: "vocab-match",
+        pairs: [
+          { term: "Business", definition: "An organization that provides goods or services to others to earn money" },
+          { term: "Good", definition: "A physical item you can hold, own, and keep" },
+          { term: "Service", definition: "Work or expertise performed for you that you can't hold" },
+          { term: "Utility", definition: "The added usefulness a business creates from raw resources" },
+        ],
+        explanation: "A business earns money by creating utility — turning resources into goods (things you keep) or services (work done for you).",
+      },
+    },
+    {
+      // Structure check: goods vs services, with realistic tricky items (a
+      // subscription and a taxi ride are services even though you pay for them).
+      type: "activity-check",
+      activity: {
+        kind: "categorize",
+        bins: ["Good", "Service"],
+        items: [
+          { text: "A pair of running shoes", bin: 0 },
+          { text: "A haircut at a salon", bin: 1 },
+          { text: "A monthly music streaming subscription", bin: 1 },
+          { text: "A frozen pizza from the store", bin: 0 },
+          { text: "A taxi ride across town", bin: 1 },
+          { text: "A bottle of shampoo", bin: 0 },
+        ],
+        explanation: "Goods are tangible things you keep; services are intangible work or access — even when you pay for them monthly, like streaming.",
+      },
+    },
+    {
+      // Application check: the perishable feature of services. Every option is a
+      // real term from the lesson, so the distractors are genuinely tempting.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "An empty seat on a bus or an unbooked appointment is value that vanishes forever — that's why a service is called [BLANK].",
+        answer: "perishable",
+        options: ["perishable", "intangible", "tangible", "utility"],
+        explanation: "Perishable means unused value (an empty seat, an idle hour) can't be saved for later. Intangible is related — you can't touch a service — but it's perishability that makes unused time a total loss.",
+      },
     },
     {
       type: "scenario",

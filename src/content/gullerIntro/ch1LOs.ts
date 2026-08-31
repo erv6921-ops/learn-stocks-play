@@ -34,37 +34,47 @@ export const gulliverLO1_1: StructuredLessonContent = {
       realWorldExample: "A clothing brand could cut costs by using cheaper, riskier overseas factories with poor labor conditions, boosting profit in the short term. But if that gets exposed, customers boycott, the media covers it, and stockholders lose confidence. The 'profit' from ignoring stakeholders turned into a much bigger risk than the one they were trying to avoid."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "glo11-mc-1",
-          difficulty: -1.0,
-          question: "In general, how are risk and potential profit related in business?",
-          options: [
-            "They have nothing to do with each other",
-            "Bigger risk generally needs the potential for bigger profit to be worth taking",
-            "Higher risk always guarantees higher profit",
-            "Profit only exists when there is zero risk"
-          ],
-          correctAnswer: 1,
-          explanation: "Risk and potential profit move together: the more an entrepreneur risks, the bigger the potential payoff usually needs to be for that risk to make sense.",
-          concept: "profit-and-risk"
-        },
-        {
-          id: "glo11-mc-2",
-          difficulty: -1.5,
-          question: "Which of these is a stakeholder in a business?",
-          options: [
-            "Only the people who own the company itself",
-            "Only the paying customers who buy from it",
-            "Customers, employees, suppliers, and the local community",
-            "Only rival competitors trying to beat the business"
-          ],
-          correctAnswer: 2,
-          explanation: "Stakeholders are everyone affected by or invested in the business, a much wider group than just owners or customers.",
-          concept: "stakeholders"
-        }
-      ]
+      // Recall check: the four core terms, matched to parallel definitions so it
+      // can't be won on length or keyword cues.
+      type: "activity-check",
+      activity: {
+        kind: "vocab-match",
+        pairs: [
+          { term: "Profit", definition: "Money a business earns above and beyond its costs and expenses" },
+          { term: "Risk", definition: "The chance of losing time and money if a business isn't profitable" },
+          { term: "Loss", definition: "What happens when costs and expenses end up higher than revenue" },
+          { term: "Stakeholder", definition: "Any person or group affected by, or interested in, how a business behaves" },
+        ],
+        explanation: "Profit is what's left after costs; a loss is the opposite; risk is the chance of that loss; stakeholders are everyone affected by the business.",
+      },
+    },
+    {
+      // Application check: the risk↔profit relationship. Every option is a real
+      // business term, so the distractors are genuinely tempting.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "Nobody risks their savings on a business that can only break even — the bigger the risk, the bigger the potential [BLANK] usually needs to be to make it worth taking.",
+        answer: "profit",
+        options: ["profit", "loss", "revenue", "risk"],
+        explanation: "Risk and profit move together: a bigger risk only makes sense if the potential profit is big enough to justify it. Revenue is money in before costs — it's the profit that has to justify the risk.",
+      },
+    },
+    {
+      // Misconception check: the subtle lie is the common 'profit is the only
+      // job' belief, set against two accurate statements.
+      type: "activity-check",
+      activity: {
+        kind: "two-truths-a-lie",
+        prompt: "Two of these are true. Tap the one that's false.",
+        statements: [
+          "Businesses raise the standard of living by creating jobs, paying taxes, and producing goods and services.",
+          "A stakeholder is any person or group affected by, or interested in, how a business behaves.",
+          "A business's only real job is to make as much profit as possible, even if it means squeezing its stakeholders.",
+        ],
+        lieIndex: 2,
+        explanation: "A business's real job is to balance stakeholder needs WHILE making a profit. Squeezing stakeholders for short-term profit usually backfires — boycotts, lawsuits, bad press, and lost trust.",
+      },
     },
     {
       type: "scenario",
