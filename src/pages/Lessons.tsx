@@ -25,6 +25,7 @@ import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
 import GulliverBizLab from "@/components/bizlab/GulliverBizLab";
 import { JeffChatAvatar } from "@/components/lessons/JeffChat";
+import VocabGlossary from "@/components/lessons/VocabGlossary";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
 import { anchor } from "@/lib/tourAnchors";
 import MissionsWorldMap, { UnitMeta } from "@/components/MissionsWorldMap";
@@ -755,6 +756,15 @@ export default function Lessons() {
             {/* Two-column desktop layout: journey (left) + goals & trophies (right) */}
             <div className="grid lg:grid-cols-3 gap-5 items-start">
             <div className="lg:col-span-2 space-y-4 min-w-0">
+
+            {/* Vocab section - Gulliver Intro students get a glossary of the
+                business terms Jeff highlights in green during lessons. */}
+            {activeTrack === "gulliver-intro" && (
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground mb-2">Vocab</p>
+                <VocabGlossary />
+              </div>
+            )}
 
             {/* 3. Unit strip - scrollable "mission" tabs */}
             <div>

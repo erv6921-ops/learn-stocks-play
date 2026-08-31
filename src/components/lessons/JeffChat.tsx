@@ -22,7 +22,8 @@ import {
 } from "@/lib/jeffInterrupter"
 import {
   jeffChatTurn, initialJeffMessage, initialOptions, END_SIGNAL,
-  loadChat, saveChat, scriptOptions, isDeepLesson, GULLIVER_DEEP_TURNS,
+  loadChat, saveChat, scriptOptions, isDeepLesson, isGulliverIntroLesson,
+  GULLIVER_DEEP_TURNS,
   type ChatMessage,
 } from "@/lib/jeffChatLesson"
 
@@ -398,6 +399,8 @@ interface JeffChatProps {
 export default function JeffChat({ lesson, script = [], source, mustCover, onQuizReady, onClose }: JeffChatProps) {
   // Deeper, longer teaching for the Gulliver Intro academic course.
   const deep = isDeepLesson(lesson)
+  // Gulliver Intro lessons get the green, tappable business-vocab glossary.
+  const vocab = isGulliverIntroLesson(lesson)
   const expectedTurns = deep ? GULLIVER_DEEP_TURNS : EXPECTED_TURNS
   // Resume a saved conversation, otherwise open with Jeff's hardcoded hook.
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
@@ -656,7 +659,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
                 <div className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm ${
                   m.role === "assistant" ? "bg-white/80 border border-border text-foreground" : "bg-primary text-primary-foreground"
                 }`}>
-                  {m.role === "assistant" ? <HighlightedText text={m.content} /> : m.content}
+                  {m.role === "assistant" ? <HighlightedText text={m.content} vocab={vocab} /> : m.content}
                 </div>
               </div>
             ))}
@@ -709,7 +712,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
                     </div>
                   ) : (
                     <p className="text-[17px] sm:text-lg leading-relaxed text-foreground whitespace-pre-wrap">
-                      <HighlightedText text={current} />
+                      <HighlightedText text={current} vocab={vocab} />
                     </p>
                   )}
                   {/* bubble tail pointing down at Jeff */}
