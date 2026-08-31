@@ -238,37 +238,47 @@ export const gulliverLO1_2: StructuredLessonContent = {
       realWorldExample: "Two countries could each have plenty of land, labor, and capital available. If one has entrepreneurs who know how to combine those resources into businesses people want, and the other doesn't, the first country ends up dramatically wealthier, even starting with the exact same raw materials."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "glo12-mc-1",
-          difficulty: -0.5,
-          question: "Which of these lists all five factors of production?",
-          options: [
-            "Land, labor, capital, entrepreneurship, and knowledge",
-            "Money, employees, buildings, taxes, and marketing",
-            "Land, labor, profit, risk, and stakeholders",
-            "Capital, knowledge, advertising, sales, and profit"
-          ],
-          correctAnswer: 0,
-          explanation: "The five factors of production are land, labor, capital, entrepreneurship, and knowledge.",
-          concept: "factors-of-production"
-        },
-        {
-          id: "glo12-mc-2",
-          difficulty: -1.0,
-          question: "What does an entrepreneur typically give up compared to working for someone else?",
-          options: [
-            "The chance to ever make any money at all",
-            "Guaranteed benefits like a steady paycheck and health insurance",
-            "The ability to make their own business decisions",
-            "Nothing at all, entrepreneurs keep every benefit plus more"
-          ],
-          correctAnswer: 1,
-          explanation: "Entrepreneurs trade the safety net of a steady paycheck and benefits for freedom, more opportunity, and the risk/reward of running their own business.",
-          concept: "entrepreneurship-tradeoffs"
-        }
-      ]
+      // Recall check: the five factors of production, each matched to its meaning.
+      type: "activity-check",
+      activity: {
+        kind: "vocab-match",
+        pairs: [
+          { term: "Land", definition: "Natural resources like soil, water, oil, and timber" },
+          { term: "Labor", definition: "The workers who actually do the work" },
+          { term: "Capital", definition: "Money, tools, equipment, and buildings used to operate and grow" },
+          { term: "Entrepreneurship", definition: "People who risk their time and money to start and run a business" },
+          { term: "Knowledge", definition: "The information and skill to combine the other four factors" },
+        ],
+        explanation: "The five factors of production are land, labor, capital, entrepreneurship, and knowledge — and entrepreneurship and knowledge are the ones that spark the rest into creating wealth.",
+      },
+    },
+    {
+      // Application check: what actually creates wealth. Every option is one of
+      // the five factors, so the distractors are genuinely tempting.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "Wealth is created the moment an entrepreneur uses [BLANK] to combine land, labor, and capital into something people actually want.",
+        answer: "knowledge",
+        options: ["knowledge", "capital", "labor", "land"],
+        explanation: "Land, labor, and capital sitting idle create nothing. It's knowledge — knowing how to combine them productively — that turns raw resources into wealth.",
+      },
+    },
+    {
+      // Misconception check: the subtle lie is the 'resources alone make wealth'
+      // belief the lesson explicitly corrects.
+      type: "activity-check",
+      activity: {
+        kind: "two-truths-a-lie",
+        prompt: "Two of these are true. Tap the one that's false.",
+        statements: [
+          "Entrepreneurship and knowledge are considered the most important factors of production today.",
+          "A country can have plenty of land, labor, and capital and still stay poor if no one combines them productively.",
+          "Wealth is created simply by having lots of natural resources sitting available.",
+        ],
+        lieIndex: 2,
+        explanation: "Resources sitting idle create nothing. Wealth comes from an entrepreneur using knowledge to combine land, labor, and capital into something people want.",
+      },
     },
     {
       type: "scenario",
@@ -420,37 +430,50 @@ export const gulliverLO1_3: StructuredLessonContent = {
       realWorldExample: "Two entrepreneurs have the exact same business idea. One is in a country with enforceable contracts, a stable currency, and low corruption, and one is without any of that. The first entrepreneur can safely sign supplier deals and count on being paid; the second can't fully trust their own contracts will be honored. Same idea, very different risk."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "glo13-mc-1",
-          difficulty: -1.0,
-          question: "Which government action helps REDUCE the risk of starting a business?",
-          options: [
-            "Making contracts unenforceable in court",
-            "Allowing private ownership of businesses and enforceable contracts",
-            "Increasing corruption in government",
-            "Making the currency impossible to trade internationally"
-          ],
-          correctAnswer: 1,
-          explanation: "Private ownership and enforceable contracts give entrepreneurs real legal protection, lowering the risk of starting a business.",
-          concept: "economic-environment"
-        },
-        {
-          id: "glo13-mc-2",
-          difficulty: -1.0,
-          question: "From a business perspective, what do lower taxes and lighter regulation generally mean?",
-          options: [
-            "Higher risk and much less room to grow",
-            "Lower risk, more growth, and more money kept",
-            "No real effect on business risk or growth",
-            "That businesses will always prefer higher taxes"
-          ],
-          correctAnswer: 1,
-          explanation: "Lower taxes and regulation reduce cost and risk, which generally supports more growth and leaves more money for workers and the government both.",
-          concept: "economic-environment"
-        }
-      ]
+      // Structure check: which parts of the economic environment raise vs lower
+      // an entrepreneur's risk. Each item is a real, arguable factor.
+      type: "activity-check",
+      activity: {
+        kind: "categorize",
+        bins: ["Lowers risk", "Raises risk"],
+        items: [
+          { text: "Enforceable contracts", bin: 0 },
+          { text: "High corruption", bin: 1 },
+          { text: "A stable, tradable currency", bin: 0 },
+          { text: "Private ownership of businesses", bin: 0 },
+          { text: "Heavy taxes and regulation", bin: 1 },
+          { text: "An unstable currency", bin: 1 },
+        ],
+        explanation: "A strong environment — private ownership, enforceable contracts, a stable currency, low corruption, moderate taxes — lowers risk. Corruption, instability, and heavy taxes raise it.",
+      },
+    },
+    {
+      // Recall-in-context: 'enforceable' is the key word. All options are real
+      // economic-environment terms from the lesson.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "Laws that let businesspeople write [BLANK] contracts mean deals actually get honored in court, which lowers an entrepreneur's risk.",
+        answer: "enforceable",
+        options: ["enforceable", "private", "tradable", "unstable"],
+        explanation: "Enforceable contracts can be upheld in court, so a signed deal is a real guarantee. 'Private' describes ownership and 'tradable' describes currency — both matter, but it's enforceability that makes a contract trustworthy.",
+      },
+    },
+    {
+      // Misconception check: the lie is 'the environment barely matters if the
+      // idea is good' — the exact point the lesson pushes back on.
+      type: "activity-check",
+      activity: {
+        kind: "two-truths-a-lie",
+        prompt: "Two of these are true. Tap the one that's false.",
+        statements: [
+          "Lower taxes and lighter regulation generally mean lower risk and more room for a business to grow.",
+          "Reducing corruption in government lowers the risk of starting a business.",
+          "A business's economic environment barely matters as long as the business idea is a good one.",
+        ],
+        lieIndex: 2,
+        explanation: "The economic environment — laws, currency stability, taxes, corruption — can matter as much as the business idea itself. Same idea in a weaker environment is a much riskier bet.",
+      },
     },
     {
       type: "scenario",
@@ -625,37 +648,47 @@ export const gulliverLO1_4: StructuredLessonContent = {
       realWorldExample: "A bakery switches from a hand-mixer to an industrial mixer. The mixer doesn't change WHAT they bake (effectiveness), but it lets them use less flour waste per batch (efficiency) and produce three times as many loaves per hour (productivity), meaning lower prices for customers and more profit for the bakery."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "glo14-mc-1",
-          difficulty: -0.5,
-          question: "What does 'efficiency' mean in a business context?",
-          options: [
-            "Doing the right thing in the right way",
-            "Producing items using the least amount of resources",
-            "The amount of output per hour worked",
-            "The total money a business brings in from sales"
-          ],
-          correctAnswer: 1,
-          explanation: "Efficiency is about minimizing waste: producing items using the least amount of resources.",
-          concept: "technology-effects"
-        },
-        {
-          id: "glo14-mc-2",
-          difficulty: 0.0,
-          question: "A factory installs new equipment and now produces twice as many units per hour with the same number of workers. Which concept BEST describes this gain?",
-          options: [
-            "Effectiveness, because it means finally making the products customers actually want",
-            "Efficiency, because it means the same products are made with less waste",
-            "Productivity, because more output is coming from the same amount of work",
-            "Profitability, because doubling the units produced must mean much higher profit"
-          ],
-          correctAnswer: 2,
-          explanation: "Productivity is output for a given amount of input, so more units per hour from the same workers is a productivity gain. Efficiency is the tempting one, but it specifically means using fewer resources for the same output, not getting more output per worker.",
-          concept: "technology-effects"
-        }
-      ]
+      // Recall-in-context: 'effective' vs 'efficient' — the lesson's core
+      // distinction. Every option is a sibling term.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "A worker can be efficient without being [BLANK]: perfectly executing the wrong task wastes no resources, but it still isn't the right work.",
+        answer: "effective",
+        options: ["effective", "productive", "profitable", "efficient"],
+        explanation: "Effectiveness is doing the RIGHT thing in the right way. You can be efficient (no waste) while doing the wrong task entirely — which is why effectiveness comes first.",
+      },
+    },
+    {
+      // Structure check: the classic efficiency-vs-productivity confusion the
+      // lesson flags, using concrete, realistic scenarios.
+      type: "activity-check",
+      activity: {
+        kind: "categorize",
+        bins: ["Efficiency", "Productivity"],
+        items: [
+          { text: "A bakery wastes less flour per batch", bin: 0 },
+          { text: "A factory makes twice as many units per hour with the same workers", bin: 1 },
+          { text: "A team uses fewer materials to make the same product", bin: 0 },
+          { text: "A worker assembles more phones per shift than before", bin: 1 },
+        ],
+        explanation: "Efficiency = using the LEAST resources for the same output (less waste). Productivity = more OUTPUT for the same input (more per hour). Same technology often improves both, but they're different measures.",
+      },
+    },
+    {
+      // Misconception check: the lie conflates efficiency and productivity.
+      type: "activity-check",
+      activity: {
+        kind: "two-truths-a-lie",
+        prompt: "Two of these are true. Tap the one that's false.",
+        statements: [
+          "Effectiveness means doing the right thing in the right way.",
+          "Technology's biggest payoff is improving effectiveness, efficiency, and productivity all at once.",
+          "Efficiency and productivity mean exactly the same thing.",
+        ],
+        lieIndex: 2,
+        explanation: "Efficiency is using the fewest resources for the same output; productivity is the amount of output per unit of input. Related, but not the same thing.",
+      },
     },
     {
       type: "scenario",
@@ -831,37 +864,44 @@ export const gulliverLO1_5: StructuredLessonContent = {
       realWorldExample: "Two coffee shops sell the same drink at the same price. At Shop A, a barista who messes up an order has to find the manager to fix it. At Shop B, the barista is empowered to immediately remake the drink or refund it on the spot. Shop B's customers leave happier, because the competitive edge came from empowering the frontline worker, not the coffee itself."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "glo15-mc-1",
-          difficulty: -1.5,
-          question: "What does 'zero defects' represent for a business?",
-          options: [
-            "A goal of essentially no flaws in the product",
-            "A rule that no products can ever be made",
-            "The number of competitors a business has",
-            "A tax rate businesses must pay"
-          ],
-          correctAnswer: 0,
-          explanation: "Zero defects is the standard of producing with essentially no flaws, the highest level of quality.",
-          concept: "competitive-edge"
-        },
-        {
-          id: "glo15-mc-2",
-          difficulty: -1.0,
-          question: "What does it mean to 'empower' frontline workers?",
-          options: [
-            "Giving them less responsibility so they make fewer mistakes",
-            "Giving them more training, responsibility, and authority",
-            "Removing them from contact with customers entirely",
-            "Paying them exactly the same as every other employee"
-          ],
-          correctAnswer: 1,
-          explanation: "Empowering frontline workers means equipping them with training and giving them real authority to solve problems on the spot.",
-          concept: "empowering-workers"
-        }
-      ]
+      // Recall check: the four key terms of the lesson matched to their meanings.
+      type: "activity-check",
+      activity: {
+        kind: "vocab-match",
+        pairs: [
+          { term: "Competitive edge", definition: "An advantage that makes customers choose one business over its rivals" },
+          { term: "Zero defects", definition: "A quality standard of essentially no flaws in the product" },
+          { term: "Empowering workers", definition: "Giving employees more training, responsibility, and authority to decide" },
+          { term: "Frontline workers", definition: "The employees who deal directly with customers" },
+        ],
+        explanation: "Beating competition comes from high quality (up to zero defects), exceeding expectations, and empowering the frontline workers who deliver both.",
+      },
+    },
+    {
+      // Recall-in-context: 'exceed' vs merely 'meet' expectations.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "Great businesses aim to [BLANK] customer expectations — giving people more than they were expecting, not just meeting the bare minimum.",
+        answer: "exceed",
+        options: ["exceed", "meet", "lower", "empower"],
+        explanation: "Exceeding expectations means going beyond the minimum. Simply 'meeting' them is the baseline every rival also hits — it's exceeding them that wins customers.",
+      },
+    },
+    {
+      // Misconception check: the lie inverts the lesson's point about empowerment.
+      type: "activity-check",
+      activity: {
+        kind: "two-truths-a-lie",
+        prompt: "Two of these are true. Tap the one that's false.",
+        statements: [
+          "Empowered frontline workers can solve a customer's problem on the spot instead of escalating everything.",
+          "Zero defects means producing with essentially no flaws.",
+          "The best way to beat competition is to give frontline workers less authority so they make fewer decisions.",
+        ],
+        lieIndex: 2,
+        explanation: "Empowering frontline workers — more training, responsibility, and authority — is what lets them fix problems immediately and deliver a better experience. Less authority means more 'let me ask my manager.'",
+      },
     },
     {
       type: "scenario",
@@ -1022,37 +1062,49 @@ export const gulliverLO1_6: StructuredLessonContent = {
       realWorldExample: "A company that only thinks of 'diversity' as hiring people of different races is missing most of the picture. A truly diverse workplace also includes people of different ages, abilities, religions, and family situations, all of whom bring different needs and perspectives that a business has to manage sensitively."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "glo16-mc-1",
-          difficulty: -1.0,
-          question: "According to the modern definition, what does diversity in the workplace include?",
-          options: [
-            "Only a worker's race and ethnicity",
-            "Age, disability, orientation, religion, and personality too",
-            "Only a worker's gender or sex",
-            "Only a worker's job title and seniority"
-          ],
-          correctAnswer: 1,
-          explanation: "Modern diversity efforts cover a much wider range of groups than race and gender alone.",
-          concept: "diversity"
-        },
-        {
-          id: "glo16-mc-2",
-          difficulty: -1.5,
-          question: "What is Social Security?",
-          options: [
-            "A private company benefit only some businesses offer",
-            "A government program giving benefits to older citizens",
-            "A tax that only businesses pay, and never individuals",
-            "A type of private insurance that businesses buy"
-          ],
-          correctAnswer: 1,
-          explanation: "Social Security is a government program funded by the working population that provides benefits to older citizens.",
-          concept: "social-security"
-        }
-      ]
+      // Structure check: three items belong to the modern definition of
+      // diversity; the fourth is a worker attribute that isn't diversity at all.
+      type: "activity-check",
+      activity: {
+        kind: "odd-one-out",
+        prompt: "Three of these are part of the modern definition of workplace diversity. Tap the one that is NOT.",
+        options: [
+          "A worker's age and abilities",
+          "A worker's religion and personality type",
+          "A worker's family and marital situation",
+          "A worker's job title and seniority",
+        ],
+        oddIndex: 3,
+        explanation: "Modern diversity spans age, disability, orientation, religion, personality, and family situation — the human backgrounds people bring. Job title and seniority are about rank in the company, not diversity.",
+      },
+    },
+    {
+      // Recall-in-context: naming Social Security. Distractors mirror the common
+      // wrong ideas the lesson corrects.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "[BLANK] is a government program, funded largely by the working population, that provides benefits to older citizens.",
+        answer: "Social Security",
+        options: ["Social Security", "A private company benefit", "A business-only tax", "Private insurance"],
+        explanation: "Social Security is a government program funded by today's workers to support older citizens — not a private benefit, not a tax only businesses pay, and not private insurance.",
+      },
+    },
+    {
+      // Misconception check: the lie is the narrow 'race and gender only' view of
+      // diversity that the lesson explicitly widens.
+      type: "activity-check",
+      activity: {
+        kind: "two-truths-a-lie",
+        prompt: "Two of these are true. Tap the one that's false.",
+        statements: [
+          "Modern workplace diversity includes age, disability, religion, and personality — not just race and gender.",
+          "As the population ages, Social Security is expected to draw increasingly large amounts from workers.",
+          "Diversity in business today means only recruiting racial minorities and women.",
+        ],
+        lieIndex: 2,
+        explanation: "That's the outdated, narrow view. Today's definition of diversity is much broader — age, disability, orientation, religion, personality, and family situation all count.",
+      },
     },
     {
       type: "scenario",
@@ -1242,37 +1294,47 @@ export const gulliverLO1_7: StructuredLessonContent = {
       realWorldExample: "During a period of global conflict, a defense contractor sees rising orders and profit, while an airline serving that same region sees bookings collapse. Both are U.S. businesses affected by the same event, but in opposite directions, which is exactly why businesses have to track global events closely, not just domestic ones."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "glo17-mc-1",
-          difficulty: -1.5,
-          question: "Which two countries are identified as creating the greatest competitive challenges for U.S. businesses?",
-          options: [
-            "Canada and Mexico",
-            "China and India",
-            "France and Germany",
-            "Brazil and Argentina"
-          ],
-          correctAnswer: 1,
-          explanation: "China and India are named as the two biggest sources of competitive challenge due to their large economies and workforces.",
-          concept: "global-challenges"
-        },
-        {
-          id: "glo17-mc-2",
-          difficulty: -1.0,
-          question: "How does war or terrorism typically affect the tourism industry?",
-          options: [
-            "It usually has no real effect on the tourism industry",
-            "It hurts tourism, since people avoid unstable regions",
-            "It almost always increases tourism to those regions",
-            "It only affects the defense industry, and never tourism"
-          ],
-          correctAnswer: 1,
-          explanation: "Tourism tends to suffer during periods of war or terrorism, as travelers avoid unstable areas.",
-          concept: "global-challenges"
-        }
-      ]
+      // Structure check: war/terrorism hits industries unevenly. Each item is a
+      // realistic business, split by which way the same event pushes it.
+      type: "activity-check",
+      activity: {
+        kind: "categorize",
+        bins: ["Tends to prosper", "Tends to suffer"],
+        items: [
+          { text: "The defense industry", bin: 0 },
+          { text: "The tourism industry", bin: 1 },
+          { text: "An airline serving an unstable region", bin: 1 },
+          { text: "A military equipment contractor", bin: 0 },
+        ],
+        explanation: "During conflict, demand rises for defense products (they prosper) while people avoid travel (tourism and airlines suffer) — the same event, opposite effects.",
+      },
+    },
+    {
+      // Recall-in-context: the strategy of helping less-developed countries.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "Experts believe one way to reduce world tensions is by helping [BLANK] countries become more prosperous, since prosperity lowers the incentive toward conflict.",
+        answer: "less-developed",
+        options: ["less-developed", "already wealthy", "larger", "neighboring"],
+        explanation: "Helping less-developed countries build stronger businesses, stable currencies, and enforceable contracts gives them more to lose from instability — reducing the pull toward conflict.",
+      },
+    },
+    {
+      // Misconception check: the lie is 'every industry is affected the same way'
+      // — the opposite of the uneven effect the lesson teaches.
+      type: "activity-check",
+      activity: {
+        kind: "two-truths-a-lie",
+        prompt: "Two of these are true. Tap the one that's false.",
+        statements: [
+          "China and India are named as the biggest sources of competitive challenge for U.S. businesses.",
+          "The defense industry may actually prosper during periods of conflict.",
+          "War and terrorism affect every industry in exactly the same way.",
+        ],
+        lieIndex: 2,
+        explanation: "The effects are uneven: defense may prosper while tourism suffers. That's why businesses have to track global events closely — the same event helps some and hurts others.",
+      },
     },
     {
       type: "scenario",
@@ -1351,7 +1413,7 @@ export const gulliverLO1_7: StructuredLessonContent = {
         {
           id: "glo17-mx-4",
           difficulty: 1.5,
-          question: "How does this LO connect back to the economic environment factors from LO 1-3 (enforceable contracts, stable currency, low corruption)?",
+          question: "How does this lesson connect back to the economic environment factors from lesson 1.3 (enforceable contracts, stable currency, low corruption)?",
           options: [
             "More prosperous, stable countries tend to have less incentive toward conflict",
             "Strong contracts and stable currencies actually tend to spark more conflict",
@@ -1441,37 +1503,46 @@ export const gulliverLO1_8: StructuredLessonContent = {
       realWorldExample: "A farmworker in the early 1900s might have been displaced by a tractor and found a new job in a factory. A factory worker decades later might have been displaced by automation and foreign competition and found a new job in a service industry. A worker today might see their job reshaped by information-age technology and need new skills to move into what comes next: same pattern, different era."
     },
     {
-      type: "micro-check",
-      questions: [
-        {
-          id: "glo18-mc-1",
-          difficulty: -1.0,
-          question: "What happened to many agricultural workers as farm technology improved?",
-          options: [
-            "They lost their jobs permanently with nowhere else to go",
-            "They were displaced by technology and moved into factory jobs",
-            "Farm technology had no real effect on agricultural employment",
-            "They all went on to become wealthy factory owners themselves"
-          ],
-          correctAnswer: 1,
-          explanation: "Improved farm technology displaced many agricultural workers, who then moved into factory jobs as manufacturing grew.",
-          concept: "historical-trends"
-        },
-        {
-          id: "glo18-mc-2",
-          difficulty: -0.5,
-          question: "What two factors combined to reduce the number of workers needed in manufacturing?",
-          options: [
-            "Lower business taxes and much less regulation",
-            "Improved productivity and more foreign competition",
-            "A rapidly growing domestic agricultural sector",
-            "Rising Social Security costs for older workers"
-          ],
-          correctAnswer: 1,
-          explanation: "Improved productivity and foreign competition together reduced the number of workers manufacturing needed, pushing many into service industries.",
-          concept: "historical-trends"
-        }
-      ]
+      // Sequence check: the repeating displacement pattern, in true time order.
+      type: "activity-check",
+      activity: {
+        kind: "sequence",
+        prompt: "Put these kinds of work in the order U.S. workers moved through them over history.",
+        steps: [
+          "Farm and agricultural work",
+          "Factory and manufacturing jobs",
+          "Service-industry jobs",
+          "Information-age, data-driven work",
+        ],
+        explanation: "Each wave of technology displaced workers from one sector into the next: farms → factories → services → the information age. Same pattern, different era.",
+      },
+    },
+    {
+      // Recall-in-context: the two forces that shrank manufacturing jobs.
+      type: "activity-check",
+      activity: {
+        kind: "fill-blank",
+        sentence: "Improved productivity combined with more foreign [BLANK] meant factories needed fewer workers, who moved into service industries.",
+        answer: "competition",
+        options: ["competition", "regulation", "technology", "labor"],
+        explanation: "Two forces shrank manufacturing jobs: rising productivity (fewer workers make the same output) and foreign competition. Technology drove the productivity gains, but it's the competition that pairs with it here.",
+      },
+    },
+    {
+      // Misconception check: the lie is 'jobs stay the same' — the opposite of
+      // the chapter's whole point about a changing economy.
+      type: "activity-check",
+      activity: {
+        kind: "two-truths-a-lie",
+        prompt: "Two of these are true. Tap the one that's false.",
+        statements: [
+          "Displaced agricultural workers moved into factory jobs as manufacturing grew.",
+          "For future graduates, adaptability and continuous learning matter more than one fixed skill set.",
+          "The specific jobs available in the economy stay basically the same from one generation to the next.",
+        ],
+        lieIndex: 2,
+        explanation: "The whole pattern is that jobs keep changing — farm to factory to service to information age. That's exactly why adaptability and continuous learning matter more than locking into one skill.",
+      },
     },
     {
       type: "scenario",

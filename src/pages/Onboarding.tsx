@@ -967,7 +967,7 @@ export default function Onboarding() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="font-semibold">Gulliver Intro to Business</div>
-                      <p className="text-xs text-muted-foreground mt-0.5">The 9th grade course: assign the 8 learning objectives (LO 1 to 8).</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">The 9th grade course: assign the 8 learning objectives (1.1 to 1.8).</p>
                     </div>
                     <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
                   </button>
