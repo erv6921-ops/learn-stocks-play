@@ -61,19 +61,19 @@ export const gulliverLO1_1: StructuredLessonContent = {
       },
     },
     {
-      // Misconception check: the subtle lie is the common 'profit is the only
-      // job' belief, set against two accurate statements.
+      // Application check: profit vs loss from real numbers. Profit = Revenue −
+      // Costs, so each item is decided by whether money in beats money out.
       type: "activity-check",
       activity: {
-        kind: "two-truths-a-lie",
-        prompt: "Two of these are true. Tap the one that's false.",
-        statements: [
-          "Businesses raise the standard of living by creating jobs, paying taxes, and producing goods and services.",
-          "A stakeholder is any person or group affected by, or interested in, how a business behaves.",
-          "A business's only real job is to make as much profit as possible, even if it means squeezing its stakeholders.",
+        kind: "categorize",
+        bins: ["Profit", "Loss"],
+        items: [
+          { text: "Takes in $500, spends $320", bin: 0 },
+          { text: "Takes in $200, spends $260", bin: 1 },
+          { text: "Takes in $80, spends $95", bin: 1 },
+          { text: "Takes in $1,000, spends $700", bin: 0 },
         ],
-        lieIndex: 2,
-        explanation: "A business's real job is to balance stakeholder needs WHILE making a profit. Squeezing stakeholders for short-term profit usually backfires — boycotts, lawsuits, bad press, and lost trust.",
+        explanation: "Profit = Revenue − Costs. When the money coming in beats what's spent, it's a profit; when costs are higher than revenue, it's a loss — no matter how big the revenue looks.",
       },
     },
     {
@@ -253,31 +253,33 @@ export const gulliverLO1_2: StructuredLessonContent = {
       },
     },
     {
-      // Application check: what actually creates wealth. Every option is one of
-      // the five factors, so the distractors are genuinely tempting.
+      // Structure check: the trade-offs of working for someone vs being an
+      // entrepreneur. Each item is a real, arguable feature of one path.
       type: "activity-check",
       activity: {
-        kind: "fill-blank",
-        sentence: "Wealth is created the moment an entrepreneur uses [BLANK] to combine land, labor, and capital into something people actually want.",
-        answer: "knowledge",
-        options: ["knowledge", "capital", "labor", "land"],
-        explanation: "Land, labor, and capital sitting idle create nothing. It's knowledge — knowing how to combine them productively — that turns raw resources into wealth.",
+        kind: "categorize",
+        bins: ["Working for an employer", "Being an entrepreneur"],
+        items: [
+          { text: "A steady paycheck every two weeks", bin: 0 },
+          { text: "Paid vacation and health insurance", bin: 0 },
+          { text: "Freedom to make your own business decisions", bin: 1 },
+          { text: "Taking on more risk for a shot at real wealth", bin: 1 },
+          { text: "Someone else absorbs the business risk", bin: 0 },
+          { text: "Keeping the profits if the business succeeds", bin: 1 },
+        ],
+        explanation: "Working for someone else trades upside for security — steady pay, benefits, and someone else carrying the risk. Entrepreneurs give up that safety net for freedom, more risk, and the chance at real wealth.",
       },
     },
     {
-      // Misconception check: the subtle lie is the 'resources alone make wealth'
-      // belief the lesson explicitly corrects.
+      // Recall check: spot the non-member. All four are plausible business
+      // resources, but only the five named factors count.
       type: "activity-check",
       activity: {
-        kind: "two-truths-a-lie",
-        prompt: "Two of these are true. Tap the one that's false.",
-        statements: [
-          "Entrepreneurship and knowledge are considered the most important factors of production today.",
-          "A country can have plenty of land, labor, and capital and still stay poor if no one combines them productively.",
-          "Wealth is created simply by having lots of natural resources sitting available.",
-        ],
-        lieIndex: 2,
-        explanation: "Resources sitting idle create nothing. Wealth comes from an entrepreneur using knowledge to combine land, labor, and capital into something people want.",
+        kind: "odd-one-out",
+        prompt: "Three of these are factors of production. Tap the one that is NOT.",
+        options: ["Capital", "Labor", "Knowledge", "Marketing"],
+        oddIndex: 3,
+        explanation: "The five factors of production are land, labor, capital, entrepreneurship, and knowledge. Marketing is something a business DOES with those factors — it isn't one of the raw factors itself.",
       },
     },
     {
@@ -448,15 +450,18 @@ export const gulliverLO1_3: StructuredLessonContent = {
       },
     },
     {
-      // Recall-in-context: 'enforceable' is the key word. All options are real
-      // economic-environment terms from the lesson.
+      // Recall check: the environment terms that shape business risk, matched to
+      // parallel definitions.
       type: "activity-check",
       activity: {
-        kind: "fill-blank",
-        sentence: "Laws that let businesspeople write [BLANK] contracts mean deals actually get honored in court, which lowers an entrepreneur's risk.",
-        answer: "enforceable",
-        options: ["enforceable", "private", "tradable", "unstable"],
-        explanation: "Enforceable contracts can be upheld in court, so a signed deal is a real guarantee. 'Private' describes ownership and 'tradable' describes currency — both matter, but it's enforceability that makes a contract trustworthy.",
+        kind: "vocab-match",
+        pairs: [
+          { term: "Private ownership", definition: "Individuals, not the government, are allowed to own businesses" },
+          { term: "Enforceable contract", definition: "A deal courts will uphold, so agreements actually get honored" },
+          { term: "Corruption", definition: "Dishonest dealing in business or government that adds risk" },
+          { term: "Regulation", definition: "Government rules that businesses are required to follow" },
+        ],
+        explanation: "A strong economic environment — private ownership, enforceable contracts, low corruption, and reasonable regulation — is what makes starting a business less risky.",
       },
     },
     {
@@ -676,18 +681,15 @@ export const gulliverLO1_4: StructuredLessonContent = {
       },
     },
     {
-      // Misconception check: the lie conflates efficiency and productivity.
+      // Recall check: three are the ways technology improves work; profitability
+      // is a real business goal but not one of the three.
       type: "activity-check",
       activity: {
-        kind: "two-truths-a-lie",
-        prompt: "Two of these are true. Tap the one that's false.",
-        statements: [
-          "Effectiveness means doing the right thing in the right way.",
-          "Technology's biggest payoff is improving effectiveness, efficiency, and productivity all at once.",
-          "Efficiency and productivity mean exactly the same thing.",
-        ],
-        lieIndex: 2,
-        explanation: "Efficiency is using the fewest resources for the same output; productivity is the amount of output per unit of input. Related, but not the same thing.",
+        kind: "odd-one-out",
+        prompt: "Three of these are the ways technology makes work better in this lesson. Tap the one that is NOT.",
+        options: ["Effectiveness", "Efficiency", "Productivity", "Profitability"],
+        oddIndex: 3,
+        explanation: "The three are effectiveness (doing the right thing), efficiency (least waste), and productivity (output per input). Profitability matters to a business, but it isn't one of these three ways technology improves work.",
       },
     },
     {
@@ -889,18 +891,20 @@ export const gulliverLO1_5: StructuredLessonContent = {
       },
     },
     {
-      // Misconception check: the lie inverts the lesson's point about empowerment.
+      // Recall check: three are real ways to beat the competition; the fourth
+      // does the opposite. The wrong option is a believable cost-cutting move.
       type: "activity-check",
       activity: {
-        kind: "two-truths-a-lie",
-        prompt: "Two of these are true. Tap the one that's false.",
-        statements: [
-          "Empowered frontline workers can solve a customer's problem on the spot instead of escalating everything.",
-          "Zero defects means producing with essentially no flaws.",
-          "The best way to beat competition is to give frontline workers less authority so they make fewer decisions.",
+        kind: "odd-one-out",
+        prompt: "Three of these help a business beat the competition. Tap the one that does NOT.",
+        options: [
+          "Aiming for zero defects in the product",
+          "Exceeding customer expectations",
+          "Empowering frontline workers to decide",
+          "Cutting frontline workers' training to save money",
         ],
-        lieIndex: 2,
-        explanation: "Empowering frontline workers — more training, responsibility, and authority — is what lets them fix problems immediately and deliver a better experience. Less authority means more 'let me ask my manager.'",
+        oddIndex: 3,
+        explanation: "Beating competition comes from high quality, exceeding expectations, and empowering frontline workers. Cutting their training does the opposite — it leaves them unable to fix problems on the spot.",
       },
     },
     {

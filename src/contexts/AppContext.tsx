@@ -25,7 +25,7 @@ interface AppContextType {
   authReady: boolean
   setUser: (user: UserProfile | null) => void
   lessonProgress: LessonProgress[]
-  updateLessonProgress: (lessonId: string, completed: boolean, quizScore?: number) => void
+  updateLessonProgress: (lessonId: string, completed: boolean, quizScore?: number, progressPercent?: number) => void
   tokens: Token[]
   addToken: (token: Omit<Token, "id" | "createdAt" | "priceSimulation" | "marketCap">) => void
   watchlist: string[]
@@ -309,6 +309,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           completed: r.completed,
           quizScore: r.quiz_score ?? undefined,
           completedAt: r.completed_at ? new Date(r.completed_at) : undefined,
+          progressPercent: r.progress_percent ?? undefined,
         }))
         setLessonProgress(lp)
         ls.set("investiplay_progress", lp)
@@ -512,25 +513,34 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const persistUid = (): string | null =>
     DEV_LOCAL_BYPASS ? null : userIdRef.current
 
-  const updateLessonProgress = (lessonId: string, completed: boolean, quizScore?: number) => {
+  const updateLessonProgress = (lessonId: string, completed: boolean, quizScore?: number, progressPercent?: number) => {
     const now = completed ? new Date() : undefined
+    // Completing a lesson is 100% by definition. Otherwise use the caller's
+    // section percentage; if none is given (e.g. a legacy "content viewed"
+    // call), keep whatever we already have so we never move the bar backwards.
+    let persistedPercent: number | undefined
     setLessonProgress(prev => {
       const existing = prev.find(p => p.lessonId === lessonId)
+      persistedPercent = completed ? 100 : (progressPercent ?? existing?.progressPercent)
       const updated = existing
-        ? prev.map(p => p.lessonId === lessonId ? { ...p, completed, quizScore, completedAt: now } : p)
-        : [...prev, { lessonId, completed, quizScore, completedAt: now }]
+        ? prev.map(p => p.lessonId === lessonId ? { ...p, completed, quizScore, completedAt: now, progressPercent: persistedPercent } : p)
+        : [...prev, { lessonId, completed, quizScore, completedAt: now, progressPercent: persistedPercent }]
       ls.set("investiplay_progress", updated)
       return updated
     })
     const uid = persistUid()
     if (uid) {
-      supabase.from("lesson_progress").upsert({
+      const payload: Record<string, unknown> = {
         user_id: uid,
         lesson_id: lessonId,
         completed,
         quiz_score: quizScore ?? null,
         completed_at: now?.toISOString() ?? null,
-      }, { onConflict: "user_id,lesson_id" }).then(({ error }) => {
+      }
+      // Only write the percent when we have one, so partial updates don't
+      // overwrite the stored value with null on the conflicting row.
+      if (persistedPercent !== undefined) payload.progress_percent = persistedPercent
+      supabase.from("lesson_progress").upsert(payload, { onConflict: "user_id,lesson_id" }).then(({ error }) => {
         if (error) console.error("[lesson_progress upsert]", error)
       })
     }

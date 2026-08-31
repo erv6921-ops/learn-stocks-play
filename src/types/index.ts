@@ -332,6 +332,8 @@ export interface LessonProgress {
   completed: boolean
   quizScore?: number
   completedAt?: Date
+  /** 0-100: how far through the lesson's sections the student has gotten. */
+  progressPercent?: number
 }
 
 export interface StockHolding {

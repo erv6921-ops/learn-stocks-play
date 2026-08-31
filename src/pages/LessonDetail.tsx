@@ -292,8 +292,12 @@ export default function LessonDetail() {
   // straight into the interactive walk (which contains no concept sections).
   const handleChatQuizReady = () => {
     setChatOpen(false)
-    // Record "content viewed" on the existing lesson_progress row (not completed yet).
-    if (!isCompleted) updateLessonProgress(lesson.id, false)
+    // Record "content viewed" on the existing lesson_progress row (not completed
+    // yet), seeding the section-0 percentage so the teacher sees them as started.
+    if (!isCompleted) {
+      const startPercent = walkSections.length > 0 ? Math.round((1 / walkSections.length) * 100) : 0
+      updateLessonProgress(lesson.id, false, undefined, startPercent)
+    }
     setLessonStarted(true)
     setCurrentSectionIdx(0)
     window.scrollTo({ top: 0 })
@@ -302,7 +306,14 @@ export default function LessonDetail() {
   // ─── Handlers ───
   const handleSectionContinue = () => {
     if (currentSectionIdx < walkSections.length - 1) {
-      setCurrentSectionIdx(prev => prev + 1)
+      const nextIdx = currentSectionIdx + 1
+      setCurrentSectionIdx(nextIdx)
+      // Persist how far the student has gotten so the teacher dashboard can show
+      // a live progress bar. Don't touch a lesson that's already completed.
+      if (!isCompleted && walkSections.length > 0) {
+        const percent = Math.round(((nextIdx + 1) / walkSections.length) * 100)
+        updateLessonProgress(lesson.id, false, undefined, percent)
+      }
       window.scrollTo({ top: 0, behavior: "smooth" })
     }
   }

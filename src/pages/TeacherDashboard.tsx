@@ -129,6 +129,9 @@ interface ClassMember {
   }
   assignedLessons: AssignedLesson[]
   completedLessonIds: string[]
+  // lesson_id -> how far the student has gotten (0-100). Present for any lesson
+  // the student has opened, whether or not they finished it.
+  progressByLesson: Record<string, number>
 }
 
 const shorten = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "…" : s)
@@ -259,13 +262,20 @@ export default function TeacherDashboard() {
       Array.from({ length: n }, (_, i) => {
         const assigned: AssignedLesson[] = aLessons.map((l) => ({ id: `${classId}-a-${l.id}`, lesson_id: l.id, assigned_at: new Date().toISOString() }))
         const k = Math.floor(Math.random() * (assigned.length + 1))
+        const completedIds = assigned.slice(0, k).map((a) => a.lesson_id)
+        const progressByLesson: Record<string, number> = {}
+        assigned.forEach((a, idx) => {
+          if (completedIds.includes(a.lesson_id)) progressByLesson[a.lesson_id] = 100
+          else if (idx === k) progressByLesson[a.lesson_id] = [20, 40, 60, 80][i % 4] // one lesson mid-flight
+        })
         return {
           id: `${classId}-m${i}`,
           user_id: `${classId}-u${i}`,
           joined_at: new Date().toISOString(),
           profile: { first_name: firstNames[i % firstNames.length], last_name: `${String.fromCharCode(65 + i)}.`, email: "", school_name: "Demo High", grade: 10 },
           assignedLessons: assigned,
-          completedLessonIds: assigned.slice(0, k).map((a) => a.lesson_id),
+          completedLessonIds: completedIds,
+          progressByLesson,
         }
       })
     const cls: Class[] = [
@@ -453,16 +463,23 @@ export default function TeacherDashboard() {
               .single(),
             supabase
               .from("lesson_progress")
-              .select("lesson_id")
+              .select("lesson_id, completed, progress_percent")
               .eq("user_id", member.user_id)
-              .eq("completed", true)
           ])
+
+          const progressRows = (progressRes.data || []) as any[]
+          const progressByLesson: Record<string, number> = {}
+          progressRows.forEach((p) => {
+            // A completed lesson is 100% even on older rows with a null percent.
+            progressByLesson[p.lesson_id] = p.completed ? 100 : (p.progress_percent ?? 0)
+          })
 
           return {
             ...member,
             profile: profileRes.data,
             assignedLessons: classAssignments,
-            completedLessonIds: (progressRes.data || []).map((p: any) => p.lesson_id),
+            completedLessonIds: progressRows.filter((p) => p.completed).map((p) => p.lesson_id),
+            progressByLesson,
           }
         })
       )
@@ -476,6 +493,36 @@ export default function TeacherDashboard() {
       })
     }
   }
+
+  // Live lesson progress: when any of this teacher's students advances through a
+  // lesson, refresh the selected class so the progress bars move without a
+  // refresh. RLS already limits realtime events to this teacher's own students,
+  // and lesson_progress is in the supabase_realtime publication. Skipped in demo
+  // mode (fake user_ids would just clear the sample data). Coalesced so a burst
+  // of section advances triggers at most one reload.
+  useEffect(() => {
+    if (!selectedClass) return
+    if (sampleMembersRef.current[selectedClass.id]) return // demo class
+    const classId = selectedClass.id
+    let timer: ReturnType<typeof setTimeout> | null = null
+    const scheduleReload = () => {
+      if (timer) clearTimeout(timer)
+      timer = setTimeout(() => { loadClassMembers(classId) }, 400)
+    }
+    const channel = supabase
+      .channel(`lesson-progress-${classId}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "lesson_progress" },
+        scheduleReload
+      )
+      .subscribe()
+    return () => {
+      if (timer) clearTimeout(timer)
+      supabase.removeChannel(channel)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedClass?.id])
 
   // Load the selected class's teacher-controlled settings. Fails soft (defaults)
   // if the class_settings table isn't migrated yet.
@@ -1493,22 +1540,33 @@ export default function TeacherDashboard() {
                                       <BookOpen className="w-3.5 h-3.5" />
                                       Assigned Lessons
                                     </p>
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex flex-col gap-1.5">
                                       {member.assignedLessons.map((assignment) => {
                                         const lesson = lessons.find(l => l.id === assignment.lesson_id)
                                         const done = member.completedLessonIds.includes(assignment.lesson_id)
+                                        const pct = done ? 100 : (member.progressByLesson[assignment.lesson_id] ?? 0)
+                                        const status = done ? "Completed" : pct > 0 ? `${pct}%` : "Not started"
                                         return (
-                                          <Badge
-                                            key={assignment.id}
-                                            variant={done ? "default" : "secondary"}
-                                            className="flex items-center gap-1 cursor-pointer"
-                                            onClick={() => removeAssignment(assignment.id)}
-                                            title="Click to remove assignment from class"
-                                          >
-                                            {done && <CheckCircle2 className="w-3 h-3" />}
-                                            {lesson?.title || assignment.lesson_id}
-                                            <Trash2 className="w-3 h-3 ml-1 opacity-50 hover:opacity-100" />
-                                          </Badge>
+                                          <div key={assignment.id} className="flex items-center gap-2">
+                                            <Badge
+                                              variant={done ? "default" : pct > 0 ? "secondary" : "outline"}
+                                              className="flex items-center gap-1 cursor-pointer shrink-0"
+                                              onClick={() => removeAssignment(assignment.id)}
+                                              title="Click to remove assignment from class"
+                                            >
+                                              {done && <CheckCircle2 className="w-3 h-3" />}
+                                              {lesson?.title || assignment.lesson_id}
+                                              <Trash2 className="w-3 h-3 ml-1 opacity-50 hover:opacity-100" />
+                                            </Badge>
+                                            <Progress
+                                              value={pct}
+                                              variant={done ? "success" : "default"}
+                                              className="h-1.5 flex-1 min-w-[40px]"
+                                            />
+                                            <span className={`text-[11px] tabular-nums shrink-0 w-16 text-right ${done ? "text-green-600" : pct > 0 ? "text-foreground" : "text-muted-foreground"}`}>
+                                              {status}
+                                            </span>
+                                          </div>
                                         )
                                       })}
                                     </div>
