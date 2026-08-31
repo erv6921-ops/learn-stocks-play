@@ -1176,10 +1176,10 @@ export default function Onboarding() {
                   <SelectItem value="10">10th Grade</SelectItem>
                   <SelectItem value="11">11th Grade</SelectItem>
                   <SelectItem value="12">12th Grade</SelectItem>
-                  <SelectItem value="freshman">Freshman</SelectItem>
-                  <SelectItem value="sophomore">Sophomore</SelectItem>
-                  <SelectItem value="junior">Junior</SelectItem>
-                  <SelectItem value="senior">Senior</SelectItem>
+                  <SelectItem value="freshman">Freshman (College)</SelectItem>
+                  <SelectItem value="sophomore">Sophomore (College)</SelectItem>
+                  <SelectItem value="junior">Junior (College)</SelectItem>
+                  <SelectItem value="senior">Senior (College)</SelectItem>
                   <SelectItem value="adult">Adult</SelectItem>
                 </SelectContent>
               </Select>
@@ -1213,21 +1213,29 @@ export default function Onboarding() {
             total={totalSteps}
             mood="thinking"
             message="Where are you learning? Some programs are only in certain states."
-            title="Your state or course"
+            title="Your state"
             subtitle="Some programs are only offered in certain states"
             onBack={() => setStep("age")}
-            continueDisabled={!stateCourse}
+            continueDisabled={!stateCourse.trim()}
             onContinue={() => setStep("class-code")}
           >
             <div>
-              <label className="text-sm font-medium mb-1.5 block">State / Course</label>
-              <Select value={stateCourse} onValueChange={setStateCourse}>
-                <SelectTrigger><SelectValue placeholder="Select your state or course" /></SelectTrigger>
+              <label className="text-sm font-medium mb-1.5 block">State</label>
+              {/* Pick from the list, or type your own state below. */}
+              <Select value={US_STATES.includes(stateCourse) ? stateCourse : ""} onValueChange={setStateCourse}>
+                <SelectTrigger><SelectValue placeholder="Select your state" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="AP Financial Literacy">AP Financial Literacy</SelectItem>
                   {US_STATES.map(s => (<SelectItem key={s} value={s}>{s}</SelectItem>))}
                 </SelectContent>
               </Select>
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1.5 block">Or type your state</label>
+              <Input
+                placeholder="e.g. Ontario"
+                value={US_STATES.includes(stateCourse) ? "" : stateCourse}
+                onChange={e => setStateCourse(e.target.value)}
+              />
             </div>
           </FieldStep>
         )}

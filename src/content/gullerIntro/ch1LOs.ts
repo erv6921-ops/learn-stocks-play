@@ -105,106 +105,53 @@ export const gulliverLO1_1: StructuredLessonContent = {
       }
     },
     {
+      // 3-in-a-row gate: with exactly three questions and requiredCorrect: 3,
+      // the student must answer all three correctly in one pass — a single wrong
+      // answer fails the round and sends them back to retry.
       type: "mastery-check",
       requiredCorrect: 3,
       questions: [
         {
           id: "glo11-mx-1",
-          difficulty: -1.5,
-          question: "What is profit?",
+          difficulty: -0.5,
+          question: "What is the difference between revenue and profit?",
           options: [
-            "The total amount of money a business takes in from sales",
-            "The money a business earns above and beyond its salaries and other expenses",
-            "The amount of money a business borrows from a bank",
-            "The number of stakeholders a business has"
+            "Revenue is total income; profit is revenue minus expenses",
+            "Revenue and profit are the same thing",
+            "Profit is what you earn before selling anything",
+            "Revenue includes costs, profit does not"
           ],
-          correctAnswer: 1,
-          explanation: "Profit is what's left after all costs and expenses are subtracted, not the total money that comes in.",
+          correctAnswer: 0,
+          explanation: "Revenue is all the money a business takes in. Profit is what's left of that revenue after its expenses are subtracted.",
           concept: "profit-and-risk"
         },
         {
           id: "glo11-mx-2",
-          difficulty: -1.0,
-          question: "What causes a business to have a loss?",
+          difficulty: 0.0,
+          question: "What is the difference between standard of living and quality of life?",
           options: [
-            "Its costs and expenses are higher than its revenues",
-            "It has too many stakeholders",
-            "It raises the standard of living",
-            "It refuses to take on any risk"
+            "They mean the same thing",
+            "Standard of living measures material possessions; quality of life measures overall well-being and happiness",
+            "Quality of life is only about money",
+            "Standard of living is about happiness"
           ],
-          correctAnswer: 0,
-          explanation: "A loss happens when costs and expenses exceed revenue: the business spent more than it took in.",
-          concept: "profit-and-risk"
+          correctAnswer: 1,
+          explanation: "Standard of living is about the material goods and services people can afford; quality of life is the broader sense of well-being, including things money can't buy.",
+          concept: "standard-of-living"
         },
         {
           id: "glo11-mx-3",
-          difficulty: -0.5,
-          question: "How do businesses generally raise the standard of living for people beyond just their owners?",
-          options: [
-            "By creating jobs, paying taxes, and producing the goods and services people need",
-            "By keeping wages as low as possible so products can be sold more cheaply",
-            "By donating most of their yearly profits directly back to the government",
-            "By hiring as few workers as they possibly can to hold down costs"
-          ],
-          correctAnswer: 0,
-          explanation: "Jobs, tax revenue, and the goods/services produced are how businesses raise living standards for the wider community, not just owners.",
-          concept: "standard-of-living"
-        },
-        {
-          id: "glo11-mx-4",
           difficulty: 0.5,
-          question: "How are nonprofit organizations similar to for-profit businesses?",
+          question: "What is risk, and how is it related to profit?",
           options: [
-            "Both have to manage their costs and use their resources efficiently to keep running",
-            "Both exist mainly to earn a large profit for the people who own them",
-            "Both raise almost all of their money by selling shares of stock to investors",
-            "Both measure their success only by the amount of profit they make each year"
+            "Risk is the chance of loss; higher risk can lead to higher profit potential",
+            "Risk has no connection to profit",
+            "All business decisions have zero risk",
+            "Risk only exists in small businesses"
           ],
           correctAnswer: 0,
-          explanation: "A nonprofit runs on a mission rather than owner profit and is funded largely by donations and grants, but like any business it still has to manage costs and use resources efficiently to keep operating.",
-          concept: "standard-of-living"
-        },
-        {
-          id: "glo11-mx-5",
-          difficulty: 0.0,
-          question: "Which group would NOT typically be considered a stakeholder in a business?",
-          options: [
-            "Employees who work for the business",
-            "Suppliers who sell it materials",
-            "The local community around the business",
-            "A person who has never heard of it and never will"
-          ],
-          correctAnswer: 3,
-          explanation: "A stakeholder has some connection to or interest in the business. Someone with zero connection to it isn't a stakeholder.",
-          concept: "stakeholders"
-        },
-        {
-          id: "glo11-mx-6",
-          difficulty: 1.0,
-          question: "A business cuts corners with suppliers and underpays workers to boost this quarter's profit. What's the likely long-term risk?",
-          options: [
-            "The savings look good now, but lawsuits, bad press, and lost trust often follow",
-            "The workers and suppliers will simply accept the changes to keep their jobs",
-            "Competitors will be forced to cut their own corners in the exact same way",
-            "The higher profit this quarter locks in a permanent advantage over rivals"
-          ],
-          correctAnswer: 0,
-          explanation: "Squeezing stakeholders for short-term gain tends to create larger risks down the road, whether reputational, legal, or financial.",
-          concept: "stakeholders"
-        },
-        {
-          id: "glo11-mx-7",
-          difficulty: 1.0,
-          question: "What is the core balancing act every business has to manage?",
-          options: [
-            "Meeting the needs of its stakeholders while still earning a healthy profit",
-            "Growing profit as fast as possible and letting stakeholders sort themselves out",
-            "Keeping every single stakeholder perfectly happy, even at a steady loss",
-            "Focusing only on the stakeholders who spend the most money with it"
-          ],
-          correctAnswer: 0,
-          explanation: "The core balancing act is meeting stakeholder needs AND making a profit, not one at the total expense of the other.",
-          concept: "stakeholders"
+          explanation: "Risk is the chance of losing time and money. Risk and profit move together: taking on more risk is only worth it when the potential profit is bigger too.",
+          concept: "profit-and-risk"
         }
       ]
     }

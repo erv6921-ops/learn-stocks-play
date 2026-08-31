@@ -24,6 +24,8 @@ import { ActivityCheckRenderer } from "@/components/lesson/ActivityCheckRenderer
 import { HintProvider } from "@/components/lesson/HintContext"
 import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext"
 import { LessonCompletionScreen } from "@/components/lesson/LessonCompletionScreen"
+import { DefinitionPracticeCard } from "@/components/lesson/DefinitionPracticeCard"
+import { getDefinitionPractice } from "@/data/definitionPractice"
 import JeffChat from "@/components/lessons/JeffChat"
 import { buildScript, isDeepLesson, clearChat } from "@/lib/jeffChatLesson"
 import { Textarea } from "@/components/ui/textarea"
@@ -246,6 +248,11 @@ export default function LessonDetail() {
   const [masteryAttempt, setMasteryAttempt] = useState(() => ({ sessionId: crypto.randomUUID(), attemptNumber: 1 }))
   const reflectionPrompt = lesson ? getReflectionPrompt(lesson.id, lesson.category) : ""
   const reflectionWords = reflectionText.trim().split(/\s+/).filter(Boolean).length
+  // Lessons with a definition-practice override replace the post-mastery
+  // reflection with a mandatory "Define These Key Terms" card (same gate: the
+  // student can't reach the finish screen until it's done). Practice only —
+  // no mastery/theta impact, no DB write of the answers.
+  const definitionPractice = lesson ? getDefinitionPractice(lesson.id) : null
 
   if (!lesson || !structuredContent) {
     return (
@@ -406,6 +413,17 @@ export default function LessonDetail() {
     } catch { /* never block lesson completion on a save hiccup */ }
     setSavingReflection(false)
     earnJeffs(REFLECTION_BONUS, `Reflection journal: ${lesson.title}`)
+    setReflectionDone(true)
+    finishLesson(pendingMastery.correct, pendingMastery.attempts)
+  }
+
+  // Definition-practice equivalent of handleReflectionSubmit: it gates the same
+  // pendingMastery → finish transition. Purely practice, so it never touches the
+  // mastery score; it awards the same completion bonus as a reflection and marks
+  // reflectionDone so the finish screen credits it consistently.
+  const handleDefinitionComplete = () => {
+    if (!pendingMastery) return
+    earnJeffs(REFLECTION_BONUS, `Definition practice: ${lesson.title}`)
     setReflectionDone(true)
     finishLesson(pendingMastery.correct, pendingMastery.attempts)
   }
@@ -606,6 +624,12 @@ export default function LessonDetail() {
               </Button>
             </CardContent>
           </Card>
+        ) : pendingMastery && !lessonFinished && definitionPractice ? (
+          /* ─── Mandatory "Define These Key Terms" card (replaces reflection) ─── */
+          <DefinitionPracticeCard
+            definition={definitionPractice}
+            onComplete={handleDefinitionComplete}
+          />
         ) : pendingMastery && !lessonFinished ? (
           /* ─── "Make It Stick" reflection - apply the lesson to your own life ─── */
           <Card variant="elevated">
