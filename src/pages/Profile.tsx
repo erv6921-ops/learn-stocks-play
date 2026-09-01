@@ -26,7 +26,7 @@ import {
   Gamepad2, Lock, CheckCircle2, ChevronRight, Trophy, Rocket,
   Pencil, Sun, Moon, Monitor, Palette, Check,
   Crown, Medal, Target, Gem, PiggyBank, Briefcase, LineChart, Brain,
-  Shield, Banknote, Diamond, BarChart3, Wallet, Compass, Trash2,
+  Shield, Banknote, Diamond, BarChart3, Wallet, Compass, Trash2, LogOut,
 } from "lucide-react"
 import { anchor } from "@/lib/tourAnchors"
 import { loadActivities } from "@/lib/businessActivities"
@@ -184,6 +184,54 @@ export default function Profile() {
   const [dailyGames, setDailyGames] = useState<{ game_type: string; coins_earned: number | null; completed_at: string | null }[]>([])
   const [business, setBusiness] = useState<BusinessSnapshot | null>(null)
   const [extrasLoaded, setExtrasLoaded] = useState(false)
+
+  // ── Classes the student belongs to (may be more than one) ──
+  const [myClasses, setMyClasses] = useState<{ id: string; name: string; joinCode: string }[]>([])
+  const [leaveTarget, setLeaveTarget] = useState<{ id: string; name: string } | null>(null)
+  const [leaving, setLeaving] = useState(false)
+
+  // Load every class this student is enrolled in (mirrors the Leaderboard).
+  useEffect(() => {
+    if (!user?.id) return
+    let active = true
+    void (async () => {
+      const { data: memberships } = await supabase
+        .from("class_members")
+        .select("class_id")
+        .eq("user_id", user.id)
+      if (!active || !memberships || memberships.length === 0) {
+        if (active) setMyClasses([])
+        return
+      }
+      const classIds = memberships.map(m => m.class_id)
+      const { data: classes } = await supabase
+        .from("classes")
+        .select("id, name, join_code")
+        .in("id", classIds)
+      if (active && classes) {
+        setMyClasses(classes.map(c => ({ id: c.id, name: c.name, joinCode: c.join_code })))
+      }
+    })()
+    return () => { active = false }
+  }, [user?.id])
+
+  const handleLeaveClass = async () => {
+    if (!user?.id || !leaveTarget) return
+    setLeaving(true)
+    const { error } = await supabase
+      .from("class_members")
+      .delete()
+      .eq("class_id", leaveTarget.id)
+      .eq("user_id", user.id)
+    setLeaving(false)
+    if (error) {
+      toast.error("Couldn't leave the class. Please try again.")
+      return
+    }
+    setMyClasses(prev => prev.filter(c => c.id !== leaveTarget.id))
+    toast.success(`You've left ${leaveTarget.name}.`)
+    setLeaveTarget(null)
+  }
 
   // Pull the data that isn't already in AppContext: daily-game plays and the
   // micro-business snapshot. RLS scopes everything to the signed-in user.
@@ -516,6 +564,60 @@ export default function Profile() {
             </CardContent>
           </Card>
         </motion.div>
+
+        {/* ── MY CLASSES ── */}
+        {myClasses.length > 0 && (
+          <motion.div variants={item}>
+            <Card variant="elevated">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <School className="w-5 h-5 text-primary" /> My {myClasses.length === 1 ? "Class" : "Classes"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {myClasses.map(c => (
+                  <div key={c.id} className="flex items-center gap-3 p-3 rounded-xl bg-muted/40 border border-border/50">
+                    <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <School className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-sm truncate">{c.name}</p>
+                      <p className="text-xs text-muted-foreground flex items-center gap-1">
+                        <KeyRound className="w-3 h-3" /> {c.joinCode}
+                      </p>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="press-scale shrink-0 gap-1.5 text-destructive hover:text-destructive"
+                      onClick={() => setLeaveTarget({ id: c.id, name: c.name })}
+                    >
+                      <LogOut className="w-3.5 h-3.5" /> Leave
+                    </Button>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+
+        <Dialog open={!!leaveTarget} onOpenChange={(o) => { if (!leaving && !o) setLeaveTarget(null) }}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Leave this class?</DialogTitle>
+              <DialogDescription>
+                You'll be removed from <span className="font-semibold">{leaveTarget?.name}</span> and its leaderboard.
+                Your progress and coins stay with your account. You can rejoin later with the class code.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button variant="ghost" onClick={() => setLeaveTarget(null)} disabled={leaving}>Cancel</Button>
+              <Button variant="destructive" onClick={handleLeaveClass} disabled={leaving}>
+                {leaving ? "Leaving…" : "Leave class"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         {/* ── DANGER ZONE ── */}
         <motion.div variants={item}>
