@@ -30,6 +30,11 @@ export interface UserProfile {
   // profiles.track. Drives AP-tab hiding and which course tabs are shown. This
   // is DISTINCT from CourseTrack below, which is client-side Missions view state.
   track?: EnrollmentTrack
+  // Teacher-assigned enrollment track (profiles.assigned_track). Overrides the
+  // self-selected `track` for program scoping - e.g. which lessons a teacher can
+  // assign. Separate from `track` so a teacher's assignment is distinguishable
+  // from the student's own onboarding choice.
+  assigned_track?: EnrollmentTrack
   // Geography (the student's state), from profiles.state_course. SEPARATE from
   // track: it does not decide the curriculum, but gates the Florida-only tracks
   // (biz_lab, gulliver_intro). NULL means "never captured", not "not Florida".

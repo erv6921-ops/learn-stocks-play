@@ -859,6 +859,7 @@ export type Database = {
         Row: {
           age: number | null
           assessment_score: number
+          assigned_track: Database["public"]["Enums"]["enrollment_track"] | null
           benchmark_category_scores: Json
           benchmark_scores: Json
           biz_lab_enrolled: boolean
@@ -884,6 +885,7 @@ export type Database = {
         Insert: {
           age?: number | null
           assessment_score?: number
+          assigned_track?: Database["public"]["Enums"]["enrollment_track"] | null
           benchmark_category_scores?: Json
           benchmark_scores?: Json
           biz_lab_enrolled?: boolean
@@ -909,6 +911,7 @@ export type Database = {
         Update: {
           age?: number | null
           assessment_score?: number
+          assigned_track?: Database["public"]["Enums"]["enrollment_track"] | null
           benchmark_category_scores?: Json
           benchmark_scores?: Json
           biz_lab_enrolled?: boolean

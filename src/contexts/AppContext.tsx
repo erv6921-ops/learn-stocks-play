@@ -297,6 +297,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
           rewardMultiplier: profile.reward_multiplier ?? 1,
           track: applyPendingTrack(uid, resolveTrack(profile)),
+          assigned_track: (profile.assigned_track as EnrollmentTrack | null) ?? undefined,
           stateCourse: profile.state_course ?? undefined,
           createdAt: new Date(profile.created_at ?? Date.now()),
         }
@@ -436,6 +437,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
               benchmarkCategoryScores: (existingUser.benchmark_category_scores as any) ?? {},
               rewardMultiplier: existingUser.reward_multiplier ?? 1,
               track: applyPendingTrack(session.user.id, resolveTrack(existingUser)),
+              assigned_track: (existingUser.assigned_track as EnrollmentTrack | null) ?? undefined,
               stateCourse: existingUser.state_course ?? undefined,
               createdAt: new Date(existingUser.created_at ?? Date.now()),
             })

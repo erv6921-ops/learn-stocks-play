@@ -215,7 +215,7 @@ export default function TeacherDashboard() {
   // Scope the assignable-lesson list to the teacher's program. A Gulliver Intro
   // teacher only assigns the 8 LO lessons; every other track keeps the full
   // curriculum. (CourseTrack "gulliver-intro" vs the enrollment "gulliver_intro".)
-  const assignableLessons = appUser?.track === "gulliver_intro"
+  const assignableLessons = appUser?.assigned_track === "gulliver_intro"
     ? getLessonsByTrack("gulliver-intro")
     : lessons
 
