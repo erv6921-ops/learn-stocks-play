@@ -188,7 +188,7 @@ export interface QuizQuestion {
 // ═══════════════════════════════════════════════
 
 export interface LessonContentSection {
-  type: "concept" | "micro-check" | "scenario" | "applied-question" | "recap" | "mastery-check" | "activity-check"
+  type: "concept" | "micro-check" | "scenario" | "applied-question" | "recap" | "mastery-check" | "activity-check" | "interactive-diagram"
 }
 
 export interface ConceptSection extends LessonContentSection {
@@ -225,6 +225,10 @@ export interface MasteryCheckSection extends LessonContentSection {
   type: "mastery-check"
   questions: QuizQuestion[]
   requiredCorrect: number
+  // When true, the lesson pipeline shows EXACTLY these authored questions: no
+  // supplemental retry-variety padding is mixed into the pool (a retry re-shows
+  // the same set). Use for hand-tuned mastery checks that must stay verbatim.
+  lockQuestions?: boolean
 }
 
 // ═══════════════════════════════════════════════
@@ -320,7 +324,31 @@ export interface ActivityCheckSection extends LessonContentSection {
   activity: ActivityCheck
 }
 
-export type LessonSection = ConceptSection | MicroCheckSection | ScenarioSection | AppliedQuestionSection | RecapSection | MasteryCheckSection | ActivityCheckSection
+// ═══════════════════════════════════════════════
+// INTERACTIVE DIAGRAMS ("Explore")
+// Self-contained animated SVG models the student explores between concept
+// sections — the "Explore" tier of the IB Economics module. The section only
+// names WHICH diagram to show; all pedagogical content (nodes, labels, points,
+// scenarios) is baked into the matching component in DiagramRenderer.tsx, since
+// each diagram is a fixed model rather than authorable data. Rendered like a
+// concept section (explore, then Continue); not scored.
+// ═══════════════════════════════════════════════
+export type DiagramKind =
+  | "ppf"              // Production Possibilities Curve with growth/tech/resource scenarios
+  | "circular-flow"    // Households ↔ Firms real & money flows
+  | "concept-network"  // The 9 key concepts, scarcity at the hub
+  | "factors-tree"     // Land / Labour / Capital (4 types) / Entrepreneurship
+  | "economic-systems" // Traditional / Market / Command / Mixed comparison
+  | "micro-macro"      // Microscope vs. telescope side-by-side
+
+export interface InteractiveDiagramSection extends LessonContentSection {
+  type: "interactive-diagram"
+  diagram: DiagramKind
+  title?: string
+  caption?: string
+}
+
+export type LessonSection = ConceptSection | MicroCheckSection | ScenarioSection | AppliedQuestionSection | RecapSection | MasteryCheckSection | ActivityCheckSection | InteractiveDiagramSection
 
 export interface StructuredLessonContent {
   lessonId: string

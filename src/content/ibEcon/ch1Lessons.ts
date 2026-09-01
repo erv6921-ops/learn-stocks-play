@@ -47,6 +47,12 @@ export const ibEcon1_1: StructuredLessonContent = {
       realWorldExample: "\"Why did the price of eggs at my local store double?\" is microeconomics — one good, one market. \"Why did the cost of almost everything rise 8% across the country last year?\" is macroeconomics — the overall price level across the whole economy."
     },
     {
+      type: "interactive-diagram",
+      diagram: "micro-macro",
+      title: "Two Lenses on the Same Economy",
+      caption: "Tap the microscope and the telescope to compare what each lens studies and the kinds of questions it asks."
+    },
+    {
       type: "concept",
       title: "Economics Is a Social Science",
       paragraphs: [
@@ -77,6 +83,12 @@ export const ibEcon1_1: StructuredLessonContent = {
         "**Interdependence**: decision-makers — individuals, firms, governments, nations — depend on and interact with one another. Nobody is fully self-sufficient.",
         "**Intervention**: government stepping into markets to fix problems markets create on their own — issues of equity, sustainability, well-being, or efficiency."
       ]
+    },
+    {
+      type: "interactive-diagram",
+      diagram: "concept-network",
+      title: "The 9 Key Concepts, Mapped",
+      caption: "Scarcity sits at the hub because it's the root problem every other concept responds to. Tap any concept to see its definition, why it matters, and a real example."
     },
     {
       type: "micro-check",
@@ -134,6 +146,12 @@ export const ibEcon1_1: StructuredLessonContent = {
         "Other 'capitals': **human capital** (skills/knowledge/health), **natural capital** (air, soil, biodiversity, climate), **financial capital** (money, stocks, bonds)."
       ],
       realWorldExample: "A bakery uses all four factors: the plot of land it sits on (land), the bakers (labour), the ovens and mixers (physical capital), and the founder who risked her savings and organized it all (entrepreneurship). Her trained bakers also represent human capital, and the loan that bought the ovens was financial capital."
+    },
+    {
+      type: "interactive-diagram",
+      diagram: "factors-tree",
+      title: "The Four Factors, Broken Down",
+      caption: "Expand each factor to see its categories — and notice that 'capital' alone splits into four kinds (physical, human, natural, financial)."
     },
     {
       type: "micro-check",
@@ -202,6 +220,21 @@ export const ibEcon1_1: StructuredLessonContent = {
         correctAnswer: 1,
         explanation: "Opportunity cost is the value of the single next-best alternative given up. The best option she passed on was the $80 shift (worth more to her than the $60 of studying), so her opportunity cost is $80 — not the sum of everything forgone.",
         concept: "opportunity-cost"
+      }
+    },
+    {
+      type: "activity-check",
+      title: "Flashcards: Foundations Vocabulary",
+      activity: {
+        kind: "vocab-match",
+        pairs: [
+          { term: "Scarcity", definition: "Limited resources set against unlimited human wants" },
+          { term: "Opportunity cost", definition: "The value of the next-best alternative given up" },
+          { term: "Free good", definition: "Not scarce; zero opportunity cost" },
+          { term: "Economic good", definition: "Scarce; carries a positive opportunity cost" },
+          { term: "Entrepreneurship", definition: "Innovating, bearing risk, and organising the other factors" }
+        ],
+        explanation: "These five carry the whole lesson: scarcity forces choice, every choice has an opportunity cost, and goods are 'free' or 'economic' depending on whether using them costs an alternative."
       }
     },
     {
@@ -430,6 +463,12 @@ export const ibEcon1_2: StructuredLessonContent = {
         "**Rationing** = how scarce things are shared out; price rationing uses prices, non-price rationing uses queues/commands/coupons."
       ],
       realWorldExample: "Buying a concert ticket that sells out by price — highest bidders get in — is price rationing. Getting a hospital surgery by waiting your turn on a months-long list, regardless of what you'd pay, is non-price rationing. Most countries use both, in different sectors."
+    },
+    {
+      type: "interactive-diagram",
+      diagram: "economic-systems",
+      title: "Four Systems, Side by Side",
+      caption: "Tap each system to see how it answers What? / How? / For whom?, plus its strengths, weaknesses, and real-country examples."
     },
     {
       type: "micro-check",
@@ -670,6 +709,12 @@ export const ibEcon1_3: StructuredLessonContent = {
       realWorldExample: "An economy producing only 'pizzas' and 'robots' with all workers employed sits on its PPC. A recession that idles a quarter of the workforce pushes actual output to a point inside the curve. A point outside — more pizzas AND more robots than the frontier allows — is simply not reachable right now."
     },
     {
+      type: "interactive-diagram",
+      diagram: "ppf",
+      title: "Reading — and Shifting — the Frontier",
+      caption: "Points A/B/C are efficient, D wastes resources, E is unattainable. Tap the scenarios to watch actual growth (D onto the curve) and potential growth (the frontier shifts outward)."
+    },
+    {
       type: "concept",
       title: "Increasing vs. Constant Opportunity Cost",
       paragraphs: [
@@ -743,6 +788,12 @@ export const ibEcon1_3: StructuredLessonContent = {
         "Core identity: income flow = expenditure flow = value of output, all equal in a given period."
       ],
       realWorldExample: "When you take a taxi ride, you (a household) pay the fare through the product market — that's household expenditure and the firm's revenue. The taxi driver's wage flows the other way, from the firm to a household through the resource market, as income for the labour supplied."
+    },
+    {
+      type: "interactive-diagram",
+      diagram: "circular-flow",
+      title: "Follow the Two Loops",
+      caption: "Tap each arrow to trace what flows between households and firms. Notice the real flow (factors, goods) runs opposite to the money flow (income, spending)."
     },
     {
       type: "concept",

@@ -21,6 +21,7 @@ import {
   MasteryCheckRenderer,
 } from "@/components/lesson/SectionRenderer"
 import { ActivityCheckRenderer } from "@/components/lesson/ActivityCheckRenderer"
+import { DiagramRenderer } from "@/components/lesson/DiagramRenderer"
 import { HintProvider } from "@/components/lesson/HintContext"
 import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext"
 import { LessonCompletionScreen } from "@/components/lesson/LessonCompletionScreen"
@@ -197,6 +198,10 @@ export default function LessonDetail() {
       }
       if (section.type === "mastery-check") {
         const base = section.questions.map(deBias)
+        // lockQuestions: show exactly the authored set, no supplemental padding.
+        if (section.lockQuestions) {
+          return { ...section, questions: shuffleQuestionSet(base) }
+        }
         // Give the retry rotation headroom: enough distinct questions for a
         // couple of fresh attempts beyond the first. Extras are drawn from the
         // supplemental bank and de-duped against the authored mastery questions.
@@ -503,6 +508,8 @@ export default function LessonDetail() {
         return <MicroCheckRenderer key={idx} section={section} onContinue={handleSectionContinue} />
       case "activity-check":
         return <ActivityCheckRenderer key={idx} section={section} onContinue={handleSectionContinue} />
+      case "interactive-diagram":
+        return <DiagramRenderer key={idx} section={section} onContinue={handleSectionContinue} />
       case "scenario":
         return <ScenarioRenderer key={idx} section={section} onContinue={handleSectionContinue} />
       case "applied-question":

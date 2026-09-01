@@ -83,6 +83,13 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   const questionMs = (classSettings.secondsPerQuestion ?? questionSeconds(shuffledQ)) * 1000
   const [selected, setSelected] = useState<number | null>(null)
   const [revealed, setRevealed] = useState(false)
+  // After answering, the feedback + Continue button is appended below the
+  // options; on longer questions it can land off-screen, so Continue reads as
+  // missing. Scroll it into view once the answer is revealed.
+  const continueRef = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    if (revealed && showContinue) continueRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+  }, [revealed, showContinue])
   // Wrong options this question's hints have crossed out.
   const [eliminated, setEliminated] = useState<number[]>([])
   // Time-freeze power-up: once bought, the countdown for this question stops.
@@ -413,7 +420,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       )}
 
       {revealed && showContinue && (
-        <div className="pt-2">
+        <div ref={continueRef} className="pt-2">
           <Button size="sm" onClick={onContinue}>
             Continue <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
           </Button>

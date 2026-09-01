@@ -13,7 +13,7 @@
 //
 // All tap targets are >=44px; there are no hover-only affordances, so every
 // kind works on mobile.
-import { useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -73,6 +73,13 @@ export function ActivityCheckRenderer({
   const [clean, setClean] = useState<boolean | null>(null)
   const startRef = useRef(Date.now())
   const scoredRef = useRef(false)
+  // Once resolved, the result + Continue footer is appended below the activity.
+  // For multi-step kinds (esp. vocab-match) that footer can land off-screen, so
+  // the "Continue" button looks missing. Scroll it into view when it appears.
+  const footerRef = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    if (clean !== null) footerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+  }, [clean])
 
   const handleResolve = (wasClean: boolean) => {
     if (scoredRef.current) return
@@ -98,7 +105,7 @@ export function ActivityCheckRenderer({
         <ActivityBody activity={section.activity} onResolve={handleResolve} />
 
         {clean !== null && (
-          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
+          <motion.div ref={footerRef} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
             <div className={`p-4 rounded-lg border ${clean ? "bg-success/10 border-success/20" : "bg-amber-500/10 border-amber-500/20"}`}>
               <p className={`font-medium text-sm ${clean ? "text-success" : "text-amber-600"}`}>
                 {clean ? "✓ Nailed it!" : "✗ Not quite — here's the idea"}

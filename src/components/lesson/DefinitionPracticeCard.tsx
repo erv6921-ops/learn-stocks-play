@@ -17,8 +17,9 @@ const MIN_CHARS = 20
  * Mandatory "Define These Key Terms" practice card shown in place of the
  * post-mastery reflection for lessons that define one. The student writes a
  * definition for each term, checks it against the reference answer in a modal,
- * then confirms to continue. Purely practice — the parent's onComplete just
- * finishes the lesson; nothing here touches the mastery score or theta.
+ * and then — right there beside the correct definitions — clicks a button that
+ * finishes the lesson. Purely practice: onComplete just ends the lesson;
+ * nothing here touches the mastery score or theta.
  */
 export function DefinitionPracticeCard({
   definition,
@@ -30,17 +31,11 @@ export function DefinitionPracticeCard({
   const { title, subtitle, terms } = definition
   const [answers, setAnswers] = useState<string[]>(() => terms.map(() => ""))
   const [modalOpen, setModalOpen] = useState(false)
-  // Becomes true once the student has opened and dismissed the answer modal.
-  // Gates the switch from "Check Definitions" to "Confirm & Continue".
-  const [hasChecked, setHasChecked] = useState(false)
 
   const allFilled = answers.every((a) => a.trim().length >= MIN_CHARS)
 
   const updateAnswer = (idx: number, value: string) => {
     setAnswers((prev) => prev.map((a, i) => (i === idx ? value : a)))
-    // Editing after a check means they haven't reviewed THIS version yet, so
-    // send them back through "Check Definitions" before they can confirm.
-    if (hasChecked) setHasChecked(false)
   }
 
   return (
@@ -76,45 +71,25 @@ export function DefinitionPracticeCard({
       </div>
 
       <div className="mt-6">
-        {!hasChecked ? (
-          <Button
-            size="lg"
-            className="w-full font-bold"
-            disabled={!allFilled}
-            onClick={() => setModalOpen(true)}
-          >
-            Check Definitions
-          </Button>
-        ) : (
-          <>
-            <Button size="lg" className="w-full font-bold" onClick={onComplete}>
-              Confirm &amp; Continue <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-            <button
-              type="button"
-              onClick={() => setModalOpen(true)}
-              className="mt-2 w-full text-center text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
-            >
-              Review the answers again
-            </button>
-          </>
-        )}
+        <Button
+          size="lg"
+          className="w-full font-bold"
+          disabled={!allFilled}
+          onClick={() => setModalOpen(true)}
+        >
+          Check Definitions
+        </Button>
       </div>
 
       {/* Answer review: each term shows the student's attempt next to the
-          reference definition. Dismissing it unlocks "Confirm & Continue". */}
-      <Dialog
-        open={modalOpen}
-        onOpenChange={(open) => {
-          setModalOpen(open)
-          if (!open) setHasChecked(true)
-        }}
-      >
+          reference definition, with a button to finish the lesson right here.
+          Closing (X) returns to the card so they can edit and re-check. */}
+      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>How did your definitions compare?</DialogTitle>
             <DialogDescription>
-              Read the reference definition next to what you wrote, then continue.
+              Read the reference definition next to what you wrote, then finish the lesson.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-5">
@@ -138,8 +113,8 @@ export function DefinitionPracticeCard({
               </div>
             ))}
           </div>
-          <Button className="w-full font-semibold" onClick={() => setModalOpen(false)}>
-            Got it
+          <Button size="lg" className="w-full font-bold" onClick={onComplete}>
+            Finish lesson <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
         </DialogContent>
       </Dialog>
