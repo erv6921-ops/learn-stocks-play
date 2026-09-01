@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       assigned_lessons: {
@@ -468,6 +493,32 @@ export type Database = {
           },
         ]
       }
+      class_settings: {
+        Row: {
+          class_id: string
+          settings: Json
+          updated_at: string
+        }
+        Insert: {
+          class_id: string
+          settings?: Json
+          updated_at?: string
+        }
+        Update: {
+          class_id?: string
+          settings?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "class_settings_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: true
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       classes: {
         Row: {
           created_at: string | null
@@ -609,6 +660,36 @@ export type Database = {
         }
         Relationships: []
       }
+      lesson_grades: {
+        Row: {
+          feedback: string | null
+          grade: string | null
+          grade_percent: number | null
+          graded_by: string | null
+          lesson_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          feedback?: string | null
+          grade?: string | null
+          grade_percent?: number | null
+          graded_by?: string | null
+          lesson_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          feedback?: string | null
+          grade?: string | null
+          grade_percent?: number | null
+          graded_by?: string | null
+          lesson_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       lesson_progress: {
         Row: {
           completed: boolean
@@ -616,6 +697,7 @@ export type Database = {
           created_at: string
           id: string
           lesson_id: string
+          progress_percent: number | null
           quiz_score: number | null
           updated_at: string
           user_id: string
@@ -626,6 +708,7 @@ export type Database = {
           created_at?: string
           id?: string
           lesson_id: string
+          progress_percent?: number | null
           quiz_score?: number | null
           updated_at?: string
           user_id: string
@@ -636,6 +719,7 @@ export type Database = {
           created_at?: string
           id?: string
           lesson_id?: string
+          progress_percent?: number | null
           quiz_score?: number | null
           updated_at?: string
           user_id?: string
@@ -1013,6 +1097,45 @@ export type Database = {
         }
         Relationships: []
       }
+      stock_draft_sessions: {
+        Row: {
+          active: boolean
+          class_id: string
+          launched_at: string | null
+          launched_by: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          active?: boolean
+          class_id: string
+          launched_at?: string | null
+          launched_by?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          active?: boolean
+          class_id?: string
+          launched_at?: string | null
+          launched_by?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stock_draft_sessions_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: true
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stock_draft_sessions_launched_by_fkey"
+            columns: ["launched_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       stock_fundamentals: {
         Row: {
           avg_volume_3m: number | null
@@ -1106,6 +1229,57 @@ export type Database = {
         }
         Relationships: []
       }
+      stock_predictions: {
+        Row: {
+          class_id: string
+          company_name: string
+          created_at: string | null
+          id: string
+          locked: boolean | null
+          pick_date: string | null
+          pick_price: number
+          student_id: string
+          ticker: string
+        }
+        Insert: {
+          class_id: string
+          company_name: string
+          created_at?: string | null
+          id?: string
+          locked?: boolean | null
+          pick_date?: string | null
+          pick_price: number
+          student_id: string
+          ticker: string
+        }
+        Update: {
+          class_id?: string
+          company_name?: string
+          created_at?: string | null
+          id?: string
+          locked?: boolean | null
+          pick_date?: string | null
+          pick_price?: number
+          student_id?: string
+          ticker?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stock_predictions_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stock_predictions_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       stock_stats: {
         Row: {
           high_52_week: number | null
@@ -1133,6 +1307,75 @@ export type Database = {
           symbol?: string
           updated_at?: string | null
           volume?: number | null
+        }
+        Relationships: []
+      }
+      student_ability: {
+        Row: {
+          attempts: number
+          concept: string
+          se: number
+          theta: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          concept: string
+          se?: number
+          theta?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          concept?: string
+          se?: number
+          theta?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      student_activity_events: {
+        Row: {
+          created_at: string
+          duration_ms: number | null
+          id: string
+          is_correct: boolean | null
+          kind: string
+          lesson_id: string | null
+          meta: Json
+          question_id: string | null
+          route: string | null
+          selected_index: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          is_correct?: boolean | null
+          kind: string
+          lesson_id?: string | null
+          meta?: Json
+          question_id?: string | null
+          route?: string | null
+          selected_index?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          is_correct?: boolean | null
+          kind?: string
+          lesson_id?: string | null
+          meta?: Json
+          question_id?: string | null
+          route?: string | null
+          selected_index?: number | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -1414,6 +1657,16 @@ export type Database = {
           title: string
         }[]
       }
+      get_national_leaderboard: {
+        Args: never
+        Returns: {
+          first_name: string
+          last_name: string
+          state: string
+          user_id: string
+          xp: number
+        }[]
+      }
       get_partner_requests: {
         Args: never
         Returns: {
@@ -1446,6 +1699,20 @@ export type Database = {
           first_name: string
           last_name: string
           user_id: string
+        }[]
+      }
+      get_stock_predictions: {
+        Args: { _class_id: string }
+        Returns: {
+          company_name: string
+          first_name: string
+          id: string
+          last_name: string
+          locked: boolean
+          pick_date: string
+          pick_price: number
+          student_id: string
+          ticker: string
         }[]
       }
       has_role: {
@@ -1491,6 +1758,13 @@ export type Database = {
           _title: string
         }
         Returns: string
+      }
+      question_median_response_ms: {
+        Args: { _question_ids: string[] }
+        Returns: {
+          median_ms: number
+          question_id: string
+        }[]
       }
       remove_partner: { Args: { _other: string }; Returns: undefined }
       respond_partner_request: {
@@ -1663,6 +1937,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       app_role: ["teacher", "student"],
