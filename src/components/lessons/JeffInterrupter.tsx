@@ -145,8 +145,16 @@ function Footer({
   coinLabel?: string
   onContinue: () => void
 }) {
+  // This footer only mounts once the quick-check is solved. Inside the scrolling
+  // chat, the "Continue →" button can appear below the fold — so scroll it into
+  // view on mount, otherwise it reads as a missing/absent Continue button.
+  const ref = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+  }, [])
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.15 }}

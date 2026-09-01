@@ -107,22 +107,26 @@ export const gulliverLO1_1: StructuredLessonContent = {
     {
       // 3-in-a-row gate: with exactly three questions and requiredCorrect: 3,
       // the student must answer all three correctly in one pass — a single wrong
-      // answer fails the round and sends them back to retry.
+      // answer fails the round and sends them back to retry. lockQuestions keeps
+      // the pool to exactly these three (no supplemental padding), and every
+      // option is written to a similar length so the correct answer never stands
+      // out as the longest and the de-biasing pass leaves the wording untouched.
       type: "mastery-check",
       requiredCorrect: 3,
+      lockQuestions: true,
       questions: [
         {
           id: "glo11-mx-1",
           difficulty: -0.5,
           question: "What is the difference between revenue and profit?",
           options: [
-            "Revenue is total income; profit is revenue minus expenses",
-            "Revenue and profit are the same thing",
-            "Profit is what you earn before selling anything",
-            "Revenue includes costs, profit does not"
+            "Revenue is all the money taken in; profit is what remains after expenses",
+            "Revenue is the money left after expenses; profit is the total taken in",
+            "Revenue and profit both mean the total sales before any costs",
+            "Revenue is yearly income while profit is only the monthly income"
           ],
           correctAnswer: 0,
-          explanation: "Revenue is all the money a business takes in. Profit is what's left of that revenue after its expenses are subtracted.",
+          explanation: "Revenue is all the money a business takes in. Profit is what's left of that revenue after its expenses are subtracted — so option two has them backwards.",
           concept: "profit-and-risk"
         },
         {
@@ -130,12 +134,12 @@ export const gulliverLO1_1: StructuredLessonContent = {
           difficulty: 0.0,
           question: "What is the difference between standard of living and quality of life?",
           options: [
-            "They mean the same thing",
-            "Standard of living measures material possessions; quality of life measures overall well-being and happiness",
-            "Quality of life is only about money",
-            "Standard of living is about happiness"
+            "Standard of living measures the goods you can afford; quality of life measures well-being",
+            "Standard of living measures your overall happiness; quality of life measures the goods you afford",
+            "The two terms mean the same thing about a person's income and wealth",
+            "Standard of living applies to countries while quality of life applies to people"
           ],
-          correctAnswer: 1,
+          correctAnswer: 0,
           explanation: "Standard of living is about the material goods and services people can afford; quality of life is the broader sense of well-being, including things money can't buy.",
           concept: "standard-of-living"
         },
@@ -144,10 +148,10 @@ export const gulliverLO1_1: StructuredLessonContent = {
           difficulty: 0.5,
           question: "What is risk, and how is it related to profit?",
           options: [
-            "Risk is the chance of loss; higher risk can lead to higher profit potential",
-            "Risk has no connection to profit",
-            "All business decisions have zero risk",
-            "Risk only exists in small businesses"
+            "Risk is the chance of losing money, and more risk can mean more profit",
+            "Risk is a guarantee of losing money, so less risk always means more profit",
+            "Risk is the chance of losing money, but it has no effect on profit",
+            "Risk is the profit a business keeps after it pays all its expenses"
           ],
           correctAnswer: 0,
           explanation: "Risk is the chance of losing time and money. Risk and profit move together: taking on more risk is only worth it when the potential profit is bigger too.",
