@@ -225,6 +225,20 @@ export default function Auth() {
 
       if (error) throw error
 
+      // Supabase silently no-ops signUp for an email that's already
+      // registered and confirmed (identities comes back empty, with no error
+      // and no session) to avoid leaking which emails exist. Without this
+      // check we'd tell the user we emailed them a code that was never sent,
+      // and they'd be stuck forever on the code screen.
+      if (!data.session && data.user?.identities?.length === 0) {
+        toast({
+          title: "Account already exists",
+          description: "Use the Log in link to sign back into your account.",
+          variant: "destructive",
+        })
+        return
+      }
+
       // Profile + role are auto-created by the on_auth_user_created trigger
       // from the role metadata above. If a session exists (email confirmation
       // off), route in; otherwise move to the 6-digit code entry step - the
