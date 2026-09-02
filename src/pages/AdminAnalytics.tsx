@@ -52,9 +52,8 @@ import {
 // under RLS — a teacher only sees events RLS lets them read.
 // ---------------------------------------------------------------------------
 
-// Practical admin allowlist. app_role is only "teacher" | "student" in the DB,
-// so anyone who needs the dashboard but isn't a teacher goes here.
-const ADMIN_EMAILS = ["eduardovalle.10@gmail.com"]
+// Admin allowlist. Only these emails may view the dashboard.
+const ADMIN_EMAILS = ["erv6921@gmail.com"]
 
 const DAY_MS = 24 * 60 * 60 * 1000
 
@@ -120,13 +119,10 @@ function numAmount(v: unknown): number {
 }
 
 export default function AdminAnalytics() {
-  const { user, loading: authLoading, role } = useAuth()
+  const { user, loading: authLoading } = useAuth()
 
   const allowed =
-    !!user &&
-    (role === "teacher" ||
-      (role as string) === "admin" ||
-      ADMIN_EMAILS.includes((user.email ?? "").toLowerCase()))
+    !!user && ADMIN_EMAILS.includes((user.email ?? "").toLowerCase())
 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
