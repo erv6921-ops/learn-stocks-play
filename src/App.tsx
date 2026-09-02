@@ -39,6 +39,7 @@ import Homework from "./pages/Homework";
 import Partners from "./pages/Partners";
 import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
+import AdminAnalytics from "./pages/AdminAnalytics";
 import { DashboardPopups } from "./components/popups/DashboardPopups";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
@@ -184,6 +185,7 @@ function AppRoutes() {
       <Route path="/partners" element={<Partners />} />
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />
+      <Route path="/admin/analytics" element={<AdminAnalytics />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     </ErrorBoundary>
