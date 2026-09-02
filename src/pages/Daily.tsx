@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback, useRef } from "react"
 import GameNav from "@/components/GameNav"
 import DailyScenario from "@/components/games/DailyScenario"
 import HigherOrLower from "@/components/games/HigherOrLower"
@@ -18,6 +18,7 @@ import {
 import { toast } from "sonner"
 import { Coins, Lock, Calendar, Loader2, PartyPopper } from "lucide-react"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
+import { logEvent } from "@/lib/analyticsEvents"
 
 interface Completion {
   game_type: DailyGameType
@@ -45,6 +46,17 @@ export default function Daily() {
     const t = setInterval(() => setCountdown(msUntilMidnight()), 1000)
     return () => clearInterval(t)
   }, [])
+
+  // Analytics: normalized game name + a start timestamp for time-to-finish.
+  const gameLabel = gameType === "scenario" ? "daily_scenario" : "higher_or_lower"
+  const gameStartedAtRef = useRef(Date.now())
+  // Log once when a playable (not-yet-completed) game is shown.
+  useEffect(() => {
+    if (loading || completion) return
+    gameStartedAtRef.current = Date.now()
+    logEvent("game_played", { gameType: gameLabel })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, completion, gameType])
 
   // Check whether today's game is already completed.
   useEffect(() => {
@@ -96,15 +108,18 @@ export default function Daily() {
       }
       if (coins > 0) {
         earnJeffs(coins, `Daily Game: ${gameTypeLabel(gameType)}`)
+        logEvent("game_won", { gameType: gameLabel, coinsEarned: coins, time_ms: Date.now() - gameStartedAtRef.current })
         toast.success(`+${coins} InvestiCoins!`, {
           description: "Nice work - come back tomorrow for more.",
         })
+      } else {
+        logEvent("game_lost", { gameType: gameLabel })
       }
       setCompletion({ game_type: gameType, score, coins_earned: coins })
       setJustFinished(true)
       setSubmitting(false)
     },
-    [user?.id, submitting, dateKey, gameType, earnJeffs]
+    [user?.id, submitting, dateKey, gameType, gameLabel, earnJeffs]
   )
 
   return (

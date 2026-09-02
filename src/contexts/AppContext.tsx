@@ -4,6 +4,7 @@ import { UserProfile, LessonProgress, Token, StockHolding, MasteryTier, Enrollme
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { recordMoneyEvent } from "@/lib/notifications"
+import { logEvent } from "@/lib/analyticsEvents"
 import { DEV_LOCAL_BYPASS, DEV_LOCAL_USER_ID } from "@/lib/devBypass"
 import { isExplicitlyNonFlorida } from "@/lib/geography"
 
@@ -591,6 +592,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // Surface this coin movement in the notification center (bell in the nav).
     // entry.amount is already signed: positive = gained, negative = spent/lost.
     recordMoneyEvent(entry.amount, entry.reason)
+    // Analytics: one chokepoint for every coin earn/spend in the app. Sign of
+    // the amount decides the event; the reason string is the human-readable source.
+    if (entry.amount > 0) logEvent("coins_earned", { amount: entry.amount, reason: entry.reason })
+    else if (entry.amount < 0) logEvent("coins_spent", { amount: -entry.amount, reason: entry.reason })
     setJeffsHistory(prev => {
       const next = [...prev, entry]
       ls.set("investiplay_jeffs_history", next)
@@ -645,6 +650,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const totalCost = Math.round(shares * pricePerShare * 100) / 100
     if (jeffsBalance < totalCost) return false
     spendJeffs(totalCost, `Bought ${shares} shares of ${symbol}`)
+    logEvent("portfolio_traded", { ticker: symbol, action: "buy", shares, price: pricePerShare })
 
     setPortfolio(prev => {
       const existing = prev.find(h => h.symbol === symbol)
@@ -682,6 +688,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     const totalValue = Math.round(shares * pricePerShare * 100) / 100
     earnJeffs(totalValue, `Sold ${shares} shares of ${symbol}`)
+    logEvent("portfolio_traded", { ticker: symbol, action: "sell", shares, price: pricePerShare })
 
     setPortfolio(prev => {
       let removeRow = false
@@ -747,6 +754,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const addToWatchlist = (symbol: string) => {
     if (watchlist.includes(symbol)) return
+    logEvent("watchlist_added", { ticker: symbol })
     setWatchlist(prev => {
       const updated = [...prev, symbol]
       ls.set("investiplay_watchlist", updated)
@@ -761,6 +769,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   const removeFromWatchlist = (symbol: string) => {
+    logEvent("watchlist_removed", { ticker: symbol })
     setWatchlist(prev => {
       const updated = prev.filter(s => s !== symbol)
       ls.set("investiplay_watchlist", updated)

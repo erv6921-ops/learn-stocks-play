@@ -2,6 +2,8 @@ import React, { createContext, useContext, useRef, useState, ReactNode } from "r
 import { toast } from "sonner"
 import { useApp } from "@/contexts/AppContext"
 import { useAbility } from "@/hooks/useAbility"
+import { logEvent } from "@/lib/analyticsEvents"
+import { xpLevelForCoins } from "@/lib/xpLevels"
 
 /**
  * Per-answer signal the adaptive engine needs, gathered by the question UI
@@ -140,14 +142,21 @@ export function QuizSessionProvider({ children, lessonId, concept }: { children:
     const responseMs = ctx?.responseMs
     // Feed the adaptive engine: a correct answer, weighted by speed.
     if (ctx) ability.record({ isCorrect: true, responseMs: ctx.responseMs, questionB: ctx.questionB, expectedMs: ctx.expectedMs })
+    // Analytics: this fn is the chokepoint for every answered question.
+    logEvent("quiz_attempted", { topicId: concept, difficulty: ctx?.questionB, theta: ability.getTheta() })
     const newCombo = comboRef.current + 1
     comboRef.current = newCombo
     setCombo(newCombo)
+    logEvent("quiz_correct", { topicId: concept, correctTime_ms: responseMs, streak: newCombo })
     // Base reward is tiered by speed; the active combo then multiplies it.
     const { coins: base, tier } = rewardForSpeed(responseMs)
     const mult = comboMultiplier(newCombo)
     const total = base * mult
+    // Detect an xp-level crossing caused by this reward (level is coins-derived).
+    const prevLevel = xpLevelForCoins(balanceRef.current)
     awardJeffs(total, "Quiz correct answer")
+    const newLevel = xpLevelForCoins(balanceRef.current + total)
+    if (newLevel > prevLevel) logEvent("quiz_levelup", { level: newLevel, newTheta: ability.getTheta() })
     setCoinsEarned(c => c + total)
     setCoinsGained(g => g + total)
     setAnsweredCorrect(c => c + 1)
@@ -164,6 +173,8 @@ export function QuizSessionProvider({ children, lessonId, concept }: { children:
   const registerWrong = (coins = DEFAULT_COINS, ctx?: AnswerContext) => {
     // Feed the adaptive engine: a wrong answer (or timeout), weighted by speed.
     if (ctx) ability.record({ isCorrect: false, responseMs: ctx.responseMs, questionB: ctx.questionB, expectedMs: ctx.expectedMs })
+    logEvent("quiz_attempted", { topicId: concept, difficulty: ctx?.questionB, theta: ability.getTheta() })
+    logEvent("quiz_incorrect", { topicId: concept, attemptCount: answeredTotal + 1 })
     const broken = comboRef.current
     comboRef.current = 0
     setCombo(0)

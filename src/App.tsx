@@ -12,6 +12,7 @@ import { ClassSettingsProvider, useClassSettings } from "@/contexts/ClassSetting
 import { isPageLocked } from "@/lib/classSettings";
 import { useAuth } from "@/hooks/useAuth";
 import { logActivity } from "@/lib/analytics";
+import { logEvent } from "@/lib/analyticsEvents";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
@@ -77,6 +78,26 @@ function ActivityTracker() {
   const { user, isTeacher } = useAuth();
   const location = useLocation();
   const lastRef = useRef<{ path: string; t: number } | null>(null);
+
+  // Analytics: one session per app mount (browser tab). session_start fires on
+  // mount; session_end fires with elapsed ms on unmount AND on tab hide/close
+  // (React cleanup misses a hard close). A ref guards against a double-send when
+  // both fire. logEvent no-ops when signed out / under the dev bypass.
+  const sessionStartRef = useRef(Date.now());
+  const sessionEndedRef = useRef(false);
+  useEffect(() => {
+    logEvent("session_start");
+    const endSession = () => {
+      if (sessionEndedRef.current) return;
+      sessionEndedRef.current = true;
+      logEvent("session_end", { duration_ms: Date.now() - sessionStartRef.current });
+    };
+    window.addEventListener("pagehide", endSession);
+    return () => {
+      window.removeEventListener("pagehide", endSession);
+      endSession();
+    };
+  }, []);
 
   useEffect(() => {
     if (!user || isTeacher) return;

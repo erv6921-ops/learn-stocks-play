@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/useAuth"
 import { supabase } from "@/integrations/supabase/client"
 import { lessons } from "@/data/lessons"
 import { getStreak } from "@/lib/playerStats"
+import { logEvent } from "@/lib/analyticsEvents"
 import {
   computeMyScore, isExpired, type ChallengeMetric, type ClassChallenge,
   type ChallengeEntry, type RankedEntry,
@@ -250,6 +251,7 @@ export default function Challenges() {
       return
     }
     spendJeffs(ch.entry_fee, `Entered challenge: ${ch.title}`)
+    logEvent("class_challenge_joined", { challengeId: ch.id })
     await supabase.from("class_challenges").update({ pot: ch.pot + ch.entry_fee }).eq("id", ch.id)
     setSubmitting(false)
     setEnterOpen(false)

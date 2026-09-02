@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useState, useMemo, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { lessons } from "@/data/lessons"
@@ -28,6 +28,7 @@ import { LessonCompletionScreen } from "@/components/lesson/LessonCompletionScre
 import { DefinitionPracticeCard } from "@/components/lesson/DefinitionPracticeCard"
 import { getDefinitionPractice } from "@/data/definitionPractice"
 import JeffChat from "@/components/lessons/JeffChat"
+import { logEvent } from "@/lib/analyticsEvents"
 import { buildScript, isDeepLesson, clearChat } from "@/lib/jeffChatLesson"
 import { Textarea } from "@/components/ui/textarea"
 import { supabase } from "@/integrations/supabase/client"
@@ -52,6 +53,16 @@ export default function LessonDetail() {
   const lesson = lessons.find(l => l.id === id)
   const progress = lessonProgress.find(p => p.lessonId === id)
   const isCompleted = progress?.completed
+
+  // Analytics: log when a lesson is opened, and how long it was open at
+  // completion. Fires once per lesson id; the ref seeds the elapsed timer.
+  const lessonOpenedAtRef = useRef(Date.now())
+  useEffect(() => {
+    if (!lesson) return
+    lessonOpenedAtRef.current = Date.now()
+    logEvent("lesson_started", { lessonId: lesson.id, trackId: lesson.category })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lesson?.id])
 
   // Track regeneration attempts for mastery check failures
   const [regenerationCount, setRegenerationCount] = useState(0)
@@ -352,6 +363,7 @@ export default function LessonDetail() {
     setLessonFinished(true)
     const quizScore = attempts > 0 ? Math.round((correct / attempts) * 100) : 100
     updateLessonProgress(lesson.id, true, quizScore)
+    logEvent("lesson_completed", { lessonId: lesson.id, completedPercent: 100, timeSpent_ms: Date.now() - lessonOpenedAtRef.current })
     // No flat completion reward - coins are earned per question (right answers
     // gain coins, wrong ones lose them). The only completion-time bonus is the
     // optional reflection journal, awarded separately when it's submitted.

@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { toast } from "sonner"
 import { useApp } from "@/contexts/AppContext"
+import { logEvent } from "@/lib/analyticsEvents"
 import { useNetWorth } from "@/hooks/useNetWorth"
 import {
   MissionContext,
@@ -82,6 +83,7 @@ export function useDailyMissions({ award = false }: UseDailyMissionsOptions = {}
         updated[m.id] = true
         changed = true
         earnJeffs(m.reward, `Daily Mission: ${m.title}`)
+        logEvent("mission_completed", { missionId: m.id, missionType: m.difficulty, coinsEarned: m.reward })
         toast.success(`Mission complete: ${m.title}`, {
           description: `+${m.reward} InvestiCoins`,
         })
@@ -96,6 +98,21 @@ export function useDailyMissions({ award = false }: UseDailyMissionsOptions = {}
   useEffect(() => {
     checkAndAward()
   }, [checkAndAward])
+
+  // Analytics: log the day's still-open missions as "started" once per awarder
+  // mount (missions are passive daily goals, so mount = the student was offered
+  // them). Gated on `award` so only the single awarding instance logs, and on a
+  // ref so a remount within the same page load doesn't refire.
+  const startedLoggedRef = useRef(false)
+  useEffect(() => {
+    if (!award || startedLoggedRef.current || missions.length === 0) return
+    startedLoggedRef.current = true
+    const done = getCompletedState()
+    for (const m of missions) {
+      if (!done[m.id]) logEvent("mission_started", { missionId: m.id, missionType: m.difficulty })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [award, missions])
 
   // Keep local "completed" in sync for display even when not the awarder.
   useEffect(() => {

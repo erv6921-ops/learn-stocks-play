@@ -15,6 +15,7 @@ import type { JeffMoodType, JeffActivity } from "@/contexts/JeffContext"
 import { History, X } from "lucide-react"
 import type { Lesson } from "@/types"
 import { HighlightedText } from "@/lib/highlightTerms"
+import { logEvent } from "@/lib/analyticsEvents"
 import { useApp } from "@/contexts/AppContext"
 import JeffInterrupter, { type InterrupterResult } from "@/components/lessons/JeffInterrupter"
 import {
@@ -532,6 +533,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
   const send = async (choice: string) => {
     if (thinking) return
     const nextMessages: ChatMessage[] = [...messages, { role: "user", content: choice }]
+    logEvent("jeff_turn", { lessonId: lesson.id, turnNumber: nextMessages.filter(m => m.role === "user").length })
     setMessages(nextMessages)
     setOptions([])
     await requestReply(nextMessages)
