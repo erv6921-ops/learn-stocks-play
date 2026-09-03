@@ -701,6 +701,45 @@ function StudentDrawer({
           </Select>
         </div>
 
+        {!loading && !error && rows.length > 0 && (
+          <div className="grid grid-cols-3 gap-3">
+            <div className="rounded-md bg-blue-500/10 p-3">
+              <div className="text-xs text-muted-foreground">Time spent</div>
+              <div className="text-xl font-bold tabular-nums text-blue-600 dark:text-blue-400">
+                {Math.round(
+                  rows
+                    .filter(e => e.event === "session_end")
+                    .reduce(
+                      (sum, e) => sum + numAmount(e.event_data?.["duration_ms"]),
+                      0,
+                    ) / 60000,
+                )}{" "}
+                min
+              </div>
+            </div>
+
+            <div className="rounded-md bg-emerald-500/10 p-3">
+              <div className="text-xs text-muted-foreground">Coins earned</div>
+              <div className="text-xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+                {rows
+                  .filter(e => e.event === "coins_earned")
+                  .reduce(
+                    (sum, e) => sum + numAmount(e.event_data?.["amount"]),
+                    0,
+                  )
+                  .toLocaleString()}
+              </div>
+            </div>
+
+            <div className="rounded-md bg-purple-500/10 p-3">
+              <div className="text-xs text-muted-foreground">Lessons done</div>
+              <div className="text-xl font-bold tabular-nums text-purple-600 dark:text-purple-400">
+                {rows.filter(e => e.event === "lesson_completed").length}
+              </div>
+            </div>
+          </div>
+        )}
+
         {error ? (
           <div className="py-10 text-center text-sm text-destructive">
             {error}
