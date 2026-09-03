@@ -265,21 +265,27 @@ export default function AdminAnalytics() {
       if (!agg.last || r.created_at > agg.last) agg.last = r.created_at
     }
 
-    // Only surface real (student) accounts, but keep anyone who has events.
-    return profiles
-      .filter(p => p.role !== "teacher")
-      .map(p => {
-        const agg = byStudent.get(p.id)
+    // Build the roster from analytics_events (which admins can read in full)
+    // rather than from profiles, whose RLS may only expose the current user's
+    // own row and would otherwise collapse the table to a single student.
+    // profiles is used only to enrich a row with a name/email when available.
+    const profileById = new Map(profiles.map(p => [p.id, p]))
+
+    const roster = Array.from(byStudent.entries())
+      .map(([id, agg]) => {
+        const p = profileById.get(id)
         return {
-          id: p.id,
-          name: displayName(p),
-          email: p.email ?? "",
-          sessions: agg?.sessions.size ?? 0,
-          events: agg?.events ?? 0,
-          coins: agg?.coins ?? 0,
-          lastActive: agg?.last ?? null,
+          id,
+          name: p ? displayName(p) : "Unknown student",
+          email: p?.email ?? "",
+          sessions: agg.sessions.size,
+          events: agg.events,
+          coins: agg.coins,
+          lastActive: agg.last,
         }
       })
+
+    return roster
   }, [weekRows, profiles])
 
   // ---- Search + sort applied to the table. -------------------------------
