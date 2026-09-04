@@ -51,6 +51,7 @@ import {
   ClassSettings,
   DEFAULT_CLASS_SETTINGS,
   CONTROLLABLE_PAGES,
+  TOGGLEABLE_TRACKS, // MODIFIED: per-class curriculum track toggles
   normalizeClassSettings,
 } from "@/lib/classSettings"
 import {
@@ -862,6 +863,36 @@ export default function TeacherDashboard() {
     return Math.round(withWork.reduce((s, x) => s + x.percent, 0) / withWork.length)
   }, [studentChartData])
 
+  // MODIFIED: Lesson-completion analytics for the Student Progress card. Counts
+  // each student's completed lessons (lesson_progress.completed === true) that
+  // fall inside the tracks currently ENABLED for this class, out of the total
+  // lessons in those tracks - so a disabled track drops out of both numbers.
+  const enabledTrackLessonIds = useMemo(() => {
+    const ids = new Set<string>()
+    TOGGLEABLE_TRACKS.forEach((t) => {
+      if (classSettings.tracksEnabled[t.key] !== false) {
+        getLessonsByTrack(t.track).forEach((l) => ids.add(l.id))
+      }
+    })
+    return ids
+  }, [classSettings])
+
+  const studentLessonCompletion = useMemo(() => {
+    const total = enabledTrackLessonIds.size
+    return classMembers
+      .map((m) => {
+        const completed = m.completedLessonIds.filter((id) => enabledTrackLessonIds.has(id)).length
+        return {
+          id: m.id,
+          name: memberName(m),
+          completed,
+          total,
+          percent: total > 0 ? Math.round((completed / total) * 100) : 0,
+        }
+      })
+      .sort((a, b) => b.completed - a.completed)
+  }, [classMembers, enabledTrackLessonIds])
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -1354,6 +1385,34 @@ export default function TeacherDashboard() {
                       </div>
                     </div>
 
+                    {/* MODIFIED: Curriculum tracks students in this class can see. */}
+                    <div className="border-t pt-4">
+                      <p className="text-sm font-semibold mb-1">Curriculum tracks</p>
+                      <p className="text-xs text-muted-foreground mb-2">
+                        Turn a track off and its lessons disappear from every student in this class.
+                      </p>
+                      <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
+                        {TOGGLEABLE_TRACKS.map((t) => {
+                          const enabled = classSettings.tracksEnabled[t.key] !== false
+                          return (
+                            <div key={t.key} className="flex items-center justify-between py-1.5">
+                              <Label htmlFor={`trk-${t.key}`} className="text-sm cursor-pointer">{t.label}</Label>
+                              <Switch
+                                id={`trk-${t.key}`}
+                                checked={enabled}
+                                onCheckedChange={(on) =>
+                                  saveClassSettings({
+                                    ...classSettings,
+                                    tracksEnabled: { ...classSettings.tracksEnabled, [t.key]: on },
+                                  })
+                                }
+                              />
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+
                   </CardContent>
                 </Card>
                   </TabsContent>
@@ -1426,6 +1485,38 @@ export default function TeacherDashboard() {
                         </CardContent>
                       </Card>
                     </div>
+
+                    {/* MODIFIED: Student Progress - lessons completed per student. */}
+                    <Card variant="elevated">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-base flex items-center gap-2">
+                          <GraduationCap className="w-4 h-4 text-primary" /> Student progress
+                        </CardTitle>
+                        <CardDescription>
+                          Lessons each student has completed across the enabled tracks
+                          ({enabledTrackLessonIds.size} total).
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        {enabledTrackLessonIds.size === 0 ? (
+                          <p className="text-sm text-muted-foreground text-center py-6">
+                            All curriculum tracks are turned off for this class. Enable a track in Settings to track progress.
+                          </p>
+                        ) : (
+                          <div className="space-y-3">
+                            {studentLessonCompletion.map((s) => (
+                              <div key={s.id} className="flex items-center gap-3">
+                                <span className="text-sm font-medium w-32 shrink-0 truncate" title={s.name}>{s.name}</span>
+                                <Progress value={s.percent} className="h-2 flex-1" />
+                                <span className="text-xs text-muted-foreground tabular-nums w-20 text-right shrink-0">
+                                  {s.completed}/{s.total} lessons
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
 
                     {/* Lesson completion */}
                     {lessonChartData.length > 0 && (

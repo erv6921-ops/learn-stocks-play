@@ -94,10 +94,17 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
           <div className="rounded-xl p-4 bg-muted/50 border border-border mb-4">
             <p className="text-sm leading-relaxed">
               <span className={`font-bold ${correct ? "text-success" : "text-destructive"}`}>
-                {correct ? "Correct! " : "Not quite. "}
+                {correct ? "✓ Correct! " : "❌ Incorrect. "}
               </span>
               {scenario.explanation}
             </p>
+            {/* MODIFIED: a wrong answer must always spell out the correct choice. */}
+            {!correct && (
+              <p className="text-sm mt-2">
+                ✅ The correct answer is:{" "}
+                <strong className="text-success">{scenario.options[scenario.correctIndex]}</strong>
+              </p>
+            )}
           </div>
 
           {correct ? (

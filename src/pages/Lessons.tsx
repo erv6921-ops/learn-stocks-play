@@ -28,6 +28,9 @@ import { JeffChatAvatar } from "@/components/lessons/JeffChat";
 import VocabGlossary from "@/components/lessons/VocabGlossary";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
 import { anchor } from "@/lib/tourAnchors";
+// MODIFIED: teacher-controlled per-class track visibility.
+import { useClassSettings } from "@/contexts/ClassSettingsContext";
+import { isTrackEnabled } from "@/lib/classSettings";
 import MissionsWorldMap, { UnitMeta } from "@/components/MissionsWorldMap";
 
 // ── #4 Next-lesson one-line descriptions, keyed L<unit>.<lesson> ──
@@ -117,6 +120,8 @@ export default function Lessons() {
   // Biz Lab tab + content; `hidesApElective` gates the AP elective (hidden for
   // both Biz Lab and Gulliver Intro). If a stale view-state track was stored,
   // fall back to the regular course.
+  // MODIFIED: teacher-controlled track visibility for this student's class(es).
+  const classSettings = useClassSettings();
   const enrollmentTrack: EnrollmentTrack = user?.track ?? "regular";
   const bizLabEnrolled = enrollmentTrack === "biz_lab";
   const gulliverIntroEnrolled = enrollmentTrack === "gulliver_intro";
@@ -141,6 +146,16 @@ export default function Lessons() {
     // Keep non-IB-Econ students off the IB Econ course view.
     if (!ibEconEnrolled && activeTrack === "ib-econ") setActiveTrack("regular");
   }, [hidesApElective, bizLabEnrolled, gulliverIntroEnrolled, ibEconEnrolled, courseTrack, activeTrack]);
+
+  // MODIFIED: if the teacher has switched off the track the student is currently
+  // viewing, move them to an enabled one so they never sit on a hidden track.
+  // AP Micro is never teacher-gated, so a fallback always exists.
+  useEffect(() => {
+    if (isTrackEnabled(classSettings, activeTrack)) return;
+    const fallback: CourseTrack[] = [courseTrack, "regular", "ap-micro"];
+    const next = fallback.find((t) => isTrackEnabled(classSettings, t));
+    if (next && next !== activeTrack) setActiveTrack(next);
+  }, [classSettings, activeTrack, courseTrack]);
 
   // Biz Lab / Gulliver Intro students get the original Regular Course format
   // (roller coaster, badges, etc.) - never the AP Mode layout, even if AP Mode
@@ -492,6 +507,8 @@ export default function Lessons() {
         { key: "regular", label: "Personal Finance" },
         { key: "ap-micro", label: "AP Micro" },
       ];
+  // MODIFIED: drop any track the teacher has disabled for this class.
+  const visibleTrackTabs = trackTabs.filter((t) => isTrackEnabled(classSettings, t.key));
   const isMapView = activeTrack !== "gulliver-biz-lab" && !(effectiveApMode && activeTrack === "regular");
 
   // Live station + stats data shared by the small coaster and the fullscreen one.
@@ -590,7 +607,7 @@ export default function Lessons() {
           )}
           {/* Floating track switcher (keeps AP Micro / Biz Lab reachable). */}
           <div className="absolute top-3 right-3 md:top-4 md:right-4 z-20 inline-flex items-center rounded-full bg-white/90 backdrop-blur p-1 border border-black/5 shadow-md">
-            {trackTabs.map(tb => (
+            {visibleTrackTabs.map(tb => (
               <button
                 key={tb.key}
                 onClick={() => setActiveTrack(tb.key)}
@@ -647,7 +664,8 @@ export default function Lessons() {
                   { key: "regular", label: "Personal Finance" },
                   { key: "ap-micro", label: "AP Microeconomics" },
                 ]) as { key: CourseTrack; label: string }[]
-            ).map(t => (
+            // MODIFIED: hide any track the teacher has disabled for this class.
+            ).filter(t => isTrackEnabled(classSettings, t.key)).map(t => (
               <button
                 key={t.key}
                 onClick={() => setActiveTrack(t.key)}
