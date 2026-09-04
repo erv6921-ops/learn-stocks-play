@@ -12,8 +12,60 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          created_at: string
+          event: string
+          event_data: Json | null
+          id: string
+          session_id: string | null
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          event: string
+          event_data?: Json | null
+          id?: string
+          session_id?: string | null
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          event?: string
+          event_data?: Json | null
+          id?: string
+          session_id?: string | null
+          student_id?: string
+        }
+        Relationships: []
+      }
       assigned_lessons: {
         Row: {
           assigned_at: string
@@ -468,6 +520,32 @@ export type Database = {
           },
         ]
       }
+      class_settings: {
+        Row: {
+          class_id: string
+          settings: Json
+          updated_at: string
+        }
+        Insert: {
+          class_id: string
+          settings?: Json
+          updated_at?: string
+        }
+        Update: {
+          class_id?: string
+          settings?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "class_settings_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: true
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       classes: {
         Row: {
           created_at: string | null
@@ -609,6 +687,36 @@ export type Database = {
         }
         Relationships: []
       }
+      lesson_grades: {
+        Row: {
+          feedback: string | null
+          grade: string | null
+          grade_percent: number | null
+          graded_by: string | null
+          lesson_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          feedback?: string | null
+          grade?: string | null
+          grade_percent?: number | null
+          graded_by?: string | null
+          lesson_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          feedback?: string | null
+          grade?: string | null
+          grade_percent?: number | null
+          graded_by?: string | null
+          lesson_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       lesson_progress: {
         Row: {
           completed: boolean
@@ -616,6 +724,7 @@ export type Database = {
           created_at: string
           id: string
           lesson_id: string
+          progress_percent: number | null
           quiz_score: number | null
           updated_at: string
           user_id: string
@@ -626,6 +735,7 @@ export type Database = {
           created_at?: string
           id?: string
           lesson_id: string
+          progress_percent?: number | null
           quiz_score?: number | null
           updated_at?: string
           user_id: string
@@ -636,6 +746,7 @@ export type Database = {
           created_at?: string
           id?: string
           lesson_id?: string
+          progress_percent?: number | null
           quiz_score?: number | null
           updated_at?: string
           user_id?: string
@@ -879,6 +990,7 @@ export type Database = {
           role: Database["public"]["Enums"]["app_role"] | null
           school_name: string | null
           state_course: string | null
+          theme_preference: string | null
           track: Database["public"]["Enums"]["enrollment_track"]
           updated_at: string | null
         }
@@ -905,6 +1017,7 @@ export type Database = {
           role?: Database["public"]["Enums"]["app_role"] | null
           school_name?: string | null
           state_course?: string | null
+          theme_preference?: string | null
           track?: Database["public"]["Enums"]["enrollment_track"]
           updated_at?: string | null
         }
@@ -931,6 +1044,7 @@ export type Database = {
           role?: Database["public"]["Enums"]["app_role"] | null
           school_name?: string | null
           state_course?: string | null
+          theme_preference?: string | null
           track?: Database["public"]["Enums"]["enrollment_track"]
           updated_at?: string | null
         }
@@ -1012,6 +1126,78 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      scenario_responses: {
+        Row: {
+          created_at: string
+          id: string
+          lesson_id: string
+          response_text: string
+          reviewed_by: string | null
+          scenario_id: string
+          teacher_notes: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lesson_id: string
+          response_text: string
+          reviewed_by?: string | null
+          scenario_id: string
+          teacher_notes?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lesson_id?: string
+          response_text?: string
+          reviewed_by?: string | null
+          scenario_id?: string
+          teacher_notes?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      stock_draft_sessions: {
+        Row: {
+          active: boolean
+          class_id: string
+          launched_at: string | null
+          launched_by: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          active?: boolean
+          class_id: string
+          launched_at?: string | null
+          launched_by?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          active?: boolean
+          class_id?: string
+          launched_at?: string | null
+          launched_by?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stock_draft_sessions_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: true
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stock_draft_sessions_launched_by_fkey"
+            columns: ["launched_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       stock_fundamentals: {
         Row: {
@@ -1106,6 +1292,57 @@ export type Database = {
         }
         Relationships: []
       }
+      stock_predictions: {
+        Row: {
+          class_id: string
+          company_name: string
+          created_at: string | null
+          id: string
+          locked: boolean | null
+          pick_date: string | null
+          pick_price: number
+          student_id: string
+          ticker: string
+        }
+        Insert: {
+          class_id: string
+          company_name: string
+          created_at?: string | null
+          id?: string
+          locked?: boolean | null
+          pick_date?: string | null
+          pick_price: number
+          student_id: string
+          ticker: string
+        }
+        Update: {
+          class_id?: string
+          company_name?: string
+          created_at?: string | null
+          id?: string
+          locked?: boolean | null
+          pick_date?: string | null
+          pick_price?: number
+          student_id?: string
+          ticker?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stock_predictions_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stock_predictions_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       stock_stats: {
         Row: {
           high_52_week: number | null
@@ -1133,6 +1370,75 @@ export type Database = {
           symbol?: string
           updated_at?: string | null
           volume?: number | null
+        }
+        Relationships: []
+      }
+      student_ability: {
+        Row: {
+          attempts: number
+          concept: string
+          se: number
+          theta: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          concept: string
+          se?: number
+          theta?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          concept?: string
+          se?: number
+          theta?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      student_activity_events: {
+        Row: {
+          created_at: string
+          duration_ms: number | null
+          id: string
+          is_correct: boolean | null
+          kind: string
+          lesson_id: string | null
+          meta: Json
+          question_id: string | null
+          route: string | null
+          selected_index: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          is_correct?: boolean | null
+          kind: string
+          lesson_id?: string | null
+          meta?: Json
+          question_id?: string | null
+          route?: string | null
+          selected_index?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          is_correct?: boolean | null
+          kind?: string
+          lesson_id?: string | null
+          meta?: Json
+          question_id?: string | null
+          route?: string | null
+          selected_index?: number | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -1414,6 +1720,16 @@ export type Database = {
           title: string
         }[]
       }
+      get_national_leaderboard: {
+        Args: never
+        Returns: {
+          first_name: string
+          last_name: string
+          state: string
+          user_id: string
+          xp: number
+        }[]
+      }
       get_partner_requests: {
         Args: never
         Returns: {
@@ -1446,6 +1762,43 @@ export type Database = {
           first_name: string
           last_name: string
           user_id: string
+        }[]
+      }
+      get_stock_predictions: {
+        Args: { _class_id: string }
+        Returns: {
+          company_name: string
+          first_name: string
+          id: string
+          last_name: string
+          locked: boolean
+          pick_date: string
+          pick_price: number
+          student_id: string
+          ticker: string
+        }[]
+      }
+      get_student_master_stats: {
+        Args: never
+        Returns: {
+          accuracy_percent: number
+          assessment_score: number
+          correct_answers: number
+          current_investocoins: number
+          current_jeffs: number
+          earned_7days: number
+          earned_month: number
+          earned_today: number
+          email: string
+          id: string
+          lessons_completed: number
+          lessons_started: number
+          mastery_tier: string
+          name: string
+          school_name: string
+          total_purchases: number
+          total_questions_attempted: number
+          total_spent_on_purchases: number
         }[]
       }
       has_role: {
@@ -1491,6 +1844,13 @@ export type Database = {
           _title: string
         }
         Returns: string
+      }
+      question_median_response_ms: {
+        Args: { _question_ids: string[] }
+        Returns: {
+          median_ms: number
+          question_id: string
+        }[]
       }
       remove_partner: { Args: { _other: string }; Returns: undefined }
       respond_partner_request: {
@@ -1553,12 +1913,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1582,11 +1942,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1607,11 +1967,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1632,11 +1992,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1649,11 +2009,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1663,6 +2023,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       app_role: ["teacher", "student"],
