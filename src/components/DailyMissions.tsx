@@ -33,7 +33,7 @@ export default function DailyMissions({ headless }: DailyMissionsProps) {
             <div
               key={mission.id}
               className={`flex items-center gap-2.5 rounded-2xl px-3 py-2.5 transition-colors ${
-                isDone ? "bg-success/[0.07]" : "bg-black/[0.03]"
+                isDone ? "bg-success/[0.07]" : "bg-foreground/[0.03]"
               }`}
             >
               <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
