@@ -611,6 +611,9 @@ export default function TeacherDashboard() {
   const removeAssignment = async (assignmentId: string) => {
     if (!selectedClass) return
     if (blockedInDemo()) return
+    if (!confirm("Are you sure you want to delete this lesson? This removes it from the class.")) {
+      return
+    }
 
     try {
       const { error } = await supabase
