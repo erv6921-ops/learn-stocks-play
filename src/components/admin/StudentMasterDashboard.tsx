@@ -4,14 +4,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import {
   Search,
   Loader2,
   AlertCircle,
   RefreshCw,
-  ChevronRight,
-  ChevronDown,
   Coins,
   Sparkles,
   BookOpen,
@@ -19,8 +16,10 @@ import {
   Target,
   Percent,
   ShoppingBag,
+  Wallet,
   TrendingUp,
   CalendarDays,
+  CalendarRange,
   GraduationCap,
   Users,
 } from "lucide-react"
@@ -69,18 +68,8 @@ const fmtPct = (v: number | string | null | undefined): string => {
 
 const displayName = (s: StudentStatRow) => s.name?.trim() || s.email?.split("@")[0] || "Student"
 
-// Stat-card palette, kept in the app's teal / gold / green / blue family.
-const STAT = {
-  coins: "#EF9F27",
-  jeffs: "#9B59B6",
-  lessons: "var(--brand)",
-  questions: "#3B82C4",
-  accuracy: "#2FA36B",
-  earnings: "#EF9F27",
-  purchases: "#E4572E",
-} as const
-
-function StatCard({
+// One little stat block inside a student card: icon + value + label.
+function StatBlock({
   icon: Icon,
   label,
   value,
@@ -94,89 +83,81 @@ function StatCard({
   color: string
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <div className="flex items-center gap-2 mb-2">
-        <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-          style={{ background: `${color}1a` }}
-        >
-          <Icon className="w-4 h-4" style={{ color }} />
-        </div>
-        <span className="text-xs text-muted-foreground truncate">{label}</span>
+    <div className="rounded-lg border border-border bg-muted/30 p-2.5">
+      <div className="flex items-center gap-1.5 mb-1">
+        <Icon className="w-3.5 h-3.5 shrink-0" style={{ color }} />
+        <span className="text-[10px] uppercase tracking-wide text-muted-foreground truncate">{label}</span>
       </div>
-      <p className="text-2xl font-extrabold leading-none tabular-nums">{value}</p>
-      {sub && <p className="text-xs text-muted-foreground mt-1 truncate">{sub}</p>}
+      <p className="text-lg font-extrabold leading-none tabular-nums">{value}</p>
+      {sub && <p className="text-[10px] text-muted-foreground mt-0.5 truncate">{sub}</p>}
     </div>
   )
 }
 
-// Detailed grid shown when a student row is expanded.
-function StudentDetail({ s }: { s: StudentStatRow }) {
+// One student = one block, with every stat shown at once.
+function StudentBlock({ s }: { s: StudentStatRow }) {
   const attempted = toNum(s.total_questions_attempted)
   const accuracy = attempted > 0 ? fmtPct(s.accuracy_percent) : "—"
   return (
-    <div className="border-t border-border bg-muted/20 p-4">
-      <div className="flex flex-wrap items-center gap-2 mb-4">
-        <Badge variant="secondary" className="gap-1">
-          <GraduationCap className="w-3 h-3" />
-          {s.mastery_tier || "Unranked"}
-        </Badge>
-        <Badge variant="outline">Assessment {fmtInt(s.assessment_score)}</Badge>
-        {s.school_name && <Badge variant="outline">{s.school_name}</Badge>}
-        <span className="text-xs text-muted-foreground">{s.email}</span>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-        <StatCard icon={Coins} label="InvestiCoins" value={fmtInt(s.current_investocoins)} color={STAT.coins} />
-        <StatCard icon={Sparkles} label="Jeffs" value={fmtInt(s.current_jeffs)} color={STAT.jeffs} />
-        <StatCard
-          icon={BookOpen}
-          label="Lessons"
-          value={fmtInt(s.lessons_completed)}
-          sub={`${fmtInt(s.lessons_started)} started`}
-          color={STAT.lessons}
-        />
-        <StatCard
-          icon={CheckCircle2}
-          label="Correct answers"
-          value={fmtInt(s.correct_answers)}
-          sub={`of ${fmtInt(attempted)} attempted`}
-          color={STAT.accuracy}
-        />
-        <StatCard icon={Target} label="Questions" value={fmtInt(attempted)} color={STAT.questions} />
-        <StatCard icon={Percent} label="Accuracy" value={accuracy} color={STAT.accuracy} />
-        <StatCard
-          icon={ShoppingBag}
-          label="Purchases"
-          value={fmtInt(s.total_purchases)}
-          sub={`${fmtInt(s.total_spent_on_purchases)} coins spent`}
-          color={STAT.purchases}
-        />
-        <StatCard
-          icon={TrendingUp}
-          label="Earned today"
-          value={fmtInt(s.earned_today)}
-          color={STAT.earnings}
-        />
-      </div>
-
-      {/* Earnings breakdown across time windows. */}
-      <div className="mt-3 grid grid-cols-3 gap-3">
-        {[
-          { label: "Today", value: s.earned_today },
-          { label: "Last 7 days", value: s.earned_7days },
-          { label: "This month", value: s.earned_month },
-        ].map((w) => (
-          <div key={w.label} className="rounded-xl border border-border bg-card p-3 flex items-center gap-2">
-            <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
-            <div className="min-w-0">
-              <p className="text-lg font-bold leading-none tabular-nums">{fmtInt(w.value)}</p>
-              <p className="text-[11px] text-muted-foreground mt-1">{w.label} earned</p>
-            </div>
+    <Card variant="elevated" className="overflow-hidden">
+      <CardContent className="p-4">
+        {/* Identity */}
+        <div className="flex items-start gap-3 mb-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/15 grid place-items-center shrink-0">
+            <span className="font-display font-extrabold text-primary text-sm">
+              {displayName(s).trim().slice(0, 2).toUpperCase()}
+            </span>
           </div>
-        ))}
-      </div>
-    </div>
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold truncate leading-tight">{displayName(s)}</p>
+            <p className="text-xs text-muted-foreground truncate">{s.email}</p>
+          </div>
+        </div>
+
+        {/* Tags */}
+        <div className="flex flex-wrap items-center gap-1.5 mb-3">
+          <Badge variant="secondary" className="gap-1 text-[11px]">
+            <GraduationCap className="w-3 h-3" />
+            {s.mastery_tier || "Unranked"}
+          </Badge>
+          <Badge variant="outline" className="text-[11px]">Assessment {fmtInt(s.assessment_score)}</Badge>
+          {s.school_name && (
+            <Badge variant="outline" className="text-[11px] max-w-[140px] truncate">{s.school_name}</Badge>
+          )}
+        </div>
+
+        {/* All the stats, as little blocks */}
+        <div className="grid grid-cols-3 gap-2">
+          <StatBlock icon={Coins} label="Coins" value={fmtInt(s.current_investocoins)} color="#EF9F27" />
+          <StatBlock icon={Sparkles} label="Jeffs" value={fmtInt(s.current_jeffs)} color="#9B59B6" />
+          <StatBlock
+            icon={BookOpen}
+            label="Lessons"
+            value={fmtInt(s.lessons_completed)}
+            sub={`${fmtInt(s.lessons_started)} started`}
+            color="var(--brand)"
+          />
+          <StatBlock icon={Target} label="Questions" value={fmtInt(attempted)} color="#3B82C4" />
+          <StatBlock
+            icon={CheckCircle2}
+            label="Correct"
+            value={fmtInt(s.correct_answers)}
+            color="#2FA36B"
+          />
+          <StatBlock icon={Percent} label="Accuracy" value={accuracy} color="#2FA36B" />
+          <StatBlock
+            icon={ShoppingBag}
+            label="Purchases"
+            value={fmtInt(s.total_purchases)}
+            color="#E4572E"
+          />
+          <StatBlock icon={Wallet} label="Spent" value={fmtInt(s.total_spent_on_purchases)} color="#E4572E" />
+          <StatBlock icon={TrendingUp} label="Today" value={fmtInt(s.earned_today)} color="#EF9F27" />
+          <StatBlock icon={CalendarDays} label="7 days" value={fmtInt(s.earned_7days)} color="#EF9F27" />
+          <StatBlock icon={CalendarRange} label="Month" value={fmtInt(s.earned_month)} color="#EF9F27" />
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -185,13 +166,12 @@ export default function StudentMasterDashboard() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState("")
-  const [expandedId, setExpandedId] = useState<string | null>(null)
 
   const load = async () => {
     setLoading(true)
     setError(null)
-    // Aggregation lives in a teacher-gated SECURITY DEFINER RPC — the browser
-    // client can't run the underlying multi-table query directly. See
+    // Aggregation lives in a teacher/admin-gated SECURITY DEFINER RPC — the
+    // browser client can't run the underlying multi-table query directly. See
     // supabase/migrations/..._student_master_stats_rpc.sql.
     const { data, error } = await supabase.rpc("get_student_master_stats")
     if (error) {
@@ -249,7 +229,7 @@ export default function StudentMasterDashboard() {
           <Users className="w-5 h-5 text-primary" />
           <h2 className="font-display text-lg font-bold">Student Master Dashboard</h2>
           <Badge variant="secondary" className="tabular-nums">
-            {students.length}
+            {filtered.length}
           </Badge>
         </div>
         <div className="flex items-center gap-2">
@@ -268,7 +248,7 @@ export default function StudentMasterDashboard() {
         </div>
       </div>
 
-      {/* Student list */}
+      {/* Student blocks — every stat visible at a glance */}
       {filtered.length === 0 ? (
         <Card variant="elevated">
           <CardContent className="p-10 text-center text-muted-foreground">
@@ -276,47 +256,10 @@ export default function StudentMasterDashboard() {
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-2">
-          {filtered.map((s) => {
-            const expanded = expandedId === s.id
-            return (
-              <Card key={s.id} variant="elevated" className="overflow-hidden">
-                <button
-                  type="button"
-                  onClick={() => setExpandedId(expanded ? null : s.id)}
-                  aria-expanded={expanded}
-                  className={cn(
-                    "w-full text-left p-4 flex items-center gap-3 transition-colors hover:bg-muted/40",
-                    expanded && "bg-muted/30"
-                  )}
-                >
-                  {expanded ? (
-                    <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
-                  ) : (
-                    <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
-                  )}
-                  <div className="min-w-0 flex-1">
-                    <p className="font-semibold truncate">{displayName(s)}</p>
-                    <p className="text-xs text-muted-foreground truncate">{s.email}</p>
-                  </div>
-                  {/* Glanceable stats on the collapsed row. */}
-                  <div className="hidden sm:flex items-center gap-5 shrink-0">
-                    <span className="flex items-center gap-1.5 text-sm">
-                      <Sparkles className="w-4 h-4" style={{ color: STAT.jeffs }} />
-                      <span className="font-bold tabular-nums">{fmtInt(s.current_jeffs)}</span>
-                      <span className="text-muted-foreground">jeffs</span>
-                    </span>
-                    <span className="flex items-center gap-1.5 text-sm">
-                      <BookOpen className="w-4 h-4" style={{ color: STAT.lessons }} />
-                      <span className="font-bold tabular-nums">{fmtInt(s.lessons_completed)}</span>
-                      <span className="text-muted-foreground">done</span>
-                    </span>
-                  </div>
-                </button>
-                {expanded && <StudentDetail s={s} />}
-              </Card>
-            )
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {filtered.map((s) => (
+            <StudentBlock key={s.id} s={s} />
+          ))}
         </div>
       )}
     </div>

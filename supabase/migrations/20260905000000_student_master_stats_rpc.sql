@@ -93,9 +93,13 @@ AS $$
   LEFT JOIN qa  ON qa.user_id  = p.id
   LEFT JOIN it  ON it.user_id  = p.id
   LEFT JOIN pur ON pur.user_id = p.id
-  -- Admin dashboard: only teachers may pull every student's financials, and
-  -- teachers themselves are excluded from the student roster.
-  WHERE public.has_role(auth.uid(), 'teacher'::app_role)
+  -- Admin dashboard: only teachers, or the admin email allowlisted on the
+  -- /admin/analytics page, may pull every student's financials. Teachers
+  -- themselves are excluded from the student roster.
+  WHERE (
+      public.has_role(auth.uid(), 'teacher'::app_role)
+      OR (SELECT lower(email) FROM public.profiles WHERE id = auth.uid()) = 'erv6921@gmail.com'
+    )
     AND (p.role IS DISTINCT FROM 'teacher')
   ORDER BY name;
 $$;
