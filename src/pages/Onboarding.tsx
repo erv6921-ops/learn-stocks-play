@@ -7,6 +7,7 @@ import { useApp } from "@/contexts/AppContext"
 import { benchmarkQuestions, BenchmarkQuestion, calculateLiteracyLevel, getLevelDescription, computeCategoryScores } from "@/data/assessmentQuestions"
 import { computeBenchmarkScores } from "@/lib/curriculumEngine"
 import { shuffleQuestion } from "@/lib/mcqEngine"
+import { saveBenchmarkProgress, loadBenchmarkProgress, clearBenchmarkProgress } from "@/lib/benchmarkProgress"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { eligibleForFloridaTracks, US_STATES } from "@/lib/geography"
 import { JeffMascot } from "@/components/JeffMascot"
@@ -355,6 +356,11 @@ export default function Onboarding() {
   // The current question - adaptively selected
   const [currentQuestion, setCurrentQuestion] = useState<BenchmarkQuestion>(() => shuffleQuestion(questionPool[0]) as BenchmarkQuestion)
 
+  // Resume an in-progress benchmark: if the student answered some questions in a
+  // previous visit but didn't finish, restore their answers and pick up at the
+  // next question. Runs once, when we first enter the assessment step.
+  const [benchmarkRestored, setBenchmarkRestored] = useState(false)
+
   useEffect(() => {
     const wantsBenchmark = searchParams.get("benchmark") === "1"
     // ?preview=1 walks the whole onboarding flow even when already onboarded
@@ -393,6 +399,37 @@ export default function Onboarding() {
   const BENCHMARK_TOTAL = 25
   const totalQuestions = BENCHMARK_TOTAL
   const answeredCount = answers.length
+
+  // Restore a partially-completed benchmark when the assessment opens.
+  useEffect(() => {
+    if (benchmarkRestored || step !== "assessment") return
+    setBenchmarkRestored(true)
+
+    const saved = loadBenchmarkProgress()
+    if (!saved || saved.answers.length === 0 || saved.answers.length >= BENCHMARK_TOTAL) return
+
+    setAnsweredQuestions(saved.answeredQuestions)
+    setAnswers(saved.answers)
+    setCorrectHistory(saved.correctHistory)
+    setScore(saved.score)
+    setCurrentQuestionIdx(saved.answers.length)
+
+    const answeredIds = new Set(saved.answeredQuestions.map(q => q.id))
+    const nextQ = getAdaptiveNextQuestion(questionPool, answeredIds, saved.correctHistory)
+    if (nextQ) setCurrentQuestion(shuffleQuestion(nextQ) as BenchmarkQuestion)
+
+    toast({
+      title: "Resuming your benchmark",
+      description: `Picking up where you left off - question ${saved.answers.length + 1} of ${BENCHMARK_TOTAL}.`,
+    })
+  }, [step, benchmarkRestored, questionPool])
+
+  // Persist progress after each answer so an unfinished benchmark isn't lost.
+  useEffect(() => {
+    if (step !== "assessment") return
+    if (answers.length === 0 || answers.length >= BENCHMARK_TOTAL) return
+    saveBenchmarkProgress({ answeredQuestions, answers, correctHistory, score })
+  }, [answers, step, answeredQuestions, correctHistory, score])
 
   const handleAnswer = (answerIndex: number) => {
     const isCorrect = answerIndex === currentQuestion.correctAnswer
@@ -587,6 +624,9 @@ export default function Onboarding() {
       return
     }
 
+    // Benchmark is fully complete - drop the resume snapshot.
+    clearBenchmarkProgress()
+
     const { data: session } = await supabase.auth.getSession()
     // For a benchmark-only retake, keep the existing profile and just refresh
     // the assessment results; otherwise build the profile from the form fields.
@@ -623,6 +663,7 @@ export default function Onboarding() {
   const handleSkip = async () => {
     setShowSkipDialog(false)
     setLoading(true)
+    clearBenchmarkProgress()
 
     const saved = await persistProfile({
       literacy_level: "explorer",

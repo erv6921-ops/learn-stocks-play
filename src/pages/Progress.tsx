@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress as ProgressBar } from "@/components/ui/progress"
 import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons"
+import { hasUnfinishedBenchmark } from "@/lib/benchmarkProgress"
 import { motion } from "framer-motion"
 import {
   Select,
@@ -143,6 +144,9 @@ export default function ProgressPage() {
 
   const benchmarkCategoryScores = user?.benchmarkCategoryScores || null
   const benchmarkTaken = !!benchmarkCategoryScores && Object.keys(benchmarkCategoryScores).length > 0
+  // Started the benchmark before but didn't finish - offer to resume instead of
+  // "take it now". Read once on mount (localStorage isn't reactive).
+  const [benchmarkInProgress] = useState(() => hasUnfinishedBenchmark())
 
   const getBenchmarkPercentForUnit = (unitId: string) => {
     const unit = unitInfo.find(u => u.id === unitId)
@@ -384,16 +388,20 @@ export default function ProgressPage() {
                 <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                   <GraduationCap className="w-8 h-8 text-primary" />
                 </div>
-                <CardTitle className="text-xl">Complete Your Benchmark Assessment</CardTitle>
+                <CardTitle className="text-xl">
+                  {benchmarkInProgress ? "Finish Your Benchmark Assessment" : "Complete Your Benchmark Assessment"}
+                </CardTitle>
                 <CardDescription className="text-base mt-2">
-                  You skipped the initial assessment. Complete it to personalize your learning path and unlock progress tracking.
+                  {benchmarkInProgress
+                    ? "You started the benchmark but didn't finish. Pick up where you left off to personalize your learning path and unlock progress tracking."
+                    : "You skipped the initial assessment. Complete it to personalize your learning path and unlock progress tracking."}
                 </CardDescription>
               </CardHeader>
               <CardContent className="relative space-y-4">
                 <Link to="/onboarding?benchmark=1">
                   <Button variant="hero" size="lg" className="press-scale w-full">
                     <Target className="w-5 h-5 mr-2" />
-                    Take Benchmark Now
+                    {benchmarkInProgress ? "Finish Benchmark" : "Take Benchmark Now"}
                   </Button>
                 </Link>
                 <p className="text-xs text-muted-foreground flex items-center justify-center gap-1.5">
