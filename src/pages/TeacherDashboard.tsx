@@ -1598,6 +1598,8 @@ export default function TeacherDashboard() {
                                       <h4 className="font-semibold">{name}</h4>
                                       <p className="text-sm text-muted-foreground">
                                         {member.profile?.grade ? `Grade ${member.profile.grade}` : "No grade set"}
+                                        {" · "}
+                                        {member.completedLessonIds.length} lesson{member.completedLessonIds.length === 1 ? "" : "s"} completed
                                       </p>
                                     </div>
                                   </div>
