@@ -487,12 +487,13 @@ export default function StudentWork() {
             {/* ── Overall snapshot ── */}
             {analytics.hasData && (
               <div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
                   {[
                     { icon: Clock, label: "Time on app", value: fmtDuration(analytics.activeMs) },
                     { icon: Target, label: "Accuracy", value: `${analytics.accuracy}%` },
                     { icon: ClipboardCheck, label: "Questions", value: String(analytics.answered) },
                     { icon: Timer, label: "Avg / question", value: analytics.avgMs ? fmtDuration(analytics.avgMs) : "-" },
+                    { icon: CheckCircle, label: "Lessons done", value: String(progress.filter((p) => p.completed).length) },
                   ].map(({ icon: Icon, label, value }) => (
                     <div key={label} className="rounded-2xl bg-card border border-border/60 px-4 py-3 shadow-sm">
                       <Icon className="w-4 h-4 text-primary" />
