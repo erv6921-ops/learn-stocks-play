@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { motion, type Variants } from "framer-motion"
 import { useTheme } from "next-themes"
+import { persistTheme } from "@/hooks/useThemeSync"
 import { toast } from "sonner"
 import { useApp } from "@/contexts/AppContext"
 import { useNetWorth } from "@/hooks/useNetWorth"
@@ -514,7 +515,7 @@ export default function Profile() {
                     return (
                       <button
                         key={opt.value}
-                        onClick={() => setTheme(opt.value)}
+                        onClick={() => { setTheme(opt.value); persistTheme(opt.value) }}
                         aria-pressed={activeTheme}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors press-scale ${
                           activeTheme ? "bg-card text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"

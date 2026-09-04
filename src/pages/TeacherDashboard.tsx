@@ -47,6 +47,7 @@ import { lessons, getLessonsByTrack } from "@/data/lessons"
 import { useApp } from "@/contexts/AppContext"
 import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { ScenarioReviewTab } from "@/components/teacher/ScenarioReviewTab"
 import {
   ClassSettings,
   DEFAULT_CLASS_SETTINGS,
@@ -1168,10 +1169,11 @@ export default function TeacherDashboard() {
                 </Card>
 
                 <Tabs defaultValue="students" className="w-full">
-                  <TabsList className="grid w-full grid-cols-5">
+                  <TabsList className="grid w-full grid-cols-6">
                     <TabsTrigger value="students">Students</TabsTrigger>
                     <TabsTrigger value="assign">Assign</TabsTrigger>
                     <TabsTrigger value="analytics">Analytics</TabsTrigger>
+                    <TabsTrigger value="scenarios">Scenarios</TabsTrigger>
                     <TabsTrigger value="settings">Settings</TabsTrigger>
                     <TabsTrigger value="draft">Stock Draft</TabsTrigger>
                   </TabsList>
@@ -1549,6 +1551,11 @@ export default function TeacherDashboard() {
                     </CardContent>
                   </Card>
                 )}
+                  </TabsContent>
+
+                  {/* ── Scenario free-response review (ungraded, teacher-only) ── */}
+                  <TabsContent value="scenarios" className="mt-4">
+                    <ScenarioReviewTab members={classMembers} />
                   </TabsContent>
 
                   {/* ── Students roster ── */}

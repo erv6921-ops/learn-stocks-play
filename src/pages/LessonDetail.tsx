@@ -27,6 +27,8 @@ import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext"
 import { LessonCompletionScreen } from "@/components/lesson/LessonCompletionScreen"
 import { DefinitionPracticeCard } from "@/components/lesson/DefinitionPracticeCard"
 import { getDefinitionPractice } from "@/data/definitionPractice"
+import { ScenarioResponse } from "@/components/lesson/ScenarioResponse"
+import { getScenarioSet } from "@/content/gullerIntro/scenarios"
 import JeffChat from "@/components/lessons/JeffChat"
 import { logEvent } from "@/lib/analyticsEvents"
 import { buildScript, isDeepLesson, clearChat } from "@/lib/jeffChatLesson"
@@ -724,19 +726,25 @@ export default function LessonDetail() {
           </Card>
         ) : (lessonFinished || isCompleted) && !(retaking && !lessonFinished) ? (
           /* ─── Completion screen: satisfying, numbers roll up, Jeff above ─── */
-          <LessonCompletionScreen
-            correct={totalCorrect}
-            attempts={totalAttempts}
-            storedQuizScore={progress?.quizScore}
-            reflectionDone={reflectionDone}
-            reflectionBonus={REFLECTION_BONUS}
-            onContinue={() => navigate("/lessons?category=" + lesson.category)}
-            onRetake={handleRetake}
-            // Store the true whole-lesson accuracy so a later replay shows the
-            // real score, not the mastery-only ~100%. (finishLesson marks the
-            // lesson complete; this refines the persisted score to the honest one.)
-            onScore={(pct) => updateLessonProgress(lesson.id, true, pct)}
-          />
+          <>
+            <LessonCompletionScreen
+              correct={totalCorrect}
+              attempts={totalAttempts}
+              storedQuizScore={progress?.quizScore}
+              reflectionDone={reflectionDone}
+              reflectionBonus={REFLECTION_BONUS}
+              onContinue={() => navigate("/lessons?category=" + lesson.category)}
+              onRetake={handleRetake}
+              // Store the true whole-lesson accuracy so a later replay shows the
+              // real score, not the mastery-only ~100%. (finishLesson marks the
+              // lesson complete; this refines the persisted score to the honest one.)
+              onScore={(pct) => updateLessonProgress(lesson.id, true, pct)}
+            />
+            {/* Optional, ungraded scenario writing (teacher-review only). Renders
+                only for lessons that have a scenario set; never gates completion
+                and never touches mastery/theta. */}
+            {getScenarioSet(lesson.id) && <ScenarioResponse lessonId={lesson.id} />}
+          </>
         ) : (
           /* ─── Active section rendering (interactive walk, no concept steps) ─── */
           <div className="space-y-6">
