@@ -694,24 +694,24 @@ export default function Dashboard() {
                     const showCounter = !done && target > 1;
                     return (
                     <div key={id}
-                      className={`relative flex items-center gap-3 px-4 py-3.5 min-w-0 border-white/10 ${idx > 0 ? "border-l" : ""}`}
+                      className={`relative flex flex-col items-center text-center gap-1.5 px-2 py-3 sm:flex-row sm:items-center sm:text-left sm:gap-3 sm:px-4 sm:py-3.5 min-w-0 border-white/10 ${idx > 0 ? "border-l" : ""}`}
                       style={{ background: done ? "rgba(34,197,94,0.12)" : "transparent" }}>
-                      <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                      <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shrink-0"
                         style={{
                           background: done ? "rgba(34,197,94,0.16)" : "rgba(245,158,11,0.14)",
                           border: `1px solid ${done ? "rgba(34,197,94,0.32)" : "rgba(245,158,11,0.28)"}`,
                         }}>
                         <Icon className="w-4 h-4" style={{ color: done ? "#4ade80" : "#f59e0b" }} />
                       </span>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <p className="text-[12px] md:text-[13px] font-bold leading-tight truncate">{blurb}</p>
-                          <span className="text-[8px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-full shrink-0"
+                      <div className="min-w-0 w-full sm:flex-1">
+                        <div className="flex flex-col items-center gap-0.5 sm:flex-row sm:items-center sm:gap-1.5 min-w-0">
+                          <p className="text-[11px] leading-[1.15] sm:text-[13px] font-bold sm:leading-tight sm:truncate break-words">{blurb}</p>
+                          <span className="hidden sm:inline-block text-[8px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-full shrink-0"
                             style={{ color: diff.color, background: diff.bg }}>
                             {diff.label}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 mt-1">
+                        <div className="flex items-center justify-center sm:justify-start gap-2 mt-1">
                           <p className="text-[12px] font-extrabold leading-none" style={{ color: "#f59e0b" }}>+{reward}</p>
                           {showCounter && (
                             <span className="text-[11px] font-bold tabular-nums text-white/50">{progress}/{target}</span>

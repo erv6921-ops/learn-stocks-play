@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { ThemeSync } from "@/hooks/useThemeSync";
+import ScenarioPreview from "@/pages/dev/ScenarioPreview";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -187,6 +188,8 @@ function AppRoutes() {
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />
       <Route path="/admin/analytics" element={<AdminAnalytics />} />
+      {/* DEV-ONLY: isolated preview of the P4 scenario free-response panel. */}
+      {import.meta.env.DEV && <Route path="/dev/scenario" element={<ScenarioPreview />} />}
       <Route path="*" element={<NotFound />} />
     </Routes>
     </ErrorBoundary>
