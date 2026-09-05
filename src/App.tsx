@@ -19,6 +19,7 @@ import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import TeacherUploadCurriculum from "./pages/TeacherUploadCurriculum";
 import StudentWork from "./pages/StudentWork";
 import Lessons from "./pages/Lessons";
 import LessonDetail from "./pages/LessonDetail";
@@ -165,6 +166,7 @@ function AppRoutes() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
       <Route path="/teacher/student/:userId" element={<StudentWork />} />
+      <Route path="/teacher/upload" element={<TeacherUploadCurriculum />} />
       <Route path="/lessons" element={<Lessons />} />
       <Route path="/lessons/:id" element={<LessonDetail />} />
       <Route path="/unit-test/:category" element={<UnitTest />} />
