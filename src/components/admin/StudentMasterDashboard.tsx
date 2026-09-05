@@ -47,6 +47,10 @@ interface StudentStatRow {
   earned_month: number | string | null
   total_purchases: number | string | null
   total_spent_on_purchases: number | string | null
+  // Most recent activity timestamp (questions, lessons, coin txns). The RPC
+  // already orders rows by this, most-recent first, so the dashboard renders
+  // active students at the top without any client-side sort.
+  last_active_at: string | null
 }
 
 // Coerce a possibly-string / possibly-null numeric into a finite number.
