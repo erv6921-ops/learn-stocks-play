@@ -18,6 +18,7 @@ import { lessons, unitInfo, getLessonsByUnit, getUnitRewardTotal } from "@/data/
 import { getGameTypeForDate, gameTypeLabel } from "@/lib/dailyGames";
 import { getAdaptiveUnit } from "@/lib/curriculumEngine";
 import { supabase } from "@/integrations/supabase/client";
+import StudentLessonsSection from "@/components/student/StudentLessonsSection";
 import { anchor } from "@/lib/tourAnchors";
 import { getStreak, getBestStreak, getStreakRestore, streakRepairReason } from "@/lib/playerStats";
 import { getLeague } from "@/lib/leagues";
@@ -595,6 +596,11 @@ export default function Dashboard() {
           </Card>
         </MCard>
         }
+
+        {/* ──── ASSIGNED CURRICULUM LESSONS ──── */}
+        <div className="mb-3">
+          <StudentLessonsSection />
+        </div>
 
         {/* ═══ 1. GREETING BANNER - moved here from Missions, sits above the ride ═══ */}
         <MCard i={0}>
