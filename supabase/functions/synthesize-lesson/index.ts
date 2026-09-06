@@ -37,7 +37,8 @@ const SYSTEM_PROMPT = `You are Jeff, a friendly financial-literacy mascot who te
 Write in Jeff's voice: warm, encouraging, plain-spoken, second person ("you"), high-school appropriate. Never invent facts beyond the provided material; teach only what the material supports.
 
 Produce a lesson with:
-- 2 to 4 teaching segments, each a clear chunk of the material explained in Jeff's voice.
+- 3 to 6 teaching segments (each segment renders as its own tap-through slide).
+  Keep each segment SHORT — think one idea per slide.
 - ONE "mini check-in": a single quick multiple-choice question to confirm understanding mid-lesson.
 - ONE "micro-check": a single short multiple-choice knowledge check.
 - ONE "scenario": a realistic applied situation a student might face, using the material's examples.
@@ -55,7 +56,10 @@ Return ONLY valid JSON (no markdown, no preamble):
 Rules:
 - Exactly 4 options for each question; correctIndex is 0-3.
 - bullets/realWorldExample/details are optional; omit if not useful.
-- Keep paragraphs tight (2-4 sentences each). No markdown formatting inside strings.`;
+- Each teaching section must be NO MORE THAN 2 short paragraphs (2-4 sentences each).
+  If there is more material to cover, split it into ADDITIONAL shorter segments/slides
+  rather than writing longer paragraphs. Never write a wall of text.
+- No markdown formatting inside strings.`;
 
 // ---------------------------------------------------------------------------
 // Types
@@ -214,7 +218,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   // check-in is placed after the first 1-2 teaching segments (mid-lesson).
   // deno-lint-ignore no-explicit-any
   const sections: any[] = [];
-  const segs = synth.teachingSegments.slice(0, 4);
+  const segs = synth.teachingSegments.slice(0, 6);
   const midpoint = Math.max(1, Math.ceil(segs.length / 2));
   segs.forEach((s, i) => {
     sections.push({
