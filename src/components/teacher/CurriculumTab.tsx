@@ -9,11 +9,12 @@ import {
   Loader2,
   FileText,
   Trash2,
-  ExternalLink,
+  Eye,
   AlertCircle,
   RefreshCw,
   Inbox,
 } from "lucide-react";
+import PreviewLessonModal from "@/components/PreviewLessonModal";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -104,6 +105,7 @@ export const CurriculumTab: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [previewUploadId, setPreviewUploadId] = useState<string | null>(null);
 
   const fetchUploads = useCallback(async () => {
     setLoading(true);
@@ -184,17 +186,6 @@ export const CurriculumTab: React.FC = () => {
       } finally {
         setDeletingId(null);
       }
-    },
-    [toast],
-  );
-
-  const handleViewDetails = useCallback(
-    (upload: CurriculumUpload) => {
-      // Review page is not built yet.
-      toast({
-        title: "Review page coming soon",
-        description: `Detailed review for "${upload.file_name}" isn't available yet.`,
-      });
     },
     [toast],
   );
@@ -300,11 +291,11 @@ export const CurriculumTab: React.FC = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => handleViewDetails(u)}
+                      onClick={() => setPreviewUploadId(u.id)}
                       className="border-emerald-200 text-emerald-700 hover:bg-emerald-50"
                     >
-                      <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-                      View details
+                      <Eye className="mr-1.5 h-3.5 w-3.5" />
+                      Preview lesson
                     </Button>
                     <Button
                       size="sm"
@@ -327,6 +318,14 @@ export const CurriculumTab: React.FC = () => {
           </div>
         )}
       </section>
+
+      {previewUploadId && (
+        <PreviewLessonModal
+          uploadId={previewUploadId}
+          isOpen
+          onClose={() => setPreviewUploadId(null)}
+        />
+      )}
     </div>
   );
 };
