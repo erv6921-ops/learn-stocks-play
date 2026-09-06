@@ -141,19 +141,26 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
   }
 
+  console.log(
+    `[GQ] env present: ANTHROPIC_API_KEY=${!!anthropicKey} SUPABASE_URL=${!!supabaseUrl} SERVICE_ROLE=${!!serviceRoleKey}`,
+  );
+
   let body: RequestBody;
   try {
     body = (await req.json()) as RequestBody;
   } catch {
     return respond({ success: false, questionsGenerated: 0, errors: ["Body must be JSON."] }, 400);
   }
+  console.log(`[GQ] input received: body keys=${Object.keys(body ?? {}).join(",")}`);
   const uploadId = body?.uploadId;
   if (typeof uploadId !== "string" || uploadId.length === 0) {
+    console.error("[GQ] invalid uploadId:", JSON.stringify(uploadId));
     return respond(
       { success: false, questionsGenerated: 0, errors: ["`uploadId` is required."] },
       400,
     );
   }
+  console.log(`[GQ] uploadId=${uploadId}`);
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false },
@@ -173,8 +180,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
   }
   if (!concepts || concepts.length === 0) {
+    console.warn(`[GQ][${uploadId}] no concepts found — returning 404`);
     return respond({ success: false, questionsGenerated: 0, errors: ["No concepts found for this upload."] }, 404);
   }
+  console.log(
+    `[GQ][${uploadId}] concepts loaded: ${concepts.length} — ${(concepts as ConceptRow[]).map((c) => c.name).join(", ")}`,
+  );
 
   // 2. Skip concepts that already have questions (idempotent re-runs).
   const { data: existing } = await supabase
@@ -186,6 +197,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
   );
 
   const todo = (concepts as ConceptRow[]).filter((c) => !alreadyDone.has(c.id));
+  console.log(
+    `[GQ][${uploadId}] existing questions for ${alreadyDone.size} concept(s); to generate: ${todo.length} — ${todo.map((c) => c.name).join(", ") || "(none)"}`,
+  );
 
   // 3. Generate + insert per concept.
   let questionsGenerated = 0;
@@ -193,13 +207,21 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
   for (const concept of todo) {
     try {
+      console.log(`[GQ][${uploadId}] → Claude call for concept "${concept.name}" (id=${concept.id})`);
       const message = await anthropic.messages.create({
         model: MODEL,
         max_tokens: 2048,
         messages: [{ role: "user", content: buildPrompt(concept) }],
       });
-      const questions = parseQuestions(firstTextBlock(message));
+      const raw = firstTextBlock(message);
+      console.log(
+        `[GQ][${uploadId}]   Claude responded for "${concept.name}": stop_reason=${message.stop_reason}, chars=${raw.length}, out_tokens=${message.usage.output_tokens}`,
+      );
+
+      const questions = parseQuestions(raw);
+      console.log(`[GQ][${uploadId}]   parsed ${questions.length} question(s) for "${concept.name}"`);
       if (questions.length === 0) {
+        console.warn(`[GQ][${uploadId}]   NO usable questions for "${concept.name}". Raw (first 300): ${raw.slice(0, 300)}`);
         errors.push(`${concept.name}: model returned no usable questions`);
         continue;
       }
@@ -215,29 +237,33 @@ Deno.serve(async (req: Request): Promise<Response> => {
         status: "pending",
       }));
 
+      console.log(`[GQ][${uploadId}]   inserting ${rows.length} row(s) for "${concept.name}"`);
       const { error: insErr } = await supabase.from("generated_questions").insert(rows);
       if (insErr) {
+        console.error(`[GQ][${uploadId}]   INSERT FAILED for "${concept.name}": ${insErr.message}`);
         errors.push(`${concept.name}: insert failed — ${insErr.message}`);
         continue;
       }
       questionsGenerated += rows.length;
-      console.log(`[${uploadId}] ${concept.name}: +${rows.length} questions`);
+      console.log(`[GQ][${uploadId}]   ✓ inserted ${rows.length} question(s) for "${concept.name}" (running total ${questionsGenerated})`);
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);
-      console.error(`[${uploadId}] ${concept.name} failed:`, detail);
+      console.error(`[GQ][${uploadId}]   CONCEPT FAILED "${concept.name}": ${detail}`);
       errors.push(`${concept.name}: ${detail}`);
     }
   }
 
-  console.log(
-    `[${uploadId}] Done: ${questionsGenerated} questions across ${todo.length} concept(s), ${errors.length} error(s).`,
-  );
-
-  return respond({
+  const finalBody = {
     success: questionsGenerated > 0 || todo.length === 0,
     questionsGenerated,
     ...(errors.length > 0 ? { errors } : {}),
-  });
+  };
+  console.log(
+    `[GQ][${uploadId}] DONE: generated=${questionsGenerated}, concepts_processed=${todo.length}, errors=${errors.length}`,
+  );
+  console.log(`[GQ][${uploadId}] final response: ${JSON.stringify(finalBody)}`);
+
+  return respond(finalBody);
 });
 
 /*

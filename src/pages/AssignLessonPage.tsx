@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { Loader2, AlertCircle, ArrowLeft, BookOpen } from "lucide-react";
+import { Loader2, AlertCircle, ArrowLeft, BookOpen, FileQuestion } from "lucide-react";
 
 interface ClassRow {
   id: string;
@@ -15,8 +15,14 @@ interface ClassRow {
   description: string | null;
 }
 
+// The generated Supabase `Database` type does not yet include the curriculum
+// tables (run `supabase gen types typescript` to regenerate).
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = supabase as any;
+
+// The real dashboard route is /teacher-dashboard (see App.tsx). The task brief
+// says "/teacher/dashboard", which does not exist — using the real one.
+const DASHBOARD_ROUTE = "/teacher-dashboard";
 
 const AssignLessonPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -27,35 +33,45 @@ const AssignLessonPage: React.FC = () => {
   const lessonName = searchParams.get("lessonName") ?? "Untitled lesson";
 
   const [classes, setClasses] = useState<ClassRow[]>([]);
+  const [questionCount, setQuestionCount] = useState<number | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [assigning, setAssigning] = useState(false);
 
-  const fetchClasses = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
       const { data: userData } = await supabase.auth.getUser();
       if (!userData?.user) throw new Error("You must be signed in.");
-      const { data, error: qErr } = await db
-        .from("classes")
-        .select("id, name, description")
-        .eq("teacher_id", userData.user.id)
-        .order("name", { ascending: true });
-      if (qErr) throw new Error(qErr.message);
-      setClasses((data as ClassRow[] | null) ?? []);
+
+      const [classesRes, countRes] = await Promise.all([
+        db
+          .from("classes")
+          .select("id, name, description")
+          .eq("teacher_id", userData.user.id)
+          .order("name", { ascending: true }),
+        db
+          .from("generated_questions")
+          .select("id", { count: "exact", head: true })
+          .eq("upload_id", uploadId),
+      ]);
+
+      if (classesRes.error) throw new Error(classesRes.error.message);
+      setClasses((classesRes.data as ClassRow[] | null) ?? []);
+      setQuestionCount(countRes.count ?? 0);
     } catch (err) {
-      console.error("Failed to load classes:", err);
+      console.error("Failed to load assignment data:", err);
       setError(err instanceof Error ? err.message : "Could not load your classes.");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [uploadId]);
 
   useEffect(() => {
-    void fetchClasses();
-  }, [fetchClasses]);
+    void fetchData();
+  }, [fetchData]);
 
   const toggle = (id: string) =>
     setSelected((prev) => {
@@ -70,9 +86,10 @@ const AssignLessonPage: React.FC = () => {
       return;
     }
     if (selected.size === 0) {
-      toast({ title: "Pick at least one class", variant: "destructive" });
+      toast({ title: "Pick at least one class", description: "Select where to assign this lesson.", variant: "destructive" });
       return;
     }
+
     setAssigning(true);
     try {
       const { data: userData } = await supabase.auth.getUser();
@@ -90,20 +107,41 @@ const AssignLessonPage: React.FC = () => {
         .select("id")
         .single();
       if (lErr || !lesson?.id) throw new Error(lErr?.message ?? "Could not create the lesson.");
+      const lessonId: string = lesson.id;
 
-      // 2. Create the class assignments.
-      const rows = Array.from(selected).map((classId) => ({
-        lesson_id: lesson.id,
+      // 2. Create one assignment row per selected class.
+      const assignmentRows = Array.from(selected).map((classId) => ({
+        lesson_id: lessonId,
         class_id: classId,
       }));
-      const { error: aErr } = await db.from("class_lesson_assignments").insert(rows);
+      const { error: aErr } = await db.from("class_lesson_assignments").insert(assignmentRows);
       if (aErr) throw new Error(aErr.message);
+
+      // 3. Link this upload's pending questions to the new lesson. Non-fatal:
+      //    the assignment already succeeded, so we warn rather than fail if the
+      //    link doesn't take (e.g. an RLS gap). `.select()` lets us confirm the
+      //    number of rows actually updated.
+      const { data: linked, error: linkErr } = await db
+        .from("generated_questions")
+        .update({ lesson_id: lessonId })
+        .eq("upload_id", uploadId)
+        .eq("status", "pending")
+        .select("id");
+      if (linkErr) {
+        console.warn("Question linking failed:", linkErr.message);
+        toast({
+          title: "Assigned, but questions not linked",
+          description: linkErr.message,
+        });
+      } else if ((linked?.length ?? 0) === 0 && (questionCount ?? 0) > 0) {
+        console.warn("Question link updated 0 rows despite existing questions.");
+      }
 
       toast({
         title: "Lesson assigned",
-        description: `"${lessonName}" assigned to ${rows.length} class${rows.length === 1 ? "" : "es"}.`,
+        description: `"${lessonName}" assigned to ${assignmentRows.length} class${assignmentRows.length === 1 ? "" : "es"}.`,
       });
-      navigate("/teacher-dashboard");
+      navigate(DASHBOARD_ROUTE);
     } catch (err) {
       console.error("Assign failed:", err);
       toast({
@@ -114,7 +152,7 @@ const AssignLessonPage: React.FC = () => {
     } finally {
       setAssigning(false);
     }
-  }, [uploadId, lessonName, selected, navigate, toast]);
+  }, [uploadId, lessonName, selected, questionCount, navigate, toast]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10 sm:px-6 lg:px-8">
@@ -134,9 +172,18 @@ const AssignLessonPage: React.FC = () => {
               <BookOpen className="h-5 w-5 text-emerald-600" />
               Assign lesson
             </CardTitle>
-            <p className="pt-1 text-sm text-slate-500">
-              Lesson: <span className="font-medium text-slate-700">{lessonName}</span>
-            </p>
+            <div className="space-y-1 pt-1 text-sm">
+              {/* Lesson name — read-only, from the query param */}
+              <p className="text-slate-500">
+                Lesson: <span className="font-medium text-slate-700">{lessonName}</span>
+              </p>
+              <p className="flex items-center gap-1.5 text-slate-500">
+                <FileQuestion className="h-3.5 w-3.5 text-emerald-600" />
+                {questionCount === null
+                  ? "Counting questions…"
+                  : `${questionCount} question${questionCount === 1 ? "" : "s"} in this lesson`}
+              </p>
+            </div>
           </CardHeader>
           <CardContent className="space-y-5">
             <div>
@@ -195,9 +242,7 @@ const AssignLessonPage: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-between border-t border-slate-100 pt-4">
-              <span className="text-xs text-slate-400">
-                {selected.size} selected
-              </span>
+              <span className="text-xs text-slate-400">{selected.size} selected</span>
               <Button
                 onClick={() => void handleAssign()}
                 disabled={assigning || loading || selected.size === 0}
