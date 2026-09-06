@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { StagedProgress } from "@/components/StagedProgress";
 import { cn } from "@/lib/utils";
 import { Loader2, AlertCircle, ArrowLeft, BookOpen, FileQuestion } from "lucide-react";
 
@@ -258,6 +259,21 @@ const AssignLessonPage: React.FC = () => {
                 </div>
               )}
             </div>
+
+            {building && (
+              <div className="rounded-lg border border-emerald-100 bg-emerald-50/40 p-3">
+                <StagedProgress
+                  estimatedMs={35000}
+                  stages={[
+                    "Reading your material…",
+                    "Writing Jeff's teaching…",
+                    "Adding checks & scenario…",
+                    "Building the mastery check…",
+                    "Finalizing lesson…",
+                  ]}
+                />
+              </div>
+            )}
 
             <div className="flex items-center justify-between border-t border-slate-100 pt-4">
               <span className="text-xs text-slate-400">{selected.size} selected</span>

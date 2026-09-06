@@ -24,8 +24,8 @@ import {
   ChevronDown,
   AlertCircle,
   RefreshCw,
-  Sparkles,
 } from "lucide-react";
+import { StagedProgress } from "@/components/StagedProgress";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -189,17 +189,23 @@ export const PreviewLessonModal: React.FC<PreviewLessonModalProps> = ({
           )}
 
           {/* Busy */}
-          {busy && (
+          {generating && (
+            <div className="py-8">
+              <StagedProgress
+                estimatedMs={30000}
+                stages={[
+                  "Analyzing concepts…",
+                  "Writing questions…",
+                  "Balancing difficulty…",
+                  "Almost done…",
+                ]}
+              />
+            </div>
+          )}
+          {busy && !generating && (
             <div className="flex flex-col items-center justify-center gap-2 py-10 text-sm text-slate-500">
               <Loader2 className="h-6 w-6 animate-spin text-emerald-600" />
-              {generating ? (
-                <span className="flex items-center gap-1.5">
-                  <Sparkles className="h-3.5 w-3.5 text-emerald-500" />
-                  Generating questions…
-                </span>
-              ) : (
-                "Loading preview…"
-              )}
+              Loading preview…
             </div>
           )}
 
