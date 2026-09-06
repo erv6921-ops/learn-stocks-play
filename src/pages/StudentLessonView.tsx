@@ -115,7 +115,8 @@ const StudentLessonView: React.FC = () => {
         explanation: g.explanation ?? "",
         difficulty: g.difficulty ?? 0.5,
       }));
-      const required = qs.length > 0 ? Math.max(1, Math.min(qs.length, Math.round(qs.length * 0.6))) : 0;
+      // Match synthesize-lesson: 4 correct to pass, full pool rotates on retry.
+      const required = qs.length > 0 ? Math.min(qs.length, 4) : 0;
       setFallbackMastery({ type: "mastery-check", questions: qs, requiredCorrect: required });
     })();
   }, [phase, content, lessonId]);

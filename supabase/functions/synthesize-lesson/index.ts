@@ -251,7 +251,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
     difficulty: g.difficulty ?? 0.5,
   }));
   const pool = masteryQuestions.length;
-  const requiredCorrect = pool > 0 ? Math.max(1, Math.min(pool, Math.round(pool * 0.6))) : 0; // 15 -> 9
+  // 4 correct to pass. The full 15-question pool is kept, and MasteryCheckRenderer
+  // presents `requiredCorrect` questions drawn adaptively from the pool (excluding
+  // already-asked), so each attempt/retry rotates through fresh questions
+  // (pool 15 >> required 4). Matches the app's mastery-pool convention.
+  const MASTERY_REQUIRED = 4;
+  const requiredCorrect = pool > 0 ? Math.min(pool, MASTERY_REQUIRED) : 0;
   if (pool > 0) {
     sections.push({ type: "mastery-check", questions: masteryQuestions, requiredCorrect });
   }
