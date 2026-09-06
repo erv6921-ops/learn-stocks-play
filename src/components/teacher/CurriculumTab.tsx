@@ -105,6 +105,8 @@ export const CurriculumTab: React.FC = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [uploads, setUploads] = useState<CurriculumUpload[]>([]);
+  // upload_id -> which buckets its generated lessons landed in (Missions/Homework).
+  const [placements, setPlacements] = useState<Map<string, { missions: boolean; homework: boolean }>>(new Map());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -142,6 +144,23 @@ export const CurriculumTab: React.FC = () => {
         }),
       );
       setUploads(rows);
+
+      // Where did each upload's lessons get routed? (Missions vs Homework badge.)
+      const ids = rows.map((r) => r.id);
+      if (ids.length > 0) {
+        const { data: lessonRows } = await db
+          .from("lessons")
+          .select("upload_id, placement")
+          .in("upload_id", ids);
+        const map = new Map<string, { missions: boolean; homework: boolean }>();
+        for (const l of (lessonRows ?? []) as { upload_id: string; placement: string | null }[]) {
+          const cur = map.get(l.upload_id) ?? { missions: false, homework: false };
+          if (l.placement === "missions") cur.missions = true;
+          else cur.homework = true;
+          map.set(l.upload_id, cur);
+        }
+        setPlacements(map);
+      }
     } catch (err) {
       console.error("Failed to load curriculum uploads:", err);
       setError(
@@ -287,6 +306,20 @@ export const CurriculumTab: React.FC = () => {
                         {u.conceptsCount} concepts • {u.vocabularyCount} vocabulary •{" "}
                         {u.objectivesCount} objectives
                       </p>
+                      {(placements.get(u.id)?.missions || placements.get(u.id)?.homework) && (
+                        <div className="flex flex-wrap gap-1.5 pt-0.5">
+                          {placements.get(u.id)?.missions && (
+                            <span className="inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-[11px] font-medium text-indigo-700">
+                              In Missions
+                            </span>
+                          )}
+                          {placements.get(u.id)?.homework && (
+                            <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">
+                              In Homework
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
 

@@ -25,6 +25,7 @@ import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
 import GulliverBizLab from "@/components/bizlab/GulliverBizLab";
 import { JeffChatAvatar } from "@/components/lessons/JeffChat";
+import { TeacherMissionsStrip } from "@/components/lessons/TeacherMissionsStrip";
 import VocabGlossary from "@/components/lessons/VocabGlossary";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
 import { anchor } from "@/lib/tourAnchors";
@@ -636,6 +637,9 @@ export default function Lessons() {
       <GameNav />
 
       <main className="container mx-auto px-4 md:px-6 py-6 max-w-7xl">
+        {/* Teacher-added ("Missions"-placed) generated lessons for the active
+            unit — isolated strip, does not affect coaster gating. */}
+        <TeacherMissionsStrip unitId={activeUnitId} />
         {/* Course track switcher (left) + Fullscreen button (right), one row.
             Biz Lab students see only Regular Course + Gulliver Biz Lab;
             everyone else keeps the AP Micro elective tab. */}
