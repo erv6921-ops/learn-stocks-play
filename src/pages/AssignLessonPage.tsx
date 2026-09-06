@@ -7,8 +7,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { StagedProgress } from "@/components/StagedProgress";
+import { unitInfo } from "@/data/lessons";
 import { cn } from "@/lib/utils";
-import { Loader2, AlertCircle, ArrowLeft, BookOpen, FileQuestion } from "lucide-react";
+import { Loader2, AlertCircle, ArrowLeft, BookOpen, FileQuestion, Map, ClipboardList } from "lucide-react";
+
+type Placement = "homework" | "missions";
 
 interface ClassRow {
   id: string;
@@ -40,7 +43,10 @@ const AssignLessonPage: React.FC = () => {
   const [error, setError] = useState("");
   const [assigning, setAssigning] = useState(false);
   const [building, setBuilding] = useState(false);
-  const [dueDate, setDueDate] = useState(""); // optional; yyyy-mm-dd
+  const [dueDate, setDueDate] = useState(""); // optional; yyyy-mm-dd (Homework only)
+  const [placement, setPlacement] = useState<Placement>("homework");
+  const [missionUnitId, setMissionUnitId] = useState("");
+  const sortedUnits = [...unitInfo].sort((a, b) => a.orderIndex - b.orderIndex);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -92,6 +98,10 @@ const AssignLessonPage: React.FC = () => {
       toast({ title: "Pick at least one class", description: "Select where to assign this lesson.", variant: "destructive" });
       return;
     }
+    if (placement === "missions" && !missionUnitId) {
+      toast({ title: "Pick a unit", description: "Choose which Missions unit this lesson belongs to.", variant: "destructive" });
+      return;
+    }
 
     setAssigning(true);
     try {
@@ -106,6 +116,8 @@ const AssignLessonPage: React.FC = () => {
           teacher_id: userData.user.id,
           name: lessonName,
           status: "draft",
+          placement,
+          mission_unit_id: placement === "missions" ? missionUnitId : null,
         })
         .select("id")
         .single();
@@ -137,21 +149,23 @@ const AssignLessonPage: React.FC = () => {
       const { error: aErr } = await db.from("class_lesson_assignments").insert(assignmentRows);
       if (aErr) throw new Error(aErr.message);
 
-      // 2b. ALSO write to the regular `assigned_lessons` table so generated
-      //     lessons flow through the SAME plumbing as hand-built lessons:
-      //     the teacher per-student view, the Homework tab, and the
-      //     new-assignment popup all read assigned_lessons + lesson_progress.
-      //     (lesson_id is text here; the generated lesson's UUID is stored as-is
-      //     and resolved via src/lib/generatedLessons.ts.) Non-fatal.
-      const assignedRows = Array.from(selected).map((classId) => ({
-        class_id: classId,
-        lesson_id: lessonId,
-        assigned_by: userData.user.id,
-        assignment_type: "homework",
-        due_date: dueDate || null,
-      }));
-      const { error: alErr } = await db.from("assigned_lessons").insert(assignedRows);
-      if (alErr) console.warn("assigned_lessons insert failed (non-fatal):", alErr.message);
+      // 2b. HOMEWORK ONLY: also write to the regular `assigned_lessons` table so
+      //     the lesson flows through the SAME plumbing as hand-built lessons
+      //     (teacher per-student view, Homework tab, new-assignment popup).
+      //     Missions lessons are mutually exclusive — NOT homework, no due date —
+      //     so we skip this write for them; they surface via the Missions unit
+      //     strip instead (class scoping comes from class_lesson_assignments above).
+      if (placement === "homework") {
+        const assignedRows = Array.from(selected).map((classId) => ({
+          class_id: classId,
+          lesson_id: lessonId,
+          assigned_by: userData.user.id,
+          assignment_type: "homework",
+          due_date: dueDate || null,
+        }));
+        const { error: alErr } = await db.from("assigned_lessons").insert(assignedRows);
+        if (alErr) console.warn("assigned_lessons insert failed (non-fatal):", alErr.message);
+      }
 
       // 3. Link this upload's pending questions to the new lesson. Non-fatal:
       //    the assignment already succeeded, so we warn rather than fail if the
@@ -173,9 +187,13 @@ const AssignLessonPage: React.FC = () => {
         console.warn("Question link updated 0 rows despite existing questions.");
       }
 
+      const where =
+        placement === "missions"
+          ? `added to Missions (${sortedUnits.find((u) => u.id === missionUnitId)?.title ?? "unit"})`
+          : "assigned as homework";
       toast({
         title: "Lesson assigned",
-        description: `"${lessonName}" assigned to ${assignmentRows.length} class${assignmentRows.length === 1 ? "" : "es"}.`,
+        description: `"${lessonName}" ${where} for ${assignmentRows.length} class${assignmentRows.length === 1 ? "" : "es"}.`,
       });
       navigate(DASHBOARD_ROUTE);
     } catch (err) {
@@ -188,7 +206,7 @@ const AssignLessonPage: React.FC = () => {
     } finally {
       setAssigning(false);
     }
-  }, [uploadId, lessonName, selected, questionCount, navigate, toast]);
+  }, [uploadId, lessonName, selected, questionCount, navigate, toast, placement, missionUnitId, dueDate, sortedUnits]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10 sm:px-6 lg:px-8">
@@ -222,19 +240,77 @@ const AssignLessonPage: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent className="space-y-5">
-            {/* Optional due date — reused by the Homework tab + teacher view */}
+            {/* Where should this lesson go? */}
             <div>
-              <Label htmlFor="due-date" className="text-sm text-slate-700">
-                Due date <span className="text-slate-400">(optional)</span>
-              </Label>
-              <input
-                id="due-date"
-                type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="mt-2 block w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none"
-              />
+              <Label className="text-sm text-slate-700">Where should this lesson go?</Label>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPlacement("homework")}
+                  className={cn(
+                    "flex flex-col items-start gap-1 rounded-lg border p-3 text-left transition-colors",
+                    placement === "homework" ? "border-emerald-400 bg-emerald-50" : "border-slate-200 hover:bg-slate-50",
+                  )}
+                >
+                  <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-800">
+                    <ClipboardList className="h-4 w-4 text-emerald-600" /> Homework
+                  </span>
+                  <span className="text-xs text-slate-500">One-off assignment, optional due date.</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPlacement("missions")}
+                  className={cn(
+                    "flex flex-col items-start gap-1 rounded-lg border p-3 text-left transition-colors",
+                    placement === "missions" ? "border-emerald-400 bg-emerald-50" : "border-slate-200 hover:bg-slate-50",
+                  )}
+                >
+                  <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-800">
+                    <Map className="h-4 w-4 text-emerald-600" /> Missions
+                  </span>
+                  <span className="text-xs text-slate-500">Part of the course sequence, in a unit.</span>
+                </button>
+              </div>
             </div>
+
+            {/* Homework → optional due date */}
+            {placement === "homework" && (
+              <div>
+                <Label htmlFor="due-date" className="text-sm text-slate-700">
+                  Due date <span className="text-slate-400">(optional)</span>
+                </Label>
+                <input
+                  id="due-date"
+                  type="date"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                  className="mt-2 block w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none"
+                />
+              </div>
+            )}
+
+            {/* Missions → unit picker (existing static units) */}
+            {placement === "missions" && (
+              <div>
+                <Label htmlFor="unit" className="text-sm text-slate-700">Missions unit</Label>
+                <select
+                  id="unit"
+                  value={missionUnitId}
+                  onChange={(e) => setMissionUnitId(e.target.value)}
+                  className="mt-2 block w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none"
+                >
+                  <option value="">Select a unit…</option>
+                  {sortedUnits.map((u) => (
+                    <option key={u.id} value={u.id}>
+                      Unit {u.unitNumber}: {u.title}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-1 text-xs text-slate-400">
+                  Appears for students in this unit as a “from your teacher” lesson (no due date).
+                </p>
+              </div>
+            )}
 
             <div>
               <Label className="text-sm text-slate-700">Choose classes</Label>
