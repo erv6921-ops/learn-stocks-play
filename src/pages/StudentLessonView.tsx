@@ -2,432 +2,300 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useApp } from "@/contexts/AppContext";
-import { useAbility } from "@/hooks/useAbility";
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import LessonResultsScreen from "@/components/LessonResultsScreen";
-import { cn } from "@/lib/utils";
 import {
-  Loader2,
-  AlertCircle,
-  CheckCircle2,
-  XCircle,
-  ChevronLeft,
-  ChevronRight,
-  ArrowLeft,
-} from "lucide-react";
-
-// ---------------------------------------------------------------------------
-// Types & helpers
-// ---------------------------------------------------------------------------
-
-interface Question {
-  id: string;
-  question_text: string;
-  options: string[];
-  correct_answer: string;
-  explanation: string | null;
-  difficulty: number | null;
-}
-
-interface AnswerState {
-  selected: string;
-  isCorrect: boolean;
-}
+  ConceptRenderer,
+  MicroCheckRenderer,
+  ScenarioRenderer,
+  AppliedQuestionRenderer,
+  RecapRenderer,
+  MasteryCheckRenderer,
+} from "@/components/lesson/SectionRenderer";
+import { ActivityCheckRenderer } from "@/components/lesson/ActivityCheckRenderer";
+import { DiagramRenderer } from "@/components/lesson/DiagramRenderer";
+import { HintProvider } from "@/components/lesson/HintContext";
+import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext";
+import JeffChat from "@/components/lessons/JeffChat";
+import { buildScript, isDeepLesson } from "@/lib/jeffChatLesson";
+import LessonResultsScreen from "@/components/LessonResultsScreen";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Loader2, AlertCircle, ArrowLeft } from "lucide-react";
+import type { Lesson, LessonSection, MasteryCheckSection } from "@/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = supabase as any;
 
-const LETTERS = ["A", "B", "C", "D", "E", "F"];
-const EXPECTED_MS = 30_000; // per-question time budget for the IRT time weight
-
-const slugify = (s: string): string =>
-  s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) ||
-  "lesson";
-
-/** Difficulty is stored 0..1; map to the engine's logit b (~-1.5..1.5). */
-const toB = (difficulty: number | null): number => ((difficulty ?? 0.5) - 0.5) * 3;
-
-/** Whether the option at `index` is correct, tolerating letter- or text-form. */
-function optionIsCorrect(option: string, index: number, correctAnswer: string): boolean {
-  const ca = (correctAnswer ?? "").trim();
-  if (!ca) return false;
-  if (ca === option) return true;
-  const m = ca.match(/^([A-Fa-f])[).:\s]?$/);
-  if (m) return LETTERS.indexOf(m[1].toUpperCase()) === index;
-  return false;
+interface JeffContext {
+  learningObjectives?: string[];
+  concepts?: { name: string; definition: string }[];
+  vocabulary?: { term: string; definition: string }[];
+  excerpt?: string;
+}
+interface LessonContent {
+  version?: number;
+  sections?: LessonSection[];
+  jeffContext?: JeffContext;
 }
 
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
+const slugify = (s: string): string =>
+  s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "lesson";
+
+type Phase = "loading" | "error" | "intro" | "sections" | "done";
 
 const StudentLessonView: React.FC = () => {
   const { lessonId = "" } = useParams();
   const navigate = useNavigate();
   const { user } = useApp();
 
-  const [lessonName, setLessonName] = useState("");
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [answers, setAnswers] = useState<Record<number, AnswerState>>({});
-  const [index, setIndex] = useState(0);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [phase, setPhase] = useState<Phase>("loading");
   const [error, setError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [finalizing, setFinalizing] = useState(false);
-  const [finished, setFinished] = useState(false);
-  const [mastery, setMastery] = useState<{ passed: boolean; progress: string } | null>(null);
+  const [lessonName, setLessonName] = useState("");
+  const [content, setContent] = useState<LessonContent | null>(null);
 
-  const concept = useMemo(() => (lessonName ? `curriculum:${slugify(lessonName)}` : undefined), [lessonName]);
-  const ability = useAbility(concept);
+  // Section stepper + mastery state (mirrors LessonDetail's ownership so a
+  // fail-and-retry remounts the mastery renderer with a fresh attempt number).
+  const [sectionIdx, setSectionIdx] = useState(0);
+  const [masteryAttempt, setMasteryAttempt] = useState({ sessionId: crypto.randomUUID(), attemptNumber: 1 });
+  const [regen, setRegen] = useState(0);
+  const [result, setResult] = useState<{ score: number; total: number; passed: boolean } | null>(null);
 
-  const sessionIdRef = useRef<string>(crypto.randomUUID());
-  const questionStartRef = useRef<number>(Date.now());
-  const thetaStartRef = useRef<number | null>(null);
-  const attemptSeqRef = useRef(0);
+  const concept = useMemo(() => (lessonName ? `curriculum:${slugify(lessonName)}` : "curriculum"), [lessonName]);
+  const sections = content?.sections ?? [];
+  const finalizedRef = useRef(false);
 
-  // --- Load lesson + questions + prior attempts (for resume) ---------------
-  const load = useCallback(async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const [lessonRes, qRes] = await Promise.all([
-        db.from("lessons").select("name").eq("id", lessonId).single(),
-        db
-          .from("generated_questions")
-          .select("id, question_text, options, correct_answer, explanation, difficulty")
-          .eq("lesson_id", lessonId)
-          .order("created_at", { ascending: true }),
-      ]);
-      if (lessonRes.error) throw new Error(lessonRes.error.message);
-      if (qRes.error) throw new Error(qRes.error.message);
-
-      setLessonName(lessonRes.data?.name ?? "Lesson");
-      const qs = (qRes.data as Question[] | null) ?? [];
-      setQuestions(qs);
-
-      // Reconstruct answered state from prior attempts so resume doesn't
-      // re-record. (Skipped in dev-local — no persisted attempts there.)
-      if (!DEV_LOCAL_BYPASS && user?.id && qs.length > 0) {
-        const { data: attempts } = await db
-          .from("question_attempts")
-          .select("question_id, is_correct, selected_answer, created_at")
-          .eq("user_id", user.id)
-          .eq("lesson_id", String(lessonId))
-          .order("created_at", { ascending: true });
-        const byQ = new Map<string, AnswerState>();
-        for (const a of (attempts ?? []) as {
-          question_id: string;
-          is_correct: boolean;
-          selected_answer: string | null;
-        }[]) {
-          byQ.set(a.question_id, {
-            selected: a.selected_answer ?? "",
-            isCorrect: !!a.is_correct,
-          });
-        }
-        const restored: Record<number, AnswerState> = {};
-        qs.forEach((q, i) => {
-          const a = byQ.get(q.id);
-          if (a) restored[i] = a;
-        });
-        setAnswers(restored);
-        const firstUnanswered = qs.findIndex((_, i) => !restored[i]);
-        setIndex(firstUnanswered === -1 ? qs.length - 1 : firstUnanswered);
-      }
-    } catch (err) {
-      console.error("Failed to load lesson:", err);
-      setError(err instanceof Error ? err.message : "Could not load this lesson.");
-    } finally {
-      setLoading(false);
-    }
-  }, [lessonId, user?.id]);
-
+  // --- Load lesson content -------------------------------------------------
   useEffect(() => {
-    void load();
-  }, [load]);
-
-  // Reset the per-question timer whenever the visible question changes.
-  useEffect(() => {
-    questionStartRef.current = Date.now();
-  }, [index]);
-
-  const total = questions.length;
-  const answeredCount = Object.keys(answers).length;
-  const current = questions[index];
-  const currentAnswer = answers[index];
-
-  // --- Submit the current answer -------------------------------------------
-  const handleSubmit = useCallback(async () => {
-    if (!current || selected == null || currentAnswer) return;
-    setSubmitting(true);
-    try {
-      const optIndex = current.options.indexOf(selected);
-      const isCorrect = optionIsCorrect(selected, optIndex, current.correct_answer);
-      const responseMs = Date.now() - questionStartRef.current;
-
-      // Capture the pre-session theta once, so the results delta is meaningful.
-      if (thetaStartRef.current == null) thetaStartRef.current = ability.getTheta();
-
-      // Fold into the real IRT engine (persists to student_ability by concept).
-      ability.record({ isCorrect, responseMs, questionB: toB(current.difficulty), expectedMs: EXPECTED_MS });
-
-      if (!DEV_LOCAL_BYPASS && user?.id) {
-        attemptSeqRef.current += 1;
-        const { error: aErr } = await db.from("question_attempts").insert({
-          user_id: user.id,
-          question_id: current.id,
-          lesson_id: String(lessonId),
-          topic_id: concept ?? null,
-          source: "curriculum",
-          is_correct: isCorrect,
-          selected_answer: selected,
-          response_time_ms: responseMs,
-          attempt_session_id: sessionIdRef.current,
-          session_attempt_number: attemptSeqRef.current,
-        });
-        if (aErr) console.error("[question_attempts insert]", aErr.message);
-
-        const nextAnswered = answeredCount + 1;
-        const nextCorrect =
-          Object.values(answers).filter((a) => a.isCorrect).length + (isCorrect ? 1 : 0);
-        const { error: pErr } = await db
-          .from("student_lesson_progress")
-          .upsert(
-            {
-              student_id: user.id,
-              lesson_id: lessonId,
-              status: "in_progress",
-              num_answered: nextAnswered,
-              num_correct: nextCorrect,
-              updated_at: new Date().toISOString(),
-            },
-            { onConflict: "student_id,lesson_id" },
-          );
-        if (pErr) console.error("[student_lesson_progress upsert]", pErr.message);
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data, error: e } = await db
+          .from("lessons")
+          .select("name, content")
+          .eq("id", lessonId)
+          .single();
+        if (cancelled) return;
+        if (e) throw new Error(e.message);
+        setLessonName(data?.name ?? "Lesson");
+        const c = (data?.content ?? null) as LessonContent | null;
+        setContent(c);
+        setPhase(c?.sections?.length ? "intro" : "sections"); // no content → mastery-only fallback
+      } catch (err) {
+        if (cancelled) return;
+        console.error("Load lesson failed:", err);
+        setError(err instanceof Error ? err.message : "Could not load this lesson.");
+        setPhase("error");
       }
+    })();
+    return () => { cancelled = true; };
+  }, [lessonId]);
 
-      setAnswers((prev) => ({ ...prev, [index]: { selected, isCorrect } }));
-      setSelected(null);
-    } finally {
-      setSubmitting(false);
-    }
-  }, [current, selected, currentAnswer, ability, user?.id, lessonId, concept, index, answers, answeredCount]);
+  // --- Fallback: no synthesized content → build a mastery-only section ------
+  const [fallbackMastery, setFallbackMastery] = useState<MasteryCheckSection | null>(null);
+  useEffect(() => {
+    if (phase !== "sections" || content?.sections?.length) return;
+    (async () => {
+      const { data } = await db
+        .from("generated_questions")
+        .select("id, question_text, options, correct_answer, explanation, difficulty")
+        .eq("lesson_id", lessonId)
+        .order("created_at", { ascending: true });
+      const LETTERS = ["A", "B", "C", "D", "E", "F"];
+      const idxOf = (opts: string[], ca: string) => {
+        const t = opts.indexOf((ca ?? "").trim());
+        if (t >= 0) return t;
+        const m = (ca ?? "").trim().match(/^([A-Fa-f])[).:\s]?$/);
+        return m ? LETTERS.indexOf(m[1].toUpperCase()) : 0;
+      };
+      const qs = (data ?? []).map((g: any) => ({
+        id: g.id,
+        question: g.question_text,
+        options: g.options,
+        correctAnswer: idxOf(g.options, g.correct_answer),
+        explanation: g.explanation ?? "",
+        difficulty: g.difficulty ?? 0.5,
+      }));
+      const required = qs.length > 0 ? Math.max(1, Math.min(qs.length, Math.round(qs.length * 0.6))) : 0;
+      setFallbackMastery({ type: "mastery-check", questions: qs, requiredCorrect: required });
+    })();
+  }, [phase, content, lessonId]);
 
-  // --- Finish the lesson ----------------------------------------------------
-  const handleFinish = useCallback(async () => {
-    setFinalizing(true);
-    try {
-      ability.persist();
-      const score = Object.values(answers).filter((a) => a.isCorrect).length;
+  // Synthetic Lesson object so JeffChat + buildScript work exactly as for
+  // hand-built lessons. Category is a generic (non-gulliver/ib) value so Jeff
+  // uses the default teaching behavior.
+  const syntheticLesson: Lesson = useMemo(
+    () => ({
+      id: lessonId,
+      title: lessonName || "Lesson",
+      description: "",
+      category: "entrepreneurship",
+      level: "explorer",
+      unitId: "generated",
+      lessonNumber: "",
+      reward: 0,
+      content: "",
+      duration: 5,
+      completed: false,
+    }),
+    [lessonId, lessonName],
+  );
 
+  const jeffScript = useMemo(
+    () => (sections.length ? buildScript(sections, isDeepLesson(syntheticLesson)) : []),
+    [sections, syntheticLesson],
+  );
+  const mustCover = useMemo(() => {
+    const jc = content?.jeffContext;
+    const c = (jc?.concepts ?? []).map((x) => `${x.name}: ${x.definition}`);
+    return c.length ? c.slice(0, 8) : undefined;
+  }, [content]);
+  const jeffSource = content?.jeffContext?.excerpt || undefined;
+
+  // --- Finalization --------------------------------------------------------
+  const finalize = useCallback(
+    async (correct: number, totalQuestions: number, passed: boolean) => {
+      if (finalizedRef.current) return;
+      finalizedRef.current = true;
       if (!DEV_LOCAL_BYPASS && user?.id) {
         await db.from("student_lesson_progress").upsert(
           {
             student_id: user.id,
             lesson_id: lessonId,
             status: "completed",
-            num_answered: total,
-            num_correct: score,
+            num_correct: correct,
+            num_answered: totalQuestions,
             completed_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           },
           { onConflict: "student_id,lesson_id" },
         );
-
-        const { data: m } = await supabase.functions.invoke("check-mastery", {
-          body: { lessonId, userId: user.id },
-        });
-        if (m) setMastery({ passed: !!m.passed, progress: m.progress ?? "" });
       }
-      setFinished(true);
-    } catch (err) {
-      console.error("Finish failed:", err);
-      // Still show results — the local score is valid even if persistence failed.
-      setFinished(true);
-    } finally {
-      setFinalizing(false);
-    }
-  }, [ability, answers, user?.id, lessonId, total]);
+      setResult({ score: correct, total: totalQuestions, passed });
+      setPhase("done");
+    },
+    [user?.id, lessonId],
+  );
 
-  // --- Render ---------------------------------------------------------------
-  if (finished) {
-    const score = Object.values(answers).filter((a) => a.isCorrect).length;
-    const thetaDelta =
-      thetaStartRef.current != null ? ability.getTheta() - thetaStartRef.current : null;
+  const handleSectionContinue = useCallback(() => setSectionIdx((i) => i + 1), []);
+
+  const renderMastery = (section: MasteryCheckSection) => (
+    <MasteryCheckRenderer
+      key={`mastery-${regen}`}
+      section={section}
+      topicId={concept}
+      lessonId={lessonId}
+      attemptSessionId={masteryAttempt.sessionId}
+      sessionAttemptNumber={masteryAttempt.attemptNumber}
+      onComplete={(correct, _attempts) => {
+        const total = Math.min(section.requiredCorrect, section.questions.length);
+        finalize(correct, total, correct >= section.requiredCorrect);
+      }}
+      onFail={() => {
+        // Fresh attempt: bump attempt number + remount the renderer.
+        setMasteryAttempt((a) => ({ sessionId: crypto.randomUUID(), attemptNumber: a.attemptNumber + 1 }));
+        setRegen((r) => r + 1);
+      }}
+    />
+  );
+
+  const renderSection = (section: LessonSection, idx: number) => {
+    switch (section.type) {
+      case "concept": return <ConceptRenderer key={idx} section={section} onContinue={handleSectionContinue} />;
+      case "micro-check": return <MicroCheckRenderer key={idx} section={section} onContinue={handleSectionContinue} />;
+      case "activity-check": return <ActivityCheckRenderer key={idx} section={section} onContinue={handleSectionContinue} />;
+      case "interactive-diagram": return <DiagramRenderer key={idx} section={section} onContinue={handleSectionContinue} />;
+      case "scenario": return <ScenarioRenderer key={idx} section={section} onContinue={handleSectionContinue} />;
+      case "applied-question": return <AppliedQuestionRenderer key={idx} section={section} onContinue={handleSectionContinue} />;
+      case "recap": return <RecapRenderer key={idx} section={section} onContinue={handleSectionContinue} />;
+      case "mastery-check": return renderMastery(section);
+      default: return null;
+    }
+  };
+
+  // --- Render --------------------------------------------------------------
+  if (phase === "loading") {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background text-sm text-muted-foreground">
+        <Loader2 className="mr-2 h-5 w-5 animate-spin text-emerald-600" /> Loading lesson…
+      </div>
+    );
+  }
+
+  if (phase === "error") {
+    return (
+      <div className="min-h-screen bg-background p-6">
+        <Card className="mx-auto max-w-md border-red-200 bg-red-50/60">
+          <CardContent className="flex items-start gap-2 pt-6">
+            <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+            <p className="text-sm text-red-700">{error}</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (phase === "done" && result) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10">
         <LessonResultsScreen
-          score={score}
-          total={total}
-          passed={mastery?.passed ?? false}
-          masteryProgress={mastery?.progress}
-          thetaDelta={thetaDelta}
+          score={result.score}
+          total={result.total}
+          passed={result.passed}
           onBackToDashboard={() => navigate("/dashboard")}
         />
       </div>
     );
   }
 
+  // Jeff teaches first (only when we have synthesized content to script from).
+  if (phase === "intro") {
+    return (
+      <JeffChat
+        lesson={syntheticLesson}
+        script={jeffScript}
+        source={jeffSource}
+        mustCover={mustCover}
+        onQuizReady={() => setPhase("sections")}
+        onClose={() => navigate("/dashboard")}
+      />
+    );
+  }
+
+  // Sections + mastery, wrapped in the same providers regular lessons use so
+  // scoring flows through the real IRT engine (QuizSessionProvider → useAbility)
+  // and question_attempts (MasteryCheckRenderer).
+  const activeSections: LessonSection[] = sections.length
+    ? sections
+    : fallbackMastery
+      ? [fallbackMastery]
+      : [];
+  const currentSection = activeSections[sectionIdx];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-8 sm:px-6">
-      <div className="mx-auto w-full max-w-2xl space-y-5">
-        <button
-          type="button"
-          onClick={() => navigate("/dashboard")}
-          className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Dashboard
-        </button>
-
-        {loading && (
-          <div className="flex items-center justify-center gap-2 py-16 text-sm text-slate-500">
-            <Loader2 className="h-5 w-5 animate-spin text-emerald-600" />
-            Loading lesson…
+    <HintProvider key={lessonId} total={2}>
+      <QuizSessionProvider key={`quiz-${lessonId}-${regen}`} lessonId={lessonId} concept={concept}>
+        <div className="min-h-screen bg-background px-4 py-6">
+          <div className="mx-auto w-full max-w-2xl space-y-4">
+            <button
+              type="button"
+              onClick={() => navigate("/dashboard")}
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="h-4 w-4" /> Dashboard
+            </button>
+            {!currentSection && !fallbackMastery && (
+              <Card>
+                <CardContent className="py-12 text-center text-sm text-muted-foreground">
+                  <Loader2 className="mx-auto mb-2 h-5 w-5 animate-spin text-emerald-600" />
+                  Preparing your lesson…
+                </CardContent>
+              </Card>
+            )}
+            {currentSection && renderSection(currentSection, sectionIdx)}
           </div>
-        )}
-
-        {!loading && error && (
-          <Card className="border-red-200 bg-red-50/60">
-            <CardContent className="flex items-start gap-2 pt-6">
-              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-              <p className="text-sm text-red-700">{error}</p>
-            </CardContent>
-          </Card>
-        )}
-
-        {!loading && !error && total === 0 && (
-          <Card>
-            <CardContent className="py-12 text-center text-sm text-slate-500">
-              This lesson has no questions yet.
-            </CardContent>
-          </Card>
-        )}
-
-        {!loading && !error && current && (
-          <>
-            {/* Header + progress */}
-            <div className="space-y-2">
-              <h1 className="text-xl font-bold text-slate-900">{lessonName}</h1>
-              <div className="flex items-center justify-between text-sm text-slate-500">
-                <span>
-                  Question {index + 1} of {total}
-                </span>
-                <span>{answeredCount} answered</span>
-              </div>
-              <Progress value={total > 0 ? (answeredCount / total) * 100 : 0} className="h-2" />
-            </div>
-
-            {/* Question card */}
-            <Card className="border-slate-200 shadow-sm">
-              <CardContent className="space-y-4 p-5">
-                <p className="text-base font-medium text-slate-900">{current.question_text}</p>
-
-                <div className="space-y-2">
-                  {current.options.map((opt, oi) => {
-                    const answered = !!currentAnswer;
-                    const chosen = answered ? currentAnswer.selected === opt : selected === opt;
-                    const correct = optionIsCorrect(opt, oi, current.correct_answer);
-                    // After answering, reveal correctness; before, just show selection.
-                    const showCorrect = answered && correct;
-                    const showWrongChoice = answered && chosen && !correct;
-                    return (
-                      <button
-                        key={oi}
-                        type="button"
-                        disabled={answered || submitting}
-                        onClick={() => setSelected(opt)}
-                        className={cn(
-                          "flex w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left text-sm transition-colors",
-                          showCorrect && "border-emerald-300 bg-emerald-50 text-emerald-800",
-                          showWrongChoice && "border-red-300 bg-red-50 text-red-800",
-                          !answered && chosen && "border-emerald-400 bg-emerald-50/60",
-                          !answered && !chosen && "border-slate-200 hover:bg-slate-50",
-                          answered && !showCorrect && !showWrongChoice && "border-slate-100 bg-slate-50 text-slate-500",
-                        )}
-                      >
-                        <span className="font-semibold">{LETTERS[oi]}.</span>
-                        <span className="flex-1">{opt}</span>
-                        {showCorrect && <CheckCircle2 className="h-4 w-4 text-emerald-600" />}
-                        {showWrongChoice && <XCircle className="h-4 w-4 text-red-600" />}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Explanation after answering */}
-                {currentAnswer && current.explanation && (
-                  <div className="rounded-md bg-slate-50 p-3 text-xs text-slate-600">
-                    <span className="font-semibold text-slate-700">Explanation: </span>
-                    {current.explanation}
-                  </div>
-                )}
-
-                {/* Submit (only before answering this question) */}
-                {!currentAnswer && (
-                  <Button
-                    onClick={() => void handleSubmit()}
-                    disabled={selected == null || submitting}
-                    className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
-                  >
-                    {submitting ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Submitting…
-                      </>
-                    ) : (
-                      "Submit answer"
-                    )}
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Navigation */}
-            <div className="flex items-center justify-between">
-              <Button
-                variant="outline"
-                onClick={() => setIndex((i) => Math.max(0, i - 1))}
-                disabled={index === 0}
-              >
-                <ChevronLeft className="mr-1 h-4 w-4" />
-                Previous
-              </Button>
-
-              {answeredCount === total ? (
-                <Button
-                  onClick={() => void handleFinish()}
-                  disabled={finalizing}
-                  className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
-                >
-                  {finalizing ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Finishing…
-                    </>
-                  ) : (
-                    "Finish lesson"
-                  )}
-                </Button>
-              ) : (
-                <Button
-                  variant="outline"
-                  onClick={() => setIndex((i) => Math.min(total - 1, i + 1))}
-                  disabled={!currentAnswer || index >= total - 1}
-                >
-                  Next
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
-              )}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+        </div>
+      </QuizSessionProvider>
+    </HintProvider>
   );
 };
 
