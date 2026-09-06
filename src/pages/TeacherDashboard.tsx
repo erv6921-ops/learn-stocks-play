@@ -234,6 +234,20 @@ export default function TeacherDashboard() {
   // reachable via classMembers[0], so assigning to an empty class looked like a
   // no-op.
   const [classAssignments, setClassAssignments] = useState<AssignedLesson[]>([])
+  // Display names for this teacher's GENERATED (UUID) curriculum lessons, which
+  // aren't in the static registry. Assigned generated lessons show up in the
+  // per-student/per-class views via assigned_lessons; this resolves their names.
+  const [genLessonNames, setGenLessonNames] = useState<Map<string, string>>(new Map())
+  useEffect(() => {
+    if (!appUser?.id) return
+    ;(supabase as any)
+      .from("lessons")
+      .select("id, name")
+      .eq("teacher_id", appUser.id)
+      .then(({ data }: { data: { id: string; name: string }[] | null }) => {
+        setGenLessonNames(new Map((data ?? []).map((r) => [r.id, r.name])))
+      })
+  }, [appUser?.id])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
   const [newClassName, setNewClassName] = useState("")
@@ -849,7 +863,7 @@ export default function TeacherDashboard() {
   const lessonChartData = useMemo(
     () => assignments.map((a) => {
       const lesson = lessons.find(l => l.id === a.lesson_id)
-      const title = lesson?.title ?? a.lesson_id
+      const title = lesson?.title ?? genLessonNames.get(a.lesson_id) ?? a.lesson_id
       const done = classMembers.filter(m => m.completedLessonIds.includes(a.lesson_id)).length
       return { name: shorten(title, 14), full: title, Completed: done, Remaining: Math.max(0, classMembers.length - done) }
     }),
@@ -1295,7 +1309,7 @@ export default function TeacherDashboard() {
                                 <span className="flex items-center gap-2 min-w-0">
                                   <BookOpen className="w-4 h-4 text-primary shrink-0" />
                                   <span className="min-w-0">
-                                    <span className="block truncate font-medium">{lesson?.title || a.lesson_id}</span>
+                                    <span className="block truncate font-medium">{lesson?.title || genLessonNames.get(a.lesson_id) || a.lesson_id}</span>
                                     <span className="block text-xs text-muted-foreground">
                                       {a.assignment_type === "homework" ? "Homework" : "Classwork"}
                                       {a.due_date && <> · Due {fmtDue(a.due_date, a.due_time)}</>}
@@ -1665,7 +1679,7 @@ export default function TeacherDashboard() {
                                               title="Click to remove assignment from class"
                                             >
                                               {done && <CheckCircle2 className="w-3 h-3" />}
-                                              {lesson?.title || assignment.lesson_id}
+                                              {lesson?.title || genLessonNames.get(assignment.lesson_id) || assignment.lesson_id}
                                               <Trash2 className="w-3 h-3 ml-1 opacity-50 hover:opacity-100" />
                                             </Badge>
                                             <Progress

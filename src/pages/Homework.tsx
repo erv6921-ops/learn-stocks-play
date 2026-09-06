@@ -15,6 +15,7 @@ import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
 import { lessons } from "@/data/lessons"
 import { fmtDue, isOverdue as pastDue } from "@/lib/dueDate"
+import { fetchGeneratedLessonNames, lessonRoute } from "@/lib/generatedLessons"
 
 interface Grade {
   label: string          // display text, e.g. "92%"
@@ -67,6 +68,8 @@ export default function Homework() {
   const [loading, setLoading] = useState(true)
   const [hasClass, setHasClass] = useState(true)
   const [items, setItems] = useState<HomeworkItem[]>([])
+  // Display names for generated (UUID) lessons, which aren't in the static registry.
+  const [genNames, setGenNames] = useState<Map<string, string>>(new Map())
   const [month, setMonth] = useState(() => startOfMonth(new Date()))
   const [selected, setSelected] = useState(() => new Date())
   const [openFeedback, setOpenFeedback] = useState<Set<string>>(new Set())
@@ -137,6 +140,7 @@ export default function Homework() {
       })
     }
     setItems(list)
+    setGenNames(await fetchGeneratedLessonNames(list.map((i) => i.lesson_id)))
     setLoading(false)
   }, [user, isTeacher])
 
@@ -231,7 +235,7 @@ export default function Homework() {
               : <NotebookPen className="w-5 h-5" />}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold truncate leading-tight">{lesson?.title || item.lesson_id}</p>
+            <p className="font-bold truncate leading-tight">{lesson?.title || genNames.get(item.lesson_id) || item.lesson_id}</p>
             <div className="flex items-center gap-2 mt-1.5 flex-wrap">
               {lesson?.level && (
                 <span className="text-[11px] font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">Level {lesson.level}</span>
@@ -266,7 +270,7 @@ export default function Homework() {
           ) : (
             <Button
               size="sm"
-              onClick={() => navigate(`/lessons/${item.lesson_id}`)}
+              onClick={() => navigate(lessonRoute(item.lesson_id))}
               className="shrink-0 press-scale rounded-xl font-bold"
               variant={s === "overdue" ? "destructive" : "default"}
             >
@@ -411,11 +415,11 @@ export default function Homework() {
                           return (
                             <div
                               key={i.id}
-                              onClick={(e) => { e.stopPropagation(); navigate(`/lessons/${i.lesson_id}`) }}
+                              onClick={(e) => { e.stopPropagation(); navigate(lessonRoute(i.lesson_id)) }}
                               className={`truncate rounded-md px-1.5 py-0.5 text-[10px] font-bold cursor-pointer hover:brightness-95 ${c.chip}`}
-                              title={lesson?.title || i.lesson_id}
+                              title={lesson?.title || genNames.get(i.lesson_id) || i.lesson_id}
                             >
-                              {lesson?.title || i.lesson_id}
+                              {lesson?.title || genNames.get(i.lesson_id) || i.lesson_id}
                             </div>
                           )
                         })}

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { BookOpen, Play, Clock, AlertCircle, NotebookPen } from "lucide-react"
 import { fmtDue } from "@/lib/dueDate"
+import { fetchGeneratedLessonNames, lessonRoute } from "@/lib/generatedLessons"
 import { usePopupSlot, POPUP } from "@/components/popups/PopupCoordinator"
 
 interface PendingAssignment {
@@ -66,6 +67,8 @@ export function AssignmentNotifications() {
   const navigate = useNavigate()
   const [classwork, setClasswork] = useState<PendingAssignment[]>([])
   const [homework, setHomework] = useState<PendingAssignment[]>([])
+  // Display names for generated (UUID) lessons (not in the static registry).
+  const [genNames, setGenNames] = useState<Map<string, string>>(new Map())
   const [open, setOpen] = useState(false)
   const [hwOpen, setHwOpen] = useState(false)
   // The dashboard pop-up coordinator only lets one pop-up show at a time.
@@ -119,6 +122,7 @@ export function AssignmentNotifications() {
 
     setClasswork(cwList)
     setHomework(hwList)
+    setGenNames(await fetchGeneratedLessonNames([...cwList, ...hwList].map((a) => a.lesson_id)))
     // Classwork forces open whenever anything is outstanding; homework's softer
     // prompt only shows when there's no classwork demanding attention first.
     setOpen(cwList.length > 0)
@@ -159,7 +163,7 @@ export function AssignmentNotifications() {
     // the student is now locked into the lesson until they complete it.
     if (user) writeAck(ackKey(user.id), lessonId)
     setOpen(false)
-    navigate(`/lessons/${lessonId}`)
+    navigate(lessonRoute(lessonId))
   }
 
   // Homework: "Do now" opens the lesson; "Do later" defers it to /homework. Both
@@ -171,7 +175,7 @@ export function AssignmentNotifications() {
   const homeworkDoNow = (lessonId: string) => {
     ackAllHomework()
     setHwOpen(false)
-    navigate(`/lessons/${lessonId}`)
+    navigate(lessonRoute(lessonId))
   }
   const homeworkDoLater = () => {
     ackAllHomework()
@@ -219,7 +223,7 @@ export function AssignmentNotifications() {
                         <BookOpen className="w-5 h-5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold truncate">{lesson?.title || a.lesson_id}</p>
+                        <p className="font-semibold truncate">{lesson?.title || genNames.get(a.lesson_id) || a.lesson_id}</p>
                         <div className="flex items-center gap-2 mt-1">
                           {lesson?.level && (
                             <Badge variant="secondary" className="text-xs">Level {lesson.level}</Badge>
@@ -271,7 +275,7 @@ export function AssignmentNotifications() {
                       <NotebookPen className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold truncate">{lesson?.title || a.lesson_id}</p>
+                      <p className="font-semibold truncate">{lesson?.title || genNames.get(a.lesson_id) || a.lesson_id}</p>
                       <span className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                         <Clock className="w-3 h-3" />
                         {a.due_date

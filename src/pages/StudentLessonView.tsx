@@ -170,6 +170,22 @@ const StudentLessonView: React.FC = () => {
           },
           { onConflict: "student_id,lesson_id" },
         );
+        // Also mark completion in the regular `lesson_progress` table so the
+        // Homework tab, teacher per-student view, and assignment popup (which
+        // all read lesson_progress) see this generated lesson as done. lesson_id
+        // is text; the generated lesson's UUID is stored as-is.
+        await db.from("lesson_progress").upsert(
+          {
+            user_id: user.id,
+            lesson_id: lessonId,
+            completed: true,
+            progress_percent: 100,
+            quiz_score: totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : null,
+            completed_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "user_id,lesson_id" },
+        );
       }
       setResult({ score: correct, total: totalQuestions, passed });
       setPhase("done");

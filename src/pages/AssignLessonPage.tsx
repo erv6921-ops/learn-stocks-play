@@ -40,6 +40,7 @@ const AssignLessonPage: React.FC = () => {
   const [error, setError] = useState("");
   const [assigning, setAssigning] = useState(false);
   const [building, setBuilding] = useState(false);
+  const [dueDate, setDueDate] = useState(""); // optional; yyyy-mm-dd
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -136,6 +137,22 @@ const AssignLessonPage: React.FC = () => {
       const { error: aErr } = await db.from("class_lesson_assignments").insert(assignmentRows);
       if (aErr) throw new Error(aErr.message);
 
+      // 2b. ALSO write to the regular `assigned_lessons` table so generated
+      //     lessons flow through the SAME plumbing as hand-built lessons:
+      //     the teacher per-student view, the Homework tab, and the
+      //     new-assignment popup all read assigned_lessons + lesson_progress.
+      //     (lesson_id is text here; the generated lesson's UUID is stored as-is
+      //     and resolved via src/lib/generatedLessons.ts.) Non-fatal.
+      const assignedRows = Array.from(selected).map((classId) => ({
+        class_id: classId,
+        lesson_id: lessonId,
+        assigned_by: userData.user.id,
+        assignment_type: "homework",
+        due_date: dueDate || null,
+      }));
+      const { error: alErr } = await db.from("assigned_lessons").insert(assignedRows);
+      if (alErr) console.warn("assigned_lessons insert failed (non-fatal):", alErr.message);
+
       // 3. Link this upload's pending questions to the new lesson. Non-fatal:
       //    the assignment already succeeded, so we warn rather than fail if the
       //    link doesn't take (e.g. an RLS gap). `.select()` lets us confirm the
@@ -205,6 +222,20 @@ const AssignLessonPage: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent className="space-y-5">
+            {/* Optional due date — reused by the Homework tab + teacher view */}
+            <div>
+              <Label htmlFor="due-date" className="text-sm text-slate-700">
+                Due date <span className="text-slate-400">(optional)</span>
+              </Label>
+              <input
+                id="due-date"
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                className="mt-2 block w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none"
+              />
+            </div>
+
             <div>
               <Label className="text-sm text-slate-700">Choose classes</Label>
 
