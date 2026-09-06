@@ -782,8 +782,13 @@ export default function Dashboard() {
               {/* Start / Continue learning CTA - jumps to the next incomplete lesson */}
               <button
                 onClick={() => navigate(nextLesson ? `/lessons/${nextLesson.id}` : "/lessons")}
-                className="press-scale mt-6 w-full inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-[15px] font-extrabold shadow-lg transition-transform"
-                style={{ background: "#ffffff", color: "#12281f", boxShadow: "0 10px 24px rgba(0,0,0,0.22)" }}>
+                className="cta-bounce press-scale mt-6 w-full inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-[15px] font-extrabold"
+                style={{
+                  background: "linear-gradient(180deg, #ffffff 0%, #eef3f0 100%)",
+                  color: "#12281f",
+                  border: "1px solid rgba(255,255,255,0.7)",
+                  boxShadow: "0 14px 28px -8px rgba(0,0,0,0.45), 0 3px 8px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.9)",
+                }}>
                 <BookOpen className="w-4 h-4" />
                 {!nextLesson
                   ? "Review lessons"

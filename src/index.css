@@ -453,6 +453,22 @@
     transform: translateY(2px) scale(0.96);
   }
 
+  /* Continuous, very subtle idle bounce for a primary CTA (e.g. dashboard
+     Start/Continue learning). Pauses on press so the tap still feels crisp. */
+  .cta-bounce {
+    animation: cta-bounce 2.6s ease-in-out infinite;
+  }
+  .cta-bounce:hover {
+    animation-duration: 1.6s;
+  }
+  .cta-bounce:active {
+    animation: none;
+    transform: translateY(1px) scale(0.985);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta-bounce { animation: none; }
+  }
+
   /* Coach tip bubble */
   .coach-tip {
     position: relative;
@@ -530,6 +546,11 @@
 @keyframes bounce-gentle {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-2px); }
+}
+
+@keyframes cta-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2.5px); }
 }
 
 @keyframes nav-bounce {
