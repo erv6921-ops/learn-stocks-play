@@ -583,7 +583,7 @@ export default function Dashboard() {
 
         {/* ═══ 1. GREETING BANNER - moved here from Missions, sits above the ride ═══ */}
         <MCard i={0}>
-          <div className="relative overflow-hidden rounded-3xl mb-3 p-6 md:p-8 text-white"
+          <div className="relative overflow-hidden rounded-3xl mb-3 p-7 md:p-10 text-white"
             style={{ background: "var(--brand-hero)" }}>
             {/* dotted texture + soft colored depth orbs */}
             <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
@@ -763,6 +763,20 @@ export default function Dashboard() {
                   ))}
                 </motion.div>
               )}
+
+              {/* Start / Continue learning CTA - jumps to the next incomplete lesson */}
+              <button
+                onClick={() => navigate(nextLesson ? `/lessons/${nextLesson.id}` : "/lessons")}
+                className="press-scale mt-6 w-full inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-[15px] font-extrabold shadow-lg transition-transform"
+                style={{ background: "#ffffff", color: "#12281f", boxShadow: "0 10px 24px rgba(0,0,0,0.22)" }}>
+                <BookOpen className="w-4 h-4" />
+                {!nextLesson
+                  ? "Review lessons"
+                  : completedLessons === 0
+                    ? "Start learning"
+                    : "Continue learning"}
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </MCard>
