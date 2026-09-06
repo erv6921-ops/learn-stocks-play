@@ -38,6 +38,7 @@ const AssignLessonPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [assigning, setAssigning] = useState(false);
+  const [building, setBuilding] = useState(false);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -95,21 +96,38 @@ const AssignLessonPage: React.FC = () => {
       const { data: userData } = await supabase.auth.getUser();
       if (!userData?.user) throw new Error("You must be signed in.");
 
-      // 1. Create the lesson.
+      // 1. Create the lesson (draft until its full content is synthesized).
       const { data: lesson, error: lErr } = await db
         .from("lessons")
         .insert({
           upload_id: uploadId,
           teacher_id: userData.user.id,
           name: lessonName,
-          status: "published",
+          status: "draft",
         })
         .select("id")
         .single();
       if (lErr || !lesson?.id) throw new Error(lErr?.message ?? "Could not create the lesson.");
       const lessonId: string = lesson.id;
 
-      // 2. Create one assignment row per selected class.
+      // 2. Synthesize the full Jeff-taught lesson BEFORE publishing.
+      setBuilding(true);
+      const { data: synth, error: synthErr } = await supabase.functions.invoke("synthesize-lesson", {
+        body: { uploadId, lessonId },
+      });
+      setBuilding(false);
+      if (synthErr || (synth && synth.success === false)) {
+        // Non-fatal: publish anyway — the student view falls back to the plain
+        // question list if content is missing.
+        console.warn("Lesson synthesis failed:", synthErr?.message || synth?.errors);
+        toast({
+          title: "Lesson built without full teaching content",
+          description: "Students still get the questions; Jeff's taught lesson couldn't be generated this time.",
+        });
+      }
+
+      // 3. Publish, then create one assignment row per selected class.
+      await db.from("lessons").update({ status: "published" }).eq("id", lessonId);
       const assignmentRows = Array.from(selected).map((classId) => ({
         lesson_id: lessonId,
         class_id: classId,
@@ -245,10 +263,15 @@ const AssignLessonPage: React.FC = () => {
               <span className="text-xs text-slate-400">{selected.size} selected</span>
               <Button
                 onClick={() => void handleAssign()}
-                disabled={assigning || loading || selected.size === 0}
+                disabled={assigning || building || loading || selected.size === 0}
                 className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
               >
-                {assigning ? (
+                {building ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Building lesson…
+                  </>
+                ) : assigning ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Assigning…
