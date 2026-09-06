@@ -1,7 +1,10 @@
 // Supabase Edge Function: generate-questions
 //
-// Generates 5 multiple-choice questions per concept for a curriculum upload
-// via the Anthropic API, and stores them in generated_questions as 'pending'.
+// Generates ~15 multiple-choice questions TOTAL for a curriculum upload, spread
+// across the most prominent concepts with a mix of difficulty levels, and
+// stores them in generated_questions as 'pending'. This 15-question pool feeds
+// the synthesized lesson's mastery check (pool > requiredCorrect so retries draw
+// fresh subsets).
 //
 // Runtime:  Deno (Supabase Edge Functions)
 // Env vars: ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
@@ -26,13 +29,13 @@ interface GeneratedQuestion {
   options: string[];
   correctAnswer: string;
   explanation: string;
+  concept: string; // concept name Claude tagged this question with
+  difficulty: "easy" | "medium" | "hard";
 }
 
 interface RequestBody {
   uploadId: string;
-  // `concepts` is accepted for API compatibility but ignored — concepts are
-  // read from the DB so we always have canonical ids/definitions.
-  concepts?: unknown;
+  concepts?: unknown; // accepted for API compatibility; concepts read from DB
 }
 
 interface ResponseBody {
@@ -42,12 +45,16 @@ interface ResponseBody {
 }
 
 const MODEL = "claude-sonnet-4-6";
-const QUESTIONS_PER_CONCEPT = 5;
+const TOTAL_QUESTIONS = 15; // pool size for the lesson mastery check
+const MAX_CONCEPTS = 6; // prioritize the most prominent concepts
+
+// Difficulty label -> stored numeric difficulty (0..1). StudentLessonView maps
+// this to the IRT logit b via (d-0.5)*3, giving easy≈-0.75 / med 0 / hard≈+0.75.
+const DIFFICULTY_NUM: Record<string, number> = { easy: 0.25, medium: 0.5, hard: 0.75 };
 
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
@@ -74,24 +81,37 @@ function stripFences(s: string): string {
   return s.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
 }
 
-function buildPrompt(c: ConceptRow): string {
-  const examples =
-    Array.isArray(c.examples) && c.examples.length > 0
-      ? c.examples.join("; ")
-      : "(none provided)";
-  return `Generate ${QUESTIONS_PER_CONCEPT} multiple-choice questions about this financial literacy concept for high school students.
-Concept: ${c.name}
-Definition: ${c.definition}
-Examples: ${examples}
+function buildPrompt(concepts: ConceptRow[]): string {
+  const conceptBlock = concepts
+    .map((c, i) => {
+      const ex = Array.isArray(c.examples) && c.examples.length > 0 ? c.examples.join("; ") : "(none)";
+      return `${i + 1}. ${c.name}\n   Definition: ${c.definition}\n   Examples: ${ex}`;
+    })
+    .join("\n");
 
-Return ONLY valid JSON:
+  return `You are writing a mastery-check question bank for a high-school financial-literacy lesson.
+
+Generate EXACTLY ${TOTAL_QUESTIONS} multiple-choice questions TOTAL, distributed across these concepts (weight toward the earlier/most prominent concepts). Each question has 4 options and exactly one correct answer.
+
+Requirements:
+- Mix of difficulty: roughly 5 "easy", 6 "medium", 4 "hard".
+- Each question tagged with the concept name it tests (use the exact names below).
+- "correctAnswer" must be the full text of the correct option (must match one of "options" exactly).
+- Age-appropriate, clear, no trick wording. Distractors must be plausible.
+
+CONCEPTS:
+${conceptBlock}
+
+Return ONLY valid JSON, no markdown, no preamble:
 {
   "questions": [
     {
       "text": "Question text",
-      "options": ["A", "B", "C", "D"],
-      "correctAnswer": "A",
-      "explanation": "Why this is correct"
+      "options": ["full option A", "full option B", "full option C", "full option D"],
+      "correctAnswer": "full text of the correct option",
+      "explanation": "Why this is correct",
+      "concept": "exact concept name from the list",
+      "difficulty": "easy|medium|hard"
     }
   ]
 }`;
@@ -103,20 +123,19 @@ function parseQuestions(raw: string): GeneratedQuestion[] {
     throw new Error("Response missing a 'questions' array");
   }
   return parsed.questions
-    .filter(
-      (q): q is Record<string, unknown> =>
-        typeof q === "object" && q !== null && !Array.isArray(q),
-    )
-    .map((q) => ({
-      text: typeof q.text === "string" ? q.text : "",
-      options: Array.isArray(q.options)
-        ? q.options.filter((o): o is string => typeof o === "string")
-        : [],
-      correctAnswer:
-        typeof q.correctAnswer === "string" ? q.correctAnswer : "",
-      explanation: typeof q.explanation === "string" ? q.explanation : "",
-    }))
-    .filter((q) => q.text.length > 0 && q.options.length >= 2);
+    .filter((q): q is Record<string, unknown> => typeof q === "object" && q !== null && !Array.isArray(q))
+    .map((q) => {
+      const diff = String(q.difficulty ?? "medium").toLowerCase();
+      return {
+        text: typeof q.text === "string" ? q.text : "",
+        options: Array.isArray(q.options) ? q.options.filter((o): o is string => typeof o === "string") : [],
+        correctAnswer: typeof q.correctAnswer === "string" ? q.correctAnswer : "",
+        explanation: typeof q.explanation === "string" ? q.explanation : "",
+        concept: typeof q.concept === "string" ? q.concept : "",
+        difficulty: (diff === "easy" || diff === "hard" ? diff : "medium") as GeneratedQuestion["difficulty"],
+      };
+    })
+    .filter((q) => q.text.length > 0 && q.options.length >= 2 && q.correctAnswer.length > 0);
 }
 
 // ---------------------------------------------------------------------------
@@ -124,26 +143,15 @@ function parseQuestions(raw: string): GeneratedQuestion[] {
 // ---------------------------------------------------------------------------
 
 Deno.serve(async (req: Request): Promise<Response> => {
-  if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: CORS_HEADERS });
-  }
-  if (req.method !== "POST") {
-    return respond({ success: false, questionsGenerated: 0, errors: ["Use POST."] }, 405);
-  }
+  if (req.method === "OPTIONS") return new Response("ok", { headers: CORS_HEADERS });
+  if (req.method !== "POST") return respond({ success: false, questionsGenerated: 0, errors: ["Use POST."] }, 405);
 
   const anthropicKey = Deno.env.get("ANTHROPIC_API_KEY");
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
   if (!anthropicKey || !supabaseUrl || !serviceRoleKey) {
-    return respond(
-      { success: false, questionsGenerated: 0, errors: ["Server misconfiguration: missing env vars."] },
-      500,
-    );
+    return respond({ success: false, questionsGenerated: 0, errors: ["Server misconfiguration: missing env vars."] }, 500);
   }
-
-  console.log(
-    `[GQ] env present: ANTHROPIC_API_KEY=${!!anthropicKey} SUPABASE_URL=${!!supabaseUrl} SERVICE_ROLE=${!!serviceRoleKey}`,
-  );
 
   let body: RequestBody;
   try {
@@ -151,127 +159,91 @@ Deno.serve(async (req: Request): Promise<Response> => {
   } catch {
     return respond({ success: false, questionsGenerated: 0, errors: ["Body must be JSON."] }, 400);
   }
-  console.log(`[GQ] input received: body keys=${Object.keys(body ?? {}).join(",")}`);
   const uploadId = body?.uploadId;
   if (typeof uploadId !== "string" || uploadId.length === 0) {
-    console.error("[GQ] invalid uploadId:", JSON.stringify(uploadId));
-    return respond(
-      { success: false, questionsGenerated: 0, errors: ["`uploadId` is required."] },
-      400,
-    );
+    return respond({ success: false, questionsGenerated: 0, errors: ["`uploadId` is required."] }, 400);
   }
   console.log(`[GQ] uploadId=${uploadId}`);
 
-  const supabase = createClient(supabaseUrl, serviceRoleKey, {
-    auth: { persistSession: false },
-  });
+  const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } });
   const anthropic = new Anthropic({ apiKey: anthropicKey });
 
-  // 1. Canonical concepts for this upload.
+  // Idempotent: if this upload already has questions, don't regenerate.
+  const { data: existing } = await supabase
+    .from("generated_questions")
+    .select("id")
+    .eq("upload_id", uploadId)
+    .limit(1);
+  if (existing && existing.length > 0) {
+    const { count } = await supabase
+      .from("generated_questions")
+      .select("id", { count: "exact", head: true })
+      .eq("upload_id", uploadId);
+    console.log(`[GQ][${uploadId}] questions already exist (${count}); skipping generation.`);
+    return respond({ success: true, questionsGenerated: count ?? 0 });
+  }
+
+  // Load concepts in prominence order (extract-curriculum inserts most-prominent
+  // first), take the top MAX_CONCEPTS.
   const { data: concepts, error: conceptErr } = await supabase
     .from("concepts")
     .select("id, name, definition, examples")
-    .eq("upload_id", uploadId);
+    .eq("upload_id", uploadId)
+    .order("created_at", { ascending: true })
+    .limit(MAX_CONCEPTS);
   if (conceptErr) {
-    console.error(`[${uploadId}] Failed to load concepts:`, conceptErr.message);
-    return respond(
-      { success: false, questionsGenerated: 0, errors: [`Load concepts: ${conceptErr.message}`] },
-      500,
-    );
+    return respond({ success: false, questionsGenerated: 0, errors: [`Load concepts: ${conceptErr.message}`] }, 500);
   }
   if (!concepts || concepts.length === 0) {
-    console.warn(`[GQ][${uploadId}] no concepts found — returning 404`);
     return respond({ success: false, questionsGenerated: 0, errors: ["No concepts found for this upload."] }, 404);
   }
-  console.log(
-    `[GQ][${uploadId}] concepts loaded: ${concepts.length} — ${(concepts as ConceptRow[]).map((c) => c.name).join(", ")}`,
-  );
+  const conceptRows = concepts as ConceptRow[];
+  console.log(`[GQ][${uploadId}] concepts: ${conceptRows.map((c) => c.name).join(", ")}`);
 
-  // 2. Skip concepts that already have questions (idempotent re-runs).
-  const { data: existing } = await supabase
-    .from("generated_questions")
-    .select("concept_id")
-    .eq("upload_id", uploadId);
-  const alreadyDone = new Set(
-    (existing ?? []).map((r: { concept_id: string | null }) => r.concept_id),
-  );
+  // Name -> id (case-insensitive) so questions can be attributed to a concept.
+  const idByName = new Map<string, string>();
+  for (const c of conceptRows) idByName.set(c.name.trim().toLowerCase(), c.id);
+  const fallbackConceptId = conceptRows[0].id;
 
-  const todo = (concepts as ConceptRow[]).filter((c) => !alreadyDone.has(c.id));
-  console.log(
-    `[GQ][${uploadId}] existing questions for ${alreadyDone.size} concept(s); to generate: ${todo.length} — ${todo.map((c) => c.name).join(", ") || "(none)"}`,
-  );
-
-  // 3. Generate + insert per concept.
-  let questionsGenerated = 0;
-  const errors: string[] = [];
-
-  for (const concept of todo) {
-    try {
-      console.log(`[GQ][${uploadId}] → Claude call for concept "${concept.name}" (id=${concept.id})`);
-      const message = await anthropic.messages.create({
-        model: MODEL,
-        max_tokens: 2048,
-        messages: [{ role: "user", content: buildPrompt(concept) }],
-      });
-      const raw = firstTextBlock(message);
-      console.log(
-        `[GQ][${uploadId}]   Claude responded for "${concept.name}": stop_reason=${message.stop_reason}, chars=${raw.length}, out_tokens=${message.usage.output_tokens}`,
-      );
-
-      const questions = parseQuestions(raw);
-      console.log(`[GQ][${uploadId}]   parsed ${questions.length} question(s) for "${concept.name}"`);
-      if (questions.length === 0) {
-        console.warn(`[GQ][${uploadId}]   NO usable questions for "${concept.name}". Raw (first 300): ${raw.slice(0, 300)}`);
-        errors.push(`${concept.name}: model returned no usable questions`);
-        continue;
-      }
-
-      const rows = questions.map((q) => ({
-        upload_id: uploadId,
-        concept_id: concept.id,
-        question_text: q.text,
-        options: q.options,
-        correct_answer: q.correctAnswer,
-        explanation: q.explanation,
-        difficulty: 0.5,
-        status: "pending",
-      }));
-
-      console.log(`[GQ][${uploadId}]   inserting ${rows.length} row(s) for "${concept.name}"`);
-      const { error: insErr } = await supabase.from("generated_questions").insert(rows);
-      if (insErr) {
-        console.error(`[GQ][${uploadId}]   INSERT FAILED for "${concept.name}": ${insErr.message}`);
-        errors.push(`${concept.name}: insert failed — ${insErr.message}`);
-        continue;
-      }
-      questionsGenerated += rows.length;
-      console.log(`[GQ][${uploadId}]   ✓ inserted ${rows.length} question(s) for "${concept.name}" (running total ${questionsGenerated})`);
-    } catch (err) {
-      const detail = err instanceof Error ? err.message : String(err);
-      console.error(`[GQ][${uploadId}]   CONCEPT FAILED "${concept.name}": ${detail}`);
-      errors.push(`${concept.name}: ${detail}`);
-    }
+  // One Claude call for the whole 15-question pool.
+  let questions: GeneratedQuestion[];
+  try {
+    const message = await anthropic.messages.create({
+      model: MODEL,
+      max_tokens: 8000,
+      messages: [{ role: "user", content: buildPrompt(conceptRows) }],
+    });
+    const raw = firstTextBlock(message);
+    console.log(`[GQ][${uploadId}] Claude responded: stop=${message.stop_reason}, chars=${raw.length}`);
+    questions = parseQuestions(raw);
+    console.log(`[GQ][${uploadId}] parsed ${questions.length} questions`);
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    console.error(`[GQ][${uploadId}] generation failed: ${detail}`);
+    return respond({ success: false, questionsGenerated: 0, errors: [`Generation failed: ${detail}`] }, 502);
   }
 
-  const finalBody = {
-    success: questionsGenerated > 0 || todo.length === 0,
-    questionsGenerated,
-    ...(errors.length > 0 ? { errors } : {}),
-  };
-  console.log(
-    `[GQ][${uploadId}] DONE: generated=${questionsGenerated}, concepts_processed=${todo.length}, errors=${errors.length}`,
-  );
-  console.log(`[GQ][${uploadId}] final response: ${JSON.stringify(finalBody)}`);
+  if (questions.length === 0) {
+    return respond({ success: false, questionsGenerated: 0, errors: ["Model returned no usable questions."] }, 502);
+  }
 
-  return respond(finalBody);
+  const rows = questions.slice(0, TOTAL_QUESTIONS).map((q) => ({
+    upload_id: uploadId,
+    concept_id: idByName.get(q.concept.trim().toLowerCase()) ?? fallbackConceptId,
+    question_text: q.text,
+    options: q.options,
+    correct_answer: q.correctAnswer,
+    explanation: q.explanation,
+    difficulty: DIFFICULTY_NUM[q.difficulty] ?? 0.5,
+    status: "pending",
+  }));
+
+  const { error: insErr } = await supabase.from("generated_questions").insert(rows);
+  if (insErr) {
+    console.error(`[GQ][${uploadId}] insert failed: ${insErr.message}`);
+    return respond({ success: false, questionsGenerated: 0, errors: [`Insert failed: ${insErr.message}`] }, 500);
+  }
+
+  console.log(`[GQ][${uploadId}] inserted ${rows.length} questions`);
+  return respond({ success: true, questionsGenerated: rows.length });
 });
-
-/*
- * TESTING
- *   supabase functions serve generate-questions
- *   curl -X POST http://localhost:54321/functions/v1/generate-questions \
- *     -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
- *     -H "Content-Type: application/json" \
- *     -d '{"uploadId":"<uuid-with-concepts>"}'
- *   → { "success": true, "questionsGenerated": 25 }
- */
