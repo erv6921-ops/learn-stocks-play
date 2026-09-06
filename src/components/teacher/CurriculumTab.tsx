@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import TeacherUploadCurriculum from "@/pages/TeacherUploadCurriculum";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,6 +11,7 @@ import {
   FileText,
   Trash2,
   Eye,
+  Sparkles,
   AlertCircle,
   RefreshCw,
   Inbox,
@@ -101,6 +103,7 @@ const StatusBadge: React.FC<{ status: UploadStatus }> = ({ status }) => {
 
 export const CurriculumTab: React.FC = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [uploads, setUploads] = useState<CurriculumUpload[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
@@ -295,7 +298,16 @@ export const CurriculumTab: React.FC = () => {
                       className="border-emerald-200 text-emerald-700 hover:bg-emerald-50"
                     >
                       <Eye className="mr-1.5 h-3.5 w-3.5" />
-                      Preview lesson
+                      Assign lesson
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => navigate(`/teacher/build-study-guide?uploadId=${u.id}`)}
+                      className="border-indigo-200 text-indigo-700 hover:bg-indigo-50"
+                    >
+                      <Sparkles className="mr-1.5 h-3.5 w-3.5" />
+                      Build extra practice
                     </Button>
                     <Button
                       size="sm"

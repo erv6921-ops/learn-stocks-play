@@ -34,6 +34,7 @@ interface PendingAssignment {
 // the student picks "Do now" or "Do later".
 const ackKey = (uid: string) => `investiplay_assignment_ack_${uid}`
 const hwAckKey = (uid: string) => `investiplay_homework_ack_${uid}`
+const sgAckKey = (uid: string) => `investiplay_studyguide_ack_${uid}`
 const readAck = (key: string): Set<string> => {
   try {
     const raw = localStorage.getItem(key)
@@ -69,10 +70,13 @@ export function AssignmentNotifications() {
   const [homework, setHomework] = useState<PendingAssignment[]>([])
   // Display names for generated (UUID) lessons (not in the static registry).
   const [genNames, setGenNames] = useState<Map<string, string>>(new Map())
+  // Optional study-guide review material newly published to the student's classes.
+  const [reviewGuides, setReviewGuides] = useState<{ id: string; name: string }[]>([])
+  const [reviewOpen, setReviewOpen] = useState(false)
   const [open, setOpen] = useState(false)
   const [hwOpen, setHwOpen] = useState(false)
   // The dashboard pop-up coordinator only lets one pop-up show at a time.
-  const allowed = usePopupSlot("assignments", POPUP.assignments, classwork.length > 0 || homework.length > 0)
+  const allowed = usePopupSlot("assignments", POPUP.assignments, classwork.length > 0 || homework.length > 0 || reviewGuides.length > 0)
 
   const checkAssignments = useCallback(async () => {
     if (!user || isTeacher) return
@@ -84,6 +88,26 @@ export function AssignmentNotifications() {
       .eq("user_id", user.id)
     const classIds = (memberships || []).map((m) => m.class_id)
     if (classIds.length === 0) return
+
+    // Optional study-guide review material published to these classes. Shown as a
+    // soft "review practice" prompt (gated in render behind classwork/homework).
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sdb = supabase as any
+    const { data: sgAssign } = await sdb
+      .from("study_guide_assignments")
+      .select("study_guide_id")
+      .in("class_id", classIds)
+    const sgIds = Array.from(new Set((sgAssign || []).map((r: { study_guide_id: string }) => r.study_guide_id)))
+    const ackedSg = readAck(sgAckKey(user.id))
+    const newSgIds = (sgIds as string[]).filter((id) => !ackedSg.has(id))
+    if (newSgIds.length > 0) {
+      const { data: sgs } = await sdb.from("study_guides").select("id, name").in("id", newSgIds)
+      setReviewGuides((sgs || []) as { id: string; name: string }[])
+      setReviewOpen(((sgs || []) as unknown[]).length > 0)
+    } else {
+      setReviewGuides([])
+      setReviewOpen(false)
+    }
 
     // Class-level assignments for those classes.
     const { data: assignments, error } = await supabase
@@ -150,6 +174,11 @@ export function AssignmentNotifications() {
         { event: "*", schema: "public", table: "lesson_progress", filter: `user_id=eq.${user.id}` },
         () => { if (!cancelled) checkAssignments() }
       )
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "study_guide_assignments" },
+        () => { if (!cancelled) checkAssignments() }
+      )
       .subscribe()
 
     return () => {
@@ -180,6 +209,22 @@ export function AssignmentNotifications() {
   const homeworkDoLater = () => {
     ackAllHomework()
     setHwOpen(false)
+    navigate("/homework")
+  }
+
+  // Study-guide review material: optional practice, softest prompt. Acking sends
+  // it to the Homework page's "Review practice" section.
+  const ackAllReview = () => {
+    if (user) reviewGuides.forEach((g) => writeAck(sgAckKey(user.id), g.id))
+  }
+  const openReview = (id: string) => {
+    ackAllReview()
+    setReviewOpen(false)
+    navigate(`/student/study-guide/${id}`)
+  }
+  const laterReview = () => {
+    ackAllReview()
+    setReviewOpen(false)
     navigate("/homework")
   }
 
@@ -294,6 +339,47 @@ export function AssignmentNotifications() {
             <DialogFooter>
               <Button variant="outline" className="w-full" onClick={homeworkDoLater}>
                 Do later
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* ── Study guide: optional "review practice" prompt (shown only when no
+             classwork/homework is demanding attention) ── */}
+      {reviewGuides.length > 0 && classwork.length === 0 && homework.length === 0 && (
+        <Dialog open={reviewOpen && allowed} onOpenChange={setReviewOpen}>
+          <DialogContent className="max-w-lg border-2 border-indigo-400">
+            <DialogHeader>
+              <div className="mx-auto w-20 h-20 rounded-full bg-indigo-500/15 flex items-center justify-center mb-2">
+                <BookOpen className="w-11 h-11 text-indigo-600" />
+              </div>
+              <DialogTitle className="text-center text-3xl font-display">
+                ✨ New review practice!
+              </DialogTitle>
+              <DialogDescription className="text-center text-base">
+                Your teacher shared {reviewGuides.length} optional study guide{reviewGuides.length === 1 ? "" : "s"} —
+                extra practice, not graded. Try it now or find it later under Review on your Homework page.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-2 my-2 max-h-[280px] overflow-y-auto">
+              {reviewGuides.map((g) => (
+                <div key={g.id} className="w-full flex items-center gap-3 p-3 rounded-xl border-2 bg-card">
+                  <div className="w-9 h-9 rounded-lg bg-indigo-500/10 text-indigo-600 flex items-center justify-center shrink-0">
+                    <BookOpen className="w-4 h-4" />
+                  </div>
+                  <p className="flex-1 min-w-0 font-semibold truncate">{g.name}</p>
+                  <Button size="sm" onClick={() => openReview(g.id)} className="shrink-0">
+                    <Play className="w-3.5 h-3.5 mr-1" /> Open
+                  </Button>
+                </div>
+              ))}
+            </div>
+
+            <DialogFooter>
+              <Button variant="outline" className="w-full" onClick={laterReview}>
+                Later
               </Button>
             </DialogFooter>
           </DialogContent>

@@ -70,6 +70,8 @@ export default function Homework() {
   const [items, setItems] = useState<HomeworkItem[]>([])
   // Display names for generated (UUID) lessons, which aren't in the static registry.
   const [genNames, setGenNames] = useState<Map<string, string>>(new Map())
+  // Optional study-guide review material published to the student's classes.
+  const [reviewGuides, setReviewGuides] = useState<{ id: string; name: string }[]>([])
   const [month, setMonth] = useState(() => startOfMonth(new Date()))
   const [selected, setSelected] = useState(() => new Date())
   const [openFeedback, setOpenFeedback] = useState<Set<string>>(new Set())
@@ -141,6 +143,22 @@ export default function Homework() {
     }
     setItems(list)
     setGenNames(await fetchGeneratedLessonNames(list.map((i) => i.lesson_id)))
+
+    // Optional study guides published to the student's classes (ungraded review).
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sdb = supabase as any
+    const { data: sgAssign } = await sdb
+      .from("study_guide_assignments")
+      .select("study_guide_id")
+      .in("class_id", classIds)
+    const sgIds = Array.from(new Set((sgAssign || []).map((r: { study_guide_id: string }) => r.study_guide_id)))
+    if (sgIds.length > 0) {
+      const { data: sgs } = await sdb.from("study_guides").select("id, name").in("id", sgIds)
+      setReviewGuides((sgs || []) as { id: string; name: string }[])
+    } else {
+      setReviewGuides([])
+    }
+
     setLoading(false)
   }, [user, isTeacher])
 
@@ -155,6 +173,7 @@ export default function Homework() {
       .on("postgres_changes", { event: "*", schema: "public", table: "assigned_lessons" }, () => load())
       .on("postgres_changes", { event: "*", schema: "public", table: "lesson_progress", filter: `user_id=eq.${user.id}` }, () => load())
       .on("postgres_changes", { event: "*", schema: "public", table: "lesson_grades", filter: `user_id=eq.${user.id}` }, () => load())
+      .on("postgres_changes", { event: "*", schema: "public", table: "study_guide_assignments" }, () => load())
       .subscribe()
     return () => { supabase.removeChannel(channel) }
   }, [load, user, isTeacher])
@@ -493,7 +512,32 @@ export default function Homework() {
                 </div>
               )}
 
-              {items.length === 0 && (
+              {reviewGuides.length > 0 && (
+                <div>
+                  <h3 className="text-base font-display font-extrabold mb-2.5 flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-indigo-600" /> Review practice
+                    <span className="text-xs font-extrabold text-muted-foreground bg-muted rounded-full px-2 py-0.5 tabular-nums">{reviewGuides.length}</span>
+                  </h3>
+                  <p className="text-xs text-muted-foreground mb-2">Optional, ungraded — extra practice from your teacher.</p>
+                  <div className="space-y-2.5">
+                    {reviewGuides.map((g) => (
+                      <button
+                        key={g.id}
+                        onClick={() => navigate(`/student/study-guide/${g.id}`)}
+                        className="flex w-full items-center gap-3 rounded-2xl border border-indigo-200 bg-indigo-50/40 p-3 text-left transition-colors hover:bg-indigo-50"
+                      >
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-100">
+                          <BookOpen className="h-4 w-4 text-indigo-600" />
+                        </div>
+                        <span className="min-w-0 flex-1 truncate font-bold leading-tight">{g.name}</span>
+                        <Play className="h-4 w-4 shrink-0 text-indigo-500" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {items.length === 0 && reviewGuides.length === 0 && (
                 <div className="text-center py-10 rounded-2xl border-2 border-dashed border-border">
                   <p className="font-extrabold">No homework yet 🎉</p>
                   <p className="text-sm text-muted-foreground mt-1">New homework shows up on the calendar.</p>
