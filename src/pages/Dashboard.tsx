@@ -277,11 +277,26 @@ export default function Dashboard() {
   // ── Derive from Missions data (single source of truth) ──
   const isLessonCompleted = (id: string) => lessonProgress.some((p) => p.lessonId === id && p.completed);
 
-  // Find next incomplete lesson (same logic as Missions page)
+  // Find next incomplete lesson (same adaptive logic as the coaster / Missions
+  // page): walk units in curriculum order and, within each, skip benchmark-
+  // validated lessons (the app treats those as already mastered) so we land on
+  // the first genuinely-required, not-yet-completed lesson.
   const nextLesson = useMemo(() => {
     const check = (id: string) => lessonProgress.some((p) => p.lessonId === id && p.completed);
-    return dashLessons.find((l) => !check(l.id));
-  }, [lessonProgress, dashLessons]);
+    for (const unit of dashUnits) {
+      const adaptive = getAdaptiveUnit(
+        unit.id,
+        user?.benchmarkCategoryScores ?? null,
+        user?.benchmarkScores ?? null,
+        user?.assessmentScore ?? null,
+      );
+      for (const al of adaptive.lessons) {
+        if (al.status !== "validated" && !check(al.lesson.id)) return al.lesson;
+      }
+    }
+    return undefined;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessonProgress, dashUnits, user?.benchmarkCategoryScores, user?.benchmarkScores, user?.assessmentScore]);
 
   // Find the unit the next lesson belongs to
   const currentUnit = useMemo(() => {
