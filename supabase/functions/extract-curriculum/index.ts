@@ -290,9 +290,15 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 
   // --- Parse the model's JSON ----------------------------------------------
+  // Claude sometimes wraps JSON in a markdown code fence (```json ... ```)
+  // despite the "no markdown" instruction. Strip the fences before parsing.
   let result: ExtractionResult;
   try {
-    result = normalizeResult(JSON.parse(rawText));
+    const cleanedResponse = rawText
+      .replace(/```json\n?/g, "") // remove opening ```json
+      .replace(/```\n?/g, "") // remove closing ```
+      .trim();
+    result = normalizeResult(JSON.parse(cleanedResponse));
   } catch (err) {
     const detail = err instanceof Error ? err.message : String(err);
     console.error(

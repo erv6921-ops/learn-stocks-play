@@ -48,6 +48,7 @@ import { useApp } from "@/contexts/AppContext"
 import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { ScenarioReviewTab } from "@/components/teacher/ScenarioReviewTab"
+import { CurriculumTab } from "@/components/teacher/CurriculumTab"
 import {
   ClassSettings,
   DEFAULT_CLASS_SETTINGS,
@@ -1172,14 +1173,20 @@ export default function TeacherDashboard() {
                 </Card>
 
                 <Tabs defaultValue="students" className="w-full">
-                  <TabsList className="grid w-full grid-cols-6">
+                  <TabsList className="grid w-full grid-cols-7">
                     <TabsTrigger value="students">Students</TabsTrigger>
                     <TabsTrigger value="assign">Assign</TabsTrigger>
                     <TabsTrigger value="analytics">Analytics</TabsTrigger>
                     <TabsTrigger value="scenarios">Scenarios</TabsTrigger>
+                    <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
                     <TabsTrigger value="settings">Settings</TabsTrigger>
                     <TabsTrigger value="draft">Stock Draft</TabsTrigger>
                   </TabsList>
+
+                  {/* ── Curriculum: upload PDFs + extraction history ── */}
+                  <TabsContent value="curriculum" className="mt-4">
+                    <CurriculumTab />
+                  </TabsContent>
 
                   {/* ── Assign a lesson to the whole class ── */}
                   <TabsContent value="assign" className="mt-4">

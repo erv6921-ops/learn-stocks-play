@@ -61,7 +61,17 @@ const db = supabase as any;
 // Component
 // ---------------------------------------------------------------------------
 
-const TeacherUploadCurriculum: React.FC = () => {
+interface TeacherUploadCurriculumProps {
+  /** Render without the full-screen page chrome (for embedding in a tab). */
+  embedded?: boolean;
+  /** Called after a successful extraction (e.g. to refresh an upload list). */
+  onExtracted?: () => void;
+}
+
+const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
+  embedded = false,
+  onExtracted,
+}) => {
   const [phase, setPhase] = useState<Phase>("idle");
   const [fileName, setFileName] = useState<string>("");
   const [extractedText, setExtractedText] = useState<string>("");
@@ -213,6 +223,7 @@ const TeacherUploadCurriculum: React.FC = () => {
       );
       setResult(payload);
       setPhase("success");
+      onExtracted?.();
     } catch (err) {
       console.error("Extraction failed:", err);
       setErrorMsg(
@@ -240,21 +251,29 @@ const TeacherUploadCurriculum: React.FC = () => {
 
   // ------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-2xl space-y-6">
-        {/* Header */}
-        <div className="space-y-2 text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/20">
-            <UploadCloud className="h-6 w-6 text-white" />
+    <div
+      className={
+        embedded
+          ? "w-full"
+          : "min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10 sm:px-6 lg:px-8"
+      }
+    >
+      <div className={embedded ? "w-full space-y-6" : "mx-auto w-full max-w-2xl space-y-6"}>
+        {/* Header (hidden when embedded — the host page provides its own) */}
+        {!embedded && (
+          <div className="space-y-2 text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/20">
+              <UploadCloud className="h-6 w-6 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              Upload Curriculum
+            </h1>
+            <p className="text-sm text-slate-500">
+              Upload a PDF and we&apos;ll extract concepts, vocabulary, and learning
+              objectives automatically.
+            </p>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-            Upload Curriculum
-          </h1>
-          <p className="text-sm text-slate-500">
-            Upload a PDF and we&apos;ll extract concepts, vocabulary, and learning
-            objectives automatically.
-          </p>
-        </div>
+        )}
 
         <Card className="border-emerald-100 shadow-sm">
           <CardHeader>
