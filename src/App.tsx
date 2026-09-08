@@ -18,6 +18,7 @@ import { logEvent } from "@/lib/analyticsEvents";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
+import LessonPathHome from "./pages/LessonPathHome";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import TeacherUploadCurriculum from "./pages/TeacherUploadCurriculum";
 import AssignLessonPage from "./pages/AssignLessonPage";
@@ -167,7 +168,9 @@ function AppRoutes() {
       <Route path="/" element={import.meta.env.VITE_COASTER_ONLY ? <CoasterJourney /> : <Navigate to={homeTarget} replace />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/onboarding" element={<Onboarding />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      {/* Main student tab: the vertical lesson path (LessonPathHome) replaces the
+          old dashboard. Dashboard.tsx is kept but no longer routed here. */}
+      <Route path="/dashboard" element={<LessonPathHome />} />
       <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
       <Route path="/teacher/student/:userId" element={<StudentWork />} />
       <Route path="/teacher/upload" element={<TeacherUploadCurriculum />} />
