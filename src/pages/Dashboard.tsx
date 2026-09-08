@@ -19,7 +19,6 @@ import { getGameTypeForDate, gameTypeLabel } from "@/lib/dailyGames";
 import { getAdaptiveUnit } from "@/lib/curriculumEngine";
 import { supabase } from "@/integrations/supabase/client";
 import { anchor } from "@/lib/tourAnchors";
-import ContinueHero from "@/components/student/ContinueHero";
 import { getStreak, getBestStreak, getStreakRestore, streakRepairReason } from "@/lib/playerStats";
 import { getLeague } from "@/lib/leagues";
 import { CoasterTrack } from "./Lessons";
@@ -632,11 +631,6 @@ export default function Dashboard() {
       <GameNav />
 
       <main className="p-4 pb-28 md:pb-6">
-        {/* ──── CONTINUE HERO — one-tap resume, above everything else ──── */}
-        <div className="mb-3">
-          <ContinueHero />
-        </div>
-
         {/* ──── JOIN A CLASS (only for students not yet in one) ──── */}
         {inClass === false &&
         <MCard i={0} className="mb-3">
