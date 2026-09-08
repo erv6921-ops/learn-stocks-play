@@ -841,20 +841,20 @@ export default function Dashboard() {
               {/* Start / Continue learning CTA - jumps to the next incomplete lesson */}
               <button
                 onClick={() => navigate(nextLesson ? `/lessons/${nextLesson.id}` : "/lessons")}
-                className="cta-bounce press-scale mt-6 w-full inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-[15px] font-extrabold"
+                className="cta-bounce press-scale mt-6 w-full inline-flex items-center justify-center gap-2.5 rounded-2xl px-8 py-5 md:py-6 text-lg md:text-xl font-extrabold tracking-tight"
                 style={{
                   background: "linear-gradient(180deg, #ffffff 0%, #eef3f0 100%)",
                   color: "#12281f",
                   border: "1px solid rgba(255,255,255,0.7)",
-                  boxShadow: "0 14px 28px -8px rgba(0,0,0,0.45), 0 3px 8px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.9)",
+                  boxShadow: "0 20px 40px -10px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.9)",
                 }}>
-                <BookOpen className="w-4 h-4" />
+                <BookOpen className="w-5 h-5 md:w-6 md:h-6" />
                 {!nextLesson
                   ? "Review lessons"
                   : completedLessons === 0
                     ? "Start learning"
                     : "Continue learning"}
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </div>
           </div>
