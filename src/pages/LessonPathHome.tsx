@@ -6,6 +6,7 @@ import LessonPath from "@/components/student/LessonPath";
 import { lessons } from "@/data/lessons";
 import { getStreak } from "@/lib/playerStats";
 import { getNextAction } from "@/lib/getNextAction";
+import { devTrackOverride } from "@/lib/devPathOverride";
 import { BookOpen, ArrowRight, Flame, Coins, Trophy } from "lucide-react";
 
 // Main student tab. Replaces the old dashboard: the big blue banner sits at the
@@ -15,7 +16,8 @@ export default function LessonPathHome() {
   const { user, authReady, lessonProgress, jeffsBalance, jeffsHistory, unitTestProgress } = useApp();
   const navigate = useNavigate();
 
-  const track = user?.track === "gulliver_intro" ? "gulliver-intro" : "regular";
+  const enrollTrack = devTrackOverride() ?? user?.track;
+  const track = enrollTrack === "gulliver_intro" ? "gulliver-intro" : "regular";
   const trackLessons = useMemo(() => lessons.filter((l) => (l.track ?? "regular") === track), [track]);
   const completedIds = useMemo(
     () => new Set(lessonProgress.filter((p) => p.completed).map((p) => p.lessonId)),
@@ -28,8 +30,8 @@ export default function LessonPathHome() {
 
   // Reuse getNextAction (source of truth) for the banner CTA route/label.
   const action = useMemo(
-    () => getNextAction({ assignedTrack: user?.track, lessonProgress, unitTestProgress, assignments: [] }),
-    [user?.track, lessonProgress, unitTestProgress],
+    () => getNextAction({ assignedTrack: enrollTrack as typeof user.track, lessonProgress, unitTestProgress, assignments: [] }),
+    [enrollTrack, lessonProgress, unitTestProgress],
   );
 
   if (!authReady) return null;

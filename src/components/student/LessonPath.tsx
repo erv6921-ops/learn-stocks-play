@@ -12,8 +12,8 @@ import {
   type NextAction,
 } from "@/lib/getNextAction";
 import { EnvironmentBackdrop } from "@/components/student/pathScenes";
-import { tierForNode, TIER_COUNT } from "@/lib/pathEnvironments";
-import { DEV_LOCAL_BYPASS } from "@/lib/devBypass";
+import { tierForNode, tierPalette, stageName, clampTier, TIER_COUNT } from "@/lib/pathEnvironments";
+import { devProgressOverride, devTrackOverride } from "@/lib/devPathOverride";
 import type { CourseTrack } from "@/types";
 
 // Duolingo-style UPWARD lesson path — Unit 1 / Lesson 1 at the BOTTOM, the
@@ -47,29 +47,19 @@ function trackFor(userTrack?: string): CourseTrack {
   return userTrack === "gulliver_intro" ? "gulliver-intro" : "regular";
 }
 
+// hex → rgba() with alpha, for the per-stage accent tints on unit dividers.
+function hexA(hex: string, a: number): string {
+  const h = hex.replace("#", "");
+  const v = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+  return `rgba(${parseInt(v.slice(0, 2), 16)},${parseInt(v.slice(2, 4), 16)},${parseInt(v.slice(4, 6), 16)},${a})`;
+}
+
 // Pull the lesson id out of a getNextAction route so we can confirm it matches
 // the node we think is current before trusting its refined route.
 function lessonIdFromRoute(route: string | undefined): string | null {
   if (!route) return null;
   const seg = route.split("?")[0].split("/").filter(Boolean).pop();
   return seg && seg !== "lessons" ? seg : null;
-}
-
-// DEV-only ?progress=N override: forces the current node to index N so every
-// environment tier can be checked without completing lessons. Gated on the same
-// flag as the local auth bypass (import.meta.env.DEV, or a VITE_LOCAL_NOAUTH
-// preview build) so it works in `npm run preview` yet never ships to prod CI.
-function devProgressOverride(total: number): number | null {
-  if (!DEV_LOCAL_BYPASS) return null;
-  try {
-    const raw = new URLSearchParams(window.location.search).get("progress");
-    if (raw == null) return null;
-    const n = parseInt(raw, 10);
-    if (Number.isNaN(n)) return null;
-    return Math.max(0, Math.min(total, n));
-  } catch {
-    return null;
-  }
 }
 
 export const LessonPath: React.FC = () => {
@@ -88,14 +78,17 @@ export const LessonPath: React.FC = () => {
     [lessonProgress],
   );
 
+  // Which curriculum to render (DEV ?track= override wins, else enrollment).
+  const enrollTrack = devTrackOverride() ?? user?.track;
+
   // Ordered units for the student's track, and a flat, tier-annotated node list.
   const units = useMemo(() => {
-    const track = trackFor(user?.track);
+    const track = trackFor(enrollTrack);
     return unitInfo
       .filter((u) => (u.track ?? "regular") === track)
       .sort((a, b) => a.orderIndex - b.orderIndex)
       .map((u) => ({ unit: u, lessons: getLessonsByUnit(u.id) }));
-  }, [user?.track]);
+  }, [enrollTrack]);
 
   const nodes = useMemo<NodeMeta[]>(() => {
     const total = units.reduce((s, g) => s + g.lessons.length, 0);
@@ -138,7 +131,7 @@ export const LessonPath: React.FC = () => {
       if (cancelled) return;
       setAction(
         getNextAction({
-          assignedTrack: (user as { assigned_track?: typeof user.track }).assigned_track ?? user.track,
+          assignedTrack: (enrollTrack as NonNullable<typeof user.track>) ?? undefined,
           lessonProgress,
           unitTestProgress,
           assignments,
@@ -149,18 +142,19 @@ export const LessonPath: React.FC = () => {
     return () => {
       cancelled = true;
     };
-  }, [user?.id, user?.track, lessonProgress]);
+  }, [user?.id, enrollTrack, lessonProgress]);
 
   // Rows in ascending order (unit's lessons, then that unit's header). Reversed
   // by flex-col-reverse so Lesson 1 lands at the bottom and each header caps the
   // top of its block.
   type Row =
     | { type: "node"; node: NodeMeta; state: "completed" | "current" | "locked"; side: "left" | "right" }
-    | { type: "header"; unitId: string; label: string; done: number; total: number };
+    | { type: "header"; unitId: string; label: string; stage: string; tier: number; done: number; total: number };
   const rows = useMemo<Row[]>(() => {
     const out: Row[] = [];
-    units.forEach(({ unit, lessons }) => {
+    units.forEach(({ unit, lessons }, unitIndex) => {
       let done = 0;
+      const tier = nodes.find((n) => n.unitId === unit.id)?.tier ?? 0;
       lessons.forEach((l) => {
         const meta = nodes.find((n) => n.id === l.id)!;
         const state =
@@ -172,6 +166,8 @@ export const LessonPath: React.FC = () => {
         type: "header",
         unitId: unit.id,
         label: `Unit ${unit.unitNumber} · ${unit.title}`,
+        stage: stageName(tier),
+        tier,
         done,
         total: lessons.length,
       });
@@ -392,20 +388,35 @@ export const LessonPath: React.FC = () => {
           {rows.map((row) => {
             if (row.type === "header") {
               const complete = row.total > 0 && row.done >= row.total;
+              const accent = tierPalette(clampTier(row.tier)).glow;
               return (
-                <div key={`h-${row.unitId}`} className="relative z-20 my-2 flex items-center gap-3">
-                  <span className="h-px flex-1 bg-white/25" />
+                <div key={`h-${row.unitId}`} className="relative z-20 my-3 flex flex-col items-center gap-2">
+                  {/* stage marker — names the biome this unit climbs into */}
+                  <div className="flex w-full items-center gap-3">
+                    <span className="h-px flex-1" style={{ background: `linear-gradient(90deg, transparent, ${hexA(accent, 0.6)})` }} />
+                    <span
+                      className="flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-[9px] font-black uppercase tracking-[0.2em] backdrop-blur-sm"
+                      style={{ background: "rgba(0,0,0,0.45)", color: accent, border: `1px solid ${hexA(accent, 0.5)}` }}
+                    >
+                      <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: accent, boxShadow: `0 0 8px ${accent}` }} />
+                      {row.stage}
+                    </span>
+                    <span className="h-px flex-1" style={{ background: `linear-gradient(270deg, transparent, ${hexA(accent, 0.6)})` }} />
+                  </div>
+                  {/* unit title + progress */}
                   <span
-                    className="whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide backdrop-blur-sm"
+                    className="whitespace-nowrap rounded-full px-3.5 py-1.5 text-[12px] font-extrabold backdrop-blur-sm"
                     style={{
-                      background: complete ? "rgba(var(--brand-rgb),0.9)" : "rgba(0,0,0,0.42)",
+                      background: complete ? "rgba(var(--brand-rgb),0.92)" : "rgba(0,0,0,0.5)",
                       color: "#fff",
-                      border: "1px solid rgba(255,255,255,0.25)",
+                      border: "1px solid rgba(255,255,255,0.28)",
+                      boxShadow: "0 6px 18px -8px rgba(0,0,0,0.6)",
                     }}
                   >
-                    {row.label} · {row.done} of {row.total} complete
+                    {row.label}
+                    <span className="ml-2 font-bold text-white/55">{row.done} of {row.total}</span>
+                    {complete && <span className="ml-1.5">✓</span>}
                   </span>
-                  <span className="h-px flex-1 bg-white/25" />
                 </div>
               );
             }
