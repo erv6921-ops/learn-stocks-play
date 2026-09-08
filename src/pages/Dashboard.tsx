@@ -528,6 +528,39 @@ export default function Dashboard() {
   const costBasis = portfolio.reduce((s, h) => s + h.shares * h.purchasePrice, 0);
   const plPct = costBasis > 0 ? ((portfolioValue - costBasis) / costBasis) * 100 : 0;
 
+  // ── Dashboard stats tape: coins · streak · friends/class/national rank ·
+  //    portfolio P/L, styled like the Stocks page ticker. Rank items are only
+  //    added when that board applies (in a class / has partners). ──
+  const tickerItems = useMemo(() => {
+    const items: {
+      key: string;
+      Icon: typeof Coins;
+      label: string;
+      value: string;
+      tone: "gold" | "flame" | "up" | "down" | "rank";
+    }[] = [
+      { key: "coins", Icon: Coins, label: "Coins", value: jeffsBalance.toLocaleString(), tone: "gold" },
+      { key: "streak", Icon: Flame, label: "Streak", value: `${streak} ${streak === 1 ? "day" : "days"}`, tone: "flame" },
+    ];
+    if (partnersBoard.info && (partnersBoard.info.total ?? 0) > 1)
+      items.push({ key: "friends", Icon: Users, label: "Friends", value: `#${partnersBoard.info.rank} of ${partnersBoard.info.total}`, tone: "rank" });
+    if (rankInfo)
+      items.push({ key: "class", Icon: Trophy, label: "Class", value: `#${rankInfo.rank} of ${rankInfo.total}`, tone: "rank" });
+    if (nationalBoard.info)
+      items.push({ key: "national", Icon: Trophy, label: "National", value: `#${nationalBoard.info.rank} of ${nationalBoard.info.total}`, tone: "rank" });
+    items.push({
+      key: "portfolio",
+      Icon: plPct >= 0 ? TrendingUp : TrendingDown,
+      label: "Portfolio",
+      value: `${plPct >= 0 ? "+" : ""}${plPct.toFixed(2)}%`,
+      tone: plPct >= 0 ? "up" : "down",
+    });
+    return items;
+  }, [jeffsBalance, streak, partnersBoard, rankInfo, nationalBoard, plPct]);
+  const tickerToneColor: Record<string, string> = {
+    gold: "#F5C26B", flame: "#fb923c", up: "#34d399", down: "#f87171", rank: "#e2e8f0",
+  };
+
   // ── Roller coaster inputs for the current unit (reuses the Missions coaster) ──
   // Use the adaptive unit so validated lessons (benchmark-skipped) are correctly
   // treated as done - matching the exact logic the Missions page uses.
@@ -569,6 +602,32 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* ── Rotating stats tape (Dashboard only): coins · streak · ranks · P/L,
+             styled to match the Stocks page ticker. ── */}
+      <div className="relative overflow-hidden border-b border-white/5" style={{ backgroundColor: "#0a2016" }}>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 z-10" style={{ background: "linear-gradient(90deg, #0a2016, transparent)" }} />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 z-10" style={{ background: "linear-gradient(270deg, #0a2016, transparent)" }} />
+        <div className="ticker-track py-2 text-[12px] font-medium">
+          {/* Two identical copies → seamless loop. */}
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex items-center" aria-hidden={copy === 1}>
+              {tickerItems.map((it, i) => {
+                const Icon = it.Icon;
+                const color = tickerToneColor[it.tone];
+                return (
+                  <span key={`${copy}-${i}`} className="flex items-center px-4">
+                    <Icon className="w-3.5 h-3.5 mr-1.5" style={{ color }} />
+                    <span className="text-white/60 mr-1.5">{it.label}</span>
+                    <span className="font-bold tabular-nums" style={{ color }}>{it.value}</span>
+                    <span className="text-white/15 ml-4">·</span>
+                  </span>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </div>
+
       <GameNav />
 
       <main className="p-4 pb-28 md:pb-6">
