@@ -104,17 +104,27 @@ const Buildings: React.FC<{ color: string; baseline: number; specs: [number, num
 
 // ── The twelve biome scenes ─────────────────────────────────────────────────
 
-// Heavily detailed underground sewer — the first stage of the climb. Layered
-// far→near: brick masonry + arch vignette, wall grime/cracks, a pipe network
-// with valves/rivets/brackets, a caged wall lamp casting a light cone, hanging
-// chains + an iron ladder, a glowing toxic channel with ripples + rising
-// bubbles + floating debris + a rat, and foreground drips/steam/dust.
+// Unmistakably a sewer: a big round brick tunnel viewed head-on (concentric
+// voussoir rings receding to a black mouth), three god-ray light shafts falling
+// from a manhole grate above, bold high-contrast pipes with a valve wheel and
+// drips, a bright glowing water channel with ripples/bubbles/debris/rat, an
+// iron ladder, a hazard sign, and foreground steam/dust. Colors are pushed much
+// lighter than the ambient so the shapes actually read against the dark.
 const Sewers: React.FC<SceneProps> = ({ tier = 0, parallax = 0 }) => {
-  const p = tierPalette(tier);
-  const brickFill = "#141f1a";
-  const mortar = "#0a120e";
-  const rust = "#6b4a2a";
-  const wet = p.glow; // toxic green glow
+  const brick = "#3a5a48"; // pushed lighter than ambient so masonry reads
+  const brick2 = "#243d31";
+  const mortar = "#0c1511";
+  const grout = "#6a9a80"; // bright grout so the concentric tunnel rings pop
+  const steel = "#5f7d69";
+  const steelLite = "#b6f2ca";
+  const rust = "#c68a4c";
+  const wet = "#4be090"; // bright toxic green so the water channel pops
+  const wetLite = "#b7ffdb";
+  const cx = 50, cy = 40; // tunnel center
+  const rings = [
+    { r: 56, f: brick }, { r: 48, f: brick2 }, { r: 41, f: brick }, { r: 34, f: brick2 },
+    { r: 28, f: brick }, { r: 22, f: brick2 }, { r: 16, f: "#12201a" }, { r: 10, f: "#060b08" },
+  ];
   return (
     <SceneShell
       tier={tier}
@@ -122,183 +132,171 @@ const Sewers: React.FC<SceneProps> = ({ tier = 0, parallax = 0 }) => {
       extra={
         <Svg>
           <defs>
-            {/* running-bond brick masonry */}
-            <pattern id="sewerBrick" width="12" height="12" patternUnits="userSpaceOnUse">
-              <rect width="12" height="12" fill={brickFill} />
-              <g stroke={mortar} strokeWidth="0.6">
-                <line x1="0" y1="6" x2="12" y2="6" />
-                <line x1="6" y1="0" x2="6" y2="6" />
-                <line x1="0" y1="6" x2="0" y2="12" />
-                <line x1="12" y1="6" x2="12" y2="12" />
+            <pattern id="sewerBrick" width="14" height="14" patternUnits="userSpaceOnUse">
+              <rect width="14" height="14" fill={brick2} />
+              <g stroke={mortar} strokeWidth="1">
+                <line x1="0" y1="7" x2="14" y2="7" />
+                <line x1="7" y1="0" x2="7" y2="7" />
+                <line x1="0" y1="7" x2="0" y2="14" />
+                <line x1="14" y1="7" x2="14" y2="14" />
               </g>
-              {/* faint brick highlight */}
-              <line x1="0.5" y1="0.6" x2="5.5" y2="0.6" stroke={hexA(p.fg, 0.18)} strokeWidth="0.4" />
-              <line x1="0.5" y1="6.6" x2="11.5" y2="6.6" stroke={hexA(p.fg, 0.12)} strokeWidth="0.4" />
+              <line x1="0.8" y1="1" x2="6.2" y2="1" stroke={hexA(grout, 0.5)} strokeWidth="0.7" />
+              <line x1="7.8" y1="8" x2="13.2" y2="8" stroke={hexA(grout, 0.4)} strokeWidth="0.7" />
             </pattern>
-            <radialGradient id="sewerVignette" cx="50%" cy="42%" r="70%">
-              <stop offset="0%" stopColor="rgba(0,0,0,0)" />
-              <stop offset="100%" stopColor="rgba(0,0,0,0.7)" />
-            </radialGradient>
-            <radialGradient id="lampCone" cx="50%" cy="0%" r="90%">
-              <stop offset="0%" stopColor={hexA(wet, 0.4)} />
-              <stop offset="100%" stopColor="rgba(0,0,0,0)" />
-            </radialGradient>
           </defs>
-          {/* brick wall fills the frame */}
+          {/* brick wall fills the frame (corners around the tunnel) */}
           <rect x="0" y="0" width="100" height="100" fill="url(#sewerBrick)" />
-          {/* dark tunnel arch giving depth toward a vanishing point */}
-          <path d="M0 100 L0 40 Q50 8 100 40 L100 100 Z" fill="none" />
-          <path d="M-2 100 L-2 44 Q50 14 102 44 L102 100 Z" fill="none" stroke={mortar} strokeWidth="3" opacity={0.8} />
-          <path d="M12 100 L12 52 Q50 26 88 52 L88 100 Z" fill={hexA("#0a120e", 0.55)} />
-          <rect x="0" y="0" width="100" height="100" fill="url(#sewerVignette)" />
+          {/* ── the big round brick tunnel: concentric voussoir rings → black mouth ── */}
+          {rings.map((r, i) => (
+            <circle key={i} cx={cx} cy={cy} r={r.r} fill={r.f} stroke={hexA(grout, 0.85)} strokeWidth="1" />
+          ))}
+          {/* radial voussoir bricks around the two outer rings */}
+          <g stroke={hexA(grout, 0.8)} strokeWidth="0.9">
+            {Array.from({ length: 30 }).map((_, k) => {
+              const a = (k / 30) * Math.PI * 2;
+              return (
+                <line key={k} x1={cx + Math.cos(a) * 41} y1={cy + Math.sin(a) * 41}
+                  x2={cx + Math.cos(a) * 56} y2={cy + Math.sin(a) * 56} />
+              );
+            })}
+          </g>
+          {/* bright rim + inner-mouth glow so the round pipe + depth read */}
+          <circle cx={cx} cy={cy} r="56" fill="none" stroke={hexA(steelLite, 0.5)} strokeWidth="1.4" />
+          <circle cx={cx} cy={cy} r="16" fill="none" stroke={hexA(wet, 0.55)} strokeWidth="2.4" />
+          <circle cx={cx} cy={cy} r="10" fill="none" stroke={hexA(wet, 0.3)} strokeWidth="4" />
+          {/* vignette */}
+          <radialGradient id="sv" cx="50%" cy="40%" r="72%">
+            <stop offset="55%" stopColor="rgba(0,0,0,0)" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.62)" />
+          </radialGradient>
+          <rect x="0" y="0" width="100" height="100" fill="url(#sv)" />
         </Svg>
       }
       layers={[
-        // ── wall grime, water stains, cracks, moss ──
-        { d: 0.08, el: (
+        // ── manhole grate up top + three god-ray light shafts falling from it ──
+        { d: 0.06, el: (
           <Svg>
-            <g fill={hexA("#000000", 0.35)}>
-              <path d="M20 0 q4 20 -2 40 q-3 12 2 24 l6 0 q-6 -20 0 -40 q3 -14 -1 -24 z" />
-              <path d="M70 0 q-3 16 3 30 q4 10 -2 22 l5 0 q5 -14 1 -24 q-4 -14 -1 -28 z" />
+            <g fill={hexA(wetLite, 0.16)} stroke="none">
+              <polygon points="46,3 54,3 40,64 32,64" />
+              <polygon points="50,3 56,3 62,64 54,64" />
+              <polygon points="52,3 58,3 78,64 68,64" />
             </g>
-            {/* moss patches */}
-            <g fill={hexA(wet, 0.16)}>
-              <ellipse cx="8" cy="70" rx="8" ry="14" />
-              <ellipse cx="94" cy="60" rx="7" ry="18" />
-              <ellipse cx="50" cy="30" rx="12" ry="5" />
-            </g>
-            {/* cracks */}
-            <g stroke={mortar} strokeWidth="0.5" fill="none" opacity={0.8}>
-              <path d="M34 4 l3 8 l-2 6 l4 9" />
-              <path d="M82 20 l-4 7 l2 6" />
+            {/* manhole rim + slots */}
+            <ellipse cx="50" cy="3" rx="11" ry="2.6" fill="#0b120e" stroke={steel} strokeWidth="0.6" />
+            <g stroke={hexA(steelLite, 0.7)} strokeWidth="0.7">
+              {[-6, -3, 0, 3, 6].map((dx) => <line key={dx} x1={50 + dx} y1="1.6" x2={50 + dx} y2="4.4" />)}
             </g>
           </Svg>
         ) },
-        // ── pipe network: horizontal main + vertical drop + valves/brackets/rivets ──
-        { d: 0.35, el: (
+        // ── grime + moss + a hazard sign on the brick ──
+        { d: 0.12, el: (
           <Svg>
-            {/* big horizontal pipe */}
-            <g>
-              <rect x="0" y="58" width="100" height="6" fill="#20302a" />
-              <rect x="0" y="58" width="100" height="1.6" fill={hexA(p.fg, 0.5)} />
-              <rect x="0" y="62.4" width="100" height="1.6" fill="rgba(0,0,0,0.4)" />
-              {/* flanges */}
-              {[24, 62].map((x) => <rect key={x} x={x} y="56.5" width="3" height="9" fill="#2a3d34" />)}
-              {/* rivets */}
-              <g fill={hexA(p.fg, 0.5)}>{[6, 16, 34, 46, 74, 88].map((x) => <circle key={x} cx={x} cy="61" r="0.5" />)}</g>
-              {/* brackets to wall */}
-              {[10, 80].map((x) => <rect key={x} x={x} y="52" width="1.4" height="6" fill="#18251e" />)}
+            <g fill={hexA("#000000", 0.4)}>
+              <path d="M6 0 q4 18 -1 34 l5 0 q4 -16 0 -34 z" />
+              <path d="M92 0 q-4 16 1 30 l4 0 q4 -14 0 -30 z" />
             </g>
-            {/* vertical drop pipe with elbow + valve wheel */}
-            <g>
-              <rect x="70" y="0" width="4.5" height="58" fill="#20302a" />
-              <rect x="70" y="0" width="1.4" height="58" fill={hexA(p.fg, 0.45)} />
-              <rect x="68.5" y="30" width="7.5" height="4" fill="#2a3d34" />
-              {/* valve wheel */}
-              <circle cx="72.3" cy="20" r="4" fill="none" stroke={rust} strokeWidth="1.2" />
-              <line x1="68.3" y1="20" x2="76.3" y2="20" stroke={rust} strokeWidth="1" />
-              <line x1="72.3" y1="16" x2="72.3" y2="24" stroke={rust} strokeWidth="1" />
-              <circle cx="72.3" cy="20" r="1" fill={rust} />
+            <g fill={hexA(wet, 0.22)}>
+              <ellipse cx="4" cy="72" rx="9" ry="16" /><ellipse cx="96" cy="66" rx="8" ry="20" />
             </g>
-            {/* small secondary pipe */}
-            <rect x="0" y="42" width="40" height="2.6" fill="#1b2a24" />
-            <rect x="38" y="42" width="2.6" height="16" fill="#1b2a24" />
+            {/* hazard triangle sign */}
+            <g transform="translate(13 46)">
+              <path d="M0 6 L4 -2 L8 6 Z" fill="#c9a227" stroke="#111" strokeWidth="0.5" />
+              <rect x="3.4" y="1" width="1.2" height="2.6" fill="#111" /><rect x="3.4" y="4.2" width="1.2" height="1" fill="#111" />
+            </g>
           </Svg>
         ) },
-        // ── caged wall lamp + light cone, hanging chains, iron ladder ──
-        { d: 0.5, el: (
+        // ── bold pipe network across the tunnel: main pipe, drop pipe + valve ──
+        { d: 0.4, el: (
           <Svg>
-            {/* light cone from lamp */}
-            <path d="M20 22 L4 78 L40 78 Z" fill="url(#lampCone)" opacity={0.7} />
-            {/* lamp housing + cage */}
+            {/* thick horizontal main pipe */}
             <g>
-              <rect x="17.5" y="16" width="5" height="2" fill="#18251e" />
-              <ellipse cx="20" cy="21" rx="4" ry="4.5" fill={hexA(wet, 0.85)} />
-              <ellipse cx="20" cy="21" rx="4" ry="4.5" fill="none" stroke="#0a120e" strokeWidth="0.6" />
-              <g stroke="#0a120e" strokeWidth="0.5" fill="none">
-                <path d="M16 21 q4 -6 8 0" /><path d="M16 21 q4 6 8 0" />
-                <line x1="20" y1="16.5" x2="20" y2="25.5" />
+              <rect x="0" y="62" width="100" height="8" fill={steel} />
+              <rect x="0" y="62.4" width="100" height="2.2" fill={steelLite} opacity={0.7} />
+              <rect x="0" y="67.6" width="100" height="2" fill="rgba(0,0,0,0.45)" />
+              {[20, 58, 86].map((x) => <rect key={x} x={x} y="60" width="3.4" height="12" fill="#3c5044" />)}
+              <g fill={hexA(steelLite, 0.6)}>{[6, 14, 30, 44, 68, 78, 94].map((x) => <circle key={x} cx={x} cy="66" r="0.7" />)}</g>
+              {[10, 74].map((x) => <rect key={x} x={x} y="55" width="1.8" height="7" fill="#243a30" />)}
+            </g>
+            {/* vertical drop pipe + elbow + big valve wheel */}
+            <g>
+              <rect x="66" y="0" width="6" height="62" fill={steel} />
+              <rect x="66" y="0" width="2" height="62" fill={steelLite} opacity={0.6} />
+              <rect x="63.5" y="28" width="11" height="5" fill="#3c5044" />
+              <circle cx="69" cy="18" r="5.4" fill="none" stroke={rust} strokeWidth="1.6" />
+              <circle cx="69" cy="18" r="5.4" fill={hexA(rust, 0.12)} />
+              <g stroke={rust} strokeWidth="1.2">
+                <line x1="63.6" y1="18" x2="74.4" y2="18" /><line x1="69" y1="12.6" x2="69" y2="23.4" />
+                <line x1="65.2" y1="14.2" x2="72.8" y2="21.8" /><line x1="72.8" y1="14.2" x2="65.2" y2="21.8" />
               </g>
-            </g>
-            {/* hanging chains */}
-            <g stroke={hexA(rust, 0.7)} strokeWidth="0.7" fill="none">
-              {[52, 90].map((x, i) => (
-                <path key={i} d={`M${x} 0 q1.5 6 0 12 q-1.5 6 0 12 q1.5 5 0 10`} />
-              ))}
-            </g>
-            {/* iron ladder on the right wall */}
-            <g stroke="#2a3d34" strokeWidth="0.9">
-              <line x1="95" y1="30" x2="95" y2="96" />
-              <line x1="99" y1="30" x2="99" y2="96" />
-              {[38, 48, 58, 68, 78, 88].map((y) => <line key={y} x1="95" y1={y} x2="99" y2={y} />)}
+              <circle cx="69" cy="18" r="1.4" fill={rust} />
             </g>
           </Svg>
         ) },
-        // ── glowing toxic channel: surface glow, ripples, bubbles, debris, rat ──
+        // ── iron ladder + hanging chain ──
+        { d: 0.55, el: (
+          <Svg>
+            <g stroke="#3c5044" strokeWidth="1.1">
+              <line x1="90" y1="24" x2="90" y2="96" /><line x1="95" y1="24" x2="95" y2="96" />
+              {[30, 40, 50, 60, 70, 80, 90].map((y) => <line key={y} x1="90" y1={y} x2="95" y2={y} />)}
+            </g>
+            <g stroke={hexA(rust, 0.75)} strokeWidth="0.9" fill="none">
+              <path d="M24 0 q1.6 6 0 12 q-1.6 6 0 12 q1.6 6 0 12" />
+            </g>
+          </Svg>
+        ) },
+        // ── bright glowing water channel: curb, ripples, bubbles, debris, rat ──
         { d: 0.9, el: (
           <Svg>
-            {/* channel curb */}
-            <rect x="0" y="84" width="100" height="2" fill="#0a120e" />
-            {/* toxic water body with vertical glow falloff */}
-            <rect x="0" y="86" width="100" height="14" fill={hexA(wet, 0.22)} />
-            <rect x="0" y="86" width="100" height="2.4" fill={hexA(wet, 0.55)} />
-            {/* moving surface ripples */}
-            <g stroke={hexA(wet, 0.5)} strokeWidth="0.5" fill="none">
-              <path d="M0 89 q8 -1.4 16 0 t16 0 t16 0 t16 0 t16 0 t16 0">
+            <rect x="0" y="82" width="100" height="2.2" fill="#0a120e" />
+            <rect x="0" y="84" width="100" height="16" fill={hexA(wet, 0.28)} />
+            <rect x="0" y="84" width="100" height="3" fill={hexA(wetLite, 0.6)} />
+            <g stroke={hexA(wetLite, 0.7)} strokeWidth="0.7" fill="none">
+              <path d="M0 88 q8 -1.6 16 0 t16 0 t16 0 t16 0 t16 0 t16 0">
                 <animate attributeName="d" dur="5s" repeatCount="indefinite"
-                  values="M0 89 q8 -1.4 16 0 t16 0 t16 0 t16 0 t16 0 t16 0;M0 89 q8 1.4 16 0 t16 0 t16 0 t16 0 t16 0 t16 0;M0 89 q8 -1.4 16 0 t16 0 t16 0 t16 0 t16 0 t16 0" />
+                  values="M0 88 q8 -1.6 16 0 t16 0 t16 0 t16 0 t16 0 t16 0;M0 88 q8 1.6 16 0 t16 0 t16 0 t16 0 t16 0 t16 0;M0 88 q8 -1.6 16 0 t16 0 t16 0 t16 0 t16 0 t16 0" />
               </path>
             </g>
-            {/* reflections on water */}
-            <g fill={hexA(wet, 0.28)}>
-              <rect x="19" y="90" width="2" height="8" opacity={0.5} />
-              <rect x="71" y="90" width="2" height="8" opacity={0.4} />
+            <g fill={hexA(wetLite, 0.35)}>
+              <rect x="67" y="86" width="2.4" height="10" opacity={0.5} /><rect x="20" y="86" width="2" height="10" opacity={0.4} />
             </g>
-            {/* rising bubbles */}
-            <g fill={hexA(wet, 0.7)}>
-              {[[30, 1], [33, 0.6], [58, 0.8], [62, 0.5]].map(([x, r], i) => (
+            <g fill={hexA(wetLite, 0.85)}>
+              {[[30, 1.1], [34, 0.7], [56, 0.9], [61, 0.6]].map(([x, r], i) => (
                 <circle key={i} cx={x} cy="96" r={r as number}>
-                  <animate attributeName="cy" dur={`${3 + i}s`} repeatCount="indefinite" values="97;87;97" />
-                  <animate attributeName="opacity" dur={`${3 + i}s`} repeatCount="indefinite" values="0.7;0.1;0.7" />
+                  <animate attributeName="cy" dur={`${3 + i}s`} repeatCount="indefinite" values="97;85;97" />
+                  <animate attributeName="opacity" dur={`${3 + i}s`} repeatCount="indefinite" values="0.85;0.1;0.85" />
                 </circle>
               ))}
             </g>
-            {/* floating debris: plank + bottle */}
-            <g>
-              <rect x="42" y="88.4" width="10" height="1.6" rx="0.6" fill="#3a2c1c" opacity={0.85} />
-              <rect x="12" y="89" width="3.6" height="1.4" rx="0.7" fill={hexA(p.fg, 0.5)} />
-            </g>
+            {/* floating debris */}
+            <rect x="40" y="86.4" width="12" height="1.8" rx="0.7" fill="#4a3720" opacity={0.9} />
+            <rect x="10" y="87" width="4" height="1.6" rx="0.8" fill={hexA(steelLite, 0.5)} />
             {/* rat on the curb with glowing eye */}
-            <g transform="translate(83 80)">
-              <ellipse cx="0" cy="2.4" rx="3.4" ry="1.6" fill="#10160f" />
-              <circle cx="-2.6" cy="1.4" r="1.5" fill="#10160f" />
-              <path d="M3 2 q4 -1 5 2" stroke="#10160f" strokeWidth="0.6" fill="none" />
-              <circle cx="-3.1" cy="1.1" r="0.35" fill={wet} />
+            <g transform="translate(84 78)">
+              <ellipse cx="0" cy="2.6" rx="3.8" ry="1.8" fill="#0c120e" />
+              <circle cx="-3" cy="1.4" r="1.7" fill="#0c120e" />
+              <path d="M3.4 2.2 q4.5 -1 5.6 2.4" stroke="#0c120e" strokeWidth="0.7" fill="none" />
+              <circle cx="-3.6" cy="1.1" r="0.4" fill={wetLite} />
             </g>
           </Svg>
         ) },
-        // ── foreground: drips from pipes, steam wisps, dust motes ──
+        // ── foreground: drips, steam, dust ──
         { d: 1, el: (
           <Svg>
-            {/* drips falling from the horizontal pipe */}
-            <g fill={wet}>
-              {[26, 55, 78].map((x, i) => (
-                <circle key={i} cx={x} cy="64" r="0.7">
-                  <animate attributeName="cy" dur={`${2.2 + i * 0.6}s`} repeatCount="indefinite" values="64;86;86" />
+            <g fill={wetLite}>
+              {[24, 52, 80].map((x, i) => (
+                <circle key={i} cx={x} cy="70" r="0.8">
+                  <animate attributeName="cy" dur={`${2.2 + i * 0.6}s`} repeatCount="indefinite" values="70;84;84" />
                   <animate attributeName="opacity" dur={`${2.2 + i * 0.6}s`} repeatCount="indefinite" values="0;1;0" />
                 </circle>
               ))}
             </g>
-            {/* steam / haze wisps rising off the water */}
-            <g fill={hexA(wet, 0.06)}>
-              <ellipse cx="40" cy="80" rx="24" ry="7" />
-              <ellipse cx="80" cy="82" rx="18" ry="6" />
+            <g fill={hexA(wet, 0.07)}>
+              <ellipse cx="40" cy="80" rx="26" ry="8" /><ellipse cx="82" cy="82" rx="18" ry="6" />
             </g>
-            {/* drifting dust motes */}
-            <g fill={hexA(wet, 0.5)}>
-              {[[20, 40], [55, 30], [82, 52], [12, 62], [66, 44], [38, 20]].map(([x, y], i) => (
-                <circle key={i} cx={x} cy={y} r={0.45}>
-                  <animate attributeName="opacity" dur={`${4 + (i % 3)}s`} repeatCount="indefinite" values="0.15;0.6;0.15" />
+            <g fill={hexA(wetLite, 0.55)}>
+              {[[20, 38], [56, 28], [82, 50], [12, 60], [66, 44], [38, 20]].map(([x, y], i) => (
+                <circle key={i} cx={x} cy={y} r={0.5}>
+                  <animate attributeName="opacity" dur={`${4 + (i % 3)}s`} repeatCount="indefinite" values="0.15;0.7;0.15" />
                 </circle>
               ))}
             </g>

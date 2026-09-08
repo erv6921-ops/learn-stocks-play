@@ -49,7 +49,7 @@ export interface TierPalette {
 }
 
 const PALETTES: TierPalette[] = [
-  { sky: ["#080b0a", "#101c17"], mid: "#18251e", fg: "#2c4438", glow: "#37a06e", stars: false, scrim: 0.16 }, // 0 sewers
+  { sky: ["#0e1712", "#1a2e24"], mid: "#24382e", fg: "#3f6151", glow: "#46d68e", stars: false, scrim: 0.12 }, // 0 sewers (lifted out of near-black so detail reads)
   { sky: ["#0f1613", "#1f2b24"], mid: "#26362e", fg: "#3a5145", glow: "#6fae8f", stars: false, scrim: 0.14 }, // 1 underground
   { sky: ["#15211b", "#2c3d33"], mid: "#36493d", fg: "#54705d", glow: "#ffd98a", stars: false, scrim: 0.12 }, // 2 street (night, warm lamps)
   { sky: ["#3a5145", "#6f9078"], mid: "#7d9a84", fg: "#a6c1a9", glow: "#ffe9a8", stars: false, scrim: 0.09 }, // 3 downtown (day)
