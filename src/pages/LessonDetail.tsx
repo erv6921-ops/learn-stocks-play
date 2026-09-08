@@ -309,21 +309,6 @@ export default function LessonDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lesson?.id])
 
-  // Resume deep-link: /lessons/<id>?section=N opens directly at walk-section N
-  // (0-based), skipping Jeff's chat. Used by the home-screen Continue card so a
-  // returning student lands on the exact section they left off. Mirrors the
-  // ?dev=mastery jump above; not DEV-gated because real resumes rely on it.
-  useEffect(() => {
-    const raw = new URLSearchParams(window.location.search).get("section")
-    if (raw == null) return
-    const idx = parseInt(raw, 10)
-    if (!Number.isFinite(idx) || idx <= 0 || walkSections.length === 0) return
-    setChatOpen(false)
-    setLessonStarted(true)
-    setCurrentSectionIdx(Math.min(idx, walkSections.length - 1))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lesson?.id])
-
   // Deep (academic-course) lessons ground the live Jeff chat in the authored
   // curriculum so it teaches the real material in depth instead of improvising
   // from the title. Assemble that source text from the concept sections.
