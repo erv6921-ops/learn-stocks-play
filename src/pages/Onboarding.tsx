@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client"
 import { useApp } from "@/contexts/AppContext"
 import { benchmarkQuestions, BenchmarkQuestion, calculateLiteracyLevel, getLevelDescription, computeCategoryScores } from "@/data/assessmentQuestions"
 import { computeBenchmarkScores } from "@/lib/curriculumEngine"
+import { deriveDomainAbilities, domainStartingPoints, conceptLabel, TIER_LABEL, type StartingTier } from "@/lib/benchmarkSeeding"
 import { shuffleQuestion } from "@/lib/mcqEngine"
 import { saveBenchmarkProgress, loadBenchmarkProgress, clearBenchmarkProgress } from "@/lib/benchmarkProgress"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
@@ -628,6 +629,36 @@ export default function Onboarding() {
     clearBenchmarkProgress()
 
     const { data: session } = await supabase.auth.getSession()
+
+    // ── Seed the IRT engine from the benchmark ──
+    // Translate per-domain performance into a starting theta per concept so the
+    // adaptive engine begins each lesson at the student's real level instead of
+    // the flat default. Keyed on concept = lesson.category, exactly what
+    // useAbility loads on lesson entry. Non-fatal: a failure here still lets the
+    // student into the app, but we surface it rather than swallowing it.
+    const seedRows = deriveDomainAbilities(categoryScores)
+    const seedUid = session.session?.user?.id
+    if (DEV_LOCAL_BYPASS) {
+      // No real JWT in dev; RLS would reject the write. Mirrors useAbility.
+      console.debug("[benchmark seed] skipped under DEV_LOCAL_BYPASS", seedRows.length, "rows")
+    } else if (seedUid && seedRows.length > 0) {
+      const now = new Date().toISOString()
+      const rows = seedRows.map((r) => ({ user_id: seedUid, ...r, updated_at: now }))
+      const { error: seedErr } = await (supabase as any)
+        .from("student_ability")
+        .upsert(rows, { onConflict: "user_id,concept" })
+      if (seedErr) {
+        console.error("[benchmark seed] student_ability upsert failed", seedErr)
+        toast({
+          title: "Heads up: couldn't personalize question difficulty",
+          description: "Your results saved, but seeding the adaptive engine failed. Lessons will still work, starting at the default level.",
+          variant: "destructive",
+        })
+      } else {
+        console.debug("[benchmark seed] wrote", rows.length, "student_ability rows")
+      }
+    }
+
     // For a benchmark-only retake, keep the existing profile and just refresh
     // the assessment results; otherwise build the profile from the form fields.
     const base = benchmarkOnly && user
@@ -1816,6 +1847,48 @@ export default function Onboarding() {
                     })}
                   </div>
                 </div>
+
+                {/* Your starting point — derived from the same per-domain scores
+                    that now seed the adaptive engine's starting difficulty. */}
+                {(() => {
+                  const points = domainStartingPoints(categoryScoresPreview)
+                  if (points.length === 0) return null
+                  const ahead = points.filter(p => p.tier === "advanced" || p.tier === "on-track")
+                  const review = points.filter(p => p.isReview)
+                  const dot: Record<StartingTier, string> = {
+                    advanced: "bg-success",
+                    "on-track": "bg-primary",
+                    building: "bg-warning",
+                    review: "bg-destructive",
+                  }
+                  return (
+                    <div className="rounded-xl border border-primary/15 bg-primary/[0.03] p-4">
+                      <h3 className="text-sm font-bold uppercase tracking-wider text-primary mb-2 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4" /> Your starting point
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        We used your answers to set where each topic <strong>starts</strong>. The first
+                        questions in {ahead.length} of your {points.length} tested topics will start at grade
+                        level or above — you won't waste time on what you already know.
+                      </p>
+                      <div className="space-y-1.5 max-h-44 overflow-y-auto">
+                        {points.slice(0, 8).map(p => (
+                          <div key={p.concept} className="flex items-center gap-2 text-xs">
+                            <span className={`w-2 h-2 rounded-full shrink-0 ${dot[p.tier]}`} />
+                            <span className="font-medium w-40 truncate">{conceptLabel(p.concept)}</span>
+                            <span className="text-muted-foreground truncate">{TIER_LABEL[p.tier]}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {review.length > 0 && (
+                        <p className="text-xs text-muted-foreground mt-3">
+                          We'll flag <strong>{review.map(r => conceptLabel(r.concept)).slice(0, 4).join(", ")}</strong>
+                          {review.length > 4 ? " and more" : ""} for review on your path.
+                        </p>
+                      )}
+                    </div>
+                  )
+                })()}
 
                 {/* What this means */}
                 <div className="bg-muted rounded-xl p-4 text-sm text-muted-foreground space-y-1">

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef, useEffect, useMemo } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { getLabDocument, labFormFields, markLabDocDone, FormField } from "@/data/labDocuments"
+import { IRSFormLab } from "@/components/labs/forms"
 import { supabase } from "@/integrations/supabase/client"
 import GameNav from "@/components/GameNav"
 import { Button } from "@/components/ui/button"
@@ -167,6 +168,12 @@ export default function LabDocument() {
         </div>
       </div>
     )
+  }
+
+  // An IRS-form lab renders the real-form replica system instead of the generic
+  // AI-checked field form. Branch here — after all hooks — so hook order is stable.
+  if (result.document.kind === "irs_form" && result.document.irsForm) {
+    return <IRSFormLab doc={result.document} payload={result.document.irsForm} />
   }
 
   const { document: doc, category } = result
