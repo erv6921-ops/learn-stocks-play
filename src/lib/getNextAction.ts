@@ -23,6 +23,8 @@ import { lessons, unitInfo, getLessonsByUnit } from "@/data/lessons";
 import { getStructuredContent } from "@/data/lessonContent";
 import { lessonRoute, fetchGeneratedLessonNames } from "@/lib/generatedLessons";
 import { parseDue, dueLabel } from "@/lib/dueDate";
+import { domainStartingPoints, conceptLabel } from "@/lib/benchmarkSeeding";
+import type { CategoryScore } from "@/data/assessmentQuestions";
 import type { LessonProgress, EnrollmentTrack, CourseTrack } from "@/types";
 
 export type NextAction = {
@@ -48,6 +50,12 @@ export interface NextActionContext {
   assignments: AssignmentRow[];
   /** Display names for generated (UUID) assignment lessons, keyed by id. */
   assignmentNames?: Map<string, string>;
+  /**
+   * Benchmark per-domain scores (profiles.benchmark_category_scores). Used ONLY
+   * to make the `review` fallback point at the student's weakest tested domain —
+   * it does not change the priority order or any other action kind.
+   */
+  benchmarkCategoryScores?: Record<string, CategoryScore> | null;
 }
 
 const HOUR = 3600 * 1000;
@@ -194,6 +202,23 @@ export function getNextAction(ctx: NextActionContext): NextAction {
   }
 
   // 4. REVIEW — fallback. Never returns null / an empty card.
+  //    When we have benchmark scores, aim the review at the student's WEAKEST
+  //    tested domain (a lesson in a unit whose categories include that domain).
+  //    This only changes what the `review` card points at — it does not alter
+  //    the priority order above or any other action kind.
+  const weakReview = weakestReviewLesson(ctx, orderedUnits);
+  if (weakReview) {
+    return {
+      kind: "review",
+      eyebrow: `Review · ${conceptLabel(weakReview.concept)}`,
+      title: weakReview.lesson.title,
+      subtitle: "Your benchmark flagged this topic — lock it in",
+      progressPct: null,
+      route: lessonRoute(weakReview.lesson.id),
+      urgent: false,
+    };
+  }
+
   return {
     kind: "review",
     eyebrow: "Keep it sharp",
@@ -203,6 +228,31 @@ export function getNextAction(ctx: NextActionContext): NextAction {
     route: "/lessons",
     urgent: false,
   };
+}
+
+/**
+ * Pick a lesson for the `review` fallback: the weakest benchmark domain (below
+ * the review threshold) that maps to a unit with a lesson to revisit. Returns
+ * null when there's no benchmark data or no matching lesson.
+ */
+function weakestReviewLesson(
+  ctx: NextActionContext,
+  orderedUnits: typeof unitInfo,
+): { concept: string; lesson: (typeof lessons)[number] } | null {
+  const points = domainStartingPoints(ctx.benchmarkCategoryScores)
+    .filter((p) => p.isReview)
+    .sort((a, b) => a.percent - b.percent); // weakest first
+  if (points.length === 0) return null;
+
+  const unitsToScan = orderedUnits.length > 0 ? orderedUnits : unitInfo;
+  for (const p of points) {
+    for (const u of unitsToScan) {
+      if (!(u.categories ?? []).some((c) => (c as string) === p.concept)) continue;
+      const lesson = getLessonsByUnit(u.id)[0];
+      if (lesson) return { concept: p.concept, lesson };
+    }
+  }
+  return null;
 }
 
 /** Verb-first button label derived from the action kind. */

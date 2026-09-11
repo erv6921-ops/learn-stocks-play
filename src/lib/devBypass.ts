@@ -11,7 +11,12 @@
 // is intentionally disabled; auth is fully skipped on any dev server so
 // localhost never shows a login screen. Re-add the flag check here if you
 // ever need to exercise real Supabase auth locally again.
-export const DEV_LOCAL_BYPASS = import.meta.env.DEV
+// Active under `npm run dev`, OR in any build explicitly made with
+// VITE_LOCAL_NOAUTH=true (e.g. `VITE_LOCAL_NOAUTH=true npm run build` for a
+// no-auth localhost preview). Production CI never sets that var, so the deployed
+// app is unaffected — the bypass stays off unless you opt in at build time.
+export const DEV_LOCAL_BYPASS =
+  import.meta.env.DEV || import.meta.env.VITE_LOCAL_NOAUTH === "true"
 
 // A syntactically valid placeholder UUID for the throwaway dev user, so any
 // read that does reach the DB fails on RLS (empty result) rather than on uuid

@@ -19,6 +19,7 @@ import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import LessonPathHome from "./pages/LessonPathHome";
+import TowerPreview from "./pages/TowerPreview";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import TeacherUploadCurriculum from "./pages/TeacherUploadCurriculum";
 import AssignLessonPage from "./pages/AssignLessonPage";
@@ -39,6 +40,7 @@ import Leaderboard from "./pages/Leaderboard";
 import AppliedFinanceLab from "./pages/AppliedFinanceLab";
 import Daily from "./pages/Daily";
 import LabDocument from "./pages/LabDocument";
+import CurriculumReview from "./pages/admin/CurriculumReview";
 import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
 import Profile from "./pages/Profile";
@@ -171,6 +173,7 @@ function AppRoutes() {
       {/* Main student tab: the vertical lesson path (LessonPathHome) replaces the
           old dashboard. Dashboard.tsx is kept but no longer routed here. */}
       <Route path="/dashboard" element={<LessonPathHome />} />
+      <Route path="/tower-preview" element={<TowerPreview />} />
       <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
       <Route path="/teacher/student/:userId" element={<StudentWork />} />
       <Route path="/teacher/upload" element={<TeacherUploadCurriculum />} />
@@ -201,6 +204,7 @@ function AppRoutes() {
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />
       <Route path="/admin/analytics" element={<AdminAnalytics />} />
+      <Route path="/admin/curriculum-review" element={<CurriculumReview />} />
       {/* DEV-ONLY: isolated preview of the P4 scenario free-response panel. */}
       {import.meta.env.DEV && <Route path="/dev/scenario" element={<ScenarioPreview />} />}
       <Route path="*" element={<NotFound />} />

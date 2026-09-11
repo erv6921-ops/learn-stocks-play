@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/integrations/supabase/client"
 import { JeffMascot } from "@/components/JeffMascot"
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/hooks/use-toast"
 import { ArrowRight, GraduationCap, Users, Loader2, MailCheck, PartyPopper } from "lucide-react"
 import Confetti from "@/components/Confetti"
@@ -24,6 +25,8 @@ export default function Auth() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  // Signup requires explicit acceptance of the Terms and Privacy Policy.
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
   const [loading, setLoading] = useState(false)
   // Password reset is a 3-step OTP flow: enter email → enter 6-digit code → set new password.
   const [resetStep, setResetStep] = useState<"email" | "otp" | "password">("email")
@@ -198,6 +201,15 @@ export default function Auth() {
       toast({
         title: "Please select a role",
         description: "Choose whether you're a student or teacher.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    if (!acceptedTerms) {
+      toast({
+        title: "Please accept the Terms",
+        description: "You need to agree to the Terms of Service and Privacy Policy to create an account.",
         variant: "destructive",
       })
       return
@@ -700,7 +712,29 @@ export default function Auth() {
                     </div>
                   )}
                   
-                  <Button type="submit" className="w-full" size="lg" disabled={loading}>
+                  {mode === "signup" && (
+                    <div className="flex items-start gap-2.5">
+                      <Checkbox
+                        id="acceptTerms"
+                        checked={acceptedTerms}
+                        onCheckedChange={v => setAcceptedTerms(v === true)}
+                        className="mt-0.5"
+                      />
+                      <Label htmlFor="acceptTerms" className="text-xs font-normal text-muted-foreground leading-snug cursor-pointer">
+                        I agree to the{" "}
+                        <Link to="/terms" target="_blank" className="text-primary hover:underline">Terms of Service</Link>{" "}
+                        and{" "}
+                        <Link to="/privacy" target="_blank" className="text-primary hover:underline">Privacy Policy</Link>.
+                      </Label>
+                    </div>
+                  )}
+
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    size="lg"
+                    disabled={loading || (mode === "signup" && !acceptedTerms)}
+                  >
                     {loading ? (
                       <Loader2 className="mr-2 animate-spin" />
                     ) : (

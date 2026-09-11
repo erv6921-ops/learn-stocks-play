@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams, Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { supabase } from "@/integrations/supabase/client"
 import { useApp } from "@/contexts/AppContext"
 import { benchmarkQuestions, BenchmarkQuestion, calculateLiteracyLevel, getLevelDescription, computeCategoryScores } from "@/data/assessmentQuestions"
 import { computeBenchmarkScores } from "@/lib/curriculumEngine"
+import { deriveDomainAbilities, domainStartingPoints, conceptLabel, TIER_LABEL, type StartingTier } from "@/lib/benchmarkSeeding"
 import { shuffleQuestion } from "@/lib/mcqEngine"
 import { saveBenchmarkProgress, loadBenchmarkProgress, clearBenchmarkProgress } from "@/lib/benchmarkProgress"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
@@ -14,6 +15,7 @@ import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
@@ -303,6 +305,29 @@ function PasswordInput({
   )
 }
 
+/**
+ * Terms + Privacy acceptance row shown on the account-creation steps. Both the
+ * student and teacher signup paths gate account creation on this.
+ */
+function ConsentRow({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <div className="flex items-start gap-2.5 text-left">
+      <Checkbox
+        id="onboardingAcceptTerms"
+        checked={checked}
+        onCheckedChange={v => onChange(v === true)}
+        className="mt-0.5"
+      />
+      <label htmlFor="onboardingAcceptTerms" className="text-xs text-muted-foreground leading-snug cursor-pointer">
+        I agree to the{" "}
+        <Link to="/terms" target="_blank" className="text-primary hover:underline">Terms of Service</Link>{" "}
+        and{" "}
+        <Link to="/privacy" target="_blank" className="text-primary hover:underline">Privacy Policy</Link>.
+      </label>
+    </div>
+  )
+}
+
 export default function Onboarding() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -331,6 +356,9 @@ export default function Onboarding() {
   const [confirmPassword, setConfirmPassword] = useState("")
   // Both signup steps require a 6+ char password that matches its confirmation.
   const passwordsMatch = password.length >= 6 && password === confirmPassword
+  // Signup requires explicit acceptance of the Terms and Privacy Policy. Both
+  // the student and teacher account-creation steps gate on this.
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
   const [signupLoading, setSignupLoading] = useState(false)
   // Email verification: after signUp with confirmation on, we collect the
   // 6-digit code here ("code") then celebrate ("done") - no magic link.
@@ -628,6 +656,35 @@ export default function Onboarding() {
     clearBenchmarkProgress()
 
     const { data: session } = await supabase.auth.getSession()
+
+    // ── Seed the IRT engine from the benchmark ──
+    // Translate per-domain performance into a starting theta per concept so the
+    // adaptive engine begins each lesson at the student's real level instead of
+    // the flat default. Keyed on concept = lesson.category, exactly what
+    // useAbility loads on lesson entry. Non-fatal: a failure here still lets the
+    // student into the app, but we surface it rather than swallowing it.
+    const seedRows = deriveDomainAbilities(categoryScores)
+    const seedUid = session.session?.user?.id
+    if (DEV_LOCAL_BYPASS) {
+      // No real JWT in dev; RLS would reject the write. Mirrors useAbility.
+      console.debug("[benchmark seed] skipped under DEV_LOCAL_BYPASS", seedRows.length, "rows")
+    } else if (seedUid && seedRows.length > 0) {
+      const now = new Date().toISOString()
+      const rows = seedRows.map((r) => ({ user_id: seedUid, ...r, updated_at: now }))
+      const { error: seedErr } = await (supabase as any)
+        .from("student_ability")
+        .upsert(rows, { onConflict: "user_id,concept" })
+      if (seedErr) {
+        console.error("[benchmark seed] student_ability upsert failed", seedErr)
+        toast({
+          title: "Heads up: couldn't personalize question difficulty",
+          description: "Your results saved, but seeding the adaptive engine failed. Lessons will still work, starting at the default level.",
+          variant: "destructive",
+        })
+      } else {
+        console.debug("[benchmark seed] wrote", rows.length, "student_ability rows")
+      }
+    }
     // For a benchmark-only retake, keep the existing profile and just refresh
     // the assessment results; otherwise build the profile from the form fields.
     const base = benchmarkOnly && user
@@ -1085,6 +1142,7 @@ export default function Onboarding() {
                   <p className="text-xs text-destructive mt-1">Passwords don't match.</p>
                 )}
               </div>
+              <ConsentRow checked={acceptedTerms} onChange={setAcceptedTerms} />
             </div>
             <div className="flex gap-3 mt-6">
               <Button variant="outline" onClick={() => setStep("teacher-school")} disabled={signupLoading}>
@@ -1093,8 +1151,12 @@ export default function Onboarding() {
               <Button
                 size="xl"
                 variant="hero"
-                disabled={signupLoading || (!DEV_LOCAL_BYPASS && (!email.trim() || !passwordsMatch))}
+                disabled={signupLoading || (!DEV_LOCAL_BYPASS && (!email.trim() || !passwordsMatch || !acceptedTerms))}
                 onClick={async () => {
+                  if (!DEV_LOCAL_BYPASS && !acceptedTerms) {
+                    toast({ title: "Please accept the Terms", description: "Agree to the Terms of Service and Privacy Policy to create your account.", variant: "destructive" })
+                    return
+                  }
                   setSignupLoading(true)
                   try {
                     // DEV bypass: skip Supabase signup + email confirmation
@@ -1337,10 +1399,14 @@ export default function Onboarding() {
             title="Create your login"
             subtitle="You'll use these to sign back in anytime"
             onBack={() => setStep("program-select")}
-            continueDisabled={!email.trim() || !passwordsMatch}
+            continueDisabled={!email.trim() || !passwordsMatch || !acceptedTerms}
             continueLabel="Create account"
             loading={signupLoading}
             onContinue={async () => {
+              if (!acceptedTerms) {
+                toast({ title: "Please accept the Terms", description: "Agree to the Terms of Service and Privacy Policy to create your account.", variant: "destructive" })
+                return
+              }
               setSignupLoading(true)
               try {
                 // If already signed in with a different account, sign out first
@@ -1426,6 +1492,7 @@ export default function Onboarding() {
                 <p className="text-xs text-destructive mt-1">Passwords don't match.</p>
               )}
             </div>
+            <ConsentRow checked={acceptedTerms} onChange={setAcceptedTerms} />
           </FieldStep>
         )}
 
@@ -1816,6 +1883,48 @@ export default function Onboarding() {
                     })}
                   </div>
                 </div>
+
+                {/* Your starting point — derived from the same per-domain scores
+                    that now seed the adaptive engine's starting difficulty. */}
+                {(() => {
+                  const points = domainStartingPoints(categoryScoresPreview)
+                  if (points.length === 0) return null
+                  const ahead = points.filter(p => p.tier === "advanced" || p.tier === "on-track")
+                  const review = points.filter(p => p.isReview)
+                  const dot: Record<StartingTier, string> = {
+                    advanced: "bg-success",
+                    "on-track": "bg-primary",
+                    building: "bg-warning",
+                    review: "bg-destructive",
+                  }
+                  return (
+                    <div className="rounded-xl border border-primary/15 bg-primary/[0.03] p-4">
+                      <h3 className="text-sm font-bold uppercase tracking-wider text-primary mb-2 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4" /> Your starting point
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        We used your answers to set where each topic <strong>starts</strong>. The first
+                        questions in {ahead.length} of your {points.length} tested topics will start at grade
+                        level or above — you won't waste time on what you already know.
+                      </p>
+                      <div className="space-y-1.5 max-h-44 overflow-y-auto">
+                        {points.slice(0, 8).map(p => (
+                          <div key={p.concept} className="flex items-center gap-2 text-xs">
+                            <span className={`w-2 h-2 rounded-full shrink-0 ${dot[p.tier]}`} />
+                            <span className="font-medium w-40 truncate">{conceptLabel(p.concept)}</span>
+                            <span className="text-muted-foreground truncate">{TIER_LABEL[p.tier]}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {review.length > 0 && (
+                        <p className="text-xs text-muted-foreground mt-3">
+                          We'll flag <strong>{review.map(r => conceptLabel(r.concept)).slice(0, 4).join(", ")}</strong>
+                          {review.length > 4 ? " and more" : ""} for review on your path.
+                        </p>
+                      )}
+                    </div>
+                  )
+                })()}
 
                 {/* What this means */}
                 <div className="bg-muted rounded-xl p-4 text-sm text-muted-foreground space-y-1">

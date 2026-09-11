@@ -133,9 +133,10 @@ export const LessonPath: React.FC = () => {
         getNextAction({
           assignedTrack: (enrollTrack as NonNullable<typeof user.track>) ?? undefined,
           lessonProgress,
-          unitTestProgress,
           assignments,
           assignmentNames,
+          // Aims the `review` fallback at the student's weakest benchmark domain.
+          benchmarkCategoryScores: user.benchmarkCategoryScores ?? null,
         }),
       );
     })();

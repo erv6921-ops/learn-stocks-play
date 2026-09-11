@@ -1,3 +1,5 @@
+import type { IRSFormPayload } from "@/components/labs/forms/types"
+
 export interface LabCategory {
   id: string
   title: string
@@ -16,6 +18,13 @@ export interface LabDocument {
   available: boolean
   /** Rich education intro shown before the form */
   education?: DocumentEducation
+  /**
+   * When set to "irs_form", this lab renders a real IRS form replica
+   * (src/components/labs/forms) instead of the generic AI-checked field form,
+   * driven by the `irsForm` payload below.
+   */
+  kind?: "irs_form"
+  irsForm?: IRSFormPayload
 }
 
 export interface DocumentEducation {
@@ -56,6 +65,155 @@ export const labCategories: LabCategory[] = [
     icon: "📋",
     description: "Understand tax forms and filing basics",
     documents: [
+      // ── Real IRS form replicas (kind: "irs_form") ──
+      {
+        id: "irs-w4-first-job",
+        title: "W-4 · First Job",
+        subtitle: "Fill out the real Employee's Withholding Certificate",
+        difficulty: "beginner",
+        reward: 600,
+        estimatedMinutes: 12,
+        available: true,
+        kind: "irs_form",
+        education: {
+          whatItIs: "The actual IRS Form W-4 you hand your employer on day one. It sets how much federal tax comes out of every paycheck.",
+          whenYouFillItOut: "Your first day at a new job, and any time your life changes (new job, marriage, a child).",
+          whyItMatters: "Get it right and your paychecks and your April tax bill both come out even. Get it wrong and you either overpay all year or owe a surprise bill.",
+          whatHappensIfWrong: "Wrong withholding means a surprise tax bill or months of needlessly smaller paychecks.",
+        },
+        irsForm: {
+          form: "w4",
+          scenario:
+            "You're Alex Rivera, starting your first part-time job at a café. You're single, this is your only job, and you have no dependents. For this simulation use SSN 123-45-6789. Complete Steps 1–5 so the right amount of tax is withheld, then sign as 'Alex Rivera'.",
+          expected: {
+            w4_firstName: "Alex",
+            w4_lastName: "Rivera",
+            w4_ssn: "123-45-6789",
+            w4_filingStatus: "single",
+            w4_multipleJobs: "no",
+            w4_qualifyingChildren: "0",
+            w4_otherDependents: "0",
+            w4_dependentsTotal: "0",
+            w4_signature: "Alex Rivera",
+          },
+        },
+      },
+      {
+        id: "irs-w2-read",
+        title: "W-2 · Read & Report",
+        subtitle: "Read a real Wage and Tax Statement and pull the key numbers",
+        difficulty: "beginner",
+        reward: 550,
+        estimatedMinutes: 10,
+        available: true,
+        kind: "irs_form",
+        education: {
+          whatItIs: "The actual IRS Form W-2 your employer sends every January. It summarizes what you earned and what tax was already withheld.",
+          whenYouFillItOut: "You don't fill it out — you read it to file your return. Here you'll practice locating and transcribing its boxes.",
+          whyItMatters: "Every number on your tax return comes from this form. Box 1 and Box 2 decide your refund or balance due.",
+          whatHappensIfWrong: "Copying a box wrong can trigger an IRS mismatch notice, delay your refund, or make you underpay.",
+        },
+        irsForm: {
+          form: "w2",
+          scenario:
+            "This is your W-2 from the Sunrise Café. Read the boxes on the form, then copy the four requested figures into the 'Read & Report' section at the bottom.",
+          prefill: {
+            w2_a_ssn: "123-45-6789",
+            w2_b_ein: "12-3456789",
+            w2_c_employer: "Sunrise Café · 40 Ocean Dr, Miami, FL 33139",
+            w2_e_employee: "Alex Rivera",
+            w2_f_address: "123 Palm St, Miami, FL 33101",
+            w2_box1: "18,500.00",
+            w2_box2: "1,120.00",
+            w2_box3: "18,500.00",
+            w2_box4: "1,147.00",
+            w2_box5: "18,500.00",
+            w2_box6: "268.25",
+            w2_box15: "FL",
+            w2_box16: "0.00",
+            w2_box17: "0.00",
+          },
+          expected: {
+            w2_report_box1: "18500",
+            w2_report_box2: "1120",
+            w2_report_box4: "1147",
+            w2_report_box6: "268.25",
+          },
+        },
+      },
+      {
+        id: "irs-1040-single",
+        title: "1040 · Single Filer",
+        subtitle: "File a simplified 1040 with one W-2",
+        difficulty: "intermediate",
+        reward: 900,
+        estimatedMinutes: 18,
+        available: true,
+        kind: "irs_form",
+        education: {
+          whatItIs: "A simplified real Form 1040 — the return that officially settles up your taxes for the year.",
+          whenYouFillItOut: "Once a year, between January and April, using the numbers from your W-2.",
+          whyItMatters: "This is where you find out if you get a refund or owe. Doing it right keeps every dollar you're owed and avoids penalties.",
+          whatHappensIfWrong: "Math errors can shrink your refund, create a balance due with interest, or flag your return.",
+        },
+        irsForm: {
+          form: "1040",
+          scenario:
+            "You're a single filer with one job. Your W-2 shows wages of $18,500 (box 1) and $1,120 of federal tax withheld (box 2). You had no interest income. The standard deduction for a Single filer in 2024 is $14,600, and the tax table shows $390 of tax on $3,900 of taxable income. Fill in the 1040 lines to find your refund or amount owed.",
+          prefill: { f1040_filingStatus: "single" },
+          expected: {
+            f1040_line1a: "18500",
+            f1040_line2b: "0",
+            f1040_line9: "18500",
+            f1040_line11: "18500",
+            f1040_line12: "14600",
+            f1040_line15: "3900",
+            f1040_line16: "390",
+            f1040_line24: "390",
+            f1040_line25a: "1120",
+            f1040_line33: "1120",
+            f1040_result: "refund",
+            f1040_resultAmount: "730",
+          },
+        },
+      },
+      {
+        id: "irs-1099nec-gig",
+        title: "1099-NEC · Gig Work",
+        subtitle: "Read a contractor pay form and learn the self-employment trap",
+        difficulty: "intermediate",
+        reward: 650,
+        estimatedMinutes: 10,
+        available: true,
+        kind: "irs_form",
+        education: {
+          whatItIs: "The real IRS Form 1099-NEC a company sends when it pays you $600+ as a contractor (gig work) instead of as an employee.",
+          whenYouFillItOut: "You receive it in January. Unlike a W-2, NO taxes were withheld — so the tax is on you.",
+          whyItMatters: "Gig workers owe income tax PLUS the full 15.3% self-employment tax. If you don't set money aside, April hurts.",
+          whatHappensIfWrong: "Not planning for the tax on gig income leads to a surprise bill and possible underpayment penalties.",
+        },
+        irsForm: {
+          form: "1099nec",
+          scenario:
+            "You did delivery gig work for QuickDash this year. Read your 1099-NEC, then report your gig income and the tax that was withheld — and decide what you need to do about it.",
+          prefill: {
+            nec_payer: "QuickDash Inc · 900 Market St, Miami, FL 33130",
+            nec_payerTin: "98-7654321",
+            nec_recipient: "Alex Rivera · 123 Palm St, Miami, FL 33101",
+            nec_recipientTin: "123-45-6789",
+            nec_box1: "4,200.00",
+            nec_box2: "no",
+            nec_box4: "0.00",
+            nec_box5: "0.00",
+            nec_box67: "FL",
+          },
+          expected: {
+            nec_report_box1: "4200",
+            nec_report_box4: "0",
+            nec_setAside: "yes",
+          },
+        },
+      },
       {
         id: "w4",
         title: "W-4 Form",

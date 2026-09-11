@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { supabase } from "@/integrations/supabase/client"
+import { tierForTheta, conceptLabel, TIER_LABEL, type StartingTier } from "@/lib/benchmarkSeeding"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -122,10 +123,62 @@ function StatBlock({
   )
 }
 
+// The benchmark's seeded starting point, read straight from student_ability
+// (teacher RLS allows reading a class member's rows). Sorted strongest-first.
+interface AbilityRow { concept: string; theta: number; se: number; attempts: number }
+
+const TIER_DOT: Record<StartingTier, string> = {
+  advanced: "bg-success",
+  "on-track": "bg-primary",
+  building: "bg-warning",
+  review: "bg-destructive",
+}
+
+function StartingPointPanel({ userId }: { userId: string }) {
+  const [rows, setRows] = useState<AbilityRow[] | null>(null)
+  const [err, setErr] = useState<string | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    ;(supabase as any)
+      .from("student_ability")
+      .select("concept, theta, se, attempts")
+      .eq("user_id", userId)
+      .then(({ data, error }: { data: AbilityRow[] | null; error: { message: string } | null }) => {
+        if (cancelled) return
+        if (error) setErr(error.message)
+        else setRows([...(data ?? [])].sort((a, b) => b.theta - a.theta))
+      })
+    return () => { cancelled = true }
+  }, [userId])
+
+  if (err) return <p className="mt-2 text-[11px] text-destructive">Couldn't load starting point: {err}</p>
+  if (!rows) return <p className="mt-2 text-[11px] text-muted-foreground">Loading starting point…</p>
+  if (rows.length === 0)
+    return <p className="mt-2 text-[11px] text-muted-foreground">No seeded starting point (student skipped the benchmark or hasn't taken it).</p>
+
+  return (
+    <div className="mt-2 space-y-1">
+      {rows.map((r) => {
+        const tier = tierForTheta(r.theta)
+        return (
+          <div key={r.concept} className="flex items-center gap-2 text-[11px]">
+            <span className={`h-2 w-2 shrink-0 rounded-full ${TIER_DOT[tier]}`} />
+            <span className="w-36 truncate font-medium">{conceptLabel(r.concept)}</span>
+            <span className="text-muted-foreground truncate">{TIER_LABEL[tier]}</span>
+            <span className="ml-auto font-mono text-muted-foreground">θ {r.theta.toFixed(2)}{r.attempts > 0 ? ` · ${r.attempts}` : ""}</span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 // One student = one block, with every stat shown at once.
 function StudentBlock({ s }: { s: StudentStatRow }) {
   const attempted = toNum(s.total_questions_attempted)
   const accuracy = attempted > 0 ? fmtPct(s.accuracy_percent) : "—"
+  const [showStart, setShowStart] = useState(false)
   return (
     <Card variant="elevated" className="overflow-hidden">
       <CardContent className="p-4">
@@ -190,6 +243,18 @@ function StudentBlock({ s }: { s: StudentStatRow }) {
           <StatBlock icon={TrendingUp} label="Today" value={fmtInt(s.earned_today)} color="#EF9F27" />
           <StatBlock icon={CalendarDays} label="7 days" value={fmtInt(s.earned_7days)} color="#EF9F27" />
           <StatBlock icon={CalendarRange} label="Month" value={fmtInt(s.earned_month)} color="#EF9F27" />
+        </div>
+
+        {/* Benchmark starting point (per-domain seeded ability) */}
+        <div className="mt-3 border-t border-border pt-2">
+          <button
+            onClick={() => setShowStart((v) => !v)}
+            className="flex items-center gap-1.5 text-[11px] font-semibold text-primary hover:underline"
+          >
+            <Target className="h-3 w-3" />
+            {showStart ? "Hide" : "Show"} benchmark starting point
+          </button>
+          {showStart && <StartingPointPanel userId={s.id} />}
         </div>
       </CardContent>
     </Card>
