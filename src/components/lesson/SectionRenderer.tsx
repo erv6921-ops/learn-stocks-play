@@ -97,6 +97,9 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   const hints = useHints()
   const session = useQuizSession()
   const { jeffsBalance, spendJeffs, user } = useApp()
+  // Teacher preview: local feedback only. No activity log, no coin spend, and
+  // no countdown (a teacher reading a question shouldn't get auto-failed).
+  const previewMode = session.previewMode
 
   // ── Gamification: coin-particle burst on a correct answer ──
   const [burstId, setBurstId] = useState(0)
@@ -118,7 +121,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     clearInterval(intervalRef.current)
     setRevealed(true) // reveals the correct answer highlighted, no selection
     onAnswered?.(false, questionMs)
-    logActivity(user?.id, "question_answered", {
+    if (!previewMode) logActivity(user?.id, "question_answered", {
       lessonId: session.lessonId,
       questionId: shuffledQ.id,
       isCorrect: false,
@@ -143,6 +146,9 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     setFrozen(false)
     setRemainingMs(questionMs)
 
+    // Teacher preview: no countdown at all (bar stays full, nothing times out).
+    if (previewMode) return
+
     intervalRef.current = setInterval(() => {
       const rem = Math.max(0, questionMs - (Date.now() - shownAtRef.current))
       setRemainingMs(rem)
@@ -161,7 +167,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     setRevealed(true)
     const isRight = idx === shuffledQ.correctAnswer
     onAnswered?.(isRight, responseMs)
-    logActivity(user?.id, "question_answered", {
+    if (!previewMode) logActivity(user?.id, "question_answered", {
       lessonId: session.lessonId,
       questionId: shuffledQ.id,
       isCorrect: isRight,
@@ -198,6 +204,8 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   const canFreeze = !frozen && !revealed
   const freezeTime = () => {
     if (frozen || revealed) return
+    // Teacher preview: the power-up works visually but spends nothing.
+    if (previewMode) { setFrozen(true); clearInterval(intervalRef.current); return }
     if (!spendJeffs(FREEZE_COST, "Time freeze power-up")) {
       toast.error("Not enough InvestiCoins", { description: `Time Freeze costs ${FREEZE_COST} coins.` })
       return
@@ -250,6 +258,8 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
         </div>
         {frozen ? (
           <span className="w-8 flex justify-end"><Snowflake className="w-4 h-4 text-sky-500" /></span>
+        ) : previewMode ? (
+          <span className="text-[10px] font-semibold text-muted-foreground whitespace-nowrap">no timer in preview</span>
         ) : (
           <span className="text-xs font-semibold tabular-nums w-8 text-right" style={{ color: barColor }}>
             {secsLeft}s
@@ -376,7 +386,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
               type="button"
               variant="outline"
               size="sm"
-              disabled={!canFreeze || jeffsBalance < FREEZE_COST}
+              disabled={!canFreeze || (!previewMode && jeffsBalance < FREEZE_COST)}
               onClick={freezeTime}
               className="gap-1.5"
               title={jeffsBalance < FREEZE_COST ? `Costs ${FREEZE_COST} coins` : undefined}
@@ -609,6 +619,9 @@ export function MasteryCheckRenderer({
   const { react } = useJeff()
   const { user } = useApp()
   const session = useQuizSession()
+  // Teacher preview: walk the WHOLE pool in authored order (no adaptive draw),
+  // never gate on the pass mark, and never write question_attempts.
+  const previewMode = session.previewMode
   const [currentQ, setCurrentQ] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
   const [totalAttempts, setTotalAttempts] = useState(0)
@@ -624,12 +637,13 @@ export function MasteryCheckRenderer({
   // (easier) set because theta has dropped. Selection excludes already-asked
   // questions so nothing repeats within an attempt.
   const pool = section.questions
-  const total = Math.min(required, pool.length)
+  const total = previewMode ? pool.length : Math.min(required, pool.length)
 
   // Questions asked so far this attempt, chosen adaptively. The first is picked
   // from the student's standing ability on entry; later ones react to how the
   // attempt is going.
   const [asked, setAsked] = useState<QuizQuestion[]>(() => {
+    if (previewMode) return pool.length ? [pool[0]] : []
     const first = selectNextQuestion(pool, session.getTheta(), [])
     return first ? [first] : []
   })
@@ -639,7 +653,7 @@ export function MasteryCheckRenderer({
   // and a failed write never breaks the lesson (matches the app's existing
   // pattern for non-critical writes, e.g. the reflection-journal save).
   const logAttempt = (question: QuizQuestion, isCorrect: boolean, responseTimeMs: number) => {
-    if (!user?.id || DEV_LOCAL_BYPASS) return
+    if (previewMode || !user?.id || DEV_LOCAL_BYPASS) return
     supabase.from("question_attempts").insert({
       user_id: user.id,
       question_id: question.id,
@@ -681,25 +695,28 @@ export function MasteryCheckRenderer({
   const handleNext = () => {
     if (currentQ < total - 1) {
       // Pick the next question adaptively from this answer's fresh ability read,
-      // excluding everything asked so far this attempt.
-      const nextQ = selectNextQuestion(pool, session.getTheta(), asked.map(q => q.id))
+      // excluding everything asked so far this attempt. Preview: next in pool.
+      const nextQ = previewMode
+        ? pool[currentQ + 1]
+        : selectNextQuestion(pool, session.getTheta(), asked.map(q => q.id))
       if (nextQ) setAsked(prev => [...prev, nextQ])
       setCurrentQ(currentQ + 1)
       // Clutch moment: one correct answer away from passing.
-      if (required > 1 && correctCount === required - 1) {
+      if (!previewMode && required > 1 && correctCount === required - 1) {
         react("think", "Focus up - get this one and you pass. It's for all the marbles! 🎯")
       }
     } else {
       setFinished(true)
       const finalCorrect = correctCount // already updated
-      if (finalCorrect >= required) onComplete(finalCorrect, totalAttempts, attemptSessionId)
+      // Preview always completes: the teacher is reviewing the pool, not being tested.
+      if (previewMode || finalCorrect >= required) onComplete(finalCorrect, totalAttempts, attemptSessionId)
       // fail handled by retry button
     }
   }
 
   // Need to track correct count after state update
   const actualCorrect = correctCount
-  const passed = finished && actualCorrect >= required
+  const passed = finished && (previewMode || actualCorrect >= required)
 
   if (finished && !passed) {
     return (
@@ -747,10 +764,10 @@ export function MasteryCheckRenderer({
       <CardContent className="p-6 space-y-4">
         <div>
           <div className="flex justify-between text-xs mb-1.5">
-            <span>Goal: {required} correct</span>
-            <span className="text-success font-medium">{correctCount} / {required} ✓</span>
+            <span>{previewMode ? `Full pool: ${total} questions · students need ${required} correct` : `Goal: ${required} correct`}</span>
+            <span className="text-success font-medium">{correctCount} / {previewMode ? total : required} ✓</span>
           </div>
-          <Progress value={(correctCount / required) * 100} className="h-2" />
+          <Progress value={(correctCount / Math.max(1, previewMode ? total : required)) * 100} className="h-2" />
         </div>
         {currentQuestion && (
           <QuizAnswer

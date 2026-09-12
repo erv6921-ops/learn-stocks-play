@@ -16,7 +16,6 @@ import {
   RefreshCw,
   Inbox,
 } from "lucide-react";
-import PreviewLessonModal from "@/components/PreviewLessonModal";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -108,7 +107,6 @@ export const CurriculumTab: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [previewUploadId, setPreviewUploadId] = useState<string | null>(null);
 
   const fetchUploads = useCallback(async () => {
     setLoading(true);
@@ -294,7 +292,7 @@ export const CurriculumTab: React.FC = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => setPreviewUploadId(u.id)}
+                      onClick={() => navigate(`/teacher/upload?curateUploadId=${encodeURIComponent(u.id)}`)}
                       className="border-emerald-200 text-emerald-700 hover:bg-emerald-50"
                     >
                       <Eye className="mr-1.5 h-3.5 w-3.5" />
@@ -331,13 +329,6 @@ export const CurriculumTab: React.FC = () => {
         )}
       </section>
 
-      {previewUploadId && (
-        <PreviewLessonModal
-          uploadId={previewUploadId}
-          isOpen
-          onClose={() => setPreviewUploadId(null)}
-        />
-      )}
     </div>
   );
 };

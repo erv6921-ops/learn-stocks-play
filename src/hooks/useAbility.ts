@@ -47,8 +47,13 @@ export interface AbilityHandle {
  * (question_attempts, activity). Persistence can only be exercised against a
  * real authenticated session (a preview/prod build with a real login).
  */
-export function useAbility(concept?: string): AbilityHandle {
+export function useAbility(concept?: string, opts: { readOnly?: boolean } = {}): AbilityHandle {
   const { user } = useApp()
+  // Teacher preview: never load or persist student_ability. The in-memory
+  // estimate still updates so adaptive selection behaves like a fresh student.
+  const readOnly = !!opts.readOnly
+  const readOnlyRef = useRef(readOnly)
+  readOnlyRef.current = readOnly
 
   const abilityRef = useRef<Ability>(DEFAULT_ABILITY)
   const attemptsRef = useRef(0)
@@ -81,6 +86,7 @@ export function useAbility(concept?: string): AbilityHandle {
     abilityRef.current = DEFAULT_ABILITY
     attemptsRef.current = 0
     dirtyRef.current = false
+    if (readOnly) { dbg("load skipped: readOnly (teacher preview)"); return }
     if (!user?.id || !concept || DEV_LOCAL_BYPASS) {
       if (DEV_LOCAL_BYPASS) dbg("load skipped: DEV_LOCAL_BYPASS (no persistence in dev)")
       return
@@ -99,7 +105,7 @@ export function useAbility(concept?: string): AbilityHandle {
         dbg("loaded", { concept, ...data })
       })
     return () => { cancelled = true }
-  }, [user?.id, concept])
+  }, [user?.id, concept, readOnly])
 
   const rowPayload = () => ({
     user_id: userIdRef.current,
@@ -112,6 +118,7 @@ export function useAbility(concept?: string): AbilityHandle {
 
   // Normal (page-alive) persist via supabase-js.
   const persist = () => {
+    if (readOnlyRef.current) { dbg("persist skipped: readOnly (teacher preview)"); return }
     if (!dirtyRef.current || !userIdRef.current || !conceptRef.current || DEV_LOCAL_BYPASS) {
       if (dirtyRef.current && DEV_LOCAL_BYPASS) dbg("persist skipped: DEV_LOCAL_BYPASS")
       return
@@ -130,6 +137,7 @@ export function useAbility(concept?: string): AbilityHandle {
   // Unload flush via fetch keepalive - survives a hard tab close, and can set
   // the apikey/Authorization headers that navigator.sendBeacon cannot.
   const keepaliveFlush = () => {
+    if (readOnlyRef.current) return
     if (!dirtyRef.current || !userIdRef.current || !conceptRef.current || DEV_LOCAL_BYPASS) return
     if (!REST_URL || !ANON_KEY || !tokenRef.current) { dbg("keepalive skipped: no token/url yet"); return }
     dirtyRef.current = false

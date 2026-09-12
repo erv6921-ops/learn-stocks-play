@@ -39,6 +39,8 @@ import AppliedFinanceLab from "./pages/AppliedFinanceLab";
 import Daily from "./pages/Daily";
 import LabDocument from "./pages/LabDocument";
 import CurriculumReview from "./pages/admin/CurriculumReview";
+import ApprovedContent from "@/pages/admin/ApprovedContent";
+import TeacherLessonReview from "@/pages/TeacherLessonReview";
 import BusinessCanvas from "./pages/BusinessCanvas";
 import FinancialAdvisor from "./pages/FinancialAdvisor";
 import Profile from "./pages/Profile";
@@ -200,6 +202,10 @@ function AppRoutes() {
       <Route path="/coaster-journey" element={<CoasterJourney />} />
       <Route path="/admin/analytics" element={<AdminAnalytics />} />
       <Route path="/admin/curriculum-review" element={<CurriculumReview />} />
+      {/* Read-only: everything that went live across all teachers (benchmark queue above is unrelated). */}
+      <Route path="/admin/approved-content" element={<ApprovedContent />} />
+      {/* Teacher post-generation review + approval of a synthesized lesson. */}
+      <Route path="/teacher/lesson-review/:lessonId" element={<TeacherLessonReview />} />
       {/* DEV-ONLY: isolated preview of the P4 scenario free-response panel. */}
       {import.meta.env.DEV && <Route path="/dev/scenario" element={<ScenarioPreview />} />}
       <Route path="*" element={<NotFound />} />

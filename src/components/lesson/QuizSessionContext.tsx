@@ -92,6 +92,13 @@ interface QuizSession {
   getTheta: () => number
   /** How many answers have fed the adaptive estimate this session (for the completion cue). */
   getAttempts: () => number
+  /**
+   * Teacher preview: true when the lesson is being viewed by a teacher to see
+   * what students get. Every persistent side effect (coins, Jeffs ledger,
+   * theta persistence, analytics, question_attempts, activity log) is skipped
+   * at its call site; local feedback (right/wrong, combo, toasts) still runs.
+   */
+  previewMode: boolean
 }
 
 const noop: QuizSession = {
@@ -107,6 +114,7 @@ const noop: QuizSession = {
   registerWrong: () => {},
   getTheta: () => 0,
   getAttempts: () => 0,
+  previewMode: false,
 }
 
 const QuizSessionCtx = createContext<QuizSession>(noop)
@@ -120,11 +128,12 @@ export function useQuizSession(): QuizSession {
  * coin nudges. Combo persists across questions while mounted and resets when
  * the provider unmounts (exiting the lesson) - so key it on the lesson id.
  */
-export function QuizSessionProvider({ children, lessonId, concept }: { children: ReactNode; lessonId?: string; concept?: string }) {
+export function QuizSessionProvider({ children, lessonId, concept, previewMode = false }: { children: ReactNode; lessonId?: string; concept?: string; previewMode?: boolean }) {
   const { awardJeffs, jeffsBalance } = useApp()
   // Live per-topic ability estimate: loaded on entry, updated per answer,
-  // debounce-persisted on exit. Drives adaptive question selection.
-  const ability = useAbility(concept)
+  // debounce-persisted on exit. Drives adaptive question selection. In teacher
+  // preview the hook is read-only: no student_ability load or persist.
+  const ability = useAbility(concept, { readOnly: previewMode })
   const [combo, setCombo] = useState(0)
   const [lostCombo, setLostCombo] = useState<number | null>(null)
   const [coinsEarned, setCoinsEarned] = useState(0)
@@ -143,20 +152,25 @@ export function QuizSessionProvider({ children, lessonId, concept }: { children:
     // Feed the adaptive engine: a correct answer, weighted by speed.
     if (ctx) ability.record({ isCorrect: true, responseMs: ctx.responseMs, questionB: ctx.questionB, expectedMs: ctx.expectedMs })
     // Analytics: this fn is the chokepoint for every answered question.
-    logEvent("quiz_attempted", { topicId: concept, difficulty: ctx?.questionB, theta: ability.getTheta() })
+    // Teacher preview: no analytics_events rows.
+    if (!previewMode) logEvent("quiz_attempted", { topicId: concept, difficulty: ctx?.questionB, theta: ability.getTheta() })
     const newCombo = comboRef.current + 1
     comboRef.current = newCombo
     setCombo(newCombo)
-    logEvent("quiz_correct", { topicId: concept, correctTime_ms: responseMs, streak: newCombo })
+    if (!previewMode) logEvent("quiz_correct", { topicId: concept, correctTime_ms: responseMs, streak: newCombo })
     // Base reward is tiered by speed; the active combo then multiplies it.
     const { coins: base, tier } = rewardForSpeed(responseMs)
     const mult = comboMultiplier(newCombo)
     const total = base * mult
     // Detect an xp-level crossing caused by this reward (level is coins-derived).
     const prevLevel = xpLevelForCoins(balanceRef.current)
-    awardJeffs(total, "Quiz correct answer")
-    const newLevel = xpLevelForCoins(balanceRef.current + total)
-    if (newLevel > prevLevel) logEvent("quiz_levelup", { level: newLevel, newTheta: ability.getTheta() })
+    // Teacher preview: no coin award (profiles.jeffs_balance + jeffs_history +
+    // coins_earned analytics all hang off awardJeffs) and no level-up event.
+    if (!previewMode) {
+      awardJeffs(total, "Quiz correct answer")
+      const newLevel = xpLevelForCoins(balanceRef.current + total)
+      if (newLevel > prevLevel) logEvent("quiz_levelup", { level: newLevel, newTheta: ability.getTheta() })
+    }
     setCoinsEarned(c => c + total)
     setCoinsGained(g => g + total)
     setAnsweredCorrect(c => c + 1)
@@ -173,8 +187,11 @@ export function QuizSessionProvider({ children, lessonId, concept }: { children:
   const registerWrong = (coins = DEFAULT_COINS, ctx?: AnswerContext) => {
     // Feed the adaptive engine: a wrong answer (or timeout), weighted by speed.
     if (ctx) ability.record({ isCorrect: false, responseMs: ctx.responseMs, questionB: ctx.questionB, expectedMs: ctx.expectedMs })
-    logEvent("quiz_attempted", { topicId: concept, difficulty: ctx?.questionB, theta: ability.getTheta() })
-    logEvent("quiz_incorrect", { topicId: concept, attemptCount: answeredTotal + 1 })
+    // Teacher preview: no analytics_events rows.
+    if (!previewMode) {
+      logEvent("quiz_attempted", { topicId: concept, difficulty: ctx?.questionB, theta: ability.getTheta() })
+      logEvent("quiz_incorrect", { topicId: concept, attemptCount: answeredTotal + 1 })
+    }
     const broken = comboRef.current
     comboRef.current = 0
     setCombo(0)
@@ -190,9 +207,11 @@ export function QuizSessionProvider({ children, lessonId, concept }: { children:
     // risk. Capped at the balance so it never drives coins negative.
     const mult = comboMultiplier(broken)
     const stake = coins * mult
-    const penalty = Math.min(stake, Math.max(0, Math.round(balanceRef.current)))
+    // Teacher preview: the stake is shown (so the teacher sees what a student
+    // would lose) but nothing is deducted from any balance.
+    const penalty = previewMode ? stake : Math.min(stake, Math.max(0, Math.round(balanceRef.current)))
     if (penalty > 0) {
-      awardJeffs(-penalty, "Quiz wrong answer")
+      if (!previewMode) awardJeffs(-penalty, "Quiz wrong answer")
       setCoinsEarned(c => c - penalty)
       setCoinsLost(l => l + penalty)
     }
@@ -204,7 +223,7 @@ export function QuizSessionProvider({ children, lessonId, concept }: { children:
   }
 
   return (
-    <QuizSessionCtx.Provider value={{ lessonId, combo, lostCombo, coinsEarned, coinsGained, coinsLost, answeredTotal, answeredCorrect, registerCorrect, registerWrong, getTheta: ability.getTheta, getAttempts: ability.getAttempts }}>
+    <QuizSessionCtx.Provider value={{ lessonId, combo, lostCombo, coinsEarned, coinsGained, coinsLost, answeredTotal, answeredCorrect, registerCorrect, registerWrong, getTheta: ability.getTheta, getAttempts: ability.getAttempts, previewMode }}>
       {children}
     </QuizSessionCtx.Provider>
   )

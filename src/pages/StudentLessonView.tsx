@@ -18,6 +18,8 @@ import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext";
 import JeffChat from "@/components/lessons/JeffChat";
 import { buildScript, isDeepLesson } from "@/lib/jeffChatLesson";
 import LessonResultsScreen from "@/components/LessonResultsScreen";
+import { TeacherPreviewBanner, PreviewSectionNav, PreviewCompleteCard } from "@/components/teacher/TeacherPreviewChrome";
+import { generatedToQuizQuestion, type GeneratedQuestionRow } from "@/lib/lessonPreview";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, AlertCircle, ArrowLeft } from "lucide-react";
@@ -43,10 +45,48 @@ const slugify = (s: string): string =>
 
 type Phase = "loading" | "error" | "intro" | "sections" | "done";
 
-const StudentLessonView: React.FC = () => {
-  const { lessonId = "" } = useParams();
+export interface StudentLessonViewProps {
+  /**
+   * Teacher preview. When true NOTHING is persisted or awarded: no
+   * student_lesson_progress / lesson_progress, question_attempts,
+   * student_ability, coins/Jeffs, or analytics. Jeff's chat intro is skipped
+   * (it calls the jeff-chat edge function and saves to localStorage); the
+   * teacher lands on the sections with a jump menu, and the mastery check walks
+   * the full pool without a pass gate. Default false: student behavior unchanged.
+   */
+  previewMode?: boolean;
+  /** Generated lesson id override (public.lessons.id) when rendered outside the route. */
+  lessonId?: string;
+  /**
+   * Preview a not-yet-created lesson straight from a curriculum upload (the
+   * assign flow, before the teacher confirms). Only the upload's pending
+   * generated_questions exist at that point, so the preview is the
+   * mastery-check walkthrough; Jeff's taught sections are built on assign.
+   */
+  uploadId?: string;
+  /** Display name for the upload-mode preview. */
+  lessonName?: string;
+  /** Called instead of navigating away when the preview is closed. */
+  onExit?: () => void;
+}
+
+const StudentLessonView: React.FC<StudentLessonViewProps> = ({
+  previewMode = false,
+  lessonId: lessonIdProp,
+  uploadId,
+  lessonName: lessonNameProp,
+  onExit,
+}) => {
+  const { lessonId: routeLessonId = "" } = useParams();
+  const lessonId = lessonIdProp ?? (uploadId ? "" : routeLessonId);
   const navigate = useNavigate();
   const { user } = useApp();
+
+  // Leaving the lesson: the modal preview closes itself; the route navigates.
+  const exit = () => {
+    if (previewMode && onExit) onExit();
+    else navigate("/dashboard");
+  };
 
   const [phase, setPhase] = useState<Phase>("loading");
   const [error, setError] = useState("");
@@ -67,6 +107,14 @@ const StudentLessonView: React.FC = () => {
   // --- Load lesson content -------------------------------------------------
   useEffect(() => {
     let cancelled = false;
+    // Upload-mode preview: there is no lessons row yet - go straight to the
+    // generated_questions fallback below.
+    if (!lessonId && uploadId) {
+      setLessonName(lessonNameProp || "Lesson");
+      setContent(null);
+      setPhase("sections");
+      return;
+    }
     (async () => {
       try {
         const { data, error: e } = await db
@@ -79,7 +127,8 @@ const StudentLessonView: React.FC = () => {
         setLessonName(data?.name ?? "Lesson");
         const c = (data?.content ?? null) as LessonContent | null;
         setContent(c);
-        setPhase(c?.sections?.length ? "intro" : "sections"); // no content → mastery-only fallback
+        // Preview skips Jeff's chat intro; students get it when content exists.
+        setPhase(c?.sections?.length && !previewMode ? "intro" : "sections"); // no content → mastery-only fallback
       } catch (err) {
         if (cancelled) return;
         console.error("Load lesson failed:", err);
@@ -88,38 +137,28 @@ const StudentLessonView: React.FC = () => {
       }
     })();
     return () => { cancelled = true; };
-  }, [lessonId]);
+  }, [lessonId, uploadId, lessonNameProp, previewMode]);
 
   // --- Fallback: no synthesized content → build a mastery-only section ------
   const [fallbackMastery, setFallbackMastery] = useState<MasteryCheckSection | null>(null);
   useEffect(() => {
     if (phase !== "sections" || content?.sections?.length) return;
     (async () => {
-      const { data } = await db
+      const base = db
         .from("generated_questions")
-        .select("id, question_text, options, correct_answer, explanation, difficulty")
-        .eq("lesson_id", lessonId)
-        .order("created_at", { ascending: true });
-      const LETTERS = ["A", "B", "C", "D", "E", "F"];
-      const idxOf = (opts: string[], ca: string) => {
-        const t = opts.indexOf((ca ?? "").trim());
-        if (t >= 0) return t;
-        const m = (ca ?? "").trim().match(/^([A-Fa-f])[).:\s]?$/);
-        return m ? LETTERS.indexOf(m[1].toUpperCase()) : 0;
-      };
-      const qs = (data ?? []).map((g: any) => ({
-        id: g.id,
-        question: g.question_text,
-        options: g.options,
-        correctAnswer: idxOf(g.options, g.correct_answer),
-        explanation: g.explanation ?? "",
-        difficulty: g.difficulty ?? 0.5,
-      }));
+        .select("id, question_text, options, correct_answer, explanation, difficulty");
+      // Upload-mode preview: the questions aren't linked to a lesson yet; they
+      // are the upload's pending pool (what the assign step links on confirm).
+      const query = !lessonId && uploadId
+        ? base.eq("upload_id", uploadId).eq("status", "pending")
+        : base.eq("lesson_id", lessonId);
+      const { data } = await query.order("created_at", { ascending: true });
+      const qs = ((data ?? []) as GeneratedQuestionRow[]).map(generatedToQuizQuestion);
       // Match synthesize-lesson: 4 correct to pass, full pool rotates on retry.
       const required = qs.length > 0 ? Math.min(qs.length, 4) : 0;
       setFallbackMastery({ type: "mastery-check", questions: qs, requiredCorrect: required });
     })();
-  }, [phase, content, lessonId]);
+  }, [phase, content, lessonId, uploadId]);
 
   // Synthetic Lesson object so JeffChat + buildScript work exactly as for
   // hand-built lessons. Category is a generic (non-gulliver/ib) value so Jeff
@@ -157,7 +196,8 @@ const StudentLessonView: React.FC = () => {
     async (correct: number, totalQuestions: number, passed: boolean) => {
       if (finalizedRef.current) return;
       finalizedRef.current = true;
-      if (!DEV_LOCAL_BYPASS && user?.id) {
+      // Preview: no student_lesson_progress / lesson_progress completion rows.
+      if (!DEV_LOCAL_BYPASS && user?.id && !previewMode) {
         await db.from("student_lesson_progress").upsert(
           {
             student_id: user.id,
@@ -190,8 +230,19 @@ const StudentLessonView: React.FC = () => {
       setResult({ score: correct, total: totalQuestions, passed });
       setPhase("done");
     },
-    [user?.id, lessonId],
+    [user?.id, lessonId, previewMode],
   );
+
+  // Preview: rerun from the top with a fresh mastery attempt.
+  const restartPreview = () => {
+    finalizedRef.current = false;
+    setResult(null);
+    setSectionIdx(0);
+    setMasteryAttempt({ sessionId: crypto.randomUUID(), attemptNumber: 1 });
+    setRegen((r) => r + 1);
+    setPhase("sections");
+    window.scrollTo({ top: 0 });
+  };
 
   const handleSectionContinue = useCallback(() => setSectionIdx((i) => i + 1), []);
 
@@ -251,6 +302,22 @@ const StudentLessonView: React.FC = () => {
     );
   }
 
+  if (phase === "done" && result && previewMode) {
+    return (
+      <div className="min-h-screen bg-background">
+        <TeacherPreviewBanner onExit={onExit} />
+        <div className="mx-auto w-full max-w-2xl px-4 py-10">
+          <PreviewCompleteCard
+            correct={result.score}
+            total={result.total}
+            onRestart={restartPreview}
+            onExit={onExit}
+          />
+        </div>
+      </div>
+    );
+  }
+
   if (phase === "done" && result) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10">
@@ -258,7 +325,7 @@ const StudentLessonView: React.FC = () => {
           score={result.score}
           total={result.total}
           passed={result.passed}
-          onBackToDashboard={() => navigate("/dashboard")}
+          onBackToDashboard={exit}
         />
       </div>
     );
@@ -288,18 +355,42 @@ const StudentLessonView: React.FC = () => {
       : [];
   const currentSection = activeSections[sectionIdx];
 
+  const playerKey = lessonId || uploadId || "preview";
   return (
-    <HintProvider key={lessonId} total={2}>
-      <QuizSessionProvider key={`quiz-${lessonId}-${regen}`} lessonId={lessonId} concept={concept}>
+    <HintProvider key={playerKey} total={2}>
+      <QuizSessionProvider key={`quiz-${playerKey}-${regen}`} lessonId={lessonId || undefined} concept={concept} previewMode={previewMode}>
+        {previewMode && (
+          <div className="sticky top-0 z-50">
+            <TeacherPreviewBanner onExit={onExit} />
+          </div>
+        )}
         <div className="min-h-screen bg-background px-4 py-6">
           <div className="mx-auto w-full max-w-2xl space-y-4">
-            <button
-              type="button"
-              onClick={() => navigate("/dashboard")}
-              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-            >
-              <ArrowLeft className="h-4 w-4" /> Dashboard
-            </button>
+            {!previewMode && (
+              <button
+                type="button"
+                onClick={exit}
+                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="h-4 w-4" /> Dashboard
+              </button>
+            )}
+            {previewMode && (
+              <>
+                <h1 className="truncate text-base font-semibold text-foreground">{lessonName}</h1>
+                {!sections.length && (
+                  <p className="text-xs text-muted-foreground">
+                    This lesson has no synthesized teaching content yet, so students get the mastery check
+                    built from the question bank. Jeff's taught sections are added when the lesson is built.
+                  </p>
+                )}
+                <PreviewSectionNav
+                  sections={activeSections}
+                  currentIdx={sectionIdx}
+                  onJump={(i) => { setSectionIdx(i); window.scrollTo({ top: 0 }); }}
+                />
+              </>
+            )}
             {!currentSection && !fallbackMastery && (
               <Card>
                 <CardContent className="py-12 text-center text-sm text-muted-foreground">

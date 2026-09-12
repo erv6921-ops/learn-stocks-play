@@ -49,6 +49,7 @@ import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { ScenarioReviewTab } from "@/components/teacher/ScenarioReviewTab"
 import { CurriculumTab } from "@/components/teacher/CurriculumTab"
+import { LessonPreviewButtons } from "@/components/teacher/LessonPreviewButtons"
 import {
   ClassSettings,
   DEFAULT_CLASS_SETTINGS,
@@ -1287,6 +1288,16 @@ export default function TeacherDashboard() {
                           Assign to Class
                         </Button>
                       </div>
+                      {/* Preview the picked lesson before confirming the assignment. */}
+                      {classWideLessonId && (
+                        <div className="mt-3 flex flex-wrap items-center gap-2">
+                          <span className="text-xs text-muted-foreground">See what students will get:</span>
+                          <LessonPreviewButtons
+                            lessonId={classWideLessonId}
+                            lessonName={assignableLessons.find(l => l.id === classWideLessonId)?.title}
+                          />
+                        </div>
+                      )}
                     </div>
 
                     {/* Currently-assigned lessons - visible feedback that an
@@ -1316,15 +1327,21 @@ export default function TeacherDashboard() {
                                     </span>
                                   </span>
                                 </span>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="shrink-0"
-                                  onClick={() => removeAssignment(a.id)}
-                                  title="Remove assignment from class"
-                                >
-                                  <Trash2 className="w-4 h-4 text-destructive" />
-                                </Button>
+                                <span className="flex shrink-0 items-center gap-1.5">
+                                  <LessonPreviewButtons
+                                    lessonId={a.lesson_id}
+                                    lessonName={lesson?.title || genLessonNames.get(a.lesson_id)}
+                                  />
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="shrink-0"
+                                    onClick={() => removeAssignment(a.id)}
+                                    title="Remove assignment from class"
+                                  >
+                                    <Trash2 className="w-4 h-4 text-destructive" />
+                                  </Button>
+                                </span>
                               </div>
                             )
                           })}
@@ -1690,6 +1707,11 @@ export default function TeacherDashboard() {
                                             <span className={`text-[11px] tabular-nums shrink-0 w-16 text-right ${done ? "text-green-600" : pct > 0 ? "text-foreground" : "text-muted-foreground"}`}>
                                               {status}
                                             </span>
+                                            <LessonPreviewButtons
+                                              compact
+                                              lessonId={assignment.lesson_id}
+                                              lessonName={lesson?.title || genLessonNames.get(assignment.lesson_id)}
+                                            />
                                           </div>
                                         )
                                       })}

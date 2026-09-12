@@ -1,4 +1,5 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import * as pdfjsLib from "pdfjs-dist";
 // Vite-friendly worker resolution (pdfjs-dist v6). The `?url` suffix returns
 // the hashed asset URL that Vite emits for the worker bundle.
@@ -12,26 +13,34 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
 import {
   Loader2,
   UploadCloud,
   FileText,
-  CheckCircle2,
   AlertCircle,
   RefreshCw,
+  ScanLine,
   X,
 } from "lucide-react";
+import { CurationReview } from "@/components/teacher/curation/CurationReview";
+import { callFunction, functionError, NOT_ENOUGH_TEXT, type ExtractResponse } from "@/components/teacher/curation/api";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = PdfWorkerUrl;
 
 // ---------------------------------------------------------------------------
 // Config & types
 // ---------------------------------------------------------------------------
-
-const EXTRACT_FN_URL = `${
-  import.meta.env.VITE_SUPABASE_URL ?? "https://vcjdshippmqopaffuzbw.supabase.co"
-}/functions/v1/extract-curriculum`;
 
 const PREVIEW_LIMIT = 500;
 
@@ -40,20 +49,19 @@ type Phase =
   | "parsing" // reading text out of the PDF
   | "ready" // text extracted, awaiting upload
   | "uploading" // POSTing to the edge function
-  | "success"
+  | "review" // extracted; teacher curates + generates (CurationReview)
   | "error";
 
-interface ExtractResponse {
-  success: boolean;
-  conceptsCount: number;
-  vocabularyCount: number;
-  objectivesCount: number;
-  errors?: string[];
+type ErrorKind = "generic" | "no-text";
+
+interface PageText {
+  page: number;
+  text: string;
 }
 
 // The generated Supabase `Database` type does not yet include the curriculum
 // tables (run `supabase gen types typescript` to regenerate). Until then, use a
-// loosely-typed accessor for these two tables so the build stays green.
+// loosely-typed accessor for these tables so the build stays green.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = supabase as any;
 
@@ -74,13 +82,46 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
 }) => {
   const [phase, setPhase] = useState<Phase>("idle");
   const [fileName, setFileName] = useState<string>("");
+  const [pages, setPages] = useState<PageText[]>([]);
   const [extractedText, setExtractedText] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string>("");
-  const [result, setResult] = useState<ExtractResponse | null>(null);
-  const [topConcepts, setTopConcepts] = useState<string[]>([]);
+  const [errorKind, setErrorKind] = useState<ErrorKind>("generic");
+  const [uploadId, setUploadId] = useState<string | null>(null);
   const [dragging, setDragging] = useState(false);
+  /** Set when the server answered 409: the file was extracted before. */
+  const [reextractPrompt, setReextractPrompt] = useState<{ uploadId: string } | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const [searchParams] = useSearchParams();
+
+  // Deep link: /teacher/upload?curateUploadId=<id> opens the review of an
+  // existing extraction (used by the assign page when no lesson is built yet).
+  const curateUploadId = searchParams.get("curateUploadId");
+  useEffect(() => {
+    if (!curateUploadId) return;
+    let cancelled = false;
+    (async () => {
+      const { data } = await db
+        .from("curriculum_uploads")
+        .select("id, file_name")
+        .eq("id", curateUploadId)
+        .neq("status", "deleted")
+        .maybeSingle();
+      if (cancelled) return;
+      if (data?.id) {
+        setFileName(data.file_name ?? "");
+        setUploadId(data.id);
+        setPhase("review");
+      } else {
+        setErrorMsg("That upload could not be found. It may have been deleted, or it isn't yours.");
+        setErrorKind("generic");
+        setPhase("error");
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [curateUploadId]);
 
   const busy = phase === "parsing" || phase === "uploading";
 
@@ -88,32 +129,38 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
   const parsePdf = useCallback(async (file: File) => {
     setPhase("parsing");
     setErrorMsg("");
-    setResult(null);
-    setTopConcepts([]);
+    setErrorKind("generic");
+    setUploadId(null);
     setFileName(file.name);
 
     try {
       const buffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
 
-      const pages: string[] = [];
+      // One entry per PDF page: the v2 extractor stores a chunk per page so the
+      // teacher can emphasize or trash by page (docs/curation-contract.md).
+      const perPage: PageText[] = [];
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
         const text = content.items
           .map((item) => ("str" in item ? item.str : ""))
-          .join(" ");
-        pages.push(text);
+          .join(" ")
+          .replace(/[ \t]+/g, " ")
+          .trim();
+        perPage.push({ page: i, text });
       }
 
-      const fullText = pages.join("\n\n").replace(/[ \t]+/g, " ").trim();
+      const fullText = perPage.map((p) => p.text).filter(Boolean).join("\n\n");
 
       if (!fullText) {
+        setErrorKind("no-text");
         throw new Error(
           "No selectable text found in this PDF. It may be a scanned image — OCR is not supported.",
         );
       }
 
+      setPages(perPage);
       setExtractedText(fullText);
       setPhase("ready");
     } catch (err) {
@@ -132,6 +179,7 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
       if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
         setFileName(file.name);
         setErrorMsg("Please select a PDF file.");
+        setErrorKind("generic");
         setPhase("error");
         return;
       }
@@ -150,97 +198,98 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
     [busy, handleFile],
   );
 
-  // --- Upload -> edge function -------------------------------------------
-  const runExtraction = useCallback(async () => {
-    if (!extractedText) return;
-    setPhase("uploading");
-    setErrorMsg("");
+  // --- Upload -> extract-curriculum-v2 ------------------------------------
+  const runExtraction = useCallback(
+    async (opts: { reextract?: boolean; uploadId?: string } = {}) => {
+      if (pages.length === 0) return;
+      setPhase("uploading");
+      setErrorMsg("");
+      setErrorKind("generic");
+      setReextractPrompt(null);
 
-    try {
-      // 1. Identify the teacher and get a JWT for the function call.
-      const [{ data: userData }, { data: sessionData }] = await Promise.all([
-        supabase.auth.getUser(),
-        supabase.auth.getSession(),
-      ]);
-      const user = userData?.user;
-      const accessToken = sessionData?.session?.access_token;
-      if (!user || !accessToken) {
-        throw new Error("You must be signed in to upload curriculum.");
-      }
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        const user = userData?.user;
+        if (!user) throw new Error("You must be signed in to upload curriculum.");
 
-      // 2. Create the curriculum_uploads row so we have a real UUID to pass
-      //    as uploadId (the edge function inserts concepts with this FK).
-      const { data: upload, error: insertError } = await db
-        .from("curriculum_uploads")
-        .insert({
-          teacher_id: user.id,
-          file_name: fileName || "upload.pdf",
-          extracted_text: extractedText,
-          status: "pending",
-        })
-        .select("id")
-        .single();
+        // 1. Reuse the teacher's existing upload row for this file name (so a
+        //    re-upload hits the server's 409 and the re-extract confirm), or
+        //    create a new row so we have a real UUID for the function call.
+        let id = opts.uploadId ?? null;
+        if (!id) {
+          const { data: existing } = await db
+            .from("curriculum_uploads")
+            .select("id")
+            .eq("teacher_id", user.id)
+            .eq("file_name", fileName || "upload.pdf")
+            .neq("status", "deleted")
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle();
+          id = existing?.id ?? null;
+        }
+        if (!id) {
+          const { data: upload, error: insertError } = await db
+            .from("curriculum_uploads")
+            .insert({
+              teacher_id: user.id,
+              file_name: fileName || "upload.pdf",
+              extracted_text: extractedText,
+              status: "pending",
+            })
+            .select("id")
+            .single();
+          if (insertError || !upload?.id) {
+            throw new Error(insertError?.message ?? "Could not create the upload record.");
+          }
+          id = upload.id as string;
+        }
 
-      if (insertError || !upload?.id) {
-        throw new Error(
-          insertError?.message ?? "Could not create the upload record.",
+        // 2. Call the v2 extractor with page-level text.
+        const { status, data } = await callFunction<ExtractResponse>("extract-curriculum-v2", {
+          uploadId: id,
+          pages,
+          ...(opts.reextract ? { reextract: true } : {}),
+        });
+
+        if (status === 409) {
+          // Already extracted: ask before wiping the previous marks.
+          setReextractPrompt({ uploadId: id });
+          setPhase("ready");
+          return;
+        }
+        if (status === 422 || data?.insufficientSourceReason?.startsWith(NOT_ENOUGH_TEXT)) {
+          setErrorKind("no-text");
+          throw new Error(data?.insufficientSourceReason || data?.errors?.join(" • ") || `${NOT_ENOUGH_TEXT}.`);
+        }
+        if (!data?.success) {
+          throw new Error(functionError(status, data, "Extraction failed"));
+        }
+
+        setUploadId(id);
+        setPhase("review");
+        onExtracted?.();
+      } catch (err) {
+        console.error("Extraction failed:", err);
+        setErrorMsg(
+          err instanceof Error ? err.message : "Something went wrong during extraction.",
         );
+        setPhase("error");
       }
-      const uploadId: string = upload.id;
-
-      // 3. Call the edge function with the user's JWT.
-      const res = await fetch(EXTRACT_FN_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({ uploadId, extractedText }),
-      });
-
-      const payload = (await res.json()) as ExtractResponse;
-
-      if (!res.ok || !payload.success) {
-        throw new Error(
-          payload.errors?.join(" • ") ||
-            `Extraction failed (HTTP ${res.status}).`,
-        );
-      }
-
-      // 4. Fetch the top concept names for display (the function returns
-      //    counts only). Readable via the concepts SELECT RLS policy.
-      const { data: conceptRows } = await db
-        .from("concepts")
-        .select("name")
-        .eq("upload_id", uploadId)
-        .order("created_at", { ascending: true })
-        .limit(5);
-
-      setTopConcepts(
-        (conceptRows ?? [])
-          .map((r: { name: string }) => r.name)
-          .filter(Boolean),
-      );
-      setResult(payload);
-      setPhase("success");
-      onExtracted?.();
-    } catch (err) {
-      console.error("Extraction failed:", err);
-      setErrorMsg(
-        err instanceof Error ? err.message : "Something went wrong during extraction.",
-      );
-      setPhase("error");
-    }
-  }, [extractedText, fileName]);
+    },
+    [pages, extractedText, fileName, onExtracted],
+  );
 
   // --- Reset --------------------------------------------------------------
   const reset = useCallback(() => {
     setPhase("idle");
     setFileName("");
+    setPages([]);
     setExtractedText("");
     setErrorMsg("");
-    setResult(null);
-    setTopConcepts([]);
+    setErrorKind("generic");
+    setUploadId(null);
+    setReextractPrompt(null);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
@@ -249,35 +298,37 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
       ? `${extractedText.slice(0, PREVIEW_LIMIT)}…`
       : extractedText;
 
+  const wordCount = extractedText ? extractedText.split(/\s+/).length : 0;
+
   // ------------------------------------------------------------------------
   return (
     <div
       className={
         embedded
           ? "w-full"
-          : "min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10 sm:px-6 lg:px-8"
+          : "min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 sm:px-6 lg:px-8"
       }
     >
-      <div className={embedded ? "w-full space-y-6" : "mx-auto w-full max-w-2xl space-y-6"}>
+      <div className={embedded ? "w-full space-y-6" : "mx-auto w-full max-w-3xl space-y-6"}>
         {/* Header (hidden when embedded — the host page provides its own) */}
         {!embedded && (
           <div className="space-y-2 text-center">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/20">
               <UploadCloud className="h-6 w-6 text-white" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
               Upload Curriculum
             </h1>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Upload a PDF and we&apos;ll extract concepts, vocabulary, and learning
-              objectives automatically.
+              objectives from your material, page by page.
             </p>
           </div>
         )}
 
-        <Card className="border-emerald-100 shadow-sm">
+        <Card className="border-emerald-100 shadow-sm dark:border-emerald-900">
           <CardHeader>
-            <CardTitle className="text-lg text-slate-900">
+            <CardTitle className="text-lg text-slate-900 dark:text-slate-100">
               1. Choose a PDF
             </CardTitle>
             <CardDescription>
@@ -306,8 +357,8 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
               className={cn(
                 "flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors",
                 dragging
-                  ? "border-emerald-500 bg-emerald-50"
-                  : "border-slate-200 bg-slate-50 hover:border-emerald-400 hover:bg-emerald-50/60",
+                  ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40"
+                  : "border-slate-200 bg-slate-50 hover:border-emerald-400 hover:bg-emerald-50/60 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-emerald-950/30",
                 busy && "pointer-events-none opacity-60",
               )}
             >
@@ -324,29 +375,34 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
                 <UploadCloud className="h-8 w-8 text-emerald-500" />
               )}
               <div className="space-y-1">
-                <p className="text-sm font-medium text-slate-700">
+                <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
                   {phase === "parsing"
                     ? "Reading PDF…"
                     : "Drop your PDF here or click to browse"}
                 </p>
-                <p className="text-xs text-slate-400">PDF up to ~20 MB</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">PDF up to ~20 MB · text-based (not a scan)</p>
               </div>
             </div>
 
             {/* Selected file chip */}
             {fileName && phase !== "idle" && (
-              <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2">
+              <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900">
                 <div className="flex min-w-0 items-center gap-2">
                   <FileText className="h-4 w-4 shrink-0 text-emerald-600" />
-                  <span className="truncate text-sm text-slate-700">
+                  <span className="truncate text-sm text-slate-700 dark:text-slate-200">
                     {fileName}
                   </span>
+                  {pages.length > 0 && (
+                    <span className="shrink-0 text-xs text-slate-400 dark:text-slate-500">
+                      {pages.length} page{pages.length === 1 ? "" : "s"} · {wordCount.toLocaleString()} words
+                    </span>
+                  )}
                 </div>
                 {!busy && (
                   <button
                     type="button"
                     onClick={reset}
-                    className="rounded p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+                    className="rounded p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-300"
                     aria-label="Remove file"
                   >
                     <X className="h-4 w-4" />
@@ -355,39 +411,36 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
               </div>
             )}
 
-            {/* Extracted text preview */}
-            {(phase === "ready" ||
-              phase === "uploading" ||
-              phase === "success") &&
-              extractedText && (
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <label
-                      htmlFor="preview"
-                      className="text-sm font-medium text-slate-700"
-                    >
-                      Extracted text preview
-                    </label>
-                    <span className="text-xs text-slate-400">
-                      {extractedText.length.toLocaleString()} chars
-                    </span>
-                  </div>
-                  <textarea
-                    id="preview"
-                    readOnly
-                    value={previewText}
-                    rows={5}
-                    className="w-full resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 focus:outline-none"
-                  />
+            {/* Extracted text preview (before extraction; the review shows every page after) */}
+            {(phase === "ready" || phase === "uploading") && extractedText && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="preview"
+                    className="text-sm font-medium text-slate-700 dark:text-slate-200"
+                  >
+                    Extracted text preview
+                  </label>
+                  <span className="text-xs text-slate-400 dark:text-slate-500">
+                    {extractedText.length.toLocaleString()} chars
+                  </span>
                 </div>
-              )}
+                <textarea
+                  id="preview"
+                  readOnly
+                  value={previewText}
+                  rows={5}
+                  className="w-full resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+                />
+              </div>
+            )}
           </CardContent>
         </Card>
 
         {/* Upload action */}
         {(phase === "ready" || phase === "uploading") && (
           <Button
-            onClick={runExtraction}
+            onClick={() => void runExtraction()}
             disabled={phase === "uploading"}
             className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
             size="lg"
@@ -395,7 +448,7 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
             {phase === "uploading" ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Extracting concepts…
+                Extracting and verifying against your pages…
               </>
             ) : (
               "Extract concepts"
@@ -403,73 +456,50 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
           </Button>
         )}
 
-        {/* Success */}
-        {phase === "success" && result && (
-          <Card className="border-emerald-200 bg-emerald-50/60 shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg text-emerald-800">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                Extraction successful
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-3 gap-3">
-                <StatTile label="Concepts" value={result.conceptsCount} />
-                <StatTile label="Vocabulary" value={result.vocabularyCount} />
-                <StatTile label="Objectives" value={result.objectivesCount} />
-              </div>
-
-              {topConcepts.length > 0 && (
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-slate-700">
-                    Top concepts
-                  </p>
-                  <ul className="space-y-1">
-                    {topConcepts.map((name, i) => (
-                      <li
-                        key={`${name}-${i}`}
-                        className="flex items-center gap-2 rounded-md bg-white px-3 py-2 text-sm text-slate-700"
-                      >
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-xs font-semibold text-emerald-700">
-                          {i + 1}
-                        </span>
-                        {name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              <Button
-                variant="outline"
-                onClick={reset}
-                className="w-full border-emerald-300 text-emerald-700 hover:bg-emerald-100"
-              >
-                Upload another
-              </Button>
-            </CardContent>
-          </Card>
+        {/* Review: everything extracted, Emphasize / Trash, generate, approve */}
+        {phase === "review" && uploadId && (
+          <>
+            <CurationReview uploadId={uploadId} fileName={fileName} />
+            <Button
+              variant="outline"
+              onClick={reset}
+              className="w-full border-emerald-300 text-emerald-700 hover:bg-emerald-100 dark:border-emerald-800 dark:text-emerald-300 dark:hover:bg-emerald-950/50"
+            >
+              Upload another
+            </Button>
+          </>
         )}
 
         {/* Error */}
         {phase === "error" && (
-          <Card className="border-red-200 bg-red-50/60 shadow-sm">
+          <Card className="border-red-200 bg-red-50/60 shadow-sm dark:border-red-900 dark:bg-red-950/30">
             <CardContent className="space-y-4 pt-6">
               <div className="flex items-start gap-3">
-                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                {errorKind === "no-text" ? (
+                  <ScanLine className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                ) : (
+                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                )}
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold text-red-800">
-                    Something went wrong
+                  <p className="text-sm font-semibold text-red-800 dark:text-red-200">
+                    {errorKind === "no-text" ? "Not enough readable text" : "Something went wrong"}
                   </p>
-                  <p className="text-sm text-red-700">
+                  <p className="text-sm text-red-700 dark:text-red-300">
                     {errorMsg || "Unexpected error."}
                   </p>
+                  {errorKind === "no-text" && (
+                    <p className="text-xs text-red-700/90 dark:text-red-300/90">
+                      This usually means the PDF is a scan (pictures of pages). Export or print the
+                      document to a text-based PDF from Word, Google Docs, or your textbook site and
+                      upload that instead.
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex gap-2">
-                {extractedText && (
+                {pages.length > 0 && errorKind !== "no-text" && (
                   <Button
-                    onClick={runExtraction}
+                    onClick={() => void runExtraction()}
                     className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
                   >
                     <RefreshCw className="mr-2 h-4 w-4" />
@@ -479,7 +509,7 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
                 <Button
                   variant="outline"
                   onClick={reset}
-                  className="flex-1 border-slate-300 text-slate-600 hover:bg-slate-100"
+                  className="flex-1 border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
                 >
                   Start over
                 </Button>
@@ -488,22 +518,41 @@ const TeacherUploadCurriculum: React.FC<TeacherUploadCurriculumProps> = ({
           </Card>
         )}
       </div>
+
+      {/* 409: the file was extracted before */}
+      <AlertDialog open={!!reextractPrompt} onOpenChange={(open) => !open && setReextractPrompt(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Re-extract this file?</AlertDialogTitle>
+            <AlertDialogDescription>
+              <span className="font-medium">{fileName}</span> was already extracted. Re-extracting replaces
+              the previous concepts, vocabulary, objectives and page text, and clears any Emphasize or
+              Trash marks you made on them. Questions you already approved are kept.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              onClick={() => {
+                // Open the review of what is already there instead of dead-ending.
+                if (reextractPrompt) {
+                  setUploadId(reextractPrompt.uploadId);
+                  setPhase("review");
+                }
+              }}
+            >
+              Keep the existing extraction
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => reextractPrompt && void runExtraction({ reextract: true, uploadId: reextractPrompt.uploadId })}
+              className="bg-emerald-600 text-white hover:bg-emerald-700"
+            >
+              Re-extract
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------
-// Small presentational helper
-// ---------------------------------------------------------------------------
-
-const StatTile: React.FC<{ label: string; value: number }> = ({
-  label,
-  value,
-}) => (
-  <div className="rounded-xl border border-emerald-100 bg-white p-3 text-center">
-    <div className="text-2xl font-bold text-emerald-700">{value}</div>
-    <div className="text-xs font-medium text-slate-500">{label}</div>
-  </div>
-);
 
 export default TeacherUploadCurriculum;
