@@ -191,9 +191,13 @@ export const QuestionApprovalPanel: React.FC<QuestionApprovalPanelProps> = ({
     }),
     [rows],
   );
+  // Only report counts once real rows are loaded. Reporting the empty initial
+  // state made parents believe the upload had no questions and unmount this
+  // panel before its data arrived.
   useEffect(() => {
+    if (loading) return;
     onCountsChange?.(counts);
-  }, [counts, onCountsChange]);
+  }, [counts, loading, onCountsChange]);
 
   const replaceRow = (next: QuestionRow) => setRows((prev) => prev.map((r) => (r.id === next.id ? { ...r, ...next } : r)));
 

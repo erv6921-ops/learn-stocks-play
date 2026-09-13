@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
+import { MessageCircle } from "lucide-react"
 import { useApp } from "@/contexts/AppContext"
 import { useJeff, JeffActivity } from "@/contexts/JeffContext"
 import { useJeffSolo } from "@/stores/jeffSoloStore"
 import { JeffMascot } from "./JeffMascot"
 import { SpeechBubble } from "./SpeechBubble"
+import { JeffTutorPanel } from "./JeffTutorPanel"
 
 const HIDDEN_ROUTES = ["/auth", "/login", "/signup", "/onboarding", "/reset-password", "/forgot-password"]
 
@@ -87,6 +89,10 @@ export function JeffWidget() {
   const { mood, message, visible, activity, nudge, dismiss } = useJeff()
   const sidekickActive = useJeffSolo(s => s.sidekickActive)
   const [hovered, setHovered] = useState(false)
+  // "Chat with Jeff" tutor panel (JeffTutorPanel). Lives here so the launcher
+  // shares the widget's visibility rules: signed-in only, hidden on auth /
+  // onboarding routes, and gone while the Biz Lab sidekick owns the screen.
+  const [chatOpen, setChatOpen] = useState(false)
   const [dims, setDims] = useState({ w: typeof window !== "undefined" ? window.innerWidth : 1200, h: typeof window !== "undefined" ? window.innerHeight : 800 })
 
   useEffect(() => {
@@ -125,6 +131,26 @@ export function JeffWidget() {
   const boxScale = isParty ? 2.1 : prominent ? 1.3 : 1
 
   return (
+    <>
+    {/* Chat launcher - parked to Jeff's LEFT (his speech bubble pops up above
+        him, so above would get covered). Stays put while he roams. z-40 like
+        the mascot: above page content, below the z-50 sheet/dialog layer. */}
+    <motion.button
+      type="button"
+      aria-label="Chat with Jeff"
+      onClick={() => setChatOpen(true)}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: chatOpen ? 0 : 1, y: chatOpen ? 8 : 0 }}
+      whileHover={{ scale: 1.04 }}
+      whileTap={{ scale: 0.94 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="fixed right-24 bottom-[calc(2.25rem+env(safe-area-inset-bottom))] md:right-32 md:bottom-14 z-40 flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground shadow-lg hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+    >
+      <MessageCircle className="w-4 h-4" />
+      Ask Jeff
+    </motion.button>
+    <JeffTutorPanel open={chatOpen} onOpenChange={setChatOpen} />
+
     <motion.div
       className={`fixed bottom-6 right-6 flex flex-col items-end pointer-events-none ${isParty ? "z-50" : "z-40"}`}
       animate={containerAnimate}
@@ -163,6 +189,7 @@ export function JeffWidget() {
         </motion.button>
       </motion.div>
     </motion.div>
+    </>
   )
 }
 

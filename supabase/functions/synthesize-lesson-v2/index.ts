@@ -546,7 +546,8 @@ Deno.serve(async (req: Request): Promise<Response> => {
   // the approval gate has to be applied here as well as in RLS.
   const attachedToTrashed = (g: GenQuestionRow) => !!g.concept_id && trashedConceptIds.has(g.concept_id);
   const poolRows = genQuestions.filter((g) => g.grounding_status !== "failed" && !attachedToTrashed(g) && g.teacher_approved_at != null);
-  const excludedTrashedRows = genQuestions.filter(attachedToTrashed);
+  // Grounding-failed rows are listed once (below, as failed), not again here.
+  const excludedTrashedRows = genQuestions.filter((g) => attachedToTrashed(g) && g.grounding_status !== "failed");
   const unapprovedRows = genQuestions.filter((g) => g.grounding_status !== "failed" && !attachedToTrashed(g) && g.teacher_approved_at == null);
   const masteryQuestions = poolRows.map((g) => ({
     id: g.id,
