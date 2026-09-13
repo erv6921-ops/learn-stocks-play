@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { difficultyWord } from "@/components/teacher/curation/api";
 import {
   AlertCircle,
   CheckCircle2,
@@ -144,6 +145,7 @@ export const QuestionApprovalPanel: React.FC<QuestionApprovalPanelProps> = ({
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [draft, setDraft] = useState<EditDraft | null>(null);
   const [draftError, setDraftError] = useState("");
+  const [difficultyFilter, setDifficultyFilter] = useState<"all" | "Easy" | "Medium" | "Hard">("all");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -347,6 +349,7 @@ export const QuestionApprovalPanel: React.FC<QuestionApprovalPanelProps> = ({
   };
 
   const approvable = rows.filter((r) => r.grounding_status === "verified" && !r.teacher_approved_at).length;
+  const visibleRows = difficultyFilter === "all" ? rows : rows.filter((r) => difficultyWord(r.difficulty) === difficultyFilter);
 
   if (loading) {
     return (
@@ -402,7 +405,32 @@ export const QuestionApprovalPanel: React.FC<QuestionApprovalPanelProps> = ({
         "Not found in source" can be edited or deleted but not approved.
       </p>
 
-      {rows.map((q, qi) => {
+      {/* Difficulty filter (from the stored 0..1 difficulty each question carries) */}
+      <div className="flex flex-wrap items-center gap-1.5 text-xs">
+        <span className="text-slate-500">Show:</span>
+        {(["all", "Easy", "Medium", "Hard"] as const).map((f) => {
+          const n = f === "all" ? rows.length : rows.filter((r) => difficultyWord(r.difficulty) === f).length;
+          return (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setDifficultyFilter(f)}
+              className={cn(
+                "rounded-full border px-2.5 py-1 font-medium transition-colors",
+                difficultyFilter === f
+                  ? "border-emerald-400 bg-emerald-50 text-emerald-800 dark:border-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-200"
+                  : "border-slate-200 text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800",
+              )}
+            >
+              {f === "all" ? "All" : f} ({n})
+            </button>
+          );
+        })}
+      </div>
+
+      {visibleRows.length === 0 && <p className="py-4 text-center text-xs text-slate-500">No {difficultyFilter.toLowerCase()} questions in this bank.</p>}
+
+      {visibleRows.map((q, qi) => {
         const failed = q.grounding_status === "failed";
         const approved = !!q.teacher_approved_at;
         const busy = busyId === q.id;
@@ -420,6 +448,15 @@ export const QuestionApprovalPanel: React.FC<QuestionApprovalPanelProps> = ({
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-semibold text-slate-400">{qi + 1}.</span>
               <GroundingBadge status={q.grounding_status} />
+              {difficultyWord(q.difficulty) && (
+                <Badge
+                  variant={difficultyWord(q.difficulty) === "Hard" ? "warning" : difficultyWord(q.difficulty) === "Easy" ? "success" : "muted"}
+                  className="text-[10px]"
+                  title="How hard this question is"
+                >
+                  {difficultyWord(q.difficulty)}
+                </Badge>
+              )}
               {pages && (
                 <Badge variant="outline" className="text-[11px]">
                   {pages}

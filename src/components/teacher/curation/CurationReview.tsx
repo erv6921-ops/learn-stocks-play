@@ -10,12 +10,16 @@ import { CurationItemCard } from "./CurationItemCard";
 import { CurationSection } from "./CurationSection";
 import { SourcePagesSection } from "./SourcePagesSection";
 import { GenerationPanel } from "./GenerationPanel";
+import { GenerationSettingsPanel } from "./GenerationSettingsPanel";
 import {
   callFunction,
   countWords,
   db,
+  DEFAULT_SETTINGS,
   functionError,
+  normalizeSettings,
   pageRefFor,
+  type GenerationSettings,
   type ChunkRow,
   type ConceptRow,
   type CurationTable,
@@ -79,6 +83,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
   const [lessonName, setLessonName] = useState("");
   const [generating, setGenerating] = useState(false);
   const [building, setBuilding] = useState(false);
+  const [settings, setSettings] = useState<GenerationSettings>(DEFAULT_SETTINGS);
   const [panelKey, setPanelKey] = useState(0);
   // Marks as they were when questions were last generated (or first loaded).
   const snapshotRef = useRef<string | null>(null);
@@ -91,7 +96,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       setError("");
       try {
         const [uRes, cRes, vRes, oRes, chRes, qRes, lRes] = await Promise.all([
-          db.from("curriculum_uploads").select("id, file_name, status, coverage_report, insufficient_source_reason, extracted_text").eq("id", uploadId).maybeSingle(),
+          db.from("curriculum_uploads").select("*").eq("id", uploadId).maybeSingle(),
           db.from("concepts").select("id, name, definition, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("created_at", { ascending: true }),
           db.from("vocabulary").select("id, term, definition, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("id", { ascending: true }),
           db.from("learning_objectives").select("id, objective, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("id", { ascending: true }),
@@ -104,6 +109,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
         }
         if (!uRes.data) throw new Error("This upload could not be found (or it isn't yours).");
         setUpload(uRes.data as UploadRow);
+        setSettings(normalizeSettings((uRes.data as UploadRow).generation_settings));
         const next: Lists = {
           concepts: (cRes.data as ConceptRow[]) ?? [],
           vocabulary: (vRes.data as VocabRow[]) ?? [],
@@ -206,7 +212,9 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       ? "Nothing marked yet. The lesson will be built from everything above."
       : `${markCounts.emphasized} emphasized · ${markCounts.trashed} trashed`;
 
-  const currentMarks = useMemo(() => marksOf(lists), [lists]);
+  // Settings are part of the fingerprint: changing bank size or difficulty
+  // after generation should prompt a regenerate just like a changed mark.
+  const currentMarks = useMemo(() => `${marksOf(lists)}||${settings.bankSize}:${settings.difficulty}`, [lists, settings.bankSize, settings.difficulty]);
   // snapshotVersion is read so the memo re-runs when the baseline moves.
   const marksDirty = useMemo(() => snapshotRef.current !== null && currentMarks !== snapshotRef.current, [currentMarks, snapshotVersion]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -215,7 +223,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
     async (regenerate: boolean) => {
       setGenerating(true);
       try {
-        const { status, data } = await callFunction<GenerateResponse>("generate-questions-v2", { uploadId, regenerate });
+        const { status, data } = await callFunction<GenerateResponse>("generate-questions-v2", { uploadId, regenerate, settings });
         if (status === 422 && data?.insufficientSourceReason) {
           toast({ title: "Your material didn't support any questions", description: data.insufficientSourceReason, variant: "destructive" });
         } else if (!data?.success) {
@@ -236,7 +244,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
         setGenerating(false);
       }
     },
-    [uploadId, currentMarks, load, toast],
+    [uploadId, currentMarks, settings, load, toast],
   );
 
   const buildLesson = useCallback(async () => {
@@ -257,7 +265,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       } else if (lesson && lesson.name !== name) {
         await db.from("lessons").update({ name }).eq("id", lessonId);
       }
-      const { status, data } = await callFunction<SynthesizeResponse>("synthesize-lesson-v2", { uploadId, lessonId });
+      const { status, data } = await callFunction<SynthesizeResponse>("synthesize-lesson-v2", { uploadId, lessonId, settings });
       if (!data?.success) throw new Error(functionError(status, data, "Lesson build failed"));
       toast({
         title: lesson ? "Jeff's lesson rebuilt" : "Jeff's lesson built",
@@ -269,9 +277,28 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
     } finally {
       setBuilding(false);
     }
-  }, [uploadId, lesson, lessonName, fileName, load, toast]);
+  }, [uploadId, lesson, lessonName, fileName, settings, load, toast]);
 
   const onCountsChange = useCallback((c: ApprovalCounts) => setQuestionStats(c.total > 0 ? c : null), []);
+
+  // --- Lesson settings: optimistic, saved on every change ----------------
+  const updateSettings = useCallback(
+    async (next: GenerationSettings) => {
+      const clean = normalizeSettings(next);
+      const previous = settings;
+      setSettings(clean);
+      const { data, error: sErr } = await db.from("curriculum_uploads").update({ generation_settings: clean }).eq("id", uploadId).select("id");
+      if (sErr || !data || data.length === 0) {
+        setSettings(previous);
+        toast({
+          title: "Couldn't save the settings",
+          description: sErr?.message ?? "Has sql/2026-09-13_generation_settings.sql been run?",
+          variant: "destructive",
+        });
+      }
+    },
+    [settings, uploadId, toast],
+  );
 
   // --- Legacy upload (extracted by v1: no source pages) --------------------
   // Re-run extract-curriculum-v2 on the stored text so every item gets a
@@ -438,6 +465,13 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
           <CardDescription>{marksSummary}</CardDescription>
         </CardHeader>
         <CardContent>
+          <GenerationSettingsPanel
+            value={settings}
+            onChange={(next) => void updateSettings(next)}
+            disabled={generating || building || upgrading}
+            hasQuestions={!!questionStats && questionStats.total > 0}
+            className="mb-5"
+          />
           <GenerationPanel
             uploadId={uploadId}
             upload={upload}

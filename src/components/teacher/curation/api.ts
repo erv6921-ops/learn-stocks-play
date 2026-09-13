@@ -62,6 +62,8 @@ export interface UploadRow {
   insufficient_source_reason: string | null;
   /** Joined text from the original (v1) upload; used to re-verify legacy uploads. */
   extracted_text?: string | null;
+  /** Teacher's generation settings (see GenerationSettings); null until saved. */
+  generation_settings?: unknown;
 }
 
 export interface LessonRow {
@@ -107,6 +109,65 @@ export interface SynthesizeResponse {
 }
 
 export const NOT_ENOUGH_TEXT = "Not enough readable text";
+
+// ---------------------------------------------------------------------------
+// Per-upload generation settings (curriculum_uploads.generation_settings).
+// Mirrors normalizeGenerationSettings() in supabase/functions/_shared/grounding.ts.
+// ---------------------------------------------------------------------------
+
+export type DifficultyLevel = "easier" | "balanced" | "harder" | "mixed";
+
+export interface GenerationSettings {
+  /** Questions to generate for the bank / mastery pool. */
+  bankSize: number;
+  /** Overall difficulty of generated questions. */
+  difficulty: DifficultyLevel;
+  /** Single-question quick checks interleaved with the slides. */
+  microChecks: number;
+  /** Correct answers a student needs to pass the mastery check. */
+  masteryRequired: number;
+}
+
+export const SETTINGS_LIMITS = {
+  bankSize: { min: 5, max: 30 },
+  microChecks: { min: 0, max: 4 },
+  masteryRequired: { min: 1, max: 15 },
+} as const;
+
+export const DEFAULT_SETTINGS: GenerationSettings = {
+  bankSize: 15,
+  difficulty: "mixed",
+  microChecks: 2,
+  masteryRequired: 4,
+};
+
+const clampInt = (v: unknown, min: number, max: number, fallback: number): number => {
+  const n = typeof v === "number" ? v : Number(v);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.max(min, Math.min(max, Math.round(n)));
+};
+
+/** Fills gaps and clamps ranges; safe on null / partial / garbage input. */
+export function normalizeSettings(raw: unknown): GenerationSettings {
+  const r = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  const bankSize = clampInt(r.bankSize, SETTINGS_LIMITS.bankSize.min, SETTINGS_LIMITS.bankSize.max, DEFAULT_SETTINGS.bankSize);
+  const d = r.difficulty;
+  const difficulty: DifficultyLevel = d === "easier" || d === "balanced" || d === "harder" || d === "mixed" ? d : DEFAULT_SETTINGS.difficulty;
+  return {
+    bankSize,
+    difficulty,
+    microChecks: clampInt(r.microChecks, SETTINGS_LIMITS.microChecks.min, SETTINGS_LIMITS.microChecks.max, DEFAULT_SETTINGS.microChecks),
+    masteryRequired: clampInt(r.masteryRequired, SETTINGS_LIMITS.masteryRequired.min, Math.min(SETTINGS_LIMITS.masteryRequired.max, bankSize), DEFAULT_SETTINGS.masteryRequired),
+  };
+}
+
+/** "Easy" / "Medium" / "Hard" from the stored 0..1 difficulty (0.25 / 0.5 / 0.75). */
+export function difficultyWord(value: number | null | undefined): "Easy" | "Medium" | "Hard" | null {
+  if (value == null || !Number.isFinite(value)) return null;
+  if (value <= 0.34) return "Easy";
+  if (value >= 0.66) return "Hard";
+  return "Medium";
+}
 
 /**
  * Calls a v2 edge function with the signed-in user's JWT and returns the HTTP

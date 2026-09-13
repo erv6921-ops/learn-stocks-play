@@ -171,6 +171,27 @@ slide 1 -> mini check-in -> slide 2 -> micro-check -> vocab match -> scenario ->
 - Any missing piece (no scenario, fewer slides) is simply skipped; the order
   of the rest is unchanged.
 
+### Lesson settings (sql/2026-09-13_generation_settings.sql)
+
+`curriculum_uploads.generation_settings` (jsonb) holds the teacher's choices,
+edited on the review screen ("Lesson settings", above Generate Lesson) and
+saved on every change via the existing "Teachers update own uploads" policy:
+
+```json
+{ "bankSize": 15, "difficulty": "mixed", "microChecks": 2, "masteryRequired": 4 }
+```
+
+| Field | Range | Used by | Effect |
+|---|---|---|---|
+| `bankSize` | 5-30 | generate-questions-v2 | Questions requested (grown for emphasis minimums, capped at 30). |
+| `difficulty` | `easier` / `balanced` / `harder` / `mixed` | generate-questions-v2 | Easy/medium/hard mix asked of the model; each row's `difficulty` (0.25/0.5/0.75) shows as Easy/Medium/Hard in the approval list, which can be filtered. |
+| `microChecks` | 0-4 | synthesize-lesson-v2 | Number of one-question checks between the slides (`checks` array in the model output; the first two sit after slides 1 and 2, any others right before mastery). |
+| `masteryRequired` | 1-15, at most `bankSize` | synthesize-lesson-v2 | `requiredCorrect` on the mastery-check section. |
+
+Both functions accept the same object as `settings` in the request body,
+which takes precedence over the column; missing or invalid values fall back
+to the defaults above.
+
 Error statuses common to all three: 400 bad body, 404 no chunks for the
 upload, 409 already extracted (extract only), 422 insufficient source,
 500 database error, 502 model or verification error. Error bodies are

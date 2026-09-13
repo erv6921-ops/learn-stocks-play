@@ -788,6 +788,90 @@ export function appendNote(entry: CoverageEntry, text: string): void {
   entry.note = entry.note ? `${entry.note} ${text}` : text;
 }
 
+// ---------------------------------------------------------------------------
+// Teacher generation settings (curriculum_uploads.generation_settings).
+// Mirrors normalizeSettings() in src/components/teacher/curation/api.ts.
+// ---------------------------------------------------------------------------
+
+export type DifficultyLevel = "easier" | "balanced" | "harder" | "mixed";
+
+export interface GenerationSettings {
+  bankSize: number;
+  difficulty: DifficultyLevel;
+  microChecks: number;
+  masteryRequired: number;
+}
+
+export const DEFAULT_SETTINGS: GenerationSettings = { bankSize: 15, difficulty: "mixed", microChecks: 2, masteryRequired: 4 };
+export const SETTINGS_LIMITS = { bankSize: [5, 30], microChecks: [0, 4], masteryRequired: [1, 15] } as const;
+
+const clampInt = (v: unknown, min: number, max: number, fallback: number): number => {
+  const n = typeof v === "number" ? v : Number(v);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.max(min, Math.min(max, Math.round(n)));
+};
+
+export function normalizeGenerationSettings(raw: unknown): GenerationSettings {
+  const r = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  const bankSize = clampInt(r.bankSize, SETTINGS_LIMITS.bankSize[0], SETTINGS_LIMITS.bankSize[1], DEFAULT_SETTINGS.bankSize);
+  const d = r.difficulty;
+  const difficulty: DifficultyLevel = d === "easier" || d === "balanced" || d === "harder" || d === "mixed" ? d : DEFAULT_SETTINGS.difficulty;
+  return {
+    bankSize,
+    difficulty,
+    microChecks: clampInt(r.microChecks, SETTINGS_LIMITS.microChecks[0], SETTINGS_LIMITS.microChecks[1], DEFAULT_SETTINGS.microChecks),
+    masteryRequired: clampInt(r.masteryRequired, SETTINGS_LIMITS.masteryRequired[0], Math.min(SETTINGS_LIMITS.masteryRequired[1], bankSize), DEFAULT_SETTINGS.masteryRequired),
+  };
+}
+
+/**
+ * Settings for a run: the request body's `settings` wins, then the upload
+ * row's generation_settings column (tolerated if the column is missing),
+ * then defaults.
+ */
+export async function loadGenerationSettings(
+  supabase: AnySupabase,
+  uploadId: string,
+  bodySettings: unknown,
+): Promise<GenerationSettings> {
+  if (bodySettings && typeof bodySettings === "object") return normalizeGenerationSettings(bodySettings);
+  const { data, error } = await supabase.from("curriculum_uploads").select("generation_settings").eq("id", uploadId).maybeSingle();
+  if (error || !data) return normalizeGenerationSettings(null);
+  return normalizeGenerationSettings(data.generation_settings);
+}
+
+/** Share of easy / medium / hard for each level. */
+const DIFFICULTY_MIX: Record<DifficultyLevel, [number, number, number]> = {
+  easier: [0.7, 0.25, 0.05],
+  balanced: [0.2, 0.6, 0.2],
+  harder: [0.05, 0.3, 0.65],
+  mixed: [0.33, 0.4, 0.27],
+};
+
+/** Exact easy / medium / hard counts for n questions (sums to n). */
+export function difficultyCounts(level: DifficultyLevel, n: number): { easy: number; medium: number; hard: number } {
+  const [e, m] = DIFFICULTY_MIX[level] ?? DIFFICULTY_MIX.mixed;
+  const easy = Math.round(n * e);
+  const medium = Math.round(n * m);
+  const hard = Math.max(0, n - easy - medium);
+  return { easy, medium, hard };
+}
+
+/**
+ * Prompt text for the requested difficulty. Models follow exact counts far
+ * better than percentages, so when n is given the line says how many of each.
+ */
+export function difficultyInstruction(level: DifficultyLevel, n?: number): string {
+  const what =
+    'Tag each question honestly: "easy" = recall a definition or fact stated in the sources; "medium" = understand or explain an idea from the sources; "hard" = apply, compare, or work through an example that appears in the sources. Hard questions are still grounded: every answer must be supported by an exact quote.';
+  if (n && n > 0) {
+    const c = difficultyCounts(level, n);
+    return `DIFFICULTY (${level.toUpperCase()}): of the ${n} questions, write exactly ${c.easy} "easy", ${c.medium} "medium" and ${c.hard} "hard". ${what}`;
+  }
+  const [e, m, h] = DIFFICULTY_MIX[level] ?? DIFFICULTY_MIX.mixed;
+  return `DIFFICULTY (${level.toUpperCase()}): about ${Math.round(e * 100)}% "easy", ${Math.round(m * 100)}% "medium", ${Math.round(h * 100)}% "hard". ${what}`;
+}
+
 /**
  * Appends a "[stage] reason" line to curriculum_uploads.insufficient_source_reason.
  */

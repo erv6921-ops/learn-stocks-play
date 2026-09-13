@@ -56,6 +56,8 @@ import {
   usableChunks,
   usableItems,
   verifyGroundedItems,
+  loadGenerationSettings,
+  difficultyInstruction,
 } from "../_shared/grounding.ts";
 
 // ---------------------------------------------------------------------------
@@ -83,6 +85,8 @@ interface Slot {
 interface RequestBody {
   uploadId: string;
   regenerate?: boolean;
+  /** Teacher settings (bankSize, difficulty, ...); falls back to the upload row, then defaults. */
+  settings?: unknown;
 }
 
 interface ResponseBody {
@@ -127,7 +131,7 @@ const SYSTEM_PROMPT = `You are writing a mastery-check question bank for a high-
 
 Requirements:
 - Generate up to the requested number of multiple-choice questions, each with 4 options and exactly one correct answer. If the sources cannot support that many distinct, well-grounded questions, return fewer and set "insufficient_source": true.
-- Mix of difficulty: roughly one third "easy", a bit more "medium", the rest "hard".
+- Difficulty: follow the DIFFICULTY line in the request for the easy / medium / hard mix, and tag every question honestly.
 - Follow the TEACHER EMPHASIS minimums first, then spread the remaining questions across the item guide (weight toward earlier/most prominent items). The FACTS must come from the sources, not the guide.
 - Never write a question about a TEACHER TRASHED topic.
 - Tag every question with "covers_keys": the guide keys (C1, V2, O1 ...) it tests. Use only keys from the guide.
@@ -435,8 +439,14 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const conceptIdByName = new Map(set.concepts.filter((c) => c.teacher_status !== "trashed").map((c) => [c.label.toLowerCase(), c.id]));
   const fallbackConceptId = set.concepts.find((c) => c.teacher_status !== "trashed" && c.grounding_status !== "failed")?.id ?? null;
 
+  // Teacher settings: bank size + difficulty (request body, else the upload
+  // row's generation_settings, else defaults).
+  const settings = await loadGenerationSettings(supabase, uploadId, body.settings);
+  const bankSize = settings.bankSize || BASE_QUESTIONS;
+  console.log(`[${tag}] settings: bank=${bankSize} difficulty=${settings.difficulty}`);
+
   const emphasisMinimum = emphasized.reduce((n, it) => n + questionTarget(it), 0);
-  const requested = Math.min(MAX_QUESTIONS, Math.max(BASE_QUESTIONS, emphasisMinimum + 5));
+  const requested = Math.min(MAX_QUESTIONS, Math.max(bankSize, emphasisMinimum + 5));
 
   // --- Generate (per group when the source is very large) ------------------
   const block = buildSourceBlock(chunks);
@@ -454,7 +464,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       const gCuration = groups.length === 1 ? curation : renderCurationPrompt(set, gBlock, { questionMinimums: true });
       const parsed = await groundedGenerate(anthropic, {
         system: SYSTEM_PROMPT,
-        user: `${partNote}Generate up to ${perGroup} questions.\n\n${gCuration}\n\nSOURCES:\n${gBlock.text}`,
+        user: `${partNote}Generate up to ${perGroup} questions.\n${difficultyInstruction(settings.difficulty, perGroup)}\n\n${gCuration}\n\nSOURCES:\n${gBlock.text}`,
         tag: `${tag}][group ${g + 1}`,
       });
       const reason = readInsufficient(parsed);
@@ -560,12 +570,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const failedCount = rows.length - verifiedCount;
   const shortfallNotes = [...emphasisShortfall.values()];
   let insufficientSourceReason: string | undefined;
-  if (insufficientReasons.length > 0 || shortfallNotes.length > 0 || rows.length < BASE_QUESTIONS) {
+  if (insufficientReasons.length > 0 || shortfallNotes.length > 0 || rows.length < bankSize) {
     insufficientSourceReason =
       [...new Set(insufficientReasons)].join(" ") ||
       (shortfallNotes.length > 0
         ? `Emphasis minimums not fully met for ${emphasisShortfall.size} item(s).`
-        : `Only ${rows.length} of ${BASE_QUESTIONS} requested questions were supported by the sources.`);
+        : `Only ${rows.length} of ${bankSize} requested questions were supported by the sources.`);
     await recordInsufficientSource(supabase, uploadId, "questions", insufficientSourceReason);
   }
   if (rows.length === 0) {

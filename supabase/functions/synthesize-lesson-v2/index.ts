@@ -59,6 +59,7 @@ import {
   usableChunks,
   usableItems,
   verifyGroundedItems,
+  loadGenerationSettings,
 } from "../_shared/grounding.ts";
 
 const CORS_HEADERS: Record<string, string> = {
@@ -79,8 +80,7 @@ Produce a lesson with:
 - AT MOST 3 teaching segments (each renders as its own short tap-through slide). Jeff teaches most of the material in a live conversation BEFORE these slides, so the slides are the 3 ideas most worth pinning down, not a full walkthrough. One idea per slide, 1 to 2 short paragraphs each. TEACHER EMPHASIZED concepts and objectives come first, each tagged with its key in "covers_keys"; if more than 3 are emphasized, give slides to the 3 most important and make sure the others appear in the check questions. If the sources only support fewer segments, produce fewer.
 - Every TEACHER EMPHASIZED vocabulary term must be used (and, if the sources define it, explained) somewhere in the segment or question text.
 - Never teach, define, or ask about a TEACHER TRASHED topic.
-- ONE "mini check-in": a single quick multiple-choice question to confirm understanding mid-lesson.
-- ONE "micro-check": a single short multiple-choice knowledge check.
+- Quick checks: the request says how many single multiple-choice check questions to write. They sit between the slides, so each should test the idea just taught. Return them in "checks" (an array; empty if zero were requested). Do not write more than asked.
 - ONE "scenario": an applied situation using ONLY situations and numbers that appear in the sources. If the sources contain no usable situation, set scenario to null.
 
 Return ONLY valid JSON (no markdown, no preamble):
@@ -88,8 +88,9 @@ Return ONLY valid JSON (no markdown, no preamble):
   "teachingSegments": [
     { "title": "Segment title", "paragraphs": ["Jeff-voiced paragraph", "..."], "bullets": ["optional key point"], "realWorldExample": "optional example FROM THE SOURCES", "covers_keys": ["C1"], "source_ids": ["S1"], "evidence_quote": "exact copy of the source text this slide teaches" }
   ],
-  "miniCheckIn": { "question": "text", "options": ["A","B","C","D"], "correctIndex": 0, "explanation": "why, per the quote", "covers_keys": ["C1"], "source_ids": ["S1"], "evidence_quote": "exact copy of the source text that makes the correct option true" },
-  "microCheck":  { "question": "text", "options": ["A","B","C","D"], "correctIndex": 0, "explanation": "why, per the quote", "covers_keys": ["C2"], "source_ids": ["S2"], "evidence_quote": "..." },
+  "checks": [
+    { "question": "text", "options": ["A","B","C","D"], "correctIndex": 0, "explanation": "why, per the quote", "covers_keys": ["C1"], "source_ids": ["S1"], "evidence_quote": "exact copy of the source text that makes the correct option true" }
+  ],
   "scenario":    { "title": "text", "narrative": "text", "details": ["optional detail"], "covers_keys": ["C1"], "source_ids": ["S1"], "evidence_quote": "exact copy of the source passage the scenario is built from" },
   "insufficient_source": false,
   "insufficient_source_reason": ""
@@ -119,6 +120,8 @@ Keep the same JSON shape as the original item (teaching segment, check question,
 interface Body {
   uploadId: string;
   lessonId: string;
+  /** Teacher settings (microChecks, masteryRequired, ...); falls back to the upload row, then defaults. */
+  settings?: unknown;
 }
 
 interface Cited {
@@ -149,13 +152,12 @@ interface Scenario extends Cited {
 
 interface Synth {
   teachingSegments: TeachingSegment[];
-  miniCheckIn: Check | null;
-  microCheck: Check | null;
+  checks: Check[];
   scenario: Scenario | null;
   insufficientReason: string | null;
 }
 
-type Kind = "segment" | "mini" | "micro" | "scenario";
+type Kind = "segment" | "check" | "scenario";
 
 interface Slot {
   id: string;
@@ -238,8 +240,14 @@ function normalizeSynth(parsed: Record<string, unknown>, known: Set<string>): Sy
     : [];
   return {
     teachingSegments,
-    miniCheckIn: normalizeCheck(parsed.miniCheckIn, known),
-    microCheck: normalizeCheck(parsed.microCheck, known),
+    // "checks" array; older responses used miniCheckIn / microCheck.
+    checks: [
+      ...(Array.isArray(parsed.checks) ? parsed.checks : []),
+      parsed.miniCheckIn,
+      parsed.microCheck,
+    ]
+      .map((c) => normalizeCheck(c, known))
+      .filter((c): c is Check => c !== null),
     scenario: normalizeScenario(parsed.scenario, known),
     insufficientReason: readInsufficient(parsed),
   };
@@ -359,6 +367,10 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } });
   const anthropic = new Anthropic({ apiKey: anthropicKey });
+  // Teacher settings: quick-check count + mastery pass mark (request body,
+  // else the upload row's generation_settings, else defaults).
+  const settings = await loadGenerationSettings(supabase, uploadId, body.settings);
+  console.log(`[${tag}] settings: checks=${settings.microChecks} masteryRequired=${settings.masteryRequired}`);
 
   // --- Load source chunks (source of truth), marks, guides, question bank --
   let allChunks: SourceChunk[];
@@ -417,13 +429,13 @@ Deno.serve(async (req: Request): Promise<Response> => {
       const partNote = groups.length > 1 ? `This is part ${g + 1} of ${groups.length} of the material. ` : "";
       const parsed = await groundedGenerate(anthropic, {
         system: SYSTEM_PROMPT,
-        user: `${partNote}Segment budget: write at most ${budget} teaching segment${budget === 1 ? "" : "s"} (fewer if the sources only support fewer).${emphasizedTopics.length > budget ? ` ${emphasizedTopics.length} topics are emphasized but only ${budget} slides are available: pick the ${budget} most important for slides and cover the rest in the check questions.` : ""}\n\n${gCuration}\n\nSOURCES:\n${gBlock.text}`,
+        user: `${partNote}Segment budget: write at most ${budget} teaching segment${budget === 1 ? "" : "s"} (fewer if the sources only support fewer). Quick checks: write exactly ${settings.microChecks} check question${settings.microChecks === 1 ? "" : "s"} in "checks"${settings.microChecks === 0 ? " (an empty array)" : ""}.${emphasizedTopics.length > budget ? ` ${emphasizedTopics.length} topics are emphasized but only ${budget} slides are available: pick the ${budget} most important for slides and cover the rest in the check questions.` : ""}\n\n${gCuration}\n\nSOURCES:\n${gBlock.text}`,
         tag: `${tag}][group ${g + 1}`,
       });
       const part = normalizeSynth(parsed, knownKeys);
       if (groups.length > 1) {
         for (const s of part.teachingSegments) s.source_ids = relabelSids(s.source_ids, gBlock, block);
-        for (const c of [part.miniCheckIn, part.microCheck, part.scenario]) {
+        for (const c of [...part.checks, part.scenario]) {
           if (c) c.source_ids = relabelSids(c.source_ids, gBlock, block);
         }
       }
@@ -431,8 +443,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
     synth = {
       teachingSegments: parts.flatMap((p) => p.teachingSegments).slice(0, maxSegments),
-      miniCheckIn: parts.find((p) => p.miniCheckIn)?.miniCheckIn ?? null,
-      microCheck: parts.find((p) => p.microCheck)?.microCheck ?? null,
+      checks: parts.flatMap((p) => p.checks).slice(0, settings.microChecks),
       scenario: parts.find((p) => p.scenario)?.scenario ?? null,
       insufficientReason: [...new Set(parts.map((p) => p.insufficientReason).filter(Boolean))].join(" ") || null,
     };
@@ -445,8 +456,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
   // --- Slots; drop anything about a trashed topic before verification ------
   const candidates: Slot[] = synth.teachingSegments.map((item, i) => ({ id: `seg-${i}`, kind: "segment" as Kind, item }));
-  if (synth.miniCheckIn) candidates.push({ id: "mini", kind: "mini", item: synth.miniCheckIn });
-  if (synth.microCheck) candidates.push({ id: "micro", kind: "micro", item: synth.microCheck });
+  synth.checks.forEach((item, i) => candidates.push({ id: `check-${i}`, kind: "check" as Kind, item }));
   if (synth.scenario) candidates.push({ id: "scenario", kind: "scenario", item: synth.scenario });
   const slots: Slot[] = [];
   const droppedTrashed: Slot[] = [];
@@ -503,8 +513,11 @@ Deno.serve(async (req: Request): Promise<Response> => {
   // deno-lint-ignore no-explicit-any
   const sections: any[] = [];
   const segs = verifiedOf("segment");
-  const mini = verifiedOf("mini")[0];
-  const micro = verifiedOf("micro")[0];
+  const checks = verifiedOf("check");
+  const checkSection = (s: Slot, i: number) => ({
+    type: "micro-check",
+    questions: [toQuizQuestion(s.item as Check, `check-${i}-${lessonId}`, s.result!.chunkIds)],
+  });
   const scenario = verifiedOf("scenario")[0];
   // Order (after Jeff's live conversation, which the player runs first):
   //   slide 1 -> mini check-in -> slide 2 -> micro-check -> vocab match ->
@@ -553,9 +566,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
   const [seg1, seg2, seg3] = segs;
   if (seg1) sections.push(conceptSection(seg1));
-  if (mini) sections.push({ type: "micro-check", questions: [toQuizQuestion(mini.item as Check, `mini-${lessonId}`, mini.result!.chunkIds)] });
+  if (checks[0]) sections.push(checkSection(checks[0], 0));
   if (seg2) sections.push(conceptSection(seg2));
-  if (micro) sections.push({ type: "micro-check", questions: [toQuizQuestion(micro.item as Check, `micro-${lessonId}`, micro.result!.chunkIds)] });
+  if (checks[1]) sections.push(checkSection(checks[1], 1));
   if (vocabMatch) sections.push(vocabMatch);
   if (scenario) {
     const sc = scenario.item as Scenario;
@@ -571,6 +584,8 @@ Deno.serve(async (req: Request): Promise<Response> => {
     });
   }
   if (seg3) sections.push(conceptSection(seg3));
+  // Any further quick checks (teacher asked for 3 or 4) go right before mastery.
+  checks.slice(2).forEach((s, i) => sections.push(checkSection(s, i + 2)));
 
   // Mastery check from the generated pool: only rows the teacher approved
   // (teacher_approved_at set), never grounding-failed rows, never rows
@@ -595,8 +610,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const pool = masteryQuestions.length;
   // 4 correct to pass; MasteryCheckRenderer draws `requiredCorrect` questions
   // adaptively from the pool so retries rotate through fresh questions.
-  const MASTERY_REQUIRED = 4;
-  const requiredCorrect = pool > 0 ? Math.min(pool, MASTERY_REQUIRED) : 0;
+  const requiredCorrect = pool > 0 ? Math.min(pool, settings.masteryRequired) : 0;
   if (pool > 0) {
     sections.push({ type: "mastery-check", questions: masteryQuestions, requiredCorrect });
   }
