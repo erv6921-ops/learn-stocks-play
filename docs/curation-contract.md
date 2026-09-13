@@ -154,6 +154,23 @@ Sets upload status to `lesson_synthesized` and merges lesson notes into
 section and each check question carries `coversKeys`, `sourceChunkIds`,
 `evidenceQuote`, `groundingStatus`.
 
+Lesson shape (the player runs Jeff's live conversation first, grounded on
+`jeffContext.excerpt`, which is now a teaching brief: teacher emphasis, then
+every verified concept and term, then source text):
+
+```
+slide 1 -> mini check-in -> slide 2 -> micro-check -> vocab match -> scenario -> slide 3 -> mastery check
+```
+
+- At most 3 `concept` slides, 1-2 short paragraphs each; emphasized topics get
+  them first. If more than 3 topics are emphasized, the rest are covered in
+  Jeff's conversation and the questions, and the coverage note says so.
+- `activity-check` / `vocab-match` is built in code from verified, non-trashed
+  vocabulary (3-5 pairs, emphasized first); it is omitted when fewer than 3
+  verified terms exist. No model call, so it needs no quote.
+- Any missing piece (no scenario, fewer slides) is simply skipped; the order
+  of the rest is unchanged.
+
 Error statuses common to all three: 400 bad body, 404 no chunks for the
 upload, 409 already extracted (extract only), 422 insufficient source,
 500 database error, 502 model or verification error. Error bodies are

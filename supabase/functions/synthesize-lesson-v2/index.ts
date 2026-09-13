@@ -76,8 +76,8 @@ const SYSTEM_PROMPT = `You are Jeff, a friendly financial-literacy mascot who te
 Write in Jeff's voice: warm, encouraging, plain-spoken, second person ("you"), high-school appropriate. Teach ONLY what the sources say. You may simplify the wording, but you may not add facts, numbers, names, or examples that are not in the sources.
 
 Produce a lesson with:
-- Teaching segments (each renders as its own tap-through slide). One idea per slide. Every TEACHER EMPHASIZED concept or objective gets its OWN segment, tagged with its key in "covers_keys". Use the segment budget given in the request; if the sources only support fewer segments, produce fewer.
-- Every TEACHER EMPHASIZED vocabulary term must be used (and, if the sources define it, explained) somewhere in the segment text.
+- AT MOST 3 teaching segments (each renders as its own short tap-through slide). Jeff teaches most of the material in a live conversation BEFORE these slides, so the slides are the 3 ideas most worth pinning down, not a full walkthrough. One idea per slide, 1 to 2 short paragraphs each. TEACHER EMPHASIZED concepts and objectives come first, each tagged with its key in "covers_keys"; if more than 3 are emphasized, give slides to the 3 most important and make sure the others appear in the check questions. If the sources only support fewer segments, produce fewer.
+- Every TEACHER EMPHASIZED vocabulary term must be used (and, if the sources define it, explained) somewhere in the segment or question text.
 - Never teach, define, or ask about a TEACHER TRASHED topic.
 - ONE "mini check-in": a single quick multiple-choice question to confirm understanding mid-lesson.
 - ONE "micro-check": a single short multiple-choice knowledge check.
@@ -396,10 +396,11 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const trashed = trashedItems(set.all);
   const trashedConceptIds = new Set(set.concepts.filter((c) => c.teacher_status === "trashed").map((c) => c.id));
 
-  // Segment budget: 3-6 normally, grown so every emphasized concept/objective
-  // can have its own slide (cap 10).
+  // Segment budget: at most 3 slides. Jeff's live conversation carries the
+  // bulk of the teaching; slides are interleaved with the checks to keep the
+  // pace up. Emphasized topics get the slides first.
   const emphasizedTopics = emphasized.filter((it) => it.type !== "vocabulary");
-  const maxSegments = Math.min(10, Math.max(6, emphasizedTopics.length + 2));
+  const maxSegments = 3;
 
   // --- Generate (per group when the source is very large) ------------------
   const block = buildSourceBlock(chunks);
@@ -416,7 +417,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       const partNote = groups.length > 1 ? `This is part ${g + 1} of ${groups.length} of the material. ` : "";
       const parsed = await groundedGenerate(anthropic, {
         system: SYSTEM_PROMPT,
-        user: `${partNote}Segment budget: write between 3 and ${budget} teaching segments.\n\n${gCuration}\n\nSOURCES:\n${gBlock.text}`,
+        user: `${partNote}Segment budget: write at most ${budget} teaching segment${budget === 1 ? "" : "s"} (fewer if the sources only support fewer).${emphasizedTopics.length > budget ? ` ${emphasizedTopics.length} topics are emphasized but only ${budget} slides are available: pick the ${budget} most important for slides and cover the rest in the check questions.` : ""}\n\n${gCuration}\n\nSOURCES:\n${gBlock.text}`,
         tag: `${tag}][group ${g + 1}`,
       });
       const part = normalizeSynth(parsed, knownKeys);
@@ -505,10 +506,14 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const mini = verifiedOf("mini")[0];
   const micro = verifiedOf("micro")[0];
   const scenario = verifiedOf("scenario")[0];
-  const midpoint = Math.max(1, Math.ceil(segs.length / 2));
-  segs.forEach((s, i) => {
+  // Order (after Jeff's live conversation, which the player runs first):
+  //   slide 1 -> mini check-in -> slide 2 -> micro-check -> vocab match ->
+  //   scenario -> slide 3 -> mastery check.
+  // Slides are interleaved with the checks so students never get a wall of
+  // reading; anything missing (fewer slides, no scenario) is simply skipped.
+  const conceptSection = (s: Slot) => {
     const seg = s.item as TeachingSegment;
-    sections.push({
+    return {
       type: "concept",
       title: seg.title,
       paragraphs: seg.paragraphs,
@@ -518,14 +523,40 @@ Deno.serve(async (req: Request): Promise<Response> => {
       sourceChunkIds: s.result!.chunkIds,
       evidenceQuote: seg.evidence_quote,
       groundingStatus: "verified",
-    });
-    if (i === midpoint - 1 && mini) {
-      sections.push({ type: "micro-check", questions: [toQuizQuestion(mini.item as Check, `mini-${lessonId}`, mini.result!.chunkIds)] });
-    }
-  });
-  if (micro) {
-    sections.push({ type: "micro-check", questions: [toQuizQuestion(micro.item as Check, `micro-${lessonId}`, micro.result!.chunkIds)] });
-  }
+    };
+  };
+
+  // A tap-to-match activity built in code from VERIFIED, non-trashed vocabulary
+  // (term + the definition the source gave). No model call, so it is grounded
+  // by construction. Emphasized terms first; 3-5 pairs.
+  // A term whose name matches a trashed concept stays out too, even if the
+  // teacher only trashed the concept row.
+  const trashedNames = new Set(trashed.map((it) => it.label.trim().toLowerCase()));
+  const vocabForMatch = [...usable.filter((it) => it.type === "vocabulary" && it.grounding_status === "verified" && it.detail.trim() && !trashedNames.has(it.label.trim().toLowerCase()))]
+    .sort((a, b) => (b.teacher_status === "emphasized" ? 1 : 0) - (a.teacher_status === "emphasized" ? 1 : 0))
+    .slice(0, 5);
+  const vocabMatch = vocabForMatch.length >= 3
+    ? {
+        type: "activity-check",
+        title: "Match the terms",
+        activity: {
+          kind: "vocab-match",
+          pairs: vocabForMatch.map((v) => ({ term: v.label, definition: v.detail.trim() })),
+          explanation: "These definitions come straight from your teacher's material.",
+        },
+        coversKeys: vocabForMatch.map((v) => v.key),
+        sourceChunkIds: [] as string[],
+        evidenceQuote: "",
+        groundingStatus: "verified",
+      }
+    : null;
+
+  const [seg1, seg2, seg3] = segs;
+  if (seg1) sections.push(conceptSection(seg1));
+  if (mini) sections.push({ type: "micro-check", questions: [toQuizQuestion(mini.item as Check, `mini-${lessonId}`, mini.result!.chunkIds)] });
+  if (seg2) sections.push(conceptSection(seg2));
+  if (micro) sections.push({ type: "micro-check", questions: [toQuizQuestion(micro.item as Check, `micro-${lessonId}`, micro.result!.chunkIds)] });
+  if (vocabMatch) sections.push(vocabMatch);
   if (scenario) {
     const sc = scenario.item as Scenario;
     sections.push({
@@ -539,6 +570,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       groundingStatus: "verified",
     });
   }
+  if (seg3) sections.push(conceptSection(seg3));
 
   // Mastery check from the generated pool: only rows the teacher approved
   // (teacher_approved_at set), never grounding-failed rows, never rows
@@ -644,8 +676,16 @@ Deno.serve(async (req: Request): Promise<Response> => {
     const dedicated = segs.some((s) => (s.item as TeachingSegment).covers_keys.includes(it.key));
     const inPool = it.type === "concept" ? poolRows.filter((g) => g.concept_id === it.id).length : 0;
     if (it.teacher_status === "emphasized") {
-      appendNote(e, dedicated ? "Lesson: has its own teaching section." : "Lesson: NO dedicated teaching section (sources did not support one).");
-      if (!dedicated) lessonShortfalls.push(`no dedicated section for "${it.label}"`);
+      if (dedicated) {
+        appendNote(e, "Lesson: has its own teaching slide.");
+      } else if (segs.length >= maxSegments && emphasizedTopics.length > maxSegments) {
+        // Not a source problem: the 3-slide cap ran out. Jeff's conversation
+        // and the check questions still cover it.
+        appendNote(e, `Lesson: no dedicated slide (only ${maxSegments} slides per lesson); covered in Jeff's conversation and the questions.`);
+      } else {
+        appendNote(e, "Lesson: NO dedicated teaching slide (sources did not support one).");
+        lessonShortfalls.push(`no dedicated slide for "${it.label}"`);
+      }
       if (it.type === "concept") {
         appendNote(e, `Mastery pool: ${inPool} question(s).`);
         if (inPool === 0) lessonShortfalls.push(`no mastery-pool question for "${it.label}"`);
@@ -673,13 +713,31 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
   await saveCoverageReport(supabase, uploadId, coverage);
 
-  // Jeff live-chat context: verified, non-trashed material + the usable source.
+  // Jeff live-chat context. The player runs Jeff's conversation BEFORE the
+  // slides and grounds it on `excerpt` (it reads the first ~3,500 chars), so
+  // the excerpt is a teaching brief, not a raw dump: the teacher's emphasis
+  // first, then every verified concept and term, then the source text itself.
+  // With only 3 slides, this is where most of the teaching happens.
   const sourceText = chunks.map((c) => c.content).join("\n\n");
+  const usableConcepts = usable.filter((it) => it.type === "concept");
+  const usableVocab = usable.filter((it) => it.type === "vocabulary" && !trashedNames.has(it.label.trim().toLowerCase()));
+  const usableObjectives = usable.filter((it) => it.type === "objective");
+  const line = (it: CurationItem) => (it.detail ? `${it.label}: ${it.detail}` : it.label);
+  const briefParts: string[] = [];
+  const emphasizedLines = [...usableConcepts, ...usableObjectives, ...usableVocab].filter((it) => it.teacher_status === "emphasized").map(line);
+  if (emphasizedLines.length) briefParts.push(`TEACHER'S EMPHASIS (teach these first and most thoroughly):\n- ${emphasizedLines.join("\n- ")}`);
+  if (usableObjectives.length) briefParts.push(`LEARNING OBJECTIVES:\n- ${usableObjectives.map(line).join("\n- ")}`);
+  if (usableConcepts.length) briefParts.push(`KEY IDEAS (use these exact terms):\n- ${usableConcepts.map(line).join("\n- ")}`);
+  if (usableVocab.length) briefParts.push(`VOCABULARY:\n- ${usableVocab.map(line).join("\n- ")}`);
+  const brief = briefParts.join("\n\n");
+  const EXCERPT_BUDGET = 3500;
+  const remaining = Math.max(600, EXCERPT_BUDGET - brief.length - 40);
+  const excerpt = `${brief}\n\nFROM THE MATERIAL:\n${sourceText.slice(0, remaining)}`.slice(0, EXCERPT_BUDGET + 500);
   const jeffContext = {
-    learningObjectives: usable.filter((it) => it.type === "objective").map((it) => it.label),
-    concepts: usable.filter((it) => it.type === "concept").map((it) => ({ name: it.label, definition: it.detail })),
-    vocabulary: usable.filter((it) => it.type === "vocabulary").map((it) => ({ term: it.label, definition: it.detail })),
-    excerpt: sourceText.slice(0, 4000),
+    learningObjectives: usableObjectives.map((it) => it.label),
+    concepts: usableConcepts.map((it) => ({ name: it.label, definition: it.detail })),
+    vocabulary: usableVocab.map((it) => ({ term: it.label, definition: it.detail })),
+    excerpt,
   };
 
   const verifiedCount = verifiedSlots.length;

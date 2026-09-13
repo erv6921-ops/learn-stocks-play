@@ -296,7 +296,30 @@ export default function TeacherLessonReview() {
                   </div>
                 );
               }
-              if (s.type === "micro-check" || s.type === "activity-check") {
+              if (s.type === "activity-check") {
+                const act = (s as unknown as { activity?: { kind?: string; pairs?: { term: string; definition: string }[] } }).activity;
+                return (
+                  <div key={i} className="space-y-2 rounded-lg border border-violet-100 bg-violet-50/40 p-4 dark:border-violet-900 dark:bg-violet-950/20">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Badge variant="outline" className="text-[11px]">
+                        Activity · {act?.kind === "vocab-match" ? "match the terms" : act?.kind ?? "activity"}
+                      </Badge>
+                      {s.groundingStatus && <GroundingBadge status={s.groundingStatus} />}
+                    </div>
+                    {act?.pairs?.length ? (
+                      <ul className="space-y-0.5 text-sm text-slate-700 dark:text-slate-300">
+                        {act.pairs.map((p, pi) => (
+                          <li key={pi}>
+                            <span className="font-medium">{p.term}</span> — {p.definition}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Built from your verified vocabulary; students tap each term to its definition.</p>
+                  </div>
+                );
+              }
+              if (s.type === "micro-check") {
                 const q = s.questions?.[0];
                 if (!q) return null;
                 checkIndex += 1;
