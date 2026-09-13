@@ -467,17 +467,30 @@ Deno.serve(async (req: Request): Promise<Response> => {
   // An upload that already has chunks is in (or past) teacher review. Only
   // re-extract on explicit request, because it discards the teacher's marks
   // and the previous extraction.
-  const { count: existingChunks } = await supabase
-    .from("curriculum_source_chunks")
-    .select("id", { count: "exact", head: true })
-    .eq("upload_id", uploadId);
-  if (existingChunks && existingChunks > 0) {
+  // "Already extracted" means chunks (v2) OR concepts (v1 legacy) exist: a v1
+  // upload has no chunks but must still be reset, not appended to.
+  const [{ count: existingChunks }, { count: existingConcepts }] = await Promise.all([
+    supabase.from("curriculum_source_chunks").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
+    supabase.from("concepts").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
+  ]);
+  if ((existingChunks ?? 0) > 0 || (existingConcepts ?? 0) > 0) {
     if (body.reextract !== true) {
       return fail(
         ["This upload is already extracted and awaiting teacher review. Pass reextract: true to start over (teacher marks will be reset)."],
         409,
-        { chunksCount: existingChunks },
+        { chunksCount: existingChunks ?? 0 },
       );
+    }
+    // Question rows (v1 or v2) point at concepts via concept_id with no
+    // cascade. Detach them first so the old concepts can be replaced; the
+    // rows themselves are kept (generate-questions-v2 replaces unapproved ones).
+    const { error: detachErr } = await supabase
+      .from("generated_questions")
+      .update({ concept_id: null })
+      .eq("upload_id", uploadId);
+    if (detachErr) {
+      await markStatus(supabase, uploadId, { status: "extraction_failed" });
+      return fail([`Could not detach existing questions: ${detachErr.message}`], 500);
     }
     for (const table of ["vocabulary", "learning_objectives", "concepts", "curriculum_source_chunks"]) {
       const { error } = await supabase.from(table).delete().eq("upload_id", uploadId);

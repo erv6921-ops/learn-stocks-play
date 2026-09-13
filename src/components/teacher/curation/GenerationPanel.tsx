@@ -35,6 +35,12 @@ export interface GenerationPanelProps {
   onCountsChange: (c: ApprovalCounts) => void;
   /** Bumped after generation so the approval panel reloads. */
   panelKey: number;
+  /** Upload has no source pages (extracted by v1): must re-verify before anything else. */
+  needsVerification: boolean;
+  /** Existing questions were generated before verification (no quotes). */
+  legacyQuestions: boolean;
+  upgrading: boolean;
+  onUpgrade: () => void;
 }
 
 const Stat: React.FC<{ label: string; value: number; tone?: "ok" | "warn" | "muted" }> = ({ label, value, tone = "muted" }) => (
@@ -68,11 +74,37 @@ export const GenerationPanel: React.FC<GenerationPanelProps> = ({
   onBuildLesson,
   onCountsChange,
   panelKey,
+  needsVerification,
+  legacyQuestions,
+  upgrading,
+  onUpgrade,
 }) => {
   const navigate = useNavigate();
   const hasQuestions = !!questionStats && questionStats.total > 0;
   const approved = questionStats?.approved ?? 0;
-  const busy = generating || building;
+  const busy = generating || building || upgrading;
+
+  // A v1 upload has no source pages, so nothing can be verified or generated
+  // until it is re-extracted. Show only that step.
+  if (needsVerification) {
+    return (
+      <div className="flex flex-wrap items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 p-4 dark:border-amber-700 dark:bg-amber-950/40">
+        <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
+        <div className="min-w-0 flex-1 space-y-1">
+          <p className="text-sm font-semibold text-amber-900 dark:text-amber-100">This upload was made before source verification.</p>
+          <p className="text-xs text-amber-800 dark:text-amber-200">
+            Its page text was never stored, so questions can&apos;t be checked against your material yet. Run verification once: the
+            concepts, terms and objectives above are re-extracted with a quote and page number each, and your marks reset.
+            {hasQuestions ? " The existing questions stay until you regenerate them." : ""}
+          </p>
+        </div>
+        <Button onClick={onUpgrade} disabled={busy} className="bg-amber-600 text-white hover:bg-amber-700">
+          {upgrading ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <ShieldCheck className="mr-1.5 h-4 w-4" />}
+          {upgrading ? "Verifying your material…" : "Verify against your material"}
+        </Button>
+      </div>
+    );
+  }
   const reasons = (upload.insufficient_source_reason ?? "")
     .split("\n")
     .map((s) => s.trim())
@@ -126,6 +158,22 @@ export const GenerationPanel: React.FC<GenerationPanelProps> = ({
       {/* After generation */}
       {hasQuestions && questionStats && (
         <div className="space-y-5">
+          {legacyQuestions && (
+            <div className="flex flex-wrap items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 p-3 dark:border-amber-700 dark:bg-amber-950/40">
+              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
+              <div className="min-w-0 flex-1 space-y-0.5">
+                <p className="text-sm font-semibold text-amber-900 dark:text-amber-100">These questions were written before source verification.</p>
+                <p className="text-xs text-amber-800 dark:text-amber-200">
+                  None of them carry a quote from your material, so none can be checked. Regenerate to get questions built from your
+                  marks with a verified quote and page number each. Questions you already approved are kept.
+                </p>
+              </div>
+              <Button size="sm" onClick={() => onGenerate(true)} disabled={busy} className="bg-amber-600 text-white hover:bg-amber-700">
+                {generating ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="mr-1.5 h-3.5 w-3.5" />}
+                Regenerate with verification
+              </Button>
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
             <Stat label="Questions generated" value={questionStats.total} />
             <Stat label="Found in source" value={questionStats.verified} tone="ok" />

@@ -60,6 +60,8 @@ export interface UploadRow {
   status: string | null;
   coverage_report: CoverageEntry[] | null;
   insufficient_source_reason: string | null;
+  /** Joined text from the original (v1) upload; used to re-verify legacy uploads. */
+  extracted_text?: string | null;
 }
 
 export interface LessonRow {

@@ -19,6 +19,7 @@ import {
   type ChunkRow,
   type ConceptRow,
   type CurationTable,
+  type ExtractResponse,
   type GenerateResponse,
   type LessonRow,
   type ObjectiveRow,
@@ -90,7 +91,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       setError("");
       try {
         const [uRes, cRes, vRes, oRes, chRes, qRes, lRes] = await Promise.all([
-          db.from("curriculum_uploads").select("id, file_name, status, coverage_report, insufficient_source_reason").eq("id", uploadId).maybeSingle(),
+          db.from("curriculum_uploads").select("id, file_name, status, coverage_report, insufficient_source_reason, extracted_text").eq("id", uploadId).maybeSingle(),
           db.from("concepts").select("id, name, definition, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("created_at", { ascending: true }),
           db.from("vocabulary").select("id, term, definition, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("id", { ascending: true }),
           db.from("learning_objectives").select("id, objective, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("id", { ascending: true }),
@@ -272,6 +273,48 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
 
   const onCountsChange = useCallback((c: ApprovalCounts) => setQuestionStats(c.total > 0 ? c : null), []);
 
+  // --- Legacy upload (extracted by v1: no source pages) --------------------
+  // Re-run extract-curriculum-v2 on the stored text so every item gets a
+  // verified citation. Old concepts/vocab/objectives are replaced; old
+  // question rows are kept (detached) until the teacher regenerates.
+  const [upgrading, setUpgrading] = useState(false);
+  const needsVerification = chunks.length === 0;
+  const upgrade = useCallback(async () => {
+    const text = (upload?.extracted_text ?? "").trim();
+    if (!text) {
+      toast({
+        title: "No stored text for this upload",
+        description: "Upload the PDF again from the Upload Curriculum page to extract it with verification.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setUpgrading(true);
+    try {
+      const { status, data } = await callFunction<ExtractResponse>("extract-curriculum-v2", {
+        uploadId,
+        extractedText: text,
+        reextract: true,
+      });
+      if (status === 422) {
+        throw new Error(data?.insufficientSourceReason || data?.errors?.join(" • ") || "Not enough readable text.");
+      }
+      if (!data?.success) throw new Error(functionError(status, data, "Verification failed"));
+      toast({
+        title: "Verified against your material",
+        description: `${data.conceptsCount ?? 0} concepts · ${data.vocabularyCount ?? 0} terms · ${data.objectivesCount ?? 0} objectives · ${data.verifiedCount ?? 0} found in source${data.failedCount ? ` · ${data.failedCount} not found` : ""}. Mark what matters, then regenerate the questions.`,
+      });
+      snapshotRef.current = null; // new items: take a fresh baseline on reload
+      await load({ silent: true });
+    } catch (err) {
+      toast({ title: "Couldn't verify this upload", description: err instanceof Error ? err.message : "Please try again.", variant: "destructive" });
+    } finally {
+      setUpgrading(false);
+    }
+  }, [upload, uploadId, load, toast]);
+
+  const legacyQuestions = !!questionStats && questionStats.total > 0 && questionStats.verified === 0 && questionStats.failed === 0;
+
   // --- Render --------------------------------------------------------------
   if (loading) {
     return (
@@ -410,6 +453,10 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
             onBuildLesson={() => void buildLesson()}
             onCountsChange={onCountsChange}
             panelKey={panelKey}
+            needsVerification={needsVerification}
+            legacyQuestions={legacyQuestions}
+            upgrading={upgrading}
+            onUpgrade={() => void upgrade()}
           />
         </CardContent>
       </Card>
