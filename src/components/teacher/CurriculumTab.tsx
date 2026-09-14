@@ -4,6 +4,13 @@ import { supabase } from "@/integrations/supabase/client";
 import TeacherUploadCurriculum from "@/pages/TeacherUploadCurriculum";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import {
@@ -15,6 +22,8 @@ import {
   AlertCircle,
   RefreshCw,
   Inbox,
+  MessageCircle,
+  Users,
 } from "lucide-react";
 
 // ---------------------------------------------------------------------------
@@ -31,6 +40,15 @@ interface CurriculumUpload {
   conceptsCount: number;
   vocabularyCount: number;
   objectivesCount: number;
+  /** Chat with Jeff: sections currently fed to the tutor (null = not fed). */
+  jeffChunkCount: number | null;
+  /** Chat with Jeff: when the material was last fed (null = not fed). */
+  jeffIngestedAt: string | null;
+}
+
+interface TeacherClass {
+  id: string;
+  name: string;
 }
 
 // PostgREST aggregate embeds come back as `[{ count: N }]`.
@@ -39,6 +57,8 @@ interface RawUploadRow {
   file_name: string;
   status: UploadStatus;
   created_at: string;
+  jeff_chunk_count?: number | null;
+  jeff_ingested_at?: string | null;
   concepts?: { count: number }[] | null;
   vocabulary?: { count: number }[] | null;
   learning_objectives?: { count: number }[] | null;
@@ -64,6 +84,40 @@ const fmtDate = (iso: string): string =>
 
 const firstCount = (agg?: { count: number }[] | null): number =>
   Array.isArray(agg) && agg.length > 0 ? agg[0].count : 0;
+
+const fmtDay = (iso: string): string =>
+  new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+/**
+ * Turn whatever supabase.functions.invoke() hands back for a failed
+ * ingest-curriculum-chunks call into one plain sentence a teacher can act on.
+ * Never surfaces the raw error string.
+ */
+async function readableJeffError(err: unknown, mode: "feed" | "remove"): Promise<string> {
+  const fallback = mode === "feed"
+    ? "Jeff couldn't take this material right now. Please try again in a moment."
+    : "Couldn't remove this material from Jeff right now. Please try again.";
+  const ctx = (err as { context?: unknown } | null)?.context;
+  if (ctx instanceof Response) {
+    let serverMsg = "";
+    try {
+      const body = (await ctx.clone().json()) as { error?: unknown };
+      if (typeof body?.error === "string") serverMsg = body.error;
+    } catch {
+      /* not JSON */
+    }
+    if (ctx.status === 401 || ctx.status === 403) return "You can only feed Jeff from your own uploads and classes. Try signing in again.";
+    if (ctx.status === 422 || /no extracted text|no usable text/i.test(serverMsg)) {
+      return "This upload has no readable text yet. Extract it first, then feed it to Jeff.";
+    }
+    if (ctx.status === 410) return "This upload was deleted.";
+    if (ctx.status === 400) return "Something about this request wasn't right. Refresh the page and try again.";
+    return fallback;
+  }
+  const msg = err instanceof Error ? err.message : "";
+  if (/fetch|network|Failed to send/i.test(msg)) return "Couldn't reach the server. Check your connection and try again.";
+  return fallback;
+}
 
 const StatusBadge: React.FC<{ status: UploadStatus }> = ({ status }) => {
   const map: Record<string, { label: string; cls: string }> = {
@@ -107,6 +161,11 @@ export const CurriculumTab: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  // Chat with Jeff: the teacher's classes (ingest needs a class), the upload
+  // currently being fed/removed, and the upload waiting on a class choice.
+  const [classes, setClasses] = useState<TeacherClass[]>([]);
+  const [jeffBusy, setJeffBusy] = useState<{ id: string; mode: "feed" | "remove" } | null>(null);
+  const [classPickFor, setClassPickFor] = useState<CurriculumUpload | null>(null);
 
   const fetchUploads = useCallback(async () => {
     setLoading(true);
@@ -120,7 +179,7 @@ export const CurriculumTab: React.FC = () => {
       const { data, error: qErr } = await db
         .from("curriculum_uploads")
         .select(
-          "id, file_name, status, created_at, concepts(count), vocabulary(count), learning_objectives(count)",
+          "id, file_name, status, created_at, jeff_chunk_count, jeff_ingested_at, concepts(count), vocabulary(count), learning_objectives(count)",
         )
         .eq("teacher_id", userData.user.id)
         .neq("status", "deleted")
@@ -137,9 +196,21 @@ export const CurriculumTab: React.FC = () => {
           conceptsCount: firstCount(r.concepts),
           vocabularyCount: firstCount(r.vocabulary),
           objectivesCount: firstCount(r.learning_objectives),
+          jeffChunkCount: typeof r.jeff_chunk_count === "number" ? r.jeff_chunk_count : null,
+          jeffIngestedAt: r.jeff_ingested_at ?? null,
         }),
       );
       setUploads(rows);
+
+      // Classes this teacher owns (same query shape as the dashboard). A
+      // failure here only disables "Feed to Jeff"; the upload list still shows.
+      const { data: classRows, error: cErr } = await db
+        .from("classes")
+        .select("id, name")
+        .eq("teacher_id", userData.user.id)
+        .order("created_at", { ascending: false });
+      if (cErr) console.error("Failed to load classes for Feed to Jeff:", cErr.message);
+      setClasses(((classRows as TeacherClass[] | null) ?? []).filter((c) => c.id && c.name));
     } catch (err) {
       console.error("Failed to load curriculum uploads:", err);
       setError(
@@ -191,11 +262,97 @@ export const CurriculumTab: React.FC = () => {
     [toast],
   );
 
+  // Update one upload's Jeff status in place - no refetch, so the list doesn't
+  // flash and the teacher keeps their scroll position.
+  const patchUpload = useCallback((id: string, patch: Partial<CurriculumUpload>) => {
+    setUploads((prev) => prev.map((u) => (u.id === id ? { ...u, ...patch } : u)));
+  }, []);
+
+  const feedToJeff = useCallback(
+    async (upload: CurriculumUpload, cls: TeacherClass) => {
+      setClassPickFor(null);
+      setJeffBusy({ id: upload.id, mode: "feed" });
+      try {
+        const { data, error: fnErr } = await supabase.functions.invoke("ingest-curriculum-chunks", {
+          body: { upload_id: upload.id, class_id: cls.id },
+        });
+        if (fnErr) throw fnErr;
+        const res = data as { success?: boolean; chunk_count?: number; ingested_at?: string } | null;
+        if (!res?.success || typeof res.chunk_count !== "number") {
+          throw new Error("Unexpected response");
+        }
+        patchUpload(upload.id, {
+          jeffChunkCount: res.chunk_count,
+          jeffIngestedAt: res.ingested_at ?? new Date().toISOString(),
+        });
+        toast({
+          title: "Fed to Jeff",
+          description: `${upload.file_name} · ${res.chunk_count} section${res.chunk_count === 1 ? "" : "s"} now answer ${cls.name}'s questions.`,
+        });
+      } catch (err) {
+        console.error("Feed to Jeff failed:", err);
+        toast({
+          title: "Couldn't feed this to Jeff",
+          description: await readableJeffError(err, "feed"),
+          variant: "destructive",
+        });
+      } finally {
+        setJeffBusy(null);
+      }
+    },
+    [patchUpload, toast],
+  );
+
+  const removeFromJeff = useCallback(
+    async (upload: CurriculumUpload) => {
+      setJeffBusy({ id: upload.id, mode: "remove" });
+      try {
+        const { data, error: fnErr } = await supabase.functions.invoke("ingest-curriculum-chunks", {
+          body: { upload_id: upload.id, action: "remove" },
+        });
+        if (fnErr) throw fnErr;
+        if (!(data as { success?: boolean } | null)?.success) throw new Error("Unexpected response");
+        patchUpload(upload.id, { jeffChunkCount: null, jeffIngestedAt: null });
+        toast({ title: "Removed from Jeff", description: `Jeff no longer answers from ${upload.file_name}.` });
+      } catch (err) {
+        console.error("Remove from Jeff failed:", err);
+        toast({
+          title: "Couldn't remove from Jeff",
+          description: await readableJeffError(err, "remove"),
+          variant: "destructive",
+        });
+      } finally {
+        setJeffBusy(null);
+      }
+    },
+    [patchUpload, toast],
+  );
+
+  // Feed / Re-feed entry point: one class -> go; several -> ask which.
+  const startFeed = useCallback(
+    (upload: CurriculumUpload) => {
+      if (classes.length === 0) {
+        toast({
+          title: "Create a class first",
+          description: "Jeff answers per class, so the material needs a class to belong to.",
+          variant: "destructive",
+        });
+        return;
+      }
+      if (classes.length === 1) {
+        void feedToJeff(upload, classes[0]);
+        return;
+      }
+      setClassPickFor(upload);
+    },
+    [classes, feedToJeff, toast],
+  );
+
   return (
     <div className="space-y-8">
       {/* Upload form */}
       <section>
-        <h3 className="mb-3 text-base font-semibold text-slate-900">
+        <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-slate-100">
           Upload new curriculum
         </h3>
         <TeacherUploadCurriculum embedded onExtracted={fetchUploads} />
@@ -204,7 +361,7 @@ export const CurriculumTab: React.FC = () => {
       {/* Upload history */}
       <section>
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-base font-semibold text-slate-900">
+          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
             Upload history
           </h3>
           <Button
@@ -218,6 +375,13 @@ export const CurriculumTab: React.FC = () => {
             Refresh
           </Button>
         </div>
+        <p className="mb-3 flex items-start gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+          <MessageCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
+          <span>
+            <span className="font-medium text-slate-700 dark:text-slate-200">Feed to Jeff:</span>{" "}
+            material you feed to Jeff is used to answer that class's Chat with Jeff questions, and only students in that class can see it.
+          </span>
+        </p>
 
         {/* Loading */}
         {loading && (
@@ -273,7 +437,7 @@ export const CurriculumTab: React.FC = () => {
                     </div>
                     <div className="min-w-0 space-y-1">
                       <div className="flex items-center gap-2">
-                        <p className="truncate text-sm font-medium text-slate-900">
+                        <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
                           {u.file_name}
                         </p>
                         <StatusBadge status={u.status} />
@@ -285,10 +449,61 @@ export const CurriculumTab: React.FC = () => {
                         {u.conceptsCount} concepts • {u.vocabularyCount} vocabulary •{" "}
                         {u.objectivesCount} objectives
                       </p>
+                      {/* Chat with Jeff status */}
+                      {u.jeffIngestedAt ? (
+                        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+                          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
+                            <MessageCircle className="h-3 w-3" />
+                            In Jeff · {u.jeffChunkCount ?? 0} section{u.jeffChunkCount === 1 ? "" : "s"}
+                          </span>
+                          <span className="text-slate-400 dark:text-slate-500">fed {fmtDay(u.jeffIngestedAt)}</span>
+                          <button
+                            type="button"
+                            onClick={() => startFeed(u)}
+                            disabled={jeffBusy?.id === u.id}
+                            className="font-medium text-emerald-700 underline-offset-2 hover:underline disabled:opacity-50 dark:text-emerald-400"
+                          >
+                            {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? "Re-feeding…" : "Re-feed"}
+                          </button>
+                          <span className="text-slate-300 dark:text-slate-600">·</span>
+                          <button
+                            type="button"
+                            onClick={() => void removeFromJeff(u)}
+                            disabled={jeffBusy?.id === u.id}
+                            className="font-medium text-slate-500 underline-offset-2 hover:text-red-600 hover:underline disabled:opacity-50 dark:text-slate-400 dark:hover:text-red-400"
+                          >
+                            {jeffBusy?.id === u.id && jeffBusy.mode === "remove" ? "Removing…" : "Remove from Jeff"}
+                          </button>
+                        </p>
+                      ) : (
+                        <p className="text-xs text-slate-400 dark:text-slate-500">Not in Jeff yet</p>
+                      )}
                     </div>
                   </div>
 
-                  <div className="flex shrink-0 items-center gap-2 self-end sm:self-auto">
+                  <div className="flex shrink-0 flex-wrap items-center gap-2 self-end sm:self-auto sm:justify-end">
+                    {!u.jeffIngestedAt && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => startFeed(u)}
+                        disabled={jeffBusy?.id === u.id || u.status === "pending" || u.status === "extraction_failed"}
+                        title={u.status === "extraction_failed" || u.status === "pending" ? "Extract the PDF's text first" : undefined}
+                        className="border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300 dark:hover:bg-emerald-950/50"
+                      >
+                        {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? (
+                          <>
+                            <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                            Feeding Jeff…
+                          </>
+                        ) : (
+                          <>
+                            <MessageCircle className="mr-1.5 h-3.5 w-3.5" />
+                            Feed to Jeff
+                          </>
+                        )}
+                      </Button>
+                    )}
                     <Button
                       size="sm"
                       variant="outline"
@@ -329,6 +544,32 @@ export const CurriculumTab: React.FC = () => {
         )}
       </section>
 
+      {/* Which class should Jeff answer for? Only shown when the teacher has
+          more than one class; a single class is used without asking. */}
+      <Dialog open={classPickFor !== null} onOpenChange={(o) => { if (!o) setClassPickFor(null); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Feed to Jeff for which class?</DialogTitle>
+            <DialogDescription>
+              {classPickFor?.file_name ? `"${classPickFor.file_name}" will ` : "This material will "}
+              only be used to answer questions from students in the class you pick.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-2">
+            {classes.map((c) => (
+              <Button
+                key={c.id}
+                variant="outline"
+                className="h-auto justify-start gap-2 px-3 py-2.5 text-left"
+                onClick={() => { if (classPickFor) void feedToJeff(classPickFor, c); }}
+              >
+                <Users className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                <span className="truncate font-medium">{c.name}</span>
+              </Button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
