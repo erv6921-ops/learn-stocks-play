@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 import { MessageCircle } from "lucide-react"
 import { useApp } from "@/contexts/AppContext"
+import { useAuth } from "@/hooks/useAuth"
 import { useJeff, JeffActivity } from "@/contexts/JeffContext"
 import { useJeffSolo } from "@/stores/jeffSoloStore"
 import { JeffMascot } from "./JeffMascot"
@@ -86,6 +87,10 @@ export function JeffScene({ activity }: { activity: JeffActivity }) {
 export function JeffWidget() {
   const location = useLocation()
   const { user } = useApp()
+  // Server-side role (user_roles) - the same check App.tsx and the global
+  // notification widgets use. Resolves a beat after mount, so the cached
+  // profile role below covers the first render.
+  const { isTeacher: hasTeacherRole } = useAuth()
   const { mood, message, visible, activity, nudge, dismiss } = useJeff()
   const sidekickActive = useJeffSolo(s => s.sidekickActive)
   const [hovered, setHovered] = useState(false)
@@ -106,6 +111,12 @@ export function JeffWidget() {
   // Hide the global corner Jeff while the Biz Lab's own large side Jeff is up,
   // so there's only ever one Jeff on screen.
   if (sidekickActive) return null
+
+  // The tutor is a student feature (coins, class material, daily limit).
+  // Teachers keep the roaming mascot but never see the launcher. Either
+  // signal hides it: the user_roles row (useAuth) or the profile role that
+  // AppRoutes uses for teacher routing.
+  const isTeacher = hasTeacherRole || user.role === "teacher"
 
   const cont = containerAnim(activity, dims.w, dims.h)
   const isFlip = activity === "flip"
@@ -134,7 +145,10 @@ export function JeffWidget() {
     <>
     {/* Chat launcher - parked to Jeff's LEFT (his speech bubble pops up above
         him, so above would get covered). Stays put while he roams. z-40 like
-        the mascot: above page content, below the z-50 sheet/dialog layer. */}
+        the mascot: above page content, below the z-50 sheet/dialog layer.
+        Students only: the panel is not mounted at all for teachers. */}
+    {!isTeacher && (
+    <>
     <motion.button
       type="button"
       aria-label="Chat with Jeff"
@@ -150,6 +164,8 @@ export function JeffWidget() {
       Ask Jeff
     </motion.button>
     <JeffTutorPanel open={chatOpen} onOpenChange={setChatOpen} />
+    </>
+    )}
 
     <motion.div
       className={`fixed bottom-6 right-6 flex flex-col items-end pointer-events-none ${isParty ? "z-50" : "z-40"}`}
