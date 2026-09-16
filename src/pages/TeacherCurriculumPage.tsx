@@ -73,6 +73,8 @@ const TeacherCurriculumPage: React.FC = () => {
   const [dragging, setDragging] = useState(false);
   /** Set when the server answered 409: the file was extracted before. */
   const [reextractPrompt, setReextractPrompt] = useState<{ uploadId: string } | null>(null);
+  /** Shown above the dropzone when an existing row needs its PDF chosen again (pending / failed, no pages). */
+  const [notice, setNotice] = useState<string | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
   // Set right before this page rewrites its own URL (runExtraction / reset),
@@ -123,18 +125,21 @@ const TeacherCurriculumPage: React.FC = () => {
       setFileName(data.file_name ?? "");
       setUploadId(data.id);
       if (REVIEWABLE_STATUSES.has(data.status ?? "")) {
+        trace("route effect -> review (status", data.status, ")");
         setPhase("review");
-      } else if (data.status === "extraction_failed") {
-        setErrorMsg("The last extraction of this file failed. Upload the PDF again to retry.");
-        setErrorKind("generic");
-        setPhase("error");
       } else {
-        // 'pending': the row exists but nothing was extracted (the request
-        // was interrupted). Ask for the file again.
-        trace("route effect -> ERROR 'was never extracted' (status", data.status, ")");
-        setErrorMsg("This upload was never extracted. Choose the PDF again to extract it.");
-        setErrorKind("generic");
-        setPhase("error");
+        // 'pending' (the first request never finished) or 'extraction_failed':
+        // the row has no pages. Not a dead end: show the dropzone with a
+        // notice, keep the row id, and extract the chosen PDF INTO this row.
+        trace("route effect -> idle with notice (status", data.status, "), row kept for re-use");
+        setNotice(
+          data.status === "extraction_failed"
+            ? `The last extraction of "${data.file_name ?? "this file"}" failed. Choose the PDF again to retry; it will be extracted into this same upload.`
+            : `"${data.file_name ?? "This upload"}" was never extracted. Choose the PDF again; it will be extracted into this same upload.`,
+        );
+        setPages([]);
+        setExtractedText("");
+        setPhase("idle");
       }
     })();
     return () => {
@@ -217,6 +222,7 @@ const TeacherCurriculumPage: React.FC = () => {
     async function runExtraction(opts: { reextract?: boolean; uploadId?: string } = {}): Promise<void> {
       trace("runExtraction START", opts, "| instance", instanceRef.current, "| routeUploadId", routeUploadId, "| uploadId state", uploadId, "| pages", pages.length);
       if (pages.length === 0) return;
+      setNotice(null);
       setErrorMsg("");
       setErrorKind("generic");
       setReextractPrompt(null);
@@ -241,6 +247,11 @@ const TeacherCurriculumPage: React.FC = () => {
             .limit(1)
             .maybeSingle();
           id = existing?.id ?? null;
+        }
+        if (id) {
+          // Re-using a row (a dead 'pending' / failed row opened directly, or
+          // the 409 path): keep its name and text in step with the chosen file.
+          await db.from("curriculum_uploads").update({ file_name: fileName || "upload.pdf", extracted_text: extractedText }).eq("id", id);
         }
         if (!id) {
           const { data: upload, error: insertError } = await db
@@ -308,7 +319,7 @@ const TeacherCurriculumPage: React.FC = () => {
         trace("runExtraction success -> phase review");
         setPhase("review");
       } catch (err) {
-        trace("runExtraction CATCH", err instanceof Error ? err.message : err);
+        trace("runExtraction CATCH -> ERROR card (this is the only remaining writer of the error card besides 'row not found')", err instanceof Error ? err.message : err);
         console.error("Extraction failed:", err);
         setErrorMsg(err instanceof Error ? err.message : "Something went wrong during extraction.");
         setPhase("error");
@@ -327,8 +338,10 @@ const TeacherCurriculumPage: React.FC = () => {
     setErrorKind("generic");
     setUploadId(null);
     setReextractPrompt(null);
+    setNotice(null);
     if (inputRef.current) inputRef.current.value = "";
     selfNavigatedRef.current = null;
+    trace("reset -> idle, navigating to /teacher/curriculum");
     if (routeUploadId) navigate("/teacher/curriculum", { replace: true });
   }, [routeUploadId, navigate]);
 
@@ -383,6 +396,17 @@ const TeacherCurriculumPage: React.FC = () => {
               <CardDescription>Drag &amp; drop a file, or click to browse. Text is extracted in your browser.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
+              {notice && (
+                <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                  <div className="min-w-0 flex-1 space-y-1">
+                    <p>{notice}</p>
+                    <button type="button" onClick={reset} className="font-medium underline underline-offset-2 hover:text-amber-700">
+                      Or start a brand-new upload instead
+                    </button>
+                  </div>
+                </div>
+              )}
               <div
                 role="button"
                 tabIndex={0}
@@ -415,7 +439,7 @@ const TeacherCurriculumPage: React.FC = () => {
                 </div>
               </div>
 
-              {fileName && phase !== "idle" && (
+              {fileName && phase !== "idle" && pages.length > 0 && (
                 <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900">
                   <div className="flex min-w-0 items-center gap-2">
                     <FileText className="h-4 w-4 shrink-0 text-emerald-600" />

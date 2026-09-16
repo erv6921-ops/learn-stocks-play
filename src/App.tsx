@@ -184,8 +184,8 @@ function AppRoutes() {
       <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
       <Route path="/teacher/student/:userId" element={<StudentWork />} />
       {/* Teacher curriculum: upload -> progress -> tabbed review -> build/preview/approve/assign, one page. */}
-      <Route path="/teacher/curriculum" element={<TeacherCurriculumPage />} />
-      <Route path="/teacher/curriculum/:uploadId" element={<TeacherCurriculumPage />} />
+      {/* One route with an optional param: the page rewrites its own URL to add the id and must stay mounted. */}
+      <Route path="/teacher/curriculum/:uploadId?" element={<TeacherCurriculumPage />} />
       {/* Old entry point (kept for bookmarks / older links). */}
       <Route path="/teacher/upload" element={<LegacyUploadRedirect />} />
       <Route path="/teacher/assign-lesson" element={<AssignLessonPage />} />
