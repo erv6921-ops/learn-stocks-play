@@ -470,6 +470,24 @@ an item belongs to every sub-lesson that owns a chunk in its
 both, with one shared `teacher_status`. Items with no citation (grounding
 failed) belong to no sub-lesson; the UI shows them in a "Not placed" group.
 
+### 8.1a Chunk selection for generation
+
+Neither generator sends a whole document to the model. `selectChunks()` in
+`_shared/grounding.ts` picks the passages one call may see, in document
+order, capped at 30,000 characters: (1) chunks cited by the items the call
+is about (emphasized items first; an item with no citation falls back to a
+keyword match on its name and definition), (2) every teacher-emphasized
+chunk, (3) the rest ranked by how many items cite them, then by keyword
+match to the teacher instructions, then (lesson only) by how many figures
+they contain, then document order. Trashed chunks are never candidates.
+
+generate-questions-v2 splits the sub-lesson's usable items into batches of
+six (emphasized first), runs one generation call and one verification call
+per batch over that batch's selection, and uses the same selection for the
+emphasis top-up. synthesize-lesson-v2 makes one call over the selection for
+the emphasized items with the figure preference on; Jeff's brief is built
+from the same passages.
+
 ### 8.2 Generation
 
 `generate-questions-v2` and `synthesize-lesson-v2` accept `subLessonId` and

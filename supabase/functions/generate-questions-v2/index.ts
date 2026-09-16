@@ -38,11 +38,9 @@ import {
   emphasizedItems,
   formatFailures,
   groundedGenerate,
-  groupChunks,
   isRecord,
   loadChunks,
   loadCurationSet,
-  MAX_SOURCE_CHARS,
   questionTarget,
   readInsufficient,
   recordInsufficientSource,
@@ -64,6 +62,9 @@ import {
   mergeInstructionCoverage,
   resolveSubLesson,
   type SubLessonRow,
+  selectChunks,
+  batchItems,
+  subsetOf,
 } from "../_shared/grounding.ts";
 
 // ---------------------------------------------------------------------------
@@ -265,16 +266,6 @@ function toGrounded(slot: Slot): GroundedItem {
   };
 }
 
-/** Re-labels a group-local S-id to the global block's S-id for the same chunk. */
-function relabelSids(ids: string[], local: SourceBlock, global: SourceBlock): string[] {
-  return ids.map((sid) => {
-    const chunkId = local.sidToChunkId[sid];
-    const g = Object.keys(global.sidToChunkId).find((k) => global.sidToChunkId[k] === chunkId);
-    return g ?? sid;
-  });
-}
-
-/** Runs quote check -> support check -> ONE repair pass on the failed slots. */
 async function verifyWithRetry(
   slots: Slot[],
   block: SourceBlock,
@@ -501,53 +492,57 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const emphasisMinimum = emphasized.reduce((n, it) => n + questionTarget(it), 0);
   const requested = Math.min(MAX_QUESTIONS, Math.max(bankSize, emphasisMinimum + 5));
 
-  // --- Generate (per group when the source is very large) ------------------
-  const block = buildSourceBlock(chunks);
-  const curation = renderCurationPrompt(set, block, { questionMinimums: true });
-  const groups = block.totalChars > MAX_SOURCE_CHARS ? groupChunks(chunks) : [chunks];
-  const perGroup = Math.ceil(requested / groups.length);
+  // --- Generate per item batch, each over ONLY the chunks those items cite --
+  // (NotebookLM-style: the item guide is the index, citations are the
+  // pointers). Emphasized items lead the first batches. With no items at all
+  // the ranking falls back to emphasized pages, then document order, capped.
+  const instructionQuery = teacherInstructions.subLesson ?? teacherInstructions.upload ?? null;
+  const withTrashed = (items: CurationItem[]) => subsetOf(set, [...items, ...trashed]);
+  const batches = usable.length > 0 ? batchItems(usable) : [[] as CurationItem[]];
+  const perBatch = Math.max(3, Math.ceil(requested / batches.length));
 
   const slots: Slot[] = [];
   const insufficientReasons: string[] = [];
   let droppedTrashed = 0;
   try {
-    for (let g = 0; g < groups.length; g++) {
-      const gBlock = groups.length === 1 ? block : buildSourceBlock(groups[g]);
-      const partNote = groups.length > 1 ? `This is part ${g + 1} of ${groups.length} of the material. ` : "";
-      const gCuration = groups.length === 1 ? curation : renderCurationPrompt(set, gBlock, { questionMinimums: true });
+    for (let b = 0; b < batches.length; b++) {
+      const batch = batches[b];
+      const bChunks = selectChunks(chunks, { focus: batch, all: usable, query: instructionQuery });
+      const bBlock = buildSourceBlock(bChunks);
+      const bCuration = renderCurationPrompt(batch.length ? withTrashed(batch) : set, bBlock, { questionMinimums: true });
+      const btag = `${tag}][batch ${b + 1}/${batches.length}`;
+      const partNote =
+        batches.length > 1
+          ? `This is batch ${b + 1} of ${batches.length}. Write questions ONLY about the items in the guide below, from these sources (other topics are covered by other batches). `
+          : "";
       const parsed = await groundedGenerate(anthropic, {
         system: SYSTEM_PROMPT,
-        user: `${partNote}Generate up to ${perGroup} questions.\n${difficultyInstruction(settings.difficulty, perGroup)}\n\n${instructionsBlock ? `${instructionsBlock}\n\n` : ""}${gCuration}\n\nSOURCES:\n${gBlock.text}`,
-        tag: `${tag}][group ${g + 1}`,
+        user: `${partNote}Generate up to ${perBatch} questions.\n${difficultyInstruction(settings.difficulty, perBatch)}\n\n${instructionsBlock ? `${instructionsBlock}\n\n` : ""}${bCuration}\n\nSOURCES:\n${bBlock.text}`,
+        tag: btag,
       });
       const reason = readInsufficient(parsed);
       if (reason) insufficientReasons.push(reason);
       noteUnsupported(parsed);
-      for (const q of parseQuestions(parsed, knownKeys).slice(0, perGroup)) {
+      const bSlots: Slot[] = [];
+      for (const q of parseQuestions(parsed, knownKeys).slice(0, perBatch)) {
         if (mentionsTrashed(q, trashed)) {
           droppedTrashed++;
           continue;
         }
-        if (groups.length > 1) q.source_ids = relabelSids(q.source_ids, gBlock, block);
-        slots.push({ id: `q-${slots.length}`, q });
+        if (slots.length + bSlots.length >= MAX_QUESTIONS) break;
+        bSlots.push({ id: `q-${slots.length + bSlots.length}`, q });
       }
+      // Verify against the same passages the batch was written from.
+      await verifyWithRetry(bSlots, bBlock, knownKeys, anthropic, btag);
+      slots.push(...bSlots);
+      console.log(`[${btag}] ${bChunks.length} chunk(s), ${bSlots.length} question(s)`);
     }
   } catch (err) {
     const detail = err instanceof Error ? err.message : String(err);
     console.error(`[${tag}] generation failed: ${detail}`);
     return respond({ success: false, questionsGenerated: 0, errors: [`Generation failed: ${detail}`] }, 502);
   }
-  slots.splice(MAX_QUESTIONS);
-  console.log(`[${tag}] parsed ${slots.length} questions (dropped ${droppedTrashed} on trashed topics)`);
-
-  // --- Verify + repair -----------------------------------------------------
-  try {
-    await verifyWithRetry(slots, block, knownKeys, anthropic, tag);
-  } catch (err) {
-    const detail = err instanceof Error ? err.message : String(err);
-    console.error(`[${tag}] verification failed: ${detail}`);
-    return respond({ success: false, questionsGenerated: 0, errors: [`Verification failed: ${detail}`] }, 502);
-  }
+  console.log(`[${tag}] parsed ${slots.length} questions in ${batches.length} batch(es) (dropped ${droppedTrashed} on trashed topics)`);
 
   // --- Emphasis minimums: one targeted top-up for any shortfall ------------
   const emphasisShortfall = new Map<string, string>();
@@ -563,9 +558,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
         .filter((s) => s.result?.status === "verified")
         .map((s) => `- ${s.q.text}`)
         .join("\n");
+      const tChunks = selectChunks(chunks, { focus: shortfalls.map((x) => x.it), all: usable, query: instructionQuery });
+      const tBlock = buildSourceBlock(tChunks);
+      const tCuration = renderCurationPrompt(withTrashed(shortfalls.map((x) => x.it)), tBlock, { questionMinimums: true });
       const parsed = await groundedGenerate(anthropic, {
         system: TOPUP_SYSTEM_PROMPT,
-        user: `ITEMS NEEDING MORE QUESTIONS:\n${wanted}\n\nEXISTING QUESTIONS (do not repeat):\n${existingQs || "(none)"}\n\n${instructionsBlock ? `${instructionsBlock}\n\n` : ""}${curation}\n\nSOURCES:\n${block.text}`,
+        user: `ITEMS NEEDING MORE QUESTIONS:\n${wanted}\n\nEXISTING QUESTIONS (do not repeat):\n${existingQs || "(none)"}\n\n${instructionsBlock ? `${instructionsBlock}\n\n` : ""}${tCuration}\n\nSOURCES:\n${tBlock.text}`,
         tag: `${tag}][topup`,
       });
       const reason = readInsufficient(parsed);
@@ -577,7 +575,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
         if (slots.length + extra.length >= MAX_QUESTIONS) break;
         extra.push({ id: `q-${slots.length + extra.length}`, q });
       }
-      await verifyWithRetry(extra, block, knownKeys, anthropic, `${tag}][topup`);
+      await verifyWithRetry(extra, tBlock, knownKeys, anthropic, `${tag}][topup`);
       slots.push(...extra);
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);

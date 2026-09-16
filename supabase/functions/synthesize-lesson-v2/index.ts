@@ -40,12 +40,10 @@ import {
   emphasizedItems,
   formatFailures,
   groundedGenerate,
-  groupChunks,
   isRecord,
   loadChunks,
   loadCoverageReport,
   loadCurationSet,
-  MAX_SOURCE_CHARS,
   questionTarget,
   readInsufficient,
   recordInsufficientSource,
@@ -65,6 +63,7 @@ import {
   readUnsupportedInstructions,
   mergeInstructionCoverage,
   resolveSubLesson,
+  selectChunks,
 } from "../_shared/grounding.ts";
 
 const CORS_HEADERS: Record<string, string> = {
@@ -452,10 +451,20 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const emphasizedTopics = emphasized.filter((it) => it.type !== "vocabulary");
   const maxSegments = 3;
 
-  // --- Generate (per group when the source is very large) ------------------
-  const block = buildSourceBlock(chunks);
+  // --- Select the passages the lesson is written from --------------------
+  // Chunks cited by emphasized items first, then emphasized pages, then the
+  // most-cited pages (with a preference for pages that carry figures, for
+  // the scenario), capped; never the whole document.
+  const selected = selectChunks(chunks, {
+    focus: emphasized,
+    all: usable,
+    query: teacherInstructions.subLesson ?? teacherInstructions.upload ?? null,
+    preferNumeric: true,
+  });
+  console.log(`[${tag}] selected ${selected.length} of ${chunks.length} chunk(s) (${selected.reduce((n, c) => n + c.content.length, 0)} chars)`);
+  const block = buildSourceBlock(selected);
   const curation = renderCurationPrompt(set, block, { questionMinimums: false });
-  const groups = block.totalChars > MAX_SOURCE_CHARS ? groupChunks(chunks) : [chunks];
+  const groups = [selected];
 
   let synth: Synth;
   try {
@@ -789,7 +798,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   // the excerpt is a teaching brief, not a raw dump: the teacher's emphasis
   // first, then every verified concept and term, then the source text itself.
   // With only 3 slides, this is where most of the teaching happens.
-  const sourceText = chunks.map((c) => c.content).join("\n\n");
+  const sourceText = selected.map((c) => c.content).join("\n\n");
   const usableConcepts = usable.filter((it) => it.type === "concept");
   const usableVocab = usable.filter((it) => it.type === "vocabulary" && !trashedNames.has(it.label.trim().toLowerCase()));
   const usableObjectives = usable.filter((it) => it.type === "objective");

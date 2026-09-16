@@ -778,6 +778,8 @@ export interface CurationItem {
   detail: string;
   teacher_status: TeacherStatus;
   grounding_status: GroundingStatus;
+  /** Chunks this item was cited from (extraction grounding). Empty when grounding failed. */
+  source_chunk_ids: string[];
 }
 
 export interface CurationSet {
@@ -841,6 +843,7 @@ export async function loadCurationSet(
     detail: String(r.definition ?? ""),
     teacher_status: asTeacherStatus(r.teacher_status),
     grounding_status: asGroundingStatus(r.grounding_status),
+    source_chunk_ids: Array.isArray(r.source_chunk_ids) ? (r.source_chunk_ids as unknown[]).filter((x): x is string => typeof x === "string") : [],
   }));
   const vocabulary: CurationItem[] = rows(v).map((r, i) => ({
     id: String(r.id),
@@ -850,6 +853,7 @@ export async function loadCurationSet(
     detail: String(r.definition ?? ""),
     teacher_status: asTeacherStatus(r.teacher_status),
     grounding_status: asGroundingStatus(r.grounding_status),
+    source_chunk_ids: Array.isArray(r.source_chunk_ids) ? (r.source_chunk_ids as unknown[]).filter((x): x is string => typeof x === "string") : [],
   }));
   const objectives: CurationItem[] = rows(o).map((r, i) => ({
     id: String(r.id),
@@ -859,6 +863,7 @@ export async function loadCurationSet(
     detail: "",
     teacher_status: asTeacherStatus(r.teacher_status),
     grounding_status: asGroundingStatus(r.grounding_status),
+    source_chunk_ids: Array.isArray(r.source_chunk_ids) ? (r.source_chunk_ids as unknown[]).filter((x): x is string => typeof x === "string") : [],
   }));
   return { concepts, vocabulary, objectives, all: [...concepts, ...vocabulary, ...objectives] };
 }
@@ -950,6 +955,148 @@ export function renderCurationPrompt(
     );
   }
   return lines.join("\n\n");
+}
+
+// ---------------------------------------------------------------------------
+// Chunk selection for generation (NotebookLM-style): the item guide is the
+// index, citations are the pointers, and each model call gets only the
+// passages it needs instead of the whole document.
+// ---------------------------------------------------------------------------
+
+/** Characters of source per generation call. */
+export const SELECTION_CAP_CHARS = 30_000;
+/** Items per question-generation batch. */
+export const ITEM_BATCH_SIZE = 6;
+
+const STOPWORDS = new Set(["the", "a", "an", "and", "or", "of", "to", "in", "on", "for", "is", "are", "be", "as", "by", "with", "that", "this", "it", "its", "at", "from", "which", "when", "how", "what", "why", "into", "than", "their", "they", "them", "these", "those", "can", "will", "not", "but"]);
+
+function terms(text: string): string[] {
+  return text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+    .split(/\s+/)
+    .filter((t) => t.length > 2 && !STOPWORDS.has(t));
+}
+
+/**
+ * Keyword-overlap score (BM25-flavoured: term frequency saturates, longer
+ * chunks are normalised) between a query and a chunk. Used only for items
+ * with no citation and for free-text instructions; no embeddings.
+ */
+export function lexicalScore(query: string, chunk: SourceChunk, avgLen = 800): number {
+  const q = [...new Set(terms(query))];
+  if (q.length === 0) return 0;
+  const body = chunk.content.toLowerCase();
+  const len = Math.max(1, chunk.content.length);
+  const k1 = 1.2;
+  const b = 0.75;
+  let score = 0;
+  for (const t of q) {
+    let tf = 0;
+    let i = body.indexOf(t);
+    while (i >= 0 && tf < 50) {
+      tf++;
+      i = body.indexOf(t, i + t.length);
+    }
+    if (tf === 0) continue;
+    score += (tf * (k1 + 1)) / (tf + k1 * (1 - b + (b * len) / avgLen));
+  }
+  return score;
+}
+
+/** Splits items into batches, emphasized items first so their minimums are served early. */
+export function batchItems(items: CurationItem[], size: number = ITEM_BATCH_SIZE): CurationItem[][] {
+  const ordered = [...items].sort((a, b) => Number(b.teacher_status === "emphasized") - Number(a.teacher_status === "emphasized"));
+  const out: CurationItem[][] = [];
+  for (let i = 0; i < ordered.length; i += size) out.push(ordered.slice(i, i + size));
+  return out;
+}
+
+export interface SelectionOptions {
+  /** Items the call is about: their cited chunks come first. */
+  focus: CurationItem[];
+  /** Every usable item (for the "most cited" ranking of the remainder). */
+  all: CurationItem[];
+  /** Free text to match lexically (teacher instructions); optional. */
+  query?: string | null;
+  /** Prefer chunks that contain figures (scenario / worked examples). */
+  preferNumeric?: boolean;
+  capChars?: number;
+}
+
+/**
+ * Chooses the chunks one generation call may see, in document order:
+ *   1. chunks cited by the focus items (emphasized focus items first)
+ *   2. every teacher-emphasized chunk
+ *   3. the remaining chunks ranked by how many items cite them, then by
+ *      lexical match to the query, then (preferNumeric) by digit density,
+ *      then document order
+ * Trashed chunks are never candidates. The result is cut at capChars,
+ * dropping from the bottom of that ranking, and always contains at least one
+ * chunk. Items with no citation fall back to lexical matching on their label
+ * and definition.
+ */
+export function selectChunks(chunks: SourceChunk[], opts: SelectionOptions): SourceChunk[] {
+  const usable = usableChunks(chunks);
+  if (usable.length === 0) return [];
+  const cap = opts.capChars ?? SELECTION_CAP_CHARS;
+  const byId = new Map(usable.map((c) => [c.id, c]));
+  const avgLen = usable.reduce((n, c) => n + c.content.length, 0) / usable.length;
+
+  const cites = new Map<string, number>();
+  for (const it of opts.all) for (const id of it.source_chunk_ids) cites.set(id, (cites.get(id) ?? 0) + 1);
+
+  // Tier 1: focus citations (emphasized focus first), lexical fallback for uncited focus items.
+  const tier1 = new Set<string>();
+  const focusOrdered = [...opts.focus].sort((a, b) => Number(b.teacher_status === "emphasized") - Number(a.teacher_status === "emphasized"));
+  for (const it of focusOrdered) {
+    const cited = it.source_chunk_ids.filter((id) => byId.has(id));
+    if (cited.length > 0) {
+      for (const id of cited) tier1.add(id);
+    } else {
+      const q = `${it.label} ${it.detail}`;
+      const best = usable
+        .map((c) => ({ c, s: lexicalScore(q, c, avgLen) }))
+        .filter((x) => x.s > 0)
+        .sort((a, b) => b.s - a.s)
+        .slice(0, 2);
+      for (const { c } of best) tier1.add(c.id);
+    }
+  }
+  // Tier 2: emphasized chunks.
+  const tier2 = new Set(usable.filter((c) => c.teacher_status === "emphasized" && !tier1.has(c.id)).map((c) => c.id));
+  // Tier 3: the rest, ranked.
+  const digitDensity = (c: SourceChunk) => (c.content.match(/[0-9$%]/g)?.length ?? 0) / Math.max(1, c.content.length);
+  const rest = usable
+    .filter((c) => !tier1.has(c.id) && !tier2.has(c.id))
+    .map((c) => ({
+      c,
+      cites: cites.get(c.id) ?? 0,
+      lex: opts.query ? lexicalScore(opts.query, c, avgLen) : 0,
+      num: opts.preferNumeric ? digitDensity(c) : 0,
+    }))
+    .sort((a, b) => b.cites - a.cites || b.lex - a.lex || b.num - a.num || a.c.chunk_index - b.c.chunk_index);
+
+  const ranked: SourceChunk[] = [
+    ...usable.filter((c) => tier1.has(c.id)),
+    ...usable.filter((c) => tier2.has(c.id)),
+    ...rest.map((r) => r.c),
+  ];
+  const picked: SourceChunk[] = [];
+  let chars = 0;
+  for (const c of ranked) {
+    if (picked.length > 0 && chars + c.content.length > cap) continue;
+    picked.push(c);
+    chars += c.content.length;
+  }
+  return picked.sort((a, b) => a.chunk_index - b.chunk_index);
+}
+
+/** A CurationSet narrowed to some items, keeping every item's global key (C1, V2 ...). */
+export function subsetOf(set: CurationSet, items: CurationItem[]): CurationSet {
+  const ids = new Set(items.map((it) => it.id));
+  const keep = (list: CurationItem[]) => list.filter((it) => ids.has(it.id));
+  return { concepts: keep(set.concepts), vocabulary: keep(set.vocabulary), objectives: keep(set.objectives), all: keep(set.all) };
 }
 
 // ---------------------------------------------------------------------------
