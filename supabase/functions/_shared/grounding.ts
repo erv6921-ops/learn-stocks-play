@@ -154,7 +154,117 @@ SOURCE GROUNDING RULES (these override everything above):
 - Vocabulary definitions must come from the sources. If a term appears without a definition in the sources, omit it.
 - Scenarios and worked examples may only use numbers and situations that appear in the sources. If the sources contain no numerical examples, skip numerical scenarios.
 - Multiple-choice questions: the correct answer and the explanation must be fully supported by the evidence_quote. Distractors must be plausible wrong answers.
+- TEACHER INSTRUCTIONS (a <teacher_instructions> block, when present) direct WHAT to cover and HOW to present it: scope, emphasis, tone, and structure. They are not a source. Every fact still comes from the <source> blocks. If an instruction asks for something the sources do not contain (a topic, example, number, or definition that is not in the sources), skip that part of the instruction, never invent it, and list the skipped instruction in "unsupported_instructions" (an array of short strings; empty when nothing was skipped).
 - Return JSON only. No markdown fences, no preamble, no commentary.`;
+
+// ---------------------------------------------------------------------------
+// Teacher instructions (curriculum_uploads.teacher_instructions)
+// ---------------------------------------------------------------------------
+
+export const TEACHER_INSTRUCTIONS_MAX_CHARS = 2_000;
+
+/** Trims and caps free-text instructions; empty / non-string -> null. */
+export function cleanTeacherInstructions(raw: unknown): string | null {
+  if (typeof raw !== "string") return null;
+  const t = raw.replace(/\s+/g, " ").trim();
+  return t.length > 0 ? t.slice(0, TEACHER_INSTRUCTIONS_MAX_CHARS) : null;
+}
+
+export interface TeacherInstructionSet {
+  /** Upload-wide box (curriculum_uploads.teacher_instructions): applies to every sub-lesson. */
+  upload: string | null;
+  /** This sub-lesson's own box (sub_lessons.instructions): wins where the two conflict. */
+  subLesson: string | null;
+}
+
+/**
+ * Instructions for a run. The request body's `teacherInstructions` /
+ * `subLessonInstructions` win (the UI sends what is in the boxes), else the
+ * upload row's column and the sub-lesson row's column, else null.
+ */
+export async function loadTeacherInstructions(
+  supabase: AnySupabase,
+  uploadId: string,
+  bodyInstructions: unknown,
+  subLessonId?: string | null,
+  bodySubLessonInstructions?: unknown,
+): Promise<TeacherInstructionSet> {
+  let upload: string | null = null;
+  let subLesson: string | null = null;
+  if (typeof bodyInstructions === "string") {
+    upload = cleanTeacherInstructions(bodyInstructions);
+  } else {
+    const { data } = await supabase.from("curriculum_uploads").select("teacher_instructions").eq("id", uploadId).maybeSingle();
+    upload = cleanTeacherInstructions(data?.teacher_instructions);
+  }
+  if (subLessonId) {
+    if (typeof bodySubLessonInstructions === "string") {
+      subLesson = cleanTeacherInstructions(bodySubLessonInstructions);
+    } else {
+      const { data } = await supabase.from("sub_lessons").select("instructions").eq("id", subLessonId).maybeSingle();
+      subLesson = cleanTeacherInstructions(data?.instructions);
+    }
+  }
+  return { upload, subLesson };
+}
+
+/**
+ * The prompt block for teacher instructions. Framed so the model treats them
+ * as direction (scope, emphasis, tone, structure), never as a source of facts.
+ * When both levels are present the sub-lesson's own instructions take
+ * precedence where they conflict. Returns "" when there are none so callers
+ * can splice it in unconditionally.
+ */
+export function renderTeacherInstructions(instructions: TeacherInstructionSet | string | null): string {
+  const set: TeacherInstructionSet =
+    typeof instructions === "string" || instructions === null ? { upload: instructions, subLesson: null } : instructions;
+  if (!set.upload && !set.subLesson) return "";
+  const parts: string[] = [];
+  if (set.upload) parts.push(`For the whole upload:\n${set.upload}`);
+  if (set.subLesson) parts.push(`For this lesson only (takes precedence over the whole-upload instructions where they conflict):\n${set.subLesson}`);
+  return (
+    `<teacher_instructions>\n${parts.join("\n\n")}\n</teacher_instructions>\n` +
+    `Follow the teacher instructions for what to cover, what to stress, the tone, and the structure. ` +
+    `They contain no facts you may use: everything factual must still come from the <source> blocks with an exact evidence_quote. ` +
+    `If part of an instruction cannot be met from the sources, skip that part and report it in "unsupported_instructions".`
+  );
+}
+
+/** Reads the model's "unsupported_instructions" list (strings only, de-duplicated). */
+export function readUnsupportedInstructions(parsed: Record<string, unknown>): string[] {
+  const raw = parsed.unsupported_instructions;
+  if (!Array.isArray(raw)) return [];
+  const out: string[] = [];
+  for (const v of raw) {
+    if (typeof v !== "string") continue;
+    const t = v.trim();
+    if (t && !out.includes(t)) out.push(t);
+  }
+  return out.slice(0, 20);
+}
+
+/**
+ * Coverage entries for instructions the model could not meet from the
+ * sources. `stage` is "questions" or "lesson"; entries from an earlier run of
+ * the same stage are replaced, other stages' entries are kept.
+ */
+export function mergeInstructionCoverage(
+  coverage: CoverageEntry[],
+  stage: "questions" | "lesson",
+  unsupported: string[],
+): CoverageEntry[] {
+  const kept = coverage.filter((e) => !(e.item_type === "instruction" && e.item_id.startsWith(`${stage}-`)));
+  const added: CoverageEntry[] = unsupported.map((text, i) => ({
+    item_type: "instruction",
+    item_id: `${stage}-${i + 1}`,
+    label: text,
+    teacher_status: "active",
+    questions_generated: 0,
+    target: 0,
+    note: `Skipped: your instruction asked for this but the sources do not contain it (${stage === "questions" ? "question bank" : "lesson"}).`,
+  }));
+  return [...kept, ...added];
+}
 
 // ---------------------------------------------------------------------------
 // Deterministic quote verification
@@ -547,17 +657,107 @@ type AnySupabase = any;
 export async function loadChunks(
   supabase: AnySupabase,
   uploadId: string,
+  subLessonId?: string | null,
 ): Promise<SourceChunk[]> {
   // select("*") so this works before AND after the teacher_status column is
   // added by sql/2026-09-11_teacher_curation.sql; a missing column reads as
   // undefined, which every caller treats as 'active'.
-  const { data, error } = await supabase
+  // With a sub-lesson, ONLY its own pages are returned: a sub-lesson never
+  // sees another sub-lesson's chunks (docs/curation-contract.md section 8).
+  let query = supabase
     .from("curriculum_source_chunks")
     .select("*")
-    .eq("upload_id", uploadId)
-    .order("chunk_index", { ascending: true });
+    .eq("upload_id", uploadId);
+  if (subLessonId) query = query.eq("sub_lesson_id", subLessonId);
+  const { data, error } = await query.order("chunk_index", { ascending: true });
   if (error) throw new Error(`Load source chunks: ${error.message}`);
   return (data ?? []) as SourceChunk[];
+}
+
+// ---------------------------------------------------------------------------
+// Sub-lessons (public.sub_lessons): one upload -> several lessons, each built
+// from only its own chunks.
+// ---------------------------------------------------------------------------
+
+export interface SubLessonRow {
+  id: string;
+  upload_id: string;
+  title: string;
+  sort_order: number;
+  instructions: string | null;
+  generation_settings: unknown;
+  coverage_report: unknown;
+  insufficient_source_reason: string | null;
+}
+
+/**
+ * The sub-lesson a run is scoped to. With an id: that row (must belong to
+ * the upload). Without: the upload's default (lowest sort_order), created on
+ * the spot (owning every chunk) if the upload has none yet, so older
+ * clients that never send subLessonId keep working unchanged.
+ */
+export async function resolveSubLesson(
+  supabase: AnySupabase,
+  uploadId: string,
+  subLessonId: unknown,
+  fallbackTitle?: string,
+): Promise<SubLessonRow> {
+  if (typeof subLessonId === "string" && subLessonId.length > 0) {
+    const { data, error } = await supabase.from("sub_lessons").select("*").eq("id", subLessonId).eq("upload_id", uploadId).maybeSingle();
+    if (error) throw new Error(`Load sub-lesson: ${error.message}`);
+    if (!data) throw new Error("subLessonId does not belong to this upload.");
+    return data as SubLessonRow;
+  }
+  return ensureDefaultSubLesson(supabase, uploadId, fallbackTitle);
+}
+
+/**
+ * Returns the upload's first sub-lesson, creating the default one (title =
+ * file name, owning every chunk that has no owner yet) when none exists.
+ */
+export async function ensureDefaultSubLesson(
+  supabase: AnySupabase,
+  uploadId: string,
+  fallbackTitle?: string,
+): Promise<SubLessonRow> {
+  const { data: existing, error } = await supabase
+    .from("sub_lessons")
+    .select("*")
+    .eq("upload_id", uploadId)
+    .order("sort_order", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+  if (error) throw new Error(`Load sub-lessons: ${error.message}`);
+  let row = existing as SubLessonRow | null;
+  if (!row) {
+    const { data: upload } = await supabase
+      .from("curriculum_uploads")
+      .select("file_name, generation_settings, coverage_report, insufficient_source_reason")
+      .eq("id", uploadId)
+      .maybeSingle();
+    const title = (fallbackTitle ?? String(upload?.file_name ?? "")).replace(/\.pdf$/i, "").trim() || "Lesson 1";
+    const { data: created, error: cErr } = await supabase
+      .from("sub_lessons")
+      .insert({
+        upload_id: uploadId,
+        title,
+        sort_order: 0,
+        generation_settings: upload?.generation_settings ?? null,
+        coverage_report: upload?.coverage_report ?? null,
+        insufficient_source_reason: upload?.insufficient_source_reason ?? null,
+      })
+      .select("*")
+      .single();
+    if (cErr || !created) throw new Error(`Create default sub-lesson: ${cErr?.message ?? "unknown error"}`);
+    row = created as SubLessonRow;
+  }
+  // Adopt anything on this upload that has no owner yet (chunks, lessons,
+  // questions). No-ops when everything is already assigned.
+  for (const table of ["curriculum_source_chunks", "lessons", "generated_questions"]) {
+    const { error: aErr } = await supabase.from(table).update({ sub_lesson_id: row.id }).eq("upload_id", uploadId).is("sub_lesson_id", null);
+    if (aErr) console.error(`[${uploadId}] adopt ${table} into default sub-lesson: ${aErr.message}`);
+  }
+  return row;
 }
 
 // ---------------------------------------------------------------------------
@@ -600,29 +800,38 @@ const asGroundingStatus = (v: unknown): GroundingStatus =>
 export async function loadCurationSet(
   supabase: AnySupabase,
   uploadId: string,
+  /** Sub-lesson scope: only items cited from one of these chunks. Items with no citation are left out. */
+  ownedChunkIds?: Set<string> | null,
 ): Promise<CurationSet> {
   const [c, v, o] = await Promise.all([
     supabase
       .from("concepts")
-      .select("id, name, definition, teacher_status, grounding_status")
+      .select("id, name, definition, teacher_status, grounding_status, source_chunk_ids")
       .eq("upload_id", uploadId)
       .order("created_at", { ascending: true }),
     supabase
       .from("vocabulary")
-      .select("id, term, definition, teacher_status, grounding_status")
+      .select("id, term, definition, teacher_status, grounding_status, source_chunk_ids")
       .eq("upload_id", uploadId)
       .order("id", { ascending: true }),
     supabase
       .from("learning_objectives")
-      .select("id, objective, teacher_status, grounding_status")
+      .select("id, objective, teacher_status, grounding_status, source_chunk_ids")
       .eq("upload_id", uploadId)
       .order("id", { ascending: true }),
   ]);
   for (const r of [c, v, o]) {
     if (r.error) throw new Error(`Load curation items: ${r.error.message}`);
   }
+  // An item belongs to every sub-lesson that owns a chunk it was cited from
+  // (so an item cited from two sub-lessons' pages appears in both).
+  const inScope = (r: Record<string, unknown>): boolean => {
+    if (!ownedChunkIds) return true;
+    const ids = Array.isArray(r.source_chunk_ids) ? (r.source_chunk_ids as unknown[]) : [];
+    return ids.some((id) => typeof id === "string" && ownedChunkIds.has(id));
+  };
   // deno-lint-ignore no-explicit-any
-  const rows = (r: any): Record<string, unknown>[] => (r.data ?? []) as Record<string, unknown>[];
+  const rows = (r: any): Record<string, unknown>[] => ((r.data ?? []) as Record<string, unknown>[]).filter(inScope);
 
   const concepts: CurationItem[] = rows(c).map((r, i) => ({
     id: String(r.id),
@@ -748,7 +957,8 @@ export function renderCurationPrompt(
 // ---------------------------------------------------------------------------
 
 export interface CoverageEntry {
-  item_type: CurationItemType;
+  /** "instruction": a teacher instruction skipped because the sources did not support it. */
+  item_type: CurationItemType | "instruction";
   item_id: string;
   label: string;
   teacher_status: TeacherStatus;
@@ -760,21 +970,26 @@ export interface CoverageEntry {
 export async function loadCoverageReport(
   supabase: AnySupabase,
   uploadId: string,
+  subLessonId?: string | null,
 ): Promise<CoverageEntry[]> {
-  const { data } = await supabase
-    .from("curriculum_uploads")
-    .select("coverage_report")
-    .eq("id", uploadId)
-    .maybeSingle();
+  const { data } = subLessonId
+    ? await supabase.from("sub_lessons").select("coverage_report").eq("id", subLessonId).maybeSingle()
+    : await supabase.from("curriculum_uploads").select("coverage_report").eq("id", uploadId).maybeSingle();
   const raw = data?.coverage_report;
   return Array.isArray(raw) ? (raw as CoverageEntry[]) : [];
 }
 
+/** Coverage is per sub-lesson (sub_lessons.coverage_report); the upload row keeps a copy for older clients. */
 export async function saveCoverageReport(
   supabase: AnySupabase,
   uploadId: string,
   report: CoverageEntry[],
+  subLessonId?: string | null,
 ): Promise<void> {
+  if (subLessonId) {
+    const { error: sErr } = await supabase.from("sub_lessons").update({ coverage_report: report }).eq("id", subLessonId);
+    if (sErr) console.error(`[${uploadId}] Failed to save sub-lesson coverage_report: ${sErr.message}`);
+  }
   const { error } = await supabase
     .from("curriculum_uploads")
     .update({ coverage_report: report })
@@ -833,8 +1048,14 @@ export async function loadGenerationSettings(
   supabase: AnySupabase,
   uploadId: string,
   bodySettings: unknown,
+  subLessonId?: string | null,
 ): Promise<GenerationSettings> {
   if (bodySettings && typeof bodySettings === "object") return normalizeGenerationSettings(bodySettings);
+  // Per sub-lesson first (sub_lessons.generation_settings), then the upload's.
+  if (subLessonId) {
+    const { data: sub } = await supabase.from("sub_lessons").select("generation_settings").eq("id", subLessonId).maybeSingle();
+    if (sub?.generation_settings && typeof sub.generation_settings === "object") return normalizeGenerationSettings(sub.generation_settings);
+  }
   const { data, error } = await supabase.from("curriculum_uploads").select("generation_settings").eq("id", uploadId).maybeSingle();
   if (error || !data) return normalizeGenerationSettings(null);
   return normalizeGenerationSettings(data.generation_settings);
@@ -880,20 +1101,16 @@ export async function recordInsufficientSource(
   uploadId: string,
   stage: string,
   reason: string,
+  subLessonId?: string | null,
 ): Promise<void> {
-  const { data } = await supabase
-    .from("curriculum_uploads")
-    .select("insufficient_source_reason")
-    .eq("id", uploadId)
-    .maybeSingle();
+  const table = subLessonId ? "sub_lessons" : "curriculum_uploads";
+  const id = subLessonId ?? uploadId;
+  const { data } = await supabase.from(table).select("insufficient_source_reason").eq("id", id).maybeSingle();
   const existing = (data?.insufficient_source_reason as string | null) ?? "";
   const line = `[${stage}] ${reason}`;
   const next = existing.includes(line) ? existing : [existing, line].filter(Boolean).join("\n");
-  const { error } = await supabase
-    .from("curriculum_uploads")
-    .update({ insufficient_source_reason: next })
-    .eq("id", uploadId);
+  const { error } = await supabase.from(table).update({ insufficient_source_reason: next }).eq("id", id);
   if (error) {
-    console.error(`[${uploadId}] Failed to record insufficient_source_reason: ${error.message}`);
+    console.error(`[${uploadId}] Failed to record insufficient_source_reason on ${table}: ${error.message}`);
   }
 }

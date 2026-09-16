@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { supabase } from "@/integrations/supabase/client"
 import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
@@ -213,6 +213,9 @@ function LessonPicker({
 
 export default function TeacherDashboard() {
   const navigate = useNavigate()
+  // ?tab=curriculum etc. opens that tab (the curriculum page links back here).
+  const [searchParams] = useSearchParams()
+  const initialTab = searchParams.get("tab") ?? "students"
   const { toast } = useToast()
   const { user: appUser } = useApp()
 
@@ -1187,7 +1190,7 @@ export default function TeacherDashboard() {
                   </div>
                 </Card>
 
-                <Tabs defaultValue="students" className="w-full">
+                <Tabs defaultValue={initialTab} className="w-full">
                   <TabsList className="grid w-full grid-cols-7">
                     <TabsTrigger value="students">Students</TabsTrigger>
                     <TabsTrigger value="assign">Assign</TabsTrigger>

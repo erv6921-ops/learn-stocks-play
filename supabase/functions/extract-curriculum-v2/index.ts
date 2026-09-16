@@ -45,6 +45,7 @@ import {
   type GroundingResult,
   type SourceChunk,
   verifyGroundedItems,
+  ensureDefaultSubLesson,
 } from "../_shared/grounding.ts";
 
 // ---------------------------------------------------------------------------
@@ -400,6 +401,18 @@ async function markStatus(supabase: SupabaseClient, uploadId: string, patch: Rec
   if (error) console.error(`[ECv2][${uploadId}] Failed to update upload row:`, error.message);
 }
 
+/**
+ * Progress marker the upload page polls (curriculum_uploads.extraction_stage).
+ * Each value is written right before the work it names starts, and cleared
+ * (null) on completion or failure. The stages are the real steps of this
+ * function: concepts, vocabulary and objectives come out of ONE model pass,
+ * so they share the "extracting" stage rather than pretending to be three.
+ */
+type ExtractionStage = "reading_pages" | "extracting" | "verifying" | "saving";
+async function setStage(supabase: SupabaseClient, uploadId: string, stage: ExtractionStage | null): Promise<void> {
+  await markStatus(supabase, uploadId, { extraction_stage: stage, extraction_stage_at: new Date().toISOString() });
+}
+
 // ---------------------------------------------------------------------------
 // Handler
 // ---------------------------------------------------------------------------
@@ -455,6 +468,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     console.error(`[${tag}] only ${totalWords} words of readable text; refusing to generate.`);
     await markStatus(supabase, uploadId, {
       status: "extraction_failed",
+      extraction_stage: null,
       insufficient_source_reason: NOT_ENOUGH_TEXT_MESSAGE,
     });
     return fail([NOT_ENOUGH_TEXT_MESSAGE], 422, { insufficientSourceReason: NOT_ENOUGH_TEXT_MESSAGE });
@@ -475,6 +489,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   ]);
   if ((existingChunks ?? 0) > 0 || (existingConcepts ?? 0) > 0) {
     if (body.reextract !== true) {
+      // Not starting a run: leave extraction_stage untouched (it is null).
       return fail(
         ["This upload is already extracted and awaiting teacher review. Pass reextract: true to start over (teacher marks will be reset)."],
         409,
@@ -489,13 +504,26 @@ Deno.serve(async (req: Request): Promise<Response> => {
       .update({ concept_id: null })
       .eq("upload_id", uploadId);
     if (detachErr) {
-      await markStatus(supabase, uploadId, { status: "extraction_failed" });
+      await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
       return fail([`Could not detach existing questions: ${detachErr.message}`], 500);
+    }
+    // Sub-lessons: page boundaries may change, so the teacher's split cannot
+    // survive a re-extract. Keep the first sub-lesson (its title, settings
+    // and instructions), drop the rest; their lessons / questions lose their
+    // owner here and are adopted by the survivor below (ensureDefaultSubLesson).
+    const { data: subs } = await supabase.from("sub_lessons").select("id").eq("upload_id", uploadId).order("sort_order", { ascending: true });
+    const subIds = ((subs ?? []) as { id: string }[]).map((r) => r.id);
+    if (subIds.length > 1) {
+      const { error: sErr } = await supabase.from("sub_lessons").delete().in("id", subIds.slice(1));
+      if (sErr) console.error(`[${tag}] could not drop extra sub-lessons: ${sErr.message}`);
+    }
+    if (subIds.length > 0) {
+      await supabase.from("sub_lessons").update({ split_edited_by_teacher: false, sort_order: 0, coverage_report: null, insufficient_source_reason: null }).eq("id", subIds[0]);
     }
     for (const table of ["vocabulary", "learning_objectives", "concepts", "curriculum_source_chunks"]) {
       const { error } = await supabase.from(table).delete().eq("upload_id", uploadId);
       if (error) {
-        await markStatus(supabase, uploadId, { status: "extraction_failed" });
+        await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
         return fail([
           `Could not reset ${table}: ${error.message}`,
           ...(table === "concepts"
@@ -506,6 +534,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
     await markStatus(supabase, uploadId, { coverage_report: null, insufficient_source_reason: null });
   }
+  await setStage(supabase, uploadId, "reading_pages");
   const { data: chunkRows, error: chunkErr } = await supabase
     .from("curriculum_source_chunks")
     .insert(
@@ -519,10 +548,19 @@ Deno.serve(async (req: Request): Promise<Response> => {
     )
     .select("id, chunk_index, page_start, page_end, content");
   if (chunkErr || !chunkRows) {
-    await markStatus(supabase, uploadId, { status: "extraction_failed" });
+    await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
     return fail([`Could not store source chunks: ${chunkErr?.message ?? "unknown error"}`], 500);
   }
   const chunks = (chunkRows as SourceChunk[]).sort((a, b) => a.chunk_index - b.chunk_index);
+
+  // Default sub-lesson: one lesson covering every page, created here so a
+  // short upload never needs the split step. The teacher can split it later.
+  try {
+    await ensureDefaultSubLesson(supabase, uploadId);
+  } catch (err) {
+    // Not fatal for extraction: generate/synthesize create it on demand too.
+    console.error(`[${tag}] default sub-lesson: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   // Keep extracted_text populated for callers that only sent pages.
   const { data: uploadRow } = await supabase
@@ -538,6 +576,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const block = buildSourceBlock(chunks);
   const groups = block.totalChars > MAX_SOURCE_CHARS ? groupChunks(chunks) : [chunks];
 
+  await setStage(supabase, uploadId, "extracting");
   let result: ExtractionResult;
   try {
     const parts: ExtractionResult[] = [];
@@ -568,7 +607,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   } catch (err) {
     const detail = err instanceof Error ? err.message : String(err);
     console.error(`[${tag}] generation failed: ${detail}`);
-    await markStatus(supabase, uploadId, { status: "extraction_failed" });
+    await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
     return fail([`Generation failed: ${detail}`], 502);
   }
 
@@ -579,6 +618,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     ...result.learning_objectives.map((item, i) => ({ id: `objective-${i}`, kind: "objective" as Kind, item })),
   ];
 
+  await setStage(supabase, uploadId, "verifying");
   try {
     const first = await verifyGroundedItems(slots.map(toGrounded), block, anthropic);
     for (const s of slots) s.result = first.get(s.id);
@@ -618,11 +658,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
   } catch (err) {
     const detail = err instanceof Error ? err.message : String(err);
     console.error(`[${tag}] verification failed: ${detail}`);
-    await markStatus(supabase, uploadId, { status: "extraction_failed" });
+    await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
     return fail([`Verification failed: ${detail}`], 502);
   }
 
   // --- Persist (failed items are saved with grounding_status = 'failed') ---
+  await setStage(supabase, uploadId, "saving");
   const errors: string[] = [];
   const grounding = (s: Slot) => ({
     source_chunk_ids: s.result?.chunkIds.length ? s.result.chunkIds : null,
@@ -671,7 +712,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
   if (errors.length > 0) {
     console.error(`[${tag}] persist errors: ${errors.join(" | ")}`);
-    await markStatus(supabase, uploadId, { status: "extraction_failed" });
+    await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
     return fail(["Failed to persist extracted data.", ...errors], 500, { chunksCount: chunks.length });
   }
 
@@ -681,7 +722,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   // Pause here. Nothing downstream is triggered: the teacher marks items
   // Emphasize / Trash first, then the frontend calls generate-questions-v2
   // and synthesize-lesson-v2 explicitly.
-  await markStatus(supabase, uploadId, { status: "awaiting_teacher_review" });
+  await markStatus(supabase, uploadId, { status: "awaiting_teacher_review", extraction_stage: null, extraction_stage_at: new Date().toISOString() });
 
   const verifiedCount = slots.filter((s) => s.result?.status === "verified").length;
   const failedCount = slots.length - verifiedCount;

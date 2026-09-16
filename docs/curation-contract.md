@@ -5,8 +5,11 @@ Teachers mark extracted items **Emphasize** or **Trash** after extraction and
 before question / lesson generation. The v1 functions and their tables are
 unchanged; everything below is additive.
 
-Requires both SQL files to have been run in the Supabase SQL Editor:
-`sql/2026-09-11_source_grounding.sql` then `sql/2026-09-11_teacher_curation.sql`.
+Requires these SQL files to have been run in the Supabase SQL Editor, in order:
+`sql/2026-09-11_source_grounding.sql`, `sql/2026-09-11_teacher_curation.sql`,
+`sql/2026-09-11_teacher_approval.sql`, `sql/2026-09-13_generation_settings.sql`,
+`sql/2026-09-15_teacher_questions_and_stages.sql` (section 7 below),
+`sql/2026-09-16_sub_lessons.sql` (section 8 below).
 
 ---
 
@@ -25,6 +28,16 @@ upload row  ->  extract-curriculum-v2  ->  status 'awaiting_teacher_review'
 Nothing is triggered automatically after extraction. The frontend calls each
 function explicitly. Both generation functions read `teacher_status` from the
 database at call time, so marks made right before the call are honored.
+
+The whole flow lives on one page, `/teacher/curriculum` (new upload) and
+`/teacher/curriculum/:uploadId` (existing upload): choose PDF -> Extract
+(progress bar driven by `extraction_stage`, section 7.4) -> the same page
+becomes the review: a stats row, four tabs (Vocabulary · Concepts · Questions
+· Source Pages, each with a count badge and a collapsed "Trashed (n)" group),
+then the build area (instructions, settings, Generate, Build, Preview ->
+"I've reviewed this lesson" -> Assign). `/teacher/upload` redirects there.
+The dashboard's Curriculum tab keeps a small upload card that routes to the
+page, the upload history, and the lesson bank (section 7.6).
 
 ---
 
@@ -107,28 +120,44 @@ Response:
 On success the upload status is `awaiting_teacher_review`. Load the four
 tables by `upload_id` to render the review screen.
 
+While it runs, the function writes `curriculum_uploads.extraction_stage`
+(`reading_pages` -> `extracting` -> `verifying` -> `saving`) right before
+each step starts, and sets it back to null on success or failure. The page
+polls the column every 1.5 s to drive the progress bar; nothing advances on a
+timer. Concepts, vocabulary and objectives come out of one model pass, so
+they share the `extracting` stage.
+
 ### generate-questions-v2
 
 ```json
-{ "uploadId": "<uuid>", "regenerate": false }
+{ "uploadId": "<uuid>", "regenerate": false, "settings": { ... }, "teacherInstructions": "optional text" }
 ```
 
-- First run (no rows in `generated_questions` for the upload): generates.
-- If rows exist and `regenerate` is omitted/false: returns the existing count
-  without calling the model (`questionsGenerated`, `keptApproved`).
-- `"regenerate": true`: deletes rows with `teacher_approved_at is null` **and**
-  `lesson_id is null`, then generates fresh rows. Rows the teacher approved
-  (`teacher_approved_at` set, see section 6) and rows already linked to a
-  lesson are kept. New rows are inserted with `status = 'pending'` and
+- Teacher-authored rows (`origin = 'teacher_authored'`, section 7.1) are never
+  counted as "existing generation", never deleted, and never regenerated.
+- First run (no **generated** rows for the upload): generates, even if the
+  teacher already wrote questions.
+- If generated rows exist and `regenerate` is omitted/false: returns the
+  existing count without calling the model (`questionsGenerated`,
+  `keptApproved`, `keptTeacherAuthored`).
+- `"regenerate": true`: deletes generated rows with `teacher_approved_at is
+  null` **and** `lesson_id is null`, then generates fresh rows. Rows the
+  teacher approved (`teacher_approved_at` set, see section 6), rows already
+  linked to a lesson, and teacher-authored rows are kept. New rows are
+  inserted with `status = 'pending'`, `origin = 'generated'` and
   `teacher_approved_at = null`, so they enter the teacher's review queue
   normally.
+- `teacherInstructions` (else `curriculum_uploads.teacher_instructions`) is
+  rendered as a `<teacher_instructions>` block: it directs scope, emphasis,
+  tone and structure only (section 7.2).
 - Pool size: 15 baseline, grown to cover emphasis minimums, capped at 30.
 
 Response:
 
 ```json
 { "success": true, "questionsGenerated": 18, "verifiedCount": 17, "failedCount": 1,
-  "keptApproved": 0, "coverage": [ ...coverage_report... ], "insufficientSourceReason": "optional" }
+  "keptApproved": 0, "keptTeacherAuthored": 2, "unsupportedInstructions": [],
+  "coverage": [ ...coverage_report... ], "insufficientSourceReason": "optional" }
 ```
 
 Sets upload status to `questions_generated` and writes
@@ -137,15 +166,22 @@ Sets upload status to `questions_generated` and writes
 ### synthesize-lesson-v2
 
 ```json
-{ "uploadId": "<uuid>", "lessonId": "<uuid>" }
+{ "uploadId": "<uuid>", "lessonId": "<uuid>", "settings": { ... }, "teacherInstructions": "optional text" }
 ```
 
 Same as before: create the `lessons` row first, then call. Response:
 
 ```json
-{ "success": true, "sectionsCount": 9, "masteryCount": 15, "requiredCorrect": 4,
-  "verifiedCount": 8, "failedCount": 0, "coverage": [ ...coverage_report... ], "insufficientSourceReason": "optional" }
+{ "success": true, "sectionsCount": 9, "masteryCount": 15, "requiredCorrect": 4, "starredCount": 2,
+  "unsupportedInstructions": [], "verifiedCount": 8, "failedCount": 0,
+  "coverage": [ ...coverage_report... ], "insufficientSourceReason": "optional" }
 ```
+
+Mastery pool: approved, non-failed rows; starred rows (section 7.3) are
+always included (even if attached to a trashed concept), listed first, and
+their ids are written to the section as `pinnedQuestionIds`. The player
+serves pinned questions first, in order, before the adaptive draw, so every
+student gets them. Each pool question also carries `origin` and `starred`.
 
 Sets upload status to `lesson_synthesized` and merges lesson notes into
 `coverage_report`. `lessons.content` is `version: 2` and contains
@@ -220,9 +256,11 @@ Other upload columns the review UI should read:
 ## 5. `curriculum_uploads.coverage_report` shape
 
 A JSON array with one entry per concept, vocabulary term, learning objective
-**and** source chunk. Written by generate-questions-v2 and updated by
-synthesize-lesson-v2. Computed in code from tags and citations, never by the
-model.
+**and** source chunk, plus one `"instruction"` entry per teacher-instruction
+part the sources could not support (section 7.2). Written by
+generate-questions-v2 and updated by synthesize-lesson-v2. Computed in code
+from tags and citations, never by the model (the model only reports which
+instruction parts it skipped).
 
 ```json
 [
@@ -250,6 +288,8 @@ model.
 - `Mastery pool: N question(s).`
 - `Lesson: cited by N verified lesson item(s).`
 - `Emphasized source was not cited by any verified question.`
+- `Skipped: your instruction asked for this but the sources do not contain it (question bank | lesson).`
+  (`item_type: "instruction"`, `item_id: "questions-N"` / `"lesson-N"`, `label` = the skipped part)
 
 A simple UI rule: flag any entry where `target > 0 && questions_generated < target`,
 or whose note contains `NOT` or `Shortfall`.
@@ -276,6 +316,181 @@ All rows that existed when the SQL ran were backfilled as approved.
 - A row with `grounding_status = 'failed'` cannot be approved: the DB trigger raises, and the UI offers Edit or Delete only.
 - Any user-session edit to `question_text`, `options`, `correct_answer`, or `explanation` that bypasses the function is reset to `grounding_status = 'unverified'` with approval cleared by the same trigger.
 
-UI: `QuestionApprovalPanel` (approve / edit / reject / "Approve all verified", evidence quote + page numbers) renders inside `PreviewLessonModal` (upload pool) and on `/teacher/lesson-review/:lessonId` (lesson + mastery pool, plus the lesson approve button). Assigning a lesson now lands on that review page. `/admin/approved-content` is the read-only cross-teacher view.
+UI: `QuestionApprovalPanel` (approve / edit / reject / star / "Approve all verified", evidence quote + page numbers, "Add question" form) renders on the Questions tab of `/teacher/curriculum/:uploadId` (upload pool), inside `PreviewLessonModal`, and on `/teacher/lesson-review/:lessonId` (lesson + mastery pool). The whole-lesson approval is the "I've reviewed this lesson" checkbox on the curriculum page (it stamps `lessons.teacher_approved_at`); Assign is disabled until it is checked, and rebuilding the lesson clears it. `/admin/approved-content` is the read-only cross-teacher view.
 
 `synthesize-lesson-v2` builds the mastery pool from approved rows only; unapproved rows are listed in `failed_items` with the reason "Not yet approved by the teacher". `generate-questions-v2` regeneration keeps rows with `teacher_approved_at` set.
+
+---
+
+## 7. Teacher-authored questions, starring, instructions, progress (sql/2026-09-15_teacher_questions_and_stages.sql)
+
+### 7.1 `generated_questions.origin`
+
+`'generated'` (default; written by generate-questions-v2) or
+`'teacher_authored'` (written by the teacher on the Questions tab). Check
+constraint allows only those two.
+
+A teacher writes a question with a plain INSERT (new policy "Teachers write
+questions on own uploads", scoped to `upload_id` in the teacher's uploads):
+
+```ts
+await supabase.from("generated_questions").insert({
+  upload_id, concept_id: null | "<uuid>", question_text, options: [a, b, c, d],
+  correct_answer: "<exact text of the correct option>", explanation, difficulty: 0.25 | 0.5 | 0.75,
+  status: "pending", origin: "teacher_authored",
+});
+```
+
+A BEFORE INSERT guard (user sessions only) forces `origin =
+'teacher_authored'`, `status = 'pending'`, `grounding_status = 'unverified'`,
+null `source_chunk_ids` / `evidence_quote`, and stamps `teacher_approved_at =
+now()` / `teacher_approved_by = auth.uid()`. So a teacher-written question is
+approved on save, skips grounding entirely, survives regeneration, and is in
+the mastery pool on the next build. `correct_answer` must equal one option
+exactly: that is how the builder and the player find the right option.
+
+The approval-guard trigger (redefined in the same file) keys its exemptions
+on `origin = 'teacher_authored'` and nothing else:
+
+- `origin` cannot be changed from a user session.
+- Editing content (stem / options / answer / explanation) still resets a
+  **generated** row to `unverified` and clears its approval. A
+  teacher-authored row keeps its approval through edits.
+- The "grounding-failed rows cannot be approved" rule does not apply to
+  teacher-authored rows (they never carry grounding data).
+
+UI: teacher rows show the neutral "Written by you" badge (never "Not found in
+source" or "Not verified"), no evidence box, "Save" instead of "Save and
+verify", and Delete. "Approve all verified" ignores them.
+
+### 7.2 `curriculum_uploads.teacher_instructions`
+
+Free text (max 2,000 chars), saved on blur from the box above Generate and
+sent as `teacherInstructions` to both generation functions (the body wins
+over the column). GROUNDING_RULES now say: teacher instructions direct what
+to cover and how to present it (scope, emphasis, tone, structure); every fact
+still comes from the sources; an instruction part the sources do not contain
+is skipped, never invented, and returned in `unsupported_instructions`, which
+both functions write into `coverage_report` as `item_type: "instruction"`
+entries and echo as `unsupportedInstructions` in the response.
+
+### 7.3 `generated_questions.starred`
+
+Boolean, default false. Starred = every student gets it: always in the
+mastery pool, served before rotation (`pinnedQuestionIds` on the mastery
+section). Any approved question can be starred, generated or teacher-written.
+
+Cap: at most `generation_settings.masteryRequired` (default 4) starred rows
+per upload. The Questions tab disables further stars at the cap (tooltip
+explains why) and shows "Starred N of cap"; a BEFORE trigger refuses a star
+past the cap with `check_violation`. Lowering `masteryRequired` below the
+starred count never unstars anything: Lesson settings shows how many are
+over, and Generate / Regenerate / Build are disabled until the teacher
+unstars down to the new cap. Undoing a question's approval also unstars it.
+
+### 7.4 `curriculum_uploads.extraction_stage` / `extraction_stage_at`
+
+See extract-curriculum-v2 above. Allowed values `reading_pages`,
+`extracting`, `verifying`, `saving`, or null.
+
+### 7.5 Preview -> approve -> assign
+
+After Build: `LessonPreviewButtons` ("Full Lesson" runs `StudentLessonView`
+in `previewMode`: Jeff teaches, questions come up, feedback shows, nothing
+is written or awarded), then the "I've reviewed this lesson" checkbox
+(stamps `lessons.teacher_approved_at`), then Assign to class, which opens
+`/teacher/assign-lesson?uploadId=&lessonId=&lessonName=` (existing flow:
+classes + due date, writes `class_lesson_assignments` and `assigned_lessons`,
+so it appears in the students' Homework tab like any assigned lesson).
+
+### 7.6 Lesson bank
+
+`LessonBank` (dashboard Curriculum tab) lists every `lessons` row of the
+teacher with built content: name, source upload, built date, review state,
+sections / mastery / starred counts, classes assigned, with Full Lesson /
+Question Bank / Open (the upload page) / Assign. Assign reuses the assign
+page above with `lessonId`, so a lesson can go to another class later
+without regenerating.
+
+---
+
+## 8. Sub-lessons (sql/2026-09-16_sub_lessons.sql)
+
+A teacher uploads a whole chapter and splits it into several lessons, each
+generated from only its own pages.
+
+### 8.1 Data model
+
+`public.sub_lessons`: `id`, `upload_id`, `title`, `sort_order`,
+`instructions` (this lesson's own box), `generation_settings` (per
+sub-lesson: bankSize, difficulty, microChecks, masteryRequired; defaults from
+the upload's values), `coverage_report`, `insufficient_source_reason`,
+`split_edited_by_teacher`, `created_at`. RLS: teachers manage rows of their
+own uploads; service role everything.
+
+Ownership: `curriculum_source_chunks.sub_lesson_id` (every chunk has exactly
+one owner), `lessons.sub_lesson_id`, `generated_questions.sub_lesson_id`.
+The chunk column guard now allows a user session to change `teacher_status`
+**or** `sub_lesson_id` (the target must belong to the same upload); nothing
+else on chunks is teacher-editable.
+
+Default: extract-curriculum-v2 creates one sub-lesson (title = file name)
+owning every chunk, so a short upload never needs the split step and the
+single-lesson path is unchanged. The SQL backfills the same default for every
+existing upload with chunks and points its lessons and questions at it. Both
+generation functions call `resolveSubLesson()`: with no `subLessonId` they
+use the upload's first sub-lesson (creating it if missing), so older clients
+keep working. A re-extract resets the split to one lesson (page boundaries
+may change); the first sub-lesson keeps its title, settings and
+instructions and adopts every lesson and question.
+
+Items (`concepts`, `vocabulary`, `learning_objectives`) are not re-keyed:
+an item belongs to every sub-lesson that owns a chunk in its
+`source_chunk_ids`, so an item cited from two sub-lessons' pages appears in
+both, with one shared `teacher_status`. Items with no citation (grounding
+failed) belong to no sub-lesson; the UI shows them in a "Not placed" group.
+
+### 8.2 Generation
+
+`generate-questions-v2` and `synthesize-lesson-v2` accept `subLessonId` and
+`subLessonInstructions`. Everything is scoped to that sub-lesson: chunks
+(`loadChunks(..., subLessonId)`; a sub-lesson never sees another's pages),
+items (`loadCurationSet(..., ownedChunkIds)`), existing / regenerated
+questions (`generated_questions.sub_lesson_id`), the mastery pool, settings
+(`sub_lessons.generation_settings`, else the upload's), coverage report and
+shortfall notes (written to the sub-lesson row; the upload row keeps a copy),
+and the starred cap (per sub-lesson, from its own `masteryRequired`).
+Trashed chunks stay excluded; emphasis applies within every sub-lesson that
+owns the item. Rows inserted by generate carry `sub_lesson_id`; synthesize
+stamps `lessons.sub_lesson_id` and `content.subLessonId`. Responses echo
+`subLessonId`.
+
+Instructions: the upload-wide box (`curriculum_uploads.teacher_instructions`)
+applies to every sub-lesson; the sub-lesson box (`sub_lessons.instructions`)
+is added below it in the same `<teacher_instructions>` block and takes
+precedence where they conflict. The grounding clause (section 7.2) is
+unchanged.
+
+### 8.3 UI
+
+`SubLessonBar` above the stats row: one chip per sub-lesson (page range,
+word count, "short" warning under 300 words, build / reviewed state) and
+"Split into lessons". The four tabs, the stats, the Questions panel (and its
+"Add question" form, which writes `sub_lesson_id`), Lesson settings, both
+instruction boxes, Generate, Build, coverage, the approval checkbox and
+Assign all follow the selected sub-lesson, so a teacher can build one and
+come back for the next.
+
+`SplitLessonsDialog`: rename, merge with next, split at a page, reorder,
+drag a page onto another lesson, add / remove a lesson. "Propose a split"
+(`proposeSplit()` in curation/api.ts, no model call: even blocks of ~1,500
+words, cut where a page starts with a heading-like phrase) is offered only
+while no sub-lesson has `split_edited_by_teacher`; saving marks every row
+edited, so the proposal is never re-run over the teacher's version.
+
+Assign: `/teacher/assign-lesson?uploadId=&lessonId=` links only the
+questions whose `sub_lesson_id` matches the lesson's (a legacy lesson with no
+sub-lesson links only unowned questions); a question is never relabelled to
+another sub-lesson's lesson. Each sub-lesson is approved and assigned
+separately with its own due date. The lesson bank lists every built
+sub-lesson as its own lesson, labelled "From <upload> › <sub-lesson title>".

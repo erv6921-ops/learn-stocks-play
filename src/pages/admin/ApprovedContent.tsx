@@ -51,6 +51,7 @@ interface QuestionRow {
   teacher_approved_at?: string | null;
   teacher_approved_by?: string | null;
   created_at: string;
+  origin?: "generated" | "teacher_authored" | null;
 }
 
 interface UploadRow {
@@ -240,7 +241,7 @@ export default function ApprovedContent() {
                           {qs.map((q) => (
                             <li key={q.id} className="rounded-md border border-border/60 p-2 text-xs">
                               <div className="flex flex-wrap items-center gap-2">
-                                <GroundingBadge status={q.grounding_status} />
+                                <GroundingBadge status={q.grounding_status} origin={q.origin ?? null} />
                                 {q.teacher_approved_at ? (
                                   <Badge variant="success" className="text-[10px]">
                                     approved by {who(q.teacher_approved_by)} · {fmt(q.teacher_approved_at)}

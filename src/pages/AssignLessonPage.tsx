@@ -20,6 +20,7 @@ interface ClassRow {
 interface V2Lesson {
   id: string;
   name: string;
+  sub_lesson_id: string | null;
   teacher_approved_at: string | null;
   sectionsCount: number;
   masteryCount: number;
@@ -28,6 +29,7 @@ interface V2Lesson {
 interface LessonRowRaw {
   id: string;
   name: string;
+  sub_lesson_id?: string | null;
   teacher_approved_at?: string | null;
   content?: {
     version?: number;
@@ -41,7 +43,7 @@ interface LessonRowRaw {
 const db = supabase as any;
 
 // The real dashboard route is /teacher-dashboard (see App.tsx).
-const DASHBOARD_ROUTE = "/teacher-dashboard";
+const DASHBOARD_ROUTE = "/teacher-dashboard?tab=curriculum";
 
 /**
  * Assigns the upload's EXISTING v2 lesson to classes. The lesson is built and
@@ -56,6 +58,8 @@ const AssignLessonPage: React.FC = () => {
   const { toast } = useToast();
 
   const uploadId = searchParams.get("uploadId") ?? "";
+  // Optional: a specific lesson (lesson bank). Without it, the upload's latest v2 lesson is used.
+  const lessonIdParam = searchParams.get("lessonId") ?? "";
   const lessonNameParam = searchParams.get("lessonName") ?? "Untitled lesson";
 
   const [classes, setClasses] = useState<ClassRow[]>([]);
@@ -86,12 +90,12 @@ const AssignLessonPage: React.FC = () => {
           .order("name", { ascending: true }),
         db
           .from("generated_questions")
-          .select("id, teacher_approved_at")
+          .select("id, sub_lesson_id, teacher_approved_at")
           .eq("upload_id", uploadId)
           .eq("status", "pending"),
         db
           .from("lessons")
-          .select("id, name, teacher_approved_at, content")
+          .select("id, name, sub_lesson_id, teacher_approved_at, content")
           .eq("upload_id", uploadId)
           .order("created_at", { ascending: false }),
       ]);
@@ -101,19 +105,21 @@ const AssignLessonPage: React.FC = () => {
       if (lessonsRes.error) throw new Error(lessonsRes.error.message);
 
       setClasses((classesRes.data as ClassRow[] | null) ?? []);
-      const qs = (questionsRes.data as { teacher_approved_at: string | null }[] | null) ?? [];
-      setQuestionCount(qs.length);
-      setApprovedCount(qs.filter((q) => !!q.teacher_approved_at).length);
-
       // Only a v2 lesson counts: built by synthesize-lesson-v2 from the
       // teacher's marks and approved questions. v1 rows are ignored here.
       const rows = (lessonsRes.data as LessonRowRaw[] | null) ?? [];
-      const v2 = rows.find((r) => r.content?.version === 2) ?? null;
+      const v2 = (lessonIdParam ? rows.find((r) => r.id === lessonIdParam && r.content?.version === 2) : null) ?? rows.find((r) => r.content?.version === 2) ?? null;
+      // Question counts are this lesson's sub-lesson only.
+      const allQs = (questionsRes.data as { sub_lesson_id?: string | null; teacher_approved_at: string | null }[] | null) ?? [];
+      const qs = v2?.sub_lesson_id ? allQs.filter((q) => q.sub_lesson_id === v2.sub_lesson_id) : allQs.filter((q) => !q.sub_lesson_id);
+      setQuestionCount(qs.length);
+      setApprovedCount(qs.filter((q) => !!q.teacher_approved_at).length);
       setLesson(
         v2
           ? {
               id: v2.id,
               name: v2.name,
+              sub_lesson_id: v2.sub_lesson_id ?? null,
               teacher_approved_at: v2.teacher_approved_at ?? null,
               sectionsCount: v2.content?.sections?.length ?? 0,
               masteryCount:
@@ -127,7 +133,7 @@ const AssignLessonPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [uploadId]);
+  }, [uploadId, lessonIdParam]);
 
   useEffect(() => {
     void fetchData();
@@ -192,15 +198,18 @@ const AssignLessonPage: React.FC = () => {
       const { error: alErr } = await db.from("assigned_lessons").insert(assignedRows);
       if (alErr) console.warn("assigned_lessons insert failed (non-fatal):", alErr.message);
 
-      // 3. Link this upload's pending questions to the lesson. Students can
-      //    only read the approved ones (RLS); the lesson JSON already holds the
-      //    approved mastery pool. Non-fatal.
-      const { data: linked, error: linkErr } = await db
+      // 3. Link ONLY this lesson's own sub-lesson's pending questions to it.
+      //    A question must never be relabelled to another sub-lesson's lesson;
+      //    a legacy lesson with no sub-lesson links only unowned questions.
+      //    Students can only read the approved ones (RLS); the lesson JSON
+      //    already holds the approved mastery pool. Non-fatal.
+      let linkQuery = db
         .from("generated_questions")
         .update({ lesson_id: lessonId })
         .eq("upload_id", uploadId)
-        .eq("status", "pending")
-        .select("id");
+        .eq("status", "pending");
+      linkQuery = lesson.sub_lesson_id ? linkQuery.eq("sub_lesson_id", lesson.sub_lesson_id) : linkQuery.is("sub_lesson_id", null);
+      const { data: linked, error: linkErr } = await linkQuery.select("id");
       if (linkErr) {
         console.warn("Question linking failed:", linkErr.message);
         toast({
@@ -282,17 +291,15 @@ const AssignLessonPage: React.FC = () => {
                     </p>
                     <p>
                       {lesson
-                        ? "Read through it and approve it on the review screen. Students can't open a lesson you haven't approved."
-                        : "Mark what matters on the review screen, approve the questions, and build Jeff's lesson. Nothing is generated at assign time."}
+                        ? "Preview it on the curriculum page and tick \"I've reviewed this lesson\". Students can't open a lesson you haven't approved."
+                        : "Mark what matters on the curriculum page, approve the questions, and build Jeff's lesson. Nothing is generated at assign time."}
                     </p>
                   </div>
                   <Button
                     size="sm"
                     onClick={() =>
                       navigate(
-                        lesson
-                          ? `/teacher/lesson-review/${lesson.id}`
-                          : `/teacher/upload?curateUploadId=${encodeURIComponent(uploadId)}`,
+                        `/teacher/curriculum/${encodeURIComponent(uploadId)}`,
                       )
                     }
                     className="bg-amber-600 text-white hover:bg-amber-700"

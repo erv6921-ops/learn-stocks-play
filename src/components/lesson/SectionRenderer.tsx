@@ -639,12 +639,25 @@ export function MasteryCheckRenderer({
   const pool = section.questions
   const total = previewMode ? pool.length : Math.min(required, pool.length)
 
+  // Teacher-starred questions (pinnedQuestionIds, generated lessons only) are
+  // served first, in order, so every student gets them; the adaptive draw only
+  // starts once they are exhausted. Ids that are not in the pool are ignored.
+  const pinned = useMemo(() => {
+    const ids = section.pinnedQuestionIds ?? []
+    return ids.map(id => pool.find(q => q.id === id)).filter((q): q is QuizQuestion => !!q)
+  }, [section.pinnedQuestionIds, pool])
+  const pickNext = (theta: number, askedSoFar: QuizQuestion[]): QuizQuestion | null => {
+    const askedIds = askedSoFar.map(q => q.id)
+    const nextPinned = pinned.find(q => !askedIds.includes(q.id))
+    return nextPinned ?? selectNextQuestion(pool, theta, askedIds)
+  }
+
   // Questions asked so far this attempt, chosen adaptively. The first is picked
   // from the student's standing ability on entry; later ones react to how the
   // attempt is going.
   const [asked, setAsked] = useState<QuizQuestion[]>(() => {
     if (previewMode) return pool.length ? [pool[0]] : []
-    const first = selectNextQuestion(pool, session.getTheta(), [])
+    const first = pickNext(session.getTheta(), [])
     return first ? [first] : []
   })
   const currentQuestion = asked[currentQ]
@@ -698,7 +711,7 @@ export function MasteryCheckRenderer({
       // excluding everything asked so far this attempt. Preview: next in pool.
       const nextQ = previewMode
         ? pool[currentQ + 1]
-        : selectNextQuestion(pool, session.getTheta(), asked.map(q => q.id))
+        : pickNext(session.getTheta(), asked)
       if (nextQ) setAsked(prev => [...prev, nextQ])
       setCurrentQ(currentQ + 1)
       // Clutch moment: one correct answer away from passing.

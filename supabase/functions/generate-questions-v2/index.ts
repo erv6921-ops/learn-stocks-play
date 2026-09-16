@@ -58,6 +58,12 @@ import {
   verifyGroundedItems,
   loadGenerationSettings,
   difficultyInstruction,
+  loadTeacherInstructions,
+  renderTeacherInstructions,
+  readUnsupportedInstructions,
+  mergeInstructionCoverage,
+  resolveSubLesson,
+  type SubLessonRow,
 } from "../_shared/grounding.ts";
 
 // ---------------------------------------------------------------------------
@@ -87,14 +93,25 @@ interface RequestBody {
   regenerate?: boolean;
   /** Teacher settings (bankSize, difficulty, ...); falls back to the upload row, then defaults. */
   settings?: unknown;
+  /** Free-text teacher instructions (scope / emphasis / tone / structure only); falls back to the upload row. */
+  teacherInstructions?: unknown;
+  /** Sub-lesson to generate for (its chunks only). Omitted: the upload's default sub-lesson. */
+  subLessonId?: string;
+  /** This sub-lesson's own instructions; falls back to sub_lessons.instructions. */
+  subLessonInstructions?: unknown;
 }
 
 interface ResponseBody {
   success: boolean;
+  subLessonId?: string;
   questionsGenerated: number;
   verifiedCount?: number;
   failedCount?: number;
   keptApproved?: number;
+  /** Teacher-authored rows on this upload; never generated, never replaced. */
+  keptTeacherAuthored?: number;
+  /** Instruction parts the sources could not support (also in coverage). */
+  unsupportedInstructions?: string[];
   coverage?: CoverageEntry[];
   insufficientSourceReason?: string;
   errors?: string[];
@@ -108,7 +125,11 @@ interface ExistingRow {
   teacher_approved_at: string | null;
   grounding_status: string | null;
   source_chunk_ids: string[] | null;
+  /** 'generated' | 'teacher_authored' (null on rows older than the column). */
+  origin?: string | null;
 }
+
+const isTeacherAuthored = (r: ExistingRow) => r.origin === "teacher_authored";
 
 const BASE_QUESTIONS = 15; // baseline pool size for the lesson mastery check
 const MAX_QUESTIONS = 30; // hard cap even with heavy emphasis
@@ -383,24 +404,45 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } });
   const anthropic = new Anthropic({ apiKey: anthropicKey });
 
+  // --- Sub-lesson scope: everything below is this sub-lesson's only --------
+  let sub: SubLessonRow;
+  try {
+    sub = await resolveSubLesson(supabase, uploadId, body.subLessonId);
+  } catch (err) {
+    return respond({ success: false, questionsGenerated: 0, errors: [err instanceof Error ? err.message : String(err)] }, 400);
+  }
+  const subLessonId = sub.id;
+  console.log(`[${tag}] sub-lesson ${subLessonId} "${sub.title}"`);
+
   // --- Existing rows: first run vs regeneration ----------------------------
   const { data: existingData, error: existingErr } = await supabase
     .from("generated_questions")
-    .select("id, concept_id, status, lesson_id, grounding_status, source_chunk_ids, teacher_approved_at")
-    .eq("upload_id", uploadId);
+    .select("id, concept_id, status, lesson_id, grounding_status, source_chunk_ids, teacher_approved_at, origin")
+    .eq("upload_id", uploadId)
+    .eq("sub_lesson_id", subLessonId);
   if (existingErr) {
     return respond({ success: false, questionsGenerated: 0, errors: [`Load existing questions: ${existingErr.message}`] }, 500);
   }
   const existing = (existingData ?? []) as ExistingRow[];
-  if (existing.length > 0 && !regenerate) {
-    console.log(`[${tag}] ${existing.length} questions already exist; pass regenerate: true to replace unapproved rows.`);
-    return respond({ success: true, questionsGenerated: existing.length, keptApproved: existing.filter((r) => r.teacher_approved_at != null).length });
+  // Teacher-authored rows are not "a previous generation": they never block a
+  // first run and are never replaced. Only generated rows count here.
+  const teacherAuthored = existing.filter(isTeacherAuthored);
+  const generatedExisting = existing.filter((r) => !isTeacherAuthored(r));
+  if (generatedExisting.length > 0 && !regenerate) {
+    console.log(`[${tag}] ${generatedExisting.length} generated questions already exist; pass regenerate: true to replace unapproved rows.`);
+    return respond({
+      success: true,
+      subLessonId,
+      questionsGenerated: generatedExisting.length,
+      keptApproved: generatedExisting.filter((r) => r.teacher_approved_at != null).length,
+      keptTeacherAuthored: teacherAuthored.length,
+    });
   }
-  // Replace only rows the teacher has not approved and that no lesson uses.
+  // Replace only generated rows the teacher has not approved and that no lesson uses.
   const isApproved = (r: ExistingRow) => r.teacher_approved_at != null;
-  const replaceable = existing.filter((r) => !isApproved(r) && r.lesson_id == null);
-  const keptApproved = existing.filter(isApproved);
-  const keptLinked = existing.filter((r) => !isApproved(r) && r.lesson_id != null);
+  const replaceable = generatedExisting.filter((r) => !isApproved(r) && r.lesson_id == null);
+  const keptApproved = generatedExisting.filter(isApproved);
+  const keptLinked = generatedExisting.filter((r) => !isApproved(r) && r.lesson_id != null);
   if (replaceable.length > 0) {
     const { error: delErr } = await supabase
       .from("generated_questions")
@@ -416,18 +458,20 @@ Deno.serve(async (req: Request): Promise<Response> => {
   let allChunks: SourceChunk[];
   let set: CurationSet;
   try {
-    [allChunks, set] = await Promise.all([loadChunks(supabase, uploadId), loadCurationSet(supabase, uploadId)]);
+    // Only this sub-lesson's chunks, and only items cited from them.
+    allChunks = await loadChunks(supabase, uploadId, subLessonId);
+    set = await loadCurationSet(supabase, uploadId, new Set(allChunks.map((c) => c.id)));
   } catch (err) {
     return respond({ success: false, questionsGenerated: 0, errors: [err instanceof Error ? err.message : String(err)] }, 500);
   }
   const chunks = usableChunks(allChunks);
   if (allChunks.length === 0) {
-    return respond({ success: false, questionsGenerated: 0, errors: ["No source chunks for this upload. Run extract-curriculum-v2 first."] }, 404);
+    return respond({ success: false, subLessonId, questionsGenerated: 0, errors: ["This lesson has no pages. Move at least one page into it (Split into lessons), or run extract-curriculum-v2 first."] }, 404);
   }
   if (chunks.length === 0) {
-    const reason = "Every source page was trashed by the teacher; nothing to generate from.";
-    await recordInsufficientSource(supabase, uploadId, "questions", reason);
-    await saveCoverageReport(supabase, uploadId, buildCoverage(set, allChunks, [], keptApproved, new Map()));
+    const reason = "Every source page in this lesson was trashed by the teacher; nothing to generate from.";
+    await recordInsufficientSource(supabase, uploadId, "questions", reason, subLessonId);
+    await saveCoverageReport(supabase, uploadId, buildCoverage(set, allChunks, [], keptApproved, new Map()), subLessonId);
     return respond({ success: false, questionsGenerated: 0, insufficientSourceReason: reason, errors: [reason] }, 422);
   }
 
@@ -441,9 +485,18 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
   // Teacher settings: bank size + difficulty (request body, else the upload
   // row's generation_settings, else defaults).
-  const settings = await loadGenerationSettings(supabase, uploadId, body.settings);
+  const settings = await loadGenerationSettings(supabase, uploadId, body.settings, subLessonId);
   const bankSize = settings.bankSize || BASE_QUESTIONS;
-  console.log(`[${tag}] settings: bank=${bankSize} difficulty=${settings.difficulty}`);
+  // Teacher instructions shape scope / emphasis / tone / structure only; the
+  // grounding rules forbid them from adding facts. Unsupported parts are
+  // reported back, never invented. Upload-wide box + this sub-lesson's box.
+  const teacherInstructions = await loadTeacherInstructions(supabase, uploadId, body.teacherInstructions, subLessonId, body.subLessonInstructions);
+  const instructionsBlock = renderTeacherInstructions(teacherInstructions);
+  const unsupportedInstructions: string[] = [];
+  const noteUnsupported = (parsed: Record<string, unknown>) => {
+    for (const u of readUnsupportedInstructions(parsed)) if (!unsupportedInstructions.includes(u)) unsupportedInstructions.push(u);
+  };
+  console.log(`[${tag}] settings: bank=${bankSize} difficulty=${settings.difficulty} instructions=${teacherInstructions.upload ? "upload" : "-"}/${teacherInstructions.subLesson ? "sub-lesson" : "-"}`);
 
   const emphasisMinimum = emphasized.reduce((n, it) => n + questionTarget(it), 0);
   const requested = Math.min(MAX_QUESTIONS, Math.max(bankSize, emphasisMinimum + 5));
@@ -464,11 +517,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
       const gCuration = groups.length === 1 ? curation : renderCurationPrompt(set, gBlock, { questionMinimums: true });
       const parsed = await groundedGenerate(anthropic, {
         system: SYSTEM_PROMPT,
-        user: `${partNote}Generate up to ${perGroup} questions.\n${difficultyInstruction(settings.difficulty, perGroup)}\n\n${gCuration}\n\nSOURCES:\n${gBlock.text}`,
+        user: `${partNote}Generate up to ${perGroup} questions.\n${difficultyInstruction(settings.difficulty, perGroup)}\n\n${instructionsBlock ? `${instructionsBlock}\n\n` : ""}${gCuration}\n\nSOURCES:\n${gBlock.text}`,
         tag: `${tag}][group ${g + 1}`,
       });
       const reason = readInsufficient(parsed);
       if (reason) insufficientReasons.push(reason);
+      noteUnsupported(parsed);
       for (const q of parseQuestions(parsed, knownKeys).slice(0, perGroup)) {
         if (mentionsTrashed(q, trashed)) {
           droppedTrashed++;
@@ -511,11 +565,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
         .join("\n");
       const parsed = await groundedGenerate(anthropic, {
         system: TOPUP_SYSTEM_PROMPT,
-        user: `ITEMS NEEDING MORE QUESTIONS:\n${wanted}\n\nEXISTING QUESTIONS (do not repeat):\n${existingQs || "(none)"}\n\n${curation}\n\nSOURCES:\n${block.text}`,
+        user: `ITEMS NEEDING MORE QUESTIONS:\n${wanted}\n\nEXISTING QUESTIONS (do not repeat):\n${existingQs || "(none)"}\n\n${instructionsBlock ? `${instructionsBlock}\n\n` : ""}${curation}\n\nSOURCES:\n${block.text}`,
         tag: `${tag}][topup`,
       });
       const reason = readInsufficient(parsed);
       if (reason) insufficientReasons.push(reason);
+      noteUnsupported(parsed);
       const extra: Slot[] = [];
       for (const q of parseQuestions(parsed, knownKeys)) {
         if (mentionsTrashed(q, trashed)) continue;
@@ -548,6 +603,8 @@ Deno.serve(async (req: Request): Promise<Response> => {
       explanation: s.q.explanation,
       difficulty: DIFFICULTY_NUM[s.q.difficulty] ?? 0.5,
       status: "pending",
+      origin: "generated",
+      sub_lesson_id: subLessonId,
       source_chunk_ids: s.result?.chunkIds.length ? s.result.chunkIds : null,
       evidence_quote: s.q.evidence_quote || null,
       grounding_status: s.result?.status ?? "failed",
@@ -563,8 +620,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 
   // --- Coverage (computed here, never by the model) + bookkeeping ----------
-  const coverage = buildCoverage(set, allChunks, slots, keptApproved, emphasisShortfall);
-  await saveCoverageReport(supabase, uploadId, coverage);
+  const coverage = mergeInstructionCoverage(buildCoverage(set, allChunks, slots, keptApproved, emphasisShortfall), "questions", unsupportedInstructions);
+  await saveCoverageReport(supabase, uploadId, coverage, subLessonId);
+  if (unsupportedInstructions.length > 0) console.log(`[${tag}] unsupported instruction parts: ${unsupportedInstructions.join(" | ")}`);
 
   const verifiedCount = rows.filter((r) => r.grounding_status === "verified").length;
   const failedCount = rows.length - verifiedCount;
@@ -576,15 +634,18 @@ Deno.serve(async (req: Request): Promise<Response> => {
       (shortfallNotes.length > 0
         ? `Emphasis minimums not fully met for ${emphasisShortfall.size} item(s).`
         : `Only ${rows.length} of ${bankSize} requested questions were supported by the sources.`);
-    await recordInsufficientSource(supabase, uploadId, "questions", insufficientSourceReason);
+    await recordInsufficientSource(supabase, uploadId, "questions", insufficientSourceReason, subLessonId);
   }
   if (rows.length === 0) {
     return respond({
       success: false,
+      subLessonId,
       questionsGenerated: 0,
       keptApproved: keptApproved.length,
+      keptTeacherAuthored: teacherAuthored.length,
       coverage,
       insufficientSourceReason,
+      unsupportedInstructions,
       errors: ["Model returned no usable questions."],
     }, 422);
   }
@@ -594,10 +655,13 @@ Deno.serve(async (req: Request): Promise<Response> => {
   console.log(`[${tag}] inserted ${rows.length} questions (${verifiedCount} verified, ${failedCount} failed), kept ${keptApproved.length} approved`);
   return respond({
     success: true,
+    subLessonId,
     questionsGenerated: rows.length,
     verifiedCount,
     failedCount,
     keptApproved: keptApproved.length,
+    keptTeacherAuthored: teacherAuthored.length,
+    unsupportedInstructions,
     coverage,
     ...(insufficientSourceReason ? { insufficientSourceReason } : {}),
   });

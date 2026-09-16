@@ -52,6 +52,7 @@ interface QuizQ {
   sourceChunkIds?: string[];
   evidenceQuote?: string;
   groundingStatus?: string;
+  origin?: "generated" | "teacher_authored";
 }
 
 interface Section {
@@ -67,6 +68,7 @@ interface Section {
   sourceChunkIds?: string[];
   evidenceQuote?: string;
   groundingStatus?: string;
+  origin?: "generated" | "teacher_authored";
 }
 
 interface FailedItem {
@@ -329,7 +331,7 @@ export default function TeacherLessonReview() {
                       <Badge variant="outline" className="text-[11px]">
                         Check-in {checkIndex}
                       </Badge>
-                      {q.groundingStatus && <GroundingBadge status={q.groundingStatus} />}
+                      {(q.groundingStatus || q.origin) && <GroundingBadge status={q.groundingStatus} origin={q.origin ?? null} />}
                     </div>
                     <p className="text-sm font-medium text-slate-900">{q.question}</p>
                     <ul className="space-y-1">

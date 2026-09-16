@@ -21,6 +21,8 @@ function typeWord(t: CoverageEntry["item_type"]): string {
       return "term";
     case "objective":
       return "objective";
+    case "instruction":
+      return "instruction";
     default:
       return "page";
   }
@@ -42,7 +44,9 @@ function Line({ e }: { e: CoverageEntry }) {
   const short = isShort(e);
   const extra = lessonNote(e);
   let text: string;
-  if (e.teacher_status === "trashed") {
+  if (e.item_type === "instruction") {
+    text = `Skipped "${e.label}": your material does not contain it, so it was left out rather than invented.`;
+  } else if (e.teacher_status === "trashed") {
     text = `Trashed "${e.label}": left out of the lesson.`;
   } else if (e.teacher_status === "emphasized") {
     text = short
@@ -57,7 +61,7 @@ function Line({ e }: { e: CoverageEntry }) {
     <li className={cn("flex items-start gap-2 text-xs", short ? "text-amber-800 dark:text-amber-200" : "text-slate-700 dark:text-slate-300")}>
       {e.teacher_status === "trashed" ? (
         <Trash2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-400" />
-      ) : short ? (
+      ) : short || e.item_type === "instruction" ? (
         <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600 dark:text-amber-400" />
       ) : e.teacher_status === "emphasized" ? (
         <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
@@ -76,10 +80,11 @@ export const CoverageSummary: React.FC<CoverageSummaryProps> = ({ coverage, clas
   const [restOpen, setRestOpen] = useState(false);
   if (!coverage.length) return null;
 
-  const emphasized = coverage.filter((e) => e.teacher_status === "emphasized");
-  const trashed = coverage.filter((e) => e.teacher_status === "trashed");
-  const rest = coverage.filter((e) => e.teacher_status === "active" && (e.item_type !== "chunk" || e.questions_generated === 0));
-  const shortfalls = coverage.filter(isShort).length;
+  const instructions = coverage.filter((e) => e.item_type === "instruction");
+  const emphasized = coverage.filter((e) => e.item_type !== "instruction" && e.teacher_status === "emphasized");
+  const trashed = coverage.filter((e) => e.item_type !== "instruction" && e.teacher_status === "trashed");
+  const rest = coverage.filter((e) => e.item_type !== "instruction" && e.teacher_status === "active" && (e.item_type !== "chunk" || e.questions_generated === 0));
+  const shortfalls = coverage.filter(isShort).length + instructions.length;
 
   return (
     <div className={cn("space-y-2", className)}>
@@ -91,8 +96,11 @@ export const CoverageSummary: React.FC<CoverageSummaryProps> = ({ coverage, clas
           </span>
         )}
       </div>
-      {emphasized.length + trashed.length > 0 && (
+      {emphasized.length + trashed.length + instructions.length > 0 && (
         <ul className="space-y-1">
+          {instructions.map((e) => (
+            <Line key={`${e.item_type}-${e.item_id}`} e={e} />
+          ))}
           {emphasized.map((e) => (
             <Line key={`${e.item_type}-${e.item_id}`} e={e} />
           ))}

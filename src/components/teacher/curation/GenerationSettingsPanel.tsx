@@ -2,7 +2,7 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { Minus, Plus, SlidersHorizontal } from "lucide-react";
+import { AlertTriangle, Minus, Plus, SlidersHorizontal } from "lucide-react";
 import { SETTINGS_LIMITS, type DifficultyLevel, type GenerationSettings } from "./api";
 
 /**
@@ -17,6 +17,8 @@ export interface GenerationSettingsPanelProps {
   disabled?: boolean;
   /** True once questions exist, to warn that bank/difficulty changes need a regenerate. */
   hasQuestions?: boolean;
+  /** Starred questions on this upload. Must not exceed masteryRequired; the panel warns when it does. */
+  starredCount?: number;
   className?: string;
 }
 
@@ -91,8 +93,9 @@ function Stepper({
   );
 }
 
-export const GenerationSettingsPanel: React.FC<GenerationSettingsPanelProps> = ({ value, onChange, disabled, hasQuestions, className }) => {
+export const GenerationSettingsPanel: React.FC<GenerationSettingsPanelProps> = ({ value, onChange, disabled, hasQuestions, starredCount = 0, className }) => {
   const masteryMax = Math.min(SETTINGS_LIMITS.masteryRequired.max, value.bankSize);
+  const starredOver = Math.max(0, starredCount - value.masteryRequired);
   return (
     <div className={cn("space-y-3 rounded-lg border border-slate-200 bg-slate-50/60 p-4 dark:border-slate-700 dark:bg-slate-900/40", className)}>
       <div className="flex flex-wrap items-center gap-2">
@@ -147,7 +150,7 @@ export const GenerationSettingsPanel: React.FC<GenerationSettingsPanelProps> = (
         <Stepper
           id="setting-mastery-required"
           label="Correct answers to pass the mastery check"
-          hint={`Up to ${masteryMax}. Students keep drawing fresh questions from the bank until they reach it.`}
+          hint={`Up to ${masteryMax}. Students keep drawing fresh questions from the bank until they reach it. Also the most questions you can star.`}
           value={value.masteryRequired}
           min={SETTINGS_LIMITS.masteryRequired.min}
           max={masteryMax}
@@ -155,6 +158,16 @@ export const GenerationSettingsPanel: React.FC<GenerationSettingsPanelProps> = (
           onChange={(masteryRequired) => onChange({ ...value, masteryRequired })}
         />
       </div>
+
+      {starredOver > 0 && (
+        <div className="flex items-start gap-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+          <p>
+            <span className="font-semibold">{starredCount} questions are starred but the pass mark is now {value.masteryRequired}.</span>{" "}
+            {starredOver} too many. Nothing was unstarred for you: unstar {starredOver} question{starredOver === 1 ? "" : "s"} on the Questions tab, or raise the pass mark, before generating or building.
+          </p>
+        </div>
+      )}
 
       {hasQuestions && (
         <p className="text-[11px] text-amber-700 dark:text-amber-300">

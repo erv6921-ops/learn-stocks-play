@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import TeacherUploadCurriculum from "@/pages/TeacherUploadCurriculum";
+import { LessonBank } from "@/components/teacher/LessonBank";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,13 +17,14 @@ import {
   Loader2,
   FileText,
   Trash2,
-  Eye,
   Sparkles,
   AlertCircle,
   RefreshCw,
   Inbox,
   MessageCircle,
   Users,
+  UploadCloud,
+  SlidersHorizontal,
 } from "lucide-react";
 
 // ---------------------------------------------------------------------------
@@ -132,6 +133,18 @@ const StatusBadge: React.FC<{ status: UploadStatus }> = ({ status }) => {
     extraction_failed: {
       label: "Failed",
       cls: "bg-red-100 text-red-700 border-red-200",
+    },
+    awaiting_teacher_review: {
+      label: "Ready to review",
+      cls: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    },
+    questions_generated: {
+      label: "Questions generated",
+      cls: "bg-sky-100 text-sky-700 border-sky-200",
+    },
+    lesson_synthesized: {
+      label: "Lesson built",
+      cls: "bg-emerald-100 text-emerald-700 border-emerald-200",
     },
   };
   const s = map[status] ?? {
@@ -350,13 +363,36 @@ export const CurriculumTab: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      {/* Upload form */}
+      {/* Upload entry point: routes to the dedicated curriculum page */}
       <section>
         <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-slate-100">
           Upload new curriculum
         </h3>
-        <TeacherUploadCurriculum embedded onExtracted={fetchUploads} />
+        <Card className="border-emerald-100 shadow-sm dark:border-emerald-900">
+          <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-w-0 items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-sm">
+                <UploadCloud className="h-5 w-5 text-white" />
+              </div>
+              <div className="min-w-0 space-y-0.5">
+                <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Upload a PDF and build a lesson</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Concepts, vocabulary and objectives are pulled from your pages. You mark what matters, approve or write questions, then preview and assign Jeff&apos;s lesson.
+                </p>
+              </div>
+            </div>
+            <Button
+              onClick={() => navigate("/teacher/curriculum")}
+              className="shrink-0 self-end bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 sm:self-auto"
+            >
+              <UploadCloud className="mr-1.5 h-4 w-4" /> Upload curriculum
+            </Button>
+          </CardContent>
+        </Card>
       </section>
+
+      {/* Lesson bank: built lessons, assignable to any class later */}
+      <LessonBank />
 
       {/* Upload history */}
       <section>
@@ -420,7 +456,7 @@ export const CurriculumTab: React.FC = () => {
               No curriculum uploads yet.
             </p>
             <p className="text-xs text-slate-400">
-              Upload your first PDF above.
+              Use &ldquo;Upload curriculum&rdquo; above to add your first PDF.
             </p>
           </div>
         )}
@@ -507,11 +543,12 @@ export const CurriculumTab: React.FC = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => navigate(`/teacher/upload?curateUploadId=${encodeURIComponent(u.id)}`)}
+                      onClick={() => navigate(`/teacher/curriculum/${encodeURIComponent(u.id)}`)}
                       className="border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                      title="Review what was extracted, build and assign the lesson"
                     >
-                      <Eye className="mr-1.5 h-3.5 w-3.5" />
-                      Assign lesson
+                      <SlidersHorizontal className="mr-1.5 h-3.5 w-3.5" />
+                      Review &amp; build
                     </Button>
                     <Button
                       size="sm"

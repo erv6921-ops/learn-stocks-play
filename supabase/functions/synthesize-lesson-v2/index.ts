@@ -60,6 +60,11 @@ import {
   usableItems,
   verifyGroundedItems,
   loadGenerationSettings,
+  loadTeacherInstructions,
+  renderTeacherInstructions,
+  readUnsupportedInstructions,
+  mergeInstructionCoverage,
+  resolveSubLesson,
 } from "../_shared/grounding.ts";
 
 const CORS_HEADERS: Record<string, string> = {
@@ -122,6 +127,12 @@ interface Body {
   lessonId: string;
   /** Teacher settings (microChecks, masteryRequired, ...); falls back to the upload row, then defaults. */
   settings?: unknown;
+  /** Free-text teacher instructions (scope / emphasis / tone / structure only); falls back to the upload row. */
+  teacherInstructions?: unknown;
+  /** Sub-lesson to build from (its chunks + its questions only). Omitted: the lesson row's sub_lesson_id, else the upload's default. */
+  subLessonId?: string;
+  /** This sub-lesson's own instructions; falls back to sub_lessons.instructions. */
+  subLessonInstructions?: unknown;
 }
 
 interface Cited {
@@ -170,6 +181,10 @@ interface GenQuestionRow {
   id: string;
   concept_id: string | null;
   teacher_approved_at: string | null;
+  /** 'generated' | 'teacher_authored' (null on rows older than the column). */
+  origin?: string | null;
+  /** Every student gets this question: always in the pool, served before rotation. */
+  starred?: boolean | null;
   question_text: string;
   options: string[];
   correct_answer: string;
@@ -369,36 +384,59 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const anthropic = new Anthropic({ apiKey: anthropicKey });
   // Teacher settings: quick-check count + mastery pass mark (request body,
   // else the upload row's generation_settings, else defaults).
-  const settings = await loadGenerationSettings(supabase, uploadId, body.settings);
-  console.log(`[${tag}] settings: checks=${settings.microChecks} masteryRequired=${settings.masteryRequired}`);
+  // --- Sub-lesson scope: body, else the lesson row's owner, else the default.
+  let subLessonId: string;
+  try {
+    let wanted: unknown = body.subLessonId;
+    if (!wanted) {
+      const { data: lessonRow } = await supabase.from("lessons").select("sub_lesson_id").eq("id", lessonId).maybeSingle();
+      wanted = lessonRow?.sub_lesson_id ?? null;
+    }
+    const sub = await resolveSubLesson(supabase, uploadId, wanted);
+    subLessonId = sub.id;
+    console.log(`[${tag}] sub-lesson ${subLessonId} "${sub.title}"`);
+  } catch (err) {
+    return respond({ success: false, errors: [err instanceof Error ? err.message : String(err)] }, 400);
+  }
+  const settings = await loadGenerationSettings(supabase, uploadId, body.settings, subLessonId);
+  // Teacher instructions shape scope / emphasis / tone / structure only; the
+  // grounding rules forbid them from adding facts. Unsupported parts are
+  // reported back, never invented. Upload-wide box + this sub-lesson's box.
+  const teacherInstructions = await loadTeacherInstructions(supabase, uploadId, body.teacherInstructions, subLessonId, body.subLessonInstructions);
+  const instructionsBlock = renderTeacherInstructions(teacherInstructions);
+  const unsupportedInstructions: string[] = [];
+  console.log(`[${tag}] settings: checks=${settings.microChecks} masteryRequired=${settings.masteryRequired} instructions=${teacherInstructions.upload ? "upload" : "-"}/${teacherInstructions.subLesson ? "sub-lesson" : "-"}`);
 
   // --- Load source chunks (source of truth), marks, guides, question bank --
   let allChunks: SourceChunk[];
   let set: CurationSet;
   let coverage: CoverageEntry[];
   try {
-    [allChunks, set, coverage] = await Promise.all([
-      loadChunks(supabase, uploadId),
-      loadCurationSet(supabase, uploadId),
-      loadCoverageReport(supabase, uploadId),
+    // Only this sub-lesson's chunks, items cited from them, and its own report.
+    allChunks = await loadChunks(supabase, uploadId, subLessonId);
+    [set, coverage] = await Promise.all([
+      loadCurationSet(supabase, uploadId, new Set(allChunks.map((c) => c.id))),
+      loadCoverageReport(supabase, uploadId, subLessonId),
     ]);
   } catch (err) {
     return respond({ success: false, errors: [err instanceof Error ? err.message : String(err)] }, 500);
   }
   if (allChunks.length === 0) {
-    return respond({ success: false, errors: ["No source chunks for this upload. Run extract-curriculum-v2 first."] }, 404);
+    return respond({ success: false, errors: ["This lesson has no pages. Move at least one page into it (Split into lessons), or run extract-curriculum-v2 first."] }, 404);
   }
   const chunks = usableChunks(allChunks);
   if (chunks.length === 0) {
-    const reason = "Every source page was trashed by the teacher; nothing to teach from.";
-    await recordInsufficientSource(supabase, uploadId, "lesson", reason);
+    const reason = "Every source page in this lesson was trashed by the teacher; nothing to teach from.";
+    await recordInsufficientSource(supabase, uploadId, "lesson", reason, subLessonId);
     return respond({ success: false, insufficientSourceReason: reason, errors: [reason] }, 422);
   }
 
+  // Mastery pool: this sub-lesson's questions only.
   const { data: qData } = await supabase
     .from("generated_questions")
-    .select("id, concept_id, question_text, options, correct_answer, explanation, difficulty, source_chunk_ids, evidence_quote, grounding_status, teacher_approved_at")
+    .select("id, concept_id, question_text, options, correct_answer, explanation, difficulty, source_chunk_ids, evidence_quote, grounding_status, teacher_approved_at, origin, starred")
     .eq("upload_id", uploadId)
+    .eq("sub_lesson_id", subLessonId)
     .order("created_at", { ascending: true });
   const genQuestions = (qData ?? []) as GenQuestionRow[];
 
@@ -429,9 +467,10 @@ Deno.serve(async (req: Request): Promise<Response> => {
       const partNote = groups.length > 1 ? `This is part ${g + 1} of ${groups.length} of the material. ` : "";
       const parsed = await groundedGenerate(anthropic, {
         system: SYSTEM_PROMPT,
-        user: `${partNote}Segment budget: write at most ${budget} teaching segment${budget === 1 ? "" : "s"} (fewer if the sources only support fewer). Quick checks: write exactly ${settings.microChecks} check question${settings.microChecks === 1 ? "" : "s"} in "checks"${settings.microChecks === 0 ? " (an empty array)" : ""}.${emphasizedTopics.length > budget ? ` ${emphasizedTopics.length} topics are emphasized but only ${budget} slides are available: pick the ${budget} most important for slides and cover the rest in the check questions.` : ""}\n\n${gCuration}\n\nSOURCES:\n${gBlock.text}`,
+        user: `${partNote}Segment budget: write at most ${budget} teaching segment${budget === 1 ? "" : "s"} (fewer if the sources only support fewer). Quick checks: write exactly ${settings.microChecks} check question${settings.microChecks === 1 ? "" : "s"} in "checks"${settings.microChecks === 0 ? " (an empty array)" : ""}.${emphasizedTopics.length > budget ? ` ${emphasizedTopics.length} topics are emphasized but only ${budget} slides are available: pick the ${budget} most important for slides and cover the rest in the check questions.` : ""}\n\n${instructionsBlock ? `${instructionsBlock}\n\n` : ""}${gCuration}\n\nSOURCES:\n${gBlock.text}`,
         tag: `${tag}][group ${g + 1}`,
       });
+      for (const u of readUnsupportedInstructions(parsed)) if (!unsupportedInstructions.includes(u)) unsupportedInstructions.push(u);
       const part = normalizeSynth(parsed, knownKeys);
       if (groups.length > 1) {
         for (const s of part.teachingSegments) s.source_ids = relabelSids(s.source_ids, gBlock, block);
@@ -591,11 +630,22 @@ Deno.serve(async (req: Request): Promise<Response> => {
   // (teacher_approved_at set), never grounding-failed rows, never rows
   // attached to a trashed concept. The lesson JSON is what students read, so
   // the approval gate has to be applied here as well as in RLS.
+  // Starred rows (teacher: "every student gets this") are always in the pool
+  // and are listed first; the player serves pinnedQuestionIds before drawing
+  // adaptively. A trashed concept does not drop a starred row: the star is
+  // the teacher's explicit, later decision. Approval is still required (it is
+  // the student RLS gate) and grounding-failed rows are never included.
+  // Teacher-authored rows carry no grounding data; they are approved on save
+  // and pass the same filter.
   const attachedToTrashed = (g: GenQuestionRow) => !!g.concept_id && trashedConceptIds.has(g.concept_id);
-  const poolRows = genQuestions.filter((g) => g.grounding_status !== "failed" && !attachedToTrashed(g) && g.teacher_approved_at != null);
+  const isStarred = (g: GenQuestionRow) => g.starred === true;
+  const poolRows = genQuestions.filter(
+    (g) => g.grounding_status !== "failed" && g.teacher_approved_at != null && (isStarred(g) || !attachedToTrashed(g)),
+  );
+  poolRows.sort((a, b) => Number(isStarred(b)) - Number(isStarred(a)));
   // Grounding-failed rows are listed once (below, as failed), not again here.
-  const excludedTrashedRows = genQuestions.filter((g) => attachedToTrashed(g) && g.grounding_status !== "failed");
-  const unapprovedRows = genQuestions.filter((g) => g.grounding_status !== "failed" && !attachedToTrashed(g) && g.teacher_approved_at == null);
+  const excludedTrashedRows = genQuestions.filter((g) => attachedToTrashed(g) && !isStarred(g) && g.grounding_status !== "failed");
+  const unapprovedRows = genQuestions.filter((g) => g.grounding_status !== "failed" && (isStarred(g) || !attachedToTrashed(g)) && g.teacher_approved_at == null);
   const masteryQuestions = poolRows.map((g) => ({
     id: g.id,
     question: g.question_text,
@@ -606,13 +656,18 @@ Deno.serve(async (req: Request): Promise<Response> => {
     sourceChunkIds: g.source_chunk_ids ?? [],
     evidenceQuote: g.evidence_quote ?? "",
     groundingStatus: g.grounding_status ?? "unverified",
+    origin: g.origin === "teacher_authored" ? "teacher_authored" : "generated",
+    starred: isStarred(g),
   }));
+  const pinnedQuestionIds = poolRows.filter(isStarred).map((g) => g.id);
   const pool = masteryQuestions.length;
   // 4 correct to pass; MasteryCheckRenderer draws `requiredCorrect` questions
   // adaptively from the pool so retries rotate through fresh questions.
+  // Starred rows are never rotated out: the cap (starred <= masteryRequired)
+  // is enforced by the DB trigger, so they always fit inside requiredCorrect.
   const requiredCorrect = pool > 0 ? Math.min(pool, settings.masteryRequired) : 0;
   if (pool > 0) {
-    sections.push({ type: "mastery-check", questions: masteryQuestions, requiredCorrect });
+    sections.push({ type: "mastery-check", questions: masteryQuestions, requiredCorrect, ...(pinnedQuestionIds.length ? { pinnedQuestionIds } : {}) });
   }
 
   // Failed / excluded items are kept for admin review, never shown to students.
@@ -725,7 +780,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
       appendNote(e, `Lesson: cited by ${citedBy} verified lesson item(s).`);
     }
   }
-  await saveCoverageReport(supabase, uploadId, coverage);
+  coverage = mergeInstructionCoverage(coverage, "lesson", unsupportedInstructions);
+  await saveCoverageReport(supabase, uploadId, coverage, subLessonId);
+  if (unsupportedInstructions.length > 0) console.log(`[${tag}] unsupported instruction parts: ${unsupportedInstructions.join(" | ")}`);
 
   // Jeff live-chat context. The player runs Jeff's conversation BEFORE the
   // slides and grounds it on `excerpt` (it reads the first ~3,500 chars), so
@@ -758,18 +815,21 @@ Deno.serve(async (req: Request): Promise<Response> => {
   const insufficientParts = [synth.insufficientReason, lessonShortfalls.length ? `Emphasis not fully met: ${lessonShortfalls.join("; ")}.` : null].filter(Boolean) as string[];
   const insufficientReason = insufficientParts.join(" ") || null;
   if (insufficientReason) {
-    await recordInsufficientSource(supabase, uploadId, "lesson", insufficientReason);
+    await recordInsufficientSource(supabase, uploadId, "lesson", insufficientReason, subLessonId);
   }
 
   const content = {
     version: 2,
     synthesizedAt: new Date().toISOString(),
+    subLessonId,
     grounding: {
       generator: "synthesize-lesson-v2",
       sourceChunkCount: chunks.length,
       trashedChunkCount: allChunks.length - chunks.length,
       verifiedCount,
       failedCount: failed_items.length,
+      starredCount: pinnedQuestionIds.length,
+      ...(unsupportedInstructions.length ? { unsupportedInstructions } : {}),
       ...(insufficientReason ? { insufficientSourceReason: insufficientReason } : {}),
     },
     sections,
@@ -777,7 +837,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     jeffContext,
   };
 
-  const { error: updErr } = await supabase.from("lessons").update({ content }).eq("id", lessonId);
+  const { error: updErr } = await supabase.from("lessons").update({ content, sub_lesson_id: subLessonId }).eq("id", lessonId);
   if (updErr) {
     console.error(`[${tag}] store failed: ${updErr.message}`);
     return respond({ success: false, errors: [`Could not store lesson content: ${updErr.message}`] }, 500);
@@ -790,9 +850,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
   );
   return respond({
     success: true,
+    subLessonId,
     sectionsCount: sections.length,
     masteryCount: pool,
     requiredCorrect,
+    starredCount: pinnedQuestionIds.length,
+    unsupportedInstructions,
     verifiedCount,
     failedCount: failed_items.length,
     coverage,

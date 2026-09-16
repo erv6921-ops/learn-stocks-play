@@ -19,7 +19,7 @@ import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
-import TeacherUploadCurriculum from "./pages/TeacherUploadCurriculum";
+import TeacherCurriculumPage from "./pages/TeacherCurriculumPage";
 import AssignLessonPage from "./pages/AssignLessonPage";
 import StudentLessonView from "./pages/StudentLessonView";
 import BuildStudyGuidePage from "./pages/BuildStudyGuidePage";
@@ -65,6 +65,14 @@ import { installErrorLog } from "@/lib/errorLog";
 installErrorLog();
 
 const queryClient = new QueryClient();
+
+// /teacher/upload used to host the upload form (with ?curateUploadId= for an
+// existing extraction). Both now live on /teacher/curriculum[/:uploadId].
+function LegacyUploadRedirect() {
+  const location = useLocation();
+  const id = new URLSearchParams(location.search).get("curateUploadId");
+  return <Navigate to={id ? `/teacher/curriculum/${encodeURIComponent(id)}` : "/teacher/curriculum"} replace />;
+}
 
 // Redirects a student off any page their teacher has locked (covers direct-URL
 // access, not just hidden nav). Teachers/unrestricted students get the
@@ -173,7 +181,11 @@ function AppRoutes() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
       <Route path="/teacher/student/:userId" element={<StudentWork />} />
-      <Route path="/teacher/upload" element={<TeacherUploadCurriculum />} />
+      {/* Teacher curriculum: upload -> progress -> tabbed review -> build/preview/approve/assign, one page. */}
+      <Route path="/teacher/curriculum" element={<TeacherCurriculumPage />} />
+      <Route path="/teacher/curriculum/:uploadId" element={<TeacherCurriculumPage />} />
+      {/* Old entry point (kept for bookmarks / older links). */}
+      <Route path="/teacher/upload" element={<LegacyUploadRedirect />} />
       <Route path="/teacher/assign-lesson" element={<AssignLessonPage />} />
       <Route path="/student/lesson/:lessonId" element={<StudentLessonView />} />
       <Route path="/teacher/build-study-guide" element={<BuildStudyGuidePage />} />

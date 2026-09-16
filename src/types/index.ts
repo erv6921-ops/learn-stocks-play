@@ -234,6 +234,10 @@ export interface MasteryCheckSection extends LessonContentSection {
   // supplemental retry-variety padding is mixed into the pool (a retry re-shows
   // the same set). Use for hand-tuned mastery checks that must stay verbatim.
   lockQuestions?: boolean
+  // Teacher-starred questions (generated lessons, synthesize-lesson-v2): every
+  // student is served these first, in this order, before any adaptive draw.
+  // Never more than requiredCorrect (capped at the upload's mastery pass mark).
+  pinnedQuestionIds?: string[]
 }
 
 // ═══════════════════════════════════════════════
