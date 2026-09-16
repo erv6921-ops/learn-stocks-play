@@ -72,10 +72,18 @@ const TeacherCurriculumPage: React.FC = () => {
   const [reextractPrompt, setReextractPrompt] = useState<{ uploadId: string } | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  // Set right before this page rewrites its own URL (runExtraction / reset),
+  // so the "open an existing upload" effect below ignores that navigation
+  // instead of reloading the row and clobbering the in-flight phase.
+  const selfNavigatedRef = useRef<string | null>(null);
 
   // --- Existing upload: /teacher/curriculum/:uploadId ---------------------
   useEffect(() => {
     if (!routeUploadId) return;
+    if (selfNavigatedRef.current === routeUploadId) {
+      selfNavigatedRef.current = null;
+      return;
+    }
     let cancelled = false;
     setPhase("loading");
     (async () => {
@@ -184,7 +192,7 @@ const TeacherCurriculumPage: React.FC = () => {
 
   // --- Extract: create/reuse the upload row, call extract-curriculum-v2 ----
   const runExtraction = useCallback(
-    async (opts: { reextract?: boolean; uploadId?: string } = {}) => {
+    async function runExtraction(opts: { reextract?: boolean; uploadId?: string } = {}): Promise<void> {
       if (pages.length === 0) return;
       setErrorMsg("");
       setErrorKind("generic");
@@ -229,8 +237,12 @@ const TeacherCurriculumPage: React.FC = () => {
         }
         setUploadId(id);
         // Put the id in the URL so a refresh lands on this upload. Same page,
-        // no navigation: the component stays mounted (same route element).
-        if (routeUploadId !== id) navigate(`/teacher/curriculum/${id}`, { replace: true });
+        // no navigation: the component stays mounted (same route element), and
+        // the route effect skips this change (selfNavigatedRef).
+        if (routeUploadId !== id) {
+          selfNavigatedRef.current = id;
+          navigate(`/teacher/curriculum/${id}`, { replace: true });
+        }
         setPhase("extracting");
 
         // 2. Call the v2 extractor with page-level text. The progress bar
@@ -242,7 +254,13 @@ const TeacherCurriculumPage: React.FC = () => {
         });
 
         if (status === 409) {
-          // Already extracted: ask before wiping the previous marks.
+          // The row was extracted before. With stored pages there are marks
+          // to lose: ask first. With no pages (a v1 row, or a failed first
+          // attempt) there is nothing to lose: re-extract straight away.
+          if ((data?.chunksCount ?? 0) === 0 && !opts.reextract) {
+            await runExtraction({ reextract: true, uploadId: id });
+            return;
+          }
           setReextractPrompt({ uploadId: id });
           setPhase("ready");
           return;
@@ -252,7 +270,10 @@ const TeacherCurriculumPage: React.FC = () => {
           throw new Error(data?.insufficientSourceReason || data?.errors?.join(" • ") || `${NOT_ENOUGH_TEXT}.`);
         }
         if (!data?.success) {
-          throw new Error(functionError(status, data, "Extraction failed"));
+          // Surface what the server actually said (errors[] and any
+          // insufficient-source note), never a generic line.
+          const detail = [data?.errors?.join(" • "), data?.insufficientSourceReason].filter(Boolean).join(" ");
+          throw new Error(detail || functionError(status, data, "Extraction failed"));
         }
 
         // Same page becomes the review. No navigation.
@@ -277,6 +298,7 @@ const TeacherCurriculumPage: React.FC = () => {
     setUploadId(null);
     setReextractPrompt(null);
     if (inputRef.current) inputRef.current.value = "";
+    selfNavigatedRef.current = null;
     if (routeUploadId) navigate("/teacher/curriculum", { replace: true });
   }, [routeUploadId, navigate]);
 
@@ -463,7 +485,7 @@ const TeacherCurriculumPage: React.FC = () => {
             <AlertDialogTitle>Re-extract this file?</AlertDialogTitle>
             <AlertDialogDescription>
               <span className="font-medium">{fileName}</span> was already extracted. Re-extracting replaces the previous concepts, vocabulary, objectives
-              and page text, and clears any Emphasize or Trash marks you made on them. If you split this upload into several lessons, the
+              and page text, and clears every Emphasize and Trash mark on the old extraction. If you split this upload into several lessons, the
               split is reset to one lesson (page boundaries may change). Questions you approved or wrote yourself are kept.
             </AlertDialogDescription>
           </AlertDialogHeader>
