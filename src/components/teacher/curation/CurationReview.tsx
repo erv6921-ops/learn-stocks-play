@@ -835,6 +835,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
         uploadId={uploadId}
         subLessons={subLessons}
         chunks={allChunks}
+        initialInstructions={upload.split_instructions ?? null}
         onSaved={() => {
           snapshotRef.current.clear();
           void load({ silent: true });

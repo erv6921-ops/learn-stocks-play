@@ -520,11 +520,34 @@ Assign all follow the selected sub-lesson, so a teacher can build one and
 come back for the next.
 
 `SplitLessonsDialog`: rename, merge with next, split at a page, reorder,
-drag a page onto another lesson, add / remove a lesson. "Propose a split"
-(`proposeSplit()` in curation/api.ts, no model call: even blocks of ~1,500
-words, cut where a page starts with a heading-like phrase) is offered only
-while no sub-lesson has `split_edited_by_teacher`; saving marks every row
-edited, so the proposal is never re-run over the teacher's version.
+drag a page onto another lesson, add / remove a lesson, mark a lesson
+supplementary. "Propose a split" is offered only while no sub-lesson has
+`split_edited_by_teacher`; saving marks every row edited, so the proposal is
+never re-run over the teacher's version. Two layers
+(sql/2026-09-17_split_instructions.sql):
+
+- Layer 1, `proposeSplit()` in curation/api.ts, no model call: strips the
+  running header shared by most pages, scans the FULL text of every page for
+  numbered section headings ("LO 2-1 ...", "2-2 THE CIRCULAR FLOW MODEL",
+  "Section 3.2 ..."), scores them (LO / Section / Chapter prefix > ALL CAPS
+  > Title Case), keeps the strongest class that occurs twice, requires the
+  numbers to increase in page order (appendix restarts are discarded), and
+  cuts a lesson at the first page of each kept heading, titled with it.
+  Front matter joins the first lesson. Pages after the last real section
+  that carry an appendix cue (lecture enhancer, bonus case, test bank,
+  answer key ...) or a number restart become a final lesson titled from
+  their content ("Lecture enhancers and cases") with
+  `sub_lessons.is_supplementary = true`; the dialog and the selector flag it
+  and "Trash these pages" trashes all its pages in one click.
+- Layer 2, `propose-split` edge function (caller JWT; own upload only): runs
+  when the teacher wrote a description of the chapter's structure
+  (`curriculum_uploads.split_instructions`, saved on blur) or layer 1 found
+  no numbered structure. It receives only the page OUTLINE built by
+  `buildOutline()` (page label, headings, ~200-char snippet, appendix cue
+  per page) plus the description, never full page text, and returns titled,
+  in-order groups with a supplementary flag; every page is placed exactly
+  once (skipped pages join the preceding lesson). On failure the dialog
+  falls back to layer 1.
 
 Assign: `/teacher/assign-lesson?uploadId=&lessonId=` links only the
 questions whose `sub_lesson_id` matches the lesson's (a legacy lesson with no

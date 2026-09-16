@@ -61,6 +61,8 @@ export interface SubLessonRow {
   coverage_report: CoverageEntry[] | null;
   insufficient_source_reason: string | null;
   split_edited_by_teacher: boolean;
+  /** Appendix material (enhancers, cases, test banks): flagged so it can be trashed in one click. */
+  is_supplementary?: boolean;
   created_at: string;
 }
 
@@ -116,65 +118,251 @@ export function unplacedItems<T extends CurationRow>(items: T[]): T[] {
   return items.filter((it) => !(it.source_chunk_ids ?? []).length);
 }
 
-// --- Auto-split proposal (no model call) -----------------------------------
+// --- Auto-split proposal ------------------------------------------------------
 //
-// Groups consecutive pages into roughly even blocks, preferring to cut where
-// a page starts with something heading-like ("Chapter 3", "Section 2.1",
-// "Lesson 4", "Unit 2", or a short run of ALL-CAPS words). Page text has no
-// line breaks (pdf.js items are joined with spaces), so only the start of a
-// page is inspected. Titles come from that heading when there is one.
+// Layer 1 (here, no model call): strip the running header every page shares,
+// scan the FULL text of each page for numbered section headings ("LO 2-1
+// Explain basic economics", "2-2 THE CIRCULAR FLOW MODEL", "Section 3.2 ..."),
+// score them by how heading-like they are, keep the strongest class that
+// occurs at least twice, require the numbers to increase in page order
+// (which discards appendix restarts), and cut a lesson at the first page of
+// each kept heading. Pages after the last real section that look like
+// appendix material become one final lesson, flagged supplementary and titled
+// from its content. Page text has no line breaks (pdf.js items are joined
+// with spaces), so titles end at ".", ":" or a known stop phrase.
+//
+// Layer 2 (propose-split edge function): when the teacher wrote split
+// instructions, or layer 1 found no numbered structure, the page OUTLINE
+// built here (headings + a short snippet per page, never full text) is sent
+// to a small model call that returns titled groups.
 
-const HEADING_RE = /^\s*((?:chapter|section|lesson|unit|part|module|topic)\s+[0-9]+(?:\.[0-9]+)?[:.\-\s]*[A-Za-z][^.!?]{0,60}|[0-9]{1,2}(?:\.[0-9]{1,2})?\s+[A-Z][A-Za-z][^.!?]{3,60}|(?:[A-Z][A-Z'&-]{2,}\s+){1,5}[A-Z][A-Z'&-]{2,})/;
+export interface OutlineHeading {
+  text: string;
+  /** 3 = LO / Section / Chapter prefix, 2 = ALL CAPS, 1 = Title Case, 0 = plain. */
+  score: number;
+  /** Section number as [major, minor] when numbered ("2-3" -> [2, 3]). */
+  num?: [number, number];
+}
 
-export function headingOf(chunk: Pick<ChunkRow, "content">): string | null {
-  const head = chunk.content.slice(0, 160);
-  const m = head.match(HEADING_RE);
-  if (!m) return null;
-  const t = m[1].replace(/\s+/g, " ").trim().replace(/[:\-\s]+$/, "");
-  if (t.length < 4 || t.length > 70) return null;
-  // Title-case an all-caps heading.
-  if (t === t.toUpperCase()) return t.toLowerCase().replace(/\b([a-z])/g, (c) => c.toUpperCase());
-  return t;
+export interface PageOutline {
+  chunkId: string;
+  chunkIndex: number;
+  page: string;
+  words: number;
+  headings: OutlineHeading[];
+  /** First ~200 characters of body text after the running header. */
+  snippet: string;
+  /** Appendix cue found on the page ("Lecture Enhancer", "Bonus Case" ...), if any. */
+  supplementaryCue: string | null;
 }
 
 export interface SplitProposal {
   title: string;
   chunkIds: string[];
+  supplementary?: boolean;
 }
 
-export function proposeSplit(chunks: ChunkRow[]): SplitProposal[] {
-  const ordered = [...chunks].sort((a, b) => a.chunk_index - b.chunk_index);
-  if (ordered.length === 0) return [];
-  const words = ordered.map((c) => countWords(c.content));
-  const total = words.reduce((a, b) => a + b, 0);
-  // Aim for lessons of ~1,500 words, between 1 and 8 of them.
-  const target = Math.max(1, Math.min(8, Math.round(total / 1500)));
-  if (target <= 1 || ordered.length < 2) {
-    return [{ title: headingOf(ordered[0]) ?? "Lesson 1", chunkIds: ordered.map((c) => c.id) }];
+const PREFIX_RE = /\b(LO|Learning Objective|Section|Chapter|Unit|Lesson|Module|Part|Topic)\s*/i;
+const NUMBERED_RE = /(?:\b(LO|Learning Objective|Section|Chapter|Unit|Lesson|Module|Part|Topic)\s*)?\b(\d{1,2})[-.–](\d{1,2})[:.]?\s+([A-Z][^\n]{3,140})/g;
+const TITLE_STOP_RE = /\s+(?:Key Terms|Lecture Notes|Lecture Enhancer|PPT|This |These |The following|Go online|Students |Instructor|Ask |Discussion|In this|Have students|Use this|Show |Introduce )/;
+const SUPPLEMENTARY_CUES = [
+  "Lecture Enhancer",
+  "Bonus Case",
+  "Critical Thinking Exercise",
+  "Discussion Questions for Bonus",
+  "Test Bank",
+  "Connect Instructor",
+  "Answer Key",
+  "Appendix",
+  "Additional Resources",
+  "Supplementary",
+  "Worksheet",
+];
+
+/** Strips a leading page number and the running header shared by most pages. */
+export function stripRunningHeader(chunks: ChunkRow[]): (c: ChunkRow) => string {
+  const heads = chunks.map((c) => c.content.replace(/^\s*\d{1,3}\s+/, "").slice(0, 240));
+  let header = "";
+  if (chunks.length >= 3) {
+    const base = heads[0];
+    for (let len = Math.min(240, base.length); len >= 20; len -= 4) {
+      const p = base.slice(0, len);
+      const n = heads.filter((h) => h.startsWith(p)).length;
+      if (n >= Math.ceil(chunks.length * 0.6)) {
+        header = p;
+        break;
+      }
+    }
+    // Back off to a word boundary so a title is never cut in half.
+    if (header) header = header.replace(/\S*$/, "");
   }
-  const perLesson = total / target;
-  const groups: ChunkRow[][] = [[]];
+  return (c: ChunkRow) => {
+    let t = c.content.replace(/^\s*\d{1,3}\s+/, "");
+    if (header && t.startsWith(header)) t = t.slice(header.length);
+    return t.trim();
+  };
+}
+
+function scoreHeading(prefix: string | undefined, title: string): number {
+  if (prefix) return 3;
+  const words = title.split(/\s+/).filter((w) => /[A-Za-z]/.test(w));
+  if (words.length >= 2 && title === title.toUpperCase()) return 2;
+  const caps = words.filter((w) => /^[A-Z]/.test(w)).length;
+  if (words.length >= 2 && caps / words.length >= 0.6) return 1;
+  return 0;
+}
+
+function cleanTitle(raw: string): string {
+  let t = raw.split(TITLE_STOP_RE)[0];
+  t = t.split(/[.:;!?]/)[0];
+  const words = t.trim().split(/\s+/);
+  t = words.slice(0, 18).join(" ").trim();
+  if (t.length > 110) t = t.slice(0, 110).replace(/\s+\S*$/, "");
+  if (t === t.toUpperCase()) t = t.toLowerCase().replace(/\b([a-z])/g, (ch) => ch.toUpperCase());
+  return t;
+}
+
+/** Per-page outline: headings found anywhere on the page, a short snippet, appendix cues. */
+export function buildOutline(chunks: ChunkRow[]): PageOutline[] {
+  const ordered = [...chunks].sort((a, b) => a.chunk_index - b.chunk_index);
+  const body = stripRunningHeader(ordered);
+  return ordered.map((c) => {
+    const text = body(c);
+    const headings: OutlineHeading[] = [];
+    const seen = new Set<string>();
+    for (const m of text.matchAll(NUMBERED_RE)) {
+      const title = cleanTitle(m[4]);
+      if (title.length < 4) continue;
+      const num: [number, number] = [Number(m[2]), Number(m[3])];
+      const key = `${num[0]}-${num[1]}:${title.toLowerCase()}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      headings.push({ text: `${num[0]}-${num[1]} ${title}`, score: scoreHeading(m[1], m[4]), num });
+      if (headings.length >= 12) break;
+    }
+    const cue = SUPPLEMENTARY_CUES.find((k) => text.toLowerCase().includes(k.toLowerCase())) ?? null;
+    return {
+      chunkId: c.id,
+      chunkIndex: c.chunk_index,
+      page: chunkPageLabel(c),
+      words: countWords(c.content),
+      headings,
+      snippet: text.slice(0, 200),
+      supplementaryCue: cue,
+    };
+  });
+}
+
+function supplementaryTitle(pages: PageOutline[]): string {
+  const counts = new Map<string, number>();
+  for (const p of pages) if (p.supplementaryCue) counts.set(p.supplementaryCue, (counts.get(p.supplementaryCue) ?? 0) + 1);
+  const top = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([k]) => k.toLowerCase());
+  if (top.length === 0) return "Additional material";
+  const nice = top.slice(0, 2).map((k) => (k.includes("enhancer") ? "lecture enhancers" : k.includes("case") ? "cases" : k.includes("critical") ? "critical-thinking exercises" : k.includes("test bank") || k.includes("connect") ? "test bank" : k));
+  const t = [...new Set(nice)].join(" and ");
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+/**
+ * Even blocks of ~1,500 words (the fallback when no numbered structure is
+ * found): titled from the strongest heading in the block, else by order.
+ */
+function evenSplit(outline: PageOutline[]): SplitProposal[] {
+  const total = outline.reduce((n, p) => n + p.words, 0);
+  const target = Math.max(1, Math.min(8, Math.round(total / 1500)));
+  if (target <= 1 || outline.length < 2) {
+    return [{ title: outline[0]?.headings[0]?.text ?? "Lesson 1", chunkIds: outline.map((p) => p.chunkId) }];
+  }
+  const per = total / target;
+  const groups: PageOutline[][] = [[]];
   let acc = 0;
-  for (let i = 0; i < ordered.length; i++) {
-    const c = ordered[i];
-    const current = groups[groups.length - 1];
-    const startsHeading = !!headingOf(c);
-    const remaining = ordered.length - i;
-    const lessonsLeft = target - groups.length;
-    const canCut = current.length > 0 && groups.length < target && remaining > lessonsLeft;
-    if (canCut && ((startsHeading && acc >= perLesson * 0.6) || acc >= perLesson * 1.3)) {
+  for (let i = 0; i < outline.length; i++) {
+    const p = outline[i];
+    const cur = groups[groups.length - 1];
+    const canCut = cur.length > 0 && groups.length < target && outline.length - i > target - groups.length;
+    if (canCut && ((p.headings.length > 0 && acc >= per * 0.6) || acc >= per * 1.3)) {
       groups.push([]);
       acc = 0;
     }
-    groups[groups.length - 1].push(c);
-    acc += words[i];
+    groups[groups.length - 1].push(p);
+    acc += p.words;
   }
-  return groups
-    .filter((g) => g.length > 0)
-    .map((g, i) => {
-      const { pageLabel } = subLessonStats(g);
-      return { title: headingOf(g[0]) ?? `Lesson ${i + 1} (${pageLabel})`, chunkIds: g.map((c) => c.id) };
-    });
+  return groups.filter((g) => g.length).map((g, i) => {
+    const best = g.flatMap((p) => p.headings).sort((a, b) => b.score - a.score)[0];
+    return { title: best?.text ?? `Lesson ${i + 1}`, chunkIds: g.map((p) => p.chunkId) };
+  });
+}
+
+/**
+ * Layer-1 proposal. `structured` is true when real numbered sections were
+ * found; when false the caller should ask propose-split (layer 2).
+ */
+export function proposeSplit(chunks: ChunkRow[]): { lessons: SplitProposal[]; structured: boolean } {
+  const outline = buildOutline(chunks);
+  if (outline.length === 0) return { lessons: [], structured: false };
+
+  // Candidate boundaries: one heading per page (its best), ignoring outline /
+  // table-of-contents pages that list three or more headings at once.
+  type Cand = { pageIdx: number; h: OutlineHeading };
+  const cands: Cand[] = [];
+  outline.forEach((p, i) => {
+    if (p.headings.length >= 3) return;
+    const best = [...p.headings].sort((a, b) => b.score - a.score)[0];
+    if (best?.num) cands.push({ pageIdx: i, h: best });
+  });
+  // Use the strongest heading class that occurs at least twice.
+  let cls = 3;
+  while (cls > 0 && cands.filter((c) => c.h.score >= cls).length < 2) cls--;
+  const strong = cands.filter((c) => c.h.score >= cls && c.h.num);
+  // Increasing section numbers in page order.
+  const kept: Cand[] = [];
+  for (const c of strong) {
+    const last = kept[kept.length - 1];
+    const [maj, min] = c.h.num!;
+    if (!last) {
+      kept.push(c);
+      continue;
+    }
+    const [lm, ln] = last.h.num!;
+    if (maj > lm || (maj === lm && min > ln)) kept.push(c);
+  }
+  if (kept.length < 2) return { lessons: evenSplit(outline), structured: false };
+
+  // Appendix: after the last kept heading, the first page where the section
+  // numbering RESTARTS (any heading class: "2-1 ..." again after "2-6") is
+  // where enhancers, cases and test banks begin. Cues alone are not enough,
+  // since real sections also mention their enhancers inline; they are the
+  // fallback only when no numbered heading appears in the tail at all.
+  let appendixAt: number | null = null;
+  const lastStart = kept[kept.length - 1].pageIdx;
+  const [lastMaj, lastMin] = kept[kept.length - 1].h.num!;
+  for (let i = lastStart + 1; i < outline.length; i++) {
+    const nums = outline[i].headings.filter((h) => h.num).map((h) => h.num!);
+    if (nums.some(([maj, min]) => maj < lastMaj || (maj === lastMaj && min <= lastMin))) {
+      appendixAt = i;
+      break;
+    }
+  }
+  if (appendixAt === null) {
+    const tailHasNumbers = outline.slice(lastStart + 1).some((p) => p.headings.some((h) => h.num));
+    if (!tailHasNumbers) {
+      const i = outline.findIndex((p, idx) => idx > lastStart && p.supplementaryCue);
+      if (i > 0) appendixAt = i;
+    }
+  }
+  const lessons: SplitProposal[] = [];
+  for (let k = 0; k < kept.length; k++) {
+    const start = k === 0 ? 0 : kept[k].pageIdx; // front matter joins the first section
+    const end = k + 1 < kept.length ? kept[k + 1].pageIdx : appendixAt ?? outline.length;
+    const pages = outline.slice(start, end);
+    if (pages.length === 0) continue;
+    lessons.push({ title: kept[k].h.text, chunkIds: pages.map((p) => p.chunkId) });
+  }
+  if (appendixAt !== null && appendixAt < outline.length) {
+    const pages = outline.slice(appendixAt);
+    lessons.push({ title: supplementaryTitle(pages), chunkIds: pages.map((p) => p.chunkId), supplementary: true });
+  }
+  return { lessons, structured: true };
 }
 
 export interface CoverageEntry {
@@ -205,6 +393,8 @@ export interface UploadRow {
   extraction_stage_at?: string | null;
   /** Per-group plan and progress of the stepped extractor (kept after the run for the pages that produced nothing). */
   extraction_progress?: ExtractionProgressState | null;
+  /** Teacher's description of the chapter structure, used by the split proposal. */
+  split_instructions?: string | null;
 }
 
 // ---------------------------------------------------------------------------
