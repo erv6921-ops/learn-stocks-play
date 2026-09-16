@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { AlertCircle, ArrowLeft, FileText, Loader2, RefreshCw, ScanLine, UploadCloud, X } from "lucide-react";
 import { CurationReview } from "@/components/teacher/curation/CurationReview";
 import { ExtractionProgress } from "@/components/teacher/curation/ExtractionProgress";
-import { callFunction, db, functionError, NOT_ENOUGH_TEXT, REVIEWABLE_STATUSES, type ExtractResponse } from "@/components/teacher/curation/api";
+import { db, functionError, NOT_ENOUGH_TEXT, REVIEWABLE_STATUSES, runSteppedExtraction } from "@/components/teacher/curation/api";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = PdfWorkerUrl;
 
@@ -75,6 +75,8 @@ const TeacherCurriculumPage: React.FC = () => {
   const [reextractPrompt, setReextractPrompt] = useState<{ uploadId: string } | null>(null);
   /** Shown above the dropzone when an existing row needs its PDF chosen again (pending / failed, no pages). */
   const [notice, setNotice] = useState<string | null>(null);
+  /** An interrupted stepped run (plan + pages stored): can continue without the PDF. */
+  const [resumable, setResumable] = useState<{ done: number; groups: number } | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
   // Set right before this page rewrites its own URL (runExtraction / reset),
@@ -110,7 +112,7 @@ const TeacherCurriculumPage: React.FC = () => {
     (async () => {
       const { data } = await db
         .from("curriculum_uploads")
-        .select("id, file_name, status")
+        .select("id, file_name, status, extraction_progress")
         .eq("id", routeUploadId)
         .neq("status", "deleted")
         .maybeSingle();
@@ -132,11 +134,23 @@ const TeacherCurriculumPage: React.FC = () => {
         // the row has no pages. Not a dead end: show the dropzone with a
         // notice, keep the row id, and extract the chosen PDF INTO this row.
         trace("route effect -> idle with notice (status", data.status, "), row kept for re-use");
-        setNotice(
-          data.status === "extraction_failed"
-            ? `The last extraction of "${data.file_name ?? "this file"}" failed. Choose the PDF again to retry; it will be extracted into this same upload.`
-            : `"${data.file_name ?? "This upload"}" was never extracted. Choose the PDF again; it will be extracted into this same upload.`,
-        );
+        // An interrupted stepped run still has its pages and plan on the row:
+        // it can continue from the next group without the PDF.
+        const prog = data.extraction_progress as { groups?: number; done?: number[]; failed?: unknown[] } | null;
+        const settled = (prog?.done?.length ?? 0) + (prog?.failed?.length ?? 0);
+        if (data.status === "pending" && prog && typeof prog.groups === "number" && prog.groups > 0 && settled < prog.groups) {
+          setResumable({ done: settled, groups: prog.groups });
+          setNotice(
+            `Extraction of "${data.file_name ?? "this file"}" was interrupted after ${settled} of ${prog.groups} page groups. You can continue it from where it stopped, or choose the PDF again to start over.`,
+          );
+        } else {
+          setResumable(null);
+          setNotice(
+            data.status === "extraction_failed"
+              ? `The last extraction of "${data.file_name ?? "this file"}" failed. Choose the PDF again to retry; it will be extracted into this same upload.`
+              : `"${data.file_name ?? "This upload"}" was never extracted. Choose the PDF again; it will be extracted into this same upload.`,
+          );
+        }
         setPages([]);
         setExtractedText("");
         setPhase("idle");
@@ -219,10 +233,11 @@ const TeacherCurriculumPage: React.FC = () => {
 
   // --- Extract: create/reuse the upload row, call extract-curriculum-v2 ----
   const runExtraction = useCallback(
-    async function runExtraction(opts: { reextract?: boolean; uploadId?: string } = {}): Promise<void> {
+    async function runExtraction(opts: { reextract?: boolean; uploadId?: string; resume?: boolean } = {}): Promise<void> {
       trace("runExtraction START", opts, "| instance", instanceRef.current, "| routeUploadId", routeUploadId, "| uploadId state", uploadId, "| pages", pages.length);
-      if (pages.length === 0) return;
+      if (pages.length === 0 && !opts.resume) return;
       setNotice(null);
+      setResumable(null);
       setErrorMsg("");
       setErrorKind("generic");
       setReextractPrompt(null);
@@ -236,7 +251,8 @@ const TeacherCurriculumPage: React.FC = () => {
         //    re-upload hits the server's 409 and the re-extract confirm), or
         //    create a new row so we have a real UUID for the function call.
         let id = opts.uploadId ?? uploadId ?? null;
-        if (!id) {
+        if (opts.resume && !id) throw new Error("Nothing to resume.");
+        if (!id && !opts.resume) {
           const { data: existing } = await db
             .from("curriculum_uploads")
             .select("id")
@@ -248,7 +264,7 @@ const TeacherCurriculumPage: React.FC = () => {
             .maybeSingle();
           id = existing?.id ?? null;
         }
-        if (id) {
+        if (id && !opts.resume) {
           // Re-using a row (a dead 'pending' / failed row opened directly, or
           // the 409 path): keep its name and text in step with the chosen file.
           await db.from("curriculum_uploads").update({ file_name: fileName || "upload.pdf", extracted_text: extractedText }).eq("id", id);
@@ -281,11 +297,11 @@ const TeacherCurriculumPage: React.FC = () => {
         }
         setPhase("extracting");
 
-        // 2. Call the v2 extractor with page-level text. The progress bar
-        //    polls the upload row's extraction_stage while this is in flight.
-        const { status, data } = await callFunction<ExtractResponse>("extract-curriculum-v2", {
+        // 2. Run the stepped extractor: plan, one request per page group,
+        //    finalize. The progress bar polls the upload row meanwhile.
+        const { status, data } = await runSteppedExtraction({
           uploadId: id,
-          pages,
+          ...(opts.resume ? { resume: true } : { pages }),
           ...(opts.reextract ? { reextract: true } : {}),
         });
 
@@ -339,6 +355,7 @@ const TeacherCurriculumPage: React.FC = () => {
     setUploadId(null);
     setReextractPrompt(null);
     setNotice(null);
+    setResumable(null);
     if (inputRef.current) inputRef.current.value = "";
     selfNavigatedRef.current = null;
     trace("reset -> idle, navigating to /teacher/curriculum");
@@ -399,11 +416,18 @@ const TeacherCurriculumPage: React.FC = () => {
               {notice && (
                 <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
-                  <div className="min-w-0 flex-1 space-y-1">
+                  <div className="min-w-0 flex-1 space-y-2">
                     <p>{notice}</p>
-                    <button type="button" onClick={reset} className="font-medium underline underline-offset-2 hover:text-amber-700">
-                      Or start a brand-new upload instead
-                    </button>
+                    <div className="flex flex-wrap items-center gap-3">
+                      {resumable && uploadId && (
+                        <Button size="sm" onClick={() => void runExtraction({ resume: true, uploadId })} className="bg-emerald-600 text-white hover:bg-emerald-700">
+                          <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Continue extraction ({resumable.done} of {resumable.groups} groups done)
+                        </Button>
+                      )}
+                      <button type="button" onClick={reset} className="font-medium underline underline-offset-2 hover:text-amber-700">
+                        Or start a brand-new upload instead
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}

@@ -30,7 +30,7 @@ import {
   type ConceptRow,
   type CurationRow,
   type CurationTable,
-  type ExtractResponse,
+  runSteppedExtraction,
   type GenerateResponse,
   type LessonRow,
   type ObjectiveRow,
@@ -525,7 +525,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
     }
     setUpgrading(true);
     try {
-      const { status, data } = await callFunction<ExtractResponse>("extract-curriculum-v2", { uploadId, extractedText: text, reextract: true });
+      const { status, data } = await runSteppedExtraction({ uploadId, extractedText: text, reextract: true });
       if (status === 422) throw new Error(data?.insufficientSourceReason || data?.errors?.join(" • ") || "Not enough readable text.");
       if (!data?.success) throw new Error(functionError(status, data, "Verification failed"));
       toast({
@@ -570,6 +570,12 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
 
   const failedOf = (r: { grounding_status?: string | null }) => r.grounding_status === "failed";
   const conceptTabCount = scoped.concepts.length + scoped.learning_objectives.length;
+  // Upload-level extraction notes ("[extract] ..."): pages that produced nothing.
+  const extractNotes = (upload.insufficient_source_reason ?? "")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith("[extract]"))
+    .map((l) => l.replace(/^\[extract\]\s*/, ""));
   const busyAll = generating || building || upgrading;
 
   const renderConcept = (c: ConceptRow) => (
@@ -625,6 +631,18 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-5">
+          {extractNotes.length > 0 && (
+            <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+              <div className="space-y-0.5">
+                <p className="font-semibold">Some pages produced nothing during extraction.</p>
+                {extractNotes.map((n, i) => (
+                  <p key={i}>{n}</p>
+                ))}
+                <p>Everything else was kept. Re-extract the file to try those pages again.</p>
+              </div>
+            </div>
+          )}
           {!needsVerification && subLessons.length > 0 && (
             <SubLessonBar
               subLessons={subLessons}

@@ -203,6 +203,8 @@ export interface UploadRow {
   /** Written by extract-curriculum-v2 while it runs; null when idle, done or failed. */
   extraction_stage?: ExtractionStage | null;
   extraction_stage_at?: string | null;
+  /** Per-group plan and progress of the stepped extractor (kept after the run for the pages that produced nothing). */
+  extraction_progress?: ExtractionProgressState | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -239,8 +241,30 @@ export interface LessonRow {
   content?: { sections?: unknown[] } | null;
 }
 
+export interface ExtractionGroupFailure {
+  group: number;
+  pages: string;
+  reason: string;
+}
+
+/** curriculum_uploads.extraction_progress, written by the stepped extractor. */
+export interface ExtractionProgressState {
+  groups: number;
+  plan: string[][];
+  pages: string[];
+  done: number[];
+  failed: ExtractionGroupFailure[];
+  current: number | null;
+  counts: { concepts: number; vocabulary: number; objectives: number };
+}
+
 export interface ExtractResponse {
   success: boolean;
+  step?: "planned" | "group" | "finalized" | "status";
+  groups?: number;
+  group?: number;
+  groupFailed?: string;
+  progress?: ExtractionProgressState;
   conceptsCount?: number;
   vocabularyCount?: number;
   objectivesCount?: number;
@@ -364,6 +388,53 @@ export async function callFunction<T>(
     data = null;
   }
   return { status: res.status, data };
+}
+
+/**
+ * Drives the stepped extractor end to end: plan (store pages, split into
+ * groups) -> one request per page group -> finalize (merge, decide). Each
+ * request stays far under the edge-function wall clock, so long documents
+ * work; the upload row carries progress for the bar. With `resume`, no
+ * pages are sent: the plan already on the row is continued.
+ *
+ * Resolves with the final { status, data }. A non-success answer from any
+ * step (409 already extracted, 422 zero items, 5xx) is returned as is, so
+ * callers branch exactly as before.
+ */
+export async function runSteppedExtraction(opts: {
+  uploadId: string;
+  pages?: { page: number; text: string }[];
+  extractedText?: string;
+  reextract?: boolean;
+  resume?: boolean;
+  onProgress?: (p: ExtractionProgressState) => void;
+}): Promise<{ status: number; data: ExtractResponse | null }> {
+  let progress: ExtractionProgressState | null = null;
+  if (opts.resume) {
+    const st = await callFunction<ExtractResponse>("extract-curriculum-v2", { uploadId: opts.uploadId, step: "status" });
+    if (!st.data?.success || !st.data.progress) return st;
+    progress = st.data.progress;
+  } else {
+    const plan = await callFunction<ExtractResponse>("extract-curriculum-v2", {
+      uploadId: opts.uploadId,
+      ...(opts.pages ? { pages: opts.pages } : {}),
+      ...(opts.extractedText ? { extractedText: opts.extractedText } : {}),
+      ...(opts.reextract ? { reextract: true } : {}),
+    });
+    if (!plan.data?.success || !plan.data.progress) return plan;
+    progress = plan.data.progress;
+  }
+  opts.onProgress?.(progress);
+  for (let i = 0; i < progress.groups; i++) {
+    if (progress.done.includes(i)) continue;
+    const r = await callFunction<ExtractResponse>("extract-curriculum-v2", { uploadId: opts.uploadId, step: "group", group: i });
+    if (!r.data?.success) return r; // a transport / server error stops the run; a group that produced nothing does not
+    if (r.data.progress) {
+      progress = r.data.progress;
+      opts.onProgress?.(progress);
+    }
+  }
+  return callFunction<ExtractResponse>("extract-curriculum-v2", { uploadId: opts.uploadId, step: "finalize" });
 }
 
 /** Human-readable error from a function response. */

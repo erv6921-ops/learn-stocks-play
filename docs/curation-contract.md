@@ -120,12 +120,32 @@ Response:
 On success the upload status is `awaiting_teacher_review`. Load the four
 tables by `upload_id` to render the review screen.
 
-While it runs, the function writes `curriculum_uploads.extraction_stage`
-(`reading_pages` -> `extracting` -> `verifying` -> `saving`) right before
-each step starts, and sets it back to null on success or failure. The page
-polls the column every 1.5 s to drive the progress bar; nothing advances on a
-timer. Concepts, vocabulary and objectives come out of one model pass, so
-they share the `extracting` stage.
+**Stepped run (sql/2026-09-16_extraction_progress.sql).** No single request
+may approach the edge-function wall clock (150 s on the free plan; the
+gateway also answers 504 after 150 s), so extraction is driven by the client
+in steps, one small page group per request (`runSteppedExtraction()` in
+`curation/api.ts`):
+
+| Request | Does | Answer |
+|---|---|---|
+| `{ uploadId, pages, reextract? }` | word gate, 409 / reset, store chunks, default sub-lesson, split chunks into groups of ~10,000 chars, save the plan in `extraction_progress` | `{ success, step: "planned", groups, progress }` |
+| `{ uploadId, step: "group", group: i }` | extract + verify + persist group i from ITS pages only; a group that errors or returns nothing is recorded in `progress.failed` and the run continues | `{ success, step: "group", group, groupFailed?, progress, ...counts }` |
+| `{ uploadId, step: "finalize" }` | merge duplicates across groups (one row per name / term / objective citing the UNION of every chunk any copy cited; longest definition; verified quote if any), then decide | `{ success, step: "finalized", progress, ...counts }` or 422 |
+| `{ uploadId, step: "status" }` | current plan + progress, to resume an interrupted run without the PDF | `{ success, step: "status", progress }` |
+
+`extraction_progress` = `{ groups, plan, pages, done, failed:[{group,pages,reason}], current, counts }`.
+`extraction_stage` still moves `reading_pages` -> `extracting` / `verifying`
+(per group) -> `saving` and is null when idle; the page polls both every
+1.5 s so the bar moves group by group. Nothing advances on a timer.
+
+A run that ends with zero items is a FAILURE: status `extraction_failed`,
+`insufficient_source_reason` = `[extract] No concepts, vocabulary or
+objectives were found in any of the N page groups. ...`, HTTP 422. A run
+where some groups produced nothing keeps the rest, sets
+`awaiting_teacher_review`, and records `[extract] K of N page groups produced
+nothing: pp. a-b produced nothing (reason); ...`, which the review page shows
+in a banner. A row left `pending` with a plan can be continued from the next
+group ("Continue extraction" on the upload page).
 
 ### generate-questions-v2
 

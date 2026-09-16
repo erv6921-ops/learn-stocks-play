@@ -1,0 +1,21 @@
+-- Stepped, resumable extraction (extract-curriculum-v2). Run in the Supabase
+-- SQL Editor after sql/2026-09-16_sub_lessons.sql. Additive only.
+--
+-- A long upload is extracted one small page group per request so no request
+-- comes near the edge function wall-clock limit. The plan (chunk ids per
+-- group), the groups already done, and the groups that produced nothing are
+-- kept here so the page can show real progress and resume an interrupted run
+-- without the PDF.
+--
+-- Shape:
+-- {
+--   "groups": 8,                       -- number of page groups
+--   "plan": [["<chunk uuid>", ...], ...],  -- chunk ids per group, in order
+--   "pages": ["pp. 1-7", "pp. 8-14", ...], -- label per group
+--   "done": [0, 1, 2],                 -- groups persisted
+--   "failed": [{ "group": 3, "pages": "pp. 22-28", "reason": "..." }],
+--   "current": 4,                      -- group being processed (null when idle)
+--   "counts": { "concepts": 12, "vocabulary": 9, "objectives": 2 }
+-- }
+alter table public.curriculum_uploads
+  add column if not exists extraction_progress jsonb;

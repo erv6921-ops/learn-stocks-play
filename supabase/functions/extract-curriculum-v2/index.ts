@@ -6,37 +6,47 @@
 // learning objectives / concepts / vocabulary from those chunks ONLY, with a
 // verified citation (source_chunk_ids + evidence_quote) on every item.
 //
-// It then PAUSES: status becomes 'awaiting_teacher_review' and no question or
-// lesson generation is triggered. The teacher marks items Emphasize / Trash,
-// and the frontend calls generate-questions-v2 / synthesize-lesson-v2.
+// The work is STEPPED so no single request approaches the edge-function
+// wall-clock limit (150 s on the free plan; the gateway also answers 504 after
+// 150 s). The client drives the steps and polls the upload row for progress:
 //
-// Input (either shape):
-//   { uploadId, pages: [{ page: number, text: string }, ...], reextract?: boolean }   <- preferred
-//   { uploadId, extractedText: string, reextract?: boolean }                           <- legacy, treated as page 1
+//   1. { uploadId, pages, reextract? }        "plan":  gate, store chunks, create
+//                                             the default sub-lesson, split the
+//                                             chunks into small page groups and
+//                                             save the plan (extraction_progress).
+//   2. { uploadId, step: "group", group: i }  extract + verify + persist ONE group
+//                                             (its pages only). A group that fails
+//                                             is recorded and the run continues.
+//   3. { uploadId, step: "finalize" }         merge duplicates across groups (a
+//                                             concept found in three groups becomes
+//                                             one row citing all its chunks), then
+//                                             decide: zero items overall = FAILURE
+//                                             (status extraction_failed, 422);
+//                                             otherwise awaiting_teacher_review,
+//                                             noting groups that produced nothing.
+//   { uploadId, step: "status" }              current progress (for resuming an
+//                                             interrupted run without the PDF).
 //
-// Output: { success, conceptsCount, vocabularyCount, objectivesCount,
-//           chunksCount, verifiedCount, failedCount, insufficientSourceReason?, errors? }
+// Legacy shape { uploadId, extractedText } is accepted by step 1 (as page 1).
 //
-// Writes: curriculum_source_chunks (insert), concepts / vocabulary /
-//         learning_objectives (insert, with grounding columns),
-//         curriculum_uploads.status (+ extracted_text if empty,
-//         insufficient_source_reason; coverage_report reset on reextract).
+// Writes: curriculum_source_chunks, sub_lessons (default), concepts /
+//         vocabulary / learning_objectives (with grounding columns),
+//         curriculum_uploads.status / extraction_stage / extraction_progress /
+//         insufficient_source_reason (+ extracted_text if empty).
 //
 // Runtime:  Deno (Supabase Edge Functions)
 // Env vars: ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 // Project:  InvestiPlay (vcjdshippmqopaffuzbw)
-
 import Anthropic from "npm:@anthropic-ai/sdk@0.70.0";
 import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2";
 import {
   asSourceIds,
   buildSourceBlock,
+  chunkLabel,
   countWords,
   formatFailures,
   groundedGenerate,
-  groupChunks,
   isRecord,
-  MAX_SOURCE_CHARS,
   MIN_SOURCE_WORDS,
   NOT_ENOUGH_TEXT_MESSAGE,
   readInsufficient,
@@ -65,6 +75,26 @@ interface RequestBody {
   extractedText?: string;
   /** Re-run extraction on an upload that already has chunks (resets teacher marks). */
   reextract?: boolean;
+  /** Stepped run: omitted = plan; "group" needs `group`; "finalize"; "status". */
+  step?: "group" | "finalize" | "status";
+  group?: number;
+}
+
+interface GroupFailure {
+  group: number;
+  pages: string;
+  reason: string;
+}
+
+/** curriculum_uploads.extraction_progress (sql/2026-09-16_extraction_progress.sql). */
+interface Progress {
+  groups: number;
+  plan: string[][];
+  pages: string[];
+  done: number[];
+  failed: GroupFailure[];
+  current: number | null;
+  counts: { concepts: number; vocabulary: number; objectives: number };
 }
 
 interface Cited {
@@ -99,6 +129,13 @@ interface ExtractionResult {
 
 interface ResponseBody {
   success: boolean;
+  /** Which step answered: "planned" | "group" | "finalized" | "status". */
+  step?: string;
+  groups?: number;
+  group?: number;
+  /** Set on a "group" answer when that group produced nothing (the run continues). */
+  groupFailed?: string;
+  progress?: Progress;
   conceptsCount: number;
   vocabularyCount: number;
   objectivesCount: number;
@@ -108,6 +145,11 @@ interface ResponseBody {
   insufficientSourceReason?: string;
   errors?: string[];
 }
+
+/** Target characters of source per model call (~2.5k tokens): keeps every step far under the wall clock. */
+const GROUP_CHARS = 10_000;
+/** Skip the repair pass when a step has already used this much time (ms). */
+const RETRY_TIME_BUDGET_MS = 75_000;
 
 // ---------------------------------------------------------------------------
 // Prompts
@@ -252,41 +294,6 @@ function normalizeResult(raw: Record<string, unknown>): ExtractionResult {
   return { learning_objectives, concepts, vocabulary, insufficientReason: readInsufficient(raw) };
 }
 
-/** Merge per-group results, de-duplicating by name / term / text. */
-function mergeResults(parts: ExtractionResult[]): ExtractionResult {
-  const seenC = new Set<string>();
-  const seenV = new Set<string>();
-  const seenO = new Set<string>();
-  const out: ExtractionResult = { learning_objectives: [], concepts: [], vocabulary: [], insufficientReason: null };
-  const reasons: string[] = [];
-  for (const p of parts) {
-    for (const c of p.concepts) {
-      const k = c.name.toLowerCase();
-      if (!seenC.has(k) && out.concepts.length < 50) {
-        seenC.add(k);
-        out.concepts.push(c);
-      }
-    }
-    for (const v of p.vocabulary) {
-      const k = v.term.toLowerCase();
-      if (!seenV.has(k)) {
-        seenV.add(k);
-        out.vocabulary.push(v);
-      }
-    }
-    for (const o of p.learning_objectives) {
-      const k = o.text.toLowerCase();
-      if (!seenO.has(k)) {
-        seenO.add(k);
-        out.learning_objectives.push(o);
-      }
-    }
-    if (p.insufficientReason) reasons.push(p.insufficientReason);
-  }
-  if (reasons.length > 0) out.insufficientReason = [...new Set(reasons)].join(" ");
-  return out;
-}
-
 // ---------------------------------------------------------------------------
 // Chunking
 // ---------------------------------------------------------------------------
@@ -414,52 +421,72 @@ async function setStage(supabase: SupabaseClient, uploadId: string, stage: Extra
 }
 
 // ---------------------------------------------------------------------------
-// Handler
+// Progress helpers
 // ---------------------------------------------------------------------------
 
-Deno.serve(async (req: Request): Promise<Response> => {
-  if (req.method === "OPTIONS") return new Response("ok", { headers: CORS_HEADERS });
-  if (req.method !== "POST") return fail(["Method not allowed. Use POST."], 405);
+async function loadProgress(supabase: SupabaseClient, uploadId: string): Promise<Progress | null> {
+  const { data } = await supabase.from("curriculum_uploads").select("extraction_progress").eq("id", uploadId).maybeSingle();
+  const p = data?.extraction_progress;
+  return p && typeof p === "object" && Array.isArray((p as Progress).plan) ? (p as Progress) : null;
+}
 
-  const anthropicKey = Deno.env.get("ANTHROPIC_API_KEY");
-  const supabaseUrl = Deno.env.get("SUPABASE_URL");
-  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-  if (!anthropicKey || !supabaseUrl || !serviceRoleKey) {
-    const missing = [
-      !anthropicKey && "ANTHROPIC_API_KEY",
-      !supabaseUrl && "SUPABASE_URL",
-      !serviceRoleKey && "SUPABASE_SERVICE_ROLE_KEY",
-    ].filter(Boolean);
-    return fail([`Server misconfiguration: missing ${missing.join(", ")}`], 500);
-  }
+async function saveProgress(supabase: SupabaseClient, uploadId: string, progress: Progress): Promise<void> {
+  await markStatus(supabase, uploadId, { extraction_progress: progress });
+}
 
-  // --- Parse & validate ----------------------------------------------------
-  let body: RequestBody;
-  try {
-    body = (await req.json()) as RequestBody;
-  } catch {
-    return fail(["Request body must be valid JSON."], 400);
+/** Consecutive chunks, about GROUP_CHARS of text per group, never splitting a chunk. */
+function planGroups(chunks: SourceChunk[]): SourceChunk[][] {
+  const groups: SourceChunk[][] = [];
+  let current: SourceChunk[] = [];
+  let chars = 0;
+  for (const c of chunks) {
+    if (current.length > 0 && chars + c.content.length > GROUP_CHARS) {
+      groups.push(current);
+      current = [];
+      chars = 0;
+    }
+    current.push(c);
+    chars += c.content.length;
   }
-  const uploadId = body?.uploadId;
-  if (typeof uploadId !== "string" || uploadId.length === 0) {
-    return fail(["`uploadId` is required and must be a non-empty string."], 400);
-  }
+  if (current.length > 0) groups.push(current);
+  return groups;
+}
 
+function groupPageLabel(chunks: SourceChunk[]): string {
+  const first = chunks[0];
+  const last = chunks[chunks.length - 1];
+  const a = first?.page_start ?? null;
+  const b = last?.page_end ?? last?.page_start ?? null;
+  if (a == null) return `${chunks.length} part${chunks.length === 1 ? "" : "s"}`;
+  return b != null && b !== a ? `pp. ${a}-${b}` : `p. ${a}`;
+}
+
+function normKey(text: string): string {
+  return text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+}
+
+// ---------------------------------------------------------------------------
+// Steps
+// ---------------------------------------------------------------------------
+
+/** Step 1: gate, store chunks, default sub-lesson, plan the groups. */
+async function stepPlan(
+  supabase: SupabaseClient,
+  uploadId: string,
+  body: RequestBody,
+  tag: string,
+): Promise<Response> {
   let pages: PageInput[] = [];
-  if (Array.isArray(body.pages) && body.pages.length > 0) {
+  if (Array.isArray(body.pages)) {
     pages = body.pages
-      .filter((p): p is PageInput => isRecord(p) && typeof p.text === "string")
-      .map((p, i) => ({ page: Number.isInteger(p.page) && p.page > 0 ? p.page : i + 1, text: p.text }));
+      .filter((p): p is PageInput => isRecord(p) && typeof (p as PageInput).text === "string")
+      .map((p, i) => ({ page: Number.isFinite(Number(p.page)) ? Number(p.page) : i + 1, text: p.text }));
   } else if (typeof body.extractedText === "string" && body.extractedText.trim().length > 0) {
     pages = [{ page: 1, text: body.extractedText }];
   }
   if (pages.length === 0) {
     return fail(["Provide `pages` ([{page, text}]) or `extractedText`."], 400);
   }
-
-  const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } });
-  const anthropic = new Anthropic({ apiKey: anthropicKey });
-  const tag = `ECv2][${uploadId}`;
 
   // --- Minimum readable text gate ------------------------------------------
   const fullText = pages.map((p) => p.text.trim()).filter(Boolean).join("\n\n");
@@ -469,40 +496,33 @@ Deno.serve(async (req: Request): Promise<Response> => {
     await markStatus(supabase, uploadId, {
       status: "extraction_failed",
       extraction_stage: null,
+      extraction_progress: null,
       insufficient_source_reason: NOT_ENOUGH_TEXT_MESSAGE,
     });
     return fail([NOT_ENOUGH_TEXT_MESSAGE], 422, { insufficientSourceReason: NOT_ENOUGH_TEXT_MESSAGE });
   }
 
-  // --- Chunk + persist -----------------------------------------------------
   const drafts = chunkPages(pages);
   console.log(`[${tag}] ${pages.length} pages, ${totalWords} words -> ${drafts.length} chunks`);
 
   // An upload that already has chunks is in (or past) teacher review. Only
   // re-extract on explicit request, because it discards the teacher's marks
-  // and the previous extraction.
-  // "Already extracted" means chunks (v2) OR concepts (v1 legacy) exist: a v1
-  // upload has no chunks but must still be reset, not appended to.
+  // and the previous extraction. "Already extracted" means chunks (v2) OR
+  // concepts (v1 legacy) exist: a v1 upload has no chunks but must still be
+  // reset, not appended to.
   const [{ count: existingChunks }, { count: existingConcepts }] = await Promise.all([
     supabase.from("curriculum_source_chunks").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
     supabase.from("concepts").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
   ]);
   if ((existingChunks ?? 0) > 0 || (existingConcepts ?? 0) > 0) {
     if (body.reextract !== true) {
-      // Not starting a run: leave extraction_stage untouched (it is null).
       return fail(
         ["This upload is already extracted and awaiting teacher review. Pass reextract: true to start over (teacher marks will be reset)."],
         409,
         { chunksCount: existingChunks ?? 0 },
       );
     }
-    // Question rows (v1 or v2) point at concepts via concept_id with no
-    // cascade. Detach them first so the old concepts can be replaced; the
-    // rows themselves are kept (generate-questions-v2 replaces unapproved ones).
-    const { error: detachErr } = await supabase
-      .from("generated_questions")
-      .update({ concept_id: null })
-      .eq("upload_id", uploadId);
+    const { error: detachErr } = await supabase.from("generated_questions").update({ concept_id: null }).eq("upload_id", uploadId);
     if (detachErr) {
       await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
       return fail([`Could not detach existing questions: ${detachErr.message}`], 500);
@@ -526,26 +546,23 @@ Deno.serve(async (req: Request): Promise<Response> => {
         await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
         return fail([
           `Could not reset ${table}: ${error.message}`,
-          ...(table === "concepts"
-            ? ["Generated questions still reference these concepts. Regenerate questions before re-extracting."]
-            : []),
+          ...(table === "concepts" ? ["Generated questions still reference these concepts. Regenerate questions before re-extracting."] : []),
         ], 500);
       }
     }
     await markStatus(supabase, uploadId, { coverage_report: null, insufficient_source_reason: null });
   }
-  await setStage(supabase, uploadId, "reading_pages");
+
+  await markStatus(supabase, uploadId, {
+    status: "pending",
+    extraction_stage: "reading_pages",
+    extraction_stage_at: new Date().toISOString(),
+    extraction_progress: null,
+    insufficient_source_reason: null,
+  });
   const { data: chunkRows, error: chunkErr } = await supabase
     .from("curriculum_source_chunks")
-    .insert(
-      drafts.map((d, i) => ({
-        upload_id: uploadId,
-        chunk_index: i,
-        page_start: d.page_start,
-        page_end: d.page_end,
-        content: d.content,
-      })),
-    )
+    .insert(drafts.map((d, i) => ({ upload_id: uploadId, chunk_index: i, page_start: d.page_start, page_end: d.page_end, content: d.content })))
     .select("id, chunk_index, page_start, page_end, content");
   if (chunkErr || !chunkRows) {
     await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
@@ -558,87 +575,119 @@ Deno.serve(async (req: Request): Promise<Response> => {
   try {
     await ensureDefaultSubLesson(supabase, uploadId);
   } catch (err) {
-    // Not fatal for extraction: generate/synthesize create it on demand too.
     console.error(`[${tag}] default sub-lesson: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   // Keep extracted_text populated for callers that only sent pages.
-  const { data: uploadRow } = await supabase
-    .from("curriculum_uploads")
-    .select("extracted_text")
-    .eq("id", uploadId)
-    .maybeSingle();
-  if (!uploadRow?.extracted_text) {
-    await markStatus(supabase, uploadId, { extracted_text: fullText });
+  const { data: uploadRow } = await supabase.from("curriculum_uploads").select("extracted_text").eq("id", uploadId).maybeSingle();
+  if (!uploadRow?.extracted_text) await markStatus(supabase, uploadId, { extracted_text: fullText });
+
+  const groups = planGroups(chunks);
+  const progress: Progress = {
+    groups: groups.length,
+    plan: groups.map((g) => g.map((c) => c.id)),
+    pages: groups.map(groupPageLabel),
+    done: [],
+    failed: [],
+    current: null,
+    counts: { concepts: 0, vocabulary: 0, objectives: 0 },
+  };
+  await saveProgress(supabase, uploadId, progress);
+  console.log(`[${tag}] planned ${groups.length} groups of ~${GROUP_CHARS} chars`);
+  return respond({
+    success: true,
+    step: "planned",
+    groups: groups.length,
+    progress,
+    conceptsCount: 0,
+    vocabularyCount: 0,
+    objectivesCount: 0,
+    chunksCount: chunks.length,
+    verifiedCount: 0,
+    failedCount: 0,
+  });
+}
+
+/** Step 2: extract + verify + persist ONE page group. Never sees other groups' pages. */
+async function stepGroup(
+  supabase: SupabaseClient,
+  anthropic: Anthropic,
+  uploadId: string,
+  groupIndex: number,
+  tag: string,
+): Promise<Response> {
+  const started = Date.now();
+  const progress = await loadProgress(supabase, uploadId);
+  if (!progress) return fail(["No extraction plan for this upload. Send the pages first."], 409);
+  if (!Number.isInteger(groupIndex) || groupIndex < 0 || groupIndex >= progress.groups) {
+    return fail([`group must be between 0 and ${progress.groups - 1}.`], 400);
   }
+  const zero = { conceptsCount: 0, vocabularyCount: 0, objectivesCount: 0, chunksCount: 0, verifiedCount: 0, failedCount: 0 };
+  if (progress.done.includes(groupIndex)) {
+    return respond({ success: true, step: "group", group: groupIndex, progress, ...zero });
+  }
+  const gtag = `${tag}][group ${groupIndex + 1}/${progress.groups}`;
+  const pagesLabel = progress.pages[groupIndex] ?? `group ${groupIndex + 1}`;
 
-  // --- Generate (per group when the source is very large) ------------------
+  const { data: rows, error: cErr } = await supabase
+    .from("curriculum_source_chunks")
+    .select("*")
+    .in("id", progress.plan[groupIndex])
+    .order("chunk_index", { ascending: true });
+  if (cErr || !rows || rows.length === 0) {
+    return fail([`Could not load the pages of group ${groupIndex + 1}: ${cErr?.message ?? "no chunks"}`], 500);
+  }
+  const chunks = rows as SourceChunk[];
   const block = buildSourceBlock(chunks);
-  const groups = block.totalChars > MAX_SOURCE_CHARS ? groupChunks(chunks) : [chunks];
 
-  await setStage(supabase, uploadId, "extracting");
+  progress.current = groupIndex;
+  progress.failed = progress.failed.filter((f) => f.group !== groupIndex);
+  await markStatus(supabase, uploadId, { extraction_stage: "extracting", extraction_stage_at: new Date().toISOString(), extraction_progress: progress });
+
+  const recordFailure = async (reason: string) => {
+    progress.failed.push({ group: groupIndex, pages: pagesLabel, reason });
+    progress.current = null;
+    await saveProgress(supabase, uploadId, progress);
+    console.error(`[${gtag}] produced nothing: ${reason}`);
+    return respond({ success: true, step: "group", group: groupIndex, groupFailed: reason, progress, ...zero });
+  };
+
+  // --- Generate for this group only ---------------------------------------
   let result: ExtractionResult;
   try {
-    const parts: ExtractionResult[] = [];
-    for (let g = 0; g < groups.length; g++) {
-      const gBlock = groups.length === 1 ? block : buildSourceBlock(groups[g]);
-      const user =
-        groups.length === 1
-          ? gBlock.text
-          : `This is part ${g + 1} of ${groups.length} of the material. Extract from these sources only.\n\n${gBlock.text}`;
-      const parsed = await groundedGenerate(anthropic, { system: SYSTEM_PROMPT, user, tag: `${tag}][group ${g + 1}` });
-      const part = normalizeResult(parsed);
-      if (groups.length > 1) {
-        // Re-label S-ids to the global block so citations resolve later.
-        const local = gBlock;
-        const relabel = (ids: string[]) =>
-          ids.map((sid) => {
-            const chunkId = local.sidToChunkId[sid];
-            const globalSid = Object.keys(block.sidToChunkId).find((k) => block.sidToChunkId[k] === chunkId);
-            return globalSid ?? sid;
-          });
-        for (const c of part.concepts) c.source_ids = relabel(c.source_ids);
-        for (const v of part.vocabulary) v.source_ids = relabel(v.source_ids);
-        for (const o of part.learning_objectives) o.source_ids = relabel(o.source_ids);
-      }
-      parts.push(part);
-    }
-    result = mergeResults(parts);
+    const user = `This is part ${groupIndex + 1} of ${progress.groups} of the material (${pagesLabel}). Extract from these sources only.\n\n${block.text}`;
+    result = normalizeResult(await groundedGenerate(anthropic, { system: SYSTEM_PROMPT, user, tag: gtag }));
   } catch (err) {
-    const detail = err instanceof Error ? err.message : String(err);
-    console.error(`[${tag}] generation failed: ${detail}`);
-    await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
-    return fail([`Generation failed: ${detail}`], 502);
+    return recordFailure(`Model error: ${err instanceof Error ? err.message : String(err)}`);
   }
 
-  // --- Verify: quote check -> support check -> one retry for failed slots ---
+  // --- Verify: quote check -> support check -> one repair pass (time permitting)
   const slots: Slot[] = [
     ...result.concepts.map((item, i) => ({ id: `concept-${i}`, kind: "concept" as Kind, item })),
     ...result.vocabulary.map((item, i) => ({ id: `vocab-${i}`, kind: "vocab" as Kind, item })),
     ...result.learning_objectives.map((item, i) => ({ id: `objective-${i}`, kind: "objective" as Kind, item })),
   ];
-
-  await setStage(supabase, uploadId, "verifying");
+  if (slots.length === 0) {
+    return recordFailure(result.insufficientReason ? `The model reported: ${result.insufficientReason}` : "The model returned no concepts, vocabulary or objectives for these pages.");
+  }
+  await markStatus(supabase, uploadId, { extraction_stage: "verifying", extraction_stage_at: new Date().toISOString() });
   try {
     const first = await verifyGroundedItems(slots.map(toGrounded), block, anthropic);
     for (const s of slots) s.result = first.get(s.id);
-
     const failed = slots.filter((s) => s.result?.status === "failed");
-    console.log(`[${tag}] pass 1: ${slots.length - failed.length} verified, ${failed.length} failed`);
-
-    if (failed.length > 0) {
+    console.log(`[${gtag}] pass 1: ${slots.length - failed.length} verified, ${failed.length} failed (${Math.round((Date.now() - started) / 1000)}s)`);
+    if (failed.length > 0 && Date.now() - started < RETRY_TIME_BUDGET_MS) {
       const user =
         `SOURCES:\n${block.text}\n\nITEMS TO FIX:\n` +
         formatFailures(failed.map((s) => ({ id: s.id, reason: s.result!.reason, item: { kind: s.kind, ...s.item } })));
-      const parsed = await groundedGenerate(anthropic, { system: RETRY_SYSTEM_PROMPT, user, tag: `${tag}][retry` });
+      const parsed = await groundedGenerate(anthropic, { system: RETRY_SYSTEM_PROMPT, user, tag: `${gtag}][retry` });
       const fixedList = Array.isArray(parsed.fixed) ? parsed.fixed.filter(isRecord) : [];
       const fixedById = new Map<string, Record<string, unknown>>();
       for (const f of fixedList) if (typeof f.id === "string") fixedById.set(f.id, f);
-
       const retrySlots: Slot[] = [];
       for (const s of failed) {
         const f = fixedById.get(s.id);
-        if (!f || f.drop === true) continue; // stays failed with its original reason
+        if (!f || f.drop === true) continue;
         let replacement: Slot["item"] | null = null;
         if (s.kind === "concept") replacement = normalizeConcept(f);
         else if (s.kind === "vocab") replacement = normalizeVocab(f);
@@ -652,45 +701,30 @@ Deno.serve(async (req: Request): Promise<Response> => {
         const second = await verifyGroundedItems(retrySlots.map(toGrounded), block, anthropic);
         for (const s of retrySlots) s.result = second.get(s.id) ?? s.result;
       }
-      const stillFailed = slots.filter((s) => s.result?.status === "failed").length;
-      console.log(`[${tag}] pass 2: retried ${retrySlots.length}, still failed ${stillFailed}`);
+    } else if (failed.length > 0) {
+      console.log(`[${gtag}] skipping repair pass: time budget used`);
     }
   } catch (err) {
-    const detail = err instanceof Error ? err.message : String(err);
-    console.error(`[${tag}] verification failed: ${detail}`);
-    await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
-    return fail([`Verification failed: ${detail}`], 502);
+    return recordFailure(`Verification error: ${err instanceof Error ? err.message : String(err)}`);
   }
 
-  // --- Persist (failed items are saved with grounding_status = 'failed') ---
-  await setStage(supabase, uploadId, "saving");
-  const errors: string[] = [];
+  // --- Persist this group's items (failed items kept with grounding_status = 'failed')
   const grounding = (s: Slot) => ({
     source_chunk_ids: s.result?.chunkIds.length ? s.result.chunkIds : null,
     evidence_quote: s.item.evidence_quote || null,
     grounding_status: s.result?.status ?? "failed",
   });
-
+  const errors: string[] = [];
   const conceptSlots = slots.filter((s) => s.kind === "concept");
   if (conceptSlots.length > 0) {
     const { error } = await supabase.from("concepts").insert(
       conceptSlots.map((s) => {
         const c = s.item as ExtractedConcept;
-        return {
-          upload_id: uploadId,
-          name: c.name,
-          definition: c.definition,
-          cpalms_alignment: null, // outside knowledge; never inferred in v2
-          prerequisites: c.prerequisites,
-          difficulty_level: c.difficulty_level,
-          examples: c.examples,
-          ...grounding(s),
-        };
+        return { upload_id: uploadId, name: c.name, definition: c.definition, cpalms_alignment: null, prerequisites: c.prerequisites, difficulty_level: c.difficulty_level, examples: c.examples, ...grounding(s) };
       }),
     );
     if (error) errors.push(`concepts: ${error.message}`);
   }
-
   const objSlots = slots.filter((s) => s.kind === "objective");
   if (objSlots.length > 0) {
     const { error } = await supabase.from("learning_objectives").insert(
@@ -698,7 +732,6 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
     if (error) errors.push(`learning_objectives: ${error.message}`);
   }
-
   const vocabSlots = slots.filter((s) => s.kind === "vocab");
   if (vocabSlots.length > 0) {
     const { error } = await supabase.from("vocabulary").insert(
@@ -709,36 +742,185 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
     if (error) errors.push(`vocabulary: ${error.message}`);
   }
-
-  if (errors.length > 0) {
-    console.error(`[${tag}] persist errors: ${errors.join(" | ")}`);
-    await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
-    return fail(["Failed to persist extracted data.", ...errors], 500, { chunksCount: chunks.length });
-  }
-
-  if (result.insufficientReason) {
-    await recordInsufficientSource(supabase, uploadId, "extract", result.insufficientReason);
-  }
-  // Pause here. Nothing downstream is triggered: the teacher marks items
-  // Emphasize / Trash first, then the frontend calls generate-questions-v2
-  // and synthesize-lesson-v2 explicitly.
-  await markStatus(supabase, uploadId, { status: "awaiting_teacher_review", extraction_stage: null, extraction_stage_at: new Date().toISOString() });
+  if (errors.length > 0) return recordFailure(`Could not save: ${errors.join(" | ")}`);
 
   const verifiedCount = slots.filter((s) => s.result?.status === "verified").length;
-  const failedCount = slots.length - verifiedCount;
-  console.log(
-    `[${tag}] done: ${conceptSlots.length} concepts, ${vocabSlots.length} vocab, ${objSlots.length} objectives; ` +
-      `${verifiedCount} verified, ${failedCount} failed, ${chunks.length} chunks`,
-  );
-
+  progress.done.push(groupIndex);
+  progress.current = null;
+  progress.counts.concepts += conceptSlots.length;
+  progress.counts.vocabulary += vocabSlots.length;
+  progress.counts.objectives += objSlots.length;
+  await saveProgress(supabase, uploadId, progress);
+  console.log(`[${gtag}] saved ${conceptSlots.length}c/${vocabSlots.length}v/${objSlots.length}o, ${verifiedCount} verified, ${Math.round((Date.now() - started) / 1000)}s`);
   return respond({
     success: true,
+    step: "group",
+    group: groupIndex,
+    progress,
     conceptsCount: conceptSlots.length,
     vocabularyCount: vocabSlots.length,
     objectivesCount: objSlots.length,
     chunksCount: chunks.length,
     verifiedCount,
-    failedCount,
-    ...(result.insufficientReason ? { insufficientSourceReason: result.insufficientReason } : {}),
+    failedCount: slots.length - verifiedCount,
   });
+}
+
+/**
+ * Merge duplicates found in several groups: one row per normalized name /
+ * term / objective, citing the UNION of every chunk any copy was cited from.
+ * The kept row takes the longest definition, a verified quote when any copy
+ * has one, and grounding_status 'verified' if any copy verified.
+ */
+async function mergeDuplicates(supabase: SupabaseClient, uploadId: string, tag: string): Promise<number> {
+  const order = new Map<string, number>();
+  const { data: chunkRows } = await supabase.from("curriculum_source_chunks").select("id, chunk_index").eq("upload_id", uploadId);
+  for (const c of (chunkRows ?? []) as { id: string; chunk_index: number }[]) order.set(c.id, c.chunk_index);
+  const sortIds = (ids: string[]) => [...new Set(ids)].sort((a, b) => (order.get(a) ?? 0) - (order.get(b) ?? 0));
+
+  type Row = Record<string, unknown> & { id: string; source_chunk_ids: string[] | null; evidence_quote: string | null; grounding_status: string | null };
+  const tables: { table: string; key: string; longest: string | null }[] = [
+    { table: "concepts", key: "name", longest: "definition" },
+    { table: "vocabulary", key: "term", longest: "definition" },
+    { table: "learning_objectives", key: "objective", longest: null },
+  ];
+  let removed = 0;
+  for (const t of tables) {
+    const { data } = await supabase.from(t.table).select("*").eq("upload_id", uploadId).order("created_at", { ascending: true });
+    const rows = (data ?? []) as Row[];
+    const byKey = new Map<string, Row[]>();
+    for (const r of rows) {
+      const k = normKey(String(r[t.key] ?? ""));
+      if (!k) continue;
+      byKey.set(k, [...(byKey.get(k) ?? []), r]);
+    }
+    for (const group of byKey.values()) {
+      if (group.length < 2) continue;
+      const verified = group.find((r) => r.grounding_status === "verified");
+      const keep = verified ?? group[0];
+      const patch: Record<string, unknown> = {
+        source_chunk_ids: sortIds(group.flatMap((r) => r.source_chunk_ids ?? [])),
+        grounding_status: verified ? "verified" : keep.grounding_status,
+        evidence_quote: verified?.evidence_quote ?? keep.evidence_quote,
+      };
+      if (t.longest) {
+        const best = group.map((r) => String(r[t.longest!] ?? "")).sort((a, b) => b.length - a.length)[0];
+        if (best) patch[t.longest] = best;
+      }
+      if (patch.source_chunk_ids && (patch.source_chunk_ids as string[]).length === 0) patch.source_chunk_ids = null;
+      const { error: uErr } = await supabase.from(t.table).update(patch).eq("id", keep.id);
+      if (uErr) {
+        console.error(`[${tag}] merge update ${t.table}: ${uErr.message}`);
+        continue;
+      }
+      const dupIds = group.filter((r) => r.id !== keep.id).map((r) => r.id);
+      const { error: dErr } = await supabase.from(t.table).delete().in("id", dupIds);
+      if (dErr) console.error(`[${tag}] merge delete ${t.table}: ${dErr.message}`);
+      else removed += dupIds.length;
+    }
+  }
+  return removed;
+}
+
+/** Step 3: merge across groups, then decide success / partial / failure. */
+async function stepFinalize(supabase: SupabaseClient, uploadId: string, tag: string): Promise<Response> {
+  const progress = await loadProgress(supabase, uploadId);
+  if (!progress) return fail(["No extraction plan for this upload. Send the pages first."], 409);
+  const pending = Array.from({ length: progress.groups }, (_, i) => i).filter((i) => !progress.done.includes(i) && !progress.failed.some((f) => f.group === i));
+  if (pending.length > 0) {
+    return fail([`Groups ${pending.map((i) => i + 1).join(", ")} have not run yet.`], 409, { progress });
+  }
+  await markStatus(supabase, uploadId, { extraction_stage: "saving", extraction_stage_at: new Date().toISOString() });
+
+  const removed = await mergeDuplicates(supabase, uploadId, tag);
+  const [c, v, o, cv, vv, ov] = await Promise.all([
+    supabase.from("concepts").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
+    supabase.from("vocabulary").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
+    supabase.from("learning_objectives").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
+    supabase.from("concepts").select("id", { count: "exact", head: true }).eq("upload_id", uploadId).eq("grounding_status", "verified"),
+    supabase.from("vocabulary").select("id", { count: "exact", head: true }).eq("upload_id", uploadId).eq("grounding_status", "verified"),
+    supabase.from("learning_objectives").select("id", { count: "exact", head: true }).eq("upload_id", uploadId).eq("grounding_status", "verified"),
+  ]);
+  const counts = { concepts: c.count ?? 0, vocabulary: v.count ?? 0, objectives: o.count ?? 0 };
+  const total = counts.concepts + counts.vocabulary + counts.objectives;
+  const verifiedCount = (cv.count ?? 0) + (vv.count ?? 0) + (ov.count ?? 0);
+  const { count: chunksCount } = await supabase.from("curriculum_source_chunks").select("id", { count: "exact", head: true }).eq("upload_id", uploadId);
+  progress.counts = counts;
+  progress.current = null;
+
+  const failedNote = progress.failed.length
+    ? progress.failed.map((f) => `${f.pages} produced nothing (${f.reason})`).join("; ")
+    : "";
+
+  // Zero items overall is a FAILURE, never a quiet success.
+  if (total === 0) {
+    const reason = `No concepts, vocabulary or objectives were found in any of the ${progress.groups} page group${progress.groups === 1 ? "" : "s"}.${failedNote ? ` ${failedNote}.` : ""}`;
+    await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null, extraction_stage_at: new Date().toISOString(), extraction_progress: progress, insufficient_source_reason: `[extract] ${reason}` });
+    console.error(`[${tag}] FAILED: ${reason}`);
+    return fail([reason], 422, { progress, chunksCount: chunksCount ?? 0, insufficientSourceReason: reason });
+  }
+
+  // Partial: keep what succeeded, say which pages produced nothing.
+  let insufficientSourceReason: string | undefined;
+  if (failedNote) {
+    insufficientSourceReason = `${progress.failed.length} of ${progress.groups} page groups produced nothing: ${failedNote}.`;
+    await recordInsufficientSource(supabase, uploadId, "extract", insufficientSourceReason);
+  }
+  // Pause here. Nothing downstream is triggered: the teacher marks items
+  // Emphasize / Trash first, then the frontend calls generate-questions-v2
+  // and synthesize-lesson-v2 explicitly.
+  await markStatus(supabase, uploadId, { status: "awaiting_teacher_review", extraction_stage: null, extraction_stage_at: new Date().toISOString(), extraction_progress: progress });
+  console.log(`[${tag}] done: ${counts.concepts}c/${counts.vocabulary}v/${counts.objectives}o after merging ${removed} duplicate(s); ${verifiedCount} verified; ${progress.failed.length} group(s) produced nothing`);
+  return respond({
+    success: true,
+    step: "finalized",
+    groups: progress.groups,
+    progress,
+    conceptsCount: counts.concepts,
+    vocabularyCount: counts.vocabulary,
+    objectivesCount: counts.objectives,
+    chunksCount: chunksCount ?? 0,
+    verifiedCount,
+    failedCount: total - verifiedCount,
+    ...(insufficientSourceReason ? { insufficientSourceReason } : {}),
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Handler
+// ---------------------------------------------------------------------------
+
+Deno.serve(async (req: Request): Promise<Response> => {
+  if (req.method === "OPTIONS") return new Response("ok", { headers: CORS_HEADERS });
+  if (req.method !== "POST") return fail(["Method not allowed. Use POST."], 405);
+
+  const anthropicKey = Deno.env.get("ANTHROPIC_API_KEY");
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!anthropicKey || !supabaseUrl || !serviceRoleKey) {
+    const missing = [!anthropicKey && "ANTHROPIC_API_KEY", !supabaseUrl && "SUPABASE_URL", !serviceRoleKey && "SUPABASE_SERVICE_ROLE_KEY"].filter(Boolean);
+    return fail([`Server misconfiguration: missing ${missing.join(", ")}.`], 500);
+  }
+
+  let body: RequestBody;
+  try {
+    body = (await req.json()) as RequestBody;
+  } catch {
+    return fail(["Body must be JSON."], 400);
+  }
+  const uploadId = body?.uploadId;
+  if (typeof uploadId !== "string" || uploadId.length === 0) return fail(["`uploadId` is required."], 400);
+
+  const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } });
+  const anthropic = new Anthropic({ apiKey: anthropicKey });
+  const tag = `ECv2][${uploadId}`;
+
+  if (body.step === "status") {
+    const progress = await loadProgress(supabase, uploadId);
+    if (!progress) return fail(["No extraction in progress for this upload."], 404);
+    return respond({ success: true, step: "status", groups: progress.groups, progress, conceptsCount: progress.counts.concepts, vocabularyCount: progress.counts.vocabulary, objectivesCount: progress.counts.objectives, chunksCount: 0, verifiedCount: 0, failedCount: 0 });
+  }
+  if (body.step === "group") return stepGroup(supabase, anthropic, uploadId, Number(body.group), tag);
+  if (body.step === "finalize") return stepFinalize(supabase, uploadId, tag);
+  return stepPlan(supabase, uploadId, body, tag);
 });
