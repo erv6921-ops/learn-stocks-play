@@ -56,6 +56,9 @@ interface PageText {
 
 const DASHBOARD_ROUTE = "/teacher-dashboard?tab=curriculum";
 
+// TEMPORARY tracing for the "was never extracted" bug (remove once diagnosed).
+const trace = (...args: unknown[]) => console.log("[curriculum]", new Date().toISOString().slice(11, 23), ...args);
+
 const TeacherCurriculumPage: React.FC = () => {
   const navigate = useNavigate();
   const { uploadId: routeUploadId } = useParams<{ uploadId?: string }>();
@@ -76,14 +79,30 @@ const TeacherCurriculumPage: React.FC = () => {
   // so the "open an existing upload" effect below ignores that navigation
   // instead of reloading the row and clobbering the in-flight phase.
   const selfNavigatedRef = useRef<string | null>(null);
+  // TEMP: one id per component instance, so a remount is visible in the log.
+  const instanceRef = useRef(Math.random().toString(36).slice(2, 7));
+
+  // TEMP tracing: mount / unmount and every phase transition.
+  useEffect(() => {
+    const instance = instanceRef.current;
+    trace("MOUNT instance", instance, "routeUploadId", routeUploadId);
+    return () => trace("UNMOUNT instance", instance);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    trace("phase ->", phase, "| instance", instanceRef.current, "| routeUploadId", routeUploadId, "| uploadId state", uploadId);
+  }, [phase, routeUploadId, uploadId]);
 
   // --- Existing upload: /teacher/curriculum/:uploadId ---------------------
   useEffect(() => {
+    trace("route effect fired | instance", instanceRef.current, "| routeUploadId", routeUploadId, "| selfNavigatedRef", selfNavigatedRef.current);
     if (!routeUploadId) return;
     if (selfNavigatedRef.current === routeUploadId) {
+      trace("route effect SKIPPED (self navigation)");
       selfNavigatedRef.current = null;
       return;
     }
+    trace("route effect NOT skipped -> loading row");
     let cancelled = false;
     setPhase("loading");
     (async () => {
@@ -93,6 +112,7 @@ const TeacherCurriculumPage: React.FC = () => {
         .eq("id", routeUploadId)
         .neq("status", "deleted")
         .maybeSingle();
+      trace("route effect row", data ? { id: data.id, status: data.status } : null, "| cancelled", cancelled);
       if (cancelled) return;
       if (!data?.id) {
         setErrorMsg("That upload could not be found. It may have been deleted, or it isn't yours.");
@@ -111,12 +131,14 @@ const TeacherCurriculumPage: React.FC = () => {
       } else {
         // 'pending': the row exists but nothing was extracted (the request
         // was interrupted). Ask for the file again.
+        trace("route effect -> ERROR 'was never extracted' (status", data.status, ")");
         setErrorMsg("This upload was never extracted. Choose the PDF again to extract it.");
         setErrorKind("generic");
         setPhase("error");
       }
     })();
     return () => {
+      trace("route effect cleanup (routeUploadId changing away from", routeUploadId, ")");
       cancelled = true;
     };
   }, [routeUploadId]);
@@ -193,6 +215,7 @@ const TeacherCurriculumPage: React.FC = () => {
   // --- Extract: create/reuse the upload row, call extract-curriculum-v2 ----
   const runExtraction = useCallback(
     async function runExtraction(opts: { reextract?: boolean; uploadId?: string } = {}): Promise<void> {
+      trace("runExtraction START", opts, "| instance", instanceRef.current, "| routeUploadId", routeUploadId, "| uploadId state", uploadId, "| pages", pages.length);
       if (pages.length === 0) return;
       setErrorMsg("");
       setErrorKind("generic");
@@ -236,11 +259,13 @@ const TeacherCurriculumPage: React.FC = () => {
           id = upload.id as string;
         }
         setUploadId(id);
+        trace("runExtraction row id", id, "| will navigate?", routeUploadId !== id);
         // Put the id in the URL so a refresh lands on this upload. Same page,
         // no navigation: the component stays mounted (same route element), and
         // the route effect skips this change (selfNavigatedRef).
         if (routeUploadId !== id) {
           selfNavigatedRef.current = id;
+          trace("runExtraction set selfNavigatedRef =", id, "then navigate");
           navigate(`/teacher/curriculum/${id}`, { replace: true });
         }
         setPhase("extracting");
@@ -253,14 +278,17 @@ const TeacherCurriculumPage: React.FC = () => {
           ...(opts.reextract ? { reextract: true } : {}),
         });
 
+        trace("runExtraction fetch response", { status, success: data?.success, chunksCount: data?.chunksCount, errors: data?.errors }, "| instance", instanceRef.current);
         if (status === 409) {
           // The row was extracted before. With stored pages there are marks
           // to lose: ask first. With no pages (a v1 row, or a failed first
           // attempt) there is nothing to lose: re-extract straight away.
           if ((data?.chunksCount ?? 0) === 0 && !opts.reextract) {
+            trace("409 with zero chunks -> re-extract immediately");
             await runExtraction({ reextract: true, uploadId: id });
             return;
           }
+          trace("409 -> opening re-extract dialog, phase ready");
           setReextractPrompt({ uploadId: id });
           setPhase("ready");
           return;
@@ -277,8 +305,10 @@ const TeacherCurriculumPage: React.FC = () => {
         }
 
         // Same page becomes the review. No navigation.
+        trace("runExtraction success -> phase review");
         setPhase("review");
       } catch (err) {
+        trace("runExtraction CATCH", err instanceof Error ? err.message : err);
         console.error("Extraction failed:", err);
         setErrorMsg(err instanceof Error ? err.message : "Something went wrong during extraction.");
         setPhase("error");
