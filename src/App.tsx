@@ -50,6 +50,8 @@ import Partners from "./pages/Partners";
 import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
 import AdminAnalytics from "./pages/AdminAnalytics";
+import TowerPreviewV2 from "./pages/TowerPreviewV2";
+import TowerDashboard from "@/components/tower-v2/TowerDashboard";
 import { DashboardPopups } from "./components/popups/DashboardPopups";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
@@ -212,6 +214,9 @@ function AppRoutes() {
       <Route path="/partners" element={<Partners />} />
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />
+      <Route path="/tower-preview-v2" element={<TowerPreviewV2 />} />
+      {/* Tower-first dashboard preview wired to real data (greeting, stats, daily missions + the tower). */}
+      <Route path="/tower" element={<TowerDashboard />} />
       <Route path="/admin/analytics" element={<AdminAnalytics />} />
       <Route path="/admin/curriculum-review" element={<CurriculumReview />} />
       {/* Read-only: everything that went live across all teachers (benchmark queue above is unrelated). */}
