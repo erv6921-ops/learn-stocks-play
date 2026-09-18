@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { LessonBank } from "@/components/teacher/LessonBank";
+import { LessonPreviewButtons } from "@/components/teacher/LessonPreviewButtons";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +28,11 @@ import {
   Users,
   UploadCloud,
   SlidersHorizontal,
+  Search,
+  ChevronDown,
+  BookOpen,
+  Send,
+  CheckCircle2,
 } from "lucide-react";
 
 // ---------------------------------------------------------------------------
@@ -50,6 +58,30 @@ interface CurriculumUpload {
 interface TeacherClass {
   id: string;
   name: string;
+}
+
+/** A built lesson (public.lessons with content) shown under its upload. */
+interface BuiltLesson {
+  id: string;
+  name: string;
+  upload_id: string | null;
+  sub_lesson_id: string | null;
+  subLessonTitle: string | null;
+  created_at: string;
+  teacher_approved_at: string | null;
+  sectionsCount: number;
+  masteryCount: number;
+  assignedClasses: number;
+}
+
+interface RawLesson {
+  id: string;
+  name: string;
+  upload_id: string | null;
+  sub_lesson_id?: string | null;
+  created_at: string;
+  teacher_approved_at?: string | null;
+  content?: { sections?: { type: string; questions?: unknown[] }[] } | null;
 }
 
 // PostgREST aggregate embeds come back as `[{ count: N }]`.
@@ -179,6 +211,10 @@ export const CurriculumTab: React.FC = () => {
   const [classes, setClasses] = useState<TeacherClass[]>([]);
   const [jeffBusy, setJeffBusy] = useState<{ id: string; mode: "feed" | "remove" } | null>(null);
   const [classPickFor, setClassPickFor] = useState<CurriculumUpload | null>(null);
+  // Built lessons grouped by upload (the lesson bank), search, expanded cards.
+  const [lessonsByUpload, setLessonsByUpload] = useState<Map<string, BuiltLesson[]>>(new Map());
+  const [query, setQuery] = useState("");
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
   const fetchUploads = useCallback(async () => {
     setLoading(true);
@@ -214,6 +250,54 @@ export const CurriculumTab: React.FC = () => {
         }),
       );
       setUploads(rows);
+      // The most recent upload starts expanded; the rest stay folded.
+      setExpanded((prev) => (prev.size ? prev : new Set(rows.slice(0, 1).map((r) => r.id))));
+
+      // Built lessons for the bank, grouped by upload.
+      const { data: lessonData } = await db
+        .from("lessons")
+        .select("id, name, upload_id, sub_lesson_id, created_at, teacher_approved_at, content")
+        .eq("teacher_id", userData.user.id)
+        .order("created_at", { ascending: false });
+      const built = ((lessonData as RawLesson[] | null) ?? []).filter((l) => !!l.content?.sections?.length);
+      const subIds = [...new Set(built.map((l) => l.sub_lesson_id).filter(Boolean))] as string[];
+      const subTitles = new Map<string, string>();
+      if (subIds.length) {
+        const { data: subs } = await db.from("sub_lessons").select("id, title").in("id", subIds);
+        for (const sl of (subs as { id: string; title: string }[] | null) ?? []) subTitles.set(sl.id, sl.title);
+      }
+      const assignedCount = new Map<string, number>();
+      if (built.length) {
+        const { data: asg } = await db.from("assigned_lessons").select("lesson_id, class_id").in("lesson_id", built.map((l) => l.id));
+        const seen = new Set<string>();
+        for (const a of (asg as { lesson_id: string; class_id: string }[] | null) ?? []) {
+          const k = `${a.lesson_id}:${a.class_id}`;
+          if (seen.has(k)) continue;
+          seen.add(k);
+          assignedCount.set(a.lesson_id, (assignedCount.get(a.lesson_id) ?? 0) + 1);
+        }
+      }
+      const grouped = new Map<string, BuiltLesson[]>();
+      for (const l of built) {
+        const key = l.upload_id ?? "";
+        const mastery = l.content?.sections?.find((x) => x.type === "mastery-check");
+        grouped.set(key, [
+          ...(grouped.get(key) ?? []),
+          {
+            id: l.id,
+            name: l.name,
+            upload_id: l.upload_id,
+            sub_lesson_id: l.sub_lesson_id ?? null,
+            subLessonTitle: l.sub_lesson_id ? subTitles.get(l.sub_lesson_id) ?? null : null,
+            created_at: l.created_at,
+            teacher_approved_at: l.teacher_approved_at ?? null,
+            sectionsCount: l.content?.sections?.length ?? 0,
+            masteryCount: mastery?.questions?.length ?? 0,
+            assignedClasses: assignedCount.get(l.id) ?? 0,
+          },
+        ]);
+      }
+      setLessonsByUpload(grouped);
 
       // Classes this teacher owns (same query shape as the dashboard). A
       // failure here only disables "Feed to Jeff"; the upload list still shows.
@@ -391,43 +475,34 @@ export const CurriculumTab: React.FC = () => {
         </Card>
       </section>
 
-      {/* Lesson bank: built lessons, assignable to any class later */}
-      <LessonBank />
-
-      {/* Upload history */}
+      {/* Your materials: one card per upload with its built lessons nested. */}
       <section>
-        <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
-            Upload history
-          </h3>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => void fetchUploads()}
-            disabled={loading}
-            className="text-slate-500 hover:text-slate-700"
-          >
-            <RefreshCw className={cn("mr-1.5 h-3.5 w-3.5", loading && "animate-spin")} />
-            Refresh
-          </Button>
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Your materials</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Every upload with the lessons built from it. Open one to review, build and assign; assign a built lesson to another class from here.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-2 top-2.5 h-3.5 w-3.5 text-slate-400" />
+              <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search uploads and lessons" className="h-8 w-56 pl-7 text-xs" />
+            </div>
+            <Button variant="ghost" size="sm" onClick={() => void fetchUploads()} disabled={loading} className="text-slate-500 hover:text-slate-700">
+              <RefreshCw className={cn("mr-1.5 h-3.5 w-3.5", loading && "animate-spin")} />
+              Refresh
+            </Button>
+          </div>
         </div>
-        <p className="mb-3 flex items-start gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-          <MessageCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
-          <span>
-            <span className="font-medium text-slate-700 dark:text-slate-200">Feed to Jeff:</span>{" "}
-            material you feed to Jeff is used to answer that class's Chat with Jeff questions, and only students in that class can see it.
-          </span>
-        </p>
 
-        {/* Loading */}
         {loading && (
           <div className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white py-10 text-sm text-slate-500">
             <Loader2 className="h-4 w-4 animate-spin text-emerald-600" />
-            Loading uploads…
+            Loading your materials…
           </div>
         )}
 
-        {/* Error */}
         {!loading && error && (
           <Card className="border-red-200 bg-red-50/60">
             <CardContent className="flex flex-col items-start gap-3 pt-6">
@@ -435,150 +510,168 @@ export const CurriculumTab: React.FC = () => {
                 <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
                 <p className="text-sm text-red-700">{error}</p>
               </div>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => void fetchUploads()}
-                className="border-red-300 text-red-700 hover:bg-red-100"
-              >
-                <RefreshCw className="mr-1.5 h-3.5 w-3.5" />
-                Retry
+              <Button size="sm" variant="outline" onClick={() => void fetchUploads()} className="border-red-300 text-red-700 hover:bg-red-100">
+                <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Retry
               </Button>
             </CardContent>
           </Card>
         )}
 
-        {/* Empty */}
         {!loading && !error && uploads.length === 0 && (
-          <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-slate-200 bg-slate-50 py-12 text-center">
+          <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed border-slate-200 py-10 text-center">
             <Inbox className="h-8 w-8 text-slate-300" />
-            <p className="text-sm font-medium text-slate-600">
-              No curriculum uploads yet.
-            </p>
-            <p className="text-xs text-slate-400">
-              Use &ldquo;Upload curriculum&rdquo; above to add your first PDF.
-            </p>
+            <p className="text-sm text-slate-500">No curriculum uploads yet.</p>
+            <p className="text-xs text-slate-400">Use &ldquo;Upload curriculum&rdquo; above to add your first PDF.</p>
           </div>
         )}
 
-        {/* List */}
-        {!loading && !error && uploads.length > 0 && (
-          <div className="space-y-3">
-            {uploads.map((u) => (
-              <Card key={u.id} className="border-slate-200 transition-shadow hover:shadow-sm">
-                <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex min-w-0 items-start gap-3">
-                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50">
-                      <FileText className="h-4 w-4 text-emerald-600" />
-                    </div>
-                    <div className="min-w-0 space-y-1">
-                      <div className="flex items-center gap-2">
-                        <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
-                          {u.file_name}
-                        </p>
-                        <StatusBadge status={u.status} />
-                      </div>
-                      <p className="text-xs text-slate-400">
-                        {fmtDate(u.created_at)}
-                      </p>
-                      <p className="text-xs text-slate-500">
-                        {u.conceptsCount} concepts • {u.vocabularyCount} vocabulary •{" "}
-                        {u.objectivesCount} objectives
-                      </p>
-                      {/* Chat with Jeff status */}
-                      {u.jeffIngestedAt ? (
-                        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
-                          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
-                            <MessageCircle className="h-3 w-3" />
-                            In Jeff · {u.jeffChunkCount ?? 0} section{u.jeffChunkCount === 1 ? "" : "s"}
-                          </span>
-                          <span className="text-slate-400 dark:text-slate-500">fed {fmtDay(u.jeffIngestedAt)}</span>
-                          <button
-                            type="button"
-                            onClick={() => startFeed(u)}
-                            disabled={jeffBusy?.id === u.id}
-                            className="font-medium text-emerald-700 underline-offset-2 hover:underline disabled:opacity-50 dark:text-emerald-400"
-                          >
-                            {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? "Re-feeding…" : "Re-feed"}
-                          </button>
-                          <span className="text-slate-300 dark:text-slate-600">·</span>
-                          <button
-                            type="button"
-                            onClick={() => void removeFromJeff(u)}
-                            disabled={jeffBusy?.id === u.id}
-                            className="font-medium text-slate-500 underline-offset-2 hover:text-red-600 hover:underline disabled:opacity-50 dark:text-slate-400 dark:hover:text-red-400"
-                          >
-                            {jeffBusy?.id === u.id && jeffBusy.mode === "remove" ? "Removing…" : "Remove from Jeff"}
-                          </button>
-                        </p>
-                      ) : (
-                        <p className="text-xs text-slate-400 dark:text-slate-500">Not in Jeff yet</p>
-                      )}
-                    </div>
-                  </div>
+        {!loading && !error && uploads.length > 0 && (() => {
+          const q = query.trim().toLowerCase();
+          const visible = uploads.filter((u) => {
+            if (!q) return true;
+            if (u.file_name.toLowerCase().includes(q)) return true;
+            return (lessonsByUpload.get(u.id) ?? []).some((l) => l.name.toLowerCase().includes(q) || (l.subLessonTitle ?? "").toLowerCase().includes(q));
+          });
+          if (visible.length === 0) return <p className="py-6 text-center text-sm text-slate-500">Nothing matches &ldquo;{query}&rdquo;.</p>;
+          return (
+            <div className="space-y-2">
+              {visible.map((u) => {
+                const lessons = lessonsByUpload.get(u.id) ?? [];
+                const approved = lessons.filter((l) => !!l.teacher_approved_at).length;
+                const isOpen = expanded.has(u.id) || !!q;
+                const toggle = () =>
+                  setExpanded((prev) => {
+                    const next = new Set(prev);
+                    if (next.has(u.id)) next.delete(u.id);
+                    else next.add(u.id);
+                    return next;
+                  });
+                return (
+                  <Collapsible key={u.id} open={isOpen} onOpenChange={toggle}>
+                    <Card className="border-slate-200">
+                      <CardContent className="p-0">
+                        {/* Upload header row */}
+                        <div className="flex flex-col gap-2 p-3 sm:flex-row sm:items-center sm:justify-between">
+                          <CollapsibleTrigger className="flex min-w-0 flex-1 items-start gap-3 text-left">
+                            <ChevronDown className={cn("mt-2 h-4 w-4 shrink-0 text-slate-400 transition-transform", isOpen && "rotate-180")} />
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50">
+                              <FileText className="h-4 w-4 text-emerald-600" />
+                            </div>
+                            <div className="min-w-0">
+                              <div className="flex flex-wrap items-center gap-2">
+                                <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{u.file_name}</p>
+                                <StatusBadge status={u.status} />
+                              </div>
+                              <p className="text-xs text-slate-500">
+                                {fmtDate(u.created_at)} · {u.conceptsCount} concepts · {u.vocabularyCount} terms
+                                {lessons.length > 0 ? ` · ${lessons.length} lesson${lessons.length === 1 ? "" : "s"} built, ${approved} approved` : " · no lesson built yet"}
+                                {u.jeffIngestedAt ? ` · in Jeff (${u.jeffChunkCount ?? 0} sections)` : ""}
+                              </p>
+                            </div>
+                          </CollapsibleTrigger>
+                          <div className="flex shrink-0 flex-wrap items-center gap-2 self-end sm:self-auto">
+                            <Button size="sm" onClick={() => navigate(`/teacher/curriculum/${encodeURIComponent(u.id)}`)} className="bg-emerald-600 text-white hover:bg-emerald-700" title="Review what was extracted, build and assign lessons">
+                              <SlidersHorizontal className="mr-1.5 h-3.5 w-3.5" /> Open
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => void handleDelete(u)}
+                              disabled={deletingId === u.id}
+                              className="text-slate-400 hover:bg-red-50 hover:text-red-600"
+                              aria-label={`Delete ${u.file_name}`}
+                            >
+                              {deletingId === u.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                            </Button>
+                          </div>
+                        </div>
 
-                  <div className="flex shrink-0 flex-wrap items-center gap-2 self-end sm:self-auto sm:justify-end">
-                    {!u.jeffIngestedAt && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => startFeed(u)}
-                        disabled={jeffBusy?.id === u.id || u.status === "pending" || u.status === "extraction_failed"}
-                        title={u.status === "extraction_failed" || u.status === "pending" ? "Extract the PDF's text first" : undefined}
-                        className="border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300 dark:hover:bg-emerald-950/50"
-                      >
-                        {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? (
-                          <>
-                            <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
-                            Feeding Jeff…
-                          </>
-                        ) : (
-                          <>
-                            <MessageCircle className="mr-1.5 h-3.5 w-3.5" />
-                            Feed to Jeff
-                          </>
-                        )}
-                      </Button>
-                    )}
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => navigate(`/teacher/curriculum/${encodeURIComponent(u.id)}`)}
-                      className="border-emerald-200 text-emerald-700 hover:bg-emerald-50"
-                      title="Review what was extracted, build and assign the lesson"
-                    >
-                      <SlidersHorizontal className="mr-1.5 h-3.5 w-3.5" />
-                      Review &amp; build
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => navigate(`/teacher/build-study-guide?uploadId=${u.id}`)}
-                      className="border-indigo-200 text-indigo-700 hover:bg-indigo-50"
-                    >
-                      <Sparkles className="mr-1.5 h-3.5 w-3.5" />
-                      Build extra practice
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => void handleDelete(u)}
-                      disabled={deletingId === u.id}
-                      className="text-slate-400 hover:bg-red-50 hover:text-red-600"
-                      aria-label={`Delete ${u.file_name}`}
-                    >
-                      {deletingId === u.id ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <Trash2 className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
+                        <CollapsibleContent>
+                          <div className="space-y-2 border-t border-slate-100 bg-slate-50/50 p-3 dark:border-slate-800 dark:bg-slate-900/30">
+                            {/* Lessons built from this upload */}
+                            {lessons.length === 0 ? (
+                              <p className="text-xs text-slate-500">No lesson built from this upload yet. Open it to generate questions and build Jeff&apos;s lesson.</p>
+                            ) : (
+                              <ul className="space-y-1.5">
+                                {lessons.map((l) => {
+                                  const ok = !!l.teacher_approved_at;
+                                  return (
+                                    <li key={l.id} className="flex flex-col gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between">
+                                      <div className="min-w-0">
+                                        <div className="flex flex-wrap items-center gap-2">
+                                          <BookOpen className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                                          <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{l.name}</p>
+                                          {ok ? (
+                                            <Badge variant="success" className="gap-1 text-[10px]"><CheckCircle2 className="h-3 w-3" /> Reviewed</Badge>
+                                          ) : (
+                                            <Badge variant="warning" className="text-[10px]">Not reviewed</Badge>
+                                          )}
+                                          {l.assignedClasses > 0 && <Badge variant="outline" className="text-[10px]">In {l.assignedClasses} class{l.assignedClasses === 1 ? "" : "es"}</Badge>}
+                                        </div>
+                                        <p className="text-xs text-slate-500">
+                                          {l.subLessonTitle && l.subLessonTitle !== l.name ? `${l.subLessonTitle} · ` : ""}{l.sectionsCount} sections · {l.masteryCount} mastery questions · built {fmtDay(l.created_at)}
+                                        </p>
+                                      </div>
+                                      <div className="flex shrink-0 items-center gap-2 self-end sm:self-auto">
+                                        <LessonPreviewButtons lessonId={l.id} source="generated" lessonName={l.name} compact />
+                                        <Button
+                                          size="sm"
+                                          onClick={() => navigate(`/teacher/assign-lesson?uploadId=${encodeURIComponent(u.id)}&lessonId=${encodeURIComponent(l.id)}&lessonName=${encodeURIComponent(l.name)}`)}
+                                          disabled={!ok}
+                                          title={ok ? "Assign to a class" : "Review and approve this lesson first"}
+                                          className="h-7 bg-emerald-600 text-xs text-white hover:bg-emerald-700"
+                                        >
+                                          <Send className="mr-1 h-3 w-3" /> Assign
+                                        </Button>
+                                      </div>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            )}
+
+                            {/* Secondary actions for the upload */}
+                            <div className="flex flex-wrap items-center gap-2 pt-1">
+                              {u.jeffIngestedAt ? (
+                                <span className="flex flex-wrap items-center gap-x-2 text-xs">
+                                  <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
+                                    <MessageCircle className="h-3 w-3" /> In Jeff · fed {fmtDay(u.jeffIngestedAt)}
+                                  </span>
+                                  <button type="button" onClick={() => startFeed(u)} disabled={jeffBusy?.id === u.id} className="font-medium text-emerald-700 underline-offset-2 hover:underline disabled:opacity-50 dark:text-emerald-400">
+                                    {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? "Re-feeding…" : "Re-feed"}
+                                  </button>
+                                  <span className="text-slate-300">·</span>
+                                  <button type="button" onClick={() => void removeFromJeff(u)} disabled={jeffBusy?.id === u.id} className="font-medium text-slate-500 underline-offset-2 hover:text-red-600 hover:underline disabled:opacity-50">
+                                    {jeffBusy?.id === u.id && jeffBusy.mode === "remove" ? "Removing…" : "Remove from Jeff"}
+                                  </button>
+                                </span>
+                              ) : (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => startFeed(u)}
+                                  disabled={jeffBusy?.id === u.id || u.status === "pending" || u.status === "extraction_failed"}
+                                  title={u.status === "extraction_failed" || u.status === "pending" ? "Extract the PDF's text first" : "Let Jeff answer this class's questions from this material"}
+                                  className="h-7 border-emerald-300 bg-emerald-50 text-xs text-emerald-800 hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300"
+                                >
+                                  {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? <Loader2 className="mr-1.5 h-3 w-3 animate-spin" /> : <MessageCircle className="mr-1.5 h-3 w-3" />}
+                                  Feed to Jeff
+                                </Button>
+                              )}
+                              <Button size="sm" variant="outline" onClick={() => navigate(`/teacher/build-study-guide?uploadId=${u.id}`)} className="h-7 border-indigo-200 text-xs text-indigo-700 hover:bg-indigo-50">
+                                <Sparkles className="mr-1.5 h-3 w-3" /> Build extra practice
+                              </Button>
+                            </div>
+                          </div>
+                        </CollapsibleContent>
+                      </CardContent>
+                    </Card>
+                  </Collapsible>
+                );
+              })}
+            </div>
+          );
+        })()}
       </section>
 
       {/* Which class should Jeff answer for? Only shown when the teacher has

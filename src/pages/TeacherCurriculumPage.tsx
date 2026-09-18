@@ -369,7 +369,7 @@ const TeacherCurriculumPage: React.FC = () => {
   // ------------------------------------------------------------------------
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-8 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 sm:px-6 lg:px-8">
-      <div className={cn("mx-auto w-full space-y-6", phase === "review" ? "max-w-5xl" : "max-w-3xl")}>
+      <div className={cn("mx-auto w-full space-y-6", phase === "review" ? "max-w-6xl" : "max-w-3xl")}>
         <div className="flex flex-wrap items-center justify-between gap-2">
           <button
             type="button"

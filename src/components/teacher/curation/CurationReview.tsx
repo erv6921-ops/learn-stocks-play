@@ -2,10 +2,11 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
-import { AlertCircle, BookMarked, FileText, HelpCircle, Lightbulb, ListChecks, Loader2, RefreshCw, ShieldQuestion, Sparkles } from "lucide-react";
+import { AlertCircle, BookMarked, ChevronDown, FileText, HelpCircle, Lightbulb, ListChecks, Loader2, RefreshCw, ShieldQuestion, SlidersHorizontal, Sparkles } from "lucide-react";
 import { QuestionApprovalPanel, type ApprovalCounts } from "@/components/teacher/QuestionApprovalPanel";
 import { CurationItemCard } from "./CurationItemCard";
 import { CurationSection } from "./CurationSection";
@@ -115,6 +116,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
   const [panelKey, setPanelKey] = useState(0);
   const [tab, setTab] = useState<TabKey>("vocabulary");
   const [splitOpen, setSplitOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   // Marks as they were when questions were last generated, per sub-lesson.
   const snapshotRef = useRef<Map<string, string>>(new Map());
   const [snapshotVersion, setSnapshotVersion] = useState(0);
@@ -621,43 +623,57 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
   );
   const unplacedNote = "Not placed in any lesson: these could not be matched to a page, so they are never used as a guide.";
 
+  const sidebar = !needsVerification && subLessons.length > 0 && (
+    <SubLessonBar
+      subLessons={subLessons}
+      chunks={allChunks}
+      selectedId={selectedSubId}
+      onSelect={(id) => {
+        setSelectedSubId(id);
+        setQuestionStats(null);
+      }}
+      onSplit={() => setSplitOpen(true)}
+      states={subStates}
+      disabled={busyAll}
+    />
+  );
+
   return (
     <div className={cn("space-y-6", className)}>
+      {extractNotes.length > 0 && (
+        <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+          <div className="space-y-0.5">
+            <p className="font-semibold">Some pages produced nothing during extraction.</p>
+            {extractNotes.map((n, i) => (
+              <p key={i}>{n}</p>
+            ))}
+            <p>Everything else was kept. Re-extract the file to try those pages again.</p>
+          </div>
+        </div>
+      )}
+
+      <div className={cn("gap-6", sidebar && "lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:items-start")}>
+        {sidebar && (
+          <aside className="mb-4 rounded-xl border border-slate-200 bg-slate-50/70 p-3 dark:border-slate-700 dark:bg-slate-900/40 lg:sticky lg:top-4 lg:mb-0">
+            {sidebar}
+          </aside>
+        )}
+
+        <div className="min-w-0 space-y-6">
       <Card className="border-emerald-100 shadow-sm dark:border-emerald-900">
-        <CardHeader>
-          <CardTitle className="text-lg text-slate-900 dark:text-slate-100">Review what was extracted</CardTitle>
+        <CardHeader className="pb-3">
+          <CardTitle className="flex flex-wrap items-baseline gap-x-2 text-lg text-slate-900 dark:text-slate-100">
+            {selectedSub && subLessons.length > 1 ? selectedSub.title : "Review what was extracted"}
+            {selectedSub && subLessons.length > 1 && <span className="text-xs font-normal text-slate-500 dark:text-slate-400">from {upload.file_name}</span>}
+          </CardTitle>
           <CardDescription>
-            Everything below came from <span className="font-medium">{upload.file_name}</span>. Emphasize what matters most, trash what should stay out. Marks save as you click.
+            {subLessons.length > 1
+              ? "Only this lesson's pages. Emphasize what matters most, trash what should stay out. Marks save as you click."
+              : <>Everything below came from <span className="font-medium">{upload.file_name}</span>. Emphasize what matters most, trash what should stay out. Marks save as you click.</>}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-5">
-          {extractNotes.length > 0 && (
-            <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
-              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
-              <div className="space-y-0.5">
-                <p className="font-semibold">Some pages produced nothing during extraction.</p>
-                {extractNotes.map((n, i) => (
-                  <p key={i}>{n}</p>
-                ))}
-                <p>Everything else was kept. Re-extract the file to try those pages again.</p>
-              </div>
-            </div>
-          )}
-          {!needsVerification && subLessons.length > 0 && (
-            <SubLessonBar
-              subLessons={subLessons}
-              chunks={allChunks}
-              selectedId={selectedSubId}
-              onSelect={(id) => {
-                setSelectedSubId(id);
-                setQuestionStats(null);
-              }}
-              onSplit={() => setSplitOpen(true)}
-              states={subStates}
-              disabled={busyAll}
-            />
-          )}
-
           {/* Stats row: the selected lesson, always visible above the tabs */}
           <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
             <StatTile label="Pages" value={stats.pages} />
@@ -776,7 +792,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
         </CardContent>
       </Card>
 
-      <Card className="border-emerald-100 shadow-sm dark:border-emerald-900">
+      <Card id="build-area" className="scroll-mt-4 border-emerald-100 shadow-sm dark:border-emerald-900">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg text-slate-900 dark:text-slate-100">
             <Sparkles className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
@@ -786,14 +802,25 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
         </CardHeader>
         <CardContent>
           {selectedSub && (
-            <GenerationSettingsPanel
-              value={settings}
-              onChange={(next) => void updateSettings(next)}
-              disabled={busyAll}
-              hasQuestions={!!questionStats && questionStats.total > 0}
-              starredCount={starredCount}
-              className="mb-5"
-            />
+            <Collapsible open={settingsOpen || starredOverage > 0} onOpenChange={setSettingsOpen} className="mb-5">
+              <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-lg border border-slate-200 bg-slate-50/60 px-3 py-2 text-left text-sm font-medium text-slate-800 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-100 dark:hover:bg-slate-800">
+                <SlidersHorizontal className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                Lesson settings
+                <span className="ml-1 text-xs font-normal text-slate-500 dark:text-slate-400">
+                  {settings.bankSize} questions · {settings.difficulty} · {settings.microChecks} quick checks · pass at {settings.masteryRequired}
+                </span>
+                <ChevronDown className={cn("ml-auto h-4 w-4 text-slate-400 transition-transform", (settingsOpen || starredOverage > 0) && "rotate-180")} />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="pt-2">
+                <GenerationSettingsPanel
+                  value={settings}
+                  onChange={(next) => void updateSettings(next)}
+                  disabled={busyAll}
+                  hasQuestions={!!questionStats && questionStats.total > 0}
+                  starredCount={starredCount}
+                />
+              </CollapsibleContent>
+            </Collapsible>
           )}
           <GenerationPanel
             uploadId={uploadId}
@@ -828,6 +855,9 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
           />
         </CardContent>
       </Card>
+
+        </div>
+      </div>
 
       <SplitLessonsDialog
         open={splitOpen}
