@@ -544,11 +544,11 @@ export const CurriculumTab: React.FC = () => {
                           <FileText className="h-4 w-4 text-emerald-600" />
                         </div>
                         <div className="min-w-0">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{u.file_name}</p>
+                          <div className="flex min-w-0 flex-wrap items-center gap-2">
+                            <p className="min-w-0 break-words text-sm font-medium text-slate-900 dark:text-slate-100">{u.file_name}</p>
                             <StatusBadge status={u.status} />
                           </div>
-                          <p className="text-xs text-slate-500">
+                          <p className="break-words text-xs text-slate-500">
                             {fmtDate(u.created_at)} · {u.conceptsCount} concepts · {u.vocabularyCount} terms
                             {lessons.length > 0 ? ` · ${lessons.length} lesson${lessons.length === 1 ? "" : "s"} built, ${approved} approved` : " · no lesson built yet"}
                             {u.jeffIngestedAt ? " · in Jeff" : ""}
@@ -574,7 +574,7 @@ export const CurriculumTab: React.FC = () => {
 
       {/* Upload details popup: its lessons (preview / assign) and every action, all visible at once. */}
       <Dialog open={detailId !== null} onOpenChange={(o) => { if (!o) setDetailId(null); }}>
-        <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
+        <DialogContent className="max-h-[90vh] w-[calc(100vw-1.5rem)] max-w-[calc(100vw-1.5rem)] overflow-y-auto overflow-x-hidden p-4 sm:max-w-3xl sm:p-6">
           {(() => {
             const u = uploads.find((x) => x.id === detailId);
             if (!u) return null;
@@ -583,12 +583,12 @@ export const CurriculumTab: React.FC = () => {
             return (
               <>
                 <DialogHeader>
-                  <DialogTitle className="flex flex-wrap items-center gap-2 pr-6">
+                  <DialogTitle className="flex min-w-0 flex-wrap items-center gap-2 pr-6">
                     <FileText className="h-4 w-4 shrink-0 text-emerald-600" />
-                    <span className="min-w-0 truncate">{u.file_name}</span>
+                    <span className="min-w-0 break-words">{u.file_name}</span>
                     <StatusBadge status={u.status} />
                   </DialogTitle>
-                  <DialogDescription>
+                  <DialogDescription className="break-words">
                     Uploaded {fmtDate(u.created_at)} · {u.conceptsCount} concepts · {u.vocabularyCount} terms · {u.objectivesCount} objectives
                     {lessons.length > 0 ? ` · ${lessons.length} lesson${lessons.length === 1 ? "" : "s"} built, ${approved} approved` : ""}
                   </DialogDescription>
@@ -619,10 +619,10 @@ export const CurriculumTab: React.FC = () => {
                         {lessons.map((l) => {
                           const ok = !!l.teacher_approved_at;
                           return (
-                            <li key={l.id} className="flex flex-col gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between">
+                            <li key={l.id} className="flex min-w-0 flex-col gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900">
                               <div className="min-w-0">
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{l.name}</p>
+                                <div className="flex min-w-0 flex-wrap items-center gap-2">
+                                  <p className="min-w-0 break-words text-sm font-medium text-slate-900 dark:text-slate-100">{l.name}</p>
                                   {ok ? (
                                     <Badge variant="success" className="gap-1 text-[10px]"><CheckCircle2 className="h-3 w-3" /> Reviewed</Badge>
                                   ) : (
@@ -630,11 +630,11 @@ export const CurriculumTab: React.FC = () => {
                                   )}
                                   {l.assignedClasses > 0 && <Badge variant="outline" className="text-[10px]">In {l.assignedClasses} class{l.assignedClasses === 1 ? "" : "es"}</Badge>}
                                 </div>
-                                <p className="text-xs text-slate-500">
+                                <p className="break-words text-xs text-slate-500">
                                   {l.subLessonTitle && l.subLessonTitle !== l.name ? `${l.subLessonTitle} · ` : ""}{l.sectionsCount} sections · {l.masteryCount} mastery questions · built {fmtDay(l.created_at)}
                                 </p>
                               </div>
-                              <div className="flex shrink-0 items-center gap-2 self-end sm:self-auto">
+                              <div className="flex flex-wrap items-center gap-2">
                                 <LessonPreviewButtons lessonId={l.id} source="generated" lessonName={l.name} />
                                 <Button
                                   size="sm"
