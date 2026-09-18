@@ -574,7 +574,7 @@ export const CurriculumTab: React.FC = () => {
 
       {/* Upload details popup: its lessons (preview / assign) and every action, all visible at once. */}
       <Dialog open={detailId !== null} onOpenChange={(o) => { if (!o) setDetailId(null); }}>
-        <DialogContent className="h-[94vh] max-h-[94vh] w-[96vw] max-w-[96vw] overflow-y-auto overflow-x-hidden p-4 sm:max-w-[96vw] sm:p-6 lg:w-[92vw] lg:max-w-[92vw]">
+        <DialogContent className="block h-[94vh] max-h-[94vh] w-[96vw] max-w-[96vw] overflow-y-auto overflow-x-hidden p-4 sm:max-w-[96vw] sm:p-6 lg:w-[92vw] lg:max-w-[92vw]">
           {(() => {
             const u = uploads.find((x) => x.id === detailId);
             if (!u) return null;
@@ -582,7 +582,7 @@ export const CurriculumTab: React.FC = () => {
             const approved = lessons.filter((l) => !!l.teacher_approved_at).length;
             return (
               <>
-                <DialogHeader>
+                <DialogHeader className="mb-3 space-y-1 text-left">
                   <DialogTitle className="flex min-w-0 flex-wrap items-center gap-2 pr-6">
                     <FileText className="h-4 w-4 shrink-0 text-emerald-600" />
                     <span className="min-w-0 break-words">{u.file_name}</span>
@@ -595,7 +595,7 @@ export const CurriculumTab: React.FC = () => {
                 </DialogHeader>
 
                 <div className="space-y-4">
-                  {/* Primary: open the review page */}
+                  {/* Primary: open the review page (sits right under the title) */}
                   <div className="flex flex-wrap items-center gap-2">
                     <Button onClick={() => { setDetailId(null); navigate(`/teacher/curriculum/${encodeURIComponent(u.id)}`); }} className="bg-emerald-600 text-white hover:bg-emerald-700">
                       <SlidersHorizontal className="mr-1.5 h-4 w-4" /> Open: review, build and assign
