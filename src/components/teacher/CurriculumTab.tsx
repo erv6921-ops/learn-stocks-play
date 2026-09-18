@@ -4,7 +4,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { LessonPreviewButtons } from "@/components/teacher/LessonPreviewButtons";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +28,7 @@ import {
   UploadCloud,
   SlidersHorizontal,
   Search,
-  ChevronDown,
+  ChevronRight,
   BookOpen,
   Send,
   CheckCircle2,
@@ -211,10 +210,11 @@ export const CurriculumTab: React.FC = () => {
   const [classes, setClasses] = useState<TeacherClass[]>([]);
   const [jeffBusy, setJeffBusy] = useState<{ id: string; mode: "feed" | "remove" } | null>(null);
   const [classPickFor, setClassPickFor] = useState<CurriculumUpload | null>(null);
-  // Built lessons grouped by upload (the lesson bank), search, expanded cards.
+  // Built lessons grouped by upload (the lesson bank), search, details popup.
   const [lessonsByUpload, setLessonsByUpload] = useState<Map<string, BuiltLesson[]>>(new Map());
   const [query, setQuery] = useState("");
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  /** Upload whose details popup is open. */
+  const [detailId, setDetailId] = useState<string | null>(null);
 
   const fetchUploads = useCallback(async () => {
     setLoading(true);
@@ -250,8 +250,6 @@ export const CurriculumTab: React.FC = () => {
         }),
       );
       setUploads(rows);
-      // The most recent upload starts expanded; the rest stay folded.
-      setExpanded((prev) => (prev.size ? prev : new Set(rows.slice(0, 1).map((r) => r.id))));
 
       // Built lessons for the bank, grouped by upload.
       const { data: lessonData } = await db
@@ -538,141 +536,177 @@ export const CurriculumTab: React.FC = () => {
               {visible.map((u) => {
                 const lessons = lessonsByUpload.get(u.id) ?? [];
                 const approved = lessons.filter((l) => !!l.teacher_approved_at).length;
-                const isOpen = expanded.has(u.id) || !!q;
-                const toggle = () =>
-                  setExpanded((prev) => {
-                    const next = new Set(prev);
-                    if (next.has(u.id)) next.delete(u.id);
-                    else next.add(u.id);
-                    return next;
-                  });
                 return (
-                  <Collapsible key={u.id} open={isOpen} onOpenChange={toggle}>
-                    <Card className="border-slate-200">
-                      <CardContent className="p-0">
-                        {/* Upload header row */}
-                        <div className="flex flex-col gap-2 p-3 sm:flex-row sm:items-center sm:justify-between">
-                          <CollapsibleTrigger className="flex min-w-0 flex-1 items-start gap-3 text-left">
-                            <ChevronDown className={cn("mt-2 h-4 w-4 shrink-0 text-slate-400 transition-transform", isOpen && "rotate-180")} />
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50">
-                              <FileText className="h-4 w-4 text-emerald-600" />
-                            </div>
-                            <div className="min-w-0">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{u.file_name}</p>
-                                <StatusBadge status={u.status} />
-                              </div>
-                              <p className="text-xs text-slate-500">
-                                {fmtDate(u.created_at)} · {u.conceptsCount} concepts · {u.vocabularyCount} terms
-                                {lessons.length > 0 ? ` · ${lessons.length} lesson${lessons.length === 1 ? "" : "s"} built, ${approved} approved` : " · no lesson built yet"}
-                                {u.jeffIngestedAt ? ` · in Jeff (${u.jeffChunkCount ?? 0} sections)` : ""}
-                              </p>
-                            </div>
-                          </CollapsibleTrigger>
-                          <div className="flex shrink-0 flex-wrap items-center gap-2 self-end sm:self-auto">
-                            <Button size="sm" onClick={() => navigate(`/teacher/curriculum/${encodeURIComponent(u.id)}`)} className="bg-emerald-600 text-white hover:bg-emerald-700" title="Review what was extracted, build and assign lessons">
-                              <SlidersHorizontal className="mr-1.5 h-3.5 w-3.5" /> Open
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => void handleDelete(u)}
-                              disabled={deletingId === u.id}
-                              className="text-slate-400 hover:bg-red-50 hover:text-red-600"
-                              aria-label={`Delete ${u.file_name}`}
-                            >
-                              {deletingId === u.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                            </Button>
-                          </div>
+                  <Card key={u.id} className="border-slate-200 transition-shadow hover:shadow-sm">
+                    <CardContent className="flex flex-col gap-2 p-3 sm:flex-row sm:items-center sm:justify-between">
+                      <button type="button" onClick={() => setDetailId(u.id)} className="flex min-w-0 flex-1 items-start gap-3 text-left" title="Show this upload's lessons and actions">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50">
+                          <FileText className="h-4 w-4 text-emerald-600" />
                         </div>
-
-                        <CollapsibleContent>
-                          <div className="space-y-2 border-t border-slate-100 bg-slate-50/50 p-3 dark:border-slate-800 dark:bg-slate-900/30">
-                            {/* Lessons built from this upload */}
-                            {lessons.length === 0 ? (
-                              <p className="text-xs text-slate-500">No lesson built from this upload yet. Open it to generate questions and build Jeff&apos;s lesson.</p>
-                            ) : (
-                              <ul className="space-y-1.5">
-                                {lessons.map((l) => {
-                                  const ok = !!l.teacher_approved_at;
-                                  return (
-                                    <li key={l.id} className="flex flex-col gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between">
-                                      <div className="min-w-0">
-                                        <div className="flex flex-wrap items-center gap-2">
-                                          <BookOpen className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
-                                          <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{l.name}</p>
-                                          {ok ? (
-                                            <Badge variant="success" className="gap-1 text-[10px]"><CheckCircle2 className="h-3 w-3" /> Reviewed</Badge>
-                                          ) : (
-                                            <Badge variant="warning" className="text-[10px]">Not reviewed</Badge>
-                                          )}
-                                          {l.assignedClasses > 0 && <Badge variant="outline" className="text-[10px]">In {l.assignedClasses} class{l.assignedClasses === 1 ? "" : "es"}</Badge>}
-                                        </div>
-                                        <p className="text-xs text-slate-500">
-                                          {l.subLessonTitle && l.subLessonTitle !== l.name ? `${l.subLessonTitle} · ` : ""}{l.sectionsCount} sections · {l.masteryCount} mastery questions · built {fmtDay(l.created_at)}
-                                        </p>
-                                      </div>
-                                      <div className="flex shrink-0 items-center gap-2 self-end sm:self-auto">
-                                        <LessonPreviewButtons lessonId={l.id} source="generated" lessonName={l.name} compact />
-                                        <Button
-                                          size="sm"
-                                          onClick={() => navigate(`/teacher/assign-lesson?uploadId=${encodeURIComponent(u.id)}&lessonId=${encodeURIComponent(l.id)}&lessonName=${encodeURIComponent(l.name)}`)}
-                                          disabled={!ok}
-                                          title={ok ? "Assign to a class" : "Review and approve this lesson first"}
-                                          className="h-7 bg-emerald-600 text-xs text-white hover:bg-emerald-700"
-                                        >
-                                          <Send className="mr-1 h-3 w-3" /> Assign
-                                        </Button>
-                                      </div>
-                                    </li>
-                                  );
-                                })}
-                              </ul>
-                            )}
-
-                            {/* Secondary actions for the upload */}
-                            <div className="flex flex-wrap items-center gap-2 pt-1">
-                              {u.jeffIngestedAt ? (
-                                <span className="flex flex-wrap items-center gap-x-2 text-xs">
-                                  <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
-                                    <MessageCircle className="h-3 w-3" /> In Jeff · fed {fmtDay(u.jeffIngestedAt)}
-                                  </span>
-                                  <button type="button" onClick={() => startFeed(u)} disabled={jeffBusy?.id === u.id} className="font-medium text-emerald-700 underline-offset-2 hover:underline disabled:opacity-50 dark:text-emerald-400">
-                                    {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? "Re-feeding…" : "Re-feed"}
-                                  </button>
-                                  <span className="text-slate-300">·</span>
-                                  <button type="button" onClick={() => void removeFromJeff(u)} disabled={jeffBusy?.id === u.id} className="font-medium text-slate-500 underline-offset-2 hover:text-red-600 hover:underline disabled:opacity-50">
-                                    {jeffBusy?.id === u.id && jeffBusy.mode === "remove" ? "Removing…" : "Remove from Jeff"}
-                                  </button>
-                                </span>
-                              ) : (
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() => startFeed(u)}
-                                  disabled={jeffBusy?.id === u.id || u.status === "pending" || u.status === "extraction_failed"}
-                                  title={u.status === "extraction_failed" || u.status === "pending" ? "Extract the PDF's text first" : "Let Jeff answer this class's questions from this material"}
-                                  className="h-7 border-emerald-300 bg-emerald-50 text-xs text-emerald-800 hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300"
-                                >
-                                  {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? <Loader2 className="mr-1.5 h-3 w-3 animate-spin" /> : <MessageCircle className="mr-1.5 h-3 w-3" />}
-                                  Feed to Jeff
-                                </Button>
-                              )}
-                              <Button size="sm" variant="outline" onClick={() => navigate(`/teacher/build-study-guide?uploadId=${u.id}`)} className="h-7 border-indigo-200 text-xs text-indigo-700 hover:bg-indigo-50">
-                                <Sparkles className="mr-1.5 h-3 w-3" /> Build extra practice
-                              </Button>
-                            </div>
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{u.file_name}</p>
+                            <StatusBadge status={u.status} />
                           </div>
-                        </CollapsibleContent>
-                      </CardContent>
-                    </Card>
-                  </Collapsible>
+                          <p className="text-xs text-slate-500">
+                            {fmtDate(u.created_at)} · {u.conceptsCount} concepts · {u.vocabularyCount} terms
+                            {lessons.length > 0 ? ` · ${lessons.length} lesson${lessons.length === 1 ? "" : "s"} built, ${approved} approved` : " · no lesson built yet"}
+                            {u.jeffIngestedAt ? " · in Jeff" : ""}
+                          </p>
+                        </div>
+                      </button>
+                      <div className="flex shrink-0 items-center gap-2 self-end sm:self-auto">
+                        <Button size="sm" variant="outline" onClick={() => setDetailId(u.id)} className="border-emerald-200 text-emerald-700 hover:bg-emerald-50">
+                          Details <ChevronRight className="ml-1 h-3.5 w-3.5" />
+                        </Button>
+                        <Button size="sm" onClick={() => navigate(`/teacher/curriculum/${encodeURIComponent(u.id)}`)} className="bg-emerald-600 text-white hover:bg-emerald-700" title="Review what was extracted, build and assign lessons">
+                          <SlidersHorizontal className="mr-1.5 h-3.5 w-3.5" /> Open
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
                 );
               })}
             </div>
           );
         })()}
       </section>
+
+      {/* Upload details popup: its lessons (preview / assign) and every action, all visible at once. */}
+      <Dialog open={detailId !== null} onOpenChange={(o) => { if (!o) setDetailId(null); }}>
+        <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
+          {(() => {
+            const u = uploads.find((x) => x.id === detailId);
+            if (!u) return null;
+            const lessons = lessonsByUpload.get(u.id) ?? [];
+            const approved = lessons.filter((l) => !!l.teacher_approved_at).length;
+            return (
+              <>
+                <DialogHeader>
+                  <DialogTitle className="flex flex-wrap items-center gap-2 pr-6">
+                    <FileText className="h-4 w-4 shrink-0 text-emerald-600" />
+                    <span className="min-w-0 truncate">{u.file_name}</span>
+                    <StatusBadge status={u.status} />
+                  </DialogTitle>
+                  <DialogDescription>
+                    Uploaded {fmtDate(u.created_at)} · {u.conceptsCount} concepts · {u.vocabularyCount} terms · {u.objectivesCount} objectives
+                    {lessons.length > 0 ? ` · ${lessons.length} lesson${lessons.length === 1 ? "" : "s"} built, ${approved} approved` : ""}
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="space-y-4">
+                  {/* Primary: open the review page */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Button onClick={() => { setDetailId(null); navigate(`/teacher/curriculum/${encodeURIComponent(u.id)}`); }} className="bg-emerald-600 text-white hover:bg-emerald-700">
+                      <SlidersHorizontal className="mr-1.5 h-4 w-4" /> Open: review, build and assign
+                    </Button>
+                    <Button variant="outline" onClick={() => { setDetailId(null); navigate(`/teacher/build-study-guide?uploadId=${u.id}`); }} className="border-indigo-200 text-indigo-700 hover:bg-indigo-50">
+                      <Sparkles className="mr-1.5 h-4 w-4" /> Build extra practice
+                    </Button>
+                  </div>
+
+                  {/* Lessons built from this upload */}
+                  <div>
+                    <h4 className="mb-1.5 flex items-center gap-1.5 text-sm font-semibold text-slate-900 dark:text-slate-100">
+                      <BookOpen className="h-4 w-4 text-emerald-600" /> Lessons built ({lessons.length})
+                    </h4>
+                    {lessons.length === 0 ? (
+                      <p className="rounded-lg border border-dashed border-slate-200 p-3 text-xs text-slate-500 dark:border-slate-700">
+                        No lesson built from this upload yet. Open it to generate questions and build Jeff&apos;s lesson.
+                      </p>
+                    ) : (
+                      <ul className="space-y-1.5">
+                        {lessons.map((l) => {
+                          const ok = !!l.teacher_approved_at;
+                          return (
+                            <li key={l.id} className="flex flex-col gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between">
+                              <div className="min-w-0">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">{l.name}</p>
+                                  {ok ? (
+                                    <Badge variant="success" className="gap-1 text-[10px]"><CheckCircle2 className="h-3 w-3" /> Reviewed</Badge>
+                                  ) : (
+                                    <Badge variant="warning" className="text-[10px]">Not reviewed</Badge>
+                                  )}
+                                  {l.assignedClasses > 0 && <Badge variant="outline" className="text-[10px]">In {l.assignedClasses} class{l.assignedClasses === 1 ? "" : "es"}</Badge>}
+                                </div>
+                                <p className="text-xs text-slate-500">
+                                  {l.subLessonTitle && l.subLessonTitle !== l.name ? `${l.subLessonTitle} · ` : ""}{l.sectionsCount} sections · {l.masteryCount} mastery questions · built {fmtDay(l.created_at)}
+                                </p>
+                              </div>
+                              <div className="flex shrink-0 items-center gap-2 self-end sm:self-auto">
+                                <LessonPreviewButtons lessonId={l.id} source="generated" lessonName={l.name} />
+                                <Button
+                                  size="sm"
+                                  onClick={() => { setDetailId(null); navigate(`/teacher/assign-lesson?uploadId=${encodeURIComponent(u.id)}&lessonId=${encodeURIComponent(l.id)}&lessonName=${encodeURIComponent(l.name)}`); }}
+                                  disabled={!ok}
+                                  title={ok ? "Assign to a class" : "Review and approve this lesson first"}
+                                  className="bg-emerald-600 text-white hover:bg-emerald-700"
+                                >
+                                  <Send className="mr-1 h-3.5 w-3.5" /> Assign
+                                </Button>
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
+
+                  {/* Chat with Jeff */}
+                  <div className="rounded-lg border border-slate-200 p-3 dark:border-slate-700">
+                    <h4 className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-slate-900 dark:text-slate-100">
+                      <MessageCircle className="h-4 w-4 text-emerald-600" /> Chat with Jeff
+                    </h4>
+                    <p className="mb-2 text-xs text-slate-500 dark:text-slate-400">
+                      Material you feed to Jeff is used to answer that class&apos;s Chat with Jeff questions, and only students in that class can see it.
+                    </p>
+                    {u.jeffIngestedAt ? (
+                      <div className="flex flex-wrap items-center gap-2 text-xs">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
+                          <MessageCircle className="h-3 w-3" /> In Jeff · {u.jeffChunkCount ?? 0} section{u.jeffChunkCount === 1 ? "" : "s"} · fed {fmtDay(u.jeffIngestedAt)}
+                        </span>
+                        <Button size="sm" variant="outline" onClick={() => startFeed(u)} disabled={jeffBusy?.id === u.id} className="h-7 text-xs">
+                          {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? "Re-feeding…" : "Re-feed"}
+                        </Button>
+                        <Button size="sm" variant="ghost" onClick={() => void removeFromJeff(u)} disabled={jeffBusy?.id === u.id} className="h-7 text-xs text-slate-500 hover:text-red-600">
+                          {jeffBusy?.id === u.id && jeffBusy.mode === "remove" ? "Removing…" : "Remove from Jeff"}
+                        </Button>
+                      </div>
+                    ) : (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => startFeed(u)}
+                        disabled={jeffBusy?.id === u.id || u.status === "pending" || u.status === "extraction_failed"}
+                        title={u.status === "extraction_failed" || u.status === "pending" ? "Extract the PDF's text first" : undefined}
+                        className="border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300"
+                      >
+                        {jeffBusy?.id === u.id && jeffBusy.mode === "feed" ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <MessageCircle className="mr-1.5 h-3.5 w-3.5" />}
+                        Feed to Jeff
+                      </Button>
+                    )}
+                  </div>
+
+                  {/* Danger */}
+                  <div className="flex justify-end">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => void handleDelete(u).then(() => setDetailId(null))}
+                      disabled={deletingId === u.id}
+                      className="text-slate-400 hover:bg-red-50 hover:text-red-600"
+                    >
+                      {deletingId === u.id ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Trash2 className="mr-1.5 h-4 w-4" />}
+                      Remove this upload
+                    </Button>
+                  </div>
+                </div>
+              </>
+            );
+          })()}
+        </DialogContent>
+      </Dialog>
 
       {/* Which class should Jeff answer for? Only shown when the teacher has
           more than one class; a single class is used without asking. */}
