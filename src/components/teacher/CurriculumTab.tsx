@@ -574,7 +574,7 @@ export const CurriculumTab: React.FC = () => {
 
       {/* Upload details popup: its lessons (preview / assign) and every action, all visible at once. */}
       <Dialog open={detailId !== null} onOpenChange={(o) => { if (!o) setDetailId(null); }}>
-        <DialogContent className="max-h-[90vh] w-[calc(100vw-1.5rem)] max-w-[calc(100vw-1.5rem)] overflow-y-auto overflow-x-hidden p-4 sm:max-w-3xl sm:p-6">
+        <DialogContent className="h-[94vh] max-h-[94vh] w-[96vw] max-w-[96vw] overflow-y-auto overflow-x-hidden p-4 sm:max-w-[96vw] sm:p-6 lg:w-[92vw] lg:max-w-[92vw]">
           {(() => {
             const u = uploads.find((x) => x.id === detailId);
             if (!u) return null;
@@ -615,7 +615,7 @@ export const CurriculumTab: React.FC = () => {
                         No lesson built from this upload yet. Open it to generate questions and build Jeff&apos;s lesson.
                       </p>
                     ) : (
-                      <ul className="space-y-1.5">
+                      <ul className="grid grid-cols-1 gap-2 xl:grid-cols-2">
                         {lessons.map((l) => {
                           const ok = !!l.teacher_approved_at;
                           return (
