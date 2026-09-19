@@ -58,6 +58,7 @@ import {
   ensureDefaultSubLesson,
   MODEL,
   firstTextBlock,
+  normalizeForMatch,
 } from "../_shared/grounding.ts";
 
 // ---------------------------------------------------------------------------
@@ -96,6 +97,10 @@ interface MapUnit {
   page_end: number;
   role: "core" | "supplementary";
   kind: string;
+  /** True when page_start was pinned to the page where the heading actually appears (document order). */
+  anchored?: boolean;
+  /** Character offset of the heading inside its start page's text, for units that begin mid-page. */
+  heading_offset?: number | null;
 }
 interface VocabularySource {
   unit_key: string | null;
@@ -252,7 +257,7 @@ Report, as JSON only:
 }
 
 Rules:
-- Units must be consecutive, non-overlapping, and together cover every page from the first to the last (front matter / contents count as their own unit, usually supplementary).
+- Units must be listed in DOCUMENT ORDER, consecutive, non-overlapping, and together cover every page from the first to the last (front matter / contents count as their own unit, usually supplementary). "page_start" is the page where the unit's own heading first appears as a heading in the body, never where it is merely listed in a table of contents or an objectives overview. Everything between one unit's heading and the next unit's heading belongs to the first.
 - "core" = the teaching content students should learn from. "supplementary" = material for the instructor or for practice that is NOT the teaching text itself: cases, enhancers, exercises, discussion questions, test banks, answer keys, worksheets, activity instructions, covers, tables of contents. Use the document's own cues; do not assume a fixed vocabulary of labels.
 - vocabulary_sources: every place the AUTHOR flags vocabulary, whatever it is called (key terms, glossary, vocabulary, terms to know, bold terms on a slide, a "words" box). Copy the terms as written and split them correctly even when they appear on one line without separators. If the author flags nothing, return an empty array.
 - Titles are the document's own headings. Never invent a unit that the skeleton does not show.
@@ -822,6 +827,59 @@ async function stepOcr(anthropic: Anthropic, body: RequestBody, tag: string): Pr
   }
 }
 
+/** Loose match of a heading title inside page text: normalised, first ~6 significant words. */
+function headingNeedle(title: string): string {
+  const words = normalizeForMatch(title)
+    .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+    .split(/\s+/)
+    .filter((w) => w.length > 1);
+  return words.slice(0, 6).join(" ");
+}
+
+/**
+ * Pins every unit's page_start to the page where its heading actually
+ * appears, searching forward from the previous unit's start so the units
+ * stay in document order. Pages that list three or more unit headings
+ * (contents / objectives overviews) are skipped unless nothing else matches.
+ * Records the heading's character offset for units that begin mid-page.
+ */
+function anchorUnits(units: MapUnit[], chunks: SourceChunk[]): MapUnit[] {
+  const pages = chunks
+    .filter((c) => c.page_start != null)
+    .map((c) => ({ page: c.page_start as number, text: normalizeForMatch(c.content), raw: c.content }));
+  const needles = units.map((u) => headingNeedle(u.title));
+  const outlinePages = new Set(
+    pages.filter((p) => needles.filter((n) => n && p.text.includes(n)).length >= 3).map((p) => p.page),
+  );
+  let cursor = pages[0]?.page ?? 1;
+  const out = units.map((u) => ({ ...u }));
+  for (let i = 0; i < out.length; i++) {
+    const needle = needles[i];
+    let found: { page: number; offset: number } | null = null;
+    if (needle) {
+      const candidates = pages.filter((p) => p.page >= cursor && p.text.includes(needle));
+      const best = candidates.find((p) => !outlinePages.has(p.page)) ?? candidates[0];
+      if (best) {
+        // Offset in the raw text (approximate: the normalised text is shorter, so scale).
+        const normIdx = best.text.indexOf(needle);
+        const ratio = best.raw.length / Math.max(1, best.text.length);
+        found = { page: best.page, offset: Math.max(0, Math.round(normIdx * ratio)) };
+      }
+    }
+    if (found) {
+      out[i].page_start = found.page;
+      out[i].heading_offset = found.offset;
+      out[i].anchored = true;
+    } else {
+      out[i].page_start = Math.max(out[i].page_start, cursor);
+      out[i].heading_offset = null;
+      out[i].anchored = false;
+    }
+    cursor = out[i].page_start;
+  }
+  return out;
+}
+
 /**
  * Step "map": the document map (type, units with page ranges and role,
  * author-flagged vocabulary), from a per-page skeleton of short lines, never
@@ -873,6 +931,12 @@ async function stepMap(supabase: SupabaseClient, anthropic: Anthropic, uploadId:
       }))
       .filter((u) => u.page_end >= u.page_start)
       .sort((a, b) => a.page_start - b.page_start);
+    // Pin each unit to the page where its heading really appears (document
+    // order), then make the ranges consecutive: a unit runs until the next
+    // unit's heading. Chronology comes from the pages, not from guessed numbers.
+    const anchored = anchorUnits(units, chunks);
+    units.splice(0, units.length, ...anchored);
+    units.sort((a, b) => a.page_start - b.page_start);
     // Make units consecutive and gap-free: each unit runs until the next one starts.
     for (let i = 0; i < units.length; i++) {
       if (i + 1 < units.length) units[i].page_end = Math.max(units[i].page_start, units[i + 1].page_start - 1);
@@ -901,7 +965,7 @@ async function stepMap(supabase: SupabaseClient, anthropic: Anthropic, uploadId:
       model: MODEL,
       mapped_at: new Date().toISOString(),
     };
-    console.log(`[${tag}][map] ${map.document_type}; ${units.length} unit(s) (${units.filter((u) => u.role === "core").length} core); ${flagged.length} flagged term(s) from ${sources.length} list(s)`);
+    console.log(`[${tag}][map] ${map.document_type}; ${units.length} unit(s) (${units.filter((u) => u.role === "core").length} core, ${units.filter((u) => u.anchored).length} anchored to their heading page); ${flagged.length} flagged term(s) from ${sources.length} list(s)`);
   } catch (err) {
     const detail = err instanceof Error ? err.message : String(err);
     console.error(`[${tag}][map] failed, falling back to size-based groups: ${detail}`);
@@ -1096,11 +1160,28 @@ async function stepGroup(
   }
 
   // --- Persist this group's items (failed items kept with grounding_status = 'failed')
-  const pageOfChunk = new Map(chunks.map((c) => [c.id, c.page_start ?? null]));
+  const chunkById = new Map(chunks.map((c) => [c.id, c]));
   const unitOfSlot = (s: Slot): MapUnit | null => {
     const firstChunk = s.result?.chunkIds?.[0];
-    const page = firstChunk ? pageOfChunk.get(firstChunk) ?? null : null;
-    return unitForPage(map, page) ?? unitsHere[0] ?? null;
+    const chunk = firstChunk ? chunkById.get(firstChunk) ?? null : null;
+    const page = chunk?.page_start ?? null;
+    const unit = unitForPage(map, page);
+    if (!map || !unit || !chunk) return unit ?? unitsHere[0] ?? null;
+    // A unit that starts mid-page: text BEFORE its heading still belongs to
+    // the previous unit. Compare the quote's position with the heading's.
+    if (unit.page_start === page && unit.anchored && unit.heading_offset != null && unit.heading_offset > 0 && s.item.evidence_quote) {
+      const q = normalizeForMatch(s.item.evidence_quote);
+      const t = normalizeForMatch(chunk.content);
+      const qi = q ? t.indexOf(q) : -1;
+      if (qi >= 0) {
+        const ratio = chunk.content.length / Math.max(1, t.length);
+        if (Math.round(qi * ratio) < unit.heading_offset) {
+          const idx = map.units.findIndex((u) => u.key === unit.key);
+          if (idx > 0) return map.units[idx - 1];
+        }
+      }
+    }
+    return unit;
   };
   const grounding = (s: Slot) => {
     const u = unitOfSlot(s);

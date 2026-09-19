@@ -133,10 +133,17 @@ stored, `{ step: "map" }` builds `curriculum_uploads.document_map` from a
 per-page skeleton of short lines (never full text): document type, the
 organizing units with page ranges and a core / supplementary role, and every
 author-flagged vocabulary list under whatever label the author used. No
-label is hard-coded anywhere; the model reads the document's own cues. Page
-groups are then planned along unit boundaries (a unit is never split unless
-it alone exceeds one call), so a vocabulary list and the notes that define
-it stay together. If the map call fails the map records the error and
+label is hard-coded anywhere; the model reads the document's own cues. Unit
+boundaries are then ANCHORED to the pages: each unit's `page_start` is
+pinned to the first page (searching forward from the previous unit, skipping
+contents / overview pages that list several headings) whose text contains
+the unit's heading, and every unit runs until the next unit's heading, so
+everything between two headings belongs to the first, in document order.
+A unit that begins mid-page records its heading offset; an item cited from
+that page but quoted from text before the heading is attributed to the
+previous unit. Page groups are then planned along these boundaries (a unit
+is never split unless it alone exceeds one call), so a vocabulary list and
+the notes that define it stay together. If the map call fails the map records the error and
 groups fall back to size.
 
 Extraction follows the map: each group call is told its units and roles;
