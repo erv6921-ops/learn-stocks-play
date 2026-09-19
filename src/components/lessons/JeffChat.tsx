@@ -23,7 +23,7 @@ import {
 } from "@/lib/jeffInterrupter"
 import {
   jeffChatTurn, initialJeffMessage, initialOptions, END_SIGNAL,
-  loadChat, saveChat, scriptOptions, isDeepLesson, isGulliverIntroLesson,
+  loadChat, saveChat, scriptOptions, isDeepLesson, isGulliverIntroLesson, isCurriculumLesson, CURRICULUM_TURNS, type JeffVocab,
   GULLIVER_DEEP_TURNS,
   type ChatMessage,
 } from "@/lib/jeffChatLesson"
@@ -389,20 +389,23 @@ interface JeffChatProps {
   script?: string[]
   /** Authored curriculum text used to ground the live AI (deep/Gulliver mode). */
   source?: string
-  /** Topics the student will be quizzed on - Jeff must teach every one (deep mode). */
+  /** Topics the student will be quizzed on - Jeff must teach every one (deep / curriculum mode). */
   mustCover?: string[]
+  /** Teacher-approved vocabulary for a curriculum lesson: sent to Jeff and highlighted with hover definitions. */
+  vocabulary?: JeffVocab[]
   /** Student tapped "Take the Quiz →". */
   onQuizReady: () => void
   /** Student closed the stage (progress is saved). */
   onClose: () => void
 }
 
-export default function JeffChat({ lesson, script = [], source, mustCover, onQuizReady, onClose }: JeffChatProps) {
+export default function JeffChat({ lesson, script = [], source, mustCover, vocabulary, onQuizReady, onClose }: JeffChatProps) {
   // Deeper, longer teaching for the Gulliver Intro academic course.
   const deep = isDeepLesson(lesson)
+  const curriculum = isCurriculumLesson(lesson)
   // Gulliver Intro lessons get the green, tappable business-vocab glossary.
   const vocab = isGulliverIntroLesson(lesson)
-  const expectedTurns = deep ? GULLIVER_DEEP_TURNS : EXPECTED_TURNS
+  const expectedTurns = curriculum ? CURRICULUM_TURNS : deep ? GULLIVER_DEEP_TURNS : EXPECTED_TURNS
   // Resume a saved conversation, otherwise open with Jeff's hardcoded hook.
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
     loadChat(lesson.id)?.messages ?? [{ role: "assistant", content: initialJeffMessage(lesson) }]
@@ -478,14 +481,14 @@ export default function JeffChat({ lesson, script = [], source, mustCover, onQui
 
     try {
       const [{ text, options: newOptions }] = await Promise.all([
-        jeffChatTurn(lesson, convo, source, mustCover),
+        jeffChatTurn(lesson, convo, source, mustCover, vocabulary),
         minDelay,
       ])
       setThinking(false)
       // Hard stop: if the AI ignores its message budget, force the wrap-up so no
       // lesson chat drags on forever. Deep (Gulliver) lessons get more headroom.
       const jeffCount = convo.filter(m => m.role === "assistant").length + 1
-      const forceEnd = jeffCount >= (deep ? GULLIVER_DEEP_TURNS + 3 : 8) && !text.includes(END_SIGNAL)
+      const forceEnd = jeffCount >= (curriculum ? CURRICULUM_TURNS + 1 : deep ? GULLIVER_DEEP_TURNS + 3 : 8) && !text.includes(END_SIGNAL)
       const finalText = forceEnd ? `${text} ${END_SIGNAL} 🎯` : text
       setMessages(prev => [...prev, { role: "assistant", content: finalText }])
       if (finalText.includes(END_SIGNAL)) {

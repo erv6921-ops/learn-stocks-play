@@ -1,6 +1,10 @@
 import React, { useRef, useState } from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
-import { VOCAB_BY_TERM, VOCAB_REGEX, type VocabWord } from "@/data/introVocab"
+import { VOCAB_BY_TERM, VOCAB_REGEX } from "@/data/introVocab"
+import { useGlossary, type Glossary } from "@/lib/glossary"
+
+// A term with a definition, from either the static Intro list or a lesson's own glossary.
+type VocabWord = { term: string; definition: string }
 
 // Renders inline **term** markers as a bold green highlight AND auto-highlights
 // known Intro-to-Business vocabulary in the same green. Vocab words are tappable
@@ -52,10 +56,10 @@ function VocabTerm({ word, children }: { word: VocabWord; children: React.ReactN
 // Split a run of plain text on vocab terms, wrapping the FIRST occurrence of
 // each term (tracked via `seen`) in a tappable VocabTerm. Later repeats of the
 // same word render as plain text so the lesson doesn't turn into a wall of green.
-function renderWithVocab(text: string, keyBase: string, seen: Set<string>): React.ReactNode[] {
-  const parts = text.split(VOCAB_REGEX)
+function renderWithVocab(text: string, keyBase: string, seen: Set<string>, g: Glossary): React.ReactNode[] {
+  const parts = text.split(g.regex)
   return parts.map((part, i) => {
-    const word = VOCAB_BY_TERM.get(part.toLowerCase())
+    const word = g.byTerm.get(part.toLowerCase())
     if (word && !seen.has(word.term)) {
       seen.add(word.term)
       return <VocabTerm key={`${keyBase}-${i}`} word={word}>{part}</VocabTerm>
@@ -67,12 +71,18 @@ function renderWithVocab(text: string, keyBase: string, seen: Set<string>): Reac
 // `vocab` opts a text block into auto-highlighting the Intro-to-Business
 // glossary (Gulliver Intro lessons only). Left off, only explicit **markers**
 // are highlighted, so the regular personal-finance course is unchanged.
-export function HighlightedText({ text, vocab = false }: { text: string; vocab?: boolean }) {
+// A generated lesson's own vocabulary (GlossaryProvider, or the `glossary`
+// prop) lights up the same way: green, tappable, definition on hover.
+const INTRO_GLOSSARY: Glossary = { byTerm: VOCAB_BY_TERM as Map<string, VocabWord>, regex: VOCAB_REGEX }
+
+export function HighlightedText({ text, vocab = false, glossary }: { text: string; vocab?: boolean; glossary?: Glossary | null }) {
+  const contextGlossary = useGlossary()
+  const g: Glossary | null = vocab ? INTRO_GLOSSARY : glossary ?? contextGlossary
   // Track which vocab terms have already been highlighted in this block so each
   // one lights up only once (across both **bold** markers and plain text).
   const seen = new Set<string>()
   const renderPlain = (t: string, keyBase: string): React.ReactNode =>
-    vocab ? <>{renderWithVocab(t, keyBase, seen)}</> : <>{t}</>
+    g ? <>{renderWithVocab(t, keyBase, seen, g)}</> : <>{t}</>
 
   if (!text.includes("**")) return renderPlain(text, "v")
 
@@ -82,15 +92,15 @@ export function HighlightedText({ text, vocab = false }: { text: string; vocab?:
       {parts.map((part, i) => {
         const m = /^\*\*([^*]+)\*\*$/.exec(part)
         if (m) {
-          const word = vocab ? VOCAB_BY_TERM.get(m[1].toLowerCase()) : undefined
+          const word = g ? g.byTerm.get(m[1].toLowerCase()) : undefined
           if (word && !seen.has(word.term)) {
             seen.add(word.term)
             return <VocabTerm key={i} word={word}>{m[1]}</VocabTerm>
           }
-          // In vocab mode (Gulliver Intro) the ONLY green words are the tappable
-          // glossary terms, so non-vocab **markers** render as plain bold - never
-          // green - to avoid confusing kids with green words they can't tap.
-          return vocab
+          // With a glossary the ONLY green words are the tappable terms, so
+          // non-glossary **markers** render as plain bold - never green - to
+          // avoid confusing kids with green words they can't tap.
+          return g
             ? <strong key={i} className="font-semibold">{m[1]}</strong>
             : <strong key={i} className="font-semibold text-success">{m[1]}</strong>
         }

@@ -597,6 +597,8 @@ export function MasteryCheckRenderer({
   onComplete,
   onFail,
   onReread,
+  previouslyAsked,
+  onAsked,
 }: {
   section: MasteryCheckSection
   // Mastery Engine identifiers - the LessonCategory and lesson id this
@@ -615,6 +617,14 @@ export function MasteryCheckRenderer({
   onFail: () => void
   /** Optional - reopen the Jeff chat so the student rereads the lesson before retrying. */
   onReread?: () => void
+  /**
+   * Question ids already served in EARLIER attempts of this lesson run. They
+   * are not drawn again until every question in the pool has been used, so a
+   * retry shows fresh questions first. Selection only; scoring is untouched.
+   */
+  previouslyAsked?: string[]
+  /** Called each time a question is served, so the parent can remember it across attempts. */
+  onAsked?: (questionId: string) => void
 }) {
   const { react } = useJeff()
   const { user } = useApp()
@@ -648,8 +658,15 @@ export function MasteryCheckRenderer({
   }, [section.pinnedQuestionIds, pool])
   const pickNext = (theta: number, askedSoFar: QuizQuestion[]): QuizQuestion | null => {
     const askedIds = askedSoFar.map(q => q.id)
-    const nextPinned = pinned.find(q => !askedIds.includes(q.id))
-    return nextPinned ?? selectNextQuestion(pool, theta, askedIds)
+    // Exclude questions served in earlier attempts too, unless that would
+    // leave nothing to draw from (the whole pool has been used): then only
+    // this attempt's questions are excluded and the pool rotates again.
+    const earlier = new Set(previouslyAsked ?? [])
+    const exclude = pool.some(q => !askedIds.includes(q.id) && !earlier.has(q.id))
+      ? [...askedIds, ...earlier]
+      : askedIds
+    const nextPinned = pinned.find(q => !exclude.includes(q.id))
+    return nextPinned ?? selectNextQuestion(pool, theta, exclude)
   }
 
   // Questions asked so far this attempt, chosen adaptively. The first is picked
@@ -661,6 +678,17 @@ export function MasteryCheckRenderer({
     return first ? [first] : []
   })
   const currentQuestion = asked[currentQ]
+  // Report every served question to the parent (once per question).
+  const reportedRef = useRef<Set<string>>(new Set())
+  useEffect(() => {
+    if (previewMode || !onAsked) return
+    for (const q of asked) {
+      if (!reportedRef.current.has(q.id)) {
+        reportedRef.current.add(q.id)
+        onAsked(q.id)
+      }
+    }
+  }, [asked, onAsked, previewMode])
 
   // Fire-and-forget event log write - never blocks or delays quiz feedback,
   // and a failed write never breaks the lesson (matches the app's existing

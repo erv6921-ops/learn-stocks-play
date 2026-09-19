@@ -693,6 +693,19 @@ export function isDeepLesson(lesson: Lesson): boolean {
   return isGulliverIntroLesson(lesson) || isIbEconLesson(lesson)
 }
 
+/** A lesson synthesized from a teacher's upload (StudentLessonView's synthetic Lesson). */
+export function isCurriculumLesson(lesson: Lesson): boolean {
+  return lesson.unitId === "generated"
+}
+
+/** Message budget for a curriculum lesson: every extracted concept must be taught within this many beats. */
+export const CURRICULUM_TURNS = 10
+
+export interface JeffVocab {
+  term: string
+  definition: string
+}
+
 // The course descriptor woven into the deep teaching prompt, so Jeff frames the
 // lesson as part of the right class (business vs. economics).
 function deepCourseLabel(lesson: Lesson): string {
@@ -795,7 +808,53 @@ The student already knows you - never introduce yourself. Do not use bullet poin
 ${NO_DASH_RULE}${material}`
 }
 
-export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[]): string {
+// ── Curriculum prompt (lessons built from a teacher's upload) ──
+// Jeff must teach EVERY extracted concept (the mastery pool is written from
+// them) within CURRICULUM_TURNS short messages, grouping closely related
+// concepts into one message when there are more concepts than messages, and
+// lighting up the teacher-approved vocabulary with **markers** on first use.
+function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[], vocab?: JeffVocab[]): string {
+  const remaining = Math.max(1, CURRICULUM_TURNS - sentCount)
+  const concepts = mustCover ?? []
+  const perMessage = concepts.length > CURRICULUM_TURNS - 2 ? Math.ceil(concepts.length / (CURRICULUM_TURNS - 2)) : 1
+  const budgetNote = sentCount >= CURRICULUM_TURNS - 1
+    ? `You have sent ${sentCount} messages. Your NEXT message MUST be the last: teach any concept still untaught in one line each, give a one-sentence synthesis, and end with the exact signal phrase.`
+    : sentCount >= CURRICULUM_TURNS - 3
+      ? `You have sent ${sentCount} messages and have at most ${remaining} left. Count the REQUIRED CONCEPTS you have not taught yet and fit ALL of them into the messages left, grouping several per message if needed.`
+      : `You have sent ${sentCount} messages and may use at most ${remaining} more. Pace yourself so every REQUIRED CONCEPT is taught before you run out.`
+
+  const coverage = concepts.length
+    ? `\n\nREQUIRED CONCEPTS (${concepts.length}). The mastery check is written from EVERY one of these, so each must be taught clearly before the lesson ends. Teach them in the order listed, which follows the material. ${perMessage > 1 ? `There are more concepts than messages: teach about ${perMessage} closely related concepts per message (for example, a pair of opposites or two steps of one process belong together), always naming each one.` : "One concept per message unless two are natural partners."} Never end while any is untaught:\n- ${concepts.join("\n- ")}`
+    : ""
+  const vocabList = vocab && vocab.length
+    ? `\n\nVOCABULARY the teacher approved (use these EXACT words, and wrap each term in **double asterisks** the first time you say it so it lights up with its definition):\n- ${vocab.map((v) => `${v.term}: ${v.definition}`).join("\n- ")}`
+    : ""
+  const material = source
+    ? `\n\nSOURCE MATERIAL - the teacher's own pages; the concepts and questions come from here. Teach from it and never contradict it or add outside facts:\n"""\n${source.slice(0, 6000)}\n"""`
+    : ""
+
+  return `You are Jeff, the friendly mascot who teaches high-school students on InvestiPlay. You are teaching '${lesson.title}', a lesson built from the teacher's own material.
+
+Your job: teach the WHOLE lesson in a short back-and-forth conversation of at most ${CURRICULUM_TURNS} messages. Every REQUIRED CONCEPT below must be taught; nothing may be skipped, because the questions afterwards cover all of them.
+
+Rules for each message:
+- Keep it SHORT: 1 to 3 sentences, under 45 words, readable on a phone in one glance. Then stop and let the student tap a reply.
+- One idea per message, or a small cluster of closely related concepts taught together when the list is long. Name each concept explicitly with the source's EXACT term (never a synonym: the questions use the source's wording).
+- Build in order: simplest first, each message adding one new thing. Never restate the previous message.
+- Wrap each vocabulary term in **double asterisks** the first time you say it (only the term, never a whole sentence).
+- Plain, warm, precise language; one vivid teen-friendly example at most per concept, kept to one sentence.
+
+${budgetNote}${coverage}${vocabList}
+
+When every required concept is taught, give a one-sentence synthesis of how they fit together and end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
+
+The student already knows you - never introduce yourself. No bullet points or headers; teach in short prose messages.
+
+${NO_DASH_RULE}${material}`
+}
+
+export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[], vocab?: JeffVocab[]): string {
+  if (isCurriculumLesson(lesson)) return buildCurriculumPrompt(lesson, sentCount, source, mustCover, vocab)
   return isDeepLesson(lesson)
     ? buildDeepPrompt(lesson, sentCount, source, mustCover)
     : buildSnappyPrompt(lesson, sentCount, source)
@@ -807,10 +866,11 @@ export async function jeffChatTurn(
   messages: ChatMessage[],
   source?: string,
   mustCover?: string[],
+  vocab?: JeffVocab[],
 ): Promise<{ text: string; options: string[] }> {
   const sentCount = messages.filter(m => m.role === "assistant").length
   const { data, error } = await supabase.functions.invoke("jeff-chat", {
-    body: { system: buildSystemPrompt(lesson, sentCount, source, mustCover), messages },
+    body: { system: buildSystemPrompt(lesson, sentCount, source, mustCover, vocab), messages },
   })
   if (error) throw new Error(error.message || "AI request failed")
   if (data?.error) throw new Error(data.error)

@@ -16,10 +16,11 @@ import { DiagramRenderer } from "@/components/lesson/DiagramRenderer";
 import { HintProvider } from "@/components/lesson/HintContext";
 import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext";
 import JeffChat from "@/components/lessons/JeffChat";
-import { buildScript, isDeepLesson } from "@/lib/jeffChatLesson";
+import { buildScript } from "@/lib/jeffChatLesson";
 import LessonResultsScreen from "@/components/LessonResultsScreen";
 import { TeacherPreviewBanner, PreviewSectionNav, PreviewCompleteCard } from "@/components/teacher/TeacherPreviewChrome";
 import { generatedToQuizQuestion, type GeneratedQuestionRow } from "@/lib/lessonPreview";
+import { GlossaryProvider } from "@/lib/glossary";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, AlertCircle, ArrowLeft } from "lucide-react";
@@ -180,16 +181,33 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
     [lessonId, lessonName],
   );
 
+  // Scripted fallback walks every concept slide (deep chunking) when the AI is unavailable.
   const jeffScript = useMemo(
-    () => (sections.length ? buildScript(sections, isDeepLesson(syntheticLesson)) : []),
-    [sections, syntheticLesson],
+    () => (sections.length ? buildScript(sections, true) : []),
+    [sections],
   );
+  // EVERY extracted concept: Jeff must teach all of them (the mastery pool is
+  // written from them), grouping related ones when the list is long.
   const mustCover = useMemo(() => {
     const jc = content?.jeffContext;
-    const c = (jc?.concepts ?? []).map((x) => `${x.name}: ${x.definition}`);
-    return c.length ? c.slice(0, 8) : undefined;
+    const c = (jc?.concepts ?? []).map((x) => (x.definition ? `${x.name}: ${x.definition}` : x.name));
+    return c.length ? c : undefined;
   }, [content]);
+  const jeffVocabulary = useMemo(
+    () => (content?.jeffContext?.vocabulary ?? []).filter((v) => v.term && v.definition),
+    [content],
+  );
   const jeffSource = content?.jeffContext?.excerpt || undefined;
+
+  // Questions served across every mastery attempt of this run: a retry never
+  // repeats one until the whole pool has been used.
+  const askedAcrossAttemptsRef = useRef<Set<string>>(new Set());
+  const [askedAcrossAttempts, setAskedAcrossAttempts] = useState<string[]>([]);
+  const rememberAsked = useCallback((id: string) => {
+    if (askedAcrossAttemptsRef.current.has(id)) return;
+    askedAcrossAttemptsRef.current.add(id);
+    setAskedAcrossAttempts([...askedAcrossAttemptsRef.current]);
+  }, []);
 
   // --- Finalization --------------------------------------------------------
   const finalize = useCallback(
@@ -239,6 +257,8 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
     setResult(null);
     setSectionIdx(0);
     setMasteryAttempt({ sessionId: crypto.randomUUID(), attemptNumber: 1 });
+    askedAcrossAttemptsRef.current = new Set();
+    setAskedAcrossAttempts([]);
     setRegen((r) => r + 1);
     setPhase("sections");
     window.scrollTo({ top: 0 });
@@ -254,6 +274,8 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
       lessonId={lessonId}
       attemptSessionId={masteryAttempt.sessionId}
       sessionAttemptNumber={masteryAttempt.attemptNumber}
+      previouslyAsked={askedAcrossAttempts}
+      onAsked={rememberAsked}
       onComplete={(correct, _attempts) => {
         const total = Math.min(section.requiredCorrect, section.questions.length);
         finalize(correct, total, correct >= section.requiredCorrect);
@@ -334,14 +356,17 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
   // Jeff teaches first (only when we have synthesized content to script from).
   if (phase === "intro") {
     return (
-      <JeffChat
-        lesson={syntheticLesson}
-        script={jeffScript}
-        source={jeffSource}
-        mustCover={mustCover}
-        onQuizReady={() => setPhase("sections")}
-        onClose={() => navigate("/dashboard")}
-      />
+      <GlossaryProvider entries={jeffVocabulary}>
+        <JeffChat
+          lesson={syntheticLesson}
+          script={jeffScript}
+          source={jeffSource}
+          mustCover={mustCover}
+          vocabulary={jeffVocabulary}
+          onQuizReady={() => setPhase("sections")}
+          onClose={() => navigate("/dashboard")}
+        />
+      </GlossaryProvider>
     );
   }
 
@@ -358,6 +383,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
   const playerKey = lessonId || uploadId || "preview";
   return (
     <HintProvider key={playerKey} total={2}>
+      <GlossaryProvider entries={jeffVocabulary}>
       <QuizSessionProvider key={`quiz-${playerKey}-${regen}`} lessonId={lessonId || undefined} concept={concept} previewMode={previewMode}>
         {previewMode && (
           <div className="sticky top-0 z-50">
@@ -403,6 +429,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
           </div>
         </div>
       </QuizSessionProvider>
+      </GlossaryProvider>
     </HintProvider>
   );
 };
