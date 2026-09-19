@@ -18,6 +18,7 @@ import {
   subLessonStats,
   TEACHER_INSTRUCTIONS_MAX_CHARS,
   type ChunkRow,
+  type DocumentMap,
   type SplitProposal,
   type SubLessonRow,
 } from "./api";
@@ -53,6 +54,8 @@ export interface SplitLessonsDialogProps {
   chunks: ChunkRow[];
   /** curriculum_uploads.split_instructions as last saved. */
   initialInstructions?: string | null;
+  /** Document map (units with roles): the preferred source for the proposal when present. */
+  documentMap?: DocumentMap | null;
   /** Called after a successful save (and after trashing pages) so the parent reloads. */
   onSaved: () => void;
 }
@@ -73,7 +76,7 @@ interface ProposeResponse {
 
 const tempId = () => `new-${Math.random().toString(36).slice(2, 10)}`;
 
-export const SplitLessonsDialog: React.FC<SplitLessonsDialogProps> = ({ open, onOpenChange, uploadId, subLessons, chunks, initialInstructions, onSaved }) => {
+export const SplitLessonsDialog: React.FC<SplitLessonsDialogProps> = ({ open, onOpenChange, uploadId, subLessons, chunks, initialInstructions, documentMap, onSaved }) => {
   const { toast } = useToast();
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [dirty, setDirty] = useState(false);
@@ -200,11 +203,11 @@ export const SplitLessonsDialog: React.FC<SplitLessonsDialogProps> = ({ open, on
 
   // --- Propose: layer 1 locally; layer 2 when instructed or unstructured ----
   const propose = useCallback(async () => {
-    const local = proposeSplit(ordered);
+    const local = proposeSplit(ordered, documentMap);
     const text = instructions.trim();
     if (!text && local.structured) {
       applyProposal(local.lessons);
-      toast({ title: "Split proposed from the section headings", description: `${local.lessons.length} lesson${local.lessons.length === 1 ? "" : "s"}. Rename, merge or move pages, then save.` });
+      toast({ title: documentMap && !documentMap.error ? "Split proposed from the document map" : "Split proposed from the section headings", description: `${local.lessons.length} lesson${local.lessons.length === 1 ? "" : "s"}. Rename, merge or move pages, then save.` });
       return;
     }
     setProposing(true);
@@ -232,7 +235,7 @@ export const SplitLessonsDialog: React.FC<SplitLessonsDialogProps> = ({ open, on
       setProposing(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ordered, instructions, savedInstructions, saveInstructions, uploadId, drafts, toast]);
+  }, [ordered, instructions, savedInstructions, saveInstructions, uploadId, drafts, documentMap, toast]);
 
   // --- One click: trash every page of a (supplementary) lesson --------------
   const trashPages = useCallback(

@@ -120,6 +120,42 @@ Response:
 On success the upload status is `awaiting_teacher_review`. Load the four
 tables by `upload_id` to render the review screen.
 
+**Page text (client).** pdf.js text items are rebuilt into lines from their
+y-coordinates (a new line when y moves by more than half a line, a blank
+line on a gap of about two lines), so headings, labels and term lists keep
+their own lines. A page whose text is thin (< 25 words) or garbled (< 50 %
+letters) is rendered to a JPEG and sent to `{ step: "ocr", page, image }`,
+which returns a model transcription used in its place
+(`curriculum_source_chunks.text_source = 'image_transcription'`).
+
+**Document map (sql/2026-09-19_document_map.sql).** After the pages are
+stored, `{ step: "map" }` builds `curriculum_uploads.document_map` from a
+per-page skeleton of short lines (never full text): document type, the
+organizing units with page ranges and a core / supplementary role, and every
+author-flagged vocabulary list under whatever label the author used. No
+label is hard-coded anywhere; the model reads the document's own cues. Page
+groups are then planned along unit boundaries (a unit is never split unless
+it alone exceeds one call), so a vocabulary list and the notes that define
+it stay together. If the map call fails the map records the error and
+groups fall back to size.
+
+Extraction follows the map: each group call is told its units and roles;
+author-flagged terms for those pages MUST come back with a definition from
+the sources (one targeted follow-up call recovers any the first pass
+skipped); pages in supplementary units yield no vocabulary or objectives;
+unflagged terms are `confidence = 'low'`, flagged ones `'high'`. Every
+concept, term and objective is tagged `unit_key` / `unit_title` from the
+unit that owns its first cited chunk (computed in code). The merge at
+finalize orders by id (vocabulary and objectives have no created_at), folds
+case, punctuation, hyphens, parenthetical acronyms and simple plurals into
+one key, keeps a verified high-confidence copy when there is one, and
+surfaces any query error as a 500 instead of treating it as no rows.
+
+The review page shows the map at the top (units, roles, flagged lists) and
+each item's unit next to its page; the split proposal uses the map's units
+when present (core units become lessons, consecutive supplementary units
+fold into one supplementary lesson).
+
 **Stepped run (sql/2026-09-16_extraction_progress.sql).** No single request
 may approach the edge-function wall clock (150 s on the free plan; the
 gateway also answers 504 after 150 s), so extraction is driven by the client
@@ -134,8 +170,8 @@ in steps, one small page group per request (`runSteppedExtraction()` in
 | `{ uploadId, step: "status" }` | current plan + progress, to resume an interrupted run without the PDF | `{ success, step: "status", progress }` |
 
 `extraction_progress` = `{ groups, plan, pages, done, failed:[{group,pages,reason}], current, counts }`.
-`extraction_stage` still moves `reading_pages` -> `extracting` / `verifying`
-(per group) -> `saving` and is null when idle; the page polls both every
+`extraction_stage` moves `reading_pages` -> `mapping` -> `extracting` /
+`verifying` (per group) -> `saving` and is null when idle; the page polls both every
 1.5 s so the bar moves group by group. Nothing advances on a timer.
 
 A run that ends with zero items is a FAILURE: status `extraction_failed`,

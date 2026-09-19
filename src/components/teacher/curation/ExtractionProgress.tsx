@@ -24,12 +24,13 @@ const POLL_MS = 1500;
 /** Bar position from the server's stage + group progress. Reading 0-5, groups 5-92, saving 92-99, done 100. */
 function percentOf(stage: ExtractionStage | null, p: ExtractionProgressState | null, finished: boolean): number {
   if (finished) return 100;
+  if (stage === "mapping") return 12;
   if (!p || p.groups === 0) return stage === "reading_pages" ? 5 : 2;
   if (stage === "saving") return 95;
   const settled = p.done.length + p.failed.length;
   // Within the current group, "verifying" is past the model call: count it as most of that group.
   const within = p.current != null ? (stage === "verifying" ? 0.7 : 0.25) : 0;
-  return Math.min(92, 5 + Math.round((87 * (settled + within)) / p.groups));
+  return Math.min(92, 15 + Math.round((77 * (settled + within)) / p.groups));
 }
 
 export const ExtractionProgress: React.FC<ExtractionProgressProps> = ({ uploadId, fileName, pageCount, className }) => {
@@ -66,6 +67,7 @@ export const ExtractionProgress: React.FC<ExtractionProgressProps> = ({ uploadId
   let headline: string;
   if (finished) headline = "Extraction finished";
   else if (stage === "saving") headline = "Merging what was found across the document";
+  else if (stage === "mapping") headline = "Mapping the document: type, units and flagged vocabulary";
   else if (stage === "reading_pages" || !progress) headline = "Reading pages";
   else if (stage === "verifying") headline = `Checking ${currentLabel ?? "this group"} against the text`;
   else if (stage === "extracting") headline = `Pulling concepts, vocabulary and objectives from ${currentLabel ?? "the next group"}`;

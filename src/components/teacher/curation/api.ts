@@ -21,6 +21,9 @@ export interface CurationRow {
   teacher_status: TeacherStatus;
   grounding_status?: GroundingStatus | null;
   source_chunk_ids?: string[] | null;
+  /** Map unit that owns the chunk the item was cited from (sql/2026-09-19_document_map.sql). */
+  unit_key?: string | null;
+  unit_title?: string | null;
 }
 
 export interface ConceptRow extends CurationRow {
@@ -31,6 +34,8 @@ export interface ConceptRow extends CurationRow {
 export interface VocabRow extends CurationRow {
   term: string;
   definition: string;
+  /** "high" = author-flagged in the document map; "low" = only found defined in core text. */
+  confidence?: "high" | "low" | null;
 }
 
 export interface ObjectiveRow extends CurationRow {
@@ -44,6 +49,8 @@ export interface ChunkRow extends CurationRow {
   content: string;
   /** Owning sub-lesson (sql/2026-09-16_sub_lessons.sql); null only before the backfill / default creation. */
   sub_lesson_id?: string | null;
+  /** "image_transcription" when the page's text came from a model transcription of the page image. */
+  text_source?: "pdf_text" | "image_transcription" | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -297,9 +304,51 @@ function evenSplit(outline: PageOutline[]): SplitProposal[] {
  * Layer-1 proposal. `structured` is true when real numbered sections were
  * found; when false the caller should ask propose-split (layer 2).
  */
-export function proposeSplit(chunks: ChunkRow[]): { lessons: SplitProposal[]; structured: boolean } {
+export function proposeSplit(chunks: ChunkRow[], map?: DocumentMap | null): { lessons: SplitProposal[]; structured: boolean } {
   const outline = buildOutline(chunks);
   if (outline.length === 0) return { lessons: [], structured: false };
+
+  // The document map (built by the model from the page skeleton) is the best
+  // source of units when it exists: core units become lessons, consecutive
+  // supplementary units fold into one supplementary lesson.
+  if (map && map.units.length >= 2 && !map.error) {
+    const ordered = [...chunks].sort((a, b) => a.chunk_index - b.chunk_index);
+    const chunksIn = (u: MapUnit) => ordered.filter((c) => c.page_start != null && c.page_start >= u.page_start && c.page_start <= u.page_end).map((c) => c.id);
+    const lessons: SplitProposal[] = [];
+    let supp: string[] = [];
+    let suppKinds: string[] = [];
+    const flushSupp = () => {
+      if (supp.length) {
+        const kinds = [...new Set(suppKinds.filter(Boolean))];
+        lessons.push({ title: kinds.length ? kinds.slice(0, 2).join(" and ").replace(/^./, (c) => c.toUpperCase()) : "Additional material", chunkIds: supp, supplementary: true });
+      }
+      supp = [];
+      suppKinds = [];
+    };
+    for (const u of map.units) {
+      const ids = chunksIn(u);
+      if (ids.length === 0) continue;
+      if (u.role === "supplementary") {
+        supp.push(...ids);
+        suppKinds.push(u.kind || u.title);
+      } else {
+        // Front matter before the first core unit joins it rather than standing alone.
+        if (lessons.length === 0 && supp.length) {
+          lessons.push({ title: u.title, chunkIds: [...supp, ...ids] });
+          supp = [];
+          suppKinds = [];
+        } else {
+          flushSupp();
+          lessons.push({ title: u.title, chunkIds: ids });
+        }
+      }
+    }
+    flushSupp();
+    const placed = new Set(lessons.flatMap((l) => l.chunkIds));
+    const rest = ordered.filter((c) => !placed.has(c.id)).map((c) => c.id);
+    if (rest.length && lessons.length) lessons[lessons.length - 1].chunkIds.push(...rest);
+    if (lessons.filter((l) => !l.supplementary).length >= 1) return { lessons, structured: true };
+  }
 
   // Candidate boundaries: one heading per page (its best), ignoring outline /
   // table-of-contents pages that list three or more headings at once.
@@ -395,6 +444,8 @@ export interface UploadRow {
   extraction_progress?: ExtractionProgressState | null;
   /** Teacher's description of the chapter structure, used by the split proposal. */
   split_instructions?: string | null;
+  /** Document map built before extraction (type, units, flagged vocabulary). */
+  document_map?: DocumentMap | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -403,14 +454,49 @@ export interface UploadRow {
 // objectives come out of ONE model pass, so they share the "extracting" step.
 // ---------------------------------------------------------------------------
 
-export type ExtractionStage = "reading_pages" | "extracting" | "verifying" | "saving";
+export type ExtractionStage = "reading_pages" | "mapping" | "extracting" | "verifying" | "saving";
 
 export const EXTRACTION_STAGES: { key: ExtractionStage; label: string; percent: number }[] = [
-  { key: "reading_pages", label: "Reading pages", percent: 10 },
+  { key: "reading_pages", label: "Reading pages", percent: 5 },
+  { key: "mapping", label: "Mapping the document (type, units, flagged vocabulary)", percent: 12 },
   { key: "extracting", label: "Pulling concepts, vocabulary and objectives", percent: 35 },
   { key: "verifying", label: "Checking every item against your pages", percent: 70 },
-  { key: "saving", label: "Saving what was found", percent: 92 },
+  { key: "saving", label: "Merging and saving what was found", percent: 92 },
 ];
+
+// ---------------------------------------------------------------------------
+// Document map (curriculum_uploads.document_map): built by the map step
+// before extraction. Any document type; labels are the author's own.
+// ---------------------------------------------------------------------------
+
+export interface MapUnit {
+  key: string;
+  title: string;
+  page_start: number;
+  page_end: number;
+  role: "core" | "supplementary";
+  kind: string;
+}
+
+export interface VocabularySource {
+  unit_key: string | null;
+  page: number | null;
+  label_as_written: string;
+  terms: string[];
+}
+
+export interface DocumentMap {
+  document_type: string;
+  organizing_unit: string;
+  units: MapUnit[];
+  vocabulary_sources: VocabularySource[];
+  flagged_terms: string[];
+  notes: string;
+  model?: string;
+  mapped_at?: string;
+  /** Set when the map call failed; groups fell back to size. */
+  error?: string;
+}
 
 /** Origin of a generated_questions row. */
 export type QuestionOrigin = "generated" | "teacher_authored";
@@ -446,11 +532,17 @@ export interface ExtractionProgressState {
   failed: ExtractionGroupFailure[];
   current: number | null;
   counts: { concepts: number; vocabulary: number; objectives: number };
+  mapped?: boolean;
+  groupUnits?: string[][];
 }
 
 export interface ExtractResponse {
   success: boolean;
-  step?: "planned" | "group" | "finalized" | "status";
+  step?: "planned" | "ocr" | "map" | "group" | "finalized" | "status";
+  /** step "ocr": the transcription. */
+  page?: number;
+  text?: string;
+  documentMap?: DocumentMap;
   groups?: number;
   group?: number;
   groupFailed?: string;
@@ -591,13 +683,23 @@ export async function callFunction<T>(
  * step (409 already extracted, 422 zero items, 5xx) is returned as is, so
  * callers branch exactly as before.
  */
+export interface PageForExtraction {
+  page: number;
+  text: string;
+  source?: "pdf_text" | "image_transcription";
+  /** Base64 JPEG of the page, sent for transcription when the PDF text is thin or garbled. */
+  imageBase64?: string;
+}
+
 export async function runSteppedExtraction(opts: {
   uploadId: string;
-  pages?: { page: number; text: string }[];
+  pages?: PageForExtraction[];
   extractedText?: string;
   reextract?: boolean;
   resume?: boolean;
   onProgress?: (p: ExtractionProgressState) => void;
+  /** Called as thin pages are transcribed from images, before the plan step. */
+  onTranscribe?: (done: number, total: number) => void;
 }): Promise<{ status: number; data: ExtractResponse | null }> {
   let progress: ExtractionProgressState | null = null;
   if (opts.resume) {
@@ -605,9 +707,24 @@ export async function runSteppedExtraction(opts: {
     if (!st.data?.success || !st.data.progress) return st;
     progress = st.data.progress;
   } else {
+    // 0. Pages whose PDF text is thin or garbled are transcribed from an image first.
+    const pages = opts.pages ? opts.pages.map((p) => ({ ...p })) : undefined;
+    if (pages) {
+      const toTranscribe = pages.filter((p) => p.imageBase64);
+      let done = 0;
+      for (const p of toTranscribe) {
+        const r = await callFunction<ExtractResponse>("extract-curriculum-v2", { uploadId: opts.uploadId, step: "ocr", page: p.page, image: p.imageBase64, mediaType: "image/jpeg" });
+        if (r.data?.success && typeof r.data.text === "string" && r.data.text.trim().length > 0) {
+          p.text = r.data.text;
+          p.source = "image_transcription";
+        }
+        done++;
+        opts.onTranscribe?.(done, toTranscribe.length);
+      }
+    }
     const plan = await callFunction<ExtractResponse>("extract-curriculum-v2", {
       uploadId: opts.uploadId,
-      ...(opts.pages ? { pages: opts.pages } : {}),
+      ...(pages ? { pages: pages.map(({ page, text, source }) => ({ page, text, source: source ?? "pdf_text" })) } : {}),
       ...(opts.extractedText ? { extractedText: opts.extractedText } : {}),
       ...(opts.reextract ? { reextract: true } : {}),
     });
@@ -615,6 +732,13 @@ export async function runSteppedExtraction(opts: {
     progress = plan.data.progress;
   }
   opts.onProgress?.(progress);
+  // 1. Document map (type, units, flagged vocabulary) -> groups along unit boundaries.
+  if (!progress.mapped || progress.groups === 0) {
+    const m = await callFunction<ExtractResponse>("extract-curriculum-v2", { uploadId: opts.uploadId, step: "map" });
+    if (!m.data?.success || !m.data.progress) return m;
+    progress = m.data.progress;
+    opts.onProgress?.(progress);
+  }
   for (let i = 0; i < progress.groups; i++) {
     if (progress.done.includes(i)) continue;
     const r = await callFunction<ExtractResponse>("extract-curriculum-v2", { uploadId: opts.uploadId, step: "group", group: i });

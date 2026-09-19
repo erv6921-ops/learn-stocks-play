@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { AlertCircle, ArrowLeft, FileText, Loader2, RefreshCw, ScanLine, UploadCloud, X } from "lucide-react";
 import { CurationReview } from "@/components/teacher/curation/CurationReview";
 import { ExtractionProgress } from "@/components/teacher/curation/ExtractionProgress";
-import { db, functionError, NOT_ENOUGH_TEXT, REVIEWABLE_STATUSES, runSteppedExtraction } from "@/components/teacher/curation/api";
+import { db, functionError, NOT_ENOUGH_TEXT, REVIEWABLE_STATUSES, runSteppedExtraction, type PageForExtraction } from "@/components/teacher/curation/api";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = PdfWorkerUrl;
 
@@ -49,9 +49,73 @@ type Phase =
 
 type ErrorKind = "generic" | "no-text";
 
-interface PageText {
-  page: number;
-  text: string;
+type PageText = PageForExtraction;
+
+/**
+ * Rebuilds the page's lines from pdf.js text items using their y-coordinate
+ * (a new line when y changes by more than about half a line's height, a
+ * blank line on a gap of roughly two lines), items within a line ordered by
+ * x. Headings, labels and term lists keep their own lines instead of being
+ * run together with spaces.
+ */
+function itemsToText(items: { str: string; transform: number[]; height?: number; width?: number; hasEOL?: boolean }[]): string {
+  type It = { str: string; x: number; y: number; h: number };
+  const its: It[] = items
+    .filter((it) => typeof it.str === "string" && it.str.length > 0 && Array.isArray(it.transform))
+    .map((it) => ({ str: it.str, x: it.transform[4], y: it.transform[5], h: Math.abs(it.height ?? it.transform[3] ?? 10) || 10 }));
+  if (its.length === 0) return "";
+  const medianH = [...its.map((i) => i.h)].sort((a, b) => a - b)[Math.floor(its.length / 2)] || 10;
+  // Cluster into lines by y (PDF y grows upward: sort descending).
+  its.sort((a, b) => b.y - a.y || a.x - b.x);
+  const lines: { y: number; items: It[] }[] = [];
+  for (const it of its) {
+    const last = lines[lines.length - 1];
+    if (last && Math.abs(last.y - it.y) <= Math.max(2, medianH * 0.5)) last.items.push(it);
+    else lines.push({ y: it.y, items: [it] });
+  }
+  const out: string[] = [];
+  let prevY: number | null = null;
+  for (const line of lines) {
+    line.items.sort((a, b) => a.x - b.x);
+    const text = line.items
+      .map((i) => i.str)
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!text) continue;
+    if (prevY != null && prevY - line.y > medianH * 2.2) out.push("");
+    out.push(text);
+    prevY = line.y;
+  }
+  return out.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+/** Thin or garbled: too few words, or mostly non-letter characters (scans, slide decks, decorative pages). */
+function looksThin(text: string): boolean {
+  const words = text.split(/\s+/).filter(Boolean);
+  if (words.length < 25) return true;
+  const letters = (text.match(/\p{L}/gu) ?? []).length;
+  return letters / Math.max(1, text.length) < 0.5;
+}
+
+/** Renders one page to a JPEG data URL (base64 body returned) for transcription. */
+async function renderPageImage(page: { getViewport: (o: { scale: number }) => { width: number; height: number }; render: (o: { canvasContext: CanvasRenderingContext2D; viewport: unknown }) => { promise: Promise<unknown> } }): Promise<string | null> {
+  try {
+    const base = page.getViewport({ scale: 1 });
+    const scale = Math.min(1.6, 1400 / Math.max(base.width, base.height));
+    const viewport = page.getViewport({ scale });
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.ceil(viewport.width);
+    canvas.height = Math.ceil(viewport.height);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    await page.render({ canvasContext: ctx, viewport }).promise;
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.82);
+    return dataUrl.split(",")[1] ?? null;
+  } catch (err) {
+    console.warn("page render failed", err);
+    return null;
+  }
 }
 
 const DASHBOARD_ROUTE = "/teacher-dashboard?tab=curriculum";
@@ -178,22 +242,29 @@ const TeacherCurriculumPage: React.FC = () => {
       // One entry per PDF page: the v2 extractor stores a chunk per page so the
       // teacher can emphasize or trash by page (docs/curation-contract.md).
       const perPage: PageText[] = [];
+      let thinPages = 0;
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
-        const text = content.items
-          .map((item) => ("str" in item ? item.str : ""))
-          .join(" ")
-          .replace(/[ \t]+/g, " ")
-          .trim();
-        perPage.push({ page: i, text });
+        const text = itemsToText(content.items.filter((it): it is typeof it & { str: string } => "str" in it) as { str: string; transform: number[]; height?: number; width?: number; hasEOL?: boolean }[]);
+        const entry: PageText = { page: i, text, source: "pdf_text" };
+        // Thin or garbled text (scan, slide deck, decorative page): send the
+        // page as an image so the server can transcribe it.
+        if (looksThin(text) && thinPages < 60) {
+          const img = await renderPageImage(page as unknown as Parameters<typeof renderPageImage>[0]);
+          if (img) {
+            entry.imageBase64 = img;
+            thinPages++;
+          }
+        }
+        perPage.push(entry);
       }
 
       const fullText = perPage.map((p) => p.text).filter(Boolean).join("\n\n");
-
-      if (!fullText) {
+      const anyImages = perPage.some((p) => p.imageBase64);
+      if (!fullText && !anyImages) {
         setErrorKind("no-text");
-        throw new Error("No selectable text found in this PDF. It may be a scanned image — OCR is not supported.");
+        throw new Error("No selectable text found in this PDF and the pages could not be rendered for transcription.");
       }
 
       setPages(perPage);

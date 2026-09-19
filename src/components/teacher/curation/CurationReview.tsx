@@ -6,7 +6,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
-import { AlertCircle, BookMarked, ChevronDown, FileText, HelpCircle, Lightbulb, ListChecks, Loader2, RefreshCw, ShieldQuestion, SlidersHorizontal, Sparkles } from "lucide-react";
+import { AlertCircle, BookMarked, ChevronDown, FileText, HelpCircle, Lightbulb, ListChecks, Loader2, Map as MapIcon, RefreshCw, ShieldQuestion, SlidersHorizontal, Sparkles } from "lucide-react";
 import { QuestionApprovalPanel, type ApprovalCounts } from "@/components/teacher/QuestionApprovalPanel";
 import { CurationItemCard } from "./CurationItemCard";
 import { CurationSection } from "./CurationSection";
@@ -117,6 +117,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
   const [tab, setTab] = useState<TabKey>("vocabulary");
   const [splitOpen, setSplitOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
   // Marks as they were when questions were last generated, per sub-lesson.
   const snapshotRef = useRef<Map<string, string>>(new Map());
   const [snapshotVersion, setSnapshotVersion] = useState(0);
@@ -129,10 +130,10 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       try {
         const [uRes, cRes, vRes, oRes, chRes, qRes, lRes, sRes] = await Promise.all([
           db.from("curriculum_uploads").select("*").eq("id", uploadId).maybeSingle(),
-          db.from("concepts").select("id, name, definition, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("created_at", { ascending: true }),
-          db.from("vocabulary").select("id, term, definition, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("id", { ascending: true }),
-          db.from("learning_objectives").select("id, objective, teacher_status, grounding_status, source_chunk_ids").eq("upload_id", uploadId).order("id", { ascending: true }),
-          db.from("curriculum_source_chunks").select("id, chunk_index, page_start, page_end, content, teacher_status, sub_lesson_id").eq("upload_id", uploadId).order("chunk_index", { ascending: true }),
+          db.from("concepts").select("id, name, definition, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title").eq("upload_id", uploadId).order("created_at", { ascending: true }),
+          db.from("vocabulary").select("id, term, definition, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title, confidence").eq("upload_id", uploadId).order("id", { ascending: true }),
+          db.from("learning_objectives").select("id, objective, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title").eq("upload_id", uploadId).order("id", { ascending: true }),
+          db.from("curriculum_source_chunks").select("id, chunk_index, page_start, page_end, content, teacher_status, sub_lesson_id, text_source").eq("upload_id", uploadId).order("chunk_index", { ascending: true }),
           db.from("generated_questions").select("id, sub_lesson_id").eq("upload_id", uploadId).eq("status", "pending"),
           db.from("lessons").select("id, name, sub_lesson_id, teacher_approved_at, content").eq("upload_id", uploadId).order("created_at", { ascending: false }),
           db.from("sub_lessons").select("*").eq("upload_id", uploadId).order("sort_order", { ascending: true }),
@@ -584,7 +585,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
     <CurationItemCard
       title={c.name}
       description={c.definition}
-      pageRef={pageRefFor(c.source_chunk_ids, allChunks)}
+      pageRef={pageAndUnit(c)}
       status={c.teacher_status}
       groundingFailed={failedOf(c)}
       busy={busyIds.has(c.id)}
@@ -597,8 +598,8 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
   const renderVocab = (v: VocabRow) => (
     <CurationItemCard
       title={v.term}
-      description={v.definition}
-      pageRef={pageRefFor(v.source_chunk_ids, allChunks)}
+      description={v.confidence === "low" ? `${v.definition} (not flagged by the author; found defined in the text)` : v.definition}
+      pageRef={pageAndUnit(v)}
       status={v.teacher_status}
       groundingFailed={failedOf(v)}
       busy={busyIds.has(v.id)}
@@ -611,7 +612,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
   const renderObjective = (o: ObjectiveRow) => (
     <CurationItemCard
       title={o.objective}
-      pageRef={pageRefFor(o.source_chunk_ids, allChunks)}
+      pageRef={pageAndUnit(o)}
       status={o.teacher_status}
       groundingFailed={failedOf(o)}
       busy={busyIds.has(o.id)}
@@ -622,6 +623,13 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
     />
   );
   const unplacedNote = "Not placed in any lesson: these could not be matched to a page, so they are never used as a guide.";
+  const docMap = upload.document_map ?? null;
+  const unitLabel = (r: { unit_title?: string | null }) => (r.unit_title ? r.unit_title : null);
+  const pageAndUnit = (r: { source_chunk_ids?: string[] | null; unit_title?: string | null }) => {
+    const p = pageRefFor(r.source_chunk_ids, allChunks);
+    const u = unitLabel(r);
+    return u ? `${p ? `${p} · ` : ""}${u}` : p;
+  };
 
   const sidebar = !needsVerification && subLessons.length > 0 && (
     <SubLessonBar
@@ -651,6 +659,57 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
             <p>Everything else was kept. Re-extract the file to try those pages again.</p>
           </div>
         </div>
+      )}
+
+      {docMap && (
+        <Collapsible open={mapOpen} onOpenChange={setMapOpen}>
+          <Card className="border-sky-100 shadow-sm dark:border-sky-900">
+            <CollapsibleTrigger className="flex w-full items-center gap-2 px-4 py-3 text-left">
+              <MapIcon className="h-4 w-4 shrink-0 text-sky-600 dark:text-sky-400" />
+              <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">Document map</span>
+              <span className="min-w-0 truncate text-xs text-slate-500 dark:text-slate-400">
+                {docMap.error
+                  ? "mapping failed; pages were grouped by size"
+                  : `${docMap.document_type.replace(/_/g, " ")} · ${docMap.units.length} ${docMap.organizing_unit}${docMap.units.length === 1 ? "" : "s"} (${docMap.units.filter((u) => u.role === "core").length} core) · ${docMap.flagged_terms.length} author-flagged term${docMap.flagged_terms.length === 1 ? "" : "s"}`}
+              </span>
+              <ChevronDown className={cn("ml-auto h-4 w-4 shrink-0 text-slate-400 transition-transform", mapOpen && "rotate-180")} />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <CardContent className="space-y-3 pt-0 text-xs">
+                {docMap.error && <p className="text-amber-700 dark:text-amber-300">The map call failed: {docMap.error}</p>}
+                {docMap.notes && <p className="text-slate-600 dark:text-slate-400">{docMap.notes}</p>}
+                {docMap.units.length > 0 && (
+                  <ol className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+                    {docMap.units.map((u) => (
+                      <li key={u.key} className={cn("flex items-start gap-2 rounded-md border px-2 py-1", u.role === "core" ? "border-emerald-200 bg-emerald-50/50 dark:border-emerald-800 dark:bg-emerald-950/20" : "border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-700 dark:bg-slate-900/40")}>
+                        <span className="w-6 shrink-0 text-[10px] font-semibold text-slate-400">{u.key}</span>
+                        <span className="min-w-0 flex-1">
+                          <span className="font-medium text-slate-800 dark:text-slate-100">{u.title}</span>
+                          <span className="block text-[11px] text-slate-500 dark:text-slate-400">
+                            pp. {u.page_start}{u.page_end !== u.page_start ? `-${u.page_end}` : ""} · {u.role}{u.kind ? ` · ${u.kind}` : ""}
+                          </span>
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+                {docMap.vocabulary_sources.length > 0 ? (
+                  <div className="space-y-1">
+                    <p className="font-semibold text-slate-800 dark:text-slate-100">Author-flagged vocabulary ({docMap.flagged_terms.length})</p>
+                    {docMap.vocabulary_sources.map((v, i) => (
+                      <p key={i} className="text-slate-600 dark:text-slate-400">
+                        <span className="font-medium">{v.label_as_written || "list"}</span>
+                        {v.page != null ? ` (p. ${v.page})` : ""}: {v.terms.join(", ")}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  !docMap.error && <p className="text-slate-500 dark:text-slate-400">The author flagged no vocabulary in this document; terms were taken from definitions in the core text and marked low confidence.</p>
+                )}
+              </CardContent>
+            </CollapsibleContent>
+          </Card>
+        </Collapsible>
       )}
 
       <div className={cn("gap-6", sidebar && "lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:items-start")}>
@@ -866,6 +925,7 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
         subLessons={subLessons}
         chunks={allChunks}
         initialInstructions={upload.split_instructions ?? null}
+        documentMap={docMap}
         onSaved={() => {
           snapshotRef.current.clear();
           void load({ silent: true });

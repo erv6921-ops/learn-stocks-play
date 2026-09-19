@@ -56,6 +56,8 @@ import {
   type SourceChunk,
   verifyGroundedItems,
   ensureDefaultSubLesson,
+  MODEL,
+  firstTextBlock,
 } from "../_shared/grounding.ts";
 
 // ---------------------------------------------------------------------------
@@ -67,6 +69,8 @@ type DifficultyLevel = "beginner" | "intermediate" | "advanced";
 interface PageInput {
   page: number;
   text: string;
+  /** "image_transcription" when the client had the page transcribed from an image (thin / garbled PDF text). */
+  source?: "pdf_text" | "image_transcription";
 }
 
 interface RequestBody {
@@ -75,9 +79,40 @@ interface RequestBody {
   extractedText?: string;
   /** Re-run extraction on an upload that already has chunks (resets teacher marks). */
   reextract?: boolean;
-  /** Stepped run: omitted = plan; "group" needs `group`; "finalize"; "status". */
-  step?: "group" | "finalize" | "status";
+  /** Stepped run: omitted = plan; "ocr" (page + image); "map"; "group" needs `group`; "finalize"; "status". */
+  step?: "ocr" | "map" | "group" | "finalize" | "status";
   group?: number;
+  /** step "ocr": page number and a base64 JPEG/PNG of that page. */
+  page?: number;
+  image?: string;
+  mediaType?: "image/jpeg" | "image/png" | "image/webp";
+}
+
+/** curriculum_uploads.document_map (sql/2026-09-19_document_map.sql). */
+interface MapUnit {
+  key: string;
+  title: string;
+  page_start: number;
+  page_end: number;
+  role: "core" | "supplementary";
+  kind: string;
+}
+interface VocabularySource {
+  unit_key: string | null;
+  page: number | null;
+  label_as_written: string;
+  terms: string[];
+}
+interface DocumentMap {
+  document_type: string;
+  organizing_unit: string;
+  units: MapUnit[];
+  vocabulary_sources: VocabularySource[];
+  flagged_terms: string[];
+  notes: string;
+  model?: string;
+  mapped_at?: string;
+  error?: string;
 }
 
 interface GroupFailure {
@@ -95,6 +130,10 @@ interface Progress {
   failed: GroupFailure[];
   current: number | null;
   counts: { concepts: number; vocabulary: number; objectives: number };
+  /** True once the document map ran (or failed and fell back) and the groups were planned. */
+  mapped?: boolean;
+  /** Unit keys covered by each group (parallel to plan). */
+  groupUnits?: string[][];
 }
 
 interface Cited {
@@ -114,6 +153,8 @@ interface VocabularyItem extends Cited {
   term: string;
   definition: string;
   context: string;
+  /** "high" = author-flagged in the document map; "low" = only found defined in core text. */
+  confidence?: "high" | "low";
 }
 
 interface ObjectiveItem extends Cited {
@@ -174,13 +215,14 @@ REQUIRED OUTPUT FORMAT (JSON only, no preamble):
     }
   ],
   "vocabulary": [
-    { "term": "Term", "definition": "Definition as given in the sources", "context": "How the sources use it", "source_ids": ["S1"], "evidence_quote": "exact copy of the defining sentence" }
+    { "term": "Term", "definition": "Definition as given in the sources", "context": "How the sources use it", "confidence": "high|low", "source_ids": ["S1"], "evidence_quote": "exact copy of the defining sentence" }
   ],
   "insufficient_source": false,
   "insufficient_source_reason": ""
 }
 
 CONSTRAINTS:
+- VOCABULARY: the request may list AUTHOR-FLAGGED TERMS for these pages (terms the author singled out in a list, glossary, vocabulary slide, or bold). Every flagged term that these sources define MUST come back as a vocabulary item with the definition and an exact quote; keep the author's wording of the term. Other terms may be added only when the sources clearly define them, and never from pages the request marks as supplementary (cases, exercises, test banks, answer keys, activities). Set "confidence": "high" for flagged terms and "low" for any other term.
 - Only extract a concept or term if the sources clearly define or explain it.
 - Do NOT invent learning objectives; only use ones stated explicitly in the sources. Return an empty array if there are none.
 - "prerequisites" may only name other concepts you extracted from these sources (or be empty).
@@ -189,6 +231,30 @@ CONSTRAINTS:
 - Return empty arrays if a category has no content. Maximum 50 concepts (prioritize by prominence).
 
 Respond ONLY with valid JSON. No markdown. No explanation.`;
+
+const MAP_SYSTEM_PROMPT = `You map the structure of a teacher's uploaded document from a page-by-page skeleton (for each page: its number, word count, and the short lines that look like headings, labels or list items). You never see full text. Any kind of material is possible: a textbook chapter, an instructor's manual, a slide deck, a worksheet, class notes, a study guide.
+
+Report, as JSON only:
+{
+  "document_type": "textbook_chapter | instructor_manual | slide_deck | worksheet | notes | study_guide | other",
+  "organizing_unit": "what the teaching units are called in THIS document (e.g. learning objective, section, chapter, slide group, topic)",
+  "units": [
+    { "key": "U1", "title": "the unit's own heading, as written", "page_start": 5, "page_end": 8, "role": "core | supplementary", "kind": "short description (e.g. lecture notes, bonus case, test bank, answer key, exercises, cover / contents)" }
+  ],
+  "vocabulary_sources": [
+    { "unit_key": "U1", "page": 8, "label_as_written": "the author's own label for the list (any wording)", "terms": ["each term exactly as listed"] }
+  ],
+  "notes": "one or two sentences: anything the extractor should know (e.g. running header on every page, terms defined in capitals inside the notes)"
+}
+
+Rules:
+- Units must be consecutive, non-overlapping, and together cover every page from the first to the last (front matter / contents count as their own unit, usually supplementary).
+- "core" = the teaching content students should learn from. "supplementary" = material for the instructor or for practice that is NOT the teaching text itself: cases, enhancers, exercises, discussion questions, test banks, answer keys, worksheets, activity instructions, covers, tables of contents. Use the document's own cues; do not assume a fixed vocabulary of labels.
+- vocabulary_sources: every place the AUTHOR flags vocabulary, whatever it is called (key terms, glossary, vocabulary, terms to know, bold terms on a slide, a "words" box). Copy the terms as written and split them correctly even when they appear on one line without separators. If the author flags nothing, return an empty array.
+- Titles are the document's own headings. Never invent a unit that the skeleton does not show.
+- JSON only. No markdown.`;
+
+const OCR_SYSTEM_PROMPT = `You transcribe one page of a teacher's teaching material from an image. Return the page's text faithfully, in reading order, one line per visual line, a blank line between blocks. Keep headings, bullets, tables (as rows) and any list of terms exactly as written. Do not summarise, translate, correct or add anything. If the page has no readable text, return an empty string. Return only the transcription.`;
 
 const RETRY_SYSTEM_PROMPT = `You are an educational content analyst for a financial literacy curriculum system. Some previously extracted items FAILED verification: their evidence_quote was not an exact copy of the sources, or the item claimed more than the quote supports.
 
@@ -260,6 +326,7 @@ function normalizeVocab(v: Record<string, unknown>): VocabularyItem | null {
     term: str(v.term),
     definition: str(v.definition),
     context: str(v.context),
+    confidence: v.confidence === "high" ? "high" : "low",
     source_ids: asSourceIds(v.source_ids),
     evidence_quote: str(v.evidence_quote),
   };
@@ -415,7 +482,7 @@ async function markStatus(supabase: SupabaseClient, uploadId: string, patch: Rec
  * function: concepts, vocabulary and objectives come out of ONE model pass,
  * so they share the "extracting" stage rather than pretending to be three.
  */
-type ExtractionStage = "reading_pages" | "extracting" | "verifying" | "saving";
+type ExtractionStage = "reading_pages" | "mapping" | "extracting" | "verifying" | "saving";
 async function setStage(supabase: SupabaseClient, uploadId: string, stage: ExtractionStage | null): Promise<void> {
   await markStatus(supabase, uploadId, { extraction_stage: stage, extraction_stage_at: new Date().toISOString() });
 }
@@ -432,6 +499,63 @@ async function loadProgress(supabase: SupabaseClient, uploadId: string): Promise
 
 async function saveProgress(supabase: SupabaseClient, uploadId: string, progress: Progress): Promise<void> {
   await markStatus(supabase, uploadId, { extraction_progress: progress });
+}
+
+/**
+ * Groups that follow the document map: consecutive chunks of one unit stay
+ * together (a vocabulary list and the notes that define it are never split),
+ * small consecutive units combine up to GROUP_CHARS, and only a unit larger
+ * than GROUP_CHARS is split inside. Without a map: size-based groups.
+ */
+function planGroupsByUnits(chunks: SourceChunk[], map: DocumentMap | null): { groups: SourceChunk[][]; units: string[][] } {
+  if (!map || !Array.isArray(map.units) || map.units.length === 0) {
+    const groups = planGroups(chunks);
+    return { groups, units: groups.map(() => []) };
+  }
+  const unitOf = (c: SourceChunk): MapUnit | null => {
+    const page = c.page_start ?? -1;
+    return map.units.find((u) => page >= u.page_start && page <= u.page_end) ?? null;
+  };
+  // Runs of consecutive chunks that share a unit.
+  const runs: { unit: MapUnit | null; chunks: SourceChunk[] }[] = [];
+  for (const c of chunks) {
+    const u = unitOf(c);
+    const last = runs[runs.length - 1];
+    if (last && (last.unit?.key ?? null) === (u?.key ?? null)) last.chunks.push(c);
+    else runs.push({ unit: u, chunks: [c] });
+  }
+  const groups: SourceChunk[][] = [];
+  const units: string[][] = [];
+  let cur: SourceChunk[] = [];
+  let curUnits: string[] = [];
+  let curChars = 0;
+  const flush = () => {
+    if (cur.length) {
+      groups.push(cur);
+      units.push([...new Set(curUnits)]);
+    }
+    cur = [];
+    curUnits = [];
+    curChars = 0;
+  };
+  for (const run of runs) {
+    const runChars = run.chunks.reduce((n, c) => n + c.content.length, 0);
+    if (runChars > GROUP_CHARS) {
+      // A unit bigger than one call: close what we have, then split the unit by size.
+      flush();
+      for (const part of planGroups(run.chunks)) {
+        groups.push(part);
+        units.push(run.unit ? [run.unit.key] : []);
+      }
+      continue;
+    }
+    if (cur.length && curChars + runChars > GROUP_CHARS) flush();
+    cur.push(...run.chunks);
+    if (run.unit) curUnits.push(run.unit.key);
+    curChars += runChars;
+  }
+  flush();
+  return { groups, units };
 }
 
 /** Consecutive chunks, about GROUP_CHARS of text per group, never splitting a chunk. */
@@ -461,8 +585,46 @@ function groupPageLabel(chunks: SourceChunk[]): string {
   return b != null && b !== a ? `pp. ${a}-${b}` : `p. ${a}`;
 }
 
+/** Merge key: case, punctuation, hyphens, parenthetical acronyms and simple plurals all fold together. */
 function normKey(text: string): string {
-  return text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  const base = text
+    .toLowerCase()
+    .replace(/\([^)]*\)/g, " ")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => {
+      if (w.length > 4 && w.endsWith("ies")) return w.slice(0, -3) + "y";
+      if (w.length > 3 && w.endsWith("es") && /[sxz]es$|[cs]hes$/.test(w)) return w.slice(0, -2);
+      if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) return w.slice(0, -1);
+      return w;
+    });
+  return base.join(" ");
+}
+
+/** Skeleton of a page for the map pass: short lines only, never full text. */
+function pageSkeleton(content: string, maxLines = 40): string[] {
+  const lines = content.split(/\n+/).map((l) => l.trim()).filter(Boolean);
+  const out: string[] = [];
+  for (const l of lines) {
+    if (l.length <= 90) out.push(l);
+    else if (out.length === 0) out.push(l.slice(0, 90) + "…");
+    if (out.length >= maxLines) break;
+  }
+  return out;
+}
+
+function loadMap(raw: unknown): DocumentMap | null {
+  if (!raw || typeof raw !== "object") return null;
+  const m = raw as DocumentMap;
+  return Array.isArray(m.units) ? m : null;
+}
+
+/** The map unit that owns a page. */
+function unitForPage(map: DocumentMap | null, page: number | null): MapUnit | null {
+  if (!map || page == null) return null;
+  return map.units.find((u) => page >= u.page_start && page <= u.page_end) ?? null;
 }
 
 // ---------------------------------------------------------------------------
@@ -480,7 +642,11 @@ async function stepPlan(
   if (Array.isArray(body.pages)) {
     pages = body.pages
       .filter((p): p is PageInput => isRecord(p) && typeof (p as PageInput).text === "string")
-      .map((p, i) => ({ page: Number.isFinite(Number(p.page)) ? Number(p.page) : i + 1, text: p.text }));
+      .map((p, i) => ({
+        page: Number.isFinite(Number(p.page)) ? Number(p.page) : i + 1,
+        text: p.text,
+        source: p.source === "image_transcription" ? "image_transcription" : "pdf_text",
+      }));
   } else if (typeof body.extractedText === "string" && body.extractedText.trim().length > 0) {
     pages = [{ page: 1, text: body.extractedText }];
   }
@@ -503,7 +669,8 @@ async function stepPlan(
   }
 
   const drafts = chunkPages(pages);
-  console.log(`[${tag}] ${pages.length} pages, ${totalWords} words -> ${drafts.length} chunks`);
+  const transcribedPages = new Set(pages.filter((p) => p.source === "image_transcription").map((p) => p.page));
+  console.log(`[${tag}] ${pages.length} pages (${transcribedPages.size} transcribed from images), ${totalWords} words -> ${drafts.length} chunks`);
 
   // An upload that already has chunks is in (or past) teacher review. Only
   // re-extract on explicit request, because it discards the teacher's marks
@@ -558,11 +725,21 @@ async function stepPlan(
     extraction_stage: "reading_pages",
     extraction_stage_at: new Date().toISOString(),
     extraction_progress: null,
+    document_map: null,
     insufficient_source_reason: null,
   });
   const { data: chunkRows, error: chunkErr } = await supabase
     .from("curriculum_source_chunks")
-    .insert(drafts.map((d, i) => ({ upload_id: uploadId, chunk_index: i, page_start: d.page_start, page_end: d.page_end, content: d.content })))
+    .insert(
+      drafts.map((d, i) => ({
+        upload_id: uploadId,
+        chunk_index: i,
+        page_start: d.page_start,
+        page_end: d.page_end,
+        content: d.content,
+        text_source: transcribedPages.has(d.page_start) ? "image_transcription" : "pdf_text",
+      })),
+    )
     .select("id, chunk_index, page_start, page_end, content");
   if (chunkErr || !chunkRows) {
     await markStatus(supabase, uploadId, { status: "extraction_failed", extraction_stage: null });
@@ -582,22 +759,24 @@ async function stepPlan(
   const { data: uploadRow } = await supabase.from("curriculum_uploads").select("extracted_text").eq("id", uploadId).maybeSingle();
   if (!uploadRow?.extracted_text) await markStatus(supabase, uploadId, { extracted_text: fullText });
 
-  const groups = planGroups(chunks);
+  // Groups are planned by the map step (units decide the boundaries).
   const progress: Progress = {
-    groups: groups.length,
-    plan: groups.map((g) => g.map((c) => c.id)),
-    pages: groups.map(groupPageLabel),
+    groups: 0,
+    plan: [],
+    pages: [],
     done: [],
     failed: [],
     current: null,
     counts: { concepts: 0, vocabulary: 0, objectives: 0 },
+    mapped: false,
+    groupUnits: [],
   };
   await saveProgress(supabase, uploadId, progress);
-  console.log(`[${tag}] planned ${groups.length} groups of ~${GROUP_CHARS} chars`);
+  console.log(`[${tag}] stored ${chunks.length} chunks; next: map`);
   return respond({
     success: true,
     step: "planned",
-    groups: groups.length,
+    groups: 0,
     progress,
     conceptsCount: 0,
     vocabularyCount: 0,
@@ -606,6 +785,143 @@ async function stepPlan(
     verifiedCount: 0,
     failedCount: 0,
   });
+}
+
+/** Step "ocr": transcribe one page image (thin / garbled PDF text). Stateless. */
+async function stepOcr(anthropic: Anthropic, body: RequestBody, tag: string): Promise<Response> {
+  const image = typeof body.image === "string" ? body.image.replace(/^data:[^;]+;base64,/, "") : "";
+  const mediaType = body.mediaType === "image/png" || body.mediaType === "image/webp" ? body.mediaType : "image/jpeg";
+  if (!image || image.length < 100) return fail(["`image` (base64) is required for step ocr."], 400);
+  if (image.length > 6_000_000) return fail(["Page image too large (max ~4.5 MB)."], 413);
+  try {
+    const message = await anthropic.messages.create({
+      model: MODEL,
+      max_tokens: 4000,
+      temperature: 0,
+      system: OCR_SYSTEM_PROMPT,
+      messages: [{
+        role: "user",
+        content: [
+          { type: "image", source: { type: "base64", media_type: mediaType, data: image } },
+          { type: "text", text: `Transcribe page ${Number(body.page) || "?"}.` },
+        ],
+      }],
+    });
+    const text = firstTextBlock(message).trim();
+    console.log(`[${tag}][ocr p${body.page}] stop=${message.stop_reason} out=${message.usage.output_tokens} chars=${text.length}`);
+    return respond({ success: true, step: "ocr", conceptsCount: 0, vocabularyCount: 0, objectivesCount: 0, chunksCount: 0, verifiedCount: 0, failedCount: 0, ...({ page: body.page, text } as Record<string, unknown>) } as ResponseBody);
+  } catch (err) {
+    return fail([`Transcription failed: ${err instanceof Error ? err.message : String(err)}`], 502);
+  }
+}
+
+/**
+ * Step "map": the document map (type, units with page ranges and role,
+ * author-flagged vocabulary), from a per-page skeleton of short lines, never
+ * full text. Then plans the groups along unit boundaries. On model failure
+ * the map records the error and groups fall back to size.
+ */
+async function stepMap(supabase: SupabaseClient, anthropic: Anthropic, uploadId: string, tag: string): Promise<Response> {
+  const progress = await loadProgress(supabase, uploadId);
+  if (!progress) return fail(["No extraction plan for this upload. Send the pages first."], 409);
+  const { data: rows, error: cErr } = await supabase
+    .from("curriculum_source_chunks")
+    .select("*")
+    .eq("upload_id", uploadId)
+    .order("chunk_index", { ascending: true });
+  if (cErr || !rows || rows.length === 0) return fail([`Could not load pages: ${cErr?.message ?? "no chunks"}`], 500);
+  const chunks = rows as SourceChunk[];
+  await markStatus(supabase, uploadId, { extraction_stage: "mapping", extraction_stage_at: new Date().toISOString() });
+
+  // Skeleton: page number, word count, short lines. Cap the total size.
+  const MAX_SKELETON_CHARS = 60_000;
+  const perPage = chunks.map((c) => ({ page: c.page_start ?? 0, words: countWords(c.content), lines: pageSkeleton(c.content) }));
+  let budget = MAX_SKELETON_CHARS;
+  const lines = perPage.map((p) => {
+    const body = p.lines.join(" | ");
+    const take = Math.max(120, Math.floor(budget / Math.max(1, perPage.length)));
+    const text = body.length > take ? body.slice(0, take) + "…" : body;
+    budget -= text.length;
+    return `p.${p.page} (${p.words} words): ${text || "(no short lines)"}`;
+  });
+  const firstPage = chunks[0].page_start ?? 1;
+  const lastPage = chunks[chunks.length - 1].page_end ?? chunks[chunks.length - 1].page_start ?? chunks.length;
+
+  let map: DocumentMap;
+  try {
+    const parsed = await groundedGenerate(anthropic, {
+      system: MAP_SYSTEM_PROMPT,
+      user: `Pages ${firstPage} to ${lastPage}.\n\nPAGE SKELETON:\n${lines.join("\n")}`,
+      maxTokens: 6000,
+      tag: `${tag}][map`,
+    });
+    const units: MapUnit[] = (Array.isArray(parsed.units) ? parsed.units.filter(isRecord) : [])
+      .map((u, i) => ({
+        key: typeof u.key === "string" && u.key ? u.key : `U${i + 1}`,
+        title: typeof u.title === "string" ? u.title.trim().slice(0, 140) : `Unit ${i + 1}`,
+        page_start: Math.max(firstPage, Math.min(lastPage, Number(u.page_start) || firstPage)),
+        page_end: Math.max(firstPage, Math.min(lastPage, Number(u.page_end) || lastPage)),
+        role: (u.role === "supplementary" ? "supplementary" : "core") as MapUnit["role"],
+        kind: typeof u.kind === "string" ? u.kind.slice(0, 80) : "",
+      }))
+      .filter((u) => u.page_end >= u.page_start)
+      .sort((a, b) => a.page_start - b.page_start);
+    // Make units consecutive and gap-free: each unit runs until the next one starts.
+    for (let i = 0; i < units.length; i++) {
+      if (i + 1 < units.length) units[i].page_end = Math.max(units[i].page_start, units[i + 1].page_start - 1);
+      else units[i].page_end = lastPage;
+      units[i].key = `U${i + 1}`;
+    }
+    if (units.length && units[0].page_start > firstPage) units[0].page_start = firstPage;
+    const sources: VocabularySource[] = (Array.isArray(parsed.vocabulary_sources) ? parsed.vocabulary_sources.filter(isRecord) : []).map((v) => {
+      const page = Number(v.page);
+      const unit = Number.isFinite(page) ? unitForPage({ units } as DocumentMap, page) : null;
+      return {
+        unit_key: unit?.key ?? (typeof v.unit_key === "string" ? v.unit_key : null),
+        page: Number.isFinite(page) ? page : null,
+        label_as_written: typeof v.label_as_written === "string" ? v.label_as_written.slice(0, 80) : "",
+        terms: Array.isArray(v.terms) ? v.terms.filter((t): t is string => typeof t === "string").map((t) => t.trim()).filter(Boolean).slice(0, 80) : [],
+      };
+    });
+    const flagged = [...new Map(sources.flatMap((v) => v.terms).map((t) => [normKey(t), t])).values()];
+    map = {
+      document_type: typeof parsed.document_type === "string" ? parsed.document_type : "other",
+      organizing_unit: typeof parsed.organizing_unit === "string" ? parsed.organizing_unit : "section",
+      units,
+      vocabulary_sources: sources,
+      flagged_terms: flagged,
+      notes: typeof parsed.notes === "string" ? parsed.notes.slice(0, 600) : "",
+      model: MODEL,
+      mapped_at: new Date().toISOString(),
+    };
+    console.log(`[${tag}][map] ${map.document_type}; ${units.length} unit(s) (${units.filter((u) => u.role === "core").length} core); ${flagged.length} flagged term(s) from ${sources.length} list(s)`);
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    console.error(`[${tag}][map] failed, falling back to size-based groups: ${detail}`);
+    map = { document_type: "other", organizing_unit: "section", units: [], vocabulary_sources: [], flagged_terms: [], notes: "", error: detail, mapped_at: new Date().toISOString() };
+  }
+
+  const { groups, units: groupUnits } = planGroupsByUnits(chunks, map.units.length ? map : null);
+  progress.groups = groups.length;
+  progress.plan = groups.map((g) => g.map((c) => c.id));
+  progress.pages = groups.map(groupPageLabel);
+  progress.groupUnits = groupUnits;
+  progress.mapped = true;
+  await markStatus(supabase, uploadId, { document_map: map, extraction_progress: progress, extraction_stage: "mapping", extraction_stage_at: new Date().toISOString() });
+  console.log(`[${tag}] planned ${groups.length} group(s) along ${map.units.length} unit(s)`);
+  return respond({
+    success: true,
+    step: "map",
+    groups: groups.length,
+    progress,
+    conceptsCount: 0,
+    vocabularyCount: 0,
+    objectivesCount: 0,
+    chunksCount: chunks.length,
+    verifiedCount: 0,
+    failedCount: 0,
+    ...({ documentMap: map } as Record<string, unknown>),
+  } as ResponseBody);
 }
 
 /** Step 2: extract + verify + persist ONE page group. Never sees other groups' pages. */
@@ -619,6 +935,7 @@ async function stepGroup(
   const started = Date.now();
   const progress = await loadProgress(supabase, uploadId);
   if (!progress) return fail(["No extraction plan for this upload. Send the pages first."], 409);
+  if (!progress.mapped || progress.groups === 0) return fail(["The document has not been mapped yet (step map)."], 409, { progress });
   if (!Number.isInteger(groupIndex) || groupIndex < 0 || groupIndex >= progress.groups) {
     return fail([`group must be between 0 and ${progress.groups - 1}.`], 400);
   }
@@ -640,6 +957,43 @@ async function stepGroup(
   const chunks = rows as SourceChunk[];
   const block = buildSourceBlock(chunks);
 
+  // Map guidance for this group: its units, their roles, the author-flagged
+  // terms that belong to them. Nothing here names a specific label; it all
+  // comes from the map the model built for THIS document.
+  const { data: uRow } = await supabase.from("curriculum_uploads").select("document_map").eq("id", uploadId).maybeSingle();
+  const map = loadMap(uRow?.document_map);
+  const pagesHere = new Set<number>();
+  for (const c of chunks) {
+    const end = c.page_end ?? c.page_start;
+    if (c.page_start != null && end != null) for (let p = c.page_start; p <= end; p++) pagesHere.add(p);
+  }
+  const unitsHere = map ? map.units.filter((u) => [...pagesHere].some((p) => p >= u.page_start && p <= u.page_end)) : [];
+  const allSupplementary = unitsHere.length > 0 && unitsHere.every((u) => u.role === "supplementary");
+  const flaggedHere = map
+    ? [...new Map(
+        map.vocabulary_sources
+          .filter((v) => (v.unit_key && unitsHere.some((u) => u.key === v.unit_key)) || (v.page != null && pagesHere.has(v.page)))
+          .flatMap((v) => v.terms)
+          .map((t) => [normKey(t), t] as [string, string]),
+      ).values()]
+    : [];
+  const guidance: string[] = [];
+  if (map && unitsHere.length) {
+    guidance.push(
+      `DOCUMENT MAP (${map.document_type}; units are ${map.organizing_unit}s). These pages belong to:\n` +
+        unitsHere.map((u) => `- ${u.key} "${u.title}" (pp. ${u.page_start}-${u.page_end}, ${u.role}${u.kind ? `: ${u.kind}` : ""})`).join("\n"),
+    );
+    if (map.notes) guidance.push(`MAP NOTES: ${map.notes}`);
+  }
+  if (allSupplementary) {
+    guidance.push(`These pages are SUPPLEMENTARY material. Extract NO vocabulary and NO learning objectives from them; concepts only if the pages themselves define one.`);
+  } else if (flaggedHere.length) {
+    guidance.push(`AUTHOR-FLAGGED TERMS for these pages (each MUST be returned as a vocabulary item, with the definition the sources give and an exact quote): ${flaggedHere.join("; ")}`);
+  } else if (map) {
+    guidance.push(`The author flagged no vocabulary for these pages. Extract only terms the core text clearly defines, with "confidence": "low".`);
+  }
+  const guidanceText = guidance.length ? guidance.join("\n\n") + "\n\n" : "";
+
   progress.current = groupIndex;
   progress.failed = progress.failed.filter((f) => f.group !== groupIndex);
   await markStatus(supabase, uploadId, { extraction_stage: "extracting", extraction_stage_at: new Date().toISOString(), extraction_progress: progress });
@@ -655,8 +1009,34 @@ async function stepGroup(
   // --- Generate for this group only ---------------------------------------
   let result: ExtractionResult;
   try {
-    const user = `This is part ${groupIndex + 1} of ${progress.groups} of the material (${pagesLabel}). Extract from these sources only.\n\n${block.text}`;
+    const user = `This is part ${groupIndex + 1} of ${progress.groups} of the material (${pagesLabel}). Extract from these sources only.\n\n${guidanceText}SOURCES:\n${block.text}`;
     result = normalizeResult(await groundedGenerate(anthropic, { system: SYSTEM_PROMPT, user, tag: gtag }));
+    if (allSupplementary) {
+      result.vocabulary = [];
+      result.learning_objectives = [];
+    }
+    // Flagged terms the model skipped: one targeted follow-up, time permitting.
+    const have = new Set(result.vocabulary.map((v) => normKey(v.term)));
+    const missing = flaggedHere.filter((t) => !have.has(normKey(t)));
+    if (missing.length && !allSupplementary && Date.now() - started < 60_000) {
+      try {
+        const follow = await groundedGenerate(anthropic, {
+          system: SYSTEM_PROMPT,
+          user: `These sources (${pagesLabel}) contain the author's flagged terms below, but they were not returned. Return ONLY a "vocabulary" array with each of these terms that the sources define (skip any the sources truly do not define), with "confidence": "high", the definition from the sources, and an exact evidence_quote. Also return "concepts": [] and "learning_objectives": [].\n\nFLAGGED TERMS STILL MISSING: ${missing.join("; ")}\n\nSOURCES:\n${block.text}`,
+          maxTokens: 6000,
+          tag: `${gtag}][flagged`,
+        });
+        const extra = normalizeResult(follow).vocabulary.filter((v) => !have.has(normKey(v.term)));
+        for (const v of extra) v.confidence = "high";
+        result.vocabulary.push(...extra);
+        console.log(`[${gtag}] flagged follow-up: ${missing.length} missing -> ${extra.length} recovered`);
+      } catch (err) {
+        console.error(`[${gtag}] flagged follow-up failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    }
+    // Confidence: flagged (by the map) = high, everything else = low.
+    const flaggedKeys = new Set(flaggedHere.map(normKey));
+    for (const v of result.vocabulary) v.confidence = flaggedKeys.has(normKey(v.term)) ? "high" : "low";
   } catch (err) {
     return recordFailure(`Model error: ${err instanceof Error ? err.message : String(err)}`);
   }
@@ -709,11 +1089,22 @@ async function stepGroup(
   }
 
   // --- Persist this group's items (failed items kept with grounding_status = 'failed')
-  const grounding = (s: Slot) => ({
-    source_chunk_ids: s.result?.chunkIds.length ? s.result.chunkIds : null,
-    evidence_quote: s.item.evidence_quote || null,
-    grounding_status: s.result?.status ?? "failed",
-  });
+  const pageOfChunk = new Map(chunks.map((c) => [c.id, c.page_start ?? null]));
+  const unitOfSlot = (s: Slot): MapUnit | null => {
+    const firstChunk = s.result?.chunkIds?.[0];
+    const page = firstChunk ? pageOfChunk.get(firstChunk) ?? null : null;
+    return unitForPage(map, page) ?? unitsHere[0] ?? null;
+  };
+  const grounding = (s: Slot) => {
+    const u = unitOfSlot(s);
+    return {
+      source_chunk_ids: s.result?.chunkIds.length ? s.result.chunkIds : null,
+      evidence_quote: s.item.evidence_quote || null,
+      grounding_status: s.result?.status ?? "failed",
+      unit_key: u?.key ?? null,
+      unit_title: u?.title ?? null,
+    };
+  };
   const errors: string[] = [];
   const conceptSlots = slots.filter((s) => s.kind === "concept");
   if (conceptSlots.length > 0) {
@@ -737,7 +1128,7 @@ async function stepGroup(
     const { error } = await supabase.from("vocabulary").insert(
       vocabSlots.map((s) => {
         const v = s.item as VocabularyItem;
-        return { upload_id: uploadId, term: v.term, definition: v.definition, context: v.context, ...grounding(s) };
+        return { upload_id: uploadId, term: v.term, definition: v.definition, context: v.context, confidence: v.confidence ?? "low", ...grounding(s) };
       }),
     );
     if (error) errors.push(`vocabulary: ${error.message}`);
@@ -778,7 +1169,15 @@ async function mergeDuplicates(supabase: SupabaseClient, uploadId: string, tag: 
   for (const c of (chunkRows ?? []) as { id: string; chunk_index: number }[]) order.set(c.id, c.chunk_index);
   const sortIds = (ids: string[]) => [...new Set(ids)].sort((a, b) => (order.get(a) ?? 0) - (order.get(b) ?? 0));
 
-  type Row = Record<string, unknown> & { id: string; source_chunk_ids: string[] | null; evidence_quote: string | null; grounding_status: string | null };
+  type Row = Record<string, unknown> & {
+    id: string;
+    source_chunk_ids: string[] | null;
+    evidence_quote: string | null;
+    grounding_status: string | null;
+    confidence?: string | null;
+    unit_key?: string | null;
+    unit_title?: string | null;
+  };
   const tables: { table: string; key: string; longest: string | null }[] = [
     { table: "concepts", key: "name", longest: "definition" },
     { table: "vocabulary", key: "term", longest: "definition" },
@@ -786,7 +1185,10 @@ async function mergeDuplicates(supabase: SupabaseClient, uploadId: string, tag: 
   ];
   let removed = 0;
   for (const t of tables) {
-    const { data } = await supabase.from(t.table).select("*").eq("upload_id", uploadId).order("created_at", { ascending: true });
+    // Ordered by id (vocabulary / learning_objectives have no created_at). A
+    // query error is surfaced, never treated as "no rows".
+    const { data, error: qErr } = await supabase.from(t.table).select("*").eq("upload_id", uploadId).order("id", { ascending: true });
+    if (qErr) throw new Error(`Merge: load ${t.table}: ${qErr.message}`);
     const rows = (data ?? []) as Row[];
     const byKey = new Map<string, Row[]>();
     for (const r of rows) {
@@ -796,27 +1198,32 @@ async function mergeDuplicates(supabase: SupabaseClient, uploadId: string, tag: 
     }
     for (const group of byKey.values()) {
       if (group.length < 2) continue;
-      const verified = group.find((r) => r.grounding_status === "verified");
+      // Keep a verified copy, preferring one with high confidence (flagged by the author).
+      const verifiedHigh = group.find((r) => r.grounding_status === "verified" && r.confidence === "high");
+      const verified = verifiedHigh ?? group.find((r) => r.grounding_status === "verified");
       const keep = verified ?? group[0];
       const patch: Record<string, unknown> = {
         source_chunk_ids: sortIds(group.flatMap((r) => r.source_chunk_ids ?? [])),
         grounding_status: verified ? "verified" : keep.grounding_status,
         evidence_quote: verified?.evidence_quote ?? keep.evidence_quote,
       };
+      if (t.table === "vocabulary" && group.some((r) => r.confidence === "high")) patch.confidence = "high";
+      const withUnit = group.find((r) => typeof r.unit_key === "string" && r.unit_key);
+      if (withUnit && !keep.unit_key) {
+        patch.unit_key = withUnit.unit_key;
+        patch.unit_title = withUnit.unit_title;
+      }
       if (t.longest) {
         const best = group.map((r) => String(r[t.longest!] ?? "")).sort((a, b) => b.length - a.length)[0];
         if (best) patch[t.longest] = best;
       }
       if (patch.source_chunk_ids && (patch.source_chunk_ids as string[]).length === 0) patch.source_chunk_ids = null;
       const { error: uErr } = await supabase.from(t.table).update(patch).eq("id", keep.id);
-      if (uErr) {
-        console.error(`[${tag}] merge update ${t.table}: ${uErr.message}`);
-        continue;
-      }
+      if (uErr) throw new Error(`Merge: update ${t.table}: ${uErr.message}`);
       const dupIds = group.filter((r) => r.id !== keep.id).map((r) => r.id);
       const { error: dErr } = await supabase.from(t.table).delete().in("id", dupIds);
-      if (dErr) console.error(`[${tag}] merge delete ${t.table}: ${dErr.message}`);
-      else removed += dupIds.length;
+      if (dErr) throw new Error(`Merge: delete ${t.table}: ${dErr.message}`);
+      removed += dupIds.length;
     }
   }
   return removed;
@@ -826,13 +1233,22 @@ async function mergeDuplicates(supabase: SupabaseClient, uploadId: string, tag: 
 async function stepFinalize(supabase: SupabaseClient, uploadId: string, tag: string): Promise<Response> {
   const progress = await loadProgress(supabase, uploadId);
   if (!progress) return fail(["No extraction plan for this upload. Send the pages first."], 409);
+  if (!progress.mapped || progress.groups === 0) return fail(["The document has not been mapped yet (step map)."], 409, { progress });
   const pending = Array.from({ length: progress.groups }, (_, i) => i).filter((i) => !progress.done.includes(i) && !progress.failed.some((f) => f.group === i));
   if (pending.length > 0) {
     return fail([`Groups ${pending.map((i) => i + 1).join(", ")} have not run yet.`], 409, { progress });
   }
   await markStatus(supabase, uploadId, { extraction_stage: "saving", extraction_stage_at: new Date().toISOString() });
 
-  const removed = await mergeDuplicates(supabase, uploadId, tag);
+  let removed = 0;
+  try {
+    removed = await mergeDuplicates(supabase, uploadId, tag);
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    console.error(`[${tag}] ${detail}`);
+    await markStatus(supabase, uploadId, { extraction_stage: null, extraction_stage_at: new Date().toISOString() });
+    return fail([`Could not merge duplicates across page groups: ${detail}`], 500, { progress });
+  }
   const [c, v, o, cv, vv, ov] = await Promise.all([
     supabase.from("concepts").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
     supabase.from("vocabulary").select("id", { count: "exact", head: true }).eq("upload_id", uploadId),
@@ -920,6 +1336,8 @@ Deno.serve(async (req: Request): Promise<Response> => {
     if (!progress) return fail(["No extraction in progress for this upload."], 404);
     return respond({ success: true, step: "status", groups: progress.groups, progress, conceptsCount: progress.counts.concepts, vocabularyCount: progress.counts.vocabulary, objectivesCount: progress.counts.objectives, chunksCount: 0, verifiedCount: 0, failedCount: 0 });
   }
+  if (body.step === "ocr") return stepOcr(anthropic, body, tag);
+  if (body.step === "map") return stepMap(supabase, anthropic, uploadId, tag);
   if (body.step === "group") return stepGroup(supabase, anthropic, uploadId, Number(body.group), tag);
   if (body.step === "finalize") return stepFinalize(supabase, uploadId, tag);
   return stepPlan(supabase, uploadId, body, tag);
