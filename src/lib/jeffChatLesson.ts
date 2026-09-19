@@ -819,11 +819,17 @@ function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: strin
   const trim = (t: string, n: number) => (t.length > n ? `${t.slice(0, n - 1).replace(/\s+\S*$/, "")}…` : t)
   const concepts = (mustCover ?? []).map((c) => trim(c, 140))
   const perMessage = concepts.length > CURRICULUM_TURNS - 2 ? Math.ceil(concepts.length / (CURRICULUM_TURNS - 2)) : 1
+  // Target length: every concept gets its own beat plus an opener and a
+  // synthesis, never fewer than 6 beats (a three-concept lesson is still a
+  // lesson, with an example and a check-in), never more than the budget.
+  const targetTurns = Math.min(CURRICULUM_TURNS, Math.max(6, concepts.length + 2))
   const budgetNote = sentCount >= CURRICULUM_TURNS - 1
     ? `You have sent ${sentCount} messages. Your NEXT message MUST be the last: teach any concept still untaught in one line each, give a one-sentence synthesis, and end with the exact signal phrase.`
     : sentCount >= CURRICULUM_TURNS - 3
       ? `You have sent ${sentCount} messages and have at most ${remaining} left. Count the REQUIRED CONCEPTS you have not taught yet and fit ALL of them into the messages left, grouping several per message if needed.`
-      : `You have sent ${sentCount} messages and may use at most ${remaining} more. Pace yourself so every REQUIRED CONCEPT is taught before you run out.`
+      : sentCount < targetTurns - 2
+        ? `You have sent ${sentCount} messages; aim for about ${targetTurns} in total (at most ${remaining} more). Do not wrap up yet: there is room to teach properly, with an example per concept.`
+        : `You have sent ${sentCount} messages and may use at most ${remaining} more. Pace yourself so every REQUIRED CONCEPT is taught before you run out.`
 
   const coverage = concepts.length
     ? `\n\nREQUIRED CONCEPTS (${concepts.length}). The mastery check is written from EVERY one of these, so each must be taught clearly before the lesson ends. Teach them in the order listed, which follows the material. ${perMessage > 1 ? `There are more concepts than messages: teach about ${perMessage} closely related concepts per message (for example, a pair of opposites or two steps of one process belong together), always naming each one.` : "One concept per message unless two are natural partners."} Never end while any is untaught:\n- ${concepts.join("\n- ")}`
@@ -837,7 +843,7 @@ function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: strin
 
   return `You are Jeff, the friendly mascot who teaches high-school students on InvestiPlay. You are teaching '${lesson.title}', a lesson built from the teacher's own material.
 
-Your job: teach the WHOLE lesson in a short back-and-forth conversation of at most ${CURRICULUM_TURNS} messages. Every REQUIRED CONCEPT below must be taught; nothing may be skipped, because the questions afterwards cover all of them.
+Your job: teach the WHOLE lesson in a short back-and-forth conversation of about ${targetTurns} messages (never more than ${CURRICULUM_TURNS}). Every REQUIRED CONCEPT below must be taught; nothing may be skipped, because the questions afterwards cover all of them. ${concepts.length <= 4 ? "With only a few concepts, go deeper on each: teach it, give one concrete example, and check the student understood before moving on. Do not end early." : ""}
 
 Rules for each message:
 - Keep it SHORT: 1 to 3 sentences, under 45 words, readable on a phone in one glance. Then stop and let the student tap a reply.

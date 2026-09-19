@@ -37,6 +37,7 @@ interface JeffContext {
 }
 interface LessonContent {
   version?: number;
+  synthesizedAt?: string;
   sections?: LessonSection[];
   jeffContext?: JeffContext;
 }
@@ -186,13 +187,34 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
     () => (sections.length ? buildScript(sections, true) : []),
     [sections],
   );
-  // EVERY extracted concept: Jeff must teach all of them (the mastery pool is
-  // written from them), grouping related ones when the list is long.
+  // EVERY extracted concept AND every approved vocabulary term: Jeff must
+  // teach all of them (the questions are written from them), grouping related
+  // ones when the list is long. Terms that are also concepts appear once.
   const mustCover = useMemo(() => {
     const jc = content?.jeffContext;
-    const c = (jc?.concepts ?? []).map((x) => (x.definition ? `${x.name}: ${x.definition}` : x.name));
-    return c.length ? c : undefined;
+    const seen = new Set<string>();
+    const out: string[] = [];
+    for (const x of jc?.concepts ?? []) {
+      const k = x.name.trim().toLowerCase();
+      if (!k || seen.has(k)) continue;
+      seen.add(k);
+      out.push(x.definition ? `${x.name}: ${x.definition}` : x.name);
+    }
+    for (const v of jc?.vocabulary ?? []) {
+      const k = v.term.trim().toLowerCase();
+      if (!k || seen.has(k)) continue;
+      seen.add(k);
+      out.push(v.definition ? `${v.term}: ${v.definition}` : v.term);
+    }
+    return out.length ? out : undefined;
   }, [content]);
+  // A rebuilt lesson keeps its row id, so the saved chat is keyed by build
+  // time too; a teacher preview always starts fresh.
+  const chatKey = useMemo(
+    () => (previewMode ? `preview-${lessonId}-${Date.now()}` : `${lessonId}:${content?.synthesizedAt ?? "v1"}`),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lessonId, content?.synthesizedAt, previewMode],
+  );
   const jeffVocabulary = useMemo(
     () => (content?.jeffContext?.vocabulary ?? []).filter((v) => v.term && v.definition),
     [content],
@@ -359,6 +381,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
       <GlossaryProvider entries={jeffVocabulary}>
         <JeffChat
           lesson={syntheticLesson}
+          chatKey={chatKey}
           script={jeffScript}
           source={jeffSource}
           mustCover={mustCover}

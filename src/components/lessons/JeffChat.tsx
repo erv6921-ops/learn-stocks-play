@@ -393,13 +393,16 @@ interface JeffChatProps {
   mustCover?: string[]
   /** Teacher-approved vocabulary for a curriculum lesson: sent to Jeff and highlighted with hover definitions. */
   vocabulary?: JeffVocab[]
+  /** Key for the saved conversation (default: lesson.id). Pass a per-build key so a rebuilt lesson starts fresh. */
+  chatKey?: string
   /** Student tapped "Take the Quiz →". */
   onQuizReady: () => void
   /** Student closed the stage (progress is saved). */
   onClose: () => void
 }
 
-export default function JeffChat({ lesson, script = [], source, mustCover, vocabulary, onQuizReady, onClose }: JeffChatProps) {
+export default function JeffChat({ lesson, script = [], source, mustCover, vocabulary, chatKey, onQuizReady, onClose }: JeffChatProps) {
+  const storageKey = chatKey ?? lesson.id
   // Deeper, longer teaching for the Gulliver Intro academic course.
   const deep = isDeepLesson(lesson)
   const curriculum = isCurriculumLesson(lesson)
@@ -408,14 +411,14 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   const expectedTurns = curriculum ? CURRICULUM_TURNS : deep ? GULLIVER_DEEP_TURNS : EXPECTED_TURNS
   // Resume a saved conversation, otherwise open with Jeff's hardcoded hook.
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
-    loadChat(lesson.id)?.messages ?? [{ role: "assistant", content: initialJeffMessage(lesson) }]
+    loadChat(storageKey)?.messages ?? [{ role: "assistant", content: initialJeffMessage(lesson) }]
   )
   const [options, setOptions] = useState<string[]>(() => {
-    const saved = loadChat(lesson.id)
+    const saved = loadChat(storageKey)
     return saved ? saved.options : initialOptions(lesson)
   })
-  const [done, setDone] = useState<boolean>(() => loadChat(lesson.id)?.done ?? false)
-  const [scriptIdx, setScriptIdx] = useState<number>(() => loadChat(lesson.id)?.scriptIdx ?? 0)
+  const [done, setDone] = useState<boolean>(() => loadChat(storageKey)?.done ?? false)
+  const [scriptIdx, setScriptIdx] = useState<number>(() => loadChat(storageKey)?.scriptIdx ?? 0)
   const [thinking, setThinking] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [skit, setSkit] = useState<Skit>(SKITS[0])
@@ -455,8 +458,8 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   // resume-recovery effect below that heals snapshots already stranded on disk.
   useEffect(() => {
     if (options.length === 0 && !done) return
-    saveChat(lesson.id, { messages, options, done, scriptIdx })
-  }, [lesson.id, messages, options, done, scriptIdx])
+    saveChat(storageKey, { messages, options, done, scriptIdx })
+  }, [storageKey, messages, options, done, scriptIdx])
 
   // What's on stage right now.
   const current = [...messages].reverse().find(m => m.role === "assistant")?.content ?? ""
