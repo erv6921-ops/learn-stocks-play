@@ -52,6 +52,8 @@ interface CurriculumUpload {
   jeffChunkCount: number | null;
   /** Chat with Jeff: when the material was last fed (null = not fed). */
   jeffIngestedAt: string | null;
+  /** 'jeff_knowledge' when Jeff wrote the pages from a description (no PDF). */
+  origin: "upload" | "jeff_knowledge";
 }
 
 interface TeacherClass {
@@ -91,6 +93,7 @@ interface RawUploadRow {
   created_at: string;
   jeff_chunk_count?: number | null;
   jeff_ingested_at?: string | null;
+  origin?: string | null;
   concepts?: { count: number }[] | null;
   vocabulary?: { count: number }[] | null;
   learning_objectives?: { count: number }[] | null;
@@ -194,6 +197,16 @@ const StatusBadge: React.FC<{ status: UploadStatus }> = ({ status }) => {
   );
 };
 
+/** Marks material Jeff wrote from a teacher's description rather than a PDF. */
+const OriginBadge: React.FC = () => (
+  <span
+    className="inline-flex items-center gap-1 rounded-full border border-violet-200 bg-violet-50 px-2 py-0.5 text-xs font-medium text-violet-700 dark:border-violet-800 dark:bg-violet-950/40 dark:text-violet-300"
+    title="Jeff wrote this material from your description"
+  >
+    <Sparkles className="h-3 w-3" /> Written by Jeff
+  </span>
+);
+
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
@@ -228,7 +241,7 @@ export const CurriculumTab: React.FC = () => {
       const { data, error: qErr } = await db
         .from("curriculum_uploads")
         .select(
-          "id, file_name, status, created_at, jeff_chunk_count, jeff_ingested_at, concepts(count), vocabulary(count), learning_objectives(count)",
+          "id, file_name, status, created_at, jeff_chunk_count, jeff_ingested_at, origin, concepts(count), vocabulary(count), learning_objectives(count)",
         )
         .eq("teacher_id", userData.user.id)
         .neq("status", "deleted")
@@ -247,6 +260,7 @@ export const CurriculumTab: React.FC = () => {
           objectivesCount: firstCount(r.learning_objectives),
           jeffChunkCount: typeof r.jeff_chunk_count === "number" ? r.jeff_chunk_count : null,
           jeffIngestedAt: r.jeff_ingested_at ?? null,
+          origin: r.origin === "jeff_knowledge" ? "jeff_knowledge" : "upload",
         }),
       );
       setUploads(rows);
@@ -546,6 +560,7 @@ export const CurriculumTab: React.FC = () => {
                         <div className="min-w-0">
                           <div className="flex min-w-0 flex-wrap items-center gap-2">
                             <p className="min-w-0 break-words text-sm font-medium text-slate-900 dark:text-slate-100">{u.file_name}</p>
+                            {u.origin === "jeff_knowledge" && <OriginBadge />}
                             <StatusBadge status={u.status} />
                           </div>
                           <p className="break-words text-xs text-slate-500">
@@ -561,6 +576,17 @@ export const CurriculumTab: React.FC = () => {
                         </Button>
                         <Button size="sm" onClick={() => navigate(`/teacher/curriculum/${encodeURIComponent(u.id)}`)} className="bg-emerald-600 text-white hover:bg-emerald-700" title="Review what was extracted, build and assign lessons">
                           <SlidersHorizontal className="mr-1.5 h-3.5 w-3.5" /> Open
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => void handleDelete(u)}
+                          disabled={deletingId === u.id}
+                          className="text-slate-400 hover:bg-red-50 hover:text-red-600"
+                          title="Remove this upload and its lessons from your materials"
+                          aria-label={`Delete ${u.file_name}`}
+                        >
+                          {deletingId === u.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
                         </Button>
                       </div>
                     </CardContent>
@@ -586,6 +612,7 @@ export const CurriculumTab: React.FC = () => {
                   <DialogTitle className="flex min-w-0 flex-wrap items-center gap-2 pr-6">
                     <FileText className="h-4 w-4 shrink-0 text-emerald-600" />
                     <span className="min-w-0 break-words">{u.file_name}</span>
+                    {u.origin === "jeff_knowledge" && <OriginBadge />}
                     <StatusBadge status={u.status} />
                   </DialogTitle>
                   <DialogDescription className="break-words">
