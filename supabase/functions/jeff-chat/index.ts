@@ -23,7 +23,10 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const MAX_SYSTEM = 6000;
+// Curriculum lessons send every extracted concept and the teacher's vocabulary
+// (with definitions) plus a source excerpt, so the prompt is larger than the
+// gamified track's. ~24k chars is about 6k tokens.
+const MAX_SYSTEM = 24000;
 const MAX_MESSAGES = 40;
 const MAX_CONTENT = 2000;
 const END_SIGNAL = "Ready to test what you learned?";

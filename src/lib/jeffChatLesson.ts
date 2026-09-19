@@ -815,7 +815,9 @@ ${NO_DASH_RULE}${material}`
 // lighting up the teacher-approved vocabulary with **markers** on first use.
 function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[], vocab?: JeffVocab[]): string {
   const remaining = Math.max(1, CURRICULUM_TURNS - sentCount)
-  const concepts = mustCover ?? []
+  // Keep the lists compact so they always fit inside the function's prompt clamp.
+  const trim = (t: string, n: number) => (t.length > n ? `${t.slice(0, n - 1).replace(/\s+\S*$/, "")}…` : t)
+  const concepts = (mustCover ?? []).map((c) => trim(c, 140))
   const perMessage = concepts.length > CURRICULUM_TURNS - 2 ? Math.ceil(concepts.length / (CURRICULUM_TURNS - 2)) : 1
   const budgetNote = sentCount >= CURRICULUM_TURNS - 1
     ? `You have sent ${sentCount} messages. Your NEXT message MUST be the last: teach any concept still untaught in one line each, give a one-sentence synthesis, and end with the exact signal phrase.`
@@ -827,10 +829,10 @@ function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: strin
     ? `\n\nREQUIRED CONCEPTS (${concepts.length}). The mastery check is written from EVERY one of these, so each must be taught clearly before the lesson ends. Teach them in the order listed, which follows the material. ${perMessage > 1 ? `There are more concepts than messages: teach about ${perMessage} closely related concepts per message (for example, a pair of opposites or two steps of one process belong together), always naming each one.` : "One concept per message unless two are natural partners."} Never end while any is untaught:\n- ${concepts.join("\n- ")}`
     : ""
   const vocabList = vocab && vocab.length
-    ? `\n\nVOCABULARY the teacher approved (use these EXACT words, and wrap each term in **double asterisks** the first time you say it so it lights up with its definition):\n- ${vocab.map((v) => `${v.term}: ${v.definition}`).join("\n- ")}`
+    ? `\n\nVOCABULARY the teacher approved (use these EXACT words, and wrap each term in **double asterisks** the first time you say it so it lights up with its definition):\n- ${vocab.slice(0, 40).map((v) => `${v.term}: ${trim(v.definition, 110)}`).join("\n- ")}`
     : ""
   const material = source
-    ? `\n\nSOURCE MATERIAL - the teacher's own pages; the concepts and questions come from here. Teach from it and never contradict it or add outside facts:\n"""\n${source.slice(0, 6000)}\n"""`
+    ? `\n\nSOURCE MATERIAL - the teacher's own pages; the concepts and questions come from here. Teach from it and never contradict it or add outside facts:\n"""\n${source.slice(0, 5000)}\n"""`
     : ""
 
   return `You are Jeff, the friendly mascot who teaches high-school students on InvestiPlay. You are teaching '${lesson.title}', a lesson built from the teacher's own material.
