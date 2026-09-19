@@ -6,7 +6,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
-import { AlertCircle, BookMarked, ChevronDown, FileText, HelpCircle, Lightbulb, ListChecks, Loader2, Map as MapIcon, RefreshCw, ShieldQuestion, SlidersHorizontal, Sparkles } from "lucide-react";
+import { AlertCircle, BookMarked, ChevronDown, FileText, HelpCircle, Info, Lightbulb, ListChecks, Loader2, Map as MapIcon, Quote, RefreshCw, ShieldQuestion, SlidersHorizontal, Sparkles } from "lucide-react";
 import { QuestionApprovalPanel, type ApprovalCounts } from "@/components/teacher/QuestionApprovalPanel";
 import { CurationItemCard } from "./CurationItemCard";
 import { CurationSection } from "./CurationSection";
@@ -90,6 +90,71 @@ const TabBadge: React.FC<{ n: number }> = ({ n }) => (
   </span>
 );
 
+/**
+ * "How this was found": the trail behind one extracted item, so the teacher
+ * can judge it. Unit and pages come from the citation, the quote is the
+ * exact source text the model copied, the status is the verifier's result,
+ * and the reason is the model's own sentence recorded at extraction time.
+ */
+const Provenance: React.FC<{
+  kind: "concept" | "term" | "objective";
+  unit: string | null;
+  pages: string | null;
+  quote: string | null | undefined;
+  status: string | null | undefined;
+  confidence?: "high" | "low" | null;
+  rationale: string | null | undefined;
+  transcribed?: boolean;
+}> = ({ kind, unit, pages, quote, status, confidence, rationale, transcribed }) => {
+  const [open, setOpen] = useState(false);
+  const statusText =
+    status === "verified"
+      ? "Verified: the quote is an exact copy of the page text and a second check confirmed it supports the item."
+      : status === "failed"
+        ? "Not verified: the quote was not found word-for-word in the pages, or it does not support the item. Not used as a guide for generation."
+        : "Not checked against the pages (extracted before verification).";
+  return (
+    <Collapsible open={open} onOpenChange={setOpen} className="mt-1">
+      <CollapsibleTrigger className="flex items-center gap-1 text-[11px] font-medium text-sky-700 hover:text-sky-800 dark:text-sky-300">
+        <Info className="h-3 w-3" /> How this was found
+        <ChevronDown className={cn("h-3 w-3 transition-transform", open && "rotate-180")} />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <dl className="mt-1.5 space-y-1 rounded-md border border-sky-100 bg-sky-50/50 p-2.5 text-[11px] text-slate-700 dark:border-sky-900 dark:bg-sky-950/20 dark:text-slate-300">
+          <div>
+            <dt className="inline font-semibold">Where: </dt>
+            <dd className="inline">
+              {unit ? `unit “${unit}”` : "no unit (not placed by the map)"}
+              {pages ? `, ${pages}` : ", no page citation"}
+              {transcribed ? " (page text transcribed from an image)" : ""}
+            </dd>
+          </div>
+          {rationale && (
+            <div>
+              <dt className="inline font-semibold">Why: </dt>
+              <dd className="inline">{rationale}</dd>
+            </div>
+          )}
+          {kind === "term" && confidence && (
+            <div>
+              <dt className="inline font-semibold">Source of the term: </dt>
+              <dd className="inline">{confidence === "high" ? "flagged by the author in a vocabulary list." : "not flagged by the author; found defined in the core text (low confidence)."}</dd>
+            </div>
+          )}
+          <div>
+            <dt className="inline font-semibold">Check: </dt>
+            <dd className="inline">{statusText}</dd>
+          </div>
+          <div className="flex items-start gap-1.5 pt-0.5">
+            <Quote className="mt-0.5 h-3 w-3 shrink-0 text-slate-400" />
+            {quote ? <span className="italic">“{quote}”</span> : <span className="italic text-slate-500">No quote was recorded.</span>}
+          </div>
+        </dl>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+};
+
 export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileName, className }) => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
@@ -130,9 +195,9 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       try {
         const [uRes, cRes, vRes, oRes, chRes, qRes, lRes, sRes] = await Promise.all([
           db.from("curriculum_uploads").select("*").eq("id", uploadId).maybeSingle(),
-          db.from("concepts").select("id, name, definition, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title").eq("upload_id", uploadId).order("created_at", { ascending: true }),
-          db.from("vocabulary").select("id, term, definition, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title, confidence").eq("upload_id", uploadId).order("id", { ascending: true }),
-          db.from("learning_objectives").select("id, objective, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title").eq("upload_id", uploadId).order("id", { ascending: true }),
+          db.from("concepts").select("id, name, definition, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title, evidence_quote, rationale").eq("upload_id", uploadId).order("created_at", { ascending: true }),
+          db.from("vocabulary").select("id, term, definition, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title, confidence, evidence_quote, rationale").eq("upload_id", uploadId).order("id", { ascending: true }),
+          db.from("learning_objectives").select("id, objective, teacher_status, grounding_status, source_chunk_ids, unit_key, unit_title, evidence_quote, rationale").eq("upload_id", uploadId).order("id", { ascending: true }),
           db.from("curriculum_source_chunks").select("id, chunk_index, page_start, page_end, content, teacher_status, sub_lesson_id, text_source").eq("upload_id", uploadId).order("chunk_index", { ascending: true }),
           db.from("generated_questions").select("id, sub_lesson_id").eq("upload_id", uploadId).eq("status", "pending"),
           db.from("lessons").select("id, name, sub_lesson_id, teacher_approved_at, content").eq("upload_id", uploadId).order("created_at", { ascending: false }),
@@ -593,12 +658,14 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       onRemoveEmphasis={() => void mark("concepts", c.id, "active")}
       onTrash={() => void mark("concepts", c.id, "trashed")}
       onRestore={() => void mark("concepts", c.id, "active")}
-    />
+    >
+      {provenanceOf(c, "concept")}
+    </CurationItemCard>
   );
   const renderVocab = (v: VocabRow) => (
     <CurationItemCard
       title={v.term}
-      description={v.confidence === "low" ? `${v.definition} (not flagged by the author; found defined in the text)` : v.definition}
+      description={v.definition}
       pageRef={pageAndUnit(v)}
       status={v.teacher_status}
       groundingFailed={failedOf(v)}
@@ -607,7 +674,9 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       onRemoveEmphasis={() => void mark("vocabulary", v.id, "active")}
       onTrash={() => void mark("vocabulary", v.id, "trashed")}
       onRestore={() => void mark("vocabulary", v.id, "active")}
-    />
+    >
+      {provenanceOf(v, "term", v.confidence ?? null)}
+    </CurationItemCard>
   );
   const renderObjective = (o: ObjectiveRow) => (
     <CurationItemCard
@@ -620,16 +689,83 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
       onRemoveEmphasis={() => void mark("learning_objectives", o.id, "active")}
       onTrash={() => void mark("learning_objectives", o.id, "trashed")}
       onRestore={() => void mark("learning_objectives", o.id, "active")}
-    />
+    >
+      {provenanceOf(o, "objective")}
+    </CurationItemCard>
   );
   const unplacedNote = "Not placed in any lesson: these could not be matched to a page, so they are never used as a guide.";
   const docMap = upload.document_map ?? null;
+  const transcribedIds = new Set(allChunks.filter((c) => c.text_source === "image_transcription").map((c) => c.id));
+  const provenanceOf = (r: CurationRow, kind: "concept" | "term" | "objective", confidence?: "high" | "low" | null) => (
+    <Provenance
+      kind={kind}
+      unit={r.unit_title ?? null}
+      pages={pageRefFor(r.source_chunk_ids, allChunks)}
+      quote={r.evidence_quote}
+      status={r.grounding_status}
+      confidence={confidence}
+      rationale={r.rationale}
+      transcribed={(r.source_chunk_ids ?? []).some((id) => transcribedIds.has(id))}
+    />
+  );
   const unitLabel = (r: { unit_title?: string | null }) => (r.unit_title ? r.unit_title : null);
   const pageAndUnit = (r: { source_chunk_ids?: string[] | null; unit_title?: string | null }) => {
     const p = pageRefFor(r.source_chunk_ids, allChunks);
     const u = unitLabel(r);
     return u ? `${p ? `${p} · ` : ""}${u}` : p;
   };
+
+  // "How this was built": the run behind everything on this page, in order.
+  const progressState = upload.extraction_progress ?? null;
+  const counts = {
+    concepts: lists.concepts.length,
+    vocab: lists.vocabulary.length,
+    objectives: lists.learning_objectives.length,
+    verified: [...lists.concepts, ...lists.vocabulary, ...lists.learning_objectives].filter((r) => r.grounding_status === "verified").length,
+    failed: [...lists.concepts, ...lists.vocabulary, ...lists.learning_objectives].filter((r) => r.grounding_status === "failed").length,
+    flaggedFound: lists.vocabulary.filter((v) => v.confidence === "high").length,
+    lowConf: lists.vocabulary.filter((v) => v.confidence === "low").length,
+    transcribed: allChunks.filter((c) => c.text_source === "image_transcription").length,
+  };
+  const buildTrail = !needsVerification && (
+    <Collapsible>
+      <CollapsibleTrigger className="flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-[11px] font-semibold text-slate-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-900">
+        <Info className="h-3.5 w-3.5 text-sky-600" /> How this was built
+        <ChevronDown className="ml-auto h-3.5 w-3.5 text-slate-400" />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <ol className="mt-1 space-y-1.5 px-2 text-[11px] text-slate-600 dark:text-slate-400">
+          <li>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">1. Pages read.</span> {allChunks.length} page{allChunks.length === 1 ? "" : "s"} of text taken from the PDF
+            {counts.transcribed ? `, ${counts.transcribed} transcribed from an image because their text was thin or garbled` : ""}. Nothing outside these pages is ever used.
+          </li>
+          <li>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">2. Document mapped.</span>{" "}
+            {docMap && !docMap.error
+              ? `Read as a ${docMap.document_type.replace(/_/g, " ")} with ${docMap.units.length} ${docMap.organizing_unit}${docMap.units.length === 1 ? "" : "s"} (${docMap.units.filter((u) => u.role === "core").length} core, ${docMap.units.filter((u) => u.role === "supplementary").length} supplementary) and ${docMap.flagged_terms.length} author-flagged term${docMap.flagged_terms.length === 1 ? "" : "s"}. See the Document map above.`
+              : docMap?.error
+                ? "The map call failed, so pages were grouped by size and no author-flagged terms were used."
+                : "No map for this upload (extracted before mapping existed)."}
+          </li>
+          <li>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">3. Extracted per group.</span>{" "}
+            {progressState?.groups
+              ? `${progressState.groups} page group${progressState.groups === 1 ? "" : "s"} following the units; each group's model call saw only its own pages`
+              : "one pass over the pages"}
+            {progressState?.failed?.length ? `; ${progressState.failed.map((f) => f.pages).join(", ")} produced nothing` : ""}.
+            {" "}Concepts are ideas the pages define or explain; terms come from the author's flagged lists first ({counts.flaggedFound} found), then from definitions in core text ({counts.lowConf}, marked low confidence); objectives only when the pages state them.
+          </li>
+          <li>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">4. Checked.</span> Every item carries an exact quote that was matched word-for-word to a page, then a second model call confirmed the quote supports it: {counts.verified} verified, {counts.failed} not verified (greyed out, never used).
+          </li>
+          <li>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">5. Merged.</span> The same item found in several groups became one entry citing all its pages (case, plurals and hyphens folded). Result: {counts.concepts} concepts, {counts.vocab} terms, {counts.objectives} objectives.
+          </li>
+          <li className="text-slate-500">Open “How this was found” under any item for its unit, pages, quote, and the reason it was extracted.</li>
+        </ol>
+      </CollapsibleContent>
+    </Collapsible>
+  );
 
   const sidebar = !needsVerification && subLessons.length > 0 && (
     <SubLessonBar
@@ -714,8 +850,9 @@ export const CurationReview: React.FC<CurationReviewProps> = ({ uploadId, fileNa
 
       <div className={cn("gap-6", sidebar && "lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:items-start")}>
         {sidebar && (
-          <aside className="mb-4 rounded-xl border border-slate-200 bg-slate-50/70 p-3 dark:border-slate-700 dark:bg-slate-900/40 lg:sticky lg:top-4 lg:mb-0">
+          <aside className="mb-4 space-y-3 rounded-xl border border-slate-200 bg-slate-50/70 p-3 dark:border-slate-700 dark:bg-slate-900/40 lg:sticky lg:top-4 lg:mb-0">
             {sidebar}
+            {buildTrail}
           </aside>
         )}
 

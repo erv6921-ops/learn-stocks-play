@@ -139,6 +139,8 @@ interface Progress {
 interface Cited {
   source_ids: string[];
   evidence_quote: string;
+  /** One sentence from the model: why this item was extracted and where it comes from. */
+  rationale?: string;
 }
 
 interface ExtractedConcept extends Cited {
@@ -201,7 +203,7 @@ const SYSTEM_PROMPT = `You are an educational content analyst for a financial li
 REQUIRED OUTPUT FORMAT (JSON only, no preamble):
 {
   "learning_objectives": [
-    { "text": "An objective stated explicitly in the sources", "source_ids": ["S1"], "evidence_quote": "exact copy of the sentence that states it" }
+    { "text": "An objective stated explicitly in the sources", "rationale": "one sentence: where in the sources it is stated and why it counts as a stated objective", "source_ids": ["S1"], "evidence_quote": "exact copy of the sentence that states it" }
   ],
   "concepts": [
     {
@@ -210,12 +212,13 @@ REQUIRED OUTPUT FORMAT (JSON only, no preamble):
       "prerequisites": ["Other extracted concept name"],
       "difficulty_level": "beginner|intermediate|advanced",
       "examples": ["Only examples that appear in the sources"],
+      "rationale": "one sentence: why this is a concept worth teaching from these pages and where it is defined (e.g. defined in the section notes; the author lists it among the unit's terms; explained over three paragraphs)",
       "source_ids": ["S2"],
       "evidence_quote": "exact copy of the source text that defines this concept"
     }
   ],
   "vocabulary": [
-    { "term": "Term", "definition": "Definition as given in the sources", "context": "How the sources use it", "confidence": "high|low", "source_ids": ["S1"], "evidence_quote": "exact copy of the defining sentence" }
+    { "term": "Term", "definition": "Definition as given in the sources", "context": "How the sources use it", "confidence": "high|low", "rationale": "one sentence: author-flagged or found defined, and where", "source_ids": ["S1"], "evidence_quote": "exact copy of the defining sentence" }
   ],
   "insufficient_source": false,
   "insufficient_source_reason": ""
@@ -223,6 +226,7 @@ REQUIRED OUTPUT FORMAT (JSON only, no preamble):
 
 CONSTRAINTS:
 - VOCABULARY: the request may list AUTHOR-FLAGGED TERMS for these pages (terms the author singled out in a list, glossary, vocabulary slide, or bold). Every flagged term that these sources define MUST come back as a vocabulary item with the definition and an exact quote; keep the author's wording of the term. Other terms may be added only when the sources clearly define them, and never from pages the request marks as supplementary (cases, exercises, test banks, answer keys, activities). Set "confidence": "high" for flagged terms and "low" for any other term.
+- "rationale" is required on every item: one plain sentence a teacher can check, saying where the item comes from in these pages and why it qualifies. Never restate the definition there.
 - Only extract a concept or term if the sources clearly define or explain it.
 - Do NOT invent learning objectives; only use ones stated explicitly in the sources. Return an empty array if there are none.
 - "prerequisites" may only name other concepts you extracted from these sources (or be empty).
@@ -315,6 +319,7 @@ function normalizeConcept(c: Record<string, unknown>): ExtractedConcept | null {
     prerequisites: asStringArray(c.prerequisites),
     difficulty_level: (VALID_DIFFICULTY.has(difficulty) ? difficulty : "beginner") as DifficultyLevel,
     examples: asStringArray(c.examples),
+    rationale: str(c.rationale).slice(0, 400),
     source_ids: asSourceIds(c.source_ids),
     evidence_quote: str(c.evidence_quote),
   };
@@ -327,6 +332,7 @@ function normalizeVocab(v: Record<string, unknown>): VocabularyItem | null {
     definition: str(v.definition),
     context: str(v.context),
     confidence: v.confidence === "high" ? "high" : "low",
+    rationale: str(v.rationale).slice(0, 400),
     source_ids: asSourceIds(v.source_ids),
     evidence_quote: str(v.evidence_quote),
   };
@@ -342,6 +348,7 @@ function normalizeObjective(o: unknown): ObjectiveItem | null {
   if (!isRecord(o)) return null;
   const item: ObjectiveItem = {
     text: str(o.text) || str(o.objective),
+    rationale: str(o.rationale).slice(0, 400),
     source_ids: asSourceIds(o.source_ids),
     evidence_quote: str(o.evidence_quote),
   };
@@ -1103,6 +1110,7 @@ async function stepGroup(
       grounding_status: s.result?.status ?? "failed",
       unit_key: u?.key ?? null,
       unit_title: u?.title ?? null,
+      rationale: s.item.rationale || null,
     };
   };
   const errors: string[] = [];
@@ -1177,6 +1185,7 @@ async function mergeDuplicates(supabase: SupabaseClient, uploadId: string, tag: 
     confidence?: string | null;
     unit_key?: string | null;
     unit_title?: string | null;
+    rationale?: string | null;
   };
   const tables: { table: string; key: string; longest: string | null }[] = [
     { table: "concepts", key: "name", longest: "definition" },
@@ -1213,6 +1222,8 @@ async function mergeDuplicates(supabase: SupabaseClient, uploadId: string, tag: 
         patch.unit_key = withUnit.unit_key;
         patch.unit_title = withUnit.unit_title;
       }
+      const withRationale = group.find((r) => typeof r.rationale === "string" && r.rationale);
+      if (withRationale && !keep.rationale) patch.rationale = withRationale.rationale;
       if (t.longest) {
         const best = group.map((r) => String(r[t.longest!] ?? "")).sort((a, b) => b.length - a.length)[0];
         if (best) patch[t.longest] = best;

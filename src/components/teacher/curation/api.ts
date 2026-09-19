@@ -24,6 +24,9 @@ export interface CurationRow {
   /** Map unit that owns the chunk the item was cited from (sql/2026-09-19_document_map.sql). */
   unit_key?: string | null;
   unit_title?: string | null;
+  /** The model's one-sentence reason for extracting this item (sql/2026-09-19_item_rationale.sql). */
+  rationale?: string | null;
+  evidence_quote?: string | null;
 }
 
 export interface ConceptRow extends CurationRow {
@@ -444,6 +447,10 @@ export interface UploadRow {
   extraction_progress?: ExtractionProgressState | null;
   /** Teacher's description of the chapter structure, used by the split proposal. */
   split_instructions?: string | null;
+  /** 'upload' (a PDF) or 'jeff_knowledge' (author-lesson-material wrote the pages). */
+  origin?: "upload" | "jeff_knowledge" | null;
+  /** The teacher's lesson description (jeff_knowledge uploads only). */
+  topic_prompt?: string | null;
   /** Document map built before extraction (type, units, flagged vocabulary). */
   document_map?: DocumentMap | null;
 }
@@ -583,6 +590,20 @@ export interface SynthesizeResponse {
   failedCount?: number;
   coverage?: CoverageEntry[];
   insufficientSourceReason?: string;
+  errors?: string[];
+}
+
+/** author-lesson-material: Jeff wrote the source pages from a teacher's description. */
+export interface AuthorMaterialResponse {
+  success: boolean;
+  uploadId?: string;
+  subLessonId?: string;
+  title?: string;
+  summary?: string;
+  pagesCount?: number;
+  conceptsCount?: number;
+  vocabularyCount?: number;
+  objectivesCount?: number;
   errors?: string[];
 }
 
