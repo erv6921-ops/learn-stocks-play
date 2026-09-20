@@ -67,6 +67,8 @@ const AssignLessonPage: React.FC = () => {
   const [approvedCount, setApprovedCount] = useState<number>(0);
   const [lesson, setLesson] = useState<V2Lesson | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  /** Classes this lesson is already assigned to: shown, but cannot be assigned again. */
+  const [alreadyAssigned, setAlreadyAssigned] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [assigning, setAssigning] = useState(false);
@@ -109,6 +111,20 @@ const AssignLessonPage: React.FC = () => {
       // teacher's marks and approved questions. v1 rows are ignored here.
       const rows = (lessonsRes.data as LessonRowRaw[] | null) ?? [];
       const v2 = (lessonIdParam ? rows.find((r) => r.id === lessonIdParam && r.content?.version === 2) : null) ?? rows.find((r) => r.content?.version === 2) ?? null;
+      // A lesson can go to a class only once: load where it already is.
+      if (v2) {
+        const [a1, a2] = await Promise.all([
+          db.from("assigned_lessons").select("class_id").eq("lesson_id", v2.id),
+          db.from("class_lesson_assignments").select("class_id").eq("lesson_id", v2.id),
+        ]);
+        const done = new Set<string>();
+        for (const r of ((a1.data as { class_id: string }[] | null) ?? [])) done.add(r.class_id);
+        for (const r of ((a2.data as { class_id: string }[] | null) ?? [])) done.add(r.class_id);
+        setAlreadyAssigned(done);
+        setSelected((prev) => new Set([...prev].filter((id) => !done.has(id))));
+      } else {
+        setAlreadyAssigned(new Set());
+      }
       // Question counts are this lesson's sub-lesson only.
       const allQs = (questionsRes.data as { sub_lesson_id?: string | null; teacher_approved_at: string | null }[] | null) ?? [];
       const qs = v2?.sub_lesson_id ? allQs.filter((q) => q.sub_lesson_id === v2.sub_lesson_id) : allQs.filter((q) => !q.sub_lesson_id);
@@ -139,13 +155,15 @@ const AssignLessonPage: React.FC = () => {
     void fetchData();
   }, [fetchData]);
 
-  const toggle = (id: string) =>
+  const toggle = (id: string) => {
+    if (alreadyAssigned.has(id)) return;
     setSelected((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
       return next;
     });
+  };
 
   const handleAssign = useCallback(async () => {
     if (!uploadId) {
@@ -160,10 +178,17 @@ const AssignLessonPage: React.FC = () => {
       });
       return;
     }
-    if (selected.size === 0) {
-      toast({ title: "Pick at least one class", description: "Select where to assign this lesson.", variant: "destructive" });
+    // Never assign the same lesson to the same class twice.
+    const targets = Array.from(selected).filter((id) => !alreadyAssigned.has(id));
+    if (targets.length === 0) {
+      toast({
+        title: selected.size > 0 ? "Already assigned" : "Pick at least one class",
+        description: selected.size > 0 ? "This lesson is already assigned to every class you selected." : "Select where to assign this lesson.",
+        variant: "destructive",
+      });
       return;
     }
+    if (assigning) return;
 
     setAssigning(true);
     try {
@@ -172,15 +197,17 @@ const AssignLessonPage: React.FC = () => {
       const lessonId = lesson.id;
 
       // 1. Publish the existing, approved v2 lesson (no synthesis here), then
-      //    create one assignment row per selected class.
+      //    create one assignment row per class not yet assigned. The unique
+      //    index (lesson_id, class_id) rejects any duplicate that slips past
+      //    the check above (23505), which is treated as "already there".
       const { error: pErr } = await db.from("lessons").update({ status: "published" }).eq("id", lessonId);
       if (pErr) throw new Error(pErr.message);
-      const assignmentRows = Array.from(selected).map((classId) => ({
+      const assignmentRows = targets.map((classId) => ({
         lesson_id: lessonId,
         class_id: classId,
       }));
       const { error: aErr } = await db.from("class_lesson_assignments").insert(assignmentRows);
-      if (aErr) throw new Error(aErr.message);
+      if (aErr && aErr.code !== "23505") throw new Error(aErr.message);
 
       // 2. ALSO write to the regular `assigned_lessons` table so generated
       //    lessons flow through the SAME plumbing as hand-built lessons:
@@ -188,7 +215,7 @@ const AssignLessonPage: React.FC = () => {
       //    new-assignment popup all read assigned_lessons + lesson_progress.
       //    (lesson_id is text here; the generated lesson's UUID is stored as-is
       //    and resolved via src/lib/generatedLessons.ts.) Non-fatal.
-      const assignedRows = Array.from(selected).map((classId) => ({
+      const assignedRows = targets.map((classId) => ({
         class_id: classId,
         lesson_id: lessonId,
         assigned_by: userData.user.id,
@@ -196,7 +223,9 @@ const AssignLessonPage: React.FC = () => {
         due_date: dueDate || null,
       }));
       const { error: alErr } = await db.from("assigned_lessons").insert(assignedRows);
-      if (alErr) console.warn("assigned_lessons insert failed (non-fatal):", alErr.message);
+      if (alErr && alErr.code !== "23505") console.warn("assigned_lessons insert failed (non-fatal):", alErr.message);
+      setAlreadyAssigned((prev) => new Set([...prev, ...targets]));
+      setSelected(new Set());
 
       // 3. Link ONLY this lesson's own sub-lesson's pending questions to it.
       //    A question must never be relabelled to another sub-lesson's lesson;
@@ -235,7 +264,7 @@ const AssignLessonPage: React.FC = () => {
     } finally {
       setAssigning(false);
     }
-  }, [uploadId, lesson, lessonName, selected, questionCount, dueDate, navigate, toast]);
+  }, [uploadId, lesson, lessonName, selected, alreadyAssigned, assigning, questionCount, dueDate, navigate, toast]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 px-4 py-10 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 sm:px-6 lg:px-8">
@@ -351,24 +380,36 @@ const AssignLessonPage: React.FC = () => {
               {!loading && !error && classes.length > 0 && (
                 <div className="mt-3 space-y-2">
                   {classes.map((c) => {
-                    const checked = selected.has(c.id);
+                    const done = alreadyAssigned.has(c.id);
+                    const checked = done || selected.has(c.id);
                     return (
                       <label
                         key={c.id}
                         className={cn(
-                          "flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors",
-                          checked
-                            ? "border-emerald-300 bg-emerald-50 dark:border-emerald-700 dark:bg-emerald-950/40"
-                            : "border-slate-200 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800/60",
+                          "flex items-start gap-3 rounded-lg border p-3 transition-colors",
+                          done
+                            ? "cursor-not-allowed border-slate-200 bg-slate-50 opacity-70 dark:border-slate-700 dark:bg-slate-900/40"
+                            : checked
+                              ? "cursor-pointer border-emerald-300 bg-emerald-50 dark:border-emerald-700 dark:bg-emerald-950/40"
+                              : "cursor-pointer border-slate-200 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800/60",
                         )}
+                        title={done ? "This lesson is already assigned to this class" : undefined}
                       >
                         <Checkbox
                           checked={checked}
+                          disabled={done}
                           onCheckedChange={() => toggle(c.id)}
                           className="mt-0.5"
                         />
                         <div className="min-w-0">
-                          <p className="text-sm font-medium text-slate-800 dark:text-slate-100">{c.name}</p>
+                          <p className="flex flex-wrap items-center gap-2 text-sm font-medium text-slate-800 dark:text-slate-100">
+                            {c.name}
+                            {done && (
+                              <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
+                                <CheckCircle2 className="h-3 w-3" /> Already assigned
+                              </span>
+                            )}
+                          </p>
                           {c.description && (
                             <p className="truncate text-xs text-slate-500 dark:text-slate-400">{c.description}</p>
                           )}
@@ -381,11 +422,14 @@ const AssignLessonPage: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-between border-t border-slate-100 pt-4 dark:border-slate-800">
-              <span className="text-xs text-slate-400">{selected.size} selected</span>
+              <span className="text-xs text-slate-400">
+                {selected.size} selected
+                {alreadyAssigned.size > 0 ? ` · already in ${alreadyAssigned.size} class${alreadyAssigned.size === 1 ? "" : "es"}` : ""}
+              </span>
               <Button
                 onClick={() => void handleAssign()}
                 disabled={assigning || loading || !lessonReady || selected.size === 0}
-                title={!lessonReady ? "Build and approve Jeff's lesson first" : undefined}
+                title={!lessonReady ? "Build and approve Jeff's lesson first" : selected.size === 0 ? "Select a class this lesson is not in yet" : undefined}
                 className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
               >
                 {assigning ? (
