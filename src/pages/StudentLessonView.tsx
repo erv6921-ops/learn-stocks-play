@@ -129,8 +129,10 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
         setLessonName(data?.name ?? "Lesson");
         const c = (data?.content ?? null) as LessonContent | null;
         setContent(c);
-        // Preview skips Jeff's chat intro; students get it when content exists.
-        setPhase(c?.sections?.length && !previewMode ? "intro" : "sections"); // no content → mastery-only fallback
+        // Jeff's conversation opens the lesson whenever there is content, for
+        // students AND for the teacher's preview (the teacher does the lesson
+        // exactly as a student does; nothing is saved in preview).
+        setPhase(c?.sections?.length ? "intro" : "sections"); // no content → mastery-only fallback
       } catch (err) {
         if (cancelled) return;
         console.error("Load lesson failed:", err);
@@ -379,6 +381,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
   if (phase === "intro") {
     return (
       <GlossaryProvider entries={jeffVocabulary}>
+        {previewMode && <TeacherPreviewBanner onExit={onExit} />}
         <JeffChat
           lesson={syntheticLesson}
           chatKey={chatKey}
@@ -387,7 +390,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
           mustCover={mustCover}
           vocabulary={jeffVocabulary}
           onQuizReady={() => setPhase("sections")}
-          onClose={() => navigate("/dashboard")}
+          onClose={exit}
         />
       </GlossaryProvider>
     );
