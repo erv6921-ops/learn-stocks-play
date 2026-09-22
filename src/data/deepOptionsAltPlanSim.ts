@@ -48,6 +48,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options1-mc1",
+            concept: "Calls vs Puts",
             question: "What does a call option give you the right to do?",
             options: [
               "Sell shares at a fixed strike price",
@@ -60,6 +61,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options1-mc2",
+            concept: "Calls vs Puts",
             question: "For an option buyer, what is the maximum possible loss?",
             options: [
               "The full value of 100 shares of stock",
@@ -87,6 +89,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options1-aq1",
+          concept: "Calls vs Puts",
           question: "Devon buys the $50 call for a $2 premium. At expiration the stock is $53. Roughly what happened?",
           options: [
             "He lost the full $200 he paid",
@@ -114,6 +117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options1-mastery1",
+            concept: "Calls vs Puts",
             question: "Which statement best describes the difference between a call and a put?",
             options: [
               "A call bets the price rises; a put bets it falls",
@@ -122,10 +126,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A call pays dividends and a put does not, plus voting rights"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A call is the right to buy (a bet on a rise); a put is the right to sell (a bet on a fall). Both expire, both carry risk, and neither pays dividends."
           },
           {
             id: "options1-mastery2",
+            concept: "Calls vs Puts",
             question: "A premium is quoted as $4. What does one contract actually cost?",
             options: [
               "Exactly $4 total",
@@ -134,10 +140,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "$4,000 total"
             ],
             correctAnswer: 2,
+            difficulty: -1.5,
             explanation: "Premiums are quoted per share and one contract covers 100 shares, so a $4 premium costs $4 x 100 = $400."
           },
           {
             id: "options1-mastery3",
+            concept: "Calls vs Puts",
             question: "Why are beginners usually told to buy options rather than sell them?",
             options: [
               "Buyers earn guaranteed profits each and every single time",
@@ -146,10 +154,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Selling options is completely illegal without a license"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A buyer can lose only the premium, while a seller can face very large losses if the stock moves against them. Selling isn't illegal and buyers aren't guaranteed profit."
           },
           {
             id: "options1-mastery4",
+            concept: "Calls vs Puts",
             question: "The person who sells (writes) an option is hoping that…",
             options: [
               "The stock moves as fast as it possibly can upward",
@@ -158,10 +168,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The strike price rises sharply overnight past a key resistance line"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Sellers profit most when the option expires worthless, letting them keep the premium free and clear. They generally do not want the buyer to win by exercising."
           },
           {
             id: "options1-mastery5",
+            concept: "Calls vs Puts",
             question: "How is owning an option different from owning a share of stock?",
             options: [
               "An option makes you a part-owner of the company",
@@ -170,10 +182,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "An option always pays a dividend each quarter"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A share is ownership in the business; an option is a contract - a time-limited right to trade at a set price. Options expire and pay no dividends."
           },
           {
             id: "options1-mastery6",
+            concept: "Calls vs Puts",
             question: "A trader buys a put and the stock rises sharply. What most likely happens?",
             options: [
               "The put suddenly gains a whole lot of value",
@@ -182,6 +196,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The premium is automatically refunded in full within days"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A put profits when the stock falls, so a rising stock makes it lose value and it can expire worthless. There's no refund, and the buyer is never forced to trade."
           }
         ]
@@ -233,6 +248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options2-mc1",
+            concept: "Strike Price",
             question: "A $40 call on a stock trading at $46 is described as…",
             options: [
               "Out of the money",
@@ -245,6 +261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options2-mc2",
+            concept: "Strike Price",
             question: "You buy a $50 call for a $3 premium. What is your breakeven price?",
             options: [
               "$47 per share",
@@ -272,6 +289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options2-aq1",
+          concept: "Strike Price",
           question: "Given Priya expects the stock to reach about $106, which strike is the smarter choice and why?",
           options: [
             "The $110 call, because it costs a bit less upfront today",
@@ -299,6 +317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options2-mastery1",
+            concept: "Strike Price",
             question: "What does the strike price of an option represent?",
             options: [
               "The premium you pay to open the trade",
@@ -307,10 +326,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The flat fee the broker charges you per contract traded"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The strike is the set price at which the option lets you buy (call) or sell (put) the shares, regardless of where the market moves."
           },
           {
             id: "options2-mastery2",
+            concept: "Strike Price",
             question: "A $30 put on a stock trading at $25 is…",
             options: [
               "Out of the money with no value",
@@ -319,10 +340,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Impossible to own or trade on any exchange"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A put is in the money when its strike is above the stock price. Selling at $30 while the market is $25 gives $5 of intrinsic value."
           },
           {
             id: "options2-mastery3",
+            concept: "Strike Price",
             question: "What is intrinsic value?",
             options: [
               "The built-in profit of exercising right now",
@@ -331,10 +354,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The broker's commission on the trade"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Intrinsic value is the real, built-in worth of exercising immediately - the gap between strike and stock price. Out-of-the-money options have zero intrinsic value."
           },
           {
             id: "options2-mastery4",
+            concept: "Strike Price",
             question: "Why do far out-of-the-money options usually expire worthless?",
             options: [
               "Brokers quietly cancel most of them before expiration day",
@@ -343,10 +368,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They pay small dividends instead of price gains"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "They only pay off if the stock makes a large move past the strike, which is unlikely, so most simply expire worthless. That's why their low price is misleading."
           },
           {
             id: "options2-mastery5",
+            concept: "Strike Price",
             question: "A $70 call bought for a $4 premium breaks even at what price?",
             options: [
               "$66 per share",
@@ -355,10 +382,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "$78 per share"
             ],
             correctAnswer: 2,
+            difficulty: 1.5,
             explanation: "Call breakeven is strike plus premium: $70 + $4 = $74. The stock must climb above $74 before the trade turns a real profit."
           },
           {
             id: "options2-mastery6",
+            concept: "Strike Price",
             question: "An in-the-money call costs more than an out-of-the-money call because it…",
             options: [
               "Has a longer time until expiration",
@@ -367,6 +396,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Comes with a free share of the stock"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "An in-the-money call already has intrinsic value baked in, so you pay for that real worth. It isn't guaranteed to profit and doesn't include a free share."
           }
         ]
@@ -418,6 +448,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options3-mc1",
+            concept: "Expiration",
             question: "Why are options called 'wasting assets'?",
             options: [
               "Their strike price keeps falling daily",
@@ -430,6 +461,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options3-mc2",
+            concept: "Expiration",
             question: "When does time decay hurt an option's value the most?",
             options: [
               "Right after the option is first purchased",
@@ -457,6 +489,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options3-aq1",
+          concept: "Expiration",
           question: "Why is Marcus's call worth less than he paid even though the stock rose $1?",
           options: [
             "The contract's strike price silently increased on him overnight",
@@ -484,6 +517,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options3-mastery1",
+            concept: "Expiration",
             question: "What is time value (extrinsic value) in an option's price?",
             options: [
               "The flat broker's fee charged for simply holding it",
@@ -492,10 +526,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The dividend the stock will pay soon"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Time value is the part of the premium reflecting the chance the stock moves before expiration. It shrinks as the deadline nears through time decay."
           },
           {
             id: "options3-mastery2",
+            concept: "Expiration",
             question: "A short-dated option is cheaper than a long-dated one mainly because it…",
             options: [
               "Has less time for the stock to move",
@@ -504,10 +540,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Cannot lose more than one single dollar total"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Less time means less chance for the stock to move your way, so you pay less. Long-dated options cost more because you're buying more time for the bet to work."
           },
           {
             id: "options3-mastery3",
+            concept: "Expiration",
             question: "When an option buyer exercises a call, the seller is…",
             options: [
               "Refunded the entire original premium plus interest",
@@ -516,10 +554,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Given a bonus from the exchange"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Exercising a call assigns the seller, who must sell 100 shares at the strike. This is a core risk of selling calls when the stock has climbed."
           },
           {
             id: "options3-mastery4",
+            concept: "Expiration",
             question: "Why do most traders sell an option rather than exercise it?",
             options: [
               "Exercising is strictly against the main exchange rules",
@@ -528,10 +568,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Selling instantly doubles the premium they collected"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Selling the option locks in the gain without needing thousands of dollars to buy the shares. Exercising is legal but ties up far more capital."
           },
           {
             id: "options3-mastery5",
+            concept: "Expiration",
             question: "Holding a losing out-of-the-money option into its final days is risky because…",
             options: [
               "The strike price suddenly resets all the way to zero",
@@ -540,10 +582,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The option converts into a stock"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Time decay accelerates near expiration, so an out-of-the-money option can lose value rapidly, often falling toward zero even on a quiet day."
           },
           {
             id: "options3-mastery6",
+            concept: "Expiration",
             question: "A disciplined way to handle a winning option near expiration is to…",
             options: [
               "Hold it and hope for an even bigger move",
@@ -552,6 +596,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Buy more of the same option"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Selling a winner before expiration banks the profit before time decay or a reversal can erase it. Holding on and hoping exposes the gain to the accelerating clock."
           }
         ]
@@ -603,6 +648,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options4-mc1",
+            concept: "Hedging",
             question: "What is the main purpose of a protective put?",
             options: [
               "To earn extra monthly income from shares you own",
@@ -615,6 +661,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options4-mc2",
+            concept: "Hedging",
             question: "What is the trade-off of selling a covered call?",
             options: [
               "You risk unlimited losses on the stock",
@@ -642,6 +689,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options4-aq1",
+          concept: "Hedging",
           question: "Earnings disappoint and Ana's stock falls to $60. How did the $75 protective put help her?",
           options: [
             "It let her sell near $75 instead of $60",
@@ -669,6 +717,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options4-mastery1",
+            concept: "Hedging",
             question: "Hedging with options is most like…",
             options: [
               "Buying a lottery ticket for fun",
@@ -677,10 +726,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Lending your shares to another trader"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Hedging pays a small premium to guard against a large loss, just like insurance. The goal is protection, not a quick speculative profit."
           },
           {
             id: "options4-mastery2",
+            concept: "Hedging",
             question: "You own 100 shares at $80 and buy a $75 put. If the stock falls to $60, your put lets you…",
             options: [
               "Buy 100 more shares at $60",
@@ -689,10 +740,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Force the seller to raise the price"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The put gives the right to sell at the $75 strike, so your downside is capped near there instead of the $60 market price. The premium was the cost of that safety."
           },
           {
             id: "options4-mastery3",
+            concept: "Hedging",
             question: "In a covered call, why is the call 'covered'?",
             options: [
               "Because you already own the shares",
@@ -701,10 +754,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Because the premium is always refunded"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "It's covered because you own the 100 shares you might have to deliver, removing the dangerous unlimited-loss risk of selling a naked call."
           },
           {
             id: "options4-mastery4",
+            concept: "Hedging",
             question: "A covered call seller's stock jumps far above the strike. What happens?",
             options: [
               "They get to keep all of the extra gains",
@@ -713,10 +768,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The premium they earned is refunded"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Assignment forces them to sell at the strike, so they miss the gains above it. They still profit and keep the premium, but their upside is capped."
           },
           {
             id: "options4-mastery5",
+            concept: "Hedging",
             question: "What is the core trade-off in every hedging strategy?",
             options: [
               "You must always end up losing money overall somehow",
@@ -725,10 +782,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "You double your risk to earn more"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Hedging always costs something - a premium paid or upside surrendered. You trade a known cost for protection; risk is never removed for free."
           },
           {
             id: "options4-mastery6",
+            concept: "Hedging",
             question: "If Ana's hedged stock rises after she buys a protective put, she…",
             options: [
               "Loses only the premium she paid",
@@ -737,6 +796,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Is forced to buy another put"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A protective put buyer's worst case when the stock rises is losing the premium, while still enjoying the stock's gains. The put simply expires unused."
           }
         ]
@@ -788,6 +848,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options5-mc1",
+            concept: "Risk",
             question: "Why is buying an option considered a high-risk trade?",
             options: [
               "The full premium is refunded to you if it expires",
@@ -800,6 +861,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options5-mc2",
+            concept: "Risk",
             question: "Which options trade carries theoretically unlimited loss?",
             options: [
               "Buying a call option",
@@ -827,6 +889,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options5-aq1",
+          concept: "Risk",
           question: "Why is Leo's original $600 plan far riskier than his revised $30 bet?",
           options: [
             "The $600 bet has a lower strike price",
@@ -854,6 +917,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options5-mastery1",
+            concept: "Risk",
             question: "What makes options riskier than simply owning a stock?",
             options: [
               "Leverage and a deadline can erase them fast",
@@ -862,10 +926,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Stocks carry no risk of any loss"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Leverage magnifies losses and expiration means options can go to zero, unlike a stock that can wait out a slump. That combination makes them advanced tools."
           },
           {
             id: "options5-mastery2",
+            concept: "Risk",
             question: "A trader buys a call and the stock barely moves until expiration. Likely result?",
             options: [
               "The call is fully refunded back to you",
@@ -874,10 +940,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The strike price is reset higher"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "With little movement, time decay erodes the option and it often expires near worthless. There's no refund, and the buyer is never forced to buy shares."
           },
           {
             id: "options5-mastery3",
+            concept: "Risk",
             question: "A common position-sizing guideline for a speculative option is to risk…",
             options: [
               "Your entire account balance on one single trade",
@@ -886,10 +954,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Whatever amount the broker happens to suggest"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Risking just 1-2% per speculative trade keeps a single loss survivable. Betting large chunks on one contract is how accounts get wiped out quickly."
           },
           {
             id: "options5-mastery4",
+            concept: "Risk",
             question: "Why should you set an exit plan before entering an option trade?",
             options: [
               "Brokers require a plan by law",
@@ -898,10 +968,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Plans stop the option from expiring"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Options move fast, so fear and hope hijack decisions unless you decide your stop-loss and target ahead of time. A plan turns a gamble into a controlled bet."
           },
           {
             id: "options5-mastery5",
+            concept: "Risk",
             question: "Order these from least to most dangerous for a beginner.",
             options: [
               "Naked selling, covered selling, buying",
@@ -910,10 +982,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Buying, naked selling, covered selling"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Buying caps loss at the premium, covered selling is moderate, and naked selling risks unlimited loss. Beginners should climb that ladder slowly, if at all."
           },
           {
             id: "options5-mastery6",
+            concept: "Risk",
             question: "The main lesson of options risk management is that traders should…",
             options: [
               "Predict the market to avoid all loss",
@@ -922,6 +996,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Completely ignore the expiration date when buying options"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Skilled traders control size and set rules so every trade has a known worst case. Success comes from discipline, not from trying to predict the market perfectly."
           }
         ]
@@ -973,6 +1048,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt1-mc1",
+            concept: "Real Estate",
             question: "How does a mortgage create leverage in real estate?",
             options: [
               "It completely removes every last bit of risk from the purchase",
@@ -985,6 +1061,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt1-mc2",
+            concept: "Real Estate",
             question: "What is a major drawback of real estate compared with stocks?",
             options: [
               "It can literally never rise in value at all",
@@ -1012,6 +1089,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt1-aq1",
+          concept: "Real Estate",
           question: "Why is Maya's real profit far below the $24,000 headline rent figure?",
           options: [
             "Any rent income is completely illegal for you to keep",
@@ -1039,6 +1117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt1-mastery1",
+            concept: "Real Estate",
             question: "What two ways can a rental property build wealth at once?",
             options: [
               "Dividends and stock splits",
@@ -1047,10 +1126,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Tax refunds and coupons"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A rental pays monthly rent as cash flow while the property itself can appreciate over years. That dual income plus growth is real estate's core appeal."
           },
           {
             id: "alt1-mastery2",
+            concept: "Real Estate",
             question: "You put $60,000 down on a $300,000 home that rises 10% to $330,000. Your return on cash is…",
             options: [
               "About 10 percent",
@@ -1059,10 +1140,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "About 5 percent"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The $30,000 gain on your $60,000 down payment is roughly a 50% return on your cash - that's leverage amplifying the property's 10% rise."
           },
           {
             id: "alt1-mastery3",
+            concept: "Real Estate",
             question: "Why does leverage make real estate riskier, not just more rewarding?",
             options: [
               "It cancels the whole mortgage balance automatically",
@@ -1071,10 +1154,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It stops tenants from paying rent"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Leverage amplifies losses just as it amplifies gains, and you still owe the full mortgage even if the property's value drops. That's the double edge of borrowing."
           },
           {
             id: "alt1-mastery4",
+            concept: "Real Estate",
             question: "Roughly how much can annual maintenance cost on a property?",
             options: [
               "Nothing at all, because upkeep is always free",
@@ -1083,10 +1168,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Just a flat fifty dollars per year"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A common rule of thumb is 1-2% of a home's value each year for maintenance, so a $300,000 home might cost $3,000-$6,000 annually just to maintain."
           },
           {
             id: "alt1-mastery5",
+            concept: "Real Estate",
             question: "A tenant stops paying and the unit sits empty for months. What happens?",
             options: [
               "The mortgage is paused for free",
@@ -1095,10 +1182,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The rent is automatically refunded to tenants"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Vacancies and non-paying tenants don't pause your debt - you cover the mortgage out of pocket. That's a key risk of putting too much into one property."
           },
           {
             id: "alt1-mastery6",
+            concept: "Real Estate",
             question: "Hiring a property manager typically costs about…",
             options: [
               "A full 50 percent of the monthly rent",
@@ -1107,6 +1196,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The entire full monthly rent amount collected"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Property managers usually charge around 8-10% of the rent to handle tenants and repairs, trading some profit for your time and reduced hassle."
           }
         ]
@@ -1158,6 +1248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt2-mc1",
+            concept: "REITs",
             question: "What must a REIT do with most of its taxable income?",
             options: [
               "Reinvest every bit of it into brand new buildings",
@@ -1170,6 +1261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt2-mc2",
+            concept: "REITs",
             question: "Compared with owning a physical rental, a REIT is…",
             options: [
               "Much harder to actually buy and then sell later",
@@ -1197,6 +1289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt2-aq1",
+          concept: "REITs",
           question: "Why does Sam plan to hold his REIT inside an IRA rather than a regular account?",
           options: [
             "REITs are strictly illegal to hold outside of any IRA",
@@ -1224,6 +1317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt2-mastery1",
+            concept: "REITs",
             question: "What is a REIT?",
             options: [
               "A special federal tax charged on every real estate sale",
@@ -1232,10 +1326,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A specific type of adjustable home mortgage loan product"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A REIT is a real estate investment trust - a company that owns income-producing property and lets you invest by buying its shares, like a stock."
           },
           {
             id: "alt2-mastery2",
+            concept: "REITs",
             question: "Why are REITs known for high dividend yields?",
             options: [
               "They pay out 90%+ of income by law",
@@ -1244,10 +1340,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They are fully guaranteed by the federal government"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The legal requirement to distribute at least 90% of taxable income means REITs hand most of their earnings to shareholders, producing high yields."
           },
           {
             id: "alt2-mastery3",
+            concept: "REITs",
             question: "How does an equity REIT differ from a mortgage REIT?",
             options: [
               "Equity REITs own buildings; mortgage REITs lend",
@@ -1256,10 +1354,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Mortgage REITs own malls; equity REITs don't"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Equity REITs own and rent out physical property, while mortgage REITs lend money for real estate and earn interest, making them more rate-sensitive."
           },
           {
             id: "alt2-mastery4",
+            concept: "REITs",
             question: "Why can a healthy REIT's price still drop sharply?",
             options: [
               "Its buildings suddenly physically vanish overnight",
@@ -1268,10 +1368,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Paid dividends always make share prices fall"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because REITs trade like stocks, market panic can push their prices down even when their buildings are fully rented - you inherit stock-market swings."
           },
           {
             id: "alt2-mastery5",
+            concept: "REITs",
             question: "What usually happens to REIT prices when interest rates rise?",
             options: [
               "They tend to fall",
@@ -1280,10 +1382,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They convert into bonds"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Higher rates raise REIT borrowing costs and make their dividends less attractive versus new higher-yield bonds, so REIT prices often decline."
           },
           {
             id: "alt2-mastery6",
+            concept: "REITs",
             question: "Why do many investors hold REITs in tax-advantaged accounts?",
             options: [
               "REITs simply can't be held anywhere else at all",
@@ -1292,6 +1396,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "REITs avoid the stock market there"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "REIT dividends are typically taxed at ordinary income rates, so holding them in an IRA or similar account lets them grow without a yearly tax hit."
           }
         ]
@@ -1343,6 +1448,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt3-mc1",
+            concept: "Commodities",
             question: "Where does a commodity's value primarily come from?",
             options: [
               "Its reported quarterly profits and steady dividends paid",
@@ -1355,6 +1461,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt3-mc2",
+            concept: "Commodities",
             question: "Why is gold often called a 'safe haven'?",
             options: [
               "It always pays out the very highest dividends",
@@ -1382,6 +1489,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt3-aq1",
+          concept: "Commodities",
           question: "Why does Nadia keep her gold slice small rather than making it her core holding?",
           options: [
             "Gold is illegal to own in large amounts",
@@ -1409,6 +1517,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt3-mastery1",
+            concept: "Commodities",
             question: "Which of these is a commodity?",
             options: [
               "A share of a tech company",
@@ -1417,10 +1526,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A savings account"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Crude oil is a raw physical good - a commodity. Stocks, bonds, and savings accounts are financial assets, not physical materials."
           },
           {
             id: "alt3-mastery2",
+            concept: "Commodities",
             question: "How do commodities differ fundamentally from stocks?",
             options: [
               "They steadily earn profits and pay dividends",
@@ -1429,10 +1540,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They pay out fixed quarterly interest"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Unlike a business, a commodity generates no profits, dividends, or interest. Your only path to gain is selling later at a higher price."
           },
           {
             id: "alt3-mastery3",
+            concept: "Commodities",
             question: "Why do investors add a small slice of commodities to a portfolio?",
             options: [
               "To diversify with different price drivers",
@@ -1441,10 +1554,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "To fully eliminate all of the portfolio risk"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Commodities move on supply and demand, often differently from stocks and bonds, so a small slice can hedge inflation and smooth the overall ride."
           },
           {
             id: "alt3-mastery4",
+            concept: "Commodities",
             question: "How do most everyday investors get commodity exposure?",
             options: [
               "By storing barrels of oil at home",
@@ -1453,10 +1568,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "By mining gold themselves"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Most people use commodity ETFs, futures, or producer stocks rather than storing physical goods. An ETF is the simplest practical route for beginners."
           },
           {
             id: "alt3-mastery5",
+            concept: "Commodities",
             question: "Why are futures contracts especially risky for beginners?",
             options: [
               "They pay guaranteed dividends",
@@ -1465,10 +1582,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They cannot be sold early"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Futures use heavy leverage, so small price moves create large gains or losses that can wipe out a beginner's account fast. They're built for professionals."
           },
           {
             id: "alt3-mastery6",
+            concept: "Commodities",
             question: "Why are commodities a poor choice as a core, decades-long holding?",
             options: [
               "They quietly compound over time just like stocks do",
@@ -1477,6 +1596,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They always beat the stock market"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Commodities pay no income and don't compound, so over decades they've badly trailed productive assets like a stock index. They're a hedge, not a wealth engine."
           }
         ]
@@ -1528,6 +1648,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt4-mc1",
+            concept: "Crypto (Educational)",
             question: "What does controlling a cryptocurrency 'private key' mean?",
             options: [
               "A bank can reset it if you forget it",
@@ -1540,6 +1661,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt4-mc2",
+            concept: "Crypto (Educational)",
             question: "Which statement about crypto scams is accurate?",
             options: [
               "Coins you send can be reversed later by an exchange",
@@ -1567,6 +1689,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt4-aq1",
+          concept: "Crypto (Educational)",
           question: "Marcus wants to hold his own coins safely instead of leaving them on an app. What is the key trade-off he takes on?",
           options: [
             "His coins will now start to rise much faster in value",
@@ -1594,6 +1717,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt4-mastery1",
+            concept: "Crypto (Educational)",
             question: "What best describes a blockchain?",
             options: [
               "A private bank vault owned by one single company",
@@ -1602,10 +1726,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A phone app that always guarantees you profits"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A blockchain is a shared transaction record copied across many computers, with no single owner. That decentralization is the core idea behind cryptocurrency."
           },
           {
             id: "alt4-mastery2",
+            concept: "Crypto (Educational)",
             question: "Why should a teen treat crypto as a tiny slice of money?",
             options: [
               "Its price can swing violently and drop sharply",
@@ -1614,10 +1740,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It pays out a fixed interest rate every single month"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Crypto prices swing wildly and can fall 50% or more fast. No government guarantees value and it pays no fixed interest, so risk only what you can lose."
           },
           {
             id: "alt4-mastery3",
+            concept: "Crypto (Educational)",
             question: "A site offers to double any Bitcoin you send it. This is…",
             options: [
               "A normal and low-risk investment that anyone can trust",
@@ -1626,10 +1754,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A safe and reliable way to earn steady monthly interest"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Doubling offers are classic scams, and because transfers are irreversible there is no way to get the coins back. Guarantees like this are always fraud."
           },
           {
             id: "alt4-mastery4",
+            concept: "Crypto (Educational)",
             question: "What does 'not your keys, not your coins' warn about?",
             options: [
               "Coins left on an exchange can be lost if it fails",
@@ -1638,10 +1768,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Private keys will simply expire after just one year of active use"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "If an exchange holds your keys and it collapses or is hacked, your coins can vanish. Holding your own keys means you control the coins directly."
           },
           {
             id: "alt4-mastery5",
+            concept: "Crypto (Educational)",
             question: "Bitcoin is designed to be scarce because…",
             options: [
               "A central bank issues more of it when prices fall",
@@ -1650,10 +1782,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Its price is permanently fixed to the U.S. dollar"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Bitcoin's supply is permanently capped at 21 million coins, which is the source of its 'digital scarcity.' No bank can print more, and it isn't pegged to the dollar."
           },
           {
             id: "alt4-mastery6",
+            concept: "Crypto (Educational)",
             question: "What is the smartest first step for a curious beginner?",
             options: [
               "Borrow money to buy as much as possible",
@@ -1662,6 +1796,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Trust any stranger promising fast gains"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Education comes first: understand the technology and risks before ever investing more than a tiny amount. Never borrow, never use emergency savings, never trust guarantees."
           }
         ]
@@ -1713,6 +1848,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt5-mc1",
+            concept: "Private Equity",
             question: "What is private equity?",
             options: [
               "Ownership in companies not traded publicly",
@@ -1725,6 +1861,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt5-mc2",
+            concept: "Private Equity",
             question: "Why is illiquidity a defining risk of private equity?",
             options: [
               "It guarantees that the investment will always lose money",
@@ -1752,6 +1889,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt5-aq1",
+          concept: "Private Equity",
           question: "The bakery is later sold for $160 million. After repaying the $70 million debt, roughly what did the investors' $30 million become (before fees)?",
           options: [
             "It roughly stayed flat at about $30 million",
@@ -1779,6 +1917,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt5-mastery1",
+            concept: "Private Equity",
             question: "Which best describes a buyout fund's strategy?",
             options: [
               "Trade public stocks in and out on a daily basis",
@@ -1787,10 +1926,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Hold onto cash and simply never invest it at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Buyout funds purchase companies, work to improve them over years, then sell for a gain. They don't day-trade stocks or simply hold cash."
           },
           {
             id: "alt5-mastery2",
+            concept: "Private Equity",
             question: "Venture capital differs from buyouts because it mainly…",
             options: [
               "Backs young startups, most of which fail",
@@ -1799,10 +1940,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Guarantees that every single startup it backs succeeds"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Venture capital funds back young startups, accepting that most fail while a few win big. Buyouts target mature companies instead."
           },
           {
             id: "alt5-mastery3",
+            concept: "Private Equity",
             question: "How does leverage affect a buyout?",
             options: [
               "It removes all risk from the deal",
@@ -1811,10 +1954,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It has no effect on the outcome"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Borrowed money magnifies returns when things go well and losses when they don't. Debt still must be repaid even if the business struggles."
           },
           {
             id: "alt5-mastery4",
+            concept: "Private Equity",
             question: "The '2 and 20' fee structure means roughly…",
             options: [
               "2% yearly plus 20% of the profits",
@@ -1823,10 +1968,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A charge of 2% of profits and nothing else"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "'2 and 20' means about a 2% annual management fee plus 20% of the profits. These heavy fees force funds to perform well just to beat cheap index funds."
           },
           {
             id: "alt5-mastery5",
+            concept: "Private Equity",
             question: "Why has private equity mostly been closed to teens and small investors?",
             options: [
               "It is illegal for anyone under thirty",
@@ -1835,10 +1982,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Public exchanges ban all private deals"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Access has required large minimums and accredited-investor status, meaning wealth or income thresholds. It isn't age-illegal or guaranteed to lose money."
           },
           {
             id: "alt5-mastery6",
+            concept: "Private Equity",
             question: "What is the honest takeaway about private equity returns?",
             options: [
               "It always reliably beats the broad stock market",
@@ -1847,6 +1996,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It pays out a fixed amount of monthly interest"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "After heavy fees, many private equity funds don't reliably beat cheap index funds. It can create value but is a specialist tool, not a guaranteed win."
           }
         ]
@@ -1898,6 +2048,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt6-mc1",
+            concept: "Liquidity Risk",
             question: "What does 'liquidity' measure?",
             options: [
               "How much an asset will actually rise in the next year",
@@ -1910,6 +2061,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt6-mc2",
+            concept: "Liquidity Risk",
             question: "Why is liquidity risk especially dangerous in an emergency?",
             options: [
               "Illiquid assets will always rise in value during nearly any crisis",
@@ -1937,6 +2089,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt6-aq1",
+          concept: "Liquidity Risk",
           question: "How should Theo split his $8,000 to manage liquidity risk wisely?",
           options: [
             "Put the whole entire $8,000 into the single rental share",
@@ -1964,6 +2117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt6-mastery1",
+            concept: "Liquidity Risk",
             question: "Which asset is the most liquid?",
             options: [
               "A rental house out in the suburbs",
@@ -1972,10 +2126,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A stake held in a private buyout fund"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Big-company index fund shares trade constantly and can be sold in seconds at fair value. Houses, paintings, and private funds are all illiquid."
           },
           {
             id: "alt6-mastery2",
+            concept: "Liquidity Risk",
             question: "A wide bid-ask spread usually signals that an asset is…",
             options: [
               "Highly liquid and cheap to trade",
@@ -1984,10 +2140,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Free of any risk at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A wide gap between buy and sell prices means an asset is illiquid and costly to trade. Liquid assets have very narrow spreads."
           },
           {
             id: "alt6-mastery3",
+            concept: "Liquidity Risk",
             question: "Why do planners insist on a liquid emergency fund?",
             options: [
               "It always reliably earns you the very highest returns",
@@ -1996,10 +2154,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It fully replaces the need to ever invest at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "An emergency fund gives you cash in a crisis so you never have to dump long-term holdings at a loss. It isn't about the highest return."
           },
           {
             id: "alt6-mastery4",
+            concept: "Liquidity Risk",
             question: "What can illiquidity force an investor to do in a crunch?",
             options: [
               "Sell a good investment early at a loss",
@@ -2008,10 +2168,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Permanently avoid every single kind of risk forever"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Needing cash they can't easily raise, investors may be forced to sell solid long-term holdings early and at a loss - the opposite of patient investing."
           },
           {
             id: "alt6-mastery5",
+            concept: "Liquidity Risk",
             question: "What reward should an illiquid investment offer?",
             options: [
               "A far lower return than most liquid assets",
@@ -2020,10 +2182,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A firm guarantee against any possible loss"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Locking up money is a real cost, so illiquid assets should offer higher expected returns to compensate. If they don't, the trade isn't worth it."
           },
           {
             id: "alt6-mastery6",
+            concept: "Liquidity Risk",
             question: "'Rich on paper' becomes a problem when…",
             options: [
               "Your assets rise much faster than you had expected",
@@ -2032,6 +2196,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Your emergency fund has already been fully funded"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Owning valuable-but-illiquid assets means nothing if you can't turn them into cash to pay real bills. That mismatch has sunk households and businesses alike."
           }
         ]
@@ -2083,6 +2248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan1-mc1",
+            concept: "Goal Setting",
             question: "What turns a vague wish into a real financial goal?",
             options: [
               "Simply wanting it all very badly",
@@ -2095,6 +2261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan1-mc2",
+            concept: "Goal Setting",
             question: "Where should money for a goal you need in six months go?",
             options: [
               "A single risky and volatile stock",
@@ -2122,6 +2289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan1-aq1",
+          concept: "Goal Setting",
           question: "Which goal should Leah tackle first, and why?",
           options: [
             "The vacation, because it's the most fun",
@@ -2149,6 +2317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan1-mastery1",
+            concept: "Goal Setting",
             question: "Which of these is a well-formed financial goal?",
             options: [
               "I really want to be very rich one day",
@@ -2157,10 +2326,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Get really good at investing sometime eventually"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A well-formed goal names an amount and a deadline, like $3,000 in two years. The others are vague wishes with nothing to measure or aim at."
           },
           {
             id: "plan1-mastery2",
+            concept: "Goal Setting",
             question: "In SMART, what does the 'T' stand for?",
             options: [
               "Trendy",
@@ -2169,10 +2340,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Tax-free"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The 'T' in SMART is Time-bound, meaning the goal has a deadline. A deadline is what lets you set a monthly savings pace."
           },
           {
             id: "plan1-mastery3",
+            concept: "Goal Setting",
             question: "A goal needs $2,400 in 12 months. How much per month?",
             options: [
               "About $100",
@@ -2181,10 +2354,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "About $400"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "$2,400 divided by 12 months is $200 a month. Breaking a big target into monthly amounts makes it concrete and trackable."
           },
           {
             id: "plan1-mastery4",
+            concept: "Goal Setting",
             question: "Why fund an emergency cushion before a fun goal?",
             options: [
               "Fun goals tend to earn much higher returns",
@@ -2193,10 +2368,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It automatically doubles all of your savings for you"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Without a cushion, one surprise expense can force you to abandon everything. Safety first protects all your other goals."
           },
           {
             id: "plan1-mastery5",
+            concept: "Goal Setting",
             question: "Why pay off a 24% credit card before investing?",
             options: [
               "Credit cards always beat the broad stock market",
@@ -2205,10 +2382,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Credit cards charge no interest at all ever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A 24% debt costs more each year than most investments reliably earn, so paying it off is like earning a guaranteed 24% return."
           },
           {
             id: "plan1-mastery6",
+            concept: "Goal Setting",
             question: "How often should you review your financial goals?",
             options: [
               "Only once in your whole entire life",
@@ -2217,6 +2396,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Only after you completely go broke"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Reviewing goals every few months keeps them relevant and on track. Life changes, so goals should be adjusted on purpose rather than abandoned."
           }
         ]
@@ -2268,6 +2448,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan2-mc1",
+            concept: "Retirement Accounts",
             question: "What is an employer '401(k) match'?",
             options: [
               "A loan that you must repay later with interest",
@@ -2280,6 +2461,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan2-mc2",
+            concept: "Retirement Accounts",
             question: "How does a Roth account treat withdrawals in retirement?",
             options: [
               "They are taxed at a very high rate",
@@ -2307,6 +2489,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan2-aq1",
+          concept: "Retirement Accounts",
           question: "With limited money, what should Diego do first?",
           options: [
             "Skip the 401(k) to avoid any lock-up",
@@ -2334,6 +2517,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan2-mastery1",
+            concept: "Retirement Accounts",
             question: "A retirement account is best described as…",
             options: [
               "A single stock you must buy",
@@ -2342,10 +2526,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A loan from the government"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A retirement account is a tax-advantaged container that holds investments like index funds. The account is the wrapper, not the investment itself."
           },
           {
             id: "plan2-mastery2",
+            concept: "Retirement Accounts",
             question: "Why grab a full 401(k) match before anything else?",
             options: [
               "It is free money and an instant return",
@@ -2354,10 +2540,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The employer match somehow doubles every single month"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A match is free money your employer adds, often a 50% to 100% instant return on what you contribute. Passing it up is like refusing a raise."
           },
           {
             id: "plan2-mastery3",
+            concept: "Retirement Accounts",
             question: "The core difference between Traditional and Roth is…",
             options: [
               "Which investments you are allowed to buy",
@@ -2366,10 +2554,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "How many different stocks you are able to own"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Traditional gives a tax break now and taxes withdrawals later; Roth is taxed now and tax-free later. The investments inside can be identical."
           },
           {
             id: "plan2-mastery4",
+            concept: "Retirement Accounts",
             question: "Why is a Roth often ideal for a working teen?",
             options: [
               "Teens are always taxed at the very highest rate",
@@ -2378,10 +2568,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Roth money can be withdrawn anytime completely free"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Teens usually pay a very low tax rate, so paying tax now is cheap, and decades of growth then come out tax-free. Roths don't guarantee returns."
           },
           {
             id: "plan2-mastery5",
+            concept: "Retirement Accounts",
             question: "What generally happens if you withdraw early, before about age 59?",
             options: [
               "You earn a bonus from the government",
@@ -2390,10 +2582,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "The whole account balance suddenly just doubles"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Early withdrawals usually trigger income taxes plus a 10% penalty. That restriction is the trade-off for the accounts' tax advantages."
           },
           {
             id: "plan2-mastery6",
+            concept: "Retirement Accounts",
             question: "What matters most for a beginner's retirement saving?",
             options: [
               "Carefully picking the single perfect account",
@@ -2402,6 +2596,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Timing the whole market absolutely perfectly"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Starting early lets compounding work for decades, which matters far more than choosing the perfect account type or trying to time the market."
           }
         ]
@@ -2453,6 +2648,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan3-mc1",
+            concept: "Compounding",
             question: "What makes compounding different from simple interest?",
             options: [
               "It pays the same flat amount each year",
@@ -2465,6 +2661,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan3-mc2",
+            concept: "Compounding",
             question: "Using the Rule of 72, how long to double money at 6%?",
             options: [
               "About 6 years",
@@ -2492,6 +2689,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan3-aq1",
+          concept: "Compounding",
           question: "Aisha invests $1,000 at 8%. Using the Rule of 72, about how much will it be in 27 years?",
           options: [
             "About $2,000",
@@ -2519,6 +2717,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan3-mastery1",
+            concept: "Compounding",
             question: "Compounding is best described as…",
             options: [
               "A flat yearly payment on your savings",
@@ -2527,10 +2726,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A guarantee against losing money"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Compounding is earning returns on your past returns, so the base grows each year. That acceleration is what builds long-term wealth."
           },
           {
             id: "plan3-mastery2",
+            concept: "Compounding",
             question: "Why is starting young such a big advantage?",
             options: [
               "Young people get higher returns",
@@ -2539,10 +2740,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Markets never fall when you're young"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "More years give compounding more time to double and re-double, and the largest growth comes in the final years. Time is the real edge."
           },
           {
             id: "plan3-mastery3",
+            concept: "Compounding",
             question: "At 9% return, the Rule of 72 says money doubles in about…",
             options: [
               "4 years",
@@ -2551,10 +2754,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "24 years"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "72 divided by 9 equals 8, so money doubles roughly every 8 years at a 9% return."
           },
           {
             id: "plan3-mastery4",
+            concept: "Compounding",
             question: "How do high fees hurt compounding?",
             options: [
               "They boost your long-term growth",
@@ -2563,10 +2768,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They have no real effect over time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Every dollar paid in fees is a dollar that never compounds, so over decades even a small fee gap can erode a large share of your final balance."
           },
           {
             id: "plan3-mastery5",
+            concept: "Compounding",
             question: "Why judge gains in 'real' terms?",
             options: [
               "Inflation shrinks your buying power",
@@ -2575,10 +2782,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Taxes disappear in real terms"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Inflation reduces what money can buy, so a 7% gain with 3% inflation is really about 4%. Thinking in real terms keeps expectations honest."
           },
           {
             id: "plan3-mastery6",
+            concept: "Compounding",
             question: "Which strategy best harnesses compounding?",
             options: [
               "Wait patiently until you're much older to begin",
@@ -2587,6 +2796,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Chase the single hottest stock each and every week"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Starting early, minimizing fees, and staying invested for decades gives compounding the time and room it needs to outrun inflation."
           }
         ]
@@ -2638,6 +2848,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan4-mc1",
+            concept: "Inflation Adjustments",
             question: "What does inflation do to a dollar over time?",
             options: [
               "Makes it buy more each year",
@@ -2650,6 +2861,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan4-mc2",
+            concept: "Inflation Adjustments",
             question: "A savings account pays 1% while inflation is 3%. Your real return is about…",
             options: [
               "Positive 4%",
@@ -2677,6 +2889,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan4-aq1",
+          concept: "Inflation Adjustments",
           question: "Given inflation, how should Omar hold most of his long-term retirement money?",
           options: [
             "As plain cash tucked under a mattress",
@@ -2704,6 +2917,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan4-mastery1",
+            concept: "Inflation Adjustments",
             question: "Inflation is best defined as…",
             options: [
               "A sudden one-time drop in all stock prices",
@@ -2712,10 +2926,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A fully guaranteed and steady investment return"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Inflation is the ongoing rise in prices, which means each dollar buys less. It isn't a stock event or a tax on savings."
           },
           {
             id: "plan4-mastery2",
+            concept: "Inflation Adjustments",
             question: "What happens to idle cash during inflation?",
             options: [
               "Its number and buying power both grow",
@@ -2724,10 +2940,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It quietly doubles in value every single year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Cash keeps the same number of dollars but loses buying power as prices rise. That's why hoarding cash long term is a hidden loss."
           },
           {
             id: "plan4-mastery3",
+            concept: "Inflation Adjustments",
             question: "How do you calculate a real return?",
             options: [
               "Nominal return plus inflation",
@@ -2736,10 +2954,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Nominal return times inflation"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Real return is nominal return minus inflation. It shows how much your buying power actually grew, not just the paper number."
           },
           {
             id: "plan4-mastery4",
+            concept: "Inflation Adjustments",
             question: "Why can a future goal be far larger than today's number?",
             options: [
               "Because inflation raises prices over time",
@@ -2748,10 +2968,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Because dollars gain value over time"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Inflation makes future prices higher, so a lifestyle costing $40,000 today could need far more later. Goals must be set in future dollars."
           },
           {
             id: "plan4-mastery5",
+            concept: "Inflation Adjustments",
             question: "Which asset best helps outpace inflation long term?",
             options: [
               "Cash in a drawer",
@@ -2760,10 +2982,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A checking account"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Stocks have historically returned about 7% after inflation, because companies raise prices and profits. Cash and low-rate accounts lose to inflation."
           },
           {
             id: "plan4-mastery6",
+            concept: "Inflation Adjustments",
             question: "What does a 'cost-of-living adjustment' do?",
             options: [
               "Lowers your pay as prices rise",
@@ -2772,6 +2996,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Removes inflation from the economy entirely"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A cost-of-living adjustment raises payments like salaries or Social Security as prices climb, helping income keep pace with inflation."
           }
         ]
@@ -2823,6 +3048,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan5-mc1",
+            concept: "Lifestyle Planning",
             question: "What question does lifestyle planning start with?",
             options: [
               "How much money can I possibly manage to earn in total?",
@@ -2835,6 +3061,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan5-mc2",
+            concept: "Lifestyle Planning",
             question: "What is 'lifestyle inflation'?",
             options: [
               "Prices steadily rising all across the whole economy",
@@ -2862,6 +3089,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan5-aq1",
+          concept: "Lifestyle Planning",
           question: "What's the wisest move for Kayla after her raise?",
           options: [
             "Spend the whole entire raise on upgrades right now",
@@ -2889,6 +3117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan5-mastery1",
+            concept: "Lifestyle Planning",
             question: "In lifestyle planning, money is best seen as…",
             options: [
               "The single ultimate goal in itself",
@@ -2897,10 +3126,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A score to beat your friends"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Money is fuel for your goals, not the goal. Planning starts with the life you want and figures out what it costs."
           },
           {
             id: "plan5-mastery2",
+            concept: "Lifestyle Planning",
             question: "What's the difference between wants and values?",
             options: [
               "Wants are extras; values are what you care most about",
@@ -2909,10 +3140,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Wants will always end up costing much more than values do"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Wants are enjoyable extras, while values are the deeper things you care about most, like freedom or family. Good planning funds wants that match your values."
           },
           {
             id: "plan5-mastery3",
+            concept: "Lifestyle Planning",
             question: "Why is lifestyle inflation a trap?",
             options: [
               "It always lowers your yearly taxes",
@@ -2921,10 +3154,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It has no effect on savings"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Raising spending every time income rises keeps you running in place, so you never build the gap needed to fund real goals."
           },
           {
             id: "plan5-mastery4",
+            concept: "Lifestyle Planning",
             question: "Why must a life plan adapt over time?",
             options: [
               "Because plans are illegal to keep",
@@ -2933,10 +3168,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Because income always stays completely flat forever"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Career moves, family, and other events change what your money must do, so plans need regular revisiting to stay aligned with your real life."
           },
           {
             id: "plan5-mastery5",
+            concept: "Lifestyle Planning",
             question: "What funds every financial goal?",
             options: [
               "The gap between income and spending",
@@ -2945,10 +3182,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Winning a big lottery jackpot someday soon"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "The difference between what you earn and what you spend is the raw material you invest toward every goal, from an apartment to retirement."
           },
           {
             id: "plan5-mastery6",
+            concept: "Lifestyle Planning",
             question: "Financial freedom is best described as…",
             options: [
               "Owning all of the most expensive things around",
@@ -2957,6 +3196,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Earning one specific and very large annual salary"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Financial freedom is having enough that money stops controlling your decisions, letting you handle setbacks or pursue dreams on your own terms."
           }
         ]
@@ -3008,6 +3248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim1-mc1",
+            concept: "Bear Market Survival",
             question: "What defines a bear market?",
             options: [
               "Any single day the whole market happens to drop at all",
@@ -3020,6 +3261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim1-mc2",
+            concept: "Bear Market Survival",
             question: "What is usually the biggest danger during a bear market?",
             options: [
               "The investor panic-selling at the bottom",
@@ -3047,6 +3289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim1-aq1",
+          concept: "Bear Market Survival",
           question: "Given his situation, what is Ravi's smartest move?",
           options: [
             "Sell everything to stop the losses",
@@ -3074,6 +3317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim1-mastery1",
+            concept: "Bear Market Survival",
             question: "How often do bear markets tend to occur?",
             options: [
               "Only one single time per entire century",
@@ -3082,10 +3326,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Multiple different times each and every month"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Bear markets have historically arrived roughly every five to six years. They're a normal, recurring feature of investing."
           },
           {
             id: "sim1-mastery2",
+            concept: "Bear Market Survival",
             question: "Why is panic-selling so harmful?",
             options: [
               "It guarantees you a much bigger yearly tax refund",
@@ -3094,10 +3340,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It has no real effect at all on your returns"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Selling in a crash turns paper losses into real ones and often leaves you out when the sharp recovery arrives. The best days cluster near the worst."
           },
           {
             id: "sim1-mastery3",
+            concept: "Bear Market Survival",
             question: "What preparation keeps you from selling at the bottom?",
             options: [
               "A cash emergency fund",
@@ -3106,10 +3354,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Checking prices every hour"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "An emergency fund in cash means you can cover bills without being forced to sell investments at the worst possible time."
           },
           {
             id: "sim1-mastery4",
+            concept: "Bear Market Survival",
             question: "How does regular buying during a crash help?",
             options: [
               "It avoids the whole market entirely for you",
@@ -3118,10 +3368,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It completely stops the market from ever falling"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Dollar-cost averaging means steady buying scoops up more shares while prices are low, which can supercharge long-term gains once the market recovers."
           },
           {
             id: "sim1-mastery5",
+            concept: "Bear Market Survival",
             question: "What did the 2020 COVID crash show?",
             options: [
               "Markets can never recover from any crashes",
@@ -3130,10 +3382,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Cash is the only safe asset"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The market fell about 34% in weeks, then fully recovered within the same year - a reminder that even sharp bear markets have historically bounced back."
           },
           {
             id: "sim1-mastery6",
+            concept: "Bear Market Survival",
             question: "For a long-term investor, a bear market is essentially…",
             options: [
               "A permanent loss to fear",
@@ -3142,6 +3396,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "A signal to stop investing forever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "For someone with years to invest, falling prices are a chance to buy good companies at a discount. Staying invested through crashes builds the most wealth."
           }
         ]
@@ -3193,6 +3448,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim2-mc1",
+            concept: "Bull Run Strategy",
             question: "What is a bull market?",
             options: [
               "A drop of 20% or more from a high",
@@ -3205,6 +3461,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim2-mc2",
+            concept: "Bull Run Strategy",
             question: "Why is staying fully invested powerful in a bull market?",
             options: [
               "It completely removes all of your investment risk",
@@ -3232,6 +3489,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim2-aq1",
+          concept: "Bull Run Strategy",
           question: "What's the disciplined move for Sofia in this bull market?",
           options: [
             "Put everything into the hot stock",
@@ -3259,6 +3517,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim2-mastery1",
+            concept: "Bull Run Strategy",
             question: "Compared to bear markets, bull markets have historically been…",
             options: [
               "Much shorter and weaker",
@@ -3267,10 +3526,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Nonexistent since 1950"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Bull markets have historically lasted longer and produced larger gains than bear markets. That's the core reason long-term investing works."
           },
           {
             id: "sim2-mastery2",
+            concept: "Bull Run Strategy",
             question: "What happens if you miss the market's ten best days over decades?",
             options: [
               "Your returns can be roughly halved",
@@ -3279,10 +3540,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "You manage to avoid all of the future risk"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The best days are few and unpredictable, so missing just the top ten over decades can cut total returns roughly in half. Staying invested captures them."
           },
           {
             id: "sim2-mastery3",
+            concept: "Bull Run Strategy",
             question: "What emotion most threatens investors in a bull market?",
             options: [
               "Greed and overconfidence",
@@ -3291,10 +3554,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Sadness about profits"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Rising prices breed greed and overconfidence, tempting people to over-invest, chase fads, and abandon their plans right before a downturn."
           },
           {
             id: "sim2-mastery4",
+            concept: "Bull Run Strategy",
             question: "Why rebalance during a bull market?",
             options: [
               "To trim oversized winners and control risk",
@@ -3303,10 +3568,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "To completely avoid ever making any profit at all"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "As winners grow, they can dominate your portfolio. Rebalancing trims them back to target, locking in some gains and keeping your risk in check."
           },
           {
             id: "sim2-mastery5",
+            concept: "Bull Run Strategy",
             question: "A key warning sign of a bubble is…",
             options: [
               "Prices matching real company earnings",
@@ -3315,10 +3582,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Falling prices across the board"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Bubbles feature hype, easy-riches stories, and FOMO driving prices far above real earnings. The dot-com bubble is a classic example that ended painfully."
           },
           {
             id: "sim2-mastery6",
+            concept: "Bull Run Strategy",
             question: "The healthiest bull-market mindset is to…",
             options: [
               "Gamble it all on the single hottest fad",
@@ -3327,6 +3596,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Simply assume that all risk has now disappeared"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Use good times to invest steadily, diversify, rebalance, and keep your emergency fund ready, so the next bear market finds you prepared."
           }
         ]
@@ -3378,6 +3648,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim3-mc1",
+            concept: "Sector Rotation",
             question: "What is a market 'sector'?",
             options: [
               "A single individual company's publicly traded common stock",
@@ -3390,6 +3661,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim3-mc2",
+            concept: "Sector Rotation",
             question: "Which are considered defensive sectors?",
             options: [
               "Utilities, staples, and healthcare",
@@ -3417,6 +3689,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim3-aq1",
+          concept: "Sector Rotation",
           question: "As the simulated economy slows, which shift fits sector-rotation logic?",
           options: [
             "Chase last quarter's hot energy stocks",
@@ -3444,6 +3717,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim3-mastery1",
+            concept: "Sector Rotation",
             question: "Sector rotation is the idea that…",
             options: [
               "All of the sectors always move together",
@@ -3452,10 +3726,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Only the technology stocks really matter here"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Sector rotation is the pattern of different sectors leading at different points in the economic cycle as spending and conditions shift."
           },
           {
             id: "sim3-mastery2",
+            concept: "Sector Rotation",
             question: "Cyclical sectors like autos and travel tend to…",
             options: [
               "Boom in strong economies, slump in weak ones",
@@ -3464,10 +3740,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Never once be affected at all by the economy"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Cyclical sectors sell things people buy when they feel prosperous, so they boom in strong economies and slump hard when the economy weakens."
           },
           {
             id: "sim3-mastery3",
+            concept: "Sector Rotation",
             question: "Why do defensive sectors hold up in downturns?",
             options: [
               "They sell necessities people always need",
@@ -3476,10 +3754,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They pay no attention to the economy"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Defensive sectors like utilities and staples sell essentials such as electricity and food, which people keep buying even in hard times."
           },
           {
             id: "sim3-mastery4",
+            concept: "Sector Rotation",
             question: "Why is timing sector rotations so hard?",
             options: [
               "Sectors never once actually change at all",
@@ -3488,10 +3768,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "All of the experts fully agree on the exact timing"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Stocks are forward-looking, so sector moves often happen before economic data confirms them. By the time a shift is obvious, the move has usually occurred."
           },
           {
             id: "sim3-mastery5",
+            concept: "Sector Rotation",
             question: "Chasing last quarter's winning sector often results in…",
             options: [
               "Buying high right before it cools",
@@ -3500,10 +3782,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Perfectly and precisely timed profits every single time"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A sector that just soared is often near its peak, so chasing it frequently means buying high just before it cools - a classic timing mistake."
           },
           {
             id: "sim3-mastery6",
+            concept: "Sector Rotation",
             question: "What's the practical approach for most investors?",
             options: [
               "Jump between sectors constantly",
@@ -3512,6 +3796,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Only own cash to be safe"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A diversified portfolio automatically holds whichever sector is leading, so you capture the rotations without needing to predict them."
           }
         ]
@@ -3563,6 +3848,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim4-mc1",
+            concept: "Crisis Response",
             question: "What makes a market crisis especially dangerous for investors?",
             options: [
               "Prices can only ever rise during one",
@@ -3575,6 +3861,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim4-mc2",
+            concept: "Crisis Response",
             question: "Why is selling into the first wave of a crisis usually a mistake?",
             options: [
               "Markets often overreact then partially bounce",
@@ -3602,6 +3889,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim4-aq1",
+          concept: "Crisis Response",
           question: "Following good crisis practice, what should Elena do?",
           options: [
             "Sell off everything to match the other players",
@@ -3629,6 +3917,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim4-mastery1",
+            concept: "Crisis Response",
             question: "How does a crisis differ from a slow bear market?",
             options: [
               "It arrives suddenly and feels chaotic",
@@ -3637,10 +3926,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It never causes prices to fall"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A crisis is a sudden, unexpected shock that jolts prices fast and chaotically, unlike the slower grind of a typical bear market."
           },
           {
             id: "sim4-mastery2",
+            concept: "Crisis Response",
             question: "What is the single most important crisis skill?",
             options: [
               "Reacting as fast as possible",
@@ -3649,10 +3940,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Checking all the prices constantly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Slowing down is key, because fast reactions during panic are usually wrong. Markets often overreact, so patience beats haste."
           },
           {
             id: "sim4-mastery3",
+            concept: "Crisis Response",
             question: "What tool best lets you act on logic during a crisis?",
             options: [
               "A plan written in calm times",
@@ -3661,10 +3954,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Constant and obsessive daily price monitoring"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A plan written in advance lets you follow a script instead of adrenaline when headlines scream. It converts panic into a checklist."
           },
           {
             id: "sim4-mastery4",
+            concept: "Crisis Response",
             question: "Why be wary of 'crisis-proof' guaranteed investments?",
             options: [
               "They always beat the broad market every time",
@@ -3673,10 +3968,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They carry no fees at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Fear makes people vulnerable, so scams and bad advice multiply during crises. Guarantees offered in a panic are major red flags."
           },
           {
             id: "sim4-mastery5",
+            concept: "Crisis Response",
             question: "What's the difference between reacting and responding?",
             options: [
               "Reacting is emotional; responding is deliberate",
@@ -3685,10 +3982,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Reacting is always the smarter choice"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Reacting is an emotional, immediate move like panic-selling. Responding is a deliberate review of whether anything real has changed - usually concluding it hasn't."
           },
           {
             id: "sim4-mastery6",
+            concept: "Crisis Response",
             question: "What did the 2020 COVID crash teach about crises?",
             options: [
               "Markets can never recover from any shocks",
@@ -3697,6 +3996,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Diversification only makes everything much worse"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The market fell about 34% in weeks then recovered within months, showing that even sharp crises are often temporary for a patient, diversified investor."
           }
         ]
@@ -3748,6 +4048,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim5-mc1",
+            concept: "Retirement Simulation",
             question: "What does the '4% rule' suggest?",
             options: [
               "Save exactly 4% of all your income while you are still working",
@@ -3760,6 +4061,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim5-mc2",
+            concept: "Retirement Simulation",
             question: "What is sequence-of-returns risk?",
             options: [
               "The steady danger that your fees will keep rising each and every year",
@@ -3787,6 +4089,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim5-aq1",
+          concept: "Retirement Simulation",
           question: "When the crash hits in year two, what's Priya's best move for Joe?",
           options: [
             "Sell off all of his stocks right at the bottom",
@@ -3814,6 +4117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim5-mastery1",
+            concept: "Retirement Simulation",
             question: "The 'decumulation' phase means…",
             options: [
               "Adding money to your savings",
@@ -3822,10 +4126,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Doubling all of your regular contributions"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Decumulation is the retirement phase where you stop adding and start withdrawing from your savings to fund your living costs."
           },
           {
             id: "sim5-mastery2",
+            concept: "Retirement Simulation",
             question: "Under the 4% rule, a $400,000 nest egg supports about how much in year one?",
             options: [
               "$4,000",
@@ -3834,10 +4140,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "$100,000"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "4% of $400,000 is $16,000 for the first year, then adjusted for inflation each year after. It aims to last roughly 30 years."
           },
           {
             id: "sim5-mastery3",
+            concept: "Retirement Simulation",
             question: "Why must retirement withdrawals grow over time?",
             options: [
               "Because inflation raises the cost of living",
@@ -3846,10 +4154,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Because you spend less as you age"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Inflation keeps raising prices over a 30-year retirement, so withdrawals must increase to maintain the same buying power."
           },
           {
             id: "sim5-mastery4",
+            concept: "Retirement Simulation",
             question: "Why is a crash early in retirement so damaging?",
             options: [
               "Withdrawing during it locks in losses",
@@ -3858,10 +4168,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It stops all inflation permanently for good"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Selling investments to live on during an early crash locks in losses and leaves less to recover - the heart of sequence-of-returns risk."
           },
           {
             id: "sim5-mastery5",
+            concept: "Retirement Simulation",
             question: "How does a cash cushion help retirees?",
             options: [
               "It fully guarantees that the whole market rises",
@@ -3870,10 +4182,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It somehow doubles all of their yearly withdrawals"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Keeping a year or two of spending in cash lets retirees draw from cash in a downturn instead of selling stocks low, giving the stock portion time to recover."
           },
           {
             id: "sim5-mastery6",
+            concept: "Retirement Simulation",
             question: "What makes a retirement plan resilient?",
             options: [
               "Carefully picking one single perfect withdrawal number",
@@ -3882,6 +4196,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Withdrawing as much as possible early"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A resilient plan combines a diversified mix, a cash cushion, and flexible spending - adapting to markets rather than relying on one perfect number."
           }
         ]
@@ -3933,6 +4248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim6-mc1",
+            concept: "Balanced Portfolio Build",
             question: "What is 'asset allocation'?",
             options: [
               "Picking out the single best stock around",
@@ -3945,6 +4261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim6-mc2",
+            concept: "Balanced Portfolio Build",
             question: "Why can a young investor hold mostly stocks?",
             options: [
               "Stocks simply never fall at all when you are young",
@@ -3972,6 +4289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim6-aq1",
+          concept: "Balanced Portfolio Build",
           question: "Given her long horizon, which allocation best fits Tara?",
           options: [
             "All cash to avoid any risk",
@@ -3999,6 +4317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim6-mastery1",
+            concept: "Balanced Portfolio Build",
             question: "What drives most of a portfolio's long-term results?",
             options: [
               "Picking the single best stock",
@@ -4007,10 +4326,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Timing the market perfectly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Studies show asset allocation - the split among stocks, bonds, and cash - drives the large majority of long-term results, far more than individual picks."
           },
           {
             id: "sim6-mastery2",
+            concept: "Balanced Portfolio Build",
             question: "What role do bonds play in a balanced portfolio?",
             options: [
               "They are the main growth engine",
@@ -4019,10 +4340,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "They replace the need for cash"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Bonds are the stabilizer: lower returns but steadier, and they often hold up when stocks fall, smoothing the overall ride."
           },
           {
             id: "sim6-mastery3",
+            concept: "Balanced Portfolio Build",
             question: "Why is diversification called a 'free lunch'?",
             options: [
               "It cuts risk without lowering expected return",
@@ -4031,10 +4354,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It automatically doubles all of your money for you"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Spreading money across many holdings reduces the damage any single failure can do without necessarily lowering expected return - a rare win-win."
           },
           {
             id: "sim6-mastery4",
+            concept: "Balanced Portfolio Build",
             question: "What does rebalancing do?",
             options: [
               "Returns a drifted portfolio to its target mix",
@@ -4043,10 +4368,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Picks out the very next hot stock just for you"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Rebalancing sells a bit of what grew and buys what lagged to restore your target percentages, quietly enforcing buy-low, sell-high and controlling risk."
           },
           {
             id: "sim6-mastery5",
+            concept: "Balanced Portfolio Build",
             question: "How does a broad index fund help a beginner?",
             options: [
               "It guarantees beating the market",
@@ -4055,10 +4382,12 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "It removes the need for a plan"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A broad index fund owns hundreds or thousands of companies for a tiny fee, giving instant diversification a beginner couldn't assemble alone."
           },
           {
             id: "sim6-mastery6",
+            concept: "Balanced Portfolio Build",
             question: "What matters most for building wealth over decades?",
             options: [
               "Finding one genius stock pick",
@@ -4067,6 +4396,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
               "Chasing whatever is hottest now"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A sensible allocation, low-cost diversified funds, occasional rebalancing, and patience beat frantic tinkering. You don't need genius, just discipline."
           }
         ]

@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { ThemeSync } from "@/hooks/useThemeSync";
 import ScenarioPreview from "@/pages/dev/ScenarioPreview";
+import DevTeacherLogin from "@/pages/dev/DevTeacherLogin";
+import JeffPreview from "@/pages/dev/JeffPreview";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -225,6 +227,10 @@ function AppRoutes() {
       <Route path="/teacher/lesson-review/:lessonId" element={<TeacherLessonReview />} />
       {/* DEV-ONLY: isolated preview of the P4 scenario free-response panel. */}
       {import.meta.env.DEV && <Route path="/dev/scenario" element={<ScenarioPreview />} />}
+      {/* DEV-ONLY: one-click teacher sign-in for localhost testing (credentials in the URL, never in the repo). */}
+      {import.meta.env.DEV && <Route path="/dev/teacher-login" element={<DevTeacherLogin />} />}
+      {/* DEV-ONLY: standalone preview of the rebuilt animated Jeff mascot. */}
+      {import.meta.env.DEV && <Route path="/dev/jeff" element={<JeffPreview />} />}
       <Route path="*" element={<NotFound />} />
     </Routes>
     </ErrorBoundary>

@@ -17,7 +17,6 @@ export const batch2_income_banking: Record<string, string> = {
   "income-5": "Picture your first paycheck with taxes and deductions taken out. How will you plan your spending around your net pay instead of the bigger gross number?",
   "income-6": "When you start earning, taxes will shrink your take-home pay. How will you set aside money for taxes so a tax bill never catches you off guard?",
   "income-7": "Think of a career you are curious about. Weigh its likely pay against its cost and training time, and decide whether the return feels worth it to you.",
-  "income-8": "For a field you might enter, does the future income justify the price of the degree? Explain the numbers you would want to see before signing up for that debt.",
   "income-9": "What two skills could you combine that would make you more valuable than either alone? Pick one to start practicing and say when you will begin.",
   "income-10": "Imagine turning something you are good at into a small business. What would you sell, and what is one small test you could run to see if people would pay?",
   "income-11": "Compare college and trade school for a path that interests you. Which one gives you a better return for your goals, and what convinced you?",

@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:qa": "VITE_REAL_AUTH=1 vite --port 8084",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
     "generate:jeff-catalog": "node scripts/generate-jeff-lesson-catalog.ts",
     "check:jeff-catalog": "node scripts/generate-jeff-lesson-catalog.ts --check",
+    "check:distractors": "node scripts/check-distractor-padding.ts",
     "prebuild": "npm run check:jeff-catalog || true"
   },
   "dependencies": {

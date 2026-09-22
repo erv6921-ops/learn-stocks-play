@@ -30,7 +30,7 @@ export const deepIncome: StructuredLessonContent[] = [
         title: "Money That Works While You Sleep: Passive Income",
         paragraphs: [
           "Passive income keeps flowing whether or not you're actively working that day - it comes from an asset you built or bought once. Interest from a savings account, dividends from stocks, rent from a property, or royalties from a song you wrote all pay you again and again. The key word is 'built once': you usually do a lot of work or invest real money upfront, then the asset pays you over time. It's rarely truly effortless, but the effort happens before the money, not alongside it.",
-          "The magic of passive income is that it breaks the time-for-money ceiling. If $2,000 in a high-yield savings account earns 4% a year, that's $80 without you lifting a finger - and it keeps coming while you sleep, study, or work your day job. Stack several small streams and they add up. Passive income won't make a teen rich overnight, and it takes patience, but it's how people eventually earn money without trading every hour for it. It's the difference between owning the vending machine and being the one restocking it.",
+          "The magic of passive income is that it breaks the time-for-money ceiling. If $2,000 in a high-yield savings account earns 4% a year (regular savings accounts pay about 0.5 to 1%; high-yield savings accounts pay 4% or more), that's $80 without you lifting a finger - and it keeps coming while you sleep, study, or work your day job. Stack several small streams and they add up. Passive income won't make a teen rich overnight, and it takes patience, but it's how people eventually earn money without trading every hour for it. It's the difference between owning the vending machine and being the one restocking it.",
           "Most passive income requires seedmoney or serious upfront effort, so it's usually built on top of active income, not instead of it. A teen can start tiny: a savings account earning interest, or a few shares of a dividend-paying stock. The point isn't to quit your job today - it's to plant seeds early. Because of compounding, even small passive streams started young grow far larger over decades than the same amount started later in life."
         ],
         bullets: [
@@ -47,6 +47,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income1-mc1",
+            concept: "Active vs Passive Income",
             question: "What is the defining feature of active income?",
             options: [
               "It keeps paying after you stop working",
@@ -59,6 +60,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income1-mc2",
+            concept: "Active vs Passive Income",
             question: "Which of these is an example of passive income?",
             options: [
               "Getting paid $50 for a babysitting shift",
@@ -86,6 +88,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income1-aq1",
+          concept: "Active vs Passive Income",
           question: "Why does Devon keep the pet-store job while building the savings account?",
           options: [
               "Passive income is always larger than active as a general rule",
@@ -113,6 +116,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income1-mastery1",
+            concept: "Active vs Passive Income",
             question: "A teen earns $60 mowing lawns on Saturday. What type of income is this?",
             options: [
               "Passive, since it came from outdoors under normal conditions",
@@ -121,10 +125,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Neither, because it was paid in cash"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Mowing lawns trades time and effort directly for money, so it's active income. Being outdoors, a one-time job, or cash payment don't change that."
           },
           {
             id: "income1-mastery2",
+            concept: "Active vs Passive Income",
             question: "What is the main limitation of relying only on active income?",
             options: [
               "It is illegal for anyone under 18 in real practice",
@@ -133,10 +139,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It is always taxed at 100 percent"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Active income is capped by the hours you can physically work. You can earn more only by working more hours or a higher wage, both of which have real limits."
           },
           {
             id: "income1-mastery3",
+            concept: "Active vs Passive Income",
             question: "Which best describes how most passive income begins?",
             options: [
               "It appears instantly with zero effort",
@@ -145,10 +153,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It replaces a job on the very first day"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Passive income usually requires real money or effort upfront - building an asset once - and then pays over time. It's rarely instant or effortless at the start."
           },
           {
             id: "income1-mastery4",
+            concept: "Active vs Passive Income",
             question: "Why is starting passive income young especially powerful?",
             options: [
               "Young people pay no taxes at all",
@@ -157,10 +167,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Passive income shrinks as you age"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because of compounding, even tiny passive streams started young grow far larger over decades than the same amounts started later. Time is the biggest advantage."
           },
           {
             id: "income1-mastery5",
+            concept: "Active vs Passive Income",
             question: "Which pairing correctly matches income to type?",
             options: [
               "Hourly cashier pay is passive income",
@@ -169,10 +181,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "A salaried job is passive income"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Rent from a property pays you for owning an asset, so it's passive. Cashier pay, tips, and salaries all require you to actively show up and work."
           },
           {
             id: "income1-mastery6",
+            concept: "Active vs Passive Income",
             question: "A smart way to use active income is to…",
             options: [
               "Spend every dollar the day you earn it",
@@ -181,6 +195,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "Avoid saving until you turn thirty"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Active income is the launchpad: cover your bills, then set aside a slice to build passive income. Spending everything or waiting until thirty wastes the head start."
           }
         ]
@@ -199,7 +214,7 @@ export const deepIncome: StructuredLessonContent[] = [
         paragraphs: [
           "A wage means you're paid for each hour you work. If your wage is $15 an hour and you work 20 hours, you earn $300 that week - work 25 hours and you earn $375. Your pay rises and falls with your hours, which makes wage jobs flexible but unpredictable. Most first jobs teens take - retail, food service, lifeguarding - pay wages. Employers must track your hours, and in the U.S., federal law sets a minimum wage (though many states set higher ones) that hourly workers cannot legally be paid below.",
           "The biggest perk of hourly work is overtime. Under federal law, most hourly employees who work more than 40 hours in a week must be paid 'time and a half' - 1.5 times their normal wage - for the extra hours. So a $15-an-hour worker earns $22.50 for each hour past 40. That can add up fast during busy seasons. Salaried workers usually don't get this bonus, so a motivated hourly worker willing to grab extra shifts can sometimes out-earn expectations.",
-          "The downside of wages is instability. If the store is slow and cuts your hours, your paycheck shrinks with no warning. Holidays you take, sick days, or a quiet week all mean less money. There's often no guaranteed weekly amount, so budgeting is harder. Hourly workers also may get fewer benefits like paid vacation or health insurance, though this varies. Wages reward showing up and are great for flexible schedules, but they put the risk of slow weeks squarely on the worker."
+          "The downside of wages is instability. If the store is slow and cuts your hours, your paycheck shrinks with no warning. Holidays you take, sick days, or a quiet week all mean less money. There's often no guaranteed weekly amount, so budgeting is harder. Hourly workers also may get fewer benefits like paid vacation or health insurance, though this varies. Wages reward showing up and are great for flexible schedules, but they put the risk of slow weeks squarely on the worker. The companion lesson, Steady and Predictable: Hourly Pay, digs into the stability side of the same paycheck."
         ],
         bullets: [
           "A wage pays you a set amount for each hour worked, so pay changes with hours.",
@@ -232,6 +247,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income2-mc1",
+            concept: "Wages vs Salary",
             question: "What is the key difference between a wage and a salary?",
             options: [
               "Wages are illegal for teens to earn under normal conditions",
@@ -244,6 +260,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income2-mc2",
+            concept: "Wages vs Salary",
             question: "An hourly worker works 46 hours in a week. How are the extra 6 hours usually paid?",
             options: [
               "At half the normal hourly wage",
@@ -271,6 +288,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income2-aq1",
+          concept: "Wages vs Salary",
           question: "Beyond the base pay, why might Sam value the salaried offer more?",
           options: [
               "Salaries can never be reduced by law",
@@ -298,6 +316,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income2-mastery1",
+            concept: "Wages vs Salary",
             question: "A $15/hour worker puts in 44 hours one week. What is that week's gross pay?",
             options: [
               "$660, because all hours pay the same by that logic",
@@ -306,10 +325,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "$720, doubling pay for the extra hours as it turns out"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "40 hours at $15 is $600, plus 4 overtime hours at $22.50 (1.5x) is $90, totaling $690. Overtime is 1.5x, not double, and it does count."
           },
           {
             id: "income2-mastery2",
+            concept: "Wages vs Salary",
             question: "Why is budgeting often easier on a salary than on wages?",
             options: [
               "Salaries are always far larger amounts for most workers today",
@@ -318,10 +339,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Wages are paid only once a year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A salary is a fixed yearly amount split into equal paychecks, so you know exactly what's coming. Wages swing with hours, making planning harder."
           },
           {
             id: "income2-mastery3",
+            concept: "Wages vs Salary",
             question: "A person on a $50,000 salary works 55-hour weeks. What happens to their real hourly rate?",
             options: [
               "It rises because they work more hours",
@@ -330,10 +353,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It becomes overtime automatically as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Salary pay doesn't change with hours, so working 55 hours instead of 40 spreads the same money over more hours, lowering the effective hourly rate."
           },
           {
             id: "income2-mastery4",
+            concept: "Wages vs Salary",
             question: "Which is typically an advantage of a salaried job over an hourly one?",
             options: [
               "Guaranteed overtime pay every week",
@@ -342,10 +367,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "A legal ban on ever being fired"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Salaried roles often bundle in benefits worth thousands, like health insurance and paid vacation. They usually don't guarantee overtime, and no job bans firing."
           },
           {
             id: "income2-mastery5",
+            concept: "Wages vs Salary",
             question: "What is the main risk of an hourly wage job?",
             options: [
               "You can never earn any overtime pay",
@@ -354,10 +381,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Your wage rises automatically each month in real practice"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Hourly pay depends on hours worked, so if hours are cut your paycheck shrinks with little warning. That instability is the key downside of wages."
           },
           {
             id: "income2-mastery6",
+            concept: "Wages vs Salary",
             question: "Two jobs both pay $45,000. Why might one still be 'worth' more?",
             options: [
               "Higher numbers always mean more money across the board",
@@ -366,6 +395,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "The older job always pays extra cash"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Two jobs with equal pay can differ hugely in real value if one includes benefits like insurance, retirement, and paid time off worth thousands more per year."
           }
         ]
@@ -384,7 +414,7 @@ export const deepIncome: StructuredLessonContent[] = [
         paragraphs: [
           "Hourly pay is the compensation structure most teens meet first: you earn a set rate for every hour you're on the clock. At $14 an hour, a 30-hour week reliably pays $420 before taxes - simple and easy to predict. Your effort matters for keeping the job, but your pay doesn't jump just because you work harder or faster than the person next to you. As long as you show up and do the work, the paycheck is dependable. That steadiness is exactly why hourly pay feels safe.",
           "The main appeal of hourly pay is low risk. You don't have to hit sales targets or convince anyone to buy something - you're paid for time, not results. A slow day at the store still pays the same as a busy one. This makes hourly work forgiving for beginners and anyone who wants a stable, predictable income. It also usually includes overtime protections, so extra hours in a busy week pay 1.5x. For people who value certainty over the chance of a big payday, hourly pay is the comfortable choice.",
-          "The trade-off is a ceiling on earnings. Because you're paid only for hours, a hardworking hourly employee earns the same as a coasting one at the same rate. Your income can't spike when business booms unless you work more hours. Raises come slowly, usually tied to time on the job or promotions. So hourly pay rewards reliability and shields you from bad days, but it caps how high your income can climb no matter how talented or driven you are."
+          "The trade-off is a ceiling on earnings. Because you're paid only for hours, a hardworking hourly employee earns the same as a coasting one at the same rate. Your income can't spike when business booms unless you work more hours. Raises come slowly, usually tied to time on the job or promotions. So hourly pay rewards reliability and shields you from bad days, but it caps how high your income can climb no matter how talented or driven you are. The companion lesson, Getting Paid by the Hour: Wages, covers overtime and the instability side of the same paycheck."
         ],
         bullets: [
           "Hourly pay gives a set rate for every hour worked, making income easy to predict.",
@@ -417,6 +447,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income3-mc1",
+            concept: "Hourly vs Commission",
             question: "What is commission pay based on?",
             options: [
               "The number of hours you clock in",
@@ -429,6 +460,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income3-mc2",
+            concept: "Hourly vs Commission",
             question: "What does a 'base plus commission' structure add?",
             options: [
               "A cap that limits how much you earn",
@@ -456,6 +488,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income3-aq1",
+          concept: "Hourly vs Commission",
           question: "Which factor should weigh MOST in Nina's choice between the two roles?",
           options: [
               "Commission jobs are always higher paying",
@@ -483,6 +516,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income3-mastery1",
+            concept: "Hourly vs Commission",
             question: "A worker earns 5% commission and sells $8,000 in a week. What is the commission?",
             options: [
               "$800, since commission doubles sales by that logic",
@@ -491,10 +525,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "$8,000, the full amount they sold"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "5% of $8,000 is $400. Commission is a percentage of sales, not the full amount and not double it."
           },
           {
             id: "income3-mastery2",
+            concept: "Hourly vs Commission",
             question: "Why might a driven, confident seller prefer commission over hourly?",
             options: [
               "Commission guarantees the same check weekly in real practice",
@@ -503,10 +539,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Hourly pay is capped by law at minimum wage"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Commission rewards results, so strong sellers can earn far more than a fixed hourly rate. It's not guaranteed and does have slow months - that's the trade-off."
           },
           {
             id: "income3-mastery3",
+            concept: "Hourly vs Commission",
             question: "What is the biggest downside of pure commission with no base?",
             options: [
               "You are forced to work over 60 hours",
@@ -515,10 +553,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "You must repay the store for slow weeks"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "With no base, your whole income depends on sales. A slow stretch can mean earning very little, which makes budgeting hard - the core risk of pure commission."
           },
           {
             id: "income3-mastery4",
+            concept: "Hourly vs Commission",
             question: "Two workers earn $14/hour. One sells twice as much as the other. Their pay is…",
             options: [
               "Different, since selling more pays more in nearly every case",
@@ -527,10 +567,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Automatically doubled for the better one for most workers today"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Hourly pay is tied to time, not results. Both earn $14 an hour regardless of who sells more - that's the ceiling of hourly pay."
           },
           {
             id: "income3-mastery5",
+            concept: "Hourly vs Commission",
             question: "Which person is the best fit for hourly pay?",
             options: [
               "Someone who wants steady, predictable income",
@@ -539,10 +581,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Someone who refuses to ever show up on time"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Hourly pay suits people who value certainty and a predictable paycheck over the chance of a big commission windfall. It rewards reliable attendance."
           },
           {
             id: "income3-mastery6",
+            concept: "Hourly vs Commission",
             question: "A '$10 base plus 4% commission' job means the worker…",
             options: [
               "Earns only 4% of sales, with no base",
@@ -551,6 +595,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "Is paid $10 total for the whole week"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Base plus commission means a guaranteed $10-an-hour base plus 4% of sales on top. The base stays even in slow weeks, reducing the risk."
           }
         ]
@@ -584,7 +629,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "concept",
         title: "The Hidden Costs and Smart Moves of Gig Work",
         paragraphs: [
-          "Because gig workers are independent contractors, taxes work differently. A regular employer withholds taxes from each paycheck automatically, but gig platforms usually don't. Instead, you're responsible for setting aside money for taxes yourself and may owe 'self-employment tax' - covering both the worker's and employer's share of Social Security and Medicare, roughly 15.3%. If you earn $5,000 gig income and set nothing aside, you could face a surprise tax bill. Smart gig workers save around 25-30% of earnings for taxes so they aren't caught off guard.",
+          "Because gig workers are independent contractors, taxes work differently. A regular employer withholds taxes from each paycheck automatically, but gig platforms usually don't. Instead, you're responsible for setting aside money for taxes yourself and may owe 'self-employment tax' - covering both the worker's and employer's share of Social Security and Medicare, roughly 15.3%. Employees pay half, 7.65%; self-employed people pay both halves, 15.3%. If you earn $5,000 gig income and set nothing aside, you could face a surprise tax bill. Smart gig workers save around 25-30% of earnings for taxes so they aren't caught off guard.",
           "Gig income is also 'gross' before your own costs. A rideshare driver earning $200 in fares might spend $40 on gas and set aside more for car wear, insurance, and repairs - so real take-home is lower than the app shows. Tracking these expenses matters, because many are tax-deductible and lower what you owe. The key mindset shift is running your gig like a tiny business: know your true hourly profit after costs, not just the headline number the app flashes. A gig that looks like $25 an hour might really be $16 after expenses.",
           "The smartest gig workers treat it strategically. They compare their after-cost hourly rate across platforms, work during high-demand hours when pay surges, and use gigs to build skills or a client base that leads to bigger opportunities. Freelancing a few design projects can grow into a real business; tutoring can turn into a steady side income. Gig work shines as flexible extra income, a way to test a business idea cheaply, or a bridge between jobs - as long as you plan for the taxes and costs that a normal job would handle for you."
         ],
@@ -602,6 +647,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income4-mc1",
+            concept: "Gig Economy",
             question: "What is the biggest appeal of gig economy work?",
             options: [
               "Guaranteed health insurance and benefits under normal conditions",
@@ -614,6 +660,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income4-mc2",
+            concept: "Gig Economy",
             question: "Because gig platforms usually don't withhold taxes, smart workers should…",
             options: [
               "Assume they will owe nothing at all",
@@ -641,6 +688,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income4-aq1",
+          concept: "Gig Economy",
           question: "Why is Marcus's real hourly pay lower than the app's $20 figure?",
           options: [
               "The app secretly steals part of his pay",
@@ -668,6 +716,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income4-mastery1",
+            concept: "Gig Economy",
             question: "Most gig workers are classified as…",
             options: [
               "Full employees with paid vacation",
@@ -676,10 +725,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Union members with fixed schedules"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Gig workers are usually independent contractors, meaning no guaranteed hours, benefits, or employer-paid taxes. That's the trade-off for flexibility."
           },
           {
             id: "income4-mastery2",
+            concept: "Gig Economy",
             question: "What is self-employment tax, roughly 15.3%, for?",
             options: [
               "A fine charged only to gig workers",
@@ -688,10 +739,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "A fee the app keeps from your pay"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Self-employment tax covers both the worker's and employer's share of Social Security and Medicare, since a gig worker acts as both. It's about 15.3% of net earnings."
           },
           {
             id: "income4-mastery3",
+            concept: "Gig Economy",
             question: "An app shows $24/hour, but you spend on gas and repairs. Your real rate is…",
             options: [
               "Higher, because tips add extra money",
@@ -700,10 +753,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Fixed at minimum wage by the app"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The app shows gross earnings before your expenses. After gas, wear, and repairs, your true hourly profit is lower - which is why you must track costs."
           },
           {
             id: "income4-mastery4",
+            concept: "Gig Economy",
             question: "Why should a gig worker save 25-30% of earnings?",
             options: [
               "The app requires that exact deposit",
@@ -712,10 +767,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Banks pay bonus interest on gig cash"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because platforms don't withhold taxes, gig workers owe income and self-employment tax later. Saving 25-30% prevents a surprise bill at tax time."
           },
           {
             id: "income4-mastery5",
+            concept: "Gig Economy",
             question: "Which is a smart, strategic use of gig work?",
             options: [
               "Ignoring costs and never tracking expenses across the board",
@@ -724,10 +781,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Refusing to ever work during busy hours in nearly every case"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Gigs shine when used to build skills, test business ideas, or grow a client base into steady work. Ignoring costs or avoiding busy hours wastes the opportunity."
           },
           {
             id: "income4-mastery6",
+            concept: "Gig Economy",
             question: "What makes many gig expenses valuable at tax time?",
             options: [
               "They are refunded fully by the platform",
@@ -736,6 +795,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "They are always paid back by the IRS"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Business costs like mileage and equipment are often tax-deductible, reducing the income you're taxed on. Tracking them lowers what you ultimately owe."
           }
         ]
@@ -770,7 +830,7 @@ export const deepIncome: StructuredLessonContent[] = [
         title: "The Real Number: Net Pay and Deductions",
         paragraphs: [
           "Net pay - often called 'take-home pay' - is what actually lands in your bank account after all deductions. It's your gross pay minus taxes and other withholdings. This is the number that matters for your budget, because it's the money you can actually spend, save, or invest. The difference between gross and net is all the things pulled out along the way, and every paycheck comes with a stub that lists them line by line. Learning to read that stub is one of the most useful money skills a teen can have.",
-          "The biggest deductions are taxes. Federal income tax is withheld based on your earnings and the info on your W-4 form. Most workers also pay FICA taxes: 6.2% for Social Security and 1.45% for Medicare, totaling 7.65% of gross - these fund programs you'll benefit from later. Depending on where you live, state and even local income taxes may also come out. On top of taxes, employees often have deductions for health insurance premiums, retirement contributions like a 401(k), and sometimes union dues. Each one shrinks gross toward net.",
+          "The biggest deductions are taxes. Federal income tax is withheld based on your earnings and the info on your W-4 form. Most workers also pay FICA taxes: 6.2% for Social Security and 1.45% for Medicare, totaling 7.65% of gross - these fund programs you'll benefit from later. Employees pay half, 7.65%; self-employed people pay both halves, 15.3%. Depending on where you live, state and even local income taxes may also come out. On top of taxes, employees often have deductions for health insurance premiums, retirement contributions like a 401(k), and sometimes union dues. Each one shrinks gross toward net.",
           "Not all deductions are bad news - some are money working for you. Taxes are required, but a 401(k) contribution is your own money moving into retirement savings, and health insurance buys real protection. Understanding your stub lets you make smart choices, like contributing enough to a 401(k) to grab a full employer match. The goal isn't to fear deductions but to know exactly where every dollar of your gross goes, so you can plan your real spending around your net and make sure the 'good' deductions are working in your favor. Reading a stub for two minutes each payday quickly turns a confusing list of numbers into a clear map of your money."
         ],
         bullets: [
@@ -787,6 +847,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income5-mc1",
+            concept: "Gross vs Net Pay",
             question: "What is net pay?",
             options: [
               "Your earnings before any deductions",
@@ -799,6 +860,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income5-mc2",
+            concept: "Gross vs Net Pay",
             question: "FICA taxes of 7.65% of gross pay fund which programs?",
             options: [
               "State roads and public schools",
@@ -826,6 +888,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income5-aq1",
+          concept: "Gross vs Net Pay",
           question: "What is Ava's core mistake in this scenario?",
           options: [
               "She worked too many hours that week",
@@ -853,6 +916,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income5-mastery1",
+            concept: "Gross vs Net Pay",
             question: "A worker earns $20/hour for 30 hours. What is their gross pay?",
             options: [
               "$600, the rate times the hours worked",
@@ -861,10 +925,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "$660, including overtime for the week"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Gross pay is rate times hours: $20 times 30 equals $600, before any deductions. Net pay would be lower, and 30 hours doesn't trigger overtime."
           },
           {
             id: "income5-mastery2",
+            concept: "Gross vs Net Pay",
             question: "Which number should you use to plan your monthly budget?",
             options: [
               "Gross pay, the largest listed amount in real practice",
@@ -873,10 +939,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "The federal tax line on your stub"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Net pay is what actually reaches your account, so it's the real number for budgeting. Planning around gross leads to spending money you never receive."
           },
           {
             id: "income5-mastery3",
+            concept: "Gross vs Net Pay",
             question: "FICA takes 7.65% of a $1,000 gross check. How much is that?",
             options: [
               "$16.50, only the Medicare portion by that logic",
@@ -885,10 +953,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "$7.65, a flat fee per paycheck"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "7.65% of $1,000 is $76.50, combining 6.2% Social Security ($62) and 1.45% Medicare ($14.50). It's a percentage, not a flat fee."
           },
           {
             id: "income5-mastery4",
+            concept: "Gross vs Net Pay",
             question: "Which deduction is essentially your own money being saved?",
             options: [
               "Federal income tax withholding",
@@ -897,10 +967,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "State income tax withholding"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A 401(k) contribution moves your own money into retirement savings, so it's not lost like a tax - it's working for your future self."
           },
           {
             id: "income5-mastery5",
+            concept: "Gross vs Net Pay",
             question: "Why do landlords often look at gross income, not net?",
             options: [
               "Net pay is a secret they can't see",
@@ -909,10 +981,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Net income is illegal to share with them"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Gross income is a consistent, standard figure lenders and landlords use to gauge what you can afford. Net varies with each person's deductions."
           },
           {
             id: "income5-mastery6",
+            concept: "Gross vs Net Pay",
             question: "A job is posted as '$700 a week.' Why will your deposit be smaller?",
             options: [
               "The employer always keeps a $50 fee",
@@ -921,6 +995,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "Weekly pay is illegal, so it's reduced"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The $700 is gross pay. Federal tax, FICA, and any other deductions are pulled out first, so your net deposit is smaller - often by 20-30%."
           }
         ]
@@ -972,6 +1047,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income6-mc1",
+            concept: "Taxes",
             question: "In a progressive tax system, moving into a higher bracket means…",
             options: [
               "All of your income is taxed at the higher rate",
@@ -984,6 +1060,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income6-mc2",
+            concept: "Taxes",
             question: "How does a tax credit differ from a tax deduction?",
             options: [
               "A credit lowers only your gross pay",
@@ -1011,6 +1088,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income6-aq1",
+          concept: "Taxes",
           question: "Why does Renata owe some income tax when a small part-time earner owes none?",
           options: [
               "Older workers always pay a special extra tax",
@@ -1038,6 +1116,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income6-mastery1",
+            concept: "Taxes",
             question: "Why does a tax refund not really count as 'free money'?",
             options: [
               "It is taxed again the following year",
@@ -1046,10 +1125,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It only goes to people over age 30"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A refund means too much was withheld from your paychecks - it's your own money coming back with no interest, not a gift or bonus."
           },
           {
             id: "income6-mastery2",
+            concept: "Taxes",
             question: "The standard deduction does what to your income before tax?",
             options: [
               "Adds a bonus to your total earnings",
@@ -1058,10 +1139,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Removes your FICA obligation entirely"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The standard deduction subtracts a set amount (about $14,000 for a single filer) from your income, so only what's left is taxable. It doesn't affect FICA."
           },
           {
             id: "income6-mastery3",
+            concept: "Taxes",
             question: "A $1,000 tax credit for someone in the 12% bracket saves them…",
             options: [
               "$120, since credits work like deductions",
@@ -1070,10 +1153,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Nothing, because credits aren't real"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A credit reduces the tax owed dollar-for-dollar, so a $1,000 credit saves the full $1,000. A deduction would only save 12% of $1,000, or $120."
           },
           {
             id: "income6-mastery4",
+            concept: "Taxes",
             question: "What form do you use each year to compare taxes owed with taxes withheld?",
             options: [
               "A tax return, filed by the deadline",
@@ -1082,10 +1167,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "A credit report from a bureau under normal conditions"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "You file a tax return each year to reconcile what you owe against what was withheld. A W-4 sets withholding; a pay stub just shows one check."
           },
           {
             id: "income6-mastery5",
+            concept: "Taxes",
             question: "How are FICA payroll taxes different from federal income tax?",
             options: [
               "FICA is optional and income tax is required",
@@ -1094,10 +1181,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "FICA replaces the need to file a return"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "FICA is a flat 7.65% funding Social Security and Medicare specifically, separate from progressive income tax that funds general government."
           },
           {
             id: "income6-mastery6",
+            concept: "Taxes",
             question: "Getting a very large refund every year usually means you…",
             options: [
               "Earned extra money the government owes",
@@ -1106,6 +1195,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "Paid no taxes throughout the year"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A big refund means too much was withheld all year - you effectively lent the government your money with no interest. Adjusting your W-4 keeps more each paycheck."
           }
         ]
@@ -1157,6 +1247,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income7-mc1",
+            concept: "Career ROI",
             question: "What does career ROI compare?",
             options: [
               "Only the salary of your very first job",
@@ -1169,6 +1260,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income7-mc2",
+            concept: "Career ROI",
             question: "A common rule to protect your career ROI is to keep student debt…",
             options: [
               "Above your expected lifetime earnings",
@@ -1196,6 +1288,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income7-aq1",
+          concept: "Career ROI",
           question: "What is the smartest way for Owen to compare the two paths?",
           options: [
               "Pick whichever has the higher first salary",
@@ -1223,6 +1316,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income7-mastery1",
+            concept: "Career ROI",
             question: "Besides tuition, what hidden cost does a long degree carry?",
             options: [
               "Free money paid to every student",
@@ -1231,10 +1325,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Lower taxes for the rest of life"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Years in school are years not earning a full-time income, plus any debt. This 'lost earnings' cost is a real part of a career's total investment."
           },
           {
             id: "income7-mastery2",
+            concept: "Career ROI",
             question: "Why can a lower-starting career sometimes beat a higher-starting one?",
             options: [
               "Lower pay is always taxed less overall",
@@ -1243,10 +1339,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Starting salary is the only thing that matters"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A field with a modest start but steep raises can out-earn a high-start field that plateaus. ROI depends on the whole arc, not just the first salary."
           },
           {
             id: "income7-mastery3",
+            concept: "Career ROI",
             question: "Borrowing $120,000 for a degree leading to a $38,000 job is an example of…",
             options: [
               "A guaranteed high return on investment",
@@ -1255,10 +1353,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "The best possible career decision across the board"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Debt far larger than the resulting salary traps you in payments for years, producing a negative ROI. Debt should stay below your expected first-year pay."
           },
           {
             id: "income7-mastery4",
+            concept: "Career ROI",
             question: "Which option can improve career ROI by cutting costs?",
             options: [
               "Borrowing the maximum available loans",
@@ -1267,10 +1367,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Ignoring salary data when deciding"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Apprenticeships pay you while you learn, community college, and trade certifications all cut the 'investment' side, boosting ROI without gutting the return."
           },
           {
             id: "income7-mastery5",
+            concept: "Career ROI",
             question: "What data should you use to judge a career's likely return?",
             options: [
               "Guesses based on a single TV show",
@@ -1279,10 +1381,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Whatever number sounds most exciting"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Honest ROI uses real median salaries, job growth projections, and typical debt - not dream numbers or vibes. Then you layer in lifestyle and interest factors."
           },
           {
             id: "income7-mastery6",
+            concept: "Career ROI",
             question: "The full 'return' of a career includes more than salary, such as…",
             options: [
               "The color of the company logo",
@@ -1291,192 +1395,8 @@ export const deepIncome: StructuredLessonContent[] = [
               "The number of vowels in the job title"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Return includes how fast pay grows, job stability, demand for the skill, and benefits - all of which shape lifetime earnings beyond the starting salary."
-          }
-        ]
-      }
-    ]
-  },
-  // ─────────────────────────────────────────────
-  // income-8: Education as Investment
-  // ─────────────────────────────────────────────
-  {
-    lessonId: "income-8",
-    sections: [
-      {
-        type: "concept",
-        title: "The Data Behind College's Payoff",
-        paragraphs: [
-          "You already have the tool from the Career-ROI lesson: weigh a path's lifetime earnings against its total cost. This lesson aims it at the biggest education decision of all - a four-year college degree. On average, more education correlates with higher lifetime earnings, which is the data behind treating college as an investment. U.S. figures consistently show bachelor's degree holders earn substantially more over a lifetime than those with only a high school diploma, often hundreds of thousands of dollars more, and they tend to face lower unemployment. This 'college wage premium' is real and is the main argument for the cost. But 'on average' hides huge variation: the payoff depends heavily on what you study, where, how much you borrow, and whether you finish.",
-          "The cost side is steep and rising. Four years of tuition, fees, housing, and books can total $40,000 at an in-state public school or well over $200,000 at a private one. Add the 'opportunity cost' of four years not working full-time, and the investment is large. This is why the same degree can be a brilliant investment or a costly mistake depending on the price paid. Paying $200,000 for a degree that leads to a $40,000 job is very different from paying $40,000 for one that leads to a $70,000 career.",
-          "Finishing matters enormously. Students who take on debt but don't graduate get much of the cost with little of the wage premium - often the worst outcome. Completion rates, the specific major, and the school's real graduate salaries (not glossy brochures) all shape whether the investment pays off. The mature way to view college isn't 'always worth it' or 'a scam,' but as a specific investment whose ROI you can research and improve by choosing an affordable school, a marketable field, and a realistic plan to actually finish."
-        ],
-        bullets: [
-          "On average, degree holders earn far more over a lifetime and face lower unemployment.",
-          "The 'college wage premium' is real but varies hugely by major, school, and cost.",
-          "Costs range from ~$40,000 in-state to $200,000+ private, plus lost earnings.",
-          "The same degree can be a great investment or a mistake depending on the price.",
-          "Not finishing is often the worst outcome - much cost, little wage premium."
-        ],
-        realWorldExample: "Two students borrow for college. Ella spends $45,000 at a state school in nursing and lands a $70,000 job. Ryan spends $130,000 at a private school, changes majors, and leaves after three years with no degree. Ella's investment pays off strongly; Ryan carries heavy debt with little wage premium to show for it."
-      },
-      {
-        type: "concept",
-        title: "Making Education Pay Off",
-        paragraphs: [
-          "You can dramatically improve education's ROI with smart choices before you ever enroll. Starting at a community college for general credits, then transferring, can cut costs by tens of thousands with the same final degree. Choosing in-state public schools, applying aggressively for scholarships and grants (money you never repay), and picking fields with strong demand all tilt the math in your favor. Free money should always come before loans: every scholarship dollar is a dollar of debt you avoid, and grants don't have to be paid back like loans do.",
-          "Where you earn the same degree matters as much as whether you earn it. Two years at a community college for general credits, then transferring to finish, can cut the cost of an identical bachelor's by tens of thousands. Dual-enrollment or AP credits earned in high school shave off whole semesters. In-state public tuition is a fraction of private, and living at home removes a huge housing bill. None of these change the diploma you graduate with - they only shrink the price you pay for it, which is the single biggest lever on a degree's return. (A four-year degree isn't the only path, of course; the College-vs-Trade lesson weighs it head-to-head against the trades.)",
-          "Whatever path you choose, protect the investment by borrowing carefully and finishing what you start. Prefer federal student loans over private ones (better protections and rates), keep total borrowing below your expected first-year salary, and treat your major as part of the financial decision, not separate from it. Look up real graduate earnings for your intended field and school before committing. Education can be one of the highest-return investments of your life - but only when you match a realistic cost to a realistic payoff and follow through to completion. Treated carelessly, the same education can become one of the heaviest financial burdens instead."
-        ],
-        bullets: [
-          "Community college transfers and in-state schools can slash costs for the same degree.",
-          "Scholarships and grants are free money - always pursue them before taking loans.",
-          "AP credits, dual enrollment, and living at home further cut a degree's price.",
-          "Prefer federal loans and keep total debt under your expected first-year salary.",
-          "Research real graduate salaries for your field and school before committing."
-        ],
-        realWorldExample: "Fatima wants a business degree without heavy debt. She earns 24 college credits through AP and dual-enrollment in high school, spends two years at a community college, then transfers to an in-state public university. She graduates with the same bachelor's as her classmates but borrowed about a third of what they did - the identical degree at a far better ROI."
-      },
-      {
-        type: "micro-check",
-        questions: [
-          {
-            id: "income8-mc1",
-            question: "What does the 'college wage premium' refer to?",
-            options: [
-              "A fee colleges charge wealthy students",
-              "Higher average earnings for degree holders",
-              "A discount on tuition for good grades",
-              "The interest rate on student loans"
-            ],
-            correctAnswer: 1,
-            explanation: "The college wage premium is the higher average lifetime earnings degree holders tend to have over those with only a high school diploma. It varies by major, school, and cost."
-          },
-          {
-            id: "income8-mc2",
-            question: "Which should you always pursue before taking out student loans?",
-            options: [
-              "The most expensive private school in real practice",
-              "Scholarships and grants you don't repay",
-              "The maximum private loan available",
-              "A credit card to cover tuition"
-            ],
-            correctAnswer: 1,
-            explanation: "Scholarships and grants are free money you never repay, so every dollar of them is a dollar of debt avoided. Always pursue free money before borrowing."
-          }
-        ]
-      },
-      {
-        type: "scenario",
-        title: "Grace Plans an Affordable Degree",
-        narrative: "Grace, 18, wants a business degree but is worried about debt. A private university would cost $160,000 over four years. Her counselor suggests a cheaper route that ends with the same bachelor's degree. Grace maps out a plan to protect her return on investment.",
-        details: [
-          "Grace starts at community college for two years, cutting her cost by roughly $50,000 for general credits.",
-          "She applies for several scholarships and grants, which are free money she never has to repay.",
-          "She then transfers to an in-state public university to finish the same bachelor's degree.",
-          "Her total borrowing stays below her expected first-year salary, keeping repayment manageable."
-        ]
-      },
-      {
-        type: "applied-question",
-        question: {
-          id: "income8-aq1",
-          question: "How does Grace's plan most improve her education ROI?",
-          options: [
-              "It guarantees she will earn six figures across the board",
-              "It cuts costs while earning the same degree",
-              "It removes the need to ever get a job",
-              "It makes tuition completely free for all"
-            ],
-            correctAnswer: 1,
-          explanation: "By using community college, scholarships, and an in-state transfer, Grace slashes the cost side while earning the same degree - directly improving her return on investment."
-        }
-      },
-      {
-        type: "recap",
-        takeaways: [
-          "Degree holders earn more on average, but the payoff varies by major, school, and cost.",
-          "The same degree can be a great investment or a mistake depending on the price paid.",
-          "Not finishing is often the worst outcome: much cost, little wage premium.",
-          "Scholarships, grants, community college, and in-state schools cut costs sharply.",
-          "Where you earn the same degree changes its cost - and its return - enormously."
-        ]
-      },
-      {
-        type: "mastery-check",
-        requiredCorrect: 4,
-        questions: [
-          {
-            id: "income8-mastery1",
-            question: "Why is 'on average, college pays off' an incomplete statement?",
-            options: [
-              "Averages are always completely wrong in nearly every case",
-              "The payoff varies by major, school, and cost",
-              "College is free for everyone regardless for most workers today",
-              "No degree ever raises anyone's income"
-            ],
-            correctAnswer: 1,
-            explanation: "The average hides huge variation. The actual payoff depends on what you study, where, how much you borrow, and whether you finish - so it isn't automatic."
-          },
-          {
-            id: "income8-mastery2",
-            question: "Why is borrowing for college but not graduating often the worst outcome?",
-            options: [
-              "You pay lower interest for leaving early",
-              "You get the cost but little wage premium",
-              "The school refunds all of your tuition",
-              "You automatically earn a higher salary for most workers today"
-            ],
-            correctAnswer: 1,
-            explanation: "Non-completers take on much of the cost and debt but miss most of the wage premium that comes with finishing a degree - a poor return."
-          },
-          {
-            id: "income8-mastery3",
-            question: "How do grants differ from student loans?",
-            options: [
-              "Grants must be repaid with interest as a general rule",
-              "Grants are free money you don't repay",
-              "Grants are only for graduate students",
-              "Grants cost more than private loans"
-            ],
-            correctAnswer: 1,
-            explanation: "Grants, like scholarships, are free money you never repay, unlike loans which must be paid back with interest. Pursue them before borrowing."
-          },
-          {
-            id: "income8-mastery4",
-            question: "Why prefer federal student loans over private ones for a degree?",
-            options: [
-              "Federal loans never have to be repaid at all",
-              "Federal loans offer better protections and rates",
-              "Private loans are free money you never repay",
-              "Federal loans are only for graduate students"
-            ],
-            correctAnswer: 1,
-            explanation: "Federal student loans generally carry lower rates and stronger borrower protections than private loans, so they're the safer way to borrow - after you've used up free scholarships and grants."
-          },
-          {
-            id: "income8-mastery5",
-            question: "A student can slash costs for the same degree by…",
-            options: [
-              "Choosing the priciest school available across the board",
-              "Starting at community college, then transferring",
-              "Borrowing the maximum private loans",
-              "Skipping all scholarship applications in real practice"
-            ],
-            correctAnswer: 1,
-            explanation: "Completing general credits at community college and transferring can cut costs by tens of thousands while ending with the same bachelor's degree."
-          },
-          {
-            id: "income8-mastery6",
-            question: "Before committing to a school and major, you should research…",
-            options: [
-              "The color of the graduation gowns",
-              "Real graduate salaries for that field",
-              "Which sports team the school has",
-              "The age of the campus buildings"
-            ],
-            correctAnswer: 1,
-            explanation: "Looking up real graduate earnings for your intended field and school - not brochures - lets you match a realistic cost to a realistic payoff before committing."
           }
         ]
       }
@@ -1494,7 +1414,7 @@ export const deepIncome: StructuredLessonContent[] = [
         paragraphs: [
           "Skill stacking means combining several 'good enough' skills instead of chasing one world-class talent. Being the single best coder or writer on Earth is nearly impossible, but being pretty good at coding AND design AND communication makes you rare and valuable. Each skill on its own might be common, but the combination is uncommon. A person who can code, understands marketing, and speaks confidently on camera can do jobs three separate people usually handle - and that rarity is what employers and clients pay a premium for.",
           "The math is powerful because rarity multiplies, not adds. Suppose 1 in 10 people are good at writing, 1 in 10 are good at data, and 1 in 10 are good at public speaking. Someone with all three isn't 3 in 10 - they're roughly 1 in 1,000, because the odds multiply. That scarcity is why skill stackers stand out. You don't need to be a genius at any single thing; you need a valuable combination that few others have. This is often more achievable than reaching the very top of one crowded field.",
-          "Skill stacking also protects you. If one skill becomes outdated or automated, your other skills keep you employable. A graphic designer who also learns coding and project management has several doors open if design work dries up. Combined skills let you spot opportunities others miss - connecting ideas across fields - and often lead to leadership or entrepreneurial roles, because you understand how different pieces fit together. In a fast-changing economy, a well-chosen stack is more resilient than betting everything on one specialty."
+          "Skill stacking also protects you. If one skill becomes outdated or automated, your other skills keep you employable. A graphic designer who also learns coding and project management has several doors open if design work dries up. Combined skills let you spot opportunities others miss - connecting ideas across fields - and often lead to leadership or entrepreneurial roles, because you understand how different pieces fit together. In a fast-changing economy, a well-chosen stack is more resilient than betting everything on one specialty. This is the supply-and-demand principle from Supply and Demand for Workers in action: a rare combination means low supply and high value."
         ],
         bullets: [
           "Skill stacking combines several 'good enough' skills instead of one world-class one.",
@@ -1527,6 +1447,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income9-mc1",
+            concept: "Skill Stacking",
             question: "What is the core idea of skill stacking?",
             options: [
               "Becoming the world's best at one thing",
@@ -1539,6 +1460,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income9-mc2",
+            concept: "Skill Stacking",
             question: "Why does a rare skill combination command higher pay?",
             options: [
               "Rarity multiplies, so few people have it",
@@ -1566,6 +1488,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income9-aq1",
+          concept: "Skill Stacking",
           question: "Why is Layla's approach smarter than becoming the single best photographer?",
           options: [
               "Being the best is easy for most people",
@@ -1593,6 +1516,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income9-mastery1",
+            concept: "Skill Stacking",
             question: "Three skills, each held by 1 in 10 people, combined make you roughly…",
             options: [
               "3 in 10, by adding the odds together",
@@ -1601,10 +1525,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "10 in 10, meaning everyone has them"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The odds multiply: 1/10 times 1/10 times 1/10 is 1 in 1,000. That rarity from combining skills is what makes a stack so valuable."
           },
           {
             id: "income9-mastery2",
+            concept: "Skill Stacking",
             question: "Which pairing tends to be especially valuable in a skill stack?",
             options: [
               "Two nearly identical technical skills in real practice",
@@ -1613,10 +1539,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Skills that are all going out of demand"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Combining a technical skill with a human skill like communication or sales is powerful because technical people who can also explain and persuade are rare and highly paid."
           },
           {
             id: "income9-mastery3",
+            concept: "Skill Stacking",
             question: "How does skill stacking protect your career?",
             options: [
               "It guarantees you can never be fired across the board",
@@ -1625,10 +1553,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It locks you into a single narrow field"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If one skill becomes outdated or automated, your other skills keep you employable and able to pivot - a resilience that betting on one specialty lacks."
           },
           {
             id: "income9-mastery4",
+            concept: "Skill Stacking",
             question: "What is the right skill level to aim for in each stacked skill?",
             options: [
               "Perfect, world-class mastery in each",
@@ -1637,10 +1567,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Enough to list it but not use it"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "You aim for 'competent and useful' in each skill, since the value comes from the rare combination, not from being flawless at any single one."
           },
           {
             id: "income9-mastery5",
+            concept: "Skill Stacking",
             question: "How should you build a skill stack over time?",
             options: [
               "Master every skill at once instantly",
@@ -1649,10 +1581,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Randomly pick unrelated hobbies for most workers today"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "You build a stack layer by layer: get useful at one skill, then add an adjacent skill that boosts it, practicing on real projects rather than collecting unused certificates."
           },
           {
             id: "income9-mastery6",
+            concept: "Skill Stacking",
             question: "Which stack is likely to stay valuable over many years?",
             options: [
               "One narrow, trendy skill that may fade",
@@ -1661,6 +1595,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "A single hobby with no demand"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Durable skills like communication, sales, and basic tech literacy stay useful for decades and solve real problems, making them a resilient stack foundation."
           }
         ]
@@ -1712,6 +1647,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income10-mc1",
+            concept: "Entrepreneurship Income",
             question: "An entrepreneur's actual income is best described as…",
             options: [
               "All the revenue customers pay them",
@@ -1724,6 +1660,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income10-mc2",
+            concept: "Entrepreneurship Income",
             question: "What is a smart, low-risk way for a young entrepreneur to grow?",
             options: [
               "Borrow as much money as possible upfront",
@@ -1751,6 +1688,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income10-aq1",
+          concept: "Entrepreneurship Income",
           question: "What key lesson should Noah take from his first month?",
           options: [
               "Revenue and income are the same thing",
@@ -1778,6 +1716,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income10-mastery1",
+            concept: "Entrepreneurship Income",
             question: "A business earns $3,000 revenue with $1,800 in expenses. The owner's income is…",
             options: [
               "$3,000, the full amount of revenue",
@@ -1786,10 +1725,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "$4,800, revenue plus the expenses"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Income is profit: $3,000 revenue minus $1,800 expenses equals $1,200. Revenue alone is not what the owner keeps."
           },
           {
             id: "income10-mastery2",
+            concept: "Entrepreneurship Income",
             question: "How does an entrepreneur's income differ from an hourly wage?",
             options: [
               "It is guaranteed to be higher each week",
@@ -1798,10 +1739,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It can never fall below a set amount"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Entrepreneurial income has no guaranteed minimum - a slow month can mean zero - but it's uncapped, so a strong business can pay far more than any wage."
           },
           {
             id: "income10-mastery3",
+            concept: "Entrepreneurship Income",
             question: "Why must an entrepreneur know both fixed and variable costs?",
             options: [
               "To avoid ever making any profit as a general rule",
@@ -1810,10 +1753,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "To pay their employees less than minimum wage"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Knowing all costs lets you price so each sale covers materials, labor, and overhead and still leaves profit. Ignoring costs means working hard for nothing."
           },
           {
             id: "income10-mastery4",
+            concept: "Entrepreneurship Income",
             question: "What extra tax do self-employed entrepreneurs typically owe?",
             options: [
               "A luxury tax on all their sales",
@@ -1822,10 +1767,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Nothing, since they own the business"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Self-employed people pay self-employment tax, roughly 15.3%, covering both the employee and employer halves of Social Security and Medicare."
           },
           {
             id: "income10-mastery5",
+            concept: "Entrepreneurship Income",
             question: "Reinvesting early profits into a business mainly helps by…",
             options: [
               "Guaranteeing the business can never fail in real practice",
@@ -1834,10 +1781,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Letting the owner skip paying taxes"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Reinvesting profit compounds a small business using money it already earned, growing it with low risk instead of gambling borrowed cash on an unproven idea."
           },
           {
             id: "income10-mastery6",
+            concept: "Entrepreneurship Income",
             question: "How can entrepreneurship income become partly passive over time?",
             options: [
               "By working more hours every single day in nearly every case",
@@ -1846,6 +1795,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "By refusing to ever hire any help"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Building systems - hiring help, automating, or creating products that sell themselves - lets a business earn even when the owner isn't working every hour, escaping the time-for-money trap."
           }
         ]
@@ -1893,10 +1843,28 @@ export const deepIncome: StructuredLessonContent[] = [
         realWorldExample: "Diego compares plumbing and a business degree. Plumbing: $15,000 training, earning $52,000 by age 20 with high demand. Business degree: $60,000 cost, earning $58,000 by 23 with wider corporate options. Over ten years, plumbing's earlier start and low debt make its ROI strong - but the degree may open management roles that pay more later."
       },
       {
+        type: "concept",
+        title: "Making a College Degree Pay Off",
+        paragraphs: [
+          "College's side of this comparison has its own ROI levers worth knowing. On average, bachelor's degree holders earn substantially more over a lifetime than high-school-only workers - often hundreds of thousands of dollars more - and face lower unemployment. That 'college wage premium' is real, but 'on average' hides huge variation: the payoff depends on what you study, where, how much you borrow, and whether you finish.",
+          "You can dramatically improve a degree's return with smart choices. Earning general credits at a community college and then transferring, choosing an in-state public school, and picking up AP or dual-enrollment credits in high school can cut the price of the exact same bachelor's by tens of thousands. Chase scholarships and grants - free money you never repay - before taking on any loans, since every free dollar is a dollar of debt avoided.",
+          "Borrow carefully and finish what you start. Prefer federal student loans over private ones for their better rates and protections, and keep total borrowing below your expected first-year salary. Above all, finishing matters: students who take on debt but never graduate get much of the cost with little of the wage premium - often the worst outcome of all. The mature view treats a degree not as 'always worth it' or 'a scam' but as a specific investment whose return you can research and improve."
+        ],
+        bullets: [
+          "The 'college wage premium' is real but varies by major, school, cost, and finishing.",
+          "Community college transfers, in-state schools, and AP credits cut the same degree's price.",
+          "Pursue scholarships and grants (free money) before taking any loans.",
+          "Prefer federal loans and keep total debt under your expected first-year salary.",
+          "Not finishing is often the worst outcome: much cost, little wage premium."
+        ],
+        realWorldExample: "Fatima earns 24 credits through AP and dual-enrollment, spends two years at community college, then transfers to an in-state public university. She graduates with the same bachelor's as her classmates but borrowed about a third as much - the identical degree at a far better ROI."
+      },
+      {
         type: "micro-check",
         questions: [
           {
             id: "income11-mc1",
+            concept: "College vs Trade School: What's the ROI?",
             question: "Why do trades often have a head start on ROI over four-year college?",
             options: [
               "Trades always pay more than any degree",
@@ -1909,6 +1877,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mc2",
+            concept: "College vs Trade School: What's the ROI?",
             question: "What makes many skilled trades relatively secure jobs?",
             options: [
               "They can be done fully by robots now",
@@ -1918,6 +1887,32 @@ export const deepIncome: StructuredLessonContent[] = [
             ],
             correctAnswer: 1,
             explanation: "Many trades face worker shortages and can't be outsourced overseas - you can't wire a house from another country - which supports job security and rising wages."
+          },
+          {
+            id: "income11-mc3",
+            concept: "College vs Trade School: What's the ROI?",
+            question: "What does the 'college wage premium' refer to?",
+            options: [
+              "A fee colleges charge wealthy students",
+              "Higher average earnings for degree holders",
+              "A discount on tuition for good grades",
+              "The interest rate on student loans"
+            ],
+            correctAnswer: 1,
+            explanation: "The college wage premium is the higher average lifetime earnings degree holders tend to have over those with only a high school diploma. It varies by major, school, and cost."
+          },
+          {
+            id: "income11-mc4",
+            concept: "College vs Trade School: What's the ROI?",
+            question: "Which should you always pursue before taking out student loans?",
+            options: [
+              "The most expensive private school available",
+              "Scholarships and grants you don't repay",
+              "The maximum private loan available",
+              "A credit card to cover tuition"
+            ],
+            correctAnswer: 1,
+            explanation: "Scholarships and grants are free money you never repay, so every dollar of them is a dollar of debt avoided. Always pursue free money before borrowing."
           }
         ]
       },
@@ -1936,6 +1931,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income11-aq1",
+          concept: "College vs Trade School: What's the ROI?",
           question: "What is the best way for Aisha to compare her two options?",
           options: [
               "Pick whichever sounds more prestigious as a general rule",
@@ -1963,6 +1959,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income11-mastery1",
+            concept: "College vs Trade School: What's the ROI?",
             question: "A paid apprenticeship affects the cost of entering a trade by…",
             options: [
               "Doubling the total cost of training under normal conditions",
@@ -1971,10 +1968,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Requiring four years of unpaid study across the board"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Apprenticeships pay you while you train, flipping the cost toward zero and letting you finish debt-free - a major ROI advantage of some trades."
           },
           {
             id: "income11-mastery2",
+            concept: "College vs Trade School: What's the ROI?",
             question: "Why can a college field still beat a trade over a full career?",
             options: [
               "College is free while trades cost money",
@@ -1983,10 +1982,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "College graduates never carry any debt"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Some college fields have higher long-term ceilings and faster raises, so they can catch up to and pass a trade's earlier start over a full career."
           },
           {
             id: "income11-mastery3",
+            concept: "College vs Trade School: What's the ROI?",
             question: "The 'lost earning years' cost of college refers to…",
             options: [
               "Money the school pays you to attend",
@@ -1995,10 +1996,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "The interest earned on tuition"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "While in a four-year program you're not earning a full-time income, so those years of forgone wages are a real cost added to tuition."
           },
           {
             id: "income11-mastery4",
+            concept: "College vs Trade School: What's the ROI?",
             question: "When comparing paths, you should check demand for…",
             options: [
               "The type of credential in general",
@@ -2007,10 +2010,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Whatever field sounds most exciting in nearly every case"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Demand varies by specific field, not credential type. A booming trade can beat a crowded profession and vice versa, so research the actual career."
           },
           {
             id: "income11-mastery5",
+            concept: "College vs Trade School: What's the ROI?",
             question: "Why does 'fit and follow-through' matter in this choice?",
             options: [
               "The best path is worthless if you quit it",
@@ -2019,10 +2024,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Finishing a program lowers your salary under normal conditions"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Even the highest-paying path fails if you drop out or hate the work. Choosing something you'll actually complete and stick with is essential to real ROI."
           },
           {
             id: "income11-mastery6",
+            concept: "College vs Trade School: What's the ROI?",
             question: "Which statement reflects the mature view of this choice?",
             options: [
               "College is always worth it as a general rule",
@@ -2031,6 +2038,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "The decision never involves any real numbers in real practice"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Both paths are investments whose return depends on the specific field, cost, and finishing - rejecting the myths that either is automatically the better choice."
           }
         ]
@@ -2049,7 +2057,7 @@ export const deepIncome: StructuredLessonContent[] = [
         paragraphs: [
           "Your pay isn't set by how hard you work alone - it's largely set by supply and demand for your skills in the labor market. Demand is how badly employers need someone who can do a job; supply is how many people can do it. When lots of employers want a skill but few people have it, wages rise. When many people can do a job that few employers need, wages fall. This is why a surgeon earns far more than a cashier: not because surgery is 'harder' in effort, but because few people can do it and many patients need it.",
           "This explains pay gaps that otherwise seem unfair. A job requiring years of rare training and offering little competition among workers commands high pay, while an easy-to-learn job with a flood of available workers pays near minimum wage. A software engineer and a fast-food worker might both work hard, but the engineer's skills are scarcer and in higher demand. Understanding this frees you from thinking pay is purely about effort - it's about how rare and needed your specific abilities are in the market.",
-          "The market shifts over time, and so does pay. A skill that's scarce today can become common as more people learn it, pushing wages down; a new technology can suddenly make certain skills hugely valuable. Nurses' pay rises when there's a shortage; some jobs shrink when automation reduces demand for them. Smart workers watch these trends and aim their skills toward areas of high demand and limited supply. You can't control the whole market, but you can position yourself where it pays well by choosing scarce, needed skills."
+          "The market shifts over time, and so does pay. A skill that's scarce today can become common as more people learn it, pushing wages down; a new technology can suddenly make certain skills hugely valuable. Nurses' pay rises when there's a shortage; some jobs shrink when automation reduces demand for them. Smart workers watch these trends and aim their skills toward areas of high demand and limited supply. You can't control the whole market, but you can position yourself where it pays well by choosing scarce, needed skills. Combining several skills, as covered in Why Combining Skills Multiplies Your Value, is one deliberate way to keep your supply rare and your demand high."
         ],
         bullets: [
           "Pay is largely set by supply of workers and demand from employers, not just effort.",
@@ -2082,6 +2090,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income12-mc1",
+            concept: "How Labor Markets Set Your Pay",
             question: "When a skill is in high demand but few workers have it, wages tend to…",
             options: [
               "Fall toward minimum wage quickly under normal conditions",
@@ -2094,6 +2103,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income12-mc2",
+            concept: "How Labor Markets Set Your Pay",
             question: "What is the most reliable way to raise your earning power?",
             options: [
               "Simply working more hours each day",
@@ -2121,6 +2131,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income12-aq1",
+          concept: "How Labor Markets Set Your Pay",
           question: "Why does Ravi's friend earn more despite similar effort?",
           options: [
               "His friend is simply luckier than Ravi",
@@ -2148,6 +2159,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income12-mastery1",
+            concept: "How Labor Markets Set Your Pay",
             question: "Why does a surgeon typically earn more than a cashier?",
             options: [
               "Surgeons simply work harder every day in nearly every case",
@@ -2156,10 +2168,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "The government sets both wages equally for most workers today"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Surgery requires rare training few people have while demand is high, so pay rises. It's about scarcity and demand, not raw effort."
           },
           {
             id: "income12-mastery2",
+            concept: "How Labor Markets Set Your Pay",
             question: "If many people learn a once-scarce skill, its wages tend to…",
             options: [
               "Rise even higher for most workers today",
@@ -2168,10 +2182,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Become illegal for employers to pay"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "As more people gain a skill, supply rises and, unless demand grows too, wages fall. Markets shift, so today's scarce skill can become common."
           },
           {
             id: "income12-mastery3",
+            concept: "How Labor Markets Set Your Pay",
             question: "How does earning a rare certification affect your earning power?",
             options: [
               "It floods the market with more workers as a general rule",
@@ -2180,10 +2196,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It has no effect on pay whatsoever"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A rare, in-demand credential reduces how many people can do your job, shifting you toward low supply and high demand, where wages are higher."
           },
           {
             id: "income12-mastery4",
+            concept: "How Labor Markets Set Your Pay",
             question: "Why is knowing typical salaries for your role useful?",
             options: [
               "It lets employers pay you far less",
@@ -2192,10 +2210,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It guarantees you a raise every month"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Knowing your market value lets you negotiate toward the top of an employer's range and recognize a lowball offer - real leverage in setting your pay."
           },
           {
             id: "income12-mastery5",
+            concept: "How Labor Markets Set Your Pay",
             question: "What often gives a worker the strongest leverage for higher pay?",
             options: [
               "Threatening to work fewer hours in real practice",
@@ -2204,10 +2224,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Having the longest job title possible"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When other employers want you, your current one has a strong reason to pay more to keep you. Outside demand is powerful leverage in negotiation."
           },
           {
             id: "income12-mastery6",
+            concept: "How Labor Markets Set Your Pay",
             question: "The same skill can pay differently depending on…",
             options: [
               "The worker's favorite color",
@@ -2216,6 +2238,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "Nothing; pay is always identical"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Industry, company, and geographic demand all shape pay for the same skill, which is why switching employers or moving toward opportunity can boost income."
           }
         ]
@@ -2249,7 +2272,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "concept",
         title: "Protecting Yourself Before and During a Downturn",
         paragraphs: [
-          "The single most important protection is an emergency fund - and you'll build the full playbook for it in the Emergency Funds lesson. What matters here is why a recession is exactly the storm it exists for: a layoff can stop your income for months, and the fund pays rent and food while you search, so you're not forced into debt or a desperate first offer. The recession twist is timing - build it during good times, because the fund has to exist before the downturn arrives, not after.",
+          "The single most important protection is an emergency fund - and you'll build the full playbook for it in the Emergency Funds lesson. What matters here is why a recession is exactly the storm it exists for: a layoff can stop your income for months, and the fund pays rent and food while you search, so you're not forced into debt or a desperate first offer. The recession twist is timing - build it during good times, because the fund has to exist before the downturn arrives, not after. On size, adults aim for 3 to 6 months of expenses; as a teen, start with $300 to $500.",
           "Reducing risk before trouble hits also helps. Avoiding heavy debt means lower required payments if your income drops - someone with big car and credit-card payments is far more fragile in a layoff than someone who kept borrowing modest. Living below your means builds a cushion and habits that survive lean times. Diversifying your income - a side gig alongside a main job - means one setback doesn't wipe out everything. These aren't glamorous, but they're what separate people who weather a recession from those crushed by it.",
           "Your career choices and skills are recession protection too. Staying valuable and hard to replace makes you less likely to be the one laid off, and in-demand, essential skills find work even in downturns. Keep learning and maintain a network, since referrals help most when hiring is slow. And for long-term investors, downturns can even be opportunities: falling stock prices let steady investors buy at a discount, and markets have historically recovered. The mindset shift is treating recessions as a normal risk you prepare for calmly, not a disaster you can only fear. Preparation, not panic, is what separates people who come through a downturn intact."
         ],
@@ -2267,6 +2290,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income13-mc1",
+            concept: "Recessions, Unemployment & Your Money",
             question: "What generally happens to unemployment during a recession?",
             options: [
               "It falls as companies hire more workers for most workers today",
@@ -2279,6 +2303,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income13-mc2",
+            concept: "Recessions, Unemployment & Your Money",
             question: "What is the single most important protection against losing income?",
             options: [
               "A brand-new car bought on credit as a general rule",
@@ -2306,6 +2331,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income13-aq1",
+          concept: "Recessions, Unemployment & Your Money",
           question: "Why is Elena's emergency fund her most powerful protection?",
           options: [
               "It guarantees she can never be laid off",
@@ -2333,6 +2359,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income13-mastery1",
+            concept: "Recessions, Unemployment & Your Money",
             question: "Which type of job tends to be hit first in a recession?",
             options: [
               "Grocery stores selling everyday food",
@@ -2341,10 +2368,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Utilities providing electricity to homes"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Jobs tied to 'wants' like luxury goods, travel, and entertainment suffer first, because people cut those purchases when money is tight. 'Needs' like food and medicine stay steadier."
           },
           {
             id: "income13-mastery2",
+            concept: "Recessions, Unemployment & Your Money",
             question: "Why should you build an emergency fund during good times?",
             options: [
               "Because savings are illegal in a recession",
@@ -2353,10 +2382,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Because funds shrink automatically in booms across the board"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Good times, when income is steady, are exactly when you can build savings. The fund is then ready for the moment income stops, which is the whole point."
           },
           {
             id: "income13-mastery3",
+            concept: "Recessions, Unemployment & Your Money",
             question: "How does keeping debt low help during a downturn?",
             options: [
               "It raises your salary automatically across the board",
@@ -2365,10 +2396,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It forces employers to give you raises"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Lower debt means smaller required monthly payments, so a drop in income is far easier to survive. Heavy debt makes you fragile in a layoff."
           },
           {
             id: "income13-mastery4",
+            concept: "Recessions, Unemployment & Your Money",
             question: "Why are newer workers often laid off first in a recession?",
             options: [
               "They always cost the company the most",
@@ -2377,10 +2410,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "They never do any useful work at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Businesses frequently lay off less-experienced, newer staff before senior workers - the 'last in, first out' pattern - which is why job tenure affects security."
           },
           {
             id: "income13-mastery5",
+            concept: "Recessions, Unemployment & Your Money",
             question: "How can a recession be an opportunity for a long-term investor?",
             options: [
               "Stocks are banned from ever recovering as a general rule",
@@ -2389,10 +2424,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Prices only ever rise during recessions"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Falling stock prices let steady long-term investors buy at a discount, and markets have historically recovered over time - so downturns can be buying opportunities."
           },
           {
             id: "income13-mastery6",
+            concept: "Recessions, Unemployment & Your Money",
             question: "What is the healthiest mindset about recessions?",
             options: [
               "They never happen to prepared people as a general rule",
@@ -2401,6 +2438,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "They last forever once they begin under normal conditions"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Recessions are normal, recurring events that always eventually end. Treating them as a predictable risk to prepare for - not a disaster to fear - lets you plan instead of panic."
           }
         ]
@@ -2452,6 +2490,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income14-mc1",
+            concept: "Social Security: The Basics",
             question: "How is Social Security funded?",
             options: [
               "By voluntary donations from retirees under normal conditions",
@@ -2464,6 +2503,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income14-mc2",
+            concept: "Social Security: The Basics",
             question: "Why is Social Security not meant to be your whole retirement plan?",
             options: [
               "It only pays people who never worked",
@@ -2491,6 +2531,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income14-aq1",
+          concept: "Social Security: The Basics",
           question: "What is the best conclusion for Tariq about Social Security?",
           options: [
               "It will fully fund his entire retirement",
@@ -2518,6 +2559,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income14-mastery1",
+            concept: "Social Security: The Basics",
             question: "On a paycheck, the money funding Social Security appears as…",
             options: [
               "A voluntary tip line you can skip",
@@ -2526,10 +2568,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "A refundable bonus added to pay"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Social Security is funded through the FICA payroll tax on your stub - 6.2% from you plus a matching amount from your employer. It's automatic, not voluntary."
           },
           {
             id: "income14-mastery2",
+            concept: "Social Security: The Basics",
             question: "What does 'pay-as-you-go' mean for Social Security?",
             options: [
               "Your taxes sit in a personal account",
@@ -2538,10 +2582,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Benefits are paid before you work"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Social Security uses today's workers' taxes to fund today's retirees' benefits, rather than storing money in a personal account with your name on it."
           },
           {
             id: "income14-mastery3",
+            concept: "Social Security: The Basics",
             question: "Roughly how much work is needed to qualify for retirement benefits?",
             options: [
               "About 40 credits, near ten years of work",
@@ -2550,10 +2596,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "No work is required to qualify at all"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "You generally need 40 credits, earned at up to four per year, which works out to about ten years of covered work to qualify for retirement benefits."
           },
           {
             id: "income14-mastery4",
+            concept: "Social Security: The Basics",
             question: "What happens if you claim Social Security at 62 instead of 67?",
             options: [
               "You get a permanently smaller monthly check",
@@ -2562,10 +2610,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Nothing changes about your benefit in real practice"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Claiming early at 62 gives you more years of payments but a permanently smaller monthly check. Waiting until full retirement age or 70 increases the monthly amount."
           },
           {
             id: "income14-mastery5",
+            concept: "Social Security: The Basics",
             question: "Besides retirement, Social Security also provides…",
             options: [
               "Free college tuition for all workers",
@@ -2574,10 +2624,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Interest-free loans to everyone"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Social Security also pays disability benefits to workers who can't work and survivor benefits to the families of workers who die - it's broad social insurance."
           },
           {
             id: "income14-mastery6",
+            concept: "Social Security: The Basics",
             question: "Because Social Security replaces only part of income, teens should…",
             options: [
               "Rely on it as their entire retirement plan",
@@ -2586,6 +2638,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "Assume it will pay their full salary"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Since it's designed as a partial foundation, not a full plan, saving on your own through accounts like a 401(k) or IRA - starting young - lets compounding build the rest."
           }
         ]
@@ -2637,6 +2690,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income15-mc1",
+            concept: "Local Taxes: Property, Sales & Municipal",
             question: "Property tax is charged based on what?",
             options: [
               "The number of people in a household",
@@ -2649,6 +2703,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income15-mc2",
+            concept: "Local Taxes: Property, Sales & Municipal",
             question: "Why do local tax rates differ from one town to the next?",
             options: [
               "The federal government randomly assigns them for most workers today",
@@ -2676,6 +2731,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income15-aq1",
+          concept: "Local Taxes: Property, Sales & Municipal",
           question: "What key insight should Sofia take from comparing the two towns?",
           options: [
               "Sticker price alone shows the true cost",
@@ -2703,6 +2759,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income15-mastery1",
+            concept: "Local Taxes: Property, Sales & Municipal",
             question: "A $50 item in a city with 8% sales tax costs how much at checkout?",
             options: [
               "$54, adding 8% to the price",
@@ -2711,10 +2768,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "$46, subtracting the tax instead by that logic"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "8% of $50 is $4, so the total is $54. Sales tax is added to the price at the register, not subtracted or refunded."
           },
           {
             id: "income15-mastery2",
+            concept: "Local Taxes: Property, Sales & Municipal",
             question: "A home assessed at $300,000 with a 1.5% property tax owes how much yearly?",
             options: [
               "$450, a tenth of the true amount",
@@ -2723,10 +2782,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "$300, a flat fee for all homes"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "1.5% of $300,000 is $4,500 per year. Property tax is a percentage of assessed value, not a flat fee."
           },
           {
             id: "income15-mastery3",
+            concept: "Local Taxes: Property, Sales & Municipal",
             question: "Property taxes are especially important because they heavily fund…",
             options: [
               "The national military budget",
@@ -2735,10 +2796,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "Private company profits"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Property taxes are a top funding source for local public schools, which is why school quality and home values are often linked in a community."
           },
           {
             id: "income15-mastery4",
+            concept: "Local Taxes: Property, Sales & Municipal",
             question: "Why might a state with no income tax still collect plenty of revenue?",
             options: [
               "It secretly prints extra money each year",
@@ -2747,10 +2810,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "It borrows the money from other states"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The money has to come from somewhere, so states without income tax often have higher sales or property taxes to fund their services."
           },
           {
             id: "income15-mastery5",
+            concept: "Local Taxes: Property, Sales & Municipal",
             question: "When budgeting to buy a home, property taxes should be treated as…",
             options: [
               "A one-time fee paid only at purchase",
@@ -2759,10 +2824,12 @@ export const deepIncome: StructuredLessonContent[] = [
               "A refund you receive every year"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Property taxes recur every year for as long as you own, so they belong in your budget as an ongoing cost alongside the mortgage, not a one-time fee."
           },
           {
             id: "income15-mastery6",
+            concept: "Local Taxes: Property, Sales & Municipal",
             question: "What is the main trade-off of choosing a town with lower local taxes?",
             options: [
               "It always has the very best services",
@@ -2771,6 +2838,7 @@ export const deepIncome: StructuredLessonContent[] = [
               "Home values there always rise fastest"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Lower taxes often mean fewer or leaner services, like weaker schools or slower emergency response. Higher taxes can buy better ones - a real trade-off to weigh."
           }
         ]

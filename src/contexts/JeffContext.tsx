@@ -26,6 +26,13 @@ const JeffContext = createContext<JeffContextValue | undefined>(undefined)
 
 const MESSAGE_MS = 4000
 const PARTY_MS = 4200 // center-stage lesson celebration length
+// Coin reactions ("Rich-kid energy, keep it up") fire at most this often, so a
+// burst of small awards is one toast, not a toast per ledger entry.
+const COIN_REACT_THROTTLE_MS = 60_000
+// Routes where a coin toast would interrupt focused work: a lesson (Jeff's
+// class and the interactive walk) and a unit test. Jeff stays quiet there and
+// lets the page's own celebration speak.
+const QUIET_COIN_ROUTES = [/^\/lessons\/[^/]+/, /^\/student\/lesson\//, /^\/unit-test\//]
 
 // Random roaming/vignette pool + how long each plays.
 const ACTIVITIES: { a: Exclude<JeffActivity, "none">; dur: number }[] = [
@@ -251,6 +258,7 @@ export function JeffProvider({ children }: { children: ReactNode }) {
   // Jeff a small corner reaction.
   const prevCoins = useRef(0)
   const armed = useRef(false)
+  const lastCoinReact = useRef(0)
   useEffect(() => {
     const t = setTimeout(() => { armed.current = true }, 2500)
     return () => clearTimeout(t)
@@ -260,7 +268,14 @@ export function JeffProvider({ children }: { children: ReactNode }) {
     if (!armed.current) { prevCoins.current = coins; return }
     const coinsUp = coins > prevCoins.current
     prevCoins.current = coins
-    if (coinsUp) triggerJeff("coins_earned")
+    if (!coinsUp) return
+    // Quiet on lesson and unit-test routes, and at most one reaction a minute
+    // elsewhere. Skipped awards are simply not announced.
+    if (QUIET_COIN_ROUTES.some(re => re.test(locationRef.current))) return
+    const now = Date.now()
+    if (now - lastCoinReact.current < COIN_REACT_THROTTLE_MS) return
+    lastCoinReact.current = now
+    triggerJeff("coins_earned")
   }, [jeffsHistory, triggerJeff])
 
   return (

@@ -48,6 +48,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt1-mc1",
+            concept: "Income Statement",
             question: "What does the 'top line' of an income statement refer to?",
             options: [
               "The final net income after taxes",
@@ -60,6 +61,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt1-mc2",
+            concept: "Income Statement",
             question: "Why can a company have high revenue but still lose money?",
             options: [
               "Revenue is always paid in cash slowly",
@@ -87,6 +89,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt1-aq1",
+          concept: "Income Statement",
           question: "Based on the two companies, why is revenue alone a poor way to judge them?",
           options: [
             "Revenue is often reported incorrectly on every quarterly filing",
@@ -114,6 +117,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt1-mastery1",
+            concept: "Income Statement",
             question: "An income statement primarily measures performance over what?",
             options: [
               "A single day's closing cash balance in the bank",
@@ -122,10 +126,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "One individual product sale processed at a time"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Unlike the balance sheet's snapshot, the income statement covers a stretch of time - usually a quarter or a full year - showing performance across that period."
           },
           {
             id: "finstmt1-mastery2",
+            concept: "Income Statement",
             question: "What do you get when you subtract COGS from revenue?",
             options: [
               "Net income for the owners after every cost",
@@ -134,10 +140,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The total income taxes owed that whole year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Revenue minus COGS gives gross profit - what's left after the direct cost of the goods sold, but before operating expenses, interest, and taxes."
           },
           {
             id: "finstmt1-mastery3",
+            concept: "Income Statement",
             question: "Which item is subtracted just before reaching net income?",
             options: [
               "Cost of goods sold way up top",
@@ -146,10 +154,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The company's total assets and equipment"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Interest and taxes are the last subtractions in the waterfall. After removing them from operating income, you arrive at the bottom line: net income."
           },
           {
             id: "finstmt1-mastery4",
+            concept: "Income Statement",
             question: "Why do analysts like looking at operating income?",
             options: [
               "It conveniently ignores every single cost the firm has",
@@ -158,10 +168,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It counts only rare one-time gains and windfalls"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Operating income captures how the everyday business performs, before interest and taxes muddy the picture. It reveals the core earning power of the company."
           },
           {
             id: "finstmt1-mastery5",
+            concept: "Income Statement",
             question: "Earnings per share (EPS) is calculated by…",
             options: [
               "Dividing total revenue by all total costs",
@@ -170,10 +182,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Multiplying reported profit by the yearly tax rate"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "EPS divides net income by the number of shares, showing how much profit belongs to each slice of ownership. It's a key figure for stock investors."
           },
           {
             id: "finstmt1-mastery6",
+            concept: "Income Statement",
             question: "A firm has strong operating income but weak net income. The likely cause is…",
             options: [
               "It somehow sold no products at all this whole year",
@@ -182,6 +196,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It has no operating expenses at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "If operating income is strong but net income is weak, the gap usually comes from large interest payments on debt and taxes, which are subtracted after operating income."
           }
         ]
@@ -233,6 +248,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt2-mc1",
+            concept: "Revenue vs Profit",
             question: "A food truck takes in $1,000 and spends $850 to earn it. What is its profit?",
             options: [
               "$1,000, matching the full revenue amount",
@@ -245,6 +261,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt2-mc2",
+            concept: "Revenue vs Profit",
             question: "What does profit margin measure?",
             options: [
               "Total sales added up for the whole year",
@@ -272,6 +289,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt2-aq1",
+          concept: "Revenue vs Profit",
           question: "Why might Priya prefer AppCo despite its smaller revenue?",
           options: [
             "Bigger revenue always means bigger debt and interest",
@@ -299,6 +317,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt2-mastery1",
+            concept: "Revenue vs Profit",
             question: "The core difference between revenue and profit is that profit…",
             options: [
               "Is always larger than revenue",
@@ -307,10 +326,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Counts only cash in the bank"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Profit is revenue minus every cost. Revenue is the gross money coming in; profit is the portion the company actually keeps."
           },
           {
             id: "finstmt2-mastery2",
+            concept: "Revenue vs Profit",
             question: "A company's revenue rises 20% but its net income falls. This most likely means…",
             options: [
               "It abruptly stopped selling any products",
@@ -319,10 +340,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It issued a batch of brand-new shares"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "If revenue climbs but profit drops, costs must have grown even faster - through deeper discounts, rising expenses, or spending to buy growth."
           },
           {
             id: "finstmt2-mastery3",
+            concept: "Revenue vs Profit",
             question: "Which business model typically has the thinnest net margins?",
             options: [
               "A luxury software company",
@@ -331,10 +354,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A premium consulting firm"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Grocery stores run on very thin net margins, often just 1-3%, and survive on huge sales volume. Software and patents tend to keep far more of each dollar."
           },
           {
             id: "finstmt2-mastery4",
+            concept: "Revenue vs Profit",
             question: "Company A has $50M revenue at a 2% margin; Company B has $20M at a 20% margin. Who earns more profit?",
             options: [
               "Company A, because revenue is larger",
@@ -343,10 +368,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Neither earns any profit at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A earns 2% of $50M = $1M. B earns 20% of $20M = $4M. Despite smaller revenue, B's higher margin produces four times the profit."
           },
           {
             id: "finstmt2-mastery5",
+            concept: "Revenue vs Profit",
             question: "Why is profit, not revenue, the number that builds wealth for owners?",
             options: [
               "Revenue is never reported publicly on any official filing anywhere",
@@ -355,10 +382,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Profit is exactly the same figure as total gross sales"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Profit is what a company can reinvest, pay as dividends, or save. Revenue that all goes back out as costs never creates lasting value for owners."
           },
           {
             id: "finstmt2-mastery6",
+            concept: "Revenue vs Profit",
             question: "A firm keeps steady revenue while its margins expand each year. This suggests…",
             options: [
               "The business is losing customers fast",
@@ -367,6 +396,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The firm has stopped all operations"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Holding revenue steady while margins widen means the company keeps more of each sales dollar - a sign of improving efficiency and a healthy trend."
           }
         ]
@@ -418,6 +448,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt3-mc1",
+            concept: "COGS",
             question: "Which cost belongs in COGS for a T-shirt company?",
             options: [
               "The monthly office rent paid to landlords",
@@ -430,6 +461,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt3-mc2",
+            concept: "COGS",
             question: "When does a company record COGS for a product?",
             options: [
               "When the product is manufactured",
@@ -457,6 +489,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt3-aq1",
+          concept: "COGS",
           question: "If Leo switches to the cheaper supplier, what happens to his gross margin?",
           options: [
             "It falls because costs went down",
@@ -484,6 +517,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt3-mastery1",
+            concept: "COGS",
             question: "COGS is best defined as…",
             options: [
               "Every cost the company has all year",
@@ -492,10 +526,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The interest paid regularly on company debt"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "COGS captures only the direct cost of producing the goods sold in a period - materials and production labor - not overhead, interest, or marketing."
           },
           {
             id: "finstmt3-mastery2",
+            concept: "COGS",
             question: "Which cost is NOT part of COGS for a bakery?",
             options: [
               "The flour used in the bread",
@@ -504,10 +540,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The eggs baked into the cakes"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Rent is a running cost the bakery pays whether or not it sells bread. Flour, eggs, and the baker's wages are direct production costs and belong in COGS."
           },
           {
             id: "finstmt3-mastery3",
+            concept: "COGS",
             question: "A product sells for $50 with $20 of COGS. Its gross margin is…",
             options: [
               "20%, the cost portion",
@@ -516,10 +554,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "80%, the total revenue"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Gross profit is $50 minus $20 = $30. Divided by the $50 price, that's a 60% gross margin - the share of each dollar left after making the product."
           },
           {
             id: "finstmt3-mastery4",
+            concept: "COGS",
             question: "Why does software typically have a much higher gross margin than car making?",
             options: [
               "Software companies never pay taxes",
@@ -528,10 +568,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Software has no revenue at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Once software is built, each extra copy costs nearly nothing, so COGS is tiny and gross margin is huge. Cars need costly materials and labor per unit."
           },
           {
             id: "finstmt3-mastery5",
+            concept: "COGS",
             question: "A factory makes 1,000 items but sells only 700. How much of the production cost becomes COGS this period?",
             options: [
               "The cost of all 1,000 items produced",
@@ -540,10 +582,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "None of the total production cost recorded yet"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "COGS is recorded only for goods sold - here, the 700 sold. The 300 unsold items remain as inventory until they're sold in a future period."
           },
           {
             id: "finstmt3-mastery6",
+            concept: "COGS",
             question: "Cutting COGS while keeping the price the same will…",
             options: [
               "Lower gross profit per unit",
@@ -552,6 +596,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Reduce the total revenue earned yearly"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "If the price stays put but COGS falls, more of each dollar is kept as gross profit. That's why companies work hard to shave costs from their supply chain."
           }
         ]
@@ -603,6 +648,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt4-mc1",
+            concept: "Gross Margin",
             question: "A product sells for $200 and costs $60 to make. What is its gross margin?",
             options: [
               "30%, the cost share",
@@ -615,6 +661,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt4-mc2",
+            concept: "Gross Margin",
             question: "Why is gross margin useful for comparing companies of different sizes?",
             options: [
               "It completely ignores the direct cost of goods",
@@ -642,6 +689,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt4-aq1",
+          concept: "Gross Margin",
           question: "Why might BrandX be better positioned than BrandY in a price war?",
           options: [
             "It has lower total revenue overall across the year",
@@ -669,6 +717,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt4-mastery1",
+            concept: "Gross Margin",
             question: "Gross margin is calculated as…",
             options: [
               "Net income divided by shares",
@@ -677,10 +726,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "COGS divided by net income"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Gross margin is gross profit (revenue minus COGS) divided by revenue, expressed as a percentage. It shows the share of sales left after making the product."
           },
           {
             id: "finstmt4-mastery2",
+            concept: "Gross Margin",
             question: "A company's gross margin rises from 38% to 45% over two years. This suggests…",
             options: [
               "Its product is now cheaper to sell",
@@ -689,10 +740,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It took on much more debt"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A rising gross margin means more of each sales dollar survives after production costs - the product got more profitable through lower costs or higher prices."
           },
           {
             id: "finstmt4-mastery3",
+            concept: "Gross Margin",
             question: "Comparing a supermarket's gross margin to a software firm's is misleading because…",
             options: [
               "Both have identical cost structures",
@@ -701,10 +754,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Supermarkets have no COGS at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Gross margins vary hugely across industries. A margin that's great for a grocer could be terrible for software, so fair comparison stays within an industry."
           },
           {
             id: "finstmt4-mastery4",
+            concept: "Gross Margin",
             question: "Which firm can better withstand a 10% price cut?",
             options: [
               "One with a thin 15% gross margin",
@@ -713,10 +768,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Both firms are exactly equally protected today"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A 60% margin leaves a large cushion after a price cut, while a 15% margin nearly vanishes. High-margin firms have far more room to absorb price wars."
           },
           {
             id: "finstmt4-mastery5",
+            concept: "Gross Margin",
             question: "A falling gross margin most often points to…",
             options: [
               "Rising costs or heavier discounting",
@@ -725,10 +782,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Lower interest payments on debt"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "When gross margin drops, it usually means input costs rose or the company discounted more to sell - both squeeze the profit kept from each sale."
           },
           {
             id: "finstmt4-mastery6",
+            concept: "Gross Margin",
             question: "Two firms have very different revenue but the same 55% gross margin. This tells you…",
             options: [
               "The larger firm must be quietly failing",
@@ -737,6 +796,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Their reported net incomes must be identical"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "An identical gross margin means each keeps the same share of every sales dollar after production - their core product economics are equally efficient, regardless of size."
           }
         ]
@@ -788,6 +848,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt5-mc1",
+            concept: "Operating Expenses",
             question: "Which is an operating expense rather than COGS?",
             options: [
               "The steel used in a car",
@@ -800,6 +861,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt5-mc2",
+            concept: "Operating Expenses",
             question: "What is operating leverage?",
             options: [
               "Borrowing extra money from a bank to buy new fixed assets",
@@ -827,6 +889,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt5-aq1",
+          concept: "Operating Expenses",
           question: "Why did the app's operating income more than triple when revenue only doubled?",
           options: [
             "It abruptly stopped paying any income taxes",
@@ -854,6 +917,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt5-mastery1",
+            concept: "Operating Expenses",
             question: "Operating expenses are best described as…",
             options: [
               "The direct cost of physically making the products",
@@ -862,10 +926,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The income taxes owed to the federal government"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Operating expenses cover the day-to-day costs of running the business - salaries, rent, marketing, R&D - separate from COGS, interest, and taxes."
           },
           {
             id: "finstmt5-mastery2",
+            concept: "Operating Expenses",
             question: "Subtracting operating expenses from gross profit gives you…",
             options: [
               "Net income remaining after all taxes",
@@ -874,10 +940,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Gross margin expressed as a percentage figure"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Gross profit minus operating expenses equals operating income, which reflects core business performance before interest and taxes are subtracted."
           },
           {
             id: "finstmt5-mastery3",
+            concept: "Operating Expenses",
             question: "Why does operating leverage let profit grow faster than revenue?",
             options: [
               "Fixed costs stay flat as sales rise",
@@ -886,10 +954,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Revenue is counted twice over at high volume"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "With fixed operating costs, extra sales add little extra cost. Spreading those fixed costs over more revenue lets operating income rise faster than sales."
           },
           {
             id: "finstmt5-mastery4",
+            concept: "Operating Expenses",
             question: "If revenue grows 20% but operating expenses grow 35%, the operating margin will…",
             options: [
               "Expand nicely because total sales rose",
@@ -898,10 +968,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Become totally impossible to ever measure"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When expenses grow faster than revenue, more of each sales dollar is consumed by costs, so operating income falls as a share of revenue - the margin shrinks."
           },
           {
             id: "finstmt5-mastery5",
+            concept: "Operating Expenses",
             question: "A company boosts operating income by slashing its R&D budget. The hidden risk is…",
             options: [
               "Its income taxes will instantly double overnight",
@@ -910,10 +982,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It can literally never sell any products again"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Cutting R&D lifts profit today but starves future products. The short-term gain can quietly mortgage the company's long-term growth, so context matters."
           },
           {
             id: "finstmt5-mastery6",
+            concept: "Operating Expenses",
             question: "Why do analysts value operating income over net income for judging core operations?",
             options: [
               "It includes every one-time gain",
@@ -922,6 +996,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It counts only cash in the bank"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Operating income strips out interest and taxes, isolating how the actual business performs. That makes it hard to disguise weak operations behind financing choices."
           }
         ]
@@ -973,6 +1048,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt6-mc1",
+            concept: "Net Income",
             question: "Net income is found where on the income statement?",
             options: [
               "At the very top of it, as revenue",
@@ -985,6 +1061,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt6-mc2",
+            concept: "Net Income",
             question: "Why can a company show positive net income but still run short on cash?",
             options: [
               "Net income is always paid in gold",
@@ -1012,6 +1089,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt6-aq1",
+          concept: "Net Income",
           question: "How should Nina interpret the tripling of net income?",
           options: [
             "The core operating business tripled its underlying profit",
@@ -1039,6 +1117,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt6-mastery1",
+            concept: "Net Income",
             question: "Net income represents…",
             options: [
               "Total sales before any costs",
@@ -1047,10 +1126,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The company's total assets"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Net income is the bottom line - the profit that remains after COGS, operating expenses, interest, and taxes are all subtracted from revenue."
           },
           {
             id: "finstmt6-mastery2",
+            concept: "Net Income",
             question: "Which cost is subtracted last, just before reaching net income?",
             options: [
               "Cost of goods sold",
@@ -1059,10 +1140,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The original revenue"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Taxes are among the final subtractions in the waterfall. After removing interest and taxes from operating income, you arrive at net income."
           },
           {
             id: "finstmt6-mastery3",
+            concept: "Net Income",
             question: "A company with strong operating income posts weak net income. A likely cause is…",
             options: [
               "It had no revenue at all",
@@ -1071,10 +1154,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Its gross margin was too high"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Operating income comes before interest and taxes. Heavy debt interest and a big tax bill can shrink strong operating income down to weak net income."
           },
           {
             id: "finstmt6-mastery4",
+            concept: "Net Income",
             question: "Net income jumps because the company sold a building. A careful analyst will…",
             options: [
               "Treat it as normal recurring profit",
@@ -1083,10 +1168,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Ignore reported net income completely and forever"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A one-time asset sale isn't recurring. The analyst strips it out to see the real, repeatable earning power of the core business underneath the headline."
           },
           {
             id: "finstmt6-mastery5",
+            concept: "Net Income",
             question: "Why is net income not the same as the company's cash?",
             options: [
               "Cash is somehow completely illegal to report publicly",
@@ -1095,10 +1182,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Cash only ever exists at the calendar year-end"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Net income counts non-cash charges like depreciation and sales made on credit before cash arrives, so it can differ from the actual cash the company holds."
           },
           {
             id: "finstmt6-mastery6",
+            concept: "Net Income",
             question: "When investors say a company 'beat earnings,' they usually mean its…",
             options: [
               "Revenue matched last year exactly",
@@ -1107,6 +1196,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Total assets rose very sharply upward"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "'Earnings' typically refers to net income (or EPS). Beating earnings means the reported profit exceeded what analysts predicted, which often lifts the stock."
           }
         ]
@@ -1158,6 +1248,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt7-mc1",
+            concept: "Balance Sheet",
             question: "What does the accounting equation state?",
             options: [
               "Revenue minus costs equals profit",
@@ -1170,6 +1261,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt7-mc2",
+            concept: "Balance Sheet",
             question: "The balance sheet captures a company's finances over what span?",
             options: [
               "A full quarter of trading",
@@ -1197,6 +1289,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt7-aq1",
+          concept: "Balance Sheet",
           question: "Why is Maya worried despite the startup's $200,000 in total assets?",
           options: [
             "Total assets are always overstated",
@@ -1224,6 +1317,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt7-mastery1",
+            concept: "Balance Sheet",
             question: "A company has $12M in assets and $7M in liabilities. Its equity is…",
             options: [
               "$19M all added together",
@@ -1232,10 +1326,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "$12M equal to assets"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Assets minus liabilities equals equity: $12M minus $7M is $5M. The accounting equation fixes the third number once you know the other two."
           },
           {
             id: "finstmt7-mastery2",
+            concept: "Balance Sheet",
             question: "Which of these is a current asset?",
             options: [
               "A large factory building",
@@ -1244,10 +1340,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A newly registered patent"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Cash is the most current of assets. Current assets turn into cash within a year; buildings and patents are long-term, and a bond owed is a liability."
           },
           {
             id: "finstmt7-mastery3",
+            concept: "Balance Sheet",
             question: "What are retained earnings?",
             options: [
               "Money borrowed from a bank",
@@ -1256,10 +1354,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Revenue expected sometime next year"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Retained earnings are the accumulated past profits a company chose to reinvest rather than pay out. They sit inside equity and grow when the firm stays profitable."
           },
           {
             id: "finstmt7-mastery4",
+            concept: "Balance Sheet",
             question: "Why compare current assets with current liabilities?",
             options: [
               "To carefully calculate the yearly corporate tax bill owed",
@@ -1268,10 +1368,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "To measure the firm's long-term brand value"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "This comparison is a quick solvency check. If current liabilities exceed current assets, the firm may struggle to cover bills due within the coming year."
           },
           {
             id: "finstmt7-mastery5",
+            concept: "Balance Sheet",
             question: "The balance sheet differs from the income statement because it…",
             options: [
               "Shows the profit earned during each year",
@@ -1280,10 +1382,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Ignores what the whole company actually owes"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The balance sheet is a snapshot on a single date, while the income statement covers a span of time. Together they show the foundation and the performance."
           },
           {
             id: "finstmt7-mastery6",
+            concept: "Balance Sheet",
             question: "Everything a company owns must be funded by…",
             options: [
               "Revenue only from this year",
@@ -1292,6 +1396,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Future profits not yet earned"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "There are only two sources: liabilities (borrowed money) and equity (owners' money plus kept profits). That's exactly why Assets = Liabilities + Equity always holds."
           }
         ]
@@ -1343,6 +1448,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt8-mc1",
+            concept: "Assets vs Liabilities",
             question: "What is the defining feature of a liability?",
             options: [
               "It is something the firm owns",
@@ -1355,6 +1461,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt8-mc2",
+            concept: "Assets vs Liabilities",
             question: "What does 'liquidity' describe about an asset?",
             options: [
               "How large its dollar value is",
@@ -1382,6 +1489,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt8-aq1",
+          concept: "Assets vs Liabilities",
           question: "Why is Shop 1 the safer bet despite identical totals?",
           options: [
             "It simply has higher total revenue reported this year",
@@ -1409,6 +1517,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt8-mastery1",
+            concept: "Assets vs Liabilities",
             question: "Which item is an asset rather than a liability?",
             options: [
               "A bank loan due next year",
@@ -1417,10 +1526,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "An unpaid supplier bill"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Cash is an asset - something the firm owns. Loans, owed wages, and unpaid supplier bills are all liabilities, representing money the company must pay to others."
           },
           {
             id: "finstmt8-mastery2",
+            concept: "Assets vs Liabilities",
             question: "A firm owns $90,000 in assets and owes $35,000. Its equity is…",
             options: [
               "$125,000 combined",
@@ -1429,10 +1540,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "$90,000 equal to assets"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Equity is assets minus liabilities: $90,000 minus $35,000 equals $55,000. That's the value the owners hold free and clear after debts are accounted for."
           },
           {
             id: "finstmt8-mastery3",
+            concept: "Assets vs Liabilities",
             question: "When is taking on debt likely a healthy move?",
             options: [
               "When it merely covers past losses",
@@ -1441,10 +1554,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "When interest costs exceed profits"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Debt is healthy leverage when it funds investments earning more than the interest costs. It turns dangerous when it covers losses or comes due all at once."
           },
           {
             id: "finstmt8-mastery4",
+            concept: "Assets vs Liabilities",
             question: "Which asset is the most liquid?",
             options: [
               "A specialized factory machine",
@@ -1453,10 +1568,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A patent on a new design"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Cash is perfectly liquid - it's already money. Machines, aging inventory, and patents are far harder to convert to cash quickly without cutting the price."
           },
           {
             id: "finstmt8-mastery5",
+            concept: "Assets vs Liabilities",
             question: "Two firms have equal assets but different debt. This means…",
             options: [
               "They are two identical investments",
@@ -1465,10 +1582,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Neither can ever be valued"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Equal assets but unequal liabilities produce different equity and different risk. The firm with less debt keeps more value and stands on a stronger footing."
           },
           {
             id: "finstmt8-mastery6",
+            concept: "Assets vs Liabilities",
             question: "A company is asset-rich but faces a cash crunch. The likely reason is…",
             options: [
               "It has no assets to speak of",
@@ -1477,6 +1596,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Its yearly revenue was simply far too high"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "If assets are locked in things that can't be sold quickly, a firm can be rich on paper yet short on cash when bills come due. Liquidity, not totals, pays the bills."
           }
         ]
@@ -1528,6 +1648,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt9-mc1",
+            concept: "Cash Flow",
             question: "Why can a profitable company still run out of cash?",
             options: [
               "Reported profit is always taxed at 100 percent",
@@ -1540,6 +1661,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt9-mc2",
+            concept: "Cash Flow",
             question: "Which section shows cash from the day-to-day business?",
             options: [
               "Investing activities",
@@ -1567,6 +1689,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt9-aq1",
+          concept: "Cash Flow",
           question: "What does Priya's cash flow analysis reveal about the startup?",
           options: [
             "It is strongly and reliably self-sustaining today",
@@ -1594,6 +1717,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt9-mastery1",
+            concept: "Cash Flow",
             question: "The cash flow statement is trusted because cash is…",
             options: [
               "Always much larger than profit",
@@ -1602,10 +1726,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Never affected by sales timing"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Accounting profit relies on estimates and timing choices, but cash either moved or it didn't. That makes cash flow harder to fake and a favorite of careful investors."
           },
           {
             id: "finstmt9-mastery2",
+            concept: "Cash Flow",
             question: "Buying new equipment appears in which section?",
             options: [
               "Operating activities",
@@ -1614,10 +1740,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Gross profit section"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Purchases of long-term assets like equipment fall under investing activities. This spending is usually negative cash flow but often reflects healthy growth."
           },
           {
             id: "finstmt9-mastery3",
+            concept: "Cash Flow",
             question: "Negative investing cash flow in a growing firm usually means…",
             options: [
               "It is going bankrupt fairly soon",
@@ -1626,10 +1754,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It paid off all its debt"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Negative investing cash flow typically means the company is spending on equipment, facilities, or acquisitions - building for the future rather than shrinking."
           },
           {
             id: "finstmt9-mastery4",
+            concept: "Cash Flow",
             question: "Which activity is a financing cash flow?",
             options: [
               "Selling products to customers",
@@ -1638,10 +1768,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Paying the employee wages"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Repaying a loan is a financing activity - it involves the company's relationship with lenders. Selling products and paying wages are operating; buying a truck is investing."
           },
           {
             id: "finstmt9-mastery5",
+            concept: "Cash Flow",
             question: "The three cash flow sections add up to…",
             options: [
               "The company's total yearly revenue",
@@ -1650,10 +1782,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The whole year's final net income"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Summing operating, investing, and financing cash flows gives the net change in the cash balance - exactly how much the company's cash rose or fell in the period."
           },
           {
             id: "finstmt9-mastery6",
+            concept: "Cash Flow",
             question: "A firm reports profits but negative operating cash flow. This suggests…",
             options: [
               "The whole business is perfectly healthy",
@@ -1662,6 +1796,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Its revenue was zero this year"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Positive profit with negative operating cash flow often means customers aren't paying or inventory is piling up. The core business isn't turning sales into real cash."
           }
         ]
@@ -1713,6 +1848,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt10-mc1",
+            concept: "Free Cash Flow",
             question: "How is free cash flow calculated?",
             options: [
               "Total revenue minus all the taxes owed",
@@ -1725,6 +1861,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt10-mc2",
+            concept: "Free Cash Flow",
             question: "What can a company do with free cash flow?",
             options: [
               "Only pay off its yearly income taxes",
@@ -1752,6 +1889,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt10-aq1",
+          concept: "Free Cash Flow",
           question: "Why does Leo prefer Company X despite equal profits?",
           options: [
             "It reports a much larger total revenue",
@@ -1779,6 +1917,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt10-mastery1",
+            concept: "Free Cash Flow",
             question: "Free cash flow is best described as cash that is…",
             options: [
               "Owed entirely to the outside lenders",
@@ -1787,10 +1926,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Required to pay this year's tax"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Free cash flow is the money remaining after running the business and maintaining its assets - truly free to fund dividends, buybacks, debt cuts, or growth."
           },
           {
             id: "finstmt10-mastery2",
+            concept: "Free Cash Flow",
             question: "What are capital expenditures?",
             options: [
               "Wages paid to employees",
@@ -1799,10 +1940,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Cash borrowed from a bank"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Capital expenditures are money spent on long-term assets like equipment and buildings. Subtracting them from operating cash flow yields free cash flow."
           },
           {
             id: "finstmt10-mastery3",
+            concept: "Free Cash Flow",
             question: "Why do analysts trust FCF more than reported earnings?",
             options: [
               "It is always a bigger number",
@@ -1811,10 +1954,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It counts only future sales"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Earnings can be shaped by accounting choices, but free cash flow reflects real cash after investment needs. It's much harder to fake, so analysts rely on it."
           },
           {
             id: "finstmt10-mastery4",
+            concept: "Free Cash Flow",
             question: "Which valuation method is built on free cash flow?",
             options: [
               "Balance sheet totaling",
@@ -1823,10 +1968,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Simple dividend counting"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Discounted cash flow projects a company's future free cash flows and converts them to a value today, treating the firm as worth the cash it will produce."
           },
           {
             id: "finstmt10-mastery5",
+            concept: "Free Cash Flow",
             question: "A firm has $8M operating cash flow and $3M capital spending. Its FCF is…",
             options: [
               "$11M added together",
@@ -1835,10 +1982,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "$8M same as operating"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Free cash flow is operating cash flow minus capital expenditures: $8M minus $3M equals $5M of truly usable cash left over."
           },
           {
             id: "finstmt10-mastery6",
+            concept: "Free Cash Flow",
             question: "A young company shows negative free cash flow. This may be fine if…",
             options: [
               "It has stopped growing entirely now",
@@ -1847,6 +1996,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It refuses to spend any cash"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Negative FCF can be rational for a fast-growing firm pouring cash into stores, factories, or hiring - provided those investments eventually generate strong cash flows."
           }
         ]
@@ -1898,6 +2048,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios1-mc1",
+            concept: "P/E",
             question: "How is the P/E ratio calculated?",
             options: [
               "Total earnings divided by the total assets",
@@ -1910,6 +2061,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios1-mc2",
+            concept: "P/E",
             question: "A high P/E ratio usually reflects that investors…",
             options: [
               "Expect earnings to fall soon",
@@ -1937,6 +2089,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios1-aq1",
+          concept: "P/E",
           question: "What must be true for GreenTech's higher P/E to be justified?",
           options: [
             "Its share price must fall soon",
@@ -1964,6 +2117,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios1-mastery1",
+            concept: "P/E",
             question: "A stock at $60 with EPS of $4 has a P/E of…",
             options: [
               "240 when multiplied",
@@ -1972,10 +2126,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "64 when added"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "P/E is price divided by EPS: $60 divided by $4 equals 15. You'd pay $15 for each dollar of the company's annual earnings."
           },
           {
             id: "ratios1-mastery2",
+            concept: "P/E",
             question: "Why is a raw share price alone a poor measure of value?",
             options: [
               "Stock prices are updated far too rarely",
@@ -1984,10 +2140,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It counts dividends but not sales"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A $500 stock isn't expensive and a $5 stock isn't cheap without knowing earnings. P/E relates price to earnings, giving the price real meaning."
           },
           {
             id: "ratios1-mastery3",
+            concept: "P/E",
             question: "What is a 'value trap'?",
             options: [
               "A stock that grows too quickly",
@@ -1996,10 +2154,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A firm paying out huge dividends"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A value trap has a low P/E that looks like a bargain, but the business is deteriorating, so the price keeps falling. Low P/E always needs the question: why?"
           },
           {
             id: "ratios1-mastery4",
+            concept: "P/E",
             question: "Why compare P/E within the same industry?",
             options: [
               "All industries share one P/E",
@@ -2008,10 +2168,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Only tech firms report earnings"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A P/E of 30 is high for a slow utility but normal for a fast software firm. Different industries grow at different speeds and carry different typical P/E ranges."
           },
           {
             id: "ratios1-mastery5",
+            concept: "P/E",
             question: "For which company does P/E break down entirely?",
             options: [
               "One with steady, reliable annual profits every year",
@@ -2020,10 +2182,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "One with a moderate current share price"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "P/E requires positive earnings to divide by. A company with no earnings or a loss produces a meaningless or negative P/E, so the ratio fails there."
           },
           {
             id: "ratios1-mastery6",
+            concept: "P/E",
             question: "A P/E of 20 can be loosely read as…",
             options: [
               "A fully guaranteed 20% return every single year",
@@ -2032,6 +2196,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A flat twenty percent chance of a loss"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "At flat earnings, a P/E of 20 roughly means 20 years of current earnings to recover the purchase price - a helpful, if simplified, way to feel the number."
           }
         ]
@@ -2083,6 +2248,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios2-mc1",
+            concept: "EPS",
             question: "How is EPS calculated?",
             options: [
               "Total revenue divided by the total debt",
@@ -2095,6 +2261,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios2-mc2",
+            concept: "EPS",
             question: "How can EPS rise even when total profit stays flat?",
             options: [
               "By steeply raising all its product prices",
@@ -2122,6 +2289,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios2-aq1",
+          concept: "EPS",
           question: "What should Noah conclude about the EPS increase?",
           options: [
             "The core underlying business grew very rapidly",
@@ -2149,6 +2317,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios2-mastery1",
+            concept: "EPS",
             question: "A firm earns $20M with 10M shares. Its EPS is…",
             options: [
               "$200M when multiplied",
@@ -2157,10 +2326,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "$30M when added"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "EPS is net income divided by shares: $20M divided by 10M shares equals $2 per share of profit."
           },
           {
             id: "ratios2-mastery2",
+            concept: "EPS",
             question: "Why do analysts obsess over quarterly EPS?",
             options: [
               "It sets the company's tax rate",
@@ -2169,10 +2340,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It always equals the firm's total revenue"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Analysts forecast EPS, and stocks move sharply when reported EPS beats or misses those expectations. It's a central number in each earnings report."
           },
           {
             id: "ratios2-mastery3",
+            concept: "EPS",
             question: "How does diluted EPS differ from basic EPS?",
             options: [
               "It ignores net income entirely",
@@ -2181,10 +2354,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It always exceeds basic EPS"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Diluted EPS includes shares that could be created from options and convertibles. Assuming more slices, it's usually slightly lower and more conservative."
           },
           {
             id: "ratios2-mastery4",
+            concept: "EPS",
             question: "Total profit rises but EPS falls. The likely cause is…",
             options: [
               "The firm repaid all its debt",
@@ -2193,10 +2368,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Its revenue dropped sharply"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Issuing new shares splits the profit among more slices. Even with higher total profit, each share can earn less, pulling EPS down."
           },
           {
             id: "ratios2-mastery5",
+            concept: "EPS",
             question: "Which metric directly uses EPS in its formula?",
             options: [
               "The debt-to-equity ratio",
@@ -2205,10 +2382,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Gross profit margin"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The P/E ratio divides share price by EPS. EPS is the engine behind it, translating price into a multiple of per-share earnings."
           },
           {
             id: "ratios2-mastery6",
+            concept: "EPS",
             question: "Why shouldn't EPS be judged completely on its own?",
             options: [
               "It is illegal to report EPS alone",
@@ -2217,6 +2396,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It changes every single day"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "EPS says nothing about whether a stock is cheap, how much cash it holds, or its debt. It's most useful paired with price, cash flow, and other gauges."
           }
         ]
@@ -2268,6 +2448,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios3-mc1",
+            concept: "Debt-to-Equity",
             question: "How is the debt-to-equity ratio calculated?",
             options: [
               "Total equity divided by the total revenue",
@@ -2280,6 +2461,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios3-mc2",
+            concept: "Debt-to-Equity",
             question: "Why is a high debt-to-equity ratio riskier?",
             options: [
               "It permanently removes all of the future profits earned",
@@ -2307,6 +2489,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios3-aq1",
+          concept: "Debt-to-Equity",
           question: "Why does Sophia see AirNova as the riskier airline?",
           options: [
             "It carries no long-term debt whatsoever on its books",
@@ -2334,6 +2517,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios3-mastery1",
+            concept: "Debt-to-Equity",
             question: "A firm has $9M debt and $3M equity. Its debt-to-equity is…",
             options: [
               "12 when added",
@@ -2342,10 +2526,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "6 as the difference"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Debt-to-equity is liabilities divided by equity: $9M divided by $3M equals 3.0. The firm owes three dollars for every dollar of owners' money."
           },
           {
             id: "ratios3-mastery2",
+            concept: "Debt-to-Equity",
             question: "How does leverage affect shareholder returns in good times?",
             options: [
               "It always reduces returns",
@@ -2354,10 +2540,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It converts them to debt"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "When projects earn more than the interest cost, the spread flows to shareholders, magnifying their returns. That's the upside of using leverage well."
           },
           {
             id: "ratios3-mastery3",
+            concept: "Debt-to-Equity",
             question: "Why do utilities often carry high debt-to-equity ratios?",
             options: [
               "They earn absolutely no profit at all ever",
@@ -2366,10 +2554,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "They simply never repay any of their loans"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Utilities buy hugely expensive equipment and have predictable cash to service loans, so higher debt is normal for them - a level that would alarm a tech firm."
           },
           {
             id: "ratios3-mastery4",
+            concept: "Debt-to-Equity",
             question: "A ratio of 1.0 means that debt is…",
             options: [
               "Ten times the equity",
@@ -2378,10 +2568,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Half of the equity"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A debt-to-equity ratio of 1.0 means liabilities equal equity - a rough middle ground between conservative and aggressive financing."
           },
           {
             id: "ratios3-mastery5",
+            concept: "Debt-to-Equity",
             question: "Which combination is generally safest?",
             options: [
               "High debt paired with erratic earnings",
@@ -2390,10 +2582,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Rising debt alongside steadily falling profits"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "What matters is the ability to service debt. Moderate debt backed by steady cash flow is safer than even low debt at a firm with unreliable earnings."
           },
           {
             id: "ratios3-mastery6",
+            concept: "Debt-to-Equity",
             question: "A company's debt-to-equity climbs steadily each year. This signals…",
             options: [
               "A shrinking reliance on debt",
@@ -2402,6 +2596,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "That it has become debt-free"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A rising ratio year after year means debt is growing relative to equity - the company is leaning ever harder on borrowed money to operate."
           }
         ]
@@ -2453,6 +2648,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios4-mc1",
+            concept: "Profit Margin",
             question: "How is profit margin calculated?",
             options: [
               "Total revenue divided by the company's total profit",
@@ -2465,6 +2661,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios4-mc2",
+            concept: "Profit Margin",
             question: "Why can a firm with huge revenue still earn little profit?",
             options: [
               "Reported revenue is never really actual money",
@@ -2492,6 +2689,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios4-aq1",
+          concept: "Profit Margin",
           question: "What does the margin comparison reveal about the two retailers?",
           options: [
             "MegaMart is clearly the more profitable one",
@@ -2519,6 +2717,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios4-mastery1",
+            concept: "Profit Margin",
             question: "A firm earns $80,000 profit on $400,000 revenue. Its margin is…",
             options: [
               "5% of revenue",
@@ -2527,10 +2726,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "80% of revenue"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Margin is profit divided by revenue: $80,000 divided by $400,000 is 0.20, or 20%. Twenty cents of each sales dollar becomes profit."
           },
           {
             id: "ratios4-mastery2",
+            concept: "Profit Margin",
             question: "Which margin is measured after all costs, interest, and taxes?",
             options: [
               "Gross margin",
@@ -2539,10 +2740,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Volume margin"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Net margin is the final bottom line, measured after every cost including interest and taxes. It shows the true profit the company ultimately keeps."
           },
           {
             id: "ratios4-mastery3",
+            concept: "Profit Margin",
             question: "Why do software firms often have very high margins?",
             options: [
               "They sell at very low prices",
@@ -2551,10 +2754,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "They carry enormous debt loads"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Once software is built, each extra copy costs almost nothing, so nearly all of each new sale is profit. That drives the high margins common in software."
           },
           {
             id: "ratios4-mastery4",
+            concept: "Profit Margin",
             question: "A steadily expanding profit margin usually signals…",
             options: [
               "The firm is losing pricing power",
@@ -2563,10 +2768,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The company will soon fail"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A rising margin means the firm keeps more of each sales dollar, pointing to stronger pricing power, cost cuts, or scale - it's becoming more efficient."
           },
           {
             id: "ratios4-mastery5",
+            concept: "Profit Margin",
             question: "Why must margins be compared within the same industry?",
             options: [
               "Margins are secret across sectors",
@@ -2575,10 +2782,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Only the banks report margins"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Groceries run on thin margins while software runs on fat ones. Judging a supermarket by a software firm's margin would be meaningless without peer context."
           },
           {
             id: "ratios4-mastery6",
+            concept: "Profit Margin",
             question: "Revenue is soaring but the margin is collapsing. This may mean…",
             options: [
               "The rapid growth is extremely highly profitable",
@@ -2587,6 +2796,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Costs have completely disappeared entirely now"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Rising sales with a falling margin often means the company is discounting heavily to chase volume, buying growth that adds little real profit - hollow growth."
           }
         ]
@@ -2638,6 +2848,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios5-mc1",
+            concept: "ROE",
             question: "How is return on equity calculated?",
             options: [
               "Total revenue divided by the total debt",
@@ -2650,6 +2861,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios5-mc2",
+            concept: "ROE",
             question: "Why can heavy debt inflate a company's ROE?",
             options: [
               "Borrowed debt directly adds straight to net income",
@@ -2677,6 +2889,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios5-aq1",
+          concept: "ROE",
           question: "Why does Elena judge BrightCo the stronger business?",
           options: [
             "It simply reports a much higher revenue",
@@ -2704,6 +2917,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios5-mastery1",
+            concept: "ROE",
             question: "A firm earns $3M profit on $15M equity. Its ROE is…",
             options: [
               "45% when multiplied",
@@ -2712,10 +2926,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "12% as a guess"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "ROE is net income divided by equity: $3M divided by $15M equals 0.20, or 20%. The firm earns 20 cents of profit per dollar of owners' money."
           },
           {
             id: "ratios5-mastery2",
+            concept: "ROE",
             question: "Two firms earn equal profit, but one used less equity. That firm has…",
             options: [
               "A much lower ROE overall",
@@ -2724,10 +2940,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "No clearly measurable ROE at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Less equity for the same profit means a higher ROE. That firm squeezes more profit from each dollar of ownership, making it more efficient."
           },
           {
             id: "ratios5-mastery3",
+            concept: "ROE",
             question: "A consistently high ROE over many years often indicates…",
             options: [
               "A soon-to-fail business",
@@ -2736,10 +2954,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A pure accounting error"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Sustaining high returns on equity year after year usually reflects a durable edge - a brand, cost advantage, or product customers can't easily replace."
           },
           {
             id: "ratios5-mastery4",
+            concept: "ROE",
             question: "Why pair ROE with the debt-to-equity ratio?",
             options: [
               "To carefully calculate the yearly corporate tax rate",
@@ -2748,10 +2968,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "To completely replace the whole income statement"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Heavy debt can juice ROE by shrinking equity. Checking debt-to-equity reveals whether a high ROE is genuine strength or the result of leverage."
           },
           {
             id: "ratios5-mastery5",
+            concept: "ROE",
             question: "The best businesses tend to earn high ROE while…",
             options: [
               "Borrowing extremely heavily",
@@ -2760,10 +2982,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Avoiding all reinvestment"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Top companies earn strong returns on equity without leaning on leverage, proving the strength comes from the business itself, not financial engineering."
           },
           {
             id: "ratios5-mastery6",
+            concept: "ROE",
             question: "Why look at ROE across many years rather than one?",
             options: [
               "ROE is somehow illegal to report on a yearly basis",
@@ -2772,6 +2996,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "ROE simply never changes at all over time"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A single strong year might stem from a one-time event. Consistency across years distinguishes a genuinely great business from a lucky quarter."
           }
         ]
@@ -2823,6 +3048,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios6-mc1",
+            concept: "Price-to-Sales",
             question: "How is the price-to-sales ratio calculated?",
             options: [
               "Total profit divided by the total revenue",
@@ -2835,6 +3061,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios6-mc2",
+            concept: "Price-to-Sales",
             question: "Why is P/S useful when P/E is not?",
             options: [
               "The P/S ratio completely ignores the current share price entirely",
@@ -2862,6 +3089,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios6-aq1",
+          concept: "Price-to-Sales",
           question: "Why does Kai also examine the startup's margins?",
           options: [
             "Margins set the company's tax rate",
@@ -2889,6 +3117,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios6-mastery1",
+            concept: "Price-to-Sales",
             question: "A firm worth $3B has $1.5B in revenue. Its P/S is…",
             options: [
               "4.5 when multiplied",
@@ -2897,10 +3126,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "3.0 as the value"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "P/S is market cap divided by revenue: $3B divided by $1.5B equals 2.0. Investors pay two dollars for each dollar of the company's sales."
           },
           {
             id: "ratios6-mastery2",
+            concept: "Price-to-Sales",
             question: "For which company is P/S most useful?",
             options: [
               "A mature, steadily and reliably profitable firm",
@@ -2909,10 +3140,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A stable firm with a steady dividend"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "P/S shines for young, growing firms not yet profitable, where P/E is meaningless. Their revenue still lets the market value them."
           },
           {
             id: "ratios6-mastery3",
+            concept: "Price-to-Sales",
             question: "Why is revenue considered steadier than profit?",
             options: [
               "Total revenue is always much larger",
@@ -2921,10 +3154,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It appears only once a decade"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Profit can be shaped by choices about costs, depreciation, and timing. Revenue from real sales is more concrete and stable, giving P/S a steadier lens."
           },
           {
             id: "ratios6-mastery4",
+            concept: "Price-to-Sales",
             question: "The biggest weakness of P/S is that it…",
             options: [
               "Requires enormous yearly reported profits",
@@ -2933,10 +3168,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Only works for old companies"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "P/S values revenue but ignores profitability entirely. Two firms with the same P/S can have wildly different margins, so it must be paired with margins."
           },
           {
             id: "ratios6-mastery5",
+            concept: "Price-to-Sales",
             question: "Why compare P/S only among similar businesses?",
             options: [
               "The P/S is kept totally secret across sectors",
@@ -2945,10 +3182,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Only technology firms ever report their sales"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A high-margin software firm deserves a higher P/S than a thin-margin grocer. Since margins vary by industry, P/S comparisons only make sense among peers."
           },
           {
             id: "ratios6-mastery6",
+            concept: "Price-to-Sales",
             question: "For a mature, steadily profitable company, investors usually prefer…",
             options: [
               "P/S over every other metric",
@@ -2957,6 +3196,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Revenue counted twice over"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When profit is reliable, P/E and free cash flow tell a richer story. P/S is a lifeline mainly when earnings are missing, erratic, or distorted."
           }
         ]
@@ -3008,6 +3248,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios7-mc1",
+            concept: "Valuation Multiples",
             question: "What is the main purpose of a valuation multiple?",
             options: [
               "To completely hide a company's true real size",
@@ -3020,6 +3261,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios7-mc2",
+            concept: "Valuation Multiples",
             question: "Which multiple best suits an unprofitable young company?",
             options: [
               "Price-to-earnings ratio",
@@ -3047,6 +3289,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios7-aq1",
+          concept: "Valuation Multiples",
           question: "How should Zara treat FizzCo's below-average P/E?",
           options: [
             "As proof it's a guaranteed bargain",
@@ -3074,6 +3317,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios7-mastery1",
+            concept: "Valuation Multiples",
             question: "Why can't you compare companies by their absolute value?",
             options: [
               "Absolute dollar values are always kept secret",
@@ -3082,10 +3326,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Values change quickly every single second"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A $50B firm isn't automatically pricier than an $8B one. Multiples standardize price relative to earnings or sales, making fair comparison possible."
           },
           {
             id: "ratios7-mastery2",
+            concept: "Valuation Multiples",
             question: "Which multiple is favored for valuing banks?",
             options: [
               "Price-to-earnings",
@@ -3094,10 +3340,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Debt-to-equity"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Price-to-book compares price to equity, and since a bank's value rests on its balance sheet, it's the popular choice for asset-heavy financial firms."
           },
           {
             id: "ratios7-mastery3",
+            concept: "Valuation Multiples",
             question: "Why does a fast-growing firm justify a higher P/E?",
             options: [
               "Fast growth firms report no earnings",
@@ -3106,10 +3354,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Valuation multiples ignore growth completely entirely"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The market rewards growth with higher multiples, so a P/E of 30 can be reasonable for a fast grower yet expensive for a slow utility."
           },
           {
             id: "ratios7-mastery4",
+            concept: "Valuation Multiples",
             question: "Which multiple helps compare firms with different debt levels?",
             options: [
               "Price-to-earnings",
@@ -3118,10 +3368,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Return on equity"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "EV-to-EBITDA counts both equity and debt through enterprise value, making it the go-to multiple for comparing firms with differing debt loads."
           },
           {
             id: "ratios7-mastery5",
+            concept: "Valuation Multiples",
             question: "A stock trades far below its peers' average multiple. This is…",
             options: [
               "Proof it will surely rise",
@@ -3130,10 +3382,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Reason to ignore it forever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A low multiple may signal a bargain or a troubled business. It invites a closer look at the fundamentals rather than settling the decision by itself."
           },
           {
             id: "ratios7-mastery6",
+            concept: "Valuation Multiples",
             question: "The proper way to use a valuation multiple is to…",
             options: [
               "Treat it as the final answer",
@@ -3142,6 +3396,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Ignore the company's industry"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Multiples must be compared among companies of similar industry, growth, and risk. Like-for-like comparison is what makes them meaningful rather than misleading."
           }
         ]
@@ -3193,6 +3448,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios8-mc1",
+            concept: "Ratio Interpretation",
             question: "Why is relying on a single ratio risky?",
             options: [
               "Financial ratios are always calculated completely wrong",
@@ -3205,6 +3461,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios8-mc2",
+            concept: "Ratio Interpretation",
             question: "Which comparison gives a ratio its meaning?",
             options: [
               "Comparing it to a random number",
@@ -3232,6 +3489,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios8-aq1",
+          concept: "Ratio Interpretation",
           question: "Why is Owen's conviction strengthened by his analysis?",
           options: [
             "He relied on the P/E ratio alone",
@@ -3259,6 +3517,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios8-mastery1",
+            concept: "Ratio Interpretation",
             question: "A stock has a low P/E but a debt-to-equity of 6.0. This suggests…",
             options: [
               "A completely guaranteed and totally obvious clear bargain",
@@ -3267,10 +3526,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Its profit margins must all be very high"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A cheap P/E alongside crushing debt often means the market priced the stock low for good reason. Combining ratios reveals what one alone would hide."
           },
           {
             id: "ratios8-mastery2",
+            concept: "Ratio Interpretation",
             question: "Which group does the debt-to-equity ratio belong to?",
             options: [
               "Valuation ratios",
@@ -3279,10 +3540,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Growth ratios"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Debt-to-equity is a solvency ratio - it measures whether a company can survive hard times. Valuation covers price; profitability covers earning power."
           },
           {
             id: "ratios8-mastery3",
+            concept: "Ratio Interpretation",
             question: "Why do trends often matter more than a single ratio?",
             options: [
               "Trends are illegal to report",
@@ -3291,10 +3554,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Ratios never change with time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A rising or falling ratio over several years catches strengthening or weakening early, telling a richer story than any single moment's number."
           },
           {
             id: "ratios8-mastery4",
+            concept: "Ratio Interpretation",
             question: "A one-time asset sale can distort which ratios?",
             options: [
               "Only the standard debt-to-equity ratio matters",
@@ -3303,10 +3568,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Only the plain price-to-sales ratio here"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A single asset sale spikes profit for one quarter, inflating EPS and ROE temporarily before the gain vanishes. Watching trends guards against this trap."
           },
           {
             id: "ratios8-mastery5",
+            concept: "Ratio Interpretation",
             question: "When several ratios all point the same way, an investor gains…",
             options: [
               "A reason to distrust them",
@@ -3315,10 +3582,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A signal to stop analyzing"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When valuation, profitability, and solvency ratios agree, they reinforce one another and strengthen confidence in the conclusion about the business."
           },
           {
             id: "ratios8-mastery6",
+            concept: "Ratio Interpretation",
             question: "The best defense against a misleading ratio is to…",
             options: [
               "Simply trust the single cheapest ratio you find",
@@ -3327,6 +3596,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Use only the single highest number found anywhere"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Combining ratios with each other, with cash flow, and with real business understanding guards against distortion. Triangulation beats trusting one figure."
           }
         ]
@@ -3375,6 +3645,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation1-mc1",
+            concept: "Company Value Drivers",
             question: "What is a company fundamentally worth?",
             options: [
               "The total sales it makes in a year",
@@ -3387,6 +3658,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation1-mc2",
+            concept: "Company Value Drivers",
             question: "Why is free cash flow trusted more than reported profit?",
             options: [
               "It is always a much larger dollar number",
@@ -3414,6 +3686,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation1-aq1",
+          concept: "Company Value Drivers",
           question: "Why does Company A deserve a much higher value than Company B?",
           options: [
             "It simply has been around a bit longer",
@@ -3441,6 +3714,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation1-mastery1",
+            concept: "Company Value Drivers",
             question: "Two companies have the same $5 million in sales. What most affects their value difference?",
             options: [
               "The particular color of their company logos",
@@ -3449,10 +3723,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The exact city where each one is headquartered"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Value comes from profit and growth, so how much each company keeps and how fast it grows matters most. Logos, founding date, and location don't drive value."
           },
           {
             id: "valuation1-mastery2",
+            concept: "Company Value Drivers",
             question: "Why do investors care so much about a company's growth rate?",
             options: [
               "Faster growth is banned by market regulators",
@@ -3461,10 +3737,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Slow growth guarantees a higher stock price"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Growing profits compound, so a fast grower can be worth far more in a decade. Growth isn't banned, doesn't replace profit, and slow growth doesn't guarantee a higher price."
           },
           {
             id: "valuation1-mastery3",
+            concept: "Company Value Drivers",
             question: "What is 'free cash flow'?",
             options: [
               "Total sales a company makes before any costs",
@@ -3473,10 +3751,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Profit a company reports before paying taxes"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Free cash flow is the cash remaining after a company pays to operate and maintain itself - the money truly available to reward owners. It's not sales, borrowing, or pre-tax profit."
           },
           {
             id: "valuation1-mastery4",
+            concept: "Company Value Drivers",
             question: "A company keeps 30 cents of profit from every sales dollar. This high margin usually signals…",
             options: [
               "A weak business about to fail soon",
@@ -3485,10 +3765,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A firm with no customers at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "High, stable margins usually mean a strong business customers value and rivals can't easily undercut. It doesn't signal failure, lawbreaking, or a lack of customers."
           },
           {
             id: "valuation1-mastery5",
+            concept: "Company Value Drivers",
             question: "What does a company's 'moat' do?",
             options: [
               "It forces the government to give subsidies",
@@ -3497,10 +3779,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It removes all need to earn profit"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A moat is a durable advantage - brand, scale, patents, network - that shields profits from rivals, making future cash more certain. It isn't a subsidy or a price guarantee."
           },
           {
             id: "valuation1-mastery6",
+            concept: "Company Value Drivers",
             question: "How does heavy debt affect a company's value?",
             options: [
               "It makes the company fragile and riskier",
@@ -3509,6 +3793,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "It has no effect on the value at all"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Heavy debt makes a bad year more dangerous - closer to bankruptcy - so investors pay less for risky, indebted firms. Debt doesn't guarantee growth or boost margins."
           }
         ]
@@ -3557,6 +3842,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation2-mc1",
+            concept: "Growth vs Value",
             question: "What best describes growth investing?",
             options: [
               "Buying only companies that pay big dividends",
@@ -3569,6 +3855,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation2-mc2",
+            concept: "Growth vs Value",
             question: "A 'margin of safety' means buying a stock…",
             options: [
               "At exactly the price the whole market expects",
@@ -3596,6 +3883,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation2-aq1",
+          concept: "Growth vs Value",
           question: "What is the main risk Leo faces with his high-P/E growth stock?",
           options: [
             "The company will pay far too large a dividend",
@@ -3623,6 +3911,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation2-mastery1",
+            concept: "Growth vs Value",
             question: "A stock has a P/E of 50. What does that most suggest?",
             options: [
               "Investors expect very little future growth",
@@ -3631,10 +3920,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The stock is extremely cheap right now"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A high P/E means investors are paying a lot per dollar of current profit, betting profits will grow. It signals high expectations, not cheapness or imminent failure."
           },
           {
             id: "valuation2-mastery2",
+            concept: "Growth vs Value",
             question: "Value investors are especially drawn to stocks with…",
             options: [
               "The highest prices in the market",
@@ -3643,10 +3934,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The most hype on social media"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Value investors seek stocks cheap relative to profits, assets, or cash flow. They avoid hype and don't chase the highest-priced or profitless names."
           },
           {
             id: "valuation2-mastery3",
+            concept: "Growth vs Value",
             question: "The 'margin of safety' protects a value investor by…",
             options: [
               "Guaranteeing the stock will rise next week",
@@ -3655,10 +3948,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Forcing the company to pay a dividend"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Buying well below your estimate of worth leaves a cushion if you're wrong. It guarantees nothing, removes no risk entirely, and doesn't force dividends."
           },
           {
             id: "valuation2-mastery4",
+            concept: "Growth vs Value",
             question: "What is a 'value trap'?",
             options: [
               "A stock that rises far too quickly to buy",
@@ -3667,10 +3962,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A special tax charged on all value stock investments"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A value trap looks cheap but keeps falling because the underlying business is genuinely declining - cheap for a reason. It's not a guaranteed win or a tax."
           },
           {
             id: "valuation2-mastery5",
+            concept: "Growth vs Value",
             question: "A key risk of growth investing is…",
             options: [
               "The stock is always far too cheap",
@@ -3679,10 +3976,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Growth companies are strictly illegal to own"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Growth stocks priced for perfection can drop sharply on any stumble - the danger is overpaying. Growth stocks aren't cheap, gain-free, or illegal."
           },
           {
             id: "valuation2-mastery6",
+            concept: "Growth vs Value",
             question: "'Growth at a reasonable price' describes investors who…",
             options: [
               "Only ever buy the single cheapest stock",
@@ -3691,6 +3990,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Ignore a company's price completely"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "This blended style seeks quality companies that are growing but not absurdly priced - mixing growth and value. It neither ignores price nor avoids growth."
           }
         ]
@@ -3739,6 +4039,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation3-mc1",
+            concept: "Moats",
             question: "What is a 'moat' in investing?",
             options: [
               "A tax charged on very large companies",
@@ -3751,6 +4052,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation3-mc2",
+            concept: "Moats",
             question: "Which is an example of a network-effect moat?",
             options: [
               "A firm that owns a valuable, defensible patent",
@@ -3778,6 +4080,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation3-aq1",
+          concept: "Moats",
           question: "Ava's customers rarely leave because switching accounting systems is a huge hassle. This moat is best called…",
           options: [
             "A network effect between users",
@@ -3805,6 +4108,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation3-mastery1",
+            concept: "Moats",
             question: "Why do high profits normally attract competitors?",
             options: [
               "Because national governments strictly require it by law",
@@ -3813,10 +4117,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Because taxes tend to rise as profits shrink"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Fat profits lure rivals hoping to grab some, which usually competes those profits down. It's not driven by law, worse quality, or falling taxes."
           },
           {
             id: "valuation3-mastery2",
+            concept: "Moats",
             question: "A giant retailer buys in such volume that no small shop can match its prices. This moat is a…",
             options: [
               "A brand-power advantage over rivals",
@@ -3825,10 +4131,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A network effect among stores"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Buying cheaply due to size is a cost advantage that lets the retailer undercut rivals. It isn't about brand, patents, or a network of users."
           },
           {
             id: "valuation3-mastery3",
+            concept: "Moats",
             question: "Why do moats matter for valuation?",
             options: [
               "They directly lower a company's yearly tax bill",
@@ -3837,10 +4145,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "They remove the need to ever earn profit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A stock is worth its future profits, so a lasting moat that protects profits for years raises value. It's not a tax break or a yearly price guarantee."
           },
           {
             id: "valuation3-mastery4",
+            concept: "Moats",
             question: "What destroyed the moat of a dominant camera-film maker?",
             options: [
               "A sudden new tax on all cameras",
@@ -3849,10 +4159,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A law banning film sales outright"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Digital photography made film obsolete, eroding the moat despite the brand's fame. People still loved photos, and no tax or ban caused the collapse."
           },
           {
             id: "valuation3-mastery5",
+            concept: "Moats",
             question: "A patent that legally keeps rivals out for years is which kind of moat?",
             options: [
               "A switching-cost moat",
@@ -3861,10 +4173,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A network-effect moat"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Patents, licenses, and approvals are intangible assets that can lock competitors out legally. They differ from switching costs, scale, or network effects."
           },
           {
             id: "valuation3-mastery6",
+            concept: "Moats",
             question: "The best moat question a long-term investor can ask is…",
             options: [
               "How cheap is the stock this very week?",
@@ -3873,6 +4187,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Which analyst rated the stock highest?"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Durability is what matters, so the key question is whether the moat lasts a decade. Weekly prices, daily moves, and analyst ratings miss the point."
           }
         ]
@@ -3921,6 +4236,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation4-mc1",
+            concept: "Market Expectations",
             question: "What does a stock's price mainly reflect?",
             options: [
               "Only last year's reported profits",
@@ -3933,6 +4249,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation4-mc2",
+            concept: "Market Expectations",
             question: "A company beats last year's record but its stock falls. The likeliest reason is…",
             options: [
               "It broke the law by earning money",
@@ -3960,6 +4277,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation4-aq1",
+          concept: "Market Expectations",
           question: "Why did QuietCo's stock rise despite only 4% growth?",
           options: [
             "Because that 4% growth is objectively huge",
@@ -3987,6 +4305,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation4-mastery1",
+            concept: "Market Expectations",
             question: "A high P/E ratio tells you the market has…",
             options: [
               "Very low hopes for future growth",
@@ -3995,10 +4314,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Proof the company will fail soon"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A high P/E means investors are paying up for expected strong growth - high expectations. It's not low hopes, indifference, or a failure signal."
           },
           {
             id: "valuation4-mastery2",
+            concept: "Market Expectations",
             question: "Stocks primarily move based on…",
             options: [
               "How many shares exist in total",
@@ -4007,10 +4328,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The color of the company's logo"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Price changes come from surprises - results beating or missing expectations. Share count, likability, and branding aren't the main drivers."
           },
           {
             id: "valuation4-mastery3",
+            concept: "Market Expectations",
             question: "A stock 'priced for 30% growth' must roughly deliver that growth to…",
             options: [
               "Instantly double its share price",
@@ -4019,10 +4342,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Force competitors out of business"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Meeting baked-in expectations just maintains the price; missing them can cause a fall. It doesn't double the stock, prevent delisting, or crush rivals."
           },
           {
             id: "valuation4-mastery4",
+            concept: "Market Expectations",
             question: "A low-P/E stock is NOT automatically a bargain because…",
             options: [
               "Low P/E is illegal for most firms",
@@ -4031,10 +4356,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Taxes always erase any gains made"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A low price can reflect a genuinely shrinking business, so cheapness alone isn't safety. Low P/E is legal, cheap stocks can rise, and taxes don't erase all gains."
           },
           {
             id: "valuation4-mastery5",
+            concept: "Market Expectations",
             question: "Rising market optimism affects expectations by…",
             options: [
               "Lowering the bar that companies must clear",
@@ -4043,10 +4370,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Freezing all stock prices in place"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Optimism lifts expectations and prices, so it takes ever-better news to satisfy the market. It doesn't lower the bar, erase expectations, or freeze prices."
           },
           {
             id: "valuation4-mastery6",
+            concept: "Market Expectations",
             question: "When a company posts good news but its stock falls, it usually means…",
             options: [
               "The company committed accounting fraud",
@@ -4055,6 +4384,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The stock market has shut down"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A fall on good news typically signals the news missed an even higher bar. It's not proof of fraud, and good news isn't universally bad for stocks."
           }
         ]
@@ -4103,6 +4433,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation5-mc1",
+            concept: "Simplified DCF",
             question: "What does a DCF estimate a company's value from?",
             options: [
               "Its total current number of employees",
@@ -4115,6 +4446,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation5-mc2",
+            concept: "Simplified DCF",
             question: "Why do we 'discount' future cash flows?",
             options: [
               "Because future money is worth less",
@@ -4142,6 +4474,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation5-aq1",
+          concept: "Simplified DCF",
           question: "Using a 10% discount rate, roughly what is $100,000 arriving in one year worth to Nadia today?",
           options: [
             "About $110,000 today",
@@ -4169,6 +4502,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation5-mastery1",
+            concept: "Simplified DCF",
             question: "The core idea of DCF is that a company is worth…",
             options: [
               "Its office furniture at resale value",
@@ -4177,10 +4511,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The salary paid to its founder"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "DCF treats a business as the sum of the cash it will generate for owners. Furniture, old earnings, and salaries aren't the basis of the value."
           },
           {
             id: "valuation5-mastery2",
+            concept: "Simplified DCF",
             question: "At a 10% discount rate, $110 expected next year is worth about…",
             options: [
               "$121 today",
@@ -4189,10 +4525,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "$55 today"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Dividing $110 by 1.10 gives $100, since $100 invested at 10% grows to $110. It isn't $110, $121, or $55."
           },
           {
             id: "valuation5-mastery3",
+            concept: "Simplified DCF",
             question: "What is a 'terminal value' in a DCF?",
             options: [
               "The company's very first year of sales",
@@ -4201,10 +4539,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The total wages the company has paid"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Terminal value captures all cash beyond the detailed forecast, treated as a steady stream. It's not first-year sales, a penalty, or total wages."
           },
           {
             id: "valuation5-mastery4",
+            concept: "Simplified DCF",
             question: "Why do small assumption changes matter so much in DCF?",
             options: [
               "They can swing the value",
@@ -4213,10 +4553,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "They have no effect on the result"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Tweaking growth or discount rates can move the DCF value dramatically, so analysts test scenarios. Assumptions don't change headcount and aren't fixed by law."
           },
           {
             id: "valuation5-mastery5",
+            concept: "Simplified DCF",
             question: "If a DCF value is far above the current stock price, the stock may be…",
             options: [
               "Clearly overpriced right now",
@@ -4225,10 +4567,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Impossible to buy at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A value above the price suggests the market may be undervaluing it - a possible bargain. It's not a sign of overpricing, delisting, or being unbuyable."
           },
           {
             id: "valuation5-mastery6",
+            concept: "Simplified DCF",
             question: "The real value of doing a DCF is that it…",
             options: [
               "Guarantees a perfectly exact price",
@@ -4237,6 +4581,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Predicts next week's price move"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A DCF disciplines your thinking by making assumptions clear, not by delivering false precision. It can't guarantee exactness, erase risk, or time short-term moves."
           }
         ]
@@ -4285,6 +4630,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation6-mc1",
+            concept: "Intrinsic vs Market",
             question: "What is the difference between price and intrinsic value?",
             options: [
               "They are simply two names for one thing",
@@ -4297,6 +4643,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation6-mc2",
+            concept: "Intrinsic vs Market",
             question: "In Graham's parable, 'Mr. Market' represents…",
             options: [
               "A regulator who sets fair prices",
@@ -4324,6 +4671,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation6-aq1",
+          concept: "Intrinsic vs Market",
           question: "Given the price fell to $52 while value stayed near $80, what should Devon conclude?",
           options: [
             "The business clearly got much worse",
@@ -4351,6 +4699,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation6-mastery1",
+            concept: "Intrinsic vs Market",
             question: "The market price of a stock is best described as…",
             options: [
               "The company's true lifetime worth",
@@ -4359,10 +4708,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "The total cash a firm will ever earn"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Price is simply the latest agreed quote between buyer and seller. Its true worth is intrinsic value, and prices aren't set by government."
           },
           {
             id: "valuation6-mastery2",
+            concept: "Intrinsic vs Market",
             question: "A smart investor treats Mr. Market's mood swings as…",
             options: [
               "Orders that must always be obeyed",
@@ -4371,10 +4722,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "A reason to leave investing forever"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The point of the parable is to exploit his moods, buying when he's fearful. His prices aren't commands and don't reveal real value changes."
           },
           {
             id: "valuation6-mastery3",
+            concept: "Intrinsic vs Market",
             question: "Buying at $50 something you value at $80 gives you a…",
             options: [
               "Guaranteed profit with zero risk",
@@ -4383,10 +4736,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Penalty for overpaying badly"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The $30 gap is a margin of safety that cushions estimate errors. It's not a zero-risk guarantee, an instant gain, or a penalty."
           },
           {
             id: "valuation6-mastery4",
+            concept: "Intrinsic vs Market",
             question: "Over the long run, a stock's price tends to…",
             options: [
               "Drift away from its value forever",
@@ -4395,10 +4750,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Always double every year"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Given time, price tends to converge toward intrinsic value as reality is recognized. It doesn't diverge forever, freeze, or reliably double yearly."
           },
           {
             id: "valuation6-mastery5",
+            concept: "Intrinsic vs Market",
             question: "The biggest trap when a stock's price falls is to assume…",
             options: [
               "The business automatically got worse",
@@ -4407,10 +4764,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Value is impossible to estimate"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A price drop often reflects mood, not a real decline in the business. Assuming the business worsened confuses price movement with value change."
           },
           {
             id: "valuation6-mastery6",
+            concept: "Intrinsic vs Market",
             question: "Why do value investors often hold for years rather than days?",
             options: [
               "Because trading is banned short-term",
@@ -4419,6 +4778,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Because dividends are illegal to collect"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The market can stay irrational a long time, so recognition of value takes patience. Short-term trading isn't banned, and dividends are perfectly legal."
           }
         ]
@@ -4467,6 +4827,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation7-mc1",
+            concept: "Long-Term Investing",
             question: "What does 'compounding' mean?",
             options: [
               "Paying extra tax on every trade",
@@ -4479,6 +4840,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation7-mc2",
+            concept: "Long-Term Investing",
             question: "Why is starting to invest young so powerful?",
             options: [
               "Young people pay no taxes at all",
@@ -4506,6 +4868,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation7-aq1",
+          concept: "Long-Term Investing",
           question: "Why did Sam likely end up far ahead of Priya after the crash?",
           options: [
             "He predicted the exact market bottom",
@@ -4533,6 +4896,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation7-mastery1",
+            concept: "Long-Term Investing",
             question: "At about 10% a year, money roughly doubles every…",
             options: [
               "Six months",
@@ -4541,10 +4905,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "One year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The rule of thumb: dividing 72 by 10% gives about seven years to double. It's not six months, one year, or fifty years."
           },
           {
             id: "valuation7-mastery2",
+            concept: "Long-Term Investing",
             question: "Why does starting young usually beat investing more later?",
             options: [
               "Young investors face no market risk",
@@ -4553,10 +4919,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Older money grows twice as fast"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Extra years mean extra doublings, so early dollars do the heaviest lifting. Youth doesn't remove risk, cut prices, or slow older money."
           },
           {
             id: "valuation7-mastery3",
+            concept: "Long-Term Investing",
             question: "What is dollar-cost averaging?",
             options: [
               "Selling everything when prices fall",
@@ -4565,10 +4933,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Timing the market's exact bottom"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Investing a set amount regularly buys more shares when cheap and fewer when pricey. It's not panic-selling, single-stock picking, or market timing."
           },
           {
             id: "valuation7-mastery4",
+            concept: "Long-Term Investing",
             question: "An investor who panic-sells at the bottom of a crash usually…",
             options: [
               "Beats those who stayed invested",
@@ -4577,10 +4947,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Guarantees a quick large profit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Selling at the bottom makes losses permanent and risks missing the best recovery days. It doesn't beat holders, avoid costs, or lock in gains."
           },
           {
             id: "valuation7-mastery5",
+            concept: "Long-Term Investing",
             question: "Why does a 1% yearly fee matter so much over decades?",
             options: [
               "Fees are refunded at retirement",
@@ -4589,10 +4961,12 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Fees make markets rise faster"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A recurring fee compounds against you, quietly consuming a big share of final wealth. It isn't refunded, one-time, or a boost to returns."
           },
           {
             id: "valuation7-mastery6",
+            concept: "Long-Term Investing",
             question: "The most successful everyday investors tend to be…",
             options: [
               "Constantly trading on every headline",
@@ -4601,6 +4975,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Quick to sell at the first bad news"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Steady, diversified, low-fee contributing lets compounding work over decades. Frequent trading, single stocks, and quick selling tend to hurt returns."
           }
         ]

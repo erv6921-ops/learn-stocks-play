@@ -3,7 +3,8 @@
 // conversationally; the student replies via tappable options.
 import { supabase } from "@/integrations/supabase/client"
 import type { Lesson, LessonSection } from "@/types"
-import { stripDashes, NO_DASH_RULE } from "@/lib/text"
+import { stripDashes } from "@/lib/text"
+import { getQuizForLesson } from "@/data/lessonQuizzes"
 
 export interface ChatMessage {
   role: "user" | "assistant"
@@ -399,7 +400,6 @@ const LESSON_HOOKS: Record<string, Hook> = {
   "income-5":  { question: "if a job offers $20/hr, is that what actually lands in your bank account?", answers: ["Yeah, right?", "No, it's less", "Wait, why less?"] },
   "income-6":  { question: "why is the number on your offer letter bigger than what you actually take home?", answers: ["Taxes", "No idea", "Hidden fees?"] },
   "income-7":  { question: "is a job worth it just because it pays a lot right now?", answers: ["Yeah, obviously", "Not always", "Depends"] },
-  "income-8":  { question: "is spending years and thousands on school actually a good investment?", answers: ["Definitely", "Not always", "Depends on the field"] },
   "income-9":  { question: "would you rather be elite at one skill, or solid at a few that combine?", answers: ["One skill", "A few combined", "Not sure"] },
   "income-10": { question: "would you rather a guaranteed paycheck, or a business with no income ceiling?", answers: ["Guaranteed paycheck", "Own the business", "A bit of both"] },
   "income-11": { question: "is a four-year degree always worth more than learning a trade?", answers: ["Yeah", "Not always", "Depends"] },
@@ -461,29 +461,125 @@ const LESSON_HOOKS: Record<string, Hook> = {
   "invest-12": { question: "would you invest now if it meant paying way less in taxes later?", answers: ["Definitely", "Maybe", "How does that work?"] },
 }
 
+// ── Topic phrases ──
+// Framings weave the lesson topic into a sentence, so they need a phrase that
+// reads naturally mid-sentence ("how side-hustle income works"), not a raw
+// title lowercased ("entrepreneurship income"). A curated phrase wins; every
+// other lesson derives one from its title (acronyms and numbers kept as is).
+const TOPIC_PHRASES: Record<string, string> = {
+  "psych-1": "why people mismanage money",
+  "psych-2": "delayed gratification",
+  "psych-4": "the scarcity versus abundance mindset",
+  "psych-5": "how emotions drive money decisions",
+  "psych-6": "how friends and social pressure shape spending",
+  "psych-7": "how advertising steers what you buy",
+  "psych-8": "the behavioral traps that drain money",
+  "psych-9": "how identity shapes money habits",
+  "psych-10": "healthy money beliefs",
+  "income-1": "active versus passive income",
+  "income-2": "wages versus salary",
+  "income-3": "hourly pay versus commission",
+  "income-4": "how gig work pays",
+  "income-5": "gross versus net pay",
+  "income-6": "how taxes hit your paycheck",
+  "income-7": "the return on a career choice",
+  "income-9": "skill stacking",
+  "income-10": "how side-hustle income works",
+  "income-11": "the ROI of college versus trade school and education as an investment",
+  "income-12": "how labor markets set your pay",
+  "income-13": "what recessions and unemployment do to your money",
+  "income-14": "how Social Security works",
+  "income-15": "local taxes",
+  "budget-1": "what a budget is and why it matters",
+  "credit-1": "what credit is",
+  "credit-13": "how mortgages work",
+  "invest-11": "why markets need regulators",
+  "market-1": "the NYSE versus the NASDAQ",
+  "funds-5": "the S&P 500",
+  "bubble-1": "Tulip Mania",
+  "alt-4": "how crypto works",
+}
+
+// Words that keep their capitalization when a title is turned into a phrase.
+const KEEP_CASE = new Set(["Fed", "Roth", "China", "India", "America", "American", "Wall", "Street", "Warren", "Buffett", "Tulip", "Mania"])
+
+function deriveTopicPhrase(title: string): string {
+  let t = title.trim()
+    .replace(/\s*\([^)]*\)\s*/g, " ")
+    .replace(/\s*&\s*/g, " and ")
+    .replace(/\s+vs\.?\s+/gi, " versus ")
+    .replace(/[?!.]+$/, "")
+    .replace(/\s+/g, " ")
+    .trim()
+  // "Mortgages: Buying a Home" -> "mortgages"; "Case Study: X" -> "a case study on X".
+  const colon = t.indexOf(":")
+  if (colon > 0) {
+    const before = t.slice(0, colon).trim()
+    const after = t.slice(colon + 1).trim()
+    t = /^case study$/i.test(before) && after ? `a case study on ${after}` : before || after
+  }
+  // Two or more capitals ("ROE", "ETFs", "S&P"); a capitalized word like "Is" is not one.
+  const isAcronym = (w: string) => /^[A-Z][A-Z&./]+s?$/.test(w)
+  let phrase = t
+    .split(" ")
+    .map((w) => (KEEP_CASE.has(w) || /\d/.test(w) || isAcronym(w) ? w : w.toLowerCase()))
+    .join(" ")
+  // "what is credit" -> "what credit is" (only for a single plain noun phrase).
+  phrase = phrase.replace(/^what is ((?:an? |the )?[^,]+?)$/, (_m, rest: string) => (/\band\b/.test(rest) ? `what is ${rest}` : `what ${rest} is`))
+  return phrase
+}
+
+/** The lesson topic as a phrase that reads naturally inside a sentence. */
+export function topicPhrase(lesson: Lesson): string {
+  return TOPIC_PHRASES[lesson.id] ?? deriveTopicPhrase(lesson.title || lesson.description || "this topic")
+}
+
+/** Prefix a phrase with "a" or "an" ("an ETF", "a budget", "an hourly wage"). */
+export function aAn(phrase: string): string {
+  const w = phrase.trim()
+  const first = w.split(/\s+/)[0] ?? ""
+  const spelledOut = first.length > 1 && /^[A-Z][A-Z&./]*s?$/.test(first)
+  const vowelSound = spelledOut
+    ? /^[AEFHILMNORSX]/.test(first)
+    : (/^[aeiou]/i.test(first) && !/^(uni|use|user|usu|eu|one|ou)/i.test(first)) || /^(hour|honest|heir|herb)/i.test(first)
+  return `${vowelSound ? "an" : "a"} ${w}`
+}
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
+
+// A topic that can be used as a plain noun ("an ETF lesson"), as opposed to a
+// clause ("how side-hustle income works") or one that already carries an article.
+const isNounTopic = (t: string) => !/^(how|why|what|when|where|whether|the|an?)\b/i.test(t)
+
 // Topic-agnostic fallbacks when a lesson matches no category above. These use
-// the lesson title so they're already tailored per lesson.
-const GENERIC_HOOKS: ((title: string) => Hook)[] = [
-  (t) => ({ question: `what do you already know about ${t.toLowerCase()}?`, answers: ["Basically nothing", "A little bit", "Quite a bit actually"] }),
+// the lesson's topic phrase so they're already tailored per lesson.
+const GENERIC_HOOKS: ((topic: string) => Hook)[] = [
+  (t) => ({ question: `what do you already know about ${t}?`, answers: ["Basically nothing", "A little bit", "Quite a bit actually"] }),
   () => ({ question: "be honest - how confident are you with money stuff?", answers: ["Not at all 😅", "Kinda", "Pretty confident"] }),
-  (t) => ({ question: `on a scale of "huh?" to "got it," where are you with ${t.toLowerCase()}?`, answers: ["Total huh?", "Somewhere in the middle", "Pretty solid"] }),
+  (t) => ({ question: `on a scale of "huh?" to "got it," where are you with ${t}?`, answers: ["Total huh?", "Somewhere in the middle", "Pretty solid"] }),
   () => ({ question: "want the quick version or the full breakdown?", answers: ["Quick version", "Full breakdown", "Surprise me"] }),
 ]
 
 // Ways to frame a question so the SAME underlying hook reads differently across
 // lessons. Each keeps the answer options valid - they only change the wording
 // that leads into the question, never the question's actual ask.
-// Every framing includes the lesson title, and titles are unique across the
-// curriculum - so the framed question is guaranteed unique per lesson even when
-// two lessons happen to share the same underlying hook.
-const QUESTION_FRAMINGS: ((title: string, q: string) => string)[] = [
-  (t, q) => `Before we get into ${t.toLowerCase()} - ${q}`,
-  (t, q) => `Real quick, thinking about ${t.toLowerCase()}: ${q}`,
-  (t, q) => `Okay, ${t.toLowerCase()} gut check - ${q}`,
-  (t, q) => `Here's a ${t.toLowerCase()} warm-up: ${q}`,
-  (t, q) => `We're on ${t.toLowerCase()} today. First though: ${q}`,
-  (t, q) => `To kick off ${t.toLowerCase()}, tell me - ${q}`,
-  (t, q) => `${t.toLowerCase()} is up next, but real talk first - ${q}`,
+// Every framing includes the lesson's topic phrase, which is unique per lesson,
+// so the framed question stays unique even when two lessons share a hook.
+const QUESTION_FRAMINGS: ((topic: string, q: string) => string)[] = [
+  (t, q) => `Before we get into ${t}, ${q}`,
+  (t, q) => `Real quick, since today is about ${t}: ${q}`,
+  (t, q) => `Quick gut check before ${t}: ${q}`,
+  (t, q) => `Here's a warm-up for ${t}: ${q}`,
+  (t, q) => `We're on ${t} today. First though: ${q}`,
+  (t, q) => `To kick off ${t}, tell me: ${q}`,
+  (t, q) => `Next up is ${t}, but real talk first: ${q}`,
+]
+
+// Framings that use the topic as a plain noun ("a delayed gratification
+// lesson"), so they only apply to noun topics, never to "how ... works" ones.
+const NOUN_FRAMINGS: ((topic: string, q: string) => string)[] = [
+  (t, q) => `${cap(aAn(`${t} lesson`))} is up next, but real talk first: ${q}`,
+  (t, q) => `${cap(aAn(`${t} question`))} to start us off: ${q}`,
 ]
 
 // The raw (unframed) hook for a lesson - stable per id. Exposed so callers that
@@ -496,7 +592,7 @@ function rawHook(lesson: Lesson): Hook {
   for (const [re, hooks] of CATEGORY_HOOKS) {
     if (re.test(hay)) return hooks[idx % hooks.length]
   }
-  return GENERIC_HOOKS[idx % GENERIC_HOOKS.length](lesson.title)
+  return GENERIC_HOOKS[idx % GENERIC_HOOKS.length](topicPhrase(lesson))
 }
 
 // The opening hook shown to a lesson: the raw hook's answers, plus a question
@@ -504,79 +600,59 @@ function rawHook(lesson: Lesson): Hook {
 // question. Deterministic per id, so the question and its answers always match.
 export function openingHook(lesson: Lesson): Hook {
   const { question, answers } = rawHook(lesson)
-  const framing = QUESTION_FRAMINGS[hashId2(lesson.id) % QUESTION_FRAMINGS.length]
-  return { question: framing(lesson.title, question), answers }
+  const topic = topicPhrase(lesson)
+  const pool = isNounTopic(topic) ? [...QUESTION_FRAMINGS, ...NOUN_FRAMINGS] : QUESTION_FRAMINGS
+  const framing = pool[hashId2(lesson.id) % pool.length]
+  return { question: framing(topic, question), answers }
 }
 
-// Jeff already introduced himself in onboarding, so lessons skip the "I'm Jeff"
-// every time. Instead he rolls in casually - sometimes fresh off some random
-// activity. This flavor line is purely cosmetic (carries no answer dependency),
-// so it's fine to pick at random. It does NOT announce the topic - whatever
-// follows (a question, a fact, or a straight dive) handles that.
-const LESSON_OPENERS: string[] = [
-  "Just got back from a run 🏃",
-  "Phew, just finished a pickup basketball game 🏀",
-  "Was out on a walk, but I'm back 🚶",
-  "Just grabbed a snack 🍎",
-  "Fresh off beating my high score 🎮",
-  "Just wrapped up a quick nap 😴",
-  "Back from the gym 💪",
-  "Just made myself a smoothie 🥤",
-  "Okay, I'm all yours.",
-  "Alright, ready when you are.",
-  "",
-]
-
 // "Dive straight in" openers - no question, just start teaching the topic.
-const DIVE_OPENERS: ((title: string) => string)[] = [
-  (t) => `Today we're doing ${t} - and I promise it's more useful than it sounds.`,
+// Written to read with either a noun topic or a "how ... works" clause.
+const DIVE_OPENERS: ((topic: string) => string)[] = [
+  (t) => `Today we're getting into ${t}, and I promise it's more useful than it sounds.`,
   (t) => `Let's get into ${t}. I'll keep it quick and actually make it click.`,
-  (t) => `${t}. This is one of those things that seems boring until it saves you money.`,
-  (t) => `Alright - ${t}. Stick with me, this one's genuinely worth knowing.`,
+  (t) => `Today's topic: ${t}. One of those things that seems boring until it saves you money.`,
+  (t) => `Alright, let's talk about ${t}. Stick with me, this one's genuinely worth knowing.`,
   (t) => `Time for ${t}. By the end of this you'll get why it matters.`,
 ]
 
-// "Surprising fact/statement" openers keyed by topic. These make a bold claim
-// instead of asking anything, so their options are neutral (continue-style).
-const FACT_HOOKS: [RegExp, ((title: string) => string)[]][] = [
-  [/delayed|gratification|instant|psychology-of-money|behavioral/, [
-    () => `Wild fact: most people spend more the second money hits their account - and never notice.`,
-    () => `Here's the truth - your brain is basically wired to want stuff NOW, even when waiting pays way more.`,
+// "Surprising fact/statement" openers keyed by lesson CATEGORY. These make a
+// bold claim instead of asking anything, so their options are neutral
+// (continue-style). A fact is only ever used when its category is exactly the
+// lesson's category; lessons in a category with no fact never open this way.
+const FACT_HOOKS: [RegExp, (() => string)[]][] = [
+  [/^(psychology-of-money|behavioral-finance)$/, [
+    () => `Wild fact: most people spend more the second money hits their account, and never notice.`,
+    () => `Here's the truth: your brain is basically wired to want stuff NOW, even when waiting pays way more.`,
   ]],
-  [/budget/, [
+  [/^budgeting$/, [
     () => `Most people underestimate their spending by like 30%. A budget just... shows you the truth.`,
-    () => `Fun fact: writing down where your money goes changes how you spend it - before you even try.`,
+    () => `Fun fact: writing down where your money goes changes how you spend it, before you even try.`,
   ]],
-  [/banking/, [
+  [/^banking$/, [
     () => `Here's something banks don't advertise: they lend out YOUR deposited money and keep most of the profit.`,
-    () => `Wild one - the average person loses hundreds a year to fees they didn't even know existed.`,
+    () => `Wild one: the average person loses hundreds a year to fees they didn't even know existed.`,
   ]],
-  [/credit|debt/, [
-    () => `Here's the scary part: a single number - your credit score - can decide your rent, your job, even your phone plan.`,
+  [/^(credit-debt|debt-management)$/, [
+    () => `Here's the scary part: a single number, your credit score, can decide your rent, your job, even your phone plan.`,
     () => `Fun fact: minimum payments are designed so you stay in debt as long as possible.`,
   ]],
-  [/invest|stock|portfolio|etf|bond|fund|valuation|ratio|financial-statement/, [
+  [/^(investing-intro|investing-fundamentals|stocks|stock-market|portfolio|etfs-funds|bonds|valuation|financial-ratios|financial-statements)$/, [
     () => `Here's the crazy part: $100 invested young can beat $1,000 invested later. Time does the heavy lifting.`,
-    () => `Wild truth - when you buy a stock, you literally own a slice of a real company.`,
+    () => `Wild truth: when you buy a stock, you literally own a slice of a real company.`,
   ]],
-  [/tax/, [
-    () => `Here's the surprise in your first paycheck: the number on the offer letter is NOT what lands in your account.`,
+  [/^insurance-protection$/, [
+    () => `Weird truth about insurance: you pay hoping to never use it, and that's exactly the point.`,
   ]],
-  [/insurance/, [
-    () => `Weird truth about insurance: you pay hoping to never use it - and that's exactly the point.`,
+  [/^(entrepreneurship|competitive-strategy|business-management|leadership-management|strategic-analysis|pestel-analysis|business-ethics)$/, [
+    () => `Here's the thing: most businesses don't fail from bad ideas. They fail from solving problems nobody actually had.`,
   ]],
-  [/entrepreneur|business|market|leadership|strategy|pestel|ethics|consumer/, [
-    () => `Here's the thing - most businesses don't fail from bad ideas. They fail from problems nobody actually had.`,
+  [/^(marketing|consumer-behavior|marketing-mix|market-research)$/, [
     () => `Fun fact: the brand you "just prefer" was probably engineered to feel that way.`,
   ]],
-  [/econ|macro|indicator|supply|demand|micro/, [
+  [/^(economics|macro-economics|economic-indicators|gulliver-economics|ib-economics|micro-basics|micro-supply-demand|micro-production|micro-imperfect|micro-factor-markets|micro-market-failure)$/, [
     () => `Here's a mind-bender: nobody sets most prices. Millions of tiny buyer-and-seller decisions do.`,
   ]],
-]
-
-const GENERIC_FACTS: ((title: string) => string)[] = [
-  (t) => `Quick heads up on ${t.toLowerCase()}: it's one of those skills that quietly separates people who stress about money from people who don't.`,
-  (t) => `Here's why ${t.toLowerCase()} matters - small money habits now snowball into huge differences later.`,
 ]
 
 type OpenerStyle = "question" | "fact" | "dive"
@@ -600,32 +676,35 @@ function openerStyle(lesson: Lesson): OpenerStyle {
     case 3:
       return "dive"
     default:
-      return "fact"
+      // A fact opener only when this lesson's category has a matching fact;
+      // otherwise the lesson asks a question instead of quoting a generic claim.
+      return factOpener(lesson) ? "fact" : "question"
   }
 }
 
-// Short title-woven tie-ins appended to a category fact, so two fact-style
-// lessons in the same unit never render the identical opener (the title is
-// unique per lesson) - and it ties the surprising claim to today's topic.
-const FACT_TIES: ((title: string) => string)[] = [
-  (t) => `That's the door into ${t.toLowerCase()}.`,
-  (t) => `Which is exactly why ${t.toLowerCase()} matters.`,
-  (t) => `Keep that in mind as we get into ${t.toLowerCase()}.`,
-  (t) => `And ${t.toLowerCase()} is where it starts to click.`,
-  (t) => `Let's see how ${t.toLowerCase()} plays into that.`,
+// Short topic-woven tie-ins appended to a category fact, so two fact-style
+// lessons in the same unit never render the identical opener (the topic phrase
+// is unique per lesson) - and it ties the surprising claim to today's topic.
+const FACT_TIES: ((topic: string) => string)[] = [
+  (t) => `That's the door into ${t}.`,
+  (t) => `Which is exactly why ${t} matters.`,
+  (t) => `Keep that in mind as we get into ${t}.`,
+  (t) => `And ${t} is where it starts to click.`,
+  (t) => `Let's see how ${t} plays into that.`,
 ]
 
-function factOpener(lesson: Lesson): string {
-  const hay = `${lesson.category} ${lesson.title.toLowerCase()}`
+// The fact opener for a lesson, or null when no fact matches its category.
+function factOpener(lesson: Lesson): string | null {
   const idx = unitPos(lesson)
+  const topic = topicPhrase(lesson)
   for (const [re, facts] of FACT_HOOKS) {
-    if (re.test(hay)) {
-      const fact = facts[idx % facts.length](lesson.title)
-      const tie = FACT_TIES[idx % FACT_TIES.length](lesson.title)
+    if (re.test(lesson.category)) {
+      const fact = facts[idx % facts.length]()
+      const tie = FACT_TIES[idx % FACT_TIES.length](topic)
       return `${fact} ${tie}`
     }
   }
-  return GENERIC_FACTS[idx % GENERIC_FACTS.length](lesson.title)
+  return null
 }
 
 // Neutral continue-style options for openers that don't ask a question.
@@ -645,17 +724,19 @@ export function opensWithQuestion(lesson: Lesson): boolean {
   return openerStyle(lesson) === "question"
 }
 
-/** Jeff's opener - no API call needed for the first message. */
+/**
+ * Jeff's opener - no API call needed for the first message. The student already
+ * met Jeff in onboarding, so he goes straight to the topic: a framed question,
+ * a category fact, or a dive. Deterministic per lesson, no random flavor line.
+ */
 export function initialJeffMessage(lesson: Lesson): string {
-  const flavor = LESSON_OPENERS[Math.floor(Math.random() * LESSON_OPENERS.length)]
-  const lead = flavor ? `${flavor} ` : ""
   switch (openerStyle(lesson)) {
     case "question":
-      return `${lead}${openingHook(lesson).question}`
+      return openingHook(lesson).question
     case "fact":
-      return `${lead}${factOpener(lesson)}`
+      return factOpener(lesson) ?? openingHook(lesson).question
     default:
-      return `${lead}${DIVE_OPENERS[unitPos(lesson) % DIVE_OPENERS.length](lesson.title)}`
+      return DIVE_OPENERS[unitPos(lesson) % DIVE_OPENERS.length](topicPhrase(lesson))
   }
 }
 
@@ -714,6 +795,60 @@ function deepCourseLabel(lesson: Lesson): string {
     : "Gulliver Introduction to Business course, a rigorous 9th-grade (age ~14) academic business class"
 }
 
+// Soft punctuation guidance. The old hard "never use dashes" rule made models
+// narrate it ("wait, no dashes"); the output is cleaned by stripDashes and
+// stripSelfCorrections anyway, so the prompt only needs a gentle preference.
+const SOFT_DASH_RULE =
+  "Punctuation: prefer commas, periods, and parentheses over dashes. Never comment on your own punctuation or correct yourself mid-message; just write the message."
+
+// Follow-ups: Jeff answers, then steers back. He never refuses a question as
+// off-topic (that read as a broken chip when the student tapped a suggestion).
+const FOLLOW_UP_RULE =
+  "If the student asks a follow-up, answer it in one sentence even if it's adjacent to the lesson, then return to the lesson. Never tell the student a question is out of scope."
+
+// The grounding text is for Jeff's eyes only: he teaches from it but never
+// refers to it, so students never hear about "the source" or "the material".
+const NOTES_PRIVACY_RULE =
+  "Never mention the source, the material, or the notes to the student; just teach the ideas as your own."
+
+// Humanize a concept slug for the prompt ("risk-and-reward" -> "risk and reward").
+const humanizeConcept = (c: string) => c.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim()
+
+/**
+ * Every concept the lesson's quiz tests, so Jeff can name each one before the
+ * quiz. Uses the caller's list (question concept tags gathered from the
+ * lesson's sections) and, when that is empty, falls back to the concept tags
+ * on the lesson's authored question pool.
+ */
+export function testedConcepts(lesson: Lesson, mustCover?: string[]): string[] {
+  const seen = new Set<string>()
+  const out: string[] = []
+  const add = (c?: string) => {
+    const h = humanizeConcept(c ?? "")
+    const k = h.toLowerCase()
+    if (h && !seen.has(k)) { seen.add(k); out.push(h) }
+  }
+  for (const c of mustCover ?? []) add(c)
+  if (out.length === 0) {
+    for (const q of getQuizForLesson(lesson.id)) add(q.concept)
+  }
+  return out.slice(0, 20)
+}
+
+/**
+ * Strip a model's narrated self-corrections about punctuation ("wait, no
+ * dashes", "(no em dashes!)") so the student never sees it talking to itself.
+ */
+export function stripSelfCorrections(s: string): string {
+  return (s || "")
+    .replace(/\s*\([^()]*\bdash(?:es)?\b[^()]*\)/gi, "")
+    .replace(/(^|[.!?]\s+|,\s*)(?:wait|oops|sorry|hold on|scratch that|let me rephrase|correction)[,!:]?\s*[^.!?]*?\bdash(?:es)?\b[^.!?,]*[.!?,]?\s*/gi, "$1")
+    .replace(/\s*\b(?:no|without) (?:em |en )?dash(?:es)?[!.]?(?=\s|$)/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([.!?,])/g, "$1")
+    .trim()
+}
+
 // How many teaching beats a deep (Gulliver) lesson gets before it must wrap up.
 // Lessons are split into short halves (e.g. 1.1, 1.2), so each one is a small,
 // digestible session: a handful of short messages that build on each other.
@@ -723,48 +858,70 @@ export const GULLIVER_DEEP_TURNS = 8
 // When `source` is provided (the lesson's authored concept content), Jeff is
 // grounded in it and told to cover the ideas the quiz is written from - so the
 // questions never test something the chat didn't teach. Without a source it
-// behaves exactly as before (improvise one core idea from the title).
-function buildSnappyPrompt(lesson: Lesson, sentCount: number, source?: string): string {
-  // Hard length budget - lessons were ballooning to 15+ messages. Jeff gets at
-  // most 6 total messages; the prompt counts down and forces the wrap-up.
-  const remaining = Math.max(1, 6 - sentCount)
-  const budgetNote = sentCount >= 5
-    ? `You have already sent ${sentCount} messages. Your NEXT message MUST be your final one: give the single key takeaway in one or two sentences, then end with the exact signal phrase. Do not introduce any new concepts.`
-    : sentCount >= 3
-      ? `You have already sent ${sentCount} messages and have at most ${remaining} left - start converging on the key takeaway now. Do not open new subtopics.`
+// improvises one core idea from the title. Either way the quiz's concept tags
+// (see testedConcepts) tell him which concepts he must name.
+
+/** Message budget for a grounded snappy lesson (about 8 short exchanges). */
+export const SNAPPY_TURNS = 8
+/** Message budget when there is no source to cover: one idea, land it fast. */
+const SNAPPY_UNGROUNDED_TURNS = 6
+
+function buildSnappyPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[]): string {
+  const concepts = testedConcepts(lesson, mustCover)
+  // Hard length budget so lessons never balloon to 15+ messages; grounded
+  // lessons get about 8 turns so every tested idea actually gets taught.
+  const limit = source ? SNAPPY_TURNS : SNAPPY_UNGROUNDED_TURNS
+  const remaining = Math.max(1, limit - sentCount)
+  const budgetNote = sentCount >= limit - 1
+    ? `You have already sent ${sentCount} messages. Your NEXT message MUST be your final one: teach any tested concept still untaught in one line each, give the key takeaway in a sentence, then end with the exact signal phrase.`
+    : sentCount >= limit - 3
+      ? `You have already sent ${sentCount} messages and have at most ${remaining} left. Check the tested concepts: cover any you have not named yet, then start converging on the key takeaway. Do not open new subtopics.`
       : `You have sent ${sentCount} messages so far and may use at most ${remaining} more in total.`
 
-  // Grounded vs. improvised job description. Grounded still stays snappy (short
-  // messages, <=6 total) but must cover the tested ideas rather than just one.
+  // Grounded vs. improvised job description. Grounded stays conversational but
+  // must cover the tested ideas rather than just one.
   const job = source
-    ? `Your job: teach this lesson through a snappy back-and-forth conversation - 4 to 6 short exchanges. Teach the KEY ideas from the SOURCE MATERIAL below, because the quiz is written straight from it - so cover every idea it emphasizes and do NOT test-drift into outside facts. Use the source's EXACT term for each key concept - never substitute a synonym (for example, if the source says 'entrepreneurship', say entrepreneurship, not 'enterprise'), because the quiz uses those exact terms. Stay snappy: one small idea per message, simplest first, building up. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
-    : `Your job: teach ONE core concept of this lesson through a snappy back-and-forth conversation - 4 to 5 short exchanges total, never more than 6. Depth beats breadth: pick the single most important idea and land it, skip everything secondary. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
+    ? `Your job: teach this lesson through a snappy back-and-forth conversation of about ${SNAPPY_TURNS} messages. Teach the KEY ideas in the lesson notes below, because the quiz is written straight from them, so cover every idea they emphasize. Use the notes' EXACT term for each key concept and never substitute a synonym (for example, if the notes say 'entrepreneurship', say entrepreneurship, not 'enterprise'), because the quiz uses those exact terms. Simplest idea first, building up. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
+    : `Your job: teach ONE core concept of this lesson through a snappy back-and-forth conversation - 4 to 5 short exchanges total, never more than ${SNAPPY_UNGROUNDED_TURNS}. Depth beats breadth: pick the single most important idea and land it, skip everything secondary. End by summarizing the key takeaway in one sentence and telling the student they're ready for the quiz.`
 
-  // Placed LAST so a system-prompt clamp trims only the tail of the source,
+  // Every concept the quiz asks about. Built from the questions' concept tags,
+  // so the list is exactly what the student will be tested on.
+  const coverage = concepts.length
+    ? `\n\nTESTED CONCEPTS (${concepts.length}): the quiz asks about EVERY one of these, so name and explain each one clearly before the lesson ends. Group two closely related ones in a message when you need to; never end while one is untaught:\n- ${concepts.join("\n- ")}`
+    : ""
+
+  const lengthRule = source
+    ? `Keep each message under 60 words: one main idea per message, plus a quick example or one closely related point when that helps it land. Never a long paragraph.`
+    : `Keep each message under 40 words. One small idea per message.`
+
+  // Placed LAST so a system-prompt clamp trims only the tail of the notes,
   // never the teaching rules or the required end signal above it.
   const material = source
-    ? `\n\nSOURCE MATERIAL - the authoritative content for this lesson; the quiz is written from it. Teach the ideas it contains and do not contradict it or introduce facts it doesn't cover:\n"""\n${source.slice(0, 3500)}\n"""`
+    ? `\n\nLESSON NOTES (for you only; the quiz is written from them). Teach the ideas they contain and do not contradict them. ${NOTES_PRIVACY_RULE}\n"""\n${source.slice(0, 5000)}\n"""`
     : ""
 
   return `You are Jeff, the friendly mascot and financial literacy guide for InvestiPlay, an app that teaches high school students personal finance through gamification. You are teaching a lesson called '${lesson.title}' which covers '${lesson.description}'.
 
-Your personality: enthusiastic, encouraging, uses casual teen-friendly language, occasional light humor, never condescending. You explain concepts in 1-3 short sentences max per message - never long paragraphs. You use real-world examples that resonate with teenagers (jobs, sneakers, streaming services, gaming, college).
+Your personality: enthusiastic, encouraging, uses casual teen-friendly language, occasional light humor, never condescending. You explain concepts in a few short sentences per message, never long paragraphs. You use real-world examples that resonate with teenagers (jobs, sneakers, streaming services, gaming, college).
 
-${job} ${budgetNote}
+${job} ${budgetNote}${coverage}
+
+${FOLLOW_UP_RULE}
 
 Always end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
 
 The student already knows you - never introduce yourself or say "I'm Jeff." Just dive into teaching.
 
-Keep each message under 40 words. Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.
+${lengthRule} Never use bullet points or headers. Sound like a knowledgeable friend, not a textbook.
 
-${NO_DASH_RULE}${material}`
+${SOFT_DASH_RULE}${material}`
 }
 
 // ── Deep prompt (Gulliver Intro): a real, rigorous mini-lecture ──
 // Teaches thoroughly from the authored curriculum, covers every key idea in the
 // lesson, and goes into the "why"/mechanisms instead of landing one point.
-function buildDeepPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[]): string {
+function buildDeepPrompt(lesson: Lesson, sentCount: number, source?: string, mustCoverIn?: string[]): string {
+  const mustCover = testedConcepts(lesson, mustCoverIn)
   const remaining = Math.max(1, GULLIVER_DEEP_TURNS - sentCount)
   const budgetNote = sentCount >= GULLIVER_DEEP_TURNS - 2
     ? `You have sent ${sentCount} messages - you are near the end. If any required topic below is still untaught, teach it now (briefly is fine), then give a short synthesis and end with the exact signal phrase.`
@@ -782,7 +939,7 @@ function buildDeepPrompt(lesson: Lesson, sentCount: number, source?: string, mus
   // system prompt (MAX_SYSTEM), only the tail of the source is trimmed - never
   // the teaching instructions or the required end signal above it.
   const material = source
-    ? `\n\nSOURCE MATERIAL - this is the authoritative curriculum for this lesson. Teach from it, cover every key idea in it in a sensible order, and do not contradict it:\n"""\n${source.slice(0, 4000)}\n"""`
+    ? `\n\nLESSON NOTES (for you only): the authoritative curriculum for this lesson. Teach from it, cover every key idea in it in a sensible order, and do not contradict it. ${NOTES_PRIVACY_RULE}\n"""\n${source.slice(0, 4000)}\n"""`
     : ""
 
   return `You are Jeff, the teacher for this lesson in the ${deepCourseLabel(lesson)}. You are teaching '${lesson.title}', which covers '${lesson.description}'.
@@ -797,15 +954,15 @@ CRITICAL - message length and pacing:
 - Use MANY short messages rather than a few long ones - aim for around ${GULLIVER_DEEP_TURNS} short beats total so you can be thorough without any single message getting long.
 - Never just restate the previous point - each message adds one new thing.
 - Highlight key vocabulary: the FIRST time you say an important term or its definition, wrap just that word or short phrase in **double asterisks** (e.g. **revenue**, **a good**). Do this only for the genuinely important terms - a few per lesson - never for whole sentences.
-- Use the SOURCE MATERIAL's EXACT term for each key concept - never substitute a synonym (for example, if the source says 'entrepreneurship', call it entrepreneurship, not 'enterprise'; if it says 'labour', say labour). The quiz is written from the source's exact wording, so teaching a synonym would leave the student unable to answer.
+- Use the lesson notes' EXACT term for each key concept - never substitute a synonym (for example, if the notes say 'entrepreneurship', call it entrepreneurship, not 'enterprise'; if they say 'labour', say labour). The quiz is written from that exact wording, so teaching a synonym would leave the student unable to answer.
 
-Style: clear, precise, and genuinely interesting - like a great teacher, not a textbook and not a hype account. Occasionally use one vivid real-world example a 14-year-old knows (part-time jobs, phones, sneakers, food trucks, streaming, games) to make an idea concrete - but keep even the example to one short message. Plain language; do not dumb the content down. ${budgetNote}${coverage}
+Style: clear, precise, and genuinely interesting - like a great teacher, not a textbook and not a hype account. Occasionally use one vivid real-world example a 14-year-old knows (part-time jobs, phones, sneakers, food trucks, streaming, games) to make an idea concrete - but keep even the example to one short message. Plain language; do not dumb the content down. ${FOLLOW_UP_RULE} ${budgetNote}${coverage}
 
 When you have taught the full lesson, give a one-sentence synthesis of how the ideas fit together, then end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
 
 The student already knows you - never introduce yourself. Do not use bullet points or headers; teach in short prose messages.
 
-${NO_DASH_RULE}${material}`
+${SOFT_DASH_RULE}${material}`
 }
 
 // ── Curriculum prompt (lessons built from a teacher's upload) ──
@@ -838,7 +995,7 @@ function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: strin
     ? `\n\nVOCABULARY the teacher approved (use these EXACT words, and wrap each term in **double asterisks** the first time you say it so it lights up with its definition):\n- ${vocab.slice(0, 40).map((v) => `${v.term}: ${trim(v.definition, 110)}`).join("\n- ")}`
     : ""
   const material = source
-    ? `\n\nSOURCE MATERIAL - the teacher's own pages; the concepts and questions come from here. Teach from it and never contradict it or add outside facts:\n"""\n${source.slice(0, 5000)}\n"""`
+    ? `\n\nLESSON NOTES (for you only): the teacher's own pages; the concepts and questions come from here. Teach from them and never contradict them. ${NOTES_PRIVACY_RULE}\n"""\n${source.slice(0, 5000)}\n"""`
     : ""
 
   return `You are Jeff, the friendly mascot who teaches high-school students on InvestiPlay. You are teaching '${lesson.title}', a lesson built from the teacher's own material.
@@ -851,6 +1008,7 @@ Rules for each message:
 - Build in order: simplest first, each message adding one new thing. Never restate the previous message.
 - Wrap each vocabulary term in **double asterisks** the first time you say it (only the term, never a whole sentence).
 - Plain, warm, precise language; one vivid teen-friendly example at most per concept, kept to one sentence.
+- ${FOLLOW_UP_RULE}
 
 ${budgetNote}${coverage}${vocabList}
 
@@ -858,14 +1016,14 @@ When every required concept is taught, give a one-sentence synthesis of how they
 
 The student already knows you - never introduce yourself. No bullet points or headers; teach in short prose messages.
 
-${NO_DASH_RULE}${material}`
+${SOFT_DASH_RULE}${material}`
 }
 
 export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[], vocab?: JeffVocab[]): string {
   if (isCurriculumLesson(lesson)) return buildCurriculumPrompt(lesson, sentCount, source, mustCover, vocab)
   return isDeepLesson(lesson)
     ? buildDeepPrompt(lesson, sentCount, source, mustCover)
-    : buildSnappyPrompt(lesson, sentCount, source)
+    : buildSnappyPrompt(lesson, sentCount, source, mustCover)
 }
 
 /** One chat turn: full history in, Jeff's reply + next tap options out. */
@@ -878,13 +1036,21 @@ export async function jeffChatTurn(
 ): Promise<{ text: string; options: string[] }> {
   const sentCount = messages.filter(m => m.role === "assistant").length
   const { data, error } = await supabase.functions.invoke("jeff-chat", {
-    body: { system: buildSystemPrompt(lesson, sentCount, source, mustCover, vocab), messages },
+    body: {
+      system: buildSystemPrompt(lesson, sentCount, source, mustCover, vocab),
+      messages,
+      // Context for the server's reply-chip generation, so it only suggests
+      // replies Jeff can actually answer from this lesson.
+      title: lesson.title,
+      source: source ? source.slice(0, 1500) : undefined,
+    },
   })
   if (error) throw new Error(error.message || "AI request failed")
   if (data?.error) throw new Error(data.error)
+  const clean = (t: string) => stripSelfCorrections(stripDashes(t))
   return {
-    text: stripDashes((data?.text as string) || ""),
-    options: ((data?.options as string[]) || []).map(stripDashes),
+    text: clean((data?.text as string) || ""),
+    options: ((data?.options as string[]) || []).map(clean).filter(Boolean),
   }
 }
 

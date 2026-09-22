@@ -188,7 +188,10 @@ function hasWeakDistractor(question: QuizQuestion): boolean {
 
     return (
       words < MIN_OPTION_WORDS ||
-      words < avg * 0.6 ||
+      // Relaxed from 0.6 to 0.45 of the average: after the distractor-padding
+      // strip (scripts/strip-distractor-padding.ts) legitimately shorter wrong
+      // answers should no longer be flagged/swapped just for being concise.
+      words < avg * 0.45 ||
       normalized.startsWith("all of the above") ||
       normalized.startsWith("none of the above") ||
       normalized === "all of the above" ||

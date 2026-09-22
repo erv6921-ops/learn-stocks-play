@@ -364,10 +364,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
 
   // ===== INCOME-8: Education as Investment =====
   {
-    lessonId: "income-8-hard",
+    lessonId: "income-11-hard",
     questions: [
       {
-        id: "income-8-h1",
+        id: "income-11-h1",
         question: "Ali can attend a $25,000-per-year private school or an $8,000-per-year in-state school for the same nursing license. Over four years, how much would the cheaper school save?",
         options: [
           "$17,000 saved",
@@ -379,7 +379,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "The yearly difference is $17,000, and over four years that is 4 x $17,000 = $68,000 saved for the same license and pay."
       },
       {
-        id: "income-8-h2",
+        id: "income-11-h2",
         question: "Maria would borrow $80,000 for a degree in a field paying about $35,000 a year. Why is this a warning sign?",
         options: [
           "Because loans in these low-paying fields are automatically forgiven",
@@ -391,7 +391,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "A common guideline keeps borrowing near or below first-year pay, but owing more than double her $35,000 salary would make repayment a heavy burden."
       },
       {
-        id: "income-8-h3",
+        id: "income-11-h3",
         question: "A degree adds about $20,000 per year in extra earnings and costs $60,000 total in tuition and lost wages. Ignoring interest, about how long until it breaks even?",
         options: [
           "About 3 years",
@@ -403,7 +403,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "$60,000 divided by $20,000 of extra yearly earnings is 3 years to break even, after which the gain continues for decades."
       },
       {
-        id: "income-8-h4",
+        id: "income-11-h4",
         question: "Dana wins a $15,000 grant that never has to be repaid, cutting her $50,000 cost. How does this change her education as an investment?",
         options: [
           "It raises her total upfront cost up to $65,000",
@@ -415,7 +415,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "A grant is money never repaid, so it drops her real cost to $35,000 while the career payoff stays the same, improving the return."
       },
       {
-        id: "income-8-h5",
+        id: "income-11-h5",
         question: "Why is it misleading to say a bachelor's degree guarantees you higher pay than a high school diploma?",
         options: [
           "Because degree holders always earn exactly triple the pay",
@@ -427,7 +427,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "Data shows degree holders earn more on average, but averages do not guarantee any single person's outcome, which depends on field, cost, and choices."
       },
       {
-        id: "income-8-h6",
+        id: "income-11-h6",
         question: "Devon wants to be a software developer and is weighing a degree, a bootcamp, and self-study. What best reflects education-as-investment thinking?",
         options: [
           "Pick whichever school happens to have the coolest mascot",
@@ -439,7 +439,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "All three paths can lead to developer jobs at very different prices, so comparing cost against actual job outcomes is how you evaluate the investment."
       },
       {
-        id: "income-8-h7",
+        id: "income-11-h7",
         question: "In 'education as an investment,' which of these is the return rather than the cost?",
         options: [
           "The tuition you pay each semester",
@@ -453,10 +453,10 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     ]
   },
   {
-    lessonId: "income-8-remedial",
+    lessonId: "income-11-remedial",
     questions: [
       {
-        id: "income-8-r1",
+        id: "income-11-r1",
         question: "On average, workers with a bachelor's degree tend to earn:",
         options: [
           "Notably more than high school diploma holders",
@@ -468,7 +468,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "US data shows degree holders earn more on average over their careers."
       },
       {
-        id: "income-8-r2",
+        id: "income-11-r2",
         question: "In 'education as an investment,' the 'return' is:",
         options: [
           "The physical diploma paper by itself",
@@ -480,7 +480,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "The return is the extra income and opportunities education unlocks over a lifetime."
       },
       {
-        id: "income-8-r3",
+        id: "income-11-r3",
         question: "Two schools give the same nursing license, but one costs far less. What is the smart consideration?",
         options: [
           "The pricier school always guarantees higher pay",
@@ -492,7 +492,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "Same license and pay for much less money makes the cheaper school a better investment."
       },
       {
-        id: "income-8-r4",
+        id: "income-11-r4",
         question: "Besides a four-year degree, which path can also build strong earning power?",
         options: [
           "Only a full doctoral degree",
@@ -504,7 +504,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "Trades, apprenticeships, and certificates train workers who can earn strong incomes too."
       },
       {
-        id: "income-8-r5",
+        id: "income-11-r5",
         question: "Why do scholarships and grants improve the value of education?",
         options: [
           "They lower the cost and never have to be repaid",
@@ -516,7 +516,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "Scholarships and grants cut the cost without adding debt, boosting the return."
       },
       {
-        id: "income-8-r6",
+        id: "income-11-r6",
         question: "A student would owe far more in loans than she would earn in her first year. This is:",
         options: [
           "Always a very smart financial move",
@@ -528,7 +528,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
         explanation: "Borrowing much more than your expected starting pay makes repayment a heavy burden."
       },
       {
-        id: "income-8-r7",
+        id: "income-11-r7",
         question: "Why does the answer to 'is college worth it?' depend on the situation?",
         options: [
           "Because college tuition is identical everywhere you go",

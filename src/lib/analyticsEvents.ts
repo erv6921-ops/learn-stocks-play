@@ -83,8 +83,14 @@ export async function logEvent(
         session_id: getSessionId(),
       })
 
-    if (error) console.error("[analytics]", event, error)
+    // Surface the Postgres error code (e.g. 23514 = check-constraint violation)
+    // so a DB/vocabulary drift is recognisable in the console at a glance.
+    if (error) {
+      const code = (error as { code?: string }).code
+      console.error(`[analytics] ${event} failed${code ? ` (code ${code})` : ""}`, error)
+    }
   } catch (err) {
-    console.error("[analytics]", event, err)
+    const code = (err as { code?: string } | null)?.code
+    console.error(`[analytics] ${event} failed${code ? ` (code ${code})` : ""}`, err)
   }
 }

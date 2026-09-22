@@ -287,6 +287,16 @@ export default function StockDetail() {
 
   const [buyMode, setBuyMode] = useState<"buy" | "sell">("buy")
   const [shares, setShares] = useState<number>(1)
+  // What the student typed. Kept as text so a value under the minimum shows a
+  // helper line instead of being silently rewritten to 0.01.
+  const [sharesInput, setSharesInput] = useState<string>("1")
+  const parsedShares = parseFloat(sharesInput)
+  const sharesInvalid = !Number.isFinite(parsedShares) || parsedShares < 0.01
+  const setSharesValue = (n: number) => {
+    const v = Math.round(Math.max(0.01, n) * 100) / 100
+    setShares(v)
+    setSharesInput(String(v))
+  }
   const [showConfirm, setShowConfirm] = useState(false)
 
   const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -703,13 +713,16 @@ export default function StockDetail() {
       return
     }
     if (!canAfford) {
-      toast.error("Not enough InvestiCoins!", { description: `You need ${totalCost.toFixed(2)} but have ${jeffsBalance.toFixed(2)}.` })
+      toast.error("Not enough InvestiCoins!", { description: `You need ${fmtCoins(totalCost)} but have ${fmtCoins(jeffsBalance)}.` })
       return
     }
+    const before = jeffsBalance
     const success = buyStock(stock.symbol, shares, stock.price)
     if (success) {
-      toast.error(`Bought ${shares} shares of ${stock.symbol}`, { description: `Spent ${totalCost.toFixed(2)} InvestiCoins.`, icon: <TrendingDown className="w-4 h-4" /> })
-      setShares(1); setShowConfirm(false)
+      toast.success(`Bought ${shares} share${shares === 1 ? "" : "s"} of ${stock.symbol}`, {
+        description: `Balance ${fmtCoins(before)} to ${fmtCoins(before - totalCost)} InvestiCoins.`,
+      })
+      setShowConfirm(false)
     }
   }
 
@@ -722,10 +735,13 @@ export default function StockDetail() {
       toast.error("Not enough shares!", { description: `You only have ${holding?.shares || 0} shares.` })
       return
     }
+    const before = jeffsBalance
     const success = sellStock(stock.symbol, shares, stock.price)
     if (success) {
-      toast.success(`Sold ${shares} shares of ${stock.symbol}!`, { description: `Earned ${totalCost.toFixed(2)} InvestiCoins.` })
-      setShares(1); setShowConfirm(false)
+      toast.success(`Sold ${shares} share${shares === 1 ? "" : "s"} of ${stock.symbol}`, {
+        description: `Balance ${fmtCoins(before)} to ${fmtCoins(before + totalCost)} InvestiCoins.`,
+      })
+      setShowConfirm(false)
     }
   }
 
@@ -739,7 +755,10 @@ export default function StockDetail() {
 
   const fmtPrice = (v: number) => (Math.round(v * 100) / 100).toFixed(2)
   const fmtDollar = (v: number) => `$${fmtPrice(v)}`
-  const fmtChange = (v: number) => `${v >= 0 ? '+' : ''}${stock.type === 'index' ? '' : '$'}${fmtPrice(Math.abs(v))}`
+  // Coins: same comma + two-decimal format the balance and cost rows use.
+  const fmtCoins = (v: number) => v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  // Sign first, then the currency symbol, so negatives read "-$3.07" (they used to lose the minus).
+  const fmtChange = (v: number) => `${v < 0 ? '-' : '+'}${stock.type === 'index' ? '' : '$'}${fmtPrice(Math.abs(v))}`
   const fmtPct = (v: number) => `${v >= 0 ? '+' : ''}${(Math.round(v * 100) / 100).toFixed(2)}%`
 
   const formatChartPrice = (value: number) => {
@@ -782,9 +801,11 @@ export default function StockDetail() {
               <p className="text-muted-foreground text-sm mb-3 truncate">{displayStockName}</p>
 
               {(() => {
-                const headerDollar = rangeDollarChange ?? stock.change ?? 0
-                const headerPercent = rangeChangePercent ?? stock.changePercent ?? 0
-                const rangeLabel = selectedRange !== '1d' ? TIME_RANGES.find(r => r.value === selectedRange)?.label : null
+                // Today's move, not the chart-range move (that lives in the
+                // Price History panel next to the range selector).
+                const headerDollar = stock.change ?? 0
+                const headerPercent = stock.changePercent ?? 0
+                const rangeLabel = 'Today'
                 const up = headerDollar >= 0
                 return (
                   <div className="flex items-baseline gap-3 flex-wrap">
@@ -1017,18 +1038,36 @@ export default function StockDetail() {
 
                 <div className="flex gap-2" ref={anchor("stock-trade-toggle")}>
                   <Button variant={buyMode === "buy" ? "default" : "outline"} className="flex-1 press-scale" size="sm"
-                    onClick={() => { setBuyMode("buy"); setShares(1); setShowConfirm(false) }}>Buy</Button>
+                    onClick={() => { setBuyMode("buy"); setSharesValue(1); setShowConfirm(false) }}>Buy</Button>
                   <Button variant={buyMode === "sell" ? "default" : "outline"} className="flex-1 press-scale" size="sm"
-                    onClick={() => { setBuyMode("sell"); setShares(1); setShowConfirm(false) }} disabled={!holding}>Sell</Button>
+                    onClick={() => { setBuyMode("sell"); setSharesValue(1); setShowConfirm(false) }} disabled={!holding}>Sell</Button>
                 </div>
 
                 <div>
                   <Label htmlFor="shares" className="text-xs text-muted-foreground mb-2 block">Number of Shares</Label>
                   <div className="flex items-center gap-3" ref={anchor("stock-shares")}>
-                    <Button variant="outline" size="icon" className="press-scale" onClick={() => setShares(Math.max(0.01, Math.round((shares - 0.25) * 100) / 100))} disabled={shares <= 0.01}><Minus className="w-4 h-4" /></Button>
-                    <Input id="shares" type="number" value={shares} onChange={(e) => setShares(Math.max(0.01, parseFloat(e.target.value) || 0.01))} className="text-center font-semibold" min={0.01} step={0.01} />
-                    <Button variant="outline" size="icon" className="press-scale" onClick={() => setShares(Math.round((shares + 0.25) * 100) / 100)}><Plus className="w-4 h-4" /></Button>
+                    <Button variant="outline" size="icon" className="press-scale" onClick={() => setSharesValue(shares - 0.25)} disabled={shares <= 0.01}><Minus className="w-4 h-4" /></Button>
+                    <Input
+                      id="shares"
+                      type="number"
+                      value={sharesInput}
+                      onChange={(e) => {
+                        const raw = e.target.value
+                        setSharesInput(raw)
+                        const n = parseFloat(raw)
+                        if (Number.isFinite(n) && n >= 0.01) setShares(Math.round(n * 100) / 100)
+                      }}
+                      aria-invalid={sharesInvalid}
+                      aria-describedby="shares-help"
+                      className="text-center font-semibold"
+                      min={0.01}
+                      step={0.01}
+                    />
+                    <Button variant="outline" size="icon" className="press-scale" onClick={() => setSharesValue(shares + 0.25)}><Plus className="w-4 h-4" /></Button>
                   </div>
+                  <p id="shares-help" className={`mt-1.5 text-xs ${sharesInvalid ? "text-destructive" : "text-muted-foreground"}`}>
+                    {sharesInvalid ? "Minimum is 0.01 shares" : "You can buy part of a share, like 0.5."}
+                  </p>
                 </div>
 
                 <div className="p-3 rounded-xl bg-muted space-y-2 text-sm">
@@ -1059,7 +1098,7 @@ export default function StockDetail() {
                 )}
                 {hasValidPrice && buyMode === "buy" && !canAfford && (
                   <div className="flex items-center gap-2 text-destructive text-xs">
-                    <AlertCircle className="w-3.5 h-3.5" /><span>You need {(totalCost - jeffsBalance).toFixed(2)} more InvestiCoins.</span>
+                    <AlertCircle className="w-3.5 h-3.5" /><span>You need {fmtCoins(totalCost - jeffsBalance)} more InvestiCoins.</span>
                   </div>
                 )}
                 {hasValidPrice && buyMode === "sell" && !canSell && (
@@ -1069,12 +1108,12 @@ export default function StockDetail() {
                 )}
 
                 {!showConfirm ? (
-                  <Button ref={anchor("stock-trade")} className="w-full press-scale" onClick={() => setShowConfirm(true)} disabled={!hasValidPrice || (buyMode === "buy" ? !canAfford : !canSell)}>
+                  <Button ref={anchor("stock-trade")} className="w-full press-scale" onClick={() => setShowConfirm(true)} disabled={!hasValidPrice || sharesInvalid || (buyMode === "buy" ? !canAfford : !canSell)}>
                     {buyMode === "buy" ? "Buy" : "Sell"} {shares} Share{shares > 1 ? "s" : ""}
                   </Button>
                 ) : (
                   <div className="space-y-3">
-                    <p className="text-center text-xs text-muted-foreground">Confirm {buyMode === "buy" ? "purchase" : "sale"} of {shares} share{shares > 1 ? "s" : ""} for {totalCost.toFixed(2)} InvestiCoins?</p>
+                    <p className="text-center text-xs text-muted-foreground">Confirm {buyMode === "buy" ? "purchase" : "sale"} of {shares} share{shares > 1 ? "s" : ""} for {fmtCoins(totalCost)} InvestiCoins?</p>
                     <div className="flex gap-2">
                       <Button variant="outline" className="flex-1 press-scale" size="sm" onClick={() => setShowConfirm(false)}>Cancel</Button>
                       <Button className="flex-1 press-scale" size="sm" onClick={buyMode === "buy" ? handleBuy : handleSell}><CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />Confirm</Button>

@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { useLocation, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
@@ -73,6 +74,7 @@ export default function JeffTour() {
   const started = useRef(false)
   const elRef = useRef<HTMLElement | null>(null)
   const unitRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   // true → glide to the new spot (step change); false → snap instantly (scroll/resize).
   const glideRef = useRef(true)
 
@@ -197,6 +199,55 @@ export default function JeffTour() {
     return () => ro.disconnect()
   }, [open])
 
+  // The overlay dims and blocks pointer input, but the app underneath is still in
+  // the tab order and reachable by keyboard. While the tour is open, mark the app
+  // root `inert` (removes it from focus + a11y tree, no keyboard escape hatch) and
+  // move focus into the tour. The tour is portaled to <body>, so it stays live.
+  useEffect(() => {
+    if (!open) return
+    const root = document.getElementById("root")
+    if (root) root.inert = true
+    // Land keyboard focus inside the tour so tabbing starts (and stays) here.
+    const raf = requestAnimationFrame(() => {
+      const node = containerRef.current
+      const first = node?.querySelector<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      first?.focus()
+    })
+    return () => {
+      if (root) root.inert = false
+      cancelAnimationFrame(raf)
+    }
+  }, [open])
+
+  // Trap Tab inside the tour and let Escape close it.
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      e.preventDefault()
+      finish(false)
+      return
+    }
+    if (e.key !== "Tab") return
+    const node = containerRef.current
+    if (!node) return
+    const els = Array.from(
+      node.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter(el => !el.hasAttribute("disabled"))
+    if (els.length === 0) return
+    const first = els[0]
+    const last = els[els.length - 1]
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault()
+      last.focus()
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault()
+      first.focus()
+    }
+  }
+
   const finish = (completed = false) => {
     // Reward only a genuine completion (reaching the final slide), never a skip,
     // and only once ever - gated by the ledger so it can't double-pay.
@@ -211,8 +262,10 @@ export default function JeffTour() {
       localStorage.removeItem(SHOW_FLAG)
       if (user?.id) localStorage.setItem(doneKey(user.id), "1")
     } catch { /* ignore */ }
-    // Drop students straight into lesson #1 so they know exactly what to do next -
-    // but it's not enforced: they're free to exit the lesson and roam the app.
+    // Only a genuine completion launches lesson #1 — dropping students straight in
+    // so they know exactly what to do next (not enforced: they can exit and roam).
+    // A skip just closes the tour and leaves them where they are (the dashboard).
+    if (!completed) return
     const isStudent = !!user?.id && user.role !== "teacher"
     const track = user?.track === "gulliver_intro" ? "gulliver-intro" : "regular"
     const firstLesson = isStudent ? getFirstLessonId(track) : null
@@ -280,8 +333,16 @@ export default function JeffTour() {
     return { ...base, right: -6, top: aTop, borderRight: "1px solid hsl(var(--border))", borderTop: "1px solid hsl(var(--border))" } // left
   })()
 
-  return (
-    <div className="fixed inset-0 z-[100]" style={{ pointerEvents: "none" }}>
+  return createPortal(
+    <div
+      ref={containerRef}
+      onKeyDown={onKeyDown}
+      role="dialog"
+      aria-modal="true"
+      aria-label="App tour"
+      className="fixed inset-0 z-[100]"
+      style={{ pointerEvents: "none" }}
+    >
       {/* Click-blocker + dim. When anchored we use a spotlight cutout; otherwise a
           flat dim - darkened hard on the final slide so the big "Start" CTA pops. */}
       <div className="absolute inset-0" style={{ pointerEvents: "auto", background: rect ? "transparent" : isLast ? "rgba(2,15,10,0.82)" : "rgba(2,15,10,0.55)" }} />
@@ -376,6 +437,7 @@ export default function JeffTour() {
           )}
         </div>
       </motion.div>
-    </div>
+    </div>,
+    document.body
   )
 }

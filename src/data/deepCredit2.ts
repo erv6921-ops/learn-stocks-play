@@ -47,6 +47,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit1-mc1",
+            concept: "What Is Credit",
             question: "What does 'principal' mean in a loan?",
             options: [
 "The extra fee a lender charges you for borrowing",
@@ -59,6 +60,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit1-mc2",
+            concept: "What Is Credit",
             question: "How does revolving credit differ from installment credit?",
             options: [
 "Revolving credit refreshes as you repay it",
@@ -86,6 +88,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit1-aq1",
+          concept: "What Is Credit",
           question: "What is the smartest reason for Marcus to add up the total cost before financing the phone?",
           options: [
 "Financing offers are always a scam he should avoid in nearly all cases",
@@ -113,6 +116,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit1-mastery1",
+            concept: "What Is Credit",
             question: "What is the basic definition of credit?",
             options: [
 "Money the government simply gives you for free",
@@ -121,10 +125,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Cash you happen to already own outright"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Credit is the ability to borrow money now and pay it back later, usually with interest. It's built on a lender trusting you to repay."
           },
           {
             id: "credit1-mastery2",
+            concept: "What Is Credit",
             question: "In a loan, what is 'interest'?",
             options: [
 "The original amount of money you borrowed according to most experts",
@@ -133,10 +139,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "The calendar date the loan is finally due"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Interest is the fee the lender charges for the use of their money, usually shown as a yearly percentage rate on top of the principal."
           },
           {
             id: "credit1-mastery3",
+            concept: "What Is Credit",
             question: "Which is an example of installment credit?",
             options: [
 "A credit card with a reusable revolving limit",
@@ -145,10 +153,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Cash you simply keep in your own wallet"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Installment credit is a fixed amount repaid in scheduled equal payments, like a car or student loan. A credit card is revolving credit instead."
           },
           {
             id: "credit1-mastery4",
+            concept: "What Is Credit",
             question: "Why can having no credit history be a problem?",
             options: [
 "It automatically means that you are quite rich",
@@ -157,10 +167,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It removes the need for any loans forever"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "With no track record, lenders can't tell how you'll handle borrowing, so they treat you cautiously - which can make a first apartment or loan harder to get."
           },
           {
             id: "credit1-mastery5",
+            concept: "What Is Credit",
             question: "What is the most important habit for building good credit?",
             options: [
 "Opening as many new cards as possible fast",
@@ -169,10 +181,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Avoiding credit entirely for the rest of life"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Payment history is the biggest factor lenders track. Paying on time, every time, is the single most powerful habit for building strong credit."
           },
           {
             id: "credit1-mastery6",
+            concept: "What Is Credit",
             question: "Beyond loans, where else can your credit matter?",
             options: [
 "Only when buying a house",
@@ -181,6 +195,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only for people over age 40"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Credit can influence renting an apartment, some hiring decisions, insurance rates, and whether you owe utility deposits - it reaches far beyond loans."
           }
         ]
@@ -233,6 +248,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit2-mc1",
+            concept: "Credit Scores",
             question: "What does a credit score mainly predict?",
             options: [
 "How wealthy a person is when you look closely",
@@ -245,6 +261,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit2-mc2",
+            concept: "Credit Scores",
             question: "What is credit utilization?",
             options: [
 "The number of cards you own for the typical borrower",
@@ -272,6 +289,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit2-aq1",
+          concept: "Credit Scores",
           question: "Which change would most directly raise Tanya's credit score?",
           options: [
 "Closing her only credit card entirely in real-world practice",
@@ -299,6 +317,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit2-mastery1",
+            concept: "Credit Scores",
             question: "What is the typical range of a credit score?",
             options: [
 "0 to 100",
@@ -307,10 +326,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "500 to 5,000"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Most credit scores run from 300 to 850. Higher numbers signal lower risk to lenders and generally unlock better rates."
           },
           {
             id: "credit2-mastery2",
+            concept: "Credit Scores",
             question: "Which factor has the biggest impact on your score?",
             options: [
 "The color of your credit card",
@@ -319,10 +340,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Your yearly salary amount once you add it up"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Payment history - paying on time - is the single largest factor. Salary isn't part of your credit score at all."
           },
           {
             id: "credit2-mastery3",
+            concept: "Credit Scores",
             question: "Your card limit is $1,000 and you owe $700. What's your utilization?",
             options: [
 "7%",
@@ -331,10 +354,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "100%"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Utilization is balance divided by limit: $700 / $1,000 = 70%. That's high; aiming for under 30% would help the score."
           },
           {
             id: "credit2-mastery4",
+            concept: "Credit Scores",
             question: "Why might closing your oldest credit card hurt your score?",
             options: [
 "It cancels all your other cards too",
@@ -343,10 +368,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It is against federal law"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Length of credit history helps your score, so closing your oldest account can shorten that history and lower your average account age."
           },
           {
             id: "credit2-mastery5",
+            concept: "Credit Scores",
             question: "Does checking your own credit score hurt it?",
             options: [
 "Yes, it drops 50 points each time in the fine print",
@@ -355,10 +382,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only if you check twice a year"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Checking your own score is a soft inquiry that never affects your score. Only hard inquiries from applying for new credit can ding it slightly."
           },
           {
             id: "credit2-mastery6",
+            concept: "Credit Scores",
             question: "Does carrying a balance and paying interest help your score?",
             options: [
 "Yes, it proves you can handle debt year after year",
@@ -367,6 +396,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only if the balance is very large"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "That's a myth. Paying your statement in full each month is cheaper and perfectly good for your score; you don't need to carry a balance."
           }
         ]
@@ -419,6 +449,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit3-mc1",
+            concept: "FICO",
             question: "Which FICO category carries the most weight?",
             options: [
 "Credit mix",
@@ -431,6 +462,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit3-mc2",
+            concept: "FICO",
             question: "Which of these does FICO NOT consider?",
             options: [
 "Your payment history",
@@ -458,6 +490,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit3-aq1",
+          concept: "FICO",
           question: "Which two actions target the largest share of Devin's FICO score?",
           options: [
 "Opening new cards and closing old ones",
@@ -485,6 +518,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit3-mastery1",
+            concept: "FICO",
             question: "What is FICO?",
             options: [
 "A federal government banking agency for everyday consumers",
@@ -493,10 +527,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "A savings account with bonus interest"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "FICO, from the Fair Isaac Corporation, is the credit-scoring model used in most U.S. lending decisions. It's not a bank, agency, or card."
           },
           {
             id: "credit3-mastery2",
+            concept: "FICO",
             question: "About what percent of a FICO score is payment history?",
             options: [
 "About 10%",
@@ -505,10 +541,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "About 90%"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Payment history is roughly 35% of a FICO score, making it the single largest category in the model."
           },
           {
             id: "credit3-mastery3",
+            concept: "FICO",
             question: "Which two categories together make up most of a FICO score?",
             options: [
 "Credit mix and new credit",
@@ -517,10 +555,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "New credit and length of history"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Payment history (~35%) plus amounts owed (~30%) total about 65% of the score - the two factors most under your control."
           },
           {
             id: "credit3-mastery4",
+            concept: "FICO",
             question: "Why space out new credit applications?",
             options: [
 "Each one erases your old accounts when the bill arrives",
@@ -529,10 +569,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "They instantly double your interest under the current rules"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Each application is a hard inquiry and can lower your average account age, both of which sit in the 'new credit' category and can ding your score temporarily."
           },
           {
             id: "credit3-mastery5",
+            concept: "FICO",
             question: "How is VantageScore related to FICO?",
             options: [
 "It is the exact same score renamed",
@@ -541,10 +583,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It replaced FICO everywhere in 2020"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "VantageScore is a competing model built by the three credit bureaus. It uses similar concepts but different math, so it isn't identical to FICO."
           },
           {
             id: "credit3-mastery6",
+            concept: "FICO",
             question: "Can a high earner have a worse FICO score than a low earner?",
             options: [
 "No, income directly sets the score according to most experts",
@@ -553,6 +597,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only if they live in another state"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "FICO ignores income. A high earner who pays late and maxes cards can score lower than a modest earner with disciplined, on-time habits."
           }
         ]
@@ -605,6 +650,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit4-mc1",
+            concept: "Credit Cards",
             question: "How do you avoid paying any interest on a credit card?",
             options: [
 "Pay only the minimum each month if you check carefully",
@@ -617,6 +663,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit4-mc2",
+            concept: "Credit Cards",
             question: "What is a secured credit card?",
             options: [
 "A card that comes with no spending limit at all",
@@ -644,6 +691,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit4-aq1",
+          concept: "Credit Cards",
           question: "What's the smartest move for Leo this month?",
           options: [
 "Pay only the $25 minimum to keep cash",
@@ -671,6 +719,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit4-mastery1",
+            concept: "Credit Cards",
             question: "What kind of credit is a credit card?",
             options: [
 "Installment credit with fixed payments",
@@ -679,10 +728,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "A savings product that earns interest"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A credit card is revolving credit: you borrow up to a limit, repay, and borrow again. Car and student loans are installment credit instead."
           },
           {
             id: "credit4-mastery2",
+            concept: "Credit Cards",
             question: "What does paying only the minimum payment do?",
             options: [
 "Clears your balance the fastest despite the marketing",
@@ -691,10 +742,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Instantly raises your credit limit even for careful users"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The minimum barely dents the balance, so the rest keeps accruing interest. It's designed to keep you paying for years, not to get you out of debt."
           },
           {
             id: "credit4-mastery3",
+            concept: "Credit Cards",
             question: "Why is a cash advance usually a bad idea?",
             options: [
 "It earns you extra rewards points",
@@ -703,10 +756,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It always comes with a grace period"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Cash advances typically have no grace period, start charging interest right away, and add extra fees - making them one of the priciest ways to borrow."
           },
           {
             id: "credit4-mastery4",
+            concept: "Credit Cards",
             question: "What is one benefit of a secured credit card?",
             options: [
 "It gives you an unlimited spending limit",
@@ -715,10 +770,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It never has to be repaid in the fine print"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A secured card uses your deposit as the limit, letting you build credit history responsibly with limited risk to the bank - ideal for beginners."
           },
           {
             id: "credit4-mastery5",
+            concept: "Credit Cards",
             question: "Why keep your reported balance low even if you pay in full?",
             options: [
 "Because paying in full is against the rules",
@@ -727,10 +784,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It cancels the card's rewards program"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Your balance is often reported to bureaus on the statement date, before you pay. A high reported balance hurts utilization even if you later pay it off."
           },
           {
             id: "credit4-mastery6",
+            concept: "Credit Cards",
             question: "Do rewards justify carrying a balance to earn them?",
             options: [
 "Yes, rewards always beat interest year after year",
@@ -739,6 +798,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only if the reward is airline miles"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A 2% reward is meaningless against 24% interest. Rewards only pay off if you avoid interest by paying the balance in full every month."
           }
         ]
@@ -791,6 +851,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit5-mc1",
+            concept: "APR vs APY",
             question: "When do you pay an APR versus earn an APY?",
             options: [
 "You earn an APR and separately pay an APY on savings",
@@ -803,6 +864,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit5-mc2",
+            concept: "APR vs APY",
             question: "What key thing does APY include that a basic APR does not?",
             options: [
 "The effect of compounding",
@@ -830,6 +892,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit5-aq1",
+          concept: "APR vs APY",
           question: "Given her 21% card APR and 5% savings APY, what's Priya's smartest first move?",
           options: [
 "Keep the card balance and save the $5,000",
@@ -857,6 +920,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit5-mastery1",
+            concept: "APR vs APY",
             question: "What does APR measure?",
             options: [
 "The yearly return on your savings",
@@ -865,10 +929,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "The bank's monthly profit over the long run"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "APR (Annual Percentage Rate) is the yearly cost of borrowing, often including certain fees. You're charged an APR when you take on debt."
           },
           {
             id: "credit5-mastery2",
+            concept: "APR vs APY",
             question: "What does APY measure?",
             options: [
 "The yearly cost to borrow money for the typical borrower",
@@ -877,10 +943,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "The fees on a checking account"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "APY (Annual Percentage Yield) is the yearly return on savings or investments, and it already includes the effect of compounding."
           },
           {
             id: "credit5-mastery3",
+            concept: "APR vs APY",
             question: "Why is APY usually a bit higher than the stated rate?",
             options: [
 "Because it includes compounding",
@@ -889,10 +957,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Because it subtracts taxes first"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "APY accounts for compounding - interest earning interest - so it's slightly above the simple stated rate for the same account."
           },
           {
             id: "credit5-mastery4",
+            concept: "APR vs APY",
             question: "Which should you compare when shopping for a savings account?",
             options: [
 "The APR of each account",
@@ -901,10 +971,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "The loan term in years"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Compare APYs for savings, since APY includes compounding and lets you compare accounts fairly, even if they compound at different frequencies."
           },
           {
             id: "credit5-mastery5",
+            concept: "APR vs APY",
             question: "Why do card issuers advertise APR rather than the true effective rate?",
             options: [
 "Because APR is illegal to hide",
@@ -913,10 +985,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Because APR includes your rewards once you add it up"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A card's APR looks lower than what you actually pay once daily compounding is added, so quoting the APR makes borrowing seem cheaper than it is."
           },
           {
             id: "credit5-mastery6",
+            concept: "APR vs APY",
             question: "If your card charges 20% APR and savings earn 5% APY, what's smartest?",
             options: [
 "Always save before paying any debt despite the marketing",
@@ -925,6 +999,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Move savings to a lower APY account"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Eliminating a 20% cost beats earning a 5% return. Paying off high-interest debt acts like a guaranteed 20% return - far better than the savings yield."
           }
         ]
@@ -977,6 +1052,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit6-mc1",
+            concept: "Compound Interest on Debt",
             question: "How does compound interest behave on debt?",
             options: [
 "It quietly shrinks your outstanding balance all on its own",
@@ -989,6 +1065,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit6-mc2",
+            concept: "Compound Interest on Debt",
             question: "Why do minimum payments keep you in debt so long?",
             options: [
 "They go toward paying off the principal balance first",
@@ -1016,6 +1093,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit6-aq1",
+          concept: "Compound Interest on Debt",
           question: "Why does paying $250 a month instead of the $60 minimum save Andre so much?",
           options: [
 "It lowers the card's APR to zero even for careful users",
@@ -1043,6 +1121,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit6-mastery1",
+            concept: "Compound Interest on Debt",
             question: "What makes compound interest dangerous on debt?",
             options: [
 "It lowers your balance each month",
@@ -1051,10 +1130,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It replaces your minimum payment in the fine print"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Compounding on debt means you're charged interest on the interest that already accumulated, so an unpaid balance grows faster and faster."
           },
           {
             id: "credit6-mastery2",
+            concept: "Compound Interest on Debt",
             question: "How often do most credit cards compound interest?",
             options: [
 "Once a year",
@@ -1063,10 +1144,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Never"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Most credit cards compound daily, so a carried balance grows a little every single day it goes unpaid."
           },
           {
             id: "credit6-mastery3",
+            concept: "Compound Interest on Debt",
             question: "Where does most of a minimum payment go?",
             options: [
 "Toward reducing the principal",
@@ -1075,10 +1158,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Back into your credit limit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A minimum payment is mostly interest, so it barely reduces the principal. That's why balances shrink so slowly when you pay only the minimum."
           },
           {
             id: "credit6-mastery4",
+            concept: "Compound Interest on Debt",
             question: "What does paying extra above the minimum do?",
             options: [
 "It slowly raises your interest rate as a penalty",
@@ -1087,10 +1172,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It cancels all the rewards you have earned"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Extra payments go straight to the principal, shrinking the base interest compounds on and cutting the total interest you'll pay."
           },
           {
             id: "credit6-mastery5",
+            concept: "Compound Interest on Debt",
             question: "How do you keep card interest from compounding at all?",
             options: [
 "Pay the statement balance in full monthly",
@@ -1099,10 +1186,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Close the account and reopen it"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "If you pay the full statement balance each month, no balance carries over, so there's nothing for interest to compound on."
           },
           {
             id: "credit6-mastery6",
+            concept: "Compound Interest on Debt",
             question: "If you carry several debts, which should you attack first?",
             options: [
 "The one with the lowest balance always",
@@ -1111,6 +1200,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "The one with the longest term"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "To stop the worst compounding, put extra money toward the highest-rate debt first while paying minimums on the rest - it saves the most interest."
           }
         ]
@@ -1163,6 +1253,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit7-mc1",
+            concept: "Student Loans",
             question: "What's the difference between subsidized and unsubsidized federal loans?",
             options: [
 "Subsidized loans are gifts that never have to be repaid at all",
@@ -1175,6 +1266,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit7-mc2",
+            concept: "Student Loans",
             question: "What is a grace period on a federal student loan?",
             options: [
 "A stretch of time when the loan is fully forgiven for you",
@@ -1202,6 +1294,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit7-aq1",
+          concept: "Student Loans",
           question: "If Maria loses her job and can't pay, what should she do FIRST?",
           options: [
 "Stop paying and ignore the loan servicer",
@@ -1229,6 +1322,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit7-mastery1",
+            concept: "Student Loans",
             question: "Why are federal student loans usually preferred over private ones?",
             options: [
 "They are always completely free for every student",
@@ -1237,10 +1331,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "They can only ever be repaid using physical cash"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Federal loans typically have fixed, lower rates and protections like income-driven repayment, deferment, and forbearance that private loans often lack."
           },
           {
             id: "credit7-mastery2",
+            concept: "Student Loans",
             question: "On an unsubsidized loan, when does interest start accruing?",
             options: [
 "Only after you have finished and graduated",
@@ -1249,10 +1345,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "A full ten years after you first borrow it"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Unsubsidized loans accrue interest from the moment they're disbursed, so the balance grows while you're still studying."
           },
           {
             id: "credit7-mastery3",
+            concept: "Student Loans",
             question: "What happens when a federal loan goes into default?",
             options: [
 "The balance is quietly and automatically forgiven",
@@ -1261,10 +1359,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Nothing much changes at all for the average borrower"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Default (usually 270+ days late) severely damages credit, can make the full balance due, and lets the government garnish wages or seize tax refunds."
           },
           {
             id: "credit7-mastery4",
+            concept: "Student Loans",
             question: "What does an income-driven repayment plan do?",
             options: [
 "Forgives the whole loan after just one year",
@@ -1273,10 +1373,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Converts the federal loan into a private loan"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Income-driven plans set your federal loan payment based on a percentage of your income, keeping payments manageable when your salary is low."
           },
           {
             id: "credit7-mastery5",
+            concept: "Student Loans",
             question: "What's a good rule of thumb for how much to borrow?",
             options: [
 "Borrow as much as the school will offer you",
@@ -1285,10 +1387,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "There is no borrowing limit worth considering"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Keeping total student debt under your expected first-year income helps keep payments manageable so the debt doesn't overwhelm your early career."
           },
           {
             id: "credit7-mastery6",
+            concept: "Student Loans",
             question: "What can deferment or forbearance do during hardship?",
             options: [
 "Permanently erase the entire loan",
@@ -1297,6 +1401,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Report you as in default immediately"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Deferment and forbearance let you temporarily pause or reduce federal loan payments during hardship, helping you avoid delinquency and default."
           }
         ]
@@ -1349,6 +1454,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit9-mc1",
+            concept: "Auto Loans",
             question: "What is the collateral on an auto loan?",
             options: [
 "Your house when the bill arrives",
@@ -1361,6 +1467,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit9-mc2",
+            concept: "Auto Loans",
             question: "What's the downside of choosing a longer loan term?",
             options: [
 "The monthly payment goes up according to most experts",
@@ -1388,6 +1495,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit9-aq1",
+          concept: "Auto Loans",
           question: "Which move saves Kevin the most money on his car?",
           options: [
 "Take the dealer's 10% financing for convenience if you check carefully",
@@ -1415,6 +1523,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit9-mastery1",
+            concept: "Auto Loans",
             question: "Why do auto loans usually have lower rates than credit cards?",
             options: [
 "Because cars are cheaper than shopping over the long run",
@@ -1423,10 +1532,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Because dealers give everyone the same rate"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "An auto loan is secured by the vehicle, so the lender can repossess it if you default. That lower risk usually means a lower interest rate than unsecured credit cards."
           },
           {
             id: "credit9-mastery2",
+            concept: "Auto Loans",
             question: "What does being 'upside-down' on a car loan mean?",
             options: [
 "You owe more than the car is worth",
@@ -1435,10 +1546,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "You never made a down payment errorlessly"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Being upside-down (underwater) means your loan balance is larger than the car's value, which can happen fast when a car depreciates and you put little down."
           },
           {
             id: "credit9-mastery3",
+            concept: "Auto Loans",
             question: "Why get pre-approved for a car loan before visiting a dealer?",
             options: [
 "It forces the dealer to lower the price based on the numbers",
@@ -1447,10 +1560,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It guarantees zero percent financing in real-world practice"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Pre-approval shows the rate you truly qualify for, so you can compare it against the dealer's offer and choose whichever is cheaper - real negotiating leverage."
           },
           {
             id: "credit9-mastery4",
+            concept: "Auto Loans",
             question: "How does a longer loan term affect total interest?",
             options: [
 "It lowers total interest paid",
@@ -1459,10 +1574,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It erases interest after a year"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A longer term spreads interest over more months, so even with a smaller monthly payment you pay more total interest over the life of the loan."
           },
           {
             id: "credit9-mastery5",
+            concept: "Auto Loans",
             question: "What mostly determines the APR you're offered on a car loan?",
             options: [
 "The color of the car",
@@ -1471,10 +1588,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "The car's top speed"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Your credit score is the main driver of your APR. A higher score earns a lower rate, which can save thousands over the life of the loan."
           },
           {
             id: "credit9-mastery6",
+            concept: "Auto Loans",
             question: "Why be cautious about add-ons rolled into the loan?",
             options: [
 "They are always required by law",
@@ -1483,6 +1602,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "They improve your credit score"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Rolling extras like warranties into the loan means you finance them, paying interest on those add-ons over the full term - so decide on them carefully."
           }
         ]
@@ -1535,6 +1655,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit10-mc1",
+            concept: "Snowball vs Avalanche",
             question: "Which debt does the avalanche method target first?",
             options: [
 "The smallest balance",
@@ -1547,6 +1668,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit10-mc2",
+            concept: "Snowball vs Avalanche",
             question: "Why do many people prefer the snowball method?",
             options: [
 "It always costs the least interest",
@@ -1574,6 +1696,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit10-aq1",
+          concept: "Snowball vs Avalanche",
           question: "After the $600 card, which debt does the avalanche method target next?",
           options: [
 "The $1,500 loan at 11%",
@@ -1601,6 +1724,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit10-mastery1",
+            concept: "Snowball vs Avalanche",
             question: "What do the snowball and avalanche methods have in common?",
             options: [
 "Both ignore minimum payments in the fine print",
@@ -1609,10 +1733,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Both forgive part of your debt for everyday consumers"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Both strategies pay the minimum on every debt to stay current, then focus all extra money on a single target debt. They differ only in which debt is the target."
           },
           {
             id: "credit10-mastery2",
+            concept: "Snowball vs Avalanche",
             question: "Which method minimizes total interest paid?",
             options: [
 "The snowball method",
@@ -1621,10 +1747,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Both save the exact same amount"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The avalanche method targets the highest interest rate first, killing the fastest-growing debt and minimizing the total interest you pay."
           },
           {
             id: "credit10-mastery3",
+            concept: "Snowball vs Avalanche",
             question: "What's the main advantage of the snowball method?",
             options: [
 "It always ends debt fastest under the current rules",
@@ -1633,10 +1761,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It requires no extra payments"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Snowball's early payoffs of small balances create satisfying wins that build momentum, helping many people stay motivated enough to finish."
           },
           {
             id: "credit10-mastery4",
+            concept: "Snowball vs Avalanche",
             question: "What does 'rolling' a payment mean in these methods?",
             options: [
 "Skipping a payment now and then in nearly all cases",
@@ -1645,10 +1775,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Refinancing every debt at once when the bill arrives"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When one debt is paid off, its entire payment rolls onto the next target debt, growing the amount attacking it - which accelerates the whole payoff."
           },
           {
             id: "credit10-mastery5",
+            concept: "Snowball vs Avalanche",
             question: "Which habit supports either payoff method?",
             options: [
 "Adding new debt as you go over the long run",
@@ -1657,10 +1789,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Ignoring the interest rates entirely if you check carefully"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Avoiding new debt while you pay off the old keeps you from undoing your progress - otherwise you're bailing a boat that still has a hole in it."
           },
           {
             id: "credit10-mastery6",
+            concept: "Snowball vs Avalanche",
             question: "How should you choose between the two methods?",
             options: [
 "Always pick avalanche no matter what for the typical borrower",
@@ -1669,6 +1803,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Flip a coin every single month"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Avalanche saves the most math-wise, but the best method is the one you'll consistently follow. Consistency matters more than shaving off a little interest."
           }
         ]
@@ -1721,6 +1856,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit11-mc1",
+            concept: "Getting Out of Debt: Counseling & Negotiation",
             question: "What is a Debt Management Plan (DMP)?",
             options: [
 "A single loan that instantly erases all of your debt at once",
@@ -1733,6 +1869,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit11-mc2",
+            concept: "Getting Out of Debt: Counseling & Negotiation",
             question: "Which is a red flag of a debt-relief scam?",
             options: [
 "Reviewing your budget for free even for careful users",
@@ -1760,6 +1897,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit11-aq1",
+          concept: "Getting Out of Debt: Counseling & Negotiation",
           question: "Why was the nonprofit counselor a better choice than the for-profit company?",
           options: [
 "The nonprofit was slower to work but far more famous year after year",
@@ -1787,6 +1925,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit11-mastery1",
+            concept: "Getting Out of Debt: Counseling & Negotiation",
             question: "What should you do first when debt feels unmanageable?",
             options: [
 "Ignore the bills until collectors call under the current rules",
@@ -1795,10 +1934,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Take out a new high-interest loan"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Acting early through nonprofit credit counseling gives you the most options. Ignoring the problem or jumping to bankruptcy or new debt tends to make things worse."
           },
           {
             id: "credit11-mastery2",
+            concept: "Getting Out of Debt: Counseling & Negotiation",
             question: "What does NFCC stand for?",
             options: [
 "National Foundation for Credit Counseling",
@@ -1807,10 +1948,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Nonprofit Federal Credit Card"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "NFCC is the National Foundation for Credit Counseling. Choosing a member agency signals a reputable nonprofit counselor rather than a predatory firm."
           },
           {
             id: "credit11-mastery3",
+            concept: "Getting Out of Debt: Counseling & Negotiation",
             question: "How do payments work under a Debt Management Plan?",
             options: [
 "You yourself stop paying creditors entirely according to most experts",
@@ -1819,10 +1962,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "You yourself pay each creditor twice"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A DMP consolidates your debts into a single monthly payment to the counseling agency, which pays your creditors - frequently at reduced interest rates."
           },
           {
             id: "credit11-mastery4",
+            concept: "Getting Out of Debt: Counseling & Negotiation",
             question: "Why is being told to 'stop paying your bills' a warning sign?",
             options: [
 "It always lowers your interest rate if you check carefully",
@@ -1831,10 +1976,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It instantly erases your debt when you look closely"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Stopping payments piles on late fees, tanks your credit, and can lead to lawsuits. Predatory settlement firms do this while charging big fees - a major red flag."
           },
           {
             id: "credit11-mastery5",
+            concept: "Getting Out of Debt: Counseling & Negotiation",
             question: "How can you verify a debt-relief company is legitimate?",
             options: [
 "Trust whatever their ad promises over the long run",
@@ -1843,10 +1990,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Assume all such firms are safe"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Verify accreditation like NFCC membership and research the company through the CFPB or your state attorney general before signing or paying anything."
           },
           {
             id: "credit11-mastery6",
+            concept: "Getting Out of Debt: Counseling & Negotiation",
             question: "For federal student-loan help, what should you know about fees?",
             options: [
 "Government repayment tools are free",
@@ -1855,6 +2004,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "They cost a flat $500 fee"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Federal student-loan repayment and forgiveness tools are free through the government, so you should never pay a company for help you can get at no cost."
           }
         ]
@@ -1907,6 +2057,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit12-mc1",
+            concept: "Bankruptcy: Last Resort or Fresh Start?",
             question: "What is the main difference between Chapter 7 and Chapter 13?",
             options: [
 "Chapter 7 wipes most debts; Chapter 13 is a repayment plan",
@@ -1919,6 +2070,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit12-mc2",
+            concept: "Bankruptcy: Last Resort or Fresh Start?",
             question: "Which debt generally CANNOT be discharged in bankruptcy?",
             options: [
 "Credit card balances",
@@ -1946,6 +2098,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit12-aq1",
+          concept: "Bankruptcy: Last Resort or Fresh Start?",
           question: "Why might someone choose a DMP over Chapter 7 even though bankruptcy wipes debt faster?",
           options: [
 "DMPs are required by law before you can get any debt relief",
@@ -1973,6 +2126,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit12-mastery1",
+            concept: "Bankruptcy: Last Resort or Fresh Start?",
             question: "Which best describes Chapter 7 bankruptcy?",
             options: [
 "A 3-5 year court repayment plan for everyday consumers",
@@ -1981,10 +2135,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "A type of nonprofit credit counseling when the bill arrives"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Chapter 7 is liquidation - most unsecured debts are discharged, and a trustee may sell certain non-exempt assets to pay creditors."
           },
           {
             id: "credit12-mastery2",
+            concept: "Bankruptcy: Last Resort or Fresh Start?",
             question: "How long does a Chapter 7 bankruptcy stay on your credit report?",
             options: [
 "1 year",
@@ -1993,10 +2149,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "6 months"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Chapter 7 stays on your credit report for ten years. Chapter 13 stays for seven years, since it involves partial repayment."
           },
           {
             id: "credit12-mastery3",
+            concept: "Bankruptcy: Last Resort or Fresh Start?",
             question: "What does the automatic stay do when you file?",
             options: [
 "It erases your student loans in nearly all cases",
@@ -2005,10 +2163,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It sells your home immediately"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Filing triggers an automatic stay that legally stops most collection calls, lawsuits, wage garnishment, and foreclosure - giving immediate breathing room."
           },
           {
             id: "credit12-mastery4",
+            concept: "Bankruptcy: Last Resort or Fresh Start?",
             question: "What does Florida's homestead exemption do in bankruptcy?",
             options: [
 "It forces you to sell your home",
@@ -2017,10 +2177,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It applies only to vacation homes"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Florida's strong homestead exemption can shield the equity in your primary residence from creditors during bankruptcy."
           },
           {
             id: "credit12-mastery5",
+            concept: "Bankruptcy: Last Resort or Fresh Start?",
             question: "Which situation best fits filing for bankruptcy?",
             options: [
 "A small debt a DMP could handle if you check carefully",
@@ -2029,10 +2191,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "A late credit-card payment when you look closely"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Bankruptcy fits when debts are so large no realistic plan works. It's the wrong tool if a DMP could manage it or if the debts can't be discharged anyway."
           },
           {
             id: "credit12-mastery6",
+            concept: "Bankruptcy: Last Resort or Fresh Start?",
             question: "Can you rebuild credit after bankruptcy?",
             options: [
 "No, your credit is ruined forever over the long run",
@@ -2041,6 +2205,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "No, borrowing is banned for life"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Rebuilding often starts within months, frequently with a secured card. With on-time payments and low balances, scores climb back well before the filing drops off."
           }
         ]
@@ -2093,6 +2258,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit13-mc1",
+            concept: "Mortgages: Buying a Home",
             question: "What does PITI stand for in a mortgage payment?",
             options: [
 "Payment, Interest, Time, Income",
@@ -2105,6 +2271,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit13-mc2",
+            concept: "Mortgages: Buying a Home",
             question: "What's the main difference between a fixed-rate mortgage and an ARM?",
             options: [
 "Fixed-rate changes monthly; an ARM never changes in real-world practice",
@@ -2132,6 +2299,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit13-aq1",
+          concept: "Mortgages: Buying a Home",
           question: "What happens if the Rodriguezes miss several mortgage payments?",
           options: [
 "Nothing, since the home is already theirs",
@@ -2159,6 +2327,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit13-mastery1",
+            concept: "Mortgages: Buying a Home",
             question: "What is PMI and when do you usually need it?",
             options: [
 "A tax paid yearly on every home despite the marketing",
@@ -2167,10 +2336,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Insurance only against hurricanes once you add it up"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "PMI (Private Mortgage Insurance) is an extra monthly cost lenders require when your down payment is under 20%, protecting the lender if you default."
           },
           {
             id: "credit13-mastery2",
+            concept: "Mortgages: Buying a Home",
             question: "Why does a 15-year mortgage cost far less overall than a 30-year one?",
             options: [
 "The government subsidizes shorter loans",
@@ -2179,10 +2350,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Banks waive principal on 15-year loans"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Fewer years of interest means far less total interest, even though the monthly payment is higher. The savings come purely from paying over less time."
           },
           {
             id: "credit13-mastery3",
+            concept: "Mortgages: Buying a Home",
             question: "On a brand-new 30-year mortgage, most of your first payment goes to…",
             options: [
 "Interest, because the loan is amortized",
@@ -2191,10 +2364,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "The down payment on the home"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Amortization front-loads interest: early on, most of each payment is interest and little reduces the balance, which is why equity builds slowly at first."
           },
           {
             id: "credit13-mastery4",
+            concept: "Mortgages: Buying a Home",
             question: "Why get pre-approved before house hunting?",
             options: [
 "It removes all your closing costs year after year",
@@ -2203,10 +2378,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It erases the need for a down payment"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Pre-approval shows how much a lender will actually lend, so you shop in a realistic range. It doesn't erase closing costs or the down payment."
           },
           {
             id: "credit13-mastery5",
+            concept: "Mortgages: Buying a Home",
             question: "What is the consequence of repeatedly missing mortgage payments?",
             options: [
 "Your own loan is automatically forgiven",
@@ -2215,10 +2392,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Nothing happens for 30 years when the bill arrives"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Because the home is collateral, missing payments can lead to foreclosure, where the lender repossesses and sells the home to recover the loan."
           },
           {
             id: "credit13-mastery6",
+            concept: "Mortgages: Buying a Home",
             question: "Why should you budget for more than just the PITI payment?",
             options: [
 "Homes never need any repairs in nearly all cases",
@@ -2227,6 +2406,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Repairs are always covered by PMI"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Owning means paying for maintenance and repairs - a rule of thumb is about 1% of the home's value each year - on top of your PITI payment."
           }
         ]
@@ -2279,6 +2459,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit14-mc1",
+            concept: "Your Rights as a Credit User",
             question: "What does the Truth in Lending Act (TILA) require?",
             options: [
 "That lenders give everyone the same rate if you check carefully",
@@ -2291,6 +2472,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit14-mc2",
+            concept: "Your Rights as a Credit User",
             question: "Under the FDCPA, which action is a debt collector NOT allowed to do?",
             options: [
 "Send you a letter about a debt",
@@ -2318,6 +2500,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit14-aq1",
+          concept: "Your Rights as a Credit User",
           question: "Where can Devon file a complaint about an abusive debt collector?",
           options: [
 "The local public library for the typical borrower",
@@ -2345,6 +2528,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit14-mastery1",
+            concept: "Your Rights as a Credit User",
             question: "What must lenders disclose under the Truth in Lending Act?",
             options: [
 "Their company's yearly profits in real-world practice",
@@ -2353,10 +2537,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Nothing - disclosure is optional based on the numbers"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "TILA requires lenders to clearly disclose the cost of borrowing, especially the APR, so you can compare offers honestly."
           },
           {
             id: "credit14-mastery2",
+            concept: "Your Rights as a Credit User",
             question: "What does the Equal Credit Opportunity Act (ECOA) prohibit?",
             options: [
 "Charging any interest at all once you add it up",
@@ -2365,10 +2551,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Disclosing the APR to borrowers"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "ECOA makes it illegal to base lending decisions on protected traits; decisions must rest on your creditworthiness, not who you are."
           },
           {
             id: "credit14-mastery3",
+            concept: "Your Rights as a Credit User",
             question: "Which behavior does the FDCPA prohibit for debt collectors?",
             options: [
 "Sending a written notice of a debt",
@@ -2377,10 +2565,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Verifying the debt amount owed in the fine print"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The FDCPA forbids calling at unreasonable hours, threats, lies, and harassment. Legitimate notices and payment-plan offers are allowed."
           },
           {
             id: "credit14-mastery4",
+            concept: "Your Rights as a Credit User",
             question: "What does the Fair Credit Billing Act (FCBA) let you do?",
             options: [
 "Cancel any loan without paying it",
@@ -2389,10 +2579,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Set your own interest rate for everyday consumers"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The FCBA lets you dispute billing errors and unauthorized charges, capping your liability for fraud at $50 - and often $0 in practice."
           },
           {
             id: "credit14-mastery5",
+            concept: "Your Rights as a Credit User",
             question: "Which agency should you contact about a predatory lender or collector?",
             options: [
 "The Department of Motor Vehicles",
@@ -2401,10 +2593,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "The neighborhood school board when the bill arrives"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The CFPB handles complaints about banks, lenders, and debt collectors. The FTC is another option for scams and unfair practices."
           },
           {
             id: "credit14-mastery6",
+            concept: "Your Rights as a Credit User",
             question: "Which is a red flag of predatory lending?",
             options: [
 "A clearly disclosed low APR in nearly all cases",
@@ -2413,6 +2607,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "A lender who explains all the fees"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Payday loans with triple-digit APRs, hidden fees, and pressure to sign fast are classic predatory-lending red flags designed to trap borrowers."
           }
         ]
@@ -2465,6 +2660,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit15-mc1",
+            concept: "Your Free Annual Credit Report",
             question: "Where do you get your official free credit report?",
             options: [
 "Any app advertising 'free credit scores'",
@@ -2477,6 +2673,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit15-mc2",
+            concept: "Your Free Annual Credit Report",
             question: "How long do bureaus generally have to investigate a dispute?",
             options: [
 "About 30 days",
@@ -2504,6 +2701,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit15-aq1",
+          concept: "Your Free Annual Credit Report",
           question: "What should Carlos do about the erroneous collection account?",
           options: [
 "Ignore it and hope it disappears according to most experts",
@@ -2531,6 +2729,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit15-mastery1",
+            concept: "Your Free Annual Credit Report",
             question: "What is the official source for your free credit report?",
             options: [
 "AnnualCreditReport.com",
@@ -2539,10 +2738,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Your employer's HR office"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "AnnualCreditReport.com is the federally authorized site - the official source for your free reports from the three major bureaus."
           },
           {
             id: "credit15-mastery2",
+            concept: "Your Free Annual Credit Report",
             question: "Who are the three major credit bureaus?",
             options: [
 "Equifax, Experian, and TransUnion",
@@ -2551,10 +2752,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Chase, Wells Fargo, and Citi"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The three major bureaus that compile your credit reports are Equifax, Experian, and TransUnion."
           },
           {
             id: "credit15-mastery3",
+            concept: "Your Free Annual Credit Report",
             question: "By law, how long do bureaus generally have to investigate a dispute?",
             options: [
 "About 30 days",
@@ -2563,10 +2766,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "They never must respond"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "The FCRA generally requires a dispute investigation within about 30 days, after which unverifiable information must be corrected or removed."
           },
           {
             id: "credit15-mastery4",
+            concept: "Your Free Annual Credit Report",
             question: "Which is a common credit report error to watch for?",
             options: [
 "Your name being spelled right",
@@ -2575,10 +2780,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "A current balance that's accurate"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Common errors include accounts that don't belong to you and payments wrongly marked late - both can unfairly lower your score."
           },
           {
             id: "credit15-mastery5",
+            concept: "Your Free Annual Credit Report",
             question: "What does a credit freeze do?",
             options: [
 "It raises your credit score fast",
@@ -2587,10 +2794,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It charges a large yearly fee"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A credit freeze locks your report so no one can open new accounts in your name until you lift it. It's free by law and can be lifted temporarily."
           },
           {
             id: "credit15-mastery6",
+            concept: "Your Free Annual Credit Report",
             question: "Does checking your own credit report hurt your score?",
             options: [
 "Yes, it drops it every time if you check carefully",
@@ -2599,6 +2808,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only if you check three bureaus"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Checking your own report is a soft inquiry that never affects your score. Only hard inquiries from applying for new credit can ding it slightly."
           }
         ]
@@ -2651,6 +2861,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit16-mc1",
+            concept: "Paying for College: FAFSA, Grants & Loans",
             question: "Which type of college funding should you pursue FIRST?",
             options: [
 "Private loans from a bank in real-world practice",
@@ -2663,6 +2874,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit16-mc2",
+            concept: "Paying for College: FAFSA, Grants & Loans",
             question: "What does filing the FAFSA do?",
             options: [
 "Guarantees you a full-ride scholarship based on the numbers",
@@ -2690,6 +2902,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit16-aq1",
+          concept: "Paying for College: FAFSA, Grants & Loans",
           question: "Why should Priya prefer subsidized loans over unsubsidized when she can?",
           options: [
 "Subsidized loans never have to be repaid",
@@ -2717,6 +2930,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit16-mastery1",
+            concept: "Paying for College: FAFSA, Grants & Loans",
             question: "What is the correct order of importance for college funding?",
             options: [
 "Private loans first, then grants even for careful users",
@@ -2725,10 +2939,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Parent PLUS loans taken out well before any scholarships at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Start with free money, then work-study and federal loans, and use private loans only as a last resort - it minimizes what you repay with interest."
           },
           {
             id: "credit16-mastery2",
+            concept: "Paying for College: FAFSA, Grants & Loans",
             question: "What do Bright Futures Academic Scholars generally need?",
             options: [
 "No requirements at all for everyday consumers",
@@ -2737,10 +2953,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only Florida residency and nothing else under the current rules"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The top Academic Scholars award generally requires roughly a 3.5 weighted GPA, specific coursework and test scores, and 100 community service hours."
           },
           {
             id: "credit16-mastery3",
+            concept: "Paying for College: FAFSA, Grants & Loans",
             question: "What's the difference between a subsidized and unsubsidized loan?",
             options: [
 "Subsidized: the government pays interest in school",
@@ -2749,10 +2967,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Subsidized loans charge double interest"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "On subsidized loans the government covers interest while you're enrolled; unsubsidized loans accrue interest immediately, growing the balance."
           },
           {
             id: "credit16-mastery4",
+            concept: "Paying for College: FAFSA, Grants & Loans",
             question: "What's the difference between a grant and a loan?",
             options: [
 "A grant is repaid; a loan is free if you check carefully",
@@ -2761,10 +2981,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "A loan is always a form of need-based aid you never repay"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A grant is free money you don't repay, usually need-based. A loan must be repaid with interest, so grants should always come first."
           },
           {
             id: "credit16-mastery5",
+            concept: "Paying for College: FAFSA, Grants & Loans",
             question: "Why are private loans considered a last resort?",
             options: [
 "They are always interest-free over the long run",
@@ -2773,10 +2995,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "They never require repayment for the typical borrower"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Private loans usually carry higher, sometimes variable rates and lack federal protections like income-driven repayment, so use them only after free money and federal loans."
           },
           {
             id: "credit16-mastery6",
+            concept: "Paying for College: FAFSA, Grants & Loans",
             question: "Why file the FAFSA early?",
             options: [
 "Late filers get bonus scholarships in real-world practice",
@@ -2785,6 +3009,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It raises your GPA automatically based on the numbers"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Some aid, including Florida's, is limited and awarded first-come. Filing early, before the earlier state deadline, gives you the best shot at all available funds."
           }
         ]
@@ -2837,6 +3062,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit17-mc1",
+            concept: "How to Apply for a Loan",
             question: "What is a debt-to-income (DTI) ratio?",
             options: [
 "Your own savings divided by your debt even for careful users",
@@ -2849,6 +3075,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit17-mc2",
+            concept: "How to Apply for a Loan",
             question: "How does a hard inquiry differ from a soft inquiry?",
             options: [
 "A hard inquiry lowers your score; a soft one does not",
@@ -2876,6 +3103,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit17-aq1",
+          concept: "How to Apply for a Loan",
           question: "Why does the 48-month loan save Jasmine about $1,800 despite higher payments?",
           options: [
 "Because shorter terms charge no interest under the current rules",
@@ -2903,6 +3131,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit17-mastery1",
+            concept: "How to Apply for a Loan",
             question: "What do lenders mainly try to figure out when you apply?",
             options: [
 "How much you like their bank",
@@ -2911,10 +3140,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "How many friends you have when you look closely"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Every loan decision comes down to repayment risk. Lenders use your score, DTI, income, and collateral to gauge how likely you are to pay it back."
           },
           {
             id: "credit17-mastery2",
+            concept: "How to Apply for a Loan",
             question: "What DTI do lenders generally like to see?",
             options: [
 "Under about 36%",
@@ -2923,10 +3154,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It doesn't matter to lenders"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Lenders generally prefer a debt-to-income ratio under about 36%, which signals you have room in your budget to handle a new payment."
           },
           {
             id: "credit17-mastery3",
+            concept: "How to Apply for a Loan",
             question: "What does a hard inquiry usually do to your score?",
             options: [
 "Raises it by about 20 points",
@@ -2935,10 +3168,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Erases your whole history"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A hard inquiry from actually applying for credit typically lowers your score by around five points. Soft inquiries, like checking your own, have no effect."
           },
           {
             id: "credit17-mastery4",
+            concept: "How to Apply for a Loan",
             question: "Which documents does a lender typically require?",
             options: [
 "A birth certificate and diploma over the long run",
@@ -2947,10 +3182,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Your own entire social media history"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Lenders usually want proof of income and identity - pay stubs, tax returns, bank statements, and a photo ID - to verify you can repay."
           },
           {
             id: "credit17-mastery5",
+            concept: "How to Apply for a Loan",
             question: "Why should you avoid a loan with a prepayment penalty?",
             options: [
 "It rewards you for paying early once you add it up",
@@ -2959,10 +3196,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "It removes all origination fees based on the numbers"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A prepayment penalty charges you for paying the loan off early, canceling the savings you'd normally get. Paying early should save money, not cost it."
           },
           {
             id: "credit17-mastery6",
+            concept: "How to Apply for a Loan",
             question: "How can you rate-shop for a car loan without extra score damage?",
             options: [
 "Apply once a year for five years",
@@ -2971,6 +3210,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only apply on weekends despite the marketing"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "For the same loan type, multiple inquiries within a short window (often 14-45 days) usually count as a single inquiry, so you can compare rates freely."
           }
         ]
@@ -3023,6 +3263,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit18-mc1",
+            concept: "Federal vs Private Student Loans",
             question: "What's a key advantage of federal student loans over private ones?",
             options: [
 "They never charge any interest in the fine print",
@@ -3035,6 +3276,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit18-mc2",
+            concept: "Federal vs Private Student Loans",
             question: "Why do private student loans usually require a co-signer?",
             options: [
 "Because federal law requires two names for everyday consumers",
@@ -3062,6 +3304,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit18-aq1",
+          concept: "Federal vs Private Student Loans",
           question: "Before taking the private loan, what's the most important thing for Marcus to check?",
           options: [
 "The bank's logo and website design under the current rules",
@@ -3089,6 +3332,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit18-mastery1",
+            concept: "Federal vs Private Student Loans",
             question: "Who makes federal student loans?",
             options: [
 "Private banks and credit unions",
@@ -3097,10 +3341,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Online payday lenders"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Federal student loans are made by the U.S. government, which is why they carry fixed rates set by law and federal protections."
           },
           {
             id: "credit18-mastery2",
+            concept: "Federal vs Private Student Loans",
             question: "On a Direct Subsidized loan, who pays interest while you're in school?",
             options: [
 "You do, from day one",
@@ -3109,10 +3355,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "No one, and it never accrues later"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "On subsidized loans, the government pays the interest while you're enrolled, so the balance doesn't grow until after you leave school."
           },
           {
             id: "credit18-mastery3",
+            concept: "Federal vs Private Student Loans",
             question: "What is a common feature of private student loans?",
             options: [
 "Guaranteed federal forgiveness according to most experts",
@@ -3121,10 +3369,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Fixed rates set by federal law"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Private loans often carry variable rates that can climb, and they lack the federal protections and forgiveness options that come with government loans."
           },
           {
             id: "credit18-mastery4",
+            concept: "Federal vs Private Student Loans",
             question: "What is the smart order for using loans to pay for college?",
             options: [
 "Private first, then federal loans if you check carefully",
@@ -3133,10 +3383,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Only private loans, never federal"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "After free money, use federal subsidized, then unsubsidized, then PLUS if needed, and only private loans last, since federal loans are cheaper and safer."
           },
           {
             id: "credit18-mastery5",
+            concept: "Federal vs Private Student Loans",
             question: "What responsibility does a private-loan co-signer take on?",
             options: [
 "Only advising the student over the long run",
@@ -3145,10 +3397,12 @@ export const deepCredit2: StructuredLessonContent[] = [
 "Nothing beyond signing once for the typical borrower"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A co-signer becomes fully responsible for the loan if the borrower can't pay, so missed payments damage the co-signer's credit too."
           },
           {
             id: "credit18-mastery6",
+            concept: "Federal vs Private Student Loans",
             question: "Why should you borrow student loans carefully?",
             options: [
 "They double automatically each year",
@@ -3157,6 +3411,7 @@ export const deepCredit2: StructuredLessonContent[] = [
 "They lower your credit score to zero"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Unlike most debts, student loans generally survive bankruptcy, so they follow you until repaid. That's why you should borrow only what you truly need."
           }
         ]

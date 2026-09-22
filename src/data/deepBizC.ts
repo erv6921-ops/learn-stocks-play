@@ -51,24 +51,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr1-mc1",
+            concept: "Why Market Research Matters",
             question: "What is the main purpose of market research?",
             options: [
               "To reduce risk by learning about customers and demand before spending big",
-              "To guarantee that a new product will succeed, in nearly every real case",
-              "To copy exactly what one competitor is doing, according to most business textbooks",
-              "To make a business plan look longer, as a strict and unbreakable rule"
+              "To guarantee that a new product will succeed",
+              "To copy exactly what one competitor is doing",
+              "To make a business plan look longer"
             ],
             correctAnswer: 0,
             explanation: "Research does not guarantee success, but it shrinks risk by revealing whether real customers want the product before you commit money to a lease, inventory, or staff."
           },
           {
             id: "mr1-mc2",
+            concept: "Why Market Research Matters",
             question: "Why is 'you are not your customer' an important research idea?",
             options: [
-              "Because founders are legally banned from buying their own products, for essentially all companies today",
+              "Because founders are legally banned from buying their own products",
               "Because your personal tastes may not match what real customers want",
-              "Because customers always want the cheapest option, without any meaningful exceptions",
-              "Because research is only for large companies, under almost all normal conditions"
+              "Because customers always want the cheapest option",
+              "Because research is only for large companies"
             ],
             correctAnswer: 1,
             explanation: "What excites a founder may bore the market. Research checks assumptions against real people, revealing needs you would never discover by relying on your own preferences."
@@ -90,12 +92,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr1-aq1",
+          concept: "Why Market Research Matters",
           question: "Based on his research, what is the smartest conclusion for Leo?",
           options: [
-              "Sign the lease immediately since he personally loves bubble tea, based on common workplace assumptions",
+              "Sign the lease immediately since he personally loves bubble tea",
               "Rethink the plan, since demand is thin and competitors already exist nearby",
-              "Double the price to $8 to make up for low demand, as many people wrongly believe",
-              "Ignore the surveys because he is confident in his taste, in the vast majority of situations"
+              "Double the price to $8 to make up for low demand",
+              "Ignore the surveys because he is confident in his taste"
             ],
             correctAnswer: 1,
           explanation: "The data shows limited demand, low spending, and three nearby rivals. Research just saved Leo from an $18,000 commitment; the wise move is to adjust the plan, not push ahead on a hunch."
@@ -117,74 +120,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr1-mastery1",
+            concept: "Why Market Research Matters",
             question: "A founder signs a two-year lease before checking demand. What risk does research help avoid?",
             options: [
-              "Paying taxes on early profits, regardless of the specific circumstances",
+              "Paying taxes on early profits",
               "Committing big money to something customers may not want",
-              "Having too many eager customers at once, in nearly every real case",
-              "Spending too little on advertising, according to most business textbooks"
+              "Having too many eager customers at once",
+              "Spending too little on advertising"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Leases, inventory, and staff are costly and hard to undo. Research checks demand first, so you avoid locking in big costs for a product the market may reject."
           },
           {
             id: "mr1-mastery2",
+            concept: "Why Market Research Matters",
             question: "Which best describes what strong market research does to a vague idea?",
             options: [
               "It makes the idea sound more impressive to friends",
               "It sharpens it into a precise, testable customer target",
               "It removes the need to ever talk to customers",
-              "It guarantees investors will fund the business, as a strict and unbreakable rule"
+              "It guarantees investors will fund the business"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Research turns 'sell healthy snacks' into 'sell $3 bars to gym members aged 18 to 30.' Precision makes the plan testable and far easier to act on."
           },
           {
             id: "mr1-mastery3",
+            concept: "Why Market Research Matters",
             question: "Why should research be treated as ongoing rather than a one-time task?",
             options: [
               "Because surveys expire after exactly one year by law",
               "Because markets, competitors, and tastes keep changing over time",
-              "Because customers forget what they said quickly, for essentially all companies today",
-              "Because it makes the business plan longer, without any meaningful exceptions"
+              "Because customers forget what they said quickly",
+              "Because it makes the business plan longer"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Markets shift and rivals launch new products. Companies that keep listening catch changes early; those that stop drift out of touch and lose customers."
           },
           {
             id: "mr1-mastery4",
+            concept: "Why Market Research Matters",
             question: "How does research improve marketing spending?",
             options: [
               "It shows where your audience spends time, so ads reach them",
-              "It forces you to advertise everywhere at once, under almost all normal conditions",
-              "It removes the need for any advertising at all, based on common workplace assumptions",
-              "It guarantees every ad will go viral online, as many people wrongly believe"
+              "It forces you to advertise everywhere at once",
+              "It removes the need for any advertising at all",
+              "It guarantees every ad will go viral online"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "If research shows your audience lives on TikTok, you advertise there instead of wasting money on channels they ignore, stretching a limited budget much further."
           },
           {
             id: "mr1-mastery5",
+            concept: "Why Market Research Matters",
             question: "A survey shows 70 of 100 users value delivery over variety. How should this guide the business?",
             options: [
               "Ignore it and add more product variety anyway",
               "Focus limited money and time on delivery first",
-              "Raise prices because customers seem loyal, in the vast majority of situations",
-              "Stop selling to anyone who wants variety, regardless of the specific circumstances"
+              "Raise prices because customers seem loyal",
+              "Stop selling to anyone who wants variety"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "With limited resources, you invest where the data points. Most users want delivery, so building that first serves the biggest need and creates the most value."
           },
           {
             id: "mr1-mastery6",
+            concept: "Why Market Research Matters",
             question: "Which statement best captures the core value of market research?",
             options: [
               "It replaces 'I think' with 'the data shows'",
-              "It proves the founder is always right, in nearly every real case",
-              "It eliminates every possible business risk, according to most business textbooks",
-              "It works only for tech startups, as a strict and unbreakable rule"
+              "It proves the founder is always right",
+              "It eliminates every possible business risk",
+              "It works only for tech startups"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Research shifts decisions from hunches to evidence. It cannot erase all risk, but replacing assumptions with data makes choices defensible and mistakes smaller."
           }
         ]
@@ -237,6 +252,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr2-mc1",
+            concept: "Primary Research Methods",
             question: "Which primary research method is best for getting countable numbers from many people quickly?",
             options: [
               "A one-on-one interview",
@@ -249,12 +265,13 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr2-mc2",
+            concept: "Primary Research Methods",
             question: "Why is a 'leading question' a problem in a survey?",
             options: [
-              "It takes too long for people to read, for essentially all companies today",
+              "It takes too long for people to read",
               "It pushes people toward a particular answer, biasing the data",
-              "It can only be used in interviews, without any meaningful exceptions",
-              "It always produces numbers instead of opinions, under almost all normal conditions"
+              "It can only be used in interviews",
+              "It always produces numbers instead of opinions"
             ],
             correctAnswer: 1,
             explanation: "A leading question like 'How much do you love our amazing drink?' nudges people to praise it, poisoning the data. Neutral wording gives answers you can actually trust."
@@ -276,12 +293,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr2-aq1",
+          concept: "Primary Research Methods",
           question: "Why is combining a survey with interviews smarter than using either alone?",
           options: [
-              "It doubles the number of friends she can include, based on common workplace assumptions",
+              "It doubles the number of friends she can include",
               "The survey shows what many people think; interviews reveal why",
-              "Interviews replace the need for any survey numbers, as many people wrongly believe",
-              "It lets her skip observing real shopper behavior, in the vast majority of situations"
+              "Interviews replace the need for any survey numbers",
+              "It lets her skip observing real shopper behavior"
             ],
             correctAnswer: 1,
           explanation: "The survey gives scale and countable results across many people, while interviews explain the reasons behind those numbers. Together they deliver both breadth and depth Maria can act on."
@@ -303,18 +321,21 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr2-mastery1",
+            concept: "Primary Research Methods",
             question: "What defines primary research?",
             options: [
               "Data someone else already published in a report",
               "Firsthand data you collect yourself for your question",
-              "Only numbers from government census files, regardless of the specific circumstances",
-              "Guesses a founder makes about the market, in nearly every real case"
+              "Only numbers from government census files",
+              "Guesses a founder makes about the market"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Primary research is fresh, firsthand data you gather yourself, tailored to your exact question. Published reports are secondary research collected by others for other purposes."
           },
           {
             id: "mr2-mastery2",
+            concept: "Primary Research Methods",
             question: "A researcher wants to understand the deep emotions behind a customer complaint. Which method fits best?",
             options: [
               "A 500-person survey",
@@ -323,54 +344,63 @@ export const deepBizC: StructuredLessonContent[] = [
               "A national sales chart"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Interviews let you ask 'why?' and follow surprising answers, uncovering feelings a survey misses. Surveys and click counts give numbers but rarely the emotional reasons behind them."
           },
           {
             id: "mr2-mastery3",
+            concept: "Primary Research Methods",
             question: "What is the main weakness of a focus group?",
             options: [
-              "It can never produce any useful ideas, according to most business textbooks",
+              "It can never produce any useful ideas",
               "A loud participant can sway the whole group",
-              "It reaches thousands of people at once, as a strict and unbreakable rule",
-              "It only works for government agencies, for essentially all companies today"
+              "It reaches thousands of people at once",
+              "It only works for government agencies"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Group energy is valuable, but one dominant voice can pull the room toward their view, distorting the discussion. Skilled moderators try to balance participation to reduce this."
           },
           {
             id: "mr2-mastery4",
+            concept: "Primary Research Methods",
             question: "Why can surveying only five close friends ruin your results?",
             options: [
-              "Friends are legally barred from surveys, without any meaningful exceptions",
+              "Friends are legally barred from surveys",
               "They are not typical buyers and may just be kind",
-              "Five people is always more than enough, under almost all normal conditions",
-              "Friends always give the harshest feedback, based on common workplace assumptions"
+              "Five people is always more than enough",
+              "Friends always give the harshest feedback"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A tiny, friendly sample is not representative of real customers and tends to soften criticism, producing confident numbers that are simply wrong when you launch to strangers."
           },
           {
             id: "mr2-mastery5",
+            concept: "Primary Research Methods",
             question: "Which situation is observation best suited for?",
             options: [
-              "Measuring exact national income levels, as many people wrongly believe",
+              "Measuring exact national income levels",
               "Watching how shoppers actually behave near a display",
-              "Asking people to explain their childhood memories, in the vast majority of situations",
-              "Calculating a company's yearly profit, regardless of the specific circumstances"
+              "Asking people to explain their childhood memories",
+              "Calculating a company's yearly profit"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Observation captures real behavior, like shoppers ignoring a shelf, which often differs from what people say. It sidesteps opinions to reveal what customers truly do."
           },
           {
             id: "mr2-mastery6",
+            concept: "Primary Research Methods",
             question: "A brand hears parents say they want 'healthy,' but kids grab the cartoon box. What does this show?",
             options: [
               "Stated preferences can differ from real behavior",
-              "Surveys are always completely useless, in nearly every real case",
-              "Parents never influence what kids eat, according to most business textbooks",
-              "Observation should always be skipped, as a strict and unbreakable rule"
+              "Surveys are always completely useless",
+              "Parents never influence what kids eat",
+              "Observation should always be skipped"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "People do not always act on what they say. Combining what people report with observing what they actually do reveals the gap and leads to better decisions."
           }
         ]
@@ -423,11 +453,12 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr3-mc1",
+            concept: "Secondary Research",
             question: "What best describes secondary research?",
             options: [
-              "Data you collect yourself through surveys, for essentially all companies today",
+              "Data you collect yourself through surveys",
               "Existing data collected by others for other purposes",
-              "Guesses made without any data at all, without any meaningful exceptions",
+              "Guesses made without any data at all",
               "Data that is always more accurate than primary research"
             ],
             correctAnswer: 1,
@@ -435,12 +466,13 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr3-mc2",
+            concept: "Secondary Research",
             question: "Which is a key risk of relying on secondary data?",
             options: [
-              "It is always far too expensive to obtain, under almost all normal conditions",
+              "It is always far too expensive to obtain",
               "It may be outdated, too broad, or biased toward its source",
-              "It can never include any numbers, based on common workplace assumptions",
-              "It is illegal to use published reports, as many people wrongly believe"
+              "It can never include any numbers",
+              "It is illegal to use published reports"
             ],
             correctAnswer: 1,
             explanation: "Because it was made for other purposes, secondary data can be old, too general for your scope, or slanted by whoever funded it. You must judge each source carefully."
@@ -462,12 +494,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr3-aq1",
+          concept: "Secondary Research",
           question: "After his secondary research, what should Devon do next?",
           options: [
-              "Open immediately, since the data is fully complete, in the vast majority of situations",
+              "Open immediately, since the data is fully complete",
               "Run primary research to test whether locals want his specific store",
-              "Abandon the idea because two competitors exist, regardless of the specific circumstances",
-              "Trust the 2016 report as his most important source, in nearly every real case"
+              "Abandon the idea because two competitors exist",
+              "Trust the 2016 report as his most important source"
             ],
             correctAnswer: 1,
           explanation: "Secondary data mapped the landscape, but no report knows whether Devon's exact bookstore appeals to his town. Primary research fills that gap, which is the correct next step."
@@ -489,74 +522,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr3-mastery1",
+            concept: "Secondary Research",
             question: "Which is an example of a secondary research source?",
             options: [
               "A survey you personally hand out today",
               "A published U.S. Census Bureau report",
-              "An interview you conduct yourself, according to most business textbooks",
+              "An interview you conduct yourself",
               "A focus group you run this week"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Census reports are existing data gathered by others, making them secondary. Surveys, interviews, and focus groups you run yourself are primary research."
           },
           {
             id: "mr3-mastery2",
+            concept: "Secondary Research",
             question: "Why should a founder usually do secondary research before primary?",
             options: [
-              "Primary research is always illegal to do first, as a strict and unbreakable rule",
+              "Primary research is always illegal to do first",
               "It cheaply maps the market before spending on your own data",
-              "Secondary data is always perfectly accurate, for essentially all companies today",
-              "It removes any need for primary research later, without any meaningful exceptions"
+              "Secondary data is always perfectly accurate",
+              "It removes any need for primary research later"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Existing data answers many questions for free and grounds you in facts. You then spend on primary research only for the specific gaps no source covers."
           },
           {
             id: "mr3-mastery3",
+            concept: "Secondary Research",
             question: "A company funded a study praising its own product. Why be cautious?",
             options: [
-              "Funded studies are always accurate, under almost all normal conditions",
+              "Funded studies are always accurate",
               "The source may be biased toward a flattering result",
-              "It means the data must be very old, based on common workplace assumptions",
-              "Company studies are never published, as many people wrongly believe"
+              "It means the data must be very old",
+              "Company studies are never published"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When a party with something to sell funds research, results can lean in its favor. Prefer neutral sources and cross-check surprising claims before trusting them."
           },
           {
             id: "mr3-mastery4",
+            concept: "Secondary Research",
             question: "Why can national average data mislead a local business?",
             options: [
-              "National data is always fake, in the vast majority of situations",
+              "National data is always fake",
               "Averages can hide big differences in your specific area",
-              "Local businesses cannot use any data, regardless of the specific circumstances",
-              "National data is too recent to trust, in nearly every real case"
+              "Local businesses cannot use any data",
+              "National data is too recent to trust"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A national average may not match your town, where income, tastes, or competition differ sharply. Always check that data matches your actual scope."
           },
           {
             id: "mr3-mastery5",
+            concept: "Secondary Research",
             question: "Which pairing best describes how the two research types work together?",
             options: [
               "Primary is the wide lens; secondary is the zoom",
               "Secondary is the wide lens; primary is the zoom",
-              "Both are identical and interchangeable, according to most business textbooks",
-              "Neither one is useful for real decisions, as a strict and unbreakable rule"
+              "Both are identical and interchangeable",
+              "Neither one is useful for real decisions"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Secondary research gives the broad view of the market, while primary research zooms in on your specific offer and customers. Using both, in order, is most efficient."
           },
           {
             id: "mr3-mastery6",
+            concept: "Secondary Research",
             question: "A report you find is from 2016. What is the wisest move?",
             options: [
               "Treat its numbers with caution and seek newer data",
-              "Trust it completely as your main source, for essentially all companies today",
-              "Assume the market has not changed at all, without any meaningful exceptions",
-              "Ignore all older data forever on principle, under almost all normal conditions"
+              "Trust it completely as your main source",
+              "Assume the market has not changed at all",
+              "Ignore all older data forever on principle"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Markets move fast, so old data may no longer hold. Use it cautiously and prefer recent sources, cross-checking anything important before relying on it."
           }
         ]
@@ -609,21 +654,23 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr4-mc1",
+            concept: "Qualitative vs Quantitative",
             question: "Which is an example of quantitative data?",
             options: [
-              "A customer saying the app 'feels confusing', based on common workplace assumptions",
+              "A customer saying the app 'feels confusing'",
               "340 of 500 customers chose the smaller size",
               "A quote describing why someone loves a brand",
-              "A theme found across several interviews, as many people wrongly believe"
+              "A theme found across several interviews"
             ],
             correctAnswer: 1,
             explanation: "Quantitative data is countable numbers, like '340 of 500.' Quotes, feelings, and themes are qualitative, capturing the reasons and emotions behind behavior."
           },
           {
             id: "mr4-mc2",
+            concept: "Qualitative vs Quantitative",
             question: "What does qualitative research add that numbers alone cannot?",
             options: [
-              "A precise percentage of all customers, in the vast majority of situations",
+              "A precise percentage of all customers",
               "The 'why' and feelings behind the behavior",
               "A guarantee the result applies to everyone",
               "A faster way to chart large datasets"
@@ -648,12 +695,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr4-aq1",
+          concept: "Qualitative vs Quantitative",
           question: "How did combining both data types help Aisha most?",
           options: [
-              "The numbers alone told her exactly why sales fell, regardless of the specific circumstances",
+              "The numbers alone told her exactly why sales fell",
               "Interviews revealed a likely cause; the survey confirmed how widespread it was",
-              "The interviews proved the problem without needing numbers, in nearly every real case",
-              "She avoided using any quantitative data at all, according to most business textbooks"
+              "The interviews proved the problem without needing numbers",
+              "She avoided using any quantitative data at all"
             ],
             correctAnswer: 1,
           explanation: "The dashboard flagged the drop, interviews suggested the weak scent as the cause, and the survey verified 68% agreed. Qualitative explored; quantitative confirmed the pattern at scale."
@@ -675,18 +723,21 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr4-mastery1",
+            concept: "Qualitative vs Quantitative",
             question: "Which statement best distinguishes the two data types?",
             options: [
-              "Quantitative is about words; qualitative is about numbers, as a strict and unbreakable rule",
+              "Quantitative is about words; qualitative is about numbers",
               "Quantitative is about numbers; qualitative is about words and reasons",
-              "Both are only about numbers, for essentially all companies today",
-              "Neither type is useful for research, without any meaningful exceptions"
+              "Both are only about numbers",
+              "Neither type is useful for research"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Quantitative data counts (how many, how much), while qualitative data captures words, feelings, and the reasons behind behavior. Each answers a different question."
           },
           {
             id: "mr4-mastery2",
+            concept: "Qualitative vs Quantitative",
             question: "A metric shows 40% of users quit the app. What is this data missing?",
             options: [
               "The exact number of users involved",
@@ -695,54 +746,63 @@ export const deepBizC: StructuredLessonContent[] = [
               "Any measurable value at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The percentage shows what happened but not why. Qualitative research fills that gap, revealing reasons like a confusing sign-up form that numbers cannot explain."
           },
           {
             id: "mr4-mastery3",
+            concept: "Qualitative vs Quantitative",
             question: "Why explore with qualitative research before running a big survey?",
             options: [
-              "Surveys are always illegal to run first, under almost all normal conditions",
+              "Surveys are always illegal to run first",
               "You cannot count a problem you have not yet discovered",
-              "Qualitative data needs no thinking at all, based on common workplace assumptions",
-              "Surveys cannot measure anything useful, as many people wrongly believe"
+              "Qualitative data needs no thinking at all",
+              "Surveys cannot measure anything useful"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Interviews surface issues you did not know existed. Once you know what to ask about, a survey measures how widespread each issue is across many people."
           },
           {
             id: "mr4-mastery4",
+            concept: "Qualitative vs Quantitative",
             question: "What is the danger of trusting one dramatic customer quote too much?",
             options: [
-              "Quotes are always completely useless, in the vast majority of situations",
+              "Quotes are always completely useless",
               "One quote is signal, not proof of a broad pattern",
-              "Quotes can only come from surveys, regardless of the specific circumstances",
-              "A single quote guarantees everyone agrees, in nearly every real case"
+              "Quotes can only come from surveys",
+              "A single quote guarantees everyone agrees"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A vivid complaint is qualitative signal worth exploring, but it may not represent most users. Verify with numbers before treating it as a widespread pattern."
           },
           {
             id: "mr4-mastery5",
+            concept: "Qualitative vs Quantitative",
             question: "A dashboard flags rising checkout abandonment. What role does qualitative follow-up play?",
             options: [
-              "It replaces the dashboard numbers entirely, according to most business textbooks",
+              "It replaces the dashboard numbers entirely",
               "It explains the cause behind the number",
-              "It proves the number is wrong, as a strict and unbreakable rule",
-              "It counts the users more precisely, for essentially all companies today"
+              "It proves the number is wrong",
+              "It counts the users more precisely"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The number spots the problem; qualitative follow-up, like support tickets or calls, reveals the cause, such as a surprise shipping fee scaring buyers off."
           },
           {
             id: "mr4-mastery6",
+            concept: "Qualitative vs Quantitative",
             question: "Which describes the ideal relationship between the two data types?",
             options: [
-              "Pick one and ignore the other completely, without any meaningful exceptions",
+              "Pick one and ignore the other completely",
               "Use them together so numbers and reasons reinforce each other",
-              "Qualitative always overrides quantitative, under almost all normal conditions, based on common workplace assumptions",
-              "Quantitative is the only trustworthy type, as many people wrongly believe"
+              "Qualitative always overrides quantitative",
+              "Quantitative is the only trustworthy type"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Neither type is better alone. Qualitative finds and explains, quantitative sizes and verifies, and together they build a complete, trustworthy understanding."
           }
         ]
@@ -795,24 +855,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr5-mc1",
+            concept: "Reading & Interpreting Data",
             question: "What is a 'trend' in a dataset?",
             options: [
-              "The single highest value recorded, in the vast majority of situations",
+              "The single highest value recorded",
               "The general direction the data moves over time",
-              "Any value that looks unusual, regardless of the specific circumstances",
-              "The exact average of all points, in nearly every real case"
+              "Any value that looks unusual",
+              "The exact average of all points"
             ],
             correctAnswer: 1,
             explanation: "A trend is the overall direction data moves, ignoring small bumps. It matters more than any single point, since one high or low day rarely defines a business."
           },
           {
             id: "mr5-mc2",
+            concept: "Reading & Interpreting Data",
             question: "Why is 'correlation is not causation' an important warning?",
             options: [
-              "Because charts are always wrong, according to most business textbooks, as a strict and unbreakable rule",
+              "Because charts are always wrong",
               "Because two things moving together may share a hidden third cause",
-              "Because numbers can never be trusted, for essentially all companies today",
-              "Because causation is illegal to claim, without any meaningful exceptions, under almost all normal conditions"
+              "Because numbers can never be trusted",
+              "Because causation is illegal to claim"
             ],
             correctAnswer: 1,
             explanation: "Things can rise together without one causing the other, like ice cream sales and drownings both driven by hot weather. Always look for a hidden third factor."
@@ -834,12 +896,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr5-aq1",
+          concept: "Reading & Interpreting Data",
           question: "Which conclusion should Ben trust the most?",
           options: [
               "The '80% loved it' claim, since 80% is a high number",
               "The upward monthly trend, since it holds across several months",
-              "That his ads alone caused December's sales jump, based on common workplace assumptions",
-              "That the 900-sale day is a reliable new normal, as many people wrongly believe"
+              "That his ads alone caused December's sales jump",
+              "That the 900-sale day is a reliable new normal"
             ],
             correctAnswer: 1,
           explanation: "The multi-month trend rests on real, repeated data. The 80% comes from just 5 people, the ad claim ignores holiday shopping, and the 900-sale day is an unverified outlier."
@@ -861,6 +924,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr5-mastery1",
+            concept: "Reading & Interpreting Data",
             question: "Which chart best shows how sales changed month by month over a year?",
             options: [
               "A pie chart",
@@ -869,66 +933,77 @@ export const deepBizC: StructuredLessonContent[] = [
               "A bar chart of unrelated products"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Line charts are built to show change over time, making trends across months easy to see. Pie charts show shares, not change over time."
           },
           {
             id: "mr5-mastery2",
+            concept: "Reading & Interpreting Data",
             question: "You usually get 50 sales a day, but one day shows 500. What should you do?",
             options: [
               "Immediately assume it is the new normal",
               "Investigate why the outlier happened before reacting",
-              "Delete the day from your records, in the vast majority of situations",
+              "Delete the day from your records",
               "Average it in without a second thought"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Outliers can be real (a viral moment) or errors (a glitch). Investigating first prevents overreacting, like overbuying stock based on a one-time spike."
           },
           {
             id: "mr5-mastery3",
+            concept: "Reading & Interpreting Data",
             question: "Ice cream sales and drownings both rise in summer. What does this show?",
             options: [
-              "Ice cream causes drownings, regardless of the specific circumstances",
+              "Ice cream causes drownings",
               "A hidden factor, hot weather, drives both",
-              "Drownings cause ice cream sales, in nearly every real case",
-              "The two are completely unrelated, according to most business textbooks"
+              "Drownings cause ice cream sales",
+              "The two are completely unrelated"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "This is classic correlation without causation. Hot weather lifts both, so neither causes the other. Always check for a hidden third factor behind linked trends."
           },
           {
             id: "mr5-mastery4",
+            concept: "Reading & Interpreting Data",
             question: "Why is '75% approval from 4 people' weak evidence?",
             options: [
-              "Because 75% is a low number, as a strict and unbreakable rule",
+              "Because 75% is a low number",
               "Because tiny samples swing wildly by chance",
-              "Because percentages are never useful, for essentially all companies today",
-              "Because approval cannot be measured, without any meaningful exceptions"
+              "Because percentages are never useful",
+              "Because approval cannot be measured"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "With only 4 people, one different answer changes the percentage drastically. Small samples are unreliable, so always check how many people a percentage rests on."
           },
           {
             id: "mr5-mastery5",
+            concept: "Reading & Interpreting Data",
             question: "How can a bar chart's y-axis mislead a reader?",
             options: [
-              "By using too many colors, under almost all normal conditions",
+              "By using too many colors",
               "By starting at 90 instead of 0 to exaggerate differences",
-              "By listing categories alphabetically, based on common workplace assumptions, as many people wrongly believe",
-              "By showing exact numbers on each bar, in the vast majority of situations"
+              "By listing categories alphabetically",
+              "By showing exact numbers on each bar"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A truncated axis that starts above zero makes tiny gaps look huge. Always check where the axis begins before judging how big a difference really is."
           },
           {
             id: "mr5-mastery6",
+            concept: "Reading & Interpreting Data",
             question: "An app boasts '90% five-star reviews' from 10 users. Why be cautious?",
             options: [
-              "Because 90% is a bad score, regardless of the specific circumstances",
+              "Because 90% is a bad score",
               "Because so few reviews make the number unstable and unproven",
-              "Because reviews are always fake, in nearly every real case",
-              "Because five stars is impossible to earn, according to most business textbooks"
+              "Because reviews are always fake",
+              "Because five stars is impossible to earn"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "With only 10 reviews, one unhappy user swings the score wildly. A rating from thousands of reviews is far more reliable, even if slightly lower."
           }
         ]
@@ -981,24 +1056,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr6-mc1",
+            concept: "Market Sizing - TAM, SAM, SOM",
             question: "What does SOM (Serviceable Obtainable Market) represent?",
             options: [
-              "The total demand if everyone bought from you, as a strict and unbreakable rule",
+              "The total demand if everyone bought from you",
               "The realistic slice you can actually win in the near term",
-              "The entire national market for a product, for essentially all companies today",
-              "A market with no competitors at all, without any meaningful exceptions"
+              "The entire national market for a product",
+              "A market with no competitors at all"
             ],
             correctAnswer: 1,
             explanation: "SOM is the grounded, realistic portion you can capture soon, given competition and your reach. TAM is the full dream; SOM is the number you plan and budget around."
           },
           {
             id: "mr6-mc2",
+            concept: "Market Sizing - TAM, SAM, SOM",
             question: "What is the '1% fallacy' in market sizing?",
             options: [
-              "Believing a market can shrink by 1% each year, under almost all normal conditions",
+              "Believing a market can shrink by 1% each year",
               "Assuming capturing 1% of a huge market is automatically easy",
-              "Charging exactly 1% more than competitors, based on common workplace assumptions",
-              "Ignoring markets smaller than 1 million people, as many people wrongly believe"
+              "Charging exactly 1% more than competitors",
+              "Ignoring markets smaller than 1 million people"
             ],
             correctAnswer: 1,
             explanation: "Founders wrongly claim 1% of a giant market is 'easy money.' In reality, 1% of a huge market is enormous and requires a real plan you can defend."
@@ -1020,12 +1097,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr6-aq1",
+          concept: "Market Sizing - TAM, SAM, SOM",
           question: "Why is Nadia's SOM the most useful number for planning her first year?",
           options: [
-              "Because it is the largest of the three figures, in the vast majority of situations",
+              "Because it is the largest of the three figures",
               "Because it reflects what she can realistically win against competitors",
-              "Because it ignores competitors entirely, regardless of the specific circumstances",
-              "Because TAM cannot be estimated at all, in nearly every real case"
+              "Because it ignores competitors entirely",
+              "Because TAM cannot be estimated at all"
             ],
             correctAnswer: 1,
           explanation: "SOM grounds her plan in reality: the slice she can truly capture soon, accounting for rivals. TAM inspires, but budgeting on the full TAM would be a fantasy."
@@ -1047,54 +1125,63 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr6-mastery1",
+            concept: "Market Sizing - TAM, SAM, SOM",
             question: "Which correctly orders the three markets from largest to smallest?",
             options: [
-              "SOM, SAM, TAM, according to most business textbooks",
+              "SOM, SAM, TAM",
               "TAM, SAM, SOM",
               "SAM, TAM, SOM",
               "TAM, SOM, SAM"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "TAM (total demand) is largest, SAM (what you can serve) is smaller, and SOM (what you can realistically win) is smallest. The circles shrink in that order."
           },
           {
             id: "mr6-mastery2",
+            concept: "Market Sizing - TAM, SAM, SOM",
             question: "What does TAM tell a founder?",
             options: [
-              "The exact revenue for year one, as a strict and unbreakable rule",
+              "The exact revenue for year one",
               "Whether the opportunity is big enough to pursue at all",
-              "How many competitors exist today, for essentially all companies today",
-              "The price to charge each customer, without any meaningful exceptions"
+              "How many competitors exist today",
+              "The price to charge each customer"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "TAM shows the total scale of demand, revealing whether the market is worth chasing. It is a dream ceiling, not a realistic first-year revenue figure."
           },
           {
             id: "mr6-mastery3",
+            concept: "Market Sizing - TAM, SAM, SOM",
             question: "Why do investors trust bottom-up sizing more than top-down?",
             options: [
-              "It always produces bigger numbers, under almost all normal conditions",
+              "It always produces bigger numbers",
               "It exposes the assumptions behind the estimate",
-              "It skips any math entirely, based on common workplace assumptions",
-              "It ignores how many customers exist, as many people wrongly believe"
+              "It skips any math entirely",
+              "It ignores how many customers exist"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Bottom-up builds from real customers times frequency times price, revealing each assumption so it can be checked. Top-down hides errors inside a giant percentage."
           },
           {
             id: "mr6-mastery4",
+            concept: "Market Sizing - TAM, SAM, SOM",
             question: "A founder claims '1% of a $10 billion market is easy money.' What's wrong?",
             options: [
-              "1% is too small to ever matter, in the vast majority of situations",
+              "1% is too small to ever matter",
               "1% of a huge market is enormous and needs a real plan",
-              "Markets can never be that large, regardless of the specific circumstances, in nearly every real case",
-              "Percentages cannot be used in sizing, according to most business textbooks, as a strict and unbreakable rule"
+              "Markets can never be that large",
+              "Percentages cannot be used in sizing"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "This is the 1% fallacy. Capturing 1% of $10 billion is $100 million, which is not 'easy' at all and requires a defensible plan to win it."
           },
           {
             id: "mr6-mastery5",
+            concept: "Market Sizing - TAM, SAM, SOM",
             question: "A team estimates 5,000 buyers spending $80 a year, for $400,000. Which method is this?",
             options: [
               "Top-down sizing",
@@ -1103,18 +1190,21 @@ export const deepBizC: StructuredLessonContent[] = [
               "TAM estimation"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Building from real customers times price is bottom-up. It is slower but believable, since each assumption (buyer count and spending) can be tested."
           },
           {
             id: "mr6-mastery6",
+            concept: "Market Sizing - TAM, SAM, SOM",
             question: "Which number should a founder budget and plan around?",
             options: [
               "TAM, the total dream market",
               "SOM, the realistic obtainable slice",
               "The biggest number they can justify",
-              "A national spending total, for essentially all companies today"
+              "A national spending total"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "SOM reflects what you can realistically capture soon against competitors. Budgeting on TAM is fantasy; SOM is the grounded figure that guides real planning."
           }
         ]
@@ -1167,24 +1257,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr7-mc1",
+            concept: "Case Study: Research-Driven Launch",
             question: "What research method did LEGO rely on to discover how kids really play?",
             options: [
-              "A quick online poll, without any meaningful exceptions",
+              "A quick online poll",
               "Observing children at play for hours",
-              "Reading old sales reports only, under almost all normal conditions",
-              "Asking executives to guess, based on common workplace assumptions"
+              "Reading old sales reports only",
+              "Asking executives to guess"
             ],
             correctAnswer: 1,
             explanation: "LEGO used qualitative observation, watching real children play, because kids often cannot explain their own behavior. This revealed they valued mastery and finishing hard builds."
           },
           {
             id: "mr7-mc2",
+            concept: "Case Study: Research-Driven Launch",
             question: "What key assumption did LEGO's research overturn?",
             options: [
-              "That bricks were too expensive to make, as many people wrongly believe",
+              "That bricks were too expensive to make",
               "That modern kids wanted only fast, flashy thrills",
-              "That adults never buy toys, in the vast majority of situations",
-              "That video games would disappear soon, regardless of the specific circumstances"
+              "That adults never buy toys",
+              "That video games would disappear soon"
             ],
             correctAnswer: 1,
             explanation: "LEGO had assumed kids had no patience for slow building. Research showed many kids loved the challenge and pride of completing complex sets, reshaping its strategy."
@@ -1206,12 +1298,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr7-aq1",
+          concept: "Case Study: Research-Driven Launch",
           question: "Following the research playbook, what should Kofi do next?",
           options: [
-              "Launch the game-heavy app anyway, ignoring the findings, in nearly every real case",
+              "Launch the game-heavy app anyway, ignoring the findings",
               "Redesign the app to prioritize planning tools, acting on the research",
-              "Add even more quiz games to stand out, according to most business textbooks",
-              "Stop researching and trust his original gut, as a strict and unbreakable rule"
+              "Add even more quiz games to stand out",
+              "Stop researching and trust his original gut"
             ],
             correctAnswer: 1,
           explanation: "The hardest, most valuable step is acting on findings even when they contradict your idea. Kofi's research points to planning tools, so he should redesign accordingly."
@@ -1233,74 +1326,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr7-mastery1",
+            concept: "Case Study: Research-Driven Launch",
             question: "Why was observation better than a survey for LEGO's question?",
             options: [
-              "Surveys are always banned for toy companies, for essentially all companies today",
+              "Surveys are always banned for toy companies",
               "Kids often cannot explain their own play behavior",
-              "Observation is always cheaper than everything, without any meaningful exceptions",
-              "Surveys only work for adults over 40, under almost all normal conditions"
+              "Observation is always cheaper than everything",
+              "Surveys only work for adults over 40"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Children struggle to articulate why they play a certain way, so watching them revealed truths a questionnaire would miss. The method fit the question."
           },
           {
             id: "mr7-mastery2",
+            concept: "Case Study: Research-Driven Launch",
             question: "What was the first step in LEGO's research-driven turnaround?",
             options: [
-              "Buying more advertising, based on common workplace assumptions",
+              "Buying more advertising",
               "Questioning its own assumptions about kids",
-              "Firing its entire design team, as many people wrongly believe",
-              "Copying a rival's product exactly, in the vast majority of situations"
+              "Firing its entire design team",
+              "Copying a rival's product exactly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Good research begins with the humility to test beliefs. LEGO's leaders had assumed they knew what kids wanted; questioning that opened the door to real insight."
           },
           {
             id: "mr7-mastery3",
+            concept: "Case Study: Research-Driven Launch",
             question: "How did LEGO use quantitative data alongside its observations?",
             options: [
-              "It ignored all sales numbers entirely, regardless of the specific circumstances",
+              "It ignored all sales numbers entirely",
               "It confirmed which product lines truly performed",
-              "It replaced observation with guessing, in nearly every real case",
-              "It only counted its own employees, according to most business textbooks"
+              "It replaced observation with guessing",
+              "It only counted its own employees"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Observation revealed why kids loved building; sales and market data confirmed which specific products to bet on at scale. Combining both made the strategy solid."
           },
           {
             id: "mr7-mastery4",
+            concept: "Case Study: Research-Driven Launch",
             question: "Which step in the playbook is often the hardest for founders?",
             options: [
-              "Choosing a research method, as a strict and unbreakable rule",
+              "Choosing a research method",
               "Acting on findings that contradict your original idea",
-              "Writing down an assumption, for essentially all companies today",
-              "Reading a published report, without any meaningful exceptions"
+              "Writing down an assumption",
+              "Reading a published report"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Research only pays off if it changes what you do. Abandoning a beloved original idea because the data disagrees takes discipline and puts evidence over ego."
           },
           {
             id: "mr7-mastery5",
+            concept: "Case Study: Research-Driven Launch",
             question: "What broader lesson does LEGO's comeback teach?",
             options: [
-              "Luck matters more than any research, under almost all normal conditions",
+              "Luck matters more than any research",
               "Structured research can replace wrong assumptions with real understanding",
-              "Big companies never need to listen to customers, based on common workplace assumptions",
-              "Guessing works fine if you guess confidently, as many people wrongly believe"
+              "Big companies never need to listen to customers",
+              "Guessing works fine if you guess confidently"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "LEGO did not get lucky; it disciplined itself to listen, test, and change. Research turned a costly wrong assumption into an accurate understanding of customers."
           },
           {
             id: "mr7-mastery6",
+            concept: "Case Study: Research-Driven Launch",
             question: "Can the LEGO playbook help a teen's small business?",
             options: [
-              "No, it only works for billion-dollar firms, in the vast majority of situations",
+              "No, it only works for billion-dollar firms",
               "Yes, questioning assumptions and testing scales to any size",
-              "No, teens cannot do any research, regardless of the specific circumstances",
-              "Only if they copy LEGO's exact products, in nearly every real case"
+              "No, teens cannot do any research",
+              "Only if they copy LEGO's exact products"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The playbook, question, test, combine, and act, scales down easily. A teen can observe, interview, and survey to replace guesses with evidence, just as LEGO did."
           }
         ]
@@ -1357,23 +1462,25 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm1-mc1",
+            concept: "Leadership vs Management",
             question: "Which best captures the difference between management and leadership?",
             options: [
-              "Managers set the vision; leaders handle the budget, according to most business textbooks",
+              "Managers set the vision; leaders handle the budget",
               "Managers do things right; leaders do the right things",
-              "They are exactly the same job, as a strict and unbreakable rule",
-              "Leadership requires a CEO title, for essentially all companies today"
+              "They are exactly the same job",
+              "Leadership requires a CEO title"
             ],
             correctAnswer: 1,
             explanation: "Management focuses on running the system correctly, while leadership focuses on choosing the right direction and inspiring people. Both are needed, and neither requires a specific title."
           },
           {
             id: "lm1-mc2",
+            concept: "Leadership vs Management",
             question: "Why is 'execution without vision' a problem?",
             options: [
               "It means work is done too slowly",
               "People march efficiently in the wrong direction",
-              "It always costs too much money, without any meaningful exceptions",
+              "It always costs too much money",
               "It removes the need for any managers"
             ],
             correctAnswer: 1,
@@ -1396,12 +1503,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm1-aq1",
+          concept: "Leadership vs Management",
           question: "What does Tara's role best demonstrate?",
           options: [
-              "That leadership requires an official title to exist, under almost all normal conditions",
+              "That leadership requires an official title to exist",
               "That one person can blend leadership and management without formal authority",
-              "That management alone is enough for any project, based on common workplace assumptions",
-              "That vision matters more than execution every time, as many people wrongly believe"
+              "That management alone is enough for any project",
+              "That vision matters more than execution every time"
             ],
             correctAnswer: 1,
           explanation: "Tara inspires direction (leadership) and organizes the work (management) with no title at all. Real influence comes from trust and example, not from a position of authority."
@@ -1423,18 +1531,21 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm1-mastery1",
+            concept: "Leadership vs Management",
             question: "Which activity is a management task rather than a leadership one?",
             options: [
               "Inspiring the team with a bold vision",
               "Building a schedule and tracking a budget",
-              "Rallying staff through a crisis, in the vast majority of situations",
+              "Rallying staff through a crisis",
               "Convincing people a goal is worth it"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Planning, organizing, and budgeting are management tasks about running the system. Inspiring, rallying, and setting direction are leadership behaviors."
           },
           {
             id: "lm1-mastery2",
+            concept: "Leadership vs Management",
             question: "A company full of great ideas but poor at execution likely lacks what?",
             options: [
               "Strong leadership",
@@ -1443,34 +1554,40 @@ export const deepBizC: StructuredLessonContent[] = [
               "A product to sell"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Ideas without execution signal weak management. Leadership generates vision, but management turns that vision into organized, completed work."
           },
           {
             id: "lm1-mastery3",
+            concept: "Leadership vs Management",
             question: "When does strong leadership matter most?",
             options: [
-              "Only when profits are high, regardless of the specific circumstances",
+              "Only when profits are high",
               "During times of change, crisis, or a big pivot",
-              "Only in stable, unchanging periods, in nearly every real case",
-              "Never, if managers are competent, according to most business textbooks"
+              "Only in stable, unchanging periods",
+              "Never, if managers are competent"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Change demands someone to set a new direction and rally people through uncertainty. Stable times reward management, but upheaval calls for leadership."
           },
           {
             id: "lm1-mastery4",
+            concept: "Leadership vs Management",
             question: "What is the difference between authority and influence?",
             options: [
-              "Authority is earned; influence comes with a title, as a strict and unbreakable rule",
+              "Authority is earned; influence comes with a title",
               "Authority is formal power; influence is earned through trust",
-              "They mean exactly the same thing, for essentially all companies today",
-              "Influence only exists for CEOs, without any meaningful exceptions"
+              "They mean exactly the same thing",
+              "Influence only exists for CEOs"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Authority is the formal power a title grants, while influence is earned by building trust and setting an example. The best leaders rely on both."
           },
           {
             id: "lm1-mastery5",
+            concept: "Leadership vs Management",
             question: "What happens to a business that is all leadership and no management?",
             options: [
               "It runs with perfect efficiency",
@@ -1479,18 +1596,21 @@ export const deepBizC: StructuredLessonContent[] = [
               "It never needs any vision"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Pure leadership generates vision but lacks the discipline to organize and deliver. Without management, promising ideas collapse into chaos before they are executed."
           },
           {
             id: "lm1-mastery6",
+            concept: "Leadership vs Management",
             question: "Why can a new employee still be a leader?",
             options: [
-              "Because all new employees get authority, under almost all normal conditions",
+              "Because all new employees get authority",
               "Because leadership is influence, not a title",
-              "Because titles do not exist anymore, based on common workplace assumptions",
-              "Because managers are always poor leaders, as many people wrongly believe"
+              "Because titles do not exist anymore",
+              "Because managers are always poor leaders"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Leadership is about inspiring and setting direction, which anyone can do by earning trust. A junior person who rallies teammates around a better idea is leading."
           }
         ]
@@ -1543,9 +1663,10 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm2-mc1",
+            concept: "Leadership Styles",
             question: "Which leadership style involves the leader making decisions alone and expecting them followed?",
             options: [
-              "Democratic, in the vast majority of situations",
+              "Democratic",
               "Autocratic",
               "Laissez-faire",
               "Transformational"
@@ -1555,12 +1676,13 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm2-mc2",
+            concept: "Leadership Styles",
             question: "What is the main tradeoff of the democratic style?",
             options: [
               "It removes all buy-in from the team",
               "It boosts buy-in but takes more time",
-              "It only works in emergencies, regardless of the specific circumstances",
-              "It ignores everyone's opinions, in nearly every real case"
+              "It only works in emergencies",
+              "It ignores everyone's opinions"
             ],
             correctAnswer: 1,
             explanation: "Sharing decisions builds ownership and surfaces better ideas, but gathering input is slower. Not every decision deserves a committee, so timing matters."
@@ -1582,12 +1704,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm2-aq1",
+          concept: "Leadership Styles",
           question: "Why does Marcus give the new hire close guidance but the veteran full freedom?",
           options: [
-              "Because new hires always perform better than veterans, according to most business textbooks",
+              "Because new hires always perform better than veterans",
               "Because style should match each person's experience and needs",
-              "Because laissez-faire works best for everyone, as a strict and unbreakable rule",
-              "Because autocratic leadership fits all situations, for essentially all companies today"
+              "Because laissez-faire works best for everyone",
+              "Because autocratic leadership fits all situations"
             ],
             correctAnswer: 1,
           explanation: "The same style empowers one person and suffocates another. New employees need direction and structure, while experienced ones do their best work with autonomy."
@@ -1609,6 +1732,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm2-mastery1",
+            concept: "Leadership Styles",
             question: "Which style best fits a genuine crisis needing fast, clear decisions?",
             options: [
               "Laissez-faire",
@@ -1617,66 +1741,77 @@ export const deepBizC: StructuredLessonContent[] = [
               "Purely hands-off"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Autocratic leadership is fast and clear, ideal in emergencies where a quick decision matters more than group input. A crisis is no time for a vote."
           },
           {
             id: "lm2-mastery2",
+            concept: "Leadership Styles",
             question: "What does the laissez-faire style risk with an inexperienced team?",
             options: [
-              "Too much micromanaging, without any meaningful exceptions",
+              "Too much micromanaging",
               "Leaderless drift and missed deadlines",
-              "Excessive group voting, under almost all normal conditions",
-              "An overload of vision, based on common workplace assumptions"
+              "Excessive group voting",
+              "An overload of vision"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Hands-off leadership frees skilled experts but leaves an unsure team without direction, sliding into drift, confusion, and missed deadlines."
           },
           {
             id: "lm2-mastery3",
+            concept: "Leadership Styles",
             question: "What defines transformational leadership?",
             options: [
-              "Making every decision alone, as many people wrongly believe",
+              "Making every decision alone",
               "Inspiring people toward a bigger vision and growth",
-              "Leaving the team completely alone, in the vast majority of situations",
-              "Avoiding any real change, regardless of the specific circumstances"
+              "Leaving the team completely alone",
+              "Avoiding any real change"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Transformational leaders paint a compelling future, model values, and challenge people to stretch, sparking loyalty and growth, provided they follow through with action."
           },
           {
             id: "lm2-mastery4",
+            concept: "Leadership Styles",
             question: "Why should a leader adjust style per person?",
             options: [
-              "Because rules should never apply to anyone, in nearly every real case",
+              "Because rules should never apply to anyone",
               "Because the same style can empower one and suffocate another",
-              "Because experience never matters, according to most business textbooks, as a strict and unbreakable rule",
-              "Because autocratic always works best, for essentially all companies today"
+              "Because experience never matters",
+              "Because autocratic always works best"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "People differ: new employees need structure while experts want autonomy. Adjusting per person offers guidance where needed and freedom where it helps."
           },
           {
             id: "lm2-mastery5",
+            concept: "Leadership Styles",
             question: "What happens if a leader is always democratic?",
             options: [
               "Decisions crawl while awaiting consensus",
               "The team gets no say at all",
-              "Morale collapses instantly, without any meaningful exceptions",
-              "Experts always feel micromanaged, under almost all normal conditions"
+              "Morale collapses instantly",
+              "Experts always feel micromanaged"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Constant democracy slows everything down, since every choice waits for input. Some decisions need speed, so overusing this style stalls the team."
           },
           {
             id: "lm2-mastery6",
+            concept: "Leadership Styles",
             question: "What is the mark of a mature leader regarding style?",
             options: [
-              "Sticking to one signature style forever, based on common workplace assumptions",
+              "Sticking to one signature style forever",
               "Switching styles deliberately to fit the situation",
-              "Always avoiding autocratic choices, as many people wrongly believe",
-              "Only using transformational speeches, in the vast majority of situations"
+              "Always avoiding autocratic choices",
+              "Only using transformational speeches"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Leadership is judgment: reading the task, team, and moment, then choosing the right style. Holding several styles in your toolkit beats one rigid approach."
           }
         ]
@@ -1729,24 +1864,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm3-mc1",
+            concept: "Motivation Theories",
             question: "According to Maslow, which need must generally be met before higher ones can motivate?",
             options: [
-              "Self-actualization, regardless of the specific circumstances",
+              "Self-actualization",
               "Basic safety and physiological needs",
-              "Esteem and recognition, in nearly every real case",
-              "A sense of belonging, according to most business textbooks"
+              "Esteem and recognition",
+              "A sense of belonging"
             ],
             correctAnswer: 1,
             explanation: "Maslow's pyramid is met bottom-up. Basic physiological and safety needs, like pay and security, must be reasonably satisfied before higher needs can motivate."
           },
           {
             id: "lm3-mc2",
+            concept: "Motivation Theories",
             question: "In Herzberg's theory, what does fixing 'hygiene factors' accomplish?",
             options: [
-              "It creates strong, lasting motivation, as a strict and unbreakable rule",
+              "It creates strong, lasting motivation",
               "It removes dissatisfaction but does not truly inspire",
-              "It replaces the need for any recognition, for essentially all companies today",
-              "It guarantees top performance, without any meaningful exceptions"
+              "It replaces the need for any recognition",
+              "It guarantees top performance"
             ],
             correctAnswer: 1,
             explanation: "Good hygiene factors (pay, conditions, policies) get people to neutral by removing dissatisfaction, but real motivation comes from motivators like achievement and recognition."
@@ -1768,12 +1905,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm3-aq1",
+          concept: "Motivation Theories",
           question: "Why does Elena focus on recognition and responsibility rather than another raise?",
           options: [
-              "Because pay is already a strong long-term motivator, under almost all normal conditions",
+              "Because pay is already a strong long-term motivator",
               "Because motivators, not more pay, drive lasting engagement once hygiene is met",
-              "Because recognition costs the company nothing to ignore, based on common workplace assumptions",
-              "Because Maslow says money is the highest need, as many people wrongly believe"
+              "Because recognition costs the company nothing to ignore",
+              "Because Maslow says money is the highest need"
             ],
             correctAnswer: 1,
           explanation: "Pay was already adequate (hygiene met), so more money would fade fast. Herzberg's motivators, recognition, responsibility, and growth, are what actually create lasting engagement."
@@ -1795,6 +1933,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm3-mastery1",
+            concept: "Motivation Theories",
             question: "What sits at the very top of Maslow's hierarchy?",
             options: [
               "Safety needs",
@@ -1803,66 +1942,77 @@ export const deepBizC: StructuredLessonContent[] = [
               "Belonging"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Self-actualization, growing into your fullest potential, sits at the top. It becomes a driver only once lower needs like safety and belonging are met."
           },
           {
             id: "lm3-mastery2",
+            concept: "Motivation Theories",
             question: "Why won't a lofty mission inspire an employee afraid of being fired?",
             options: [
-              "Because missions never motivate anyone, in the vast majority of situations",
+              "Because missions never motivate anyone",
               "Because an unmet safety need blocks higher motivation",
-              "Because esteem is the lowest need, regardless of the specific circumstances",
-              "Because fear is a motivator by itself, in nearly every real case"
+              "Because esteem is the lowest need",
+              "Because fear is a motivator by itself"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Maslow's base must be satisfied first. An unmet safety need (fear of firing) blocks higher needs, so vision cannot inspire until security feels solid."
           },
           {
             id: "lm3-mastery3",
+            concept: "Motivation Theories",
             question: "Which is an example of a Herzberg motivator?",
             options: [
-              "The company's vacation policy, according to most business textbooks",
+              "The company's vacation policy",
               "Recognition for great work",
               "The office parking situation",
               "The base salary amount"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Recognition, achievement, responsibility, and growth are motivators that drive people to excel. Policies, parking, and salary are hygiene factors that only prevent dissatisfaction."
           },
           {
             id: "lm3-mastery4",
+            concept: "Motivation Theories",
             question: "Why does Herzberg call money mostly a 'hygiene factor'?",
             options: [
-              "Because money is never important, as a strict and unbreakable rule",
+              "Because money is never important",
               "Because a raise removes dissatisfaction but its boost fades fast",
-              "Because pay is the top motivator forever, for essentially all companies today",
-              "Because money causes dissatisfaction, without any meaningful exceptions, under almost all normal conditions"
+              "Because pay is the top motivator forever",
+              "Because money causes dissatisfaction"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A raise stops someone feeling underpaid, but the effect is short-lived and rarely creates lasting drive. Deeper motivation comes from motivators, not pay."
           },
           {
             id: "lm3-mastery5",
+            concept: "Motivation Theories",
             question: "What is the practical sequence combining both theories?",
             options: [
-              "Add motivators first, ignore hygiene, based on common workplace assumptions",
+              "Add motivators first, ignore hygiene",
               "Fix hygiene factors first, then layer on motivators",
-              "Only ever use pay to motivate, as many people wrongly believe",
-              "Skip basics and inspire with vision alone, in the vast majority of situations"
+              "Only ever use pay to motivate",
+              "Skip basics and inspire with vision alone"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Get the basics right so people are not dissatisfied (like Maslow's lower rungs), then add responsibility, recognition, and challenge to unlock real engagement."
           },
           {
             id: "lm3-mastery6",
+            concept: "Motivation Theories",
             question: "What common mistake do these theories warn managers against?",
             options: [
-              "Recognizing employees too often, regardless of the specific circumstances",
+              "Recognizing employees too often",
               "Assuming money alone fixes motivation",
-              "Giving employees any responsibility, in nearly every real case",
+              "Giving employees any responsibility",
               "Meeting basic needs at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Both theories show that pay only removes dissatisfaction. Managers who pull only the money lever miss cheaper, deeper motivators like recognition and growth."
           }
         ]
@@ -1915,9 +2065,10 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm4-mc1",
+            concept: "Organizational Structures",
             question: "What does 'span of control' refer to?",
             options: [
-              "The company's total yearly revenue, according to most business textbooks",
+              "The company's total yearly revenue",
               "How many people one manager oversees",
               "The number of products a company sells",
               "How tall the office building is"
@@ -1927,6 +2078,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm4-mc2",
+            concept: "Organizational Structures",
             question: "What is a main weakness of a functional structure?",
             options: [
               "It builds no expertise at all",
@@ -1954,12 +2106,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm4-aq1",
+          concept: "Organizational Structures",
           question: "Why can't BrightBox simply stay flat as it did at 12 people?",
           options: [
-              "Flat structures are illegal past 100 employees, as a strict and unbreakable rule",
+              "Flat structures are illegal past 100 employees",
               "Too few layers at scale causes unclear responsibility and overworked leaders",
-              "Flat structures always cost more than tall ones, for essentially all companies today",
-              "Hierarchy makes decisions faster than flatness, without any meaningful exceptions, under almost all normal conditions"
+              "Flat structures always cost more than tall ones",
+              "Hierarchy makes decisions faster than flatness"
             ],
             correctAnswer: 1,
           explanation: "Flatness gives speed when small, but at 250 people too few managers means confusion over responsibility and overloaded leaders. Growth usually requires adding some structure."
@@ -1981,18 +2134,21 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm4-mastery1",
+            concept: "Organizational Structures",
             question: "What is a key advantage of a hierarchical (tall) structure?",
             options: [
-              "The fastest possible decisions, based on common workplace assumptions",
+              "The fastest possible decisions",
               "Clear authority and defined career ladders",
-              "No managers needed at all, as many people wrongly believe",
-              "Zero duplication of any roles, in the vast majority of situations"
+              "No managers needed at all",
+              "Zero duplication of any roles"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Tall hierarchies give clear lines of authority and defined career paths, helping large firms stay coordinated, though decisions move more slowly through many layers."
           },
           {
             id: "lm4-mastery2",
+            concept: "Organizational Structures",
             question: "A wide span of control tends to create what kind of structure?",
             options: [
               "A taller hierarchy",
@@ -2001,54 +2157,63 @@ export const deepBizC: StructuredLessonContent[] = [
               "A matrix with two bosses"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "When each manager oversees many people (wide span), fewer layers are needed, producing a flatter structure with more autonomy and less close supervision."
           },
           {
             id: "lm4-mastery3",
+            concept: "Organizational Structures",
             question: "How does a divisional structure group people?",
             options: [
-              "Purely by job specialty, regardless of the specific circumstances",
+              "Purely by job specialty",
               "By product, region, or customer type",
-              "By height of the manager, in nearly every real case",
-              "By years of employment only, according to most business textbooks"
+              "By height of the manager",
+              "By years of employment only"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Divisional structures group people around products, regions, or customer types, each division holding its own functions, which adds nimbleness but duplicates some roles."
           },
           {
             id: "lm4-mastery4",
+            concept: "Organizational Structures",
             question: "What is the main tradeoff of a divisional structure?",
             options: [
-              "It builds no accountability, as a strict and unbreakable rule",
+              "It builds no accountability",
               "It duplicates roles and scatters expertise",
               "It makes each division far too slow",
-              "It removes all market focus, for essentially all companies today"
+              "It removes all market focus"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Divisions gain speed and accountability but each may run its own marketing or finance team, duplicating roles and spreading expertise thinner than a functional setup."
           },
           {
             id: "lm4-mastery5",
+            concept: "Organizational Structures",
             question: "What defines a matrix structure?",
             options: [
               "Employees report to two bosses at once",
-              "There are no managers whatsoever, without any meaningful exceptions",
-              "Everyone works completely alone, under almost all normal conditions",
-              "Only one product is ever made, based on common workplace assumptions"
+              "There are no managers whatsoever",
+              "Everyone works completely alone",
+              "Only one product is ever made"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "In a matrix, an employee reports to two managers, such as a functional lead and a project lead, blending expertise with focus but risking conflicting demands."
           },
           {
             id: "lm4-mastery6",
+            concept: "Organizational Structures",
             question: "Why do many startups begin flat but add hierarchy as they grow?",
             options: [
               "Because flat structures are illegal for big firms",
               "Because scale needs more structure to stay coordinated",
-              "Because hierarchy is always cheaper, as many people wrongly believe",
-              "Because flat structures never allow any speed, in the vast majority of situations"
+              "Because hierarchy is always cheaper",
+              "Because flat structures never allow any speed"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Flatness gives speed when small, but as headcount grows, some hierarchy becomes necessary to keep responsibilities clear and the organization coordinated."
           }
         ]
@@ -2101,24 +2266,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm5-mc1",
+            concept: "Human Resources Basics",
             question: "What is the difference between recruitment and selection?",
             options: [
               "Recruitment attracts candidates; selection chooses the best fit",
-              "They are exactly the same step, regardless of the specific circumstances",
-              "Selection attracts candidates; recruitment fires them, in nearly every real case",
-              "Recruitment only applies to managers, according to most business textbooks"
+              "They are exactly the same step",
+              "Selection attracts candidates; recruitment fires them",
+              "Recruitment only applies to managers"
             ],
             correctAnswer: 0,
             explanation: "Recruitment attracts a pool of candidates through job postings and outreach, while selection screens, interviews, and chooses the best fit from that pool."
           },
           {
             id: "lm5-mc2",
+            concept: "Human Resources Basics",
             question: "Why does strong onboarding matter?",
             options: [
-              "It replaces the need to ever pay employees, as a strict and unbreakable rule",
+              "It replaces the need to ever pay employees",
               "It boosts retention and helps new hires become productive",
-              "It only matters for executives, for essentially all companies today",
-              "It lets companies skip all training, without any meaningful exceptions"
+              "It only matters for executives",
+              "It lets companies skip all training"
             ],
             correctAnswer: 1,
             explanation: "Good onboarding welcomes and trains new hires so they feel they belong and become productive. It significantly improves whether people stay long-term."
@@ -2140,11 +2307,12 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm5-aq1",
+          concept: "Human Resources Basics",
           question: "Which change would most directly reduce Priya's early turnover?",
           options: [
-              "Interview even faster to hire more people, under almost all normal conditions",
+              "Interview even faster to hire more people",
               "Add a real onboarding process for new hires",
-              "Cut feedback to once every two years, based on common workplace assumptions",
+              "Cut feedback to once every two years",
               "Hire only for skills and never consider fit"
             ],
             correctAnswer: 1,
@@ -2167,74 +2335,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm5-mastery1",
+            concept: "Human Resources Basics",
             question: "Why should hiring balance skills with 'fit'?",
             options: [
-              "Because fit is the only thing that matters, as many people wrongly believe",
+              "Because fit is the only thing that matters",
               "Because a skilled person who clashes can cost more than they add",
-              "Because skills never matter at all, in the vast majority of situations",
-              "Because fit means being the cheapest hire, regardless of the specific circumstances"
+              "Because skills never matter at all",
+              "Because fit means being the cheapest hire"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Skills show someone can do the job, but poor fit with the team or culture can create friction that outweighs their talent. Good hiring weighs both."
           },
           {
             id: "lm5-mastery2",
+            concept: "Human Resources Basics",
             question: "How do structured interviews help hiring?",
             options: [
-              "They let interviewers skip all preparation, in nearly every real case",
+              "They let interviewers skip all preparation",
               "Asking every candidate the same questions reduces bias",
-              "They guarantee a perfect hire every time, according to most business textbooks",
-              "They remove the need to check references, as a strict and unbreakable rule"
+              "They guarantee a perfect hire every time",
+              "They remove the need to check references"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Using the same core questions for each candidate makes comparisons fair and reduces bias, helping managers judge people on consistent grounds."
           },
           {
             id: "lm5-mastery3",
+            concept: "Human Resources Basics",
             question: "What distinguishes training from development?",
             options: [
               "Training builds current skills; development prepares for future roles",
-              "They are identical activities, for essentially all companies today",
-              "Development is only for new hires, without any meaningful exceptions",
-              "Training is illegal for managers, under almost all normal conditions"
+              "They are identical activities",
+              "Development is only for new hires",
+              "Training is illegal for managers"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Training sharpens the skills someone needs now, while development prepares them for bigger future roles. Both improve performance and encourage people to stay."
           },
           {
             id: "lm5-mastery4",
+            concept: "Human Resources Basics",
             question: "What makes a performance review effective?",
             options: [
               "Surprising the employee with a year of criticism",
               "Two-way, specific feedback tied to clear goals",
-              "Keeping all feedback vague and general, based on common workplace assumptions",
+              "Keeping all feedback vague and general",
               "Only listing what the employee did wrong"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Good reviews are conversations with specific feedback and clear goals, ideally with no surprises because feedback is continuous. Vague or purely negative reviews demoralize people."
           },
           {
             id: "lm5-mastery5",
+            concept: "Human Resources Basics",
             question: "Why is retention usually cheaper than high turnover?",
             options: [
-              "Because employees never need any pay, as many people wrongly believe",
+              "Because employees never need any pay",
               "Because each departure drains money and lost knowledge",
               "Because new hires are always free to train",
-              "Because turnover improves team performance, in the vast majority of situations"
+              "Because turnover improves team performance"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Every resignation takes experience out the door and costs money to replace. Keeping valued, growing employees avoids the repeated expense of rehiring and retraining."
           },
           {
             id: "lm5-mastery6",
+            concept: "Human Resources Basics",
             question: "A top performer quits citing 'no room to grow.' What does this suggest?",
             options: [
-              "The cause was random and unfixable, regardless of the specific circumstances",
+              "The cause was random and unfixable",
               "A fixable gap in development and growth opportunities",
-              "The employee simply disliked being paid, in nearly every real case",
-              "Retention is impossible to influence, according to most business textbooks"
+              "The employee simply disliked being paid",
+              "Retention is impossible to influence"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Losing talent to 'no growth' points to a fixable cause. Adding promotion paths and training often reduces turnover for far less than the cost of constant rehiring."
           }
         ]
@@ -2287,9 +2467,10 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm6-mc1",
+            concept: "Conflict Resolution & Communication",
             question: "Which conflict approach works hardest to satisfy everyone involved?",
             options: [
-              "Avoiding, as a strict and unbreakable rule",
+              "Avoiding",
               "Collaborating",
               "Competing",
               "Accommodating"
@@ -2299,12 +2480,13 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm6-mc2",
+            concept: "Conflict Resolution & Communication",
             question: "Why are 'I' statements better than 'you' statements in conflict?",
             options: [
-              "They make the other person feel blamed, for essentially all companies today",
+              "They make the other person feel blamed",
               "They express your view without attacking, reducing defensiveness",
-              "They avoid mentioning the issue at all, without any meaningful exceptions",
-              "They only work in written emails, under almost all normal conditions"
+              "They avoid mentioning the issue at all",
+              "They only work in written emails"
             ],
             correctAnswer: 1,
             explanation: "'I felt confused when...' shares your experience without accusation, while 'You always...' puts people on the defensive and escalates the conflict."
@@ -2326,12 +2508,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm6-aq1",
+          concept: "Conflict Resolution & Communication",
           question: "Why does Sam start by listening rather than immediately proposing a fix?",
           options: [
-              "Because listening wastes time in every conflict, based on common workplace assumptions",
+              "Because listening wastes time in every conflict",
               "Because many disputes are really about someone feeling unheard",
-              "Because he wants to avoid the issue entirely, as many people wrongly believe",
-              "Because competing is the best first move, in the vast majority of situations"
+              "Because he wants to avoid the issue entirely",
+              "Because competing is the best first move"
             ],
             correctAnswer: 1,
           explanation: "Much conflict stems from feeling ignored or dismissed. Active listening makes both sides feel heard, which lowers tension and often reveals the true issue before fixing it."
@@ -2353,74 +2536,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm6-mastery1",
+            concept: "Conflict Resolution & Communication",
             question: "Why is some conflict actually healthy for a team?",
             options: [
-              "Because it always turns personal, regardless of the specific circumstances",
+              "Because it always turns personal",
               "Because openly debating ideas leads to better decisions",
               "Because it eliminates the need for any communication",
-              "Because silence solves every problem, in nearly every real case"
+              "Because silence solves every problem"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Healthy conflict debates ideas openly, producing better decisions than fake agreement where problems fester unspoken. The danger is only when conflict turns personal."
           },
           {
             id: "lm6-mastery2",
+            concept: "Conflict Resolution & Communication",
             question: "When is 'avoiding' a reasonable way to handle conflict?",
             options: [
-              "For every important disagreement, according to most business textbooks",
+              "For every important disagreement",
               "For trivial matters not worth the friction",
               "In a genuine emergency needing fast action",
               "Whenever you want to win at all costs"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Avoiding suits truly trivial issues, but it is disastrous for important ones, which then explode later. Emergencies call for competing, not avoiding."
           },
           {
             id: "lm6-mastery3",
+            concept: "Conflict Resolution & Communication",
             question: "What is active listening?",
             options: [
-              "Waiting quietly for your turn to talk, as a strict and unbreakable rule",
+              "Waiting quietly for your turn to talk",
               "Focusing fully and reflecting back what you heard",
-              "Interrupting to correct the speaker, for essentially all companies today",
-              "Ignoring the speaker's main point, without any meaningful exceptions"
+              "Interrupting to correct the speaker",
+              "Ignoring the speaker's main point"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Active listening means concentrating on the speaker, asking clarifying questions, and reflecting back their message, which makes people feel heard and lowers tension."
           },
           {
             id: "lm6-mastery4",
+            concept: "Conflict Resolution & Communication",
             question: "What is the danger of letting an important conflict fester in silence?",
             options: [
-              "It resolves itself perfectly over time, under almost all normal conditions",
+              "It resolves itself perfectly over time",
               "It grows into resentment and quiet quitting",
-              "It improves team trust automatically, based on common workplace assumptions",
+              "It improves team trust automatically",
               "It has no effect on the team at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Ignored conflicts breed resentment and disengagement. Naming a problem calmly and early is far easier than untangling months of built-up tension."
           },
           {
             id: "lm6-mastery5",
+            concept: "Conflict Resolution & Communication",
             question: "Which is an example of good, behavior-focused feedback?",
             options: [
-              "'You are just a lazy person', as many people wrongly believe",
+              "'You are just a lazy person'",
               "'The report was late twice this week'",
-              "'You always ruin everything', in the vast majority of situations",
-              "'Everyone thinks you are careless', regardless of the specific circumstances"
+              "'You always ruin everything'",
+              "'Everyone thinks you are careless'"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Good feedback targets specific behavior ('late twice this week'), not character. Attacking someone as 'lazy' provokes defensiveness and does not help them improve."
           },
           {
             id: "lm6-mastery6",
+            concept: "Conflict Resolution & Communication",
             question: "Why does choosing the right communication channel matter?",
             options: [
-              "Because all channels are exactly equal, in nearly every real case, according to most business textbooks",
+              "Because all channels are exactly equal",
               "Because a sensitive topic deserves a real conversation, not a cold text",
-              "Because texting is best for every situation, as a strict and unbreakable rule",
-              "Because channels never affect how a message lands, for essentially all companies today"
+              "Because texting is best for every situation",
+              "Because channels never affect how a message lands"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A sensitive issue delivered by cold text is easily misread and can escalate. Matching the channel to the message, using conversation for delicate topics, helps it land well."
           }
         ]
@@ -2473,24 +2668,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm7-mc1",
+            concept: "Case Study: Satya Nadella at Microsoft",
             question: "What was the core of Nadella's transformation at Microsoft?",
             options: [
-              "Launching one flashy new gadget, without any meaningful exceptions",
+              "Launching one flashy new gadget",
               "Shifting the culture from 'know-it-all' to 'learn-it-all'",
-              "Firing most of the employees, under almost all normal conditions",
-              "Ignoring the cloud entirely, based on common workplace assumptions"
+              "Firing most of the employees",
+              "Ignoring the cloud entirely"
             ],
             correctAnswer: 1,
             explanation: "Nadella focused on culture, moving from a defensive know-it-all mindset to a curious learn-it-all one, which then enabled better strategy and execution."
           },
           {
             id: "lm7-mc2",
+            concept: "Case Study: Satya Nadella at Microsoft",
             question: "Which leadership style best describes Nadella's approach?",
             options: [
-              "Purely autocratic command, as many people wrongly believe",
+              "Purely autocratic command",
               "Transformational, inspiring a new mindset and vision",
-              "Hands-off laissez-faire, in the vast majority of situations",
-              "Avoiding all change, regardless of the specific circumstances"
+              "Hands-off laissez-faire",
+              "Avoiding all change"
             ],
             correctAnswer: 1,
             explanation: "Nadella inspired people toward a bigger vision and reshaped their beliefs and behaviors, the hallmark of transformational leadership, rather than just issuing orders."
@@ -2512,12 +2709,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm7-aq1",
+          concept: "Case Study: Satya Nadella at Microsoft",
           question: "Why does Rosa change the culture before launching the ambitious project?",
           options: [
-              "Because culture change is legally required first, in nearly every real case",
+              "Because culture change is legally required first",
               "Because a healthier culture lets the team actually execute bold strategy",
-              "Because projects never matter to results, according to most business textbooks",
-              "Because rankings improve collaboration, as a strict and unbreakable rule, for essentially all companies today"
+              "Because projects never matter to results",
+              "Because rankings improve collaboration"
             ],
             correctAnswer: 1,
           explanation: "Like Nadella, Rosa fixes the human system first. A collaborative, learning culture can execute bold plans without collapsing into turf wars, so culture must come before strategy."
@@ -2539,74 +2737,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm7-mastery1",
+            concept: "Case Study: Satya Nadella at Microsoft",
             question: "What problem did Microsoft face when Nadella became CEO?",
             options: [
-              "It had no employees left, without any meaningful exceptions, under almost all normal conditions",
+              "It had no employees left",
               "It was huge but stuck, with a toxic, competitive culture",
-              "It had never made any profit, based on common workplace assumptions",
-              "It dominated the mobile market, as many people wrongly believe"
+              "It had never made any profit",
+              "It dominated the mobile market"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "By 2014 Microsoft was large but stalled, having missed mobile and search, with a culture full of internal competition and politics that slowed everything down."
           },
           {
             id: "lm7-mastery2",
+            concept: "Case Study: Satya Nadella at Microsoft",
             question: "What defines a 'learn-it-all' culture?",
             options: [
-              "People hoard knowledge to look smart, in the vast majority of situations",
+              "People hoard knowledge to look smart",
               "People stay curious and admit what they do not know",
-              "People fear every mistake, regardless of the specific circumstances, in nearly every real case",
-              "People avoid all collaboration, according to most business textbooks, as a strict and unbreakable rule"
+              "People fear every mistake",
+              "People avoid all collaboration"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A learn-it-all culture values curiosity, admitting gaps, and growth, the opposite of a know-it-all culture where people protect their image and hoard knowledge."
           },
           {
             id: "lm7-mastery3",
+            concept: "Case Study: Satya Nadella at Microsoft",
             question: "How did Nadella reinforce the culture change through his own actions?",
             options: [
-              "By demanding perfection and hiding mistakes, for essentially all companies today",
+              "By demanding perfection and hiding mistakes",
               "By modeling empathy and admitting past mistakes",
-              "By keeping the brutal ranking system, without any meaningful exceptions",
+              "By keeping the brutal ranking system",
               "By ignoring how teams treated each other"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "He led by example, showing empathy, admitting errors, and rewarding collaboration, while ending the ranking system that had pitted colleagues against one another."
           },
           {
             id: "lm7-mastery4",
+            concept: "Case Study: Satya Nadella at Microsoft",
             question: "Which bold strategic move reflected the new culture?",
             options: [
-              "Refusing to touch cloud computing, under almost all normal conditions",
+              "Refusing to touch cloud computing",
               "Putting Office apps on rival platforms like the iPhone",
-              "Clinging only to Windows forever, based on common workplace assumptions",
-              "Mocking open-source software, as many people wrongly believe, in the vast majority of situations"
+              "Clinging only to Windows forever",
+              "Mocking open-source software"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Bringing Office to rival platforms, once taboo, showed the collaborative, customer-focused mindset. A healthier culture made such once-unthinkable moves possible."
           },
           {
             id: "lm7-mastery5",
+            concept: "Case Study: Satya Nadella at Microsoft",
             question: "What was the approximate result of Nadella's transformation in company value?",
             options: [
-              "It fell to nearly zero, regardless of the specific circumstances",
+              "It fell to nearly zero",
               "It grew from about $300 billion to over $2 trillion",
-              "It stayed exactly flat, in nearly every real case, according to most business textbooks",
-              "It shrank by half, as a strict and unbreakable rule"
+              "It stayed exactly flat",
+              "It shrank by half"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Microsoft's value climbed from roughly $300 billion to over $2 trillion, driven not by one product but by a leader who fixed the culture first."
           },
           {
             id: "lm7-mastery6",
+            concept: "Case Study: Satya Nadella at Microsoft",
             question: "What broad leadership lesson does Nadella's story teach?",
             options: [
-              "Only new products can revive a company, for essentially all companies today",
+              "Only new products can revive a company",
               "Empathy and culture change can drive hard business results",
-              "Softer skills never matter in business, without any meaningful exceptions",
-              "Leaders should ignore how people work together, under almost all normal conditions"
+              "Softer skills never matter in business",
+              "Leaders should ignore how people work together"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The story shows leadership of people, curiosity, empathy, and collaboration, can revive an organization. Fixing the human system first unlocked strategy and results."
           }
         ]
@@ -2663,24 +2873,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa1-mc1",
+            concept: "What Is Business Strategy?",
             question: "Which statement best captures what strategy is?",
             options: [
-              "Doing as many activities as possible at once, based on common workplace assumptions",
+              "Doing as many activities as possible at once",
               "Deliberate choices about where to play and how to win",
-              "Simply wishing to be the best company, as many people wrongly believe",
-              "Copying every competitor exactly, in the vast majority of situations"
+              "Simply wishing to be the best company",
+              "Copying every competitor exactly"
             ],
             correctAnswer: 1,
             explanation: "Strategy is deliberate choices about where to compete and how to win, including what NOT to do. Being busy or vaguely wanting to 'be the best' is not strategy."
           },
           {
             id: "sa1-mc2",
+            concept: "What Is Business Strategy?",
             question: "What makes a competitive advantage truly valuable?",
             options: [
-              "It can be copied by anyone quickly, regardless of the specific circumstances",
+              "It can be copied by anyone quickly",
               "It is durable and hard for rivals to match",
-              "It only lasts about one week, in nearly every real case",
-              "It relies solely on cutting prices, according to most business textbooks"
+              "It only lasts about one week",
+              "It relies solely on cutting prices"
             ],
             correctAnswer: 1,
             explanation: "A real advantage lasts because competitors cannot easily copy it. A brief price cut anyone can match is not durable and does not protect long-term profits."
@@ -2702,12 +2914,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa1-aq1",
+          concept: "What Is Business Strategy?",
           question: "Why does Shop B's approach reflect better strategy than Shop A's?",
           options: [
-              "Because it offers the widest possible menu, as a strict and unbreakable rule",
+              "Because it offers the widest possible menu",
               "Because it makes clear trade-offs to build a distinctive, hard-to-copy edge",
-              "Because it competes only on the lowest price, for essentially all companies today",
-              "Because it tries to serve every kind of customer, without any meaningful exceptions"
+              "Because it competes only on the lowest price",
+              "Because it tries to serve every kind of customer"
             ],
             correctAnswer: 1,
           explanation: "Shop B chooses what NOT to do, skipping a huge menu, to build a focused, differentiated advantage rivals struggle to copy. Shop A's do-everything approach lacks any real edge."
@@ -2729,42 +2942,49 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa1-mastery1",
+            concept: "What Is Business Strategy?",
             question: "Why is deciding what NOT to do central to strategy?",
             options: [
-              "Because doing everything makes a company strongest, under almost all normal conditions",
+              "Because doing everything makes a company strongest",
               "Because focus is what makes a company distinctive and effective",
-              "Because customers dislike all choices, based on common workplace assumptions",
-              "Because tactics matter more than direction, as many people wrongly believe"
+              "Because customers dislike all choices",
+              "Because tactics matter more than direction"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Trying to do everything usually means doing it all poorly. Strategy is about focus, choosing a lane and skipping the rest to build a real, distinctive edge."
           },
           {
             id: "sa1-mastery2",
+            concept: "What Is Business Strategy?",
             question: "What is the difference between strategy and tactics?",
             options: [
               "Strategy is the direction; tactics are the actions serving it",
-              "They are exactly the same thing, in the vast majority of situations",
-              "Tactics set direction; strategy handles small tasks, regardless of the specific circumstances",
-              "Strategy is only for tactics to ignore, in nearly every real case"
+              "They are exactly the same thing",
+              "Tactics set direction; strategy handles small tasks",
+              "Strategy is only for tactics to ignore"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Strategy is the big-picture direction (be the low-cost airline), while tactics are the specific actions that carry it out (one plane type, no free meals)."
           },
           {
             id: "sa1-mastery3",
+            concept: "What Is Business Strategy?",
             question: "Which is an example of a durable competitive 'moat'?",
             options: [
-              "A one-week discount sale, according to most business textbooks",
+              "A one-week discount sale",
               "A network effect that grows with more users",
-              "Copying a rival's slogan, as a strict and unbreakable rule",
-              "A random price cut anyone can match, for essentially all companies today"
+              "Copying a rival's slogan",
+              "A random price cut anyone can match"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Network effects, economies of scale, and switching costs are durable moats. A brief discount is easily copied and offers no lasting protection."
           },
           {
             id: "sa1-mastery4",
+            concept: "What Is Business Strategy?",
             question: "Why does being 'premium' require a trade-off?",
             options: [
               "Because premium firms must also be the cheapest",
@@ -2773,30 +2993,35 @@ export const deepBizC: StructuredLessonContent[] = [
               "Because it means serving everyone at once"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Choosing a premium position means you won't win bargain hunters, and that is intentional. The choices that make you premium clash with those that make you cheapest."
           },
           {
             id: "sa1-mastery5",
+            concept: "What Is Business Strategy?",
             question: "Why is being extremely busy not the same as being strategic?",
             options: [
-              "Because busy companies always fail, without any meaningful exceptions, under almost all normal conditions",
+              "Because busy companies always fail",
               "Because tasks may not point toward a coherent way to win",
-              "Because strategy requires doing nothing, based on common workplace assumptions, as many people wrongly believe",
-              "Because motion is always better than direction, in the vast majority of situations"
+              "Because strategy requires doing nothing",
+              "Because motion is always better than direction"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A company can work furiously on many tasks yet lack strategy if those tasks don't add up to a clear way to win. Direction beats mere motion."
           },
           {
             id: "sa1-mastery6",
+            concept: "What Is Business Strategy?",
             question: "Why must strategy keep adapting over time?",
             options: [
-              "Because advantages last forever once built, regardless of the specific circumstances",
+              "Because advantages last forever once built",
               "Because markets, tech, and tastes can erode an edge",
-              "Because strategy should never change at all, in nearly every real case",
-              "Because customers never change their minds, according to most business textbooks"
+              "Because strategy should never change at all",
+              "Because customers never change their minds"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "New technology, rivals, and shifting tastes can erode an advantage quickly. Great strategists commit to a direction but stay alert to adjust when the ground truly moves."
           }
         ]
@@ -2849,24 +3074,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa2-mc1",
+            concept: "KPIs - Measuring What Matters",
             question: "What is the difference between a leading and a lagging indicator?",
             options: [
               "Leading predicts future results; lagging measures past results",
-              "They are identical types of metrics, as a strict and unbreakable rule",
-              "Lagging predicts the future; leading looks backward, for essentially all companies today",
-              "Leading indicators are always wrong, without any meaningful exceptions"
+              "They are identical types of metrics",
+              "Lagging predicts the future; leading looks backward",
+              "Leading indicators are always wrong"
             ],
             correctAnswer: 0,
             explanation: "Leading indicators (like booked sales calls) hint at future outcomes, while lagging indicators (like last month's revenue) measure results that already happened. Both are useful."
           },
           {
             id: "sa2-mc2",
+            concept: "KPIs - Measuring What Matters",
             question: "What is a 'vanity metric'?",
             options: [
-              "A number that guides every key decision, under almost all normal conditions",
+              "A number that guides every key decision",
               "A number that looks impressive but doesn't drive decisions",
-              "A metric only used by nonprofits, based on common workplace assumptions",
-              "The most important KPI a company has, as many people wrongly believe"
+              "A metric only used by nonprofits",
+              "The most important KPI a company has"
             ],
             correctAnswer: 1,
             explanation: "A vanity metric, like total followers or raw downloads, looks good but doesn't inform real decisions. Better KPIs measure genuine value like active users or retention."
@@ -2888,12 +3115,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa2-aq1",
+          concept: "KPIs - Measuring What Matters",
           question: "Why does Dev focus on weekly active users instead of total downloads?",
           options: [
-              "Because downloads are impossible to count, in the vast majority of situations, regardless of the specific circumstances",
+              "Because downloads are impossible to count",
               "Because active users reflect real value, while downloads can be a vanity metric",
-              "Because higher download numbers always mean success, in nearly every real case, according to most business textbooks",
-              "Because he wants to ignore his users entirely, as a strict and unbreakable rule"
+              "Because higher download numbers always mean success",
+              "Because he wants to ignore his users entirely"
             ],
             correctAnswer: 1,
           explanation: "500,000 downloads looks impressive but is hollow if few people actually use the app. Weekly active users measures real, ongoing value, avoiding the vanity-metric trap."
@@ -2915,74 +3143,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa2-mastery1",
+            concept: "KPIs - Measuring What Matters",
             question: "What does the 'key' in Key Performance Indicator emphasize?",
             options: [
-              "That you should track every possible number, for essentially all companies today",
+              "That you should track every possible number",
               "That KPIs are the vital few that signal real progress",
-              "That KPIs must always be about money, without any meaningful exceptions",
-              "That only executives may see them, under almost all normal conditions"
+              "That KPIs must always be about money",
+              "That only executives may see them"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "'Key' means the vital few indicators that truly matter, not every metric a company could collect. Focusing on the few that signal progress beats drowning in data."
           },
           {
             id: "sa2-mastery2",
+            concept: "KPIs - Measuring What Matters",
             question: "Which is a properly formed, SMART KPI?",
             options: [
-              "Do better this year somehow, based on common workplace assumptions",
+              "Do better this year somehow",
               "Increase monthly repeat customers by 15% this quarter",
-              "Be the best company around, as many people wrongly believe",
-              "Make more people happy overall, in the vast majority of situations"
+              "Be the best company around",
+              "Make more people happy overall"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A SMART KPI is specific, measurable, and time-bound, like a 15% rise in repeat customers this quarter. 'Do better' has no number, target, or timeframe."
           },
           {
             id: "sa2-mastery3",
+            concept: "KPIs - Measuring What Matters",
             question: "Why track a leading indicator like weekly sales calls booked?",
             options: [
-              "It measures results that already happened, regardless of the specific circumstances",
+              "It measures results that already happened",
               "It acts as an early warning of future results",
-              "It is the same as revenue itself, in nearly every real case",
-              "It has no connection to outcomes, according to most business textbooks"
+              "It is the same as revenue itself",
+              "It has no connection to outcomes"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Leading indicators predict future outcomes, giving early warning. Booked calls this week hint at next month's revenue, letting you act before results are locked in."
           },
           {
             id: "sa2-mastery4",
+            concept: "KPIs - Measuring What Matters",
             question: "What does Goodhart's Law warn about?",
             options: [
-              "That metrics should never be measured, as a strict and unbreakable rule",
+              "That metrics should never be measured",
               "That once a metric becomes a target, people may game it",
-              "That KPIs always improve behavior, for essentially all companies today, without any meaningful exceptions",
-              "That leading indicators are useless, under almost all normal conditions, based on common workplace assumptions"
+              "That KPIs always improve behavior",
+              "That leading indicators are useless"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When a metric becomes a target, people may chase the number in ways that hurt the real goal, like rushing customers to boost call speed. Balanced KPIs reduce this risk."
           },
           {
             id: "sa2-mastery5",
+            concept: "KPIs - Measuring What Matters",
             question: "Why shouldn't a company copy a rival's KPIs blindly?",
             options: [
-              "Because copying is always illegal, as many people wrongly believe",
+              "Because copying is always illegal",
               "Because KPIs must fit your own specific strategy",
-              "Because rivals never use real KPIs, in the vast majority of situations",
-              "Because all businesses share one goal, regardless of the specific circumstances"
+              "Because rivals never use real KPIs",
+              "Because all businesses share one goal"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A growth-stage startup and a mature firm need different KPIs. Metrics must match your own strategy and goals, so blindly copying a competitor's numbers can mislead you."
           },
           {
             id: "sa2-mastery6",
+            concept: "KPIs - Measuring What Matters",
             question: "How does pairing call speed with a satisfaction score help?",
             options: [
-              "It lets agents ignore customers faster, in nearly every real case",
+              "It lets agents ignore customers faster",
               "It balances one metric so it can't be gamed alone",
-              "It removes the need for any KPIs, according to most business textbooks",
-              "It doubles the number of vanity metrics, as a strict and unbreakable rule"
+              "It removes the need for any KPIs",
+              "It doubles the number of vanity metrics"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Measuring speed alone tempts agents to rush customers. Adding a satisfaction score balances it, so hitting one number can't quietly wreck the real goal of good service."
           }
         ]
@@ -3035,9 +3275,10 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa3-mc1",
+            concept: "SWOT Analysis",
             question: "In SWOT, which two categories are INTERNAL to the company?",
             options: [
-              "Opportunities and Threats, for essentially all companies today",
+              "Opportunities and Threats",
               "Strengths and Weaknesses",
               "Strengths and Threats",
               "Weaknesses and Opportunities"
@@ -3047,6 +3288,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa3-mc2",
+            concept: "SWOT Analysis",
             question: "A new competitor entering the market is an example of a…",
             options: [
               "Strength",
@@ -3074,12 +3316,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa3-aq1",
+          concept: "SWOT Analysis",
           question: "How should Lena turn her SWOT into a real decision?",
           options: [
-              "List the four boxes and take no further action, without any meaningful exceptions, as many people wrongly believe",
+              "List the four boxes and take no further action",
               "Pair her loyal community strength against the chain-gym threat to defend her niche",
-              "Ignore the weakness since the space is fine, under almost all normal conditions",
-              "Treat the wellness trend as something she controls, based on common workplace assumptions"
+              "Ignore the weakness since the space is fine",
+              "Treat the wellness trend as something she controls"
             ],
             correctAnswer: 1,
           explanation: "The value of SWOT is pairing factors. Using her loyal-community strength to defend against the chain-gym threat turns four lists into a concrete strategy, which is the real goal."
@@ -3101,18 +3344,21 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa3-mastery1",
+            concept: "SWOT Analysis",
             question: "Which is the correct test for placing a factor in SWOT?",
             options: [
-              "Whether it sounds positive or negative, in the vast majority of situations",
+              "Whether it sounds positive or negative",
               "Whether it is internal (controlled) or external (faced)",
-              "Whether it involves money or not, regardless of the specific circumstances",
-              "Whether a competitor mentioned it, in nearly every real case"
+              "Whether it involves money or not",
+              "Whether a competitor mentioned it"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The core discipline is the internal-versus-external split. Strengths and Weaknesses live inside the company; Opportunities and Threats are outside forces it does not control."
           },
           {
             id: "sa3-mastery2",
+            concept: "SWOT Analysis",
             question: "A company's weak email marketing is best classified as a…",
             options: [
               "Threat",
@@ -3121,10 +3367,12 @@ export const deepBizC: StructuredLessonContent[] = [
               "External force"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Weak marketing is an internal disadvantage the company can change through its own decisions, so it is a Weakness, not an external Threat or Opportunity."
           },
           {
             id: "sa3-mastery3",
+            concept: "SWOT Analysis",
             question: "A growing market that a firm could ride is an example of a…",
             options: [
               "Weakness",
@@ -3133,42 +3381,49 @@ export const deepBizC: StructuredLessonContent[] = [
               "Internal factor"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A growing market is an external trend the company could exploit but does not control, making it an Opportunity. Strengths and Weaknesses are internal."
           },
           {
             id: "sa3-mastery4",
+            concept: "SWOT Analysis",
             question: "Why is listing only strengths a poor SWOT?",
             options: [
-              "Because strengths never matter, according to most business textbooks",
+              "Because strengths never matter",
               "Because ignoring weaknesses hides the real risk",
-              "Because SWOT bans strengths entirely, as a strict and unbreakable rule",
-              "Because strengths are always external, for essentially all companies today"
+              "Because SWOT bans strengths entirely",
+              "Because strengths are always external"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Weaknesses and threats are usually where real risk hides. A SWOT that flatters itself and skips honest weaknesses becomes useless self-congratulation."
           },
           {
             id: "sa3-mastery5",
+            concept: "SWOT Analysis",
             question: "What turns a basic SWOT into useful strategy?",
             options: [
               "Making the four lists as long as possible",
               "Pairing factors, like a strength against a threat",
-              "Deleting the weaknesses box, without any meaningful exceptions",
-              "Ranking the boxes alphabetically, under almost all normal conditions"
+              "Deleting the weaknesses box",
+              "Ranking the boxes alphabetically"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The real value comes from connecting boxes, such as using a strength to seize an opportunity or defend against a threat. Four lists alone do only half the work."
           },
           {
             id: "sa3-mastery6",
+            concept: "SWOT Analysis",
             question: "What is a key limitation of SWOT?",
             options: [
-              "It decides everything automatically, based on common workplace assumptions, as many people wrongly believe",
+              "It decides everything automatically",
               "It's a snapshot and doesn't tell you what to do by itself",
-              "It only works for huge corporations, in the vast majority of situations",
-              "It measures exact financial returns, regardless of the specific circumstances, in nearly every real case"
+              "It only works for huge corporations",
+              "It measures exact financial returns"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "SWOT organizes thinking at one moment but does not decide for you or weigh which factors matter most. It's a starting map that still needs judgment and action."
           }
         ]
@@ -3221,18 +3476,20 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa4-mc1",
+            concept: "Porter's Five Forces",
             question: "What does Porter's Five Forces primarily analyze?",
             options: [
-              "A single company's internal culture, according to most business textbooks",
+              "A single company's internal culture",
               "The structure and profitability of an industry",
-              "The personality of a company's CEO, as a strict and unbreakable rule",
-              "One employee's performance, for essentially all companies today"
+              "The personality of a company's CEO",
+              "One employee's performance"
             ],
             correctAnswer: 1,
             explanation: "The Five Forces analyzes industry structure to explain why some industries are profitable and others are not, regardless of any single company's effort."
           },
           {
             id: "sa4-mc2",
+            concept: "Porter's Five Forces",
             question: "A video call replacing a business flight is an example of which force?",
             options: [
               "Bargaining power of suppliers",
@@ -3260,12 +3517,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa4-aq1",
+          concept: "Porter's Five Forces",
           question: "What does Omar's Five Forces analysis suggest?",
           options: [
-              "The industry is highly protected and easy to profit in, without any meaningful exceptions",
+              "The industry is highly protected and easy to profit in",
               "Strong forces make thin profits likely; he should reconsider or find a niche",
-              "Low barriers guarantee high profits for him, under almost all normal conditions, based on common workplace assumptions",
-              "Rivalry has no effect on his prices, as many people wrongly believe, in the vast majority of situations"
+              "Low barriers guarantee high profits for him",
+              "Rivalry has no effect on his prices"
             ],
             correctAnswer: 1,
           explanation: "Low barriers, powerful price-comparing buyers, easy substitutes, and fierce rivalry all squeeze profit hard. The structure is a trap, so Omar should rethink or find a protected niche."
@@ -3287,74 +3545,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa4-mastery1",
+            concept: "Porter's Five Forces",
             question: "Why can an industry stay unprofitable despite hard-working companies?",
             options: [
-              "Because the workers are always lazy, regardless of the specific circumstances",
+              "Because the workers are always lazy",
               "Because strong industry forces structurally squeeze profits",
-              "Because profit is purely random, in nearly every real case",
-              "Because customers never buy anything, according to most business textbooks"
+              "Because profit is purely random",
+              "Because customers never buy anything"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Porter's insight is that industry structure, not just effort, drives profitability. When all five forces are strong, they squeeze profit no matter how hard firms work."
           },
           {
             id: "sa4-mastery2",
+            concept: "Porter's Five Forces",
             question: "High startup costs and strong patents mainly affect which force?",
             options: [
               "Threat of new entrants",
               "Bargaining power of buyers",
-              "Threat of substitutes, as a strict and unbreakable rule",
+              "Threat of substitutes",
               "Bargaining power of suppliers"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "High costs and patents are barriers to entry that keep new competitors out, reducing the threat of new entrants and protecting existing players' profits."
           },
           {
             id: "sa4-mastery3",
+            concept: "Porter's Five Forces",
             question: "When do buyers have strong bargaining power?",
             options: [
-              "When there are millions of loyal buyers, for essentially all companies today",
+              "When there are millions of loyal buyers",
               "When customers are few, powerful, or can easily switch",
-              "When no substitutes exist at all, without any meaningful exceptions",
-              "When only one supplier exists, under almost all normal conditions"
+              "When no substitutes exist at all",
+              "When only one supplier exists"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Powerful, few, or easily-switching buyers can push prices down and demand more. That buyer power squeezes the profit a company can earn from them."
           },
           {
             id: "sa4-mastery4",
+            concept: "Porter's Five Forces",
             question: "How can a company reduce the power of its suppliers?",
             options: [
-              "By relying on a single supplier only, based on common workplace assumptions",
+              "By relying on a single supplier only",
               "By finding alternatives or making key inputs itself",
-              "By raising its own prices randomly, as many people wrongly believe",
-              "By ignoring supplier costs entirely, in the vast majority of situations"
+              "By raising its own prices randomly",
+              "By ignoring supplier costs entirely"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Depending on one supplier hands them power. Finding alternative suppliers or producing key inputs in-house weakens supplier power and protects the company's costs."
           },
           {
             id: "sa4-mastery5",
+            concept: "Porter's Five Forces",
             question: "What does intense rivalry among competitors typically do to profits?",
             options: [
-              "Raises everyone's profits together, regardless of the specific circumstances",
+              "Raises everyone's profits together",
               "Shreds profits through price wars and one-upmanship",
-              "Has no effect on prices, in nearly every real case",
-              "Guarantees a protected niche, according to most business textbooks"
+              "Has no effect on prices",
+              "Guarantees a protected niche"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Fierce rivalry drives price wars and constant one-upmanship, which erode margins for all players. Easing rivalry by carving a distinct niche protects profit."
           },
           {
             id: "sa4-mastery6",
+            concept: "Porter's Five Forces",
             question: "What happened to newspapers that Five Forces helps explain?",
             options: [
-              "Their favorable structure lasted forever, as a strict and unbreakable rule",
+              "Their favorable structure lasted forever",
               "The internet flipped the forces from favorable to brutal",
-              "Rivalry disappeared entirely online, for essentially all companies today",
-              "Barriers to entry rose sharply, without any meaningful exceptions"
+              "Rivalry disappeared entirely online",
+              "Barriers to entry rose sharply"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The internet collapsed entry barriers, created free-news substitutes, and boosted advertiser power. The forces flipped from protected to brutal, showing they shift over time."
           }
         ]
@@ -3407,24 +3677,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa5-mc1",
+            concept: "Applying SWOT to a Business Opportunity",
             question: "What is the purpose of a go/no-go decision in SWOT?",
             options: [
-              "To list factors and stop there, under almost all normal conditions",
+              "To list factors and stop there",
               "To decide whether to pursue an opportunity or not",
-              "To count how many strengths exist, based on common workplace assumptions",
-              "To ignore all threats entirely, as many people wrongly believe"
+              "To count how many strengths exist",
+              "To ignore all threats entirely"
             ],
             correctAnswer: 1,
             explanation: "A go/no-go decision uses the weighed SWOT to conclude whether an opportunity is worth pursuing. The analysis is only valuable if it leads to a real decision."
           },
           {
             id: "sa5-mc2",
+            concept: "Applying SWOT to a Business Opportunity",
             question: "What does an SO (Strength-Opportunity) strategy do?",
             options: [
               "Uses strengths to grab an opportunity",
-              "Minimizes weaknesses against a threat, in the vast majority of situations",
-              "Ignores strengths completely, regardless of the specific circumstances",
-              "Focuses only on external threats, in nearly every real case"
+              "Minimizes weaknesses against a threat",
+              "Ignores strengths completely",
+              "Focuses only on external threats"
             ],
             correctAnswer: 0,
             explanation: "An SO strategy pairs a strength with an opportunity, your best offensive move, using what you're good at to seize a favorable trend or gap in the market."
@@ -3446,12 +3718,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa5-aq1",
+          concept: "Applying SWOT to a Business Opportunity",
           question: "Which pairing gives Nina the strongest offensive strategy?",
           options: [
-              "Weakness-Threat: quit because a center exists, according to most business textbooks",
+              "Weakness-Threat: quit because a center exists",
               "Strength-Opportunity: use her math skill to help exam-stressed classmates",
-              "Ignore the opportunity entirely, as a strict and unbreakable rule",
-              "Treat her weekday schedule as an opportunity, for essentially all companies today"
+              "Ignore the opportunity entirely",
+              "Treat her weekday schedule as an opportunity"
             ],
             correctAnswer: 1,
           explanation: "Pairing her math skill (strength) with struggling exam-takers (opportunity) is a classic SO move, using what she's good at to seize a real, timely demand."
@@ -3473,74 +3746,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa5-mastery1",
+            concept: "Applying SWOT to a Business Opportunity",
             question: "Why must factors be weighed, not just listed, in a decision-focused SWOT?",
             options: [
-              "Because all factors count exactly equally, without any meaningful exceptions",
+              "Because all factors count exactly equally",
               "Because one fatal threat can outweigh several minor strengths",
-              "Because listing is enough to decide, under almost all normal conditions",
-              "Because weighing removes the need for honesty, based on common workplace assumptions"
+              "Because listing is enough to decide",
+              "Because weighing removes the need for honesty"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Not all factors matter equally. A single severe threat can outweigh many small strengths, so weighing by likelihood and impact is essential to a sound go/no-go call."
           },
           {
             id: "sa5-mastery2",
+            concept: "Applying SWOT to a Business Opportunity",
             question: "A WO (Weakness-Opportunity) strategy aims to…",
             options: [
-              "Attack rivals head-on with pure strength, as many people wrongly believe",
+              "Attack rivals head-on with pure strength",
               "Fix a weakness so you can seize an opportunity",
-              "Ignore opportunities completely, in the vast majority of situations",
-              "Defend only against threats, regardless of the specific circumstances"
+              "Ignore opportunities completely",
+              "Defend only against threats"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A WO strategy addresses a weakness, like inexperience, so the company can capture an opportunity it would otherwise miss, for example by taking a course before launching."
           },
           {
             id: "sa5-mastery3",
+            concept: "Applying SWOT to a Business Opportunity",
             question: "What is an ST (Strength-Threat) strategy?",
             options: [
               "Using a strength to defend against a threat",
-              "Turning a threat into a weakness, in nearly every real case",
-              "Ignoring your strengths entirely, according to most business textbooks",
-              "Creating new threats on purpose, as a strict and unbreakable rule"
+              "Turning a threat into a weakness",
+              "Ignoring your strengths entirely",
+              "Creating new threats on purpose"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "An ST strategy uses a strength, like a unique recipe, to defend against a threat, like a rival, rather than competing head-on where you are weaker."
           },
           {
             id: "sa5-mastery4",
+            concept: "Applying SWOT to a Business Opportunity",
             question: "Why is inflating strengths and downplaying threats dangerous?",
             options: [
-              "It makes the SWOT too short, for essentially all companies today",
+              "It makes the SWOT too short",
               "It produces a confident march toward a bad decision",
-              "It always improves the outcome, without any meaningful exceptions",
-              "It removes all opportunities, under almost all normal conditions"
+              "It always improves the outcome",
+              "It removes all opportunities"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Wishful thinking leads to overconfidence and poor calls. Honest weighing of real strengths and threats is what makes a SWOT guide good decisions instead of misleading ones."
           },
           {
             id: "sa5-mastery5",
+            concept: "Applying SWOT to a Business Opportunity",
             question: "In the food-truck example, why was a 'conditional go' wise?",
             options: [
               "Because the idea had no strengths at all",
               "Because launching small tested demand while limiting downside",
-              "Because threats never matter in decisions, based on common workplace assumptions",
-              "Because all-in bets are always safest, as many people wrongly believe"
+              "Because threats never matter in decisions",
+              "Because all-in bets are always safest"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "With real threats and thin savings, starting part-time after handling permits tested demand while limiting risk, a smarter path than betting everything at once or quitting outright."
           },
           {
             id: "sa5-mastery6",
+            concept: "Applying SWOT to a Business Opportunity",
             question: "What does the TOWS approach add to a basic SWOT?",
             options: [
-              "It deletes the weaknesses box, in the vast majority of situations",
+              "It deletes the weaknesses box",
               "It pairs boxes into concrete, comparable strategies",
               "It removes the need for any decision",
-              "It counts factors alphabetically, regardless of the specific circumstances"
+              "It counts factors alphabetically"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "TOWS turns a static four-box list into paired action strategies (SO, WO, ST, WT), giving a menu of concrete options you can compare and choose among."
           }
         ]
@@ -3593,11 +3878,12 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa6-mc1",
+            concept: "Porter's Five Forces in Practice",
             question: "In streaming, what does 'subscribe-hopping' demonstrate?",
             options: [
               "Low buyer power",
               "Strong buyer power",
-              "Weak rivalry, in nearly every real case",
+              "Weak rivalry",
               "High supplier loyalty"
             ],
             correctAnswer: 1,
@@ -3605,12 +3891,13 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa6-mc2",
+            concept: "Porter's Five Forces in Practice",
             question: "Why is the threat of new entrants lower for a giant fast-food chain than in streaming?",
             options: [
-              "Because fast food has no competitors, according to most business textbooks",
+              "Because fast food has no competitors",
               "Because giants have strong brands, scale, and prime real estate",
-              "Because nobody eats fast food anymore, as a strict and unbreakable rule",
-              "Because suppliers block all newcomers, for essentially all companies today"
+              "Because nobody eats fast food anymore",
+              "Because suppliers block all newcomers"
             ],
             correctAnswer: 1,
             explanation: "Big chains enjoy powerful brands, huge scale, and prime locations that a new startup cannot easily match, raising barriers to entry compared to the fast-launching streaming world."
@@ -3632,12 +3919,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa6-aq1",
+          concept: "Porter's Five Forces in Practice",
           question: "What is the key lesson from comparing the two industries?",
           options: [
-              "The Five Forces framework only works for streaming, without any meaningful exceptions",
+              "The Five Forces framework only works for streaming",
               "The same framework gives different answers based on each industry's structure",
-              "All industries have identical forces, under almost all normal conditions, based on common workplace assumptions",
-              "Substitutes never matter in either industry, as many people wrongly believe"
+              "All industries have identical forces",
+              "Substitutes never matter in either industry"
             ],
             correctAnswer: 1,
           explanation: "The framework is constant, but the answers differ by industry. That is the point: you must analyze each industry's own structure rather than assuming they behave the same way."
@@ -3659,18 +3947,21 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa6-mastery1",
+            concept: "Porter's Five Forces in Practice",
             question: "Why do streaming companies keep spending billions on original shows?",
             options: [
-              "Because they have no competitors, in the vast majority of situations",
+              "Because they have no competitors",
               "Because fierce rivalry and easy switching force constant investment",
-              "Because buyers have no power at all, regardless of the specific circumstances",
-              "Because there are no substitutes, in nearly every real case"
+              "Because buyers have no power at all",
+              "Because there are no substitutes"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Intense rivalry and strong buyer power (easy cancelling) mean streamers must keep producing hits to attract and retain subscribers, driving relentless content spending."
           },
           {
             id: "sa6-mastery2",
+            concept: "Porter's Five Forces in Practice",
             question: "Which force is illustrated by gaming and social media competing for your evening?",
             options: [
               "Threat of substitutes",
@@ -3679,54 +3970,63 @@ export const deepBizC: StructuredLessonContent[] = [
               "Rivalry among streamers"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Gaming and social media solve the same 'entertain me' need differently, making them substitutes that cap how much streamers can charge for attention and money."
           },
           {
             id: "sa6-mastery3",
+            concept: "Porter's Five Forces in Practice",
             question: "Why is supplier power low for giant fast-food chains?",
             options: [
-              "They refuse to use any suppliers, according to most business textbooks",
+              "They refuse to use any suppliers",
               "They buy inputs in such volume they dominate suppliers",
-              "Their suppliers have no other customers, as a strict and unbreakable rule",
-              "Food ingredients are always free, for essentially all companies today"
+              "Their suppliers have no other customers",
+              "Food ingredients are always free"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Buying beef, potatoes, and packaging in massive volume lets giants dominate their suppliers, keeping input costs low, a structural advantage smaller rivals lack."
           },
           {
             id: "sa6-mastery4",
+            concept: "Porter's Five Forces in Practice",
             question: "How does buyer power differ between the two industries?",
             options: [
               "It is strong in streaming and moderate in fast food",
-              "It is zero in both industries, without any meaningful exceptions",
-              "It is strongest in fast food, under almost all normal conditions",
-              "Buyers have no role in either, based on common workplace assumptions"
+              "It is zero in both industries",
+              "It is strongest in fast food",
+              "Buyers have no role in either"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Streaming buyers switch with one click (strong power), while fast-food diners are small individually but price-sensitive and mobile (moderate power), showing structure differs."
           },
           {
             id: "sa6-mastery5",
+            concept: "Porter's Five Forces in Practice",
             question: "What do both industries share regarding substitutes?",
             options: [
-              "Neither faces any substitutes, as many people wrongly believe",
+              "Neither faces any substitutes",
               "Both face abundant substitutes that cap prices",
-              "Only fast food has substitutes, in the vast majority of situations",
-              "Substitutes raise their prices, regardless of the specific circumstances"
+              "Only fast food has substitutes",
+              "Substitutes raise their prices"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Streaming competes with all entertainment, and fast food competes with groceries and home cooking. Abundant substitutes cap prices and force both to keep innovating on value."
           },
           {
             id: "sa6-mastery6",
+            concept: "Porter's Five Forces in Practice",
             question: "What broader point does comparing streaming and fast food prove?",
             options: [
-              "Every industry has identical force strengths, in nearly every real case",
+              "Every industry has identical force strengths",
               "The same framework yields different answers by industry structure",
-              "Porter's Five Forces only fits tech companies, according to most business textbooks",
-              "Industry analysis is a waste of time, as a strict and unbreakable rule"
+              "Porter's Five Forces only fits tech companies",
+              "Industry analysis is a waste of time"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Applying one framework to two industries shows the forces are constant but their strengths vary, so each industry must be analyzed on its own specific structure."
           }
         ]
@@ -3779,24 +4079,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa7-mc1",
+            concept: "Using Frameworks for Real Decisions",
             question: "Why combine SWOT and Porter's Five Forces?",
             options: [
-              "Because one framework alone is always wrong, for essentially all companies today",
+              "Because one framework alone is always wrong",
               "Because each has a blind spot the other covers",
-              "Because SWOT replaces Five Forces entirely, without any meaningful exceptions",
-              "Because more reports always mean better strategy, under almost all normal conditions"
+              "Because SWOT replaces Five Forces entirely",
+              "Because more reports always mean better strategy"
             ],
             correctAnswer: 1,
             explanation: "Five Forces analyzes the industry but ignores your company; SWOT analyzes your company but can miss industry structure. Together they cover each other's blind spots."
           },
           {
             id: "sa7-mc2",
+            concept: "Using Frameworks for Real Decisions",
             question: "What is 'analysis paralysis'?",
             options: [
               "Deciding too quickly without any data",
               "Endlessly analyzing while never actually deciding",
-              "Using only one framework, based on common workplace assumptions",
-              "Ignoring all frameworks entirely, as many people wrongly believe"
+              "Using only one framework",
+              "Ignoring all frameworks entirely"
             ],
             correctAnswer: 1,
             explanation: "Analysis paralysis is filling in frameworks forever without committing to a decision. Good strategists use analysis to reach a clear choice and then act on it."
@@ -3818,12 +4120,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa7-aq1",
+          concept: "Using Frameworks for Real Decisions",
           question: "How does combining the two frameworks help Aria most?",
           options: [
-              "It lets her avoid ever making a decision, in the vast majority of situations",
+              "It lets her avoid ever making a decision",
               "Five Forces finds a workable niche; SWOT confirms she can win it",
-              "It proves the big chains have no advantages, regardless of the specific circumstances",
-              "It replaces the need for any judgment, in nearly every real case"
+              "It proves the big chains have no advantages",
+              "It replaces the need for any judgment"
             ],
             correctAnswer: 1,
           explanation: "Five Forces reveals a workable niche despite fierce general rivalry, and SWOT shows her atmosphere strength fits it. Together they frame a decision judgment then finalizes."
@@ -3845,74 +4148,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa7-mastery1",
+            concept: "Using Frameworks for Real Decisions",
             question: "What does Five Forces reveal that SWOT often misses?",
             options: [
-              "Your company's internal strengths, according to most business textbooks",
+              "Your company's internal strengths",
               "Whether the industry structure can be profitable",
-              "Your team's personal skills, as a strict and unbreakable rule",
-              "Your own weaknesses, for essentially all companies today"
+              "Your team's personal skills",
+              "Your own weaknesses"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Five Forces analyzes industry structure and profitability, while SWOT focuses on your company. Combining them shows both whether the industry pays and whether you can win."
           },
           {
             id: "sa7-mastery2",
+            concept: "Using Frameworks for Real Decisions",
             question: "What is the logical sequence for combining the frameworks?",
             options: [
-              "Assess your company, then ignore the industry, without any meaningful exceptions",
+              "Assess your company, then ignore the industry",
               "Assess the industry first, then your fit within it",
-              "Skip the industry analysis entirely, under almost all normal conditions",
-              "Do both but never connect them, based on common workplace assumptions"
+              "Skip the industry analysis entirely",
+              "Do both but never connect them"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Start with Five Forces to judge the industry's attractiveness, then use SWOT to assess whether your strengths fit and you can handle its threats."
           },
           {
             id: "sa7-mastery3",
+            concept: "Using Frameworks for Real Decisions",
             question: "How should an industry threat from Five Forces appear in SWOT?",
             options: [
-              "As a Strength to celebrate, as many people wrongly believe",
+              "As a Strength to celebrate",
               "As a Threat you counter with a matching strength",
-              "As an Opportunity to ignore, in the vast majority of situations",
-              "It should never appear at all, regardless of the specific circumstances"
+              "As an Opportunity to ignore",
+              "It should never appear at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Insights should cross-pollinate. A Five Forces threat like powerful buyers becomes a SWOT Threat, which you then pair with a strength to counter, forming real strategy."
           },
           {
             id: "sa7-mastery4",
+            concept: "Using Frameworks for Real Decisions",
             question: "What signals that your strategic analysis has done its job?",
             options: [
-              "You ran the most models possible, in nearly every real case",
+              "You ran the most models possible",
               "You can state plainly why you'll win",
-              "You filled every box perfectly, according to most business textbooks",
-              "You avoided making any decision, as a strict and unbreakable rule"
+              "You filled every box perfectly",
+              "You avoided making any decision"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The test is a clear, plain-language explanation of your customer, your difference, and how you'll handle threats. If you can't state it simply, the analysis isn't finished."
           },
           {
             id: "sa7-mastery5",
+            concept: "Using Frameworks for Real Decisions",
             question: "Why must strategists commit despite incomplete information?",
             options: [
-              "Because certainty is always available, for essentially all companies today",
+              "Because certainty is always available",
               "Because waiting for perfect certainty means never moving",
-              "Because data never matters, without any meaningful exceptions",
-              "Because frameworks predict the future exactly, under almost all normal conditions"
+              "Because data never matters",
+              "Because frameworks predict the future exactly"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "No framework predicts the future perfectly, so some uncertainty always remains. Rivals who decide and adapt pull ahead of those endlessly perfecting spreadsheets."
           },
           {
             id: "sa7-mastery6",
+            concept: "Using Frameworks for Real Decisions",
             question: "Why is strategy described as a loop rather than a one-time report?",
             options: [
-              "Because reports are illegal, based on common workplace assumptions, as many people wrongly believe",
+              "Because reports are illegal",
               "Because conditions change, so you revisit and update your view",
-              "Because analysis should never be revised, in the vast majority of situations",
-              "Because a single analysis lasts forever, regardless of the specific circumstances"
+              "Because analysis should never be revised",
+              "Because a single analysis lasts forever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Industries shift as technology and rivals evolve, so old analyses go stale. Great strategists loop back, staying humble enough to update frameworks when reality disagrees."
           }
         ]
@@ -3965,24 +4280,26 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa8-mc1",
+            concept: "Mini-Project: Your Own Strategic Analysis",
             question: "What is the first step in running your own strategic analysis?",
             options: [
-              "Writing the final recommendation immediately, in nearly every real case",
+              "Writing the final recommendation immediately",
               "Defining a tight scope: one business and one question",
-              "Filling in a SWOT before any research, according to most business textbooks",
-              "Analyzing an entire industry at once, as a strict and unbreakable rule"
+              "Filling in a SWOT before any research",
+              "Analyzing an entire industry at once"
             ],
             correctAnswer: 1,
             explanation: "A tight scope, one specific business and one specific question, keeps the whole analysis focused. Vague scopes like 'analyze retail' are too broad to be useful."
           },
           {
             id: "sa8-mc2",
+            concept: "Mini-Project: Your Own Strategic Analysis",
             question: "Why is a well-reasoned 'no-go' recommendation still a success?",
             options: [
-              "Because it means the analysis failed, for essentially all companies today",
+              "Because it means the analysis failed",
               "Because it prevents wasting money on a bad opportunity",
-              "Because no-go answers are always wrong, without any meaningful exceptions",
-              "Because it avoids making any decision, under almost all normal conditions"
+              "Because no-go answers are always wrong",
+              "Because it avoids making any decision"
             ],
             correctAnswer: 1,
             explanation: "If the industry is brutal and you have no real edge, honestly concluding no-go saves wasted money. The quality of reasoning matters more than whether the answer is yes."
@@ -4004,12 +4321,13 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa8-aq1",
+          concept: "Mini-Project: Your Own Strategic Analysis",
           question: "What would make Marcus's recommendation truly defensible?",
           options: [
-              "Saying he simply loves sneakers a lot, based on common workplace assumptions, as many people wrongly believe",
+              "Saying he simply loves sneakers a lot",
               "Justifying it with evidence: proven demand, his niche edge, and how he'll handle rivalry",
-              "Ignoring the fierce rivalry he found, in the vast majority of situations, regardless of the specific circumstances",
-              "Skipping the survey results entirely, in nearly every real case, according to most business textbooks"
+              "Ignoring the fierce rivalry he found",
+              "Skipping the survey results entirely"
             ],
             correctAnswer: 1,
           explanation: "A defensible recommendation rests on evidence: survey-proven demand, his niche knowledge as a differentiator, and a plan for the rivalry threat, not just personal enthusiasm."
@@ -4031,74 +4349,86 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa8-mastery1",
+            concept: "Mini-Project: Your Own Strategic Analysis",
             question: "Why is a sharp question better than a broad one for this analysis?",
             options: [
-              "Because broad questions are illegal, as a strict and unbreakable rule",
+              "Because broad questions are illegal",
               "Because a tight scope keeps the analysis focused and answerable",
-              "Because sharp questions need no research, for essentially all companies today",
-              "Because broad questions always give better answers, without any meaningful exceptions"
+              "Because sharp questions need no research",
+              "Because broad questions always give better answers"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "'Should my friend open a bubble tea shop near campus?' can be answered; 'analyze retail' cannot. A tight scope prevents drowning in facts and keeps the work focused."
           },
           {
             id: "sa8-mastery2",
+            concept: "Mini-Project: Your Own Strategic Analysis",
             question: "What role does secondary research play in the mini-project?",
             options: [
-              "It tests your idea with real customers, under almost all normal conditions",
+              "It tests your idea with real customers",
               "It cheaply maps market size, trends, and competitors",
-              "It replaces the need for any frameworks, based on common workplace assumptions",
-              "It only works after the recommendation, as many people wrongly believe"
+              "It replaces the need for any frameworks",
+              "It only works after the recommendation"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Secondary research, like census data and industry reports, maps the landscape cheaply. Primary research then tests your specific idea with real potential customers."
           },
           {
             id: "sa8-mastery3",
+            concept: "Mini-Project: Your Own Strategic Analysis",
             question: "Why seek facts that could prove your idea wrong?",
             options: [
-              "To make the analysis longer, in the vast majority of situations",
+              "To make the analysis longer",
               "Because honest evidence beats wishful thinking",
               "Because disproving ideas is always the goal",
-              "Because flattering facts are illegal, regardless of the specific circumstances"
+              "Because flattering facts are illegal"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Chasing only flattering facts produces biased analysis. Seeking evidence that could prove you wrong keeps the analysis honest, which is what separates it from a hopeful guess."
           },
           {
             id: "sa8-mastery4",
+            concept: "Mini-Project: Your Own Strategic Analysis",
             question: "What are the three possible recommendation outcomes?",
             options: [
-              "Yes, maybe, or never, in nearly every real case",
+              "Yes, maybe, or never",
               "Go, no-go, or go-with-conditions",
               "Buy, sell, or hold",
               "Fast, slow, or medium"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A strategic recommendation concludes with go, no-go, or a conditional go, proceeding only after addressing a specific weakness or threat first."
           },
           {
             id: "sa8-mastery5",
+            concept: "Mini-Project: Your Own Strategic Analysis",
             question: "What makes a recommendation 'defensible'?",
             options: [
-              "It sounds confident and excited, according to most business textbooks",
+              "It sounds confident and excited",
               "You justify it in plain language backed by evidence",
-              "It avoids mentioning any threats, as a strict and unbreakable rule",
-              "It relies only on personal taste, for essentially all companies today"
+              "It avoids mentioning any threats",
+              "It relies only on personal taste"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A defensible recommendation states the customer, the difference, why the industry pays, and how you'll handle the biggest threat, all backed by evidence, not enthusiasm."
           },
           {
             id: "sa8-mastery6",
+            concept: "Mini-Project: Your Own Strategic Analysis",
             question: "Why should you note your key assumptions and what would change your mind?",
             options: [
               "To make the plan impossible to change",
               "So you can adapt as reality unfolds",
-              "Because assumptions never matter, without any meaningful exceptions",
-              "To guarantee the future is predictable, under almost all normal conditions"
+              "Because assumptions never matter",
+              "To guarantee the future is predictable"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "No analysis predicts the future perfectly. Recording assumptions and what would change your mind lets you adapt when reality disagrees, instead of clinging to a failing plan."
           }
         ]

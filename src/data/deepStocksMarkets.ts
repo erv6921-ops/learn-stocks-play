@@ -52,6 +52,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks1-mc1",
+            concept: "What Is a Share",
             question: "What does owning a share of stock actually give you?",
             options: [
               "A loan the company must repay you with interest",
@@ -64,6 +65,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks1-mc2",
+            concept: "What Is a Share",
             question: "Which of these is a 'capital gain'?",
             options: [
               "A quarterly cash payment drawn straight from a company's profits",
@@ -91,6 +93,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks1-aq1",
+          concept: "What Is a Share",
           question: "Jordan's 5 shares rose from $60 to $75 each. Why did his stake gain value?",
           options: [
             "The company was legally required to raise the price",
@@ -118,6 +121,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks1-mastery1",
+            concept: "What Is a Share",
             question: "A company divides itself into 2,000,000 shares and you buy 200. About what fraction do you own?",
             options: [
               "One two-hundredth of the company",
@@ -126,10 +130,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Two hundred whole companies at once"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "200 divided by 2,000,000 equals 1/10,000. Owning 200 of two million shares gives you one ten-thousandth of the company - a small but real ownership stake."
           },
           {
             id: "stocks1-mastery2",
+            concept: "What Is a Share",
             question: "How is buying a share different from putting money in a savings account?",
             options: [
               "A share is insured, so you can never lose money",
@@ -138,10 +144,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A share must be sold back within one year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A share is ownership, so its value rises and falls with the company and nothing is guaranteed. Savings accounts are insured and pay set interest; shares are neither insured nor guaranteed."
           },
           {
             id: "stocks1-mastery3",
+            concept: "What Is a Share",
             question: "Which right do shareholders commonly have?",
             options: [
               "Free products from the company forever",
@@ -150,10 +158,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The power to fire any single worker"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Shareholders often vote on big decisions, like electing the board of directors. They don't get free products, guaranteed prices, or the power to fire individual employees."
           },
           {
             id: "stocks1-mastery4",
+            concept: "What Is a Share",
             question: "You buy a share for $45 and sell it later for $70. The $25 you made is called a…",
             options: [
               "Dividend paid out from profits",
@@ -162,10 +172,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Refund of your original money"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Profit from selling a share for more than you paid is a capital gain. Dividends are separate cash payments, and interest and refunds don't describe stock profit."
           },
           {
             id: "stocks1-mastery5",
+            concept: "What Is a Share",
             question: "Why are investors usually told not to invest money they'll need next month?",
             options: [
               "Stocks are strictly illegal to sell within 30 days",
@@ -174,10 +186,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Dividends are only ever paid out after several years"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Stock prices can drop suddenly, so money needed soon might not be there when you need it. There's no 30-day sale ban, no month-long freeze, and dividends are unrelated to this rule."
           },
           {
             id: "stocks1-mastery6",
+            concept: "What Is a Share",
             question: "Roughly how has the overall U.S. stock market performed per year over many decades?",
             options: [
               "It has lost about 5% every year on average",
@@ -186,6 +200,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It reliably doubles in value every single year without fail"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Over long periods the U.S. market has averaged roughly 7%-10% annual returns - far above savings accounts. It doesn't lose money every year, stay flat, or double annually."
           }
         ]
@@ -238,6 +253,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks2-mc1",
+            concept: "Public vs Private",
             question: "What mainly separates a public company from a private one?",
             options: [
               "Public companies are always larger in total size",
@@ -250,6 +266,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks2-mc2",
+            concept: "Public vs Private",
             question: "Why are public company shares considered 'liquid'?",
             options: [
               "They can be bought and sold quickly at a known price",
@@ -277,6 +294,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks2-aq1",
+          concept: "Public vs Private",
           question: "Why can Priya invest in the sportswear company but not easily in the private gym?",
           options: [
             "The gym is not profitable enough to sell shares",
@@ -304,6 +322,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks2-mastery1",
+            concept: "Public vs Private",
             question: "You want to buy shares of a company using a normal brokerage app. The company must be…",
             options: [
               "Private and owned by its founders",
@@ -312,10 +331,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Headquartered inside the United States"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Only public companies, listed on an exchange, can be bought through a normal brokerage app. Age and location don't matter, and private companies aren't available this way."
           },
           {
             id: "stocks2-mastery2",
+            concept: "Public vs Private",
             question: "What is an IPO?",
             options: [
               "A special tax public companies pay each quarter",
@@ -324,10 +345,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A large yearly bonus paid out to shareholders"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "An IPO, or Initial Public Offering, is when a private company first sells shares to the public and becomes public. It's not a tax, a bonus, or a rule forcing privacy."
           },
           {
             id: "stocks2-mastery3",
+            concept: "Public vs Private",
             question: "Why is transparency a key advantage of public companies for investors?",
             options: [
               "They must publish detailed financial reports",
@@ -336,10 +359,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They pay back your investment on demand"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Public companies must file detailed financials, so you can see the numbers before investing. They make no promises about price, free products, or refunds."
           },
           {
             id: "stocks2-mastery4",
+            concept: "Public vs Private",
             question: "Why might a strong company choose to stay private?",
             options: [
               "It is legally forbidden from selling shares",
@@ -348,10 +373,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Being private guarantees higher profits"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Staying private avoids the quarterly pressure to lift the share price and keeps numbers confidential. It's not a legal ban, and it doesn't erase payroll or guarantee profit."
           },
           {
             id: "stocks2-mastery5",
+            concept: "Public vs Private",
             question: "Which best describes why private shares are 'illiquid'?",
             options: [
               "They lose value the moment you buy them",
@@ -360,10 +387,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They must be held for exactly ten years"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Illiquid means hard to sell because there's no open marketplace - you must find a specific buyer. It's not about instant loss, government ownership, or a fixed ten-year rule."
           },
           {
             id: "stocks2-mastery6",
+            concept: "Public vs Private",
             question: "A downside public companies face that private ones avoid is…",
             options: [
               "They can never hire new employees again",
@@ -372,6 +401,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They must give shares away for free"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Public companies feel constant pressure to lift the share price each quarter, which can encourage short-term thinking. They still hire, profit, and sell shares for money."
           }
         ]
@@ -424,6 +454,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks3-mc1",
+            concept: "IPOs",
             question: "What is the main reason a company holds an IPO?",
             options: [
               "To avoid ever paying any taxes again",
@@ -436,6 +467,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks3-mc2",
+            concept: "IPOs",
             question: "Who helps set the IPO price and find buyers?",
             options: [
               "Government tax collectors and auditors",
@@ -463,6 +495,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks3-aq1",
+          concept: "IPOs",
           question: "Why is buying a hyped IPO on its first day especially risky for Marcus?",
           options: [
             "IPO shares can legally never be resold later",
@@ -490,6 +523,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks3-mastery1",
+            concept: "IPOs",
             question: "Before its IPO, who owns a company?",
             options: [
               "Millions of everyday public investors",
@@ -498,10 +532,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The government that approves the sale"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Before an IPO, ownership is limited to founders and a small group of early investors. The public, exchanges, and government don't own the private company."
           },
           {
             id: "stocks3-mastery2",
+            concept: "IPOs",
             question: "A company valued at $3 billion plans to sell 150 million shares. Roughly what price does that suggest?",
             options: [
               "About $2 per share",
@@ -510,10 +546,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "About $2,000 per share"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "$3 billion divided by 150 million shares is about $20 per share. The final price is fine-tuned by demand, but the math points to roughly $20."
           },
           {
             id: "stocks3-mastery3",
+            concept: "IPOs",
             question: "Why does the IPO price tend to favor the company, not the buyer?",
             options: [
               "Buyers secretly choose the whole price themselves",
@@ -522,10 +560,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Underwriters simply give the shares away for free"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The company and underwriters set the price to raise as much money as possible, so it favors the seller. Buyers don't set it, it's not forced low, and shares aren't free."
           },
           {
             id: "stocks3-mastery4",
+            concept: "IPOs",
             question: "What makes a brand-new public company hard to evaluate?",
             options: [
               "It has almost no public track record yet",
@@ -534,10 +574,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Its price is fixed and simply never changes"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A new public company lacks a long history of results to study, so judging its value is harder. Its shares do trade, it must publish numbers, and its price changes daily."
           },
           {
             id: "stocks3-mastery5",
+            concept: "IPOs",
             question: "Why do many experienced investors wait after an IPO before buying?",
             options: [
               "The law bans buying for the first year",
@@ -546,10 +588,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Shares are cheaper only on weekends"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Waiting lets the price settle and gives investors real earnings reports to judge the company. There's no one-year ban, no doubled dividends, and no weekend discount."
           },
           {
             id: "stocks3-mastery6",
+            concept: "IPOs",
             question: "After an IPO, what new obligation does the company take on?",
             options: [
               "It must publish regular financial reports",
@@ -558,6 +602,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It must stop selling any products"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Public companies must file regular financial reports and answer to shareholders. They don't have to buy back shares, fix the price, or stop selling products."
           }
         ]
@@ -610,6 +655,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks4-mc1",
+            concept: "Market Cap",
             question: "How do you calculate a company's market cap?",
             options: [
               "Add up all its yearly profits over time",
@@ -622,6 +668,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks4-mc2",
+            concept: "Market Cap",
             question: "A $400 stock with 1 million shares versus a $20 stock with 900 million shares. Which company is bigger?",
             options: [
               "The $400 stock, because its per-share price is higher",
@@ -649,6 +696,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks4-aq1",
+          concept: "Market Cap",
           question: "Nia assumed the $250 stock was bigger. Why was she wrong?",
           options: [
             "Higher-priced stocks are always far riskier to actually own",
@@ -676,6 +724,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks4-mastery1",
+            concept: "Market Cap",
             question: "A company has 20 million shares trading at $25 each. What is its market cap?",
             options: [
               "$25 million total",
@@ -684,10 +733,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "$5 billion total"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "20 million shares times $25 equals $500 million. Market cap is always price multiplied by the number of shares."
           },
           {
             id: "stocks4-mastery2",
+            concept: "Market Cap",
             question: "Why can't you judge a company's size by its share price alone?",
             options: [
               "Prices are fake and set by the government",
@@ -696,10 +747,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Share prices change only once per calendar year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Size is price times share count, so the number of shares matters just as much as price. Prices aren't fake, share counts differ widely, and prices change constantly."
           },
           {
             id: "stocks4-mastery3",
+            concept: "Market Cap",
             question: "Which describes a typical large-cap company?",
             options: [
               "A tiny new startup worth well under $50 million total",
@@ -708,10 +761,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A business that has never sold any shares"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Large-cap firms are established companies worth roughly $10 billion or more, usually steadier. Tiny startups are small-caps, and the other options don't describe public companies."
           },
           {
             id: "stocks4-mastery4",
+            concept: "Market Cap",
             question: "Why do small-cap stocks tend to be riskier than large-cap stocks?",
             options: [
               "They are less tested and swing more sharply",
@@ -720,10 +775,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They always pay out much larger cash dividends"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Small caps are younger and less proven, so their prices can swing sharply on a single event. They can be traded, aren't forced to lose value, and often pay little or no dividend."
           },
           {
             id: "stocks4-mastery5",
+            concept: "Market Cap",
             question: "When news lists the 'biggest companies in the world,' it ranks them by…",
             options: [
               "Their single share price",
@@ -732,10 +789,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The number of employees only"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The 'biggest' companies are ranked by market cap, the fair measure of total size. Share price, age, and headcount don't measure overall market value."
           },
           {
             id: "stocks4-mastery6",
+            concept: "Market Cap",
             question: "Market cap measures the value of a company's stock but leaves out…",
             options: [
               "The company's debt",
@@ -744,6 +803,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The company's industry"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Market cap counts stock value only and ignores debt; a fuller measure called enterprise value adds debt and subtracts cash. Price and share count are exactly what it includes."
           }
         ]
@@ -796,6 +856,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks5-mc1",
+            concept: "Dividends",
             question: "What is a dividend?",
             options: [
               "A loan shareholders must repay the company",
@@ -808,6 +869,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks5-mc2",
+            concept: "Dividends",
             question: "How is dividend yield calculated?",
             options: [
               "Share price divided by yearly dividend",
@@ -835,6 +897,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks5-aq1",
+          concept: "Dividends",
           question: "If Sofia reinvests Stock A's dividends for decades, what's the main benefit?",
           options: [
             "The dividend becomes legally guaranteed forever",
@@ -862,6 +925,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks5-mastery1",
+            concept: "Dividends",
             question: "You own 300 shares paying a $0.40 quarterly dividend. How much do you collect per year?",
             options: [
               "$120 per year",
@@ -870,10 +934,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "$1,200 per year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "$0.40 times 4 quarters is $1.60 a year per share, and $1.60 times 300 shares equals $480. Quarterly payments must be multiplied by four for the yearly total."
           },
           {
             id: "stocks5-mastery2",
+            concept: "Dividends",
             question: "Why do many fast-growing tech companies pay no dividend?",
             options: [
               "They are legally banned from paying one",
@@ -882,10 +948,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They never earn any profit at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Growth companies pour profits back into the business, betting a rising share price rewards owners more than cash would. There's no legal ban, and many are quite profitable."
           },
           {
             id: "stocks5-mastery3",
+            concept: "Dividends",
             question: "A stock trades at $80 and pays $4 a year. What is its dividend yield?",
             options: [
               "About 2%",
@@ -894,10 +962,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "About 40%"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "$4 divided by $80 equals 0.05, or 5%. Dividend yield is the annual dividend divided by the share price."
           },
           {
             id: "stocks5-mastery4",
+            concept: "Dividends",
             question: "Why can an unusually high dividend yield be a warning sign?",
             options: [
               "High dividend yields are always completely illegal",
@@ -906,10 +976,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Companies must always refund any high-yield dividends"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If the share price has crashed, the yield looks huge but may signal trouble and a possible dividend cut. High yields aren't illegal, do get paid, and aren't refunded."
           },
           {
             id: "stocks5-mastery5",
+            concept: "Dividends",
             question: "What does a DRIP do?",
             options: [
               "Charges a fee each time you sell a share",
@@ -918,10 +990,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Converts your shares into company bonds"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A Dividend Reinvestment Plan automatically uses your dividends to buy more shares, compounding growth. It's not a fee, a guarantee, or a bond conversion."
           },
           {
             id: "stocks5-mastery6",
+            concept: "Dividends",
             question: "One psychological benefit of dividends in a flat market is that they…",
             options: [
               "Force the share price to quickly rise again",
@@ -930,6 +1004,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Lock all your money away in for several years"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Dividends deliver real cash even when the price is flat or down, making it easier to stay invested. They don't force prices up, erase losses, or lock up your money."
           }
         ]
@@ -982,6 +1057,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks6-mc1",
+            concept: "Why Prices Move",
             question: "What does a stock's price mainly reflect?",
             options: [
               "The exact cash sitting in the company's bank",
@@ -994,6 +1070,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks6-mc2",
+            concept: "Why Prices Move",
             question: "A company reports record profits but its stock drops. Why is this possible?",
             options: [
               "Profits legally must lower the share price",
@@ -1021,6 +1098,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks6-aq1",
+          concept: "Why Prices Move",
           question: "Why did Dev's stock fall on the day the Fed raised rates?",
           options: [
             "His own company had quietly reported truly terrible earnings",
@@ -1048,6 +1126,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks6-mastery1",
+            concept: "Why Prices Move",
             question: "Who actually sets a stock's price at any moment?",
             options: [
               "The company's own single chief executive officer",
@@ -1056,10 +1135,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A small committee at the busy stock exchange"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Prices are set continuously by buyers and sellers agreeing to trade. The CEO, government, and exchange don't dictate the market price."
           },
           {
             id: "stocks6-mastery2",
+            concept: "Why Prices Move",
             question: "A stock jumps the day a new product is announced, before any sales. Why?",
             options: [
               "Sales revenue is added instantly on announcement",
@@ -1068,10 +1149,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The company deposited cash into the market"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Prices move on expectations, so good news lifts a stock before any money is made. No revenue is booked instantly, no law requires it, and no cash is deposited."
           },
           {
             id: "stocks6-mastery3",
+            concept: "Why Prices Move",
             question: "The phrase 'beat or miss' refers to comparing a company's results to…",
             options: [
               "Its results from exactly ten years earlier",
@@ -1080,10 +1163,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The results of one random rival competitor"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "'Beat or miss' compares actual results to what investors expected. Prices react to that gap, not to old results, share count, or an unrelated competitor."
           },
           {
             id: "stocks6-mastery4",
+            concept: "Why Prices Move",
             question: "Why might nearly every stock fall on the same day?",
             options: [
               "Each single company failed on the very same day",
@@ -1092,10 +1177,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Shareholders are all legally required to always sell together"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Broad forces like interest-rate changes or recession fears can drag the whole market down at once. It's not that every company failed or that anyone is forced to sell."
           },
           {
             id: "stocks6-mastery5",
+            concept: "Why Prices Move",
             question: "In the short term, what often makes stock prices swing unpredictably?",
             options: [
               "Fear, greed, rumors, and market mood",
@@ -1104,10 +1191,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The number of years the company existed"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Short-term prices are driven by emotion, rumors, and mood, making daily moves look random. They aren't set by cash balances, government schedules, or company age."
           },
           {
             id: "stocks6-mastery6",
+            concept: "Why Prices Move",
             question: "The 'weighing machine' idea says that over the long run, prices track…",
             options: [
               "A company's actual profits and growth",
@@ -1116,6 +1205,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The mood of investors that morning"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Long term, prices weigh real profits and growth, even though the short term is a noisy 'voting machine.' Hype, trader counts, and morning mood are short-run noise."
           }
         ]
@@ -1168,6 +1258,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks7-mc1",
+            concept: "Supply & Demand",
             question: "What happens when far more people want to buy a stock than sell it?",
             options: [
               "The price falls to attract more sellers",
@@ -1180,6 +1271,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks7-mc2",
+            concept: "Supply & Demand",
             question: "What is the 'spread'?",
             options: [
               "The special tax charged on each single stock trade",
@@ -1207,6 +1299,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks7-aq1",
+          concept: "Supply & Demand",
           question: "Why did the small company's price spike more than the giant's?",
           options: [
             "Small companies always earn far more money overall",
@@ -1234,6 +1327,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks7-mastery1",
+            concept: "Supply & Demand",
             question: "A trade happens only when…",
             options: [
               "The federal government first approves the whole sale",
@@ -1242,10 +1336,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The stock's own price reaches exactly down to zero"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A trade executes when a buyer and seller agree on a price, meeting supply and demand. The government, company, and a zero price aren't required for a trade."
           },
           {
             id: "stocks7-mastery2",
+            concept: "Supply & Demand",
             question: "What is the 'bid' in a stock quote?",
             options: [
               "The highest price a buyer will pay",
@@ -1254,10 +1350,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The fee a broker charges to trade"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The bid is the highest price buyers are willing to pay. The lowest price sellers accept is the ask; the bid and ask together form the spread."
           },
           {
             id: "stocks7-mastery3",
+            concept: "Supply & Demand",
             question: "When a company issues many new shares, what usually happens to the price?",
             options: [
               "It tends to fall as supply increases",
@@ -1266,10 +1364,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It becomes completely impossible to ever openly trade"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "New shares increase supply, which can push the price down if demand doesn't rise to match. The price isn't frozen, doubled, or made untradeable."
           },
           {
             id: "stocks7-mastery4",
+            concept: "Supply & Demand",
             question: "How does a share buyback tend to affect the price?",
             options: [
               "It shrinks supply and can lift the price",
@@ -1278,10 +1378,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It always forces the whole company to go private"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A buyback removes shares from the market, shrinking supply, which can raise the price if demand holds. It doesn't add supply or automatically take the company private."
           },
           {
             id: "stocks7-mastery5",
+            concept: "Supply & Demand",
             question: "Why can a small company's stock swing wildly on modest buying?",
             options: [
               "Small firms are required to be volatile",
@@ -1290,10 +1392,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Their prices are set once each week"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "With few shares available, a little extra demand competes for scarce supply, causing big swings. Small stocks still obey supply and demand and trade continuously."
           },
           {
             id: "stocks7-mastery6",
+            concept: "Supply & Demand",
             question: "Which force can flood a stock with buyers and detach its price from real value?",
             options: [
               "A strictly required official government price schedule",
@@ -1302,6 +1406,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The stock exchange's daily opening bell time"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Emotions like hype and FOMO can flood a stock with buyers, pushing the price above its real value. Government schedules, dividends, and the opening bell don't do this."
           }
         ]
@@ -1354,6 +1459,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks8-mc1",
+            concept: "Order Types",
             question: "What does a market order guarantee?",
             options: [
               "The exact price you saw on screen",
@@ -1366,6 +1472,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks8-mc2",
+            concept: "Order Types",
             question: "What does a limit buy order do?",
             options: [
               "Buys instantly no matter the current listed price",
@@ -1393,6 +1500,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks8-aq1",
+          concept: "Order Types",
           question: "Why did Amara use a limit order instead of a market order for the jumpy stock?",
           options: [
             "Limit orders always fill faster than market orders",
@@ -1420,6 +1528,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks8-mastery1",
+            concept: "Order Types",
             question: "The main trade-off of a market order is that it guarantees…",
             options: [
               "Price but not that it will execute",
@@ -1428,10 +1537,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Neither price nor execution at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A market order guarantees the trade executes fast but not the exact price. A limit order is the reverse - it guarantees price but not execution."
           },
           {
             id: "stocks8-mastery2",
+            concept: "Order Types",
             question: "You set a limit buy at $30 but the stock never drops below $32. What happens?",
             options: [
               "It fills anyway at the $32 price",
@@ -1440,10 +1551,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It converts into a market order"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A limit buy only fills at your price or better, so if the stock stays above $30 it won't fill. There's no penalty and it doesn't convert to a market order."
           },
           {
             id: "stocks8-mastery3",
+            concept: "Order Types",
             question: "What does a stop-loss order do?",
             options: [
               "Buys even more shares whenever the price rises",
@@ -1452,10 +1565,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Guarantees you sell at your exact trigger price"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A stop-loss sells automatically once the price falls to your trigger, capping losses. It doesn't buy, lock shares, or guarantee the exact trigger price in a fast drop."
           },
           {
             id: "stocks8-mastery4",
+            concept: "Order Types",
             question: "Why might a stop-loss sell far below your trigger price?",
             options: [
               "The broker quietly adds on a hidden extra surcharge",
@@ -1464,10 +1579,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Order triggers are completely ignored during the normal market hours"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A basic stop becomes a market order once triggered, so in a fast drop it fills at the next available price, which can be well below the trigger. It's not a surcharge or a day's-low rule."
           },
           {
             id: "stocks8-mastery5",
+            concept: "Order Types",
             question: "A 'good-till-canceled' order differs from a 'day' order because it…",
             options: [
               "Fills instantly regardless of the current listed market price",
@@ -1476,10 +1593,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Always expires within the very first five short minutes"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A GTC order remains active over multiple days until it fills or you cancel, while a day order expires at the close. It doesn't fill instantly or expire in minutes."
           },
           {
             id: "stocks8-mastery6",
+            concept: "Order Types",
             question: "When is a plain market order most reasonable to use?",
             options: [
               "On a tiny, thinly-traded, jumpy stock",
@@ -1488,6 +1607,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Only when you want to overpay"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "On a large, heavily-traded stock the price barely moves between click and fill, so a market order is fine. On jumpy or thin stocks, a limit order protects you better."
           }
         ]
@@ -1540,6 +1660,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks9-mc1",
+            concept: "Volatility",
             question: "What does volatility measure?",
             options: [
               "Only how far down a stock has fallen",
@@ -1552,6 +1673,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks9-mc2",
+            concept: "Volatility",
             question: "Which type of company tends to be MOST volatile?",
             options: [
               "A large, established utility company",
@@ -1579,6 +1701,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks9-aq1",
+          concept: "Volatility",
           question: "Given his 15-year goal, what's the best reason for Ravi NOT to panic-sell?",
           options: [
             "The whole market legally must fully recover within a month",
@@ -1606,6 +1729,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks9-mastery1",
+            concept: "Volatility",
             question: "Is a volatile stock the same as a stock that is falling?",
             options: [
               "Yes, being volatile always means going straight down",
@@ -1614,10 +1738,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "No, volatility means the price truly never moves"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Volatility describes big swings up or down, not just declines. A stock can be volatile while rising, falling, or moving sideways."
           },
           {
             id: "stocks9-mastery2",
+            concept: "Volatility",
             question: "The VIX index is nicknamed the market's…",
             options: [
               "Growth engine",
@@ -1626,10 +1752,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Profit tracker"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The VIX is called the 'fear gauge' because it rises when investors expect big, turbulent swings. It doesn't track growth, dividends, or profits directly."
           },
           {
             id: "stocks9-mastery3",
+            concept: "Volatility",
             question: "Why does owning a broad fund of hundreds of stocks reduce volatility?",
             options: [
               "The fund is insured against any loss",
@@ -1638,10 +1766,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It pays a guaranteed fixed return yearly"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Diversification smooths the ride because hundreds of stocks rarely fall together, offsetting each other. Funds aren't insured, banned from dropping, or guaranteed a return."
           },
           {
             id: "stocks9-mastery4",
+            concept: "Volatility",
             question: "How does dollar-cost averaging use volatility to your advantage?",
             options: [
               "It stops all prices from ever once falling again",
@@ -1650,10 +1780,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It always doubles your money during every single crash"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Investing a fixed amount regularly means your dollars buy more shares when prices are low, turning dips into opportunities. It doesn't stop drops, hit the exact bottom, or double money."
           },
           {
             id: "stocks9-mastery5",
+            concept: "Volatility",
             question: "What is the biggest mistake volatility tends to cause?",
             options: [
               "Buying too many different index funds",
@@ -1662,10 +1794,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Reinvesting dividends automatically"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The classic error is panic-selling during a drop, which locks in a loss that might have recovered. Holding and reinvesting are usually helpful, not harmful."
           },
           {
             id: "stocks9-mastery6",
+            concept: "Volatility",
             question: "Why does a long time horizon make volatility less concerning?",
             options: [
               "Long-term investors never see any drops",
@@ -1674,6 +1808,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Long horizons guarantee a fixed return"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "With years to invest, short-term swings matter less because markets have historically recovered from major drops. Long-term investors still see drops, and no return is guaranteed."
           }
         ]
@@ -1726,6 +1861,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks10-mc1",
+            concept: "Reading a Stock Page",
             question: "What does the 'volume' on a stock page tell you?",
             options: [
               "The company's total yearly profit",
@@ -1738,6 +1874,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks10-mc2",
+            concept: "Reading a Stock Page",
             question: "What does a P/E ratio compare?",
             options: [
               "Price to the company's yearly earnings per share",
@@ -1765,6 +1902,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks10-aq1",
+          concept: "Reading a Stock Page",
           question: "Why is the unusually high volume on Tara's stock page significant?",
           options: [
             "High trading volume always guarantees the price will rise",
@@ -1792,6 +1930,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks10-mastery1",
+            concept: "Reading a Stock Page",
             question: "The '52-week range' on a stock page shows…",
             options: [
               "The company's total net profit over the past 52 weeks",
@@ -1800,10 +1939,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The total dividend paid out across the past 52 weeks"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The 52-week range shows the lowest and highest prices over the past year, helping you see if today's price is near a peak or bottom. It's not profit, trading age, or dividends."
           },
           {
             id: "stocks10-mastery2",
+            concept: "Reading a Stock Page",
             question: "A stock's P/E ratio is 25. What does that roughly mean?",
             options: [
               "The stock currently pays out a full 25% dividend yield",
@@ -1812,10 +1953,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The price rose 25% over the past year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A P/E of 25 means investors pay about $25 for each $1 of yearly earnings, often signaling growth expectations. It's not a dividend, competitor count, or price change."
           },
           {
             id: "stocks10-mastery3",
+            concept: "Reading a Stock Page",
             question: "Why is a price jump on very high volume a stronger signal than one on light volume?",
             options: [
               "High volume always means the stock is cheap",
@@ -1824,10 +1967,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Volume has no effect on price signals"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A move backed by heavy volume reflects many traders acting on real news, giving it more weight than a move on thin, sleepy trading. Volume doesn't signal cheapness or legality."
           },
           {
             id: "stocks10-mastery4",
+            concept: "Reading a Stock Page",
             question: "What does 'beta' measure on a stock page?",
             options: [
               "The cash dividend paid each quarter",
@@ -1836,10 +1981,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The company's total gross yearly revenue"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Beta measures how much a stock swings relative to the market: above 1 is jumpier, below 1 is calmer. It's not a dividend, share count, or revenue figure."
           },
           {
             id: "stocks10-mastery5",
+            concept: "Reading a Stock Page",
             question: "Why shouldn't you judge a stock by its share price alone?",
             options: [
               "Price is always fake and unreliable",
@@ -1848,10 +1995,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Prices are hidden from regular investors"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A price means little without context - earnings, P/E, volume, and size complete the picture. Price isn't fake or hidden, and no single number tells the whole story."
           },
           {
             id: "stocks10-mastery6",
+            concept: "Reading a Stock Page",
             question: "EPS (earnings per share) tells you…",
             options: [
               "How much profit each share earns",
@@ -1860,6 +2009,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "How many total shareholders currently exist"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "EPS is the company's profit divided by its shares, showing profit earned per share. It's not volume, a price high, or a count of shareholders."
           }
         ]
@@ -1916,6 +2066,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market1-mc1",
+            concept: "NYSE vs NASDAQ",
             question: "What is a stock exchange?",
             options: [
               "A big bank that only lends money to companies",
@@ -1928,6 +2079,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market1-mc2",
+            concept: "NYSE vs NASDAQ",
             question: "Which statement about the NYSE and Nasdaq is correct?",
             options: [
               "The Nasdaq is older and uses a trading floor",
@@ -1955,6 +2107,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market1-aq1",
+          concept: "NYSE vs NASDAQ",
           question: "Why does the gaming startup's Nasdaq listing NOT change how Maya buys its shares?",
           options: [
             "The Nasdaq secretly routes her order to the NYSE",
@@ -1982,6 +2135,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market1-mastery1",
+            concept: "NYSE vs NASDAQ",
             question: "Which exchange is older and once relied on a shouting trading floor?",
             options: [
               "The Nasdaq, founded back in 1971",
@@ -1990,10 +2144,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Neither ever used a trading floor"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The NYSE dates to 1792 and long used a physical floor. The Nasdaq came later in 1971 and started fully electronic, so the two didn't open together."
           },
           {
             id: "market1-mastery2",
+            concept: "NYSE vs NASDAQ",
             question: "What was special about the Nasdaq when it launched in 1971?",
             options: [
               "It was the first fully electronic exchange",
@@ -2002,10 +2158,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It was owned directly by the government"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The Nasdaq launched as the world's first fully electronic exchange, using computers instead of a floor. It wasn't floor-based, and it isn't government-owned or barred from large firms."
           },
           {
             id: "market1-mastery3",
+            concept: "NYSE vs NASDAQ",
             question: "Which type of company most often chooses to list on the Nasdaq?",
             options: [
               "Only foreign banks with no U.S. offices",
@@ -2014,10 +2172,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Companies that never earn any profit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The Nasdaq's electronic, tech-friendly reputation attracts many technology and growth companies. It isn't limited to foreign banks, and listed firms do sell shares and can be profitable."
           },
           {
             id: "market1-mastery4",
+            concept: "NYSE vs NASDAQ",
             question: "How do the NYSE and Nasdaq differ in matching trades?",
             options: [
               "The NYSE strictly bans all computers from any trading",
@@ -2026,10 +2186,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Both require buyers to first visit a local bank branch"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The NYSE uses a human-assisted auction model, while the Nasdaq uses an electronic dealer model. Both trade constantly by computer and don't require a bank visit."
           },
           {
             id: "market1-mastery5",
+            concept: "NYSE vs NASDAQ",
             question: "For a regular investor, why does the exchange usually not matter much?",
             options: [
               "Exchanges always hide their prices from ordinary investors",
@@ -2038,10 +2200,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Each exchange charges a huge entry fee daily"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Your broker reaches both exchanges and quotes prices the same way, so buying feels identical. Prices aren't hidden, both trade daily, and there's no daily entry fee for investors."
           },
           {
             id: "market1-mastery6",
+            concept: "NYSE vs NASDAQ",
             question: "What should matter most when deciding whether to buy a stock?",
             options: [
               "The company's earnings, growth, and risks",
@@ -2050,6 +2214,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "How old the exchange's building happens to be"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A company's earnings, growth, and risks drive its value, so those matter most. A lobby, a symbol's color, and a building's age tell you nothing about the investment."
           }
         ]
@@ -2102,6 +2267,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market2-mc1",
+            concept: "Market Makers",
             question: "How does a market maker mainly earn money?",
             options: [
               "By charging a yearly fee to every investor",
@@ -2114,6 +2280,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market2-mc2",
+            concept: "Market Makers",
             question: "What does a market maker provide to the market?",
             options: [
               "Guaranteed profits for every investor",
@@ -2141,6 +2308,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market2-aq1",
+          concept: "Market Makers",
           question: "Why did Marco's sell order fill instantly even with no regular buyer waiting?",
           options: [
             "The app invented a fake buyer to help him",
@@ -2168,6 +2336,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market2-mastery1",
+            concept: "Market Makers",
             question: "What are the two prices a market maker quotes at once?",
             options: [
               "The daily open price and the final close price",
@@ -2176,10 +2345,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The fixed quarterly dividend and the total yearly return"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A market maker quotes a bid (price it will buy at) and an ask (price it will sell at) at the same time. Open/close, taxes, and dividends are unrelated to that quote."
           },
           {
             id: "market2-mastery2",
+            concept: "Market Makers",
             question: "A market maker buys at $12.00 and sells at $12.06. What is its spread?",
             options: [
               "About 6 cents per share",
@@ -2188,10 +2359,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "There is no spread at all"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The spread is the ask minus the bid: $12.06 minus $12.00 equals 6 cents. That small gap, times many shares, is the market maker's reward."
           },
           {
             id: "market2-mastery3",
+            concept: "Market Makers",
             question: "What does 'liquidity' mean for a stock?",
             options: [
               "How easily it converts to cash without moving price",
@@ -2200,10 +2373,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "How often the company changes its printed logo design"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Liquidity is how easily you can turn shares into cash quickly without moving the price much. Company age, building size, and logos have nothing to do with it."
           },
           {
             id: "market2-mastery4",
+            concept: "Market Makers",
             question: "Why do thinly traded stocks usually have wider spreads?",
             options: [
               "The government forces wider spreads on them",
@@ -2212,10 +2387,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Their share prices are legally frozen"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "With few buyers, sellers, and market makers, there's less standing supply and demand, so spreads widen. It isn't a government rule, a dividend effect, or a price freeze."
           },
           {
             id: "market2-mastery5",
+            concept: "Market Makers",
             question: "What risk does a market maker take on?",
             options: [
               "Prices can drop before it resells its shares",
@@ -2224,10 +2401,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It owes taxes on trades that never happen"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A market maker holds inventory, so prices can fall before it resells, causing a loss. It doesn't give free shares, isn't banned from profit, and doesn't owe tax on nonexistent trades."
           },
           {
             id: "market2-mastery6",
+            concept: "Market Makers",
             question: "For a long-term investor, why is a narrow spread good?",
             options: [
               "It fully guarantees the stock will rise soon",
@@ -2236,6 +2415,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It removes every last bit of risk from investing"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A narrow spread means you lose very little to the bid-ask gap on each trade, keeping costs low. It can't guarantee gains, boost dividends, or erase risk."
           }
         ]
@@ -2288,6 +2468,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market3-mc1",
+            concept: "Trading Hours",
             question: "What are the regular U.S. stock market hours?",
             options: [
               "A full 24 hours a day, every single day",
@@ -2300,6 +2481,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market3-mc2",
+            concept: "Trading Hours",
             question: "Which part of the day is usually the most volatile?",
             options: [
               "The quiet slow middle around lunchtime",
@@ -2327,6 +2509,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market3-aq1",
+          concept: "Trading Hours",
           question: "Why might Aisha's Wednesday fill price differ from Tuesday's closing price?",
           options: [
             "Brokers randomly change all their prices every single night",
@@ -2354,6 +2537,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market3-mastery1",
+            concept: "Trading Hours",
             question: "At what Eastern time does regular U.S. trading begin?",
             options: [
               "At 6:00 a.m. exactly sharp",
@@ -2362,10 +2546,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "At 4:00 in the afternoon"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Regular trading opens at 9:30 a.m. Eastern. It doesn't start at 6 a.m., noon, or 4 p.m., which is actually the closing time."
           },
           {
             id: "market3-mastery2",
+            concept: "Trading Hours",
             question: "Why do set trading hours help create fair prices?",
             options: [
               "They gather the most buyers and sellers together",
@@ -2374,10 +2560,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They ban companies from ever sharing any news"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Concentrating trading gathers deep liquidity, so prices reflect the whole crowd. Hours don't limit trading to one person, equalize prices, or block company news."
           },
           {
             id: "market3-mastery3",
+            concept: "Trading Hours",
             question: "A stock closes at $30, then opens the next day at $33 after good news. This jump is called a…",
             options: [
               "A cash dividend paid overnight",
@@ -2386,10 +2574,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A circuit breaker briefly cooling off"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A price jump between the prior close and the next open is a 'gap,' here a gap up from overnight news. It's not a dividend, a fee, or a circuit breaker."
           },
           {
             id: "market3-mastery4",
+            concept: "Trading Hours",
             question: "If you place an order at 10 p.m., when does it usually execute?",
             options: [
               "Instantly, at the current midnight price",
@@ -2398,10 +2588,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Exactly one week later, by law"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The market is closed at 10 p.m., so a regular order waits for the next session's open. It doesn't fill at midnight, get deleted, or wait a week."
           },
           {
             id: "market3-mastery5",
+            concept: "Trading Hours",
             question: "Why is the 4:00 p.m. closing price important?",
             options: [
               "It becomes the stock's official daily price",
@@ -2410,10 +2602,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It pays every shareholder a fixed bonus"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "The close is the official price used in news, statements, and gain calculations. It doesn't set taxes, guarantee the next open, or trigger a bonus."
           },
           {
             id: "market3-mastery6",
+            concept: "Trading Hours",
             question: "For a student in California, when is the 9:30 a.m. Eastern open?",
             options: [
               "At 6:30 a.m. Pacific time",
@@ -2422,6 +2616,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "At exactly midnight Pacific time"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Pacific time is three hours behind Eastern, so 9:30 a.m. Eastern is 6:30 a.m. Pacific. The other times don't match that three-hour difference."
           }
         ]
@@ -2474,6 +2669,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market4-mc1",
+            concept: "Bull vs Bear",
             question: "What is a bear market?",
             options: [
               "A single stock that pays big dividends",
@@ -2486,6 +2682,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market4-mc2",
+            concept: "Bull vs Bear",
             question: "Why is emotion dangerous for investors during these cycles?",
             options: [
               "It always makes online brokers charge much higher fees",
@@ -2513,6 +2710,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market4-aq1",
+          concept: "Bull vs Bear",
           question: "Why does Tomas's separate cash cushion help him during the bear market?",
           options: [
             "It fully guarantees that the whole market rebounds next week",
@@ -2540,6 +2738,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market4-mastery1",
+            concept: "Bull vs Bear",
             question: "A bull market describes what kind of trend?",
             options: [
               "A sustained stretch of rising prices",
@@ -2548,10 +2747,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A stretch of prices dropping fast"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A bull market is a sustained upward trend in prices. It's not one down day, a trading freeze, or a decline, which describes a bear market."
           },
           {
             id: "market4-mastery2",
+            concept: "Bull vs Bear",
             question: "Roughly how far must prices fall to be called a bear market?",
             options: [
               "About 2% down from a recent high",
@@ -2560,10 +2761,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Any small drop lasting just one hour"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A common rule is a drop of at least 20% from a recent high. A 2% dip is minor, 50% isn't required, and a one-hour drop doesn't qualify."
           },
           {
             id: "market4-mastery3",
+            concept: "Bull vs Bear",
             question: "What best protects you from being forced to sell in a bear market?",
             options: [
               "Timing the market's exact top and bottom perfectly",
@@ -2572,10 +2775,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Buying only when everyone else is clearly excited"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A separate cash cushion for near-term needs means a drop can't force you to sell your fund at the bottom. Timing, panic selling, and chasing excitement all backfire."
           },
           {
             id: "market4-mastery4",
+            concept: "Bull vs Bear",
             question: "Can experts reliably predict when a bear market will start?",
             options: [
               "Yes, they always somehow know the exact top",
@@ -2584,10 +2789,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "No, because the markets never actually ever fall"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "No one reliably calls the top; turning points are obvious only afterward. There's no bell, no perfect prediction, and markets certainly do fall at times."
           },
           {
             id: "market4-mastery5",
+            concept: "Bull vs Bear",
             question: "How can a bear market actually help a long-term investor?",
             options: [
               "It lets them buy quality companies at lower prices",
@@ -2596,10 +2803,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It forces every company to double all their dividends"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Lower prices in a bear market let steady investors buy good companies 'on sale.' It doesn't guarantee quick profits, erase risk, or boost dividends."
           },
           {
             id: "market4-mastery6",
+            concept: "Bull vs Bear",
             question: "What does history show about past bear markets?",
             options: [
               "They lasted forever with no recovery",
@@ -2608,6 +2817,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They always doubled the market overnight"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Every past bear market has eventually given way to a recovery and new highs. They aren't permanent, one-time, or overnight-doubling events."
           }
         ]
@@ -2660,6 +2870,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market5-mc1",
+            concept: "Liquidity",
             question: "What does liquidity measure?",
             options: [
               "How much a whole company earns each year",
@@ -2672,6 +2883,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market5-mc2",
+            concept: "Liquidity",
             question: "Which signals that a stock is highly liquid?",
             options: [
               "Very low volume and a wide spread",
@@ -2699,6 +2911,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market5-aq1",
+          concept: "Liquidity",
           question: "Why could Nina struggle to sell her illiquid stock later at $8?",
           options: [
             "The exchange strictly bans anyone at all from selling small companies",
@@ -2726,6 +2939,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market5-mastery1",
+            concept: "Liquidity",
             question: "Which asset is the most liquid?",
             options: [
               "A house you own outright",
@@ -2734,10 +2948,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A tiny, rarely traded stock"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Cash in savings is instantly available at full value, so it's the most liquid. Houses, collectibles, and thin stocks all take time or price cuts to sell."
           },
           {
             id: "market5-mastery2",
+            concept: "Liquidity",
             question: "A stock trades 20 million shares daily with a 1-cent spread. It is…",
             options: [
               "Highly liquid and easy to trade",
@@ -2746,10 +2962,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Fully guaranteed to rise in price"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Huge volume and a tiny spread mean the stock is highly liquid and easy to trade. That's the opposite of illiquid or frozen, and liquidity doesn't guarantee gains."
           },
           {
             id: "market5-mastery3",
+            concept: "Liquidity",
             question: "Where should your emergency fund be kept?",
             options: [
               "In a thinly traded penny stock",
@@ -2758,10 +2976,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "In a fully locked five-year term investment"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Emergency money must be instantly available, so a liquid savings account fits. Penny stocks, collectibles, and locked investments can't be tapped quickly at full value."
           },
           {
             id: "market5-mastery4",
+            concept: "Liquidity",
             question: "What can happen if you place a big sell order in an illiquid stock?",
             options: [
               "Your order pushes the price down",
@@ -2770,10 +2990,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Absolutely nothing changes about the price"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "With few buyers waiting, a large sell order can drive the price down. It won't double the price, trigger a refund, or leave the price untouched."
           },
           {
             id: "market5-mastery5",
+            concept: "Liquidity",
             question: "Why is a high 'last price' not enough to trust?",
             options: [
               "The last posted prices are always fake numbers",
@@ -2782,10 +3004,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The last quoted price resets down to zero nightly"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A last price only reflects one past trade; if few buyers wait, you may not sell there. Prices aren't fake, illegal to show, or reset to zero each night."
           },
           {
             id: "market5-mastery6",
+            concept: "Liquidity",
             question: "Why do beginners favor liquid index funds and large stocks?",
             options: [
               "They can be bought and sold quickly and cheaply",
@@ -2794,6 +3018,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They can only ever be sold once per decade"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "High liquidity lets you enter and exit quickly at low cost, which is a form of safety. It doesn't guarantee against losses, pay free shares, or lock you in for years."
           }
         ]
@@ -2846,6 +3071,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market6-mc1",
+            concept: "After-Hours",
             question: "What are 'extended hours'?",
             options: [
               "Weekend-only trading at the exchange floor",
@@ -2858,6 +3084,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market6-mc2",
+            concept: "After-Hours",
             question: "Why are after-hours prices often jumpy?",
             options: [
               "The exchange resets all prices every single hour",
@@ -2885,6 +3112,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market6-aq1",
+          concept: "After-Hours",
           question: "Why should Diego be cautious about the 9% after-hours jump?",
           options: [
             "All after-hours trading gains are always taxed at a full 100%",
@@ -2912,6 +3140,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market6-mastery1",
+            concept: "After-Hours",
             question: "When does the after-hours session roughly run?",
             options: [
               "From 4:00 a.m. to 9:30 a.m. Eastern",
@@ -2920,10 +3149,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Only ever on Saturdays and Sundays"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "After-hours runs roughly 4:00 p.m. to 8:00 p.m. Eastern. The early morning window is pre-market, and there's no overnight or weekend session."
           },
           {
             id: "market6-mastery2",
+            concept: "After-Hours",
             question: "Why do companies often report earnings after 4:00 p.m.?",
             options: [
               "The regular market is closed, avoiding mid-day shocks",
@@ -2932,10 +3163,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "After-hours has the most traders of the day"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Reporting after the close lets news land while regular trading is paused. It isn't legally required, doesn't pay bonuses, and after-hours actually has few traders."
           },
           {
             id: "market6-mastery3",
+            concept: "After-Hours",
             question: "What makes after-hours trading riskier than regular hours?",
             options: [
               "Thin liquidity and wide spreads",
@@ -2944,10 +3177,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Prices that never move at all"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Few traders mean thin liquidity and wide spreads, so prices swing and trading costs rise. Losses aren't guaranteed, selling isn't banned, and prices do move - often a lot."
           },
           {
             id: "market6-mastery4",
+            concept: "After-Hours",
             question: "A stock jumps 8% after-hours on light volume. What is a wise view?",
             options: [
               "The move is final and can never reverse",
@@ -2956,10 +3191,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "After-hours prices are always perfectly accurate"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Light-volume moves can exaggerate the reaction and reverse at the deeper open. They aren't final, permanent, or perfectly accurate."
           },
           {
             id: "market6-mastery5",
+            concept: "After-Hours",
             question: "Which price is considered a stock's 'official' daily price?",
             options: [
               "The single highest after-hours tick",
@@ -2968,10 +3205,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The very lowest evening trade"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The 4:00 p.m. regular-session close is the official daily price. Jumpy pre-market and after-hours ticks aren't used as the official figure."
           },
           {
             id: "market6-mastery6",
+            concept: "After-Hours",
             question: "What is the smartest approach to after-hours moves for a beginner?",
             options: [
               "Treat them as early info, not a final verdict",
@@ -2980,6 +3219,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Borrow extra money to trade on them very aggressively"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Beginners should read after-hours moves as early information and wait for the fair, liquid open. Rushing in, ignoring news, or borrowing to trade are all risky mistakes."
           }
         ]
@@ -3032,6 +3272,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market7-mc1",
+            concept: "Circuit Breakers",
             question: "What is the main purpose of a circuit breaker?",
             options: [
               "To fully guarantee stocks always rise in value",
@@ -3044,6 +3285,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market7-mc2",
+            concept: "Circuit Breakers",
             question: "What does a market-wide Level 3 (20%) drop cause?",
             options: [
               "A brief 15-minute pause, and then normal trading fully resumes",
@@ -3071,6 +3313,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market7-aq1",
+          concept: "Circuit Breakers",
           question: "What does the 15-minute halt after a 7% drop actually mean for Hana?",
           options: [
             "Her invested money has been permanently erased",
@@ -3098,6 +3341,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market7-mastery1",
+            concept: "Circuit Breakers",
             question: "What problem are circuit breakers designed to stop?",
             options: [
               "Panic selling that feeds on itself",
@@ -3106,10 +3350,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Dividends being paid out too often"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Circuit breakers interrupt the panic loop where falling prices trigger more selling. They aren't about profits, holding periods, or dividend frequency."
           },
           {
             id: "market7-mastery2",
+            concept: "Circuit Breakers",
             question: "How long does a Level 1 (7%) halt last if triggered early enough?",
             options: [
               "About 15 minutes",
@@ -3118,10 +3364,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Exactly one hour"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A Level 1 halt pauses trading for about 15 minutes. A full-day halt only comes from a Level 3 (20%) drop, not from Level 1."
           },
           {
             id: "market7-mastery3",
+            concept: "Circuit Breakers",
             question: "What triggers a market-wide Level 3 halt for the whole day?",
             options: [
               "A small 2% dip from yesterday",
@@ -3130,10 +3378,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A quiet, flat, dull trading day"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A 20% index drop triggers a Level 3 halt for the rest of the day. A 2% dip is minor, a single stock uses different halts, and flat days trigger nothing."
           },
           {
             id: "market7-mastery4",
+            concept: "Circuit Breakers",
             question: "What is a 'limit up-limit down' halt?",
             options: [
               "A pause when one stock swings too fast",
@@ -3142,10 +3392,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A permanent, total ban on all volatile stocks"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Limit up-limit down briefly pauses a single stock that moves too far too fast. It isn't a tax, a bonus, or a permanent ban."
           },
           {
             id: "market7-mastery5",
+            concept: "Circuit Breakers",
             question: "If you see 'trading was halted,' what does it usually mean?",
             options: [
               "Your money has now permanently completely disappeared",
@@ -3154,10 +3406,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "All stocks were reset to a price of zero"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A halt means the built-in safety system paused trading, working as intended. Your money isn't gone, the market reopens, and prices aren't reset to zero."
           },
           {
             id: "market7-mastery6",
+            concept: "Circuit Breakers",
             question: "What is the smartest investor response during a circuit-breaker halt?",
             options: [
               "Immediately panic-sell absolutely everything you own right now",
@@ -3166,6 +3420,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Just assume the whole market is now broken forever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Staying calm and sticking to a long-term plan is the disciplined response. Panic-selling, reckless borrowing, and assuming permanent collapse are all mistakes."
           }
         ]
@@ -3218,6 +3473,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market8-mc1",
+            concept: "Insider Trading",
             question: "What is illegal insider trading?",
             options: [
               "Buying any stock while you work at a company",
@@ -3230,6 +3486,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market8-mc2",
+            concept: "Insider Trading",
             question: "Is passing a secret tip to a friend who then trades illegal?",
             options: [
               "No, only the original insider can be charged",
@@ -3257,6 +3514,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market8-aq1",
+          concept: "Insider Trading",
           question: "Why would selling on his uncle's tip be illegal for Cole?",
           options: [
             "Teens are banned from ever selling any stock",
@@ -3284,6 +3542,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market8-mastery1",
+            concept: "Insider Trading",
             question: "What kind of information makes trading illegal?",
             options: [
               "Material, nonpublic secret information",
@@ -3292,10 +3551,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A price everyone can see in an app"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Trading on material, nonpublic information is illegal. Public news, published reports, and visible prices are available to everyone, so trading on them is fine."
           },
           {
             id: "market8-mastery2",
+            concept: "Insider Trading",
             question: "Why do insider trading laws exist?",
             options: [
               "To keep markets fair and trustworthy for all",
@@ -3304,10 +3565,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "To force stock prices to rise each year"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The laws protect fairness so everyone trades on equal information and trusts the market. They don't ban profits, forbid share ownership, or force prices up."
           },
           {
             id: "market8-mastery3",
+            concept: "Insider Trading",
             question: "Can a company executive ever legally trade her own stock?",
             options: [
               "No, executives may never trade at all",
@@ -3316,10 +3579,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Yes, but only ever on secret information"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Executives can legally trade using only public information and by reporting their trades. They aren't banned entirely, and trading on secrets is what's illegal."
           },
           {
             id: "market8-mastery4",
+            concept: "Insider Trading",
             question: "How does the SEC often catch illegal insider trading?",
             options: [
               "By flagging suspicious timing and tracing records",
@@ -3328,10 +3593,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "By simply ignoring all digital records entirely"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "The SEC flags unusual timing and traces calls, texts, and digital trade records. It doesn't guess randomly, ban all news-time trading, or ignore records."
           },
           {
             id: "market8-mastery5",
+            concept: "Insider Trading",
             question: "What can happen to someone convicted of insider trading?",
             options: [
               "Nothing more than a polite warning",
@@ -3340,10 +3607,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "A fully guaranteed promotion at work"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Convictions can bring multimillion-dollar fines, industry bans, and prison. It's a serious crime, not something met with a warning, bonus, or promotion."
           },
           {
             id: "market8-mastery6",
+            concept: "Insider Trading",
             question: "If a friend gives you a secret tip, what's the safe choice?",
             options: [
               "Trade very fast before anyone else notices",
@@ -3352,6 +3621,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Buy as many shares as you can afford"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The safe, legal choice is to not trade on secret information at all. Rushing to trade, spreading the tip, or loading up on shares can all be illegal."
           }
         ]
@@ -3404,6 +3674,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market9-mc1",
+            concept: "SEC Basics",
             question: "What is the SEC's main role?",
             options: [
               "To guarantee every investor earns a profit",
@@ -3416,6 +3687,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market9-mc2",
+            concept: "SEC Basics",
             question: "What does 'disclosure' require public companies to do?",
             options: [
               "Give free shares to every citizen",
@@ -3443,6 +3715,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market9-aq1",
+          concept: "SEC Basics",
           question: "Why is the adviser's 'guaranteed 40% return' a warning sign?",
           options: [
             "The SEC caps all returns at exactly 10%",
@@ -3470,6 +3743,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market9-mastery1",
+            concept: "SEC Basics",
             question: "The SEC is best described as the market's…",
             options: [
               "Referee enforcing fair rules",
@@ -3478,10 +3752,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Company that makes products"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The SEC referees the markets by enforcing fair rules. It isn't a bank, a broker, or a product-making company."
           },
           {
             id: "market9-mastery2",
+            concept: "SEC Basics",
             question: "Why must public companies file disclosures?",
             options: [
               "So investors can make informed decisions",
@@ -3490,10 +3766,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "So they avoid ever paying any taxes"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Disclosure gives investors honest financial information to decide wisely. It's the opposite of hiding debts, and it doesn't move prices up or dodge taxes."
           },
           {
             id: "market9-mastery3",
+            concept: "SEC Basics",
             question: "Which of these does the SEC investigate and punish?",
             options: [
               "Fraud and insider trading",
@@ -3502,10 +3780,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Stocks that rise too quickly"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "The SEC targets fraud, insider trading, and scams. Earning profits, holding stocks, and rising prices are normal and not violations."
           },
           {
             id: "market9-mastery4",
+            concept: "SEC Basics",
             question: "How can the SEC's databases help you personally?",
             options: [
               "They fully guarantee your investments will grow",
@@ -3514,10 +3794,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "They pay you back any losses you take"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "SEC databases let you check filings and confirm a broker is registered with a clean record. They don't guarantee growth, pick stocks, or refund losses."
           },
           {
             id: "market9-mastery5",
+            concept: "SEC Basics",
             question: "Can a financial firm legally promise you 'guaranteed 50% returns'?",
             options: [
               "Yes, if the firm is very large",
@@ -3526,10 +3808,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "No, unless you are over eighteen"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "SEC rules bar promising guaranteed returns, so that claim is a scam signal regardless of firm size, registration, or your age."
           },
           {
             id: "market9-mastery6",
+            concept: "SEC Basics",
             question: "What is a key limit of the SEC's protection?",
             options: [
               "It cannot guarantee any investment makes money",
@@ -3538,6 +3822,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "It forces everyone to buy certain stocks"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "The SEC ensures fairness and honesty but can't guarantee profits - honest stocks still fall. It does punish fraud, publishes reports, and never forces purchases."
           }
         ]
@@ -3590,6 +3875,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market10-mc1",
+            concept: "Market Indexes",
             question: "What is a market index?",
             options: [
               "A single company's own daily share price",
@@ -3602,6 +3888,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market10-mc2",
+            concept: "Market Indexes",
             question: "Which index tracks 500 of the largest U.S. companies?",
             options: [
               "The Dow Jones Industrial Average",
@@ -3629,6 +3916,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market10-aq1",
+          concept: "Market Indexes",
           question: "How could the S&P 500 rise while most of its companies fell?",
           options: [
             "The index secretly ignores any company that drops",
@@ -3656,6 +3944,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market10-mastery1",
+            concept: "Market Indexes",
             question: "What does a market index do?",
             options: [
               "Tracks a group of stocks with one number",
@@ -3664,10 +3953,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Lends emergency cash out to struggling smaller companies"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "An index summarizes a group of stocks in one number. It doesn't set a company's price, charge trade fees, or lend money."
           },
           {
             id: "market10-mastery2",
+            concept: "Market Indexes",
             question: "How many companies does the Dow track?",
             options: [
               "About 30 large companies",
@@ -3676,10 +3967,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Only one giant company"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The Dow tracks about 30 well-known companies. The S&P 500 follows 500, the Nasdaq Composite thousands, and no major index tracks just one."
           },
           {
             id: "market10-mastery3",
+            concept: "Market Indexes",
             question: "Why might the Nasdaq rise while the Dow falls on the same day?",
             options: [
               "They track different sets of companies",
@@ -3688,10 +3981,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The Dow only updates once a year"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "The two indexes hold different companies, so they can move differently. Neither is fake, they aren't forced to diverge, and the Dow updates continuously."
           },
           {
             id: "market10-mastery4",
+            concept: "Market Indexes",
             question: "What does 'market-cap weighted' mean for an index?",
             options: [
               "Every company counts exactly equally in it",
@@ -3700,10 +3995,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The index tracks a loan you take out"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "In a cap-weighted index the largest companies count most, so they move the number more. It isn't equal-weighted, price-only, or a loan."
           },
           {
             id: "market10-mastery5",
+            concept: "Market Indexes",
             question: "Which index is unusual for being 'price weighted'?",
             options: [
               "The S&P 500, the pros' benchmark",
@@ -3712,10 +4009,12 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "The small-cap Russell 2000"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The Dow is price weighted, a historical quirk that makes a high share price sway it more. The others weight by market value, not share price."
           },
           {
             id: "market10-mastery6",
+            concept: "Market Indexes",
             question: "A 'total return' version of an index differs from the headline number by including…",
             options: [
               "The dividends the companies paid out",
@@ -3724,6 +4023,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
               "Only the single largest company"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Total-return figures add in dividends, so they run higher over time. The headline price-return number leaves dividends out and understates a long-term holder's gain."
           }
         ]

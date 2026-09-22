@@ -47,6 +47,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb1-mc1",
+            concept: "What Is Consumer Behavior",
             question: "What is the difference between a need and a want?",
             options: [
               "A need is cheaper; a want is always expensive which the city council reviews every autumn",
@@ -59,6 +60,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb1-mc2",
+            concept: "What Is Consumer Behavior",
             question: "Why can a plain t-shirt sell for $60 instead of $6?",
             options: [
               "The fabric costs ten times as much to make",
@@ -86,6 +88,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb1-aq1",
+          concept: "What Is Consumer Behavior",
           question: "What is the MAIN force driving Jordan toward the $150 sneakers?",
           options: [
             "A functional need for shoes he does not have",
@@ -113,6 +116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb1-mastery1",
+            concept: "What Is Consumer Behavior",
             question: "Consumer behavior is best defined as the study of…",
             options: [
               "How factories lower production costs as older economists once firmly believed",
@@ -121,10 +125,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "How governments write new tax laws"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Consumer behavior is the study of how people choose, buy, use, and discard products - the whole journey of the buyer, not just the moment of sale."
           },
           {
             id: "cb1-mastery2",
+            concept: "What Is Consumer Behavior",
             question: "A business that understands only the functional need for a product tends to…",
             options: [
               "Charge a premium for strong branding",
@@ -133,10 +139,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Avoid all forms of advertising"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Selling only the functional need turns a product into a commodity, forcing the business to compete on price. Emotional value is what lets a company charge more."
           },
           {
             id: "cb1-mastery3",
+            concept: "What Is Consumer Behavior",
             question: "Why do smart companies track post-purchase satisfaction so closely?",
             options: [
               "Laws require a survey after every single sale",
@@ -145,10 +153,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It lets them ignore product quality entirely"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Keeping an existing customer costs roughly five times less than winning a new one, and satisfaction drives repeat buying and word of mouth - so companies watch it closely."
           },
           {
             id: "cb1-mastery4",
+            concept: "What Is Consumer Behavior",
             question: "What does 'perceived value' mean in a purchase?",
             options: [
               "The exact cost of the raw materials",
@@ -157,10 +167,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The price the store originally paid"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Perceived value is how much the buyer feels they get for their money. It can be far higher than the actual cost, which is why branding and experience let firms charge more."
           },
           {
             id: "cb1-mastery5",
+            concept: "What Is Consumer Behavior",
             question: "Bottled water sells for $2 despite nearly free tap water because marketers…",
             options: [
               "Changed the chemical makeup of the water",
@@ -169,10 +181,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Lowered the cost of making every bottle"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The water itself is basically the same. Brands like Fiji and Evian add perceived value through design, purity stories, and branding, letting them charge a premium."
           },
           {
             id: "cb1-mastery6",
+            concept: "What Is Consumer Behavior",
             question: "Consumer behavior draws on three main lenses. They are…",
             options: [
               "Accounting, law, and engineering",
@@ -181,6 +195,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Sales, shipping, and storage"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The field blends psychology (the individual mind), economics (trade-offs and budgets), and culture (why products succeed in some markets and fail in others)."
           }
         ]
@@ -232,6 +247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb2-mc1",
+            concept: "The Decision-Making Process",
             question: "Which stage comes right after 'information search'?",
             options: [
               "Need recognition of a new gap",
@@ -244,6 +260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb2-mc2",
+            concept: "The Decision-Making Process",
             question: "What is 'buyer's remorse'?",
             options: [
               "Excitement felt right before buying which the city council reviews every autumn",
@@ -271,6 +288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb2-aq1",
+          concept: "The Decision-Making Process",
           question: "The $40 shipping fee that nearly stopped Priya's purchase is an example of…",
           options: [
             "Need recognition starting the journey",
@@ -298,6 +316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb2-mastery1",
+            concept: "The Decision-Making Process",
             question: "Which is the correct order of the five decision stages?",
             options: [
               "Search, need, purchase, evaluation, post-purchase as older economists once firmly believed",
@@ -306,10 +325,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Evaluation, purchase, need, search, post-purchase"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The stages run: need recognition, information search, evaluation of alternatives, purchase decision, and post-purchase behavior."
           },
           {
             id: "cb2-mastery2",
+            concept: "The Decision-Making Process",
             question: "Why do online stores obsess over one-click checkout?",
             options: [
               "The law demands fast checkout screens as older economists once firmly believed",
@@ -318,10 +339,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It replaces the need for any advertising"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Tiny friction - extra clicks, high shipping, re-entering a card - kills sales at the purchase stage. Removing it captures buyers who would otherwise abandon the cart."
           },
           {
             id: "cb2-mastery3",
+            concept: "The Decision-Making Process",
             question: "A car is a 'high-involvement' purchase mainly because…",
             options: [
               "It is illegal to buy one quickly",
@@ -330,10 +353,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Buyers never compare it to alternatives"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "High cost and high risk push buyers to research for weeks and compare many options, stretching every decision stage - the mark of a high-involvement purchase."
           },
           {
             id: "cb2-mastery4",
+            concept: "The Decision-Making Process",
             question: "Habitual buying is valuable to a brand because it…",
             options: [
               "Forces the brand to keep lowering prices",
@@ -342,10 +367,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Guarantees the product never sells out"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When buying is a habit, the customer skips searching and evaluating, grabbing your brand on autopilot. That autopilot keeps competitors from even being considered."
           },
           {
             id: "cb2-mastery5",
+            concept: "The Decision-Making Process",
             question: "A heuristic like 'expensive means good quality' is a…",
             options: [
               "Legal rule stores must post as older economists once firmly believed",
@@ -354,10 +381,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Guarantee that pricey items are better"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Heuristics are mental rules of thumb that save effort. They are usually helpful but can be exploited - a high price can make something feel better than it is."
           },
           {
             id: "cb2-mastery6",
+            concept: "The Decision-Making Process",
             question: "A thank-you email with an easy return policy mainly helps by…",
             options: [
               "Raising the item's shelf price",
@@ -366,6 +395,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Removing the need for a product at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Reassurance and easy returns ease post-purchase doubt, lowering buyer's remorse so the customer feels confident and stays loyal instead of returning the item."
           }
         ]
@@ -417,6 +447,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb3-mc1",
+            concept: "Psychological Factors",
             question: "According to Maslow, which need is satisfied first?",
             options: [
               "Self-actualization at the very top which the city council reviews every autumn",
@@ -429,6 +460,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb3-mc2",
+            concept: "Psychological Factors",
             question: "The message 'Only 3 left in stock!' relies on which bias?",
             options: [
               "Anchoring against a higher price",
@@ -456,6 +488,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb3-aq1",
+          concept: "Psychological Factors",
           question: "The crossed-out '$260' beside the '$180' price is an example of…",
           options: [
             "Scarcity limiting available supply which the city council reviews every autumn",
@@ -483,6 +516,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb3-mastery1",
+            concept: "Psychological Factors",
             question: "A meditation app that sells 'becoming your best self' targets which Maslow level?",
             options: [
               "Basic survival needs",
@@ -491,10 +525,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The need for food and water"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Growth, purpose, and reaching your potential sit at the top of Maslow's hierarchy - self-actualization - which is exactly what a meditation app markets."
           },
           {
             id: "cb3-mastery2",
+            concept: "Psychological Factors",
             question: "Selective attention means buyers…",
             options: [
               "Remember every ad they ever see",
@@ -503,10 +539,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Buy the first product advertised as older economists once firmly believed"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Flooded with ads, buyers use selective attention to notice only what seems relevant to them, filtering out the rest - so messages must break through the filter."
           },
           {
             id: "cb3-mastery3",
+            concept: "Psychological Factors",
             question: "Framing a car as having 'only 3% failures' instead of '97% reliability' works because…",
             options: [
               "The two numbers describe different cars",
@@ -515,10 +553,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It changes the car's actual quality"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The numbers are identical, but framing changes how buyers perceive them. People act on perception, so wording alone can make the same fact feel better or worse."
           },
           {
             id: "cb3-mastery4",
+            concept: "Psychological Factors",
             question: "Why is a deeply negative attitude toward a brand so damaging?",
             options: [
               "It legally bans the brand from selling",
@@ -527,10 +567,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It doubles the brand's advertising costs as older economists once firmly believed"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A negative attitude makes buyers exclude a brand before they even consider it, so no discount reaches them. Reversing an entrenched attitude is costly and slow."
           },
           {
             id: "cb3-mastery5",
+            concept: "Psychological Factors",
             question: "Loss aversion explains why 'Don't miss out' often beats 'Come save' because people…",
             options: [
               "Enjoy gains far more than they fear losses",
@@ -539,10 +581,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Always choose the cheapest option as older economists once firmly believed"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Loss aversion means the pain of losing outweighs the pleasure of an equal gain, so framing an offer as avoiding a loss motivates more than framing it as a gain."
           },
           {
             id: "cb3-mastery6",
+            concept: "Psychological Factors",
             question: "One case of food poisoning creating a lasting refusal to return shows that…",
             options: [
               "Learning only builds positive brand feelings as older economists once firmly believed",
@@ -551,6 +595,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Advertising can always erase bad memories"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Conditioning works both ways: a strong negative experience can create a lasting aversion that no advertising can undo, making reputations easy to damage."
           }
         ]
@@ -602,6 +647,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb4-mc1",
+            concept: "Social & Cultural Influences",
             question: "What is a 'reference group'?",
             options: [
               "A company's internal sales team",
@@ -614,6 +660,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb4-mc2",
+            concept: "Social & Cultural Influences",
             question: "Why does McDonald's skip beef on its menu in India?",
             options: [
               "Beef is more expensive to ship there",
@@ -641,6 +688,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb4-aq1",
+          concept: "Social & Cultural Influences",
           question: "Why did Aisha buy premium snacks for guests but cheap ones for herself?",
           options: [
             "The premium snacks were on a deep sale",
@@ -668,6 +716,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb4-mastery1",
+            concept: "Social & Cultural Influences",
             question: "Why do brands seed products with athletes and influencers?",
             options: [
               "The law requires celebrity endorsements as older economists once firmly believed",
@@ -676,10 +725,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It removes the need for any product quality"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Popular figures and influencers act as reference groups and opinion leaders. When they adopt a product, others follow to fit in, spreading it through the group."
           },
           {
             id: "cb4-mastery2",
+            concept: "Social & Cultural Influences",
             question: "A person buying a luxury watch mainly to signal success is buying a…",
             options: [
               "Functional tool with no meaning",
@@ -688,10 +739,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Product chosen purely at random"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A watch bought to broadcast achievement is a status symbol - a purchase driven by what it signals to others, not just its function of telling time."
           },
           {
             id: "cb4-mastery3",
+            concept: "Social & Cultural Influences",
             question: "Why does word of mouth beat expensive advertising?",
             options: [
               "It is legally required before ads run",
@@ -700,10 +753,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It guarantees a product never sells out"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Buyers trust real people - friends, reviewers, opinion leaders - more than paid ads, so an authentic recommendation can outweigh a huge advertising budget."
           },
           {
             id: "cb4-mastery4",
+            concept: "Social & Cultural Influences",
             question: "The fact that white means purity in the West but mourning in parts of Asia shows that…",
             options: [
               "Colors have no effect on buyers",
@@ -712,10 +767,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "One design works everywhere equally as older economists once firmly believed"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Meanings differ across cultures, so the same color or message can help in one market and offend in another. Global brands must adapt to local culture."
           },
           {
             id: "cb4-mastery5",
+            concept: "Social & Cultural Influences",
             question: "What is a subculture?",
             options: [
               "A brand's official customer service team which shipping contracts always specify",
@@ -724,10 +781,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The wealthiest class in a society"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A subculture is a smaller group within a culture - united by age, region, interest, or belief - with distinct tastes that reward brands speaking authentically to them."
           },
           {
             id: "cb4-mastery6",
+            concept: "Social & Cultural Influences",
             question: "Understanding social and cultural influence leads most directly into…",
             options: [
               "Setting a company's tax rate as older economists once firmly believed",
@@ -736,6 +795,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Writing a firm's accounting rules"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Social and cultural insight is the bridge to market segmentation - splitting a broad audience into meaningful groups a business can actually serve well."
           }
         ]
@@ -787,6 +847,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb5-mc1",
+            concept: "Market Segmentation",
             question: "Which is an example of demographic segmentation?",
             options: [
               "Grouping buyers by their core values",
@@ -799,6 +860,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb5-mc2",
+            concept: "Market Segmentation",
             question: "A segment of 'left-handed astronauts who love jazz' mainly fails which test?",
             options: [
               "It is not measurable at all",
@@ -826,6 +888,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb5-aq1",
+          concept: "Market Segmentation",
           question: "Dividing Leo's users by whether they seek 'muscle gain' or 'gentle mobility' is which type of segmentation?",
           options: [
             "Geographic, based on their region which the city council reviews every autumn",
@@ -853,6 +916,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb5-mastery1",
+            concept: "Market Segmentation",
             question: "Why does trying to sell one product to everyone usually fail?",
             options: [
               "The law caps how many buyers you can have",
@@ -861,10 +925,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Broad markets are illegal to advertise to"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A product built for all buyers fits none tightly. Segmentation lets a business tailor product, price, and message to one group, which is far more effective."
           },
           {
             id: "cb5-mastery2",
+            concept: "Market Segmentation",
             question: "What is the main weakness of demographic segmentation?",
             options: [
               "The data is impossible to collect as older economists once firmly believed",
@@ -873,10 +939,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It is banned in most industries"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Two people of the same age and income can want completely different things, so demographics often miss the real reasons behind a purchase - which psychographics reveal."
           },
           {
             id: "cb5-mastery3",
+            concept: "Market Segmentation",
             question: "Patagonia targeting eco-conscious, outdoorsy buyers is an example of…",
             options: [
               "Geographic segmentation by climate",
@@ -885,10 +953,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Random selection of customers"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Grouping buyers by values, lifestyle, and interests - like caring about the environment and the outdoors - is psychographic segmentation, the 'why' behind buying."
           },
           {
             id: "cb5-mastery4",
+            concept: "Market Segmentation",
             question: "Behavioral segmentation groups buyers by…",
             options: [
               "Their height and eye color",
@@ -897,10 +967,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Their favorite childhood memory as older economists once firmly believed"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Behavioral segmentation groups by actions toward the product - purchase frequency, loyalty, benefits sought, and timing - often the strongest signal of value."
           },
           {
             id: "cb5-mastery5",
+            concept: "Market Segmentation",
             question: "The 'substantial' test for a good segment asks whether it is…",
             options: [
               "Made up of only wealthy buyers",
@@ -909,10 +981,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Legally registered with the state"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "'Substantial' means the segment is large enough to be profitable. A segment must also be measurable, accessible, and actionable to be worth pursuing."
           },
           {
             id: "cb5-mastery6",
+            concept: "Market Segmentation",
             question: "Coca-Cola making Diet Coke, Coke Zero, and regular Coke shows that it…",
             options: [
               "Sells one drink to one giant market",
@@ -921,6 +995,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Markets only to a single age group"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Coca-Cola splits buyers into segments - calorie-watchers, no-sugar younger buyers, and more - and offers each a tailored product, price, and message."
           }
         ]
@@ -972,6 +1047,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb6-mc1",
+            concept: "Target Markets & Buyer Personas",
             question: "What is 'concentrated' targeting?",
             options: [
               "Selling one product to every buyer",
@@ -984,6 +1060,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb6-mc2",
+            concept: "Target Markets & Buyer Personas",
             question: "A buyer persona should be built mainly from…",
             options: [
               "The founder's personal guesses which the city council reviews every autumn",
@@ -1011,6 +1088,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb6-aq1",
+          concept: "Target Markets & Buyer Personas",
           question: "Why is focusing on 'Cramming Chris' smarter than targeting all students, teachers, and parents at once?",
           options: [
             "It is the only legal way to launch an app",
@@ -1038,6 +1116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb6-mastery1",
+            concept: "Target Markets & Buyer Personas",
             question: "Which three factors help judge whether a segment is worth targeting?",
             options: [
               "Color, shape, and packaging size as older economists once firmly believed",
@@ -1046,10 +1125,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Tax rate, rent, and shipping cost"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Marketers weigh a segment's size and growth, how competitive it already is, and whether the company can serve it better than rivals before targeting it."
           },
           {
             id: "cb6-mastery2",
+            concept: "Target Markets & Buyer Personas",
             question: "A carmaker selling economy, family, and luxury lines uses which strategy?",
             options: [
               "Undifferentiated marketing",
@@ -1058,10 +1139,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "No marketing strategy at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Serving several segments with a tailored offer for each - economy, family, luxury - is differentiated marketing."
           },
           {
             id: "cb6-mastery3",
+            concept: "Target Markets & Buyer Personas",
             question: "Why do most startups begin with concentrated targeting?",
             options: [
               "The law requires a single-segment launch as older economists once firmly believed",
@@ -1070,10 +1153,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It avoids ever needing a real product"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Limited resources get beaten everywhere if spread across many segments. Concentrating on one niche builds loyalty, proves the product, and funds expansion."
           },
           {
             id: "cb6-mastery4",
+            concept: "Target Markets & Buyer Personas",
             question: "What is a buyer persona?",
             options: [
               "A legal contract with a customer as older economists once firmly believed",
@@ -1082,10 +1167,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A discount offered to new buyers"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A buyer persona is a detailed, semi-fictional profile of your ideal customer, built from real data, giving the target a name, goals, and pain points."
           },
           {
             id: "cb6-mastery5",
+            concept: "Target Markets & Buyer Personas",
             question: "How does a persona like 'Fitness Fiona' help a team make decisions?",
             options: [
               "It sets the company's tax bracket as older economists once firmly believed",
@@ -1094,10 +1181,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It guarantees the product will sell out"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A persona gives the whole team a shared real customer to picture, so they can test each decision by asking whether that specific person would actually want it."
           },
           {
             id: "cb6-mastery6",
+            concept: "Target Markets & Buyer Personas",
             question: "What was smart about Facebook launching only for Harvard first?",
             options: [
               "It reached every person on Earth instantly",
@@ -1106,6 +1195,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "It skipped needing a working product"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "By concentrating on one tight segment, Facebook built loyalty and proof of concept, then expanded college by college - far stronger than an 'everyone at once' launch."
           }
         ]
@@ -1157,6 +1247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb7-mc1",
+            concept: "Brand Loyalty vs Brand Switching",
             question: "What is a 'switching cost'?",
             options: [
               "The price a store pays for inventory which the city council reviews every autumn",
@@ -1169,6 +1260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb7-mc2",
+            concept: "Brand Loyalty vs Brand Switching",
             question: "Why is silence from a leaving customer dangerous?",
             options: [
               "It means the customer will surely return",
@@ -1196,6 +1288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb7-aq1",
+          concept: "Brand Loyalty vs Brand Switching",
           question: "How is the new gym trying to win Devin over?",
           options: [
             "By raising its own prices to seem premium",
@@ -1223,6 +1316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb7-mastery1",
+            concept: "Brand Loyalty vs Brand Switching",
             question: "Why are loyal customers so valuable to a business?",
             options: [
               "They legally cannot ever leave the brand as older economists once firmly believed",
@@ -1231,10 +1325,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "They require no product quality at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Loyal customers buy more often, spend more, forgive occasional mistakes, and recommend the brand for free - making them far more valuable than one-time buyers."
           },
           {
             id: "cb7-mastery2",
+            concept: "Brand Loyalty vs Brand Switching",
             question: "Why is emotional loyalty stronger than price-based loyalty?",
             options: [
               "It legally locks customers into contracts as older economists once firmly believed",
@@ -1243,10 +1339,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It only works for luxury products"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Price-based loyalty vanishes the moment a rival undercuts you. Emotional, identity-based loyalty ties the brand to who the customer is, so they stay even at a higher price."
           },
           {
             id: "cb7-mastery3",
+            concept: "Brand Loyalty vs Brand Switching",
             question: "How does Apple's ecosystem raise switching costs?",
             options: [
               "It gives away all its products for free",
@@ -1255,10 +1353,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It refunds customers who switch away"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When iPhone, Mac, AirPods, and iCloud all work together, leaving means losing that integration and re-buying everything - a large switching cost that keeps buyers loyal."
           },
           {
             id: "cb7-mastery4",
+            concept: "Brand Loyalty vs Brand Switching",
             question: "What does 'churn' measure?",
             options: [
               "The rate at which customers leave",
@@ -1267,10 +1367,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The tax owed on each sale"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Churn is the rate at which customers stop using a product or leave a brand. Reducing churn is cheaper than replacing lost customers with new ones."
           },
           {
             id: "cb7-mastery5",
+            concept: "Brand Loyalty vs Brand Switching",
             question: "Why does a smooth, friendly cancellation process matter?",
             options: [
               "It legally forces the customer to stay",
@@ -1279,10 +1381,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It stops all future competition as older economists once firmly believed"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A painful exit guarantees a bad review and a lost customer, while a friendly goodbye leaves the door open for the person to return later."
           },
           {
             id: "cb7-mastery6",
+            concept: "Brand Loyalty vs Brand Switching",
             question: "T-Mobile paying off rivals' contracts is a tactic aimed at…",
             options: [
               "Raising its own switching costs which shipping contracts always specify",
@@ -1291,6 +1395,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Reducing the quality of its service"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "By paying off contracts, T-Mobile removes the switching cost keeping customers stuck with a rival, turning that rival's loyal base into winnable targets."
           }
         ]
@@ -1342,6 +1447,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb8-mc1",
+            concept: "Case Study: How Nike Uses Consumer Research",
             question: "What does Nike primarily sell with 'Just Do It'?",
             options: [
               "The technical details of shoe foam",
@@ -1354,6 +1460,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb8-mc2",
+            concept: "Case Study: How Nike Uses Consumer Research",
             question: "How do Nike's training apps help its consumer research?",
             options: [
               "They set the company's tax rate which the city council reviews every autumn",
@@ -1381,6 +1488,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb8-aq1",
+          concept: "Case Study: How Nike Uses Consumer Research",
           question: "Why won't Ravi switch to the cheaper rival brand?",
           options: [
             "A law forbids him from buying rivals",
@@ -1408,6 +1516,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb8-mastery1",
+            concept: "Case Study: How Nike Uses Consumer Research",
             question: "Nike aiming 'Just Do It' at feeling capable and driven targets which needs?",
             options: [
               "Basic food and water needs",
@@ -1416,10 +1525,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The need for legal protection"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "'Just Do It' speaks to motivation, achievement, and identity - Maslow's esteem and self-actualization needs - turning a commodity shoe into a meaningful symbol."
           },
           {
             id: "cb8-mastery2",
+            concept: "Case Study: How Nike Uses Consumer Research",
             question: "Signing stars like Michael Jordan mainly works because they act as…",
             options: [
               "A cheaper way to make the shoes",
@@ -1428,10 +1539,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A replacement for having a product"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Star athletes are an aspirational reference group fans want to emulate, so placing the brand on them pulls buyers toward it to feel connected to that identity."
           },
           {
             id: "cb8-mastery3",
+            concept: "Case Study: How Nike Uses Consumer Research",
             question: "How do limited Air Jordan 'drops' drive demand?",
             options: [
               "By flooding the market with supply",
@@ -1440,10 +1553,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "By removing the brand logo"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Limited releases sell out fast and resell high, using scarcity and social proof to create urgency and frenzy - the same biases you studied in the psychology lesson."
           },
           {
             id: "cb8-mastery4",
+            concept: "Case Study: How Nike Uses Consumer Research",
             question: "How do Nike's apps create switching costs?",
             options: [
               "By legally banning rival apps as older economists once firmly believed",
@@ -1452,10 +1567,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "By making the shoes wear out faster"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Logged workouts, member status, and personalized recommendations mean leaving Nike means abandoning years of tailored history - a real switching cost that keeps buyers loyal."
           },
           {
             id: "cb8-mastery5",
+            concept: "Case Study: How Nike Uses Consumer Research",
             question: "Why can Nike take value-based social stances that risk alienating some buyers?",
             options: [
               "It ignores what its customers believe as older economists once firmly believed",
@@ -1464,10 +1581,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It has no competitors to worry about"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Standing for something strengthens loyalty only because Nike knows its target segments' values well enough to bet on them - the payoff of deep consumer research."
           },
           {
             id: "cb8-mastery6",
+            concept: "Case Study: How Nike Uses Consumer Research",
             question: "What is the biggest lesson from Nike's approach?",
             options: [
               "One clever ad trick explains its success as older economists once firmly believed",
@@ -1476,6 +1595,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Consumer research is a waste of money"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Nike's dominance comes from combining emotional needs, segmentation, reference groups, scarcity, and loyalty into one connected system - not from any single isolated tactic."
           }
         ]
@@ -1527,6 +1647,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix1-mc1",
+            concept: "What Is the Marketing Mix",
             question: "What are the four Ps of the marketing mix?",
             options: [
               "Product, Profit, People, Place",
@@ -1539,6 +1660,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix1-mc2",
+            concept: "What Is the Marketing Mix",
             question: "Why must all four Ps be consistent with each other?",
             options: [
               "A law requires matching marketing plans which most textbooks wrongly repeat",
@@ -1566,6 +1688,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix1-aq1",
+          concept: "What Is the Marketing Mix",
           question: "Using the 4 Ps, what is Nina's biggest problem?",
           options: [
             "Her product recipe is clearly terrible",
@@ -1593,6 +1716,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix1-mastery1",
+            concept: "What Is the Marketing Mix",
             question: "In the marketing mix, 'Place' refers to…",
             options: [
               "The factory where goods are made",
@@ -1601,10 +1725,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The advertising slogan used which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Place is about distribution - how and where the customer can actually access and buy the product, from physical stores to online channels."
           },
           {
             id: "mix1-mastery2",
+            concept: "What Is the Marketing Mix",
             question: "Why does building only a great product often fail?",
             options: [
               "Great products are illegal to sell",
@@ -1613,10 +1739,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Customers dislike high-quality goods as the supplier invoice records in detail"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Product is only one P. Without the right Price, Place, and Promotion, a great product stays unfindable, unaffordable, or unknown - and still fails."
           },
           {
             id: "mix1-mastery3",
+            concept: "What Is the Marketing Mix",
             question: "Who popularized the 4 Ps framework in the 1960s?",
             options: [
               "Abraham Maslow, the psychologist which the customs office stamps twice",
@@ -1625,10 +1753,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The founder of Coca-Cola"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Marketing professor E. Jerome McCarthy popularized the 4 Ps in the 1960s, and the framework endures because it is simple, memorable, and covers the essentials."
           },
           {
             id: "mix1-mastery4",
+            concept: "What Is the Marketing Mix",
             question: "Which extra Ps are added for services?",
             options: [
               "Profit, Packaging, and Publicity which the customs office stamps twice",
@@ -1637,10 +1767,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Purpose, Planning, and Payment"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Services add People, Process, and Physical evidence, because staff, procedures, and surroundings shape a service experience as much as any physical good."
           },
           {
             id: "mix1-mastery5",
+            concept: "What Is the Marketing Mix",
             question: "The 4 Cs reframe the mix by starting from…",
             options: [
               "The seller's production costs which the customs office stamps twice",
@@ -1649,10 +1781,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The competitor's ad budget"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The 4 Cs - Customer needs, Cost, Convenience, Communication - reframe the mix from the buyer's side, keeping the customer rather than the seller at the center."
           },
           {
             id: "mix1-mastery6",
+            concept: "What Is the Marketing Mix",
             question: "How does the mix help diagnose weak sales?",
             options: [
               "It guarantees sales will always rise which the customs office stamps twice",
@@ -1661,6 +1795,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "It sets the company's tax rate"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The mix turns a vague problem into four levers, so a business can pinpoint whether the Product, Price, Place, or Promotion is the specific thing failing."
           }
         ]
@@ -1712,6 +1847,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix2-mc1",
+            concept: "Product",
             question: "What is the 'augmented product'?",
             options: [
               "The basic benefit the buyer wants",
@@ -1724,6 +1860,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix2-mc2",
+            concept: "Product",
             question: "In which life-cycle stage do price wars typically break out?",
             options: [
               "Introduction, when sales are low which most textbooks wrongly repeat",
@@ -1751,6 +1888,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix2-aq1",
+          concept: "Product",
           question: "Tariq's earbuds now have flat sales, many rivals, and falling prices. Which stage is this?",
           options: [
             "Introduction, the very first stage",
@@ -1778,6 +1916,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix2-mastery1",
+            concept: "Product",
             question: "The 'core product' of a drill is best described as…",
             options: [
               "The steel bit and motor inside it",
@@ -1786,10 +1925,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The box it is shipped in"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The core product is the real benefit the buyer seeks. For a drill, that is holes - the physical drill is just the actual product that delivers the benefit."
           },
           {
             id: "mix2-mastery2",
+            concept: "Product",
             question: "Why is keeping the brand promise so important?",
             options: [
               "The law fines brands that change logos",
@@ -1798,10 +1939,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It removes the need for any packaging"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A brand is a reputation stored in customers' minds. Delivering the promised experience consistently builds trust; breaking it can erode the brand's value overnight."
           },
           {
             id: "mix2-mastery3",
+            concept: "Product",
             question: "In the Introduction stage, marketing should focus on…",
             options: [
               "Cutting prices in a saturated market",
@@ -1810,10 +1953,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Defending share from many rivals"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "In Introduction, few people know the product, so promotion focuses on building awareness and explaining why it matters - not price wars or harvesting."
           },
           {
             id: "mix2-mastery4",
+            concept: "Product",
             question: "How do companies extend a product's life cycle?",
             options: [
               "By deleting all its existing features",
@@ -1822,10 +1967,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "By stopping all advertising for it"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Firms extend the cycle by adding features, entering new markets, or rebranding to spark fresh growth - like Nintendo reusing Mario or Coca-Cola launching new flavors."
           },
           {
             id: "mix2-mastery5",
+            concept: "Product",
             question: "Why does packaging count as real marketing, not just protection?",
             options: [
               "It legally must list the price",
@@ -1834,10 +1981,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It lowers the product's tax rate"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Packaging attracts attention on crowded shelves, communicates quality, and shapes perception before use - it can even become iconic, like the Coca-Cola bottle shape."
           },
           {
             id: "mix2-mastery6",
+            concept: "Product",
             question: "Netflix shifting from mailing DVDs to streaming shows a company that…",
             options: [
               "Ignored its product's life cycle which the customs office stamps twice",
@@ -1846,6 +1995,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Only cared about lowering prices"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Netflix read that DVDs were heading into Decline and moved to streaming first, managing the life cycle strategically instead of being killed by the shift."
           }
         ]
@@ -1897,6 +2047,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix3-mc1",
+            concept: "Price",
             question: "What is value-based pricing?",
             options: [
               "Adding a fixed markup to cost",
@@ -1909,6 +2060,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix3-mc2",
+            concept: "Price",
             question: "A new gadget launched at $1,200 that drops over time uses…",
             options: [
               "Penetration pricing",
@@ -1936,6 +2088,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix3-aq1",
+          concept: "Price",
           question: "Why would pricing purely on her near-zero cost be a mistake for Grace?",
           options: [
             "It would break app-store pricing laws which most textbooks wrongly repeat",
@@ -1963,6 +2116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix3-mastery1",
+            concept: "Price",
             question: "Why is price called the most powerful lever in the mix?",
             options: [
               "It is the cheapest P to change as the supplier invoice records in detail",
@@ -1971,10 +2125,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It never affects buyer perception which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Every other P costs money to execute; price is the only one that generates revenue, and small changes swing profit sharply - making it the strongest lever."
           },
           {
             id: "mix3-mastery2",
+            concept: "Price",
             question: "The main weakness of cost-based pricing is that it…",
             options: [
               "Is far too complex to calculate",
@@ -1983,10 +2139,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Is illegal in most industries which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Cost-based pricing adds a markup to cost but ignores demand, so it can leave money on the table when customers would happily pay much more."
           },
           {
             id: "mix3-mastery3",
+            concept: "Price",
             question: "A streaming service launching cheap to build a user base uses…",
             options: [
               "Price skimming",
@@ -1995,10 +2153,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Cost-based pricing"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Penetration pricing sets a low starting price to grab market share fast, then raises it once users are hooked and switching feels costly."
           },
           {
             id: "mix3-mastery4",
+            concept: "Price",
             question: "Charm pricing ($9.99 instead of $10) works because buyers…",
             options: [
               "Always calculate prices perfectly which the customs office stamps twice",
@@ -2007,10 +2167,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Ignore the price entirely"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Buyers anchor on the leftmost digit, so $9.99 feels meaningfully cheaper than $10 even though the difference is a single cent - a psychological shortcut."
           },
           {
             id: "mix3-mastery5",
+            concept: "Price",
             question: "What does price 'elasticity' measure?",
             options: [
               "How stretchy a product's material is",
@@ -2019,10 +2181,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The cost of raw materials which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Elasticity measures how much demand changes when price changes. Necessities are inelastic; luxuries and easily-substituted goods are elastic."
           },
           {
             id: "mix3-mastery6",
+            concept: "Price",
             question: "Why is raising the price of an elastic product risky?",
             options: [
               "The law caps prices on all goods",
@@ -2031,6 +2195,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "It forces the cost to rise too"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "For elastic goods, a higher price sends buyers to substitutes. Even though each sale earns more, losing many buyers can crash total revenue."
           }
         ]
@@ -2082,6 +2247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix4-mc1",
+            concept: "Place",
             question: "What does 'Place' mean in the marketing mix?",
             options: [
               "The advertising slogan for a product which most textbooks wrongly repeat",
@@ -2094,6 +2260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix4-mc2",
+            concept: "Place",
             question: "A luxury watch sold only through a few select dealers uses…",
             options: [
               "Intensive distribution",
@@ -2121,6 +2288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix4-aq1",
+          concept: "Place",
           question: "What is the main trade-off Omar faces by adding supermarkets and online sales?",
           options: [
             "He must lower his product's quality which most textbooks wrongly repeat",
@@ -2148,6 +2316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix4-mastery1",
+            concept: "Place",
             question: "What is a 'direct' distribution channel?",
             options: [
               "One that uses many wholesalers which the customs office stamps twice",
@@ -2156,10 +2325,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "One that skips having any product"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A direct channel means the maker sells straight to the buyer with no middlemen - like a farmer at a market or a brand selling only on its own website."
           },
           {
             id: "mix4-mastery2",
+            concept: "Place",
             question: "Why do intermediaries like retailers earn their cut?",
             options: [
               "The law forces makers to use them",
@@ -2168,10 +2339,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "They remove the need for a product"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Wholesalers and retailers take a share of each sale but add value - wider reach, storage, credit, and convenience - that the maker often cannot provide alone."
           },
           {
             id: "mix4-mastery3",
+            concept: "Place",
             question: "Gum sold in nearly every store and machine reflects…",
             options: [
               "Exclusive distribution",
@@ -2180,10 +2353,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Skimming pricing"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Impulse goods like gum use intensive distribution - maximum availability everywhere - because buyers grab them on impulse and need them within arm's reach."
           },
           {
             id: "mix4-mastery4",
+            concept: "Place",
             question: "What is a direct-to-consumer (DTC) brand?",
             options: [
               "A brand sold only through wholesalers",
@@ -2192,10 +2367,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A brand with no online presence"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "DTC brands sell straight to customers, usually online, cutting out retailers to own the customer relationship and keep more of the margin."
           },
           {
             id: "mix4-mastery5",
+            concept: "Place",
             question: "Why is Amazon's warehouse and delivery network a Place advantage?",
             options: [
               "It lets Amazon set the lowest prices always",
@@ -2204,10 +2381,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It makes advertising unnecessary which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Amazon's distribution network makes one- and two-day delivery routine. That convenience is a Place advantage that competitors, even cheaper ones, find hard to beat."
           },
           {
             id: "mix4-mastery6",
+            concept: "Place",
             question: "An 'omnichannel' approach means…",
             options: [
               "Selling through only one channel",
@@ -2216,6 +2395,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Using exclusive dealers only which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Omnichannel blends physical stores, websites, apps, and social media into one seamless experience, letting customers research, buy, and pick up across channels."
           }
         ]
@@ -2267,6 +2447,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix5-mc1",
+            concept: "Promotion",
             question: "Which promotional tool earns credible attention through news and reputation?",
             options: [
               "Sales promotion with coupons",
@@ -2279,6 +2460,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix5-mc2",
+            concept: "Promotion",
             question: "What does IMC (Integrated Marketing Communication) aim for?",
             options: [
               "The cheapest possible advertising which most textbooks wrongly repeat",
@@ -2306,6 +2488,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix5-aq1",
+          concept: "Promotion",
           question: "What is the main flaw in Bella's promotion despite using many tools?",
           options: [
             "She used too few promotional tools",
@@ -2333,6 +2516,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix5-mastery1",
+            concept: "Promotion",
             question: "Which tool is best for selling an expensive, complex product like a car?",
             options: [
               "Mass billboard advertising",
@@ -2341,10 +2525,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A single social media post"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Personal selling gives one-on-one persuasion and answers, essential for expensive or complex products where buyers need reassurance before committing."
           },
           {
             id: "mix5-mastery2",
+            concept: "Promotion",
             question: "A risk of overusing sales promotions like constant discounts is that…",
             options: [
               "They build long-term brand prestige which the customs office stamps twice",
@@ -2353,10 +2539,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "They raise the product's quality"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Frequent discounts can train customers to never pay full price, waiting for the next deal - eroding margins and the perception of value over time."
           },
           {
             id: "mix5-mastery3",
+            concept: "Promotion",
             question: "The AIDA model stands for…",
             options: [
               "Ads, Income, Debt, Assets",
@@ -2365,10 +2553,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Audience, Impact, Design, Ads"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "AIDA guides promotion: grab Attention, build Interest, create Desire, and prompt Action. A campaign that gets attention but no action wasted its money."
           },
           {
             id: "mix5-mastery4",
+            concept: "Promotion",
             question: "Why is digital promotion more accountable than old mass advertising?",
             options: [
               "It is required to be free of charge",
@@ -2377,10 +2567,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It never uses any images or video"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Digital tools let a business target its exact persona and track who clicked and bought, replacing the old 'spray and pray' approach with measurable precision."
           },
           {
             id: "mix5-mastery5",
+            concept: "Promotion",
             question: "Why does misleading promotion ultimately hurt a brand?",
             options: [
               "It always costs more to produce",
@@ -2389,10 +2581,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It makes the product cheaper to build"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Deceptive ads may win a sale but break the trust that repeat buying and loyalty rely on, and false claims can also bring legal trouble."
           },
           {
             id: "mix5-mastery6",
+            concept: "Promotion",
             question: "Coca-Cola using the same colors and theme everywhere is an example of…",
             options: [
               "Penetration pricing which the customs office stamps twice",
@@ -2401,6 +2595,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Cost-based pricing"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Using one consistent look, voice, and feeling across TV, machines, social, and campaigns is Integrated Marketing Communication - it makes the brand instantly recognizable."
           }
         ]
@@ -2452,6 +2647,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix6-mc1",
+            concept: "How the 4 Ps Work Together",
             question: "What does it mean that the four Ps are 'interdependent'?",
             options: [
               "Each P is decided in total isolation",
@@ -2464,6 +2660,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix6-mc2",
+            concept: "How the 4 Ps Work Together",
             question: "What is 'positioning'?",
             options: [
               "Where a store sits on a street",
@@ -2491,6 +2688,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix6-aq1",
+          concept: "How the 4 Ps Work Together",
           question: "Why did Kai's repositioning fail?",
           options: [
             "Premium snack bars are illegal to sell as the quarterly earnings report shows",
@@ -2518,6 +2716,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix6-mastery1",
+            concept: "How the 4 Ps Work Together",
             question: "If a brand raises its Price to premium, what must also change?",
             options: [
               "Only the color of the logo",
@@ -2526,10 +2725,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The company's tax rate which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The Ps are interdependent. A premium Price demands premium Product, upscale Place, and elegant Promotion, or buyers sense a mismatch and lose trust."
           },
           {
             id: "mix6-mastery2",
+            concept: "How the 4 Ps Work Together",
             question: "How do Spirit Airlines' four Ps reinforce its position?",
             options: [
               "They all signal luxury and exclusivity",
@@ -2538,10 +2739,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "They ignore price completely which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Spirit's bare-bones Product, rock-bottom Price, no-frills Place, and low-fare Promotion all align around 'cheapest,' which is why the consistent mix works."
           },
           {
             id: "mix6-mastery3",
+            concept: "How the 4 Ps Work Together",
             question: "Why do trade-offs between the Ps happen?",
             options: [
               "The law limits how many Ps you use",
@@ -2550,10 +2753,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Trade-offs only happen for luxury goods"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Limited resources mean spending on one P can force cuts in another - a premium Product may need a higher Price, shrinking the market - so trade-offs are unavoidable."
           },
           {
             id: "mix6-mastery4",
+            concept: "How the 4 Ps Work Together",
             question: "Why can a mix that was perfect at launch become wrong later?",
             options: [
               "The four Ps expire after one year",
@@ -2562,10 +2767,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Customers never change their minds"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "As a product moves through its life cycle and competition changes, the ideal balance of the Ps shifts, so the mix must be revisited as a living strategy."
           },
           {
             id: "mix6-mastery5",
+            concept: "How the 4 Ps Work Together",
             question: "The best response to a rival cutting prices is to…",
             options: [
               "Immediately match with a single price cut",
@@ -2574,10 +2781,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Raise your own price to look premium"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A knee-jerk price cut can break your positioning. A coordinated response across the Ps - price, product value, promotion, place - protects the brand far better."
           },
           {
             id: "mix6-mastery6",
+            concept: "How the 4 Ps Work Together",
             question: "What ultimately determines how to balance the four Ps?",
             options: [
               "The company's oldest product which the customs office stamps twice",
@@ -2586,6 +2795,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "A random choice each quarter"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The customer sits at the center: their needs, perceived value, habits, and attention shape all four Ps, so understanding them tells you how to balance the mix."
           }
         ]
@@ -2637,6 +2847,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix7-mc1",
+            concept: "Startup vs Established Brand",
             question: "Why do startups often launch a 'minimum viable product'?",
             options: [
               "To sell it at the highest price",
@@ -2649,6 +2860,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix7-mc2",
+            concept: "Startup vs Established Brand",
             question: "Owning strong distribution gives an established brand…",
             options: [
               "A barrier that keeps rivals out",
@@ -2676,6 +2888,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix7-aq1",
+          concept: "Startup vs Established Brand",
           question: "Why can the national chain hold premium prices while Maria cannot?",
           options: [
             "The chain's coffee legally must cost more",
@@ -2703,6 +2916,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix7-mastery1",
+            concept: "Startup vs Established Brand",
             question: "A startup's Promotion usually relies on…",
             options: [
               "Expensive national TV campaigns which the customs office stamps twice",
@@ -2711,10 +2925,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Refusing to promote at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "With little money, startups lean on cheap, high-leverage tactics - social media, word of mouth, founder storytelling - rather than costly mass advertising."
           },
           {
             id: "mix7-mastery2",
+            concept: "Startup vs Established Brand",
             question: "Why do many startups sell direct-to-consumer online?",
             options: [
               "It is the only legal channel for them",
@@ -2723,10 +2939,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It costs more than using retailers"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Startups often cannot get retail shelf space, so selling direct online is affordable and gives them valuable customer data and feedback to improve quickly."
           },
           {
             id: "mix7-mastery3",
+            concept: "Startup vs Established Brand",
             question: "What is a startup's biggest advantage over a giant?",
             options: [
               "A larger advertising budget which the customs office stamps twice",
@@ -2735,10 +2953,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Cheaper access to distribution"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "With no legacy to protect, a startup can focus obsessively on one niche and change its whole mix overnight - agility a slow-moving giant cannot match."
           },
           {
             id: "mix7-mastery4",
+            concept: "Startup vs Established Brand",
             question: "Why must an established brand protect its brand promise carefully?",
             options: [
               "The law forbids changing products which the customs office stamps twice",
@@ -2747,10 +2967,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It lowers the cost of production which the founder decides alone each week"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A big brand's reputation was built over decades and drives its premium pricing and loyalty; a misstep affects millions of customers and can erode that value fast."
           },
           {
             id: "mix7-mastery5",
+            concept: "Startup vs Established Brand",
             question: "What is the downside of an established brand's large scale?",
             options: [
               "It can never afford advertising",
@@ -2759,10 +2981,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It cannot access distribution which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Scale brings inertia: a large company cannot quickly pivot its whole mix, and any misstep affects millions at once - the price of size and reputation."
           },
           {
             id: "mix7-mastery6",
+            concept: "Startup vs Established Brand",
             question: "The core strategic contrast between the two is best described as…",
             options: [
               "Cheap versus expensive products which the customs office stamps twice",
@@ -2771,6 +2995,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Legal versus illegal marketing"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A startup plays offense with focus and agility to attack a niche, while an established brand plays defense with resources and reputation to protect its position."
           }
         ]
@@ -2822,6 +3047,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix8-mc1",
+            concept: "Build Your Own Marketing Mix",
             question: "What should you define before setting any of the four Ps?",
             options: [
               "The company's logo colors which most textbooks wrongly repeat",
@@ -2834,6 +3060,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix8-mc2",
+            concept: "Build Your Own Marketing Mix",
             question: "The most important step after drafting all four Ps is to…",
             options: [
               "Raise every price as high as possible",
@@ -2861,6 +3088,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix8-aq1",
+          concept: "Build Your Own Marketing Mix",
           question: "What is the first thing Noah should do before choosing a mascot or ads?",
           options: [
             "Set the highest possible subscription price",
@@ -2888,6 +3116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix8-mastery1",
+            concept: "Build Your Own Marketing Mix",
             question: "Why must the persona come before the four Ps?",
             options: [
               "The law requires a persona document as the supplier invoice records in detail",
@@ -2896,10 +3125,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It makes advertising free which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Every P answers a question about the customer - their needs, value, habits, and attention. Without a defined persona, the four Ps have nothing to build on."
           },
           {
             id: "mix8-mastery2",
+            concept: "Build Your Own Marketing Mix",
             question: "For 'FocusFuel,' pricing at $3 - above soda but below a $6 wellness drink - is…",
             options: [
               "Cost-based pricing on materials which the customs office stamps twice",
@@ -2908,10 +3139,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Pure competitive price matching"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The price is anchored to what the student persona perceives and can afford - premium enough to signal quality, low enough for students - which is value-based pricing."
           },
           {
             id: "mix8-mastery3",
+            concept: "Build Your Own Marketing Mix",
             question: "How should Promotion be chosen when building a mix?",
             options: [
               "Use whatever channel is cheapest only as the supplier invoice records in detail",
@@ -2920,10 +3153,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Skip promotion to save all money"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Promotion should meet the persona where their attention already lives - like TikTok for students - so the message reaches the right person effectively."
           },
           {
             id: "mix8-mastery4",
+            concept: "Build Your Own Marketing Mix",
             question: "A marketing mix fails most often when…",
             options: [
               "Every P tells the same clear story",
@@ -2932,10 +3167,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Prices end in .99 instead of .00"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A mix fails not when one P is weak but when the Ps contradict each other, so the customer cannot tell what the brand is - consistency is the key test."
           },
           {
             id: "mix8-mastery5",
+            concept: "Build Your Own Marketing Mix",
             question: "Why is the finished mix treated as a 'hypothesis'?",
             options: [
               "It can never be changed once set",
@@ -2944,10 +3181,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The law bans changing a mix which the customs office stamps twice"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A mix is a starting bet based on customer understanding. After launch you measure what happens and adjust price, promotion, and more to improve it."
           },
           {
             id: "mix8-mastery6",
+            concept: "Build Your Own Marketing Mix",
             question: "Red Bull building an edgy product, premium price, and extreme-sports ads shows that…",
             options: [
               "The Ps were chosen at random",
@@ -2956,6 +3195,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "It ignored who its customer was"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Red Bull first defined its customer and 'gives you wings' position, then built every P to serve them - proof that the mix flows from the customer outward."
           }
         ]
@@ -3007,6 +3247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel1-mc1",
+            concept: "What is PESTEL Analysis",
             question: "What does the PESTEL framework analyze?",
             options: [
               "A company's internal staff only according to the official government handbook",
@@ -3019,6 +3260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel1-mc2",
+            concept: "What is PESTEL Analysis",
             question: "When rating a PESTEL force, the two key questions are…",
             options: [
               "Its color and its shape",
@@ -3046,6 +3288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel1-aq1",
+          concept: "What is PESTEL Analysis",
           question: "The growing 'home-workout trend' Layla listed belongs to which PESTEL category?",
           options: [
             "Political factors",
@@ -3073,6 +3316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel1-mastery1",
+            concept: "What is PESTEL Analysis",
             question: "The six letters of PESTEL stand for…",
             options: [
               "Price, Earnings, Sales, Trade, Equity, Loss",
@@ -3081,10 +3325,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Profit, Expenses, Stock, Tax, Equity, Loans"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "PESTEL stands for Political, Economic, Social, Technological, Environmental, and Legal - the six external macro-environment forces the framework scans."
           },
           {
             id: "pestel1-mastery2",
+            concept: "What is PESTEL Analysis",
             question: "Which environment does PESTEL specifically map?",
             options: [
               "The internal environment a firm controls",
@@ -3093,10 +3339,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The factory production line"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "PESTEL maps the macro-environment - the outer ring of huge forces no single company controls - beyond the internal and micro-environments."
           },
           {
             id: "pestel1-mastery3",
+            concept: "What is PESTEL Analysis",
             question: "What destroyed Blockbuster despite it controlling its stores and prices?",
             options: [
               "A single bad advertising campaign which happens on every public holiday",
@@ -3105,10 +3353,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Running out of physical DVDs"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Blockbuster controlled its internal and micro environments but was destroyed by macro forces - the technological shift to streaming - that a PESTEL scan would have flagged."
           },
           {
             id: "pestel1-mastery4",
+            concept: "What is PESTEL Analysis",
             question: "Why must a PESTEL analysis be specific to each business?",
             options: [
               "The law requires a unique format which happens on every public holiday",
@@ -3117,10 +3367,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "All companies face identical forces equally"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A force like rising interest rates can devastate a homebuilder but barely touch a discount grocer, so the analysis must ask how each force specifically affects this firm."
           },
           {
             id: "pestel1-mastery5",
+            concept: "What is PESTEL Analysis",
             question: "PESTEL pairs naturally with a SWOT analysis by supplying its…",
             options: [
               "Internal Strengths and Weaknesses",
@@ -3129,10 +3381,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Advertising slogan and logo"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "PESTEL uncovers external Opportunities and Threats, which feed the O and T of a SWOT analysis, while SWOT adds internal Strengths and Weaknesses."
           },
           {
             id: "pestel1-mastery6",
+            concept: "What is PESTEL Analysis",
             question: "A completed PESTEL scan should always end in…",
             options: [
               "A colorful logo redesign which happens on every public holiday",
@@ -3141,6 +3395,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Ignoring the external world"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The output must be action: for each major force, decide whether to prepare, adapt, hedge, or seize an opportunity. Foresight is only useful if it drives decisions."
           }
         ]
@@ -3192,6 +3447,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel2-mc1",
+            concept: "Political Factors",
             question: "What is a tariff?",
             options: [
               "A subsidy paid to local farmers",
@@ -3204,6 +3460,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel2-mc2",
+            concept: "Political Factors",
             question: "Why do companies assess 'political risk' before entering a country?",
             options: [
               "To find the country with the best weather",
@@ -3231,6 +3488,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel2-aq1",
+          concept: "Political Factors",
           question: "What is the smartest way for Diego to respond to the tariff and tax break?",
           options: [
             "Ignore the policy and hope it reverses which regulators check during each audit",
@@ -3258,6 +3516,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel2-mastery1",
+            concept: "Political Factors",
             question: "How can government subsidies affect an industry?",
             options: [
               "They have no effect on demand",
@@ -3266,10 +3525,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "They ban products from being sold"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Subsidies steer whole industries - offering EV subsidies surges demand, while removing them can slump sales, showing how a political lever moves a market."
           },
           {
             id: "pestel2-mastery2",
+            concept: "Political Factors",
             question: "Why does a corporate tax change matter to businesses?",
             options: [
               "It sets the color of packaging",
@@ -3278,10 +3539,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It has no impact on location choices"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Corporate tax rates directly affect profit, so even a few percentage points can shift where companies choose to locate and invest their money."
           },
           {
             id: "pestel2-mastery3",
+            concept: "Political Factors",
             question: "A trade agreement between countries typically…",
             options: [
               "Raises barriers to block all trade",
@@ -3290,10 +3553,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Forces all prices to rise sharply"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Trade agreements lower barriers like tariffs so goods flow more freely across borders - the opposite of a trade war, which raises costs for firms caught between."
           },
           {
             id: "pestel2-mastery4",
+            concept: "Political Factors",
             question: "Why can heavy regulation sometimes help a large established firm?",
             options: [
               "It lowers that firm's own costs to zero",
@@ -3302,10 +3567,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It guarantees the firm higher prices which happens on every public holiday"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Heavy regulation raises costs for everyone, but big firms can absorb it more easily, so the red tape can act as a barrier that keeps smaller competitors out."
           },
           {
             id: "pestel2-mastery5",
+            concept: "Political Factors",
             question: "Apple shifting some production to India and Vietnam was a response to…",
             options: [
               "A drop in phone quality",
@@ -3314,10 +3581,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Customers disliking its products"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Tariffs from US-China trade tensions threatened Apple's margins, so it diversified production to other countries - a direct business response to a political force."
           },
           {
             id: "pestel2-mastery6",
+            concept: "Political Factors",
             question: "Why is political stability important for global investment?",
             options: [
               "Stable countries always have low wages which happens on every public holiday",
@@ -3326,6 +3595,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Stability has no effect on business risk"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A stable country with predictable rules is safer to invest in, while sudden policy swings, corruption, or unrest raise the risk that an investment could be lost."
           }
         ]
@@ -3377,6 +3647,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel3-mc1",
+            concept: "Economic Factors",
             question: "What does inflation do to buying power?",
             options: [
               "It increases what money can buy",
@@ -3389,6 +3660,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel3-mc2",
+            concept: "Economic Factors",
             question: "Which type of business tends to stay steady during a recession?",
             options: [
               "A luxury cruise line",
@@ -3416,6 +3688,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel3-aq1",
+          concept: "Economic Factors",
           question: "Why are Priya's expensive trip bookings dropping so sharply?",
           options: [
             "Travel is defensive and immune to recessions",
@@ -3443,6 +3716,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel3-mastery1",
+            concept: "Economic Factors",
             question: "A recession is best described as…",
             options: [
               "GDP growing rapidly for a year",
@@ -3451,10 +3725,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Interest rates being abolished which happens on every public holiday"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A recession is when GDP shrinks for months, unemployment rises, and spending dries up - the contraction phase of the business cycle."
           },
           {
             id: "pestel3-mastery2",
+            concept: "Economic Factors",
             question: "Why do central banks raise interest rates?",
             options: [
               "To make borrowing cheaper for everyone",
@@ -3463,10 +3739,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "To ban loans entirely which happens on every public holiday"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Raising rates makes borrowing expensive, cooling spending and investment. It is the main tool used to slow an overheating economy and bring inflation down."
           },
           {
             id: "pestel3-mastery3",
+            concept: "Economic Factors",
             question: "How does inflation squeeze a business's profit?",
             options: [
               "It lowers the cost of all materials",
@@ -3475,10 +3753,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It guarantees higher customer spending which happens on every public holiday"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Inflation raises the cost of materials, wages, and rent. A firm must either absorb those costs, cutting margins, or raise prices and risk losing customers."
           },
           {
             id: "pestel3-mastery4",
+            concept: "Economic Factors",
             question: "Which is an example of a counter-cyclical business?",
             options: [
               "A luxury yacht maker as the loan agreement plainly spells out",
@@ -3487,10 +3767,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A private-jet company which happens on every public holiday"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Counter-cyclical businesses like discount stores can gain customers in downturns, as shoppers trade down to cheaper options when money is tight."
           },
           {
             id: "pestel3-mastery5",
+            concept: "Economic Factors",
             question: "What are the four phases of the business cycle?",
             options: [
               "Buy, sell, hold, trade",
@@ -3499,10 +3781,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Start, grow, mature, decline"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The business cycle moves through expansion, peak, contraction (recession), and trough, then recovers back into expansion again."
           },
           {
             id: "pestel3-mastery6",
+            concept: "Economic Factors",
             question: "Why does consumer confidence matter to businesses?",
             options: [
               "It sets the legal minimum wage",
@@ -3511,6 +3795,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "It only affects the government which happens on every public holiday"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Consumer confidence - how optimistic people feel - shapes whether they spend or save, sometimes influencing purchases even more than their actual income."
           }
         ]
@@ -3562,6 +3847,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel4-mc1",
+            concept: "Social Factors",
             question: "What do social factors mainly determine about demand?",
             options: [
               "How much money the government prints each year",
@@ -3574,6 +3860,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel4-mc2",
+            concept: "Social Factors",
             question: "Which is an example of a demographic shift?",
             options: [
               "A brand-new law banning plastic straws nationwide",
@@ -3601,6 +3888,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel4-aq1",
+          concept: "Social Factors",
           question: "Why are Marcus's classic combo meals slipping even though price and quality held steady?",
           options: [
             "A new government tax made burgers illegal to sell",
@@ -3628,6 +3916,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel4-mastery1",
+            concept: "Social Factors",
             question: "What are demographics?",
             options: [
               "The secret marketing budget of a rival firm which happens on every public holiday",
@@ -3636,10 +3925,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A list of every tax the government currently charges"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Demographics are the measurable traits of a population - age, income, education, family size, and location - and they shape demand in powerful ways."
           },
           {
             id: "pestel4-mastery2",
+            concept: "Social Factors",
             question: "How does an aging population typically change demand?",
             options: [
               "It sharply lowers all spending on medical care",
@@ -3648,10 +3939,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It bans young people from buying any new gadgets"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "An aging population buys more healthcare, travel, and comfort goods, while a younger population fuels demand for gadgets, schools, and starter homes."
           },
           {
             id: "pestel4-mastery3",
+            concept: "Social Factors",
             question: "What is the key difference between a trend and a fad?",
             options: [
               "A trend is illegal while a fad is fully allowed which happens on every public holiday",
@@ -3660,10 +3953,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A trend is set by the government; a fad by the bank"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A trend is a slow, durable shift in behavior that rewards early commitment, while a fad spikes and fades fast, making it risky to build a business on."
           },
           {
             id: "pestel4-mastery4",
+            concept: "Social Factors",
             question: "How do social values like sustainability affect brands?",
             options: [
               "They set the exact price of oil on world markets",
@@ -3672,10 +3967,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "They force every company to move factories overseas"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When a society cares about values like sustainability or fairness, consumers reward brands that align and punish those that do not, reshaping whole markets."
           },
           {
             id: "pestel4-mastery5",
+            concept: "Social Factors",
             question: "Which is an example of a lifestyle shift affecting business?",
             options: [
               "A one-day change in the national sales-tax rate",
@@ -3684,10 +3981,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A bank temporarily closing for a public holiday"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "As more households have two working parents, demand rises for convenience - fast meals, delivery, and time-saving products - a clear lifestyle-driven change."
           },
           {
             id: "pestel4-mastery6",
+            concept: "Social Factors",
             question: "Why can a good, affordable product still fail on social factors?",
             options: [
               "Because prices always fall to zero over any long period",
@@ -3696,6 +3995,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Because governments require every product to be expensive as the loan agreement plainly spells out"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Social factors decide what people actually want; a well-made, affordable product can still fail if it clashes with a society's culture, values, or lifestyle."
           }
         ]
@@ -3747,6 +4047,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel5-mc1",
+            concept: "Technological Factors",
             question: "What is automation?",
             options: [
               "A special tax the government charges on all robots according to the official government handbook",
@@ -3759,6 +4060,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel5-mc2",
+            concept: "Technological Factors",
             question: "What is disruptive innovation?",
             options: [
               "A tax rule that only applies to imported electronics",
@@ -3786,6 +4088,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel5-aq1",
+          concept: "Technological Factors",
           question: "What was Dana's key mistake when streaming first appeared?",
           options: [
             "She raised her rental prices during a bank holiday weekend",
@@ -3813,6 +4116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel5-mastery1",
+            concept: "Technological Factors",
             question: "Why are technological factors often the fastest-moving PESTEL force?",
             options: [
               "Because governments update tax law every single day",
@@ -3821,10 +4125,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Because interest rates change once every ten years only"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Technology often moves fastest because a single breakthrough can rewrite the rules of an entire industry almost overnight, leaving slow firms behind."
           },
           {
             id: "pestel5-mastery2",
+            concept: "Technological Factors",
             question: "What does R&D (research and development) mainly decide?",
             options: [
               "The exact minimum wage that employers must pay which happens on every public holiday",
@@ -3833,10 +4139,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The daily opening price of shares on the exchange"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "R&D is the invention of new products and methods, and it determines who leads an industry - innovative firms pull ahead while those that coast fall behind."
           },
           {
             id: "pestel5-mastery3",
+            concept: "Technological Factors",
             question: "Why is disruption so dangerous to established firms?",
             options: [
               "It is always announced years ahead by the government which happens on every public holiday",
@@ -3845,10 +4153,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It is limited by law to one industry at a time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Disruption often starts as a small, low-quality product that leaders dismiss, then improves fast and steals the market before they can react."
           },
           {
             id: "pestel5-mastery4",
+            concept: "Technological Factors",
             question: "How can technology be an opportunity for small businesses?",
             options: [
               "It forces every small firm to shut down within a year",
@@ -3857,10 +4167,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "It bans large companies from selling anything online which happens on every public holiday"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Cloud software, online ads, and delivery platforms let small firms use capabilities once reserved for giants, leveling the field and opening new markets."
           },
           {
             id: "pestel5-mastery5",
+            concept: "Technological Factors",
             question: "What does 'keeping up' with technology require?",
             options: [
               "Buying every single new gadget the moment it appears",
@@ -3869,10 +4181,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Waiting for the government to choose your tools for you"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Keeping up means investing in R&D, training staff, guarding against cyber-risk, and judging which technologies are real and lasting versus passing hype."
           },
           {
             id: "pestel5-mastery6",
+            concept: "Technological Factors",
             question: "Which is a real example of technological disruption?",
             options: [
               "A city raising its parking fines for one busy weekend",
@@ -3881,6 +4195,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "A bank briefly pausing loans over a long weekend"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Streaming disrupted DVD rentals: as internet and smartphones spread, on-demand viewing replaced physical discs and toppled once-dominant rental chains."
           }
         ]
@@ -3932,6 +4247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel6-mc1",
+            concept: "Environmental & Legal Factors",
             question: "What is sustainability in business?",
             options: [
               "A one-time discount offered during a summer clearance sale",
@@ -3944,6 +4260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel6-mc2",
+            concept: "Environmental & Legal Factors",
             question: "How do legal factors differ from political factors?",
             options: [
               "Legal factors only ever apply to very small startups according to the official government handbook",
@@ -3971,6 +4288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel6-aq1",
+          concept: "Environmental & Legal Factors",
           question: "Why must Lena change how she stores customer information?",
           options: [
             "A passing fashion fad made data storage briefly popular according to the official government handbook",
@@ -3998,6 +4316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel6-mastery1",
+            concept: "Environmental & Legal Factors",
             question: "Which is the biggest environmental force facing business today?",
             options: [
               "A single company changing its logo colors and font",
@@ -4006,10 +4325,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "A brief dip in one stock's price during a slow hour"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Climate change is the biggest environmental force, raising physical risks like floods and droughts while driving new regulations and shifting demand."
           },
           {
             id: "pestel6-mastery2",
+            concept: "Environmental & Legal Factors",
             question: "Why can sustainability be a business advantage, not just ethics?",
             options: [
               "Because it forces every rival to close down permanently",
@@ -4018,10 +4339,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Because it removes all competition from the market at once"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Using less energy, cutting waste, and recycling often lowers costs directly, and green practices also build reputation with customers and investors."
           },
           {
             id: "pestel6-mastery3",
+            concept: "Environmental & Legal Factors",
             question: "What does consumer-protection law require of businesses?",
             options: [
               "That they always charge the single highest possible price",
@@ -4030,10 +4353,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "That they sell only to buyers over sixty years old"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Consumer-protection law bans false advertising and unsafe products, requiring honest labeling, fair terms, and goods that are safe to use."
           },
           {
             id: "pestel6-mastery4",
+            concept: "Environmental & Legal Factors",
             question: "What does intellectual-property law protect?",
             options: [
               "The daily weather forecast for a company's home city",
@@ -4042,10 +4367,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "The number of hours a shop may stay open each day"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Intellectual-property law - patents, trademarks, and copyrights - protects inventions and brands, letting firms guard what they create from copycats."
           },
           {
             id: "pestel6-mastery5",
+            concept: "Environmental & Legal Factors",
             question: "Why is legal compliance an ongoing job?",
             options: [
               "Because laws never change once written down anywhere",
@@ -4054,10 +4381,12 @@ export const deepBizB: StructuredLessonContent[] = [
               "Because firms are told to ignore the law every few years"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Compliance is ongoing because laws differ across countries and shift over time, so a firm must keep checking that its actions stay legal everywhere it operates."
           },
           {
             id: "pestel6-mastery6",
+            concept: "Environmental & Legal Factors",
             question: "What do the two letters E and L stand for in PESTEL?",
             options: [
               "Earnings and Lending, the two parts of any bank loan",
@@ -4066,6 +4395,7 @@ export const deepBizB: StructuredLessonContent[] = [
               "Equity and Leverage, the two ways firms raise money"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The E and L in PESTEL stand for Environmental and Legal factors - the natural-world pressures and the concrete laws a business must navigate."
           }
         ]

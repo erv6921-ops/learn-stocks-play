@@ -20,7 +20,8 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 // Curriculum lessons send every extracted concept and the teacher's vocabulary
@@ -29,6 +30,8 @@ const corsHeaders = {
 const MAX_SYSTEM = 24000;
 const MAX_MESSAGES = 40;
 const MAX_CONTENT = 2000;
+const MAX_CHIP_TITLE = 200;
+const MAX_CHIP_SOURCE = 1500;
 const END_SIGNAL = "Ready to test what you learned?";
 const GEMINI_MODEL = "gemini-2.5-flash";
 
@@ -125,8 +128,13 @@ async function callGemini(apiKey: string, system: string | undefined, messages: 
 //      blocked:"insufficient_coins", no model call, nothing logged.
 //   4. Retrieval: search_curriculum_chunks scoped to the student's own class.
 //      No class -> no teacher material (never another class's uploads).
-//   5. Model call. If Anthropic throws / returns non-2xx the coins are refunded
-//      with refund_jeff_chat_coins and the response is blocked:"error".
+//   5. Model call. The coins are refunded with refund_jeff_chat_coins, and the
+//      turn is NOT logged (so it does not count toward the daily limit), when:
+//      Anthropic throws / returns non-2xx (blocked:"error", generic reply);
+//      the output is unparseable (blocked:"error", the "brain glitched" reply);
+//      or the model marks its own reply answered:false, i.e. it declined or
+//      could not answer (blocked:"error", refunded:true, Jeff's actual reply).
+//      Every response carries the student's new balance.
 //   - Lesson whitelist: LESSON_CATALOG filtered to the student's track.
 //   - Model: Anthropic claude-sonnet-4-6 only (no Gemini fallback here), JSON
 //     output { reply, lesson_id, used_source_ids } parsed defensively.
@@ -606,10 +614,11 @@ HARD RULES
 
 OUTPUT FORMAT
 Respond with a single JSON object and nothing else. No markdown code fences, no text before or after. Exact shape:
-{"reply": string, "lesson_id": string | null, "used_source_ids": string[]}
+{"reply": string, "lesson_id": string | null, "used_source_ids": string[], "answered": boolean}
 - reply: your message to the student (plain text, may contain newlines).
 - lesson_id: an id copied exactly from the LESSON CATALOG, or null.
-- used_source_ids: the ids (like "S1") of the TEACHER MATERIAL sources you actually relied on, or [] if none.`;
+- used_source_ids: the ids (like "S1") of the TEACHER MATERIAL sources you actually relied on, or [] if none.
+- answered: true when your reply genuinely answers what the student asked. false when it does not: you declined the question (graded work, personal investment advice, an unrelated topic), redirected them (a crisis), or could not answer it. Students are not charged for an unanswered question, so be honest here.`;
 
 function buildCatalogBlock(lessons: CatalogLesson[]): string {
   if (lessons.length === 0) return "LESSON CATALOG\n(no lessons available for this student)";
@@ -655,11 +664,20 @@ interface TutorOutput {
   reply: string;
   lesson_id: string | null;
   used_source_ids: string[];
+  /** The model's own flag: did the reply actually answer the question? */
+  answered: boolean;
+  /** False when nothing usable came back (empty, or broken JSON the student must not see). */
+  ok: boolean;
 }
 
 function parseTutorOutput(raw: string): TutorOutput {
-  const fallback: TutorOutput = { reply: raw.trim() || TUTOR_FALLBACK_REPLY, lesson_id: null, used_source_ids: [] };
   let text = raw.trim();
+  // Plain prose (the model skipped the JSON) is still a usable answer; an empty
+  // reply or a broken JSON object is not.
+  const usableProse = text.length > 0 && !text.startsWith("{") && !text.startsWith("```");
+  const fallback: TutorOutput = {
+    reply: usableProse ? text : TUTOR_FALLBACK_REPLY, lesson_id: null, used_source_ids: [], answered: true, ok: usableProse,
+  };
   // Strip ```json fences if the model added them anyway.
   const fenced = text.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
   if (fenced) text = fenced[1].trim();
@@ -674,10 +692,13 @@ function parseTutorOutput(raw: string): TutorOutput {
       const ids = Array.isArray(parsed.used_source_ids)
         ? parsed.used_source_ids.filter((s: unknown): s is string => typeof s === "string")
         : [];
+      const reply = parsed.reply.trim();
       return {
-        reply: parsed.reply.trim() || TUTOR_FALLBACK_REPLY,
+        reply: reply || TUTOR_FALLBACK_REPLY,
         lesson_id: typeof parsed.lesson_id === "string" && parsed.lesson_id.trim() ? parsed.lesson_id.trim() : null,
         used_source_ids: ids,
+        answered: parsed.answered !== false,
+        ok: reply.length > 0,
       };
     } catch {
       // try the next candidate
@@ -844,6 +865,18 @@ async function handleTutor(req: Request, body: Record<string, unknown>, anthropi
     const rawText = await callAnthropic(anthropicKey, system, messages, TUTOR_MAX_TOKENS);
     const parsed = parseTutorOutput(rawText);
 
+    // 8b) Garbage in, coins back. An unparseable reply (the "brain glitched"
+    //     fallback) or one the model itself marks unanswered is refunded, and
+    //     neither turn is logged so it does not count toward the daily limit.
+    //     blocked:"error" makes the client show it as a notice, not an answer,
+    //     and keep it out of the history it sends next time.
+    if (!parsed.ok || !parsed.answered) {
+      const balance = await refund();
+      console.log(`[${tag}] refunded ${parsed.ok ? "unanswered" : "unparseable"} reply`);
+      const reply = parsed.ok ? `${parsed.reply} (No coins spent on that one.)` : TUTOR_ERROR_REPLY;
+      return tutorJson({ blocked: "error", refunded: true, reply, lesson: null, sources: [], balance });
+    }
+
     // 9) Validate the model's choices against what we actually offered.
     const lesson = parsed.lesson_id && byId.has(parsed.lesson_id)
       ? { lesson_id: parsed.lesson_id, title: byId.get(parsed.lesson_id)!.title }
@@ -892,6 +925,11 @@ serve(async (req) => {
     }
 
     const system = clampStr(body.system, MAX_SYSTEM);
+    // Optional lesson context for the reply-chip generation below: the lesson
+    // title and the first part of its grounding text, so chips only suggest
+    // things Jeff can answer from the material (never a question he then refuses).
+    const chipTitle = clampStr(body.title, MAX_CHIP_TITLE).trim();
+    const chipSource = clampStr(body.source, MAX_CHIP_SOURCE).trim();
     const rawMessages = Array.isArray(body.messages) ? body.messages.slice(-MAX_MESSAGES) : [];
     const messages: Msg[] = rawMessages
       .map((m: { role?: string; content?: string }) => ({
@@ -928,9 +966,14 @@ serve(async (req) => {
     let options: string[] = [];
     if (!text.includes(END_SIGNAL)) {
       try {
-        const optText = await call(undefined, [{
+        const chipSystem = [
+          `You write reply suggestions for a high-school student chatting with Jeff, a friendly financial literacy guide, during the lesson '${chipTitle || "this lesson"}'.`,
+          chipSource ? `Lesson material (excerpt):\n"""\n${chipSource}\n"""` : "",
+          "Only suggest replies Jeff can answer from this material. Never suggest a reply that steers to a topic outside it.",
+        ].filter(Boolean).join("\n\n");
+        const optText = await call(chipSystem, [{
           role: "user",
-          content: `Given Jeff (a friendly financial literacy guide for teens) just said: '${text.slice(0, 800)}', generate exactly 3 short reply options a student might say to continue the conversation naturally. Return ONLY a JSON array of 3 strings, each under 8 words, no punctuation. Example: ["Tell me more","Give me an example","What does that mean"]`,
+          content: `Jeff just said: '${text.slice(0, 800)}'. Generate exactly 3 short reply options the student might tap to continue naturally: a follow-up about what Jeff just said, a request for an example, or a "got it, keep going". Return ONLY a JSON array of 3 strings, each under 8 words, no punctuation. Example: ["Tell me more","Give me an example","What does that mean"]`,
         }], 150);
         const m = optText.match(/\[[\s\S]*\]/);
         if (m) {

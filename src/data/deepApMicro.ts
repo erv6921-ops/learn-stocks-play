@@ -50,6 +50,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-1-mc1",
+            concept: "The Law of Demand and the Demand Curve",
             question: "The price of a good rises while nothing else changes. What happens on its demand curve?",
             options: [
               "The whole curve shifts to the left",
@@ -62,6 +63,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-1-mc2",
+            concept: "The Law of Demand and the Demand Curve",
             question: "Incomes rise, and buyers purchase LESS cup ramen at every price. Cup ramen is best described as…",
             options: [
               "A direct complement to a buyer's income",
@@ -89,6 +91,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-1-aq1",
+          concept: "The Law of Demand and the Demand Curve",
           question: "Both the tastes change and the tea price rise hit Jordan's coffee at once. What is the BEST prediction for his coffee demand curve?",
           options: [
             "It stays fixed but he moves down along it",
@@ -116,6 +119,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-1-mastery1",
+            concept: "The Law of Demand and the Demand Curve",
             question: "Which change causes a movement ALONG a demand curve rather than a shift?",
             options: [
               "A rise in buyers' average income",
@@ -124,10 +128,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A drop in the price of a substitute"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Only a change in the good's OWN price moves you along the curve. Income, advertising, and substitute prices are shifters that move the entire curve."
           },
           {
             id: "apm-2-1-mastery2",
+            concept: "The Law of Demand and the Demand Curve",
             question: "Coke and Pepsi are substitutes. If Pepsi's price rises sharply, demand for Coke will…",
             options: [
               "Shift left as buyers avoid both drinks",
@@ -136,10 +142,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Move steadily down along its own existing curve"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "When a substitute becomes more expensive, buyers switch to the alternative, so Coke's demand shifts right. Substitutes' demand moves the same direction as the other good's price."
           },
           {
             id: "apm-2-1-mastery3",
+            concept: "The Law of Demand and the Demand Curve",
             question: "Which pair of goods are complements?",
             options: [
               "Tacos and burritos for a hungry buyer",
@@ -148,10 +156,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Regular butter and the much cheaper margarine spreads sold nearby"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Complements are used together, like printers and ink. The others are substitutes - goods used instead of each other, whose demand moves the opposite direction from complements."
           },
           {
             id: "apm-2-1-mastery4",
+            concept: "The Law of Demand and the Demand Curve",
             question: "The substitution effect helps explain the downward slope of demand because…",
             options: [
               "Firms will always immediately cut their output when their costs rise",
@@ -160,10 +170,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Household incomes automatically fall a little bit every single year"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "As a good's price rises, buyers substitute toward cheaper alternatives, lowering quantity demanded. That switching is the substitution effect behind the law of demand."
           },
           {
             id: "apm-2-1-mastery5",
+            concept: "The Law of Demand and the Demand Curve",
             question: "Shoppers expect laptop prices to jump next month. What happens to CURRENT laptop demand?",
             options: [
               "It shifts to the left as many buyers simply wait it out",
@@ -172,10 +184,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "It slides steadily down along the current existing curve"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Expectations of higher future prices push buyers to purchase today, shifting current demand right. Expectations are the E in the TRIBE list of demand shifters."
           },
           {
             id: "apm-2-1-mastery6",
+            concept: "The Law of Demand and the Demand Curve",
             question: "A good is 'inferior' when…",
             options: [
               "It is poorly made and breaks quickly",
@@ -184,6 +198,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "It has no close substitutes at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Inferior is about income, not quality: demand for the good falls as income rises because buyers trade up. The good itself may work fine - the label is purely economic."
           }
         ]
@@ -232,6 +247,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-2-mc1",
+            concept: "The Law of Supply and the Supply Curve",
             question: "A bakery's own selling price rises and it produces more loaves. This is…",
             options: [
               "A rightward shift of the supply curve",
@@ -244,6 +260,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-2-mc2",
+            concept: "The Law of Supply and the Supply Curve",
             question: "The government gives corn farmers a per-bushel subsidy. What happens to corn supply?",
             options: [
               "It shifts left as costs effectively rise",
@@ -271,6 +288,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-2-aq1",
+          concept: "The Law of Supply and the Supply Curve",
           question: "Which of Priya's changes shifts her SUPPLY curve to the right?",
           options: [
             "The rise in her selling price from $12 to $18",
@@ -298,6 +316,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-2-mastery1",
+            concept: "The Law of Supply and the Supply Curve",
             question: "Which event shifts a supply curve to the LEFT?",
             options: [
               "A drop in the price of key raw materials",
@@ -306,10 +325,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A generous government subsidy paid directly to the producers"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A per-unit producer tax raises the cost of supplying each unit, so sellers offer less at every price and supply shifts left. Cheaper materials, better tech, and subsidies all shift supply right."
           },
           {
             id: "apm-2-2-mastery2",
+            concept: "The Law of Supply and the Supply Curve",
             question: "The supply curve slopes upward mainly because…",
             options: [
               "Buyers always demand much more when the prices rise",
@@ -318,10 +339,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Input costs always fall as output grows"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A higher price means more profit per unit and helps cover rising marginal cost, so sellers are willing to produce more. That positive price-quantity link gives supply its upward slope."
           },
           {
             id: "apm-2-2-mastery3",
+            concept: "The Law of Supply and the Supply Curve",
             question: "New firms enter a growing sneaker market. Market supply will…",
             options: [
               "Shift left as competition thins out",
@@ -330,10 +353,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Move down along the same curve"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "More sellers means more total output offered at every price, so market supply shifts right. The number of sellers is a standard supply shifter."
           },
           {
             id: "apm-2-2-mastery4",
+            concept: "The Law of Supply and the Supply Curve",
             question: "A change in 'quantity supplied' (a movement along the curve) is triggered by…",
             options: [
               "A change in the good's own price",
@@ -342,10 +367,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A change in the number of firms"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Only the good's own price moves you along the supply curve. Technology, wages, and the number of firms are shifters that move the whole curve."
           },
           {
             id: "apm-2-2-mastery5",
+            concept: "The Law of Supply and the Supply Curve",
             question: "A faster, cheaper 3D printer lets a firm make more toys at the same cost. Supply…",
             options: [
               "Shifts to the left because the total output is capped",
@@ -354,10 +381,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Slides up along the current curve"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Better technology lowers cost per unit, so the firm offers more at every price and supply shifts right. Improved productivity is a classic rightward supply shifter."
           },
           {
             id: "apm-2-2-mastery6",
+            concept: "The Law of Supply and the Supply Curve",
             question: "Which of these is a SUPPLY shifter rather than a demand shifter?",
             options: [
               "A sudden rise in the buyers' average yearly incomes",
@@ -366,6 +395,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A brand new price for a close substitute good"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A higher wage is a rising input cost, which shifts the supply curve left. Incomes, tastes, and substitute prices all shift demand, not supply."
           }
         ]
@@ -414,6 +444,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-3-mc1",
+            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
             question: "A 10% price increase causes quantity demanded to fall 4%. Demand is…",
             options: [
               "Elastic, since buyers react strongly",
@@ -426,6 +457,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-3-mc2",
+            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
             question: "For an INELASTIC good, raising the price will usually…",
             options: [
               "Lower total revenue sharply",
@@ -453,6 +485,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-3-aq1",
+          concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
           question: "To boost total revenue, what should the vendor do based on elasticity?",
           options: [
             "Raise both prices since higher prices always earn more",
@@ -480,6 +513,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-3-mastery1",
+            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
             question: "Which good most likely has the MOST inelastic demand?",
             options: [
               "One brand of soda among many rivals",
@@ -488,10 +522,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A particular airline's economy seats"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Insulin is a necessity with essentially no substitutes, so buyers keep buying despite price changes - highly inelastic. The others have close substitutes or are discretionary, making them more elastic."
           },
           {
             id: "apm-2-3-mastery2",
+            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
             question: "A 20% price cut raises quantity demanded 50%. This demand is…",
             options: [
               "Inelastic, value below one",
@@ -500,10 +536,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Perfectly inelastic, a vertical line"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Elasticity is 50/20 = 2.5, greater than 1, so demand is elastic. Quantity changed by a larger percentage than price, showing strong buyer responsiveness."
           },
           {
             id: "apm-2-3-mastery3",
+            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
             question: "Why do governments often tax cigarettes to raise revenue?",
             options: [
               "Cigarette demand is fairly elastic, so total revenue soars",
@@ -512,10 +550,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Taxes always lower the final price that buyers pay"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because cigarette demand is inelastic, a tax that raises the price barely reduces quantity, so the government collects steady revenue. Inelastic goods are reliable tax targets."
           },
           {
             id: "apm-2-3-mastery4",
+            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
             question: "Which factor makes a good's demand MORE elastic?",
             options: [
               "Having many close substitutes available",
@@ -524,10 +564,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Having no time for buyers to adjust"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "More substitutes let buyers flee a price hike, raising elasticity. Necessities, tiny-budget items, and short time frames all make demand more inelastic instead."
           },
           {
             id: "apm-2-3-mastery5",
+            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
             question: "A seller of an ELASTIC good wants more total revenue. It should…",
             options: [
               "Raise the price to earn more per unit",
@@ -536,10 +578,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Stop selling entirely until the demand becomes fully inelastic"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "With elastic demand, a price cut raises quantity by a larger percentage than the price falls, so total revenue rises. Raising price on an elastic good would lose too many buyers."
           },
           {
             id: "apm-2-3-mastery6",
+            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
             question: "Supply tends to be MORE elastic when…",
             options: [
               "Firms have plenty of time to expand output",
@@ -548,6 +592,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The factories are already running fully at their maximum capacity"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Given time, firms can build capacity, hire, or plant more, so quantity supplied responds strongly to price - elastic supply. Fixed inputs and full capacity make supply inelastic."
           }
         ]
@@ -596,6 +641,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-4-mc1",
+            concept: "Equilibrium, Surpluses, and Shortages",
             question: "At the current price, quantity demanded is 400 and quantity supplied is 250. This market has a…",
             options: [
               "Surplus, so price will fall",
@@ -608,6 +654,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-4-mc2",
+            concept: "Equilibrium, Surpluses, and Shortages",
             question: "Demand for umbrellas shifts right during a rainy month. Equilibrium price and quantity will…",
             options: [
               "Both fall as sellers panic",
@@ -635,6 +682,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-4-aq1",
+          concept: "Equilibrium, Surpluses, and Shortages",
           question: "With demand AND supply both shifting right, what can you predict for certain about tomatoes?",
           options: [
             "Both price and quantity definitely rise",
@@ -662,6 +710,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-4-mastery1",
+            concept: "Equilibrium, Surpluses, and Shortages",
             question: "A price set ABOVE equilibrium produces a…",
             options: [
               "Shortage that pushes price up",
@@ -670,10 +719,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Shortage that pushes price down"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Above equilibrium, quantity supplied exceeds quantity demanded, creating a surplus. Unsold goods pressure sellers to cut the price back toward equilibrium."
           },
           {
             id: "apm-2-4-mastery2",
+            concept: "Equilibrium, Surpluses, and Shortages",
             question: "A frost destroys much of the coffee crop. Coffee's equilibrium price and quantity will…",
             options: [
               "Both rise as demand explodes",
@@ -682,10 +733,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Both fall as sellers exit",
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A ruined crop shifts supply left, so price rises and quantity falls. Supply shifts move price and quantity in opposite directions."
           },
           {
             id: "apm-2-4-mastery3",
+            concept: "Equilibrium, Surpluses, and Shortages",
             question: "New technology lets a chip maker produce far more chips cheaply. Equilibrium will show…",
             options: [
               "Higher price and lower quantity",
@@ -694,10 +747,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "No change to price or quantity"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Cheaper production shifts supply right, lowering the equilibrium price and raising quantity. A rightward supply shift always pushes price down and quantity up."
           },
           {
             id: "apm-2-4-mastery4",
+            concept: "Equilibrium, Surpluses, and Shortages",
             question: "Which statement about single-curve shifts is correct?",
             options: [
               "Demand shifts move price and quantity oppositely",
@@ -706,10 +761,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Neither shift affects equilibrium at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A supply shift moves equilibrium price and quantity in opposite directions, while a demand shift moves them the same direction. That contrast is the key single-shift rule."
           },
           {
             id: "apm-2-4-mastery5",
+            concept: "Equilibrium, Surpluses, and Shortages",
             question: "Demand shifts right while supply shifts left at the same time. What is certain?",
             options: [
               "Quantity definitely rises",
@@ -718,10 +775,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Nothing at all can be predicted"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Both shifts push price up, so price definitely rises. But they push quantity in opposite directions, making the quantity change indeterminate."
           },
           {
             id: "apm-2-4-mastery6",
+            concept: "Equilibrium, Surpluses, and Shortages",
             question: "Why does a free market tend to return to equilibrium on its own?",
             options: [
               "The federal government simply resets all prices each day",
@@ -730,6 +789,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Prices are legally fixed at equilibrium"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A surplus pressures sellers to cut prices and a shortage pressures them to raise prices, automatically nudging the market back to equilibrium. No central planner is needed."
           }
         ]
@@ -781,6 +841,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-1-mc1",
+            concept: "Scarcity: The Root of Every Economic Choice",
             question: "Which statement is normative rather than positive?",
             options: [
               "Higher gas taxes clearly reduced the total miles driven last year",
@@ -793,6 +854,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-1-mc2",
+            concept: "Scarcity: The Root of Every Economic Choice",
             question: "You keep studying only while the next hour's benefit beats its cost. This is…",
             options: [
               "A normative value judgment",
@@ -820,6 +882,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-1-aq1",
+          concept: "Scarcity: The Root of Every Economic Choice",
           question: "Each extra SAT study hour helps Priya less than the one before. This pattern is called…",
           options: [
             "Increasing opportunity cost of money",
@@ -847,6 +910,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-1-mastery1",
+            concept: "Scarcity: The Root of Every Economic Choice",
             question: "Scarcity exists because…",
             options: [
               "Governments print too little money",
@@ -855,10 +919,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "People refuse to work hard enough"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Scarcity is unlimited wants meeting limited resources, so everyone faces it. It is not about money supply, effort, or being poor."
           },
           {
             id: "apm-1-1-mastery2",
+            concept: "Scarcity: The Root of Every Economic Choice",
             question: "The opportunity cost of attending a free concert instead of a paid $50 shift is best described as…",
             options: [
               "Exactly zero dollars, since the whole concert is free",
@@ -867,10 +933,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Only the gas used to drive there"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Opportunity cost is the value of the next-best option surrendered - here the $50 shift. 'Free' entry does not make the choice costless once you count what you gave up."
           },
           {
             id: "apm-1-1-mastery3",
+            concept: "Scarcity: The Root of Every Economic Choice",
             question: "Which is the best example of a free good?",
             options: [
               "A bottle of spring water",
@@ -879,10 +947,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "An hour of a tutor's time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A free good is so abundant that using it costs no one anything, like sunlight. The others are scarce economic goods that require a trade-off."
           },
           {
             id: "apm-1-1-mastery4",
+            concept: "Scarcity: The Root of Every Economic Choice",
             question: "A rational person keeps doing an activity until…",
             options: [
               "The total benefit reaches zero",
@@ -891,10 +961,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The activity stops being enjoyable"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The marginal rule says continue while marginal benefit is at least marginal cost, stopping where they are equal. Total benefit and enjoyment are not the stopping signals."
           },
           {
             id: "apm-1-1-mastery5",
+            concept: "Scarcity: The Root of Every Economic Choice",
             question: "'The minimum wage should be raised to help workers' is…",
             options: [
               "A positive, testable claim",
@@ -903,10 +975,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A marginal cost calculation"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "'Should' signals an opinion about what ought to be, making it normative. Positive statements instead describe facts that data can test."
           },
           {
             id: "apm-1-1-mastery6",
+            concept: "Scarcity: The Root of Every Economic Choice",
             question: "Diminishing marginal utility means that…",
             options: [
               "Market prices always fall steadily over time",
@@ -915,6 +989,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Total utility can honestly never rise"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Diminishing marginal utility means the added satisfaction from one more unit shrinks as you consume more. Total utility can still rise, just by smaller and smaller amounts."
           }
         ]
@@ -963,6 +1038,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-2-mc1",
+            concept: "The Factors of Production and Opportunity Cost",
             question: "In economics, 'capital' as a factor of production refers to…",
             options: [
               "Physical money simply kept in a bank account",
@@ -975,6 +1051,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-2-mc2",
+            concept: "The Factors of Production and Opportunity Cost",
             question: "Which feature most defines a market economy?",
             options: [
               "Planners set output targets by decree",
@@ -1002,6 +1079,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-2-aq1",
+          concept: "The Factors of Production and Opportunity Cost",
           question: "Why do secure property rights encourage the Marketville teen to build the skateboard company?",
           options: [
             "They completely guarantee that the whole business can simply never fail",
@@ -1029,6 +1107,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-2-mastery1",
+            concept: "The Factors of Production and Opportunity Cost",
             question: "Which list correctly names the four factors of production?",
             options: [
               "Money, labor, land, and taxes",
@@ -1037,10 +1116,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Supply, demand, price, and quantity"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The factors are land, labor, capital, and entrepreneurship (CELL). Wages, rent, profit, and interest are the incomes those factors earn, not the factors themselves."
           },
           {
             id: "apm-1-2-mastery2",
+            concept: "The Factors of Production and Opportunity Cost",
             question: "A pure command economy is one in which…",
             options: [
               "Prices alone guide private firms",
@@ -1049,10 +1130,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Property is owned by individuals"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "In a command economy the state owns resources and planners answer the three questions. Price-guided private ownership describes a market economy."
           },
           {
             id: "apm-1-2-mastery3",
+            concept: "The Factors of Production and Opportunity Cost",
             question: "The study of a single firm's pricing decision belongs to…",
             options: [
               "Macroeconomics, not micro",
@@ -1061,10 +1144,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Only command economies"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Microeconomics examines individual decision-makers such as one firm or market. Macroeconomics instead looks at economy-wide totals like national output."
           },
           {
             id: "apm-1-2-mastery4",
+            concept: "The Factors of Production and Opportunity Cost",
             question: "Which income is paid to the factor 'labor'?",
             options: [
               "Rent for using the resource",
@@ -1073,10 +1158,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Profit from running a firm"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Labor earns wages, land earns rent, capital earns interest, and entrepreneurship earns profit. Matching each factor to its income is a common exam point."
           },
           {
             id: "apm-1-2-mastery5",
+            concept: "The Factors of Production and Opportunity Cost",
             question: "Strong property rights promote prosperity mainly because they…",
             options: [
               "Completely remove every last bit of scarcity from an economy",
@@ -1085,10 +1172,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Fully guarantee perfectly equal outcomes for absolutely everyone"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When owners can keep the rewards of their effort, they invest, work, and maintain resources. Property rights do not erase scarcity or guarantee equality."
           },
           {
             id: "apm-1-2-mastery6",
+            concept: "The Factors of Production and Opportunity Cost",
             question: "Most real-world economies today are best classified as…",
             options: [
               "Pure market economies",
@@ -1097,6 +1186,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Economies without scarcity"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Nations like the U.S. blend private markets with government rules and services, making them mixed economies. Pure market or pure command systems are rare in practice."
           }
         ]
@@ -1145,6 +1235,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-3-mc1",
+            concept: "Reading the Production Possibilities Curve",
             question: "An economy operating at a point INSIDE its PPC is…",
             options: [
               "Producing an unattainable combination",
@@ -1157,6 +1248,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-3-mc2",
+            concept: "Reading the Production Possibilities Curve",
             question: "The PPC bows outward primarily because…",
             options: [
               "Money slowly loses its value over time",
@@ -1184,6 +1276,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-3-aq1",
+          concept: "Reading the Production Possibilities Curve",
           question: "The robotics breakthrough lets Zaraland make more robots at every bread level. On its PPC this appears as…",
           options: [
             "A move to a point inside the curve",
@@ -1211,6 +1304,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-3-mastery1",
+            concept: "Reading the Production Possibilities Curve",
             question: "A point located OUTSIDE the current PPC represents a combination that is…",
             options: [
               "Efficient and fully attainable",
@@ -1219,10 +1313,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Always allocatively efficient"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Points beyond the frontier cannot be reached with today's resources and technology. Only growth can bring such points within reach later."
           },
           {
             id: "apm-1-3-mastery2",
+            concept: "Reading the Production Possibilities Curve",
             question: "The downward slope of the PPC illustrates…",
             options: [
               "The gains from printing money",
@@ -1231,10 +1327,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Perfect allocative efficiency for the whole economy"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Sliding along the curve trades one good for the other, so the slope is opportunity cost. Scarcity forces this trade-off between the two goods."
           },
           {
             id: "apm-1-3-mastery3",
+            concept: "Reading the Production Possibilities Curve",
             question: "Moving from 90 pizzas/10 robots to 70 pizzas/15 robots, the opportunity cost of one robot is…",
             options: [
               "5 pizzas per robot",
@@ -1243,10 +1341,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "20 pizzas per robot"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Giving up 20 pizzas to gain 5 robots is 20 ÷ 5 = 4 pizzas per robot. Always divide the good sacrificed by the good gained."
           },
           {
             id: "apm-1-3-mastery4",
+            concept: "Reading the Production Possibilities Curve",
             question: "A straight-line (not bowed) PPC implies that…",
             options: [
               "Opportunity cost is constant",
@@ -1255,10 +1355,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "All points are unattainable"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A straight line means each unit costs the same amount of the other good - constant opportunity cost - because resources are equally useful for both goods."
           },
           {
             id: "apm-1-3-mastery5",
+            concept: "Reading the Production Possibilities Curve",
             question: "Which change would shift a nation's entire PPC outward?",
             options: [
               "A rise in unemployment",
@@ -1267,10 +1369,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Idle factories reopening to the curve"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Better technology raises what the economy can produce, shifting the whole PPC out. Reopening idle factories only moves the economy back onto its existing curve."
           },
           {
             id: "apm-1-3-mastery6",
+            concept: "Reading the Production Possibilities Curve",
             question: "Allocative efficiency differs from productive efficiency because it requires…",
             options: [
               "Producing at the lowest possible cost",
@@ -1279,6 +1383,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Leaving some of the available resources fully idle"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Allocative efficiency is the single point matching what society most wants, while productive efficiency is any on-curve point with no waste. A country can be productively efficient yet make the wrong mix."
           }
         ]
@@ -1327,6 +1432,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-4-mc1",
+            concept: "Absolute vs. Comparative Advantage",
             question: "In one hour Ana makes 6 bracelets or 12 posters. Her opportunity cost of one bracelet is…",
             options: [
               "6 posters",
@@ -1339,6 +1445,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-4-mc2",
+            concept: "Absolute vs. Comparative Advantage",
             question: "Gains from trade between two countries depend on…",
             options: [
               "Which country has more workers",
@@ -1366,6 +1473,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-4-aq1",
+          concept: "Absolute vs. Comparative Advantage",
           question: "Given the opportunity costs above, how should Maya and Leo specialize?",
           options: [
             "Maya makes both goods since she is faster",
@@ -1393,6 +1501,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-4-mastery1",
+            concept: "Absolute vs. Comparative Advantage",
             question: "A country has a comparative advantage in a good when it…",
             options: [
               "Produces more of it than any rival",
@@ -1401,10 +1510,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Uses only the very newest and fastest factory machines"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Comparative advantage is about the lowest opportunity cost, not raw output. Producing more is absolute advantage, which does not determine the gains from trade."
           },
           {
             id: "apm-1-4-mastery2",
+            concept: "Absolute vs. Comparative Advantage",
             question: "If a shirt costs Country A 3 hats and Country B 5 hats, which trade price benefits both?",
             options: [
               "1 hat per shirt",
@@ -1413,10 +1524,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "3 hats per shirt exactly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A beneficial price lies strictly between the two costs, 3 and 5, so 4 hats works. Prices at or outside the range leave one side no better off or unwilling to trade."
           },
           {
             id: "apm-1-4-mastery3",
+            concept: "Absolute vs. Comparative Advantage",
             question: "Even if one nation is better at producing everything, trade can still benefit both because…",
             options: [
               "Absolute advantage guarantees gains",
@@ -1425,10 +1538,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Opportunity costs are always equal"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "As long as opportunity costs differ, each side has a comparative advantage in something, so specializing and trading raises total output. Absolute advantage alone does not create the gains."
           },
           {
             id: "apm-1-4-mastery4",
+            concept: "Absolute vs. Comparative Advantage",
             question: "Leo makes 4 smoothies or 12 sandwiches per hour. His opportunity cost of one sandwich is…",
             options: [
               "A full 3 smoothies given up per sandwich",
@@ -1437,10 +1552,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "4 smoothies, his full hourly output"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Opportunity cost of a sandwich is smoothies over sandwiches: 4 ÷ 12 = one-third of a smoothie. Divide the good given up by the good gained."
           },
           {
             id: "apm-1-4-mastery5",
+            concept: "Absolute vs. Comparative Advantage",
             question: "Specialization and trade allow a country to…",
             options: [
               "Eliminate all scarcity entirely and forever",
@@ -1449,10 +1566,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Produce inside its PPC forever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "By specializing and trading, a country can reach a consumption point outside its own production possibilities curve. Scarcity and opportunity cost still exist; trade just uses them wisely."
           },
           {
             id: "apm-1-4-mastery6",
+            concept: "Absolute vs. Comparative Advantage",
             question: "The 'terms of trade' refers to…",
             options: [
               "The total number of workers that each country has",
@@ -1461,6 +1580,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The overall absolute advantage held by a nation"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Terms of trade is the exchange rate between the two goods being traded. It must fall between the trading partners' opportunity costs to benefit both."
           }
         ]
@@ -1509,6 +1629,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-5-mc1",
+            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
             question: "Economic profit differs from accounting profit because it also subtracts…",
             options: [
               "All the firm's explicit costs",
@@ -1521,6 +1642,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-5-mc2",
+            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
             question: "You paid $30 for a concert ticket you now cannot resell. In deciding whether to attend, that $30 is…",
             options: [
               "An implicit cost to weigh",
@@ -1548,6 +1670,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-5-aq1",
+          concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
           question: "Based on the numbers, what should Devon conclude about continuing the business?",
           options: [
             "Stop, since his accounting profit is negative",
@@ -1575,6 +1698,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-5-mastery1",
+            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
             question: "Which is an example of an implicit cost for a business owner?",
             options: [
               "The monthly rent paid out on the physical storefront",
@@ -1583,10 +1707,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The cash directly spent on buying the raw materials"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The forgone salary is an opportunity cost the owner does not pay out of pocket, making it implicit. Rent, wages, and materials are explicit, paid-out costs."
           },
           {
             id: "apm-1-5-mastery2",
+            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
             question: "A firm earns zero economic profit. This means it is earning…",
             options: [
               "Less than its next-best option",
@@ -1595,10 +1721,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A large accounting loss"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Zero economic profit is normal profit: the firm covers every cost, including opportunity cost, and does exactly as well as its next-best alternative."
           },
           {
             id: "apm-1-5-mastery3",
+            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
             question: "The sunk-cost fallacy occurs when a person…",
             options: [
               "Weighs only future costs and benefits",
@@ -1607,10 +1735,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Carefully compares the net benefits of each option"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The fallacy is letting money already spent, which cannot be recovered, dictate current decisions. Rational choice looks only at future costs and benefits."
           },
           {
             id: "apm-1-5-mastery4",
+            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
             question: "Revenue is $10,000; explicit costs are $4,000 and implicit costs are $3,000. Economic profit is…",
             options: [
               "$6,000",
@@ -1619,10 +1749,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "$7,000"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Economic profit subtracts both explicit and implicit costs: $10,000 - $4,000 - $3,000 = $3,000. Accounting profit would be the larger $6,000."
           },
           {
             id: "apm-1-5-mastery5",
+            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
             question: "Which of the following is a capital good rather than a consumer good?",
             options: [
               "A slice of pizza eaten for lunch",
@@ -1631,10 +1763,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A brand new video game played at home for hours"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A delivery van is used to produce and sell other goods, making it a capital good. Pizza, movie tickets, and games are consumed directly for enjoyment."
           },
           {
             id: "apm-1-5-mastery6",
+            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
             question: "Choosing to produce more capital goods today generally…",
             options: [
               "Steadily shrinks the whole economy's future output over time",
@@ -1643,6 +1777,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Completely eliminates the ongoing need to make choices"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Building capital now means fewer consumer goods today but more production capacity later, shifting the PPC outward. It is a trade-off between present and future, not a free gain."
           }
         ]
@@ -1691,6 +1826,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-6-mc1",
+            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
             question: "As you eat more slices of pizza, the fourth adds less satisfaction than the third. This illustrates…",
             options: [
               "Rising total utility only",
@@ -1703,6 +1839,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-6-mc2",
+            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
             question: "A consumer maximizes utility when the marginal utility per dollar is…",
             options: [
               "Highest for the priciest good",
@@ -1730,6 +1867,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-6-aq1",
+          concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
           question: "With the pretzel at 6 utils per dollar and the lemonade at 5, what is Rosa's next best move?",
           options: [
             "Simply spend every single dollar he has on lemonade first",
@@ -1757,6 +1895,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-6-mastery1",
+            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
             question: "Marginal utility is best defined as…",
             options: [
               "The full total satisfaction gained from all of the units",
@@ -1765,10 +1904,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The number of goods a person owns"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Marginal utility is the added satisfaction from consuming one more unit. Total utility is the sum across all units, a different measure."
           },
           {
             id: "apm-1-6-mastery2",
+            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
             question: "A good costs $5 and gives 20 utils; another costs $2 and gives 10 utils. Which offers more utility per dollar?",
             options: [
               "The $5 good, at 4 per dollar",
@@ -1777,10 +1918,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Neither one, since utility points are fake"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The $2 good gives 10 ÷ 2 = 5 utils per dollar, beating the $5 good's 20 ÷ 5 = 4. Comparing per-dollar ratios, not raw utility, guides the choice."
           },
           {
             id: "apm-1-6-mastery3",
+            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
             question: "For a single activity, the optimal amount to consume is where…",
             options: [
               "Total utility first turns positive",
@@ -1789,10 +1932,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The price of the good is lowest"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "You keep consuming while marginal benefit exceeds marginal cost and stop where they are equal. That equality marks the utility-maximizing quantity for the activity."
           },
           {
             id: "apm-1-6-mastery4",
+            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
             question: "The law of diminishing marginal utility helps explain why…",
             options: [
               "Supply curves slope upward",
@@ -1801,10 +1946,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Governments impose excise taxes"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because each extra unit is worth less, buyers pay more only if price falls, so demand slopes down. The other options come from unrelated parts of the course."
           },
           {
             id: "apm-1-6-mastery5",
+            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
             question: "At the utility-maximizing point, spending one more dollar on any good would…",
             options: [
               "Always raise total utility further",
@@ -1813,10 +1960,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Eliminate diminishing utility"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When marginal utility per dollar is equal everywhere, no reshuffling of dollars can raise total utility. That balance is exactly what maximizing means."
           },
           {
             id: "apm-1-6-mastery6",
+            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
             question: "If the price of a good a consumer buys falls, the utility-maximizing rule predicts they will…",
             options: [
               "Buy less of that good",
@@ -1825,6 +1974,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Ignore the whole price change completely"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A lower price raises the good's marginal utility per dollar, so the consumer buys more to restore balance. This response is the law of demand emerging from utility maximization."
           }
         ]
@@ -1873,6 +2023,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-5-mc1",
+            concept: "Price Ceilings and Price Floors",
             question: "A binding price ceiling on rent is set below the equilibrium price. The predictable result is…",
             options: [
               "A surplus of empty apartments",
@@ -1885,6 +2036,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-5-mc2",
+            concept: "Price Ceilings and Price Floors",
             question: "An excise tax is placed on a good with very inelastic demand. Most of the tax burden falls on…",
             options: [
               "Buyers, who cannot easily cut back",
@@ -1912,6 +2064,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-5-aq1",
+          concept: "Price Ceilings and Price Floors",
           question: "Given the $80 resale cap on tickets that would clear at $200, what should the city expect?",
           options: [
             "A surplus of unsold tickets at $80",
@@ -1939,6 +2092,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-5-mastery1",
+            concept: "Price Ceilings and Price Floors",
             question: "For a price floor to have any effect on the market, it must be set…",
             options: [
               "Below the equilibrium price",
@@ -1947,10 +2101,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "At zero for the good"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A floor only binds when it is above equilibrium, forcing the price up and creating a surplus. A floor below equilibrium is irrelevant."
           },
           {
             id: "apm-2-5-mastery2",
+            concept: "Price Ceilings and Price Floors",
             question: "A minimum wage set above the equilibrium wage will most likely cause…",
             options: [
               "A shortage of available workers for this good",
@@ -1959,10 +2115,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "No change in hiring at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A binding wage floor makes quantity of labor supplied exceed quantity demanded. The extra job-seekers who cannot find work are the surplus, seen as unemployment."
           },
           {
             id: "apm-2-5-mastery3",
+            concept: "Price Ceilings and Price Floors",
             question: "An excise tax on a good drives a wedge that makes the price buyers pay…",
             options: [
               "Equal to the seller's price",
@@ -1971,10 +2129,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Unrelated to the tax size"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The tax separates the two prices: buyers pay more while sellers keep less, and the difference is the per-unit tax. The gap between them equals the tax."
           },
           {
             id: "apm-2-5-mastery4",
+            concept: "Price Ceilings and Price Floors",
             question: "Deadweight loss from a tax represents…",
             options: [
               "Revenue collected by the government in that market",
@@ -1983,10 +2143,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Money saved by buyers for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Deadweight loss is the value of mutually beneficial trades that no longer occur because the tax shrinks quantity. It is surplus lost to everyone, not revenue."
           },
           {
             id: "apm-2-5-mastery5",
+            concept: "Price Ceilings and Price Floors",
             question: "Supply is far more inelastic than demand in a market that gets a new excise tax. The burden falls mainly on…",
             options: [
               "Buyers, who can shop elsewhere",
@@ -1995,10 +2157,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Neither side in the market"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The more inelastic side bears more of the tax. With supply more inelastic than demand, sellers change quantity least and absorb the larger share."
           },
           {
             id: "apm-2-5-mastery6",
+            concept: "Price Ceilings and Price Floors",
             question: "Compared with a tax, a per-unit subsidy on a good will…",
             options: [
               "Reduce the quantity traded",
@@ -2007,6 +2171,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Leave the market unchanged"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A subsidy lowers the buyer price and raises the seller price, pushing quantity above the efficient level. That overproduction also creates deadweight loss."
           }
         ]
@@ -2055,6 +2220,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-6-mc1",
+            concept: "Comparative Advantage as the Basis for Trade",
             question: "The US gives up 2 shirts per phone while Vietnam gives up 5 shirts per phone. Comparative advantage in phones belongs to…",
             options: [
               "Vietnam, with the higher cost in that market",
@@ -2067,6 +2233,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-6-mc2",
+            concept: "Comparative Advantage as the Basis for Trade",
             question: "A tariff on imported shoes will most directly…",
             options: [
               "Raise consumer surplus for buyers in that market",
@@ -2094,6 +2261,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-6-aq1",
+          concept: "Comparative Advantage as the Basis for Trade",
           question: "Comparing the $20 tariff with an equivalent quota on sneakers, a key difference is that…",
           options: [
             "Only the quota raises the price",
@@ -2121,6 +2289,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-6-mastery1",
+            concept: "Comparative Advantage as the Basis for Trade",
             question: "A country has a comparative advantage in a good when it has the…",
             options: [
               "Highest total output of it",
@@ -2129,10 +2298,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Newest technology for it"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Comparative advantage is defined by opportunity cost, not output size or technology. The country giving up the least of other goods should specialize in it."
           },
           {
             id: "apm-2-6-mastery2",
+            concept: "Comparative Advantage as the Basis for Trade",
             question: "One country can produce more of every good than another. Trade can still benefit both because…",
             options: [
               "Absolute advantage settles all trade",
@@ -2141,10 +2312,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Prices always fall to zero"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Even with an absolute advantage in everything, opportunity costs differ, so each side gains by specializing where its cost is lowest. Comparative, not absolute, advantage drives trade."
           },
           {
             id: "apm-2-6-mastery3",
+            concept: "Comparative Advantage as the Basis for Trade",
             question: "Trade between two nations is mutually beneficial when the terms of trade…",
             options: [
               "Equal one country's cost exactly",
@@ -2153,10 +2326,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Are set by a single nation"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If the trade ratio lands between the two countries' opportunity costs, each gets a good more cheaply than making it, so both gain. Outside that range, one side would refuse."
           },
           {
             id: "apm-2-6-mastery4",
+            concept: "Comparative Advantage as the Basis for Trade",
             question: "A tariff on imports reduces total surplus because it…",
             options: [
               "Transfers surplus to producers",
@@ -2165,10 +2340,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Helps domestic factories grow"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Transfers to producers and the government are not net losses. Total surplus falls because of deadweight loss from inefficient production and lost consumption."
           },
           {
             id: "apm-2-6-mastery5",
+            concept: "Comparative Advantage as the Basis for Trade",
             question: "Under a tariff, the loss in consumer surplus is split among all of these EXCEPT…",
             options: [
               "Government tariff revenue",
@@ -2177,10 +2354,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Higher surplus for consumers"
             ],
             correctAnswer: 3,
+            difficulty: 1.5,
             explanation: "Consumer surplus falls, so it cannot rise. The lost consumer surplus becomes producer surplus, government revenue, and deadweight loss."
           },
           {
             id: "apm-2-6-mastery6",
+            concept: "Comparative Advantage as the Basis for Trade",
             question: "A quota differs from a tariff mainly in that a quota…",
             options: [
               "Lowers the domestic price for this good",
@@ -2189,6 +2368,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Raises no price at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A quota caps import quantity directly rather than taxing it. Like a tariff it raises price and causes deadweight loss, but the price effect works through the quantity limit."
           }
         ]
@@ -2237,6 +2417,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-1-mc1",
+            concept: "Inputs, Outputs, and the Production Function",
             question: "The law of diminishing marginal returns says that adding more of a variable input to a fixed input eventually causes…",
             options: [
               "Marginal product to keep rising",
@@ -2249,6 +2430,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-1-mc2",
+            concept: "Inputs, Outputs, and the Production Function",
             question: "The short run in production is defined as a period in which…",
             options: [
               "Every input can be varied for this good",
@@ -2276,6 +2458,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-1-aq1",
+          concept: "Inputs, Outputs, and the Production Function",
           question: "At the smoothie stand, why does marginal product fall starting with the third worker?",
           options: [
             "The workers become lazier over time",
@@ -2303,6 +2486,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-1-mastery1",
+            concept: "Inputs, Outputs, and the Production Function",
             question: "Marginal product is best defined as…",
             options: [
               "Total output divided by workers for this good",
@@ -2311,10 +2495,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Fixed cost per unit produced"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Marginal product is the additional output from adding one more unit of the variable input. Total output divided by workers is average product instead."
           },
           {
             id: "apm-3-1-mastery2",
+            concept: "Inputs, Outputs, and the Production Function",
             question: "Diminishing marginal returns occur because…",
             options: [
               "Workers get paid more each hour",
@@ -2323,10 +2509,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Prices of the good keep rising"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "As more variable input is added to a fixed input, that fixed input limits each new worker's output. The bottleneck is why marginal product eventually falls."
           },
           {
             id: "apm-3-1-mastery3",
+            concept: "Inputs, Outputs, and the Production Function",
             question: "When marginal product is greater than average product, average product is…",
             options: [
               "Falling toward zero for this good",
@@ -2335,10 +2523,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Unrelated to marginal product in that market"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A marginal value above the average pulls the average up, just like a quiz above your GPA raises it. So average product rises when marginal exceeds it."
           },
           {
             id: "apm-3-1-mastery4",
+            concept: "Inputs, Outputs, and the Production Function",
             question: "In the long run, the law of diminishing marginal returns…",
             options: [
               "Always applies more strongly for this good",
@@ -2347,10 +2537,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Forces marginal product to zero"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The law is a short-run idea requiring a fixed input. In the long run firms can expand every input, removing the bottleneck, so it need not apply."
           },
           {
             id: "apm-3-1-mastery5",
+            concept: "Inputs, Outputs, and the Production Function",
             question: "As marginal product declines while output keeps rising, marginal cost will…",
             options: [
               "Fall toward zero quickly in that market",
@@ -2359,10 +2551,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Become negative for a while for the seller"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Falling marginal product means more labor is needed per extra unit, so marginal cost rises. This link is why marginal cost curves eventually slope upward."
           },
           {
             id: "apm-3-1-mastery6",
+            concept: "Inputs, Outputs, and the Production Function",
             question: "If a fifth worker's marginal product is positive but smaller than the fourth's, then total product is…",
             options: [
               "Falling with the fifth worker",
@@ -2371,6 +2565,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Equal to average product"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A positive marginal product still adds output, so total product rises, but a smaller marginal product means it rises more slowly. Total product only falls when marginal product is negative."
           }
         ]
@@ -2419,6 +2614,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-2-mc1",
+            concept: "Fixed, Variable, and Total Cost",
             question: "As a firm produces more output, average fixed cost will…",
             options: [
               "Rise steadily with output for this good",
@@ -2431,6 +2627,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-2-mc2",
+            concept: "Fixed, Variable, and Total Cost",
             question: "The marginal cost curve intersects the average total cost curve at…",
             options: [
               "The highest point of ATC",
@@ -2458,6 +2655,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-2-aq1",
+          concept: "Fixed, Variable, and Total Cost",
           question: "If Maria doubles output to 400 candles and variable costs rise proportionally, what happens to her average fixed cost?",
           options: [
             "It rises to $4 per candle",
@@ -2485,6 +2683,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-2-mastery1",
+            concept: "Fixed, Variable, and Total Cost",
             question: "Which cost does NOT change as output rises in the short run?",
             options: [
               "Total variable cost",
@@ -2493,10 +2692,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Marginal cost paid"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Total fixed cost stays the same regardless of output. Variable, total, and marginal costs all change as quantity produced changes."
           },
           {
             id: "apm-3-2-mastery2",
+            concept: "Fixed, Variable, and Total Cost",
             question: "Average total cost can be found by…",
             options: [
               "Subtracting AVC from AFC for this good",
@@ -2505,10 +2706,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Multiplying TFC by output"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "ATC equals AFC plus AVC, since total cost is fixed plus variable cost. Dividing that total by quantity gives the same result."
           },
           {
             id: "apm-3-2-mastery3",
+            concept: "Fixed, Variable, and Total Cost",
             question: "Marginal cost eventually rises because of…",
             options: [
               "Falling average fixed cost",
@@ -2517,10 +2720,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A drop in the good's price"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "As marginal product falls from diminishing returns, more labor is needed per unit, so marginal cost rises. Fixed cost has nothing to do with marginal cost."
           },
           {
             id: "apm-3-2-mastery4",
+            concept: "Fixed, Variable, and Total Cost",
             question: "The vertical distance between the ATC and AVC curves at any output equals…",
             options: [
               "Marginal cost there for this good",
@@ -2529,10 +2734,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Total variable cost there"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Since ATC equals AVC plus AFC, the gap between them is average fixed cost. That gap shrinks as output rises because AFC falls."
           },
           {
             id: "apm-3-2-mastery5",
+            concept: "Fixed, Variable, and Total Cost",
             question: "When marginal cost is below average total cost, average total cost is…",
             options: [
               "Rising with each unit",
@@ -2541,10 +2748,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Equal to marginal cost"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A marginal cost below the average pulls the average down, so ATC is falling. Only when MC rises above ATC does the average begin to climb."
           },
           {
             id: "apm-3-2-mastery6",
+            concept: "Fixed, Variable, and Total Cost",
             question: "A firm makes 100 units for a total cost of $800 with $300 in fixed cost. Its average variable cost is…",
             options: [
               "$8.00 per unit made",
@@ -2553,6 +2762,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "$11.00 per unit made"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Variable cost is $800 minus $300, or $500, over 100 units, giving $5. Average total cost is $8, and average fixed cost is $3."
           }
         ]
@@ -2601,6 +2811,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-3-mc1",
+            concept: "The Long Run and the LRATC Curve",
             question: "In the long run, a firm's fixed costs are…",
             options: [
               "Larger than in the short run",
@@ -2613,6 +2824,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-3-mc2",
+            concept: "The Long Run and the LRATC Curve",
             question: "The downward-sloping part of the LRATC curve reflects…",
             options: [
               "Diseconomies of scale",
@@ -2640,6 +2852,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-3-aq1",
+          concept: "The Long Run and the LRATC Curve",
           question: "The granola company's cost per bag rises from $3 to $3.50 as it grows into a sprawling multi-site operation. This best illustrates…",
           options: [
             "Economies of scale kicking in",
@@ -2667,6 +2880,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-3-mastery1",
+            concept: "The Long Run and the LRATC Curve",
             question: "The long-run average total cost curve is best described as…",
             options: [
               "A single short-run cost curve",
@@ -2675,10 +2889,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A flat line at every output"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "LRATC wraps under all the short-run ATC curves, tracing the lowest average cost achievable at each output when plant size can be chosen freely."
           },
           {
             id: "apm-3-3-mastery2",
+            concept: "The Long Run and the LRATC Curve",
             question: "Economies of scale can come from all of these EXCEPT…",
             options: [
               "Bulk discounts on inputs",
@@ -2687,10 +2903,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Spreading large equipment costs"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Harder coordination causes diseconomies of scale, raising cost. Bulk discounts, specialization, and spreading big costs are sources of economies of scale."
           },
           {
             id: "apm-3-3-mastery3",
+            concept: "The Long Run and the LRATC Curve",
             question: "Minimum efficient scale is the…",
             options: [
               "Largest output a firm can make",
@@ -2699,10 +2917,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Point of maximum total profit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "MES is the smallest output at which LRATC reaches its minimum. Below it, the firm has not fully captured economies of scale."
           },
           {
             id: "apm-3-3-mastery4",
+            concept: "The Long Run and the LRATC Curve",
             question: "An industry where minimum efficient scale is huge relative to market demand tends to have…",
             options: [
               "Very many small competitors",
@@ -2711,10 +2931,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Perfectly identical products for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If a firm must be enormous to reach lowest cost, the market only supports a few such firms, tending toward oligopoly or natural monopoly."
           },
           {
             id: "apm-3-3-mastery5",
+            concept: "The Long Run and the LRATC Curve",
             question: "The long-run U shape of LRATC differs from the short-run U shape because it comes from…",
             options: [
               "Diminishing marginal returns for this good",
@@ -2723,10 +2945,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A fixed plant bottleneck"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Short-run U shapes come from diminishing returns to a fixed input; long-run U shapes come from scale effects as the whole operation grows or shrinks."
           },
           {
             id: "apm-3-3-mastery6",
+            concept: "The Long Run and the LRATC Curve",
             question: "Over the flat portion of an LRATC curve, a firm experiences…",
             options: [
               "Sharp economies of scale",
@@ -2735,6 +2959,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Falling total output for this good"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A flat LRATC means cost per unit does not change with size, which is constant returns to scale - the range between economies and diseconomies."
           }
         ]
@@ -2783,6 +3008,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-4-mc1",
+            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
             question: "Which cost is an implicit cost for a business owner?",
             options: [
               "Wages paid to employees for this good",
@@ -2795,6 +3021,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-4-mc2",
+            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
             question: "A firm earning zero economic profit is…",
             options: [
               "Losing money and about to close",
@@ -2822,6 +3049,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-4-aq1",
+          concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
           question: "Given Leo's $70,000 accounting profit and $64,000 in implicit costs, his economic profit is…",
           options: [
             "$70,000, the same as accounting",
@@ -2849,6 +3077,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-4-mastery1",
+            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
             question: "Economic profit differs from accounting profit because it also subtracts…",
             options: [
               "Explicit wage payments",
@@ -2857,10 +3086,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The cost of raw materials"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Economic profit subtracts implicit costs - the value of the owner's forgone alternatives - on top of explicit costs. That makes it smaller than accounting profit."
           },
           {
             id: "apm-3-4-mastery2",
+            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
             question: "Because economic profit subtracts more costs, it is always…",
             options: [
               "Larger than accounting profit",
@@ -2869,10 +3100,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Greater than total revenue"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Subtracting implicit costs in addition to explicit costs makes economic profit less than or equal to accounting profit, never larger."
           },
           {
             id: "apm-3-4-mastery3",
+            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
             question: "Normal profit is best described as the profit that…",
             options: [
               "Exceeds all rivals in the market",
@@ -2881,10 +3114,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Equals total revenue exactly"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Normal profit is the accounting profit just large enough to cover implicit costs, leaving zero economic profit. The owner does exactly as well as the next-best option."
           },
           {
             id: "apm-3-4-mastery4",
+            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
             question: "Positive economic profit in an industry tends to cause…",
             options: [
               "Existing firms to exit fast in that market",
@@ -2893,10 +3128,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Implicit costs to disappear for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Positive economic profit means the business beats alternatives, which attracts new entrants. Entry continues until economic profit falls back to zero."
           },
           {
             id: "apm-3-4-mastery5",
+            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
             question: "A shop reports $90,000 in accounting profit, but the owner gave up a $95,000 salary elsewhere. The shop's economic profit is…",
             options: [
               "Positive, about $5,000",
@@ -2905,10 +3142,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Equal to $185,000 total"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Subtracting the $95,000 implicit cost from $90,000 accounting profit gives negative $5,000. The owner would be better off taking the salary."
           },
           {
             id: "apm-3-4-mastery6",
+            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
             question: "A firm earning zero economic profit will, in the long run, most likely…",
             options: [
               "Shut down immediately",
@@ -2917,6 +3156,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Report an accounting loss"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Zero economic profit means the owner earns exactly the next-best return, so there is no reason to leave and no unusual incentive for others to enter. The firm stays put."
           }
         ]
@@ -2965,6 +3205,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-5-mc1",
+            concept: "The MR = MC Profit-Maximizing Rule",
             question: "A firm should keep expanding output as long as…",
             options: [
               "Marginal cost exceeds marginal revenue",
@@ -2977,6 +3218,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-5-mc2",
+            concept: "The MR = MC Profit-Maximizing Rule",
             question: "At its profit-maximizing quantity a firm charges $12 with an ATC of $9. Its per-unit profit is…",
             options: [
               "$21 per unit made",
@@ -3004,6 +3246,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-5-aq1",
+          concept: "The MR = MC Profit-Maximizing Rule",
           question: "At 600 shirts Devon charges $15 with an ATC of $11. What is his total economic profit?",
           options: [
             "$9,000 in total profit",
@@ -3031,6 +3274,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-5-mastery1",
+            concept: "The MR = MC Profit-Maximizing Rule",
             question: "The universal profit-maximizing rule for any firm is to produce where…",
             options: [
               "Price is at its highest",
@@ -3039,10 +3283,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Average cost is lowest"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Every firm maximizes profit at the quantity where MR equals MC. Maximizing revenue or minimizing average cost does not maximize profit."
           },
           {
             id: "apm-3-5-mastery2",
+            concept: "The MR = MC Profit-Maximizing Rule",
             question: "For a perfectly competitive firm, marginal revenue equals…",
             options: [
               "Average total cost",
@@ -3051,10 +3297,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Total fixed cost"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A price taker can sell any amount at the market price, so each extra unit adds exactly the price to revenue. Thus MR equals price."
           },
           {
             id: "apm-3-5-mastery3",
+            concept: "The MR = MC Profit-Maximizing Rule",
             question: "If at the MR = MC quantity price equals average total cost, the firm earns…",
             options: [
               "A large economic profit",
@@ -3063,10 +3311,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Negative total revenue for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Price equal to ATC makes the profit rectangle zero, so economic profit is zero - a normal profit. The firm covers all costs including opportunity cost."
           },
           {
             id: "apm-3-5-mastery4",
+            concept: "The MR = MC Profit-Maximizing Rule",
             question: "Total economic profit is calculated as…",
             options: [
               "Price times quantity sold for this good",
@@ -3075,10 +3325,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "ATC minus AVC per unit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Profit per unit is price minus ATC, and multiplying by quantity gives total profit. Price times quantity is total revenue, not profit."
           },
           {
             id: "apm-3-5-mastery5",
+            concept: "The MR = MC Profit-Maximizing Rule",
             question: "When price lies below ATC at the MR = MC quantity, producing there…",
             options: [
               "Guarantees positive profit for this good",
@@ -3087,10 +3339,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Raises average fixed cost"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "MR = MC still gives the best quantity, so producing there yields the smallest possible loss when price is below ATC. Any other output would lose more."
           },
           {
             id: "apm-3-5-mastery6",
+            concept: "The MR = MC Profit-Maximizing Rule",
             question: "A firm makes 400 units where MR = MC, charges $20, and has ATC of $16. Its total economic profit is…",
             options: [
               "$8,000 in profit",
@@ -3099,6 +3353,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "$36 in profit"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Profit is ($20 minus $16) times 400, which is $4 times 400, giving $1,600. The $8,000 figure mistakenly uses price rather than the margin."
           }
         ]
@@ -3147,6 +3402,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-6-mc1",
+            concept: "Price Takers and the Perfectly Competitive Firm",
             question: "The demand curve facing a single perfectly competitive firm is…",
             options: [
               "Steeply downward sloping for this good",
@@ -3159,6 +3415,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-6-mc2",
+            concept: "Price Takers and the Perfectly Competitive Firm",
             question: "A competitive firm should shut down in the short run when price falls below…",
             options: [
               "Average total cost",
@@ -3186,6 +3443,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-6-aq1",
+          concept: "Price Takers and the Perfectly Competitive Firm",
           question: "With price $2, AVC $1.60, and ATC $2.30, what should the Ruiz farm do in the short run?",
           options: [
             "Shut down to avoid the loss",
@@ -3213,6 +3471,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-6-mastery1",
+            concept: "Price Takers and the Perfectly Competitive Firm",
             question: "Which is NOT a feature of perfect competition?",
             options: [
               "Many small firms and buyers in that market",
@@ -3221,10 +3480,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Free entry into the industry"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "No single firm can set the price in perfect competition; each is a price taker. Many firms, identical products, and free entry are all defining features."
           },
           {
             id: "apm-3-6-mastery2",
+            concept: "Price Takers and the Perfectly Competitive Firm",
             question: "For a perfectly competitive firm, price equals all of the following EXCEPT…",
             options: [
               "Marginal revenue",
@@ -3233,10 +3494,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Marginal cost at its output"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Price equals MR and AR for a price taker, and it produces where price equals MC. Price need not equal AVC, which varies with output."
           },
           {
             id: "apm-3-6-mastery3",
+            concept: "Price Takers and the Perfectly Competitive Firm",
             question: "A competitive firm keeps operating at a loss in the short run when price is…",
             options: [
               "Below average variable cost",
@@ -3245,10 +3508,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "At exactly zero for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If price is above AVC but below ATC, the firm covers variable cost and part of fixed cost, so operating loses less than closing. Below AVC it would shut down."
           },
           {
             id: "apm-3-6-mastery4",
+            concept: "Price Takers and the Perfectly Competitive Firm",
             question: "In long-run competitive equilibrium, each firm earns…",
             options: [
               "Large positive economic profit",
@@ -3257,10 +3522,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "An ever-deepening loss"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Entry and exit push price to minimum ATC, leaving zero economic profit - a normal profit. Positive profit attracts entry until it disappears."
           },
           {
             id: "apm-3-6-mastery5",
+            concept: "Price Takers and the Perfectly Competitive Firm",
             question: "The firm's short-run supply curve is the portion of its marginal cost curve that lies…",
             options: [
               "Below average variable cost",
@@ -3269,10 +3536,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "To the left of the origin"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The firm produces where price equals MC only while price covers AVC, so its supply curve is the MC curve above minimum AVC. Below that it shuts down."
           },
           {
             id: "apm-3-6-mastery6",
+            concept: "Price Takers and the Perfectly Competitive Firm",
             question: "Long-run competitive equilibrium achieves allocative efficiency because…",
             options: [
               "Total revenue is maximized",
@@ -3281,6 +3550,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Firms earn high profits"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Allocative efficiency means the last unit's value to buyers equals its cost, which is price equal to MC. Competition delivers this, along with production at minimum ATC."
           }
         ]
@@ -3329,6 +3599,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-1-mc1",
+            concept: "Monopoly, Market Power, and Why MR Is Below Price",
             question: "For a monopolist, marginal revenue is…",
             options: [
               "Equal to the price charged",
@@ -3341,6 +3612,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-1-mc2",
+            concept: "Monopoly, Market Power, and Why MR Is Below Price",
             question: "A natural monopoly arises when…",
             options: [
               "The government bans all rivals in that market",
@@ -3368,6 +3640,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-4-1-aq1",
+          concept: "Monopoly, Market Power, and Why MR Is Below Price",
           question: "Why does a single bridge into town qualify as a natural monopoly?",
           options: [
             "The government outlawed competitors for this good",
@@ -3395,6 +3668,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-1-mastery1",
+            concept: "Monopoly, Market Power, and Why MR Is Below Price",
             question: "Compared with a competitive market, a monopoly tends to produce…",
             options: [
               "More output at a lower price",
@@ -3403,10 +3677,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Output at a zero price"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A monopolist restricts quantity to raise price, producing less than a competitive market and charging more. This creates deadweight loss."
           },
           {
             id: "apm-4-1-mastery2",
+            concept: "Monopoly, Market Power, and Why MR Is Below Price",
             question: "The deadweight loss of monopoly arises because…",
             options: [
               "Price is set below marginal cost",
@@ -3415,10 +3691,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Entry is completely free"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "When price is above marginal cost, some buyers who value the good above its cost are priced out, so beneficial trades are lost. That lost surplus is deadweight loss."
           },
           {
             id: "apm-4-1-mastery3",
+            concept: "Monopoly, Market Power, and Why MR Is Below Price",
             question: "A monopolist chooses its quantity where…",
             options: [
               "Price equals marginal cost for this good",
@@ -3427,10 +3705,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Marginal revenue equals price"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Like all firms, it uses MR = MC to pick quantity, then reads the higher price off the demand curve. Price equals MC only in perfect competition."
           },
           {
             id: "apm-4-1-mastery4",
+            concept: "Monopoly, Market Power, and Why MR Is Below Price",
             question: "Which is a barrier to entry that can create a monopoly?",
             options: [
               "Many identical competitors for this good",
@@ -3439,10 +3719,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Free entry and exit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A patent legally blocks rivals, protecting a monopoly. Many competitors, perfect information, and free entry are features of competition, not barriers."
           },
           {
             id: "apm-4-1-mastery5",
+            concept: "Monopoly, Market Power, and Why MR Is Below Price",
             question: "A regulator setting a natural monopoly's price equal to average total cost aims to…",
             options: [
               "Maximize the firm's profit for this good",
@@ -3451,10 +3733,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Force it to shut down for the seller"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Pricing at ATC gives the firm zero economic profit - a fair return that covers costs without monopoly exploitation. Pricing at MC would be socially optimal but may need a subsidy."
           },
           {
             id: "apm-4-1-mastery6",
+            concept: "Monopoly, Market Power, and Why MR Is Below Price",
             question: "Monopoly profit can persist in the long run mainly because…",
             options: [
               "Products are all identical",
@@ -3463,6 +3747,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Buyers have all the power"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "In competition, entry erases profit, but a monopoly's barriers to entry keep rivals out, so its economic profit can last. Blocked entry is what protects the profit."
           }
         ]
@@ -3511,6 +3796,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-2-mc1",
+            concept: "What Price Discrimination Is and Its Three Degrees",
             question: "Third-degree price discrimination charges a higher price to the group with…",
             options: [
               "More elastic demand",
@@ -3523,6 +3809,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-2-mc2",
+            concept: "What Price Discrimination Is and Its Three Degrees",
             question: "Which condition is required for price discrimination to work?",
             options: [
               "The firm must be a price taker",
@@ -3550,6 +3837,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-4-2-aq1",
+          concept: "What Price Discrimination Is and Its Three Degrees",
           question: "Why does the amusement park stamp hands to prevent ticket sharing?",
           options: [
             "To make the tickets identical for this good",
@@ -3577,6 +3865,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-2-mastery1",
+            concept: "What Price Discrimination Is and Its Three Degrees",
             question: "Price discrimination is defined as charging different prices that are not based on differences in…",
             options: [
               "The seller's costs",
@@ -3585,10 +3874,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The buyer's age group"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The price gap must not reflect cost differences; it reflects differing willingness to pay. That is what distinguishes discrimination from ordinary cost-based pricing."
           },
           {
             id: "apm-4-2-mastery2",
+            concept: "What Price Discrimination Is and Its Three Degrees",
             question: "First-degree (perfect) price discrimination charges each buyer…",
             options: [
               "One single uniform price for this good",
@@ -3597,10 +3888,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A price equal to marginal cost"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Perfect price discrimination extracts each buyer's full reservation price, capturing all consumer surplus for the firm."
           },
           {
             id: "apm-4-2-mastery3",
+            concept: "What Price Discrimination Is and Its Three Degrees",
             question: "A firm cannot price discriminate unless it has…",
             options: [
               "Perfectly elastic demand for this good",
@@ -3609,10 +3902,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A perfectly flat demand curve"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Only a firm with market power can set prices at all, so price discrimination is impossible for a price taker. Market power is the first requirement."
           },
           {
             id: "apm-4-2-mastery4",
+            concept: "What Price Discrimination Is and Its Three Degrees",
             question: "Perfect price discrimination affects efficiency by…",
             options: [
               "Increasing deadweight loss sharply",
@@ -3621,10 +3916,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Reducing total output to zero"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because every buyer valuing the good above cost is served, output reaches the efficient level and deadweight loss vanishes - though the firm captures all the surplus."
           },
           {
             id: "apm-4-2-mastery5",
+            concept: "What Price Discrimination Is and Its Three Degrees",
             question: "Bulk discounts and 'good-better-best' product tiers are examples of…",
             options: [
               "First-degree discrimination",
@@ -3633,10 +3930,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "No discrimination at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Charging by quantity or version and letting buyers self-select is second-degree price discrimination. Group-based pricing would be third-degree."
           },
           {
             id: "apm-4-2-mastery6",
+            concept: "What Price Discrimination Is and Its Three Degrees",
             question: "Relative to a single-price monopoly, price discrimination generally shifts surplus toward…",
             options: [
               "Consumers for this good",
@@ -3645,6 +3944,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Foreign competitors for the seller"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "By capturing more of buyers' willingness to pay, the firm gains surplus while consumer surplus falls. The distributional shift favors the seller."
           }
         ]
@@ -3693,6 +3993,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-3-mc1",
+            concept: "Monopolistic Competition and Product Differentiation",
             question: "A monopolistically competitive firm faces a demand curve that is…",
             options: [
               "Perfectly horizontal for this good",
@@ -3705,6 +4006,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-3-mc2",
+            concept: "Monopolistic Competition and Product Differentiation",
             question: "In long-run equilibrium a monopolistically competitive firm earns…",
             options: [
               "Large economic profit",
@@ -3732,6 +4034,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-4-3-aq1",
+          concept: "Monopolistic Competition and Product Differentiation",
           question: "The smoothie shops' persistent empty seats best illustrate which feature of monopolistic competition?",
           options: [
             "Perfectly elastic demand for this good",
@@ -3759,6 +4062,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-3-mastery1",
+            concept: "Monopolistic Competition and Product Differentiation",
             question: "Monopolistic competition differs from perfect competition mainly because its firms…",
             options: [
               "Sell an identical product",
@@ -3767,10 +4071,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Are all price takers"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Both have many firms and free entry, but monopolistic competitors differentiate their products, giving each slight market power. Perfect competitors sell identical goods."
           },
           {
             id: "apm-4-3-mastery2",
+            concept: "Monopolistic Competition and Product Differentiation",
             question: "In long-run equilibrium, a monopolistically competitive firm's demand curve is…",
             options: [
               "Below its ATC everywhere for this good",
@@ -3779,10 +4085,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Horizontal at minimum ATC"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Entry and exit shift demand until it just touches ATC, giving zero economic profit at that tangency point."
           },
           {
             id: "apm-4-3-mastery3",
+            concept: "Monopolistic Competition and Product Differentiation",
             question: "Monopolistic competition is allocatively inefficient because in long-run equilibrium…",
             options: [
               "Price equals marginal cost",
@@ -3791,10 +4099,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Firms earn large profits"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "With price above marginal cost, the last unit is worth more than it costs to make, yet is not produced. That gap is allocative inefficiency."
           },
           {
             id: "apm-4-3-mastery4",
+            concept: "Monopolistic Competition and Product Differentiation",
             question: "Excess capacity means the firm produces at an output where ATC is…",
             options: [
               "At its minimum point",
@@ -3803,10 +4113,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Below marginal revenue for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The tangency lies on the downward-sloping part of ATC, left of the minimum, so average cost is higher than it could be. The unused room is excess capacity."
           },
           {
             id: "apm-4-3-mastery5",
+            concept: "Monopolistic Competition and Product Differentiation",
             question: "A key form of competition among monopolistic competitors is…",
             options: [
               "Colluding to fix output",
@@ -3815,10 +4127,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Blocking all new entry"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Firms compete through non-price means like advertising and branding to differentiate their product and shift demand outward. Entry is free, not blocked."
           },
           {
             id: "apm-4-3-mastery6",
+            concept: "Monopolistic Competition and Product Differentiation",
             question: "Compared with perfect competition, monopolistic competition offers consumers…",
             options: [
               "Lower prices and less variety in that market",
@@ -3827,6 +4141,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "No product choices at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Differentiation gives buyers variety and choice but at prices above marginal cost and above minimum ATC. Variety is the benefit; slightly higher cost is the tradeoff."
           }
         ]
@@ -3875,6 +4190,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-4-mc1",
+            concept: "Oligopoly, Interdependence, and Collusion",
             question: "The defining feature of an oligopoly is that firms are…",
             options: [
               "Perfectly competitive price takers",
@@ -3887,6 +4203,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-4-mc2",
+            concept: "Oligopoly, Interdependence, and Collusion",
             question: "A Nash equilibrium is an outcome in which…",
             options: [
               "Every firm earns maximum profit for this good",
@@ -3914,6 +4231,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-4-4-aq1",
+          concept: "Oligopoly, Interdependence, and Collusion",
           question: "Given the payoffs, what is the likely Nash equilibrium for the two gas stations?",
           options: [
             "Both keep prices high at $4,000",
@@ -3941,6 +4259,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-4-mastery1",
+            concept: "Oligopoly, Interdependence, and Collusion",
             question: "A formal agreement among firms to coordinate prices and output is called a…",
             options: [
               "Perfect market",
@@ -3949,10 +4268,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Free-rider"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A cartel is an explicit collusive agreement, like OPEC, that raises prices and restricts output to boost joint profit. It is illegal in most countries."
           },
           {
             id: "apm-4-4-mastery2",
+            concept: "Oligopoly, Interdependence, and Collusion",
             question: "A dominant strategy is one that…",
             options: [
               "Depends on the rival's choice",
@@ -3961,10 +4282,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Always sets price at marginal cost"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A dominant strategy yields the best payoff for a player no matter what the other player does. It does not depend on the rival's move."
           },
           {
             id: "apm-4-4-mastery3",
+            concept: "Oligopoly, Interdependence, and Collusion",
             question: "In a Prisoner's Dilemma between two firms, the equilibrium outcome is usually…",
             options: [
               "Better than cooperating",
@@ -3973,10 +4296,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Impossible to predict"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Both firms follow their dominant strategy to cut price and land in a worse spot than if they had cooperated. Self-interest produces a worse mutual result."
           },
           {
             id: "apm-4-4-mastery4",
+            concept: "Oligopoly, Interdependence, and Collusion",
             question: "Collusion among oligopolists tends to break down because each firm has an incentive to…",
             options: [
               "Raise its price further",
@@ -3985,10 +4310,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Match the government's price"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "By quietly cutting price while others hold high prices, a firm can grab market share and extra profit. That temptation to cheat makes collusion unstable."
           },
           {
             id: "apm-4-4-mastery5",
+            concept: "Oligopoly, Interdependence, and Collusion",
             question: "A high four-firm concentration ratio in an industry indicates…",
             options: [
               "Perfect competition",
@@ -3997,10 +4324,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "No barriers to entry"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When four firms control most of an industry's sales, a few firms dominate - the hallmark of oligopoly. Low concentration would suggest competition."
           },
           {
             id: "apm-4-4-mastery6",
+            concept: "Oligopoly, Interdependence, and Collusion",
             question: "Cooperation among oligopolists is easier to sustain when firms…",
             options: [
               "Interact only one single time",
@@ -4009,6 +4338,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Have no barriers to entry"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Repeated interaction lets firms punish cheaters through retaliation like tit-for-tat, making cooperation more stable than in a one-shot game."
           }
         ]
@@ -4057,6 +4387,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-1-mc1",
+            concept: "Factor Markets and Derived Demand",
             question: "Demand for labor is called a derived demand because it comes from…",
             options: [
               "The wage workers are paid for this good",
@@ -4069,6 +4400,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-1-mc2",
+            concept: "Factor Markets and Derived Demand",
             question: "A firm maximizes profit in the labor market by hiring until…",
             options: [
               "Marginal product is highest for this good",
@@ -4096,6 +4428,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-5-1-aq1",
+          concept: "Factor Markets and Derived Demand",
           question: "With a $200 daily wage and worker MRPs of $300, $250, $200, and $150, how many workers should the sign shop hire?",
           options: [
             "Two workers",
@@ -4123,6 +4456,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-1-mastery1",
+            concept: "Factor Markets and Derived Demand",
             question: "In factor markets, the roles are reversed so that…",
             options: [
               "Firms supply and households demand",
@@ -4131,10 +4465,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Prices are always fixed by law"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "In factor markets households sell their resources like labor, and firms buy them - the opposite of product markets where firms sell to households."
           },
           {
             id: "apm-5-1-mastery2",
+            concept: "Factor Markets and Derived Demand",
             question: "Marginal revenue product equals marginal product times…",
             options: [
               "Average fixed cost",
@@ -4143,10 +4479,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The quantity of labor"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "MRP is MP times MR. In a competitive product market MR equals price, so MRP equals marginal product times price."
           },
           {
             id: "apm-5-1-mastery3",
+            concept: "Factor Markets and Derived Demand",
             question: "The MRP curve slopes downward mainly because of…",
             options: [
               "Rising fixed costs",
@@ -4155,10 +4493,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Higher marginal resource cost"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "As more workers are added to fixed capital, each adds less output, so MRP falls. Diminishing marginal returns drive the downward slope."
           },
           {
             id: "apm-5-1-mastery4",
+            concept: "Factor Markets and Derived Demand",
             question: "In a competitive labor market, marginal resource cost equals…",
             options: [
               "The marginal product",
@@ -4167,10 +4507,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Total fixed cost"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A wage-taking firm can hire any number of workers at the going wage, so each extra worker costs exactly that wage. Thus MRC equals the market wage."
           },
           {
             id: "apm-5-1-mastery5",
+            concept: "Factor Markets and Derived Demand",
             question: "The MRP curve for a factor also serves as the firm's…",
             options: [
               "Supply curve for output",
@@ -4179,10 +4521,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Total revenue curve in that market"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "MRP shows how much each additional worker is worth to the firm, which is exactly its willingness to pay - the factor demand curve."
           },
           {
             id: "apm-5-1-mastery6",
+            concept: "Factor Markets and Derived Demand",
             question: "If demand for a product rises, the demand for the labor that makes it will…",
             options: [
               "Fall as costs increase",
@@ -4191,6 +4535,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Become perfectly inelastic in that market"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Since labor demand is derived from product demand, a stronger product market raises the value of workers and shifts labor demand right."
           }
         ]
@@ -4239,6 +4584,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-2-mc1",
+            concept: "What Shifts Labor Demand and Labor Supply",
             question: "An increase in the demand for a product will, in its labor market, shift labor demand…",
             options: [
               "Left, lowering wages",
@@ -4251,6 +4597,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-2-mc2",
+            concept: "What Shifts Labor Demand and Labor Supply",
             question: "If labor supply rises while labor demand is unchanged, the equilibrium wage will…",
             options: [
               "Rise as more work",
@@ -4278,6 +4625,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-5-2-aq1",
+          concept: "What Shifts Labor Demand and Labor Supply",
           question: "Why do overnight nursing shifts pay more than daytime shifts with the same skills?",
           options: [
             "Overnight nurses have higher MRP",
@@ -4305,6 +4653,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-2-mastery1",
+            concept: "What Shifts Labor Demand and Labor Supply",
             question: "Which change would shift the labor demand curve to the right?",
             options: [
               "A fall in the product's price",
@@ -4313,10 +4662,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A drop in demand for the good"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Higher productivity raises marginal product and thus MRP, shifting labor demand right. A falling product price or demand would shift it left."
           },
           {
             id: "apm-5-2-mastery2",
+            concept: "What Shifts Labor Demand and Labor Supply",
             question: "A surge of immigration into a labor market shifts labor…",
             options: [
               "Demand to the right",
@@ -4325,10 +4676,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Supply to the left"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "More available workers increase labor supply, shifting it right. This tends to raise employment but lower the equilibrium wage, all else equal."
           },
           {
             id: "apm-5-2-mastery3",
+            concept: "What Shifts Labor Demand and Labor Supply",
             question: "Surgeons earn high wages largely because they have…",
             options: [
               "Low MRP and large supply",
@@ -4337,10 +4690,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "No compensating differentials for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "High productivity (MRP) plus a small pool of qualified surgeons means strong demand meets limited supply, producing a high equilibrium wage."
           },
           {
             id: "apm-5-2-mastery4",
+            concept: "What Shifts Labor Demand and Labor Supply",
             question: "If labor demand and labor supply both increase, the equilibrium…",
             options: [
               "Wage definitely falls for this good",
@@ -4349,10 +4704,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Quantity definitely falls"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Both rightward shifts clearly raise employment, but the wage change is ambiguous without knowing which shift is larger. Quantity is the certain outcome."
           },
           {
             id: "apm-5-2-mastery5",
+            concept: "What Shifts Labor Demand and Labor Supply",
             question: "A compensating differential is a wage premium paid for a job that is…",
             options: [
               "Especially safe and pleasant",
@@ -4361,10 +4718,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "In high product demand"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Undesirable jobs must pay more to attract workers, since the bad conditions shrink willing supply. That extra pay is a compensating differential."
           },
           {
             id: "apm-5-2-mastery6",
+            concept: "What Shifts Labor Demand and Labor Supply",
             question: "Cheaper automation that replaces workers would shift labor demand…",
             options: [
               "Right, raising wages",
@@ -4373,6 +4732,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Not at all in the market"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "If machines substitute for workers, firms need fewer workers at any wage, so labor demand shifts left and wages fall. Automation is a substitute input here."
           }
         ]
@@ -4421,6 +4781,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-3-mc1",
+            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
             question: "For a firm in a competitive labor market, marginal resource cost equals…",
             options: [
               "The worker's marginal product",
@@ -4433,6 +4794,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-3-mc2",
+            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
             question: "The least-cost combination of inputs requires that the marginal product per dollar be…",
             options: [
               "Highest for capital only",
@@ -4460,6 +4822,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-5-3-aq1",
+          concept: "Hiring Where MRP Equals MRC in Competitive Markets",
           question: "Packers give 2 boxes per dollar and machines give 3 boxes per dollar. To lower costs, the factory should…",
           options: [
             "Hire more packers, fewer machines",
@@ -4487,6 +4850,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-3-mastery1",
+            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
             question: "A firm in a perfectly competitive labor market faces a labor supply curve that is…",
             options: [
               "Downward sloping for this good",
@@ -4495,10 +4859,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Vertical at zero labor"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A wage taker can hire any number at the going wage, so its labor supply is horizontal at that wage, making MRC equal to the wage."
           },
           {
             id: "apm-5-3-mastery2",
+            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
             question: "In a competitive labor market, workers are paid a wage equal to their…",
             options: [
               "Average product",
@@ -4507,10 +4873,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Marginal resource cost gap"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Hiring where MRP equals the wage means each worker is paid the value of what they add at the margin - their marginal revenue product."
           },
           {
             id: "apm-5-3-mastery3",
+            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
             question: "The least-cost rule is satisfied when, for every input, the ratio of marginal product to price is…",
             options: [
               "As high as possible",
@@ -4519,10 +4887,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Falling toward zero for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Equal marginal product per dollar across inputs means no reallocation can reduce cost. Unequal ratios signal a cheaper mix is available."
           },
           {
             id: "apm-5-3-mastery4",
+            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
             question: "If labor gives 4 units per dollar and capital gives 6 units per dollar, the firm should use…",
             options: [
               "More labor and less capital",
@@ -4531,10 +4901,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Neither input at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Capital yields more output per dollar, so shifting toward capital lowers cost. The firm substitutes until the per-dollar ratios equalize."
           },
           {
             id: "apm-5-3-mastery5",
+            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
             question: "A rise in the wage relative to machine rents will lead a firm to…",
             options: [
               "Hire more workers",
@@ -4543,10 +4915,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Raise its product price"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "As labor becomes relatively more expensive, its output per dollar falls, so the firm substitutes toward capital. This is why higher wages encourage automation."
           },
           {
             id: "apm-5-3-mastery6",
+            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
             question: "The profit-maximizing input rule is to hire each input until its MRP equals its…",
             options: [
               "Marginal product",
@@ -4555,6 +4929,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Total cost"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Just as MR equals MC for output, each input is hired until its marginal revenue product equals its price, pinning down the profit-maximizing quantity of each input."
           }
         ]
@@ -4603,6 +4978,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-4-mc1",
+            concept: "Monopsony: A Single Buyer of Labor",
             question: "For a monopsonist, marginal resource cost is…",
             options: [
               "Equal to the wage paid",
@@ -4615,6 +4991,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-4-mc2",
+            concept: "Monopsony: A Single Buyer of Labor",
             question: "Compared with a competitive labor market, a monopsony results in…",
             options: [
               "More workers at a higher wage",
@@ -4642,6 +5019,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-5-4-aq1",
+          concept: "Monopsony: A Single Buyer of Labor",
           question: "How could a union most likely affect wages and employment at the monopsony cannery?",
           options: [
             "Lower both wages and jobs",
@@ -4669,6 +5047,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-4-mastery1",
+            concept: "Monopsony: A Single Buyer of Labor",
             question: "A monopsony is a market characterized by…",
             options: [
               "A single seller of a good",
@@ -4677,10 +5056,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Free entry of new firms in that market"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A monopsony has one buyer, typically the sole employer of labor, giving it power over the wage. A single seller would be a monopoly instead."
           },
           {
             id: "apm-5-4-mastery2",
+            concept: "Monopsony: A Single Buyer of Labor",
             question: "A monopsonist's marginal resource cost curve lies above the labor supply curve because…",
             options: [
               "Workers have all the power for this good",
@@ -4689,10 +5070,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "MRP is above the wage in that market"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "To hire an extra worker the firm raises the wage for everyone, so each hire adds more to cost than that worker's wage. That pushes MRC above supply."
           },
           {
             id: "apm-5-4-mastery3",
+            concept: "Monopsony: A Single Buyer of Labor",
             question: "Under monopsony, the wage paid is…",
             options: [
               "Above the worker's MRP",
@@ -4701,10 +5084,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Equal to marginal resource cost"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The firm hires where MRP equals MRC, then reads the wage off the lower supply curve, so the wage falls below MRP. Workers are paid less than they add."
           },
           {
             id: "apm-5-4-mastery4",
+            concept: "Monopsony: A Single Buyer of Labor",
             question: "Relative to a competitive market, monopsony causes deadweight loss because it…",
             options: [
               "Hires too many workers",
@@ -4713,10 +5098,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Eliminates all barriers"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "By employing fewer workers than the competitive level, some beneficial hires do not happen, creating deadweight loss from underhiring."
           },
           {
             id: "apm-5-4-mastery5",
+            concept: "Monopsony: A Single Buyer of Labor",
             question: "A well-set minimum wage in a monopsonized labor market can…",
             options: [
               "Reduce both wages and jobs",
@@ -4725,10 +5112,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Have no effect at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "By fixing the wage, it removes the firm's incentive to hold down hiring, so both the wage and employment can rise - opposite to the competitive outcome."
           },
           {
             id: "apm-5-4-mastery6",
+            concept: "Monopsony: A Single Buyer of Labor",
             question: "The monopsony hiring rule is to employ workers up to where…",
             options: [
               "The wage equals MRP",
@@ -4737,6 +5126,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "MRP is at its maximum"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Like all firms, the monopsonist hires where marginal revenue product equals marginal resource cost. Because MRC is above the wage, this yields fewer workers."
           }
         ]
@@ -4785,6 +5175,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-1-mc1",
+            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
             question: "Consumer surplus is the difference between…",
             options: [
               "Price and the seller's cost for this good",
@@ -4797,6 +5188,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-1-mc2",
+            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
             question: "Allocative efficiency in a market is achieved at the quantity where…",
             options: [
               "Price equals average cost",
@@ -4824,6 +5216,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-1-aq1",
+          concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
           question: "In the freely clearing $60 ticket market, why is total surplus maximized?",
           options: [
             "Sellers capture all the gains",
@@ -4851,6 +5244,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-1-mastery1",
+            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
             question: "Producer surplus is measured as the area…",
             options: [
               "Below demand, above price",
@@ -4859,10 +5253,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Above demand, below price"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Producer surplus is the gap between the price received and sellers' costs, shown as the area above the supply curve and below the price."
           },
           {
             id: "apm-6-1-mastery2",
+            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
             question: "Total surplus in a market equals…",
             options: [
               "Consumer surplus minus producer surplus",
@@ -4871,10 +5267,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Price times quantity traded for this good"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Total surplus is the combined gain to both sides: consumer surplus plus producer surplus. It measures the full value trade creates."
           },
           {
             id: "apm-6-1-mastery3",
+            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
             question: "Productive efficiency is achieved when a good is produced at…",
             options: [
               "The highest possible price for this good",
@@ -4883,10 +5281,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The maximum of marginal cost"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Producing at minimum ATC uses the fewest resources per unit, which is productive efficiency. Perfect competition delivers this in the long run."
           },
           {
             id: "apm-6-1-mastery4",
+            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
             question: "Deadweight loss occurs when a market produces…",
             options: [
               "Exactly the efficient quantity for this good",
@@ -4895,10 +5295,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The largest possible total surplus for the seller"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Any output away from the P equals MC quantity - too little or too much - forgoes or wastes beneficial trades, creating deadweight loss."
           },
           {
             id: "apm-6-1-mastery5",
+            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
             question: "Perfect competition in long-run equilibrium achieves…",
             options: [
               "Only productive efficiency for this good",
@@ -4907,10 +5309,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Neither type of efficiency"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Competitive firms produce where price equals marginal cost (allocative) and at minimum ATC (productive), so both efficiencies hold in the long run."
           },
           {
             id: "apm-6-1-mastery6",
+            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
             question: "A per-unit subsidy that pushes output above the efficient level will…",
             options: [
               "Eliminate deadweight loss for this good",
@@ -4919,6 +5323,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Leave the market unchanged"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Overproducing means making units whose cost exceeds their benefit, which wastes resources and creates deadweight loss. The efficient quantity is where marginal benefit equals marginal cost."
           }
         ]
@@ -4967,6 +5372,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-2-mc1",
+            concept: "Negative Externalities and Overproduction",
             question: "With a negative externality like pollution, the market tends to…",
             options: [
               "Underproduce the good",
@@ -4979,6 +5385,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-2-mc2",
+            concept: "Negative Externalities and Overproduction",
             question: "To correct a positive externality, a government would most likely use a…",
             options: [
               "Tax equal to the external cost",
@@ -5006,6 +5413,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-2-aq1",
+          concept: "Negative Externalities and Overproduction",
           question: "What policy would move the polluting paper mill toward the socially efficient output?",
           options: [
             "A subsidy per unit of paper",
@@ -5033,6 +5441,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-2-mastery1",
+            concept: "Negative Externalities and Overproduction",
             question: "An externality is best defined as a cost or benefit that falls on…",
             options: [
               "The buyer in the transaction in that market",
@@ -5041,10 +5450,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The government collecting taxes for this good"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Externalities spill over onto third parties who are neither the buyer nor the seller, which is why the market price fails to reflect them."
           },
           {
             id: "apm-6-2-mastery2",
+            concept: "Negative Externalities and Overproduction",
             question: "With a negative externality, marginal social cost is…",
             options: [
               "Below marginal private cost",
@@ -5053,10 +5464,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Equal to marginal benefit"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "MSC equals private cost plus the external cost, so it lies above MPC. The market ignoring that gap leads to overproduction."
           },
           {
             id: "apm-6-2-mastery3",
+            concept: "Negative Externalities and Overproduction",
             question: "A good with a positive externality is produced in a quantity that is…",
             options: [
               "Above the efficient level",
@@ -5065,10 +5478,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Equal to zero"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because private benefit understates social benefit, the market makes too little of the good - underproduction relative to the efficient quantity."
           },
           {
             id: "apm-6-2-mastery4",
+            concept: "Negative Externalities and Overproduction",
             question: "A Pigouvian tax is designed to…",
             options: [
               "Increase a good's output",
@@ -5077,10 +5492,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Set a legal price maximum"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A Pigouvian tax equals the external cost per unit, raising private cost to social cost so producers internalize the harm and cut output to the efficient level."
           },
           {
             id: "apm-6-2-mastery5",
+            concept: "Negative Externalities and Overproduction",
             question: "The Coase theorem states that externalities can be resolved privately when…",
             options: [
               "The national government directly sets the market price",
@@ -5089,10 +5506,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Transaction costs are very high for the seller"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Clear property rights and low transaction costs let parties bargain to the efficient outcome on their own. High costs or many parties make this impractical."
           },
           {
             id: "apm-6-2-mastery6",
+            concept: "Negative Externalities and Overproduction",
             question: "The deadweight loss from a negative externality comes from units whose…",
             options: [
               "Benefit exceeds their private cost",
@@ -5101,6 +5520,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Supply exceeds market demand for this good"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Overproduction means making units whose full social cost is greater than the benefit buyers receive. That excess is the deadweight loss."
           }
         ]
@@ -5149,6 +5569,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-3-mc1",
+            concept: "Classifying Goods by Excludability and Rivalry",
             question: "A public good is defined as one that is…",
             options: [
               "Excludable and rival",
@@ -5161,6 +5582,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-3-mc2",
+            concept: "Classifying Goods by Excludability and Rivalry",
             question: "The tragedy of the commons occurs with resources that are…",
             options: [
               "Excludable and non-rival",
@@ -5188,6 +5610,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-3-aq1",
+          concept: "Classifying Goods by Excludability and Rivalry",
           question: "Why will the flood levee likely be underprovided if left to voluntary payments?",
           options: [
             "It is rival and gets used up",
@@ -5215,6 +5638,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-3-mastery1",
+            concept: "Classifying Goods by Excludability and Rivalry",
             question: "A private good is one that is…",
             options: [
               "Non-excludable and non-rival",
@@ -5223,10 +5647,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Excludable and non-rival"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A private good like a sandwich is excludable (pay to get it) and rival (eating it leaves none for others). Markets provide these efficiently."
           },
           {
             id: "apm-6-3-mastery2",
+            concept: "Classifying Goods by Excludability and Rivalry",
             question: "The free-rider problem explains why markets tend to…",
             options: [
               "Overprovide public goods",
@@ -5235,10 +5661,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Overprice public goods"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Since non-payers cannot be excluded, everyone hopes others will pay, so too little is collected and the public good is underprovided."
           },
           {
             id: "apm-6-3-mastery3",
+            concept: "Classifying Goods by Excludability and Rivalry",
             question: "A streaming service that charges subscribers but is not used up by extra viewers is a…",
             options: [
               "Pure public good",
@@ -5247,10 +5675,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Pure private good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "It is excludable (you must subscribe) but non-rival (one more viewer does not use it up), which defines a club good."
           },
           {
             id: "apm-6-3-mastery4",
+            concept: "Classifying Goods by Excludability and Rivalry",
             question: "A common way to solve the tragedy of the commons is to…",
             options: [
               "Remove all usage limits",
@@ -5259,10 +5689,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Subsidize more extraction for this good"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Assigning ownership or setting limits gives users a stake in preservation and caps overuse. Removing limits or subsidizing extraction would worsen depletion."
           },
           {
             id: "apm-6-3-mastery5",
+            concept: "Classifying Goods by Excludability and Rivalry",
             question: "National defense is typically funded by government because it is…",
             options: [
               "A rival private good",
@@ -5271,10 +5703,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A depletable common resource"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Defense protects everyone and cannot exclude non-payers, so private firms cannot profitably provide it. Government funds it through taxes."
           },
           {
             id: "apm-6-3-mastery6",
+            concept: "Classifying Goods by Excludability and Rivalry",
             question: "Rivalry in consumption means that…",
             options: [
               "Non-payers can be excluded for this good",
@@ -5283,6 +5717,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Everyone can be charged a fee"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A rival good is diminished by use - one person consuming it leaves less for others. Non-rival goods can be enjoyed by many at once without depletion."
           }
         ]
@@ -5331,6 +5766,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-4-mc1",
+            concept: "Antitrust Law and Regulating Natural Monopolies",
             question: "Regulating a natural monopoly with average-cost (fair-return) pricing sets price equal to…",
             options: [
               "Marginal cost for this good",
@@ -5343,6 +5779,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-4-mc2",
+            concept: "Antitrust Law and Regulating Natural Monopolies",
             question: "Rent-seeking refers to spending resources to…",
             options: [
               "Lower a firm's production costs",
@@ -5370,6 +5807,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-4-aq1",
+          concept: "Antitrust Law and Regulating Natural Monopolies",
           question: "Why might regulators choose average-cost pricing over marginal-cost pricing for the water company?",
           options: [
             "It fully eliminates deadweight loss for this good",
@@ -5397,6 +5835,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-4-mastery1",
+            concept: "Antitrust Law and Regulating Natural Monopolies",
             question: "Antitrust laws are primarily intended to…",
             options: [
               "Guarantee firms high profits",
@@ -5405,10 +5844,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Ban all large companies"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Antitrust laws stop collusion and anticompetitive mergers to keep markets competitive, which keeps price near marginal cost and limits deadweight loss."
           },
           {
             id: "apm-6-4-mastery2",
+            concept: "Antitrust Law and Regulating Natural Monopolies",
             question: "Setting a natural monopoly's price at marginal cost is socially optimal but…",
             options: [
               "Yields huge monopoly profit for this good",
@@ -5417,10 +5858,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Eliminates the firm's output"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Because a natural monopoly has falling average cost, price at MC lies below ATC, so the firm loses money and requires a subsidy to keep operating."
           },
           {
             id: "apm-6-4-mastery3",
+            concept: "Antitrust Law and Regulating Natural Monopolies",
             question: "Under fair-return (average-cost) pricing, a regulated natural monopoly earns…",
             options: [
               "Large economic profit",
@@ -5429,10 +5872,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Profit above the unregulated level"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Price equal to ATC means the firm covers all costs including a normal return, so economic profit is zero and no subsidy is needed."
           },
           {
             id: "apm-6-4-mastery4",
+            concept: "Antitrust Law and Regulating Natural Monopolies",
             question: "Regulatory capture is a form of government failure in which…",
             options: [
               "Regulators serve the public well for the seller",
@@ -5441,10 +5886,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Firms compete more fiercely in that market"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Capture occurs when a regulatory agency ends up advancing the interests of the industry it oversees, undermining the public purpose of regulation."
           },
           {
             id: "apm-6-4-mastery5",
+            concept: "Antitrust Law and Regulating Natural Monopolies",
             question: "The main social cost of rent-seeking is that it…",
             options: [
               "Increases total output for this good",
@@ -5453,10 +5900,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Improves market competition in that market"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Rent-seeking spends real resources on lobbying to capture favors, producing nothing new and often entrenching inefficient market power."
           },
           {
             id: "apm-6-4-mastery6",
+            concept: "Antitrust Law and Regulating Natural Monopolies",
             question: "The idea of government failure reminds economists to compare a market failure with…",
             options: [
               "A perfectly efficient ideal",
@@ -5465,6 +5914,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A completely unregulated market"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Since intervention itself can be flawed, sound analysis weighs the imperfect market against the imperfect policy rather than against a perfect ideal."
           }
         ]
@@ -5513,6 +5963,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-5-mc1",
+            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
             question: "A Lorenz curve that bows farther away from the 45-degree line indicates…",
             options: [
               "Less income inequality",
@@ -5525,6 +5976,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-5-mc2",
+            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
             question: "A Gini coefficient of 0 represents…",
             options: [
               "Perfect income inequality",
@@ -5552,6 +6004,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-5-aq1",
+          concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
           question: "How would a progressive tax funding transfers most likely affect Southland's Gini coefficient?",
           options: [
             "Raise it toward 1",
@@ -5579,6 +6032,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-5-mastery1",
+            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
             question: "The Gini coefficient measures…",
             options: [
               "A country's inflation rate",
@@ -5587,10 +6041,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Total economic output"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The Gini coefficient summarizes how unequally income or wealth is distributed, ranging from 0 for perfect equality to 1 for perfect inequality."
           },
           {
             id: "apm-6-5-mastery2",
+            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
             question: "On a Lorenz curve, the 45-degree line of equality means that…",
             options: [
               "One household holds all income for this good",
@@ -5599,10 +6055,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "The Gini coefficient equals one"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Along the diagonal, the bottom 20 percent earns 20 percent of income and so on, so every income share equals its population share - perfect equality."
           },
           {
             id: "apm-6-5-mastery3",
+            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
             question: "Which is a common source of income inequality?",
             options: [
               "Identical wages for all jobs",
@@ -5611,10 +6069,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "A flat, non-progressive tax"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Differences in education, training, and skills - human capital - lead to wage gaps and inequality. Identical wages or equal inheritances would reduce it."
           },
           {
             id: "apm-6-5-mastery4",
+            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
             question: "A progressive tax system is one in which…",
             options: [
               "Everyone pays the same rate for this good",
@@ -5623,10 +6083,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "No one pays any tax"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A progressive tax takes a larger percentage of income from higher earners, which helps redistribute income and reduce inequality."
           },
           {
             id: "apm-6-5-mastery5",
+            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
             question: "The equity-efficiency trade-off suggests that reducing inequality may…",
             options: [
               "Always raise total output",
@@ -5635,10 +6097,12 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Guarantee faster growth"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "High taxes and generous transfers can dull incentives to work, save, and invest, so gaining equity may cost some efficiency. The balance is a value judgment."
           },
           {
             id: "apm-6-5-mastery6",
+            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
             question: "If a country's Gini coefficient falls over time, its income distribution has become…",
             options: [
               "More unequal",
@@ -5647,6 +6111,7 @@ export const deepApMicro: StructuredLessonContent[] = [
               "Impossible to measure"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A lower Gini means the Lorenz curve has moved toward the line of equality, so income is distributed more equally than before."
           }
         ]

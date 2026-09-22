@@ -17,15 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
 import {
   ResponsiveContainer,
   BarChart,
@@ -43,7 +34,13 @@ import { cn } from "@/lib/utils"
 import { fmtDue } from "@/lib/dueDate"
 import { useToast } from "@/hooks/use-toast"
 import TeacherPredictionView from "@/components/StockPredictionDraft/TeacherPredictionView"
-import { lessons, getLessonsByTrack } from "@/data/lessons"
+import { lessons, getLessonsByTrack, unitInfo } from "@/data/lessons"
+import { isGeneratedLessonId } from "@/lib/generatedLessons"
+import type { SearchableLesson } from "@/lib/lessonSearch"
+import { LessonFinder } from "@/components/teacher/LessonFinder"
+import { CreateLessonDialog, type CreatedLesson } from "@/components/teacher/CreateLessonDialog"
+// Loosely-typed client: the generated Database type predates the curriculum tables.
+import { db } from "@/components/teacher/curation/api"
 import { useApp } from "@/contexts/AppContext"
 import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
@@ -78,8 +75,6 @@ import {
   TrendingUp,
   Sparkles,
   Settings,
-  ChevronsUpDown,
-  Check,
 } from "lucide-react"
 
 // ── Chart palette (kept in the app's teal / gold / green family) ──
@@ -110,6 +105,16 @@ const WRITING_LEVELS = [
   { value: 1, label: "Standard", hint: "authored minimums" },
   { value: 1.5, label: "Extended", hint: "≈ 1.5× the words" },
 ] as const
+
+interface GeneratedLessonRow {
+  id: string
+  name: string
+  teacher_approved_at: string | null
+  /** content->>version ("2" for lessons built by synthesize-lesson-v2). */
+  version: string | number | null
+  /** content->jeffContext->learningObjectives */
+  objectives: unknown
+}
 
 interface AssignedLesson {
   id: string
@@ -150,67 +155,6 @@ const memberName = (m: ClassMember) => {
   return "Student"
 }
 
-// Searchable lesson picker. Replaces a plain <Select> for assigning lessons:
-// the assignable list can run to ~300 lessons, and a Radix Select renders every
-// item inside a MODAL overlay that locks body scroll (pointer-events: none on
-// <body>). On touch devices that lock could strand the whole page frozen and
-// unclickable. This Popover + Command combobox is non-modal (no scroll lock) and
-// filters as you type, so it stays fast and never freezes.
-function LessonPicker({
-  lessons: opts,
-  value,
-  onSelect,
-  placeholder = "Choose a lesson...",
-  disabled,
-}: {
-  lessons: { id: string; title: string }[]
-  value?: string
-  onSelect: (id: string) => void
-  placeholder?: string
-  disabled?: boolean
-}) {
-  const [open, setOpen] = useState(false)
-  const selected = opts.find((l) => l.id === value)
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          disabled={disabled}
-          className="flex-1 justify-between font-normal min-w-0"
-        >
-          <span className="truncate">{selected?.title ?? placeholder}</span>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[260px]" align="start">
-        <Command>
-          <CommandInput placeholder="Search lessons..." />
-          <CommandList>
-            <CommandEmpty>No lesson found.</CommandEmpty>
-            <CommandGroup>
-              {opts.map((l) => (
-                <CommandItem
-                  key={l.id}
-                  // Include the id so lessons that share a title stay unique to
-                  // cmdk; typing the title still matches (substring filter).
-                  value={`${l.title}::${l.id}`}
-                  onSelect={() => { onSelect(l.id); setOpen(false) }}
-                >
-                  <Check className={cn("mr-2 h-4 w-4 shrink-0", value === l.id ? "opacity-100" : "opacity-0")} />
-                  <span className="truncate">{l.title}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  )
-}
-
 export default function TeacherDashboard() {
   const navigate = useNavigate()
   // ?tab=curriculum etc. opens that tab (the curriculum page links back here).
@@ -238,20 +182,60 @@ export default function TeacherDashboard() {
   // reachable via classMembers[0], so assigning to an empty class looked like a
   // no-op.
   const [classAssignments, setClassAssignments] = useState<AssignedLesson[]>([])
-  // Display names for this teacher's GENERATED (UUID) curriculum lessons, which
-  // aren't in the static registry. Assigned generated lessons show up in the
-  // per-student/per-class views via assigned_lessons; this resolves their names.
-  const [genLessonNames, setGenLessonNames] = useState<Map<string, string>>(new Map())
+  // This teacher's GENERATED (UUID) curriculum lessons (public.lessons), which
+  // aren't in the static registry. Names resolve assigned generated lessons in
+  // the per-student/per-class views; the approved v2 ones are also offered in
+  // the lesson finder next to the built-in curriculum, searchable by their
+  // learning objectives.
+  const [genLessons, setGenLessons] = useState<GeneratedLessonRow[]>([])
   useEffect(() => {
     if (!appUser?.id) return
-    ;(supabase as any)
+    db
       .from("lessons")
-      .select("id, name")
+      .select("id, name, teacher_approved_at, version:content->>version, objectives:content->jeffContext->learningObjectives")
       .eq("teacher_id", appUser.id)
-      .then(({ data }: { data: { id: string; name: string }[] | null }) => {
-        setGenLessonNames(new Map((data ?? []).map((r) => [r.id, r.name])))
-      })
+      .then(({ data }: { data: GeneratedLessonRow[] | null }) => setGenLessons(data ?? []))
   }, [appUser?.id])
+  const genLessonNames = useMemo(() => new Map(genLessons.map((r) => [r.id, r.name])), [genLessons])
+
+  // Everything the finder can offer: the built-in curriculum (scoped to the
+  // teacher's program) plus approved Jeff-built lessons.
+  const searchableLessons = useMemo<SearchableLesson[]>(() => {
+    const unitTitle = new Map(unitInfo.map((u) => [u.id, u.title]))
+    const builtIn: SearchableLesson[] = assignableLessons.map((l) => ({
+      id: l.id,
+      title: l.title,
+      description: l.description,
+      category: l.category,
+      unitTitle: unitTitle.get(l.unitId),
+    }))
+    const generated: SearchableLesson[] = genLessons
+      .filter((r) => r.teacher_approved_at && String(r.version) === "2")
+      .map((r) => ({
+        id: r.id,
+        title: r.name,
+        generated: true,
+        keywords: Array.isArray(r.objectives) ? r.objectives.filter((o): o is string => typeof o === "string") : [],
+      }))
+    return [...generated, ...builtIn]
+  }, [assignableLessons, genLessons])
+  const lessonTitle = (id: string) => searchableLessons.find((l) => l.id === id)?.title ?? genLessonNames.get(id) ?? id
+
+  // "Create a lesson with Jeff" from the finder: the topic the teacher typed.
+  const [createOpen, setCreateOpen] = useState(false)
+  const [createTopic, setCreateTopic] = useState("")
+  const openCreate = (topic: string) => {
+    if (blockedInDemo()) return
+    setCreateTopic(topic)
+    setCreateOpen(true)
+  }
+  const onLessonCreated = (l: CreatedLesson) => {
+    setGenLessons((prev) => [
+      { id: l.id, name: l.name, teacher_approved_at: new Date().toISOString(), version: "2", objectives: l.objectives },
+      ...prev.filter((r) => r.id !== l.id),
+    ])
+    setClassWideLessonId(l.id)
+  }
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
   const [newClassName, setNewClassName] = useState("")
@@ -321,6 +305,19 @@ export default function TeacherDashboard() {
     return true
   }
 
+  // A Jeff-built (UUID) lesson is read by students through RLS on
+  // public.lessons, which keys on class_lesson_assignments, so assigning one
+  // writes that row too (and publishes the lesson), exactly as the assign page
+  // does. Built-in lessons need neither. Non-fatal: the assigned_lessons row
+  // is what the dashboard, Homework tab and popups read.
+  const linkGeneratedLesson = async (lessonId: string, classId: string) => {
+    if (!isGeneratedLessonId(lessonId)) return
+    const { error: pErr } = await db.from("lessons").update({ status: "published" }).eq("id", lessonId)
+    if (pErr) console.warn("publish generated lesson failed (non-fatal):", pErr.message)
+    const { error: cErr } = await db.from("class_lesson_assignments").insert({ lesson_id: lessonId, class_id: classId })
+    if (cErr && cErr.code !== "23505") console.warn("class_lesson_assignments insert failed (non-fatal):", cErr.message)
+  }
+
   const assignLessonToClass = async () => {
     if (!selectedClass || !classWideLessonId) return
     if (blockedInDemo()) return
@@ -329,7 +326,7 @@ export default function TeacherDashboard() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error("Not authenticated")
 
-      const title = lessons.find(l => l.id === classWideLessonId)?.title
+      const title = lessonTitle(classWideLessonId)
 
       // One class-level assignment - every member (current and future) inherits it.
       const { error } = await supabase
@@ -346,6 +343,7 @@ export default function TeacherDashboard() {
         })
 
       if (error && error.code !== "23505") throw error
+      if (!error) await linkGeneratedLesson(classWideLessonId, selectedClass.id)
 
       const kind = classWideType === "homework" ? "homework" : "classwork"
       toast({
@@ -609,10 +607,11 @@ export default function TeacherDashboard() {
         }
         throw error
       }
+      await linkGeneratedLesson(lessonId, selectedClass.id)
 
       toast({
         title: "Lesson assigned!",
-        description: `Assigned "${lessons.find(l => l.id === lessonId)?.title}" to the class.`,
+        description: `Assigned "${lessonTitle(lessonId)}" to the class.`,
       })
 
       await loadClassMembers(selectedClass.id)
@@ -847,7 +846,7 @@ export default function TeacherDashboard() {
 
   const getUnassignedLessons = (member: ClassMember) => {
     const assignedIds = new Set(member.assignedLessons.map(a => a.lesson_id))
-    return assignableLessons.filter(l => !assignedIds.has(l.id))
+    return searchableLessons.filter(l => !assignedIds.has(l.id))
   }
 
   // ── Derived analytics for the charts ──
@@ -1216,7 +1215,8 @@ export default function TeacherDashboard() {
                         Assign a lesson to the entire class
                       </p>
                       <p className="text-xs text-muted-foreground mb-3">
-                        Pick any lesson, then choose how it's assigned. <strong>Classwork</strong> locks
+                        Describe the topic you want to teach and pick the closest lesson, or have Jeff
+                        create one from your description. Then choose how it's assigned. <strong>Classwork</strong> locks
                         students into a do-it-now pop-up; <strong>homework</strong> lets them choose "Do now"
                         or "Do later" and shows up on their Homework page.
                       </p>
@@ -1276,10 +1276,11 @@ export default function TeacherDashboard() {
                         </div>
                       )}
                       <div className="flex gap-2">
-                        <LessonPicker
-                          lessons={assignableLessons}
+                        <LessonFinder
+                          lessons={searchableLessons}
                           value={classWideLessonId}
                           onSelect={setClassWideLessonId}
+                          onCreate={openCreate}
                           disabled={assigningAll}
                         />
                         <Button onClick={assignLessonToClass} disabled={!classWideLessonId || assigningAll}>
@@ -1297,7 +1298,7 @@ export default function TeacherDashboard() {
                           <span className="text-xs text-muted-foreground">See what students will get:</span>
                           <LessonPreviewButtons
                             lessonId={classWideLessonId}
-                            lessonName={assignableLessons.find(l => l.id === classWideLessonId)?.title}
+                            lessonName={lessonTitle(classWideLessonId)}
                           />
                         </div>
                       )}
@@ -1312,7 +1313,7 @@ export default function TeacherDashboard() {
                       </p>
                       {assignments.length === 0 ? (
                         <p className="text-sm text-muted-foreground italic">
-                          No lessons assigned yet. Pick one above to get started.
+                          No lessons assigned yet. Describe a topic above to get started.
                         </p>
                       ) : (
                         <div className="space-y-2">
@@ -1725,7 +1726,7 @@ export default function TeacherDashboard() {
                                 {/* Assign Lesson Dropdown */}
                                 {unassigned.length > 0 && (
                                   <div className="flex items-center gap-2">
-                                    <LessonPicker
+                                    <LessonFinder
                                       lessons={unassigned}
                                       placeholder="Assign a lesson..."
                                       onSelect={(lessonId) => assignLesson(member.user_id, lessonId)}
@@ -1797,6 +1798,12 @@ export default function TeacherDashboard() {
             )}
           </div>
       </main>
+      <CreateLessonDialog
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        initialDescription={createTopic}
+        onCreated={onLessonCreated}
+      />
     </div>
   )
 }

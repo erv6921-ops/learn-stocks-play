@@ -1405,12 +1405,31 @@ function getLessonQuestionPool(lessonId: string, allContent: StructuredLessonCon
   return getQuizForLesson(lessonId)
 }
 
+// Small deterministic string hash (FNV-1a). Used to pick the review question
+// from a stable index so it can't change mid-lesson or between mastery retries.
+function hashString(s: string): number {
+  let h = 2166136261
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i)
+    h = Math.imul(h, 16777619)
+  }
+  return h >>> 0
+}
+
 function pickReinforcementQuestion(lesson: Lesson, allContent: StructuredLessonContent[]): QuizQuestion | null {
   const prior = getPriorLessonInSameCategory(lesson)
   if (!prior) return null
   const pool = getLessonQuestionPool(prior.id, allContent)
   if (pool.length === 0) return null
-  return pool[Math.floor(Math.random() * pool.length)]
+  // Deterministic pick (replaces Math.random): a stable index derived from the
+  // current lesson id, so the same prior-lesson question is served every time
+  // this lesson renders - it can't shuffle mid-lesson or across retries.
+  const q = pool[hashString(lesson.id) % pool.length]
+  // Flag it so the renderer can label it "Review from last lesson: {title}".
+  // (The QuizQuestion type doesn't yet declare these fields; they're carried at
+  // runtime via the spread. Add `isReview?: boolean` / `reviewFromTitle?: string`
+  // to QuizQuestion when wiring the renderer.)
+  return { ...q, isReview: true, reviewFromTitle: prior.title }
 }
 
 function withReinforcementQuestion(content: StructuredLessonContent, extra: QuizQuestion): StructuredLessonContent {

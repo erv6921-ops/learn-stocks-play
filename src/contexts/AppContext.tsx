@@ -182,8 +182,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // ─── DEV-ONLY: skip auth + onboarding for local testing ───
     // import.meta.env.DEV is true under `npm run dev` and FALSE in every
     // production build, so this can never affect the deployed app. Signs you in
-    // as a throwaway, already-onboarded local user. To use real auth on the dev
-    // server, set localStorage.investiplay_dev_real_auth = "1".
+    // as a throwaway, already-onboarded local user. To use real auth on a dev
+    // server, run `npm run dev:qa` (VITE_REAL_AUTH=1, port 8084).
     if (DEV_LOCAL_BYPASS) {
       userIdRef.current = DEV_LOCAL_USER_ID
       authReadyRef.current = true

@@ -49,6 +49,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz1-mc1",
+            concept: "Revenue Models",
             question: "What is the main advantage of a recurring-revenue (subscription) model?",
             options: [
               "It removes all costs from the business",
@@ -61,6 +62,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz1-mc2",
+            concept: "Revenue Models",
             question: "For a freemium app, which metric matters most?",
             options: [
               "The conversion rate from free to paid",
@@ -88,6 +90,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz1-aq1",
+          concept: "Revenue Models",
           question: "Devon wants income he can forecast month to month. Which model best fits that goal?",
           options: [
             "A one-time $5 purchase per user",
@@ -115,6 +118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz1-mastery1",
+            concept: "Revenue Models",
             question: "A business collects money once when a customer buys and owns the product outright. This is a…",
             options: [
               "Recurring subscription model",
@@ -123,10 +127,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Marketplace commission model"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Paying once to own the product is the classic one-time sale. Subscriptions bill repeatedly, ad models charge advertisers, and marketplaces take a cut of others' deals."
           },
           {
             id: "biz1-mastery2",
+            concept: "Revenue Models",
             question: "Why do investors often favor subscription businesses?",
             options: [
               "They never have any operating costs to worry about",
@@ -135,10 +141,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They need no customers to earn money"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Predictable, repeating revenue makes forecasting and valuation easier, which investors prize. Subscriptions still have costs, pay taxes, and absolutely need customers."
           },
           {
             id: "biz1-mastery3",
+            concept: "Revenue Models",
             question: "In a marketplace model, how does the business typically earn?",
             options: [
               "By making the products it sells itself",
@@ -147,10 +155,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "By simply giving absolutely everything away for free"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A marketplace connects buyers and sellers and keeps a cut of each deal, without making the product itself. That commission is its revenue."
           },
           {
             id: "biz1-mastery4",
+            concept: "Revenue Models",
             question: "A subscription app loses 5% of customers every month. This metric is called…",
             options: [
               "Its churn rate",
@@ -159,10 +169,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Its market share"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Churn is the percentage of subscribers who cancel each period. High churn quietly drains the customer base and is the number-one threat to a subscription model."
           },
           {
             id: "biz1-mastery5",
+            concept: "Revenue Models",
             question: "If price is $12 and 400 units sell, total revenue is…",
             options: [
               "$412 collected total",
@@ -171,10 +183,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "$12 collected total"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Revenue equals price times quantity: $12 x 400 = $4,800. The other options confuse addition or division for the correct multiplication."
           },
           {
             id: "biz1-mastery6",
+            concept: "Revenue Models",
             question: "A free game earns by charging companies to show ads to its players. This is a…",
             options: [
               "Freemium upgrade model",
@@ -183,6 +197,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Direct subscription model"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When the product is free and other businesses pay to reach the audience, the money comes from advertising. Freemium would instead charge users for premium features."
           }
         ]
@@ -234,6 +249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz2-mc1",
+            concept: "Cost Structure",
             question: "Which of these is a fixed cost for a food-truck business?",
             options: [
               "The monthly truck lease payment",
@@ -246,6 +262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz2-mc2",
+            concept: "Cost Structure",
             question: "A product sells for $9 with a $4 variable cost. Its contribution margin per unit is…",
             options: [
               "$13 per unit sold",
@@ -273,6 +290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz2-aq1",
+          concept: "Cost Structure",
           question: "If Priya sells 60 candles in a month, what is her profit?",
           options: [
             "$720 in profit that month",
@@ -300,6 +318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz2-mastery1",
+            concept: "Cost Structure",
             question: "Which statement about fixed costs is true?",
             options: [
               "They rise up directly with each single unit sold",
@@ -308,10 +327,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They completely disappear whenever total sales hit zero"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Fixed costs like rent and insurance stay constant whether you sell a lot or nothing at all. That is exactly why slow months are dangerous for high-fixed-cost businesses."
           },
           {
             id: "biz2-mastery2",
+            concept: "Cost Structure",
             question: "A bakery pays $2 in ingredients per loaf and $1,000 monthly rent. Selling 800 loaves, total cost is…",
             options: [
               "$1,600 that month",
@@ -320,10 +341,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "$1,802 that month"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Total cost = fixed + variable = $1,000 + (800 x $2) = $1,000 + $1,600 = $2,600. Forgetting either the rent or the per-loaf cost gives the wrong answers."
           },
           {
             id: "biz2-mastery3",
+            concept: "Cost Structure",
             question: "What does a high contribution margin per unit let a business do faster?",
             options: [
               "Avoid paying any fixed costs at all",
@@ -332,10 +355,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Guarantee it will never lose money"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A bigger contribution margin covers fixed costs quicker, so you break even at a lower sales volume. Fixed costs still exist and losses are still possible below break-even."
           },
           {
             id: "biz2-mastery4",
+            concept: "Cost Structure",
             question: "Why is a business with very high fixed costs riskier in a downturn?",
             options: [
               "All of its variable costs also completely vanish instantly",
@@ -344,10 +369,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Customers are legally required to keep on buying"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If sales drop, high fixed costs like rent and salaries do not drop with them, so losses mount quickly. That unforgiving nature is the core risk of a heavy fixed-cost structure."
           },
           {
             id: "biz2-mastery5",
+            concept: "Cost Structure",
             question: "'Operating leverage' means that after break-even…",
             options: [
               "Each extra sale is mostly profit",
@@ -356,10 +383,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Variable costs rise sharply for each unit"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Once fixed costs are covered, additional sales carry only their small variable cost, so most of each new sale becomes profit. That amplifying effect is operating leverage."
           },
           {
             id: "biz2-mastery6",
+            concept: "Cost Structure",
             question: "Why might a new founder rent equipment instead of buying it?",
             options: [
               "Renting is always cheaper long-term",
@@ -368,6 +397,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Owning equipment is against the law"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Renting turns a big fixed cost into a flexible, pay-as-you-go one, so a slow month hurts less while demand is still uncertain. It is not always cheaper long-term - that is the trade-off."
           }
         ]
@@ -419,6 +449,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz3-mc1",
+            concept: "Break-Even",
             question: "At the break-even point, a business is…",
             options: [
               "Earning the single maximum possible profit it ever could",
@@ -431,6 +462,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz3-mc2",
+            concept: "Break-Even",
             question: "Fixed costs are $900 and contribution margin is $9 per unit. Break-even is…",
             options: [
               "100 units sold",
@@ -458,6 +490,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz3-aq1",
+          concept: "Break-Even",
           question: "Given his numbers, what is Marcus's smartest move?",
           options: [
             "Just rent the expensive stall anyway and simply hope for some good luck",
@@ -485,6 +518,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz3-mastery1",
+            concept: "Break-Even",
             question: "Selling one unit past break-even means the business now earns…",
             options: [
               "Its full selling price as profit",
@@ -493,10 +527,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Nothing until next month"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Fixed costs are already covered at break-even, so each additional unit adds its contribution margin (price minus variable cost) straight to profit."
           },
           {
             id: "biz3-mastery2",
+            concept: "Break-Even",
             question: "Fixed costs $1,200; price $30; variable cost $18. Break-even in units is…",
             options: [
               "40 units",
@@ -505,10 +541,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "67 units"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Contribution margin = $30 - $18 = $12. Break-even = $1,200 / $12 = 100 units. Using the wrong margin or dividing by price alone gives the other answers."
           },
           {
             id: "biz3-mastery3",
+            concept: "Break-Even",
             question: "Cutting your price without cutting costs will…",
             options: [
               "Lower the break-even point",
@@ -517,10 +555,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Eliminate all fixed costs"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A lower price shrinks the contribution margin, so you must sell more units to cover fixed costs - break-even goes up. Only widening the margin lowers break-even."
           },
           {
             id: "biz3-mastery4",
+            concept: "Break-Even",
             question: "Break-even in revenue dollars for 50 units priced at $20 each is…",
             options: [
               "$70 in revenue",
@@ -529,10 +569,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "$500 in revenue"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Break-even revenue = break-even units times price = 50 x $20 = $1,000. That is the sales target that exactly covers all costs."
           },
           {
             id: "biz3-mastery5",
+            concept: "Break-Even",
             question: "Why run break-even before renting an expensive booth?",
             options: [
               "To learn how many sales the cost demands",
@@ -541,10 +583,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "To make all fixed costs disappear entirely forever"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Break-even converts the booth's cost into a concrete sales target, so you can judge whether realistic demand will cover it. It does not affect taxes, crowds, or the cost itself."
           },
           {
             id: "biz3-mastery6",
+            concept: "Break-Even",
             question: "If break-even needs 5,000 sales but your whole market is 800 people, the idea…",
             options: [
               "Fits perfectly well into its chosen target market",
@@ -553,6 +597,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Has no fixed costs to worry about"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "You cannot sell to more people than exist in your market, so a break-even far above market size signals the idea, price, or costs need rethinking before launch."
           }
         ]
@@ -604,6 +649,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz4-mc1",
+            concept: "Margins",
             question: "A product sells for $50 and costs $20 to make. Its gross margin is…",
             options: [
               "60% of revenue",
@@ -616,6 +662,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz4-mc2",
+            concept: "Margins",
             question: "What does net margin measure that gross margin does not?",
             options: [
               "Profit after all costs, including overhead and taxes",
@@ -643,6 +690,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz4-aq1",
+          concept: "Margins",
           question: "If Ava wants to raise her net margin, which move most directly helps?",
           options: [
             "Increasing her total revenue while overhead grows just as quickly alongside",
@@ -670,6 +718,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz4-mastery1",
+            concept: "Margins",
             question: "Why express profit as a margin rather than just a dollar amount?",
             options: [
               "It completely hides how much the business truly earns",
@@ -678,10 +727,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It always makes reported profits look much bigger"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A percentage puts a lemonade stand and a giant corporation on the same scale, showing how efficiently each turns revenue into profit regardless of raw size."
           },
           {
             id: "biz4-mastery2",
+            concept: "Margins",
             question: "Revenue $200; cost of goods $50. The gross margin is…",
             options: [
               "25% of revenue",
@@ -690,10 +741,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "150% of revenue"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Gross margin = ($200 - $50) / $200 = $150 / $200 = 75%. The $50 cost is only a quarter of revenue, so three-quarters remains as gross profit."
           },
           {
             id: "biz4-mastery3",
+            concept: "Margins",
             question: "A business has a 55% gross margin but only a 3% net margin. This suggests…",
             options: [
               "Its raw materials are becoming extremely expensive to buy lately",
@@ -702,10 +755,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It is very definitely losing money on every sale"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A wide gap between gross and net margin means costs beyond materials - rent, salaries, marketing - are consuming most of the gross profit. It is still profitable at 3%, just barely."
           },
           {
             id: "biz4-mastery4",
+            concept: "Margins",
             question: "How can a business raise gross margin without changing its price?",
             options: [
               "By finding a cheaper supplier for materials",
@@ -714,10 +769,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "By offering much bigger discounts to customers"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Lowering the cost of goods (cheaper materials) widens the gap between price and cost, raising gross margin. Ads, staff, and discounts do the opposite or leave gross margin untouched."
           },
           {
             id: "biz4-mastery5",
+            concept: "Margins",
             question: "Why do discount stores survive on very low net margins?",
             options: [
               "They sell enormous volume to make up for it",
@@ -726,10 +783,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Low margins somehow mean a high profit per sale"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A tiny margin per item still adds up when you sell a massive number of items. Discount stores play the volume game, the opposite of luxury brands that protect high margins."
           },
           {
             id: "biz4-mastery6",
+            concept: "Margins",
             question: "Revenue is rising but net margin fell from 18% to 10%. The best response is…",
             options: [
               "Just ignore it entirely because overall sales are up",
@@ -738,6 +797,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Simply assume that taxes alone caused all of it"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A shrinking margin amid rising revenue is an early warning that costs are outpacing sales. The smart move is to investigate the specific costs before profits erode further, not to ignore it."
           }
         ]
@@ -789,6 +849,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz5-mc1",
+            concept: "Funding",
             question: "What is the key difference between debt and equity funding?",
             options: [
               "Debt is repaid with interest; equity trades ownership for cash",
@@ -801,6 +862,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz5-mc2",
+            concept: "Funding",
             question: "A startup is valued at $100,000 and an investor puts in $25,000. They receive…",
             options: [
               "50% of the company",
@@ -828,6 +890,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz5-aq1",
+          concept: "Funding",
           question: "Given Leo has no revenue yet, which funding choice fits best and why?",
           options: [
             "The loan, because paying interest is always far cheaper than giving up equity",
@@ -855,6 +918,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz5-mastery1",
+            concept: "Funding",
             question: "A founder who funds growth only from savings and early sales is…",
             options: [
               "Taking on venture capital",
@@ -863,10 +927,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Selling equity to angels"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Bootstrapping means self-funding from personal money and revenue, keeping full control but limiting growth to the cash the business generates. No outside investors are involved."
           },
           {
             id: "biz5-mastery2",
+            concept: "Funding",
             question: "The main hidden cost of raising equity is that you…",
             options: [
               "Must fully repay all of it monthly with interest",
@@ -875,10 +941,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Have to completely shut down within one single year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Equity is not repaid, but you permanently share future profits and some control with investors. Selling a stake in a company that becomes hugely valuable can cost far more than any loan."
           },
           {
             id: "biz5-mastery3",
+            concept: "Funding",
             question: "Why do founders work to show traction before raising money?",
             options: [
               "It lets them completely avoid ever paying any taxes",
@@ -887,10 +955,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It fully guarantees that investors simply cannot say no"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Traction - real users, revenue, and growth - raises the company's valuation, so the same cash costs a smaller ownership stake. It does not affect taxes or force any investor to invest."
           },
           {
             id: "biz5-mastery4",
+            concept: "Funding",
             question: "Which type of business is generally best suited to a bank loan?",
             options: [
               "An unproven app with no revenue yet",
@@ -899,10 +969,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "A risky venture expecting to lose money for years"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Loans require reliable repayments, so a steady business with predictable cash flow fits best. Risky, pre-revenue ventures usually suit equity, which carries no fixed repayment burden."
           },
           {
             id: "biz5-mastery5",
+            concept: "Funding",
             question: "An angel investor is best described as…",
             options: [
               "A large bank that only ever offers business loans",
@@ -911,10 +983,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "A loyal customer who pre-orders upcoming products"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Angel investors are affluent individuals who put their own money into very early-stage companies in exchange for equity, often before larger venture capital firms get involved."
           },
           {
             id: "biz5-mastery6",
+            concept: "Funding",
             question: "At a $500,000 valuation, how much ownership does a $50,000 investment buy?",
             options: [
               "25% of the company",
@@ -923,6 +997,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "5% of the company"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Ownership = $50,000 / $500,000 = 10%. The higher the valuation, the smaller the share a fixed investment buys - which is why building value first protects the founder's stake."
           }
         ]
@@ -974,6 +1049,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz6-mc1",
+            concept: "Pricing",
             question: "Setting price based on how much the product is worth to the customer is called…",
             options: [
               "Cost-plus pricing",
@@ -986,6 +1062,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz6-mc2",
+            concept: "Pricing",
             question: "A product is 'inelastic' when…",
             options: [
               "Demand barely changes as its price rises",
@@ -1013,6 +1090,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz6-aq1",
+          concept: "Pricing",
           question: "What is Sofia's smartest pricing approach here?",
           options: [
             "Charge just $8 an hour so she can fill up every single slot instantly",
@@ -1040,6 +1118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz6-mastery1",
+            concept: "Pricing",
             question: "A maker adds a 40% markup to her $10 cost, selling at $14. This is…",
             options: [
               "Value-based pricing",
@@ -1048,10 +1127,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Competition-based pricing"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Adding a fixed markup on top of cost is cost-plus pricing. It guarantees costs are covered but ignores what customers might happily pay or what rivals charge."
           },
           {
             id: "biz6-mastery2",
+            concept: "Pricing",
             question: "Why can value-based pricing earn more than cost-plus?",
             options: [
               "It always just sets the single lowest possible price",
@@ -1060,10 +1141,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It totally removes the ongoing need to make any sales"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Value-based pricing captures the full worth the product delivers, which can far exceed cost. A cheap-to-run app that saves customers hours can justify a high price that cost-plus would never reach."
           },
           {
             id: "biz6-mastery3",
+            concept: "Pricing",
             question: "Raising the price of a highly elastic product will most likely…",
             options: [
               "Cause a large drop in units sold",
@@ -1072,10 +1155,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Automatically improve the overall product quality somehow"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Elastic demand means buyers are price-sensitive and switch to substitutes easily, so a price rise sharply cuts sales. Inelastic products are the ones where a price rise safely boosts profit."
           },
           {
             id: "biz6-mastery4",
+            concept: "Pricing",
             question: "Placing a $120 plan next to a $60 plan to make the $60 look reasonable uses…",
             options: [
               "Anchoring",
@@ -1084,10 +1169,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Elastic pricing"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Anchoring uses a high reference price to reshape perception, making a lower option feel like a bargain. It is a pricing-psychology tool, not a funding or accounting term."
           },
           {
             id: "biz6-mastery5",
+            concept: "Pricing",
             question: "A hidden danger of pricing a quality product too low is that it…",
             options: [
               "Always reliably maximizes the total long-term profit earned",
@@ -1096,10 +1183,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Guarantees that your customers will happily pay more later"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A too-low price can make customers assume the product is cheap in quality and attract bargain hunters who never return. Low price is not automatically the safe choice."
           },
           {
             id: "biz6-mastery6",
+            concept: "Pricing",
             question: "The main risk of constantly running discounts is that it…",
             options: [
               "Trains customers to wait and never pay full price",
@@ -1108,6 +1197,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Completely removes every single one of your ongoing fixed costs"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Chronic discounting teaches customers that full price is for suckers, so they hold out for the next sale. That erodes margins and undermines the product's perceived value over time."
           }
         ]
@@ -1159,6 +1249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz7-mc1",
+            concept: "Business Planning",
             question: "What is the main real value of writing a business plan?",
             options: [
               "It fully guarantees the whole business will succeed",
@@ -1171,6 +1262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz7-mc2",
+            concept: "Business Planning",
             question: "A 'minimum viable product' (MVP) is…",
             options: [
               "The simplest version customers can actually try",
@@ -1198,6 +1290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz7-aq1",
+          concept: "Business Planning",
           question: "Why is Jordan testing with a small MVP before buying lots of supplies smart planning?",
           options: [
             "It fully guarantees that he will get 100 paying customers almost immediately",
@@ -1225,6 +1318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz7-mastery1",
+            concept: "Business Planning",
             question: "A strong business plan defines its customer as…",
             options: [
               "As incredibly broad and as vague as it can possibly be",
@@ -1233,10 +1327,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Literally everyone living in the entire country"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Tightly defining a specific customer and their specific problem makes every later decision - product, price, place - clearer. Vague, 'everyone' targeting usually leads to building what nobody specifically needs."
           },
           {
             id: "biz7-mastery2",
+            concept: "Business Planning",
             question: "Which is a well-formed, measurable business goal?",
             options: [
               "Somehow become really quite successful at some point someday",
@@ -1245,10 +1341,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Make lots of people feel happy with our product"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A measurable goal has a number and a deadline, like 100 customers by month three, so you can check progress. Vague ambitions cannot be tracked or acted on."
           },
           {
             id: "biz7-mastery3",
+            concept: "Business Planning",
             question: "Why include financial projections in a plan even though they will be imperfect?",
             options: [
               "They legally must always be exactly perfectly correct",
@@ -1257,10 +1355,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They completely guarantee that investors will surely fund you"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The act of projecting sales, costs, and profit exposes whether the math can ever add up - like needing more customers than your market holds. Precision is not the point; the reality check is."
           },
           {
             id: "biz7-mastery4",
+            concept: "Business Planning",
             question: "Launching an MVP before a full build mainly helps a founder…",
             options: [
               "Completely avoid ever writing any plan",
@@ -1269,10 +1369,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Fully guarantee instant lasting profitability today"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "An MVP gets a simple version into real customers' hands so the founder learns actual demand and preferences early, when pivoting is cheap - not to guarantee profit or skip planning."
           },
           {
             id: "biz7-mastery5",
+            concept: "Business Planning",
             question: "Thinking through risks and competitors in a plan is valuable because it…",
             options: [
               "Completely prevents any single problem from ever happening again",
@@ -1281,10 +1383,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Fully guarantees that no rival will ever once appear"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Anticipating what could go wrong lets you plan responses in advance, so a supplier loss or new competitor becomes a manageable setback rather than a fatal surprise."
           },
           {
             id: "biz7-mastery6",
+            concept: "Business Planning",
             question: "Treating a business plan as a 'living document' means you…",
             options: [
               "Write it once and never look again",
@@ -1293,6 +1397,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Copy it word for word from a direct competitor"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A living plan is updated as results come in and assumptions prove wrong. The ability to adapt is the real payoff of planning; a plan you never revise is one you are not truly using."
           }
         ]
@@ -1327,12 +1432,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         title: "The Traps That Repeat Themselves",
         paragraphs: [
           "One repeat offender is the sunk-cost trap: throwing good money after bad because you already spent some. Say you paid $15 for a mobile game and stopped enjoying it, but keep buying $5 upgrades so the first $15 was not wasted. That first $15 is gone no matter what; spending more only adds to the loss. Smart money managers ask, Would I start this today from scratch? If the answer is no, they stop, no matter how much they already sank into it.",
-          "Lifestyle creep is a slower trap. When income rises, spending quietly rises to match, so you never feel richer. A teen who starts earning $200 a month babysitting might soon spend all $200 on eating out that used to be occasional. The raise disappears into habits. The fix is to decide in advance where new money goes, saving a set share before the extra cash reshapes your normal. Otherwise every raise feels normal within weeks and your savings never grow at all.",
+          "Lifestyle inflation is a slower trap. When income rises, spending quietly rises to match, so you never feel richer. A teen who starts earning $200 a month babysitting might soon spend all $200 on eating out that used to be occasional. The raise disappears into habits. The fix is to decide in advance where new money goes, saving a set share before the extra cash reshapes your normal. Otherwise every raise feels normal within weeks and your savings never grow at all. This is the same trap covered in depth in the Lifestyle Inflation budgeting lesson.",
           "Finally, people mismanage money by avoiding it: not checking balances, ignoring a growing subscription list, or refusing to look at what they owe. Avoidance feels safer than facing bad news, but it lets small problems grow. A forgotten $9.99 streaming charge becomes $120 a year. The people who handle money best are not fearless; they simply look, even when it is uncomfortable. Facing the numbers early keeps a tiny leak from sinking the whole boat over time."
         ],
         bullets: [
           "Sunk-cost thinking keeps you spending on something just because you already paid.",
-          "Lifestyle creep quietly raises spending whenever income rises, erasing the raise.",
+          "Lifestyle inflation quietly raises spending whenever income rises, erasing the raise.",
           "Ask Would I start this today? to escape sunk-cost decisions.",
           "Avoiding your balances lets small charges grow into large yearly losses.",
           "Deciding where new money goes in advance protects your savings."
@@ -1344,6 +1449,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych1-deepmc1",
+            concept: "Why People Mismanage Money",
             question: "What does present bias make people do?",
             options: [
               "Value a smaller reward now over a bigger one later",
@@ -1356,12 +1462,13 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych1-deepmc2",
+            concept: "Why People Mismanage Money",
             question: "You paid $15 for a game you no longer enjoy but keep buying upgrades so it is not wasted. This is…",
             options: [
               "A smart way to budget for entertainment",
               "The sunk-cost trap",
               "A healthy form of mental accounting",
-              "A clear example of lifestyle creep"
+              "A clear example of lifestyle inflation"
             ],
             correctAnswer: 1,
             explanation: "The $15 is gone regardless. Spending more only grows the loss. Sunk-cost thinking keeps people committed to bad choices because of money already spent."
@@ -1373,7 +1480,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         title: "Devon's Disappearing Paychecks",
         narrative: "Devon, 16, just started a part-time job earning $240 a month. Two months in, his account is nearly empty every payday and he cannot explain where it went. He never checks his statements and treats each paycheck as money to enjoy now, figuring he can save later once he earns more.",
         details: [
-          "His new income quietly raised his eating-out habit from occasional to almost daily - classic lifestyle creep.",
+          "His new income quietly raised his eating-out habit from occasional to almost daily - classic lifestyle inflation.",
           "Present bias pushes him to enjoy cash now, so saving later keeps getting postponed.",
           "Because he avoids his statements, two forgotten app subscriptions keep charging unnoticed.",
           "He tells himself paycheck money is for fun, a mental-accounting label that greenlights fast spending."
@@ -1383,6 +1490,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych1-deepaq1",
+          concept: "Why People Mismanage Money",
           question: "Which single change would most directly fix Devon's disappearing paychecks?",
           options: [
             "Wait until he earns more before saving for the typical teenager",
@@ -1391,7 +1499,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
             "Stop earning income to avoid the problem"
           ],
           correctAnswer: 1,
-          explanation: "Saving a fixed share the moment he is paid beats present bias and lifestyle creep by protecting money before habits absorb it. Waiting to earn more just repeats the cycle at a higher income."
+          explanation: "Saving a fixed share the moment he is paid beats present bias and lifestyle inflation by protecting money before habits absorb it. Waiting to earn more just repeats the cycle at a higher income."
         }
       },
       {
@@ -1400,7 +1508,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           "Money decisions are emotional; dopamine makes spending feel rewarding.",
           "Present bias overvalues rewards now and undermines saving for later.",
           "Mental accounting makes some dollars feel less real than others.",
-          "Sunk-cost thinking and lifestyle creep quietly drain money over time.",
+          "Sunk-cost thinking and lifestyle inflation quietly drain money over time.",
           "Facing your balances early stops small leaks from becoming big losses."
         ]
       },
@@ -1410,6 +1518,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych1-deepmastery1",
+            concept: "Why People Mismanage Money",
             question: "Why are money decisions harder to control than people expect?",
             options: [
               "They require advanced college-level math in the majority of cases",
@@ -1418,22 +1527,26 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They never involve any real trade-offs"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Spending sparks dopamine, so choices feel emotional rather than purely logical. You cannot manage a habit well if you wrongly assume it is fully rational."
           },
           {
             id: "psych1-deepmastery2",
+            concept: "Why People Mismanage Money",
             question: "A friend offers $20 now or $30 in a month, and you grab the $20. Which bias is this?",
             options: [
               "Sunk-cost trap",
               "Mental accounting",
               "Present bias",
-              "Lifestyle creep"
+              "Lifestyle inflation"
             ],
             correctAnswer: 2,
+            difficulty: -1.5,
             explanation: "Present bias makes a reward now feel bigger than a larger reward later, so you give up an easy $10. It is the same wiring that makes saving feel hard."
           },
           {
             id: "psych1-deepmastery3",
+            concept: "Why People Mismanage Money",
             question: "You guard your paycheck but blow gift money freely. What is happening?",
             options: [
               "Mental accounting labels the piles differently",
@@ -1442,22 +1555,26 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Avoidance is hiding your balances"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Mental accounting treats identical dollars differently by label, so gift money feels disposable. A dollar buys the same things no matter where it came from."
           },
           {
             id: "psych1-deepmastery4",
+            concept: "Why People Mismanage Money",
             question: "Your babysitting income rises but your savings do not grow at all. The likely cause is…",
             options: [
               "The sunk-cost trap draining the raise",
-              "Lifestyle creep absorbing the raise",
+              "Lifestyle inflation absorbing the raise",
               "Mental accounting of your gift money",
               "Checking your balances far too often"
             ],
             correctAnswer: 1,
-            explanation: "Lifestyle creep quietly raises spending to match new income, so the raise disappears into habits. Deciding where new money goes first prevents it."
+            difficulty: 0,
+            explanation: "Lifestyle inflation quietly raises spending to match new income, so the raise disappears into habits. Deciding where new money goes first prevents it."
           },
           {
             id: "psych1-deepmastery5",
+            concept: "Why People Mismanage Money",
             question: "What is the best question to escape a sunk-cost decision?",
             options: [
               "How much have I already spent on this?",
@@ -1466,10 +1583,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Can I hide this purchase from myself?"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Asking whether you would begin today ignores money already gone and focuses on the choice ahead. Past spending is sunk and cannot be recovered by spending more."
           },
           {
             id: "psych1-deepmastery6",
+            concept: "Why People Mismanage Money",
             question: "Why is avoiding your bank statements a costly habit?",
             options: [
               "It automatically raises your interest rate whenever money feels tight",
@@ -1478,6 +1597,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It doubles the value of your savings"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Avoidance feels safe but lets tiny charges, like a $9.99 subscription, run all year. Looking early keeps a small leak from becoming a big loss."
           }
         ]
@@ -1511,12 +1631,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "concept",
         title: "Building The Habit On Purpose",
         paragraphs: [
-          "You do not need superhuman willpower to wait; you need systems. One is the cooling-off rule: for any want over a set amount, say $40, wait 48 hours before buying. Most impulse urges fade, and you keep only the purchases you still want after the craving passes. This works because it separates the emotional spike from the decision. The store designed the moment to feel urgent; the pause returns the choice to the calmer, future-focused part of your brain that would rather save the money.",
+          "You do not need superhuman willpower to wait; you need systems. One is the cooling-off rule: for any want over a set amount, say $40, wait 24 hours before buying. Most impulse urges fade, and you keep only the purchases you still want after the craving passes. This works because it separates the emotional spike from the decision. The store designed the moment to feel urgent; the pause returns the choice to the calmer, future-focused part of your brain that would rather save the money.",
           "The most powerful systems redesign your environment so the good choice is the easy one. Your fast brain reacts to whatever is in front of it: if a store's app is one tap away, you buy. Make instant rewards harder to reach - delete shopping apps, leave cards at home - and make saving effortless by automating it, so a set amount moves to savings the second you are paid. You never feel automated savings as money given up, so there is no craving to resist. Willpower is a limited battery; a well-designed setup spends it once, when you set the rules, instead of every single day.",
           "Finally, make waiting feel rewarding instead of empty. Keep the goal visible and named - a jar or app labeled Concert Fund - so every day you do not spend reads as progress you can watch. Celebrate milestones: if the goal is $600, mark every $150 as a win, which releases the same reward feeling a purchase would. You can even bundle a dull saving habit with a small treat - like logging your spending only while watching a favorite show - so your fast brain cooperates instead of fighting. People who master patience are not stricter than everyone else; they simply built a life where waiting is the easy default and impulse buying takes effort."
         ],
         bullets: [
-          "A 48-hour cooling-off rule lets impulse urges fade before you buy.",
+          "A 24-hour cooling-off rule lets impulse urges fade before you buy.",
           "Redesign your setup: make impulse buys hard and saving automatic.",
           "Willpower is limited; a good environment decides once, not daily.",
           "A named, visible goal makes waiting feel like progress.",
@@ -1529,6 +1649,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych2-deepmc1",
+            concept: "Delayed Gratification",
             question: "Why do early savers often end up with more money than later ones?",
             options: [
               "Banks pay teens a higher interest rate",
@@ -1541,7 +1662,8 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych2-deepmc2",
-            question: "How does a 48-hour cooling-off rule help you save?",
+            concept: "Delayed Gratification",
+            question: "How does a 24-hour cooling-off rule help you save?",
             options: [
               "It raises the price so you buy less",
               "It lets the impulse urge fade before deciding",
@@ -1560,7 +1682,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         details: [
           "The one-hour timer is designed to trigger present-focused urgency and beat her patience.",
           "Her laptop goal is concrete with a deadline, which makes the future reward feel real.",
-          "Applying a 48-hour cooling-off rule would let the headphone craving fade first.",
+          "Applying a 24-hour cooling-off rule would let the headphone craving fade first.",
           "Spending $130 is really spending part of her December laptop, not just tonight's cash."
         ]
       },
@@ -1568,15 +1690,16 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych2-deepaq1",
+          concept: "Delayed Gratification",
           question: "What is Sofia's smartest move when the flash sale appears?",
           options: [
             "Buy now before the timer runs out in the majority of cases",
-            "Wait 48 hours to see if she still wants them",
+            "Wait 24 hours to see if she still wants them",
             "Cancel her laptop goal entirely most of the time",
             "Borrow money to buy both items as a general rule"
           ],
           correctAnswer: 1,
-          explanation: "The cooling-off rule defeats the timer's fake urgency. If she still wants the headphones in two days, she can decide calmly; usually the craving fades and her laptop goal stays on track."
+          explanation: "The cooling-off rule defeats the timer's fake urgency. If she still wants the headphones in a day, she can decide calmly; usually the craving fades and her laptop goal stays on track."
         }
       },
       {
@@ -1595,6 +1718,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych2-deepmastery1",
+            concept: "Delayed Gratification",
             question: "What does delayed gratification actually mean?",
             options: [
               "Never spending money on anything fun more often than not",
@@ -1603,10 +1727,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Only saving money you inherit or are given"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "It is the skill of pausing a smaller instant reward to gain a larger one later. That pause is what lets money grow and goals get reached."
           },
           {
             id: "psych2-deepmastery2",
+            concept: "Delayed Gratification",
             question: "Why is a $200 impulse buy really more than a $200 choice?",
             options: [
               "Stores always add hidden $200 fees in a downturn",
@@ -1615,10 +1741,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Impulse buys must be repaid with interest under most conditions"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Spent money cannot compound. The true cost is the future amount that $200 could have become if saved, which reframes the purchase as a trade."
           },
           {
             id: "psych2-deepmastery3",
+            concept: "Delayed Gratification",
             question: "Why does naming a specific goal with a deadline help you wait?",
             options: [
               "It legally locks the money away",
@@ -1627,10 +1755,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It removes the need to save at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The brain discounts fuzzy future rewards. A goal like $600 by December feels real and specific, so your brain starts protecting it from small splurges."
           },
           {
             id: "psych2-deepmastery4",
+            concept: "Delayed Gratification",
             question: "Why does keeping a named goal, like a 'Concert Fund' jar, visible help you wait?",
             options: [
               "Seeing it turns each day of not spending into visible progress",
@@ -1639,10 +1769,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It hides the goal so you forget about spending entirely"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A visible, named goal keeps the reward in sight, so waiting reads as progress you can watch rather than deprivation you grind through."
           },
           {
             id: "psych2-deepmastery5",
+            concept: "Delayed Gratification",
             question: "How do milestone celebrations support delayed gratification?",
             options: [
               "They cancel the original savings goal",
@@ -1651,10 +1783,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They raise the interest on your account"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Marking each step as a win releases the reward feeling a purchase would, so patience stops feeling empty and progress feels good along the way."
           },
           {
             id: "psych2-deepmastery6",
+            concept: "Delayed Gratification",
             question: "What is the real reason instant rewards beat future ones in your mind?",
             options: [
               "Future rewards are usually smaller during tough times",
@@ -1663,6 +1797,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Waiting is against human nature entirely"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Your brain automatically shrinks the value of vague, distant rewards. Making the future concrete counteracts this so waiting becomes far easier."
           }
         ]
@@ -1714,6 +1849,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych4-deepmc1",
+            concept: "Scarcity vs Abundance Mindset",
             question: "What is a scarcity mindset?",
             options: [
               "Having a low bank balance right now in almost every situation",
@@ -1726,6 +1862,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych4-deepmc2",
+            concept: "Scarcity vs Abundance Mindset",
             question: "How is an abundance mindset best described?",
             options: [
               "Pretending money is truly unlimited for the typical teenager",
@@ -1753,6 +1890,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych4-deepaq1",
+          concept: "Scarcity vs Abundance Mindset",
           question: "What makes Mateo's approach an abundance mindset rather than wishful thinking?",
           options: [
             "He assumes money is unlimited for the average shopper",
@@ -1780,6 +1918,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych4-deepmastery1",
+            concept: "Scarcity vs Abundance Mindset",
             question: "Why can a scarcity mindset hit someone who is not actually poor?",
             options: [
               "Because it is a thought pattern, not a balance",
@@ -1788,10 +1927,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Because it only affects business owners whenever money feels tight"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Scarcity is a feeling of not enough, so even a wealthy person can have it. It is separate from your real bank balance, which is why noticing it matters."
           },
           {
             id: "psych4-deepmastery2",
+            concept: "Scarcity vs Abundance Mindset",
             question: "What does scarcity thinking do to your focus?",
             options: [
               "Broadens it toward long-term plans for the average shopper",
@@ -1800,10 +1941,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Makes you ignore immediate needs"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Scarcity tunnels attention onto the immediate shortage, crowding out important long-term choices. That tunnel vision often makes the shortage worse."
           },
           {
             id: "psych4-deepmastery3",
+            concept: "Scarcity vs Abundance Mindset",
             question: "How does scarcity differ from simply being broke?",
             options: [
               "Being broke is permanent; scarcity is temporary at least at first",
@@ -1812,10 +1955,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Scarcity only affects rich people on a day-to-day basis"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Being broke is a numbers problem fixed by income and budgeting. Scarcity is a mindset that can sabotage you even after the numbers improve."
           },
           {
             id: "psych4-deepmastery4",
+            concept: "Scarcity vs Abundance Mindset",
             question: "Which is an example of scarcity-driven behavior?",
             options: [
               "Negotiating a low pay offer upward",
@@ -1824,10 +1969,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Taking a free skill-building course with very little effort"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Grabbing the first low offer because you fear nothing better exists is classic scarcity. The other options reflect an abundance approach to growth."
           },
           {
             id: "psych4-deepmastery5",
+            concept: "Scarcity vs Abundance Mindset",
             question: "Why does abundance mindset reduce keeping-up spending?",
             options: [
               "It makes purchases legally cheaper more often than not",
@@ -1836,10 +1983,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It guarantees you will out-earn friends in a downturn"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Abundance sees others' success as non-threatening because opportunity is not a fixed pie. Without scarcity-driven envy, you stop proving worth through purchases."
           },
           {
             id: "psych4-deepmastery6",
+            concept: "Scarcity vs Abundance Mindset",
             question: "What must accompany an abundance belief for it to work?",
             options: [
               "Disciplined, concrete action",
@@ -1848,6 +1997,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Constant positive self-talk alone"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Abundance without action is wishful thinking. Believing growth is possible only pays off when you build skills, negotiate, and save consistently."
           }
         ]
@@ -1899,6 +2049,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych5-deepmc1",
+            concept: "Money & Emotions",
             question: "What is retail therapy?",
             options: [
               "A store's official return policy under most conditions",
@@ -1911,6 +2062,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych5-deepmc2",
+            concept: "Money & Emotions",
             question: "Why does naming your emotion before buying help?",
             options: [
               "It lowers the item's price as the years pass",
@@ -1938,6 +2090,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych5-deepaq1",
+          concept: "Money & Emotions",
           question: "What is Andre's healthiest response to the urge?",
           options: [
             "Buy now while it will cheer him up",
@@ -1965,6 +2118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych5-deepmastery1",
+            concept: "Money & Emotions",
             question: "Why does retail therapy fail to solve the real problem?",
             options: [
               "The items are always defective right in the moment",
@@ -1973,10 +2127,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It permanently removes all emotions after enough time"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Buying distracts from a feeling for a moment, but the low mood returns while the cost stays. It treats a symptom, not the actual need."
           },
           {
             id: "psych5-deepmastery2",
+            concept: "Money & Emotions",
             question: "How does excitement typically affect spending?",
             options: [
               "It makes you overpay in the heat of the moment",
@@ -1985,10 +2141,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It has no effect on money at all for people in general"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Excitement pushes people to overpay, bid too high, or grab every add-on. Feeling it is fine; letting it decide automatically is the danger."
           },
           {
             id: "psych5-deepmastery3",
+            concept: "Money & Emotions",
             question: "Why avoid big money decisions within 24 hours of a strong emotion?",
             options: [
               "Prices are always higher on those days",
@@ -1997,10 +2155,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It is required by consumer law"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Decisions made in an emotional storm, after a fight or a big win, tend to be poor. A cooling window lets the calmer brain make the call."
           },
           {
             id: "psych5-deepmastery4",
+            concept: "Money & Emotions",
             question: "How can anxiety affect saving, not just spending?",
             options: [
               "It always leads to smart investing almost every time",
@@ -2009,10 +2169,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It has no effect on saving decisions"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Anxiety can make someone hoard cash far beyond what is wise, missing chances to grow it. Emotions shape both sides of money, not just spending."
           },
           {
             id: "psych5-deepmastery5",
+            concept: "Money & Emotions",
             question: "What is the point of a guilt-free fun fund?",
             options: [
               "To eliminate all treats from your life for regular customers",
@@ -2021,10 +2183,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "To earn interest faster than savings in a typical week"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A small planned fun fund gives feelings a designed outlet, so emotional urges do not blow up the whole budget. It makes the plan sustainable."
           },
           {
             id: "psych5-deepmastery6",
+            concept: "Money & Emotions",
             question: "What is the real goal of emotional money management?",
             options: [
               "To become completely emotionless about money for the typical teenager",
@@ -2033,6 +2197,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "To never make any money decisions most of the time"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "You cannot switch feelings off, and you should not try. The goal is to feel the emotion, name it, pause, and then decide deliberately."
           }
         ]
@@ -2084,6 +2249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych6-deepmc1",
+            concept: "Social Influence & Spending",
             question: "What is social proof in spending?",
             options: [
               "A receipt proving you bought something as a general rule",
@@ -2096,6 +2262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych6-deepmc2",
+            concept: "Social Influence & Spending",
             question: "Why does social media comparison fuel overspending?",
             options: [
               "It shows curated highlights, hiding the real cost",
@@ -2123,6 +2290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych6-deepaq1",
+          concept: "Social Influence & Spending",
           question: "What is Jae's strongest move here?",
           options: [
             "Go into debt to join the trip at least at first",
@@ -2150,6 +2318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych6-deepmastery1",
+            concept: "Social Influence & Spending",
             question: "What is the real driver behind matching friends' purchases?",
             options: [
               "The product's superior quality in everyday life",
@@ -2158,10 +2327,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "A legal requirement to conform especially early on"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The pull is usually belonging, not the item itself. Naming that lets you separate what you truly want from what the group made you feel you need."
           },
           {
             id: "psych6-deepmastery2",
+            concept: "Social Influence & Spending",
             question: "Why is money peer pressure so powerful among teens?",
             options: [
               "Teens have the most money to spend",
@@ -2170,10 +2341,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Teens are immune to advertising in the short term"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Belonging feels urgent in the teen years, so the subtle cost of standing out feels heavy even when no one says a word about it."
           },
           {
             id: "psych6-deepmastery3",
+            concept: "Social Influence & Spending",
             question: "What is missing from the highlight reels you see online?",
             options: [
               "The debt and struggle behind the photos",
@@ -2182,10 +2355,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Any positive moments at all with very little effort"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Highlight reels hide the debt, stress, and ordinary days behind the best moments, so you compare your full life to others' curated best."
           },
           {
             id: "psych6-deepmastery4",
+            concept: "Social Influence & Spending",
             question: "What most blunts group pressure in the moment?",
             options: [
               "Knowing your values and budget in advance",
@@ -2194,10 +2369,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Always buying what the group buys"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "With a plan set beforehand, you measure choices against your goals, not the crowd. People without a plan default to the group's plan."
           },
           {
             id: "psych6-deepmastery5",
+            concept: "Social Influence & Spending",
             question: "Why is suggesting a cheaper alternative often effective?",
             options: [
               "It forces friends to pay for you in a downturn",
@@ -2206,10 +2383,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It proves you have the most money"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Money pressure is often mutual and unspoken. Proposing a lower-cost option frequently relieves friends who felt the same strain but were afraid to say so."
           },
           {
             id: "psych6-deepmastery6",
+            concept: "Social Influence & Spending",
             question: "How can you turn social influence to your advantage?",
             options: [
               "Ignore everyone and spend alone under most conditions",
@@ -2218,6 +2397,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Copy whoever spends the most money"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Habits rub off both ways. Spending time with savers and muting spend-triggering accounts aims social influence toward who you want to become."
           }
         ]
@@ -2269,6 +2449,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych7-deepmc1",
+            concept: "Advertising & Consumer Behavior",
             question: "What do most ads primarily sell?",
             options: [
               "Detailed factual product specs as the years pass",
@@ -2281,6 +2462,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych7-deepmc2",
+            concept: "Advertising & Consumer Behavior",
             question: "Why does 'free shipping on orders over $50' often make you spend more?",
             options: [
               "It removes the sales tax from your whole order",
@@ -2308,6 +2490,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych7-deepaq1",
+          concept: "Advertising & Consumer Behavior",
           question: "What is the smartest way for Zoe to respond?",
           options: [
             "Buy immediately before the timer ends in the short term",
@@ -2335,6 +2518,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych7-deepmastery1",
+            concept: "Advertising & Consumer Behavior",
             question: "Why do emotional ads work so well?",
             options: [
               "Feelings drive buying more than facts do",
@@ -2343,10 +2527,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They are required to lower prices"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Emotions push purchases far more than facts, so ads link products to feelings like belonging. Spotting the feeling being sold loosens the ad's grip."
           },
           {
             id: "psych7-deepmastery2",
+            concept: "Advertising & Consumer Behavior",
             question: "The message only 3 left, ends tonight is which tactic?",
             options: [
               "Anchoring",
@@ -2355,10 +2541,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Free shipping"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Scarcity creates fear of missing out to rush your decision. Real needs rarely expire in an hour, so manufactured urgency deserves suspicion."
           },
           {
             id: "psych7-deepmastery3",
+            concept: "Advertising & Consumer Behavior",
             question: "Why is one-tap checkout designed the way it is?",
             options: [
               "To give you time to reconsider under real pressure",
@@ -2367,10 +2555,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "To slow down your shopping almost every time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Frictionless buying removes the moment of hesitation that would let you reconsider. Turning it off restores the pause companies spent millions removing."
           },
           {
             id: "psych7-deepmastery4",
+            concept: "Advertising & Consumer Behavior",
             question: "What does using a celebrity to sell a product rely on?",
             options: [
               "Anchoring",
@@ -2379,10 +2569,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Free returns"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Authority borrows the credibility of experts or celebrities so you trust the choice. Their fame, not the product's value, does the persuading."
           },
           {
             id: "psych7-deepmastery5",
+            concept: "Advertising & Consumer Behavior",
             question: "Which question best pulls a purchase back to your real needs?",
             options: [
               "How many are left in stock? in a typical week",
@@ -2391,10 +2583,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "How fast can it be shipped? in almost every situation"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Asking whether you would want it without the ad strips away the installed feeling and returns the choice to your actual life and needs."
           },
           {
             id: "psych7-deepmastery6",
+            concept: "Advertising & Consumer Behavior",
             question: "Why does a 24-hour wait defeat many marketing tactics?",
             options: [
               "Stores lower prices after a day",
@@ -2403,6 +2597,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It cancels the sales tax"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Manufactured urgency is built to make you act fast. Given a day, most engineered urges fade, so only purchases you genuinely value survive the wait."
           }
         ]
@@ -2454,6 +2649,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych8-deepmc1",
+            concept: "Behavioral Traps",
             question: "What does loss aversion cause people to do?",
             options: [
               "Treat losses and gains equally as a general rule",
@@ -2466,6 +2662,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych8-deepmc2",
+            concept: "Behavioral Traps",
             question: "Why is a subscription framed as just $1 a day persuasive?",
             options: [
               "It is actually cheaper than $365 a year in everyday life",
@@ -2493,6 +2690,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych8-deepaq1",
+          concept: "Behavioral Traps",
           question: "What should Dev recognize before spending another $40?",
           options: [
             "A win is now guaranteed to come more often than not",
@@ -2520,6 +2718,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych8-deepmastery1",
+            concept: "Behavioral Traps",
             question: "Why do people hold a failing investment too long?",
             options: [
               "Confirmation bias makes them research more",
@@ -2528,10 +2727,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Framing hides the yearly total with very little effort"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Selling would make the loss real, and loss aversion makes that pain feel worse than the likely benefit of moving on, so they cling to the loser."
           },
           {
             id: "psych8-deepmastery2",
+            concept: "Behavioral Traps",
             question: "How do you counter confirmation bias before a big buy?",
             options: [
               "Read only the most positive reviews without much thought",
@@ -2540,10 +2741,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Ask friends who already agree with you"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Deliberately seeking the opposing view balances your one-sided instinct. If the decision still holds up against the criticism, you can proceed with real confidence."
           },
           {
             id: "psych8-deepmastery3",
+            concept: "Behavioral Traps",
             question: "A store shows $200 crossed out to $120. Which bias does this exploit?",
             options: [
               "Anchoring",
@@ -2552,10 +2755,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Endowment effect"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "The first number, $200, anchors your sense of value, so $120 feels cheap even if it is still too much. The anchor warps your judgment of the deal."
           },
           {
             id: "psych8-deepmastery4",
+            concept: "Behavioral Traps",
             question: "Why are free trials so effective at keeping you paying?",
             options: [
               "They are always genuinely free forever under most conditions",
@@ -2564,10 +2769,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They remove the auto-renew default in a downturn as the years pass"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Once the service feels like yours, canceling feels like giving something up, and the auto-renew default adds inertia, so you keep paying."
           },
           {
             id: "psych8-deepmastery5",
+            concept: "Behavioral Traps",
             question: "What error is the gambler's fallacy?",
             options: [
               "Believing past events change independent odds",
@@ -2576,10 +2783,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Letting the first price anchor your judgment"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "It is the false belief that a result is due after a streak, though each independent event ignores the last. It drives loss-chasing and bigger bets."
           },
           {
             id: "psych8-deepmastery6",
+            concept: "Behavioral Traps",
             question: "What is the shared antidote to most behavioral traps?",
             options: [
               "Act on the very first impulse",
@@ -2588,6 +2797,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Always accept the default option"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Naming a bias and pausing builds space between impulse and action. That pause is where you can recheck the math and make a genuinely good choice."
           }
         ]
@@ -2639,6 +2849,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych9-deepmc1",
+            concept: "Identity & Money Habits",
             question: "What are money scripts?",
             options: [
               "Written budgets you follow monthly for brand-new buyers",
@@ -2651,6 +2862,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych9-deepmc2",
+            concept: "Identity & Money Habits",
             question: "Why does changing identity change habits so effectively?",
             options: [
               "It forces the bank to save for you",
@@ -2678,6 +2890,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych9-deepaq1",
+          concept: "Identity & Money Habits",
           question: "What is the most powerful first change for Theo?",
           options: [
             "Earn more before doing anything else under most conditions",
@@ -2705,6 +2918,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych9-deepmastery1",
+            concept: "Identity & Money Habits",
             question: "Why are identity-based money habits so durable?",
             options: [
               "They are enforced by the bank sooner or later",
@@ -2713,10 +2927,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They only work for wealthy people in a typical week"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "When saving matches your self-image, it feels natural rather than forced. Habits aligned with identity stick far better than ones fought with willpower."
           },
           {
             id: "psych9-deepmastery2",
+            concept: "Identity & Money Habits",
             question: "How does a hidden money script cause trouble?",
             options: [
               "It silently steers choices you think are your own",
@@ -2725,10 +2941,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It only affects people who budget for the typical teenager"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Scripts run in the background, so you follow beliefs like money is always tight without noticing. Naming a script is what lets you question and change it."
           },
           {
             id: "psych9-deepmastery3",
+            concept: "Identity & Money Habits",
             question: "Why is tying self-worth to spending risky?",
             options: [
               "It makes you save far too much most of the time",
@@ -2737,10 +2955,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It removes all your emotions about money"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If your value feels tied to what you own, spending becomes a way to prove you matter, making you vulnerable to anyone selling status."
           },
           {
             id: "psych9-deepmastery4",
+            concept: "Identity & Money Habits",
             question: "What does it mean that every action is a vote?",
             options: [
               "Each choice is evidence for a version of yourself",
@@ -2749,10 +2969,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Only big purchases shape your identity in the majority of cases"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Each save or skipped splurge is proof of the identity you are building, which makes the next aligned choice easier. Small votes add up to a self-image."
           },
           {
             id: "psych9-deepmastery5",
+            concept: "Identity & Money Habits",
             question: "Why does starting with tiny amounts work?",
             options: [
               "The dollar amount is what matters most early",
@@ -2761,10 +2983,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It avoids ever needing to save more"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Early on the point is proving you are a saver, not the size of the deposit. Each small win strengthens the self-image and builds momentum."
           },
           {
             id: "psych9-deepmastery6",
+            concept: "Identity & Money Habits",
             question: "Why replace the label I am bad with money?",
             options: [
               "It is a prediction disguised as a fixed fact",
@@ -2773,6 +2997,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Labels have no effect on behavior in everyday life"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "The label predicts and produces the behavior it describes. Swapping it for I am learning lets new habits align with a changeable identity."
           }
         ]
@@ -2806,7 +3031,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "concept",
         title: "Building And Keeping Healthy Beliefs",
         paragraphs: [
-          "You practiced rewriting your money identity in the last lesson; healthy beliefs are the everyday version you test and maintain. You build them by challenging the unhealthy ones directly: when a thought like I will never afford anything pops up, treat it as a claim to test, not a fact. Ask, is that fully true, and what small step proves otherwise? Saving even $5 is evidence against I cannot save. This is not fake positivity; it is swapping a defeating belief for an accurate, empowering one backed by action. Over time, repeated small proof rewires the belief, because your brain updates its story about you based on what it repeatedly sees you actually do.",
+          "Healthy beliefs are ones you actively test and maintain, treating each money belief like a claim rather than a fact. You build them by challenging the unhealthy ones directly: when a thought like I will never afford anything pops up, treat it as a claim to test, not a truth to accept. Ask, is that fully true, and what small step proves otherwise? Saving even $5 is evidence against I cannot save. This is not fake positivity; it is swapping a defeating claim for an accurate, empowering one backed by action. Over time, repeated small proof updates the belief, because your brain revises what it accepts based on the evidence it repeatedly sees you produce.",
           "Healthy beliefs also come from good information and good influences. A lot of money fear comes from simply not knowing how things work, so learning the basics, how saving grows, how credit works, how to budget, replaces anxiety with competence. Just as important is the company you keep: surround yourself with people and voices that model calm, capable money habits, and mute the ones that push panic or reckless flexing. Beliefs are contagious, so choosing your inputs is really choosing which money mindset gets reinforced in you day after day.",
           "Finally, healthy beliefs need maintenance, because stress and setbacks pull you back toward old patterns. A tough month can revive I am bad with money in an instant. The practice is to notice the slip, name the unhealthy belief, and gently return to the balanced one, treating a setback as data, not a verdict. Nobody keeps a perfect mindset forever; the skill is recovering quickly. A healthy relationship with money is not a fixed state you reach once, but an ongoing practice of choosing balanced beliefs again and again."
         ],
@@ -2824,6 +3049,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych10-deepmc1",
+            concept: "Healthy Financial Beliefs",
             question: "A healthy money mindset sits between which two extremes?",
             options: [
               "Earning and spending on a day-to-day basis",
@@ -2836,6 +3062,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych10-deepmc2",
+            concept: "Healthy Financial Beliefs",
             question: "Why is I can learn to manage money a healthier belief than I am hopeless?",
             options: [
               "It guarantees you will get rich at least at first",
@@ -2863,6 +3090,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych10-deepaq1",
+          concept: "Healthy Financial Beliefs",
           question: "What is the healthiest way for Ivan to handle this setback?",
           options: [
             "Accept that he is bad with money for brand-new buyers",
@@ -2890,6 +3118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych10-deepmastery1",
+            concept: "Healthy Financial Beliefs",
             question: "Which statement best captures a healthy money mindset?",
             options: [
               "Money is the true measure of my value under most conditions",
@@ -2898,10 +3127,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Money must be obsessed over daily in a downturn"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The balanced view treats money as a useful tool without tying it to self-worth. That middle ground avoids both anxious obsession and total avoidance."
           },
           {
             id: "psych10-deepmastery2",
+            concept: "Healthy Financial Beliefs",
             question: "What makes a belief like small amounts matter healthy?",
             options: [
               "It promises instant wealth across most markets",
@@ -2910,10 +3141,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It removes the need to budget as the years pass"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Believing small amounts count is realistic and action-oriented, so you start saving immediately instead of waiting for thousands you may never have."
           },
           {
             id: "psych10-deepmastery3",
+            concept: "Healthy Financial Beliefs",
             question: "Beyond covering real needs, what does research say about more money?",
             options: [
               "It always doubles your happiness during tough times",
@@ -2922,10 +3155,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It is the true point of life"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Past meeting real needs, extra money adds less happiness than expected. A healthy mindset uses money to support a good life, not as the goal itself."
           },
           {
             id: "psych10-deepmastery4",
+            concept: "Healthy Financial Beliefs",
             question: "How do small actions build healthy beliefs?",
             options: [
               "They provide proof that rewires the old belief",
@@ -2934,10 +3169,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They guarantee a perfect mindset forever after enough time"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Saving even $5 is evidence against I cannot save. Repeated small proof updates your brain's story about you, turning intention into a durable belief."
           },
           {
             id: "psych10-deepmastery5",
+            concept: "Healthy Financial Beliefs",
             question: "Why does learning how money works support healthy beliefs?",
             options: [
               "It replaces fear with competence",
@@ -2946,10 +3183,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It guarantees you never lose money"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Much money fear comes from not understanding the basics. Learning how saving, credit, and budgeting work turns anxiety into calm competence."
           },
           {
             id: "psych10-deepmastery6",
+            concept: "Healthy Financial Beliefs",
             question: "Why is a healthy money mindset called an ongoing practice?",
             options: [
               "It is reached once and never changes in plain terms",
@@ -2958,6 +3197,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It only applies to wealthy adults when it is tested"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Setbacks can revive old beliefs in an instant, so you must keep choosing the balanced view. The skill is recovering quickly, not staying perfect forever."
           }
         ]
@@ -3009,6 +3249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy1-deepmc1",
+            concept: "Market Share",
             question: "What does market share measure?",
             options: [
               "A company's total profit for the year",
@@ -3021,6 +3262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy1-deepmc2",
+            concept: "Market Share",
             question: "Why can winning share by cutting prices be risky?",
             options: [
               "It always improves the product for people in general",
@@ -3048,6 +3290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy1-deepaq1",
+          concept: "Market Share",
           question: "Which plan most likely builds durable, profitable share?",
           options: [
             "The 20% price cut for fast growth",
@@ -3075,6 +3318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy1-deepmastery1",
+            concept: "Market Share",
             question: "A brand's share rises while a rival's falls. What does this suggest?",
             options: [
               "The market has stopped growing in a typical week",
@@ -3083,10 +3327,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "The rival raised its prices"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "When one company gains share as another loses it, customers are shifting from the rival, a warning sign for the loser even if total sales rose."
           },
           {
             id: "strategy1-deepmastery2",
+            concept: "Market Share",
             question: "How can a luxury brand have small unit share but large revenue share?",
             options: [
               "It sells few items but each is pricey",
@@ -3095,10 +3341,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It has no competitors at all for the typical teenager"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "High prices mean each sale brings in a lot, so a luxury brand can hold a big money slice while selling relatively few units."
           },
           {
             id: "strategy1-deepmastery3",
+            concept: "Market Share",
             question: "Why is a 10% share of a huge growing market often better than 50% of a tiny one?",
             options: [
               "Small markets always pay more most of the time",
@@ -3107,10 +3355,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Tiny markets never have rivals as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A big, growing market gives long runway, so even a modest slice can become large. A dominant slice of a tiny shrinking market has little upside."
           },
           {
             id: "strategy1-deepmastery4",
+            concept: "Market Share",
             question: "Why is profitable share more valuable than raw share?",
             options: [
               "Raw share is always fake whenever money feels tight",
@@ -3119,10 +3369,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Big share always means big profit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Selling below cost can win share while losing money, which can sink the company. The real prize is a large slice that also earns a profit."
           },
           {
             id: "strategy1-deepmastery5",
+            concept: "Market Share",
             question: "How do companies defend the market share they have won?",
             options: [
               "By ignoring competitors entirely in everyday life",
@@ -3131,10 +3383,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "By raising prices every single year"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Switching costs, loyalty, and constant improvement give customers no reason to leave. Complacency, by contrast, invites hungrier rivals to peel them away."
           },
           {
             id: "strategy1-deepmastery6",
+            concept: "Market Share",
             question: "What advantage can high market share create?",
             options: [
               "Lower costs from producing in bulk",
@@ -3143,6 +3397,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Freedom to ignore product quality"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Leaders often buy and produce in bulk more cheaply and enjoy more trust, a flywheel where being big helps them get bigger. But share still must be defended."
           }
         ]
@@ -3194,6 +3449,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy2-deepmc1",
+            concept: "Pricing Power",
             question: "What is pricing power?",
             options: [
               "Always charging the lowest price",
@@ -3206,6 +3462,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy2-deepmc2",
+            concept: "Pricing Power",
             question: "Inelastic demand means that when price rises, sales…",
             options: [
               "Drop sharply right away",
@@ -3233,6 +3490,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy2-deepaq1",
+          concept: "Pricing Power",
           question: "Which drink can most safely raise its price 10%?",
           options: [
             "The generic store-brand drink",
@@ -3260,6 +3518,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy2-deepmastery1",
+            concept: "Pricing Power",
             question: "Why do investors prize pricing power so highly?",
             options: [
               "It forces competitors to close down",
@@ -3268,10 +3527,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It removes all business risk"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A company with pricing power can pass rising costs to customers and defend its margins, acting as a shock absorber through inflation and tough times."
           },
           {
             id: "strategy2-deepmastery2",
+            concept: "Pricing Power",
             question: "Which financial clue best signals pricing power?",
             options: [
               "High, steady profit margins over time",
@@ -3280,10 +3541,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Rapidly falling total sales at least at first"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Consistently fat margins while keeping customers show the company can raise prices at will. Thin, shrinking margins suggest it competes mainly on price."
           },
           {
             id: "strategy2-deepmastery3",
+            concept: "Pricing Power",
             question: "How do switching costs create pricing power?",
             options: [
               "They make leaving a hassle, so buyers tolerate hikes",
@@ -3292,10 +3555,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They remove the need for a brand"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "If leaving means losing data, relearning a system, or breaking connections, customers accept price increases rather than deal with the hassle."
           },
           {
             id: "strategy2-deepmastery4",
+            concept: "Pricing Power",
             question: "Why do necessary products keep pricing power in a downturn?",
             options: [
               "People cut luxuries first but keep buying needs",
@@ -3304,10 +3569,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They have the most competitors more often than not"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "In hard times people drop luxuries but keep paying for what they truly need, so essential products hold their pricing power even when money is tight."
           },
           {
             id: "strategy2-deepmastery5",
+            concept: "Pricing Power",
             question: "What most erodes a company's pricing power?",
             options: [
               "A trusted, well-known brand",
@@ -3316,10 +3583,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "A patent on a unique product"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When rivals launch a good-enough substitute, customers gain options and the company's ability to raise prices shrinks. Competition is the great eroder."
           },
           {
             id: "strategy2-deepmastery6",
+            concept: "Pricing Power",
             question: "What is the danger of overusing pricing power?",
             options: [
               "It permanently locks in every customer under most conditions",
@@ -3328,6 +3597,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It lowers the company's profit margins across most markets"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Pushing prices too high or too often tempts competitors to enter and nudges even loyal customers to look elsewhere, so pricing power must be used carefully."
           }
         ]
@@ -3379,6 +3649,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy3-deepmc1",
+            concept: "Economies of Scale",
             question: "What does economies of scale mean?",
             options: [
               "Total costs fall as a company shrinks",
@@ -3391,6 +3662,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy3-deepmc2",
+            concept: "Economies of Scale",
             question: "What are diseconomies of scale?",
             options: [
               "Costs per unit rising when a firm grows too large",
@@ -3418,6 +3690,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy3-deepaq1",
+          concept: "Economies of Scale",
           question: "How should the small cafe best compete against the chain?",
           options: [
             "Match the chain's low prices directly",
@@ -3445,6 +3718,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy3-deepmastery1",
+            concept: "Economies of Scale",
             question: "Why does spreading fixed costs over more units lower per-unit cost?",
             options: [
               "The fixed cost itself shrinks in plain terms",
@@ -3453,10 +3727,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Prices automatically rise with volume in the long run"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A fixed cost like rent stays the same, but dividing it across more units means each unit carries a smaller slice, so average cost per unit falls."
           },
           {
             id: "strategy3-deepmastery2",
+            concept: "Economies of Scale",
             question: "How does bulk buying create economies of scale?",
             options: [
               "Suppliers discount large orders",
@@ -3465,10 +3741,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It slows down production"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Suppliers give big producers lower prices for large orders, so buying in bulk cuts the cost of materials per unit, a key source of scale savings."
           },
           {
             id: "strategy3-deepmastery3",
+            concept: "Economies of Scale",
             question: "How can a firm with lower per-unit costs use that advantage?",
             options: [
               "It must always raise its prices almost every time",
@@ -3477,10 +3755,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It cannot earn any extra profit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Lower costs let a firm either keep the price and earn fatter margins or charge less while still profiting, undercutting rivals who cannot match it."
           },
           {
             id: "strategy3-deepmastery4",
+            concept: "Economies of Scale",
             question: "What causes diseconomies of scale?",
             options: [
               "Buying materials in bulk under real pressure",
@@ -3489,10 +3769,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Hiring a few expert specialists in a typical week"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Past a certain size, layers of management, poor communication, and coordination costs add expense, pushing per-unit costs back up."
           },
           {
             id: "strategy3-deepmastery5",
+            concept: "Economies of Scale",
             question: "In which business does scale matter least?",
             options: [
               "A huge semiconductor factory for regular customers",
@@ -3501,10 +3783,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "A large car manufacturer"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Creative or personal-service businesses gain little from size and can even lose quality. Manufacturing and bulk retail, by contrast, reward scale heavily."
           },
           {
             id: "strategy3-deepmastery6",
+            concept: "Economies of Scale",
             question: "Why do some industries consolidate into a few giants?",
             options: [
               "Scale advantages there are decisive",
@@ -3513,6 +3797,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Customers dislike having choices"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Where scale is decisive, like billion-dollar chip factories, only giants can compete on cost, so the industry consolidates around a few large players."
           }
         ]
@@ -3564,6 +3849,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy4-deepmc1",
+            concept: "Network Effects",
             question: "What is a network effect?",
             options: [
               "A product that gets cheaper to make at scale",
@@ -3576,6 +3862,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy4-deepmc2",
+            concept: "Network Effects",
             question: "What is the chicken-and-egg problem for networks?",
             options: [
               "Costs rise faster than sales grow as a general rule",
@@ -3603,6 +3890,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy4-deepaq1",
+          concept: "Network Effects",
           question: "Why is the better app still struggling to win users?",
           options: [
             "Its features are actually worse for people in general",
@@ -3630,6 +3918,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy4-deepmastery1",
+            concept: "Network Effects",
             question: "What makes a phone more valuable as more people own one?",
             options: [
               "It gets cheaper to manufacture in everyday life",
@@ -3638,10 +3927,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "The battery lasts longer for the average shopper"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A network effect means value comes from other users. Each new phone owner is someone else you can call, so the network grows more useful as it grows."
           },
           {
             id: "strategy4-deepmastery2",
+            concept: "Network Effects",
             question: "A game console attracting more players and more game makers shows…",
             options: [
               "Economies of scale",
@@ -3650,10 +3941,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Diseconomies of scale"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Indirect network effects link two groups: more players draw more game makers, and more games draw more players. Each side feeds the other's growth."
           },
           {
             id: "strategy4-deepmastery3",
+            concept: "Network Effects",
             question: "Why can a superior new product still fail against a big network?",
             options: [
               "Better products are always too expensive at least at first",
@@ -3662,10 +3955,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Features do not matter to anyone"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A network's value lies in its crowd. A better but empty product offers little, so users stay where everyone else already is, the core of the moat."
           },
           {
             id: "strategy4-deepmastery4",
+            concept: "Network Effects",
             question: "What is critical mass in a network?",
             options: [
               "The point where growth becomes self-sustaining",
@@ -3674,10 +3969,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "The price at which demand disappears"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Critical mass is the tipping point where the network is valuable enough that users recruit each other and growth continues without being pushed."
           },
           {
             id: "strategy4-deepmastery5",
+            concept: "Network Effects",
             question: "How do companies overcome the chicken-and-egg problem?",
             options: [
               "By raising prices on early users",
@@ -3686,10 +3983,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "By removing all product features in the short term"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Paying or subsidizing one side, or focusing on a tight community so it feels full, helps a network reach critical mass and start growing on its own."
           },
           {
             id: "strategy4-deepmastery6",
+            concept: "Network Effects",
             question: "How can a strong network moat collapse?",
             options: [
               "By adding too many new features",
@@ -3698,6 +3997,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "By earning too much profit with very little effort"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The math runs in reverse: departing users make the product less valuable, pushing more to leave. Missteps or shifting tastes can start the spiral."
           }
         ]
@@ -3749,6 +4049,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy5-deepmc1",
+            concept: "Brand Value",
             question: "What is brand value?",
             options: [
               "The cost of the materials in a product in a downturn",
@@ -3761,6 +4062,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy5-deepmc2",
+            concept: "Brand Value",
             question: "Why is a strong brand a hard-to-copy moat?",
             options: [
               "Rivals cannot legally sell any products across most markets",
@@ -3788,6 +4090,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy5-deepaq1",
+          concept: "Brand Value",
           question: "What best explains why the scare hurt the brand so quickly?",
           options: [
             "Brand value lives in perception and is fragile",
@@ -3815,6 +4118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy5-deepmastery1",
+            concept: "Brand Value",
             question: "Why can two nearly identical shirts sell at very different prices?",
             options: [
               "One uses secret illegal materials for brand-new buyers",
@@ -3823,10 +4127,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "The cheaper one is always defective"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The gap reflects brand value, the trust, status, and emotion a name carries, not differences in the physical fabric or stitching of the shirts."
           },
           {
             id: "strategy5-deepmastery2",
+            concept: "Brand Value",
             question: "How does a brand reduce a customer's risk?",
             options: [
               "It guarantees the lowest price after enough time",
@@ -3835,10 +4141,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It bans all competing products when it is tested"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "When unsure which option is good, buyers reach for the name they trust. The brand becomes a shortcut that saves effort and lowers the risk of a bad choice."
           },
           {
             id: "strategy5-deepmastery3",
+            concept: "Brand Value",
             question: "Why does a trusted brand make launching new products easier?",
             options: [
               "New products require no testing in plain terms",
@@ -3847,10 +4155,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "New products cost nothing to make in the long run"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Existing trust transfers to new offerings, so loyal customers give them a chance. Unknown newcomers lack that head start and must earn trust from scratch."
           },
           {
             id: "strategy5-deepmastery4",
+            concept: "Brand Value",
             question: "Why is brand value considered fragile?",
             options: [
               "It lives in perception and can erode fast",
@@ -3859,10 +4169,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It cannot ever be damaged at all"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Because brand value is perception, a scandal or broken promise can erode years of trust in weeks, and rebuilding is far slower than losing it."
           },
           {
             id: "strategy5-deepmastery5",
+            concept: "Brand Value",
             question: "How can overextending a brand hurt its value?",
             options: [
               "It always increases the premium price sooner or later",
@@ -3871,10 +4183,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "It removes the need for consistency in a typical week"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Stretching a name onto many unrelated or low-quality products confuses customers and cheapens the brand, so the premium it once commanded fades."
           },
           {
             id: "strategy5-deepmastery6",
+            concept: "Brand Value",
             question: "How do the strongest brands stay valuable over time?",
             options: [
               "They never change anything at all in almost every situation",
@@ -3883,6 +4197,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "They lower quality to cut costs"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Great brands update their look and offerings to stay relevant while staying true to the core promise that earned trust, so they keep appreciating."
           }
         ]
@@ -3934,6 +4249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy6-deepmc1",
+            concept: "Sustainable Advantage",
             question: "What is an economic moat?",
             options: [
               "A short-term boost in a company's sales",
@@ -3946,6 +4262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy6-deepmc2",
+            concept: "Sustainable Advantage",
             question: "Why is a copyable new feature not a real moat?",
             options: [
               "Features are always low quality most of the time",
@@ -3973,6 +4290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy6-deepaq1",
+          concept: "Sustainable Advantage",
           question: "Which company has the more sustainable competitive advantage?",
           options: [
             "GadgetCo, because of its clever feature for regular customers",
@@ -4000,6 +4318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy6-deepmastery1",
+            concept: "Sustainable Advantage",
             question: "Why do high profits normally attract competitors?",
             options: [
               "Rivals rush in to copy and grab a share",
@@ -4008,10 +4327,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "High profits scare rivals away for the average shopper"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "When a company earns big profits, rivals pile in to grab some, which normally drives profits down. A moat is what stops them and keeps profits high."
           },
           {
             id: "strategy6-deepmastery2",
+            concept: "Sustainable Advantage",
             question: "Which is a genuine source of a durable moat?",
             options: [
               "A temporary sale price on a day-to-day basis",
@@ -4020,10 +4341,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "A feature rivals can copy fast"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Network effects strengthen as more users join, a durable barrier. Temporary prices, one-off ads, and copyable features do not last, so they are not moats."
           },
           {
             id: "strategy6-deepmastery3",
+            concept: "Sustainable Advantage",
             question: "How do you test whether an advantage is truly sustainable?",
             options: [
               "Check if it looks impressive today especially early on",
@@ -4032,10 +4355,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Count how many ads it runs in the short term"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If a well-funded competitor could copy or beat the edge within a year or two, it is only a head start. A real moat resists even determined, well-funded attacks."
           },
           {
             id: "strategy6-deepmastery4",
+            concept: "Sustainable Advantage",
             question: "What financial pattern best signals a real moat?",
             options: [
               "Shrinking margins with constant price cuts",
@@ -4044,10 +4369,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "A single great quarter of results"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Margins that stay fat year after year while rivals fail to close the gap show the moat is holding. Shrinking margins suggest the advantage is leaking away."
           },
           {
             id: "strategy6-deepmastery5",
+            concept: "Sustainable Advantage",
             question: "Why do strong companies keep reinvesting in their moat?",
             options: [
               "Regulators require yearly reinvestment with very little effort",
@@ -4056,10 +4383,12 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Reinvesting lowers their profits on purpose"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Technology shifts, new rivals, and changing tastes can weaken any moat, so wise companies reinvest to widen the gap rather than let it shrink."
           },
           {
             id: "strategy6-deepmastery6",
+            concept: "Sustainable Advantage",
             question: "Why do long-term investors hunt for durable moats?",
             options: [
               "Moats guarantee a stock never falls without much thought",
@@ -4068,6 +4397,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
               "Moats make products free to produce in a downturn"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A durable moat protects profits from competitors, letting a company compound earnings over many years, which turns a good business into a great long-term investment."
           }
         ]

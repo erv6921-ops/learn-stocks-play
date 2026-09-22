@@ -203,35 +203,9 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       }
     ]
   },
-  {
-    lessonId: "income-8",
-    questions: [
-      {
-        id: "income-8-tu1",
-        question: "A student wins a $15,000 scholarship toward a degree. Why does this improve the ROI of her education?",
-        options: [
-          "It lowers the cost side without adding debt",
-          "It must be fully repaid later with added interest",
-          "It actually raises the total tuition she owes",
-          "It only ever counts for star college athletes"
-        ],
-        correctAnswer: 0,
-        explanation: "Scholarships are money you never repay, so they shrink the investment side of the equation while the career payoff stays the same, boosting the return."
-      },
-      {
-        id: "income-8-tu2",
-        question: "Someone wants a strong income but prefers not to attend a four-year college. Which path can still build solid earning power?",
-        options: [
-          "Only a doctoral degree can raise income",
-          "Buying lottery tickets with tuition savings",
-          "Skipping all training and hoping for luck",
-          "An apprenticeship or trade school certificate"
-        ],
-        correctAnswer: 3,
-        explanation: "Trade school, apprenticeships, and certificate programs train workers like electricians and technicians who earn strong incomes, so college is one path but not the only one."
-      }
-    ]
-  },
+  // income-8 top-up pool retired with the lesson: both its questions duplicate
+  // income-11's absorbed pool - tu1 (scholarship -> ROI) matches income-11-q6,
+  // and tu2 (non-degree path) matches income-11-q4 - so neither is re-homed.
   {
     lessonId: "income-9",
     questions: [

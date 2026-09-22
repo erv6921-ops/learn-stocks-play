@@ -47,6 +47,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt1-mc1",
+            concept: "What Managers Actually Do",
             question: "A manager measures actual sales against the target and adjusts next week's plan. Which function is this?",
             options: [
               "Planning",
@@ -59,6 +60,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mgmt1-mc2",
+            concept: "What Managers Actually Do",
             question: "What is the difference between efficiency and effectiveness?",
             options: [
               "Efficiency is doing the right things; effectiveness is avoiding waste",
@@ -86,6 +88,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mgmt1-aq1",
+          concept: "What Managers Actually Do",
           question: "Marcus sees sales lag at 210 and the line moving slowly. Using the controlling function, what should he do next?",
           options: [
             "Ignore the numbers since it's only opening week",
@@ -113,6 +116,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt1-mastery1",
+            concept: "What Managers Actually Do",
             question: "Which sequence lists the four functions of management in the usual order?",
             options: [
               "Leading, controlling, planning, organizing",
@@ -121,10 +125,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Controlling, planning, organizing, leading"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The classic order is planning, organizing, leading, controlling - set goals, arrange resources, guide people, then measure and adjust."
           },
           {
             id: "mgmt1-mastery2",
+            concept: "What Managers Actually Do",
             question: "A supervisor assigns workers to stations and orders enough supplies for the shift. Which function is this?",
             options: [
               "Planning",
@@ -133,10 +139,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Leading"
             ],
             correctAnswer: 2,
+            difficulty: -1.5,
             explanation: "Organizing arranges people, tasks, and resources to carry out the plan - exactly what assigning stations and ordering supplies does."
           },
           {
             id: "mgmt1-mastery3",
+            concept: "What Managers Actually Do",
             question: "Which manager typically spends the MOST time on big-picture planning?",
             options: [
               "A shift supervisor who runs the daily floor and rarely touches strategy",
@@ -145,10 +153,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A first-line team lead coaching a small crew on their hourly tasks"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Top managers focus on long-range planning and strategy, while first-line managers spend more time leading and controlling frontline work."
           },
           {
             id: "mgmt1-mastery4",
+            concept: "What Managers Actually Do",
             question: "A factory flawlessly produces a gadget nobody wants to buy. This manager is…",
             options: [
               "Effective but not efficient",
@@ -157,10 +167,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Neither efficient nor effective"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Producing smoothly with little waste is efficient, but making the wrong product means the goal is wrong - so it is not effective."
           },
           {
             id: "mgmt1-mastery5",
+            concept: "What Managers Actually Do",
             question: "Why is controlling described as a feedback loop?",
             options: [
               "It sets the original goals for the year and then never checks them again afterward",
@@ -169,10 +181,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "It hires and fires staff members based purely on how the manager happens to feel that day"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Controlling measures actual results against the plan and loops that information back so the manager can adjust future plans."
           },
           {
             id: "mgmt1-mastery6",
+            concept: "What Managers Actually Do",
             question: "A big part of a manager's job involves scarce resources. What does this mean?",
             options: [
               "Managers always have unlimited budgets and can spend whatever they want without any tradeoffs",
@@ -181,6 +195,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Managers only handle physical equipment like machines and never worry about people or schedules"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Time, money, and staff are always limited, so managers must constantly decide what to prioritize now versus later."
           }
         ]
@@ -233,6 +248,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt2-mc1",
+            concept: "Leadership Styles",
             question: "Which leadership style involves the leader making decisions alone and directing the team?",
             options: [
               "Democratic",
@@ -245,6 +261,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mgmt2-mc2",
+            concept: "Leadership Styles",
             question: "When is a laissez-faire (hands-off) style MOST likely to work well?",
             options: [
               "With brand-new, untrained employees",
@@ -272,6 +289,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mgmt2-aq1",
+          concept: "Leadership Styles",
           question: "Why does Leah use a hands-off style with her veteran designers but a directive style with new hires during rush hour?",
           options: [
             "She likes the designers more than the new hires",
@@ -299,6 +317,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt2-mastery1",
+            concept: "Leadership Styles",
             question: "A store manager gathers staff to co-design a new service policy before deciding. Which style is this?",
             options: [
               "Autocratic",
@@ -307,10 +326,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Transactional"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Seeking team input before deciding is democratic (participative) leadership, which builds buy-in and often surfaces better ideas."
           },
           {
             id: "mgmt2-mastery2",
+            concept: "Leadership Styles",
             question: "What is the main drawback of the democratic leadership style?",
             options: [
               "It gives workers no voice at all and that always makes teams more productive",
@@ -319,10 +340,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "It always lowers team morale instantly for absolutely everyone on the crew"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Gathering input takes time, so democratic leadership is a poor fit when a decision must be made in seconds. Its strength is buy-in, not speed."
           },
           {
             id: "mgmt2-mastery3",
+            concept: "Leadership Styles",
             question: "Transformational leadership primarily motivates people by…",
             options: [
               "Offering an inspiring vision to grow toward",
@@ -331,10 +354,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Removing all rules and structure so nobody ever knows what they are supposed to do"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Transformational leaders inspire with a bigger mission and push people to grow. Reward-and-consequence motivation describes transactional leadership."
           },
           {
             id: "mgmt2-mastery4",
+            concept: "Leadership Styles",
             question: "Which situation best fits an autocratic style?",
             options: [
               "A relaxed brainstorm with senior experts",
@@ -343,10 +368,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A self-directed team of specialists who already know exactly what to do"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Autocratic leadership is fast and clear, which fits emergencies and untrained workers who need firm, immediate direction."
           },
           {
             id: "mgmt2-mastery5",
+            concept: "Leadership Styles",
             question: "What does 'situational leadership' mean?",
             options: [
               "Always using the autocratic style because giving orders is the only thing that ever works",
@@ -355,10 +382,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Leading only during a crisis and simply disappearing whenever everything is running smoothly"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Situational leadership means matching your approach to the task, deadline, and the team's skill and motivation rather than sticking to one style."
           },
           {
             id: "mgmt2-mastery6",
+            concept: "Leadership Styles",
             question: "Why can someone with a big title still fail to truly lead?",
             options: [
               "Titles automatically create followers the very moment they are printed on a badge",
@@ -367,6 +396,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Leadership requires no communication and works fine in total silence with no explanation"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Authority comes from a title, but leadership rests on trust, fairness, and communication. Without those, people won't genuinely follow."
           }
         ]
@@ -419,6 +449,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt3-mc1",
+            concept: "Organizational Structure",
             question: "What does 'span of control' measure?",
             options: [
               "The company's total yearly revenue added up across every single store location",
@@ -431,6 +462,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mgmt3-mc2",
+            concept: "Organizational Structure",
             question: "A flat organizational structure is best described as one that…",
             options: [
               "Has many layers of middle managers stacked between the boss and the workers",
@@ -458,6 +490,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mgmt3-aq1",
+          concept: "Organizational Structure",
           question: "As GreenLeaf grows to 300 people, why must it add management layers instead of staying flat?",
           options: [
             "Flat structures are illegal for big companies",
@@ -485,6 +518,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt3-mastery1",
+            concept: "Organizational Structure",
             question: "The path that authority follows from the top of a company to the frontline is called the…",
             options: [
               "Span of control",
@@ -493,10 +527,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Product line for the season"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The chain of command is the reporting path from top leadership down to frontline workers, showing who answers to whom."
           },
           {
             id: "mgmt3-mastery2",
+            concept: "Organizational Structure",
             question: "A manager oversees 18 workers directly. This is an example of a…",
             options: [
               "Narrow span of control",
@@ -505,10 +541,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Matrix department reporting structure"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Overseeing many people directly is a wide span of control - cheaper with fewer managers, but each manager is stretched thin."
           },
           {
             id: "mgmt3-mastery3",
+            concept: "Organizational Structure",
             question: "What is a key advantage of a flat organizational structure?",
             options: [
               "Very close supervision of each worker",
@@ -517,10 +555,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Managers each oversee only two people"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Flat structures have few layers, so information moves quickly and the company spends less on middle-management salaries."
           },
           {
             id: "mgmt3-mastery4",
+            concept: "Organizational Structure",
             question: "Grouping a company into 'North America,' 'Europe,' and 'Asia' divisions is departmentalization by…",
             options: [
               "Function",
@@ -529,10 +569,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Customer type"
             ],
             correctAnswer: 2,
+            difficulty: 0,
             explanation: "Splitting the company by region is geographic departmentalization, which keeps each division close to its local market."
           },
           {
             id: "mgmt3-mastery5",
+            concept: "Organizational Structure",
             question: "In a decentralized company, decisions are mainly made…",
             options: [
               "Only by the CEO at the top",
@@ -541,10 +583,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "By customers themselves voting on every operational choice each day"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Decentralization pushes authority down to local managers, speeding decisions and empowering the front lines, though it can create inconsistency."
           },
           {
             id: "mgmt3-mastery6",
+            concept: "Organizational Structure",
             question: "What is a matrix structure?",
             options: [
               "A company with no managers at all where every worker is fully on their own",
@@ -553,6 +597,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "A chart with a single straight line running from the top down to one worker"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "In a matrix structure, an employee reports to two bosses - often a functional manager and a project manager - to balance expertise with project focus."
           }
         ]
@@ -605,6 +650,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt4-mc1",
+            concept: "SWOT Analysis",
             question: "In SWOT analysis, which two categories are INTERNAL to the business?",
             options: [
               "Opportunities and Threats",
@@ -617,6 +663,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mgmt4-mc2",
+            concept: "SWOT Analysis",
             question: "A new competitor opening nearby would go in which SWOT box?",
             options: [
               "Strength",
@@ -644,6 +691,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mgmt4-aq1",
+          concept: "SWOT Analysis",
           question: "Which move best uses Tanya's SWOT - pairing a strength with an opportunity?",
           options: [
             "Close the truck because rivals exist, since any competition at all means certain failure",
@@ -671,6 +719,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt4-mastery1",
+            concept: "SWOT Analysis",
             question: "What do the letters in SWOT stand for?",
             options: [
               "Sales, Workers, Output, Targets",
@@ -679,10 +728,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Systems, Wins, Obstacles, Timing"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "SWOT stands for Strengths, Weaknesses, Opportunities, and Threats - the four boxes of the analysis."
           },
           {
             id: "mgmt4-mastery2",
+            concept: "SWOT Analysis",
             question: "A company's outdated website that turns away customers is best listed as a…",
             options: [
               "Strength",
@@ -691,10 +742,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Threat"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "An outdated website is an internal disadvantage the company can fix, so it's a Weakness rather than an external Threat."
           },
           {
             id: "mgmt4-mastery3",
+            concept: "SWOT Analysis",
             question: "A rising public interest in eco-friendly products would be a(n)…",
             options: [
               "Opportunity",
@@ -703,10 +756,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Internal control"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A helpful external trend the business could ride is an Opportunity. It comes from the outside market, not from inside the company."
           },
           {
             id: "mgmt4-mastery4",
+            concept: "SWOT Analysis",
             question: "Which quick test tells you a factor is INTERNAL?",
             options: [
               "It appears in the news often and that is the only reason it ever matters",
@@ -715,10 +770,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "It affects the whole industry but somehow never touches any single business inside it"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If you can alter a factor by changing your own business, it's internal (a Strength or Weakness). External factors come from the outside world."
           },
           {
             id: "mgmt4-mastery5",
+            concept: "SWOT Analysis",
             question: "What is the classic strategic move that a SWOT points toward?",
             options: [
               "Hide weaknesses and ignore threats",
@@ -727,10 +784,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Treat every threat as equally urgent"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A core SWOT move is using your strengths to grab opportunities while shoring up weaknesses so threats can't hurt you."
           },
           {
             id: "mgmt4-mastery6",
+            concept: "SWOT Analysis",
             question: "Why should SWOT entries be specific rather than vague?",
             options: [
               "Vague entries look more professional and always impress investors far more than details",
@@ -739,6 +798,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Vague entries score higher on tests because graders prefer answers with no real detail"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Specific, honest entries let you build a real strategy. Vague or inflated ones make the analysis useless because you can't act on them."
           }
         ]
@@ -791,6 +851,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt5-mc1",
+            concept: "Porter's Five Forces",
             question: "What does Porter's Five Forces framework primarily assess?",
             options: [
               "One company's employee morale measured by a survey handed out each spring",
@@ -803,6 +864,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mgmt5-mc2",
+            concept: "Porter's Five Forces",
             question: "Streaming services replacing movie theaters is an example of which force?",
             options: [
               "Threat of substitutes",
@@ -830,6 +892,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mgmt5-aq1",
+          concept: "Porter's Five Forces",
           question: "Given strong buyer power and intense rivalry, what strategy best fits Devin's meal-kit startup?",
           options: [
             "Copy competitors exactly to blend in, since looking identical to rivals keeps customers loyal",
@@ -857,6 +920,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt5-mastery1",
+            concept: "Porter's Five Forces",
             question: "Which of these is one of Porter's Five Forces?",
             options: [
               "Bargaining power of suppliers",
@@ -865,10 +929,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The color of the logo"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Supplier bargaining power is one of the five forces, alongside new entrants, buyer power, substitutes, and rivalry."
           },
           {
             id: "mgmt5-mastery2",
+            concept: "Porter's Five Forces",
             question: "High barriers to entry in an industry generally lead to…",
             options: [
               "More new rivals every year",
@@ -877,10 +943,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Instant price wars that crush everyone's profits fast"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "High barriers (big costs, patents, licenses) keep newcomers out, protecting the profits of firms already in the industry."
           },
           {
             id: "mgmt5-mastery3",
+            concept: "Porter's Five Forces",
             question: "A supplier is the ONLY source of a critical part. This gives the supplier…",
             options: [
               "Weak bargaining power",
@@ -889,10 +957,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Lower prices for buyers"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When only one supplier provides an essential input, it holds strong bargaining power and can raise prices, squeezing the buyer."
           },
           {
             id: "mgmt5-mastery4",
+            concept: "Porter's Five Forces",
             question: "Intense competitive rivalry in an industry usually causes…",
             options: [
               "Higher profits for everyone selling in that same crowded space",
@@ -901,10 +971,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Guaranteed monopolies handed to whichever rival shows up first"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Many firms fighting for the same customers triggers price cuts and heavy ad spending, shrinking profits across the industry."
           },
           {
             id: "mgmt5-mastery5",
+            concept: "Porter's Five Forces",
             question: "Which industry conditions make an industry MOST attractive to enter?",
             options: [
               "All five forces are strong",
@@ -913,10 +985,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Powerful buyers and fierce rivalry"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Weak forces - high barriers, weak suppliers and buyers, few substitutes, mild rivalry - leave more profit available, making an industry attractive."
           },
           {
             id: "mgmt5-mastery6",
+            concept: "Porter's Five Forces",
             question: "If buyer power is hurting a company, a good strategic response is to…",
             options: [
               "Make the product identical to rivals",
@@ -925,6 +999,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Stop advertising completely and hope buyers still remember you"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Differentiating the product makes it harder for buyers to switch to a rival, which reduces their bargaining power over the company."
           }
         ]
@@ -977,6 +1052,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt6-mc1",
+            concept: "KPIs & Measuring Performance",
             question: "What does the 'M' in a SMART goal stand for?",
             options: [
               "Motivating",
@@ -989,6 +1065,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mgmt6-mc2",
+            concept: "KPIs & Measuring Performance",
             question: "Which best describes a leading indicator?",
             options: [
               "A number that reports last year's profit",
@@ -1016,6 +1093,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mgmt6-aq1",
+          concept: "KPIs & Measuring Performance",
           question: "Why was 'downloads' a poor KPI for Nadia's revenue goal?",
           options: [
             "Downloads are impossible to measure with any modern tracking tool at all",
@@ -1043,6 +1121,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt6-mastery1",
+            concept: "KPIs & Measuring Performance",
             question: "What is a KPI?",
             options: [
               "A tax form for businesses that must be filed with the government each spring",
@@ -1051,10 +1130,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A brand's logo design featuring the colors and shapes people see on the package"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A Key Performance Indicator is a specific, important metric a business tracks to see whether it's reaching its goals."
           },
           {
             id: "mgmt6-mastery2",
+            concept: "KPIs & Measuring Performance",
             question: "Which goal is written in the SMART format?",
             options: [
               "Sell way more stuff soon without ever saying how much or when",
@@ -1063,10 +1144,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Make customers happier somehow with no number or deadline attached"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "'Gain 200 new customers by June' is Specific, Measurable, and Time-bound. The others are vague with no clear target or deadline."
           },
           {
             id: "mgmt6-mastery3",
+            concept: "KPIs & Measuring Performance",
             question: "A 'vanity metric' is one that…",
             options: [
               "Looks impressive but doesn't drive real results",
@@ -1075,10 +1158,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Measures factory defect rates on the assembly line during each production shift"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Vanity metrics (like social media likes) feel good but don't connect to real business goals, so they mislead rather than guide."
           },
           {
             id: "mgmt6-mastery4",
+            concept: "KPIs & Measuring Performance",
             question: "Last quarter's total revenue is an example of a…",
             options: [
               "Leading indicator",
@@ -1087,10 +1172,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Vanity metric"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Revenue that's already happened is a lagging indicator - it reports the past. Leading indicators predict what's coming next."
           },
           {
             id: "mgmt6-mastery5",
+            concept: "KPIs & Measuring Performance",
             question: "KPIs most directly support which management function?",
             options: [
               "Organizing",
@@ -1099,10 +1186,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Advertising"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "KPIs feed the controlling function: you measure results against targets and adjust the plan when there's a gap."
           },
           {
             id: "mgmt6-mastery6",
+            concept: "KPIs & Measuring Performance",
             question: "Why is it risky to reward employees on a single KPI like call speed?",
             options: [
               "Single metrics are illegal and any company tracking just one number can be fined heavily",
@@ -1111,6 +1200,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "It always raises customer satisfaction no matter what else happens to the product or service"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "When one number is all that matters, people optimize it at the expense of the true goal - rushing customers to boost speed while quality suffers. Balancing metrics prevents this."
           }
         ]
@@ -1163,6 +1253,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt7-mc1",
+            concept: "Human Resources & Hiring",
             question: "What is the purpose of onboarding?",
             options: [
               "To advertise an open job to the public by posting it on boards and websites everywhere",
@@ -1175,6 +1266,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mgmt7-mc2",
+            concept: "Human Resources & Hiring",
             question: "Roughly how much can it cost to replace an employee?",
             options: [
               "About $10 total, which barely covers a single new name badge",
@@ -1202,6 +1294,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mgmt7-aq1",
+          concept: "Human Resources & Hiring",
           question: "Why might paying workers a bit more actually SAVE Bright Star money?",
           options: [
             "Higher pay is required by every state law",
@@ -1229,6 +1322,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt7-mastery1",
+            concept: "Human Resources & Hiring",
             question: "What is recruitment in HR?",
             options: [
               "Firing low performers who repeatedly miss their targets over many months",
@@ -1237,10 +1331,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Designing the company logo with colors and shapes that customers will recognize instantly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Recruitment is the process of attracting qualified candidates to apply for an open role, filling the funnel before selection narrows it."
           },
           {
             id: "mgmt7-mastery2",
+            concept: "Human Resources & Hiring",
             question: "Which interview approach best predicts future performance?",
             options: [
               "Asking about real past behavior",
@@ -1249,10 +1345,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Skipping the interview entirely and hiring the very first person who applies"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Behavior-based questions about how someone actually handled past situations predict future performance better than hypotheticals or first impressions."
           },
           {
             id: "mgmt7-mastery3",
+            concept: "Human Resources & Hiring",
             question: "In the U.S., hiring decisions may NOT legally be based on…",
             options: [
               "A candidate's job-related skills proven through a fair, standardized test",
@@ -1261,10 +1359,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Results of a fair skills test"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "It's illegal to discriminate by race, religion, sex, age, national origin, or disability. Decisions must be job-related and fair to all applicants."
           },
           {
             id: "mgmt7-mastery4",
+            concept: "Human Resources & Hiring",
             question: "What does 'retention' mean in HR?",
             options: [
               "Recruiting brand-new candidates by posting the open role on job boards everywhere",
@@ -1273,10 +1373,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Auditing the company's finances line by line to catch any accounting mistakes"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Retention is keeping valued employees on the team, which avoids the high cost of turnover and preserves experience."
           },
           {
             id: "mgmt7-mastery5",
+            concept: "Human Resources & Hiring",
             question: "Why does a bad hire often cost more than a slow hire?",
             options: [
               "Bad hires are always paid double",
@@ -1285,10 +1387,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Bad hires never affect the team"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A bad hire may drag down the team and be let go, forcing the whole expensive recruiting and training process to start over."
           },
           {
             id: "mgmt7-mastery6",
+            concept: "Human Resources & Hiring",
             question: "Compensation in HR refers to…",
             options: [
               "Only a worker's base salary before any bonuses, benefits, or extras are counted",
@@ -1297,6 +1401,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "A firm's total tax payment sent to the government at the close of each year"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Compensation is the full package - wages or salary plus benefits such as health insurance, retirement contributions, and paid time off."
           }
         ]
@@ -1349,6 +1454,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt8-mc1",
+            concept: "Ethics in Business Decision-Making",
             question: "According to stakeholder theory, which group is a stakeholder but NOT a shareholder?",
             options: [
               "A person who owns company stock bought on the public exchange last year",
@@ -1361,6 +1467,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mgmt8-mc2",
+            concept: "Ethics in Business Decision-Making",
             question: "What is 'reputational risk'?",
             options: [
               "The chance a product sells out too fast and leaves the store shelves empty",
@@ -1388,6 +1495,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mgmt8-aq1",
+          concept: "Ethics in Business Decision-Making",
           question: "Why should Priya reject the ingredient-swap shortcut despite the short-term profit?",
           options: [
             "Short-term profit never matters at all, so companies should always ignore this quarter's earnings",
@@ -1415,6 +1523,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mgmt8-mastery1",
+            concept: "Ethics in Business Decision-Making",
             question: "Stakeholder theory argues that a business should…",
             options: [
               "Serve only its shareholders' profit and treat every other group as unimportant",
@@ -1423,10 +1532,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Focus solely on this quarter's numbers and never think about next year at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Stakeholder theory holds that lasting success comes from balancing the interests of everyone the business affects, not just enriching shareholders."
           },
           {
             id: "mgmt8-mastery2",
+            concept: "Ethics in Business Decision-Making",
             question: "Which is an example of a stakeholder who is not a shareholder?",
             options: [
               "The local community near a factory",
@@ -1435,10 +1546,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A part-owner of the firm hoping the share price rises"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The surrounding community is affected by the business and is thus a stakeholder, even though it owns no shares."
           },
           {
             id: "mgmt8-mastery3",
+            concept: "Ethics in Business Decision-Making",
             question: "Why is reputational risk so serious for a company?",
             options: [
               "Reputations are easy to rebuild quickly, so a scandal blows over within a day or two",
@@ -1447,10 +1560,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "It has no effect on sales whatsoever, because shoppers never pay attention to a company's behavior"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Trust takes years to build and can vanish overnight; once lost, customers, employees, and investors leave and are very hard to win back."
           },
           {
             id: "mgmt8-mastery4",
+            concept: "Ethics in Business Decision-Making",
             question: "A decision that boosts this quarter's profit but risks huge fines later shows the tension between…",
             options: [
               "Short-term gain and long-term harm",
@@ -1459,10 +1574,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Only the suppliers and the shareholders, while everyone else is left entirely out"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "This is the classic short-term versus long-term conflict: a quick win can plant a costly long-term disaster like fines or lost trust."
           },
           {
             id: "mgmt8-mastery5",
+            concept: "Ethics in Business Decision-Making",
             question: "What is the 'front-page test' for an ethical decision?",
             options: [
               "Would this decision earn the company the very most profit possible this quarter?",
@@ -1471,10 +1588,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Does this decision please the shareholders who own the biggest blocks of stock?"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The front-page test asks whether you'd be comfortable seeing the decision reported publicly. If not, that's a red flag it may be unethical."
           },
           {
             id: "mgmt8-mastery6",
+            concept: "Ethics in Business Decision-Making",
             question: "Companies with strong ethical cultures tend to…",
             options: [
               "Lose customers and talent quickly no matter how well the company behaves",
@@ -1483,6 +1602,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Always earn less money forever, since acting ethically supposedly guarantees lower profits"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Strong ethics builds durable trust, helping firms attract better employees, retain loyal customers, and weather crises - so doing right supports doing well."
           }
         ]
@@ -1535,6 +1655,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt1-mc1",
+            concept: "What Marketing Actually Is",
             question: "How does marketing relate to advertising?",
             options: [
               "They are exactly the same thing and the two words can always be swapped freely",
@@ -1547,6 +1668,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mkt1-mc2",
+            concept: "What Marketing Actually Is",
             question: "In marketing, what is 'value'?",
             options: [
               "The exact factory cost of a product measured down to the last raw material",
@@ -1574,6 +1696,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mkt1-aq1",
+          concept: "What Marketing Actually Is",
           question: "What should Zoe do BEFORE spending heavily on advertising?",
           options: [
             "Nothing at all, because running a few flashy ads alone will guarantee instant success",
@@ -1601,6 +1724,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt1-mastery1",
+            concept: "What Marketing Actually Is",
             question: "Which best defines marketing?",
             options: [
               "Only the ads a company airs on TV",
@@ -1609,10 +1733,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Firing and hiring employees to keep the staff roster fully stocked"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Marketing is the full process of creating value for customers and communicating that value - advertising is only one part of it."
           },
           {
             id: "mkt1-mastery2",
+            concept: "What Marketing Actually Is",
             question: "What is the difference between a need and a want?",
             options: [
               "A need is basic; a want is a specific form of it",
@@ -1621,10 +1747,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Needs apply only to luxury goods that shoppers buy purely for fun and status"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A need is a basic requirement (like transportation); a want is a specific, culture-shaped way of meeting it (like a particular car brand)."
           },
           {
             id: "mkt1-mastery3",
+            concept: "What Marketing Actually Is",
             question: "The 'marketing concept' says a business should…",
             options: [
               "Make anything and push hard to sell it",
@@ -1633,10 +1761,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Focus only on lowering prices and never think about quality or what buyers want"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The marketing concept means understanding customer wants and delivering them better than rivals, rather than forcing sales of whatever you happen to make."
           },
           {
             id: "mkt1-mastery4",
+            concept: "What Marketing Actually Is",
             question: "For an exchange to happen, a customer must have awareness, understand the benefits, and…",
             options: [
               "Distrust the company and its every claim",
@@ -1645,10 +1775,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Pay far above value and feel cheated afterward"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Exchange requires awareness, clear benefits, and trust that the value is fair. If any is missing, the sale won't happen."
           },
           {
             id: "mkt1-mastery5",
+            concept: "What Marketing Actually Is",
             question: "Why does a great ad for a bad product often fail?",
             options: [
               "Ads make good products worse simply by mentioning them out loud to shoppers",
@@ -1657,10 +1789,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Good ads can't reach anyone no matter how much money is spent to run them"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Marketing builds lasting relationships. A slick ad may draw a first sale, but a bad product leaves customers unhappy, so they don't return or recommend it."
           },
           {
             id: "mkt1-mastery6",
+            concept: "What Marketing Actually Is",
             question: "Marketing applies to which of the following?",
             options: [
               "Only physical products for sale that you can hold in your hands",
@@ -1669,6 +1803,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Only television commercials aired during expensive prime-time evening slots"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The same logic - understand your audience, create value, communicate it honestly - applies to nonprofits, personal brands, and ideas, not just products."
           }
         ]
@@ -1721,6 +1856,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt2-mc1",
+            concept: "Understanding Your Customer",
             question: "What is a target market?",
             options: [
               "Every single person on earth, no matter their age, taste, or budget at all",
@@ -1733,6 +1869,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mkt2-mc2",
+            concept: "Understanding Your Customer",
             question: "Which is a psychographic trait rather than a demographic one?",
             options: [
               "A customer's age counted in years since birth",
@@ -1760,6 +1897,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mkt2-aq1",
+          concept: "Understanding Your Customer",
           question: "Why will defining a target market likely help Andre more than selling to 'everyone'?",
           options: [
             "Targeting is required by advertising law, and skipping it can get a company fined",
@@ -1787,6 +1925,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt2-mastery1",
+            concept: "Understanding Your Customer",
             question: "Why is trying to sell to 'everyone' usually a mistake?",
             options: [
               "It appeals strongly to no one and wastes budget",
@@ -1795,10 +1934,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Everyone dislikes new products, so no one ever buys anything the first week it launches"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A message aimed at everyone connects with no one and spreads limited money too thin. Targeting a specific group focuses both message and budget."
           },
           {
             id: "mkt2-mastery2",
+            concept: "Understanding Your Customer",
             question: "What is market segmentation?",
             options: [
               "Raising prices for all customers at once across every single product line",
@@ -1807,10 +1948,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Removing a product from sale and pulling it off every store shelf everywhere"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Segmentation splits a large market into smaller groups that share traits, so a business can choose which segment to target."
           },
           {
             id: "mkt2-mastery3",
+            concept: "Understanding Your Customer",
             question: "Which of these is a demographic trait?",
             options: [
               "A customer's core values",
@@ -1819,10 +1962,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A customer's attitudes and personal opinions"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Income is a measurable demographic fact. Values, hobbies, and attitudes are psychographic - they describe why people buy."
           },
           {
             id: "mkt2-mastery4",
+            concept: "Understanding Your Customer",
             question: "A buyer persona is best described as…",
             options: [
               "A company's yearly sales report showing every dollar earned in the past year",
@@ -1831,10 +1976,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A list of all competitors selling similar goods in the same busy market"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A buyer persona is a semi-fictional, detailed picture of your ideal customer - name, habits, worries - that guides product and message decisions."
           },
           {
             id: "mkt2-mastery5",
+            concept: "Understanding Your Customer",
             question: "The idea that 'people buy solutions, not products' means marketers should focus on…",
             options: [
               "The customer's problem or pain point",
@@ -1843,10 +1990,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The color of the packaging only"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Customers buy to solve a problem. Understanding their pain point lets marketers frame the product as the solution they actually want."
           },
           {
             id: "mkt2-mastery6",
+            concept: "Understanding Your Customer",
             question: "How does knowing your customer save advertising money?",
             options: [
               "It makes ads completely free of charge for the entire company forever",
@@ -1855,6 +2004,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "It guarantees zero competition in the whole market"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Knowing your customer tells you which channels they use, so you spend on ads that reach them instead of wasting money on the wrong crowd."
           }
         ]
@@ -1907,6 +2057,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt3-mc1",
+            concept: "Market Research",
             question: "What is the difference between primary and secondary research?",
             options: [
               "Primary is data you collect yourself; secondary already exists",
@@ -1919,6 +2070,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mkt3-mc2",
+            concept: "Market Research",
             question: "Why is surveying only your friends about your product a problem?",
             options: [
               "Friends charge too much money to fill out even a short and simple survey",
@@ -1946,6 +2098,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mkt3-aq1",
+          concept: "Market Research",
           question: "Why does Bianca avoid asking 'Isn't this scent amazing?' in her survey?",
           options: [
             "Long questions are banned in surveys by a strict rule that regulators enforce everywhere",
@@ -1973,6 +2126,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt3-mastery1",
+            concept: "Market Research",
             question: "What is the main purpose of market research?",
             options: [
               "To guarantee a product succeeds with absolutely no chance of it ever failing",
@@ -1981,10 +2135,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "To raise prices automatically the moment any survey is finished and turned in"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Research gathers evidence about customers and markets so decisions rest on facts rather than hunches, reducing the risk of an expensive failure."
           },
           {
             id: "mkt3-mastery2",
+            concept: "Market Research",
             question: "Reading a free government industry report is an example of…",
             options: [
               "Primary research",
@@ -1993,10 +2149,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "An observation study"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Using existing data that someone else already gathered - like a government report - is secondary research."
           },
           {
             id: "mkt3-mastery3",
+            concept: "Market Research",
             question: "Which tool is best for gathering broad, comparable numbers cheaply?",
             options: [
               "A one-on-one interview",
@@ -2005,10 +2163,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A private journal"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Surveys reach many people cheaply and produce numbers you can compare. Interviews and focus groups give depth but reach fewer people."
           },
           {
             id: "mkt3-mastery4",
+            concept: "Market Research",
             question: "Why does a research sample need to represent the target market?",
             options: [
               "So the results actually predict real behavior",
@@ -2017,10 +2177,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "So friends feel included and nobody in your close circle is ever left out of it"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "If the sample reflects the true target market, its results predict how the wider market will behave. An unrepresentative sample gives misleading conclusions."
           },
           {
             id: "mkt3-mastery5",
+            concept: "Market Research",
             question: "Which is an example of a leading question?",
             options: [
               "How would you rate this product on a simple scale from one to ten?",
@@ -2029,10 +2191,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "How often do you usually shop here in a typical month of the year?"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "'Don't you agree our product is amazing?' pushes people toward a yes, biasing the data. Neutral wording yields honest answers."
           },
           {
             id: "mkt3-mastery6",
+            concept: "Market Research",
             question: "Why can observing behavior beat simply asking people what they'll do?",
             options: [
               "Observation is always cheaper than every other kind of research a company could run",
@@ -2041,6 +2205,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Behavior can't be measured by any camera, sensor, or tracking tool that exists in the world today"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "People often say one thing and do another - claiming they'd pay more, then buying cheap. Watching real behavior reveals the truth surveys can miss."
           }
         ]
@@ -2093,6 +2258,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt4-mc1",
+            concept: "The 4 Ps: Product & Price",
             question: "What are the 4 Ps of the marketing mix?",
             options: [
               "Product, Price, Place, Promotion",
@@ -2105,6 +2271,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mkt4-mc2",
+            concept: "The 4 Ps: Product & Price",
             question: "Value-based pricing sets the price based on…",
             options: [
               "Only the cost to make the product, counting nothing else at all beyond it",
@@ -2132,6 +2299,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mkt4-aq1",
+          concept: "The 4 Ps: Product & Price",
           question: "Why might value-based pricing earn Leo more than cost-plus pricing?",
           options: [
             "It ignores what customers think entirely and never once looks at the value they receive",
@@ -2159,6 +2327,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt4-mastery1",
+            concept: "The 4 Ps: Product & Price",
             question: "Which is NOT one of the 4 Ps?",
             options: [
               "Product",
@@ -2167,10 +2336,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Promotion"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The 4 Ps are Product, Price, Place, and Promotion. Profit is a result of the marketing mix, not one of the Ps."
           },
           {
             id: "mkt4-mastery2",
+            concept: "The 4 Ps: Product & Price",
             question: "What does product differentiation help a business avoid?",
             options: [
               "Competing on price alone",
@@ -2179,10 +2350,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Owning a well-known and trusted brand"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Differentiation makes a product stand out, so it doesn't have to compete purely on the lowest price, which protects profit."
           },
           {
             id: "mkt4-mastery3",
+            concept: "The 4 Ps: Product & Price",
             question: "Cost-plus pricing works by…",
             options: [
               "Charging exactly what rivals charge and copying their price to the last penny",
@@ -2191,10 +2364,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Setting the price at zero and giving the whole product away for free forever"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Cost-plus pricing adds a set markup to what the product costs to make. It's simple but ignores what customers are actually willing to pay."
           },
           {
             id: "mkt4-mastery4",
+            concept: "The 4 Ps: Product & Price",
             question: "Launching a product cheap to grab market share fast, then raising the price, is called…",
             options: [
               "Price skimming",
@@ -2203,10 +2378,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Value-based pricing"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Penetration pricing enters low to win market share quickly, then raises prices later. Skimming does the reverse - high at launch, then lower."
           },
           {
             id: "mkt4-mastery5",
+            concept: "The 4 Ps: Product & Price",
             question: "Why is price called the only P that generates revenue?",
             options: [
               "The other three Ps are illegal and no company is ever allowed to use them",
@@ -2215,10 +2392,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The other Ps never matter at all and can be safely ignored by any smart marketer"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Product, place, and promotion are expenses; only price brings money in. That's why it's uniquely powerful in the marketing mix."
           },
           {
             id: "mkt4-mastery6",
+            concept: "The 4 Ps: Product & Price",
             question: "During the 'maturity' stage of the product life cycle, sales typically…",
             options: [
               "Peak amid fierce competition",
@@ -2227,6 +2406,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Are unaffected by rivals"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "At maturity, sales peak and competition is intense, so marketing shifts toward defending market share rather than building awareness."
           }
         ]
@@ -2279,6 +2459,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt5-mc1",
+            concept: "The 4 Ps: Place & Promotion",
             question: "In the marketing mix, 'Place' mainly refers to…",
             options: [
               "The color of the packaging chosen to catch a shopper's eye on the shelf",
@@ -2291,6 +2472,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mkt5-mc2",
+            concept: "The 4 Ps: Place & Promotion",
             question: "What is the difference between organic and paid marketing?",
             options: [
               "Organic earns attention for free; paid buys attention",
@@ -2318,6 +2500,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mkt5-aq1",
+          concept: "The 4 Ps: Place & Promotion",
           question: "With a tight budget, why might Maya start with organic marketing before paid ads?",
           options: [
             "Organic marketing is guaranteed to go viral and always reaches millions overnight for free",
@@ -2345,6 +2528,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt5-mastery1",
+            concept: "The 4 Ps: Place & Promotion",
             question: "A distribution channel is…",
             options: [
               "A TV station that airs ads during the most expensive evening time slots",
@@ -2353,10 +2537,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A type of coupon handed out at the register to save shoppers a little money"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A distribution channel is the route a product takes from maker to customer, whether direct or through wholesalers and retailers."
           },
           {
             id: "mkt5-mastery2",
+            concept: "The 4 Ps: Place & Promotion",
             question: "Selling through wholesalers and retailers instead of straight to customers is…",
             options: [
               "Direct distribution",
@@ -2365,10 +2551,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Organic promotion"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Using middlemen like wholesalers and retailers is indirect distribution - it adds reach but each intermediary takes a cut of the profit."
           },
           {
             id: "mkt5-mastery3",
+            concept: "The 4 Ps: Place & Promotion",
             question: "A luxury watch sold in only a few boutiques uses which distribution intensity?",
             options: [
               "Intensive distribution",
@@ -2377,10 +2565,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Direct-to-everyone distribution"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Exclusive distribution sells through very few outlets to create prestige and scarcity, which fits a luxury product."
           },
           {
             id: "mkt5-mastery4",
+            concept: "The 4 Ps: Place & Promotion",
             question: "Which is part of the promotional mix?",
             options: [
               "Large regional distribution warehouses and depots",
@@ -2389,10 +2579,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The product's raw materials"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The promotional mix includes advertising, PR, sales promotions (like coupons), personal selling, and direct marketing - all ways of communicating with customers."
           },
           {
             id: "mkt5-mastery5",
+            concept: "The 4 Ps: Place & Promotion",
             question: "A key drawback of paid marketing compared to organic is that…",
             options: [
               "It reaches no one at all",
@@ -2401,10 +2593,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "It builds deep trust instantly and keeps it forever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Paid marketing is fast but attention disappears the moment you stop spending. Organic builds more slowly but keeps working without ongoing cost."
           },
           {
             id: "mkt5-mastery6",
+            concept: "The 4 Ps: Place & Promotion",
             question: "The 'golden rule' of promotion is to reach…",
             options: [
               "As many random people as possible, whether or not they could ever want the product",
@@ -2413,6 +2607,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "People who never buy anything, because reaching non-buyers is somehow the smartest move"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Effective promotion targets the right audience with the right message on the channel they use - which is why knowing your customer matters so much."
           }
         ]
@@ -2465,6 +2660,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt6-mc1",
+            concept: "Branding",
             question: "What is a brand, most accurately?",
             options: [
               "Just a company's logo and colors printed on the sign above the front door",
@@ -2477,6 +2673,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mkt6-mc2",
+            concept: "Branding",
             question: "What is 'brand equity'?",
             options: [
               "The cost of printing a logo onto the package, the sign, and the shopping bags",
@@ -2504,6 +2701,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mkt6-aq1",
+          concept: "Branding",
           question: "Why does Priya pay more for the familiar coffee brand?",
           options: [
             "Familiar brands are always cheaper than every unknown brand on the very same shelf",
@@ -2531,6 +2729,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt6-mastery1",
+            concept: "Branding",
             question: "Where does a brand truly 'live'?",
             options: [
               "Only on the product's packaging where the logo is printed in bright colors",
@@ -2539,10 +2738,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "In the factory warehouse stacked on shelves right beside the finished products"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A brand lives in customers' minds as the impression and feelings they hold. Logos and packaging are just visible signals of it."
           },
           {
             id: "mkt6-mastery2",
+            concept: "Branding",
             question: "What is 'brand voice'?",
             options: [
               "The sheer volume of a company's ads counted across TV, radio, and every website",
@@ -2551,10 +2752,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The price of the product as it appears printed on the tag at the checkout counter"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Brand voice is the consistent personality - playful, expert, warm - that a brand shows in its words and visuals across all channels."
           },
           {
             id: "mkt6-mastery3",
+            concept: "Branding",
             question: "Why is consistency important for a brand?",
             options: [
               "It makes the brand feel trustworthy and real",
@@ -2563,10 +2766,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "It confuses customers on purpose so they can never tell one brand from another"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A consistent brand feels like the same familiar 'person' everywhere, which builds trust. Inconsistency makes a brand feel fake and confusing."
           },
           {
             id: "mkt6-mastery4",
+            concept: "Branding",
             question: "High brand equity allows a company to…",
             options: [
               "Charge more and launch new products easily",
@@ -2575,10 +2780,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Never advertise again forever and trust that sales will keep climbing anyway"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Strong brand equity lets a company command higher prices, launch new products on existing trust, and recover from mistakes more easily."
           },
           {
             id: "mkt6-mastery5",
+            concept: "Branding",
             question: "What happens when a brand's promise doesn't match its actual product?",
             options: [
               "Trust and brand equity collapse over time",
@@ -2587,10 +2794,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Prices are forced to rise by a strict law whenever a brand disappoints its buyers"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Branding can't mask a bad product for long. When the promise and reality don't match, trust erodes and brand equity is destroyed."
           },
           {
             id: "mkt6-mastery6",
+            concept: "Branding",
             question: "Why are loyal customers so valuable to a brand?",
             options: [
               "They demand constant discounts and refuse to ever pay the full price again",
@@ -2599,6 +2808,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "They cost far more than new customers to keep happy and loyal over the years"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Loyal customers return again and again, spend more over time, and act as free advocates who bring in new buyers through word of mouth."
           }
         ]
@@ -2651,6 +2861,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt7-mc1",
+            concept: "Consumer Decision-Making",
             question: "Which is the usual order of the buyer journey?",
             options: [
               "Decision, awareness, loyalty, consideration",
@@ -2663,6 +2874,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mkt7-mc2",
+            concept: "Consumer Decision-Making",
             question: "What is 'social proof' in buying decisions?",
             options: [
               "A printed receipt proving you already paid the full amount at the register",
@@ -2690,6 +2902,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mkt7-aq1",
+          concept: "Consumer Decision-Making",
           question: "Why do the thousands of positive reviews strongly influence Tariq's decision?",
           options: [
             "Reviews set the legal price of headphones, and a store may never charge a cent more than they say",
@@ -2717,6 +2930,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt7-mastery1",
+            concept: "Consumer Decision-Making",
             question: "What kicks off the buyer journey?",
             options: [
               "The final purchase itself, made at the very last step of the whole journey",
@@ -2725,10 +2939,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Receiving a loyalty reward that arrives only after many repeat purchases over time"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The journey begins with problem recognition: the customer senses a gap between where they are and where they want to be."
           },
           {
             id: "mkt7-mastery2",
+            concept: "Consumer Decision-Making",
             question: "During the 'consideration' stage, a customer is mainly…",
             options: [
               "Unaware any product exists",
@@ -2737,10 +2953,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Returning the product for a refund"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "In consideration, the buyer researches, reads reviews, and compares choices before deciding. Awareness comes before; decision comes after."
           },
           {
             id: "mkt7-mastery3",
+            concept: "Consumer Decision-Making",
             question: "The strongest marketing often connects a practical benefit to…",
             options: [
               "An emotional benefit",
@@ -2749,10 +2967,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A confusing checkout"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Great marketing links the rational benefit (saves time) to an emotional one (be present with family), appealing to both sides of the buyer."
           },
           {
             id: "mkt7-mastery4",
+            concept: "Consumer Decision-Making",
             question: "A 'bestseller' label works because it provides…",
             options: [
               "Social proof that others chose it",
@@ -2761,10 +2981,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Free shipping every time on every order with no minimum spend"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A 'bestseller' label is social proof - it signals that many others chose the product, making it feel like a safer choice."
           },
           {
             id: "mkt7-mastery5",
+            concept: "Consumer Decision-Making",
             question: "Why is the post-purchase stage so important?",
             options: [
               "It has no effect on the customer",
@@ -2773,10 +2995,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "It only matters for the first sale"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "After buying, satisfaction decides whether customers return and recommend. Since keeping a customer is cheaper than winning one, this stage is crucial."
           },
           {
             id: "mkt7-mastery6",
+            concept: "Consumer Decision-Making",
             question: "A 'reference group' influences buying because people tend to…",
             options: [
               "Avoid buying anything popular and always pick the item nobody else owns",
@@ -2785,6 +3009,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Only trust random strangers online while dismissing their own close friends entirely"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Reference groups are the people we identify with; we're drawn to buy what people 'like us' buy, which marketers use to target communities."
           }
         ]
@@ -2837,6 +3062,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt8-mc1",
+            concept: "Testing Your Ideas",
             question: "What is an MVP (Minimum Viable Product)?",
             options: [
               "The most expensive version of a product",
@@ -2849,6 +3075,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "mkt8-mc2",
+            concept: "Testing Your Ideas",
             question: "In A/B testing, how is the winning version decided?",
             options: [
               "By the boss's personal opinion, decided alone without asking a single real user",
@@ -2876,6 +3103,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mkt8-aq1",
+          concept: "Testing Your Ideas",
           question: "Why does Nia change ONLY the price between her two A/B test pages?",
           options: [
             "To make the test take much longer than it truly needs to take at all",
@@ -2903,6 +3131,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "mkt8-mastery1",
+            concept: "Testing Your Ideas",
             question: "Which is a well-formed, testable hypothesis?",
             options: [
               "People will love my app someday, though I can't say who, why, or when",
@@ -2911,10 +3140,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Everyone everywhere wants this, from little kids to grandparents, in every country on earth"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A good hypothesis is specific and testable with real data. 'Students will pay $5/month...' can be proven right or wrong; the others are vague."
           },
           {
             id: "mkt8-mastery2",
+            concept: "Testing Your Ideas",
             question: "The main purpose of building an MVP is to…",
             options: [
               "Impress investors with polish and a flashy design before a single user tries it",
@@ -2923,10 +3154,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Avoid ever talking to customers and simply guess what they might want on your own"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "An MVP tests the core assumption - will anyone pay? - cheaply and fast, before investing heavily in building and scaling the full product."
           },
           {
             id: "mkt8-mastery3",
+            concept: "Testing Your Ideas",
             question: "What does it mean to 'iterate' on a product?",
             options: [
               "Build it once and never change it, no matter what any customer says afterward",
@@ -2935,10 +3168,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Ignore all customer feedback and trust your own gut about what people secretly want"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Iterating means repeatedly testing, learning from real feedback, improving, and testing again - steadily converging on what customers value."
           },
           {
             id: "mkt8-mastery4",
+            concept: "Testing Your Ideas",
             question: "Why should you change only one variable in an A/B test?",
             options: [
               "To make the test more confusing so nobody can figure out what actually happened",
@@ -2947,10 +3182,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "To avoid getting any useful data at all from the customers who try each version"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Isolating one variable keeps the test clean. If you change many things at once, you can't tell which one caused the difference in results."
           },
           {
             id: "mkt8-mastery5",
+            concept: "Testing Your Ideas",
             question: "Why can a test on just five people be misleading?",
             options: [
               "Five is an illegal sample size that regulators have officially banned for any test",
@@ -2959,10 +3196,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Tests need exactly one person and adding anyone else somehow ruins the entire result"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A very small sample can be thrown off by random luck. A larger, representative sample gives results you can actually trust."
           },
           {
             id: "mkt8-mastery6",
+            concept: "Testing Your Ideas",
             question: "The core mindset behind testing ideas is to…",
             options: [
               "Defend your first idea no matter what, brushing off every doubt that anyone ever raises",
@@ -2971,6 +3210,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Launch big without any evidence and pour your whole budget into an untested, unproven idea"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Testing means treating your first idea as a guess to be tested, not a truth to defend - letting evidence, not ego, guide what you build."
           }
         ]
@@ -3023,6 +3263,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics1-mc1",
+            concept: "What is Business Ethics",
             question: "How do business ethics differ from the law?",
             options: [
               "Ethics and law are exactly the same, so anything legal is automatically the right thing",
@@ -3035,6 +3276,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "ethics1-mc2",
+            concept: "What is Business Ethics",
             question: "Which statement is true about legality and ethics?",
             options: [
               "If it's legal, it must be ethical, since the law already settles every moral question",
@@ -3062,6 +3304,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ethics1-aq1",
+          concept: "What is Business Ethics",
           question: "Why is Ravi's fine-print auto-renewal plan unethical even if it's legal?",
           options: [
             "Because all subscriptions are illegal",
@@ -3089,6 +3332,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics1-mastery1",
+            concept: "What is Business Ethics",
             question: "Business ethics is best described as…",
             options: [
               "The bare minimum that the law strictly requires and nothing more than that",
@@ -3097,10 +3341,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The narrow set of rules that govern advertising and nothing else in the business"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Business ethics is the set of moral principles guiding how a company behaves - what it should do, beyond the legal minimum."
           },
           {
             id: "ethics1-mastery2",
+            concept: "What is Business Ethics",
             question: "The law relative to ethics is best thought of as…",
             options: [
               "The highest possible standard anyone could ever aim to reach",
@@ -3109,10 +3355,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Far stricter than any ethical standard a company might hold itself to"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The law sets a minimum floor of required behavior. Ethics reaches higher, into the gray areas the law doesn't cover."
           },
           {
             id: "ethics1-mastery3",
+            concept: "What is Business Ethics",
             question: "Why is 'we didn't break any law' a weak defense for a business?",
             options: [
               "Laws never apply to companies and only bind private individuals in their daily lives",
@@ -3121,10 +3369,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Ethics requires ignoring the law completely and doing whatever feels convenient at the time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Staying legal isn't enough - many harmful acts are legal. Ethical firms ask if a choice is fair and honest, not just whether they can get away with it."
           },
           {
             id: "ethics1-mastery4",
+            concept: "What is Business Ethics",
             question: "A 'slippery slope' in ethics refers to…",
             options: [
               "A wet office floor hazard that could make an employee slip",
@@ -3133,10 +3383,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A law that changes every year and must be re-learned each time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The slippery slope is when small ethical compromises under pressure gradually snowball into serious ethical failures."
           },
           {
             id: "ethics1-mastery5",
+            concept: "What is Business Ethics",
             question: "What is a 'code of conduct'?",
             options: [
               "A secret pricing formula kept locked away from rivals",
@@ -3145,10 +3397,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A competitor's flashy ad campaign running on TV this season"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A code of conduct is a written set of behavioral standards that guides employees before pressure hits, so choices aren't made in a panic."
           },
           {
             id: "ethics1-mastery6",
+            concept: "What is Business Ethics",
             question: "The 'transparency test' asks whether you would be comfortable if a decision…",
             options: [
               "Earned the most money possible without a single thought about who might be harmed",
@@ -3157,6 +3411,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Followed a competitor's lead exactly, doing whatever the biggest rival happened to be doing"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The transparency test asks: would you be fine if this decision became public? If not, that's a strong warning it may be unethical."
           }
         ]
@@ -3209,6 +3464,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics2-mc1",
+            concept: "Corporate Social Responsibility",
             question: "What does Corporate Social Responsibility (CSR) mean?",
             options: [
               "Maximizing profit while completely ignoring everything and everyone else in the entire world",
@@ -3221,6 +3477,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "ethics2-mc2",
+            concept: "Corporate Social Responsibility",
             question: "What is 'greenwashing'?",
             options: [
               "Cleaning factories with a special green soap that actually removes real pollution",
@@ -3248,6 +3505,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ethics2-aq1",
+          concept: "Corporate Social Responsibility",
           question: "Why is Brand B's approach risky in the long run?",
           options: [
             "Because eco-friendly fabric is illegal to sell in most stores",
@@ -3275,6 +3533,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics2-mastery1",
+            concept: "Corporate Social Responsibility",
             question: "The 'triple bottom line' measures a business by…",
             options: [
               "Profit, profit, and more profit",
@@ -3283,10 +3542,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Price, place, and promotion"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The triple bottom line judges success by People, Planet, and Profit together, not by financial profit alone."
           },
           {
             id: "ethics2-mastery2",
+            concept: "Corporate Social Responsibility",
             question: "Which is an example of environmental CSR?",
             options: [
               "Hiding the cancellation option deep in tiny, hard-to-read fine print",
@@ -3295,10 +3556,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Raising prices for no reason at all beyond simply wanting more money"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Environmental CSR means reducing pollution, waste, and resource use - like using recycled materials and cutting emissions."
           },
           {
             id: "ethics2-mastery3",
+            concept: "Corporate Social Responsibility",
             question: "A common criticism of CSR is that…",
             options: [
               "It always bankrupts every company that ever dares to try being responsible at all",
@@ -3307,10 +3570,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "It never affects reputation in any way, whether the effort succeeds or completely fails"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Critics argue CSR raises costs and diverts focus from profit. Supporters counter that it builds long-term value and trust."
           },
           {
             id: "ethics2-mastery4",
+            concept: "Corporate Social Responsibility",
             question: "How can you spot genuine CSR versus greenwashing?",
             options: [
               "Genuine CSR is backed by real action and evidence",
@@ -3319,10 +3584,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "There is no way to ever tell them apart"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Real CSR is backed by concrete action and evidence, while greenwashing is just marketing claims with no genuine change behind them."
           },
           {
             id: "ethics2-mastery5",
+            concept: "Corporate Social Responsibility",
             question: "Why do many employees now prefer socially responsible employers?",
             options: [
               "Such jobs are always the very highest paid roles in the entire job market anywhere",
@@ -3331,10 +3598,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Responsible companies never have any rules, so employees can simply do whatever they please"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Many workers, especially younger ones, want to work for companies whose values they share, making CSR a tool for attracting talent."
           },
           {
             id: "ethics2-mastery6",
+            concept: "Corporate Social Responsibility",
             question: "The best long-term case for CSR is that…",
             options: [
               "Responsibility and profit can reinforce each other",
@@ -3343,6 +3612,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "It replaces the need for any product"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Over time, CSR builds trust with customers, employees, and investors and manages risk - so responsibility and profit increasingly reinforce each other."
           }
         ]
@@ -3395,6 +3665,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics3-mc1",
+            concept: "Stakeholder Theory",
             question: "According to stakeholder theory, a business is responsible to…",
             options: [
               "Only its shareholders who bought stock hoping the share price would climb higher",
@@ -3407,6 +3678,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "ethics3-mc2",
+            concept: "Stakeholder Theory",
             question: "What does 'shareholder primacy' claim?",
             options: [
               "That employees matter most of all, above the customers, the owners, and everyone else",
@@ -3434,6 +3706,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ethics3-aq1",
+          concept: "Stakeholder Theory",
           question: "How does stakeholder mapping help Ingrid make a better decision?",
           options: [
             "It guarantees the plant will stay open forever no matter what the numbers actually show",
@@ -3461,6 +3734,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics3-mastery1",
+            concept: "Stakeholder Theory",
             question: "A 'stakeholder' is anyone who…",
             options: [
               "Owns stock in the company only and cares about nothing beyond the share price",
@@ -3469,10 +3743,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Has no connection to the business at all and has never once heard its name"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A stakeholder is anyone who affects or is affected by the company - including employees, customers, suppliers, community, and shareholders."
           },
           {
             id: "ethics3-mastery2",
+            concept: "Stakeholder Theory",
             question: "Which group is a stakeholder but NOT a shareholder?",
             options: [
               "A stockholder owning shares bought on the public exchange last spring",
@@ -3481,10 +3757,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A part-owner of the firm hoping mainly that the share price will rise"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The local community is affected by the business and is thus a stakeholder, even though it owns no shares."
           },
           {
             id: "ethics3-mastery3",
+            concept: "Stakeholder Theory",
             question: "Stakeholder theory reframes profit as…",
             options: [
               "The only thing that ever matters, above every person the company touches",
@@ -3493,10 +3771,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Irrelevant to any decision a manager ever has to make about the company"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Stakeholder theory keeps profit essential but insists it be pursued responsibly, with awareness of all stakeholders - not as the single goal."
           },
           {
             id: "ethics3-mastery4",
+            concept: "Stakeholder Theory",
             question: "Why do stakeholder interests create hard decisions?",
             options: [
               "All stakeholders always want the same thing",
@@ -3505,10 +3785,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "There is always a perfect formula that keeps every single group fully happy"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Interests conflict - raising wages helps workers but cuts short-term profit - so leaders must weigh tensions with judgment, not a formula."
           },
           {
             id: "ethics3-mastery5",
+            concept: "Stakeholder Theory",
             question: "What is stakeholder mapping?",
             options: [
               "Drawing the office floor plan to decide where each desk and meeting room will go",
@@ -3517,10 +3799,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "A type of advertising that runs across television, radio, billboards, and social media"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Stakeholder mapping lists everyone a decision affects and how, revealing the full impact before a choice is made."
           },
           {
             id: "ethics3-mastery6",
+            concept: "Stakeholder Theory",
             question: "The practical argument for stakeholder theory is that caring for stakeholders…",
             options: [
               "Always lowers a company's profit permanently, dragging it down year after year forever",
@@ -3529,6 +3813,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Guarantees instant riches overnight for anyone who bothers to treat their stakeholders fairly"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Companies that care for employees, customers, and communities tend to earn loyalty, avoid scandals, and last - achieving the sustainable success shareholders want."
           }
         ]
@@ -3581,6 +3866,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics4-mc1",
+            concept: "Ethical Dilemmas in Business",
             question: "What makes something a true ethical dilemma?",
             options: [
               "One choice is clearly right and the other clearly wrong",
@@ -3593,6 +3879,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "ethics4-mc2",
+            concept: "Ethical Dilemmas in Business",
             question: "Utilitarianism judges an action mainly by…",
             options: [
               "Whether it strictly follows a fixed set of moral rules no matter the result",
@@ -3620,6 +3907,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ethics4-aq1",
+          concept: "Ethical Dilemmas in Business",
           question: "Why does using several ethical lenses give Sofia more confidence in her choice?",
           options: [
             "Because more lenses always mean more profit at the end of the year, guaranteed",
@@ -3647,6 +3935,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics4-mastery1",
+            concept: "Ethical Dilemmas in Business",
             question: "Deontology (duty-based ethics) judges an action by…",
             options: [
               "Only the profit it generates for the owners at the end of each quarter",
@@ -3655,10 +3944,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The color of the packaging and how eye-catching it looks on a crowded shelf"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Deontology judges actions by whether they follow moral duties and respect people's rights, regardless of the outcomes they produce."
           },
           {
             id: "ethics4-mastery2",
+            concept: "Ethical Dilemmas in Business",
             question: "A weakness of pure utilitarianism is that it can…",
             options: [
               "Ignore outcomes entirely and care only about following rigid rules to the letter",
@@ -3667,10 +3958,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Only apply to nonprofit organizations and never to any company trying to earn a profit"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Because it focuses on the greatest good for the most people, utilitarianism can justify sacrificing a few - a key criticism of the framework."
           },
           {
             id: "ethics4-mastery3",
+            concept: "Ethical Dilemmas in Business",
             question: "Virtue ethics primarily asks…",
             options: [
               "What would a person of good character do?",
@@ -3679,10 +3972,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "How can we hide this decision so completely that no customer or reporter ever finds out?"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Virtue ethics focuses on character - asking what an honest, fair, courageous person would do, and whether the choice reflects who you want to be."
           },
           {
             id: "ethics4-mastery4",
+            concept: "Ethical Dilemmas in Business",
             question: "The 'reversibility test' is based on the idea of…",
             options: [
               "Reversing a car safely out of a tight parking spot without hitting anything nearby",
@@ -3691,10 +3986,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Doubling the company's profit by cutting costs everywhere and charging much more per sale"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The reversibility test applies the Golden Rule: would you accept this decision if you were the one on the receiving end of it?"
           },
           {
             id: "ethics4-mastery5",
+            concept: "Ethical Dilemmas in Business",
             question: "The 'generalization test' asks…",
             options: [
               "What if everyone in your position did this?",
@@ -3703,10 +4000,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "What is the single cheapest option available to us right now, no matter who it might harm?"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "The generalization test asks what would happen if everyone in your situation made the same choice - exposing decisions that only work if few people do them."
           },
           {
             id: "ethics4-mastery6",
+            concept: "Ethical Dilemmas in Business",
             question: "What is the realistic goal when facing an ethical dilemma?",
             options: [
               "To find a painless, perfect answer",
@@ -3715,6 +4014,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "To avoid ever having to decide anything"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Dilemmas hurt by nature, so the goal isn't a painless answer but a thoughtful, defensible choice you can stand behind and explain."
           }
         ]
@@ -3767,6 +4067,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics5-mc1",
+            concept: "Business Ethics and the Law",
             question: "Which statement best captures the relationship between law and ethics?",
             options: [
               "They are completely identical in every single case, with no gap between them ever",
@@ -3779,6 +4080,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "ethics5-mc2",
+            concept: "Business Ethics and the Law",
             question: "What is a whistleblower?",
             options: [
               "A referee at a sports game who blows a whistle to stop play after a foul",
@@ -3806,6 +4108,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ethics5-aq1",
+          concept: "Business Ethics and the Law",
           question: "Why is the hidden fee still a problem even though it's legal?",
           options: [
             "Because all fees of every kind are strictly illegal for any company to ever charge",
@@ -3833,6 +4136,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics5-mastery1",
+            concept: "Business Ethics and the Law",
             question: "The law generally represents…",
             options: [
               "The highest ethical standard that anyone could ever possibly reach",
@@ -3841,10 +4145,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The same thing as ethics exactly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The law sets an enforceable minimum, often codifying the most serious ethical rules. Ethics reaches beyond it into the gray areas."
           },
           {
             id: "ethics5-mastery2",
+            concept: "Business Ethics and the Law",
             question: "An example of something legal but unethical is…",
             options: [
               "Paying all the required taxes fully and on time",
@@ -3853,10 +4159,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Following the terms of a valid contract fairly and completely"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Using a legal loophole to underpay workers is legal but unethical - a clear case where staying within the law still causes unfair harm."
           },
           {
             id: "ethics5-mastery3",
+            concept: "Business Ethics and the Law",
             question: "Why do laws often 'lag behind' ethics?",
             options: [
               "Ethics is always written into the law first, long before anyone ever acts on it",
@@ -3865,10 +4173,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Ethics has no effect whatsoever on lawmaking and never once shapes a single rule anywhere"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A harmful practice can be common and legal for years until public pressure turns the ethical objection into a binding law - so law often trails ethics."
           },
           {
             id: "ethics5-mastery4",
+            concept: "Business Ethics and the Law",
             question: "What is the purpose of a corporate compliance program?",
             options: [
               "To maximize the hidden fees quietly tacked onto every customer's bill",
@@ -3877,10 +4187,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "To replace ethics entirely so a company never has to weigh right and wrong"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Compliance programs - training, audits, reporting channels - exist to make sure employees follow the law and avoid costly violations."
           },
           {
             id: "ethics5-mastery5",
+            concept: "Business Ethics and the Law",
             question: "Whistleblower protection laws exist because…",
             options: [
               "Reporting wrongdoing can lead to retaliation",
@@ -3889,10 +4201,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The law bans reporting problems and punishes any worker who dares to raise a concern"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Whistleblowers often face retaliation for exposing wrongdoing, so protection laws shield those brave enough to challenge their own organization."
           },
           {
             id: "ethics5-mastery6",
+            concept: "Business Ethics and the Law",
             question: "A truly responsible business treats legal compliance as…",
             options: [
               "The entire goal of ethics, the single highest thing any company should ever aim for",
@@ -3901,6 +4215,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Fully optional and unimportant, a suggestion any business is free to brush aside whenever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Compliance is the minimum floor. Responsible businesses obey the law and then hold themselves to higher ethical standards beyond what statutes require."
           }
         ]
@@ -3953,6 +4268,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics6-mc1",
+            concept: "Case Study: Enron & Volkswagen",
             question: "What did Enron's executives do that led to its collapse?",
             options: [
               "Sold far too many products at prices that were much too cheap to be profitable",
@@ -3965,6 +4281,7 @@ export const deepBizA: StructuredLessonContent[] = [
           },
           {
             id: "ethics6-mc2",
+            concept: "Case Study: Enron & Volkswagen",
             question: "What was Volkswagen's 'defeat device' designed to do?",
             options: [
               "Make the cars go noticeably faster on highways by boosting the engine's raw power output",
@@ -3992,6 +4309,7 @@ export const deepBizA: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ethics6-aq1",
+          concept: "Case Study: Enron & Volkswagen",
           question: "What is the shared lesson from both the Enron and Volkswagen scandals?",
           options: [
             "Deception is perfectly safe as long as it happens to be clever and well-hidden enough",
@@ -4019,6 +4337,7 @@ export const deepBizA: StructuredLessonContent[] = [
         questions: [
           {
             id: "ethics6-mastery1",
+            concept: "Case Study: Enron & Volkswagen",
             question: "Enron's fraud primarily involved…",
             options: [
               "Cheating on the car emissions tests by switching to a special cleaner mode during checks",
@@ -4027,10 +4346,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Underpaying its factory workers by dodging the wage rules through a clever legal loophole"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Enron's fraud was financial - hiding debt and faking profits with accounting tricks and shell entities to keep its stock price high."
           },
           {
             id: "ethics6-mastery2",
+            concept: "Case Study: Enron & Volkswagen",
             question: "Which accounting firm was destroyed for helping hide Enron's fraud?",
             options: [
               "Arthur Andersen",
@@ -4039,10 +4360,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The Dieselgate Firm"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Arthur Andersen, one of the world's largest accounting firms, collapsed because it helped conceal Enron's fraud instead of reporting it."
           },
           {
             id: "ethics6-mastery3",
+            concept: "Case Study: Enron & Volkswagen",
             question: "What law came out of the Enron scandal?",
             options: [
               "The Clean Diesel Act",
@@ -4051,10 +4374,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "The Whistle Act"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The 2002 Sarbanes-Oxley Act tightened financial reporting, required independent audits, and made executives personally accountable for their numbers."
           },
           {
             id: "ethics6-mastery4",
+            concept: "Case Study: Enron & Volkswagen",
             question: "In Dieselgate, VW's cars on the real road emitted…",
             options: [
               "Exactly the legal limit, hitting the allowed number right on the nose every time",
@@ -4063,10 +4388,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Less pollution than the law allowed, coming in comfortably under the required ceiling"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "On the real road, VW's diesel cars emitted up to 40 times the legal limit of pollutants, despite passing rigged emissions tests."
           },
           {
             id: "ethics6-mastery5",
+            concept: "Case Study: Enron & Volkswagen",
             question: "What did BOTH scandals have in common at their root?",
             options: [
               "A culture that rewarded hitting targets at any cost",
@@ -4075,10 +4402,12 @@ export const deepBizA: StructuredLessonContent[] = [
               "Openly admitting all of their problems very early and fixing each one right away in public"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Both grew from cultures that pressured people to hit numbers and ignored the methods, letting deception spread through the whole organization."
           },
           {
             id: "ethics6-mastery6",
+            concept: "Case Study: Enron & Volkswagen",
             question: "The overall lesson of these case studies is that ethics is…",
             options: [
               "A soft luxury that harms profit",
@@ -4087,6 +4416,7 @@ export const deepBizA: StructuredLessonContent[] = [
               "Completely unrelated to how any company ever fails or collapses"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Both collapses show deception surfaces and costs far more than it gained, proving ethics isn't soft - it's essential to a company's survival."
           }
         ]

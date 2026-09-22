@@ -13,7 +13,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         title: "Saving Keeps Money Safe - Investing Makes It Grow",
         paragraphs: [
           "Saving and investing sound similar, but they do very different jobs. Saving means parking money somewhere safe, like a bank account, where it barely grows but is easy to grab. Investing means putting money into things like stocks or funds that can grow much faster, though their value bounces up and down along the way. Imagine you get $1,000 from a summer job. In a savings account earning 0.5%, after a year you'd have about $1,005. In investments averaging 8%, you'd have around $1,080. Same $1,000, very different results - and the gap only widens as years pass.",
-          "The reason investing wins over long stretches is growth that stacks on itself. A typical savings account might pay well under 1% a year, while the U.S. stock market has historically returned roughly 7% to 10% a year on average over long periods. That difference feels tiny in one year but becomes enormous over decades. Money you won't need for a long time - like money for a car in ten years or retirement in forty - is money that could be working much harder than it does sitting in a bank earning almost nothing.",
+          "The reason investing wins over long stretches is growth that stacks on itself. Regular savings accounts pay about 0.5 to 1% a year; high-yield savings accounts pay 4% or more. Even so, the U.S. stock market has historically returned roughly 7% to 10% a year on average over long periods, more than any savings account. That difference feels tiny in one year but becomes enormous over decades. Money you won't need for a long time - like money for a car in ten years or retirement in forty - is money that could be working much harder than it does sitting in a bank earning almost nothing.",
           "That said, saving still matters. You need cash you can reach instantly for emergencies, like a broken phone or a surprise bill. The smart approach is to keep an emergency fund in savings, then invest the money you won't touch for years. Investing is not gambling: gambling has odds stacked against you, while investing in the broad market has historically grown over time. The trade-off is that investments can drop in the short term, so investing only makes sense for money you can leave alone long enough to ride out the dips."
         ],
         bullets: [
@@ -47,9 +47,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund1-mc1",
+            concept: "Why Investing Beats Saving",
             question: "What is the main advantage of investing over saving for long-term goals?",
             options: [
-              "Investments can never lose any value according to most guides",
+              "Investments can never lose any value",
               "Money grows much faster over long time periods",
               "You can always withdraw it in one second",
               "The government guarantees all the returns"
@@ -59,11 +60,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund1-mc2",
+            concept: "Why Investing Beats Saving",
             question: "Why should you still keep some money in savings instead of investing it all?",
             options: [
               "Savings accounts earn higher returns than stocks as a general rule",
               "You need cash you can reach instantly for emergencies",
-              "Investing is completely illegal for teens according to most guides",
+              "Investing is completely illegal for teens",
               "Savings accounts double your money every year"
             ],
             correctAnswer: 1,
@@ -86,10 +88,11 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund1-aq1",
+          concept: "Why Investing Beats Saving",
           question: "Why is investing the $2,500 a smart move for Jordan's eight-year car goal?",
           options: [
               "The car goal is far enough away to ride out market swings",
-              "Investments are guaranteed to never drop in value according to most guides",
+              "Investments are guaranteed to never drop in value",
               "Savings accounts always beat stocks over eight years as a general rule",
               "Jordan will surely need to spend all of that money again very soon"
             ],
@@ -113,42 +116,49 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund1-mastery1",
+            concept: "Why Investing Beats Saving",
             question: "Historically, roughly what average yearly return has the broad U.S. stock market delivered over long periods?",
             options: [
-              "About 0.5% a year according to most guides",
+              "About 0.5% a year",
               "About 7% to 10% a year",
               "Exactly 50% a year as a general rule",
               "A guaranteed 100% a year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Over long periods the broad market has averaged roughly 7%-10% a year. It isn't guaranteed and swings year to year, but it far outpaces typical savings rates."
           },
           {
             id: "invfund1-mastery2",
+            concept: "Why Investing Beats Saving",
             question: "What is the single biggest advantage a teen investor has?",
             options: [
               "Time for money to grow",
               "A large starting balance",
-              "Insider stock tips according to most guides",
+              "Insider stock tips",
               "Zero market risk ever"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Time is the teen's superpower. Extra years let growth stack on itself, which matters more than the amount invested and is hard to make up by starting later."
           },
           {
             id: "invfund1-mastery3",
+            concept: "Why Investing Beats Saving",
             question: "Why isn't keeping all your money in savings truly 'safe' for long-term goals?",
             options: [
               "Banks secretly spend your deposits",
               "Inflation slowly erodes its buying power",
               "Savings accounts charge huge fees",
-              "The money physically disappears according to most guides"
+              "The money physically disappears"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Prices rise about 2%-3% a year, so money growing at under 1% loses purchasing power. It feels safe but quietly shrinks in what it can actually buy."
           },
           {
             id: "invfund1-mastery4",
+            concept: "Why Investing Beats Saving",
             question: "What lets you start investing with only a few dollars in an expensive stock?",
             options: [
               "A government teen grant",
@@ -157,30 +167,35 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Borrowing from the bank"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Fractional shares let you buy a slice of a pricey stock instead of a whole share, so you can begin with just a few dollars on many apps."
           },
           {
             id: "invfund1-mastery5",
+            concept: "Why Investing Beats Saving",
             question: "How does investing differ from gambling?",
             options: [
-              "Both have odds stacked against you according to most guides",
+              "Both have odds stacked against you",
               "The broad market has historically grown over time",
               "Gambling always beats investing long term as a general rule",
               "Investing has no risk at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Gambling has odds against you, but the broad market has historically grown over the long run. Investing carries risk, yet it's fundamentally different from betting."
           },
           {
             id: "invfund1-mastery6",
+            concept: "Why Investing Beats Saving",
             question: "Which money is best suited for investing rather than savings?",
             options: [
               "Rent money due next week",
               "Money you won't need for years",
-              "Your daily lunch money according to most guides",
+              "Your daily lunch money",
               "This month's phone bill as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Invest money you can leave alone for years so it can ride out short-term dips. Cash you'll need soon belongs in savings where it's safe and instantly available."
           }
         ]
@@ -232,11 +247,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund2-mc1",
+            concept: "Compound Interest & the Rule of 72",
             question: "What makes compound interest different from simple interest?",
             options: [
               "Compound interest only pays on your original deposit",
               "Compound interest earns returns on your past returns too",
-              "Simple interest grows faster over long periods according to most guides",
+              "Simple interest grows faster over long periods",
               "They produce exactly the same result every time"
             ],
             correctAnswer: 1,
@@ -244,6 +260,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund2-mc2",
+            concept: "Compound Interest & the Rule of 72",
             question: "Using the Rule of 72, about how long does money take to double at 6%?",
             options: [
               "About 6 years",
@@ -271,6 +288,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund2-aq1",
+          concept: "Compound Interest & the Rule of 72",
           question: "Why does Maria's later doubling add far more dollars than her first doubling?",
           options: [
             "The fund secretly raises its rate each year",
@@ -298,6 +316,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund2-mastery1",
+            concept: "Compound Interest & the Rule of 72",
             question: "You invest $1,000 at 10% compounded yearly. How much do you have after two years?",
             options: [
               "$1,200 exactly",
@@ -306,10 +325,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "$2,000 total"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Year one: $1,000 grows to $1,100. Year two earns 10% on $1,100, adding $110 to reach $1,210. The second year earned more because the base grew."
           },
           {
             id: "invfund2-mastery2",
+            concept: "Compound Interest & the Rule of 72",
             question: "Using the Rule of 72, about how long to double money at 12%?",
             options: [
               "About 12 years",
@@ -318,46 +339,54 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "About 2 years"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "72 ÷ 12 = 6, so money at 12% roughly doubles every 6 years. Higher rates mean faster doublings under the Rule of 72."
           },
           {
             id: "invfund2-mastery3",
+            concept: "Compound Interest & the Rule of 72",
             question: "Why does starting to invest young matter so much for compounding?",
             options: [
               "Young people get higher rates by law",
               "More years mean more rounds of growth",
               "Compounding only works before age 20",
-              "Older investors pay double taxes according to most guides"
+              "Older investors pay double taxes"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Each year is another round of growth stacking on the last. Starting young gives money decades of doublings, which is far more powerful than starting with more cash later."
           },
           {
             id: "invfund2-mastery4",
+            concept: "Compound Interest & the Rule of 72",
             question: "Over 36 years, how many times does money double at 8% versus 4%?",
             options: [
-              "Both double twice according to most guides",
+              "Both double twice",
               "8% doubles four times; 4% doubles twice",
               "4% doubles more often as a general rule",
               "Neither one doubles at all over the long run"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "At 8% money doubles every 9 years (four times in 36), reaching 16x. At 4% it doubles every 18 years (twice), reaching 4x. A doubled rate quadruples the result."
           },
           {
             id: "invfund2-mastery5",
+            concept: "Compound Interest & the Rule of 72",
             question: "How can you use the Rule of 72 to find a needed rate?",
             options: [
               "Multiply 72 by your target dollars",
               "Divide 72 by the years you have",
-              "Subtract 72 from your rate according to most guides",
+              "Subtract 72 from your rate",
               "Add 72 to your current balance"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Divide 72 by the number of years to find the return needed to double in that time. To double in 8 years, you'd need about 72 ÷ 8 = 9%."
           },
           {
             id: "invfund2-mastery6",
+            concept: "Compound Interest & the Rule of 72",
             question: "What is the main cost of withdrawing invested money early?",
             options: [
               "You lose future compounding growth",
@@ -366,6 +395,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Interest rates instantly drop to zero"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Every dollar pulled out stops compounding, giving up years of future growth it would have generated. Leaving money invested lets the snowball keep rolling."
           }
         ]
@@ -417,11 +447,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund3-mc1",
+            concept: "Stocks: Owning a Piece of a Business",
             question: "What do you actually own when you buy a share of stock?",
             options: [
               "A loan the company must repay you",
               "A small ownership piece of the company",
-              "A guaranteed fixed yearly payment according to most guides",
+              "A guaranteed fixed yearly payment",
               "A coupon for the company's products"
             ],
             correctAnswer: 1,
@@ -429,11 +460,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund3-mc2",
+            concept: "Stocks: Owning a Piece of a Business",
             question: "What is a dividend?",
             options: [
               "A fee you pay to own a stock",
               "A share of company profits paid to shareholders",
-              "The tax charged when a stock rises according to most guides",
+              "The tax charged when a stock rises",
               "The price you paid for the share"
             ],
             correctAnswer: 1,
@@ -456,11 +488,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund3-aq1",
+          concept: "Stocks: Owning a Piece of a Business",
           question: "Why was holding through the dip the smarter choice for Leo?",
           options: [
               "Selling at $24 would have locked in a real loss",
               "Stock prices legally must rise every year as a general rule",
-              "Dividends are paid only to panic-sellers according to most guides",
+              "Dividends are paid only to panic-sellers",
               "The company promised to refund his money over the long run"
             ],
           correctAnswer: 0,
@@ -483,6 +516,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund3-mastery1",
+            concept: "Stocks: Owning a Piece of a Business",
             question: "A company splits into 1,000,000 shares and you own 1,000. What do you own?",
             options: [
               "A loan the firm repays you",
@@ -491,66 +525,77 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Nothing until it pays dividends"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Owning 1,000 of 1,000,000 shares means you own 1/1,000 of the company - a small ownership slice of the whole business, whether or not it pays dividends."
           },
           {
             id: "invfund3-mastery2",
+            concept: "Stocks: Owning a Piece of a Business",
             question: "What is an IPO?",
             options: [
               "A tax on stock profits as a general rule",
               "When a company first sells shares publicly",
-              "A guaranteed dividend program according to most guides",
+              "A guaranteed dividend program",
               "A rule that caps stock prices"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "An IPO (Initial Public Offering) is when a company first sells its shares to the public. After that, shares trade between investors on exchanges."
           },
           {
             id: "invfund3-mastery3",
+            concept: "Stocks: Owning a Piece of a Business",
             question: "What is a capital gain?",
             options: [
               "A fee charged to own shares as a general rule",
               "Profit from selling a stock above what you paid",
-              "A dividend paid every month according to most guides",
+              "A dividend paid every month",
               "The total number of shares issued over the long run"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A capital gain is the profit you earn when you sell a stock for more than you paid. It's one of the two main ways owners make money, alongside dividends."
           },
           {
             id: "invfund3-mastery4",
+            concept: "Stocks: Owning a Piece of a Business",
             question: "Why is putting all your money in one stock risky?",
             options: [
               "One company can fail and wipe out that money",
               "Single stocks are illegal to own as a general rule",
               "One stock can never pay dividends over the long run",
-              "Exchanges ban owning one company according to most guides"
+              "Exchanges ban owning one company"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "If that single company stumbles or goes bankrupt, you could lose most or all of that money. Spreading across many companies (diversifying) reduces this danger."
           },
           {
             id: "invfund3-mastery5",
+            concept: "Stocks: Owning a Piece of a Business",
             question: "What does 'volatility' describe about a stock?",
             options: [
-              "Its guaranteed yearly dividend according to most guides",
+              "Its guaranteed yearly dividend",
               "How much its price swings around",
               "The tax rate on its gains",
               "The number of owners it has"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Volatility is how much a price swings up and down. Short-term swings are normal; for long-term investors they're mostly noise, not a reason to panic-sell."
           },
           {
             id: "invfund3-mastery6",
+            concept: "Stocks: Owning a Piece of a Business",
             question: "What common mistake do beginners make during a market dip?",
             options: [
-              "They buy more diversified funds according to most guides",
+              "They buy more diversified funds",
               "They panic-sell and lock in losses",
               "They wait patiently for recovery",
               "They collect their dividends calmly"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Panic-selling during a dip turns a temporary paper loss into a real one and often misses the recovery. Patience historically rewards long-term owners."
           }
         ]
@@ -602,11 +647,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund4-mc1",
+            concept: "Bonds: Lending Your Money",
             question: "What role do you play when you buy a bond?",
             options: [
               "You become a part-owner of the company",
               "You become a lender who is owed money",
-              "You become the company's employee according to most guides",
+              "You become the company's employee",
               "You become a customer buying products as a general rule"
             ],
             correctAnswer: 1,
@@ -614,6 +660,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund4-mc2",
+            concept: "Bonds: Lending Your Money",
             question: "A $1,000 bond has a 5% coupon. How much interest does it pay per year?",
             options: [
               "$5 a year",
@@ -641,12 +688,13 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund4-aq1",
+          concept: "Bonds: Lending Your Money",
           question: "Why did adding bonds cushion Grace's portfolio during the crash?",
           options: [
               "Bonds are guaranteed to always gain value",
               "Bonds stayed steadier while stocks fell sharply",
               "Bonds automatically sold her stocks for her",
-              "Bonds pay no interest during downturns according to most guides"
+              "Bonds pay no interest during downturns"
             ],
           correctAnswer: 1,
           explanation: "High-quality bonds tend to hold value and keep paying interest even as stocks drop. Because the two often don't move together, mixing them softened her overall loss."
@@ -668,42 +716,49 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund4-mastery1",
+            concept: "Bonds: Lending Your Money",
             question: "What is the 'maturity' of a bond?",
             options: [
               "The interest rate it pays yearly as a general rule",
               "The date you get your face value back",
-              "The company that issued it according to most guides",
+              "The company that issued it",
               "The tax owed on its interest"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Maturity is the date the bond ends and the issuer repays your face value. Until then, you collect the coupon interest payments."
           },
           {
             id: "invfund4-mastery2",
+            concept: "Bonds: Lending Your Money",
             question: "Why are U.S. Treasury bonds considered very safe?",
             options: [
-              "They pay the highest interest rates according to most guides",
+              "They pay the highest interest rates",
               "The government is very unlikely to default",
               "They never have to be repaid",
               "They double in value each year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Treasuries are backed by the U.S. government, which is extremely unlikely to default. Because they're so safe, they also tend to pay lower interest than riskier bonds."
           },
           {
             id: "invfund4-mastery3",
+            concept: "Bonds: Lending Your Money",
             question: "Why does a riskier company's bond pay a higher coupon?",
             options: [
               "To make up for the greater chance of default",
-              "Because the law requires exactly 10% according to most guides",
+              "Because the law requires exactly 10%",
               "Because risky firms have extra cash as a general rule",
               "To avoid ever repaying the loan over the long run"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Higher default risk means lenders demand more interest to take the chance. That's the core trade-off: safer bonds pay less, riskier bonds pay more."
           },
           {
             id: "invfund4-mastery4",
+            concept: "Bonds: Lending Your Money",
             question: "What happens to your 4% bond's resale price if new bonds start paying 6%?",
             options: [
               "Its price rises above face value",
@@ -712,22 +767,26 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Nothing changes ever"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Bond prices move opposite to rates. When new bonds pay more, buyers won't pay full price for your lower-paying bond, so its resale value drops - that's interest-rate risk."
           },
           {
             id: "invfund4-mastery5",
+            concept: "Bonds: Lending Your Money",
             question: "Why do bonds help smooth out a portfolio's ups and downs?",
             options: [
               "They rise faster than stocks always",
               "They often don't move with stocks",
-              "They eliminate all possible risk according to most guides",
+              "They eliminate all possible risk",
               "They pay no interest at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Because bonds and stocks frequently don't move together, holding both cushions losses. When stocks drop, steady bonds can hold value and keep paying interest."
           },
           {
             id: "invfund4-mastery6",
+            concept: "Bonds: Lending Your Money",
             question: "Who typically holds a higher percentage of bonds?",
             options: [
               "A teen investing for 40 years out",
@@ -736,6 +795,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "People who never plan to spend it"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Those near their goal shift toward bonds for safety and steady income. Young investors with decades ahead can hold mostly stocks and add bonds later."
           }
         ]
@@ -752,7 +812,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "concept",
         title: "One Purchase, Hundreds of Companies",
         paragraphs: [
-          "Buying individual stocks one at a time is slow, expensive, and risky - if you only own three companies and one crashes, you're in trouble. Funds solve this. A mutual fund pools money from many investors and uses it to buy a big basket of stocks, bonds, or both. When you buy a share of the fund, you instantly own a tiny piece of everything inside it. So a single purchase can make you a part-owner of hundreds of companies at once, which is called instant diversification - the opposite of putting all your eggs in one basket.",
+          "Buying individual stocks one at a time is slow, expensive, and risky - if you only own three companies and one crashes, you're in trouble. Funds solve this. A mutual fund pools money from many investors and uses it to buy a big basket of stocks, bonds, or both. When you buy a share of the fund, you instantly own a tiny piece of everything inside it. So a single purchase can make you a part-owner of hundreds of companies at once, spreading your money across many companies in one shot. Exactly why that spreading protects you - diversification - gets its own lesson later, Don't Bet Everything on One Horse.",
           "An ETF (Exchange-Traded Fund) works on the same pooling idea, but it trades on an exchange all day just like a stock, so its price moves in real time. A mutual fund, by contrast, is priced only once per day after markets close. Both hold baskets of investments, and both hand you diversification in one shot. The practical difference for a beginner is mostly how and when you buy them: ETFs trade like stocks with live prices, while mutual funds settle up at the end of the trading day.",
           "A hugely popular type is the index fund, which simply tries to match a market index like the S&P 500 - a list of 500 large U.S. companies. Instead of paying a manager to pick winners, an index fund just buys the whole list, which keeps costs extremely low and has historically beaten most stock-picking pros over time. This is why index funds and ETFs are often recommended as the simplest, cheapest way for regular people to own a slice of the entire market. Legendary investors have publicly bet that a plain low-cost index fund will beat teams of highly paid stock pickers over time, and history has largely proven them right."
         ],
@@ -786,22 +846,11 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "micro-check",
         questions: [
           {
-            id: "invfund5-mc1",
-            question: "What does buying one share of a diversified fund give you?",
-            options: [
-              "Ownership of a single company only as a general rule",
-              "A tiny piece of many companies at once",
-              "A guaranteed fixed interest payment according to most guides",
-              "A loan the fund must repay you"
-            ],
-            correctAnswer: 1,
-            explanation: "A fund pools money to buy a basket of investments, so one share gives you instant diversification - a small slice of many companies rather than just one."
-          },
-          {
             id: "invfund5-mc2",
+            concept: "Mutual Funds & ETFs",
             question: "What is an expense ratio?",
             options: [
-              "A one-time fee to open an account according to most guides",
+              "A one-time fee to open an account",
               "The fund's yearly fee as a percent of your money",
               "The tax rate on all your gains as a general rule",
               "The number of stocks in the fund over the long run"
@@ -826,11 +875,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund5-aq1",
+          concept: "Mutual Funds & ETFs",
           question: "Which fund is likely the smarter long-term choice for Noah, and why?",
           options: [
               "Fund B, since higher fees guarantee higher returns over the long run",
               "Fund A, since low fees leave more growth for him",
-              "Neither, because funds can't be diversified according to most guides",
+              "Neither, because funds can't be diversified",
               "Fund B, because active managers always win as a general rule"
             ],
           correctAnswer: 1,
@@ -853,6 +903,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund5-mastery1",
+            concept: "Mutual Funds & ETFs",
             question: "What is the main benefit of a mutual fund or ETF for a beginner?",
             options: [
               "Guaranteed profits every year",
@@ -861,34 +912,40 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Ownership of just one company"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A single fund share gives instant diversification across many companies, sharply reducing the risk of any one company dragging you down."
           },
           {
             id: "invfund5-mastery2",
+            concept: "Mutual Funds & ETFs",
             question: "How does an ETF differ from a mutual fund?",
             options: [
               "An ETF trades all day at live prices",
               "An ETF holds only a single stock",
-              "An ETF never charges any fee according to most guides",
+              "An ETF never charges any fee",
               "An ETF is priced only once weekly"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "ETFs trade on exchanges all day with live prices like a stock, while mutual funds are priced once per day after markets close. Both offer diversification."
           },
           {
             id: "invfund5-mastery3",
+            concept: "Mutual Funds & ETFs",
             question: "What does an S&P 500 index fund do?",
             options: [
               "Picks 5 hot stocks each week",
               "Tracks 500 large U.S. companies",
-              "Buys only government bonds according to most guides",
+              "Buys only government bonds",
               "Guarantees a 500% return"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "An S&P 500 index fund simply buys the 500 large U.S. companies in the index, giving broad, low-cost exposure to the market instead of picking individual winners."
           },
           {
             id: "invfund5-mastery4",
+            concept: "Mutual Funds & ETFs",
             question: "Why do small fee differences matter so much over decades?",
             options: [
               "Fees are refunded after 10 years",
@@ -897,30 +954,35 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Fees make funds grow faster"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A fee is charged every year on your whole balance, so it compounds against you. Over decades even a 1% difference can cost tens of thousands of dollars."
           },
           {
             id: "invfund5-mastery5",
+            concept: "Mutual Funds & ETFs",
             question: "What does the data say about most actively managed funds?",
             options: [
-              "They always beat their index according to most guides",
+              "They always beat their index",
               "They usually fail to beat their index after fees",
               "They never charge any fees as a general rule",
               "They are illegal to buy over the long run"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Decades of data show most active funds underperform their index over the long run, especially once their higher fees are subtracted from returns."
           },
           {
             id: "invfund5-mastery6",
+            concept: "Mutual Funds & ETFs",
             question: "What is a fund 'load'?",
             options: [
               "The number of stocks it holds",
               "A sales commission to buy or sell",
-              "A guaranteed yearly dividend according to most guides",
+              "A guaranteed yearly dividend",
               "The fund's total market value as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A load is a sales commission charged when you buy or sell certain funds. You can usually avoid it by choosing 'no-load' funds, keeping more of your money invested."
           }
         ]
@@ -938,7 +1000,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         title: "The Golden Rule: More Reward Means More Risk",
         paragraphs: [
           "Every investment sits on a trade-off between risk and return. Return is how much your money could grow; risk is the chance it could lose value or not grow as hoped. The golden rule is that higher potential returns always come with higher risk. If someone promises big gains with zero risk, they're either confused or lying - that combination doesn't exist. A savings account is nearly risk-free but grows slowly; stocks can grow much faster but can also fall sharply. You can't get the high reward without accepting the possibility of a rough ride.",
-          "You can picture investments on a ladder. At the bottom are cash and savings accounts: very safe, very low return. Next come bonds: steadier, modest returns. Above them sit stocks and stock funds: higher long-term returns but bigger swings. Near the top are things like single small-company stocks or crypto: potentially huge gains but also huge losses. Where you belong on the ladder depends on your goals and how much bouncing around you can stand without panic-selling at the worst moment.",
+          "You can picture investments on a ladder. At the bottom are cash and savings accounts: very safe, very low return - regular savings accounts pay about 0.5 to 1%, and high-yield savings accounts pay 4% or more. Next come bonds: steadier, modest returns. Above them sit stocks and stock funds: higher long-term returns but bigger swings. Near the top are things like single small-company stocks or crypto: potentially huge gains but also huge losses. Where you belong on the ladder depends on your goals and how much bouncing around you can stand without panic-selling at the worst moment.",
           "A key idea is your risk tolerance - how much loss you can handle emotionally and financially. Someone who would panic and sell after a 20% drop shouldn't put everything in volatile stocks, because they'll lock in losses. But risk tolerance isn't only about feelings; it's also about time. A teen investing for 40 years can take more risk because they have decades to recover from crashes. Someone who needs the money next year should stay safe. Matching your risk to your time horizon is one of investing's most important skills. A useful question to ask yourself is how you would honestly feel and act if your account suddenly fell by a third, because the answer reveals far more about your true risk tolerance than any quiz ever could."
         ],
         bullets: [
@@ -972,6 +1034,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund6-mc1",
+            concept: "Risk vs Return",
             question: "What is the golden rule of risk and return?",
             options: [
               "Low-risk investments always earn the most",
@@ -984,9 +1047,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund6-mc2",
+            concept: "Risk vs Return",
             question: "What does 'risk tolerance' mean?",
             options: [
-              "The exact return a stock guarantees according to most guides",
+              "The exact return a stock guarantees",
               "How much loss you can handle financially and emotionally",
               "The fee a fund charges each year as a general rule",
               "The number of stocks you must own"
@@ -1011,10 +1075,11 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund6-aq1",
+          concept: "Risk vs Return",
           question: "Why should Dylan take more risk than Sofia even though they're the same age?",
           options: [
               "Dylan has a much longer time horizon to recover",
-              "Younger boys always earn higher returns according to most guides",
+              "Taking more risk always guarantees higher returns",
               "Sofia's money is guaranteed to grow faster as a general rule",
               "Risk tolerance ignores when you need money"
             ],
@@ -1038,6 +1103,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund6-mastery1",
+            concept: "Risk vs Return",
             question: "Someone promises 'huge returns with no risk at all.' What should you conclude?",
             options: [
               "It's a rare, smart opportunity",
@@ -1046,10 +1112,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "It must be a government program"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "High returns always require real risk. A promise of big gains with zero risk is misleading or a scam - that combination simply doesn't exist."
           },
           {
             id: "invfund6-mastery2",
+            concept: "Risk vs Return",
             question: "Which sits lowest on the risk-return ladder?",
             options: [
               "A single small-company stock",
@@ -1058,54 +1126,63 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "A hyped crypto coin"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A savings account is near the bottom: very safe but very low return. Stocks and speculative bets sit higher, offering more potential reward but more risk of loss."
           },
           {
             id: "invfund6-mastery3",
+            concept: "Risk vs Return",
             question: "What is inflation risk?",
             options: [
               "The market crashing all at once",
               "'Safe' cash losing buying power over time",
-              "A single company going bankrupt according to most guides",
+              "A single company going bankrupt",
               "Not being able to sell quickly"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Inflation risk is the sneaky danger that cash held 'safely' loses purchasing power as prices rise. Playing it too safe can quietly shrink what your money can buy."
           },
           {
             id: "invfund6-mastery4",
+            concept: "Risk vs Return",
             question: "How does diversification manage risk?",
             options: [
-              "It guarantees you never lose money according to most guides",
+              "It guarantees you never lose money",
               "It spreads money so one loss can't wreck you",
               "It removes all market swings entirely as a general rule",
               "It replaces the need for any planning"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Diversification spreads your money across many investments, so a single company's failure barely dents your total. It tackles company-specific risk, not all risk."
           },
           {
             id: "invfund6-mastery5",
+            concept: "Risk vs Return",
             question: "Why can a teen take more investment risk than a retiree?",
             options: [
               "Teens are legally required to as a general rule",
               "Teens have decades to recover from crashes",
               "Retirees always earn higher returns",
-              "Teens can't lose money according to most guides"
+              "Teens can't lose money"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A long time horizon lets a young investor ride out and recover from crashes, so they can hold more volatile stocks. A retiree needing money soon should stay safer."
           },
           {
             id: "invfund6-mastery6",
+            concept: "Risk vs Return",
             question: "What is the biggest risk mistake beginners make?",
             options: [
               "Diversifying across too many funds as a general rule",
               "Letting emotions drive buy and sell decisions",
               "Holding investments for too long",
-              "Reading the expense ratio according to most guides"
+              "Reading the expense ratio"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Emotional investing - buying in greed when high, selling in fear when low - is the classic wealth-destroyer. Sticking to a plan matched to your risk tolerance beats it."
           }
         ]
@@ -1157,11 +1234,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund7-mc1",
+            concept: "Diversification",
             question: "What is the core idea behind diversification?",
             options: [
               "Put all your money in the single best stock",
               "Spread money across many investments to limit any one loss",
-              "Only invest in companies you personally use according to most guides",
+              "Only invest in companies you personally use",
               "Buy and sell as often as possible as a general rule"
             ],
             correctAnswer: 1,
@@ -1169,12 +1247,13 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund7-mc2",
+            concept: "Diversification",
             question: "Why is owning ten different tech stocks NOT true diversification?",
             options: [
               "Tech stocks are illegal to combine",
               "They tend to rise and fall together",
               "Ten stocks is too many to track",
-              "Tech stocks never lose value according to most guides"
+              "Tech stocks never lose value"
             ],
             correctAnswer: 1,
             explanation: "Similar stocks in one sector move together, so a tech slump hits them all at once. Real diversification spreads across different sectors and asset types that behave differently."
@@ -1196,6 +1275,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund7-aq1",
+          concept: "Diversification",
           question: "What is the best fix for Emma's diversification problem?",
           options: [
             "Buy five more tech stocks to add variety",
@@ -1223,54 +1303,63 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund7-mastery1",
+            concept: "Diversification",
             question: "What does the 'eggs in one basket' saying teach about investing?",
             options: [
-              "Always buy the cheapest stocks according to most guides",
+              "Always buy the cheapest stocks",
               "Spreading investments limits any single loss",
               "One great stock beats many average ones",
               "Baskets are safer than banks"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "If all your eggs are in one basket and you drop it, you lose everything. Spreading investments means one failure is only a small dent, not a wipeout."
           },
           {
             id: "invfund7-mastery2",
+            concept: "Diversification",
             question: "Why is diversification called a 'free lunch' in investing?",
             options: [
               "It removes all fees on funds as a general rule",
               "It can cut risk without cutting expected return",
-              "It guarantees profits every year according to most guides",
+              "It guarantees profits every year",
               "It pays you cash to invest"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Diversification can reduce risk without lowering your expected return, which is rare in investing where less risk usually means less reward - hence the 'free lunch' nickname."
           },
           {
             id: "invfund7-mastery3",
+            concept: "Diversification",
             question: "Which portfolio is truly diversified?",
             options: [
-              "Ten social-media stocks according to most guides in the vast majority of situations",
+              "Ten social-media stocks",
               "A mix of U.S. stocks, international stocks, and bonds",
               "One large tech company as a general rule",
               "Five stocks from the same industry over the long run"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Spreading across asset classes and regions - U.S. stocks, international stocks, and bonds - holds things that behave differently. Same-sector picks all move together."
           },
           {
             id: "invfund7-mastery4",
+            concept: "Diversification",
             question: "What is the easiest way for a beginner to diversify instantly?",
             options: [
               "Buy one broad index fund or ETF",
-              "Hand-pick 50 individual stocks according to most guides",
+              "Hand-pick 50 individual stocks",
               "Put everything into one bond as a general rule",
               "Keep all money in a checking account"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A single broad index fund or ETF holds hundreds or thousands of companies, diversifying instantly and cheaply - more than a beginner could do stock by stock."
           },
           {
             id: "invfund7-mastery5",
+            concept: "Diversification",
             question: "What can diversification NOT protect you from?",
             options: [
               "One company going bankrupt",
@@ -1279,18 +1368,21 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "A bad individual stock pick"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Diversification tackles company- and sector-specific risk, but if the whole market drops, a diversified stock portfolio still falls - usually less than a single stock would."
           },
           {
             id: "invfund7-mastery6",
+            concept: "Diversification",
             question: "What is the downside of 'over-diversifying'?",
             options: [
-              "Your money becomes fully guaranteed according to most guides",
+              "Your money becomes fully guaranteed",
               "Overlapping funds add fees without more protection",
               "You are forced to sell everything",
               "Returns are legally capped at zero"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Piling on many overlapping funds just recreates the whole market while charging extra fees. Broad, low-cost diversification hits the sweet spot without the waste."
           }
         ]
@@ -1342,9 +1434,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund8-mc1",
+            concept: "Bull vs Bear Markets",
             question: "What defines a bear market?",
             options: [
-              "Prices rising with high optimism according to most guides in the vast majority of situations",
+              "Prices rising with high optimism",
               "A drop of about 20% or more from a recent high",
               "A single bad trading day as a general rule",
               "A market that never recovers over the long run"
@@ -1354,11 +1447,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund8-mc2",
+            concept: "Bull vs Bear Markets",
             question: "What is dollar-cost averaging?",
             options: [
               "Buying only when prices hit their lowest",
               "Investing a fixed amount on a regular schedule",
-              "Selling everything during a downturn according to most guides",
+              "Selling everything during a downturn",
               "Guessing the market's perfect timing as a general rule"
             ],
             correctAnswer: 1,
@@ -1381,11 +1475,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund8-aq1",
+          concept: "Bull vs Bear Markets",
           question: "Why is continuing to invest during the bear market smart for Marcus?",
           options: [
               "Bear markets are guaranteed to end next week",
               "His fixed payments buy more shares at lower prices",
-              "Selling now would guarantee bigger future gains according to most guides",
+              "Selling now would guarantee bigger future gains",
               "The government refunds losses in bear markets as a general rule"
             ],
           correctAnswer: 1,
@@ -1408,74 +1503,86 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund8-mastery1",
+            concept: "Bull vs Bear Markets",
             question: "Which trick helps you remember bull versus bear markets?",
             options: [
               "A bull's horns thrust up; a bear's paws swipe down",
               "A bull sleeps; a bear runs as a general rule",
               "A bull is red; a bear is green over the long run",
-              "Both animals mean prices rise according to most guides"
+              "Both animals mean prices rise"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A bull thrusts its horns upward (prices up = bull market), while a bear swipes its paws downward (prices down = bear market). It's a classic memory aid."
           },
           {
             id: "invfund8-mastery2",
+            concept: "Bull vs Bear Markets",
             question: "What is a market 'correction'?",
             options: [
               "A rise of 50% or more over the long run",
               "A drop of about 10% from a recent peak",
-              "A guaranteed recovery signal according to most guides",
+              "A guaranteed recovery signal",
               "A fee charged during downturns as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A correction is a drop of roughly 10% from a recent high - uncomfortable but common and often short, milder than a full bear market."
           },
           {
             id: "invfund8-mastery3",
+            concept: "Bull vs Bear Markets",
             question: "What has historically followed every U.S. bear market?",
             options: [
-              "A permanent collapse according to most guides",
+              "A permanent collapse",
               "A recovery and eventual new highs",
               "A government shutdown of markets",
               "Decades with no growth at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Every past bear market has been followed by recovery, with the long-term trend moving upward - which is why patient, diversified investors wait downturns out."
           },
           {
             id: "invfund8-mastery4",
+            concept: "Bull vs Bear Markets",
             question: "Why is panic-selling in a bear market usually a mistake?",
             options: [
               "It locks in losses and can miss the rebound",
-              "It guarantees a tax refund according to most guides",
+              "It guarantees a tax refund",
               "It forces prices to rise instantly as a general rule",
               "It has no effect on your money over the long run"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Selling in a panic turns paper losses into real ones, and the market's best days often come right after the worst - so sellers frequently miss the recovery."
           },
           {
             id: "invfund8-mastery5",
+            concept: "Bull vs Bear Markets",
             question: "How does dollar-cost averaging help during downturns?",
             options: [
               "It stops you from investing entirely as a general rule",
               "Fixed amounts buy more shares when prices drop",
               "It times the exact market bottom",
-              "It guarantees no losses ever according to most guides"
+              "It guarantees no losses ever"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Investing a fixed amount regularly means your money buys more shares when prices are low, turning downturns into a buying advantage without needing to time the market."
           },
           {
             id: "invfund8-mastery6",
+            concept: "Bull vs Bear Markets",
             question: "For a young investor still buying, why can lower prices be good news?",
             options: [
               "Stocks are cheaper, so dollars buy more",
-              "Lower prices guarantee instant profit according to most guides",
+              "Lower prices guarantee instant profit",
               "It means the market will never fall again",
               "Cheaper stocks pay higher dividends by law"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "When you're still investing for years ahead, a downturn puts stocks 'on sale,' so each dollar buys more shares and more future growth. Downturns hurt mainly those who must sell."
           }
         ]
@@ -1527,21 +1634,23 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund9-mc1",
+            concept: "Reading a Stock Chart",
             question: "What do the two axes of a stock chart represent?",
             options: [
               "Volume on both axes",
               "Time (horizontal) and price (vertical)",
               "Profit and loss only",
-              "Dividends and fees according to most guides"
+              "Dividends and fees"
             ],
             correctAnswer: 1,
             explanation: "A stock chart plots time along the horizontal axis and price up the vertical axis, so the line shows how the price moved over the chosen period."
           },
           {
             id: "invfund9-mc2",
+            concept: "Reading a Stock Chart",
             question: "What does trading 'volume' tell you?",
             options: [
-              "The company's total profit according to most guides",
+              "The company's total profit",
               "How many shares traded, hinting at conviction",
               "The stock's dividend rate as a general rule",
               "The fund's expense ratio over the long run"
@@ -1566,11 +1675,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund9-aq1",
+          concept: "Reading a Stock Chart",
           question: "Why did zooming out change how Priya felt about the 5% drop?",
           options: [
               "Zooming out erased the loss from her account",
               "The long-term trend showed the drop was minor",
-              "Five-year charts are always guaranteed to rise according to most guides",
+              "Five-year charts are always guaranteed to rise",
               "The drop was fake on the one-day chart"
             ],
           correctAnswer: 1,
@@ -1593,54 +1703,63 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund9-mastery1",
+            concept: "Reading a Stock Chart",
             question: "Why should you always check the time frame on a chart?",
             options: [
               "It changes the fees you pay as a general rule",
               "The same move looks different at different zooms",
-              "It sets the dividend amount according to most guides",
+              "It sets the dividend amount",
               "It picks the stock for you"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A drop can look like a cliff on a one-day chart but a tiny dip over five years. The time frame reframes the whole story, so always check it before reacting."
           },
           {
             id: "invfund9-mastery2",
+            concept: "Reading a Stock Chart",
             question: "What does a big spike in trading volume often signal?",
             options: [
               "The stock is guaranteed to rise",
               "Major news, like earnings or a scandal",
-              "The company paid a dividend according to most guides",
+              "The company paid a dividend",
               "The market has closed for the day"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Volume spikes usually accompany major news - earnings, launches, or scandals - showing strong conviction behind the move rather than a few traders shuffling around."
           },
           {
             id: "invfund9-mastery3",
+            concept: "Reading a Stock Chart",
             question: "What is a moving average on a chart?",
             options: [
-              "A guarantee of future prices according to most guides",
+              "A guarantee of future prices",
               "A line smoothing price to show the trend",
               "The total shares a company issued",
               "A tax on stock gains as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A moving average averages price over a set period, smoothing daily noise to reveal the underlying trend. It clarifies direction but doesn't predict the future."
           },
           {
             id: "invfund9-mastery4",
+            concept: "Reading a Stock Chart",
             question: "What is 'support' on a stock chart?",
             options: [
               "A ceiling where the price stops rising over the long run",
               "A price level where it has repeatedly stopped falling",
-              "The dividend a stock pays according to most guides",
+              "The dividend a stock pays",
               "A guaranteed price floor forever as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Support is a level where a stock has repeatedly stopped falling, like a floor of buyers. It's a tendency from past behavior, not a guaranteed price floor."
           },
           {
             id: "invfund9-mastery5",
+            concept: "Reading a Stock Chart",
             question: "What is the honest limit of chart patterns?",
             options: [
               "They perfectly predict tomorrow's price",
@@ -1649,18 +1768,21 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "They only work for wealthy traders"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "No chart reliably predicts short-term prices; patterns are educated guesses about tendencies. Chasing them is how many beginners lose money."
           },
           {
             id: "invfund9-mastery6",
+            concept: "Reading a Stock Chart",
             question: "For a long-term investor, what matters more than chart squiggles?",
             options: [
               "The company's actual business and health",
               "The exact color of each candle",
-              "Guessing the daily price according to most guides",
+              "Guessing the daily price",
               "The chart's background theme"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Over the long run, a company's real earnings, growth, and health drive its value far more than short-term chart patterns. Use charts for context, not prediction."
           }
         ]
@@ -1712,23 +1834,25 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund10-mc1",
+            concept: "Building Your First Portfolio",
             question: "What is asset allocation?",
             options: [
               "Picking the single best stock to own as a general rule",
               "How you split money among stocks, bonds, and cash",
               "The fee charged by an index fund",
-              "The tax rate on your gains according to most guides"
+              "The tax rate on your gains"
             ],
             correctAnswer: 1,
             explanation: "Asset allocation is how you divide money among stocks, bonds, and cash. This mix drives most of your results - more than which individual stock you pick."
           },
           {
             id: "invfund10-mc2",
+            concept: "Building Your First Portfolio",
             question: "What does rebalancing a portfolio do?",
             options: [
               "Guarantees your portfolio never loses value as a general rule",
               "Restores your target mix, selling high and buying low",
-              "Doubles your investment automatically according to most guides",
+              "Doubles your investment automatically",
               "Removes all bonds from your holdings over the long run"
             ],
             correctAnswer: 1,
@@ -1751,11 +1875,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund10-aq1",
+          concept: "Building Your First Portfolio",
           question: "Why does an 85% stock allocation make sense for Tyler right now?",
           options: [
               "Stocks can never lose value over decades as a general rule",
               "His long horizon lets him ride out crashes for growth",
-              "Bonds are illegal for young investors according to most guides",
+              "Bonds are illegal for young investors",
               "He will have to spend all of the money very soon"
             ],
           correctAnswer: 1,
@@ -1778,6 +1903,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund10-mastery1",
+            concept: "Building Your First Portfolio",
             question: "Which decision drives most of a portfolio's results?",
             options: [
               "Which single stock you pick",
@@ -1786,66 +1912,77 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "The day of the week you buy"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Asset allocation - your split among stocks, bonds, and cash - drives most of your long-term results, far more than which individual stock you choose."
           },
           {
             id: "invfund10-mastery2",
+            concept: "Building Your First Portfolio",
             question: "Why do young investors typically hold a high percentage of stocks?",
             options: [
-              "Stocks are guaranteed to always rise according to most guides",
+              "Stocks are guaranteed to always rise",
               "They have decades to recover from crashes",
               "Bonds are banned for people under 30",
               "Stocks require no research at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A long time horizon lets young investors ride out and recover from crashes, so they can hold more growth-oriented stocks. Those near a goal shift toward bonds."
           },
           {
             id: "invfund10-mastery3",
+            concept: "Building Your First Portfolio",
             question: "What does a target-date fund do automatically?",
             options: [
-              "Guarantees a fixed yearly return according to most guides",
+              "Guarantees a fixed yearly return",
               "Diversifies and shifts toward bonds as the goal nears",
               "Picks one hot stock each year over the long run",
               "Removes all fees from investing as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A target-date fund holds a diversified mix and gradually shifts toward safer bonds as your target date approaches, handling allocation and rebalancing for you."
           },
           {
             id: "invfund10-mastery4",
+            concept: "Building Your First Portfolio",
             question: "What does 'pay yourself first' mean for investing?",
             options: [
-              "Spend on wants before saving according to most guides",
+              "Spend on wants before saving",
               "Automate investing before you can spend it",
               "Only invest leftover money at month's end",
               "Withdraw profits every single week"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Paying yourself first means automating your investment before you spend, so saving isn't left to willpower. It builds a steady habit and uses dollar-cost averaging."
           },
           {
             id: "invfund10-mastery5",
+            concept: "Building Your First Portfolio",
             question: "How does yearly rebalancing quietly help you?",
             options: [
               "It forces selling high and buying low",
               "It guarantees you never lose money",
-              "It doubles your contributions according to most guides",
+              "It doubles your contributions",
               "It eliminates all market risk as a general rule"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Rebalancing trims what grew and adds to what lagged, returning to your target mix. That process naturally has you sell high and buy low, without needing to guess timing."
           },
           {
             id: "invfund10-mastery6",
+            concept: "Building Your First Portfolio",
             question: "What is the hardest but wisest rule between check-ins?",
             options: [
               "React to every news headline fast",
               "Leave the portfolio alone to compound",
-              "Sell everything after any drop according to most guides",
+              "Sell everything after any drop",
               "Add new random stocks weekly"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Leaving your portfolio alone between periodic check-ins lets compounding work and avoids emotional mistakes. Obsessive tinkering usually hurts long-term results."
           }
         ]
@@ -1897,23 +2034,25 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest1-mc1",
+            concept: "Why Investing Matters",
             question: "Why is saving alone usually not enough to build real wealth?",
             options: [
               "Banks are not allowed to hold large sums over the long run",
               "Saved money barely grows and loses value to rising prices",
               "Saving is illegal after a certain amount as a general rule",
-              "Savings accounts charge 50% yearly fees according to most guides"
+              "Savings accounts charge 50% yearly fees"
             ],
             correctAnswer: 1,
             explanation: "Money in a bank grows very slowly and loses buying power to inflation. Investing makes money grow through returns that compound, which is how real wealth is built."
           },
           {
             id: "invest1-mc2",
+            concept: "Why Investing Matters",
             question: "What does 'making your money work for you' mean?",
             options: [
               "Working more hours at a second job",
               "Your money earns returns without you trading more time",
-              "Spending money faster to enjoy it according to most guides",
+              "Spending money faster to enjoy it",
               "Keeping all cash hidden at home as a general rule"
             ],
             correctAnswer: 1,
@@ -1936,6 +2075,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest1-aq1",
+          concept: "Why Investing Matters",
           question: "Why does investing make Aisha's 25-year retirement goal realistic?",
           options: [
             "It removes the need to save any money at all",
@@ -1963,6 +2103,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest1-mastery1",
+            concept: "Why Investing Matters",
             question: "Why can't saving alone realistically fund a 20-30 year retirement?",
             options: [
               "Banks close accounts after retirement",
@@ -1971,66 +2112,77 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Retirement never actually costs much money"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Replacing an income for decades takes a huge sum. Saving alone would require an impractical monthly amount, so investment growth is what makes the goal reachable."
           },
           {
             id: "invest1-mastery2",
+            concept: "Why Investing Matters",
             question: "What is financial freedom, in investing terms?",
             options: [
               "Never having to save any money",
               "When your money's returns can support you",
-              "Owning the single best stock according to most guides",
+              "Owning the single best stock",
               "Having a very high salary as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Financial freedom is building enough invested wealth that the returns it generates can support you, so you no longer depend entirely on trading hours for a paycheck."
           },
           {
             id: "invest1-mastery3",
+            concept: "Why Investing Matters",
             question: "Why does owning a diversified market slice tie you to economic growth?",
             options: [
               "You own a piece of many growing companies",
-              "The government pays you a bonus according to most guides",
+              "The government pays you a bonus",
               "It guarantees a fixed 20% return as a general rule",
               "You control how companies are run"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A broad market investment means owning a slice of thousands of companies. As they grow and profit over decades, your stake grows with the overall economy."
           },
           {
             id: "invest1-mastery4",
+            concept: "Why Investing Matters",
             question: "Which is a common myth that stops people from investing?",
             options: [
               "Investing is only for the rich",
-              "Diversification lowers risk according to most guides",
+              "Diversification lowers risk",
               "Compounding rewards time as a general rule",
               "Starting early is helpful"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "'Investing is only for the rich' is a myth - apps let anyone start with a few dollars. The other options are true principles, not myths."
           },
           {
             id: "invest1-mastery5",
+            concept: "Why Investing Matters",
             question: "What is the biggest investing mistake according to the lesson?",
             options: [
-              "Diversifying too broadly according to most guides",
+              "Diversifying too broadly",
               "Waiting too long to start",
               "Investing small amounts as a general rule",
               "Using low-cost index funds"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Waiting is the biggest mistake because lost years of compounding can never be recovered. Starting early, even small, beats starting big but late."
           },
           {
             id: "invest1-mastery6",
+            concept: "Why Investing Matters",
             question: "What caps how much you can earn from a job but NOT from investing?",
             options: [
               "The number of hours you can work",
               "The color of your paycheck",
-              "The bank you use according to most guides",
+              "The bank you use",
               "Your favorite stock's price as a general rule"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A job trades limited hours for pay, capping earnings. Invested money earns on its own with no hourly limit, which is why it can outgrow labor income over time."
           }
         ]
@@ -2082,9 +2234,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest2-mc1",
+            concept: "Inflation",
             question: "What is inflation?",
             options: [
-              "A tax the government charges on savings according to most guides",
+              "A tax the government charges on savings",
               "The gradual rise in prices, reducing each dollar's buying power",
               "The interest a bank pays on deposits as a general rule",
               "A sudden crash in the stock market over the long run"
@@ -2094,6 +2247,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest2-mc2",
+            concept: "Inflation",
             question: "If your savings earns 1% while inflation is 3%, what is your real return?",
             options: [
               "About +4%",
@@ -2121,12 +2275,13 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest2-aq1",
+          concept: "Inflation",
           question: "Why is Diego's 'safe' savings actually losing value over time?",
           options: [
               "The bank secretly withdraws his money",
               "Inflation outpaces his tiny interest rate",
               "Savings accounts are illegal for teens",
-              "He keeps spending the interest according to most guides"
+              "He keeps spending the interest"
             ],
           correctAnswer: 1,
           explanation: "Inflation at 3% is higher than his 0.5% interest, so his real return is negative. The dollar count stays but its buying power quietly shrinks each year."
@@ -2148,42 +2303,49 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest2-mastery1",
+            concept: "Inflation",
             question: "Why is inflation called an 'invisible tax'?",
             options: [
               "The IRS mails you a special inflation bill",
               "It silently erodes your money's buying power",
-              "It only affects rich people according to most guides",
+              "It only affects rich people",
               "It doubles your taxes each year"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "No one bills you, but every year prices rise and your dollars quietly buy less if they aren't growing. That silent erosion acts like a hidden tax on cash."
           },
           {
             id: "invest2-mastery2",
+            concept: "Inflation",
             question: "What does the CPI measure?",
             options: [
               "The stock market's daily price as a general rule",
               "The average price of a basket of common goods",
-              "A single company's profits according to most guides in the vast majority of situations",
+              "A single company's profits",
               "The interest rate on savings over the long run"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The Consumer Price Index tracks the average price of a basket of common goods and services, and it's the usual gauge reported for inflation."
           },
           {
             id: "invest2-mastery3",
+            concept: "Inflation",
             question: "What is the difference between nominal and real return?",
             options: [
               "Nominal is after tax; real is before tax",
               "Real return subtracts inflation from nominal",
-              "They are always identical according to most guides",
+              "They are always identical",
               "Nominal only applies to bonds"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Nominal return is the raw rate you earn; real return is what's left after subtracting inflation. Real return tells you whether your buying power actually grew."
           },
           {
             id: "invest2-mastery4",
+            concept: "Inflation",
             question: "Roughly what will a $100 item cost in 10 years at 3% inflation?",
             options: [
               "About $103",
@@ -2192,30 +2354,35 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Still exactly $100"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "At 3% compounding for 10 years, $100 grows to about $134. Inflation compounds, so small yearly rises add up meaningfully over a decade."
           },
           {
             id: "invest2-mastery5",
+            concept: "Inflation",
             question: "Which is the best long-term protection against inflation?",
             options: [
               "Holding all cash in a drawer",
               "Investing in growth assets like stocks",
-              "A savings account at 0.5% according to most guides",
+              "A savings account at 0.5%",
               "Spending money as fast as possible"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Growth assets like stocks have historically returned well above inflation, growing real wealth. Cash and low-rate savings lose purchasing power over time."
           },
           {
             id: "invest2-mastery6",
+            concept: "Inflation",
             question: "How should inflation change your long-term savings goals?",
             options: [
-              "Target today's prices exactly according to most guides",
+              "Target today's prices exactly",
               "Aim higher, since future prices will be greater",
               "Ignore it entirely for big goals over the long run",
               "Save less because prices fall as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Because prices rise over time, a future goal like a car or home will cost more than today. Long-term targets must aim above current prices to keep up."
           }
         ]
@@ -2267,6 +2434,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest3-mc1",
+            concept: "Simple vs Compound",
             question: "How do reinvested dividends create compounding in a portfolio?",
             options: [
               "They are paid only on your original shares forever",
@@ -2279,11 +2447,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest3-mc2",
+            concept: "Simple vs Compound",
             question: "Why can compound interest work against you?",
             options: [
               "It lowers your savings rate over time",
               "High-interest debt compounds and snowballs your balance",
-              "It only applies to government bonds according to most guides",
+              "It only applies to government bonds",
               "It stops you from earning any interest"
             ],
             correctAnswer: 1,
@@ -2306,11 +2475,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest3-aq1",
+          concept: "Simple vs Compound",
           question: "Why does reinvesting dividends grow Nadia's money faster than taking the cash?",
           options: [
               "Reinvesting secretly raises the fund's dividend rate",
               "New shares from dividends earn dividends of their own",
-              "Cash dividends are taxed at 100% according to most guides",
+              "Cash dividends are taxed at 100%",
               "The fund adds a bonus only to cash payouts"
             ],
           correctAnswer: 1,
@@ -2333,6 +2503,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest3-mastery1",
+            concept: "Simple vs Compound",
             question: "In a portfolio, what are the two engines that make money compound?",
             options: [
               "Bank fees and account minimums",
@@ -2341,10 +2512,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Cash payouts and spending them quickly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Compounding inside investments comes from reinvested dividends buying more shares and from gains that grow off an already-larger balance - both build on themselves."
           },
           {
             id: "invest3-mastery2",
+            concept: "Simple vs Compound",
             question: "Why does frequent trading tend to weaken an investor's compounding?",
             options: [
               "It raises the dividend rate too high",
@@ -2353,46 +2526,54 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "It forces the fund to stop paying dividends"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Selling stops gains from building on themselves and often triggers taxes and fees, shrinking the base compounding grows from. Patient holding lets the snowball keep rolling."
           },
           {
             id: "invest3-mastery3",
+            concept: "Simple vs Compound",
             question: "What does APY reflect that a plain interest rate may not?",
             options: [
               "The effect of compounding frequency",
-              "The bank's total profit according to most guides",
+              "The bank's total profit",
               "The tax you owe",
               "The stock market's return"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "APY (annual percentage yield) bakes in how often interest compounds, giving a true yearly growth figure for honest apples-to-apples comparisons between accounts."
           },
           {
             id: "invest3-mastery4",
+            concept: "Simple vs Compound",
             question: "Why is paying off high-interest debt like a great 'investment'?",
             options: [
               "It earns you a tax refund",
               "It stops compounding from working against you",
-              "Debt never charges interest according to most guides",
+              "Debt never charges interest",
               "It doubles your credit score as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "High-interest debt compounds against you. Paying it off halts that reverse compounding, effectively 'earning' the high rate you would have paid in interest."
           },
           {
             id: "invest3-mastery5",
+            concept: "Simple vs Compound",
             question: "How does more frequent compounding affect growth?",
             options: [
-              "It slows growth down according to most guides",
+              "It slows growth down",
               "It speeds growth up slightly",
               "It has no effect at all",
               "It cancels the interest"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Compounding monthly or daily starts earning interest on new interest sooner than yearly compounding, so it grows your money slightly faster over time."
           },
           {
             id: "invest3-mastery6",
+            concept: "Simple vs Compound",
             question: "What is compounding's best friend?",
             options: [
               "A high starting balance",
@@ -2401,6 +2582,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "A large bank"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Time is compounding's best friend - the longer money compounds, the more dramatically it grows, which is why starting young beats starting with more money."
           }
         ]
@@ -2452,23 +2634,25 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest4-mc1",
+            concept: "Time Value of Money",
             question: "Why is a dollar today worth more than a dollar in the future?",
             options: [
               "Future dollars are printed in a different color",
               "Today's dollar can be invested and start earning now",
               "The government bans saving future dollars as a general rule",
-              "Future dollars are always counterfeit according to most guides"
+              "Future dollars are always counterfeit"
             ],
             correctAnswer: 1,
             explanation: "A dollar today can be invested immediately and grow, while a future dollar can't earn until it arrives. Inflation and risk also make future dollars worth less."
           },
           {
             id: "invest4-mc2",
+            concept: "Time Value of Money",
             question: "What does 'present value' describe?",
             options: [
               "What today's money will grow into later as a general rule",
               "What a future payment is worth in today's dollars",
-              "The interest rate on a loan according to most guides",
+              "The interest rate on a loan",
               "The total number of dollars in circulation"
             ],
             correctAnswer: 1,
@@ -2491,11 +2675,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest4-aq1",
+          concept: "Time Value of Money",
           question: "How did Renata match Marcus despite investing only a third as much?",
           options: [
               "Her early dollars compounded far longer",
               "She earned a much higher interest rate",
-              "Marcus's money was taxed away according to most guides",
+              "Marcus's money was taxed away",
               "She kept secretly adding money"
             ],
           correctAnswer: 0,
@@ -2518,18 +2703,21 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest4-mastery1",
+            concept: "Time Value of Money",
             question: "What is the time value of money?",
             options: [
-              "Money loses value only when spent according to most guides",
+              "Money loses value only when spent",
               "A dollar today is worth more than one later",
               "All dollars are always worth the same",
               "Future dollars are always worth more as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The time value of money says a dollar today is worth more than a dollar in the future, because today's dollar can be invested and grow immediately."
           },
           {
             id: "invest4-mastery2",
+            concept: "Time Value of Money",
             question: "What is 'future value'?",
             options: [
               "What today's money grows into later",
@@ -2538,54 +2726,63 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "The tax on future earnings"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Future value is what a sum invested today will be worth at a later date after growth. Present value is the reverse - discounting future money to today."
           },
           {
             id: "invest4-mastery3",
+            concept: "Time Value of Money",
             question: "Why are your earliest invested dollars the most valuable?",
             options: [
               "They earn a special higher rate",
               "They have the longest time to compound",
-              "They avoid all taxes forever according to most guides",
+              "They avoid all taxes forever",
               "Banks give bonuses for early dollars"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Early dollars have the longest runway to compound, so they multiply the most. That's why a small early investment can outgrow a larger late one."
           },
           {
             id: "invest4-mastery4",
+            concept: "Time Value of Money",
             question: "Why might a lottery winner take a lump sum over yearly payments?",
             options: [
               "Lump sums avoid all taxes as a general rule",
               "Money now can be invested and grow immediately",
-              "Yearly payments are illegal according to most guides",
+              "Yearly payments are illegal",
               "The lump sum is always larger over the long run"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A lump sum today can be invested right away and used immediately, often outweighing 30 years of smaller future payments that are worth less in today's dollars."
           },
           {
             id: "invest4-mastery5",
+            concept: "Time Value of Money",
             question: "What does present value do to a future payment?",
             options: [
               "Discounts it to today's dollars",
-              "Multiplies it by inflation according to most guides",
+              "Multiplies it by inflation",
               "Guarantees it will double",
               "Adds interest to it forever"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Present value discounts a future payment back to what it's worth today, because a dollar arriving later is worth less than a dollar in hand now."
           },
           {
             id: "invest4-mastery6",
+            concept: "Time Value of Money",
             question: "What is the hidden cost of waiting ten years to start investing?",
             options: [
-              "A small one-time bank fee according to most guides",
+              "A small one-time bank fee",
               "Losing your most powerful compounding years",
               "Nothing - later dollars are stronger",
               "A higher tax bracket automatically"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Delaying loses your earliest, longest-compounding dollars - the ones that would have grown the most. Ten missed years can cost hundreds of thousands by retirement."
           }
         ]
@@ -2637,6 +2834,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest5-mc1",
+            concept: "Risk vs Return",
             question: "What is 'total return' on an investment?",
             options: [
               "Only the dividends it pays over a year",
@@ -2649,9 +2847,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest5-mc2",
+            concept: "Risk vs Return",
             question: "What are the two main forms of investment return?",
             options: [
-              "Fees and taxes according to most guides",
+              "Fees and taxes",
               "Income (interest, dividends) and capital appreciation",
               "Deposits and withdrawals as a general rule",
               "Principal and collateral over the long run"
@@ -2676,9 +2875,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest5-aq1",
+          concept: "Risk vs Return",
           question: "Why should Layla treat her two goals with different risk levels?",
           options: [
-              "Retirement money never faces any risk according to most guides",
+              "Retirement money never faces any risk",
               "Their time horizons differ, so their risk capacity differs",
               "Tuition should always be invested aggressively as a general rule",
               "Both goals are identical in every way"
@@ -2703,6 +2903,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest5-mastery1",
+            concept: "Risk vs Return",
             question: "A fund's price rises 6% and it also pays a 2% dividend. Its total return is about…",
             options: [
               "2%, counting only the dividend",
@@ -2711,10 +2912,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "4%, the difference between them"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Total return adds income to price change: a 6% price gain plus a 2% dividend is roughly an 8% total return for the year."
           },
           {
             id: "invest5-mastery2",
+            concept: "Risk vs Return",
             question: "Which investment delivers its return mostly as income rather than appreciation?",
             options: [
               "A growth stock that pays no dividend",
@@ -2723,34 +2926,40 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "A startup share with no payouts"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A bond fund pays regular interest with little price movement, so its return is mostly income. Growth stocks and speculative bets rely on appreciation instead."
           },
           {
             id: "invest5-mastery3",
+            concept: "Risk vs Return",
             question: "What is capital appreciation?",
             options: [
               "Interest paid on a bond as a general rule",
               "An investment's price rising above what you paid",
               "A fee charged by a fund over the long run",
-              "The tax on dividends according to most guides"
+              "The tax on dividends"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Capital appreciation is the gain from an investment's price increasing. Combined with income like dividends or interest, it makes up your total return."
           },
           {
             id: "invest5-mastery4",
+            concept: "Risk vs Return",
             question: "For a long-term investor, why isn't volatility the same as danger?",
             options: [
               "Volatility means an asset can't lose money over the long run",
               "Swings even out over decades if you hold on",
-              "Volatile assets are legally guaranteed according to most guides",
+              "Volatile assets are legally guaranteed",
               "Volatility only affects rich people as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A diversified fund swings year to year but has been reliable over decades. The real danger is panic-selling during a swing, not the swing itself."
           },
           {
             id: "invest5-mastery5",
+            concept: "Risk vs Return",
             question: "Why is a single stock usually more volatile than a broad fund?",
             options: [
               "Single stocks are taxed at a higher rate",
@@ -2759,18 +2968,21 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Single stocks never pay any dividends"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A broad fund holds hundreds of companies, so one firm's shock is smoothed out. A single stock has no such cushion, so its price swings far more."
           },
           {
             id: "invest5-mastery6",
+            concept: "Risk vs Return",
             question: "What determines how much risk is right for a specific goal?",
             options: [
               "The goal's time horizon and your steadiness",
               "The color of your investing app",
-              "How many friends invest too according to most guides",
+              "How many friends invest too",
               "The current day of the week"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "The right risk level depends on when you need the money and whether you can stay calm through swings. Far-off goals can take more risk than near-term ones."
           }
         ]
@@ -2822,11 +3034,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest6-mc1",
+            concept: "Opportunity Cost",
             question: "What is opportunity cost?",
             options: [
               "The sticker price printed on an item",
               "The value of the best alternative you give up",
-              "A tax added to every purchase according to most guides",
+              "A tax added to every purchase",
               "The fee a bank charges monthly as a general rule"
             ],
             correctAnswer: 1,
@@ -2834,9 +3047,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest6-mc2",
+            concept: "Opportunity Cost",
             question: "What is the opportunity cost of leaving money in a 0.5% savings account?",
             options: [
-              "A monthly account fee according to most guides",
+              "A monthly account fee",
               "The higher return it could have earned invested",
               "Nothing, since savings is always best over the long run",
               "The original deposit disappearing as a general rule"
@@ -2861,11 +3075,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest6-aq1",
+          concept: "Opportunity Cost",
           question: "Using opportunity cost, what should Zoe most likely do with the $5,000?",
           options: [
               "Invest it, since 8% always beats paying debt",
               "Pay off the 22% credit card first",
-              "Keep it all in cash forever according to most guides",
+              "Keep it all in cash forever",
               "Split it evenly with no reasoning"
             ],
           correctAnswer: 1,
@@ -2888,54 +3103,63 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest6-mastery1",
+            concept: "Opportunity Cost",
             question: "You spend $500 on a gadget. What is the opportunity cost?",
             options: [
-              "Only the $500 sticker price according to most guides",
+              "Only the $500 sticker price",
               "What that $500 could have become elsewhere",
               "The sales tax on the gadget",
               "Nothing, since you own it now"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The opportunity cost is the best alternative use of that $500 - such as the growth it could have earned invested - not just the sticker price you paid."
           },
           {
             id: "invest6-mastery2",
+            concept: "Opportunity Cost",
             question: "Why does even waiting a year to invest have an opportunity cost?",
             options: [
-              "Banks charge a waiting fee according to most guides",
+              "Banks charge a waiting fee",
               "You lose a year of compounding growth",
               "Waiting is illegal for investors as a general rule",
               "Prices always fall while you wait"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Delaying costs a year of compounding on your earliest, most powerful dollars. That lost growth is the opportunity cost of waiting to start."
           },
           {
             id: "invest6-mastery3",
+            concept: "Opportunity Cost",
             question: "How does opportunity cost reframe a spending question?",
             options: [
               "From 'Can I afford it?' to 'Is this the best use?'",
               "From 'Is it fun?' to 'Is it expensive?' over the long run",
-              "It makes every purchase forbidden according to most guides in the vast majority of situations",
+              "It makes every purchase forbidden",
               "It ignores the price entirely as a general rule"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Opportunity cost shifts the question from mere affordability to whether this is truly the best use of your limited dollars, revealing hidden trade-offs."
           },
           {
             id: "invest6-mastery4",
+            concept: "Opportunity Cost",
             question: "Why does paying off a 22% credit card often beat investing at 8%?",
             options: [
-              "Debt payments earn tax refunds according to most guides",
+              "Debt payments earn tax refunds",
               "Avoiding 22% interest beats an 8% expected return",
               "Investing is never allowed with debt as a general rule",
               "Credit cards secretly pay you back"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Clearing the card avoids 22% interest, effectively a guaranteed 22% 'return' - higher than the fund's uncertain 8%. Opportunity cost favors killing the debt."
           },
           {
             id: "invest6-mastery5",
+            concept: "Opportunity Cost",
             question: "What is the real goal of thinking in opportunity cost?",
             options: [
               "Feeling guilty about every purchase",
@@ -2944,10 +3168,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Buying only the cheapest option"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The goal is intentional choices, not guilt. Seeing trade-offs helps you spend on what truly matters and skip what doesn't, with your limited resources."
           },
           {
             id: "invest6-mastery6",
+            concept: "Opportunity Cost",
             question: "Which purchase might genuinely be worth its opportunity cost?",
             options: [
               "Education that boosts your future earnings",
@@ -2956,6 +3182,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "A duplicate of something you own"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Some things are worth their opportunity cost - like education that raises your earnings. Opportunity cost helps you tell those apart from mindless spending."
           }
         ]
@@ -3007,11 +3234,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest7-mc1",
+            concept: "Diversification",
             question: "What is 'unsystematic risk'?",
             options: [
               "The risk the whole market crashes at once",
               "The risk tied to one specific company or sector",
-              "The risk of inflation rising according to most guides",
+              "The risk of inflation rising",
               "The risk of a fund's fees changing as a general rule"
             ],
             correctAnswer: 1,
@@ -3019,11 +3247,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest7-mc2",
+            concept: "Diversification",
             question: "What does 'correlation' describe between two investments?",
             options: [
               "How much tax each one owes",
               "How closely they move in sync",
-              "Which one is more famous according to most guides",
+              "Which one is more famous",
               "How old each company is"
             ],
             correctAnswer: 1,
@@ -3046,11 +3275,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest7-aq1",
+          concept: "Diversification",
           question: "Why is Marcus's all-in-one-stock plan so risky?",
           options: [
               "Single stocks are illegal to own as a general rule",
               "One company's failure could wipe out his savings",
-              "Diversified funds always lose money according to most guides",
+              "Diversified funds always lose money",
               "His company can never have problems"
             ],
           correctAnswer: 1,
@@ -3073,74 +3303,86 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest7-mastery1",
+            concept: "Diversification",
             question: "Why is diversification called the 'free lunch' of investing?",
             options: [
               "It removes all fees on funds as a general rule",
               "It can cut risk without cutting expected return",
               "It guarantees a profit each year",
-              "It gives you free stocks according to most guides"
+              "It gives you free stocks"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Diversification reduces risk without lowering expected return - rare in investing, where less risk usually means less reward. That's why it's the closest thing to a free lunch."
           },
           {
             id: "invest7-mastery2",
+            concept: "Diversification",
             question: "Why is owning ten tech stocks NOT truly diversified?",
             options: [
               "Ten stocks is too few to count",
               "They tend to move together in a downturn",
               "Tech stocks pay no dividends as a general rule",
-              "It's against the rules according to most guides"
+              "It's against the rules"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Same-sector stocks move together, so a tech slump sinks all ten at once. Real diversification spreads across sectors and asset types that behave differently."
           },
           {
             id: "invest7-mastery3",
+            concept: "Diversification",
             question: "Which pair of assets typically has low correlation?",
             options: [
-              "Two social-media stocks according to most guides",
+              "Two social-media stocks",
               "Stocks and high-quality bonds",
               "Two oil companies",
               "Two tech startups"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Stocks and high-quality bonds often move differently, so mixing them smooths returns. Same-sector pairs move together and don't offer that cushioning effect."
           },
           {
             id: "invest7-mastery4",
+            concept: "Diversification",
             question: "What is the easiest way to diversify instantly?",
             options: [
               "Buy one broad index fund",
               "Pick a single hot stock",
-              "Hold only cash according to most guides",
+              "Hold only cash",
               "Buy one company's bond"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A broad index fund holds hundreds or thousands of companies in one purchase, delivering instant diversification more cheaply than buying stocks one by one."
           },
           {
             id: "invest7-mastery5",
+            concept: "Diversification",
             question: "What can diversification NOT protect against?",
             options: [
-              "One company going bankrupt according to most guides",
+              "One company going bankrupt",
               "A crash across the entire market",
               "A single sector slumping as a general rule",
               "One bad stock pick"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Diversification handles company- and sector-specific (unsystematic) risk, but a systematic crash hitting the whole market still drags a diversified portfolio down."
           },
           {
             id: "invest7-mastery6",
+            concept: "Diversification",
             question: "What is a downside of over-diversifying?",
             options: [
-              "Your money becomes guaranteed according to most guides",
+              "Your money becomes guaranteed",
               "Redundant funds add fees without more safety",
               "You must sell everything yearly as a general rule",
               "Returns are capped at zero by law"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Piling on overlapping funds just recreates the market while adding fees. Broad, low-cost diversification hits the sweet spot without the redundant cost."
           }
         ]
@@ -3192,11 +3434,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest8-mc1",
+            concept: "Long vs Short Term",
             question: "Where should short-term money (needed in a year) go?",
             options: [
               "An aggressive stock fund for growth as a general rule",
               "Safe, stable places like savings or short-term bonds",
-              "A single risky startup stock according to most guides",
+              "A single risky startup stock",
               "Whatever had the highest return last year"
             ],
             correctAnswer: 1,
@@ -3204,12 +3447,13 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest8-mc2",
+            concept: "Long vs Short Term",
             question: "What does 'time in the market beats timing the market' mean?",
             options: [
               "Trade as often as possible to win as a general rule",
               "Staying invested beats trying to guess the perfect moments",
               "Only invest at the exact market bottom",
-              "Sell whenever the market drops according to most guides"
+              "Sell whenever the market drops"
             ],
             correctAnswer: 1,
             explanation: "Staying invested for the long haul beats trying to time entries and exits, because almost no one guesses correctly and missing the best days devastates returns."
@@ -3231,12 +3475,13 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest8-aq1",
+          concept: "Long vs Short Term",
           question: "Why should Elena keep her car money out of the stock fund?",
           options: [
               "Stock funds are illegal for young people as a general rule",
               "A crash could hit right before she needs the cash",
               "Savings accounts always beat stocks long term over the long run",
-              "She should never invest in anything according to most guides"
+              "She should never invest in anything"
             ],
           correctAnswer: 1,
           explanation: "With only a year until she needs the money, a market drop could force her to sell at a loss. Short-term money belongs in safe places, while her 45-year retirement money can take risk."
@@ -3258,74 +3503,86 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest8-mastery1",
+            concept: "Long vs Short Term",
             question: "What is a 'time horizon'?",
             options: [
               "The fee a fund charges yearly as a general rule",
               "When you'll need to use the money",
               "The number of stocks you own",
-              "The market's opening hour according to most guides"
+              "The market's opening hour"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Your time horizon is how long until you need the money. It's the main factor in deciding whether to prioritize safety or growth for a given goal."
           },
           {
             id: "invest8-mastery2",
+            concept: "Long vs Short Term",
             question: "Why is a stock fund risky for money you need next year?",
             options: [
-              "Stock funds charge no fees according to most guides in the vast majority of situations",
+              "Stock funds charge no fees",
               "A crash could force you to sell at a loss",
               "Stock funds are guaranteed to fall as a general rule",
               "You can never withdraw from them over the long run"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A market drop right before you need the cash could force selling at a loss. Short-term money should stay safe; only long-term money can weather crashes."
           },
           {
             id: "invest8-mastery3",
+            concept: "Long vs Short Term",
             question: "Why is playing it too safe risky for long-term money?",
             options: [
               "Safe accounts charge huge fees as a general rule",
               "Inflation erodes cash that isn't growing enough",
               "Safe money is always taxed double",
-              "Banks refuse long-term deposits according to most guides"
+              "Banks refuse long-term deposits"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Over decades, inflation quietly erodes cash that grows too slowly. Long-term money generally needs growth assets to stay ahead of rising prices."
           },
           {
             id: "invest8-mastery4",
+            concept: "Long vs Short Term",
             question: "What happens to market swings over very long periods?",
             options: [
               "They grow more extreme each year",
               "They average out to solid positive returns",
-              "They cancel all your gains according to most guides",
+              "They cancel all your gains",
               "They stop the market from moving"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Single years are unpredictable, but over long stretches like 20 years, the market's ups and downs have historically averaged out to solid positive returns."
           },
           {
             id: "invest8-mastery5",
+            concept: "Long vs Short Term",
             question: "Why is trying to time the market so dangerous?",
             options: [
-              "It's illegal for individuals according to most guides",
+              "It's illegal for individuals",
               "Missing a few best days can halve returns",
               "It guarantees you buy at the bottom over the long run",
               "It removes all fees as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Almost no one times the market well, and the best days often follow the worst. Missing just a handful of them can cut long-term returns dramatically."
           },
           {
             id: "invest8-mastery6",
+            concept: "Long vs Short Term",
             question: "What is the biggest advantage a teen long-term investor has?",
             options: [
               "Access to secret stock tips as a general rule",
               "Decades of time for patience to pay off",
-              "A guarantee against losses according to most guides",
+              "A guarantee against losses",
               "Zero fees on every trade over the long run"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Decades of time let a teen ride out volatility and let compounding work, making patience their single biggest edge over people who start later."
           }
         ]
@@ -3377,23 +3634,25 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest9-mc1",
+            concept: "Accounts Overview",
             question: "What is the main trade-off of a brokerage (taxable) account?",
             options: [
               "It has huge tax breaks but locks money away",
               "It offers full flexibility but taxes gains and dividends",
               "It can only hold cash, never investments as a general rule",
-              "It doubles your money automatically according to most guides"
+              "It doubles your money automatically"
             ],
             correctAnswer: 1,
             explanation: "A taxable brokerage account lets you deposit and withdraw freely with no penalties, but you owe taxes on dividends and on gains when you sell."
           },
           {
             id: "invest9-mc2",
+            concept: "Accounts Overview",
             question: "Why should you always contribute enough to get a full 401(k) match?",
             options: [
               "The match is free money, an instant return",
               "The match is required by law for teens",
-              "Matches remove all investment risk according to most guides",
+              "Matches remove all investment risk",
               "The match doubles your salary as a general rule"
             ],
             correctAnswer: 0,
@@ -3416,9 +3675,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest9-aq1",
+          concept: "Accounts Overview",
           question: "Why might a Roth IRA be especially smart for Jamal right now?",
           options: [
-              "Roth accounts never allow any growth according to most guides in the vast majority of situations",
+              "Roth accounts never allow any growth",
               "He's in a low bracket now and locks in tax-free growth",
               "Roth IRAs are only for retirees as a general rule",
               "Roth accounts guarantee a fixed return over the long run"
@@ -3443,30 +3703,35 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest9-mastery1",
+            concept: "Accounts Overview",
             question: "What is the difference between a 401(k) and an IRA?",
             options: [
               "A 401(k) is employer-based; an IRA you open yourself",
               "A 401(k) is only for the self-employed as a general rule",
               "An IRA has no tax advantages at all",
-              "They are exactly the same account according to most guides"
+              "They are exactly the same account"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A 401(k) is offered through your employer, often with a match, while an IRA is an individual account you open on your own. Both are tax-advantaged."
           },
           {
             id: "invest9-mastery2",
+            concept: "Accounts Overview",
             question: "How do Traditional and Roth accounts differ on taxes?",
             options: [
               "Traditional: taxed now; Roth: taxed later over the long run",
               "Traditional: tax break now, taxed later; Roth: taxed now, tax-free later",
-              "Both are taxed twice according to most guides in the vast majority of situations",
+              "Both are taxed twice",
               "Neither is ever taxed as a general rule based on common belief"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Traditional gives a tax break today and taxes withdrawals later; Roth is funded with after-tax money now and grows tax-free, with no tax at withdrawal."
           },
           {
             id: "invest9-mastery3",
+            concept: "Accounts Overview",
             question: "What is a 529 plan designed for?",
             options: [
               "Buying a house",
@@ -3475,42 +3740,49 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Everyday spending"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A 529 plan is a tax-advantaged account for education costs; it grows tax-free when used for qualifying school expenses."
           },
           {
             id: "invest9-mastery4",
+            concept: "Accounts Overview",
             question: "What usually happens if you withdraw from a retirement account before about 59½?",
             options: [
-              "You get a bonus according to most guides",
+              "You get a bonus",
               "You typically owe a penalty",
               "The account is deleted",
               "Nothing happens at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Retirement accounts generally penalize early withdrawals before about age 59½, which is the trade-off for their powerful tax advantages."
           },
           {
             id: "invest9-mastery5",
+            concept: "Accounts Overview",
             question: "Why is a Roth often powerful for young investors?",
             options: [
               "They pay low taxes now and grow tax-free",
               "Roths guarantee a fixed 10% return as a general rule",
-              "Roths have no contribution limits according to most guides",
+              "Roths have no contribution limits",
               "Only teens can open a Roth"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Young people are often in low tax brackets, so paying tax now is cheap, and a Roth locks in decades of tax-free growth withdrawn tax-free later."
           },
           {
             id: "invest9-mastery6",
+            concept: "Accounts Overview",
             question: "What is the smartest first priority when investing for retirement?",
             options: [
-              "Open five brokerage accounts according to most guides",
+              "Open five brokerage accounts",
               "Contribute enough to get the full employer match",
               "Buy a single hot stock over the long run",
               "Keep everything in cash as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Capturing the full 401(k) match first is the top priority - it's free money and an instant return no other investment reliably beats."
           }
         ]
@@ -3562,11 +3834,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest10-mc1",
+            concept: "First Portfolio",
             question: "What is the first step in building a portfolio?",
             options: [
               "Pick the hottest stock of the week",
               "Define your goal and time horizon",
-              "Borrow money to invest more according to most guides",
+              "Borrow money to invest more",
               "Check your balance every hour"
             ],
             correctAnswer: 1,
@@ -3574,11 +3847,12 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest10-mc2",
+            concept: "First Portfolio",
             question: "Why is automating your contributions so effective?",
             options: [
               "It guarantees you never lose money as a general rule",
               "It removes emotion and builds a steady habit",
-              "It doubles your monthly deposit according to most guides",
+              "It doubles your monthly deposit",
               "It lets you time the market perfectly"
             ],
             correctAnswer: 1,
@@ -3601,12 +3875,13 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest10-aq1",
+          concept: "First Portfolio",
           question: "What makes Priya's simple plan likely to succeed over decades?",
           options: [
               "She checks and trades her account daily",
               "It's diversified, low-cost, automated, and left alone",
               "She bets everything on one hot stock",
-              "She stops investing whenever markets drop according to most guides"
+              "She stops investing whenever markets drop"
             ],
           correctAnswer: 1,
           explanation: "A diversified, low-cost, automated portfolio she leaves alone lets compounding work and avoids emotional mistakes. Daily trading and chasing hot stocks would undermine it."
@@ -3628,74 +3903,86 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest10-mastery1",
+            concept: "First Portfolio",
             question: "What is the biggest mistake a beginner makes with a first portfolio?",
             options: [
               "Using low-cost index funds",
               "Overcomplicating it or never starting",
-              "Automating contributions according to most guides",
+              "Automating contributions",
               "Diversifying broadly as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Beginners often overcomplicate things or freeze up trying to be perfect, so they never start. A simple, diversified portfolio you actually begin beats a perfect one you don't."
           },
           {
             id: "invest10-mastery2",
+            concept: "First Portfolio",
             question: "What points you toward the right asset allocation?",
             options: [
               "Your time horizon and risk tolerance",
               "The most famous stock this year",
-              "Your favorite app's color according to most guides",
+              "Your favorite app's color",
               "The number of friends investing"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Your time horizon and how much risk you can handle together determine your stock/bond/cash split - the core decision of building a portfolio."
           },
           {
             id: "invest10-mastery3",
+            concept: "First Portfolio",
             question: "How can a beginner get instant diversification easily?",
             options: [
               "Buy one hot individual stock as a general rule",
               "Use broad index funds or a target-date fund",
-              "Keep everything in cash according to most guides",
+              "Keep everything in cash",
               "Pick fifty stocks by hand over the long run"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A few broad index funds or a single target-date fund provide instant, global diversification for tiny fees - far simpler than hand-picking individual stocks."
           },
           {
             id: "invest10-mastery4",
+            concept: "First Portfolio",
             question: "What does 'pay yourself first' mean for a portfolio?",
             options: [
               "Spend on wants before investing",
               "Automate investing before you can spend it",
-              "Only invest leftover money according to most guides",
+              "Only invest leftover money",
               "Withdraw profits every week as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Paying yourself first automates your investment before spending, so saving isn't left to willpower. It builds a habit and uses dollar-cost averaging."
           },
           {
             id: "invest10-mastery5",
+            concept: "First Portfolio",
             question: "Why rebalance your portfolio about once a year?",
             options: [
-              "To guarantee zero losses according to most guides in the vast majority of situations",
+              "To guarantee zero losses",
               "To restore your target mix, selling high and buying low",
               "To pay lower fees each month over the long run",
               "To double your contributions as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Winners grow into a bigger slice over time, drifting your allocation. A yearly rebalance nudges it back to target and naturally sells high while buying low."
           },
           {
             id: "invest10-mastery6",
+            concept: "First Portfolio",
             question: "What should you do during a scary market crash?",
             options: [
-              "Sell everything immediately according to most guides",
+              "Sell everything immediately",
               "Stick to the plan and keep contributing",
               "Chase whatever stock is hot as a general rule",
               "Check your balance every hour"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Sticking to your plan and continuing to invest through downturns lets you buy at lower prices and avoids the panic-selling that destroys long-term wealth."
           }
         ]
@@ -3747,9 +4034,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest11-mc1",
+            concept: "Why Markets Need Regulators: SEC & the Fed",
             question: "What is the main job of the SEC?",
             options: [
-              "Setting the country's interest rates according to most guides",
+              "Setting the country's interest rates",
               "Protecting investors and forcing honest company disclosure",
               "Insuring bank deposits up to $250,000",
               "Printing new money for the economy"
@@ -3759,6 +4047,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest11-mc2",
+            concept: "Why Markets Need Regulators: SEC & the Fed",
             question: "What is the Federal Reserve's main tool for managing the economy?",
             options: [
               "Setting interest rates",
@@ -3786,9 +4075,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest11-aq1",
+          concept: "Why Markets Need Regulators: SEC & the Fed",
           question: "Which regulator handles the insider-trading case, and which raises interest rates?",
           options: [
-              "The Fed handles both situations according to most guides",
+              "The Fed handles both situations",
               "The SEC handles insider trading; the Fed raises rates",
               "The FDIC handles both situations as a general rule",
               "The SEC raises rates; the Fed prosecutes fraud over the long run"
@@ -3813,18 +4103,21 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest11-mastery1",
+            concept: "Why Markets Need Regulators: SEC & the Fed",
             question: "Why was the SEC created?",
             options: [
               "To print money for the government",
               "To restore trust after the 1929 crash",
-              "To set mortgage interest rates according to most guides",
+              "To set mortgage interest rates",
               "To run the nation's banks as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The SEC was created after the 1929 crash and Great Depression to protect investors and rebuild trust by requiring honest disclosure and fair markets."
           },
           {
             id: "invest11-mastery2",
+            concept: "Why Markets Need Regulators: SEC & the Fed",
             question: "What is insider trading?",
             options: [
               "Buying stock inside a bank branch",
@@ -3833,22 +4126,26 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Investing only in your own employer"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Insider trading is buying or selling based on secret, non-public information. It's illegal because it cheats ordinary investors who lack that inside knowledge."
           },
           {
             id: "invest11-mastery3",
+            concept: "Why Markets Need Regulators: SEC & the Fed",
             question: "What does the FDIC do?",
             options: [
               "Sets the stock market's prices",
               "Insures bank deposits up to $250,000",
-              "Prosecutes insider trading according to most guides",
+              "Prosecutes insider trading",
               "Manages the Federal Reserve as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The FDIC insures bank deposits up to $250,000, protecting your savings if a bank fails. Note it covers bank accounts, not investments."
           },
           {
             id: "invest11-mastery4",
+            concept: "Why Markets Need Regulators: SEC & the Fed",
             question: "What is the Federal Reserve's 'dual mandate'?",
             options: [
               "Maximum employment and stable prices",
@@ -3857,22 +4154,26 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "Printing money and issuing bonds"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "The Fed's dual mandate is to pursue maximum employment and stable prices (controlling inflation). These goals can conflict, making its job a balancing act."
           },
           {
             id: "invest11-mastery5",
+            concept: "Why Markets Need Regulators: SEC & the Fed",
             question: "What typically happens when the Fed raises interest rates?",
             options: [
               "Borrowing gets pricier and stocks often dip",
               "Borrowing becomes free for everyone as a general rule",
               "Savings accounts pay less interest",
-              "Inflation immediately doubles according to most guides"
+              "Inflation immediately doubles"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Higher rates make borrowing more expensive, can shrink company profits, and often pressure stock prices - while new savings and bonds tend to pay more."
           },
           {
             id: "invest11-mastery6",
+            concept: "Why Markets Need Regulators: SEC & the Fed",
             question: "Who oversees brokers and brokerage firms?",
             options: [
               "The Federal Reserve",
@@ -3881,6 +4182,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
               "The Post Office"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "FINRA (the Financial Industry Regulatory Authority) oversees brokers and brokerage firms to ensure they treat customers fairly, complementing the SEC's role."
           }
         ]
@@ -3932,23 +4234,25 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest12-mc1",
+            concept: "Retirement & Education Accounts Deep Dive",
             question: "What is the difference between a 401(k) and a 403(b)?",
             options: [
               "A 401(k) is for for-profit firms; a 403(b) is for nonprofits/schools",
               "A 403(b) is only for retirees as a general rule",
               "A 401(k) has no tax advantages over the long run",
-              "They are completely unrelated accounts according to most guides in the vast majority of situations"
+              "They are completely unrelated accounts"
             ],
             correctAnswer: 0,
             explanation: "A 401(k) is offered by for-profit employers, while a 403(b) is the nearly identical version for nonprofits and public schools. Both are tax-advantaged retirement plans."
           },
           {
             id: "invest12-mc2",
+            concept: "Retirement & Education Accounts Deep Dive",
             question: "What is a 529 plan used for?",
             options: [
               "Guaranteed monthly retirement income",
               "Tax-free growth for qualifying education expenses",
-              "Everyday spending money according to most guides",
+              "Everyday spending money",
               "Insuring bank deposits as a general rule"
             ],
             correctAnswer: 1,
@@ -3971,9 +4275,10 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest12-aq1",
+          concept: "Retirement & Education Accounts Deep Dive",
           question: "Why is a 529 plan the best fit for the family's college savings goal?",
           options: [
-              "It guarantees admission to college according to most guides",
+              "It guarantees admission to college",
               "It grows tax-free for qualifying education expenses",
               "It pays a guaranteed monthly pension",
               "It insures their bank deposits as a general rule"
@@ -3998,74 +4303,86 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest12-mastery1",
+            concept: "Retirement & Education Accounts Deep Dive",
             question: "Who typically uses a 403(b) instead of a 401(k)?",
             options: [
               "Employees at nonprofits and public schools",
-              "Only self-employed freelancers according to most guides",
+              "Only self-employed freelancers",
               "Retirees collecting a pension",
               "Bank tellers exclusively as a general rule"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A 403(b) is the nonprofit and public-school version of a 401(k). Teachers and hospital staff commonly use one; both are tax-advantaged retirement plans."
           },
           {
             id: "invest12-mastery2",
+            concept: "Retirement & Education Accounts Deep Dive",
             question: "How does a pension (defined-benefit plan) work?",
             options: [
               "You pick your own stocks each year",
               "The employer promises a guaranteed monthly payment",
               "It grows tax-free only for education",
-              "It insures your bank deposits according to most guides"
+              "It insures your bank deposits"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A pension guarantees a set monthly payment in retirement based on salary and years worked. It's largely been replaced by 401(k)-style plans that shift risk to you."
           },
           {
             id: "invest12-mastery3",
+            concept: "Retirement & Education Accounts Deep Dive",
             question: "What is the main limit of a Coverdell ESA versus a 529?",
             options: [
-              "It cannot be used for education according to most guides",
+              "It cannot be used for education",
               "It has a low (~$2,000) yearly contribution cap",
               "It is taxed at withdrawal always as a general rule",
               "It only works after age 59½"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The Coverdell ESA grows tax-free for education but has a low annual cap (around $2,000) and income limits, which is why the higher-capacity 529 is more popular."
           },
           {
             id: "invest12-mastery4",
+            concept: "Retirement & Education Accounts Deep Dive",
             question: "Why is a Roth account often best for a young worker?",
             options: [
               "It guarantees a fixed 10% return",
               "Low taxes now plus decades of tax-free growth",
-              "It has no contribution limits according to most guides",
+              "It has no contribution limits",
               "Only teens can open one as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Young workers are often in low tax brackets, so paying tax now is cheap, and a Roth locks in decades of growth that comes out completely tax-free later."
           },
           {
             id: "invest12-mastery5",
+            concept: "Retirement & Education Accounts Deep Dive",
             question: "What tax advantage does a 529 plan offer?",
             options: [
               "Tax-free growth for education expenses",
-              "A guaranteed government bonus according to most guides",
+              "A guaranteed government bonus",
               "Deductions on all your spending",
               "Immunity from all future taxes"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A 529 grows tax-free and its withdrawals are tax-free for qualifying education costs, often with an added state tax break for contributing."
           },
           {
             id: "invest12-mastery6",
+            concept: "Retirement & Education Accounts Deep Dive",
             question: "What is the key skill in using tax-advantaged accounts?",
             options: [
-              "Memorizing every single rule according to most guides",
+              "Memorizing every single rule",
               "Matching the right account to each goal",
               "Opening as many accounts as possible",
               "Avoiding all of them entirely as a general rule"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The real skill is choosing the right container for each goal - retirement, education, or medical - so taxes take the smallest possible bite out of your growth."
           }
         ]

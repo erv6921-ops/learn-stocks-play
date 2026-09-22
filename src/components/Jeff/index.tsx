@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
-import { MessageCircle } from "lucide-react"
+import { MessageCircle, X } from "lucide-react"
 import { useApp } from "@/contexts/AppContext"
 import { useAuth } from "@/hooks/useAuth"
 import { useJeff, JeffActivity } from "@/contexts/JeffContext"
@@ -11,6 +11,18 @@ import { SpeechBubble } from "./SpeechBubble"
 import { JeffTutorPanel } from "./JeffTutorPanel"
 
 const HIDDEN_ROUTES = ["/auth", "/login", "/signup", "/onboarding", "/reset-password", "/forgot-password"]
+
+// Ask Jeff pricing, mirrored from the jeff-chat edge function (JEFF_CHAT_COST).
+const ASK_JEFF_COST = 200
+// localStorage flag: the one-time "each question costs coins" note was seen.
+const COST_NOTE_KEY = "ip_jeff_cost_note_seen"
+
+function costNoteSeen(): boolean {
+  try { return localStorage.getItem(COST_NOTE_KEY) === "1" } catch { return true }
+}
+function markCostNoteSeen() {
+  try { localStorage.setItem(COST_NOTE_KEY, "1") } catch { /* ignore */ }
+}
 
 // How the whole widget moves for roaming activities.
 function containerAnim(activity: JeffActivity, w: number, h: number) {
@@ -98,6 +110,11 @@ export function JeffWidget() {
   // shares the widget's visibility rules: signed-in only, hidden on auth /
   // onboarding routes, and gone while the Biz Lab sidekick owns the screen.
   const [chatOpen, setChatOpen] = useState(false)
+  // One-time inline note next to the launcher explaining the coin cost. Goes
+  // away for good the first time the chat is opened (or when dismissed).
+  const [showCostNote, setShowCostNote] = useState(() => !costNoteSeen())
+  const dismissCostNote = () => { setShowCostNote(false); markCostNoteSeen() }
+  const openChat = () => { setChatOpen(true); if (showCostNote) dismissCostNote() }
   const [dims, setDims] = useState({ w: typeof window !== "undefined" ? window.innerWidth : 1200, h: typeof window !== "undefined" ? window.innerHeight : 800 })
 
   useEffect(() => {
@@ -149,10 +166,26 @@ export function JeffWidget() {
         Students only: the panel is not mounted at all for teachers. */}
     {!isTeacher && (
     <>
+    {showCostNote && !chatOpen && (
+      <div
+        role="note"
+        className="fixed right-24 bottom-[calc(5rem+env(safe-area-inset-bottom))] md:right-32 md:bottom-[6.5rem] z-40 flex max-w-[15rem] items-start gap-2 rounded-xl border border-border bg-card px-3 py-2 text-xs text-card-foreground shadow-lg"
+      >
+        <span>Each question costs {ASK_JEFF_COST} coins. If Jeff can't answer, you get them back.</span>
+        <button
+          type="button"
+          aria-label="Dismiss"
+          onClick={dismissCostNote}
+          className="-mr-1 -mt-0.5 rounded-full p-0.5 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    )}
     <motion.button
       type="button"
-      aria-label="Chat with Jeff"
-      onClick={() => setChatOpen(true)}
+      aria-label={`Ask Jeff, ${ASK_JEFF_COST} coins per question`}
+      onClick={openChat}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: chatOpen ? 0 : 1, y: chatOpen ? 8 : 0 }}
       whileHover={{ scale: 1.04 }}

@@ -263,16 +263,34 @@ function FillBlank({
   const parts = data.sentence.split("[BLANK]")
   const filled = chosen !== null
 
+  // Reject a malformed generation where the word right before or after the blank
+  // already IS the answer — filling it in produces a duplicated "it it". There's
+  // nothing coherent to show, so don't render the widget at all.
+  const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/gi, "")
+  const before = (parts[0]?.trim().split(/\s+/).pop() ?? "")
+  const after = ((parts[1] ?? "").trim().split(/\s+/)[0] ?? "")
+  if (norm(before) === norm(data.answer) || norm(after) === norm(data.answer)) return null
+
   return (
     <div>
       <p className="text-[17px] font-semibold text-foreground leading-relaxed mb-3">
         {parts[0]}
         <span
           className={`inline-block min-w-[3.5rem] text-center font-extrabold ${
-            filled ? (correct ? "text-green-600" : "text-red-600") : "text-primary"
+            filled ? (correct ? "text-green-600" : "") : "text-primary"
           }`}
         >
-          {filled ? chosen : "______"}
+          {!filled ? (
+            "______"
+          ) : correct ? (
+            chosen
+          ) : (
+            // Wrong: reveal the correct word in green with the student's struck through.
+            <>
+              <span className="text-green-600">{data.answer}</span>{" "}
+              <span className="text-red-600 line-through decoration-2">{chosen}</span>
+            </>
+          )}
         </span>
         {parts[1] ?? ""}
       </p>
@@ -472,7 +490,8 @@ function SpotMistake({
 
 // ── Type 5: Sort It ──────────────────────────────────────────────────
 // Each item is a compact row with the two bins as pills. Pick a bin per item;
-// correct picks lock green, wrong picks flash red and clear so they retry.
+// correct picks lock green. A wrong pick stays red with "Try the other group"
+// and counts as a miss — too many misses and the round earns no coins.
 function SortIt({
   data,
   onCoins,
@@ -483,31 +502,25 @@ function SortIt({
   onComplete: (result: InterrupterResult) => void
 }) {
   const [choice, setChoice] = useState<(number | null)[]>(() => data.items.map(() => null))
-  const [wrongItem, setWrongItem] = useState<number | null>(null)
+  const [misses, setMisses] = useState(0)
   const awarded = useRef(false)
   const solved = data.items.every((it, i) => choice[i] === it.bin)
+  // Award nothing if they missed more than half the items.
+  const earned = misses <= data.items.length / 2
 
   useEffect(() => {
     if (solved && !awarded.current) {
       awarded.current = true
-      onCoins(25, "Quick check: correct")
+      if (earned) onCoins(25, "Quick check: correct")
     }
-  }, [solved, onCoins])
+  }, [solved, earned, onCoins])
 
   const pick = (itemIdx: number, binIdx: number) => {
     const item = data.items[itemIdx]
     if (solved || choice[itemIdx] === item.bin) return // already locked correct
-    if (binIdx === item.bin) {
-      setChoice(prev => prev.map((c, i) => (i === itemIdx ? binIdx : c)))
-    } else {
-      // flash the wrong pick, then clear it so they can try the other bin
-      setChoice(prev => prev.map((c, i) => (i === itemIdx ? binIdx : c)))
-      setWrongItem(itemIdx)
-      setTimeout(() => {
-        setChoice(prev => prev.map((c, i) => (i === itemIdx && c !== data.items[i].bin ? null : c)))
-        setWrongItem(w => (w === itemIdx ? null : w))
-      }, 500)
-    }
+    if (choice[itemIdx] === binIdx) return // re-tapping the same wrong bin — no-op
+    setChoice(prev => prev.map((c, i) => (i === itemIdx ? binIdx : c)))
+    if (binIdx !== item.bin) setMisses(m => m + 1) // wrong pick stays red, counts as a miss
   }
 
   return (
@@ -516,40 +529,44 @@ function SortIt({
       <div className="space-y-2 max-h-[42vh] overflow-y-auto pr-0.5">
         {data.items.map((it, i) => {
           const locked = choice[i] === it.bin
+          const hasWrong = choice[i] !== null && !locked
           return (
             <div
               key={i}
-              className={`flex items-center gap-2 rounded-xl border-2 pl-3 pr-1.5 py-1 transition-colors ${
-                locked ? "border-green-500 bg-green-50" : "border-black/10"
+              className={`rounded-xl border-2 pl-3 pr-1.5 py-1 transition-colors ${
+                locked ? "border-green-500 bg-green-50" : hasWrong ? "border-red-500 bg-red-50" : "border-black/10"
               }`}
             >
-              <span className="flex-1 text-[14px] font-medium leading-tight">{it.text}</span>
-              <div className="flex gap-1 shrink-0">
-                {data.bins.map((b, bi) => {
-                  const chosen = choice[i] === bi
-                  const lockedHere = locked && it.bin === bi
-                  const wrongHere = wrongItem === i && chosen && bi !== it.bin
-                  return (
-                    <motion.button
-                      key={bi}
-                      onClick={() => pick(i, bi)}
-                      disabled={solved || locked}
-                      animate={wrongHere ? { x: [0, -5, 5, -3, 3, 0] } : {}}
-                      transition={{ duration: 0.35 }}
-                      style={{ minHeight: 44 }}
-                      className={`px-3 rounded-lg border-2 text-[13px] font-bold transition-colors ${
-                        lockedHere
-                          ? "border-green-500 bg-green-100 text-green-700"
-                          : wrongHere
-                            ? "border-red-500 bg-red-50 text-red-600"
-                            : "border-primary/30 hover:border-primary hover:bg-primary/5"
-                      }`}
-                    >
-                      {b}
-                    </motion.button>
-                  )
-                })}
+              <div className="flex items-center gap-2">
+                <span className="flex-1 text-[14px] font-medium leading-tight">{it.text}</span>
+                <div className="flex gap-1 shrink-0">
+                  {data.bins.map((b, bi) => {
+                    const chosen = choice[i] === bi
+                    const lockedHere = locked && it.bin === bi
+                    const wrongHere = hasWrong && chosen && bi !== it.bin
+                    return (
+                      <motion.button
+                        key={bi}
+                        onClick={() => pick(i, bi)}
+                        disabled={solved || locked}
+                        animate={wrongHere ? { x: [0, -5, 5, -3, 3, 0] } : {}}
+                        transition={{ duration: 0.35 }}
+                        style={{ minHeight: 44 }}
+                        className={`px-3 rounded-lg border-2 text-[13px] font-bold transition-colors ${
+                          lockedHere
+                            ? "border-green-500 bg-green-100 text-green-700"
+                            : wrongHere
+                              ? "border-red-500 bg-red-50 text-red-600"
+                              : "border-primary/30 hover:border-primary hover:bg-primary/5"
+                        }`}
+                      >
+                        {b}
+                      </motion.button>
+                    )
+                  })}
+                </div>
               </div>
+              {hasWrong && <p className="text-[12px] text-red-500 mt-0.5">Try the other group.</p>}
             </div>
           )
         })}
@@ -557,7 +574,7 @@ function SortIt({
       {solved && (
         <Footer
           explanation={data.explanation}
-          coinLabel="+25 coins"
+          coinLabel={earned ? "+25 coins" : undefined}
           onContinue={() => onComplete({ description: "sorting into the right groups", outcome: "correct" })}
         />
       )}
@@ -567,7 +584,9 @@ function SortIt({
 
 // ── Type 6: Rank It ──────────────────────────────────────────────────
 // Tap the items in order; the taps stamp position badges. A complete-but-wrong
-// order shakes and resets so they can try again.
+// order keeps the placed items and tells the student how many are already in the
+// right spot, so they can "Undo last" and adjust instead of starting over. After
+// two misses a "Show me" button reveals the answer (no coins if they use it).
 function RankIt({
   data,
   onCoins,
@@ -578,29 +597,42 @@ function RankIt({
   onComplete: (result: InterrupterResult) => void
 }) {
   const [sequence, setSequence] = useState<number[]>([])
-  const [wrong, setWrong] = useState(false)
-  const [solved, setSolved] = useState(false)
+  const [misses, setMisses] = useState(0)
+  const [revealed, setRevealed] = useState(false)
+  const [solvedCorrectly, setSolvedCorrectly] = useState(false)
   const awarded = useRef(false)
 
+  const solved = solvedCorrectly || revealed
+  const complete = sequence.length === data.items.length
+  const wrongComplete = complete && !solvedCorrectly && !revealed
+  const correctCount = sequence.reduce((n, v, k) => n + (v === data.order[k] ? 1 : 0), 0)
+
   const tap = (i: number) => {
-    if (solved || wrong || sequence.includes(i)) return
+    if (solved || sequence.includes(i)) return
     const next = [...sequence, i]
     setSequence(next)
     if (next.length === data.items.length) {
       if (next.every((v, k) => v === data.order[k])) {
-        setSolved(true)
+        setSolvedCorrectly(true)
         if (!awarded.current) {
           awarded.current = true
           onCoins(25, "Quick check: correct")
         }
       } else {
-        setWrong(true)
-        setTimeout(() => {
-          setSequence([])
-          setWrong(false)
-        }, 700)
+        setMisses(m => m + 1)
       }
     }
+  }
+
+  const undoLast = () => {
+    if (solved) return
+    setSequence(prev => prev.slice(0, -1))
+  }
+
+  const showMe = () => {
+    if (solved) return
+    setSequence(data.order)
+    setRevealed(true)
   }
 
   return (
@@ -611,19 +643,22 @@ function RankIt({
         {data.items.map((s, i) => {
           const pos = sequence.indexOf(i)
           const placed = pos >= 0
+          const posCorrect = placed && data.order[pos] === i
           return (
             <motion.button
               key={i}
               onClick={() => tap(i)}
-              disabled={solved}
-              animate={wrong ? { x: [0, -6, 6, -4, 4, 0] } : {}}
+              disabled={solved || placed}
+              animate={wrongComplete && placed && !posCorrect ? { x: [0, -6, 6, -4, 4, 0] } : {}}
               transition={{ duration: 0.35 }}
               style={{ minHeight: 44 }}
               className={`flex items-center gap-3 w-full text-left px-3 rounded-xl border-2 text-[15px] font-semibold transition-colors ${
                 solved
                   ? "border-green-500 bg-green-50 text-green-700"
-                  : wrong && placed
-                    ? "border-red-500 bg-red-50 text-red-600"
+                  : wrongComplete && placed
+                    ? posCorrect
+                      ? "border-green-500 bg-green-50 text-green-700"
+                      : "border-red-500 bg-red-50 text-red-600"
                     : placed
                       ? "border-primary bg-primary/5"
                       : "border-primary/30 hover:border-primary hover:bg-primary/5"
@@ -641,11 +676,32 @@ function RankIt({
           )
         })}
       </div>
+      {wrongComplete && (
+        <p className="text-sm text-red-500 mt-2">
+          Not the right order — {correctCount} of {data.items.length} correct.
+        </p>
+      )}
+      {!solved && (sequence.length > 0 || misses >= 2) && (
+        <div className="flex gap-2 mt-2">
+          {sequence.length > 0 && (
+            <Button variant="outline" size="sm" onClick={undoLast} className="h-9">
+              Undo last
+            </Button>
+          )}
+          {misses >= 2 && (
+            <Button variant="outline" size="sm" onClick={showMe} className="h-9">
+              Show me
+            </Button>
+          )}
+        </div>
+      )}
       {solved && (
         <Footer
           explanation={data.explanation}
-          coinLabel="+25 coins"
-          onContinue={() => onComplete({ description: data.prompt, outcome: "correct" })}
+          coinLabel={solvedCorrectly ? "+25 coins" : undefined}
+          onContinue={() =>
+            onComplete({ description: data.prompt, outcome: solvedCorrectly ? "correct" : "wrong" })
+          }
         />
       )}
     </div>

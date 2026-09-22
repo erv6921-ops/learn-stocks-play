@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
 import { LEAGUES, getLeagueIdx } from "@/lib/leagues"
 import JeffMascot from "@/components/Jeff/JeffMascot"
+import ErrorBoundary from "@/components/ErrorBoundary"
+
+const TILE_LABELS = ["A", "B", "C"] as const
 
 // Big league-promotion celebration (Bronze → Silver → Gold → …): Jeff in the
 // middle cheering, a confetti shower, and three mystery gifts the student
@@ -98,11 +101,13 @@ function rollPrizes(leagueIdx: number): Prize[] {
 }
 
 function GiftBox({ prize, index, picked, chosen, onPick }: { prize: Prize; index: number; picked: boolean; chosen: boolean; onPick: () => void }) {
+  const letter = TILE_LABELS[index] ?? String(index + 1)
   return (
     <div className="flex flex-col items-center gap-2 w-24">
       <motion.button
         onClick={onPick}
         disabled={picked}
+        aria-label={picked ? `Gift ${letter}: ${prize.label}, ${prize.coins} coins` : `Open gift ${letter}`}
         className="relative w-24 h-24 rounded-2xl flex items-center justify-center"
         style={{
           opacity: picked && !chosen ? 0.4 : 1,
@@ -128,17 +133,25 @@ function GiftBox({ prize, index, picked, chosen, onPick }: { prize: Prize; index
             <motion.span key="b" exit={{ scale: 0, opacity: 0 }} style={{ fontSize: 44 }}>🎁</motion.span>
           )}
         </AnimatePresence>
+        <span
+          aria-hidden
+          className="absolute top-1.5 left-2 text-[11px] font-extrabold tracking-wide"
+          style={{ color: chosen ? "#FCD34D" : "rgba(255,255,255,0.55)" }}
+        >
+          {letter}
+        </span>
       </motion.button>
-      <div className="h-9 text-center">
+      <div className="h-12 text-center">
         <AnimatePresence>
           {picked && (
             <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
               <div className="text-[11px] font-bold text-white/70 leading-tight">{prize.label}</div>
-              {chosen ? (
-                <div className="text-sm font-extrabold" style={{ color: "#FCD34D" }}>+{prize.coins.toLocaleString()} 🪙</div>
-              ) : (
-                <div className="text-[10px] text-white/40">not picked</div>
-              )}
+              {/* Every tile shows its value once the choice is made, so the
+                  student sees what the other boxes held. */}
+              <div className="text-sm font-extrabold" style={{ color: chosen ? "#FCD34D" : "rgba(255,255,255,0.45)" }}>
+                +{prize.coins.toLocaleString()} 🪙
+              </div>
+              <div className="text-[10px]" style={{ color: chosen ? "#FCD34D" : "rgba(255,255,255,0.4)" }}>{chosen ? "yours" : "not picked"}</div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -147,12 +160,19 @@ function GiftBox({ prize, index, picked, chosen, onPick }: { prize: Prize; index
   )
 }
 
+/** Index of the smallest prize, used when the student skips instead of picking. */
+function lowestPrizeIdx(prizes: Prize[]): number {
+  return prizes.reduce((best, p, i) => (p.coins < prizes[best].coins ? i : best), 0)
+}
+
 function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () => void }) {
   const { awardJeffs } = useApp()
   const league = LEAGUES[leagueIdx] ?? LEAGUES[LEAGUES.length - 1]
   const prizes = useMemo(() => rollPrizes(leagueIdx), [leagueIdx])
   const [pickedIdx, setPickedIdx] = useState<number | null>(null)
   const picked = pickedIdx !== null
+  const titleId = `league-up-title-${leagueIdx}`
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   const pick = (i: number) => {
     if (picked) return
@@ -160,9 +180,37 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
     setPickedIdx(i)
   }
 
+  // Skip = take the smallest gift and close. Also what Escape does.
+  const skip = () => {
+    if (!picked) {
+      const i = lowestPrizeIdx(prizes)
+      awardJeffs(prizes[i].coins, `${league.name} League reward`)
+      setPickedIdx(i)
+    }
+    onDismiss()
+  }
+
+  useEffect(() => {
+    dialogRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault()
+        skip()
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [picked])
+
   return (
     <motion.div
-      className="fixed inset-0 flex items-center justify-center px-6"
+      ref={dialogRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+      tabIndex={-1}
+      className="fixed inset-0 flex items-center justify-center px-6 outline-none"
       style={{ zIndex: 10000, background: "rgba(0,0,0,0.9)" }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
     >
@@ -176,7 +224,7 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
 
         <div className="flex flex-col items-center gap-0.5">
           <div className="font-display font-extrabold tracking-wide" style={{ fontSize: 16, color: "#ffffff", opacity: 0.75 }}>LEAGUE UP!</div>
-          <div className="font-display font-extrabold flex items-center gap-2" style={{ fontSize: 34, color: league.color, lineHeight: 1 }}>
+          <div id={titleId} className="font-display font-extrabold flex items-center gap-2" style={{ fontSize: 34, color: league.color, lineHeight: 1 }}>
             <span>{league.icon}</span> {league.name}
           </div>
         </div>
@@ -184,6 +232,7 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
         <div className="text-white/85 text-sm font-semibold -mb-1">
           {picked ? "Nice pick - enjoy your reward! 🎉" : "Pick ONE gift to claim your reward"}
         </div>
+        {!picked && <div className="text-white/55 text-xs -mt-2">One gift, picked at random.</div>}
 
         <div className="flex items-start justify-center gap-4">
           {prizes.map((p, i) => (
@@ -199,8 +248,62 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
         >
           {picked ? "Keep going →" : "Pick a gift first"}
         </button>
+        {!picked && (
+          <button
+            type="button"
+            onClick={skip}
+            className="text-white/60 hover:text-white text-sm underline-offset-4 hover:underline"
+          >
+            Skip (take the smallest gift)
+          </button>
+        )}
       </motion.div>
     </motion.div>
+  )
+}
+
+/**
+ * Plain fallback shown if the animated overlay throws mid-celebration. The
+ * global widget boundary in App.tsx renders nothing on error, which used to
+ * make the celebration vanish; this keeps the moment and still pays out.
+ */
+function FallbackCard({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () => void }) {
+  const { awardJeffs } = useApp()
+  const league = LEAGUES[leagueIdx] ?? LEAGUES[LEAGUES.length - 1]
+  const prize = useMemo(() => {
+    const p = rollPrizes(leagueIdx)
+    return p[lowestPrizeIdx(p)]
+  }, [leagueIdx])
+  const cont = () => {
+    awardJeffs(prize.coins, `${league.name} League reward`)
+    onDismiss()
+  }
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="league-up-fallback-title"
+      className="fixed inset-0 flex items-center justify-center px-6"
+      style={{ zIndex: 10000, background: "rgba(0,0,0,0.9)" }}
+    >
+      <div className="max-w-sm w-full rounded-2xl p-6 text-center text-white" style={{ background: "#1a2330", border: `2px solid ${league.color}` }}>
+        <div className="text-xs font-bold tracking-wide opacity-75">LEAGUE UP!</div>
+        <h2 id="league-up-fallback-title" className="font-display font-extrabold text-2xl mt-1" style={{ color: league.color }}>
+          You moved up a league!
+        </h2>
+        <p className="mt-2 text-sm text-white/80">
+          Welcome to {league.icon} {league.name}. Your reward: <b style={{ color: "#FCD34D" }}>+{prize.coins.toLocaleString()} 🪙</b>
+        </p>
+        <button
+          type="button"
+          onClick={cont}
+          className="mt-5 px-7 py-3 rounded-xl font-bold text-base active:scale-95"
+          style={{ background: league.color, color: "#1a1205" }}
+        >
+          Continue
+        </button>
+      </div>
+    </div>
   )
 }
 
@@ -270,7 +373,11 @@ export default function LeagueUpWatcher() {
 
   return (
     <AnimatePresence>
-      {shownIdx !== null && <Overlay leagueIdx={shownIdx} onDismiss={() => setShownIdx(null)} />}
+      {shownIdx !== null && (
+        <ErrorBoundary key={shownIdx} fallback={<FallbackCard leagueIdx={shownIdx} onDismiss={() => setShownIdx(null)} />}>
+          <Overlay leagueIdx={shownIdx} onDismiss={() => setShownIdx(null)} />
+        </ErrorBoundary>
+      )}
     </AnimatePresence>
   )
 }

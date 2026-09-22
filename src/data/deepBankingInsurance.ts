@@ -47,6 +47,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking1-mc1",
+            concept: "Checking vs Savings",
             question: "Which account is designed mainly for everyday spending?",
             options: [
               "A savings account with a high APY",
@@ -59,6 +60,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking1-mc2",
+            concept: "Checking vs Savings",
             question: "Why do savings accounts pay more interest than checking accounts?",
             options: [
               "They reward you for leaving money parked",
@@ -86,6 +88,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking1-aq1",
+          concept: "Checking vs Savings",
           question: "What is the BEST reason for Devon to move laptop money into a separate savings account?",
           options: [
             "Savings accounts never charge any fees at all",
@@ -113,6 +116,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking1-mastery1",
+            concept: "Checking vs Savings",
             question: "You have $3,000 you won't need for a year. Where does it earn the most?",
             options: [
               "In your everyday checking account",
@@ -121,10 +125,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "In a fee-heavy maintenance account"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Money you don't need soon belongs in high-yield savings, which pays far more interest than checking. Checking pays almost nothing because it's built for spending, not growth."
           },
           {
             id: "banking1-mastery2",
+            concept: "Checking vs Savings",
             question: "What is the main tradeoff of a savings account versus checking?",
             options: [
               "Higher interest but less instant spending access",
@@ -133,10 +139,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "No interest at all but unlimited swipes"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Savings pays higher interest but is slower to spend from, with no debit card. That small delay is a feature - it discourages impulse spending on money you're trying to grow."
           },
           {
             id: "banking1-mastery3",
+            concept: "Checking vs Savings",
             question: "Your bank waives its $10 monthly fee if you set up direct deposit. Doing so saves you…",
             options: [
               "About $120 over a full year",
@@ -145,10 +153,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "About $500 in overdraft charges in most cases"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A $10 monthly fee is $120 a year. Setting up direct deposit to waive it saves that full amount - a simple move that keeps money from quietly leaking out."
           },
           {
             id: "banking1-mastery4",
+            concept: "Checking vs Savings",
             question: "What does APY tell you when comparing savings accounts?",
             options: [
               "How many free ATMs the bank owns",
@@ -157,10 +167,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "How fast the app loads each screen"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "APY (annual percentage yield) is the yearly interest rate you earn, including compounding. A higher APY means more growth on the same balance, so it's a key number to compare."
           },
           {
             id: "banking1-mastery5",
+            concept: "Checking vs Savings",
             question: "'Paying yourself first' means…",
             options: [
               "Spending your paycheck before bills arrive in most cases",
@@ -169,10 +181,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Paying the bank a fee up front"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Paying yourself first means transferring a set amount to savings right when you get paid, before spending. It makes saving automatic instead of leaving whatever happens to be left over."
           },
           {
             id: "banking1-mastery6",
+            concept: "Checking vs Savings",
             question: "You keep too little in checking and overspend by $20. What likely happens?",
             options: [
               "The bank ignores it with no charge over the years",
@@ -181,6 +195,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Your debit card is upgraded for free"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Spending more than your checking balance can trigger an overdraft fee, often around $35 - far more than the $20 you overspent. Keeping a cushion in checking avoids this."
           }
         ]
@@ -232,6 +247,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking2-mc1",
+            concept: "How Banks Make Money",
             question: "What is a bank's 'spread'?",
             options: [
               "The number of branches it operates in most cases",
@@ -244,6 +260,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking2-mc2",
+            concept: "How Banks Make Money",
             question: "How does 'interchange' earn a bank money?",
             options: [
               "The bank charges you a fee for saving",
@@ -271,6 +288,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking2-aq1",
+          concept: "How Banks Make Money",
           question: "Given how banks profit, what is Sam's smartest response as a customer?",
           options: [
             "Never use a bank or a debit card again",
@@ -298,6 +316,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking2-mastery1",
+            concept: "How Banks Make Money",
             question: "A bank pays 0.5% on deposits and lends at 7%. Its spread is…",
             options: [
               "7.5%, adding the two rates together in most cases",
@@ -306,10 +325,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "3.75%, the average of the rates"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The spread is the difference between the loan rate and the deposit rate: 7% minus 0.5% equals 6.5%. That gap is the profit the bank keeps on money it borrowed cheaply from depositors."
           },
           {
             id: "banking2-mastery2",
+            concept: "How Banks Make Money",
             question: "Under fractional reserve banking, a bank…",
             options: [
               "Keeps every deposit locked in a vault",
@@ -318,10 +339,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Prints new money whenever it wants"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Banks keep only a fraction of deposits on hand and lend the rest, since not everyone withdraws at once. This lets them earn interest on money that was deposited by customers."
           },
           {
             id: "banking2-mastery3",
+            concept: "How Banks Make Money",
             question: "Why can a bank offer 'free' checking and still profit?",
             options: [
               "The government pays banks to be free over the years",
@@ -330,10 +353,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Customers secretly pay a hidden tax in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Even without a monthly fee, the bank earns interchange every time you swipe, plus overdraft and other fees and the spread on your balance. 'Free' checking is still profitable."
           },
           {
             id: "banking2-mastery4",
+            concept: "How Banks Make Money",
             question: "A 'bank run' is dangerous because…",
             options: [
               "The bank earns too much interest at once",
@@ -342,10 +367,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Loan rates suddenly drop to zero"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because banks lend out most deposits, they can't hand back everyone's cash at the same instant. A run - many withdrawals at once - can drain the reserves, which is why deposit insurance exists."
           },
           {
             id: "banking2-mastery5",
+            concept: "How Banks Make Money",
             question: "Which fee can you almost always avoid with good habits?",
             options: [
               "Interchange charged on your card swipe",
@@ -354,10 +381,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The tax the government adds to deposits"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Overdraft fees are avoidable by keeping a cushion and tracking your balance. Interchange is baked into swipes, and the spread isn't a fee you're charged - it's how the bank profits overall."
           },
           {
             id: "banking2-mastery6",
+            concept: "How Banks Make Money",
             question: "The best customer strategy given the bank's spread is to…",
             options: [
               "Borrow as much as possible at any rate",
@@ -366,6 +395,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Pay every optional fee to stay loyal in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Since the bank profits from the gap between what it pays and charges, your edge is to earn the highest savings APY and borrow at the lowest rate you qualify for, shrinking the bank's spread on you."
           }
         ]
@@ -417,6 +447,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking3-mc1",
+            concept: "FDIC",
             question: "What is the standard FDIC coverage limit?",
             options: [
               "$250,000 per depositor, per insured bank, per category",
@@ -429,6 +460,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking3-mc2",
+            concept: "FDIC",
             question: "Which of these does the FDIC NOT insure?",
             options: [
               "Money in an insured savings account",
@@ -456,6 +488,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking3-aq1",
+          concept: "FDIC",
           question: "Based on FDIC rules, which statement about Aisha's money is correct?",
           options: [
             "Her crypto in the app is fully insured too",
@@ -483,6 +516,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking3-mastery1",
+            concept: "FDIC",
             question: "Why was the FDIC created back in 1933?",
             options: [
               "To set the interest rates every bank must pay",
@@ -491,10 +525,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "To print extra money for the government"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The FDIC was created during the Great Depression, when bank failures wiped out people's savings. It insures deposits so a bank's collapse no longer means customers lose their money."
           },
           {
             id: "banking3-mastery2",
+            concept: "FDIC",
             question: "You have $300,000 in one single checking account at an insured bank. How much is protected?",
             options: [
               "The full $300,000, no limit applies",
@@ -503,10 +539,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Nothing, because it exceeds the limit"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Coverage is $250,000 per depositor, per bank, per ownership category. In one single account, $250,000 is insured; the extra $50,000 would need a different bank or ownership category to be covered."
           },
           {
             id: "banking3-mastery3",
+            concept: "FDIC",
             question: "A bank sells you a mutual fund. Is it FDIC-insured?",
             options: [
               "Yes, anything bought at a bank is insured",
@@ -515,10 +553,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Only if the fund loses money that year"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The FDIC insures deposits, not investments. A mutual fund, stock, or bond bought through a bank can lose value and carries no FDIC guarantee, even though you bought it at the bank."
           },
           {
             id: "banking3-mastery4",
+            concept: "FDIC",
             question: "Credit unions get equivalent deposit insurance from which agency?",
             options: [
               "The FDIC, the very same one",
@@ -527,10 +567,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "No agency; they are uninsured"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Credit unions are insured by the NCUA, a separate agency that provides the same $250,000 coverage as the FDIC does for banks. Both protect your deposits if the institution fails."
           },
           {
             id: "banking3-mastery5",
+            concept: "FDIC",
             question: "How do you pay for FDIC coverage on your account?",
             options: [
               "A monthly premium taken from savings over the years",
@@ -539,10 +581,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "A small percentage of every deposit for you"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "FDIC coverage is automatic and free to depositors. Banks pay into the insurance fund themselves, so you get the protection without signing up or paying anything."
           },
           {
             id: "banking3-mastery6",
+            concept: "FDIC",
             question: "An app offers 6% on 'cash.' What should you verify first?",
             options: [
               "Whether the founders seem trustworthy online",
@@ -551,6 +595,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Whether your friends already use the app"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A high rate on 'cash' may be an uninsured investment dressed up as savings. Confirm it's held in a real FDIC-insured account so your money carries the government guarantee - not just marketing."
           }
         ]
@@ -602,6 +647,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking4-mc1",
+            concept: "Interest",
             question: "How does a typical savings account usually pay compound interest?",
             options: [
               "It compounds once at year-end only",
@@ -614,6 +660,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking4-mc2",
+            concept: "Interest",
             question: "When shopping for a savings account, which number do you want highest?",
             options: [
               "The APR on the account",
@@ -641,6 +688,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking4-aq1",
+          concept: "Interest",
           question: "Given her possible school-trip cost, which choice fits Nina best?",
           options: [
             "Keep it at 0.5% since it feels familiar",
@@ -668,6 +716,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking4-mastery1",
+            concept: "Interest",
             question: "An account quoted at 5% and compounded daily earns, over a full year, about…",
             options: [
               "Less than 5% because daily is slower",
@@ -676,10 +725,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Double the 5%, thanks to daily interest"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Daily compounding starts each day's interest earning interest the next day, so a 5% quoted rate ends the year slightly above 5% - which is why the APY reads a bit higher than 5%."
           },
           {
             id: "banking4-mastery2",
+            concept: "Interest",
             question: "Why is comparing accounts by APY better than by a plain 'rate'?",
             options: [
               "APY hides the compounding to look smaller",
@@ -688,10 +739,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "APY ignores the interest rate entirely"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "APY bakes in how often interest compounds, so it tells you exactly what a dollar left alone for a year earns. A bare 'rate' with no APY can hide a worse deal."
           },
           {
             id: "banking4-mastery3",
+            concept: "Interest",
             question: "Which factor most helps a teen's savings grow large?",
             options: [
               "A fancy debit card design",
@@ -700,10 +753,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Choosing the closest branch over the years"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Time is the biggest driver of compound growth. Starting early gives interest many years to compound, turning small amounts into large ones - an advantage teens have over older savers."
           },
           {
             id: "banking4-mastery4",
+            concept: "Interest",
             question: "APR is the number you care about most when…",
             options: [
               "Opening a high-yield savings account over the years",
@@ -712,10 +767,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Setting up direct deposit at work instead"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "APR is what you PAY when borrowing, so you want it as low as possible on loans and cards. APY, which you want high, is what you EARN on savings - don't confuse the two."
           },
           {
             id: "banking4-mastery5",
+            concept: "Interest",
             question: "A big bank offers 0.4% APY and an online bank offers 4.5% APY, both insured. On $5,000 the online bank earns roughly…",
             options: [
               "$20 versus $225 - about $205 more",
@@ -724,10 +781,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "$5 more, a tiny difference in most cases"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "0.4% of $5,000 is about $20; 4.5% is about $225. That's roughly $205 more a year for the same FDIC-insured safety - a strong reason to shop for a higher APY."
           },
           {
             id: "banking4-mastery6",
+            concept: "Interest",
             question: "Why can no savings APY beat carrying a high-APR credit card balance?",
             options: [
               "Savings APYs are illegal above 4%",
@@ -736,6 +795,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Credit cards pay you interest instead"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A card at 20%+ APR costs you far more than a savings account can earn, so clearing that debt beats chasing yield. The Credit unit covers debt compounding in depth."
           }
         ]
@@ -787,6 +847,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking5-mc1",
+            concept: "Online vs Traditional",
             question: "Why can online banks usually offer higher interest than traditional banks?",
             options: [
               "They take bigger risks with your money in most cases",
@@ -799,6 +860,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking5-mc2",
+            concept: "Online vs Traditional",
             question: "Which is a real advantage of a traditional bank?",
             options: [
               "It always pays the highest savings APY",
@@ -826,6 +888,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking5-aq1",
+          concept: "Online vs Traditional",
           question: "What setup best fits Tariq's cash tips and desire for high interest?",
           options: [
             "Keep everything at the low-rate traditional bank",
@@ -853,6 +916,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking5-mastery1",
+            concept: "Online vs Traditional",
             question: "Between an FDIC-insured online bank and traditional bank, which is safer?",
             options: [
               "The traditional bank, since it has branches",
@@ -861,10 +925,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Neither one is safe for teen savings"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "FDIC insurance is identical whether a bank has many branches or none. Safety doesn't depend on physical presence, so both are equally safe when insured - the choice is about convenience and rates."
           },
           {
             id: "banking5-mastery2",
+            concept: "Online vs Traditional",
             question: "You handle a lot of physical cash. Which bank type fits better?",
             options: [
               "An online bank with no branches at all",
@@ -873,10 +939,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Only a crypto wallet on your phone"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Traditional banks make cash deposits easy at branches, while online banks often require depositing cash elsewhere first. If you handle lots of cash, a traditional bank is more convenient."
           },
           {
             id: "banking5-mastery3",
+            concept: "Online vs Traditional",
             question: "How do many online banks solve limited ATM access?",
             options: [
               "They ban all ATM withdrawals entirely",
@@ -885,10 +953,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "They build thousands of new branches"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Many online banks reimburse out-of-network ATM fees, effectively letting you use any machine for free. This offsets their lack of a proprietary ATM network."
           },
           {
             id: "banking5-mastery4",
+            concept: "Online vs Traditional",
             question: "For an online bank, why does app quality matter so much?",
             options: [
               "The app is basically your only branch",
@@ -897,10 +967,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The app replaces the need for a password"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "With no physical branches, the app is where you do everything - deposits, transfers, disputes, support. A weak app makes an online bank frustrating, so app quality is a key factor."
           },
           {
             id: "banking5-mastery5",
+            concept: "Online vs Traditional",
             question: "A smart way to get the best of both bank types is to…",
             options: [
               "Stay fully loyal to one big bank forever",
@@ -909,10 +981,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Open ten accounts at the same branch"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Putting everyday checking where it's convenient and savings where the APY is highest captures both strengths. Money transfers between banks are free and quick, so loyalty to one isn't necessary."
           },
           {
             id: "banking5-mastery6",
+            concept: "Online vs Traditional",
             question: "Besides APY, what else should you compare between banks?",
             options: [
               "Only the color of the debit card",
@@ -921,6 +995,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "How many TV ads the bank runs"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A high APY can be undercut by monthly fees, minimum balances, a clunky app, or poor service. Comparing the full picture - not just the headline rate - leads to a better choice."
           }
         ]
@@ -972,6 +1047,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking6-mc1",
+            concept: "Direct Deposit",
             question: "What two numbers do you give an employer to set up direct deposit?",
             options: [
               "Your PIN and your Social Security number",
@@ -984,6 +1060,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking6-mc2",
+            concept: "Direct Deposit",
             question: "How does splitting a direct deposit help you save?",
             options: [
               "It doubles your paycheck automatically in most cases",
@@ -1011,6 +1088,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking6-aq1",
+          concept: "Direct Deposit",
           question: "Which of Grace's choices best builds a savings habit with little effort?",
           options: [
             "Cashing paper checks and saving leftovers",
@@ -1038,6 +1116,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking6-mastery1",
+            concept: "Direct Deposit",
             question: "Direct deposit moves your pay using which system?",
             options: [
               "The stock exchange trading floor",
@@ -1046,10 +1125,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The postal service by mail"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Direct deposit runs on the ACH network, the electronic system banks use to move money between accounts. That's why the pay simply appears in your account on payday."
           },
           {
             id: "banking6-mastery2",
+            concept: "Direct Deposit",
             question: "A key money benefit of direct deposit over paper checks is…",
             options: [
               "It guarantees you a bigger paycheck",
@@ -1058,10 +1139,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It makes your account FDIC-insured"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Direct deposit lands electronically, so you skip check-cashing services that charge 1%-5%. It doesn't change your pay amount, credit score, or FDIC status - those are unrelated."
           },
           {
             id: "banking6-mastery3",
+            concept: "Direct Deposit",
             question: "You set up direct deposit but your first pay is still a paper check. Why?",
             options: [
               "The setup usually takes a cycle or two",
@@ -1070,10 +1153,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "You must pay a fee to activate it first"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Direct deposit typically takes one to two pay cycles to activate. During that time your employer may still issue a paper check while the electronic setup finishes processing."
           },
           {
             id: "banking6-mastery4",
+            concept: "Direct Deposit",
             question: "A 'job' texts asking for your bank login to set up pay. You should…",
             options: [
               "Send it quickly so pay starts on time",
@@ -1082,10 +1167,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Give it if they promise a signing bonus"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Legitimate employers set up direct deposit through payroll and never ask for your bank login. A request like that is a scam, so refuse and don't share credentials no matter the promised reward."
           },
           {
             id: "banking6-mastery5",
+            concept: "Direct Deposit",
             question: "Why keep a cushion in checking after automating bill-pay?",
             options: [
               "So automatic payments don't cause overdrafts",
@@ -1094,10 +1181,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "So you can skip paying the bills entirely"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Automatic payments pull money on schedule. If checking runs too low, a payment can overdraw the account and trigger a fee. A cushion ensures the auto-payments clear without penalties."
           },
           {
             id: "banking6-mastery6",
+            concept: "Direct Deposit",
             question: "Which pairs best with direct deposit for a hands-off money system?",
             options: [
               "Cashing every check at a fee-charging store",
@@ -1106,6 +1195,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Closing your account after each payday in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Combining direct deposit with automatic bill-pay and automatic savings transfers makes good behavior the default, so bills get paid on time and savings grow without ongoing effort."
           }
         ]
@@ -1157,6 +1247,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking7-mc1",
+            concept: "Overdrafts",
             question: "What triggers an overdraft fee?",
             options: [
               "Earning too much interest on savings",
@@ -1169,6 +1260,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking7-mc2",
+            concept: "Overdrafts",
             question: "What's the free way to avoid overdraft fees on debit purchases?",
             options: [
               "Opt out so short purchases are declined",
@@ -1196,6 +1288,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking7-aq1",
+          concept: "Overdrafts",
           question: "What's Malik's best plan to prevent future overdraft fees?",
           options: [
             "Keep coverage on and hope he remembers",
@@ -1223,6 +1316,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking7-mastery1",
+            concept: "Overdrafts",
             question: "You have $10 and swipe for $25 with coverage on. What likely happens?",
             options: [
               "The purchase is free and rewarded over the years",
@@ -1231,10 +1325,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Your account is closed immediately in most cases"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "With coverage on, the bank pays the $25 and charges an overdraft fee around $35, so a $15 shortfall costs about $50 total. That's why overdrafts are such an expensive, avoidable trap."
           },
           {
             id: "banking7-mastery2",
+            concept: "Overdrafts",
             question: "Why can one low-balance afternoon cost multiple fees?",
             options: [
               "Fees stack once per calendar year",
@@ -1243,10 +1339,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The bank fines you for using the app"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Banks may charge an overdraft fee on each transaction that overdraws the account. A few small purchases after going negative can each add ~$35, so fees pile up fast."
           },
           {
             id: "banking7-mastery3",
+            concept: "Overdrafts",
             question: "Opting OUT of overdraft coverage means a too-large purchase will…",
             options: [
               "Go through with a discounted fee",
@@ -1255,10 +1353,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Freeze your account for 30 days"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If you opt out, the bank simply declines a purchase you can't afford, with no fee. The transaction fails - mildly inconvenient but far better than paying ~$35 to overdraw."
           },
           {
             id: "banking7-mastery4",
+            concept: "Overdrafts",
             question: "Which habit best warns you before an overdraft?",
             options: [
               "Ignoring your balance until payday",
@@ -1267,10 +1367,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Making only large purchases in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A low-balance alert texts you when you drop below a set amount, giving you a chance to stop before overdrawing. Ignoring your balance is exactly what leads to surprise fees."
           },
           {
             id: "banking7-mastery5",
+            concept: "Overdrafts",
             question: "Your 'available' balance can be lower than expected because…",
             options: [
               "The bank hides money to earn interest",
@@ -1279,10 +1381,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "ATMs randomly reduce your total over the years"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Pending transactions and scheduled bills may not appear immediately, so your true available balance is often lower than the displayed number. Assuming the higher figure can cause an overdraft."
           },
           {
             id: "banking7-mastery6",
+            concept: "Overdrafts",
             question: "You got your first-ever overdraft fee. A smart first step is to…",
             options: [
               "Accept it silently and move on over the years",
@@ -1291,6 +1395,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Overdraw again to feel even in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Banks frequently reverse a first or rare overdraft fee for a good customer if you simply call and ask politely. A two-minute call can recover the ~$35 before you fix your settings."
           }
         ]
@@ -1342,6 +1447,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking8-mc1",
+            concept: "Fraud & Security",
             question: "Your 'bank' texts a link asking you to verify your login now. You should…",
             options: [
               "Click the link and enter your password in most cases",
@@ -1354,6 +1460,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking8-mc2",
+            concept: "Fraud & Security",
             question: "Why do scammers prefer Zelle, wires, or gift cards?",
             options: [
               "Those transfers earn them loyalty points",
@@ -1381,6 +1488,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking8-aq1",
+          concept: "Fraud & Security",
           question: "What should Zoe do when the caller asks for the code and a Zelle transfer?",
           options: [
             "Read the code but refuse the transfer in most cases",
@@ -1408,6 +1516,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking8-mastery1",
+            concept: "Fraud & Security",
             question: "A caller claiming to be your bank asks you to read back a texted code. This is…",
             options: [
               "Normal bank verification you should allow over the years",
@@ -1416,10 +1525,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Fine as long as the number looks local"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Banks never ask you to share a one-time code - scammers use it to break into your account. Caller ID can be faked, so a 'local' number means nothing. Hang up and call the official number."
           },
           {
             id: "banking8-mastery2",
+            concept: "Fraud & Security",
             question: "The single best defense against a stolen password is…",
             options: [
               "Writing the password on a sticky note",
@@ -1428,10 +1539,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Sharing it only with close friends"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Two-factor authentication adds a second step, so a thief with just your password still can't log in. Reusing passwords or writing them down publicly makes you far more vulnerable, not safer."
           },
           {
             id: "banking8-mastery3",
+            concept: "Fraud & Security",
             question: "Why is reusing your email password on your bank risky?",
             options: [
               "It makes logins slower each time",
@@ -1440,10 +1553,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It lowers the interest you earn"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If any site you reuse the password on is breached, thieves try that same password on your bank and email. A unique password per account contains the damage to just one site."
           },
           {
             id: "banking8-mastery4",
+            concept: "Fraud & Security",
             question: "You spot a $40 charge you didn't make. The best first step is to…",
             options: [
               "Wait a month to see if it repeats",
@@ -1452,10 +1567,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Close and reopen the account yourself"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Reporting fraud immediately lets the bank freeze the card and dispute the charge, and fast reporting limits your liability under federal rules. Waiting can weaken your protection and let losses grow."
           },
           {
             id: "banking8-mastery5",
+            concept: "Fraud & Security",
             question: "Which sign most strongly suggests a message is a scam?",
             options: [
               "It uses your bank's real logo image",
@@ -1464,10 +1581,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It is written in complete sentences"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Manufactured urgency - 'act now or lose your account' - is a hallmark of scams designed to make you skip thinking. Logos are easily copied, so a real-looking logo proves nothing."
           },
           {
             id: "banking8-mastery6",
+            concept: "Fraud & Security",
             question: "Logging into your bank on open public Wi-Fi is risky because…",
             options: [
               "It uses up your monthly data plan",
@@ -1476,6 +1595,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It resets your password automatically"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Unsecured public Wi-Fi can let attackers intercept data. It's safer to use your phone's cellular data or a trusted network when accessing your bank, along with 2FA for extra protection."
           }
         ]
@@ -1527,6 +1647,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking9-mc1",
+            concept: "IRAs, Roth IRAs & 529 Plans",
             question: "What's the key difference between a traditional and a Roth IRA?",
             options: [
               "Roth is only for people over age 60",
@@ -1539,6 +1660,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking9-mc2",
+            concept: "IRAs, Roth IRAs & 529 Plans",
             question: "A 529 plan's tax-free withdrawals apply to…",
             options: [
               "Any purchase you want to make",
@@ -1566,6 +1688,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking9-aq1",
+          concept: "IRAs, Roth IRAs & 529 Plans",
           question: "Which account best fits Isaiah's low tax bracket and decades-long horizon?",
           options: [
             "A regular low-interest savings account in most cases",
@@ -1593,6 +1716,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking9-mastery1",
+            concept: "IRAs, Roth IRAs & 529 Plans",
             question: "Why is a Roth IRA usually best for a low-income teen?",
             options: [
               "It hands out free money each year",
@@ -1601,10 +1725,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It is the only account teens can use"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "In a low bracket, the traditional tax break is nearly worthless, but a Roth's decades of growth come out entirely tax-free. Paying a little tax now shields a large future gain - a great trade."
           },
           {
             id: "banking9-mastery2",
+            concept: "IRAs, Roth IRAs & 529 Plans",
             question: "What is required to contribute to an IRA?",
             options: [
               "A minimum age of forty years",
@@ -1613,10 +1739,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "At least $50,000 saved already"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "You need earned income to fund an IRA, and you can contribute up to what you earned (capped at an annual limit). A teen with a summer job qualifies to open and fund one."
           },
           {
             id: "banking9-mastery3",
+            concept: "IRAs, Roth IRAs & 529 Plans",
             question: "Using 529 money on a non-education expense results in…",
             options: [
               "A bonus tax refund from the state",
@@ -1625,10 +1753,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The account converting to a Roth IRA"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "529 plans are tax-free only for qualified education costs. Spending the money elsewhere means owing income tax plus a 10% penalty on the earnings portion - so keep it for school."
           },
           {
             id: "banking9-mastery4",
+            concept: "IRAs, Roth IRAs & 529 Plans",
             question: "A special flexibility of a Roth IRA is that you can…",
             options: [
               "Withdraw all growth anytime tax-free in most cases",
@@ -1637,10 +1767,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Skip having any earned income"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "With a Roth IRA you can withdraw your own contributions (not the earnings) anytime without tax or penalty. The growth is meant to stay until retirement, but this adds some flexibility."
           },
           {
             id: "banking9-mastery5",
+            concept: "IRAs, Roth IRAs & 529 Plans",
             question: "You're saving specifically for a child's college. Which account fits best?",
             options: [
               "A traditional IRA for the tax break",
@@ -1649,10 +1781,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "A Roth IRA for retirement income"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A 529 is built for education: tax-free growth and withdrawals for qualified school costs, often with a state deduction. IRAs are for retirement, and checking earns almost nothing."
           },
           {
             id: "banking9-mastery6",
+            concept: "IRAs, Roth IRAs & 529 Plans",
             question: "The biggest takeaway about these accounts is that…",
             options: [
               "Only wealthy adults are allowed to use them",
@@ -1661,6 +1795,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "You must pick one account for your whole life"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The key point is that tax-advantaged accounts combine compounding and tax savings, so using any of them beats leaving long-term money in low-interest savings. Start early, invest it, and let time work."
           }
         ]
@@ -1712,6 +1847,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking10-mc1",
+            concept: "Your Employer's 401k & Benefits",
             question: "Why is capturing your full 401(k) employer match so important?",
             options: [
               "It lowers your health insurance premium in most cases",
@@ -1724,6 +1860,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking10-mc2",
+            concept: "Your Employer's 401k & Benefits",
             question: "What does 'vesting' affect in a 401(k)?",
             options: [
               "When the employer's match is fully yours",
@@ -1751,6 +1888,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking10-aq1",
+          concept: "Your Employer's 401k & Benefits",
           question: "What should Renee do about her 401(k) to avoid leaving money behind?",
           options: [
             "Skip it entirely for a bigger paycheck over the years",
@@ -1778,6 +1916,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking10-mastery1",
+            concept: "Your Employer's 401k & Benefits",
             question: "Your employer matches 100% up to 5% of pay. Contributing 5% means…",
             options: [
               "You lose 5% of your paycheck for nothing",
@@ -1786,10 +1925,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Your salary is permanently cut by 5% over the years"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A 100% match up to 5% means the employer contributes an amount equal to your 5%, effectively doubling that portion of your savings. It's free money, so contributing enough to earn the full match is essential."
           },
           {
             id: "banking10-mastery2",
+            concept: "Your Employer's 401k & Benefits",
             question: "You leave a job before you're fully vested. What happens to the match?",
             options: [
               "You keep every dollar of it anyway",
@@ -1798,10 +1939,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Your own contributions are taken away too"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Unvested employer matching contributions can be forfeited if you leave too soon. Your own contributions are always yours, but the match may vest over time, so timing a job change matters."
           },
           {
             id: "banking10-mastery3",
+            concept: "Your Employer's 401k & Benefits",
             question: "Why is employer health insurance usually cheaper than buying your own?",
             options: [
               "It offers worse coverage to save money over the years",
@@ -1810,10 +1953,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It only covers you for one month a year"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Employers typically cover a big portion of the premium, so your share is much smaller than buying an equivalent plan yourself. That subsidy is a valuable, often overlooked, part of your pay."
           },
           {
             id: "banking10-mastery4",
+            concept: "Your Employer's 401k & Benefits",
             question: "When comparing two job offers, you should compare…",
             options: [
               "Only the headline salary number in most cases",
@@ -1822,10 +1967,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Only which job has a nicer title"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Benefits like a 401k match, subsidized health insurance, and paid time off have real dollar value. A lower salary with strong benefits can beat a higher salary with none, so compare the full package."
           },
           {
             id: "banking10-mastery5",
+            concept: "Your Employer's 401k & Benefits",
             question: "What can you do with a 401(k) when you change jobs?",
             options: [
               "Nothing; it's frozen forever in place in most cases",
@@ -1834,10 +1981,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Give it back to the old employer for you"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "You can roll a 401k into your new employer's plan or an IRA, keeping it tax-advantaged and growing. Cashing it out early usually means taxes and a 10% penalty, so a rollover is smarter."
           },
           {
             id: "banking10-mastery6",
+            concept: "Your Employer's 401k & Benefits",
             question: "A key advantage of an HSA within your benefits is that it…",
             options: [
               "Must be spent fully before year end",
@@ -1846,6 +1995,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Replaces your 401k retirement account in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "An HSA lets you set aside pre-tax money for medical costs, and unlike an FSA the balance rolls over year to year and can even grow. That makes it a powerful, tax-friendly benefit to use."
           }
         ]
@@ -1897,6 +2047,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins1-mc1",
+            concept: "What Is Insurance & Why You Need It",
             question: "What is the core idea behind how insurance works?",
             options: [
               "One person pays for everyone else's luxuries in most cases as a rule",
@@ -1909,6 +2060,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins1-mc2",
+            concept: "What Is Insurance & Why You Need It",
             question: "Which risk is worth insuring?",
             options: [
               "A $30 pair of headphones",
@@ -1936,6 +2088,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins1-aq1",
+          concept: "What Is Insurance & Why You Need It",
           question: "Which spending choice reflects smart insurance thinking for Tessa?",
           options: [
             "Buy the earbud warranty, skip auto insurance in most cases",
@@ -1963,6 +2116,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins1-mastery1",
+            concept: "What Is Insurance & Why You Need It",
             question: "Insurance turns a rare, ruinous event into…",
             options: [
               "A guaranteed profit for the customer",
@@ -1971,10 +2125,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "A tax the government charges everyone"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "By pooling risk, insurance converts the tiny chance of a huge, unaffordable loss into a small, predictable premium. You pay a manageable amount so a disaster won't wipe out your finances."
           },
           {
             id: "ins1-mastery2",
+            concept: "What Is Insurance & Why You Need It",
             question: "Why does risk pooling work across many people?",
             options: [
               "Everyone files a claim every single year",
@@ -1983,10 +2139,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Premiums are refunded at year end in most cases"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Across a large group, insurers can predict roughly how many losses will occur and set premiums to cover them. Most people don't file claims, so their premiums fund payouts for the unlucky few."
           },
           {
             id: "ins1-mastery3",
+            concept: "What Is Insurance & Why You Need It",
             question: "Which is generally NOT worth insuring?",
             options: [
               "Your health against a major illness",
@@ -1995,10 +2153,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Your apartment's contents from fire"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Insure big, unaffordable risks like health, car liability, and home contents. A cheap gadget you could just replace isn't worth insuring - self-pay small losses you can afford."
           },
           {
             id: "ins1-mastery4",
+            concept: "What Is Insurance & Why You Need It",
             question: "Which type of insurance is legally required to drive?",
             options: [
               "Renters insurance for your apartment",
@@ -2007,10 +2167,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Life insurance on yourself"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Almost every state legally requires auto liability insurance to drive, because a crash can injure others and create huge costs. Renters and life insurance are important but not driving requirements."
           },
           {
             id: "ins1-mastery5",
+            concept: "What Is Insurance & Why You Need It",
             question: "You pay premiums for years and never file a claim. This means…",
             options: [
               "You wasted all that money for nothing over the years",
@@ -2019,10 +2181,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "You should immediately cancel all coverage in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Never claiming is a good outcome: you avoided disaster AND had protection the entire time. Insurance buys the guarantee that a rare catastrophe won't ruin you, not a payout you're owed."
           },
           {
             id: "ins1-mastery6",
+            concept: "What Is Insurance & Why You Need It",
             question: "Going without insurance to save on premiums mainly…",
             options: [
               "Removes the underlying risk entirely in most cases",
@@ -2031,6 +2195,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Makes accidents less likely to happen"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Skipping insurance doesn't make accidents or illness any less likely - it just means you'd pay the full, potentially ruinous bill yourself. The risk stays; only your protection disappears."
           }
         ]
@@ -2082,6 +2247,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins2-mc1",
+            concept: "How Insurance Works: Premiums & Payouts",
             question: "What is a deductible?",
             options: [
               "The monthly fee to keep coverage active",
@@ -2094,6 +2260,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins2-mc2",
+            concept: "How Insurance Works: Premiums & Payouts",
             question: "If you choose a higher deductible, your premium usually…",
             options: [
               "Goes up because coverage improves in most cases",
@@ -2121,6 +2288,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins2-aq1",
+          concept: "How Insurance Works: Premiums & Payouts",
           question: "Given her emergency fund and clean record, which policy likely fits Lena best?",
           options: [
             "Option B, to avoid ever paying a deductible",
@@ -2148,6 +2316,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins2-mastery1",
+            concept: "How Insurance Works: Premiums & Payouts",
             question: "You cause $3,000 of damage with a $500 deductible. Who pays what?",
             options: [
               "You pay $3,000; the insurer pays nothing",
@@ -2156,10 +2325,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "You each split it evenly at $1,500"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "You pay the deductible first ($500), then the insurer covers the rest up to your limit ($2,500). The deductible is your share before coverage begins."
           },
           {
             id: "ins2-mastery2",
+            concept: "How Insurance Works: Premiums & Payouts",
             question: "What does a co-pay refer to in health insurance?",
             options: [
               "A percentage you pay after the deductible in most cases",
@@ -2168,10 +2339,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The monthly cost to keep the plan"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A co-pay is a small fixed amount for a service, like $25 to see a doctor, with insurance paying the rest. Coinsurance is the percentage version, and the premium is the monthly cost."
           },
           {
             id: "ins2-mastery3",
+            concept: "How Insurance Works: Premiums & Payouts",
             question: "Your health plan's out-of-pocket maximum means that once you hit it…",
             options: [
               "Your premium instantly drops to zero in most cases",
@@ -2180,10 +2353,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Your deductible doubles for next year"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The out-of-pocket max caps your yearly spending on deductibles, co-pays, and coinsurance. After you reach it, the insurer covers 100% of covered costs, protecting you from unlimited bills."
           },
           {
             id: "ins2-mastery4",
+            concept: "How Insurance Works: Premiums & Payouts",
             question: "Your policy's coverage limit is $20,000 but you lose $30,000. You receive…",
             options: [
               "The full $30,000 you actually lost in most cases",
@@ -2192,10 +2367,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "$10,000, only the amount over the limit"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The coverage limit is the most the insurer pays. With a $20,000 limit, you get $20,000 and must cover the extra $10,000 yourself - which is why choosing adequate limits matters."
           },
           {
             id: "ins2-mastery5",
+            concept: "How Insurance Works: Premiums & Payouts",
             question: "Why might you NOT file a claim for a small loss just above your deductible?",
             options: [
               "Filing is illegal for small amounts in most cases",
@@ -2204,10 +2381,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Small claims are always denied anyway"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Filing claims can push up your future premiums. For a minor loss barely over the deductible, paying it yourself may cost less overall than a rate increase - though big losses are worth claiming."
           },
           {
             id: "ins2-mastery6",
+            concept: "How Insurance Works: Premiums & Payouts",
             question: "When comparing policies, a cheap premium can be misleading if…",
             options: [
               "The deductible and limits are unfavorable",
@@ -2216,6 +2395,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It offers automatic monthly billing"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "A low premium paired with a sky-high deductible or low coverage limits can leave you badly exposed. Always compare premium, deductible, limits, and out-of-pocket max together to judge real value."
           }
         ]
@@ -2267,6 +2447,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins3-mc1",
+            concept: "Auto Insurance",
             question: "What does liability coverage pay for?",
             options: [
               "Repairs to your own car after a crash",
@@ -2279,6 +2460,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins3-mc2",
+            concept: "Auto Insurance",
             question: "Which factor most raises a young driver's premium?",
             options: [
               "Being a teen with little experience",
@@ -2306,6 +2488,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins3-aq1",
+          concept: "Auto Insurance",
           question: "What's the smartest coverage choice for Amara beyond the bare legal minimum?",
           options: [
             "Drop collision to save on the loan",
@@ -2333,6 +2516,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins3-mastery1",
+            concept: "Auto Insurance",
             question: "Which coverage pays to repair YOUR car after a crash you caused?",
             options: [
               "Bodily injury liability coverage",
@@ -2341,10 +2525,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Personal injury protection"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Collision pays to repair or replace your own car after a crash, regardless of fault. Liability coverages pay for others' injuries and property, not your vehicle."
           },
           {
             id: "ins3-mastery2",
+            concept: "Auto Insurance",
             question: "Comprehensive coverage would pay for which event?",
             options: [
               "You rear-end another car at a light",
@@ -2353,10 +2539,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "You damage a fence you crashed into"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Comprehensive covers non-crash losses like theft, vandalism, fire, hail, and hitting an animal. Crash damage is collision, and injuring others or their property is liability."
           },
           {
             id: "ins3-mastery3",
+            concept: "Auto Insurance",
             question: "As a 'no-fault' state, Florida requires drivers to carry…",
             options: [
               "Only bodily injury liability coverage",
@@ -2365,10 +2553,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "No insurance of any kind at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Florida's no-fault system requires Personal Injury Protection (PIP) for your own medical bills plus property damage liability. It notably does not require bodily injury liability, unlike most states."
           },
           {
             id: "ins3-mastery4",
+            concept: "Auto Insurance",
             question: "Why should you buy more than Florida's minimum bodily injury coverage?",
             options: [
               "The state secretly fines minimum buyers in most cases",
@@ -2377,10 +2567,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Minimum coverage voids your driver's license over the years"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "If you seriously injure someone and carry little or no bodily injury liability, you can be personally sued for costs beyond your coverage. Extra liability protects your finances from that risk."
           },
           {
             id: "ins3-mastery5",
+            concept: "Auto Insurance",
             question: "Which action would most likely LOWER your auto premium?",
             options: [
               "Getting a speeding ticket this year",
@@ -2389,10 +2581,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Filing many small claims"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A good-student discount lowers premiums. Tickets, flashy high-performance cars, and frequent claims all raise your rates because they signal more risk to the insurer."
           },
           {
             id: "ins3-mastery6",
+            concept: "Auto Insurance",
             question: "When shopping for auto insurance, you should compare quotes that…",
             options: [
               "Have the lowest premium no matter what",
@@ -2401,6 +2595,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Include the fanciest mobile app design"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Prices for identical coverage vary widely, so compare quotes for the SAME coverage across insurers. Chasing the lowest premium alone can leave you with dangerously low limits or a huge deductible."
           }
         ]
@@ -2452,6 +2647,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins4-mc1",
+            concept: "Renters & Homeowners Insurance",
             question: "What does renters insurance NOT cover?",
             options: [
               "Your belongings damaged by a fire",
@@ -2464,6 +2660,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins4-mc2",
+            concept: "Renters & Homeowners Insurance",
             question: "Why choose 'replacement cost' over 'actual cash value'?",
             options: [
               "It pays for a new equivalent item",
@@ -2491,6 +2688,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins4-aq1",
+          concept: "Renters & Homeowners Insurance",
           question: "What key mistake did Noah make about renters insurance?",
           options: [
             "He bought coverage he didn't actually need",
@@ -2518,6 +2716,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins4-mastery1",
+            concept: "Renters & Homeowners Insurance",
             question: "Who insures the building your rented apartment is in?",
             options: [
               "You, through renters insurance in most cases",
@@ -2526,10 +2725,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "No one; buildings can't be insured"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The landlord insures the building itself. Renters insurance covers your personal belongings, liability, and living expenses - which is why assuming the landlord covers your stuff is a costly mistake."
           },
           {
             id: "ins4-mastery2",
+            concept: "Renters & Homeowners Insurance",
             question: "A guest slips and is injured in your apartment. Which coverage helps?",
             options: [
               "Additional living expenses coverage in most cases",
@@ -2538,10 +2739,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Flood insurance you added separately"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Liability coverage pays for injuries to others in your home and can cover legal defense. Living expenses cover your displacement, and dwelling coverage applies to the structure - neither fits an injured guest."
           },
           {
             id: "ins4-mastery3",
+            concept: "Renters & Homeowners Insurance",
             question: "Homeowners dwelling coverage should be set to…",
             options: [
               "The home's current market sale price",
@@ -2550,10 +2753,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The value of your belongings in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Dwelling coverage should equal the cost to rebuild the house, which can differ from its market price. Insuring for less risks being underinsured and unable to fully rebuild after a total loss."
           },
           {
             id: "ins4-mastery4",
+            concept: "Renters & Homeowners Insurance",
             question: "Which is typically EXCLUDED from a standard home or renters policy?",
             options: [
               "Fire and smoke damage",
@@ -2562,10 +2767,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "A guest's injury liability"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Floods are excluded from standard policies and require separate flood insurance - critical in flood-prone places like Florida. Fire, theft, and liability are typically covered."
           },
           {
             id: "ins4-mastery5",
+            concept: "Renters & Homeowners Insurance",
             question: "A $5,000 diamond ring may need a 'rider' because…",
             options: [
               "Rings can never be insured normally",
@@ -2574,10 +2781,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Jewelry is required to be uninsured"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "High-value items like jewelry often exceed a standard policy's limits, so a rider or floater adds specific coverage for them. Without it, a lost or stolen ring might only be partly reimbursed."
           },
           {
             id: "ins4-mastery6",
+            concept: "Renters & Homeowners Insurance",
             question: "Which step best lowers a homeowners premium?",
             options: [
               "Filing many small claims each year",
@@ -2586,6 +2795,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Choosing the lowest possible deductible"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Bundling home and auto with one insurer usually earns a discount, and safety systems help too. Frequent claims raise premiums, and a lower deductible raises the premium rather than cutting it."
           }
         ]
@@ -2637,6 +2847,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins5-mc1",
+            concept: "Health Insurance",
             question: "What does the out-of-pocket maximum do?",
             options: [
               "Sets your monthly premium amount in most cases",
@@ -2649,6 +2860,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins5-mc2",
+            concept: "Health Insurance",
             question: "Why does staying 'in-network' matter?",
             options: [
               "In-network care uses lower negotiated prices",
@@ -2676,6 +2888,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins5-aq1",
+          concept: "Health Insurance",
           question: "Given her health and emergency fund, which plan likely fits Maya best?",
           options: [
             "The low-deductible, higher-premium plan in most cases",
@@ -2703,6 +2916,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins5-mastery1",
+            concept: "Health Insurance",
             question: "Your plan has a $2,000 deductible. This means you…",
             options: [
               "Never pay anything for medical care",
@@ -2711,10 +2925,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Get $2,000 back from the insurer yearly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The deductible is what you pay out of pocket before insurance starts covering costs. After you've paid $2,000 in covered care, the insurer begins paying its share (via coinsurance)."
           },
           {
             id: "ins5-mastery2",
+            concept: "Health Insurance",
             question: "Coinsurance of 20% means that after your deductible, you pay…",
             options: [
               "A flat $20 for every visit over the years",
@@ -2723,10 +2939,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "20% of your yearly premium in most cases"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Coinsurance is a percentage split after the deductible. At 20%, you pay 20% of each covered bill and the insurer pays 80%, until you hit your out-of-pocket maximum."
           },
           {
             id: "ins5-mastery3",
+            concept: "Health Insurance",
             question: "A high-deductible health plan is usually best for someone who is…",
             options: [
               "Chronically ill and sees many specialists",
@@ -2735,10 +2953,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Looking to avoid all medical costs"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "High-deductible plans have low premiums but you pay more before coverage kicks in, so they suit healthy people who rarely need care. Those with ongoing needs usually prefer a low-deductible plan."
           },
           {
             id: "ins5-mastery4",
+            concept: "Health Insurance",
             question: "Going out-of-network for a non-emergency usually means…",
             options: [
               "The care is completely free to you",
@@ -2747,10 +2967,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The insurer pays a bigger share"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Out-of-network providers haven't agreed to your insurer's rates, so you pay far more or the care isn't covered. Checking network status before non-emergency care prevents surprise bills."
           },
           {
             id: "ins5-mastery5",
+            concept: "Health Insurance",
             question: "Under the Affordable Care Act, plans must…",
             options: [
               "Charge everyone the exact same premium",
@@ -2759,10 +2981,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Refund unused premiums each December in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The ACA requires plans to cover preventive care at no extra cost and bars denying coverage for pre-existing conditions. It doesn't make all doctors free or force identical premiums for everyone."
           },
           {
             id: "ins5-mastery6",
+            concept: "Health Insurance",
             question: "A common way for a 23-year-old to get affordable coverage is to…",
             options: [
               "Wait until they turn 30 to enroll",
@@ -2771,6 +2995,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Buy several plans for more coverage over the years"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Young adults can typically stay on a parent's health plan until age 26, often the cheapest option. Other routes include a job, the marketplace, or Medicaid - but always have some coverage."
           }
         ]
@@ -2822,6 +3047,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins6-mc1",
+            concept: "Life & Disability Insurance",
             question: "Who most needs life insurance?",
             options: [
               "A single teen with no dependents in most cases",
@@ -2834,6 +3060,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins6-mc2",
+            concept: "Life & Disability Insurance",
             question: "What does disability insurance protect?",
             options: [
               "Your ability to earn income",
@@ -2861,6 +3088,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins6-aq1",
+          concept: "Life & Disability Insurance",
           question: "What's the most cost-effective, well-rounded choice for Priya?",
           options: [
             "Buy whole life and skip disability coverage in most cases",
@@ -2888,6 +3116,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins6-mastery1",
+            concept: "Life & Disability Insurance",
             question: "The main purpose of life insurance is to…",
             options: [
               "Grow your retirement savings in most cases",
@@ -2896,10 +3125,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Cover repairs to your home or car for you"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Life insurance pays a death benefit to replace your income and cover obligations for people who depend on you financially. It's about protecting dependents, not growing savings or paying medical bills."
           },
           {
             id: "ins6-mastery2",
+            concept: "Life & Disability Insurance",
             question: "Why is term life usually better than whole life for most families?",
             options: [
               "It lasts your entire life no matter what",
@@ -2908,10 +3139,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It requires no health information at all"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Term life provides a large death benefit cheaply during the years you need it. Whole life costs many times more; most people are better off buying term and investing the difference."
           },
           {
             id: "ins6-mastery3",
+            concept: "Life & Disability Insurance",
             question: "When is the best time to buy term life insurance?",
             options: [
               "After you retire and stop working",
@@ -2920,10 +3153,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "After your children move out"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Premiums are based on age and health, so buying young and healthy locks in a low rate for the term. Waiting until you're older or ill makes coverage far more expensive."
           },
           {
             id: "ins6-mastery4",
+            concept: "Life & Disability Insurance",
             question: "Disability insurance typically replaces about…",
             options: [
               "100% of your salary indefinitely in most cases",
@@ -2932,10 +3167,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Your full income for just one week"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Disability insurance usually replaces 50%-70% of your income if you can't work, helping you keep paying bills during recovery. It doesn't fully replace your salary, but it prevents financial collapse."
           },
           {
             id: "ins6-mastery5",
+            concept: "Life & Disability Insurance",
             question: "Why do experts say disability insurance is often overlooked but important?",
             options: [
               "Disability is impossible to ever recover from in most cases",
@@ -2944,10 +3181,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It replaces the need for health insurance"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Injury or illness that stops your paycheck is statistically likely during working years and can be devastating since bills continue. Many people insure their life but forget to protect their income."
           },
           {
             id: "ins6-mastery6",
+            concept: "Life & Disability Insurance",
             question: "A key detail to name and keep updated on a life policy is the…",
             options: [
               "Color scheme of the policy documents",
@@ -2956,6 +3195,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Time of day the premium is billed"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The beneficiary is who receives the death benefit. Keeping it current after events like marriage or a new child ensures the money goes exactly where you intend, without delay or dispute."
           }
         ]
@@ -3007,6 +3247,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins7-mc1",
+            concept: "Identity Theft: Prevention & Recovery",
             question: "What is a free, effective way to prevent new-credit identity theft?",
             options: [
               "Sharing your SSN to verify accounts over the years",
@@ -3019,6 +3260,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins7-mc2",
+            concept: "Identity Theft: Prevention & Recovery",
             question: "Which is a warning sign of identity theft?",
             options: [
               "Your credit report shows accounts you never opened",
@@ -3046,6 +3288,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins7-aq1",
+          concept: "Identity Theft: Prevention & Recovery",
           question: "What is Marcus's best first step after finding the fraudulent account?",
           options: [
             "Wait a few months to see if it disappears",
@@ -3073,6 +3316,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins7-mastery1",
+            concept: "Identity Theft: Prevention & Recovery",
             question: "Identity theft can harm you by allowing thieves to…",
             options: [
               "Raise the interest on your savings over the years",
@@ -3081,10 +3325,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Lower your monthly insurance premium in most cases"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "With your stolen information, thieves can open credit cards, take loans, drain accounts, and file fake tax returns in your name - damaging your credit and finances until you fix it."
           },
           {
             id: "ins7-mastery2",
+            concept: "Identity Theft: Prevention & Recovery",
             question: "A credit freeze mainly protects you by…",
             options: [
               "Erasing all your existing debt over the years",
@@ -3093,10 +3339,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Refunding fraudulent charges automatically in most cases"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A freeze stops lenders from pulling your credit, so no one can open new accounts in your name until you lift it. It's free and doesn't affect your score, but it doesn't erase debt or refund charges."
           },
           {
             id: "ins7-mastery3",
+            concept: "Identity Theft: Prevention & Recovery",
             question: "Which habit best reduces your risk of identity theft?",
             options: [
               "Reusing the same password on every site",
@@ -3105,10 +3353,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Posting your full address online"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Unique passwords plus two-factor authentication keep a single leaked password from unlocking your accounts. Reusing passwords, oversharing your SSN, and posting personal details all increase your risk."
           },
           {
             id: "ins7-mastery4",
+            concept: "Identity Theft: Prevention & Recovery",
             question: "Which official site helps you report and recover from identity theft?",
             options: [
               "A random link texted by an unknown number",
@@ -3117,10 +3367,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "The website of the thief's bank"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "IdentityTheft.gov is the FTC's official site that generates a recovery plan and an identity-theft report you can use as proof. Never trust random links texted to you claiming to help."
           },
           {
             id: "ins7-mastery5",
+            concept: "Identity Theft: Prevention & Recovery",
             question: "Why does reporting identity theft quickly matter?",
             options: [
               "It doubles your bank's interest rate in most cases",
@@ -3129,10 +3381,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It cancels your need for insurance"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Reporting promptly limits your financial liability under federal law - fraudulent credit charges generally cost you nothing, and debit fraud losses are capped when reported quickly. Speed protects your money."
           },
           {
             id: "ins7-mastery6",
+            concept: "Identity Theft: Prevention & Recovery",
             question: "After discovering fraud, the correct first action is to…",
             options: [
               "Delete all your bank apps immediately in most cases",
@@ -3141,6 +3395,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Announce it publicly on social media"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Start by contacting the companies where fraud occurred to close or dispute those accounts, then freeze your credit and report at IdentityTheft.gov. Ignoring it lets the damage grow."
           }
         ]
@@ -3192,6 +3447,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins8-mc1",
+            concept: "Wills, Inheritance & Financial Planning",
             question: "What happens if you die without a will?",
             options: [
               "Your assets vanish and go to no one",
@@ -3204,6 +3460,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins8-mc2",
+            concept: "Wills, Inheritance & Financial Planning",
             question: "Which document overrides your will for that account?",
             options: [
               "A beneficiary designation on a 401(k)",
@@ -3231,6 +3488,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins8-aq1",
+          concept: "Wills, Inheritance & Financial Planning",
           question: "What gives Owen the single biggest long-term financial advantage?",
           options: [
             "Buying large life insurance right now in most cases",
@@ -3258,6 +3516,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins8-mastery1",
+            concept: "Wills, Inheritance & Financial Planning",
             question: "Besides directing assets, a will is crucial for parents because it…",
             options: [
               "Guarantees their kids inherit millions in most cases",
@@ -3266,10 +3525,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Doubles the value of their estate"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A will lets parents name a guardian for their children if they die - a decision the state would otherwise make. It also directs assets, but the guardianship choice is uniquely important for parents."
           },
           {
             id: "ins8-mastery2",
+            concept: "Wills, Inheritance & Financial Planning",
             question: "A power of attorney is useful because it lets someone…",
             options: [
               "Inherit your estate before you die",
@@ -3278,10 +3539,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Collect your life insurance early"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A power of attorney authorizes a trusted person to handle your finances if illness or injury leaves you unable to. It protects you while alive, unlike a will, which takes effect after death."
           },
           {
             id: "ins8-mastery3",
+            concept: "Wills, Inheritance & Financial Planning",
             question: "The 'step-up in basis' on inherited assets mainly…",
             options: [
               "Increases the estate tax you owe",
@@ -3290,10 +3553,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Removes the asset from your inheritance"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A step-up in basis resets an inherited asset's value to its worth at the date of death, so selling it later triggers capital-gains tax only on gains beyond that point - a significant tax benefit."
           },
           {
             id: "ins8-mastery4",
+            concept: "Wills, Inheritance & Financial Planning",
             question: "Which is the correct early order in a financial plan?",
             options: [
               "Invest first, then never save any cash",
@@ -3302,10 +3567,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Spend everything, then borrow to save in most cases"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A sound plan budgets so spending is below income, builds an emergency fund, pays off high-interest debt, then invests steadily. Skipping the safety net or borrowing to invest is risky and backwards."
           },
           {
             id: "ins8-mastery5",
+            concept: "Wills, Inheritance & Financial Planning",
             question: "How does insurance fit into a long-term financial plan?",
             options: [
               "It replaces the need to save or invest",
@@ -3314,10 +3581,12 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "It is only useful after you retire"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Insurance protects the plan you build - health, auto, renters, disability, and life coverage keep a disaster from wiping out your savings. It defends wealth rather than replacing saving and investing."
           },
           {
             id: "ins8-mastery6",
+            concept: "Wills, Inheritance & Financial Planning",
             question: "The single biggest driver of long-term wealth for a teen is…",
             options: [
               "Picking one perfect hot stock",
@@ -3326,6 +3595,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
               "Avoiding banks and holding cash"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Starting young gives compound growth decades to work, turning modest, consistent contributions into large sums. Consistency beats chasing hot stocks or trying to time the market."
           }
         ]

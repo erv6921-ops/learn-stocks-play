@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
-import { lessons } from "@/data/lessons"
+import { getLessonById } from "@/data/lessons"
 import { getStructuredContent } from "@/data/lessonContent"
 import { generateStructuredContent, tierDifficulty } from "@/lib/contentGenerator"
 import { LessonSection, StructuredLessonContent, QuizQuestion, MasteryTier } from "@/types"
@@ -76,7 +76,15 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     else navigate(to)
   }
 
-  const lesson = lessons.find(l => l.id === id)
+  const lesson = getLessonById(id)
+  // A legacy/alias id in the URL (e.g. /lessons/psych-3 or /lessons/income-8)
+  // resolves to a real lesson - rewrite the URL to its canonical id so progress
+  // and analytics key on the live id. Skip in preview/modal (prop-driven) mode.
+  useEffect(() => {
+    if (!lessonIdProp && lesson && lesson.id !== id) {
+      navigate(`/lessons/${lesson.id}`, { replace: true })
+    }
+  }, [lessonIdProp, lesson, id, navigate])
   const progress = lessonProgress.find(p => p.lessonId === id)
   // Preview always behaves like a fresh, never-completed attempt.
   const isCompleted = !previewMode && progress?.completed

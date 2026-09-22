@@ -47,6 +47,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget1-mc1",
+            concept: "What is a Budget & Why It Matters",
             question: "What is the core purpose of a budget?",
             options: [
               "To ban all spending on things that are fun",
@@ -59,6 +60,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget1-mc2",
+            concept: "What is a Budget & Why It Matters",
             question: "What does 'leakage' mean in budgeting?",
             options: [
               "Small forgotten purchases that quietly drain your money",
@@ -86,6 +88,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget1-aq1",
+          concept: "What is a Budget & Why It Matters",
           question: "Sam ends every month near $0 despite earning $300. What is the BEST first step a budget gives him?",
           options: [
             "Deciding where each dollar goes before spending it",
@@ -113,6 +116,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget1-mastery1",
+            concept: "What is a Budget & Why It Matters",
             question: "Why is every spending choice in a budget considered a 'trade-off'?",
             options: [
               "Because prices always climb faster than what you earn",
@@ -121,10 +125,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because saving is somehow illegal for anyone under 18"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Money is limited, so every dollar you put toward one thing is a dollar unavailable for another. Seeing that trade-off clearly is exactly what a budget helps you do."
           },
           {
             id: "budget1-mastery2",
+            concept: "What is a Budget & Why It Matters",
             question: "Which statement about budgets and fun is TRUE?",
             options: [
               "A good budget plans for fun on purpose",
@@ -133,10 +139,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Fun spending you plan always counts as leakage"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A good budget sets aside money for fun on purpose. When you spend that planned amount, it isn't a mistake - it's the budget working as intended."
           },
           {
             id: "budget1-mastery3",
+            concept: "What is a Budget & Why It Matters",
             question: "How does a budget help you reach a big goal like a $600 laptop?",
             options: [
               "By breaking it into small monthly amounts to save",
@@ -145,10 +153,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "By forcing a bank to lend you the full amount"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "A budget turns a scary total into a doable plan - like $50 a month for 12 months. That monthly framing is the secret behind almost every financial success."
           },
           {
             id: "budget1-mastery4",
+            concept: "What is a Budget & Why It Matters",
             question: "How does budgeting help you avoid debt?",
             options: [
               "By raising your credit limit automatically",
@@ -157,10 +167,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "By hiding bills so they never come due"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "When you plan around money you truly have, you don't need to borrow to survive the month. A budget catches gaps early so you can adjust before being forced into debt."
           },
           {
             id: "budget1-mastery5",
+            concept: "What is a Budget & Why It Matters",
             question: "Research shows people who budget usually report…",
             options: [
               "Much less stress about their money",
@@ -169,10 +181,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "That their income drops every month"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Budgeting removes surprises, and surprises cause stress. So people who budget feel more in control and calmer about money, even when they don't earn a lot."
           },
           {
             id: "budget1-mastery6",
+            concept: "What is a Budget & Why It Matters",
             question: "Jordan earns $250 but always ends at $0. What most likely fixes this?",
             options: [
               "Waiting for prices in stores to fall",
@@ -181,6 +195,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Closing down his bank account entirely for good"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The issue isn't income - it's the lack of a plan. Assigning each dollar a job before spending stops leakage, so money is saved instead of vanishing into forgotten buys."
           }
         ]
@@ -232,6 +247,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget2-mc1",
+            concept: "How to Make a Simple Budget",
             question: "What does 'pay yourself first' mean?",
             options: [
               "Spend on wants before paying any bills",
@@ -244,6 +260,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget2-mc2",
+            concept: "How to Make a Simple Budget",
             question: "When is a budget considered 'balanced'?",
             options: [
               "When spending is larger than your income",
@@ -271,6 +288,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget2-aq1",
+          concept: "How to Make a Simple Budget",
           question: "Lena wants to be sure she saves $60 monthly for her bike. What should she do FIRST each month?",
           options: [
             "Set aside the $60 before planning any spending",
@@ -298,6 +316,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget2-mastery1",
+            concept: "How to Make a Simple Budget",
             question: "What are the three basic pieces of a simple budget?",
             options: [
               "Taxes, tips, and interest owed",
@@ -306,10 +325,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Wants, needs, and credit cards"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Every budget is built from income (money in), spending (money out), and saving (money you deliberately keep). Balancing these three is the whole task."
           },
           {
             id: "budget2-mastery2",
+            concept: "How to Make a Simple Budget",
             question: "What is the golden rule of a simple budget?",
             options: [
               "Spending plus saving must not exceed income",
@@ -318,10 +339,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Bills should be ignored until money runs out"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "If money going out (spending plus saving) exceeds money coming in, you head toward an empty account or debt. Keeping spending plus saving within income is the core rule."
           },
           {
             id: "budget2-mastery3",
+            concept: "How to Make a Simple Budget",
             question: "Why is 'pay yourself first' better than saving whatever's left?",
             options: [
               "Because leftovers are usually zero after spending",
@@ -330,10 +353,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because it lets you skip all your bills"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Spending tends to expand to fill whatever's available, so 'leftovers' are usually nothing. Setting saving first guarantees it happens before spending can absorb it."
           },
           {
             id: "budget2-mastery4",
+            concept: "How to Make a Simple Budget",
             question: "Marcus budgets $15 for snacks but really spends $40. What's the fix?",
             options: [
               "Quit budgeting entirely since plans simply never work",
@@ -342,10 +367,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Add $15 more to every other category too"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A too-tight number collapses fast and kills motivation. Basing the amount on what he truly spends - like $40 - makes the plan realistic enough to actually follow."
           },
           {
             id: "budget2-mastery5",
+            concept: "How to Make a Simple Budget",
             question: "Your budget has $20 unassigned after listing everything. What should you do?",
             options: [
               "Leave it floating with no job at all",
@@ -354,10 +381,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Spend it right away on anything you see nearby"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A balanced budget gives every dollar a job. Unassigned money should be sent somewhere on purpose - such as savings or a category - rather than left to leak away."
           },
           {
             id: "budget2-mastery6",
+            concept: "How to Make a Simple Budget",
             question: "Why is a budget called a 'living document'?",
             options: [
               "It has to be printed on special legal paper",
@@ -366,6 +395,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Only an accountant is allowed to edit it"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Income and expenses change over time, so you revisit the budget each month and adjust. Moving money between categories to stay balanced is steering on purpose, not cheating."
           }
         ]
@@ -417,6 +447,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget3-mc1",
+            concept: "Tracking Your Spending",
             question: "Why can't you rely on memory to know your spending?",
             options: [
               "Memory adds fake purchases you never made",
@@ -429,6 +460,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget3-mc2",
+            concept: "Tracking Your Spending",
             question: "What matters most when choosing a tracking method?",
             options: [
               "That it's the most expensive app available",
@@ -456,6 +488,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget3-aq1",
+          concept: "Tracking Your Spending",
           question: "Owen discovers $110 a month in delivery orders he never noticed. Why did tracking reveal this when memory didn't?",
           options: [
             "Delivery apps must be secretly overcharging every single user",
@@ -483,6 +516,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget3-mastery1",
+            concept: "Tracking Your Spending",
             question: "What is the '$5 problem' in spending?",
             options: [
               "A rule that all items must cost $5",
@@ -491,10 +525,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "The maximum you can spend per day"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A small recurring purchase - like a $5 daily drink - feels harmless each time but adds up to about $100 a month. These hidden buys are why tracking matters so much."
           },
           {
             id: "budget3-mastery2",
+            concept: "Tracking Your Spending",
             question: "Why should you record a purchase within minutes of making it?",
             options: [
               "Because the price changes if you wait",
@@ -503,10 +539,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because apps stop working after an hour"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The longer you wait, the more purchases you forget - and forgotten buys are exactly the ones wrecking budgets. Logging promptly captures them before they slip away."
           },
           {
             id: "budget3-mastery3",
+            concept: "Tracking Your Spending",
             question: "What should you do during a weekly tracking review?",
             options: [
               "Delete the data so it doesn't clutter your phone",
@@ -515,10 +553,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Ignore surprises and keep spending the same"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "The review turns raw numbers into decisions: see where you spent most, what surprised you, and what to change. Tracking without reviewing is just collecting numbers."
           },
           {
             id: "budget3-mastery4",
+            concept: "Tracking Your Spending",
             question: "Theo abandons a fancy spreadsheet but sticks with a notes app. What's the lesson?",
             options: [
               "Only detailed spreadsheets can ever track spending correctly",
@@ -527,10 +567,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Simple methods can never reveal your real spending"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Consistency beats sophistication. A quick method he keeps using works far better than a perfect system he quits, because only a maintained tracker reveals real habits."
           },
           {
             id: "budget3-mastery5",
+            concept: "Tracking Your Spending",
             question: "Devi guessed $25 a month on coffee but tracked $88. What did tracking give her?",
             options: [
               "Proof that coffee is bad for her health",
@@ -539,10 +581,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "A convenient reason to stop budgeting entirely"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Tracking replaced a comforting guess with the real $88 figure. Seeing the true number - over $1,000 a year - let her make a deliberate choice to cut back and redirect the cash."
           },
           {
             id: "budget3-mastery6",
+            concept: "Tracking Your Spending",
             question: "Besides totals, what valuable thing does tracking reveal?",
             options: [
               "Patterns and triggers behind your spending",
@@ -551,6 +595,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Which friends have the most money saved"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Tracking exposes patterns - like overspending on weekends or after payday. Spotting these triggers lets you plan around them, which you can't do while just feeling vaguely broke."
           }
         ]
@@ -602,6 +647,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget4-mc1",
+            concept: "The 50/30/20 Rule",
             question: "In the 50/30/20 rule, what does the 20% bucket cover?",
             options: [
               "Only fun spending like games and eating out",
@@ -614,6 +660,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget4-mc2",
+            concept: "The 50/30/20 Rule",
             question: "What's a good test for whether something is a want, not a need?",
             options: [
               "Whether the item costs less than twenty dollars",
@@ -641,6 +688,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget4-aq1",
+          concept: "The 50/30/20 Rule",
           question: "Kayla's real needs are only $60 of her $400 income. What's the smartest way to use 50/30/20?",
           options: [
             "Force exactly $200 into needs to obey the rule",
@@ -668,6 +716,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget4-mastery1",
+            concept: "The 50/30/20 Rule",
             question: "On $300 of take-home pay, how much does 50/30/20 assign to wants?",
             options: [
               "$150 for the wants bucket",
@@ -676,10 +725,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "$30 for the wants bucket"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Wants get 30% of $300, which is $90. Needs get 50% ($150) and saving gets 20% ($60). The three buckets always add up to the full income."
           },
           {
             id: "budget4-mastery2",
+            concept: "The 50/30/20 Rule",
             question: "Why does the rule bake saving into a fixed 20%?",
             options: [
               "So saving happens by default, not by willpower",
@@ -688,10 +739,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because your wants should always come before any saving"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Making saving a set fifth of income means it happens automatically each month, instead of depending on leftover willpower. That's the rule's real genius."
           },
           {
             id: "budget4-mastery3",
+            concept: "The 50/30/20 Rule",
             question: "What is the most common mistake people make with 50/30/20?",
             options: [
               "Saving far too much of their income",
@@ -700,10 +753,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Counting their income twice by accident"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Calling wants 'needs' - the latest phone, takeout, new shoes - inflates the 50% bucket and starves saving. Honestly separating the two is the core discipline."
           },
           {
             id: "budget4-mastery4",
+            concept: "The 50/30/20 Rule",
             question: "Why can Leo, who lives at home, save more than a strict 20%?",
             options: [
               "Because his needs are very low, freeing income",
@@ -712,10 +767,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because wants are illegal for teens at home"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "With tiny needs, less income is locked into that bucket, so Leo can flex the guideline and pour the difference into saving - a real head start over most adults."
           },
           {
             id: "budget4-mastery5",
+            concept: "The 50/30/20 Rule",
             question: "Why does paying off debt count in the 20% bucket?",
             options: [
               "Because paying off debt is technically a type of want",
@@ -724,10 +781,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because your debt payments directly reduce the taxes owed"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Paying down debt stops interest and frees future income, so it builds wealth much like saving does. Once debt is cleared, that 20% flows into pure saving."
           },
           {
             id: "budget4-mastery6",
+            concept: "The 50/30/20 Rule",
             question: "A teen calls a brand-new phone model a 'need.' What's the honest label?",
             options: [
               "A need, since every phone is always essential",
@@ -736,6 +795,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "A saving, because phones tend to hold their value"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A phone may be a need, but the newest model is a want - a basic one covers the actual need. Being honest about that line keeps the needs bucket from ballooning."
           }
         ]
@@ -787,6 +847,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget5-mc1",
+            concept: "Monthly Budget",
             question: "Which of these is a FIXED expense?",
             options: [
               "A $45 monthly phone plan",
@@ -799,6 +860,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget5-mc2",
+            concept: "Monthly Budget",
             question: "Why does bill timing matter in a monthly budget?",
             options: [
               "Bills cost more if paid late in the month",
@@ -826,6 +888,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget5-aq1",
+          concept: "Monthly Budget",
           question: "Malik's $60 bill is due on the 5th, but his pay arrives on the 20th. What's the best fix?",
           options: [
             "Simply skip the bill until his next paycheck arrives",
@@ -853,6 +916,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget5-mastery1",
+            concept: "Monthly Budget",
             question: "What's the difference between fixed and variable expenses?",
             options: [
               "Fixed are wants; variable are always needs",
@@ -861,10 +925,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Fixed are small; variable are always large"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Fixed expenses (like a phone plan) stay the same each month, while variable expenses (like food or fun) change. Knowing which is which shows your baseline and your flexibility."
           },
           {
             id: "budget5-mastery2",
+            concept: "Monthly Budget",
             question: "Why is cutting a fixed cost so valuable?",
             options: [
               "It frees that amount every month going forward",
@@ -873,10 +939,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It removes any need to track your spending"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Because fixed costs repeat, cutting one saves the same amount every month, forever. Canceling a $12 subscription you don't use saves $144 a year from one decision."
           },
           {
             id: "budget5-mastery3",
+            concept: "Monthly Budget",
             question: "In the running-total method, what does reaching exactly zero mean?",
             options: [
               "You have spent every single dollar on wants",
@@ -885,10 +953,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "You simply forgot to include any of your saving"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Subtracting each category from income down to zero means every dollar is assigned. If you finish above zero, add to saving; below zero, trim a variable category."
           },
           {
             id: "budget5-mastery4",
+            concept: "Monthly Budget",
             question: "Sofia's budget balanced but she still overdrafted. Why?",
             options: [
               "Her total monthly spending secretly doubled overnight",
@@ -897,10 +967,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "She simply saved far too much of her income"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A balanced budget can still fail on timing: her bill was due before payday, causing an overdraft. A buffer and a due-date calendar solve this timing gap."
           },
           {
             id: "budget5-mastery5",
+            concept: "Monthly Budget",
             question: "What is the 'reconcile' step at month's end?",
             options: [
               "Deleting all of last month's entire budget completely",
@@ -909,10 +981,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Ignoring all your overspending until next year"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Reconciling means comparing your plan against reality - where you over- or underspent - then adjusting next month. This tuning makes your budget accurate over a few cycles."
           },
           {
             id: "budget5-mastery6",
+            concept: "Monthly Budget",
             question: "Why subtract fixed costs first when building the budget?",
             options: [
               "Because fixed costs are the only expenses that matter",
@@ -921,6 +995,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because fixed costs can be skipped in most months"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Fixed costs are predictable, so subtracting them first tells you exactly how much remains to split among variable spending and saving - a solid foundation for the plan."
           }
         ]
@@ -954,7 +1029,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "concept",
         title: "How Big and How to Build It",
         paragraphs: [
-          "How big should an emergency fund be? Adults are usually told to save three to six months of expenses, but for a teen that's overkill and discouraging. A better teen starter goal is a fixed amount like $300 to $500 - enough to cover most real surprises without borrowing. The key is to pick a target that feels reachable, hit it, then decide whether to grow it. A fund you actually build to $300 protects you far more than a $3,000 goal you never start. Start where you are, not where a textbook says an adult should be.",
+          "How big should an emergency fund be? Adults aim for 3 to 6 months of expenses; as a teen, start with $300 to $500 - enough to cover most real surprises without borrowing. The key is to pick a target that feels reachable, hit it, then decide whether to grow it toward that adult goal over time. A fund you actually build to $300 protects you far more than a $3,000 goal you never start. Start where you are, and grow the target as your income and expenses grow.",
           "You build an emergency fund the same way you eat an elephant - one bite at a time. Add a small, automatic amount every time you get paid, even $20. On a $250 monthly income, saving $25 a month reaches a $300 fund in a year without pain. The magic word is automatic: set the transfer to happen the moment money arrives, before you can spend it. Slow and boring is exactly right here; the fund isn't meant to be exciting, it's meant to exist. Consistency, not size of contribution, is what gets you there.",
           "Where you keep the fund matters too. It should be accessible but not too accessible - reachable in a day for a real emergency, but not so handy that you tap it for pizza. A separate savings account is ideal: it's safe, slightly harder to reach than your spending account, and often earns a little interest. Avoid keeping it as cash in your room (easy to spend, easy to lose) or invested in something risky (its value could drop right when you need it). The emergency fund's job is to be boringly, reliably there."
         ],
@@ -972,6 +1047,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget6-mc1",
+            concept: "Emergency Funds",
             question: "What is an emergency fund for?",
             options: [
               "Saving up for a planned vacation",
@@ -984,6 +1060,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget6-mc2",
+            concept: "Emergency Funds",
             question: "What's a realistic starter emergency fund goal for a teen?",
             options: [
               "Six months of an adult's full expenses",
@@ -992,7 +1069,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Nothing at all, since teens face no emergencies"
             ],
             correctAnswer: 1,
-            explanation: "A fixed $300 to $500 is reachable and covers most real teen surprises. The adult 'three to six months' target is overkill and often just discourages people from starting."
+            explanation: "A fixed $300 to $500 is reachable and covers most real teen surprises. Adults aim for the bigger '3 to 6 months of expenses' target; as a teen it's smarter to start small, hit it, then grow toward that over time."
           }
         ]
       },
@@ -1011,6 +1088,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget6-aq1",
+          concept: "Emergency Funds",
           question: "Ella wants her emergency fund to actually get built. What habit makes that most likely?",
           options: [
             "Saving whatever happens to be left over",
@@ -1038,6 +1116,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget6-mastery1",
+            concept: "Emergency Funds",
             question: "How does an emergency fund prevent a debt spiral?",
             options: [
               "It pays surprises in cash, not on credit",
@@ -1046,10 +1125,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It refunds all the interest you already paid"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "By paying a surprise in cash, you avoid borrowing and the interest that follows. That breaks the chain where one repair leads to a card balance, then more debt."
           },
           {
             id: "budget6-mastery2",
+            concept: "Emergency Funds",
             question: "How is an emergency fund different from a sinking fund?",
             options: [
               "A sinking fund is really only for rich millionaires",
@@ -1058,10 +1139,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "An emergency fund must always be invested in stocks"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "An emergency fund sits untouched for unexpected costs, while a sinking fund saves toward a known, planned purchase. Mixing them leaves you unprotected when a real emergency hits."
           },
           {
             id: "budget6-mastery3",
+            concept: "Emergency Funds",
             question: "Why is 'automatic' the key word when building the fund?",
             options: [
               "It moves money before you can spend it",
@@ -1070,10 +1153,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It quietly hides the money away from the bank"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "An automatic transfer sends money to savings the moment you're paid, before spending can absorb it. That consistency, not the size of each contribution, gets the fund built."
           },
           {
             id: "budget6-mastery4",
+            concept: "Emergency Funds",
             question: "Where should you keep an emergency fund?",
             options: [
               "In a risky stock for maximum growth",
@@ -1082,10 +1167,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Spent quickly so it doesn't tempt you"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "A separate savings account is reachable in a day but not so handy you raid it for wants, and it stays safe. Risky investments could drop right when you need the money."
           },
           {
             id: "budget6-mastery5",
+            concept: "Emergency Funds",
             question: "Why is a $300 fund you build better than a $3,000 goal you never start?",
             options: [
               "Because bigger goals earn no interest at all",
@@ -1094,10 +1181,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because small funds grow faster on their own"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Protection comes from money that actually exists. A reachable $300 you truly save guards you, while a giant target you never begin protects you from nothing."
           },
           {
             id: "budget6-mastery6",
+            concept: "Emergency Funds",
             question: "Ravi pays a $180 repair from his fund; his friend charges it to a card. What's the difference?",
             options: [
               "Ravi pays $180; his friend pays more with interest",
@@ -1106,6 +1195,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Ravi somehow ends up owing the repair shop later"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Ravi pays only the $180 in cash, while his friend adds interest on the card - ending near $215. The fund turned a crisis into a minor, cheaper annoyance."
           }
         ]
@@ -1157,6 +1247,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget7-mc1",
+            concept: "Lifestyle Inflation",
             question: "What is lifestyle inflation?",
             options: [
               "General prices rising across the whole entire economy",
@@ -1169,6 +1260,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget7-mc2",
+            concept: "Lifestyle Inflation",
             question: "What does the 'save the raise' rule tell you to do?",
             options: [
               "Spend the entire raise on brand-new upgrades right away",
@@ -1196,6 +1288,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget7-aq1",
+          concept: "Lifestyle Inflation",
           question: "Noah wants his $120 raise to build his future, not disappear. What's the smartest move?",
           options: [
             "Automate most of the raise into savings",
@@ -1223,6 +1316,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget7-mastery1",
+            concept: "Lifestyle Inflation",
             question: "Why do some high earners still live paycheck to paycheck?",
             options: [
               "Their lifestyle inflated right along with their pay",
@@ -1231,10 +1325,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Their banks flatly refuse to hold accounts for them"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "As their pay rose, their spending rose to match, leaving nothing extra. Lifestyle inflation means expenses expand to swallow income no matter how much you earn."
           },
           {
             id: "budget7-mastery2",
+            concept: "Lifestyle Inflation",
             question: "You earn $200 and save $40. Income rises to $300 but you still save $40. What happened?",
             options: [
               "Your overall saving rate suddenly rose very sharply",
@@ -1243,10 +1339,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Your monthly income secretly went right back down"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Saving the same $40 out of $300 is only about 13%, down from 20% of $200. You earn more but save a smaller share - the quiet damage of lifestyle inflation."
           },
           {
             id: "budget7-mastery3",
+            concept: "Lifestyle Inflation",
             question: "What is the 'hedonic treadmill'?",
             options: [
               "A special machine that automatically tracks your spending",
@@ -1255,10 +1353,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "A bank account that pays extra interest"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "People adapt to whatever they have fast, so a new upgrade feels normal quickly and you crave the next one. That's why more spending rarely brings lasting happiness."
           },
           {
             id: "budget7-mastery4",
+            concept: "Lifestyle Inflation",
             question: "Why is keeping fixed costs lean as income grows a 'superpower'?",
             options: [
               "It somehow magically increases the size of your paycheck",
@@ -1267,10 +1367,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It somehow makes all future emergencies stop happening entirely"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Every new recurring bill raises the floor you must clear monthly. Keeping fixed costs low keeps saving easy and makes you resilient to a pay cut - real long-term flexibility."
           },
           {
             id: "budget7-mastery5",
+            concept: "Lifestyle Inflation",
             question: "What question helps you separate a good upgrade from pure inflation?",
             options: [
               "Is this really the single most expensive option available?",
@@ -1279,10 +1381,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Is it on sale for a limited time only?"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Pausing to ask whether an upgrade will still matter in a year filters out treadmill-driven wants. Deliberate upgrades are fine; automatic, unquestioned ones drain your future."
           },
           {
             id: "budget7-mastery6",
+            concept: "Lifestyle Inflation",
             question: "Marco saved $80 of his $120 raise automatically. Why did it feel painless?",
             options: [
               "Because the bank paid him a bonus for it",
@@ -1291,6 +1395,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because he stopped enjoying anything at all"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "You don't miss money you never began spending. By automating the $80 before adapting to it, Marco grew his savings nearly $1,000 in a year without feeling deprived."
           }
         ]
@@ -1342,6 +1447,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget8-mc1",
+            concept: "Goal Budgeting",
             question: "What makes a goal 'SMART'?",
             options: [
               "It's expensive, trendy, and impressive",
@@ -1354,6 +1460,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget8-mc2",
+            concept: "Goal Budgeting",
             question: "Where should you keep money for a short-term goal?",
             options: [
               "In risky stocks for maximum growth",
@@ -1381,6 +1488,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget8-aq1",
+          concept: "Goal Budgeting",
           question: "Where should Amara keep her long-term college savings, versus her short-term headphone money?",
           options: [
             "Both belong in the exact same risky account",
@@ -1408,6 +1516,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget8-mastery1",
+            concept: "Goal Budgeting",
             question: "How do you turn a $600 laptop goal into a monthly budget number?",
             options: [
               "Divide the cost by your chosen deadline",
@@ -1416,10 +1525,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Just guess some random amount to save each month"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A deadline converts a goal into a monthly amount: $600 over 12 months is $50 a month. Dividing cost by time frame gives you the concrete number to budget."
           },
           {
             id: "budget8-mastery2",
+            concept: "Goal Budgeting",
             question: "Why is 'save more' a weak goal?",
             options: [
               "It's too specific and detailed to follow",
@@ -1428,10 +1539,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It first requires a bank's official written approval"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "'Save more' has no target and no finish line, so it drifts forever. A SMART goal like 'save $600 in 12 months' gives you a measurable amount and a deadline."
           },
           {
             id: "budget8-mastery3",
+            concept: "Goal Budgeting",
             question: "Why should long-term goal money be treated differently from short-term?",
             options: [
               "Long-term money can pursue growth over time",
@@ -1440,10 +1553,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "There is no real difference between them"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Time lets long-term money ride out market swings for higher expected growth, so investments fit. Short-term money must stay safe and reachable because you'll need it soon."
           },
           {
             id: "budget8-mastery4",
+            concept: "Goal Budgeting",
             question: "You have several goals but can't fully fund all of them. What should you do?",
             options: [
               "Fund only whichever want feels loudest today",
@@ -1452,10 +1567,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Fund none of them until one becomes urgent"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Rank goals by importance and urgency, then divide your saving deliberately. Whether you focus on one or fund several slowly, the key is choosing on purpose."
           },
           {
             id: "budget8-mastery5",
+            concept: "Goal Budgeting",
             question: "Why include a mix of short, medium, and long-term goals?",
             options: [
               "So that the budget takes much longer to write",
@@ -1464,10 +1581,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "So that you never actually reach a single goal"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Only short-term goals means big life stuff never gets funded; ignoring short-term goals makes budgeting joyless and easy to quit. A mix keeps you both funded and motivated."
           },
           {
             id: "budget8-mastery6",
+            concept: "Goal Budgeting",
             question: "What helps you stay motivated on a slow, long-term goal?",
             options: [
               "Ignoring your progress until the very end",
@@ -1476,6 +1595,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Refusing to name or track the goal"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Milestones and visual trackers make the slow middle of a goal feel like steady, visible progress. Seeing that progress is what keeps you going when the finish line is far off."
           }
         ]
@@ -1510,7 +1630,7 @@ export const deepBudget: StructuredLessonContent[] = [
         title: "How to Run a Zero-Based Budget",
         paragraphs: [
           "To build a zero-based budget, start with your total income for the period, then list every category - fixed costs, variable spending, saving, and goals - and assign dollars until the remaining balance hits exactly zero. Work from most important to least: cover needs first, then saving, then wants, then extras. If you run out of money before assigning everything, you've found real categories that must shrink. If you have money left, keep assigning - to savings or a goal - until zero. The finished budget accounts for 100% of your income.",
-          "Zero-based budgeting works best when you redo it each period rather than copying last month blindly. Every month is a little different - a birthday, a school trip, a slow work week - so you rebuild from your actual expected income and needs. This is why some people pair it with 'irregular income' handling: if your pay varies, you budget only money you've actually received, assigning new income as it arrives. That keeps you from planning around money that never shows up, which is a common way casual budgets fall apart.",
+          "Zero-based budgeting works best when you redo it each period rather than copying last month blindly. Every month is a little different - a birthday, a school trip, a slow work week - so you rebuild from your actual expected income and needs. This is why some people pair it with 'irregular income' handling: if your pay varies, you budget only money you've actually received, assigning new income as it arrives. This is the same idea, applied to irregular income. That keeps you from planning around money that never shows up, which is a common way casual budgets fall apart.",
           "The method has a downside worth knowing: it takes more effort than simpler approaches. Assigning every dollar and rebuilding monthly is more work than a loose 50/30/20 split. For some people that effort is worth it because the control is life-changing; for others it feels exhausting and they quit. A smart compromise is going zero-based on the categories that matter most while keeping flexible 'fun money' you don't micro-track. The best budget is the one you'll actually keep, so match the method's intensity to your own personality and patience."
         ],
         bullets: [
@@ -1527,6 +1647,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget9-mc1",
+            concept: "Zero-Based Budgeting",
             question: "In zero-based budgeting, what does 'zero left' mean?",
             options: [
               "You have spent all of your money on wants",
@@ -1539,6 +1660,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget9-mc2",
+            concept: "Zero-Based Budgeting",
             question: "How should you handle irregular (varying) income in zero-based budgeting?",
             options: [
               "Assume your best month every time",
@@ -1566,6 +1688,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget9-aq1",
+          concept: "Zero-Based Budgeting",
           question: "Diego has assigned all $300 but wants $25 more for a game. What must he do?",
           options: [
             "Pull the $25 from another assigned category",
@@ -1593,6 +1716,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget9-mastery1",
+            concept: "Zero-Based Budgeting",
             question: "How is zero-based budgeting different from casual budgeting?",
             options: [
               "It ignores your needs and funds only your wants",
@@ -1601,10 +1725,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It strictly forbids you from saving any money"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Casual budgeting lets leftovers drift and vanish; zero-based budgeting claims every dollar, including savings. Undirected money is exactly what leaks away, so none is allowed."
           },
           {
             id: "budget9-mastery2",
+            concept: "Zero-Based Budgeting",
             question: "You finish assigning categories and have $23 left. What does zero-based budgeting say to do?",
             options: [
               "Leave it floating for spontaneous buys",
@@ -1613,10 +1739,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Ignore it since it's a small amount"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "No dollar stays homeless. That $23 gets assigned right away - to savings or a goal - so it doesn't leak away on an impulse buy later in the month."
           },
           {
             id: "budget9-mastery3",
+            concept: "Zero-Based Budgeting",
             question: "Why does zero-based budgeting build discipline so effectively?",
             options: [
               "It hides all trade-offs from your view",
@@ -1625,10 +1753,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It somehow automatically increases your monthly income"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Because every dollar is assigned, funding one thing means pulling from another, making the cost of each choice visible. That clarity builds real discipline fast."
           },
           {
             id: "budget9-mastery4",
+            concept: "Zero-Based Budgeting",
             question: "Why rebuild a zero-based budget each period instead of copying last month?",
             options: [
               "Because the numbers are illegal to reuse",
@@ -1637,10 +1767,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because otherwise it quietly deletes all your savings"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Every month varies - a birthday, a slow work week - so you rebuild from actual expected income and needs. Blindly copying can leave the plan out of sync with reality."
           },
           {
             id: "budget9-mastery5",
+            concept: "Zero-Based Budgeting",
             question: "What is the main downside of zero-based budgeting?",
             options: [
               "It takes more effort than simpler methods",
@@ -1649,10 +1781,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It forbids you from spending on needs"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Assigning every dollar and rebuilding monthly is more work than a loose split. The control can be worth it, but the best budget is one you'll actually keep."
           },
           {
             id: "budget9-mastery6",
+            concept: "Zero-Based Budgeting",
             question: "Lucia's income varies. How does she apply zero-based budgeting?",
             options: [
               "She budgets her highest-ever month each time",
@@ -1661,6 +1795,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "She guesses next month's income and spends it"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "With irregular income, Lucia gives a job only to money she's actually received. That way a slow week never blows up a plan built on income that never arrived."
           }
         ]
@@ -1712,6 +1847,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget10-mc1",
+            concept: "Digital Budget Tools",
             question: "What is the biggest mistake people make with budgeting apps?",
             options: [
               "Thinking the app will budget for them",
@@ -1724,6 +1860,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget10-mc2",
+            concept: "Digital Budget Tools",
             question: "How should you protect an app that links to your bank?",
             options: [
               "Share your password with close friends",
@@ -1751,6 +1888,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget10-aq1",
+          concept: "Digital Budget Tools",
           question: "Priya wants a tool she'll stick with and can afford. What's the smartest starting choice?",
           options: [
             "The priciest app with the most features",
@@ -1778,6 +1916,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget10-mastery1",
+            concept: "Digital Budget Tools",
             question: "What is the core value of a digital budgeting tool?",
             options: [
               "It removes friction so you keep tracking",
@@ -1786,10 +1925,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It somehow makes all of your bills disappear"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The easier tracking is, the more likely you'll do it. Tools remove friction by capturing and sorting purchases automatically, turning a chore into something that runs itself."
           },
           {
             id: "budget10-mastery2",
+            concept: "Digital Budget Tools",
             question: "Why can't an app truly 'budget for you'?",
             options: [
               "Because apps can't do any math at all",
@@ -1798,10 +1939,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because banks quietly block all budgeting apps"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "An app tracks and categorizes, but deciding priorities, setting goals, and choosing not to overspend are human jobs. The tool is a helper, not a magic fix."
           },
           {
             id: "budget10-mastery3",
+            concept: "Digital Budget Tools",
             question: "Why might a simple spreadsheet be better than a fancy app for some people?",
             options: [
               "It teaches you more by handling every number",
@@ -1810,10 +1953,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It stops you from ever making your own decisions"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "Building a spreadsheet means touching every number yourself, which teaches you more and gives full control. Match the tool to your style - automation or hands-on understanding."
           },
           {
             id: "budget10-mastery4",
+            concept: "Digital Budget Tools",
             question: "If a budgeting tool is free, what should you understand?",
             options: [
               "That it must be broken or fake",
@@ -1822,10 +1967,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "That it can't track anything real"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Free tools earn money somehow - sometimes by selling anonymized data or pushing products. Knowing how a tool profits helps you use it as a careful, informed user."
           },
           {
             id: "budget10-mastery5",
+            concept: "Digital Budget Tools",
             question: "What habit makes a budgeting tool actually work?",
             options: [
               "Installing it and never opening it again",
@@ -1834,10 +1981,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Letting alerts pile up without reading them"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Tools provide data, but you provide the decisions. A quick daily glance plus a weekly review where you adjust is what turns tracking into real progress."
           },
           {
             id: "budget10-mastery6",
+            concept: "Digital Budget Tools",
             question: "Ben uses one free app well; his friend bought three apps but never opens them. What's the lesson?",
             options: [
               "Paying more for apps always improves your budget",
@@ -1846,6 +1995,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Free tools honestly can never track your spending"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Tools amplify good habits but can't create them. Ben's consistent use of one free app beats his friend's unused paid ones - the habit matters far more than the price."
           }
         ]
@@ -1881,7 +2031,7 @@ export const deepBudget: StructuredLessonContent[] = [
         paragraphs: [
           "Before buying anything big, separate the features you actually need from the ones that just sound cool. Companies love selling you capability you'll never use - a laptop with pro-video power when you only browse and type, or a phone with specs you can't tell apart. Each extra feature adds cost. The smart move is to define what you truly need first, then buy the item that meets those needs well without paying for extras. Overbuying wastes money; underbuying means replacing the item soon. Matching features to real needs hits the sweet spot.",
           "Research is your best defense against a bad big purchase. Read multiple reviews, compare at least three options, and look for patterns - if many reviewers mention the same flaw, believe them. Check the return policy and warranty, since even good products sometimes fail. A little research time pays off enormously: an hour of reading can save you hundreds on a purchase you'll live with for years. Beware relying on a single glowing review or an influencer paid to promote something; independent, varied sources give you a far more honest picture.",
-          "Finally, guard against impulse and pressure on big buys. 'Limited time' deals and 'only two left' warnings are designed to rush you past careful thinking. A powerful tool is the waiting rule: for any large purchase, wait 24 to 48 hours before buying. If you still want it and it still fits your budget and needs, buy with confidence. Often the urgency fades and you realize you didn't really need it. Big purchases deserve slow decisions, because the cost of a rushed mistake - money wasted and possibly financed with interest - is simply too high."
+          "Finally, guard against impulse and pressure on big buys. 'Limited time' deals and 'only two left' warnings are designed to rush you past careful thinking. A powerful tool is the waiting rule: wait 24 hours; for big purchases, wait 48 hours or more. If you still want it and it still fits your budget and needs, buy with confidence. Often the urgency fades and you realize you didn't really need it. Big purchases deserve slow decisions, because the cost of a rushed mistake - money wasted and possibly financed with interest - is simply too high."
         ],
         bullets: [
           "Separate features you truly need from ones that just sound impressive.",
@@ -1897,6 +2047,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget11-mc1",
+            concept: "Smart Buying: Evaluating Big Purchases",
             question: "What does 'total cost of ownership' include?",
             options: [
               "Just the plain sticker price you pay upfront",
@@ -1909,15 +2060,16 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget11-mc2",
+            concept: "Smart Buying: Evaluating Big Purchases",
             question: "What is the 'waiting rule' for big purchases?",
             options: [
               "Buy instantly before the deal expires",
-              "Wait 24 to 48 hours before deciding",
+              "Wait 24 hours, or 48 or more for a big purchase, before deciding",
               "Wait until the item is completely sold out",
               "Buy only if an influencer recommends it"
             ],
             correctAnswer: 1,
-            explanation: "Waiting 24 to 48 hours defeats impulse and pressure tactics. If you still want it and it fits your budget and needs afterward, you can buy with confidence."
+            explanation: "Waiting 24 hours (48 or more for a big purchase) defeats impulse and pressure tactics. If you still want it and it fits your budget and needs afterward, you can buy with confidence."
           }
         ]
       },
@@ -1936,6 +2088,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget11-aq1",
+          concept: "Smart Buying: Evaluating Big Purchases",
           question: "Marcus only needs a laptop for browsing and essays. What's the smartest choice?",
           options: [
             "Go grab the $1,100 model before the deal ends",
@@ -1963,6 +2116,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget11-mastery1",
+            concept: "Smart Buying: Evaluating Big Purchases",
             question: "Why can a $200 printer end up costing more than a $350 one?",
             options: [
               "Its ink and refills cost far more over time",
@@ -1971,10 +2125,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "The pricier $350 printer is always returned for free"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Total cost of ownership includes ongoing costs like ink. If the cheap printer's cartridges are expensive, its lifetime cost can exceed the pricier model with cheaper refills."
           },
           {
             id: "budget11-mastery2",
+            concept: "Smart Buying: Evaluating Big Purchases",
             question: "What is the 'buy it once' idea about durability?",
             options: [
               "Always simply choose the single cheapest option that is available",
@@ -1983,10 +2139,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "More expensive items will always last the very longest"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Paying more for something that lasts years can beat repeatedly replacing a flimsy cheap version. But pricier isn't automatically more durable - you still check reviews and materials."
           },
           {
             id: "budget11-mastery3",
+            concept: "Smart Buying: Evaluating Big Purchases",
             question: "Why should you match features to your real needs?",
             options: [
               "Because all the extra features are always free",
@@ -1995,10 +2153,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because your real needs never affect the price"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Each extra feature adds cost, so paying for capability you'll never use wastes money. Defining real needs first lets you buy the right item without over- or underbuying."
           },
           {
             id: "budget11-mastery4",
+            concept: "Smart Buying: Evaluating Big Purchases",
             question: "What's the best way to research a big purchase?",
             options: [
               "Trust a single glowing review completely",
@@ -2007,10 +2167,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Skip research to save yourself some time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Comparing at least three options and spotting patterns of complaints gives an honest picture. A single review or a paid influencer can mislead you on an expensive, long-term buy."
           },
           {
             id: "budget11-mastery5",
+            concept: "Smart Buying: Evaluating Big Purchases",
             question: "Why do stores use 'only two left' and 'today only' messages?",
             options: [
               "To rush you past careful thinking",
@@ -2019,10 +2181,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because the law requires those warnings"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Urgency tactics are designed to push you into buying before you think it through. The waiting rule counters them: if the urgency fades, you probably didn't need it."
           },
           {
             id: "budget11-mastery6",
+            concept: "Smart Buying: Evaluating Big Purchases",
             question: "Leah waited 48 hours and bought a $550 laptop instead of a $1,200 one. What did the wait do?",
             options: [
               "It somehow forced her to go buy the pricier model",
@@ -2031,6 +2195,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "It completely removed her whole ability to buy anything new"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Waiting let the sale pressure fade and gave her time to realize she only browses and writes. Matching features to needs plus the waiting rule saved her $650."
           }
         ]
@@ -2082,6 +2247,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget12-mc1",
+            concept: "The Psychology of Pricing",
             question: "Why does '$9.99' make you more likely to buy than '$10'?",
             options: [
               "It is actually a legally required lower price",
@@ -2094,6 +2260,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget12-mc2",
+            concept: "The Psychology of Pricing",
             question: "What is the 'decoy effect'?",
             options: [
               "A middle option that steers you toward pricier picks",
@@ -2121,6 +2288,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget12-aq1",
+          concept: "The Psychology of Pricing",
           question: "Jordan wants the $44 hoodie but is tempted to add items for free shipping. What's the smart move?",
           options: [
             "Add a $10 item to save the $6 shipping",
@@ -2148,6 +2316,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget12-mastery1",
+            concept: "The Psychology of Pricing",
             question: "How does 'anchoring' with a crossed-out price work?",
             options: [
               "The high number makes the sale price feel amazing",
@@ -2156,10 +2325,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It forces the store to honor the low price"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "The high 'original' price becomes an anchor, so the lower price feels huge by comparison - even if the item was never really sold at the high price. Your brain judges by comparison."
           },
           {
             id: "budget12-mastery2",
+            concept: "The Psychology of Pricing",
             question: "Why do people tend to spend more with cards than with cash?",
             options: [
               "Paying with cards charges a lower total price",
@@ -2168,10 +2339,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Most stores flatly refuse to give change in cash"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The 'pain of paying' is real: physical cash leaving your hand feels worse than a painless tap, so tapping disconnects your brain from the real cost and you spend more."
           },
           {
             id: "budget12-mastery3",
+            concept: "The Psychology of Pricing",
             question: "What's the risk of 'buy now, pay later' services?",
             options: [
               "They always refund your entire purchase",
@@ -2180,10 +2353,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "They are only available to adults over 40"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Splitting a purchase into small, painless installments makes it feel affordable, which can push you to buy things you can't really afford - sometimes with late fees on top."
           },
           {
             id: "budget12-mastery4",
+            concept: "The Psychology of Pricing",
             question: "A free-shipping threshold makes Sara add a $12 item to save $6 shipping. What happened?",
             options: [
               "She saved money overall by hitting the threshold",
@@ -2192,10 +2367,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Her shipping became more expensive"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Adding $12 to avoid a $6 fee means spending a net $6 more. Free-shipping thresholds are designed to make you buy extra while feeling like you got a deal."
           },
           {
             id: "budget12-mastery5",
+            concept: "The Psychology of Pricing",
             question: "Which question best defends against pricing tricks?",
             options: [
               "Exactly how many are left in stock right now?",
@@ -2204,10 +2381,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Is some paid online influencer currently promoting this item?"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "If the only reason you want something is the discount or fear of missing out, the trick is working. Asking whether you'd buy it at full price reveals your real desire for it."
           },
           {
             id: "budget12-mastery6",
+            concept: "The Psychology of Pricing",
             question: "You see an item priced at $19.95. What's the smart mental move?",
             options: [
               "Treat it as roughly $20, not $19",
@@ -2216,6 +2395,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Buy it because the digits look small"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Charm pricing tempts you to anchor on the '19.' Rounding up to $20 shows the real price so you can judge whether it's actually worth it, free of the illusion."
           }
         ]
@@ -2267,6 +2447,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget13-mc1",
+            concept: "Giving Back: Charitable Donations & Nonprofits",
             question: "What makes an organization a nonprofit?",
             options: [
               "It never handles or spends any money",
@@ -2279,6 +2460,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget13-mc2",
+            concept: "Giving Back: Charitable Donations & Nonprofits",
             question: "Which is a red flag for a charity scam?",
             options: [
               "A willingness to patiently answer all your questions",
@@ -2306,6 +2488,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget13-aq1",
+          concept: "Giving Back: Charitable Donations & Nonprofits",
           question: "Nia wants to give generously but sustainably. What's the best approach?",
           options: [
             "Give large impulsive amounts to whoever happens to ask",
@@ -2333,6 +2516,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget13-mastery1",
+            concept: "Giving Back: Charitable Donations & Nonprofits",
             question: "Besides money, what can you donate to a cause?",
             options: [
               "Only cash counts as a real donation",
@@ -2341,10 +2525,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Only the tax refunds you happen to receive yearly"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "You can give time by volunteering, goods like clothes or food, or your skills. For teens especially, time is often more valuable to give than cash and builds experience."
           },
           {
             id: "budget13-mastery2",
+            concept: "Giving Back: Charitable Donations & Nonprofits",
             question: "Why check a charity's watchdog rating before donating a lot?",
             options: [
               "To see how much reaches the actual cause",
@@ -2353,10 +2539,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "To guarantee the charity will make a profit"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "Ratings show how much of each dollar funds real programs versus administration. A well-run charity spends most on its cause, so checking ensures your money does real good."
           },
           {
             id: "budget13-mastery3",
+            concept: "Giving Back: Charitable Donations & Nonprofits",
             question: "Why is a planned 'giving line' in your budget helpful?",
             options: [
               "It forces you to give away your income",
@@ -2365,10 +2553,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It requires you to give to every request"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Deciding your giving amount in advance lets you help causes you care about consistently, while comfortably declining extra pressured asks - you've already done your part."
           },
           {
             id: "budget13-mastery4",
+            concept: "Giving Back: Charitable Donations & Nonprofits",
             question: "How can charitable giving affect some adults' taxes in the US?",
             options: [
               "It doubles the taxes they owe that year",
@@ -2377,10 +2567,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It has no effect on taxes for anyone ever"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Donations to qualified nonprofits can be tax-deductible for people who itemize, slightly lowering taxes owed. You need a receipt, and most teens won't itemize, so this matters more later."
           },
           {
             id: "budget13-mastery5",
+            concept: "Giving Back: Charitable Donations & Nonprofits",
             question: "Someone demands you donate immediately by wire transfer. What should you do?",
             options: [
               "Pay very fast before the special offer disappears",
@@ -2389,10 +2581,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Trust it fully because it just sounds urgent"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Pressure to give right now plus untraceable payment methods are classic scam signs. A legitimate charity answers questions and never rushes you, so verify before giving."
           },
           {
             id: "budget13-mastery6",
+            concept: "Giving Back: Charitable Donations & Nonprofits",
             question: "Why is 'you can't pour from an empty cup' relevant to giving?",
             options: [
               "Giving that wrecks your finances helps no one",
@@ -2401,6 +2595,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "True generosity requires completely ignoring your own budget"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Guilt-driven giving that ruins your own finances isn't sustainable. Consistent, modest giving from a stable budget does more good over time than gifts you can't afford."
           }
         ]
@@ -2452,6 +2647,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget14-mc1",
+            concept: "Consumer Protection: Your Rights & Agencies",
             question: "Which is a basic consumer right?",
             options: [
               "Protection against false advertising",
@@ -2464,6 +2660,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget14-mc2",
+            concept: "Consumer Protection: Your Rights & Agencies",
             question: "What should you do FIRST when a company overcharges you?",
             options: [
               "Immediately go sue the company in federal court",
@@ -2491,6 +2688,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget14-aq1",
+          concept: "Consumer Protection: Your Rights & Agencies",
           question: "The company refused to remove Ethan's undisclosed fee on a financial service. Where should he escalate?",
           options: [
             "Nowhere; he must simply pay the fee",
@@ -2518,6 +2716,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget14-mastery1",
+            concept: "Consumer Protection: Your Rights & Agencies",
             question: "What does a product warranty promise?",
             options: [
               "A surprise cash bonus for buying the product",
@@ -2526,10 +2725,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Free automatic upgrades to newer models forever"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "A warranty is a promise to repair or replace an item if it fails within a set period. It's one of several rights, alongside protection from false advertising and hidden terms."
           },
           {
             id: "budget14-mastery2",
+            concept: "Consumer Protection: Your Rights & Agencies",
             question: "What does the FTC mainly do?",
             options: [
               "It sets the price of every single product sold",
@@ -2538,10 +2739,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "It collects extra taxes from online shoppers"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The Federal Trade Commission fights false ads, scams, and hidden fees across the economy, sets rules, and acts against violators. You can file a complaint when a business cheats you."
           },
           {
             id: "budget14-mastery3",
+            concept: "Consumer Protection: Your Rights & Agencies",
             question: "Which agency handles complaints about banks, loans, and credit cards?",
             options: [
               "The CFPB",
@@ -2550,10 +2753,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "A product's manufacturer"
             ],
             correctAnswer: 0,
+            difficulty: 0,
             explanation: "The Consumer Financial Protection Bureau oversees banks, lenders, and credit issues and handles complaints about surprise fees or unfair terms - and companies must respond."
           },
           {
             id: "budget14-mastery4",
+            concept: "Consumer Protection: Your Rights & Agencies",
             question: "Why is keeping records important in a consumer dispute?",
             options: [
               "Detailed records are required to buy almost anything",
@@ -2562,10 +2767,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "You must mail them to the FTC before buying"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Receipts, emails, and call notes are your evidence. Good documentation strengthens your case whether you resolve it with the company or escalate to an agency."
           },
           {
             id: "budget14-mastery5",
+            concept: "Consumer Protection: Your Rights & Agencies",
             question: "Kai's 'waterproof' speaker dies in the rain. Why does he have grounds to complain?",
             options: [
               "Because products must work as described",
@@ -2574,10 +2781,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Because he simply changed his mind about it"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "False advertising is illegal and products must work as described. Since the speaker was sold as waterproof but failed in rain, Kai can demand a refund or replacement."
           },
           {
             id: "budget14-mastery6",
+            concept: "Consumer Protection: Your Rights & Agencies",
             question: "Besides your money, what else do consumer protections cover?",
             options: [
               "Your personal and financial data",
@@ -2586,6 +2795,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Only items that cost over $1,000"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Companies holding your information have duties to protect it and rules on how they use it. You often can know what's collected and, in some places, have it deleted."
           }
         ]
@@ -2637,6 +2847,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget15-mc1",
+            concept: "Reading & Evaluating Contracts",
             question: "What makes a contract different from a casual promise?",
             options: [
               "It is legally binding and enforceable in court",
@@ -2649,6 +2860,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget15-mc2",
+            concept: "Reading & Evaluating Contracts",
             question: "A salesperson says 'don't worry about that clause.' What's true?",
             options: [
               "Verbal promises override the written contract",
@@ -2676,6 +2888,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget15-aq1",
+          concept: "Reading & Evaluating Contracts",
           question: "Sofia is rushed to sign and told not to worry about cancellation. What's the smart move?",
           options: [
             "Sign now to grab the deal before it ends",
@@ -2703,6 +2916,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget15-mastery1",
+            concept: "Reading & Evaluating Contracts",
             question: "Why do companies write contracts carefully?",
             options: [
               "Mainly to make the document look impressive",
@@ -2711,10 +2925,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Mainly to give their customers extra free benefits"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Contracts are legally binding and enforceable in court, so companies write them to protect their own interests. That's exactly why you must read the terms before agreeing."
           },
           {
             id: "budget15-mastery2",
+            concept: "Reading & Evaluating Contracts",
             question: "Where does the real cost and risk of a contract usually hide?",
             options: [
               "In the big friendly headline number",
@@ -2723,10 +2939,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "In the font size of the title"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "The headline number is rarely the whole story. Early-termination fees, penalties, and cancellation conditions in the fine print carry the real cost and risk."
           },
           {
             id: "budget15-mastery3",
+            concept: "Reading & Evaluating Contracts",
             question: "What does an auto-renewal clause do?",
             options: [
               "Politely cancels the whole contract on your behalf automatically",
@@ -2735,10 +2953,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Makes the whole contract become legally void over time"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "An auto-renewal clause quietly renews your agreement each term unless you cancel within a specific window. It binds you whether you read it or not, so watch for it."
           },
           {
             id: "budget15-mastery4",
+            concept: "Reading & Evaluating Contracts",
             question: "Which is a red flag when someone asks you to sign a contract?",
             options: [
               "They give you time to read it fully",
@@ -2747,10 +2967,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "They hand you a copy to keep"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Pressure to sign right away, blank spaces, and unwritten verbal promises are danger signs. Never sign something you haven't read or don't understand, no matter the rush."
           },
           {
             id: "budget15-mastery5",
+            concept: "Reading & Evaluating Contracts",
             question: "When is your leverage highest with a contract?",
             options: [
               "The moment before you sign it",
@@ -2759,10 +2981,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Only once you have fully paid it in full"
             ],
             correctAnswer: 0,
+            difficulty: 1.5,
             explanation: "Before signing, you can negotiate or walk away entirely. Once signed, your power drops sharply, so the moment before committing is when you hold the most leverage."
           },
           {
             id: "budget15-mastery6",
+            concept: "Reading & Evaluating Contracts",
             question: "Liam signs a '$15 a month' gym deal and gets stuck with a $120 fee. What went wrong?",
             options: [
               "The gym broke the law by charging him",
@@ -2771,6 +2995,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "He read every single term but still signed anyway"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "The cheap headline hid a 12-month lock-in and a $120 cancellation fee in the fine print he skipped. Those binding terms are exactly what reading before signing catches."
           }
         ]
@@ -2822,6 +3047,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget16-mc1",
+            concept: "Disputing Billing Errors",
             question: "Why should you review every line of a statement, not just the total?",
             options: [
               "Small unfamiliar charges can signal fraud",
@@ -2834,6 +3060,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget16-mc2",
+            concept: "Disputing Billing Errors",
             question: "Why is acting quickly important when disputing a charge?",
             options: [
               "That disputed charge grows larger with every passing day",
@@ -2861,6 +3088,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget16-aq1",
+          concept: "Disputing Billing Errors",
           question: "Maya wants to fix the $35 double charge on her card. What's the best first step?",
           options: [
             "Pay it twice and hope for a refund later",
@@ -2888,6 +3116,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget16-mastery1",
+            concept: "Disputing Billing Errors",
             question: "What is a 'zombie subscription'?",
             options: [
               "A service you canceled that keeps billing you",
@@ -2896,10 +3125,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "A one-time charge that appears only a single time"
             ],
             correctAnswer: 0,
+            difficulty: -1.5,
             explanation: "A zombie subscription keeps billing you after you thought you canceled it. Catching it requires reviewing statements, then disputing and canceling through official channels."
           },
           {
             id: "budget16-mastery2",
+            concept: "Disputing Billing Errors",
             question: "What's the right first step once you spot a billing error?",
             options: [
               "Just post about the whole thing on social media",
@@ -2908,10 +3139,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Quietly pay extra just to avoid any late fees"
             ],
             correctAnswer: 1,
+            difficulty: -1.5,
             explanation: "Start by gathering evidence - your statement, receipts, emails, or screenshots proving the charge is wrong. Then contact the company and clearly state the fix you want."
           },
           {
             id: "budget16-mastery3",
+            concept: "Disputing Billing Errors",
             question: "For a disputed credit card charge, what protection do you generally have?",
             options: [
               "You must pay double until it's resolved",
@@ -2920,10 +3153,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "That disputed charge can never be investigated at all"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "US law requires the card issuer to investigate a properly disputed charge, and you generally don't have to pay the disputed amount while it's being reviewed."
           },
           {
             id: "budget16-mastery4",
+            concept: "Disputing Billing Errors",
             question: "Why does persistence matter in a dispute?",
             options: [
               "Most companies charge less to more persistent people",
@@ -2932,10 +3167,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "The law requires exactly three phone calls"
             ],
             correctAnswer: 1,
+            difficulty: 0,
             explanation: "Companies sometimes hope you'll drop it. Staying calm, factual, and persistent with records - escalating to a supervisor or the CFPB if needed - is what reverses wrongful charges."
           },
           {
             id: "budget16-mastery5",
+            concept: "Disputing Billing Errors",
             question: "How does a billing error differ from unauthorized fraud?",
             options: [
               "They are honestly the very same exact situation",
@@ -2944,10 +3181,12 @@ export const deepBudget: StructuredLessonContent[] = [
               "Billing errors must always go to the police"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "A billing error is a wrong charge you dispute with the company; fraud is unauthorized use you report right away so the card can be frozen before more damage is done."
           },
           {
             id: "budget16-mastery6",
+            concept: "Disputing Billing Errors",
             question: "How can you make sure a canceled subscription truly stops charging you?",
             options: [
               "Assume it stopped and never check again",
@@ -2956,6 +3195,7 @@ export const deepBudget: StructuredLessonContent[] = [
               "Wait for the company to remind you"
             ],
             correctAnswer: 1,
+            difficulty: 1.5,
             explanation: "Cancel through official channels and get written confirmation, so a 'canceled' service can't keep billing you. Then verify on your next statement that the charges have stopped."
           }
         ]

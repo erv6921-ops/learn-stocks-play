@@ -52,19 +52,20 @@ const FALLBACK_LESSON_DESC = "Master this concept to unlock the next level.";
 const lessonDescFor = (unitNumber?: number, lessonNumber?: number) =>
   lessonDescriptions[`L${unitNumber}.${lessonNumber}`] || FALLBACK_LESSON_DESC;
 
-// ── #8 One-sentence unit summaries (by unit number) ──
-const unitSummaries: Record<number, string> = {
-  1: "Understand why we make bad money decisions and how to rewire your thinking.",
-  2: "Learn how income works, what affects your earning power, and how to grow it.",
-  3: "Master budgeting so your money goes where you actually want it to go.",
-  4: "Understand debt, credit scores, and how to use borrowing without getting trapped.",
-  5: "Learn to invest early and let compound interest do the heavy lifting.",
-  6: "Understand taxes - what you owe, why, and how to keep more of what you earn.",
-  7: "Protect yourself and your assets with the right insurance strategies.",
-  8: "Plan for retirement now, even if it feels impossibly far away.",
+// ── #8 One-sentence unit summaries (keyed by unitId so they stay attached to
+// the right unit regardless of display numbering) ──
+const unitSummaries: Record<string, string> = {
+  "unit-1":  "Understand why we make bad money decisions and how to rewire your thinking.",
+  "unit-2":  "Learn how income works, what affects your earning power, and how to grow it.",
+  "unit-3":  "Master budgeting so your money goes where you actually want it to go.",
+  "unit-25": "Learn to invest early and let compound interest do the heavy lifting.",
+  "unit-4":  "Learn how banks work and how to make the banking system work for you.",
+  "unit-5":  "Understand debt, credit scores, and how to use borrowing without getting trapped.",
+  "unit-35": "Protect yourself and your assets with the right insurance strategies.",
+  "unit-6":  "Get started investing - why it matters and how to take your first steps.",
 };
-const unitSummaryFor = (unitNumber: number, title: string) =>
-  unitSummaries[unitNumber] || `Dive into ${title} and level up your financial skills.`;
+const unitSummaryFor = (unitId: string, title: string) =>
+  unitSummaries[unitId] || `Dive into ${title} and level up your financial skills.`;
 
 // ── Pulse animation for current dot (injected once) ──
 const PULSE_STYLE_ID = "chart-pulse-keyframe";
@@ -866,7 +867,7 @@ export default function Lessons() {
                 </div>
                 <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{previewUnit.title}</h3>
                 <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                  {unitSummaryFor(previewUnit.unitNumber, previewUnit.title)}
+                  {unitSummaryFor(previewUnit.id, previewUnit.title)}
                 </p>
                 <p className="text-[13px] font-semibold mt-3 flex items-center gap-1.5" style={{ color: "#C77F12" }}>
                   <Lock className="w-3.5 h-3.5" />

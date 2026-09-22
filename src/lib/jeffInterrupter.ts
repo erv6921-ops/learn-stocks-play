@@ -1,13 +1,19 @@
 // jeffInterrupter — the "quick check" interrupters that pause Jeff's class
 // every few teaching beats with a tiny interactive activity. The activity's
 // CONTENT is always AI-generated from what Jeff just said (via the jeff-chat
-// edge function's raw mode), so it tests exactly the concept in his last
-// message rather than a generic finance question. The TYPE is picked at random
-// client-side. Generation is fail-silent: any bad/malformed response returns
-// null and the caller simply resumes the chat as if no interrupter fired.
+// edge function's raw mode), grounded in the lesson's own text and Jeff's last
+// few messages, so it tests exactly the concept he just taught rather than a
+// generic finance question. The TYPE is picked at random client-side.
+// Generation is fail-silent: any bad/malformed response returns null and the
+// caller simply resumes the chat as if no interrupter fired. A check that
+// hinges on numbers is re-derived by a second, cheap model call and dropped
+// when the two disagree, so a miscomputed "correct" answer never reaches the
+// student.
 import { supabase } from "@/integrations/supabase/client"
 import type { Lesson } from "@/types"
 import { stripDashes } from "@/lib/text"
+import { loadChat, isCurriculumLesson } from "@/lib/jeffChatLesson"
+import { getStructuredContent } from "@/data/lessonContent"
 
 export type InterrupterType =
   | "true_or_false"
@@ -176,22 +182,55 @@ The three items must have a genuinely correct ordering along one clear dimension
 Both options must be tempting and realistic — never make one obviously silly. The smarter move should only be clear to someone who understood what Jeff just taught.`,
 }
 
-/** The system prompt that drives interrupter generation, per the spec. */
+/** How much of the lesson's grounding text the generator sees. */
+const SOURCE_CHARS = 2000
+/** How many of Jeff's most recent messages ground the check. */
+const RECENT_MESSAGES = 3
+
+/** Extra context the caller can hand the generator; anything missing is recovered locally. */
+export interface InterrupterContext {
+  /** Jeff's most recent messages, oldest first. The last one is what the check is about. */
+  recentJeffMessages?: string[]
+  /** The lesson's grounding text (its concept sections, or the teacher's pages). */
+  source?: string
+}
+
+/**
+ * The system prompt that drives interrupter generation. Grounded in the
+ * lesson's source text and Jeff's last few messages (oldest first), so every
+ * fact in the check is something Jeff actually said or the lesson states.
+ */
 export function buildInterrupterPrompt(
   lessonTitle: string,
-  lastJeffMessage: string,
+  recentJeffMessages: string | string[],
   type: InterrupterType,
+  source?: string,
 ): string {
-  return `You are generating a short interactive activity for a financial literacy lesson app for high school students. The lesson topic is '${lessonTitle}'. Jeff (the AI tutor) just said: '${lastJeffMessage}'.
+  const recent = (Array.isArray(recentJeffMessages) ? recentJeffMessages : [recentJeffMessages])
+    .map(m => m.trim()).filter(Boolean).slice(-RECENT_MESSAGES)
+  const transcript = recent.map((m, i) => `${i + 1}. '${m}'`).join("\n")
+  const material = source?.trim()
+    ? `LESSON MATERIAL (the only outside facts the activity may rely on):\n"""\n${source.trim().slice(0, SOURCE_CHARS)}\n"""\n\n`
+    : ""
+  const rankRule = type === "rank_it"
+    ? `\nFor this ranking: every item must be something Jeff stated in the messages above, and the correct order must follow directly from what he said. Never rank things he did not mention.`
+    : ""
 
-Generate a '${type}' interrupter activity that is DIRECTLY about the concept Jeff just explained. The activity must test or reinforce exactly what was in Jeff's last message — not a general finance question, not a different topic.
+  return `You are generating a short interactive activity for a financial literacy lesson app for high school students. The lesson is '${lessonTitle}'.
+
+${material}JEFF'S RECENT MESSAGES (oldest first; the LAST one is what the activity must be about):
+${transcript}
+
+Generate a '${type}' interrupter activity that is DIRECTLY about the concept in Jeff's last message. It must test or reinforce exactly what he just explained, not a general finance question and not a different topic. Every fact, number, and comparison in the activity must be something Jeff stated or the lesson material says; never invent figures, and never bring in outside topics.${rankRule}
+
+Write the explanation as one clean sentence stating why the answer is right. Do not think aloud, hedge, or correct yourself in it.
 
 Return ONLY valid JSON matching this exact schema with no markdown, no explanation, no preamble:
 
 For ${type}:
 ${TYPE_SCHEMAS[type]}
 
-Never generate a question about a topic not covered in Jeff's last message. Keep language teen-friendly and casual.`
+Never generate a question about a topic not covered in Jeff's messages above. Keep language teen-friendly and casual.`
 }
 
 // ── Parsing + validation ────────────────────────────────────────────
@@ -214,7 +253,17 @@ function extractJson(raw: string): unknown {
 
 const isStr = (v: unknown): v is string => typeof v === "string" && v.trim().length > 0
 
+// An explanation where the model changed its mind mid-sentence ("wait, the
+// answer is...", "actually, ...") means the check itself is suspect: drop it.
+const SELF_CORRECTION = /\b(?:wait|actually),/i
+
 function validate(obj: unknown, type: InterrupterType): Interrupter | null {
+  const out = validateShape(obj, type)
+  if (out && "explanation" in out && SELF_CORRECTION.test(out.explanation)) return null
+  return out
+}
+
+function validateShape(obj: unknown, type: InterrupterType): Interrupter | null {
   if (!obj || typeof obj !== "object") return null
   const o = obj as Record<string, unknown>
 
@@ -315,29 +364,163 @@ function validate(obj: unknown, type: InterrupterType): Interrupter | null {
   }
 }
 
+// ── Second opinion for numeric checks ───────────────────────────────
+// A check that leans on numbers (a dollar figure, a percentage, a count) is
+// where a generator most often gets its own "correct" answer wrong. Before the
+// student sees one, a second, cheap model call recomputes the answer from the
+// same grounding; if the two disagree the check is dropped.
+
+const hasDigits = (s: string) => /\d/.test(s)
+
+function isNumericCheck(c: Interrupter): boolean {
+  switch (c.type) {
+    case "true_or_false": return hasDigits(c.statement)
+    case "fill_in_blank": return hasDigits(c.answer) || hasDigits(c.sentence)
+    case "rank_it": return hasDigits(c.prompt) || c.items.some(hasDigits)
+    case "smart_move": return hasDigits(c.scenario) || c.options.some(hasDigits)
+    case "spot_the_mistake": return c.scenarios.some(hasDigits)
+    case "sort_it": return c.items.some(i => hasDigits(i.text))
+    case "poll": return false
+  }
+}
+
+/** The question to re-answer, with the expected answer's canonical form, per type. */
+function verificationQuestion(c: Interrupter): { question: string; expected: string } | null {
+  switch (c.type) {
+    case "true_or_false":
+      return { question: `Statement: "${c.statement}"\nIs this statement TRUE or FALSE? Reply with exactly one word: TRUE or FALSE.`, expected: c.answer ? "true" : "false" }
+    case "fill_in_blank":
+      return {
+        question: `Sentence: "${c.sentence}"\nOptions:\n${c.options.map((o, i) => `${i}) ${o}`).join("\n")}\nWhich option number correctly fills [BLANK]? Reply with just the number.`,
+        expected: String(c.options.indexOf(c.answer)),
+      }
+    case "rank_it":
+      return {
+        question: `${c.prompt}\nItems:\n${c.items.map((it, i) => `${i}) ${it}`).join("\n")}\nReply with the item numbers in the correct order as a JSON array, for example [2,0,1].`,
+        expected: JSON.stringify(c.order),
+      }
+    case "smart_move":
+      return { question: `Scenario: ${c.scenario}\nOption 0: ${c.options[0]}\nOption 1: ${c.options[1]}\nWhich option is the smarter financial move? Reply with just 0 or 1.`, expected: String(c.answer) }
+    case "spot_the_mistake":
+      return {
+        question: `${c.scenarios.map((sc, i) => `Scenario ${i}: ${sc}`).join("\n")}\nExactly one of these contains a money mistake. Which scenario number? Reply with just 0, 1, or 2.`,
+        expected: String(c.mistakeIndex),
+      }
+    case "sort_it":
+      return {
+        question: `Bins: 0) ${c.bins[0]}  1) ${c.bins[1]}\nItems:\n${c.items.map((it, i) => `${i}) ${it.text}`).join("\n")}\nFor each item in order, which bin does it belong in? Reply with a JSON array of 0/1 values, for example [0,1,1,0].`,
+        expected: JSON.stringify(c.items.map(i => i.bin)),
+      }
+    case "poll":
+      return null
+  }
+}
+
+// Normalize a model's short answer to the canonical form used in `expected`.
+function canonicalAnswer(raw: string, expected: string): string | null {
+  const t = raw.trim()
+  if (expected === "true" || expected === "false") {
+    const m = t.match(/\b(true|false)\b/i)
+    return m ? m[1].toLowerCase() : null
+  }
+  if (expected.startsWith("[")) {
+    const m = t.match(/\[[\d,\s]*\]/)
+    if (!m) return null
+    try {
+      const arr = JSON.parse(m[0])
+      return Array.isArray(arr) ? JSON.stringify(arr.map((n: unknown) => Number(n))) : null
+    } catch { return null }
+  }
+  const m = t.match(/-?\d+/)
+  return m ? m[0] : null
+}
+
 /**
- * Generate one interrupter activity from Jeff's last message. Returns null on
- * any failure (network, timeout, malformed JSON, wrong shape) so the caller can
- * silently skip the interrupter and keep the lesson flowing.
+ * Re-derive a numeric check's answer with a second model call. Returns false
+ * only when the second answer is parseable and disagrees; a network failure or
+ * an unparseable second opinion keeps the check (fail-open), since the check
+ * already passed shape validation.
+ */
+async function secondOpinionAgrees(check: Interrupter, lessonTitle: string, recent: string[], source?: string): Promise<boolean> {
+  const vq = verificationQuestion(check)
+  if (!vq) return true
+  const transcript = recent.slice(-RECENT_MESSAGES).map((m, i) => `${i + 1}. '${m}'`).join("\n")
+  const material = source?.trim() ? `LESSON MATERIAL:\n"""\n${source.trim().slice(0, SOURCE_CHARS)}\n"""\n\n` : ""
+  const system = `You are double-checking a quick-check question for the financial literacy lesson '${lessonTitle}'. Use the lesson material and Jeff's messages below as ground truth, and do any arithmetic carefully. Reply with ONLY the answer in the requested format, nothing else.\n\n${material}JEFF'S RECENT MESSAGES:\n${transcript}`
+  try {
+    const { data, error } = await supabase.functions.invoke("jeff-chat", {
+      body: { raw: true, maxTokens: 40, system, messages: [{ role: "user", content: vq.question }] },
+    })
+    if (error || typeof data?.text !== "string") return true
+    const got = canonicalAnswer(data.text, vq.expected)
+    return got === null ? true : got === vq.expected
+  } catch {
+    return true
+  }
+}
+
+// ── Context recovery ────────────────────────────────────────────────
+// Callers that only have Jeff's last message still get a grounded check: the
+// rest of his recent messages come from the lesson's saved chat, and the
+// grounding text from the lesson's own concept sections.
+
+function recentFromSavedChat(lesson: Lesson, lastJeffMessage: string): string[] {
+  const saved = loadChat(lesson.id)?.messages ?? []
+  const recent = saved.filter(m => m.role === "assistant").map(m => m.content.trim()).filter(Boolean)
+  const last = lastJeffMessage.trim()
+  if (recent[recent.length - 1] !== last) recent.push(last)
+  return recent.slice(-RECENT_MESSAGES)
+}
+
+function sourceFromLessonContent(lesson: Lesson): string | undefined {
+  if (isCurriculumLesson(lesson)) return undefined
+  try {
+    const sections = getStructuredContent(lesson.id)?.sections ?? []
+    const text = sections
+      .flatMap(sec => (sec.type === "concept" ? [sec] : []))
+      .map(c => [c.title, ...c.paragraphs, c.realWorldExample ? `Example: ${c.realWorldExample}` : ""].filter(Boolean).join("\n"))
+      .join("\n\n")
+    return text || undefined
+  } catch {
+    return undefined
+  }
+}
+
+/**
+ * Generate one interrupter activity from Jeff's last message, grounded in the
+ * lesson text and his last few messages. Returns null on any failure (network,
+ * timeout, malformed JSON, wrong shape, a self-correcting explanation, or a
+ * numeric answer the second opinion disagrees with) so the caller can silently
+ * skip the interrupter and keep the lesson flowing.
  */
 export async function generateInterrupter(
   lesson: Lesson,
   lastJeffMessage: string,
   type: InterrupterType,
+  ctx: InterrupterContext = {},
 ): Promise<Interrupter | null> {
   try {
+    const recent = ctx.recentJeffMessages?.length
+      ? [...ctx.recentJeffMessages.map(m => m.trim()).filter(Boolean), lastJeffMessage.trim()]
+          .filter((m, i, arr) => m && arr.indexOf(m) === i)
+          .slice(-RECENT_MESSAGES)
+      : recentFromSavedChat(lesson, lastJeffMessage)
+    const source = ctx.source ?? sourceFromLessonContent(lesson)
     const { data, error } = await supabase.functions.invoke("jeff-chat", {
       body: {
         raw: true,
         maxTokens: 400,
-        system: buildInterrupterPrompt(lesson.title, lastJeffMessage, type),
+        system: buildInterrupterPrompt(lesson.title, recent, type, source),
         // The model needs at least one user turn; the instruction lives in the
         // system prompt, so this is just the trigger.
         messages: [{ role: "user", content: "Generate the activity now as specified." }],
       },
     })
     if (error || !data?.text) return null
-    return validate(extractJson(data.text as string), type)
+    const check = validate(extractJson(data.text as string), type)
+    if (!check) return null
+    if (isNumericCheck(check) && !(await secondOpinionAgrees(check, lesson.title, recent, source))) return null
+    return check
   } catch {
     return null
   }

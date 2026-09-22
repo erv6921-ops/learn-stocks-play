@@ -725,10 +725,10 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
 
   // INCOME-8: Education as Investment
   {
-    lessonId: "income-8",
+    lessonId: "income-11",
     questions: [
       {
-        id: "income-8-q1",
+        id: "income-11-q1",
         question: "On average, how do earnings of bachelor's degree holders compare to workers with only a high school diploma?",
         options: [
           "Graduates always earn triple by age twenty-five",
@@ -740,7 +740,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
         explanation: "US data consistently shows bachelor's degree holders earn substantially more on average over their careers. Averages don't guarantee individual results, but the overall gap is real."
       },
       {
-        id: "income-8-q2",
+        id: "income-11-q2",
         question: "Why does the answer to 'is college worth it?' depend on the situation?",
         options: [
           "Because colleges randomly assign every student's major",
@@ -752,7 +752,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
         explanation: "A low-cost degree in a high-demand field is a very different investment than heavy debt for a low-paying field. The value depends on the specific price and payoff."
       },
       {
-        id: "income-8-q3",
+        id: "income-11-q3",
         question: "Ali compares a $25,000-per-year private college with an $8,000-per-year in-state school for the same nursing degree. What is the financially smart consideration?",
         options: [
           "The cheaper program may offer similar returns",
@@ -764,7 +764,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
         explanation: "Nursing licenses and pay depend on passing the same exams, not the school's price tag. Paying far less for the same outcome dramatically improves the investment."
       },
       {
-        id: "income-8-q4",
+        id: "income-11-q4",
         question: "Besides a four-year degree, which paths can also build strong earning power?",
         options: [
           "Only doctoral degrees can raise your income",
@@ -776,7 +776,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
         explanation: "Electricians, plumbers, dental hygienists, and IT technicians train through trade schools, apprenticeships, or certificates and can earn strong incomes. College is one path, not the only one."
       },
       {
-        id: "income-8-q5",
+        id: "income-11-q5",
         question: "Maria would need $80,000 in loans for a degree in a field paying about $35,000 a year. What is the key warning sign?",
         options: [
           "Loans are automatically forgiven in low-paying fields",
@@ -788,7 +788,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
         explanation: "A common guideline is to keep total borrowing near or below expected first-year salary. Owing more than double her starting pay would make repayment a heavy burden."
       },
       {
-        id: "income-8-q6",
+        id: "income-11-q6",
         question: "Why do scholarships and grants improve the ROI of education?",
         options: [
           "They cut costs without adding any debt",
@@ -800,7 +800,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
         explanation: "Scholarships and grants are money you never repay, so they directly lower the 'investment' side of the equation. Same career payoff, smaller cost, better return."
       },
       {
-        id: "income-8-q7",
+        id: "income-11-q7",
         question: "In 'education as an investment,' what is the 'return'?",
         options: [
           "The refund colleges give for dropped classes",
@@ -812,7 +812,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
         explanation: "The payoff of education is the extra income and expanded opportunities it unlocks over a working lifetime. That's what you weigh against tuition, debt, and lost wages."
       },
       {
-        id: "income-8-q8",
+        id: "income-11-q8",
         question: "Devon wants to become a software developer. What is the smartest first step in choosing his path?",
         options: [
           "Choose whichever school has the coolest mascot",
