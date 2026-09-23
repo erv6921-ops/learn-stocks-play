@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import { ArrowRight, GraduationCap, Users, Loader2, MailCheck, PartyPopper } from "lucide-react"
 import Confetti from "@/components/Confetti"
+import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 
 type AuthMode = "login" | "signup" | "forgot"
 type UserRole = "student" | "teacher" | null
@@ -42,8 +43,25 @@ export default function Auth() {
       if (error) throw error
       if (!data.user) throw new Error("No user returned")
 
-      // Post-login routing is handled centrally in AppContext on the
-      // SIGNED_IN event - keep it as the single source of truth.
+      // Route from here rather than waiting on the AppContext auth listener:
+      // that listener awaits a profile query which can hang, and on the dev
+      // bypass server it is never subscribed at all - so the spinner has to
+      // stay up until WE navigate. We fetch the profile ourselves and pick the
+      // destination; the listener, when it does run, computes the same one, so
+      // the extra navigate is a harmless no-op. Deliberately DON'T clear the
+      // spinner on success: the navigation unmounts this form.
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role, onboarding_complete")
+        .eq("id", data.user.id)
+        .maybeSingle()
+      if (profile?.role === "teacher") {
+        navigate("/teacher-dashboard", { replace: true })
+      } else if (profile?.onboarding_complete) {
+        navigate("/dashboard", { replace: true })
+      } else {
+        navigate("/onboarding", { replace: true })
+      }
     } catch (error: any) {
       // The account exists but the email was never confirmed (signup gates on
       // a 6-digit code that can get abandoned). Rather than dead-end with an
@@ -58,6 +76,7 @@ export default function Auth() {
             ? { title: "Couldn't send a new code", description: resendError.message, variant: "destructive" }
             : { title: "Confirm your email", description: "We sent a fresh 6-digit code to finish setting up your account." }
         )
+        setLoading(false)
         return
       }
       toast({
@@ -65,7 +84,6 @@ export default function Auth() {
         description: error.message,
         variant: "destructive",
       })
-    } finally {
       setLoading(false)
     }
   }
@@ -292,6 +310,32 @@ export default function Auth() {
     } else {
       toast({ title: "New code sent", description: "Check your inbox (and spam folder)." })
     }
+  }
+
+  // On the dev bypass server (`npm run dev`, port 8080) there is no real
+  // Supabase session and the AppContext auth listener is never subscribed, so a
+  // login here can never resolve. Show a banner instead of a dead login form.
+  // Use `npm run dev:qa` (port 8084) for real auth.
+  if (DEV_LOCAL_BYPASS) {
+    return (
+      <div className="relative min-h-screen bg-background flex flex-col items-center justify-center gap-6 p-4">
+        <Wordmark className="text-3xl md:text-5xl" />
+        <Card variant="elevated" className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Dev bypass on — login disabled</CardTitle>
+            <CardDescription>
+              This dev server auto-signs-in a throwaway local user, so there's no
+              login here. For real accounts, run <code className="font-mono">npm run dev:qa</code> (port 8084).
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button className="w-full" size="lg" onClick={() => navigate("/dashboard")}>
+              Go to the app <ArrowRight className="ml-2" />
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (

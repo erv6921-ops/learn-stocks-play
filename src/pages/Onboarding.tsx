@@ -316,6 +316,11 @@ export default function Onboarding() {
   // True when an already-authenticated user lands here just to (re)take the
   // benchmark - we skip the role/signup steps and preserve their profile.
   const [benchmarkOnly, setBenchmarkOnly] = useState(false)
+  // True when an already-authenticated STUDENT lands here with an unfinished
+  // profile (e.g. they signed up, confirmed email, then came back). They
+  // already have a login, so we start them at the name step and skip the
+  // account-creation step - onboarding_complete is written at the very end.
+  const [resumeAuthed, setResumeAuthed] = useState(false)
 
   // Role & profile fields
   const [selectedRole, setSelectedRole] = useState<UserRole | "">("")
@@ -368,7 +373,7 @@ export default function Onboarding() {
     // (e.g. under the DEV auth bypass) so the sign-up screens can be reviewed.
     const previewMode = searchParams.get("preview") === "1"
 
-    supabase.auth.getSession().then(({ data }) => {
+    supabase.auth.getSession().then(async ({ data }) => {
       // Prefill email from the authenticated session so the user sees it's linked
       const e = data.session?.user?.email
       console.log("[Onboarding] session email:", e)
@@ -383,8 +388,32 @@ export default function Onboarding() {
         return
       }
 
-      // Otherwise, if the user already finished onboarding, send them home.
-      // (Skipped in preview mode so the flow stays reviewable.)
+      // Already authenticated (real session, not the dev bypass): decide from
+      // the REAL profile row - not a possibly-stale localStorage copy - whether
+      // to send them home or resume onboarding. This is the read that keeps a
+      // new student in onboarding instead of bouncing them to the dashboard.
+      if (data.session && !previewMode) {
+        const { data: prof } = await supabase
+          .from("profiles")
+          .select("role, onboarding_complete")
+          .eq("id", data.session.user.id)
+          .maybeSingle()
+        if (prof?.onboarding_complete) {
+          navigate("/dashboard")
+          return
+        }
+        // A signed-in student with an unfinished profile: skip role-select and
+        // the signup step, drop them at the name step, and mark onboarding
+        // complete only at the very end (handleComplete / handleSkip).
+        if (prof && prof.role !== "teacher") {
+          setSelectedRole("student")
+          setResumeAuthed(true)
+          setStep("name")
+          return
+        }
+      }
+
+      // Fallback for the dev bypass (no real session): use the cached user.
       const stored = localStorage.getItem("investiplay_user")
       if (stored && !previewMode) {
         try {
@@ -953,7 +982,7 @@ export default function Onboarding() {
             message={firstName.trim() ? `Nice to meet you, ${firstName.trim()}! 👋` : "Awesome! What should I call you?"}
             title="What's your name?"
             subtitle={selectedRole === "teacher" ? "We'll use this for your teacher profile" : "We'll use this to personalize your experience"}
-            onBack={() => setStep("role-select")}
+            onBack={resumeAuthed ? undefined : () => setStep("role-select")}
             continueDisabled={!firstName.trim()}
             onContinue={() => setStep(selectedRole === "teacher" ? "teacher-school" : "grade")}
           >
@@ -1491,7 +1520,10 @@ export default function Onboarding() {
                     localStorage.setItem("investiplay_track_pending", "regular")
                     localStorage.removeItem("investiplay_ib_econ_enrolled")
                   } catch {}
-                  setStep("student-account")
+                  // Resuming an already-authenticated student: they have a
+                  // login already, so skip account creation and head to the
+                  // benchmark; onboarding_complete is written when they finish.
+                  setStep(resumeAuthed ? "welcome" : "student-account")
                 }}
                 className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
               >
@@ -1517,7 +1549,10 @@ export default function Onboarding() {
                     localStorage.setItem("investiplay_track_pending", "regular")
                     localStorage.setItem("investiplay_ib_econ_enrolled", "true")
                   } catch {}
-                  setStep("student-account")
+                  // Resuming an already-authenticated student: they have a
+                  // login already, so skip account creation and head to the
+                  // benchmark; onboarding_complete is written when they finish.
+                  setStep(resumeAuthed ? "welcome" : "student-account")
                 }}
                 className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-accent hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
               >
@@ -1543,7 +1578,10 @@ export default function Onboarding() {
                     localStorage.setItem("investiplay_track_pending", "biz_lab")
                     localStorage.removeItem("investiplay_ib_econ_enrolled")
                   } catch {}
-                  setStep("student-account")
+                  // Resuming an already-authenticated student: they have a
+                  // login already, so skip account creation and head to the
+                  // benchmark; onboarding_complete is written when they finish.
+                  setStep(resumeAuthed ? "welcome" : "student-account")
                 }}
                 className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-gold hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
               >
@@ -1568,7 +1606,10 @@ export default function Onboarding() {
                     localStorage.setItem("investiplay_track_pending", "gulliver_intro")
                     localStorage.removeItem("investiplay_ib_econ_enrolled")
                   } catch {}
-                  setStep("student-account")
+                  // Resuming an already-authenticated student: they have a
+                  // login already, so skip account creation and head to the
+                  // benchmark; onboarding_complete is written when they finish.
+                  setStep(resumeAuthed ? "welcome" : "student-account")
                 }}
                 className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
               >

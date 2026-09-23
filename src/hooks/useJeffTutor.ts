@@ -75,7 +75,7 @@ const asLesson = (v: unknown): JeffTutorLesson | null => {
 const untyped = supabase as unknown as SupabaseClient
 
 export function useJeffTutor() {
-  const { user, jeffsBalance } = useApp()
+  const { user, jeffsBalance, setJeffsBalanceFromServer } = useApp()
 
   // One session per mount. useMemo (not useState) so it is created exactly once
   // and never persisted anywhere.
@@ -144,6 +144,10 @@ export function useJeffTutor() {
       if (typeof res.balance === "number" && Number.isFinite(res.balance)) {
         serverBalanceKnown.current = true
         setBalance(Math.round(res.balance))
+        // The server balance is the authoritative post-charge ledger sum. Push
+        // it into context so the app-wide coin header updates immediately,
+        // instead of staying stale until the next hydrate/reload.
+        setJeffsBalanceFromServer(res.balance)
       }
 
       if (isBlocked(res.blocked)) {
@@ -160,7 +164,7 @@ export function useJeffTutor() {
     } finally {
       setLoading(false)
     }
-  }, [append, loading, messages, sessionId])
+  }, [append, loading, messages, sessionId, setJeffsBalanceFromServer])
 
   return {
     sessionId,

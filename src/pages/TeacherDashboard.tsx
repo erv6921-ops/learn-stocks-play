@@ -142,6 +142,10 @@ interface ClassMember {
   // lesson_id -> how far the student has gotten (0-100). Present for any lesson
   // the student has opened, whether or not they finished it.
   progressByLesson: Record<string, number>
+  // lesson_id -> the two finish-time scores. quiz = whole-lesson accuracy
+  // (lesson_progress.quiz_score, the headline number); mastery = the mastery
+  // check (lesson_progress.mastery_score). Either can be null on older rows.
+  scoresByLesson: Record<string, { quiz: number | null; mastery: number | null }>
 }
 
 const shorten = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "…" : s)
@@ -270,9 +274,14 @@ export default function TeacherDashboard() {
         const k = Math.floor(Math.random() * (assigned.length + 1))
         const completedIds = assigned.slice(0, k).map((a) => a.lesson_id)
         const progressByLesson: Record<string, number> = {}
+        const scoresByLesson: Record<string, { quiz: number | null; mastery: number | null }> = {}
         assigned.forEach((a, idx) => {
-          if (completedIds.includes(a.lesson_id)) progressByLesson[a.lesson_id] = 100
-          else if (idx === k) progressByLesson[a.lesson_id] = [20, 40, 60, 80][i % 4] // one lesson mid-flight
+          if (completedIds.includes(a.lesson_id)) {
+            progressByLesson[a.lesson_id] = 100
+            // Plausible demo scores: whole-lesson accuracy a touch below the
+            // mastery check, both varying per student/lesson.
+            scoresByLesson[a.lesson_id] = { quiz: 70 + ((i + idx) % 4) * 7, mastery: 80 + ((i + idx) % 3) * 6 }
+          } else if (idx === k) progressByLesson[a.lesson_id] = [20, 40, 60, 80][i % 4] // one lesson mid-flight
         })
         return {
           id: `${classId}-m${i}`,
@@ -282,6 +291,7 @@ export default function TeacherDashboard() {
           assignedLessons: assigned,
           completedLessonIds: completedIds,
           progressByLesson,
+          scoresByLesson,
         }
       })
     const cls: Class[] = [
@@ -481,17 +491,24 @@ export default function TeacherDashboard() {
               .select("first_name, last_name, email, school_name, grade")
               .eq("id", member.user_id)
               .single(),
-            supabase
+            // mastery_score isn't in the generated types yet, so query through
+            // the untyped client surface (see CLAUDE.md).
+            (supabase as any)
               .from("lesson_progress")
-              .select("lesson_id, completed, progress_percent")
+              .select("lesson_id, completed, progress_percent, quiz_score, mastery_score")
               .eq("user_id", member.user_id)
           ])
 
           const progressRows = (progressRes.data || []) as any[]
           const progressByLesson: Record<string, number> = {}
+          const scoresByLesson: Record<string, { quiz: number | null; mastery: number | null }> = {}
           progressRows.forEach((p) => {
             // A completed lesson is 100% even on older rows with a null percent.
             progressByLesson[p.lesson_id] = p.completed ? 100 : (p.progress_percent ?? 0)
+            scoresByLesson[p.lesson_id] = {
+              quiz: p.quiz_score ?? null,
+              mastery: p.mastery_score ?? null,
+            }
           })
 
           return {
@@ -500,6 +517,7 @@ export default function TeacherDashboard() {
             assignedLessons: classAssignments,
             completedLessonIds: progressRows.filter((p) => p.completed).map((p) => p.lesson_id),
             progressByLesson,
+            scoresByLesson,
           }
         })
       )
@@ -1712,7 +1730,12 @@ export default function TeacherDashboard() {
                                         const lesson = lessons.find(l => l.id === assignment.lesson_id)
                                         const done = member.completedLessonIds.includes(assignment.lesson_id)
                                         const pct = done ? 100 : (member.progressByLesson[assignment.lesson_id] ?? 0)
-                                        const status = done ? "Completed" : pct > 0 ? `${pct}%` : "Not started"
+                                        // On a finished lesson show the whole-lesson accuracy
+                                        // (quiz_score) as the headline number, with the mastery
+                                        // check (mastery_score) as a secondary line beneath it.
+                                        const scores = member.scoresByLesson[assignment.lesson_id]
+                                        const quiz = scores?.quiz
+                                        const mastery = scores?.mastery
                                         return (
                                           <div key={assignment.id} className="flex items-center gap-2">
                                             <Badge
@@ -1730,9 +1753,22 @@ export default function TeacherDashboard() {
                                               variant={done ? "success" : "default"}
                                               className="h-1.5 flex-1 min-w-[40px]"
                                             />
-                                            <span className={`text-[11px] tabular-nums shrink-0 w-16 text-right ${done ? "text-green-600" : pct > 0 ? "text-foreground" : "text-muted-foreground"}`}>
-                                              {status}
-                                            </span>
+                                            {done ? (
+                                              <div className="shrink-0 w-24 text-right leading-tight">
+                                                {typeof quiz === "number" ? (
+                                                  <div className="text-base font-bold tabular-nums text-foreground">{quiz}%</div>
+                                                ) : (
+                                                  <div className="text-[11px] font-medium text-green-600">Completed</div>
+                                                )}
+                                                {typeof mastery === "number" && (
+                                                  <div className="text-[10px] text-muted-foreground tabular-nums">Mastery check {mastery}%</div>
+                                                )}
+                                              </div>
+                                            ) : (
+                                              <span className={`text-[11px] tabular-nums shrink-0 w-24 text-right ${pct > 0 ? "text-foreground" : "text-muted-foreground"}`}>
+                                                {pct > 0 ? `${pct}%` : "Not started"}
+                                              </span>
+                                            )}
                                             <LessonPreviewButtons
                                               compact
                                               lessonId={assignment.lesson_id}

@@ -38,6 +38,7 @@ interface AppContextType {
   earnJeffs: (amount: number, reason: string) => void
   awardJeffs: (amount: number, reason: string) => void
   spendJeffs: (amount: number, reason: string) => boolean
+  setJeffsBalanceFromServer: (balance: number) => void
   jeffsHistory: JeffsHistoryEntry[]
   unitTestProgress: UnitTestProgress[]
   updateUnitTestProgress: (category: string, completed: boolean, score: number) => void
@@ -110,6 +111,50 @@ function applyPendingTrack(uid: string, current: EnrollmentTrack): EnrollmentTra
   return want
 }
 
+// The ONE mapping from a profiles row to the in-app UserProfile. Both the auth
+// listener and the deferred hydrate go through this so there is a single source
+// of truth for every field - most importantly onboardingComplete, which is read
+// from the real profiles.onboarding_complete column here (never hard-coded).
+// A null profile (row not created yet / read failed) yields a fresh,
+// not-yet-onboarded student so onboarding runs instead of being skipped.
+function profileToUser(uid: string, profile: any | null): UserProfile {
+  if (!profile) {
+    return {
+      id: uid,
+      age: 14,
+      schoolName: "",
+      grade: 9,
+      literacyLevel: "explorer",
+      onboardingComplete: false,
+      assessmentScore: 0,
+      benchmarkScores: {},
+      benchmarkCategoryScores: {},
+      rewardMultiplier: 1,
+      createdAt: new Date(),
+    }
+  }
+  return {
+    id: profile.id,
+    firstName: profile.first_name ?? undefined,
+    lastName: profile.last_name ?? undefined,
+    classCode: profile.class_code ?? undefined,
+    age: profile.age ?? 14,
+    schoolName: profile.school_name ?? "",
+    grade: profile.grade ?? 9,
+    literacyLevel: (profile.literacy_level as MasteryTier) ?? "explorer",
+    role: (profile.role as "student" | "teacher" | null) ?? null,
+    onboardingComplete: !!profile.onboarding_complete,
+    assessmentScore: profile.assessment_score ?? 0,
+    benchmarkScores: (profile.benchmark_scores as any) ?? {},
+    benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
+    rewardMultiplier: profile.reward_multiplier ?? 1,
+    track: applyPendingTrack(uid, resolveTrack(profile)),
+    assigned_track: (profile.assigned_track as EnrollmentTrack | null) ?? undefined,
+    stateCourse: profile.state_course ?? undefined,
+    createdAt: new Date(profile.created_at ?? Date.now()),
+  }
+}
+
 // Every per-user localStorage key. Cleared on logout / sign-out so one
 // account's cached data never bleeds into the next session on a shared device.
 const USER_KEYS = [
@@ -143,6 +188,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // first ledger row lands. The ledger check handles cross-session idempotency;
   // this handles the within-session race.
   const welcomeGiftedRef = useRef(false)
+  // Ledger balance is hydrated once per signed-in user (initial session or a
+  // real account switch), never on the SIGNED_IN that Supabase re-emits on tab
+  // focus - re-summing then would clobber the live balance. Tracks who we've
+  // already hydrated so repeat events are ignored.
+  const hydratedUserRef = useRef<string | null>(null)
+  // Guards optimistic balance changes against a stale in-flight ledger fetch:
+  // hydrateInFlightRef counts active hydrates; pendingDeltaRef accumulates any
+  // earn/spend that happens while one is running, so the fetch can decline to
+  // overwrite a balance it predates (see hydrate + noteOptimisticDelta).
+  const hydrateInFlightRef = useRef(0)
+  const pendingDeltaRef = useRef(0)
 
   const setUser = (newUser: UserProfile | null) => {
     setUserState(newUser)
@@ -153,6 +209,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // the Supabase session ends (including sign-out from another tab).
   const clearLocalData = () => {
     userIdRef.current = null
+    // A re-login (even the same account) must hydrate fresh, so forget who we
+    // last hydrated and reset the in-flight/optimistic-delta guards.
+    hydratedUserRef.current = null
+    hydrateInFlightRef.current = 0
+    pendingDeltaRef.current = 0
     setUserState(null)
     setLessonProgress([])
     setTokens([])
@@ -252,7 +313,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     const hydrate = async (uid: string) => {
       userIdRef.current = uid
-
+      // Open the in-flight window. The first concurrent hydrate resets the
+      // optimistic-delta accumulator; deltas that land while we fetch are then
+      // remembered so the reconcile below won't drop them.
+      hydrateInFlightRef.current += 1
+      if (hydrateInFlightRef.current === 1) pendingDeltaRef.current = 0
+      try {
       const cachedUser = ls.get<UserProfile | null>("investiplay_user", null)
       if (!cachedUser) {
         setUser({
@@ -282,27 +348,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
       const profile = profileRes?.data
       if (profile) {
-        const hydrated: UserProfile = {
-          id: profile.id,
-          firstName: profile.first_name ?? undefined,
-          lastName: profile.last_name ?? undefined,
-          classCode: profile.class_code ?? undefined,
-          age: profile.age ?? 14,
-          schoolName: profile.school_name ?? "",
-          grade: profile.grade ?? 9,
-          literacyLevel: (profile.literacy_level as MasteryTier) ?? "explorer",
-          role: (profile.role as "student" | "teacher" | null) ?? null,
-          onboardingComplete: !!profile.onboarding_complete,
-          assessmentScore: profile.assessment_score ?? 0,
-          benchmarkScores: (profile.benchmark_scores as any) ?? {},
-          benchmarkCategoryScores: (profile.benchmark_category_scores as any) ?? {},
-          rewardMultiplier: profile.reward_multiplier ?? 1,
-          track: applyPendingTrack(uid, resolveTrack(profile)),
-          assigned_track: (profile.assigned_track as EnrollmentTrack | null) ?? undefined,
-          stateCourse: profile.state_course ?? undefined,
-          createdAt: new Date(profile.created_at ?? Date.now()),
-        }
-        setUser(hydrated)
+        setUser(profileToUser(uid, profile))
       }
 
       if (lessonsRes?.data) {
@@ -342,10 +388,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ls.set("investiplay_jeffs_history", h)
         // The balance is summed over the FULL paginated ledger (see
         // fetchFullJeffsHistory), so it stays the true source of truth and
-        // matches the server/leaderboard even beyond 1000 entries.
-        const balance = h.reduce((sum, e) => sum + e.amount, 0)
-        setJeffsBalance(balance)
-        ls.set("investiplay_jeffs_balance", balance)
+        // matches the server/leaderboard even beyond 1000 entries. But if the
+        // user earned/spent while this fetch was in flight, the fetched ledger
+        // may predate that change - skip the overwrite so the optimistic delta
+        // isn't lost (the next hydrate reconciles cleanly against a settled
+        // ledger). The exact sum is stored unrounded; formatCoins rounds only
+        // at display time.
+        if (pendingDeltaRef.current === 0) {
+          const balance = h.reduce((sum, e) => sum + e.amount, 0)
+          setJeffsBalance(balance)
+          ls.set("investiplay_jeffs_balance", balance)
+        }
 
         // One-time welcome gift: the first time a user's ledger has no welcome
         // entry, Jeff hands them coins for signing in. Keying off the ledger
@@ -389,6 +442,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setTokens(tk)
         ls.set("investiplay_tokens", tk)
       }
+      } finally {
+        // Close the in-flight window. When the last hydrate settles, clear the
+        // optimistic-delta accumulator so the next hydrate starts clean.
+        hydrateInFlightRef.current = Math.max(0, hydrateInFlightRef.current - 1)
+        if (hydrateInFlightRef.current === 0) pendingDeltaRef.current = 0
+      }
+    }
+
+    // Hydrate the ledger balance and per-user data exactly once per user id.
+    // Repeat SIGNED_IN events for the same user (tab focus) are no-ops.
+    const hydrateOnce = (uid: string) => {
+      if (hydratedUserRef.current === uid) return
+      hydratedUserRef.current = uid
+      void hydrate(uid)
     }
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -412,71 +479,52 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const previousUserId = userIdRef.current
         const onAuthPage = window.location.pathname.startsWith("/auth")
         const shouldRoute = onAuthPage || (previousUserId !== null && previousUserId !== session.user.id)
+        // A real login / account switch. On a full refresh userIdRef is null, so
+        // a session restore reads as null -> id here; hydrateOnce still fires
+        // (first hydrate for this user), while the SIGNED_IN routing above stays
+        // gated on shouldRoute so refresh never yanks the user off their page.
+        const userChanged = previousUserId !== session.user.id
         authReadyRef.current = true
         setAuthReady(true)
         userIdRef.current = session.user.id
-        void (async () => {
-          const { data: existingUser } = await supabase
-            .from("profiles")
-            .select("*")
-            .eq("id", session.user.id)
-            .maybeSingle()
-          if (existingUser) {
-            setUser({
-              id: existingUser.id,
-              firstName: existingUser.first_name ?? undefined,
-              lastName: existingUser.last_name ?? undefined,
-              classCode: existingUser.class_code ?? undefined,
-              age: existingUser.age ?? 14,
-              schoolName: existingUser.school_name ?? "",
-              grade: existingUser.grade ?? 9,
-              literacyLevel: (existingUser.literacy_level as MasteryTier) ?? "explorer",
-              role: (existingUser.role as "student" | "teacher" | null) ?? null,
-              onboardingComplete: true,
-              assessmentScore: existingUser.assessment_score ?? 0,
-              benchmarkScores: (existingUser.benchmark_scores as any) ?? {},
-              benchmarkCategoryScores: (existingUser.benchmark_category_scores as any) ?? {},
-              rewardMultiplier: existingUser.reward_multiplier ?? 1,
-              track: applyPendingTrack(session.user.id, resolveTrack(existingUser)),
-              assigned_track: (existingUser.assigned_track as EnrollmentTrack | null) ?? undefined,
-              stateCourse: existingUser.state_course ?? undefined,
-              createdAt: new Date(existingUser.created_at ?? Date.now()),
-            })
-          } else {
-            setUser({
-              id: session.user.id,
-              age: 14,
-              schoolName: "",
-              grade: 9,
-              literacyLevel: "explorer",
-              onboardingComplete: false,
-              assessmentScore: 0,
-              benchmarkScores: {},
-              benchmarkCategoryScores: {},
-              rewardMultiplier: 1,
-              createdAt: new Date(),
-            })
-          }
+        // Defer ALL Supabase work out of the auth callback. Awaiting a query
+        // (the profile lookup) inside onAuthStateChange can deadlock the client,
+        // and a slow query would otherwise block sign-in routing. Auth.tsx now
+        // also routes from its own login handler so the spinner can't hang on
+        // this; both compute the same destination, so the extra navigate is a
+        // harmless no-op.
+        setTimeout(() => {
+          void (async () => {
+            const { data: existingUser } = await supabase
+              .from("profiles")
+              .select("*")
+              .eq("id", session.user.id)
+              .maybeSingle()
+            // One mapper for the whole app: onboardingComplete comes from the
+            // real onboarding_complete column, never hard-coded, so a student
+            // with an unfinished profile is routed into onboarding instead of
+            // being bounced to the dashboard.
+            setUser(profileToUser(session.user.id, existingUser))
 
-          // Single source of truth for post-login routing. Do not add routing
-          // logic in Auth.tsx, Onboarding.tsx, or any other file.
-          //
-          // Only on a fresh sign-in (login or email-confirmation), never on
-          // page-refresh session restore, so it doesn't yank users off their
-          // current page. Teachers go to their dashboard; otherwise
-          // onboarding_complete decides between /dashboard and /onboarding.
-          if (event === "SIGNED_IN" && shouldRoute) {
-            if (existingUser?.role === "teacher") {
-              navigate("/teacher-dashboard", { replace: true })
-            } else if (existingUser?.onboarding_complete) {
-              navigate("/dashboard", { replace: true })
-            } else {
-              navigate("/onboarding", { replace: true })
+            // Post-login routing, only on a fresh sign-in (login or
+            // email-confirmation), never on a page-refresh restore. Teachers go
+            // to their dashboard; otherwise onboarding_complete decides between
+            // /dashboard and /onboarding.
+            if (event === "SIGNED_IN" && shouldRoute) {
+              if (existingUser?.role === "teacher") {
+                navigate("/teacher-dashboard", { replace: true })
+              } else if (existingUser?.onboarding_complete) {
+                navigate("/dashboard", { replace: true })
+              } else {
+                navigate("/onboarding", { replace: true })
+              }
             }
-          }
-        })()
-        // Defer to avoid deadlocks inside the listener
-        setTimeout(() => { void hydrate(session.user.id) }, 0)
+          })()
+          // Hydrate the balance/ledger only when the user actually changes, not
+          // on every re-emitted SIGNED_IN (tab focus), so the balance is never
+          // re-summed and clobbered mid-session.
+          if (userChanged) hydrateOnce(session.user.id)
+        }, 0)
       } else if (authReadyRef.current) {
         clearLocalData()
       }
@@ -490,7 +538,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ls.del("investiplay_user")
       } else {
         userIdRef.current = session.user.id
-        void hydrate(session.user.id)
+        hydrateOnce(session.user.id)
       }
       authReadyRef.current = true
       setAuthReady(true)
@@ -650,9 +698,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  // Remember an optimistic balance change while a ledger hydrate is in flight,
+  // so that fetch (which may predate the change) declines to overwrite the
+  // balance and lose it. A no-op when nothing is hydrating.
+  const noteOptimisticDelta = (delta: number) => {
+    if (hydrateInFlightRef.current > 0) pendingDeltaRef.current += delta
+  }
+
   const earnJeffs = (amount: number, reason: string) => {
     const multiplier = getRewardMultiplier()
     const scaledAmount = Math.round(amount * multiplier)
+    noteOptimisticDelta(scaledAmount)
     setJeffsBalance(prev => {
       const newBalance = prev + scaledAmount
       persistBalance(newBalance)
@@ -665,6 +721,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // fixed payouts like challenge pots and refunds, where the amount is final.
   const awardJeffs = (amount: number, reason: string) => {
     if (!Number.isFinite(amount) || amount === 0) return
+    noteOptimisticDelta(amount)
     setJeffsBalance(prev => {
       const newBalance = prev + amount
       persistBalance(newBalance)
@@ -675,6 +732,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const spendJeffs = (amount: number, reason: string): boolean => {
     if (jeffsBalance < amount) return false
+    noteOptimisticDelta(-amount)
     setJeffsBalance(prev => {
       const newBalance = prev - amount
       persistBalance(newBalance)
@@ -682,6 +740,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
     })
     recordHistory({ amount: -amount, reason, date: new Date() })
     return true
+  }
+
+  // An edge function charged/credited coins server-side (Ask Jeff does) and
+  // returned the authoritative post-charge ledger balance. Push it straight
+  // into context so the header updates without waiting for the next hydrate.
+  // Stored raw - the ledger is exact to the cent; formatCoins rounds only at
+  // display time. Also counted as an optimistic delta so an in-flight hydrate
+  // can't stomp it.
+  const setJeffsBalanceFromServer = (balance: number) => {
+    if (!Number.isFinite(balance)) return
+    noteOptimisticDelta(balance - jeffsBalance)
+    setJeffsBalance(balance)
+    ls.set("investiplay_jeffs_balance", balance)
   }
 
   const buyStock = (symbol: string, shares: number, pricePerShare: number): boolean => {
@@ -836,7 +907,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         tokens, addToken,
         watchlist, addToWatchlist, removeFromWatchlist,
         resetOnboarding, logout,
-        jeffsBalance, earnJeffs, awardJeffs, spendJeffs, jeffsHistory,
+        jeffsBalance, earnJeffs, awardJeffs, spendJeffs, setJeffsBalanceFromServer, jeffsHistory,
         unitTestProgress, updateUnitTestProgress,
         portfolio, buyStock, sellStock, getHolding,
         getRewardMultiplier,

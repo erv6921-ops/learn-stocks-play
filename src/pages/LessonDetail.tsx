@@ -303,8 +303,11 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   // runs existed, and those must show the honest replay screen, not "Continue".
   const savedChat = !isCompleted && loadChat(lesson.id)
   const resumable = !!run || !!savedChat
-  const totalSteps = walkCount + 1 // Jeff's chat is step 1
-  const currentStep = run ? (run.chatDone ? Math.min(run.sectionIndex + 2, totalSteps) : 1) : 1
+  // Same numbering as the in-lesson header (walk steps only); Jeff's chat
+  // comes before step 1.
+  const resumeLabel = run && run.chatDone
+    ? `step ${Math.min(run.sectionIndex + 1, Math.max(1, walkCount))} of ${walkCount}`
+    : "Jeff's chat"
 
   const startFresh = () => {
     clearChat(lesson.id)
@@ -362,6 +365,11 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
                   </div>
                 </div>
                 <p className="text-muted-foreground">{lesson.description}</p>
+                {isCompleted && (
+                  <p className="text-sm font-semibold text-success mt-3">
+                    ✓ Completed{progress?.quizScore != null ? ` · your score: ${Math.round(progress.quizScore)}%` : ""} - a retake can only raise it.
+                  </p>
+                )}
 
                 <div className="mt-4 grid grid-cols-3 gap-2">
                   {["📖 Learn", "🧪 Apply", "✅ Master"].map((label, i) => (
@@ -381,7 +389,7 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
                   onClick={continueRun}
                   className="w-full h-16 text-lg font-bold rounded-2xl shadow-lg shadow-primary/30"
                 >
-                  Continue where you left off (step {currentStep} of {totalSteps}) <ArrowRight className="ml-2 w-6 h-6" />
+                  Continue where you left off ({resumeLabel}) <ArrowRight className="ml-2 w-6 h-6" />
                 </Button>
                 <Button variant="ghost" size="lg" className="w-full text-muted-foreground" onClick={startFresh}>
                   <RotateCcw className="mr-2 w-4 h-4" /> Start over
@@ -546,7 +554,9 @@ function LessonRunPlayer({
   // closing it lands straight back on the mastery check.
   const [rereading, setRereading] = useState(false)
   // Another tab finished this lesson while this run was in progress.
-  const [finishedElsewhere, setFinishedElsewhere] = useState(false)
+  const [finishedElsewhereLocal, setFinishedElsewhere] = useState(false)
+  // Also flips live when another tab finishes or restarts this run (storage event).
+  const finishedElsewhere = finishedElsewhereLocal || (!previewMode && rh.supersededByOtherTab)
   // "Make It Stick" reflection - after mastery, before the completion screen.
   const [pendingMastery, setPendingMastery] = useState<{ correct: number; attempts: number; attemptSessionId: string; tier: string | null } | null>(null)
   const [reflectionText, setReflectionText] = useState("")
@@ -721,6 +731,7 @@ function LessonRunPlayer({
     if (finishingRef.current) return
     finishingRef.current = true
     const snapshot = rh.getRun() ?? run
+    if (!previewMode && rh.supersededByOtherTab) { setFinishedElsewhere(true); return }
     rh.finish()
     if (previewMode) return // preview: no lesson_progress completion, no analytics
     clearChat(lesson.id) // the conversation belonged to this run; a later visit is a replay or a fresh retake
@@ -948,8 +959,8 @@ function LessonRunPlayer({
               <JeffMascot size="sm" />
               <h2 className="text-xl font-bold">Finished in another tab</h2>
               <p className="text-muted-foreground">
-                This lesson was already completed in another tab, so this run's score wasn't written over it.
-                The coins you earned here are already in your balance.
+                This lesson was finished (or restarted) in another tab, so this tab's run is closed and its score
+                wasn't written over it. Coins already earned here stay in your balance; nothing more is paid in this tab.
               </p>
               <Button size="lg" className="font-bold" onClick={() => exit("/lessons?category=" + lesson.category)}>
                 Back to missions <ArrowRight className="ml-2 w-4 h-4" />

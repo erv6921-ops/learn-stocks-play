@@ -11,7 +11,7 @@
 // already in `answered` is never counted or paid twice, which is what makes
 // remounts and resumes safe.
 
-import { useCallback, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useApp } from "@/contexts/AppContext"
 
 /** Where an answer came from. Only "walk" and "mastery" count toward accuracy. */
@@ -61,12 +61,23 @@ const newId = () => (typeof crypto !== "undefined" && "randomUUID" in crypto ? c
 
 export const masteryKeyPrefix = (sessionId: string) => `m:${sessionId}:`
 
-export function loadLessonRun(userId: string, lessonId: string): LessonRun | null {
+/** The raw stored record, finished or not (null if absent / unreadable). */
+export function readStoredRun(userId: string, lessonId: string): Partial<LessonRun> | null {
   try {
     const raw = localStorage.getItem(storageKey(userId, lessonId))
     if (!raw) return null
     const parsed = JSON.parse(raw) as Partial<LessonRun>
     if (!parsed || parsed.v !== 1 || !parsed.runId || parsed.lessonId !== lessonId) return null
+    return parsed
+  } catch {
+    return null
+  }
+}
+
+export function loadLessonRun(userId: string, lessonId: string): LessonRun | null {
+  try {
+    const parsed = readStoredRun(userId, lessonId)
+    if (!parsed || !parsed.runId) return null
     // A finished run is only meaningful in the page session that finished it
     // (its completion screen). Coming back later means the lesson is simply
     // complete; a resume must never land on a stale finish screen.
@@ -174,6 +185,12 @@ export interface LessonRunHandle {
    */
   endMasteryAttempt: (opts: { passed: boolean; restart: boolean }) => { sessionId: string; attemptNumber: number }
   finish: () => void
+  /**
+   * True once another tab finished (or restarted) this same run: this tab's
+   * answers stop paying and its finish must not be written. Cross-tab: the
+   * storage event flips it live; recordAnswer re-checks storage as a backstop.
+   */
+  supersededByOtherTab: boolean
   wholeLessonAccuracy: number | null
   masteryAccuracy: number | null
   coinsGained: number
@@ -197,19 +214,52 @@ export function useLessonRun(lessonId: string | undefined, opts: { persist?: boo
     run: lessonId && persistOn ? loadLessonRun(userId, lessonId) : null,
   }))
   const runRef = useRef<LessonRun | null>(state.run)
+  const [superseded, setSuperseded] = useState(false)
+  const supersededRef = useRef(false)
 
   // Route/user change: reload the run for the new key during render (derived
   // state), so the first render for a new lesson already has its saved run.
   if (state.key !== key) {
     const next = lessonId && persistOn ? loadLessonRun(userId, lessonId) : null
     runRef.current = next
+    supersededRef.current = false
     setState({ key, run: next })
+    setSuperseded(false)
   }
+
+  // Does the stored record belong to a different or already-finished run of
+  // this lesson? Then another tab moved on and this tab is stale.
+  const storedSupersedes = useCallback((): boolean => {
+    const cur = runRef.current
+    if (!cur || !persistOn || !lessonId || cur.finishedAt) return false
+    const stored = readStoredRun(userId, lessonId)
+    if (!stored) return false
+    return stored.runId !== cur.runId || !!stored.finishedAt
+  }, [persistOn, lessonId, userId])
+
+  const markSuperseded = useCallback(() => {
+    if (supersededRef.current) return
+    supersededRef.current = true
+    setSuperseded(true)
+  }, [])
+
+  // Live cross-tab signal: the storage event fires in THIS tab when ANOTHER
+  // tab writes the same key.
+  useEffect(() => {
+    if (!persistOn || !lessonId) return
+    const onStorage = (e: StorageEvent) => {
+      if (e.key !== storageKey(userId, lessonId)) return
+      if (storedSupersedes()) markSuperseded()
+    }
+    window.addEventListener("storage", onStorage)
+    return () => window.removeEventListener("storage", onStorage)
+  }, [persistOn, lessonId, userId, storedSupersedes, markSuperseded])
 
   const commit = useCallback((next: LessonRun | null) => {
     runRef.current = next
     setState({ key, run: next })
-    if (persistOn && lessonId) persist(next, userId, lessonId)
+    // A superseded tab never writes over the other tab's record.
+    if (persistOn && lessonId && !supersededRef.current) persist(next, userId, lessonId)
   }, [key, persistOn, lessonId, userId])
 
   const update = useCallback((fn: (run: LessonRun) => LessonRun) => {
@@ -221,6 +271,9 @@ export function useLessonRun(lessonId: string | undefined, opts: { persist?: boo
   const getRun = useCallback(() => runRef.current, [])
 
   const startNewRun = useCallback((o: { completedAtStart: boolean; chatDone?: boolean }): LessonRun => {
+    // A new run owns the record again, whatever another tab did before.
+    supersededRef.current = false
+    setSuperseded(false)
     const run: LessonRun = {
       v: 1,
       runId: newId(),
@@ -245,10 +298,26 @@ export function useLessonRun(lessonId: string | undefined, opts: { persist?: boo
   const recordAnswer = useCallback((questionKey: string, result: Omit<AnswerRecord, "at">): boolean => {
     const cur = runRef.current
     if (!cur) return false
-    if (Object.prototype.hasOwnProperty.call(cur.answered, questionKey)) return false
-    commit({ ...cur, answered: { ...cur.answered, [questionKey]: { ...result, at: Date.now() } } })
+    if (supersededRef.current) return false
+    // Cross-tab backstop: another tab may have finished/restarted this run
+    // (then nothing more is paid here), or answered this very question in the
+    // same run (then it is merged in, so it is not paid twice).
+    let answered = cur.answered
+    if (persistOn && lessonId) {
+      const stored = readStoredRun(userId, lessonId)
+      if (stored && (stored.runId !== cur.runId || stored.finishedAt)) {
+        markSuperseded()
+        return false
+      }
+      if (stored && stored.answered) answered = { ...stored.answered, ...answered }
+    }
+    if (Object.prototype.hasOwnProperty.call(answered, questionKey)) {
+      if (answered !== cur.answered) commit({ ...cur, answered })
+      return false
+    }
+    commit({ ...cur, answered: { ...answered, [questionKey]: { ...result, at: Date.now() } } })
     return true
-  }, [commit])
+  }, [commit, persistOn, lessonId, userId, markSuperseded])
 
   const advanceSection = useCallback((n: number) => {
     update(r => (r.sectionIndex === n ? r : { ...r, sectionIndex: n }))
@@ -303,6 +372,7 @@ export function useLessonRun(lessonId: string | undefined, opts: { persist?: boo
     noteAsked,
     endMasteryAttempt,
     finish,
+    supersededByOtherTab: superseded,
     wholeLessonAccuracy: derived.wholeLessonAccuracy,
     masteryAccuracy: derived.masteryAccuracy,
     coinsGained: derived.coins.gained,
