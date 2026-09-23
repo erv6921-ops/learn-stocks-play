@@ -11,6 +11,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
+import ReactMarkdown from "react-markdown"
 import { ArrowRight, BookOpen, Coins, Send } from "lucide-react"
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
@@ -101,6 +102,28 @@ function LessonCard({ lesson, onStart }: { lesson: JeffTutorLesson; onStart: (l:
   )
 }
 
+// Tailwind styling for Jeff's markdown-formatted replies. Kept compact so
+// headers/lists sit naturally inside a chat bubble (no @tailwindcss/typography),
+// and every element inherits the bubble's own text color so it reads correctly
+// in both light and dark mode.
+const MARKDOWN_COMPONENTS = {
+  strong: (props: React.HTMLAttributes<HTMLElement>) => <strong className="font-semibold" {...props} />,
+  em: (props: React.HTMLAttributes<HTMLElement>) => <em className="italic" {...props} />,
+  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => <p className="mb-2 last:mb-0" {...props} />,
+  ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="mb-2 list-disc pl-5 last:mb-0" {...props} />,
+  ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="mb-2 list-decimal pl-5 last:mb-0" {...props} />,
+  li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="mb-1" {...props} />,
+  h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h1 className="mb-1 text-base font-semibold" {...props} />,
+  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h2 className="mb-1 text-base font-semibold" {...props} />,
+  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h3 className="mb-1 text-base font-semibold" {...props} />,
+  code: (props: React.HTMLAttributes<HTMLElement>) => (
+    <code className="rounded bg-black/10 px-1 text-sm dark:bg-white/10" {...props} />
+  ),
+  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a className="underline" target="_blank" rel="noopener noreferrer" {...props} />
+  ),
+}
+
 function MessageBubble({ m, onStartLesson }: { m: JeffTutorMessage; onStartLesson: (l: JeffTutorLesson) => void }) {
   const isJeff = m.role === "assistant"
   return (
@@ -115,14 +138,23 @@ function MessageBubble({ m, onStartLesson }: { m: JeffTutorMessage; onStartLesso
       <div className={cn("min-w-0", isJeff ? "max-w-[88%]" : "max-w-[85%]")}>
         <div
           className={cn(
-            "whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-[15px] leading-relaxed",
+            "rounded-2xl px-3.5 py-2.5 text-[15px] leading-relaxed",
+            // Jeff's replies are markdown (rendered below); the student's own
+            // messages stay plain text with newlines preserved.
+            isJeff ? "break-words" : "whitespace-pre-wrap",
             isJeff
               ? "rounded-bl-md border border-border bg-card text-foreground"
               : "rounded-br-md bg-primary text-primary-foreground",
             m.blocked && "border-gold/40 bg-gold/10",
           )}
         >
-          {m.content}
+          {isJeff ? (
+            // A half-finished "**" mid-stream just renders as literal text until
+            // the closing marker arrives, so streaming never breaks the layout.
+            <ReactMarkdown components={MARKDOWN_COMPONENTS}>{m.content}</ReactMarkdown>
+          ) : (
+            m.content
+          )}
         </div>
         {isJeff && m.lesson && <LessonCard lesson={m.lesson} onStart={onStartLesson} />}
       </div>
