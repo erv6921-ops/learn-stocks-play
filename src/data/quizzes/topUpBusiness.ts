@@ -8,6 +8,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
     questions: [
       {
         id: "mgmt1-q6",
+        concept: "management functions",
         question: "Who first described the four functions of management over 100 years ago?",
         options: [
           "Michael Porter, a Harvard business professor",
@@ -20,6 +21,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt1-q7",
+        concept: "management definition",
         question: "According to the lesson, what is management fundamentally about?",
         options: [
           "Telling people exactly what to do at all times",
@@ -32,6 +34,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt1-q8",
+        concept: "controlling function",
         question: "In the restaurant example, a manager reviews waste reports daily to keep food costs down. Which function is this?",
         options: [
           "Controlling - monitoring results and making corrections",
@@ -44,6 +47,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt1-q9",
+        concept: "management functions",
         question: "According to the lesson, at what scale do the four management functions apply?",
         options: [
           "Only at large Fortune 500 corporations with global reach",
@@ -56,6 +60,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt1-q10",
+        concept: "management definition",
         question: "The lesson says poor management is not always about bad people. What is it usually about instead?",
         options: [
           "A lack of funding and physical resources",
@@ -73,6 +78,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
     questions: [
       {
         id: "mgmt2-q6",
+        concept: "leadership styles",
         question: "According to the lesson, what does leadership style describe?",
         options: [
           "How much profit a leader is expected to generate each year",
@@ -85,6 +91,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt2-q7",
+        concept: "democratic leadership",
         question: "In the founders scenario, why did Jordan's democratic approach hurt the company?",
         options: [
           "The team disliked the culture and most employees quit",
@@ -97,6 +104,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt2-q8",
+        concept: "autocratic leadership",
         question: "Which leadership style does the lesson associate with tight control and clear expectations set by the leader?",
         options: [
           "Democratic leadership",
@@ -109,6 +117,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt2-q9",
+        concept: "autocratic leadership",
         question: "According to the lesson, what did Steve Jobs demonstrate during development of the first iPhone?",
         options: [
           "A laissez-faire style, giving engineers total freedom",
@@ -121,6 +130,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt2-q10",
+        concept: "democratic leadership",
         question: "The lesson says democratic leadership works well for creative problem-solving but has what drawback?",
         options: [
           "It removes all accountability from team members",
@@ -138,6 +148,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
     questions: [
       {
         id: "mgmt3-q6",
+        concept: "organizational structure",
         question: "According to the lesson, what does organizational structure define?",
         options: [
           "How tasks are divided, who reports to whom, and how information flows",
@@ -150,6 +161,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt3-q7",
+        concept: "flat vs tall structure",
         question: "Why does the lesson say Valve can operate with an almost completely flat structure and no formal managers?",
         options: [
           "Because it is a very small company with only a few employees",
@@ -162,6 +174,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt3-q8",
+        concept: "flat vs tall structure",
         question: "According to the lesson, why does McDonald's use a strict hierarchy?",
         options: [
           "Because its employees prefer many layers of management",
@@ -174,6 +187,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt3-q9",
+        concept: "flat vs tall structure",
         question: "In the scenario, what mistake did StructureFirst make with only 25 employees?",
         options: [
           "It stayed completely flat so no one had final say",
@@ -186,6 +200,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt3-q10",
+        concept: "flat vs tall structure",
         question: "According to the lesson, what is the biggest downside of too many layers in a hierarchical structure?",
         options: [
           "Roles become impossible to define clearly",
@@ -203,6 +218,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
     questions: [
       {
         id: "mgmt4-q6",
+        concept: "SWOT analysis",
         question: "According to the lesson, what does the acronym SWOT stand for?",
         options: [
           "Strategy, Workflow, Operations, and Timing",
@@ -215,6 +231,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt4-q7",
+        concept: "SWOT strategy pairing",
         question: "According to the lesson, where does the real power of a SWOT analysis come from?",
         options: [
           "Listing as many items as possible in each of the four boxes",
@@ -227,6 +244,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt4-q8",
+        concept: "strengths vs weaknesses",
         question: "In the Netflix example, why was having no streaming content library classified as a weakness?",
         options: [
           "It was an external market condition Netflix could capitalize on",
@@ -239,6 +257,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt4-q9",
+        concept: "opportunities vs threats",
         question: "In the Netflix example, what was classified as an opportunity?",
         options: [
           "Netflix's massive subscriber base",
@@ -251,6 +270,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt4-q10",
+        concept: "strengths vs weaknesses",
         question: "In the tutoring scenario, which item was listed as a weakness for the student?",
         options: [
           "A 4.0 GPA in STEM subjects",
@@ -268,6 +288,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
     questions: [
       {
         id: "mgmt5-q6",
+        concept: "Porter's five forces",
         question: "According to the lesson, who developed the Five Forces framework?",
         options: [
           "Henri Fayol, a French mining engineer",
@@ -280,6 +301,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt5-q7",
+        concept: "Porter's five forces",
         question: "According to the lesson, what happens to industry profits when all five forces are strong?",
         options: [
           "Profits become outsized because competition drives innovation",
@@ -292,6 +314,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt5-q8",
+        concept: "supplier power",
         question: "In the airline example, why is supplier power described as high?",
         options: [
           "Customers can compare prices instantly online",
@@ -304,6 +327,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt5-q9",
+        concept: "competitive rivalry",
         question: "According to the lesson, what does 'competitive rivalry' measure?",
         options: [
           "How easy it is for new competitors to enter the market",
@@ -316,6 +340,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt5-q10",
+        concept: "buyer power",
         question: "In Maya's coffee shop analysis, why is buyer power rated HIGH?",
         options: [
           "There are 12 coffee shops within 3 miles of the location",
@@ -333,6 +358,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
     questions: [
       {
         id: "mgmt6-q6",
+        concept: "KPI",
         question: "The lesson contrasts a metric with a KPI using revenue. Which statement matches the lesson?",
         options: [
           "Revenue is a KPI, but revenue growth compared to the industry is just a metric",
@@ -345,6 +371,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt6-q7",
+        concept: "leading vs lagging KPI",
         question: "According to the lesson, which of the following is given as an example of a lagging indicator?",
         options: [
           "Customer satisfaction scores",
@@ -357,6 +384,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt6-q8",
+        concept: "leading vs lagging KPI",
         question: "The lesson compares relying on only one type of indicator to what?",
         options: [
           "Building a house without a foundation",
@@ -369,6 +397,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt6-q9",
+        concept: "KPI",
         question: "According to the lesson, which three KPIs did Jeff Bezos focus on above all others at Amazon?",
         options: [
           "Employee count, office space, and marketing spend",
@@ -381,6 +410,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt6-q10",
+        concept: "leading vs lagging KPI",
         question: "In the ShopFast vs SteadyGoods scenario, what did both companies have in common at the start?",
         options: [
           "Both had a 72% customer retention rate",
@@ -398,6 +428,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
     questions: [
       {
         id: "mgmt7-q6",
+        concept: "bad hire cost",
         question: "According to the lesson, roughly how much does a bad hire cost for a 60,000 dollar position?",
         options: [
           "About 6,000 dollars",
@@ -410,6 +441,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt7-q7",
+        concept: "hiring process",
         question: "According to the lesson, what are the three critical phases of the hiring process?",
         options: [
           "Advertising, interviewing, and negotiating",
@@ -422,6 +454,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt7-q8",
+        concept: "bad hire cost",
         question: "In the Zappos example, why does the company offer new hires 2,000 dollars to quit after training?",
         options: [
           "To reduce headcount and cut the total salary budget",
@@ -434,6 +467,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt7-q9",
+        concept: "bad hire cost",
         question: "In the scenario, why did Kai's rushed marketing hire fail with three campaigns?",
         options: [
           "The hire demanded too high a salary",
@@ -446,6 +480,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt7-q10",
+        concept: "bad hire cost",
         question: "According to the lesson, what does the phrase 'hire slow, fire fast' mean?",
         options: [
           "Firing quickly is more important than hiring people carefully",
@@ -463,6 +498,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
     questions: [
       {
         id: "mgmt8-q6",
+        concept: "ethical dilemma",
         question: "According to the lesson, what is an ethical dilemma in business?",
         options: [
           "A situation where two departments disagree about a budget",
@@ -475,6 +511,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt8-q7",
+        concept: "Volkswagen scandal",
         question: "According to the lesson, how much did the Volkswagen emissions scandal cost the company?",
         options: [
           "Over 5 billion dollars",
@@ -487,6 +524,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt8-q8",
+        concept: "short-term vs long-term thinking",
         question: "According to the lesson, what does short-term thinking often lead businesses to do?",
         options: [
           "Invest heavily in employee training and long-term research",
@@ -499,6 +537,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt8-q9",
+        concept: "short-term vs long-term thinking",
         question: "In the scenario, why did QuickMeals decide to keep the questionable supplier?",
         options: [
           "The supplier offered organic ingredients at a discount",
@@ -511,6 +550,7 @@ export const topUpBusinessQuizzes: { lessonId: string; questions: QuizQuestion[]
       },
       {
         id: "mgmt8-q10",
+        concept: "ethical culture",
         question: "According to the lesson, what does an ethical culture describe?",
         options: [
           "An organization where doing the right thing is the default behavior",

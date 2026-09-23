@@ -48,7 +48,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio1-mc1",
-            concept: "Asset Allocation",
+            concept: "asset allocation",
             question: "What does 'asset allocation' mean?",
             options: [
               "Picking the single best-performing stock in the whole market",
@@ -61,7 +61,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio1-mc2",
-            concept: "Asset Allocation",
+            concept: "age-based allocation",
             question: "Why can a young investor usually hold more stocks than a retiree?",
             options: [
               "Young people get higher returns from the same stocks",
@@ -89,7 +89,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio1-aq1",
-          concept: "Asset Allocation",
+          concept: "time horizon",
           question: "How should Priya BEST allocate her two buckets?",
           options: [
             "Car money in stocks, long-term money in cash",
@@ -117,7 +117,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio1-mastery1",
-            concept: "Asset Allocation",
+            concept: "asset allocation",
             question: "Research suggests asset allocation matters more than…",
             options: [
               "Which specific stocks you pick",
@@ -131,7 +131,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio1-mastery2",
-            concept: "Asset Allocation",
+            concept: "asset classes",
             question: "Which category is the growth engine but swings the hardest?",
             options: [
               "Bonds, because they always pay a fixed interest",
@@ -145,7 +145,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio1-mastery3",
-            concept: "Asset Allocation",
+            concept: "age-based allocation",
             question: "Using '110 minus your age,' what stock percentage fits a 20-year-old?",
             options: [
               "About 20% in stocks",
@@ -159,7 +159,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio1-mastery4",
-            concept: "Asset Allocation",
+            concept: "time horizon",
             question: "Money you need for a purchase in one year belongs mostly in…",
             options: [
               "Aggressive growth stocks",
@@ -173,7 +173,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio1-mastery5",
-            concept: "Asset Allocation",
+            concept: "emotional trading",
             question: "Why does dumping bonds to go all-in after stocks soar usually backfire?",
             options: [
               "It counts as strictly illegal insider trading",
@@ -187,7 +187,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio1-mastery6",
-            concept: "Asset Allocation",
+            concept: "time horizon",
             question: "The BEST reason to hold different allocations for different goals is that…",
             options: [
               "Each goal has its own timeline and risk",
@@ -248,7 +248,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio2-mc1",
-            concept: "Risk Tolerance",
+            concept: "risk tolerance",
             question: "Risk tolerance is best described as…",
             options: [
               "The exact percentage return a single stock will earn",
@@ -261,7 +261,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio2-mc2",
-            concept: "Risk Tolerance",
+            concept: "emotional trading",
             question: "What most often turns a temporary loss into a permanent one?",
             options: [
               "Calmly holding through the entire long downturn",
@@ -289,7 +289,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio2-aq1",
-          concept: "Risk Tolerance",
+          concept: "risk tolerance",
           question: "What's the BEST lesson from Leo's situation?",
           options: [
             "He should immediately sell everything he owns to stop the pain",
@@ -317,7 +317,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio2-mastery1",
-            concept: "Risk Tolerance",
+            concept: "risk tolerance vs capacity",
             question: "The two parts of risk tolerance are ability and…",
             options: [
               "Willingness to take risk emotionally",
@@ -331,7 +331,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio2-mastery2",
-            concept: "Risk Tolerance",
+            concept: "risk tolerance vs capacity",
             question: "Which factor RAISES your ability to take investment risk?",
             options: [
               "A large emergency fund and stable job",
@@ -345,7 +345,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio2-mastery3",
-            concept: "Risk Tolerance",
+            concept: "risk tolerance",
             question: "Why is a 'perfect' 90% stock portfolio useless for a nervous investor?",
             options: [
               "Stocks are banned above 80% by law",
@@ -359,7 +359,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio2-mastery4",
-            concept: "Risk Tolerance",
+            concept: "inflation risk",
             question: "A hidden cost of being far too conservative is that…",
             options: [
               "Cash is taxed at a special high rate",
@@ -373,7 +373,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio2-mastery5",
-            concept: "Risk Tolerance",
+            concept: "risk tolerance",
             question: "Broker risk questionnaires are useful but imperfect mainly because…",
             options: [
               "They are always written entirely in a difficult foreign language",
@@ -387,7 +387,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio2-mastery6",
-            concept: "Risk Tolerance",
+            concept: "risk tolerance",
             question: "The honest test of your risk tolerance is asking…",
             options: [
               "Which single stock will rise the very most next calendar year",
@@ -448,7 +448,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio3-mc1",
-            concept: "Diversification",
+            concept: "diversification",
             question: "What risk does diversification eliminate?",
             options: [
               "Market risk - the whole market falling at once",
@@ -461,7 +461,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio3-mc2",
-            concept: "Diversification",
+            concept: "diversification",
             question: "What is the easiest way for a beginner to diversify instantly?",
             options: [
               "Buy one broad index fund holding many companies",
@@ -489,7 +489,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio3-aq1",
-          concept: "Diversification",
+          concept: "diversification",
           question: "Why wasn't Amara actually well diversified?",
           options: [
             "She simply owned far too few dollars overall",
@@ -517,7 +517,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio3-mastery1",
-            concept: "Diversification",
+            concept: "concentration risk",
             question: "Putting your whole $5,000 into one stock is risky mainly because…",
             options: [
               "That single company could fail and wipe you out",
@@ -531,7 +531,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio3-mastery2",
-            concept: "Diversification",
+            concept: "correlation",
             question: "Diversification smooths your ride because different investments…",
             options: [
               "Are all completely guaranteed to rise together",
@@ -545,7 +545,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio3-mastery3",
-            concept: "Diversification",
+            concept: "market risk",
             question: "Which risk can diversification NOT remove?",
             options: [
               "One single company's massive accounting fraud scandal",
@@ -559,7 +559,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio3-mastery4",
-            concept: "Diversification",
+            concept: "fund overlap",
             question: "Owning ten funds that all hold the same big U.S. stocks is an example of…",
             options: [
               "Perfect, completely ideal broad diversification",
@@ -573,7 +573,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio3-mastery5",
-            concept: "Diversification",
+            concept: "fixed income role",
             question: "To diversify beyond just many stocks, you should also add…",
             options: [
               "Many more shares of your single favorite stock",
@@ -587,7 +587,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio3-mastery6",
-            concept: "Diversification",
+            concept: "diversification",
             question: "An underrated benefit of diversification is that it…",
             options: [
               "Fully guarantees you beat the whole market every single year",
@@ -648,7 +648,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio4-mc1",
-            concept: "Dollar-Cost Averaging",
+            concept: "dollar-cost averaging",
             question: "What does dollar-cost averaging involve?",
             options: [
               "Buying only when prices hit a yearly low",
@@ -661,7 +661,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio4-mc2",
-            concept: "Dollar-Cost Averaging",
+            concept: "dollar-cost averaging",
             question: "With DCA, a scary price dip actually helps you because…",
             options: [
               "Your fixed dollars buy more shares while cheap",
@@ -689,7 +689,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio4-aq1",
-          concept: "Dollar-Cost Averaging",
+          concept: "dollar-cost averaging",
           question: "Why is DCA an especially good fit for Marcus?",
           options: [
             "It fully guarantees he'll beat every other investor out there",
@@ -717,7 +717,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio4-mastery1",
-            concept: "Dollar-Cost Averaging",
+            concept: "dollar-cost averaging",
             question: "Under DCA, when a fund's price falls, your fixed payment buys…",
             options: [
               "Fewer shares than usual",
@@ -731,7 +731,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio4-mastery2",
-            concept: "Dollar-Cost Averaging",
+            concept: "dollar-cost averaging",
             question: "You invest $100 at $10, then $100 at $5. Your average cost per share is…",
             options: [
               "$10.00, the higher price",
@@ -745,7 +745,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio4-mastery3",
-            concept: "Dollar-Cost Averaging",
+            concept: "dollar-cost averaging",
             question: "The single biggest benefit of DCA is that it…",
             options: [
               "Removes emotion and market-timing guesswork",
@@ -759,7 +759,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio4-mastery4",
-            concept: "Dollar-Cost Averaging",
+            concept: "lump sum vs DCA",
             question: "In a market that steadily rises, what usually beats DCA?",
             options: [
               "Investing a lump sum all at once",
@@ -773,7 +773,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio4-mastery5",
-            concept: "Dollar-Cost Averaging",
+            concept: "dollar-cost averaging",
             question: "DCA works best when the money is invested in…",
             options: [
               "A single struggling little company",
@@ -787,7 +787,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio4-mastery6",
-            concept: "Dollar-Cost Averaging",
+            concept: "dollar-cost averaging",
             question: "For someone earning a paycheck every two weeks, DCA is…",
             options: [
               "Completely impossible without a large upfront lump sum",
@@ -848,7 +848,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio5-mc1",
-            concept: "Rebalancing",
+            concept: "rebalancing",
             question: "What is the purpose of rebalancing?",
             options: [
               "To restore your portfolio to its target mix",
@@ -861,7 +861,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio5-mc2",
-            concept: "Rebalancing",
+            concept: "rebalancing",
             question: "Rebalancing forces you to do which uncomfortable-but-smart thing?",
             options: [
               "Always buy high and then sell low",
@@ -889,7 +889,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio5-aq1",
-          concept: "Rebalancing",
+          concept: "rebalancing",
           question: "What should Sam do to control his risk?",
           options: [
             "Buy even more stocks to ride the boom",
@@ -917,7 +917,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio5-mastery1",
-            concept: "Rebalancing",
+            concept: "portfolio drift",
             question: "Why does an unrebalanced portfolio drift toward more risk over time?",
             options: [
               "Bonds are legally required to shrink each year",
@@ -931,7 +931,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio5-mastery2",
-            concept: "Rebalancing",
+            concept: "rebalancing triggers",
             question: "Time-based rebalancing means you reset your mix…",
             options: [
               "On a fixed schedule, like once a year",
@@ -945,7 +945,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio5-mastery3",
-            concept: "Rebalancing",
+            concept: "rebalancing with new money",
             question: "A smart way to rebalance without triggering taxes is to…",
             options: [
               "Immediately sell off every single winning asset at once",
@@ -959,7 +959,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio5-mastery4",
-            concept: "Rebalancing",
+            concept: "rebalancing triggers",
             question: "Rebalancing too frequently in a taxable account tends to…",
             options: [
               "Add costs and taxes for little benefit",
@@ -973,7 +973,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio5-mastery5",
-            concept: "Rebalancing",
+            concept: "rebalancing triggers",
             question: "Threshold-based rebalancing is triggered when…",
             options: [
               "The yearly calendar finally reaches your next birthday again",
@@ -987,7 +987,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio5-mastery6",
-            concept: "Rebalancing",
+            concept: "rebalancing",
             question: "Feeling reluctant to sell your best performer during rebalancing means…",
             options: [
               "You should probably skip rebalancing this one time",
@@ -1048,7 +1048,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio6-mc1",
-            concept: "Index Investing",
+            concept: "index fund",
             question: "What do you actually own when you buy an S&P 500 index fund?",
             options: [
               "A tiny slice of all 500 companies in the index",
@@ -1061,7 +1061,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mc2",
-            concept: "Index Investing",
+            concept: "index fund",
             question: "What happens inside an index fund when the index adds or drops a company?",
             options: [
               "A manager votes on whether to allow the change",
@@ -1089,7 +1089,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio6-aq1",
-          concept: "Index Investing",
+          concept: "active vs passive investing",
           question: "Which choice best fits Elena's long-term, hands-off goal?",
           options: [
             "The managed fund, because its fee proves quality",
@@ -1117,7 +1117,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio6-mastery1",
-            concept: "Index Investing",
+            concept: "index investing",
             question: "The main appeal of an index fund is that it…",
             options: [
               "Fully guarantees you beat every single rival investor out there",
@@ -1131,7 +1131,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mastery2",
-            concept: "Index Investing",
+            concept: "index fund cost advantage",
             question: "Why can one index fund own the whole market yet charge almost nothing?",
             options: [
               "The government pays its costs for it",
@@ -1145,7 +1145,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mastery3",
-            concept: "Index Investing",
+            concept: "market-cap weighting",
             question: "A subtle catch of a cap-weighted 'total market' index fund is that…",
             options: [
               "The largest few firms can dominate your money",
@@ -1159,7 +1159,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mastery4",
-            concept: "Index Investing",
+            concept: "diversification",
             question: "If one company inside a broad index fund goes bankrupt, your fund…",
             options: [
               "Instantly loses absolutely everything you invested",
@@ -1173,7 +1173,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mastery5",
-            concept: "Index Investing",
+            concept: "index investing",
             question: "A real limit of index investing is that it…",
             options: [
               "Never falls, even in a market crash",
@@ -1187,7 +1187,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio6-mastery6",
-            concept: "Index Investing",
+            concept: "market risk",
             question: "Even a broad index fund still exposes you to which risk?",
             options: [
               "Falling when the whole market falls",
@@ -1248,7 +1248,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio7-mc1",
-            concept: "Active vs Passive",
+            concept: "active vs passive investing",
             question: "What is the core goal of PASSIVE investing?",
             options: [
               "To match the market by holding an index fund",
@@ -1261,7 +1261,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio7-mc2",
-            concept: "Active vs Passive",
+            concept: "active vs passive investing",
             question: "Why does active investing face a higher bar to win?",
             options: [
               "Active mutual funds are always taxed twice over by federal law",
@@ -1289,7 +1289,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio7-aq1",
-          concept: "Active vs Passive",
+          concept: "core and satellite",
           question: "What's the smartest structure for Dana?",
           options: [
             "Put all of the $2,000 straight into the current hot active fund",
@@ -1317,7 +1317,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio7-mastery1",
-            concept: "Active vs Passive",
+            concept: "active vs passive investing",
             question: "An active investor is best described as someone who…",
             options: [
               "Simply buys and holds the whole entire market cheaply",
@@ -1331,7 +1331,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio7-mastery2",
-            concept: "Active vs Passive",
+            concept: "active vs passive investing",
             question: "The biggest reason active funds lag over the long run is…",
             options: [
               "They are always legally required to lose money",
@@ -1345,7 +1345,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio7-mastery3",
-            concept: "Active vs Passive",
+            concept: "active vs passive investing",
             question: "What does the SPIVA-style data typically show over 15 years?",
             options: [
               "About 90% of active large-cap funds trail the index",
@@ -1359,7 +1359,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio7-mastery4",
-            concept: "Active vs Passive",
+            concept: "past performance",
             question: "Why is chasing last year's top fund manager risky?",
             options: [
               "Winners are forced to close their funds",
@@ -1373,7 +1373,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio7-mastery5",
-            concept: "Active vs Passive",
+            concept: "active vs passive investing",
             question: "In which situation might active investing have a better shot?",
             options: [
               "The very heavily-analyzed and crowded US large-cap market",
@@ -1387,7 +1387,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio7-mastery6",
-            concept: "Active vs Passive",
+            concept: "core and satellite",
             question: "A sensible teen structure blends the two by…",
             options: [
               "Putting absolutely everything that you own into hot active funds",
@@ -1448,7 +1448,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio8-mc1",
-            concept: "Performance Tracking",
+            concept: "total return",
             question: "What does 'total return' include beyond the price change?",
             options: [
               "Only the total fees you paid",
@@ -1461,7 +1461,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio8-mc2",
-            concept: "Performance Tracking",
+            concept: "benchmark comparison",
             question: "Why compare your return to a benchmark like the S&P 500?",
             options: [
               "It is always strictly required just to file your yearly taxes",
@@ -1489,7 +1489,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio8-aq1",
-          concept: "Performance Tracking",
+          concept: "benchmark comparison",
           question: "What is the most honest conclusion for Owen?",
           options: [
             "He's a truly great investor simply because that 9% is positive",
@@ -1517,7 +1517,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio8-mastery1",
-            concept: "Performance Tracking",
+            concept: "total return",
             question: "You invest $1,000, it's worth $1,120, and it paid $30 in dividends. Total return is…",
             options: [
               "12%, completely ignoring the dividends",
@@ -1531,7 +1531,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio8-mastery2",
-            concept: "Performance Tracking",
+            concept: "benchmark comparison",
             question: "Your portfolio fell 3% while the market fell 10%. Relative to the market, you…",
             options: [
               "Did much worse, because you clearly lost money",
@@ -1545,7 +1545,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio8-mastery3",
-            concept: "Performance Tracking",
+            concept: "fee drag",
             question: "A fund reports 9% but charges 1% in fees. Your real return is closer to…",
             options: [
               "10%, adding the fee back",
@@ -1559,7 +1559,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio8-mastery4",
-            concept: "Performance Tracking",
+            concept: "risk vs return",
             question: "Why isn't a friend's lucky 40% from one crypto coin proof of skill?",
             options: [
               "Crypto gains are always completely fake and made up numbers",
@@ -1573,7 +1573,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio8-mastery5",
-            concept: "Performance Tracking",
+            concept: "overtrading",
             question: "Studies of individual traders found the MOST active traders usually…",
             options: [
               "Earned the very highest net returns of everyone by far",
@@ -1587,7 +1587,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio8-mastery6",
-            concept: "Performance Tracking",
+            concept: "performance tracking",
             question: "Honest performance tracking should mainly help you…",
             options: [
               "Pick the start date that flatters you",
@@ -1648,7 +1648,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio9-mc1",
-            concept: "Risk Management",
+            concept: "risk management",
             question: "What is the main goal of risk management?",
             options: [
               "To completely eliminate every single kind of investment risk forever",
@@ -1661,7 +1661,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio9-mc2",
-            concept: "Risk Management",
+            concept: "emergency fund purpose",
             question: "Why keep an emergency fund in cash?",
             options: [
               "So you never sell investments at the worst time",
@@ -1689,7 +1689,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio9-aq1",
-          concept: "Risk Management",
+          concept: "risk management",
           question: "What should Ava do to manage risk?",
           options: [
             "Go completely all-in on the trade and then borrow even more money for far bigger gains",
@@ -1717,7 +1717,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio9-mastery1",
-            concept: "Risk Management",
+            concept: "position sizing",
             question: "Capping any single stock at about 5% of your portfolio is an example of…",
             options: [
               "Position sizing to limit one bet's damage",
@@ -1731,7 +1731,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio9-mastery2",
-            concept: "Risk Management",
+            concept: "concentration risk",
             question: "Enron employees were wiped out mainly because they…",
             options: [
               "Held far too many different broad index funds",
@@ -1745,7 +1745,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio9-mastery3",
-            concept: "Risk Management",
+            concept: "inflation risk",
             question: "Why is keeping everything in cash also a form of risk?",
             options: [
               "Cash is very frequently stolen right out of banks",
@@ -1759,7 +1759,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio9-mastery4",
-            concept: "Risk Management",
+            concept: "leverage",
             question: "Buying investments with borrowed money (margin) is risky because it…",
             options: [
               "Completely removes every bit of downside from any trade",
@@ -1773,7 +1773,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio9-mastery5",
-            concept: "Risk Management",
+            concept: "fixed income role",
             question: "Which protects best against a broad market crash, not just one company?",
             options: [
               "Owning many stocks in a single industry",
@@ -1787,7 +1787,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio9-mastery6",
-            concept: "Risk Management",
+            concept: "emotional trading",
             question: "The biggest risk to many investors' results is often…",
             options: [
               "Their own panic-selling at the bottom",
@@ -1848,7 +1848,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio10-mc1",
-            concept: "Wealth Building",
+            concept: "starting early",
             question: "What makes a teen investor's position so powerful?",
             options: [
               "They have the most money to invest",
@@ -1861,7 +1861,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio10-mc2",
-            concept: "Wealth Building",
+            concept: "compound interest on debt",
             question: "Why pay off a 20% credit card before investing more?",
             options: [
               "Credit cards are always illegal to carry any balance on",
@@ -1889,7 +1889,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "portfolio10-aq1",
-          concept: "Wealth Building",
+          concept: "starting early",
           question: "What best explains why Nate is likely to end far ahead?",
           options: [
             "He simply invests a much larger amount every month",
@@ -1917,7 +1917,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "portfolio10-mastery1",
-            concept: "Wealth Building",
+            concept: "compound interest",
             question: "Compounding is best described as…",
             options: [
               "Your gains going on to earn their own gains",
@@ -1931,7 +1931,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio10-mastery2",
-            concept: "Wealth Building",
+            concept: "starting early",
             question: "Why can a friend who invests early but briefly beat one who starts later but longer?",
             options: [
               "Early money compounds for far more years",
@@ -1945,7 +1945,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio10-mastery3",
-            concept: "Wealth Building",
+            concept: "net worth",
             question: "Net worth is defined as…",
             options: [
               "Your total combined yearly household income",
@@ -1959,7 +1959,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio10-mastery4",
-            concept: "Wealth Building",
+            concept: "lifestyle inflation",
             question: "What is 'lifestyle creep' and why does it hurt wealth?",
             options: [
               "A special income tax rate that steadily rises higher with your age",
@@ -1973,7 +1973,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio10-mastery5",
-            concept: "Wealth Building",
+            concept: "automated saving",
             question: "Automating a set monthly investment mainly helps because it…",
             options: [
               "Perfectly predicts every market top and every bottom in advance",
@@ -1987,7 +1987,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "portfolio10-mastery6",
-            concept: "Wealth Building",
+            concept: "Roth IRA",
             question: "The main advantage of a Roth IRA for long-term wealth is that it…",
             options: [
               "Automatically doubles every contribution that you make",
@@ -2048,7 +2048,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds1-mc1",
-            concept: "What Is an ETF",
+            concept: "ETF",
             question: "What best describes an ETF?",
             options: [
               "A short-term loan you personally make to just one company",
@@ -2061,7 +2061,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds1-mc2",
-            concept: "What Is an ETF",
+            concept: "index fund cost advantage",
             question: "Why are most ETFs so cheap to own?",
             options: [
               "The federal government directly subsidizes all of their fees",
@@ -2089,7 +2089,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds1-aq1",
-          concept: "What Is an ETF",
+          concept: "core holding",
           question: "What's the best fit for Nina's goal?",
           options: [
             "Two single stocks she read about online",
@@ -2117,7 +2117,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds1-mastery1",
-            concept: "What Is an ETF",
+            concept: "ETF",
             question: "The 'exchange-traded' part of ETF means you can…",
             options: [
               "Only ever sell it just once at the end of the year",
@@ -2131,7 +2131,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds1-mastery2",
-            concept: "What Is an ETF",
+            concept: "diversification",
             question: "If one company inside a 500-stock ETF drops 50%, your ETF…",
             options: [
               "Also immediately drops by about a full 50% overnight",
@@ -2145,7 +2145,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds1-mastery3",
-            concept: "What Is an ETF",
+            concept: "core holding",
             question: "Which ETF suits a beginner best?",
             options: [
               "A narrow one tracking a single trendy sector",
@@ -2159,7 +2159,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds1-mastery4",
-            concept: "What Is an ETF",
+            concept: "fractional shares",
             question: "A fractional share lets a teen with $20…",
             options: [
               "Buy a piece of a $400 ETF",
@@ -2173,7 +2173,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds1-mastery5",
-            concept: "What Is an ETF",
+            concept: "liquidity",
             question: "Why stick to popular, high-volume ETFs?",
             options: [
               "They are the only truly legal ones you can buy",
@@ -2187,7 +2187,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds1-mastery6",
-            concept: "What Is an ETF",
+            concept: "emotional trading",
             question: "A downside of ETFs trading instantly all day is that it can…",
             options: [
               "Force the fund to close early",
@@ -2248,7 +2248,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds2-mc1",
-            concept: "Mutual Funds",
+            concept: "NAV",
             question: "How is a mutual fund priced?",
             options: [
               "Live every single second all day long like a stock",
@@ -2261,7 +2261,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds2-mc2",
-            concept: "Mutual Funds",
+            concept: "load fees",
             question: "What is a 'load' on a mutual fund?",
             options: [
               "A special bonus the whole fund pays out to you",
@@ -2289,7 +2289,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds2-aq1",
-          concept: "Mutual Funds",
+          concept: "load fees",
           question: "Which fund should Theo choose for his long-term core?",
           options: [
             "The active fund, since higher fees signal quality",
@@ -2317,7 +2317,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds2-mastery1",
-            concept: "Mutual Funds",
+            concept: "mutual fund",
             question: "The core idea of a mutual fund is that it…",
             options: [
               "Lends all of your money to one big company",
@@ -2331,7 +2331,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds2-mastery2",
-            concept: "Mutual Funds",
+            concept: "NAV",
             question: "NAV, the price at which mutual funds trade, is…",
             options: [
               "A live streaming market price that gets updated every single second",
@@ -2345,7 +2345,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds2-mastery3",
-            concept: "Mutual Funds",
+            concept: "load fees",
             question: "A 5% front load on a $10,000 investment means…",
             options: [
               "You earn an extra bonus $500 somehow",
@@ -2359,7 +2359,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds2-mastery4",
-            concept: "Mutual Funds",
+            concept: "mutual fund",
             question: "Why do mutual funds fit workplace retirement plans well?",
             options: [
               "They allow automatic monthly investing hands-free",
@@ -2373,7 +2373,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds2-mastery5",
-            concept: "Mutual Funds",
+            concept: "fee drag",
             question: "Between a 0.04% index fund and a 1% active fund with a 5% load, the cheaper one usually…",
             options: [
               "Ends with far more money over decades",
@@ -2387,7 +2387,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds2-mastery6",
-            concept: "Mutual Funds",
+            concept: "active vs passive investing",
             question: "The mutual fund 'container' matters less than…",
             options: [
               "Whether it's a cheap index or a pricey active fund",
@@ -2448,7 +2448,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds3-mc1",
-            concept: "Expense Ratios",
+            concept: "expense ratio",
             question: "What is an expense ratio?",
             options: [
               "A one-time commission to open an account in every case",
@@ -2461,7 +2461,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds3-mc2",
-            concept: "Expense Ratios",
+            concept: "expense ratio",
             question: "On $3,000 invested, a 0.30% expense ratio costs about…",
             options: [
               "$90 a year",
@@ -2489,7 +2489,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds3-aq1",
-          concept: "Expense Ratios",
+          concept: "expense ratio",
           question: "Which fund should Devon choose for his long-term core?",
           options: [
               "Fund B, since a higher fee means better management",
@@ -2517,7 +2517,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds3-mastery1",
-            concept: "Expense Ratios",
+            concept: "expense ratio",
             question: "An expense ratio is best described as…",
             options: [
               "A one-time fee to buy a fund in every case",
@@ -2531,7 +2531,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds3-mastery2",
-            concept: "Expense Ratios",
+            concept: "expense ratio",
             question: "On $10,000, a 0.50% expense ratio costs about…",
             options: [
               "$5 a year",
@@ -2545,7 +2545,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds3-mastery3",
-            concept: "Expense Ratios",
+            concept: "fee drag",
             question: "Why does a small yearly fee hurt so much over time?",
             options: [
               "It is charged twice each month in every case",
@@ -2559,7 +2559,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds3-mastery4",
-            concept: "Expense Ratios",
+            concept: "expense ratio",
             question: "Between two S&P 500 index funds with identical holdings, pick the one with…",
             options: [
               "The higher expense ratio",
@@ -2573,7 +2573,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds3-mastery5",
-            concept: "Expense Ratios",
+            concept: "expense ratio",
             question: "A higher expense ratio usually signals…",
             options: [
               "Guaranteed better returns in every case",
@@ -2587,7 +2587,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds3-mastery6",
-            concept: "Expense Ratios",
+            concept: "index fund cost advantage",
             question: "Index funds tend to have low expense ratios because…",
             options: [
               "They pay many analysts to trade often",
@@ -2648,7 +2648,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds4-mc1",
-            concept: "Index Funds",
+            concept: "index fund",
             question: "What does an index fund try to do?",
             options: [
               "Beat the market with clever stock picks in every case",
@@ -2661,7 +2661,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds4-mc2",
-            concept: "Index Funds",
+            concept: "market risk",
             question: "If the whole market drops 30%, a total-market index fund will roughly…",
             options: [
               "Stay flat because it is diversified in every case",
@@ -2689,7 +2689,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds4-aq1",
-          concept: "Index Funds",
+          concept: "core holding",
           question: "Which choice best fits Aisha's long-term core?",
           options: [
               "The single trendy tech stock her friend hyped",
@@ -2717,7 +2717,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds4-mastery1",
-            concept: "Index Funds",
+            concept: "index fund",
             question: "The core goal of an index fund is to…",
             options: [
               "Beat the market with expert picks in every case",
@@ -2731,7 +2731,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds4-mastery2",
-            concept: "Index Funds",
+            concept: "index fund cost advantage",
             question: "Index funds tend to be very cheap because…",
             options: [
               "They pay top analysts to trade daily",
@@ -2745,7 +2745,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds4-mastery3",
-            concept: "Index Funds",
+            concept: "tracking error",
             question: "'Tracking error' refers to…",
             options: [
               "A tax charged on index funds in every case",
@@ -2759,7 +2759,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds4-mastery4",
-            concept: "Index Funds",
+            concept: "active vs passive investing",
             question: "Over long periods, a cheap index fund usually…",
             options: [
               "Loses to most active managers in every case",
@@ -2773,7 +2773,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds4-mastery5",
-            concept: "Index Funds",
+            concept: "market risk",
             question: "A limit of index funds is that they…",
             options: [
               "Fully protect you from market crashes in every case",
@@ -2787,7 +2787,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds4-mastery6",
-            concept: "Index Funds",
+            concept: "core holding",
             question: "For a beginner's long-term core, a good default is…",
             options: [
               "A single trendy stock a friend hyped in every case",
@@ -2861,7 +2861,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds5-mc2",
-            concept: "S&P 500",
+            concept: "market-cap weighting",
             question: "'Market-cap weighted' means the S&P 500…",
             options: [
               "Gives every company an equal slice",
@@ -2889,7 +2889,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds5-aq1",
-          concept: "S&P 500",
+          concept: "S&P 500 coverage",
           question: "What's a reasonable way for Marcus to use the S&P 500 fund?",
           options: [
               "Avoid it entirely because it can drop in bad years in every case",
@@ -2931,7 +2931,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds5-mastery2",
-            concept: "S&P 500",
+            concept: "market-cap weighting",
             question: "In a market-cap-weighted index, the biggest companies…",
             options: [
               "Get an equal slice like everyone in every case",
@@ -2945,7 +2945,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds5-mastery3",
-            concept: "S&P 500",
+            concept: "historical stock returns",
             question: "The S&P 500's long-run average return has been roughly…",
             options: [
               "About 2% a year",
@@ -2959,7 +2959,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds5-mastery4",
-            concept: "S&P 500",
+            concept: "S&P 500 coverage",
             question: "A blind spot of the S&P 500 is that it excludes…",
             options: [
               "All large US technology firms in every case",
@@ -2973,7 +2973,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds5-mastery5",
-            concept: "S&P 500",
+            concept: "market risk",
             question: "Because the S&P 500 holds only stocks, it…",
             options: [
               "Can never lose value in every case for all investors",
@@ -2987,7 +2987,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds5-mastery6",
-            concept: "S&P 500",
+            concept: "core holding",
             question: "Why is an S&P 500 fund a popular core holding?",
             options: [
               "It guarantees you beat the market in every case",
@@ -3048,7 +3048,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds6-mc1",
-            concept: "Sector ETFs",
+            concept: "sector ETF",
             question: "What does a sector ETF hold?",
             options: [
               "One single company's stock in every case",
@@ -3061,7 +3061,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds6-mc2",
-            concept: "Sector ETFs",
+            concept: "sector ETF",
             question: "Why is a sector ETF riskier than a total-market fund?",
             options: [
               "It holds only one stock, so it can't diversify in every case",
@@ -3089,7 +3089,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds6-aq1",
-          concept: "Sector ETFs",
+          concept: "core and satellite",
           question: "What's the wiser move for Lena?",
           options: [
               "Move all $2,000 into the clean-energy ETF to ride the boom",
@@ -3117,7 +3117,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds6-mastery1",
-            concept: "Sector ETFs",
+            concept: "sector ETF",
             question: "A sector ETF is a fund that holds…",
             options: [
               "A single company's shares in every case",
@@ -3131,7 +3131,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds6-mastery2",
-            concept: "Sector ETFs",
+            concept: "sector ETF",
             question: "Compared with a total-market fund, a sector ETF is usually…",
             options: [
               "Less volatile and safer",
@@ -3145,7 +3145,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds6-mastery3",
-            concept: "Sector ETFs",
+            concept: "core and satellite",
             question: "A sensible way to use a sector ETF is…",
             options: [
               "As your entire portfolio in every case for all investors",
@@ -3159,7 +3159,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds6-mastery4",
-            concept: "Sector ETFs",
+            concept: "priced in",
             question: "Chasing last year's hottest sector is risky because…",
             options: [
               "Hot sectors are illegal to buy in every case",
@@ -3173,7 +3173,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds6-mastery5",
-            concept: "Sector ETFs",
+            concept: "diversification",
             question: "A broad market fund handles sectors by…",
             options: [
               "Ignoring every sector entirely in every case",
@@ -3187,7 +3187,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds6-mastery6",
-            concept: "Sector ETFs",
+            concept: "concentration risk",
             question: "Someone who works in tech might tilt away from a tech ETF to…",
             options: [
               "Guarantee a bigger return in every case",
@@ -3248,7 +3248,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds7-mc1",
-            concept: "Bond ETFs",
+            concept: "bond ETF",
             question: "What does a bond ETF hold?",
             options: [
               "A single company's stock in every case for all investors",
@@ -3261,7 +3261,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds7-mc2",
-            concept: "Bond ETFs",
+            concept: "interest rate risk",
             question: "When interest rates rise, existing bond ETF prices usually…",
             options: [
               "Rise along with the rates",
@@ -3289,7 +3289,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds7-aq1",
-          concept: "Bond ETFs",
+          concept: "bond duration",
           question: "Which bond ETF better fits Nadia's goal of a smoother ride?",
           options: [
               "The long-term ETF, since it swings the most",
@@ -3317,7 +3317,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds7-mastery1",
-            concept: "Bond ETFs",
+            concept: "bond ETF",
             question: "A bond ETF is best described as…",
             options: [
               "A single loan to one company",
@@ -3331,7 +3331,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds7-mastery2",
-            concept: "Bond ETFs",
+            concept: "bond ETF",
             question: "Bond ETFs typically pay investors through…",
             options: [
               "A one-time lump sum at the end",
@@ -3345,7 +3345,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds7-mastery3",
-            concept: "Bond ETFs",
+            concept: "bond fund vs bond",
             question: "Unlike a single bond, a bond ETF…",
             options: [
               "Ends on one fixed maturity date in every case for all investors",
@@ -3359,7 +3359,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds7-mastery4",
-            concept: "Bond ETFs",
+            concept: "bond duration",
             question: "If interest rates jump sharply, a long-term bond ETF will likely…",
             options: [
               "Gain the most of any bond fund",
@@ -3373,7 +3373,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds7-mastery5",
-            concept: "Bond ETFs",
+            concept: "fixed income role",
             question: "Why do many investors pair a bond ETF with stock funds?",
             options: [
               "Bonds guarantee they never lose money in every case",
@@ -3387,7 +3387,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds7-mastery6",
-            concept: "Bond ETFs",
+            concept: "interest rate risk",
             question: "A 'safe' Treasury bond ETF can still lose value because…",
             options: [
               "The government refuses to pay it in every case",
@@ -3448,7 +3448,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds8-mc1",
-            concept: "Target-Date Funds",
+            concept: "target-date fund",
             question: "What is a target-date fund?",
             options: [
               "A single stock that pays high dividends in every case for all investors",
@@ -3461,7 +3461,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds8-mc2",
-            concept: "Target-Date Funds",
+            concept: "glide path",
             question: "What is a 'glide path'?",
             options: [
               "A fee charged when you sell the fund in every case",
@@ -3489,7 +3489,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds8-aq1",
-          concept: "Target-Date Funds",
+          concept: "target-date fund",
           question: "Which fund best fits Omar's hands-off, long-term plan?",
           options: [
               "The 0.60% fund, since a higher fee means better results",
@@ -3517,7 +3517,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds8-mastery1",
-            concept: "Target-Date Funds",
+            concept: "target-date fund",
             question: "The main appeal of a target-date fund is that it…",
             options: [
               "Guarantees you never lose money in every case",
@@ -3531,7 +3531,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds8-mastery2",
-            concept: "Target-Date Funds",
+            concept: "glide path",
             question: "As the target date approaches, the fund typically…",
             options: [
               "Shifts from bonds into more stocks",
@@ -3545,7 +3545,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds8-mastery3",
-            concept: "Target-Date Funds",
+            concept: "expense ratio",
             question: "Why should you check a target-date fund's expense ratio?",
             options: [
               "Fees are refunded at retirement in every case for all investors over the long run",
@@ -3559,7 +3559,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds8-mastery4",
-            concept: "Target-Date Funds",
+            concept: "target-date fund",
             question: "Two funds both labeled '2060' will…",
             options: [
               "Always hold the exact same mix in every case",
@@ -3573,7 +3573,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds8-mastery5",
-            concept: "Target-Date Funds",
+            concept: "target-date fund",
             question: "You should pick the target year based on…",
             options: [
               "Your favorite number in every case",
@@ -3587,7 +3587,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds8-mastery6",
-            concept: "Target-Date Funds",
+            concept: "market risk",
             question: "A target-date fund is diversified, but it can still…",
             options: [
               "Never fall in value at all in every case",
@@ -3648,7 +3648,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds9-mc1",
-            concept: "Fund Comparison",
+            concept: "fund comparison",
             question: "Which factor should you check first when comparing similar funds?",
             options: [
               "The fund's clever marketing name in every case",
@@ -3661,7 +3661,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds9-mc2",
-            concept: "Fund Comparison",
+            concept: "past performance",
             question: "Why is past performance an unreliable way to pick a fund?",
             options: [
               "It is always faked by fund companies",
@@ -3689,7 +3689,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds9-aq1",
-          concept: "Fund Comparison",
+          concept: "fund comparison",
           question: "Which fund should Priya choose for her long-term core?",
           options: [
               "Fund Y, because it returned more last year",
@@ -3717,7 +3717,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds9-mastery1",
-            concept: "Fund Comparison",
+            concept: "fund comparison",
             question: "The most reliable first number to compare on similar funds is…",
             options: [
               "Its marketing slogan",
@@ -3731,7 +3731,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds9-mastery2",
-            concept: "Fund Comparison",
+            concept: "past performance",
             question: "Past performance is a weak predictor because…",
             options: [
               "It is always exaggerated by law in every case",
@@ -3745,7 +3745,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds9-mastery3",
-            concept: "Fund Comparison",
+            concept: "fund comparison",
             question: "To compare fairly, you should line up funds that…",
             options: [
               "Do completely different jobs in every case for all investors",
@@ -3759,7 +3759,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds9-mastery4",
-            concept: "Fund Comparison",
+            concept: "load fees",
             question: "A 'load' on a fund is…",
             options: [
               "A bonus the fund pays you in every case",
@@ -3773,7 +3773,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds9-mastery5",
-            concept: "Fund Comparison",
+            concept: "minimum investment",
             question: "For a teen with $100, a fund's minimum investment matters because…",
             options: [
               "High minimums guarantee better returns in every case",
@@ -3787,7 +3787,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds9-mastery6",
-            concept: "Fund Comparison",
+            concept: "core holding",
             question: "For most long-term investors, the comparison usually ends with…",
             options: [
               "A pricey active fund with a slick app",
@@ -3848,7 +3848,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds10-mc1",
-            concept: "When to Use Funds",
+            concept: "time horizon",
             question: "Money you'll need within a year is best kept in…",
             options: [
               "A volatile single tech stock in every case",
@@ -3861,7 +3861,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds10-mc2",
-            concept: "When to Use Funds",
+            concept: "dollar-cost averaging",
             question: "What is 'dollar-cost averaging'?",
             options: [
               "Buying only when the market bottoms in every case",
@@ -3889,7 +3889,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "funds10-aq1",
-          concept: "When to Use Funds",
+          concept: "time horizon",
           question: "What's the best plan for Zoe's two goals?",
           options: [
               "Put both goals in the same stock fund and wait to time it",
@@ -3917,7 +3917,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "funds10-mastery1",
-            concept: "When to Use Funds",
+            concept: "when to use funds",
             question: "The first thing to decide when picking a fund is…",
             options: [
               "Which fund has the coolest name",
@@ -3931,7 +3931,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds10-mastery2",
-            concept: "When to Use Funds",
+            concept: "time horizon",
             question: "Money needed within a year or two belongs in…",
             options: [
               "A broad stock index fund",
@@ -3945,7 +3945,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds10-mastery3",
-            concept: "When to Use Funds",
+            concept: "core holding",
             question: "For retirement decades away, the workhorse fund is usually…",
             options: [
               "A short-term bond fund in every case",
@@ -3959,7 +3959,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds10-mastery4",
-            concept: "When to Use Funds",
+            concept: "fund overlap",
             question: "How many funds do you usually need to be diversified?",
             options: [
               "At least twenty different funds",
@@ -3973,7 +3973,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds10-mastery5",
-            concept: "When to Use Funds",
+            concept: "dollar-cost averaging",
             question: "Dollar-cost averaging helps because it…",
             options: [
               "Guarantees you buy at the exact bottom in every case",
@@ -3987,7 +3987,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "funds10-mastery6",
-            concept: "When to Use Funds",
+            concept: "past performance",
             question: "A common trap when choosing funds is…",
             options: [
               "Holding a cheap broad fund for years",
@@ -4048,7 +4048,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds1-mc1",
-            concept: "What Is a Bond",
+            concept: "bond as loan",
             question: "When you buy a bond, you are…",
             options: [
               "Becoming a part-owner of the company",
@@ -4061,7 +4061,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds1-mc2",
-            concept: "What Is a Bond",
+            concept: "bond coupon",
             question: "The 'coupon' on a bond is…",
             options: [
               "A discount when you buy it",
@@ -4089,7 +4089,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds1-aq1",
-          concept: "What Is a Bond",
+          concept: "bond credit spread",
           question: "Why does the struggling company's bond pay 9% while the Treasury pays 4%?",
           options: [
               "The company is safer than the government",
@@ -4117,7 +4117,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds1-mastery1",
-            concept: "What Is a Bond",
+            concept: "bond as loan",
             question: "Buying a bond makes you the…",
             options: [
               "Owner of the company",
@@ -4131,7 +4131,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds1-mastery2",
-            concept: "What Is a Bond",
+            concept: "bond face value",
             question: "The 'face value' of a bond is…",
             options: [
               "The yearly interest it pays",
@@ -4145,7 +4145,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds1-mastery3",
-            concept: "What Is a Bond",
+            concept: "bond coupon",
             question: "A $1,000 bond with a 5% coupon pays about…",
             options: [
               "$5 a year",
@@ -4159,7 +4159,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds1-mastery4",
-            concept: "What Is a Bond",
+            concept: "bond as loan",
             question: "Why are bonds called 'fixed income'?",
             options: [
               "Their price never changes in every case for all investors",
@@ -4173,7 +4173,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds1-mastery5",
-            concept: "What Is a Bond",
+            concept: "default risk",
             question: "The main risk of owning a bond is that the borrower…",
             options: [
               "Pays you too much interest in every case",
@@ -4187,7 +4187,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds1-mastery6",
-            concept: "What Is a Bond",
+            concept: "bond credit spread",
             question: "Compared with a Treasury, a shaky company's bond usually offers…",
             options: [
               "A lower coupon for less risk in every case",
@@ -4248,7 +4248,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds2-mc1",
-            concept: "Gov vs Corporate",
+            concept: "Treasury bond",
             question: "Why are US Treasury bonds considered so safe?",
             options: [
               "They pay the highest coupons available in every case",
@@ -4261,7 +4261,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds2-mc2",
-            concept: "Gov vs Corporate",
+            concept: "government vs corporate bond",
             question: "Compared with Treasuries, corporate bonds generally…",
             options: [
               "Pay less because they're safer in every case",
@@ -4289,7 +4289,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds2-aq1",
-          concept: "Gov vs Corporate",
+          concept: "fixed income role",
           question: "Which fund fits Elena's goal of a crash cushion?",
           options: [
               "The junk bond fund, since 8% is the biggest yield",
@@ -4317,7 +4317,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds2-mastery1",
-            concept: "Gov vs Corporate",
+            concept: "government vs corporate bond",
             question: "A corporate bond is a loan to…",
             options: [
               "A national government",
@@ -4331,7 +4331,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds2-mastery2",
-            concept: "Gov vs Corporate",
+            concept: "Treasury bond",
             question: "US Treasuries pay relatively low coupons because…",
             options: [
               "The government dislikes lenders in every case",
@@ -4345,7 +4345,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds2-mastery3",
-            concept: "Gov vs Corporate",
+            concept: "investment grade vs junk",
             question: "'Junk' (high-yield) bonds are best described as…",
             options: [
               "Ultra-safe government debt in every case",
@@ -4359,7 +4359,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds2-mastery4",
-            concept: "Gov vs Corporate",
+            concept: "fixed income role",
             question: "In a stock market crash, high-quality government bonds often…",
             options: [
               "Fall harder than stocks in every case",
@@ -4373,7 +4373,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds2-mastery5",
-            concept: "Gov vs Corporate",
+            concept: "municipal bond",
             question: "A special feature of many municipal bonds is that their interest is…",
             options: [
               "Guaranteed to double",
@@ -4387,7 +4387,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds2-mastery6",
-            concept: "Gov vs Corporate",
+            concept: "government vs corporate bond",
             question: "For money you'll need soon and want kept safe, the better pick is…",
             options: [
               "A high-yield junk bond fund",
@@ -4448,7 +4448,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds3-mc1",
-            concept: "Yield",
+            concept: "bond yield",
             question: "How is 'current yield' calculated?",
             options: [
               "Face value divided by the coupon in every case",
@@ -4461,7 +4461,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds3-mc2",
-            concept: "Yield",
+            concept: "price-yield relationship",
             question: "When a bond's price falls, its yield…",
             options: [
               "Falls along with the price in every case for all investors",
@@ -4489,7 +4489,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds3-aq1",
-          concept: "Yield",
+          concept: "bond credit spread",
           question: "What should Tariq conclude about Bond B's 12% yield?",
           options: [
               "It's a guaranteed jackpot he should grab in every case",
@@ -4517,7 +4517,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds3-mastery1",
-            concept: "Yield",
+            concept: "bond yield",
             question: "The difference between coupon and yield is that the coupon is…",
             options: [
               "Your return at today's price in every case",
@@ -4531,7 +4531,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds3-mastery2",
-            concept: "Yield",
+            concept: "bond yield",
             question: "A $50 coupon on a bond bought for $1,000 gives a current yield of…",
             options: [
               "0.5%",
@@ -4545,7 +4545,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds3-mastery3",
-            concept: "Yield",
+            concept: "price-yield relationship",
             question: "If you buy a bond below its face value, its current yield is…",
             options: [
               "Lower than the coupon rate",
@@ -4559,7 +4559,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds3-mastery4",
-            concept: "Yield",
+            concept: "price-yield relationship",
             question: "Price and yield on a bond move…",
             options: [
               "In the same direction",
@@ -4573,7 +4573,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds3-mastery5",
-            concept: "Yield",
+            concept: "yield to maturity",
             question: "Yield to maturity is more complete than current yield because it also includes…",
             options: [
               "The broker's commission in every case for all investors",
@@ -4587,7 +4587,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds3-mastery6",
-            concept: "Yield",
+            concept: "bond credit spread",
             question: "A yield far higher than similar bonds often signals…",
             options: [
               "A guaranteed bargain to grab fast in every case",
@@ -4648,7 +4648,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds4-mc1",
-            concept: "Ratings",
+            concept: "bond ratings",
             question: "What does a bond rating measure?",
             options: [
               "How fast the bond can be traded in every case",
@@ -4661,7 +4661,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds4-mc2",
-            concept: "Ratings",
+            concept: "investment grade vs junk",
             question: "Bonds rated below the investment-grade line are called…",
             options: [
               "Prime-grade bonds in every case",
@@ -4689,7 +4689,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds4-aq1",
-          concept: "Ratings",
+          concept: "bond ratings",
           question: "What does the downgrade from BBB to BB most likely mean for Grace's bond?",
           options: [
               "It's now safer and will rise in price in every case",
@@ -4717,7 +4717,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds4-mastery1",
-            concept: "Ratings",
+            concept: "bond ratings",
             question: "A bond rating primarily tells you about a borrower's…",
             options: [
               "Stock price target in every case",
@@ -4731,7 +4731,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds4-mastery2",
-            concept: "Ratings",
+            concept: "bond ratings",
             question: "The safest bonds carry a rating around…",
             options: [
               "C or D",
@@ -4745,7 +4745,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds4-mastery3",
-            concept: "Ratings",
+            concept: "investment grade vs junk",
             question: "'Investment grade' bonds are those rated…",
             options: [
               "Below BB only in every case",
@@ -4759,7 +4759,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds4-mastery4",
-            concept: "Ratings",
+            concept: "bond credit spread",
             question: "A lower-rated bond must offer a higher coupon because…",
             options: [
               "The government requires it in every case",
@@ -4773,7 +4773,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds4-mastery5",
-            concept: "Ratings",
+            concept: "bond ratings",
             question: "The 2008 crisis showed that top ratings…",
             options: [
               "Are legally binding guarantees in every case for all investors",
@@ -4787,7 +4787,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds4-mastery6",
-            concept: "Ratings",
+            concept: "bond ratings",
             question: "When a bond is downgraded, its price usually…",
             options: [
               "Rises as it becomes safer in every case",
@@ -4848,7 +4848,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds5-mc1",
-            concept: "Inflation Risk",
+            concept: "inflation risk",
             question: "What is 'inflation risk' for a bond?",
             options: [
               "The chance the borrower defaults in every case",
@@ -4861,7 +4861,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds5-mc2",
-            concept: "Inflation Risk",
+            concept: "real vs nominal return",
             question: "If a bond pays 4% and inflation is 3%, your real return is about…",
             options: [
               "7%",
@@ -4889,7 +4889,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds5-aq1",
-          concept: "Inflation Risk",
+          concept: "TIPS",
           question: "Which choice better protects Noah from inflation risk?",
           options: [
               "The 30-year fixed 3% bond, locked in for decades",
@@ -4917,7 +4917,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds5-mastery1",
-            concept: "Inflation Risk",
+            concept: "inflation risk",
             question: "Inflation risk mainly threatens a bond by…",
             options: [
               "Making the borrower default in every case",
@@ -4931,7 +4931,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds5-mastery2",
-            concept: "Inflation Risk",
+            concept: "real vs nominal return",
             question: "'Real return' is the nominal rate…",
             options: [
               "Multiplied by inflation",
@@ -4945,7 +4945,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds5-mastery3",
-            concept: "Inflation Risk",
+            concept: "real vs nominal return",
             question: "If a bond pays 4% while inflation runs at 5%, your real return is…",
             options: [
               "A healthy 9% in every case",
@@ -4959,7 +4959,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds5-mastery4",
-            concept: "Inflation Risk",
+            concept: "inflation risk",
             question: "Which bond suffers inflation risk the most?",
             options: [
               "A very short-term bond",
@@ -4973,7 +4973,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds5-mastery5",
-            concept: "Inflation Risk",
+            concept: "TIPS",
             question: "TIPS protect against inflation by…",
             options: [
               "Paying the highest coupon available in every case",
@@ -4987,7 +4987,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds5-mastery6",
-            concept: "Inflation Risk",
+            concept: "historical stock returns",
             question: "Over long periods, an asset that has historically outrun inflation is…",
             options: [
               "Cash under a mattress",
@@ -5048,7 +5048,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds6-mc1",
-            concept: "Interest Rate Risk",
+            concept: "rates and bond prices",
             question: "When interest rates rise, existing bond prices generally…",
             options: [
               "Rise along with rates in every case for all investors",
@@ -5061,7 +5061,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds6-mc2",
-            concept: "Interest Rate Risk",
+            concept: "interest rate risk",
             question: "Which bond's price swings most when interest rates change?",
             options: [
               "A bond maturing in one year",
@@ -5089,7 +5089,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds6-aq1",
-          concept: "Interest Rate Risk",
+          concept: "interest rate risk",
           question: "Which fund better limits Maya's interest rate risk?",
           options: [
               "The long-term fund, since it swings the most in every case",
@@ -5117,7 +5117,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds6-mastery1",
-            concept: "Interest Rate Risk",
+            concept: "rates and bond prices",
             question: "Bond prices and interest rates move…",
             options: [
               "In the same direction",
@@ -5131,7 +5131,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds6-mastery2",
-            concept: "Interest Rate Risk",
+            concept: "rates and bond prices",
             question: "Why does a 3% bond drop in price when new bonds pay 5%?",
             options: [
               "The borrower defaulted in every case for all investors",
@@ -5145,7 +5145,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds6-mastery3",
-            concept: "Interest Rate Risk",
+            concept: "interest rate risk",
             question: "Interest rate risk affects a bond even when the borrower…",
             options: [
               "Is likely to default soon",
@@ -5159,7 +5159,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds6-mastery4",
-            concept: "Interest Rate Risk",
+            concept: "interest rate risk",
             question: "A long-term bond's price swings more than a short-term one because…",
             options: [
               "It pays no interest at all in every case",
@@ -5173,7 +5173,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds6-mastery5",
-            concept: "Interest Rate Risk",
+            concept: "interest rate risk",
             question: "If you fear rising rates, a defensive move is to favor…",
             options: [
               "The longest bonds available",
@@ -5187,7 +5187,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds6-mastery6",
-            concept: "Interest Rate Risk",
+            concept: "interest rate risk",
             question: "If you hold a bond to maturity, rate swings…",
             options: [
               "Wipe out your principal in every case for all investors",
@@ -5248,7 +5248,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds7-mc1",
-            concept: "Duration",
+            concept: "bond duration",
             question: "What does 'duration' measure?",
             options: [
               "A bond's default risk in every case for all investors",
@@ -5261,7 +5261,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds7-mc2",
-            concept: "Duration",
+            concept: "bond duration",
             question: "If a bond has a duration of 5 and rates rise 1%, its price will roughly…",
             options: [
               "Rise about 5%",
@@ -5289,7 +5289,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds7-aq1",
-          concept: "Duration",
+          concept: "bond duration",
           question: "Which fund fits Leo's two-year timeline best?",
           options: [
               "The duration-15 fund, since it swings the most",
@@ -5317,7 +5317,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds7-mastery1",
-            concept: "Duration",
+            concept: "bond duration",
             question: "Duration is a measure of a bond's…",
             options: [
               "Default probability in every case",
@@ -5331,7 +5331,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds7-mastery2",
-            concept: "Duration",
+            concept: "bond duration",
             question: "A bond with duration 8 will fall about how much if rates rise 1%?",
             options: [
               "About 0.8%",
@@ -5345,7 +5345,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds7-mastery3",
-            concept: "Duration",
+            concept: "bond duration",
             question: "Longer-maturity bonds tend to have…",
             options: [
               "Lower duration and less rate risk",
@@ -5359,7 +5359,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds7-mastery4",
-            concept: "Duration",
+            concept: "bond duration",
             question: "For money needed in two years, you should choose a fund with…",
             options: [
               "The highest duration available",
@@ -5373,7 +5373,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds7-mastery5",
-            concept: "Duration",
+            concept: "bond duration",
             question: "Duration does NOT tell you about a bond's…",
             options: [
               "Interest rate sensitivity",
@@ -5387,7 +5387,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds7-mastery6",
-            concept: "Duration",
+            concept: "bond duration",
             question: "A conservative investor who dislikes big swings would prefer…",
             options: [
               "A very high duration",
@@ -5448,7 +5448,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds8-mc1",
-            concept: "Bond Funds",
+            concept: "bond fund vs bond",
             question: "A key benefit of a bond fund over a single bond is…",
             options: [
               "It guarantees your exact money back on a set date",
@@ -5461,7 +5461,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds8-mc2",
-            concept: "Bond Funds",
+            concept: "bond fund vs bond",
             question: "Unlike a single bond held to maturity, a bond fund…",
             options: [
               "Always returns exact face value on a date in every case",
@@ -5489,7 +5489,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds8-aq1",
-          concept: "Bond Funds",
+          concept: "fund comparison",
           question: "Which fund best fits Aria's goal of a steady cushion?",
           options: [
               "The junk fund, since its fee proves it's higher quality",
@@ -5517,7 +5517,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds8-mastery1",
-            concept: "Bond Funds",
+            concept: "bond fund vs bond",
             question: "A bond fund works by…",
             options: [
               "Lending all your money to one company",
@@ -5531,7 +5531,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds8-mastery2",
-            concept: "Bond Funds",
+            concept: "bond fund vs bond",
             question: "A major difference between a bond fund and a single bond is that a fund…",
             options: [
               "Always returns exact face value in every case",
@@ -5545,7 +5545,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds8-mastery3",
-            concept: "Bond Funds",
+            concept: "bond duration",
             question: "A bond fund's interest rate risk is signaled by its…",
             options: [
               "Marketing name",
@@ -5559,7 +5559,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds8-mastery4",
-            concept: "Bond Funds",
+            concept: "expense ratio",
             question: "Why does a high expense ratio hurt bond funds especially?",
             options: [
               "Bond returns are often modest, so fees take a bigger slice",
@@ -5573,7 +5573,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds8-mastery5",
-            concept: "Bond Funds",
+            concept: "bond fund vs bond",
             question: "Bond funds handle maturity by…",
             options: [
               "Ending on one fixed date",
@@ -5587,7 +5587,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds8-mastery6",
-            concept: "Bond Funds",
+            concept: "fund comparison",
             question: "A sensible steadying core for a beginner is a…",
             options: [
               "High-yield junk bond fund with a big fee",
@@ -5648,7 +5648,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds9-mc1",
-            concept: "Fixed Income Role",
+            concept: "fixed income role",
             question: "One key role bonds play in a portfolio is to…",
             options: [
               "Grow faster than stocks over decades",
@@ -5661,7 +5661,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds9-mc2",
-            concept: "Fixed Income Role",
+            concept: "time horizon",
             question: "As a financial goal gets closer, your bond allocation should generally…",
             options: [
               "Decrease toward zero in every case",
@@ -5689,7 +5689,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bonds9-aq1",
-          concept: "Fixed Income Role",
+          concept: "age-based allocation",
           question: "How should Sofia and her uncle differ in bond allocation?",
           options: [
               "Both should hold mostly bonds to stay safe in every case for all investors",
@@ -5717,7 +5717,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
         questions: [
           {
             id: "bonds9-mastery1",
-            concept: "Fixed Income Role",
+            concept: "fixed income role",
             question: "Bonds are held in a portfolio mainly to…",
             options: [
               "Outgrow stocks over the long run",
@@ -5731,7 +5731,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds9-mastery2",
-            concept: "Fixed Income Role",
+            concept: "fixed income role",
             question: "During a stock crash, high-quality bonds typically…",
             options: [
               "Fall harder than stocks in every case",
@@ -5745,7 +5745,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds9-mastery3",
-            concept: "Fixed Income Role",
+            concept: "age-based allocation",
             question: "A young investor with a 40-year horizon should usually hold…",
             options: [
               "Mostly bonds for safety in every case",
@@ -5759,7 +5759,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds9-mastery4",
-            concept: "Fixed Income Role",
+            concept: "time horizon",
             question: "Money you'll need in a year or two should be held mostly in…",
             options: [
               "Aggressive growth stocks",
@@ -5773,7 +5773,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds9-mastery5",
-            concept: "Fixed Income Role",
+            concept: "age-based allocation",
             question: "The '110 minus your age' rule gives a rough estimate of your…",
             options: [
               "Bond fund's expense ratio in every case",
@@ -5787,7 +5787,7 @@ export const deepPortfolioFundsBonds: StructuredLessonContent[] = [
           },
           {
             id: "bonds9-mastery6",
-            concept: "Fixed Income Role",
+            concept: "fund comparison",
             question: "The simplest way to fill the bond role in a portfolio is…",
             options: [
               "Picking single high-yield junk bonds in every case for all investors",

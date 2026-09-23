@@ -22,6 +22,8 @@ export function LessonCompletionScreen({
   onContinue,
   onRetake,
   onScore,
+  nextTitle,
+  onNext,
 }: {
   correct: number
   attempts: number
@@ -32,6 +34,11 @@ export function LessonCompletionScreen({
   onContinue: () => void
   /** Restart the whole lesson from the top (Jeff's teaching + every question). */
   onRetake?: () => void
+  /** Title of the next lesson, if there is an unlocked one. Renders the primary
+   *  "Next: {title}" button; omit (with onNext) to hide it. */
+  nextTitle?: string
+  /** Go to the next lesson. Paired with nextTitle. */
+  onNext?: () => void
   /**
    * Persist the REAL whole-lesson accuracy shown here (every question this run,
    * including the ones missed), so a later replay shows the true score instead
@@ -40,10 +47,12 @@ export function LessonCompletionScreen({
    */
   onScore?: (pct: number) => void
 }) {
-  const { coinsGained, coinsLost, answeredTotal, answeredCorrect, getAttempts } = useQuizSession()
-  // Show a subtle "it's adapting" signal only when this session actually fed the
-  // adaptive engine at least one answer. No numbers - students never see theta.
-  const adaptiveActive = getAttempts() > 0
+  const { coinsGained, coinsLost, answeredTotal, answeredCorrect, getAttempts, difficultySpread } = useQuizSession()
+  // Only claim the questions "adapted to your level" when the served set
+  // actually spanned more than one difficulty value - a flat single-difficulty
+  // set isn't adaptation, so don't imply it. (getAttempts>0 alone would show it
+  // even when every question was the same difficulty.)
+  const adaptiveActive = getAttempts() > 0 && difficultySpread > 1
 
   // Two-step flow: "stats" (accuracy + coins) then "missions" (daily missions).
   const [step, setStep] = useState<"stats" | "missions">("stats")
@@ -197,7 +206,13 @@ export function LessonCompletionScreen({
             </motion.p>
           )}
 
-          <Button size="lg" className="w-full" onClick={() => setStep("missions")}>
+          {nextTitle && onNext && (
+            <Button size="lg" className="w-full font-bold" onClick={onNext}>
+              Next: {nextTitle} <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          )}
+
+          <Button size="lg" variant={nextTitle && onNext ? "outline" : "default"} className="w-full" onClick={() => setStep("missions")}>
             See daily missions <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
 

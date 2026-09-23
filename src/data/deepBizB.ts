@@ -47,7 +47,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb1-mc1",
-            concept: "What Is Consumer Behavior",
+            concept: "needs vs wants",
             question: "What is the difference between a need and a want?",
             options: [
               "A need is cheaper; a want is always expensive which the city council reviews every autumn",
@@ -60,7 +60,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb1-mc2",
-            concept: "What Is Consumer Behavior",
+            concept: "functional vs emotional value",
             question: "Why can a plain t-shirt sell for $60 instead of $6?",
             options: [
               "The fabric costs ten times as much to make",
@@ -88,7 +88,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb1-aq1",
-          concept: "What Is Consumer Behavior",
+          concept: "functional vs emotional value",
           question: "What is the MAIN force driving Jordan toward the $150 sneakers?",
           options: [
             "A functional need for shoes he does not have",
@@ -116,7 +116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb1-mastery1",
-            concept: "What Is Consumer Behavior",
+            concept: "consumer behavior definition",
             question: "Consumer behavior is best defined as the study of…",
             options: [
               "How factories lower production costs as older economists once firmly believed",
@@ -130,7 +130,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb1-mastery2",
-            concept: "What Is Consumer Behavior",
+            concept: "product differentiation",
             question: "A business that understands only the functional need for a product tends to…",
             options: [
               "Charge a premium for strong branding",
@@ -144,7 +144,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb1-mastery3",
-            concept: "What Is Consumer Behavior",
+            concept: "customer retention",
             question: "Why do smart companies track post-purchase satisfaction so closely?",
             options: [
               "Laws require a survey after every single sale",
@@ -158,7 +158,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb1-mastery4",
-            concept: "What Is Consumer Behavior",
+            concept: "perceived value",
             question: "What does 'perceived value' mean in a purchase?",
             options: [
               "The exact cost of the raw materials",
@@ -172,7 +172,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb1-mastery5",
-            concept: "What Is Consumer Behavior",
+            concept: "perceived value",
             question: "Bottled water sells for $2 despite nearly free tap water because marketers…",
             options: [
               "Changed the chemical makeup of the water",
@@ -186,7 +186,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb1-mastery6",
-            concept: "What Is Consumer Behavior",
+            concept: "consumer behavior definition",
             question: "Consumer behavior draws on three main lenses. They are…",
             options: [
               "Accounting, law, and engineering",
@@ -247,7 +247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb2-mc1",
-            concept: "The Decision-Making Process",
+            concept: "consumer decision process",
             question: "Which stage comes right after 'information search'?",
             options: [
               "Need recognition of a new gap",
@@ -260,7 +260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb2-mc2",
-            concept: "The Decision-Making Process",
+            concept: "buyer's remorse",
             question: "What is 'buyer's remorse'?",
             options: [
               "Excitement felt right before buying which the city council reviews every autumn",
@@ -288,7 +288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb2-aq1",
-          concept: "The Decision-Making Process",
+          concept: "purchase friction",
           question: "The $40 shipping fee that nearly stopped Priya's purchase is an example of…",
           options: [
             "Need recognition starting the journey",
@@ -316,7 +316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb2-mastery1",
-            concept: "The Decision-Making Process",
+            concept: "consumer decision process",
             question: "Which is the correct order of the five decision stages?",
             options: [
               "Search, need, purchase, evaluation, post-purchase as older economists once firmly believed",
@@ -330,7 +330,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb2-mastery2",
-            concept: "The Decision-Making Process",
+            concept: "purchase friction",
             question: "Why do online stores obsess over one-click checkout?",
             options: [
               "The law demands fast checkout screens as older economists once firmly believed",
@@ -344,7 +344,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb2-mastery3",
-            concept: "The Decision-Making Process",
+            concept: "high vs low involvement",
             question: "A car is a 'high-involvement' purchase mainly because…",
             options: [
               "It is illegal to buy one quickly",
@@ -358,7 +358,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb2-mastery4",
-            concept: "The Decision-Making Process",
+            concept: "high vs low involvement",
             question: "Habitual buying is valuable to a brand because it…",
             options: [
               "Forces the brand to keep lowering prices",
@@ -372,7 +372,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb2-mastery5",
-            concept: "The Decision-Making Process",
+            concept: "cognitive bias",
             question: "A heuristic like 'expensive means good quality' is a…",
             options: [
               "Legal rule stores must post as older economists once firmly believed",
@@ -386,7 +386,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb2-mastery6",
-            concept: "The Decision-Making Process",
+            concept: "buyer's remorse",
             question: "A thank-you email with an easy return policy mainly helps by…",
             options: [
               "Raising the item's shelf price",
@@ -447,7 +447,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb3-mc1",
-            concept: "Psychological Factors",
+            concept: "Maslow's hierarchy",
             question: "According to Maslow, which need is satisfied first?",
             options: [
               "Self-actualization at the very top which the city council reviews every autumn",
@@ -460,7 +460,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb3-mc2",
-            concept: "Psychological Factors",
+            concept: "scarcity tactics",
             question: "The message 'Only 3 left in stock!' relies on which bias?",
             options: [
               "Anchoring against a higher price",
@@ -488,7 +488,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb3-aq1",
-          concept: "Psychological Factors",
+          concept: "anchoring",
           question: "The crossed-out '$260' beside the '$180' price is an example of…",
           options: [
             "Scarcity limiting available supply which the city council reviews every autumn",
@@ -516,7 +516,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb3-mastery1",
-            concept: "Psychological Factors",
+            concept: "Maslow's hierarchy",
             question: "A meditation app that sells 'becoming your best self' targets which Maslow level?",
             options: [
               "Basic survival needs",
@@ -530,7 +530,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb3-mastery2",
-            concept: "Psychological Factors",
+            concept: "perception and framing",
             question: "Selective attention means buyers…",
             options: [
               "Remember every ad they ever see",
@@ -544,7 +544,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb3-mastery3",
-            concept: "Psychological Factors",
+            concept: "perception and framing",
             question: "Framing a car as having 'only 3% failures' instead of '97% reliability' works because…",
             options: [
               "The two numbers describe different cars",
@@ -558,7 +558,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb3-mastery4",
-            concept: "Psychological Factors",
+            concept: "brand attitude",
             question: "Why is a deeply negative attitude toward a brand so damaging?",
             options: [
               "It legally bans the brand from selling",
@@ -572,7 +572,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb3-mastery5",
-            concept: "Psychological Factors",
+            concept: "loss aversion",
             question: "Loss aversion explains why 'Don't miss out' often beats 'Come save' because people…",
             options: [
               "Enjoy gains far more than they fear losses",
@@ -586,7 +586,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb3-mastery6",
-            concept: "Psychological Factors",
+            concept: "brand attitude",
             question: "One case of food poisoning creating a lasting refusal to return shows that…",
             options: [
               "Learning only builds positive brand feelings as older economists once firmly believed",
@@ -647,7 +647,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb4-mc1",
-            concept: "Social & Cultural Influences",
+            concept: "reference groups",
             question: "What is a 'reference group'?",
             options: [
               "A company's internal sales team",
@@ -660,7 +660,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb4-mc2",
-            concept: "Social & Cultural Influences",
+            concept: "social and cultural influences",
             question: "Why does McDonald's skip beef on its menu in India?",
             options: [
               "Beef is more expensive to ship there",
@@ -688,7 +688,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb4-aq1",
-          concept: "Social & Cultural Influences",
+          concept: "social and cultural influences",
           question: "Why did Aisha buy premium snacks for guests but cheap ones for herself?",
           options: [
             "The premium snacks were on a deep sale",
@@ -716,7 +716,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb4-mastery1",
-            concept: "Social & Cultural Influences",
+            concept: "reference groups",
             question: "Why do brands seed products with athletes and influencers?",
             options: [
               "The law requires celebrity endorsements as older economists once firmly believed",
@@ -730,7 +730,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb4-mastery2",
-            concept: "Social & Cultural Influences",
+            concept: "social and cultural influences",
             question: "A person buying a luxury watch mainly to signal success is buying a…",
             options: [
               "Functional tool with no meaning",
@@ -744,7 +744,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb4-mastery3",
-            concept: "Social & Cultural Influences",
+            concept: "word of mouth",
             question: "Why does word of mouth beat expensive advertising?",
             options: [
               "It is legally required before ads run",
@@ -758,7 +758,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb4-mastery4",
-            concept: "Social & Cultural Influences",
+            concept: "social and cultural influences",
             question: "The fact that white means purity in the West but mourning in parts of Asia shows that…",
             options: [
               "Colors have no effect on buyers",
@@ -772,7 +772,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb4-mastery5",
-            concept: "Social & Cultural Influences",
+            concept: "social and cultural influences",
             question: "What is a subculture?",
             options: [
               "A brand's official customer service team which shipping contracts always specify",
@@ -786,7 +786,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb4-mastery6",
-            concept: "Social & Cultural Influences",
+            concept: "market segmentation",
             question: "Understanding social and cultural influence leads most directly into…",
             options: [
               "Setting a company's tax rate as older economists once firmly believed",
@@ -847,7 +847,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb5-mc1",
-            concept: "Market Segmentation",
+            concept: "segmentation bases",
             question: "Which is an example of demographic segmentation?",
             options: [
               "Grouping buyers by their core values",
@@ -860,7 +860,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb5-mc2",
-            concept: "Market Segmentation",
+            concept: "segment evaluation",
             question: "A segment of 'left-handed astronauts who love jazz' mainly fails which test?",
             options: [
               "It is not measurable at all",
@@ -888,7 +888,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb5-aq1",
-          concept: "Market Segmentation",
+          concept: "segmentation bases",
           question: "Dividing Leo's users by whether they seek 'muscle gain' or 'gentle mobility' is which type of segmentation?",
           options: [
             "Geographic, based on their region which the city council reviews every autumn",
@@ -916,7 +916,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb5-mastery1",
-            concept: "Market Segmentation",
+            concept: "market segmentation",
             question: "Why does trying to sell one product to everyone usually fail?",
             options: [
               "The law caps how many buyers you can have",
@@ -930,7 +930,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb5-mastery2",
-            concept: "Market Segmentation",
+            concept: "segmentation bases",
             question: "What is the main weakness of demographic segmentation?",
             options: [
               "The data is impossible to collect as older economists once firmly believed",
@@ -944,7 +944,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb5-mastery3",
-            concept: "Market Segmentation",
+            concept: "segmentation bases",
             question: "Patagonia targeting eco-conscious, outdoorsy buyers is an example of…",
             options: [
               "Geographic segmentation by climate",
@@ -958,7 +958,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb5-mastery4",
-            concept: "Market Segmentation",
+            concept: "segmentation bases",
             question: "Behavioral segmentation groups buyers by…",
             options: [
               "Their height and eye color",
@@ -972,7 +972,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb5-mastery5",
-            concept: "Market Segmentation",
+            concept: "segment evaluation",
             question: "The 'substantial' test for a good segment asks whether it is…",
             options: [
               "Made up of only wealthy buyers",
@@ -986,7 +986,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb5-mastery6",
-            concept: "Market Segmentation",
+            concept: "market segmentation",
             question: "Coca-Cola making Diet Coke, Coke Zero, and regular Coke shows that it…",
             options: [
               "Sells one drink to one giant market",
@@ -1047,7 +1047,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb6-mc1",
-            concept: "Target Markets & Buyer Personas",
+            concept: "targeting strategy",
             question: "What is 'concentrated' targeting?",
             options: [
               "Selling one product to every buyer",
@@ -1060,7 +1060,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb6-mc2",
-            concept: "Target Markets & Buyer Personas",
+            concept: "buyer persona",
             question: "A buyer persona should be built mainly from…",
             options: [
               "The founder's personal guesses which the city council reviews every autumn",
@@ -1088,7 +1088,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb6-aq1",
-          concept: "Target Markets & Buyer Personas",
+          concept: "targeting strategy",
           question: "Why is focusing on 'Cramming Chris' smarter than targeting all students, teachers, and parents at once?",
           options: [
             "It is the only legal way to launch an app",
@@ -1116,7 +1116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb6-mastery1",
-            concept: "Target Markets & Buyer Personas",
+            concept: "segment evaluation",
             question: "Which three factors help judge whether a segment is worth targeting?",
             options: [
               "Color, shape, and packaging size as older economists once firmly believed",
@@ -1130,7 +1130,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb6-mastery2",
-            concept: "Target Markets & Buyer Personas",
+            concept: "targeting strategy",
             question: "A carmaker selling economy, family, and luxury lines uses which strategy?",
             options: [
               "Undifferentiated marketing",
@@ -1144,7 +1144,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb6-mastery3",
-            concept: "Target Markets & Buyer Personas",
+            concept: "targeting strategy",
             question: "Why do most startups begin with concentrated targeting?",
             options: [
               "The law requires a single-segment launch as older economists once firmly believed",
@@ -1158,7 +1158,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb6-mastery4",
-            concept: "Target Markets & Buyer Personas",
+            concept: "buyer persona",
             question: "What is a buyer persona?",
             options: [
               "A legal contract with a customer as older economists once firmly believed",
@@ -1172,7 +1172,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb6-mastery5",
-            concept: "Target Markets & Buyer Personas",
+            concept: "buyer persona",
             question: "How does a persona like 'Fitness Fiona' help a team make decisions?",
             options: [
               "It sets the company's tax bracket as older economists once firmly believed",
@@ -1186,7 +1186,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb6-mastery6",
-            concept: "Target Markets & Buyer Personas",
+            concept: "targeting strategy",
             question: "What was smart about Facebook launching only for Harvard first?",
             options: [
               "It reached every person on Earth instantly",
@@ -1247,7 +1247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb7-mc1",
-            concept: "Brand Loyalty vs Brand Switching",
+            concept: "switching costs",
             question: "What is a 'switching cost'?",
             options: [
               "The price a store pays for inventory which the city council reviews every autumn",
@@ -1260,7 +1260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb7-mc2",
-            concept: "Brand Loyalty vs Brand Switching",
+            concept: "brand switching",
             question: "Why is silence from a leaving customer dangerous?",
             options: [
               "It means the customer will surely return",
@@ -1288,7 +1288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb7-aq1",
-          concept: "Brand Loyalty vs Brand Switching",
+          concept: "switching costs",
           question: "How is the new gym trying to win Devin over?",
           options: [
             "By raising its own prices to seem premium",
@@ -1316,7 +1316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb7-mastery1",
-            concept: "Brand Loyalty vs Brand Switching",
+            concept: "brand loyalty",
             question: "Why are loyal customers so valuable to a business?",
             options: [
               "They legally cannot ever leave the brand as older economists once firmly believed",
@@ -1330,7 +1330,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb7-mastery2",
-            concept: "Brand Loyalty vs Brand Switching",
+            concept: "brand loyalty",
             question: "Why is emotional loyalty stronger than price-based loyalty?",
             options: [
               "It legally locks customers into contracts as older economists once firmly believed",
@@ -1344,7 +1344,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb7-mastery3",
-            concept: "Brand Loyalty vs Brand Switching",
+            concept: "switching costs",
             question: "How does Apple's ecosystem raise switching costs?",
             options: [
               "It gives away all its products for free",
@@ -1358,7 +1358,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb7-mastery4",
-            concept: "Brand Loyalty vs Brand Switching",
+            concept: "brand switching",
             question: "What does 'churn' measure?",
             options: [
               "The rate at which customers leave",
@@ -1372,7 +1372,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb7-mastery5",
-            concept: "Brand Loyalty vs Brand Switching",
+            concept: "brand switching",
             question: "Why does a smooth, friendly cancellation process matter?",
             options: [
               "It legally forces the customer to stay",
@@ -1386,7 +1386,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb7-mastery6",
-            concept: "Brand Loyalty vs Brand Switching",
+            concept: "switching costs",
             question: "T-Mobile paying off rivals' contracts is a tactic aimed at…",
             options: [
               "Raising its own switching costs which shipping contracts always specify",
@@ -1447,7 +1447,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb8-mc1",
-            concept: "Case Study: How Nike Uses Consumer Research",
+            concept: "functional vs emotional value",
             question: "What does Nike primarily sell with 'Just Do It'?",
             options: [
               "The technical details of shoe foam",
@@ -1460,7 +1460,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb8-mc2",
-            concept: "Case Study: How Nike Uses Consumer Research",
+            concept: "Nike consumer research",
             question: "How do Nike's training apps help its consumer research?",
             options: [
               "They set the company's tax rate which the city council reviews every autumn",
@@ -1488,7 +1488,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "cb8-aq1",
-          concept: "Case Study: How Nike Uses Consumer Research",
+          concept: "switching costs",
           question: "Why won't Ravi switch to the cheaper rival brand?",
           options: [
             "A law forbids him from buying rivals",
@@ -1516,7 +1516,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "cb8-mastery1",
-            concept: "Case Study: How Nike Uses Consumer Research",
+            concept: "Maslow's hierarchy",
             question: "Nike aiming 'Just Do It' at feeling capable and driven targets which needs?",
             options: [
               "Basic food and water needs",
@@ -1530,7 +1530,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb8-mastery2",
-            concept: "Case Study: How Nike Uses Consumer Research",
+            concept: "reference groups",
             question: "Signing stars like Michael Jordan mainly works because they act as…",
             options: [
               "A cheaper way to make the shoes",
@@ -1544,7 +1544,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb8-mastery3",
-            concept: "Case Study: How Nike Uses Consumer Research",
+            concept: "scarcity tactics",
             question: "How do limited Air Jordan 'drops' drive demand?",
             options: [
               "By flooding the market with supply",
@@ -1558,7 +1558,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb8-mastery4",
-            concept: "Case Study: How Nike Uses Consumer Research",
+            concept: "switching costs",
             question: "How do Nike's apps create switching costs?",
             options: [
               "By legally banning rival apps as older economists once firmly believed",
@@ -1572,7 +1572,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb8-mastery5",
-            concept: "Case Study: How Nike Uses Consumer Research",
+            concept: "Nike consumer research",
             question: "Why can Nike take value-based social stances that risk alienating some buyers?",
             options: [
               "It ignores what its customers believe as older economists once firmly believed",
@@ -1586,7 +1586,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "cb8-mastery6",
-            concept: "Case Study: How Nike Uses Consumer Research",
+            concept: "Nike consumer research",
             question: "What is the biggest lesson from Nike's approach?",
             options: [
               "One clever ad trick explains its success as older economists once firmly believed",
@@ -1647,7 +1647,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix1-mc1",
-            concept: "What Is the Marketing Mix",
+            concept: "4 Ps",
             question: "What are the four Ps of the marketing mix?",
             options: [
               "Product, Profit, People, Place",
@@ -1660,7 +1660,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix1-mc2",
-            concept: "What Is the Marketing Mix",
+            concept: "marketing mix integration",
             question: "Why must all four Ps be consistent with each other?",
             options: [
               "A law requires matching marketing plans which most textbooks wrongly repeat",
@@ -1688,7 +1688,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix1-aq1",
-          concept: "What Is the Marketing Mix",
+          concept: "marketing mix integration",
           question: "Using the 4 Ps, what is Nina's biggest problem?",
           options: [
             "Her product recipe is clearly terrible",
@@ -1716,7 +1716,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix1-mastery1",
-            concept: "What Is the Marketing Mix",
+            concept: "distribution channels",
             question: "In the marketing mix, 'Place' refers to…",
             options: [
               "The factory where goods are made",
@@ -1730,7 +1730,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix1-mastery2",
-            concept: "What Is the Marketing Mix",
+            concept: "marketing mix integration",
             question: "Why does building only a great product often fail?",
             options: [
               "Great products are illegal to sell",
@@ -1744,7 +1744,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix1-mastery3",
-            concept: "What Is the Marketing Mix",
+            concept: "4 Ps",
             question: "Who popularized the 4 Ps framework in the 1960s?",
             options: [
               "Abraham Maslow, the psychologist which the customs office stamps twice",
@@ -1758,7 +1758,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix1-mastery4",
-            concept: "What Is the Marketing Mix",
+            concept: "4 Ps extensions",
             question: "Which extra Ps are added for services?",
             options: [
               "Profit, Packaging, and Publicity which the customs office stamps twice",
@@ -1772,7 +1772,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix1-mastery5",
-            concept: "What Is the Marketing Mix",
+            concept: "4 Ps extensions",
             question: "The 4 Cs reframe the mix by starting from…",
             options: [
               "The seller's production costs which the customs office stamps twice",
@@ -1786,7 +1786,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix1-mastery6",
-            concept: "What Is the Marketing Mix",
+            concept: "marketing mix integration",
             question: "How does the mix help diagnose weak sales?",
             options: [
               "It guarantees sales will always rise which the customs office stamps twice",
@@ -1847,7 +1847,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix2-mc1",
-            concept: "Product",
+            concept: "core vs augmented product",
             question: "What is the 'augmented product'?",
             options: [
               "The basic benefit the buyer wants",
@@ -1860,7 +1860,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix2-mc2",
-            concept: "Product",
+            concept: "product life cycle",
             question: "In which life-cycle stage do price wars typically break out?",
             options: [
               "Introduction, when sales are low which most textbooks wrongly repeat",
@@ -1888,7 +1888,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix2-aq1",
-          concept: "Product",
+          concept: "product life cycle",
           question: "Tariq's earbuds now have flat sales, many rivals, and falling prices. Which stage is this?",
           options: [
             "Introduction, the very first stage",
@@ -1916,7 +1916,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix2-mastery1",
-            concept: "Product",
+            concept: "core vs augmented product",
             question: "The 'core product' of a drill is best described as…",
             options: [
               "The steel bit and motor inside it",
@@ -1930,7 +1930,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix2-mastery2",
-            concept: "Product",
+            concept: "brand promise",
             question: "Why is keeping the brand promise so important?",
             options: [
               "The law fines brands that change logos",
@@ -1944,7 +1944,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix2-mastery3",
-            concept: "Product",
+            concept: "product life cycle",
             question: "In the Introduction stage, marketing should focus on…",
             options: [
               "Cutting prices in a saturated market",
@@ -1958,7 +1958,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix2-mastery4",
-            concept: "Product",
+            concept: "product life cycle",
             question: "How do companies extend a product's life cycle?",
             options: [
               "By deleting all its existing features",
@@ -1972,7 +1972,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix2-mastery5",
-            concept: "Product",
+            concept: "product decisions",
             question: "Why does packaging count as real marketing, not just protection?",
             options: [
               "It legally must list the price",
@@ -1986,7 +1986,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix2-mastery6",
-            concept: "Product",
+            concept: "product life cycle",
             question: "Netflix shifting from mailing DVDs to streaming shows a company that…",
             options: [
               "Ignored its product's life cycle which the customs office stamps twice",
@@ -2047,7 +2047,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix3-mc1",
-            concept: "Price",
+            concept: "value-based pricing",
             question: "What is value-based pricing?",
             options: [
               "Adding a fixed markup to cost",
@@ -2060,7 +2060,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix3-mc2",
-            concept: "Price",
+            concept: "pricing strategy",
             question: "A new gadget launched at $1,200 that drops over time uses…",
             options: [
               "Penetration pricing",
@@ -2088,7 +2088,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix3-aq1",
-          concept: "Price",
+          concept: "value-based pricing",
           question: "Why would pricing purely on her near-zero cost be a mistake for Grace?",
           options: [
             "It would break app-store pricing laws which most textbooks wrongly repeat",
@@ -2116,7 +2116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix3-mastery1",
-            concept: "Price",
+            concept: "pricing strategy",
             question: "Why is price called the most powerful lever in the mix?",
             options: [
               "It is the cheapest P to change as the supplier invoice records in detail",
@@ -2130,7 +2130,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix3-mastery2",
-            concept: "Price",
+            concept: "cost-plus pricing",
             question: "The main weakness of cost-based pricing is that it…",
             options: [
               "Is far too complex to calculate",
@@ -2144,7 +2144,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix3-mastery3",
-            concept: "Price",
+            concept: "pricing strategy",
             question: "A streaming service launching cheap to build a user base uses…",
             options: [
               "Price skimming",
@@ -2158,7 +2158,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix3-mastery4",
-            concept: "Price",
+            concept: "charm pricing",
             question: "Charm pricing ($9.99 instead of $10) works because buyers…",
             options: [
               "Always calculate prices perfectly which the customs office stamps twice",
@@ -2172,7 +2172,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix3-mastery5",
-            concept: "Price",
+            concept: "price elasticity of demand",
             question: "What does price 'elasticity' measure?",
             options: [
               "How stretchy a product's material is",
@@ -2186,7 +2186,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix3-mastery6",
-            concept: "Price",
+            concept: "elasticity and revenue",
             question: "Why is raising the price of an elastic product risky?",
             options: [
               "The law caps prices on all goods",
@@ -2247,7 +2247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix4-mc1",
-            concept: "Place",
+            concept: "distribution channels",
             question: "What does 'Place' mean in the marketing mix?",
             options: [
               "The advertising slogan for a product which most textbooks wrongly repeat",
@@ -2260,7 +2260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix4-mc2",
-            concept: "Place",
+            concept: "distribution intensity",
             question: "A luxury watch sold only through a few select dealers uses…",
             options: [
               "Intensive distribution",
@@ -2288,7 +2288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix4-aq1",
-          concept: "Place",
+          concept: "direct vs indirect distribution",
           question: "What is the main trade-off Omar faces by adding supermarkets and online sales?",
           options: [
             "He must lower his product's quality which most textbooks wrongly repeat",
@@ -2316,7 +2316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix4-mastery1",
-            concept: "Place",
+            concept: "direct vs indirect distribution",
             question: "What is a 'direct' distribution channel?",
             options: [
               "One that uses many wholesalers which the customs office stamps twice",
@@ -2330,7 +2330,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix4-mastery2",
-            concept: "Place",
+            concept: "direct vs indirect distribution",
             question: "Why do intermediaries like retailers earn their cut?",
             options: [
               "The law forces makers to use them",
@@ -2344,7 +2344,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix4-mastery3",
-            concept: "Place",
+            concept: "distribution intensity",
             question: "Gum sold in nearly every store and machine reflects…",
             options: [
               "Exclusive distribution",
@@ -2358,7 +2358,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix4-mastery4",
-            concept: "Place",
+            concept: "direct vs indirect distribution",
             question: "What is a direct-to-consumer (DTC) brand?",
             options: [
               "A brand sold only through wholesalers",
@@ -2372,7 +2372,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix4-mastery5",
-            concept: "Place",
+            concept: "distribution channels",
             question: "Why is Amazon's warehouse and delivery network a Place advantage?",
             options: [
               "It lets Amazon set the lowest prices always",
@@ -2386,7 +2386,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix4-mastery6",
-            concept: "Place",
+            concept: "omnichannel",
             question: "An 'omnichannel' approach means…",
             options: [
               "Selling through only one channel",
@@ -2447,7 +2447,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix5-mc1",
-            concept: "Promotion",
+            concept: "promotion mix",
             question: "Which promotional tool earns credible attention through news and reputation?",
             options: [
               "Sales promotion with coupons",
@@ -2460,7 +2460,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix5-mc2",
-            concept: "Promotion",
+            concept: "integrated marketing communication",
             question: "What does IMC (Integrated Marketing Communication) aim for?",
             options: [
               "The cheapest possible advertising which most textbooks wrongly repeat",
@@ -2488,7 +2488,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix5-aq1",
-          concept: "Promotion",
+          concept: "integrated marketing communication",
           question: "What is the main flaw in Bella's promotion despite using many tools?",
           options: [
             "She used too few promotional tools",
@@ -2516,7 +2516,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix5-mastery1",
-            concept: "Promotion",
+            concept: "promotion mix",
             question: "Which tool is best for selling an expensive, complex product like a car?",
             options: [
               "Mass billboard advertising",
@@ -2530,7 +2530,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix5-mastery2",
-            concept: "Promotion",
+            concept: "promotion mix",
             question: "A risk of overusing sales promotions like constant discounts is that…",
             options: [
               "They build long-term brand prestige which the customs office stamps twice",
@@ -2544,7 +2544,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix5-mastery3",
-            concept: "Promotion",
+            concept: "AIDA model",
             question: "The AIDA model stands for…",
             options: [
               "Ads, Income, Debt, Assets",
@@ -2558,7 +2558,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix5-mastery4",
-            concept: "Promotion",
+            concept: "promotion mix",
             question: "Why is digital promotion more accountable than old mass advertising?",
             options: [
               "It is required to be free of charge",
@@ -2572,7 +2572,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix5-mastery5",
-            concept: "Promotion",
+            concept: "promotion mix",
             question: "Why does misleading promotion ultimately hurt a brand?",
             options: [
               "It always costs more to produce",
@@ -2586,7 +2586,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix5-mastery6",
-            concept: "Promotion",
+            concept: "integrated marketing communication",
             question: "Coca-Cola using the same colors and theme everywhere is an example of…",
             options: [
               "Penetration pricing which the customs office stamps twice",
@@ -2647,7 +2647,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix6-mc1",
-            concept: "How the 4 Ps Work Together",
+            concept: "marketing mix integration",
             question: "What does it mean that the four Ps are 'interdependent'?",
             options: [
               "Each P is decided in total isolation",
@@ -2660,7 +2660,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix6-mc2",
-            concept: "How the 4 Ps Work Together",
+            concept: "brand positioning",
             question: "What is 'positioning'?",
             options: [
               "Where a store sits on a street",
@@ -2688,7 +2688,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix6-aq1",
-          concept: "How the 4 Ps Work Together",
+          concept: "marketing mix integration",
           question: "Why did Kai's repositioning fail?",
           options: [
             "Premium snack bars are illegal to sell as the quarterly earnings report shows",
@@ -2716,7 +2716,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix6-mastery1",
-            concept: "How the 4 Ps Work Together",
+            concept: "marketing mix integration",
             question: "If a brand raises its Price to premium, what must also change?",
             options: [
               "Only the color of the logo",
@@ -2730,7 +2730,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix6-mastery2",
-            concept: "How the 4 Ps Work Together",
+            concept: "marketing mix integration",
             question: "How do Spirit Airlines' four Ps reinforce its position?",
             options: [
               "They all signal luxury and exclusivity",
@@ -2744,7 +2744,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix6-mastery3",
-            concept: "How the 4 Ps Work Together",
+            concept: "marketing mix integration",
             question: "Why do trade-offs between the Ps happen?",
             options: [
               "The law limits how many Ps you use",
@@ -2758,7 +2758,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix6-mastery4",
-            concept: "How the 4 Ps Work Together",
+            concept: "marketing mix integration",
             question: "Why can a mix that was perfect at launch become wrong later?",
             options: [
               "The four Ps expire after one year",
@@ -2772,7 +2772,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix6-mastery5",
-            concept: "How the 4 Ps Work Together",
+            concept: "marketing mix integration",
             question: "The best response to a rival cutting prices is to…",
             options: [
               "Immediately match with a single price cut",
@@ -2786,7 +2786,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix6-mastery6",
-            concept: "How the 4 Ps Work Together",
+            concept: "marketing mix integration",
             question: "What ultimately determines how to balance the four Ps?",
             options: [
               "The company's oldest product which the customs office stamps twice",
@@ -2847,7 +2847,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix7-mc1",
-            concept: "Startup vs Established Brand",
+            concept: "minimum viable product",
             question: "Why do startups often launch a 'minimum viable product'?",
             options: [
               "To sell it at the highest price",
@@ -2860,7 +2860,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix7-mc2",
-            concept: "Startup vs Established Brand",
+            concept: "startup vs established brand",
             question: "Owning strong distribution gives an established brand…",
             options: [
               "A barrier that keeps rivals out",
@@ -2888,7 +2888,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix7-aq1",
-          concept: "Startup vs Established Brand",
+          concept: "brand value",
           question: "Why can the national chain hold premium prices while Maria cannot?",
           options: [
             "The chain's coffee legally must cost more",
@@ -2916,7 +2916,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix7-mastery1",
-            concept: "Startup vs Established Brand",
+            concept: "startup vs established brand",
             question: "A startup's Promotion usually relies on…",
             options: [
               "Expensive national TV campaigns which the customs office stamps twice",
@@ -2930,7 +2930,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix7-mastery2",
-            concept: "Startup vs Established Brand",
+            concept: "startup vs established brand",
             question: "Why do many startups sell direct-to-consumer online?",
             options: [
               "It is the only legal channel for them",
@@ -2944,7 +2944,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix7-mastery3",
-            concept: "Startup vs Established Brand",
+            concept: "startup vs established brand",
             question: "What is a startup's biggest advantage over a giant?",
             options: [
               "A larger advertising budget which the customs office stamps twice",
@@ -2958,7 +2958,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix7-mastery4",
-            concept: "Startup vs Established Brand",
+            concept: "brand promise",
             question: "Why must an established brand protect its brand promise carefully?",
             options: [
               "The law forbids changing products which the customs office stamps twice",
@@ -2972,7 +2972,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix7-mastery5",
-            concept: "Startup vs Established Brand",
+            concept: "startup vs established brand",
             question: "What is the downside of an established brand's large scale?",
             options: [
               "It can never afford advertising",
@@ -2986,7 +2986,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix7-mastery6",
-            concept: "Startup vs Established Brand",
+            concept: "startup vs established brand",
             question: "The core strategic contrast between the two is best described as…",
             options: [
               "Cheap versus expensive products which the customs office stamps twice",
@@ -3047,7 +3047,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix8-mc1",
-            concept: "Build Your Own Marketing Mix",
+            concept: "marketing mix integration",
             question: "What should you define before setting any of the four Ps?",
             options: [
               "The company's logo colors which most textbooks wrongly repeat",
@@ -3060,7 +3060,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix8-mc2",
-            concept: "Build Your Own Marketing Mix",
+            concept: "marketing mix integration",
             question: "The most important step after drafting all four Ps is to…",
             options: [
               "Raise every price as high as possible",
@@ -3088,7 +3088,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mix8-aq1",
-          concept: "Build Your Own Marketing Mix",
+          concept: "marketing mix integration",
           question: "What is the first thing Noah should do before choosing a mascot or ads?",
           options: [
             "Set the highest possible subscription price",
@@ -3116,7 +3116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "mix8-mastery1",
-            concept: "Build Your Own Marketing Mix",
+            concept: "marketing mix integration",
             question: "Why must the persona come before the four Ps?",
             options: [
               "The law requires a persona document as the supplier invoice records in detail",
@@ -3130,7 +3130,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix8-mastery2",
-            concept: "Build Your Own Marketing Mix",
+            concept: "value-based pricing",
             question: "For 'FocusFuel,' pricing at $3 - above soda but below a $6 wellness drink - is…",
             options: [
               "Cost-based pricing on materials which the customs office stamps twice",
@@ -3144,7 +3144,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix8-mastery3",
-            concept: "Build Your Own Marketing Mix",
+            concept: "promotion mix",
             question: "How should Promotion be chosen when building a mix?",
             options: [
               "Use whatever channel is cheapest only as the supplier invoice records in detail",
@@ -3158,7 +3158,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix8-mastery4",
-            concept: "Build Your Own Marketing Mix",
+            concept: "marketing mix integration",
             question: "A marketing mix fails most often when…",
             options: [
               "Every P tells the same clear story",
@@ -3172,7 +3172,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix8-mastery5",
-            concept: "Build Your Own Marketing Mix",
+            concept: "testable hypothesis",
             question: "Why is the finished mix treated as a 'hypothesis'?",
             options: [
               "It can never be changed once set",
@@ -3186,7 +3186,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "mix8-mastery6",
-            concept: "Build Your Own Marketing Mix",
+            concept: "marketing mix integration",
             question: "Red Bull building an edgy product, premium price, and extreme-sports ads shows that…",
             options: [
               "The Ps were chosen at random",
@@ -3247,7 +3247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel1-mc1",
-            concept: "What is PESTEL Analysis",
+            concept: "PESTEL",
             question: "What does the PESTEL framework analyze?",
             options: [
               "A company's internal staff only according to the official government handbook",
@@ -3260,7 +3260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel1-mc2",
-            concept: "What is PESTEL Analysis",
+            concept: "likelihood and impact",
             question: "When rating a PESTEL force, the two key questions are…",
             options: [
               "Its color and its shape",
@@ -3288,7 +3288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel1-aq1",
-          concept: "What is PESTEL Analysis",
+          concept: "social factors",
           question: "The growing 'home-workout trend' Layla listed belongs to which PESTEL category?",
           options: [
             "Political factors",
@@ -3316,7 +3316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel1-mastery1",
-            concept: "What is PESTEL Analysis",
+            concept: "PESTEL",
             question: "The six letters of PESTEL stand for…",
             options: [
               "Price, Earnings, Sales, Trade, Equity, Loss",
@@ -3330,7 +3330,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel1-mastery2",
-            concept: "What is PESTEL Analysis",
+            concept: "macro-environment",
             question: "Which environment does PESTEL specifically map?",
             options: [
               "The internal environment a firm controls",
@@ -3344,7 +3344,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel1-mastery3",
-            concept: "What is PESTEL Analysis",
+            concept: "macro-environment",
             question: "What destroyed Blockbuster despite it controlling its stores and prices?",
             options: [
               "A single bad advertising campaign which happens on every public holiday",
@@ -3358,7 +3358,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel1-mastery4",
-            concept: "What is PESTEL Analysis",
+            concept: "PESTEL",
             question: "Why must a PESTEL analysis be specific to each business?",
             options: [
               "The law requires a unique format which happens on every public holiday",
@@ -3372,7 +3372,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel1-mastery5",
-            concept: "What is PESTEL Analysis",
+            concept: "SWOT analysis",
             question: "PESTEL pairs naturally with a SWOT analysis by supplying its…",
             options: [
               "Internal Strengths and Weaknesses",
@@ -3386,7 +3386,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel1-mastery6",
-            concept: "What is PESTEL Analysis",
+            concept: "PESTEL",
             question: "A completed PESTEL scan should always end in…",
             options: [
               "A colorful logo redesign which happens on every public holiday",
@@ -3447,7 +3447,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel2-mc1",
-            concept: "Political Factors",
+            concept: "tariffs and trade agreements",
             question: "What is a tariff?",
             options: [
               "A subsidy paid to local farmers",
@@ -3460,7 +3460,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel2-mc2",
-            concept: "Political Factors",
+            concept: "political risk",
             question: "Why do companies assess 'political risk' before entering a country?",
             options: [
               "To find the country with the best weather",
@@ -3488,7 +3488,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel2-aq1",
-          concept: "Political Factors",
+          concept: "political factors",
           question: "What is the smartest way for Diego to respond to the tariff and tax break?",
           options: [
             "Ignore the policy and hope it reverses which regulators check during each audit",
@@ -3516,7 +3516,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel2-mastery1",
-            concept: "Political Factors",
+            concept: "political factors",
             question: "How can government subsidies affect an industry?",
             options: [
               "They have no effect on demand",
@@ -3530,7 +3530,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel2-mastery2",
-            concept: "Political Factors",
+            concept: "political factors",
             question: "Why does a corporate tax change matter to businesses?",
             options: [
               "It sets the color of packaging",
@@ -3544,7 +3544,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel2-mastery3",
-            concept: "Political Factors",
+            concept: "tariffs and trade agreements",
             question: "A trade agreement between countries typically…",
             options: [
               "Raises barriers to block all trade",
@@ -3558,7 +3558,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel2-mastery4",
-            concept: "Political Factors",
+            concept: "political factors",
             question: "Why can heavy regulation sometimes help a large established firm?",
             options: [
               "It lowers that firm's own costs to zero",
@@ -3572,7 +3572,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel2-mastery5",
-            concept: "Political Factors",
+            concept: "tariffs and trade agreements",
             question: "Apple shifting some production to India and Vietnam was a response to…",
             options: [
               "A drop in phone quality",
@@ -3586,7 +3586,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel2-mastery6",
-            concept: "Political Factors",
+            concept: "political risk",
             question: "Why is political stability important for global investment?",
             options: [
               "Stable countries always have low wages which happens on every public holiday",
@@ -3647,7 +3647,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel3-mc1",
-            concept: "Economic Factors",
+            concept: "purchasing power",
             question: "What does inflation do to buying power?",
             options: [
               "It increases what money can buy",
@@ -3660,7 +3660,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel3-mc2",
-            concept: "Economic Factors",
+            concept: "business cycle sectors",
             question: "Which type of business tends to stay steady during a recession?",
             options: [
               "A luxury cruise line",
@@ -3688,7 +3688,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel3-aq1",
-          concept: "Economic Factors",
+          concept: "business cycle sectors",
           question: "Why are Priya's expensive trip bookings dropping so sharply?",
           options: [
             "Travel is defensive and immune to recessions",
@@ -3716,7 +3716,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel3-mastery1",
-            concept: "Economic Factors",
+            concept: "recession definition",
             question: "A recession is best described as…",
             options: [
               "GDP growing rapidly for a year",
@@ -3730,7 +3730,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel3-mastery2",
-            concept: "Economic Factors",
+            concept: "monetary policy",
             question: "Why do central banks raise interest rates?",
             options: [
               "To make borrowing cheaper for everyone",
@@ -3744,7 +3744,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel3-mastery3",
-            concept: "Economic Factors",
+            concept: "inflation",
             question: "How does inflation squeeze a business's profit?",
             options: [
               "It lowers the cost of all materials",
@@ -3758,7 +3758,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel3-mastery4",
-            concept: "Economic Factors",
+            concept: "business cycle sectors",
             question: "Which is an example of a counter-cyclical business?",
             options: [
               "A luxury yacht maker as the loan agreement plainly spells out",
@@ -3772,7 +3772,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel3-mastery5",
-            concept: "Economic Factors",
+            concept: "business cycle phases",
             question: "What are the four phases of the business cycle?",
             options: [
               "Buy, sell, hold, trade",
@@ -3786,7 +3786,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel3-mastery6",
-            concept: "Economic Factors",
+            concept: "consumer confidence",
             question: "Why does consumer confidence matter to businesses?",
             options: [
               "It sets the legal minimum wage",
@@ -3847,7 +3847,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel4-mc1",
-            concept: "Social Factors",
+            concept: "social factors",
             question: "What do social factors mainly determine about demand?",
             options: [
               "How much money the government prints each year",
@@ -3860,7 +3860,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel4-mc2",
-            concept: "Social Factors",
+            concept: "demographics",
             question: "Which is an example of a demographic shift?",
             options: [
               "A brand-new law banning plastic straws nationwide",
@@ -3888,7 +3888,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel4-aq1",
-          concept: "Social Factors",
+          concept: "social factors",
           question: "Why are Marcus's classic combo meals slipping even though price and quality held steady?",
           options: [
             "A new government tax made burgers illegal to sell",
@@ -3916,7 +3916,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel4-mastery1",
-            concept: "Social Factors",
+            concept: "demographics",
             question: "What are demographics?",
             options: [
               "The secret marketing budget of a rival firm which happens on every public holiday",
@@ -3930,7 +3930,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel4-mastery2",
-            concept: "Social Factors",
+            concept: "demographics",
             question: "How does an aging population typically change demand?",
             options: [
               "It sharply lowers all spending on medical care",
@@ -3944,7 +3944,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel4-mastery3",
-            concept: "Social Factors",
+            concept: "trend vs fad",
             question: "What is the key difference between a trend and a fad?",
             options: [
               "A trend is illegal while a fad is fully allowed which happens on every public holiday",
@@ -3958,7 +3958,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel4-mastery4",
-            concept: "Social Factors",
+            concept: "social factors",
             question: "How do social values like sustainability affect brands?",
             options: [
               "They set the exact price of oil on world markets",
@@ -3972,7 +3972,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel4-mastery5",
-            concept: "Social Factors",
+            concept: "social factors",
             question: "Which is an example of a lifestyle shift affecting business?",
             options: [
               "A one-day change in the national sales-tax rate",
@@ -3986,7 +3986,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel4-mastery6",
-            concept: "Social Factors",
+            concept: "social factors",
             question: "Why can a good, affordable product still fail on social factors?",
             options: [
               "Because prices always fall to zero over any long period",
@@ -4047,7 +4047,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel5-mc1",
-            concept: "Technological Factors",
+            concept: "automation",
             question: "What is automation?",
             options: [
               "A special tax the government charges on all robots according to the official government handbook",
@@ -4060,7 +4060,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel5-mc2",
-            concept: "Technological Factors",
+            concept: "disruptive innovation",
             question: "What is disruptive innovation?",
             options: [
               "A tax rule that only applies to imported electronics",
@@ -4088,7 +4088,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel5-aq1",
-          concept: "Technological Factors",
+          concept: "disruptive innovation",
           question: "What was Dana's key mistake when streaming first appeared?",
           options: [
             "She raised her rental prices during a bank holiday weekend",
@@ -4116,7 +4116,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel5-mastery1",
-            concept: "Technological Factors",
+            concept: "technological factors",
             question: "Why are technological factors often the fastest-moving PESTEL force?",
             options: [
               "Because governments update tax law every single day",
@@ -4130,7 +4130,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel5-mastery2",
-            concept: "Technological Factors",
+            concept: "research and development",
             question: "What does R&D (research and development) mainly decide?",
             options: [
               "The exact minimum wage that employers must pay which happens on every public holiday",
@@ -4144,7 +4144,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel5-mastery3",
-            concept: "Technological Factors",
+            concept: "disruptive innovation",
             question: "Why is disruption so dangerous to established firms?",
             options: [
               "It is always announced years ahead by the government which happens on every public holiday",
@@ -4158,7 +4158,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel5-mastery4",
-            concept: "Technological Factors",
+            concept: "technological factors",
             question: "How can technology be an opportunity for small businesses?",
             options: [
               "It forces every small firm to shut down within a year",
@@ -4172,7 +4172,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel5-mastery5",
-            concept: "Technological Factors",
+            concept: "technological factors",
             question: "What does 'keeping up' with technology require?",
             options: [
               "Buying every single new gadget the moment it appears",
@@ -4186,7 +4186,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel5-mastery6",
-            concept: "Technological Factors",
+            concept: "disruptive innovation",
             question: "Which is a real example of technological disruption?",
             options: [
               "A city raising its parking fines for one busy weekend",
@@ -4247,7 +4247,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel6-mc1",
-            concept: "Environmental & Legal Factors",
+            concept: "sustainability",
             question: "What is sustainability in business?",
             options: [
               "A one-time discount offered during a summer clearance sale",
@@ -4260,7 +4260,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel6-mc2",
-            concept: "Environmental & Legal Factors",
+            concept: "legal vs political factors",
             question: "How do legal factors differ from political factors?",
             options: [
               "Legal factors only ever apply to very small startups according to the official government handbook",
@@ -4288,7 +4288,7 @@ export const deepBizB: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "pestel6-aq1",
-          concept: "Environmental & Legal Factors",
+          concept: "legal factors",
           question: "Why must Lena change how she stores customer information?",
           options: [
             "A passing fashion fad made data storage briefly popular according to the official government handbook",
@@ -4316,7 +4316,7 @@ export const deepBizB: StructuredLessonContent[] = [
         questions: [
           {
             id: "pestel6-mastery1",
-            concept: "Environmental & Legal Factors",
+            concept: "environmental factors",
             question: "Which is the biggest environmental force facing business today?",
             options: [
               "A single company changing its logo colors and font",
@@ -4330,7 +4330,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel6-mastery2",
-            concept: "Environmental & Legal Factors",
+            concept: "sustainability",
             question: "Why can sustainability be a business advantage, not just ethics?",
             options: [
               "Because it forces every rival to close down permanently",
@@ -4344,7 +4344,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel6-mastery3",
-            concept: "Environmental & Legal Factors",
+            concept: "legal factors",
             question: "What does consumer-protection law require of businesses?",
             options: [
               "That they always charge the single highest possible price",
@@ -4358,7 +4358,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel6-mastery4",
-            concept: "Environmental & Legal Factors",
+            concept: "intellectual property",
             question: "What does intellectual-property law protect?",
             options: [
               "The daily weather forecast for a company's home city",
@@ -4372,7 +4372,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel6-mastery5",
-            concept: "Environmental & Legal Factors",
+            concept: "legal factors",
             question: "Why is legal compliance an ongoing job?",
             options: [
               "Because laws never change once written down anywhere",
@@ -4386,7 +4386,7 @@ export const deepBizB: StructuredLessonContent[] = [
           },
           {
             id: "pestel6-mastery6",
-            concept: "Environmental & Legal Factors",
+            concept: "PESTEL",
             question: "What do the two letters E and L stand for in PESTEL?",
             options: [
               "Earnings and Lending, the two parts of any bank loan",

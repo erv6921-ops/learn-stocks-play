@@ -10,6 +10,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-6-h1",
+        concept: "emergency fund size",
         question: "Priya spends $2,800 a month. She has $6,000 saved. How many more months of a full 6-month emergency fund does she still need to save?",
         options: [
           "About 3.9 months, because $16,800 minus $6,000 is $10,800",
@@ -22,6 +23,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-h2",
+        concept: "emergency fund location",
         question: "Marcus keeps his $9,000 emergency fund fully invested in stocks. The market drops 40% the same week he is laid off. What is the real cost of his choice?",
         options: [
           "Nothing at all, because the stock market always recovers within a single week",
@@ -34,6 +36,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-h3",
+        concept: "emergency fund size",
         question: "Dana wants a 4-month fund but her expenses just rose from $2,000 to $2,500 a month. Her old target was based on the old expenses. How much must her target increase?",
         options: [
           "By $500, from $8,000 to $8,500",
@@ -46,6 +49,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-h4",
+        concept: "sinking fund",
         question: "Which of these is a TRUE emergency that an emergency fund is designed for, rather than a predictable expense that belongs in a sinking fund?",
         options: [
           "The annual car registration renewal that arrives every March",
@@ -58,6 +62,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-h5",
+        concept: "emergency fund rebuilding",
         question: "Leo just used $2,400 from his emergency fund for a medical bill. He also wanted to buy a $600 gaming console this month. What is the smartest move?",
         options: [
           "Buy the console now and rebuild the fund whenever it is convenient",
@@ -70,6 +75,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-h6",
+        concept: "emergency fund location",
         question: "Two savers each earn $3,000 a month. Ana keeps a 6-month fund in a high-yield savings account; Ben keeps his in checking earning 0%. At 4% APY, roughly what does Ana gain in a year that Ben does not?",
         options: [
           "Nothing, because both accounts are equally safe and liquid",
@@ -82,6 +88,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-h7",
+        concept: "emergency fund size",
         question: "A freelancer with unstable income is deciding on an emergency fund size. Why might they aim closer to 6 months than the 3-month minimum?",
         options: [
           "Because freelancers are strictly required by law to hold much larger emergency funds",
@@ -99,6 +106,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-6-r1",
+        concept: "emergency fund purpose",
         question: "What is the main purpose of an emergency fund?",
         options: [
           "To buy fun things for yourself when they go on sale",
@@ -111,6 +119,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-r2",
+        concept: "emergency fund size",
         question: "How many months of expenses is a common goal for a full emergency fund?",
         options: [
           "3 to 6 months",
@@ -123,6 +132,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-r3",
+        concept: "emergency fund location",
         question: "Where is a good place to keep an emergency fund?",
         options: [
           "In risky, volatile cryptocurrency coins",
@@ -135,6 +145,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-r4",
+        concept: "emergency fund purpose",
         question: "Which of these is a real emergency?",
         options: [
           "A limited-time weekend sale on brand-new sneakers",
@@ -147,6 +158,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-r5",
+        concept: "emergency fund size",
         question: "If your expenses are $1,000 a month, how much is a 3-month emergency fund?",
         options: [
           "$300",
@@ -159,6 +171,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-r6",
+        concept: "emergency fund location",
         question: "Why should an emergency fund be easy to access?",
         options: [
           "So you can spend it on fun treats anytime you want",
@@ -171,6 +184,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-6-r7",
+        concept: "emergency fund rebuilding",
         question: "What should you do after you use some of your emergency fund?",
         options: [
           "Forget about it and never refill it",
@@ -192,6 +206,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-7-h1",
+        concept: "lifestyle inflation",
         question: "Tara gets a $6,000 annual raise. She immediately upgrades her apartment for $400 more a month and leases a nicer car for $150 more a month. How much of her raise is left to save?",
         options: [
           "The full $6,000, because a raise is always pure extra money",
@@ -204,6 +219,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-h2",
+        concept: "spending leakage",
         question: "Sam audits his subscriptions: $11 streaming, $10 music, $40 unused gym, and $9 cloud storage. He cancels only the one he never uses. How much does he save per year?",
         options: [
           "$120, from cutting only the music streaming service",
@@ -216,6 +232,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-h3",
+        concept: "discount evaluation",
         question: "A jacket normally $120 is on sale for 40% off. Jae does not need it and would not pay full price. What is the smartest way to evaluate this purchase?",
         options: [
           "Buy it right away, because saving a full $48 is a guaranteed win",
@@ -228,6 +245,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-h4",
+        concept: "emotional spending",
         question: "Which spending pattern best signals emotional spending rather than planned spending?",
         options: [
           "Paying rent on the first of each month",
@@ -240,6 +258,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-h5",
+        concept: "sinking fund",
         question: "Nina expects $720 of holiday spending in December. To avoid a December budget buster, how much should she set aside monthly starting in January?",
         options: [
           "$720 in December only",
@@ -252,6 +271,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-h6",
+        concept: "budget buffer",
         question: "A budget of $2,000 sets aside 5% as a miscellaneous buffer. A surprise $85 birthday gift comes up. Does the buffer absorb it without derailing the plan?",
         options: [
           "No, because the miscellaneous buffer is only $20",
@@ -264,6 +284,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-h7",
+        concept: "lifestyle inflation",
         question: "Two coworkers each get the same raise. Ravi keeps his spending flat and invests the raise; Cole upgrades his lifestyle to match. Ten years later, why is Ravi wealthier?",
         options: [
           "Because raises only ever help the people who quickly spend them",
@@ -281,6 +302,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-7-r1",
+        concept: "lifestyle inflation",
         question: "What is 'lifestyle inflation'?",
         options: [
           "Spending more as you earn more",
@@ -293,6 +315,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-r2",
+        concept: "budget buffer",
         question: "What is a 'budget buster'?",
         options: [
           "A helpful automatic mobile savings app",
@@ -305,6 +328,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-r3",
+        concept: "waiting rule",
         question: "Which trick helps you avoid impulse buys?",
         options: [
           "Shop right when you are very hungry",
@@ -317,6 +341,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-r4",
+        concept: "spending leakage",
         question: "Why can small subscriptions become a budget buster?",
         options: [
           "They are always priced at over $100 each",
@@ -329,6 +354,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-r5",
+        concept: "lifestyle inflation",
         question: "You get a raise. What is a smart choice to avoid lifestyle inflation?",
         options: [
           "Instantly upgrade both your car and your bigger apartment",
@@ -341,6 +367,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-r6",
+        concept: "sinking fund",
         question: "How can you prepare for holiday spending?",
         options: [
           "Just ignore it entirely until early next December",
@@ -353,6 +380,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-7-r7",
+        concept: "discount evaluation",
         question: "Something you do not need is 50% off. What should you ask yourself?",
         options: [
           "How many of these should I just go ahead and buy?",
@@ -374,6 +402,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-8-h1",
+        concept: "budgeting tools",
         question: "Omar links his bank to an app that auto-imports transactions, while Lea tracks purchases by hand in a notebook. Both miss recording a $40 cash tip. Whose budget is more likely to stay accurate over time and why?",
         options: [
           "Lea, because her handwriting is always far more accurate than apps",
@@ -386,6 +415,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-h2",
+        concept: "envelope method",
         question: "Using the cash envelope method, Kim puts $250 in Groceries and $80 in Gas. Mid-month the Groceries envelope has $30 left and Gas has $0, but she needs more gas. What does the method say to do?",
         options: [
           "Borrow freely from any other spending envelope since it all evens out anyway",
@@ -398,6 +428,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-h3",
+        concept: "spreadsheet budgeting",
         question: "A privacy-focused user refuses to link bank accounts to any app but wants full control over categories and formulas. Which tool best fits, and why?",
         options: [
           "A bank-syncing app, simply because it is by far the most automated option here",
@@ -410,6 +441,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-h4",
+        concept: "two-factor authentication",
         question: "When comparing budgeting apps, which combination of features matters MOST for protecting your linked financial data?",
         options: [
           "Colorful charts and a large template library",
@@ -422,6 +454,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-h5",
+        concept: "budgeting tools",
         question: "Rosa uses one app to track past spending, another to actively plan each dollar, and a spreadsheet for long-term goals. Is using multiple tools a mistake?",
         options: [
           "Yes, because you must only ever use one single tool",
@@ -434,6 +467,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-h6",
+        concept: "budgeting tools",
         question: "A budgeting app offers a beautiful interface but you keep forgetting to open it, while a plain notebook you check daily keeps you on track. Which is the better tool for you?",
         options: [
           "The app, of course, because prettier tools are just always automatically better",
@@ -446,6 +480,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-h7",
+        concept: "budgeting tools",
         question: "Two visual learners want to SEE their budget clearly. Which pair of approaches suits them best?",
         options: [
           "Doing all of the hard mental math and reading plain, text-only statements",
@@ -463,6 +498,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-8-r1",
+        concept: "budgeting tools",
         question: "What is one main benefit of a budgeting app?",
         options: [
           "It guarantees you will get rich",
@@ -475,6 +511,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-r2",
+        concept: "envelope method",
         question: "In the envelope method, what happens when an envelope is empty?",
         options: [
           "You keep spending anyway",
@@ -487,6 +524,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-r3",
+        concept: "spreadsheet budgeting",
         question: "Why do some people prefer a spreadsheet for budgeting?",
         options: [
           "It is required to link to every bank by law",
@@ -499,6 +537,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-r4",
+        concept: "two-factor authentication",
         question: "Which feature helps keep a budgeting app secure?",
         options: [
           "Bright colors and fun animations",
@@ -511,6 +550,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-r5",
+        concept: "spending tracking",
         question: "What is a downside of tracking every expense by hand?",
         options: [
           "It takes time and discipline to record each purchase",
@@ -523,6 +563,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-r6",
+        concept: "budgeting tools",
         question: "What does it mean when a budgeting app 'syncs' with your bank?",
         options: [
           "The bank pays you a small bonus",
@@ -535,6 +576,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-8-r7",
+        concept: "budgeting tools",
         question: "What is the most important thing when choosing a budgeting tool?",
         options: [
           "That it is the most expensive one",
@@ -556,6 +598,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-9-h1",
+        concept: "irregular income budgeting",
         question: "Freelancer Ivy earns between $1,200 and $3,600 a month. To budget safely for variable income, which figure should her essential budget be built around?",
         options: [
           "The average of $2,400",
@@ -568,6 +611,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-h2",
+        concept: "income buffer",
         question: "Ivy applies the 50/30/20 rule to her $1,200 baseline. In a $3,000 month, where should the roughly $1,800 of extra income mostly go?",
         options: [
           "Into 'wants' to reward the good month",
@@ -580,6 +624,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-h3",
+        concept: "income buffer",
         question: "Nico deposits all income into a buffer account and pays himself a steady $2,000 'salary' monthly. He earns $3,200 then $900 in back-to-back months. Starting from $0, what is his buffer balance after paying himself both months?",
         options: [
           "$0, because the buffer always empties itself out",
@@ -592,6 +637,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-h4",
+        concept: "expense prioritization",
         question: "During a $700 month, Dev's essentials cost $900. Using expense prioritization, which should he pay FIRST?",
         options: [
           "A monthly video streaming subscription",
@@ -604,6 +650,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-h5",
+        concept: "irregular income budgeting",
         question: "Why should a variable-income earner keep fixed monthly bills well below their lowest month's income?",
         options: [
           "So that the bank will give them a much better interest rate on it",
@@ -616,6 +663,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-h6",
+        concept: "zero-based budgeting",
         question: "In zero-based budgeting, Mia has $2,500 of income and assigns $2,300 across categories. What must she do with the remaining $200 to follow the method?",
         options: [
           "Just leave the whole extra $200 completely unassigned as leftover money",
@@ -628,6 +676,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-h7",
+        concept: "emergency fund purpose",
         question: "Why is a robust emergency fund EXTRA important for someone with variable income?",
         options: [
           "Because they always pay far more in taxes than salaried workers",
@@ -645,6 +694,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-9-r1",
+        concept: "irregular income budgeting",
         question: "What is 'variable income'?",
         options: [
           "Income that changes from month to month",
@@ -657,6 +707,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-r2",
+        concept: "irregular income budgeting",
         question: "For variable income, which month's income is safest to build your budget around?",
         options: [
           "Your single highest earning month",
@@ -669,6 +720,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-r3",
+        concept: "zero-based budgeting",
         question: "In zero-based budgeting, every dollar should have a what?",
         options: [
           "A specific job or purpose",
@@ -681,6 +733,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-r4",
+        concept: "income buffer",
         question: "What is an income buffer account used for?",
         options: [
           "Spending everything you have at once",
@@ -693,6 +746,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-r5",
+        concept: "income buffer",
         question: "You have a surprise high-income month. What is the smart choice?",
         options: [
           "Spend it all right away now",
@@ -705,6 +759,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-r6",
+        concept: "expense prioritization",
         question: "When money is tight, which expense should you pay first?",
         options: [
           "A streaming subscription",
@@ -717,6 +772,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-9-r7",
+        concept: "irregular income budgeting",
         question: "What is a 'baseline budget'?",
         options: [
           "The most you can ever spend",
@@ -738,6 +794,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-10-h1",
+        concept: "compound interest",
         question: "By budgeting, Aria frees up $200 a month and invests it. What makes this a wealth-building habit rather than just saving?",
         options: [
           "The $200 just sits in cash and never changes at all",
@@ -750,6 +807,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-h2",
+        concept: "savings rate",
         question: "Which person builds wealth faster, showing why savings RATE beats income? A doctor earns $300,000 and spends $290,000; a teacher earns $60,000 and spends $40,000.",
         options: [
           "The doctor, saving $10,000 a year",
@@ -762,6 +820,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-h3",
+        concept: "pay yourself first",
         question: "'Paying yourself first' means that on payday you should do what before anything else?",
         options: [
           "Pay every bill and then save whatever is left",
@@ -774,6 +833,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-h4",
+        concept: "compound interest",
         question: "A saver invests $100 a month at about 10% a year for 30 years, ending near $200,000. What does this best demonstrate?",
         options: [
           "That only large monthly amounts can ever grow",
@@ -786,6 +846,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-h5",
+        concept: "savings rate",
         question: "Ben raises his savings rate by just 1% of his $60,000 income and invests it for decades. Why does such a small change matter?",
         options: [
           "It does not, because $600 a year is meaningless",
@@ -798,6 +859,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-h6",
+        concept: "wealth building habits",
         question: "The 'millionaire next door' idea suggests many millionaires became wealthy mainly by doing what?",
         options: [
           "Living in expensive neighborhoods and buying luxury cars",
@@ -810,6 +872,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-h7",
+        concept: "wealth building habits",
         question: "How does today's budgeting choice connect to your 'future self'?",
         options: [
           "It really does not, because budgets only ever affect the present",
@@ -827,6 +890,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-10-r1",
+        concept: "wealth building habits",
         question: "How does budgeting help you build wealth?",
         options: [
           "It raises the size of your paycheck by itself",
@@ -839,6 +903,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-r2",
+        concept: "pay yourself first",
         question: "What does 'pay yourself first' mean?",
         options: [
           "Save before you spend on other things",
@@ -851,6 +916,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-r3",
+        concept: "savings rate",
         question: "What is a 'savings rate'?",
         options: [
           "The percentage of your income you save",
@@ -863,6 +929,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-r4",
+        concept: "compound interest",
         question: "What is compound interest?",
         options: [
           "When your earnings also start earning money",
@@ -875,6 +942,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-r5",
+        concept: "compound interest",
         question: "Can small amounts saved regularly grow into a lot over many years?",
         options: [
           "No, small amounts of money never matter at all",
@@ -887,6 +955,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-r6",
+        concept: "savings rate",
         question: "Which usually matters more for building wealth over time?",
         options: [
           "How much money you earn each year only",
@@ -899,6 +968,7 @@ export const diffBatch04: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-10-r7",
+        concept: "wealth building habits",
         question: "How is saving today connected to your future self?",
         options: [
           "It is not connected to it at all",

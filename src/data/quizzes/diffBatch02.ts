@@ -8,6 +8,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-6-h1",
+        concept: "tax brackets",
         question: "A tax system has brackets: 10% on the first $10,000 and 20% on income above $10,000. Priya earns $15,000. How much federal income tax does she owe before deductions?",
         options: [
           "$3,000 total tax owed",
@@ -20,6 +21,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-h2",
+        concept: "standard deduction",
         question: "Marcus earns $40,000 and the standard deduction is $14,000. His only bracket rate is 12% on taxable income. How much does he owe?",
         options: [
           "$4,800 in tax",
@@ -32,6 +34,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-h3",
+        concept: "tax refund",
         question: "Leah's employer withheld $2,400 during the year, but after using her standard deduction she actually owes $1,900 in tax. What is the result when she files?",
         options: [
           "She receives a $500 refund",
@@ -44,6 +47,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-h4",
+        concept: "tax brackets",
         question: "Tom got a raise that moved his top $2,000 of income from the 12% bracket into the 22% bracket. How much extra tax does that $2,000 raise cost him?",
         options: [
           "$440, since 22% now applies to everything",
@@ -56,6 +60,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-h5",
+        concept: "standard deduction",
         question: "Diego earned $6,000 in wages plus $1,200 in reported tips as a server. If his standard deduction is $14,000, how much of his income is taxable?",
         options: [
           "$7,200 is taxable",
@@ -68,6 +73,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-h6",
+        concept: "taxable income",
         question: "Why can two workers with the same gross salary end up owing different amounts of federal income tax?",
         options: [
           "Because deductions and credits change each one's taxable income",
@@ -80,6 +86,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-h7",
+        concept: "income tax withholding",
         question: "A worker sees $180 taken from each biweekly paycheck for federal income tax. Over 26 pay periods, how does this pay-as-you-go system help her?",
         options: [
           "It means she pays no tax at all when filing",
@@ -97,6 +104,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-6-r1",
+        concept: "purpose of taxes",
         question: "What do income taxes help pay for?",
         options: [
           "Advertising for private companies",
@@ -109,6 +117,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-r2",
+        concept: "W-2",
         question: "What form does your employer send in January showing your yearly wages and tax withheld?",
         options: [
           "A W-2 form",
@@ -121,6 +130,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-r3",
+        concept: "tax refund",
         question: "If your employer withheld more tax than you actually owe, what can you get when you file?",
         options: [
           "A fine",
@@ -133,6 +143,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-r4",
+        concept: "standard deduction",
         question: "The standard deduction is an amount that is:",
         options: [
           "Added to your tax bill as a penalty",
@@ -145,6 +156,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-r5",
+        concept: "taxable income",
         question: "Are tips you earn at a job taxable income?",
         options: [
           "No, tips are always free gifts",
@@ -157,6 +169,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-r6",
+        concept: "progressive tax",
         question: "A progressive tax means that:",
         options: [
           "Higher income is taxed at higher rates",
@@ -169,6 +182,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-r7",
+        concept: "income tax withholding",
         question: "Why do employers take a little tax out of each paycheck?",
         options: [
           "To keep the withheld money as their profit",
@@ -188,6 +202,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-7-h1",
+        concept: "training payback period",
         question: "A training program costs $15,000 and raises your pay by $6,000 per year. Roughly how many years until the extra earnings cover the cost?",
         options: [
           "About 1 year",
@@ -200,6 +215,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-h2",
+        concept: "opportunity cost",
         question: "Sofia quits a $30,000-per-year job to attend a 2-year program with $20,000 total tuition. What is the full cost of her choice?",
         options: [
           "$20,000, since only the tuition really counts",
@@ -212,6 +228,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-h3",
+        concept: "lifetime earnings",
         question: "Career A pays $40,000 growing $2,000 per year; Career B pays $50,000 but never rises. After 10 years, which has earned more in that final year?",
         options: [
           "Career A, now at $58,000",
@@ -224,6 +241,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-h4",
+        concept: "career ROI",
         question: "Which career choice most clearly signals a high ROI?",
         options: [
           "High training cost, low pay, but a famous employer",
@@ -236,6 +254,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-h5",
+        concept: "paid apprenticeship",
         question: "Kai can apprentice as a plumber earning $25,000 while training, or pay $18,000 for a program with weak job prospects. Why is the apprenticeship the stronger ROI?",
         options: [
           "Because every paid tuition program guarantees future wealth",
@@ -248,6 +267,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-h6",
+        concept: "career ROI",
         question: "Nina loves art and also wants strong income. Which move best balances passion with ROI thinking?",
         options: [
           "Ignore the pay entirely and just hope it works out",
@@ -260,6 +280,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-h7",
+        concept: "training payback period",
         question: "Two programs both raise pay by $8,000 per year. Program X costs $8,000; Program Y costs $24,000. Which has the better ROI and why?",
         options: [
           "Program Y, since higher cost means higher quality",
@@ -277,6 +298,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-7-r1",
+        concept: "career ROI",
         question: "What does career ROI compare?",
         options: [
           "The number of coworkers you have",
@@ -289,6 +311,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-r2",
+        concept: "training payback period",
         question: "A program costs $10,000 and pays you $10,000 more per year. About how long until it pays for itself?",
         options: [
           "About 1 year",
@@ -301,6 +324,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-r3",
+        concept: "opportunity cost",
         question: "Besides tuition, what is another real cost of going to school full-time?",
         options: [
           "The cost of a graduation party",
@@ -313,6 +337,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-r4",
+        concept: "lifetime earnings",
         question: "Why look at earnings over a whole career instead of only the first year?",
         options: [
           "Careers grow at different speeds over time",
@@ -325,6 +350,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-r5",
+        concept: "career ROI",
         question: "Which is a sign of a high-ROI career path?",
         options: [
           "A famous company name printed on a card",
@@ -337,6 +363,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-r6",
+        concept: "opportunity cost",
         question: "Opportunity cost of extra years in school mainly means:",
         options: [
           "The price of buying a new laptop",
@@ -349,6 +376,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-r7",
+        concept: "paid apprenticeship",
         question: "Ethan can get paid while training as an electrician or pay tuition for a program with few job openings. Which likely has better ROI?",
         options: [
           "The apprenticeship, since he earns while learning",
@@ -368,6 +396,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-11-h1",
+        concept: "education as investment",
         question: "Ali can attend a $25,000-per-year private school or an $8,000-per-year in-state school for the same nursing license. Over four years, how much would the cheaper school save?",
         options: [
           "$17,000 saved",
@@ -380,6 +409,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-h2",
+        concept: "student debt burden",
         question: "Maria would borrow $80,000 for a degree in a field paying about $35,000 a year. Why is this a warning sign?",
         options: [
           "Because loans in these low-paying fields are automatically forgiven",
@@ -392,6 +422,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-h3",
+        concept: "training payback period",
         question: "A degree adds about $20,000 per year in extra earnings and costs $60,000 total in tuition and lost wages. Ignoring interest, about how long until it breaks even?",
         options: [
           "About 3 years",
@@ -404,6 +435,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-h4",
+        concept: "grants vs loans",
         question: "Dana wins a $15,000 grant that never has to be repaid, cutting her $50,000 cost. How does this change her education as an investment?",
         options: [
           "It raises her total upfront cost up to $65,000",
@@ -416,6 +448,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-h5",
+        concept: "college wage premium",
         question: "Why is it misleading to say a bachelor's degree guarantees you higher pay than a high school diploma?",
         options: [
           "Because degree holders always earn exactly triple the pay",
@@ -428,6 +461,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-h6",
+        concept: "education as investment",
         question: "Devon wants to be a software developer and is weighing a degree, a bootcamp, and self-study. What best reflects education-as-investment thinking?",
         options: [
           "Pick whichever school happens to have the coolest mascot",
@@ -440,6 +474,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-h7",
+        concept: "education as investment",
         question: "In 'education as an investment,' which of these is the return rather than the cost?",
         options: [
           "The tuition you pay each semester",
@@ -457,6 +492,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-11-r1",
+        concept: "college wage premium",
         question: "On average, workers with a bachelor's degree tend to earn:",
         options: [
           "Notably more than high school diploma holders",
@@ -469,6 +505,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-r2",
+        concept: "education as investment",
         question: "In 'education as an investment,' the 'return' is:",
         options: [
           "The physical diploma paper by itself",
@@ -481,6 +518,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-r3",
+        concept: "education as investment",
         question: "Two schools give the same nursing license, but one costs far less. What is the smart consideration?",
         options: [
           "The pricier school always guarantees higher pay",
@@ -493,6 +531,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-r4",
+        concept: "college vs trade school",
         question: "Besides a four-year degree, which path can also build strong earning power?",
         options: [
           "Only a full doctoral degree",
@@ -505,6 +544,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-r5",
+        concept: "grants vs loans",
         question: "Why do scholarships and grants improve the value of education?",
         options: [
           "They lower the cost and never have to be repaid",
@@ -517,6 +557,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-r6",
+        concept: "student debt burden",
         question: "A student would owe far more in loans than she would earn in her first year. This is:",
         options: [
           "Always a very smart financial move",
@@ -529,6 +570,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-11-r7",
+        concept: "education as investment",
         question: "Why does the answer to 'is college worth it?' depend on the situation?",
         options: [
           "Because college tuition is identical everywhere you go",
@@ -548,6 +590,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-9-h1",
+        concept: "rare skill combination",
         question: "Why can being good at two or three uncommon-together skills beat being world-class at just one?",
         options: [
           "Because a single skill is always completely useless",
@@ -560,6 +603,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-h2",
+        concept: "complementary skills",
         question: "Ruby offers design for $500 and marketing for $400 separately. A brand needs both as one package. How does her stack most likely help her earn?",
         options: [
           "She can charge a premium as one hire replacing two",
@@ -572,6 +616,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-h3",
+        concept: "complementary skills",
         question: "Two video editors are equal, but one deeply understands basketball and edits highlight reels. Why does she win sports clients?",
         options: [
           "Because two skills together mean double the invoices",
@@ -584,6 +629,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-h4",
+        concept: "complementary skills",
         question: "Carlos already repairs bikes and is now learning bookkeeping. Why does this specific pairing boost his income potential?",
         options: [
           "Bookkeeping somehow makes his bike repairs physically faster",
@@ -596,6 +642,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-h5",
+        concept: "complementary skills",
         question: "Why does communication skill act as a multiplier when stacked on top of technical skill?",
         options: [
           "It completely replaces the need for any technical skill",
@@ -608,6 +655,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-h6",
+        concept: "complementary skills",
         question: "Which pairing is the strongest example of a value-multiplying skill stack rather than just two unrelated hobbies?",
         options: [
           "Owning two phones from the same brand",
@@ -620,6 +668,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-h7",
+        concept: "skill stacking",
         question: "A teen who streams games wants to build a skill stack cheaply and quickly. What is the smartest approach?",
         options: [
           "Wait until he is age thirty to learn anything new",
@@ -637,6 +686,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-9-r1",
+        concept: "skill stacking",
         question: "What is skill stacking?",
         options: [
           "Combining several skills to raise your value",
@@ -649,6 +699,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-r2",
+        concept: "complementary skills",
         question: "Which is an example of a skill stack?",
         options: [
           "Owning two phones from one brand",
@@ -661,6 +712,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-r3",
+        concept: "complementary skills",
         question: "Ruby knows design and is learning marketing. How does this help her earn more?",
         options: [
           "It makes her existing design skills worthless",
@@ -673,6 +725,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-r4",
+        concept: "rare skill combination",
         question: "Why can a mix of good skills beat being the best at only one?",
         options: [
           "Single skills are always totally useless",
@@ -685,6 +738,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-r5",
+        concept: "complementary skills",
         question: "Carlos fixes bikes and learns bookkeeping. How could that raise his income?",
         options: [
           "He could run his own repair business",
@@ -697,6 +751,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-r6",
+        concept: "complementary skills",
         question: "Why does communication pair well with technical skill?",
         options: [
           "It fully replaces the underlying technical skill",
@@ -709,6 +764,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-r7",
+        concept: "skill stacking",
         question: "What is a good way for a teen to start a skill stack?",
         options: [
           "Wait until you finally turn age thirty",
@@ -728,6 +784,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-10-h1",
+        concept: "revenue vs profit",
         question: "Amara sells bracelets for $12 each. Materials cost $5 each and she sold 25 this month. What is her profit?",
         options: [
           "$300 profit",
@@ -740,6 +797,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-h2",
+        concept: "revenue vs profit",
         question: "Jayden's lawn service earns $800 in revenue, but gas is $120 and equipment repair is $80. What is his profit?",
         options: [
           "$800 profit",
@@ -752,6 +810,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-h3",
+        concept: "revenue vs profit",
         question: "A candle shop made $500 revenue in a month but spent $650 on supplies and booth fees. What is the result?",
         options: [
           "A $150 profit",
@@ -764,6 +823,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-h4",
+        concept: "revenue vs profit",
         question: "Priya earns $18 per handmade bag with $6 material cost each. How many bags must she sell to make $360 in profit?",
         options: [
           "20 bags",
@@ -776,6 +836,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-h5",
+        concept: "entrepreneurship income",
         question: "Why is entrepreneurship income riskier than a steady wage, even when a business is doing well?",
         options: [
           "Because business owners must always work completely alone",
@@ -788,6 +849,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-h6",
+        concept: "start small and reinvest",
         question: "Sasha has $50 and wants to launch a sticker shop. Why is testing a small batch the smartest first move?",
         options: [
           "It proves whether customers will pay before risking more money",
@@ -800,6 +862,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-h7",
+        concept: "start small and reinvest",
         question: "Instead of spending her first $400 profit, Maya buys a better printer and more supplies. Why might this raise her future income?",
         options: [
           "Because reinvesting the profit guarantees that she owes no taxes",
@@ -817,6 +880,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-10-r1",
+        concept: "revenue vs profit",
         question: "How do entrepreneurs mainly earn income?",
         options: [
           "From business profits after paying expenses",
@@ -829,6 +893,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-r2",
+        concept: "revenue vs profit",
         question: "What is the formula for profit?",
         options: [
           "Revenue plus expenses",
@@ -841,6 +906,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-r3",
+        concept: "revenue vs profit",
         question: "Amara sells bracelets for $10 each and they cost $4 to make. What is her profit on one bracelet?",
         options: [
           "$14",
@@ -853,6 +919,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-r4",
+        concept: "entrepreneurship income",
         question: "Why is entrepreneurship income risky?",
         options: [
           "Business profits are capped by law",
@@ -865,6 +932,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-r5",
+        concept: "entrepreneurship income",
         question: "One income advantage of owning a business over a job is:",
         options: [
           "Earnings can grow beyond a fixed wage",
@@ -877,6 +945,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-r6",
+        concept: "revenue vs profit",
         question: "Jayden earns $500 from lawn care and spends $150 on gas. What is his profit?",
         options: [
           "$500",
@@ -889,6 +958,7 @@ export const diffBatch02: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-r7",
+        concept: "start small and reinvest",
         question: "What does it mean to reinvest profits?",
         options: [
           "Put profits back into growing the business",

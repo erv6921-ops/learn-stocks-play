@@ -4,8 +4,10 @@ import { useApp } from "@/contexts/AppContext"
 import { logEvent } from "@/lib/analyticsEvents"
 import { useNetWorth } from "@/hooks/useNetWorth"
 import {
+  MIN_TRADE_COINS,
   MissionContext,
   MissionDef,
+  dayKey,
   getBestQuizToday,
   getCoinsEarnedToday,
   getCompletedState,
@@ -40,7 +42,7 @@ interface UseDailyMissionsOptions {
  * awards coins the moment a mission fills.
  */
 export function useDailyMissions({ award = false }: UseDailyMissionsOptions = {}) {
-  const { lessonProgress, portfolio, jeffsHistory, earnJeffs } = useApp()
+  const { lessonProgress, portfolio, jeffsHistory, jeffsBalance, earnJeffs } = useApp()
   const { totalUnrealizedPnL, totalCostBasis } = useNetWorth()
   const [completed, setCompleted] = useState<Record<string, boolean>>(getCompletedState)
 
@@ -54,11 +56,19 @@ export function useDailyMissions({ award = false }: UseDailyMissionsOptions = {}
       portfolioPnL: totalUnrealizedPnL,
       portfolioPnLPct: totalCostBasis > 0 ? (totalUnrealizedPnL / totalCostBasis) * 100 : 0,
       hasHoldings: portfolio.length > 0,
+      lessonsCompletedTotal: lessonProgress.filter((p) => p.completed).length,
+      coinBalance: jeffsBalance,
     }),
-    [lessonProgress, jeffsHistory, portfolio, totalUnrealizedPnL, totalCostBasis]
+    [lessonProgress, jeffsHistory, portfolio, totalUnrealizedPnL, totalCostBasis, jeffsBalance]
   )
 
-  const defs = useMemo(() => getTodaysMissions(), [])
+  // Today's trio. Re-picked only when the day-one gates move (first lesson
+  // done / can afford a trade), so the set stays stable through the day.
+  const defs = useMemo(
+    () => getTodaysMissions(dayKey(), ctx),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ctx.lessonsCompletedTotal, ctx.coinBalance >= MIN_TRADE_COINS, ctx.tradesToday > 0]
+  )
 
   const missions: MissionView[] = useMemo(
     () =>

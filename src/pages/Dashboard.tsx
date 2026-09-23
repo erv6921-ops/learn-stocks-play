@@ -22,6 +22,10 @@ import { anchor } from "@/lib/tourAnchors";
 import { getStreak, getBestStreak, getStreakRestore, streakRepairReason } from "@/lib/playerStats";
 import { getLeague } from "@/lib/leagues";
 import { CoasterTrack } from "./Lessons";
+import { boardDisplayNames } from "./Leaderboard";
+import { countLessons } from "@/lib/lessonCount";
+// One rounding rule for every coin number shown here (matches the RPCs' ROUND()).
+import { formatCoins, roundCoins } from "@/lib/formatCoins";
 import FullScreenCoaster from "@/components/FullScreenCoaster";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import DailyMissions from "@/components/DailyMissions";
@@ -85,19 +89,35 @@ const BADGES = [
 { name: "Market Expert", icon: Zap, unlockAt: 50 }];
 
 
-type LbRow = { name: string; xp: number; isMe: boolean; rank: number };
+// Rows are keyed on the user id (two "Sam K." rows are different people).
+type LbRow = { id: string; name: string; xp: number; isMe: boolean; rank: number };
 type LbInfo = { rank: number; pts: number; total: number };
+// Raw server row shape shared by the class / national / partners RPCs.
+type ServerRow = { user_id: string; first_name: string | null; last_name: string | null; xp: number | string | null };
 
 // Sort a set of entries, find the current user's rank, and return the top-5
 // rows (always including the user even if they're outside the top 5).
-function buildBoard(all: { name: string; xp: number; isMe: boolean }[]): { rows: LbRow[]; info: LbInfo | null } {
+function buildBoard(all: { id: string; name: string; xp: number; isMe: boolean }[]): { rows: LbRow[]; info: LbInfo | null } {
   if (all.length === 0) return { rows: [], info: null };
   const sorted = [...all].sort((a, b) => b.xp - a.xp);
   const idx = sorted.findIndex((r) => r.isMe);
   const info: LbInfo | null = idx !== -1 ? { rank: idx + 1, pts: Math.round(sorted[idx].xp), total: sorted.length } : null;
-  const rows: LbRow[] = sorted.slice(0, 5).map((r, i) => ({ name: r.name, xp: Math.round(r.xp), isMe: r.isMe, rank: i + 1 }));
-  if (idx >= 5) rows.push({ name: sorted[idx].name, xp: Math.round(sorted[idx].xp), isMe: true, rank: idx + 1 });
+  const rows: LbRow[] = sorted.slice(0, 5).map((r, i) => ({ id: r.id, name: r.name, xp: Math.round(r.xp), isMe: r.isMe, rank: i + 1 }));
+  if (idx >= 5) rows.push({ id: sorted[idx].id, name: sorted[idx].name, xp: Math.round(sorted[idx].xp), isMe: true, rank: idx + 1 });
   return { rows, info };
+}
+
+// Turn a server leaderboard into board entries: the signed-in user is the
+// server's OWN row (same metric as everyone else - never a client-side number
+// spliced in), labelled "You"; everyone else gets a collision-safe short name.
+function toBoardEntries(rows: ServerRow[], meId: string) {
+  const names = boardDisplayNames(rows.map((r) => ({ id: r.user_id, first: r.first_name, last: r.last_name })));
+  return rows.map((r) => ({
+    id: r.user_id,
+    name: r.user_id === meId ? "You" : names.get(r.user_id) ?? "Student",
+    xp: roundCoins(r.xp),
+    isMe: r.user_id === meId,
+  }));
 }
 
 export default function Dashboard() {
@@ -115,7 +135,11 @@ export default function Dashboard() {
   const dashLessonIds = useMemo(() => new Set(dashLessons.map((l) => l.id)), [dashLessons]);
 
   const completedLessons = lessonProgress.filter((p) => p.completed && dashLessonIds.has(p.lessonId)).length;
-  const totalLessons = dashLessonIds.size;
+  // Shared counter so this, the Lessons page and the teacher dashboard agree.
+  const totalLessons = countLessons([dashTrack]);
+  // Day-one gating: any completed lesson (on any track) opens up the rest of
+  // the dashboard - games, business, portfolio.
+  const firstLessonDone = lessonProgress.some((p) => p.completed);
 
   // ── Live watchlist prices ──
   const [watchlistPrices, setWatchlistPrices] = useState<Map<string, {price: number;change: number | null;changePercent: number | null;name?: string;}>>(new Map());
@@ -218,6 +242,8 @@ export default function Dashboard() {
       });
       setJoinCode("");
       setInClass(true);
+      // The class board was loaded before the join, so refetch it now.
+      loadClassBoard();
     } catch (error: any) {
       toast.error("Couldn't join class", { description: error.message });
     } finally {
@@ -352,7 +378,7 @@ export default function Dashboard() {
   };
 
   // Friends snapshot - accepted partners + waiting invites (Partners page RPCs).
-  const [friendsInfo, setFriendsInfo] = useState<{ count: number; rows: { name: string; coins: number }[]; invites: number } | null>(null);
+  const [friendsInfo, setFriendsInfo] = useState<{ count: number; rows: { id: string; name: string; coins: number }[]; invites: number } | null>(null);
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -362,11 +388,12 @@ export default function Dashboard() {
         (supabase as any).rpc("get_partner_requests"),
       ]);
       if (cancelled) return;
-      const rows = (partners ?? []) as { first_name: string | null; last_name: string | null; xp: number }[];
+      const rows = (partners ?? []) as ServerRow[];
+      const names = boardDisplayNames(rows.map((r) => ({ id: r.user_id, first: r.first_name, last: r.last_name })));
       setFriendsInfo({
         count: rows.length,
         rows: rows
-          .map((r) => ({ name: `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim() || "Student", coins: Math.round(Number(r.xp) || 0) }))
+          .map((r) => ({ id: r.user_id, name: names.get(r.user_id) ?? "Student", coins: roundCoins(r.xp) }))
           .sort((a, b) => b.coins - a.coins),
         invites: ((requests ?? []) as unknown[]).length,
       });
@@ -400,69 +427,74 @@ export default function Dashboard() {
 
   // ── Leaderboard snapshot: Class / National / Partners ──
   const [lbScope, setLbScope] = useState<"class" | "national" | "partners">("class");
-  const [rankInfo, setRankInfo] = useState<{ rank: number; pts: number; total: number } | null>(null);
-  const [lbRows, setLbRows] = useState<{ name: string; xp: number; isMe: boolean; rank: number }[]>([]);
-  // National = every user who picked a US state (excludes self; "You" is added below).
-  const [nationalRows, setNationalRows] = useState<{ name: string; xp: number }[]>([]);
+  // Class board: the server's rows for the student's (first) class, including
+  // the student's own row. null until loaded / when not in a class.
+  const [classBoard, setClassBoard] = useState<{ rows: LbRow[]; info: LbInfo | null } | null>(null);
+  // National = every user who picked a US state, self included (the server row
+  // is what ranks us - never a client-side balance spliced in).
+  const [nationalBoard, setNationalBoard] = useState<{ rows: LbRow[]; info: LbInfo | null }>({ rows: [], info: null });
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
       if (!user?.id) return;
       const { data } = await (supabase as any).rpc("get_national_leaderboard");
       if (cancelled || !data) return;
-      const rows = (data as { user_id: string; first_name: string | null; last_name: string | null; xp: number }[])
-        .filter((r) => r.user_id !== user.id)
-        .map((r) => ({ name: `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim() || "Student", xp: Math.round(Number(r.xp) || 0) }));
-      setNationalRows(rows);
-    })();
-    return () => { cancelled = true; };
-  }, [user?.id]);
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      if (!user?.id) return;
-      const { data: memberships } = await supabase.from("class_members").select("class_id").eq("user_id", user.id);
-      const classId = memberships?.[0]?.class_id;
-      if (!classId) return;
-      const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: classId });
-      if (cancelled || !lb) return;
-      const sorted = [...lb].sort((a, b) => Number(b.xp) - Number(a.xp));
-      const idx = sorted.findIndex((r) => r.user_id === user.id);
-      if (idx !== -1) setRankInfo({ rank: idx + 1, pts: Math.round(Number(sorted[idx].xp)), total: sorted.length });
-
-      // Top 5 rows, always include the current user even if outside top 5
-      const top5 = sorted.slice(0, 5);
-      if (idx >= 5) top5.push(sorted[idx]);
-      const rows = top5.map((r, i) => ({
-        name: r.user_id === user.id ? "You" : `${r.first_name || ""}${r.last_name ? ` ${(r.last_name as string).charAt(0)}.` : ""}`.trim() || "Student",
-        xp: Math.round(Number(r.xp)),
-        isMe: r.user_id === user.id,
-        rank: sorted.indexOf(r) + 1,
-      }));
-      if (!cancelled) setLbRows(rows);
+      setNationalBoard(buildBoard(toBoardEntries(data as ServerRow[], user.id)));
     })();
     return () => { cancelled = true; };
   }, [user?.id]);
 
-  // National + Partners boards for the snapshot dropdown. "You" is scored by the
-  // live coin balance, the same number the full Leaderboard uses.
-  const nationalBoard = useMemo(
-    () => buildBoard([...nationalRows.map((r) => ({ name: r.name, xp: r.xp, isMe: false })), { name: "You", xp: jeffsBalance, isMe: true }]),
-    [nationalRows, jeffsBalance],
+  // Loads (or reloads) the class board. Called on mount and again right after a
+  // successful class join - the old effect was keyed on user id alone, so the
+  // "Class rank" card stayed empty until a full reload. A request counter drops
+  // out-of-order responses.
+  const classBoardReq = useRef(0);
+  const loadClassBoard = useCallback(async () => {
+    if (!user?.id) return;
+    const req = ++classBoardReq.current;
+    const { data: memberships } = await supabase.from("class_members").select("class_id").eq("user_id", user.id);
+    const classId = memberships?.[0]?.class_id;
+    if (req !== classBoardReq.current) return;
+    if (!classId) { setClassBoard(null); return; }
+    const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: classId });
+    if (req !== classBoardReq.current || !lb) return;
+    setClassBoard(buildBoard(toBoardEntries(lb as ServerRow[], user.id)));
+  }, [user?.id]);
+  useEffect(() => { loadClassBoard(); }, [loadClassBoard]);
+
+  // A brand-new account has exactly one ledger entry: Jeff's 15-coin welcome
+  // gift. Until there's anything beyond that (a lesson, a trade, a mission),
+  // ranking is meaningless - every newcomer ties - so ranks stay hidden and the
+  // card asks for a first lesson instead.
+  const hasRankActivity = useMemo(
+    () => firstLessonDone || jeffsHistory.some((h) => !h.reason.startsWith("Welcome gift")),
+    [firstLessonDone, jeffsHistory],
   );
+  const rankInfo = hasRankActivity ? classBoard?.info ?? null : null;
+  const lbRows = classBoard?.rows ?? [];
+
+  // Partners board: get_partners returns only OTHER people, so "You" is the
+  // live coin balance here (the same ledger sum the RPC computes for them).
   const partnersBoard = useMemo(
-    () => buildBoard([...(friendsInfo?.rows ?? []).map((r) => ({ name: r.name, xp: r.coins, isMe: false })), { name: "You", xp: jeffsBalance, isMe: true }]),
-    [friendsInfo, jeffsBalance],
+    () => buildBoard([
+      ...(friendsInfo?.rows ?? []).map((r) => ({ id: r.id, name: r.name, xp: r.coins, isMe: false })),
+      { id: user?.id ?? "me", name: "You", xp: roundCoins(jeffsBalance), isMe: true },
+    ]),
+    [friendsInfo, jeffsBalance, user?.id],
   );
 
   // The board currently shown in the snapshot, chosen by the dropdown.
   const activeBoard = useMemo(() => {
-    if (lbScope === "national")
-      return { label: "National rank", short: "National", noun: "nationwide", info: nationalBoard.info, rows: nationalBoard.rows, empty: false, emptyText: "" };
-    if (lbScope === "partners")
-      return { label: "Partners rank", short: "Partners", noun: "partners", info: partnersBoard.info, rows: partnersBoard.rows, empty: (partnersBoard.info?.total ?? 0) <= 1, emptyText: "Add partners to compare your coins with friends." };
-    return { label: "Class rank", short: "Class", noun: "students", info: rankInfo, rows: lbRows, empty: !rankInfo, emptyText: "Join a class to see where you stand against your classmates." };
-  }, [lbScope, rankInfo, lbRows, nationalBoard, partnersBoard]);
+    const base = lbScope === "national"
+      ? { label: "National rank", short: "National", noun: "nationwide", info: nationalBoard.info, rows: nationalBoard.rows, empty: !nationalBoard.info, emptyText: "Pick your state in your profile to join the national board." }
+      : lbScope === "partners"
+        ? { label: "Partners rank", short: "Partners", noun: "partners", info: partnersBoard.info, rows: partnersBoard.rows, empty: (partnersBoard.info?.total ?? 0) <= 1, emptyText: "Add partners to compare your coins with friends." }
+        : { label: "Class rank", short: "Class", noun: "students", info: classBoard?.info ?? null, rows: lbRows, empty: !classBoard?.info, emptyText: "Join a class to see where you stand against your classmates." };
+    if (!hasRankActivity && !base.empty)
+      return { ...base, info: null, empty: true, emptyText: "Finish a lesson to get ranked." };
+    return base;
+  }, [lbScope, classBoard, lbRows, nationalBoard, partnersBoard, hasRankActivity]);
 
   // Board switcher pill (Class / National / Partners). The wrapper stops the
   // click from reaching the card's Link to /leaderboard.
@@ -539,14 +571,15 @@ export default function Dashboard() {
       value: string;
       tone: "gold" | "flame" | "up" | "down" | "rank";
     }[] = [
-      { key: "coins", Icon: Coins, label: "Coins", value: jeffsBalance.toLocaleString(), tone: "gold" },
+      { key: "coins", Icon: Coins, label: "Coins", value: formatCoins(jeffsBalance), tone: "gold" },
       { key: "streak", Icon: Flame, label: "Streak", value: `${streak} ${streak === 1 ? "day" : "days"}`, tone: "flame" },
     ];
-    if (partnersBoard.info && (partnersBoard.info.total ?? 0) > 1)
+    // Ranks only once the student has done something beyond the welcome gift.
+    if (hasRankActivity && partnersBoard.info && (partnersBoard.info.total ?? 0) > 1)
       items.push({ key: "friends", Icon: Users, label: "Friends", value: `#${partnersBoard.info.rank} of ${partnersBoard.info.total}`, tone: "rank" });
     if (rankInfo)
       items.push({ key: "class", Icon: Trophy, label: "Class", value: `#${rankInfo.rank} of ${rankInfo.total}`, tone: "rank" });
-    if (nationalBoard.info)
+    if (hasRankActivity && nationalBoard.info)
       items.push({ key: "national", Icon: Trophy, label: "National", value: `#${nationalBoard.info.rank} of ${nationalBoard.info.total}`, tone: "rank" });
     items.push({
       key: "portfolio",
@@ -556,7 +589,7 @@ export default function Dashboard() {
       tone: plPct >= 0 ? "up" : "down",
     });
     return items;
-  }, [jeffsBalance, streak, partnersBoard, rankInfo, nationalBoard, plPct]);
+  }, [jeffsBalance, streak, partnersBoard, rankInfo, nationalBoard, plPct, hasRankActivity]);
   const tickerToneColor: Record<string, string> = {
     gold: "#F5C26B", flame: "#fb923c", up: "#34d399", down: "#f87171", rank: "#e2e8f0",
   };
@@ -754,6 +787,27 @@ export default function Dashboard() {
                 </div>
               </div>
 
+              {/* Start / Continue learning CTA - jumps to the next incomplete lesson.
+                  Sits ABOVE the missions so a day-one student sees the one
+                  thing to do first. */}
+              <button
+                onClick={() => navigate(nextLesson ? `/lessons/${nextLesson.id}` : "/lessons")}
+                className="cta-bounce press-scale mt-6 w-full inline-flex items-center justify-center gap-2.5 rounded-2xl px-8 py-5 md:py-6 text-lg md:text-xl font-extrabold tracking-tight"
+                style={{
+                  background: "linear-gradient(180deg, #ffffff 0%, #eef3f0 100%)",
+                  color: "#12281f",
+                  border: "1px solid rgba(255,255,255,0.7)",
+                  boxShadow: "0 20px 40px -10px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.9)",
+                }}>
+                <BookOpen className="w-5 h-5 md:w-6 md:h-6" />
+                {!nextLesson
+                  ? "Review lessons"
+                  : completedLessons === 0
+                    ? "Start learning"
+                    : "Continue learning"}
+                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
+
               {/* Stats row - switches between daily missions and the 5 stats */}
               {heroView === "daily" ? (
                 <motion.div
@@ -818,7 +872,7 @@ export default function Dashboard() {
                   style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
                   {[
                     { Icon: Flame, tint: "#fb923c", value: String(streak), label: "Day streak" },
-                    { Icon: Coins, tint: "#F5C26B", value: jeffsBalance.toLocaleString(), label: "Coins" },
+                    { Icon: Coins, tint: "#F5C26B", value: formatCoins(jeffsBalance), label: "Coins" },
                     { Icon: Star, tint: "#fde047", value: `Lv ${currLevel}`, label: "Level" },
                     { Icon: Flame, tint: "#fdba74", value: `${bestStreak}d`, label: "Best streak" },
                     { Icon: BookOpen, tint: "#6ee7b7", value: `${completedLessons}/${totalLessons}`, label: "Lessons" },
@@ -837,25 +891,6 @@ export default function Dashboard() {
                   ))}
                 </motion.div>
               )}
-
-              {/* Start / Continue learning CTA - jumps to the next incomplete lesson */}
-              <button
-                onClick={() => navigate(nextLesson ? `/lessons/${nextLesson.id}` : "/lessons")}
-                className="cta-bounce press-scale mt-6 w-full inline-flex items-center justify-center gap-2.5 rounded-2xl px-8 py-5 md:py-6 text-lg md:text-xl font-extrabold tracking-tight"
-                style={{
-                  background: "linear-gradient(180deg, #ffffff 0%, #eef3f0 100%)",
-                  color: "#12281f",
-                  border: "1px solid rgba(255,255,255,0.7)",
-                  boxShadow: "0 20px 40px -10px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.9)",
-                }}>
-                <BookOpen className="w-5 h-5 md:w-6 md:h-6" />
-                {!nextLesson
-                  ? "Review lessons"
-                  : completedLessons === 0
-                    ? "Start learning"
-                    : "Continue learning"}
-                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
-              </button>
             </div>
           </div>
         </MCard>
@@ -938,6 +973,9 @@ export default function Dashboard() {
         {/* Headless DailyMissions keeps detecting + awarding the daily missions;
             the hero banner's Daily view is what displays them now. */}
         <DailyMissions headless />
+        {/* Games, business and portfolio stay hidden until the first lesson is
+            complete - day one is about learning, not the toys. */}
+        {firstLessonDone && (
         <MCard i={6} className="mt-3">
           <div className="bg-card rounded-3xl p-5 relative overflow-hidden" style={{ border: "1px solid hsl(var(--border))", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
             <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
@@ -973,6 +1011,7 @@ export default function Dashboard() {
             </div>
           </div>
         </MCard>
+        )}
 
         {/* ═══ 4. SNAPSHOTS - business · portfolio · class rank ═══ */}
         <MCard i={7} className="mt-6 mb-2.5 px-1">
@@ -984,6 +1023,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-3 items-stretch">
 
           {/* ── Micro-business: revenue hero + radial rep + customer dots ── */}
+          {firstLessonDone && (
           <MCard i={8}>
             <Link to="/micro-business" className="block h-full">
               <div className="group bg-card rounded-3xl p-5 relative overflow-hidden hover-lift press-scale h-full"
@@ -1148,8 +1188,10 @@ export default function Dashboard() {
               </div>
             </Link>
           </MCard>
+          )}
 
           {/* ── Portfolio: interactive terminal ── */}
+          {firstLessonDone && (
           <PortfolioSnapshot
             portfolio={portfolio}
             watchlist={watchlist}
@@ -1157,6 +1199,7 @@ export default function Dashboard() {
             plPct={plPct}
             portfolioValue={portfolioValue}
           />
+          )}
 
           {/* ── Class Leaderboard snapshot ── */}
           <MCard i={10}>
@@ -1211,11 +1254,11 @@ export default function Dashboard() {
                           <div className="mt-3 relative">
                             <div className="flex items-center justify-between mb-1.5">
                               <span className="text-[11px] font-extrabold tabular-nums" style={{ color: "#E3A008" }}>
-                                🪙 {info.pts.toLocaleString()} coins
+                                🪙 {formatCoins(info.pts)} coins
                               </span>
                               {gap != null && (
                                 <span className="text-[10px] font-bold" style={{ color: "rgba(255,255,255,0.45)" }}>
-                                  {gap.toLocaleString()} to #{info.rank - 1}
+                                  {formatCoins(gap)} to #{info.rank - 1}
                                 </span>
                               )}
                             </div>
@@ -1244,7 +1287,7 @@ export default function Dashboard() {
                           const medals = ["🥇", "🥈", "🥉"];
                           const barColor = r.isMe ? "var(--brand)" : r.rank <= 3 ? ["#E3A008", "#9CA3AF", "#CD7C3A"][r.rank - 1] : "#CBD5E1";
                           return (
-                            <motion.div key={r.name + i}
+                            <motion.div key={r.id}
                               initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: 0.75 + i * 0.08, duration: 0.28 }}
                               className="py-2.5"
@@ -1259,7 +1302,7 @@ export default function Dashboard() {
                                     {r.name}
                                   </span>
                                   <span className="text-xs font-bold tabular-nums" style={{ color: barColor }}>
-                                    🪙{r.xp.toLocaleString()}
+                                    🪙{formatCoins(r.xp)}
                                   </span>
                                 </div>
                                 <div className="ml-7 h-1.5 rounded-full bg-muted overflow-hidden">
@@ -1542,7 +1585,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
             <Link to="/stocks" className="block mt-3 group/first">
               <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">First trade</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Buy real companies with virtual cash and watch your chart grow right here.
+                Buy real companies with your InvestiCoins and watch your chart grow right here.
               </p>
               <span className="inline-flex items-center gap-1 mt-3 text-xs font-bold px-3 py-1.5 rounded-full press-scale"
                 style={{ background: "#3BA7C4", color: "white" }}>

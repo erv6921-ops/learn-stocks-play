@@ -7,6 +7,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "market-1-q1",
+        concept: "NYSE vs NASDAQ",
         question: "Which statement correctly describes the NASDAQ exchange?",
         options: [
           "It is a fully electronic exchange known for tech stocks",
@@ -19,6 +20,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-1-q2",
+        concept: "NYSE vs NASDAQ",
         question: "What is the New York Stock Exchange (NYSE) best known for?",
         options: [
           "Being a crypto-only trading platform based in Chicago",
@@ -31,6 +33,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-1-q3",
+        concept: "NYSE vs NASDAQ",
         question: "Maya notices that Apple, Microsoft, and Google's parent Alphabet all trade on the same exchange. Which exchange is it most likely to be?",
         options: [
           "The Chicago Mercantile Exchange for commodities",
@@ -43,6 +46,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-1-q4",
+        concept: "stock exchange",
         question: "How are the NYSE and NASDAQ similar?",
         options: [
           "Both are run by the US federal government directly",
@@ -55,6 +59,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-1-q5",
+        concept: "NYSE vs NASDAQ",
         question: "A new tech startup wants a fully electronic listing with a tech-heavy reputation. Which option fits best?",
         options: [
           "NASDAQ, since it began as an electronic marketplace",
@@ -67,6 +72,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-1-q6",
+        concept: "NYSE vs NASDAQ",
         question: "Why did the NASDAQ not need a physical trading floor when it launched in 1971?",
         options: [
           "Trading floors were banned by Congress that same year",
@@ -79,6 +85,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-1-q7",
+        concept: "NYSE vs NASDAQ",
         question: "Why might a large, established company like Coca-Cola choose to list on the NYSE?",
         options: [
           "The NYSE forbids technology companies from ever listing",
@@ -91,6 +98,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-1-q8",
+        concept: "brokerage account",
         question: "Jordan wants to buy shares of a company listed on the NYSE using a phone app. What has to happen?",
         options: [
           "He must fly to New York and shout an order",
@@ -110,6 +118,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "market-2-q1",
+        concept: "market maker",
         question: "What is the main job of a market maker?",
         options: [
           "To set the official price of every stock daily",
@@ -122,6 +131,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-2-q2",
+        concept: "bid-ask spread",
         question: "What is the 'bid-ask spread'?",
         options: [
           "The number of shares a company has issued",
@@ -134,6 +144,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-2-q3",
+        concept: "market maker",
         question: "A market maker quotes a $9.99 bid and a $10.01 ask for a stock. How do they earn money?",
         options: [
           "By pocketing the two-cent spread on many trades",
@@ -146,6 +157,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-2-q4",
+        concept: "market maker",
         question: "Why are market makers important for everyday investors?",
         options: [
           "They eliminate every possible risk of losing money",
@@ -158,6 +170,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-2-q5",
+        concept: "market maker",
         question: "Tyler tries to sell a rarely traded stock and waits hours for a buyer. What role would a market maker have played?",
         options: [
           "Forcing Tyler to keep the stock for a full year",
@@ -170,6 +183,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-2-q6",
+        concept: "market maker",
         question: "Where do market makers commonly operate?",
         options: [
           "Only inside physical bank branch lobbies in small towns",
@@ -182,6 +196,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-2-q7",
+        concept: "bid-ask spread",
         question: "Why does a smaller bid-ask spread benefit you as a buyer?",
         options: [
           "It means the company pays a bigger dividend",
@@ -194,6 +209,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-2-q8",
+        concept: "bid-ask spread",
         question: "A stock shows a huge spread: $5.00 bid and $6.00 ask. What does this most likely suggest?",
         options: [
           "Few traders are active, so trading it costs more",
@@ -213,6 +229,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "market-3-q1",
+        concept: "trading hours",
         question: "What are regular US stock market trading hours in Eastern Time?",
         options: [
           "From midnight to noon on business days",
@@ -225,6 +242,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-3-q2",
+        concept: "trading hours",
         question: "On which days are US stock markets normally closed?",
         options: [
           "Weekends and certain federal holidays like Thanksgiving",
@@ -237,6 +255,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-3-q3",
+        concept: "trading hours",
         question: "It's 7:00 pm ET on a Tuesday and Zoe places a regular market order in her app. What happens to it?",
         options: [
           "It executes instantly at the day's opening price",
@@ -249,6 +268,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-3-q4",
+        concept: "trading hours",
         question: "What is the 'opening bell'?",
         options: [
           "A phone alert brokers send before every lunch break",
@@ -261,6 +281,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-3-q5",
+        concept: "trading hours",
         question: "Liam lives in California, which is on Pacific Time. When does regular trading open for him?",
         options: [
           "At 6:30 am his local Pacific time",
@@ -273,6 +294,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-3-q6",
+        concept: "trading hours",
         question: "Why do stock markets have set opening and closing times?",
         options: [
           "To let brokers charge investors overtime fees at night",
@@ -285,6 +307,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-3-q7",
+        concept: "trading hours",
         question: "Why is the final hour of the trading day often the busiest?",
         options: [
           "Brokers legally must delete unused orders at 3 pm",
@@ -297,6 +320,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-3-q8",
+        concept: "trading hours",
         question: "The market closes at 4:00 pm ET, and Ava hears big news about her stock at 4:30 pm. What is true about her regular orders?",
         options: [
           "They will execute immediately at the 4:00 price",
@@ -316,6 +340,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "market-4-q1",
+        concept: "bull vs bear market",
         question: "What is a bull market?",
         options: [
           "A period when farm animal stocks lead all trading",
@@ -328,6 +353,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-4-q2",
+        concept: "bull vs bear market",
         question: "What defines a bear market?",
         options: [
           "Prices staying perfectly flat for over six months",
@@ -340,6 +366,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-4-q3",
+        concept: "bull vs bear market",
         question: "Why is a rising market called a 'bull' market?",
         options: [
           "A bull attacks by thrusting its horns upward",
@@ -352,6 +379,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-4-q4",
+        concept: "bull vs bear market",
         question: "The S&P 500 falls 25% from its record high over four months. What is this called?",
         options: [
           "A bull market, since prices moved fast",
@@ -364,6 +392,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-4-q5",
+        concept: "bull vs bear market",
         question: "Stocks have climbed steadily for three years and are up 80%, and investors feel confident. This describes a...",
         options: [
           "Bull market with rising prices and optimism",
@@ -376,6 +405,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-4-q6",
+        concept: "correction vs bear market",
         question: "What is a market 'correction'?",
         options: [
           "A drop of 50% or even more from highs",
@@ -388,6 +418,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-4-q7",
+        concept: "dollar-cost averaging",
         question: "Why might a bear market actually help a teenage investor who invests money monthly?",
         options: [
           "Bear markets legally protect all young investors from losses",
@@ -400,6 +431,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-4-q8",
+        concept: "bull vs bear market",
         question: "Historically, how do bull and bear markets compare in the US?",
         options: [
           "Bear markets usually last longer than bull markets",
@@ -419,6 +451,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "market-5-q1",
+        concept: "liquidity",
         question: "What does 'liquidity' mean in investing?",
         options: [
           "How easily an asset converts to cash",
@@ -431,6 +464,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-5-q2",
+        concept: "liquidity",
         question: "Which asset is generally the MOST liquid?",
         options: [
           "A house in a quiet rural neighborhood",
@@ -443,6 +477,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-5-q3",
+        concept: "liquidity",
         question: "Ella owns a rare collectible sneaker worth $400 but needs cash today. What is her liquidity problem?",
         options: [
           "Sneakers are illegal to resell in most states",
@@ -455,6 +490,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-5-q4",
+        concept: "liquidity",
         question: "Why do investors care about a stock's liquidity?",
         options: [
           "Liquid stocks are completely exempt from all capital taxes",
@@ -467,6 +503,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-5-q5",
+        concept: "liquidity",
         question: "A stock trades only 500 shares a day, and Marcus wants to sell 2,000 shares. What is likely to happen?",
         options: [
           "The exchange will buy his shares automatically",
@@ -479,6 +516,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-5-q6",
+        concept: "liquidity",
         question: "Which is a common sign of high liquidity in a stock?",
         options: [
           "Heavy daily volume and a tight spread",
@@ -491,6 +529,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-5-q7",
+        concept: "liquidity",
         question: "Why is cash considered the ultimate liquid asset?",
         options: [
           "Cash automatically grows faster than any investment",
@@ -503,6 +542,7 @@ export const stocksAndMarketsQuizzes: LessonQuiz[] = [
       },
       {
         id: "market-5-q8",
+        concept: "emergency fund location",
         question: "An emergency fund should stay liquid. Which choice best fits that need?",
         options: [
           "A five-year certificate with early withdrawal penalties",

@@ -6,6 +6,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-1-tu1",
+        concept: "bondholder vs stockholder",
         question: "If a company gets into trouble, who has the stronger claim to be paid?",
         options: [
           "Stockholders, because they own the company",
@@ -18,6 +19,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-1-tu2",
+        concept: "bond as loan",
         question: "A town issues bonds to repave its roads. What promise is it making to buyers?",
         options: [
           "To give buyers ownership of the new roads",
@@ -35,6 +37,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-2-tu1",
+        concept: "municipal bond",
         question: "A city issues bonds to fund a new water system. What type of bond is this?",
         options: [
           "A Treasury bond",
@@ -47,6 +50,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-2-tu2",
+        concept: "bond credit spread",
         question: "Why can a shaky company be forced to offer a higher yield than a strong one?",
         options: [
           "Weaker issuers must pay more to offset default risk",
@@ -64,6 +68,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-3-tu1",
+        concept: "bond yield",
         question: "A $1,000 bond pays a fixed $60 coupon each year. What is its current yield if it still trades at $1,000?",
         options: [
           "Sixty percent",
@@ -76,6 +81,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-3-tu2",
+        concept: "total return",
         question: "Besides collecting its coupon, how else could a bondholder make money on a bond?",
         options: [
           "By collecting a share of company profits",
@@ -93,6 +99,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-4-tu1",
+        concept: "investment grade vs junk",
         question: "A bond is rated BB+. Which category does it fall into?",
         options: [
           "High-yield, or junk",
@@ -105,6 +112,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-4-tu2",
+        concept: "bond ratings",
         question: "Which organization would assign a credit rating to a bond?",
         options: [
           "The bond issuer's own sales team",
@@ -122,6 +130,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-5-tu1",
+        concept: "real vs nominal return",
         question: "A bond yields 4% while inflation runs 4%. What is the investor's approximate real return?",
         options: [
           "About eight percent",
@@ -134,6 +143,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-5-tu2",
+        concept: "TIPS",
         question: "Which feature of TIPS helps protect investors from inflation?",
         options: [
           "Their principal adjusts with the inflation index",
@@ -151,6 +161,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-6-tu1",
+        concept: "rates and bond prices",
         question: "Market interest rates fall after Nina buys her bond. What happens to her bond's market price?",
         options: [
           "It falls to match the lower rates",
@@ -163,6 +174,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-6-tu2",
+        concept: "interest rate risk",
         question: "Even a U.S. Treasury with no default risk can lose market value. Why?",
         options: [
           "The government occasionally skips its payments",
@@ -180,6 +192,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-7-tu1",
+        concept: "bond duration",
         question: "A bond fund has a duration of 6 and interest rates rise 1%. Roughly what happens to its value?",
         options: [
           "It rises about 6%",
@@ -192,6 +205,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-7-tu2",
+        concept: "bond duration",
         question: "Two bonds are identical except one matures in 2 years and the other in 25 years. Which has the higher duration?",
         options: [
           "The 25-year bond",
@@ -209,6 +223,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-8-tu1",
+        concept: "bond fund vs bond",
         question: "How does a bond fund most help a beginner with only a small amount to invest?",
         options: [
           "It guarantees a fixed return every year",
@@ -221,6 +236,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-8-tu2",
+        concept: "bond fund vs bond",
         question: "How do investors in a bond fund usually receive their income?",
         options: [
           "As a lump sum only when the fund closes",
@@ -238,6 +254,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "bonds-9-tu1",
+        concept: "fixed income role",
         question: "Compared with a portfolio of only stocks, what does adding bonds mainly do?",
         options: [
           "Increases the portfolio's long-term growth",
@@ -250,6 +267,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "bonds-9-tu2",
+        concept: "time horizon",
         question: "As an investor gets close to needing the money, how should the bond share of the portfolio usually change?",
         options: [
           "It should increase to protect the money",
@@ -267,6 +285,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "market-1-tu1",
+        concept: "NYSE vs NASDAQ",
         question: "Which exchange launched as a fully electronic marketplace with no physical trading floor?",
         options: [
           "The New York Stock Exchange",
@@ -279,6 +298,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "market-1-tu2",
+        concept: "stock exchange",
         question: "Which statement about the NYSE and NASDAQ is true?",
         options: [
           "Both are run directly by the federal government",
@@ -296,6 +316,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "market-2-tu1",
+        concept: "bid-ask spread",
         question: "A market maker's bid is $19.98 and its ask is $20.02. What is the spread?",
         options: [
           "Four cents",
@@ -308,6 +329,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "market-2-tu2",
+        concept: "market maker",
         question: "Why can everyday investors usually buy or sell a popular stock almost instantly?",
         options: [
           "The SEC personally fills each order",
@@ -325,6 +347,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "market-3-tu1",
+        concept: "trading hours",
         question: "Which of these keeps the US stock market closed on a weekday?",
         options: [
           "Rainy weather in New York City",
@@ -337,6 +360,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "market-3-tu2",
+        concept: "trading hours",
         question: "Regular trading opens at 9:30 am Eastern. When is that for an investor in California on Pacific Time?",
         options: [
           "6:30 am Pacific",
@@ -354,6 +378,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "market-4-tu1",
+        concept: "correction vs bear market",
         question: "The S&P 500 has fallen about 12% from its recent high. What is this most accurately called?",
         options: [
           "A bull market",
@@ -366,6 +391,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "market-4-tu2",
+        concept: "bull vs bear market",
         question: "Historically in the US, how have bull and bear markets compared in length?",
         options: [
           "Bear markets have usually lasted longer",
@@ -383,6 +409,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "market-5-tu1",
+        concept: "liquidity",
         question: "Which of these is generally the LEAST liquid asset?",
         options: [
           "Shares of a large well-known company",
@@ -395,6 +422,7 @@ export const topUp8BondsMkt: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "market-5-tu2",
+        concept: "liquidity",
         question: "Which pair of signs points to high liquidity in a stock?",
         options: [
           "Heavy daily volume and a tight bid-ask spread",

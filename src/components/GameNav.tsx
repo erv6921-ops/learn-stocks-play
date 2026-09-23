@@ -29,6 +29,7 @@ import {
 "lucide-react";
 import { NAV_ICON_COMPONENTS } from "@/components/nav/AnimatedNavIcons";
 import { getStreak } from "@/lib/playerStats";
+import { roundCoins } from "@/lib/formatCoins";
 
 // Compact large balances (e.g. 12,300 → "12.3K") so the coin pill stays narrow
 // on phones and never widens the top-right cluster into the centered wordmark.
@@ -123,8 +124,8 @@ export default function GameNav() {
               <div ref={anchor("hud-coins")} className="flex items-center gap-1.5 bg-gold/10 text-gold px-2 sm:px-2.5 py-1.5 rounded-xl text-xs font-bold border border-gold/15 shadow-sm nav-bounce cursor-default">
                 <Coins className="w-3.5 h-3.5 shrink-0" />
                 {/* Compact on phones (keeps the pill narrow), full number on larger screens. */}
-                <span className="sm:hidden tabular-nums"><AnimatedNumber value={Math.round(jeffsBalance)} format={compactBalance} /></span>
-                <span className="hidden sm:inline tabular-nums"><AnimatedNumber value={Math.round(jeffsBalance)} /></span>
+                <span className="sm:hidden tabular-nums"><AnimatedNumber value={roundCoins(jeffsBalance)} format={compactBalance} /></span>
+                <span className="hidden sm:inline tabular-nums"><AnimatedNumber value={roundCoins(jeffsBalance)} /></span>
               </div>
               <NotificationBell />
               <Link to="/profile" aria-label="Your profile" title="Your profile" ref={anchor("hud-profile")}>

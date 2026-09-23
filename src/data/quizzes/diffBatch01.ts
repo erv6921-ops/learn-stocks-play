@@ -7,6 +7,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-2-h1",
+        concept: "overtime pay",
         question: "Maya is a nonexempt hourly worker paid $20 an hour. This week she works 46 hours. Using federal overtime rules, what is her gross pay?",
         options: [
           "$920 for the week",
@@ -19,6 +20,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-h2",
+        concept: "pay rate conversion",
         question: "A job posts $54,600 per year paid every two weeks (26 paychecks). Another posts $21 per hour for a steady 40-hour week. Which pays more per two-week period, and by how much?",
         options: [
           "The hourly job, by about $580",
@@ -31,6 +33,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-h3",
+        concept: "exempt vs non-exempt",
         question: "Ben is a salaried (exempt) worker earning $60,000 a year. One week he works 55 hours instead of his usual 40. Compared to a normal week, how does his paycheck change?",
         options: [
           "It stays the same because exempt salary ignores extra hours",
@@ -43,6 +46,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-h4",
+        concept: "hourly pay",
         question: "Dana earns $17.50 an hour and worked 32 hours last week and 40 hours this week. What is her combined gross pay for the two weeks, before any overtime applies?",
         options: [
           "$1,120 total",
@@ -55,6 +59,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-h5",
+        concept: "pay rate conversion",
         question: "Two offers: Job A is $45,000 salary. Job B is $22 an hour but only guarantees 35 hours a week for 50 working weeks. Which earns more per year at those hours?",
         options: [
           "Job A, by about $6,500",
@@ -67,6 +72,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-h6",
+        concept: "wages vs salary",
         question: "Carlos wants income he can budget on exactly, but also wants extra pay when he works long weeks. Which trade-off is he actually facing?",
         options: [
           "Salary gives both predictability and overtime at once",
@@ -79,6 +85,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-h7",
+        concept: "pay rate conversion",
         question: "An offer states $3,500 per month, paid monthly. What is the equivalent annual salary, and how would it compare to $20 an hour at 40 hours a week for 52 weeks?",
         options: [
           "$42,000 a year, which is more than the hourly job",
@@ -96,6 +103,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-2-r1",
+        concept: "wages vs salary",
         question: "Which type of worker is paid for each hour they work?",
         options: [
           "A salaried worker",
@@ -108,6 +116,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-r2",
+        concept: "wages vs salary",
         question: "A salary is best described as which of the following?",
         options: [
           "A fixed yearly amount split into regular paychecks",
@@ -120,6 +129,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-r3",
+        concept: "hourly pay",
         question: "Sam earns $10 per hour and works 5 hours. What is his gross pay?",
         options: [
           "$5",
@@ -132,6 +142,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-r4",
+        concept: "wages vs salary",
         question: "What is one clear advantage of a salary?",
         options: [
           "You never pay any taxes",
@@ -144,6 +155,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-r5",
+        concept: "pay rate conversion",
         question: "A salary of $52,000 a year is paid over how many weeks?",
         options: [
           "12 weeks",
@@ -156,6 +168,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-r6",
+        concept: "hourly pay",
         question: "If an hourly worker picks up an extra shift, what usually happens to their pay?",
         options: [
           "It goes down",
@@ -168,6 +181,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-r7",
+        concept: "wages vs salary",
         question: "Which worker is most likely paid a salary?",
         options: [
           "A babysitter paid per evening",
@@ -185,6 +199,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-3-h1",
+        concept: "base plus commission",
         question: "Rosa earns a $250 base wage plus 6% commission. This week she sells $4,500 in products. What is her total pay?",
         options: [
           "$270 for the week",
@@ -197,6 +212,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-h2",
+        concept: "hourly vs commission pay",
         question: "Jordan can take a flat $18 an hour for 25 hours a week, or a 4% commission on sales that average $12,000 a week. In an average week, which pays more and by how much?",
         options: [
           "Hourly pays more, by $30",
@@ -209,6 +225,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-h3",
+        concept: "commission pay",
         question: "A commission-only seller averaged $600, $200, and $700 over three weeks. What does this pattern best illustrate about pure commission pay?",
         options: [
           "It guarantees a steady income each week",
@@ -221,6 +238,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-h4",
+        concept: "base plus commission",
         question: "Nina has a $400 base plus 5% commission. She wants to take home at least $700 this week. How much must she sell to reach that goal?",
         options: [
           "$3,000 in sales",
@@ -233,6 +251,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-h5",
+        concept: "base plus commission",
         question: "Two jobs sell the same product. Job A is pure 10% commission. Job B is a $500 base plus 3% commission. At what weekly sales amount do the two pay the same?",
         options: [
           "$5,000 in sales",
@@ -245,6 +264,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-h6",
+        concept: "base plus commission",
         question: "Why does a base-plus-commission structure appeal to a seller who is nervous about slow weeks but still wants upside?",
         options: [
           "It removes commission so pay never changes",
@@ -257,6 +277,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-h7",
+        concept: "commission pay",
         question: "Marco earns 8% commission and needs $480 in commission this week to cover rent. He has already sold $3,000. How much more must he sell to hit $480 in commission?",
         options: [
           "$1,000 more in sales",
@@ -274,6 +295,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-3-r1",
+        concept: "commission pay",
         question: "Commission pay is based on what?",
         options: [
           "The number of hours you sit at a desk",
@@ -286,6 +308,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-r2",
+        concept: "commission pay",
         question: "Tina earns 10% commission and sells $100 worth of goods. What is her commission?",
         options: [
           "$1",
@@ -298,6 +321,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-r3",
+        concept: "base plus commission",
         question: "What does base plus commission mean?",
         options: [
           "A guaranteed wage plus extra pay from sales",
@@ -310,6 +334,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-r4",
+        concept: "commission pay",
         question: "What is a risk of working on pure commission?",
         options: [
           "You must pay double taxes",
@@ -322,6 +347,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-r5",
+        concept: "commission pay",
         question: "Which job most commonly pays mostly by commission?",
         options: [
           "A librarian",
@@ -334,6 +360,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-r6",
+        concept: "hourly vs commission pay",
         question: "Which pay type gives you the same amount each week?",
         options: [
           "Pure commission",
@@ -346,6 +373,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-r7",
+        concept: "commission pay",
         question: "Why do employers use commission in sales jobs?",
         options: [
           "It motivates workers to sell more",
@@ -363,6 +391,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-4-h1",
+        concept: "gig tax set-aside",
         question: "Aisha drives for a delivery app and earned $2,000 last month. No taxes were withheld. If she sets aside 25% for taxes, how much should she keep back?",
         options: [
           "$200 set aside",
@@ -375,6 +404,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-h2",
+        concept: "independent contractor",
         question: "Theo is offered the same weekly pay as a W-2 employee or as a gig contractor. Why might the contractor version leave him with less spendable cash?",
         options: [
           "Contractors are paid in a different currency",
@@ -387,6 +417,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-h3",
+        concept: "variable income budgeting",
         question: "A gig tutor made $1,200, $300, and $900 over three months. To budget safely, which approach fits variable gig income best?",
         options: [
           "Spend as if every month equals the best month",
@@ -399,6 +430,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-h4",
+        concept: "gig expenses",
         question: "Priya earns $30 per gig delivery but spends about $6 per delivery on gas and car wear. After doing 40 deliveries, what is her actual take-home before taxes?",
         options: [
           "$1,200 take-home",
@@ -411,6 +443,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-h5",
+        concept: "gig economy",
         question: "Which statement best captures the core trade-off of gig work?",
         options: [
           "More benefits in exchange for less pay",
@@ -423,6 +456,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-h6",
+        concept: "gig expenses",
         question: "Sam earned $4,000 from a design gig and sets aside 20% for taxes plus $300 in software costs. Roughly how much is left for personal spending?",
         options: [
           "$2,900 left",
@@ -435,6 +469,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-h7",
+        concept: "gig economy",
         question: "Which situation is an example of gig work rather than traditional employment?",
         options: [
           "A salaried accountant at a firm",
@@ -452,6 +487,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-4-r1",
+        concept: "gig economy",
         question: "The gig economy is made up of what kind of work?",
         options: [
           "Only jobs at concerts",
@@ -464,6 +500,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-r2",
+        concept: "independent contractor",
         question: "Most gig workers are classified as what?",
         options: [
           "Full-time employees with benefits",
@@ -476,6 +513,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-r3",
+        concept: "gig tax set-aside",
         question: "For a gig worker, taxes are usually handled how?",
         options: [
           "The app takes taxes out automatically",
@@ -488,6 +526,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-r4",
+        concept: "gig economy",
         question: "What is the biggest advantage of gig work?",
         options: [
           "Free health insurance",
@@ -500,6 +539,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-r5",
+        concept: "gig economy",
         question: "What is a downside of relying on gig work?",
         options: [
           "It provides too many benefits",
@@ -512,6 +552,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-r6",
+        concept: "gig economy",
         question: "Which of these is an example of gig work?",
         options: [
           "A salaried bank teller",
@@ -524,6 +565,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-r7",
+        concept: "variable income budgeting",
         question: "Because gig income changes month to month, gig workers should do what?",
         options: [
           "Spend everything right away",
@@ -541,6 +583,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-5-h1",
+        concept: "gross vs net pay",
         question: "Elena's gross pay is $1,000. Deductions are $120 federal tax, $76.50 FICA, and $40 state tax. What is her net pay?",
         options: [
           "$763.50 net pay",
@@ -553,6 +596,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-h2",
+        concept: "FICA",
         question: "A worker earns $1,200 gross. Using the standard employee FICA rate, how much is withheld for FICA alone?",
         options: [
           "About $24",
@@ -565,6 +609,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-h3",
+        concept: "gross vs net pay",
         question: "Raj's net pay is $780 after $220 in total deductions. What was his gross pay?",
         options: [
           "$560 gross",
@@ -577,6 +622,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-h4",
+        concept: "FICA",
         question: "Of a $1,500 gross paycheck, only the Social Security portion of FICA is which amount at the standard 6.2% rate?",
         options: [
           "$21.75",
@@ -589,6 +635,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-h5",
+        concept: "gross vs net pay",
         question: "Mia budgeted $600 of spending based on her $600 gross pay, but her deposit was $492. Why is her plan short, and by how much?",
         options: [
           "Her employer stole $108 illegally",
@@ -601,6 +648,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-h6",
+        concept: "gross vs net pay",
         question: "A pay stub shows $2,000 gross with $306 total deductions. What percent of gross was taken out, and what is net pay?",
         options: [
           "About 15.3% out, $1,694 net",
@@ -613,6 +661,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-h7",
+        concept: "paycheck deductions",
         question: "Which list contains only items that are payroll deductions taken before you receive your pay?",
         options: [
           "Rent, groceries, and a phone bill",
@@ -630,6 +679,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-5-r1",
+        concept: "gross vs net pay",
         question: "What is gross pay?",
         options: [
           "Pay after deductions are taken out",
@@ -642,6 +692,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-r2",
+        concept: "gross vs net pay",
         question: "What is net pay?",
         options: [
           "Pay before taxes",
@@ -654,6 +705,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-r3",
+        concept: "gross vs net pay",
         question: "Gross pay is $200 and $30 is taken out. What is net pay?",
         options: [
           "$230",
@@ -666,6 +718,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-r4",
+        concept: "FICA",
         question: "FICA taxes help pay for which programs?",
         options: [
           "Social Security and Medicare",
@@ -678,6 +731,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-r5",
+        concept: "gross vs net pay",
         question: "Which number is bigger on a pay stub?",
         options: [
           "Net pay is always bigger",
@@ -690,6 +744,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-r6",
+        concept: "paycheck deductions",
         question: "Which is a common paycheck deduction?",
         options: [
           "Your grocery bill",
@@ -702,6 +757,7 @@ export const diffBatch01: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-r7",
+        concept: "gross vs net pay",
         question: "You should build your budget around which number?",
         options: [
           "Gross pay",

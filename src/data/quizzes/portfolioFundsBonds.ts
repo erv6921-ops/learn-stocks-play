@@ -7,6 +7,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-1-q1",
+        concept: "asset allocation",
         question: "What does 'asset allocation' mean?",
         options: [
           "Picking the single best stock available",
@@ -19,6 +20,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-1-q2",
+        concept: "asset classes",
         question: "Which of these are the three classic asset classes?",
         options: [
           "Sneakers, trading cards, and video games",
@@ -31,6 +33,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-1-q3",
+        concept: "age-based allocation",
         question: "Maya is 16 and investing for retirement decades away. Which allocation generally fits her time horizon?",
         options: [
           "Mostly stocks, with a smaller bond portion",
@@ -43,6 +46,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-1-q4",
+        concept: "age-based allocation",
         question: "A retiree needs their money within a few years. How should their allocation compare to a teenager's?",
         options: [
           "Exactly the same mix works for everyone",
@@ -55,6 +59,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-1-q5",
+        concept: "correlation",
         question: "Why do stocks and bonds usually get combined in one portfolio?",
         options: [
           "Brokerages legally require owning both types",
@@ -67,6 +72,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-1-q6",
+        concept: "asset allocation",
         question: "Which factor matters MOST when choosing your asset allocation?",
         options: [
           "Your time horizon and comfort with risk",
@@ -79,6 +85,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-1-q7",
+        concept: "concentration risk",
         question: "Jordan puts 100% of his savings into one tech stock. What allocation problem does this create?",
         options: [
           "His fees will be the highest possible",
@@ -91,6 +98,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-1-q8",
+        concept: "asset allocation",
         question: "Research suggests asset allocation explains much of a portfolio's long-term behavior. Why is that?",
         options: [
           "Regulators set returns based on allocation choices",
@@ -110,6 +118,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-2-q1",
+        concept: "risk tolerance",
         question: "What is 'risk tolerance' in investing?",
         options: [
           "How much loss you can handle emotionally and financially",
@@ -122,6 +131,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-2-q2",
+        concept: "risk tolerance",
         question: "Which investor likely has a HIGH risk tolerance?",
         options: [
           "Someone who needs the money next month",
@@ -134,6 +144,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-2-q3",
+        concept: "risk tolerance",
         question: "Ava lost sleep for a week when her investments dropped 10%. What does this suggest?",
         options: [
           "She should borrow money to invest more",
@@ -146,6 +157,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-2-q4",
+        concept: "time horizon",
         question: "How does your time horizon affect the risk you can take?",
         options: [
           "Time horizon only matters for cash accounts",
@@ -158,6 +170,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-2-q5",
+        concept: "risk tolerance vs capacity",
         question: "What's the difference between risk tolerance and risk capacity?",
         options: [
           "Tolerance is emotional comfort; capacity is financial ability",
@@ -170,6 +183,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-2-q6",
+        concept: "inflation risk",
         question: "Why might taking TOO LITTLE risk be a problem for a teen investor?",
         options: [
           "Low-risk accounts are illegal for teenagers",
@@ -182,6 +196,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-2-q7",
+        concept: "time horizon",
         question: "Liam is saving for a car he'll buy in eight months. What risk level fits this goal?",
         options: [
           "High risk, since crypto could double quickly",
@@ -194,6 +209,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-2-q8",
+        concept: "risk tolerance",
         question: "Which question best helps you assess your own risk tolerance?",
         options: [
           "Which stock ticker symbol looks the coolest?",
@@ -213,6 +229,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-3-q1",
+        concept: "diversification",
         question: "What is diversification?",
         options: [
           "Buying only the biggest company available",
@@ -225,6 +242,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-3-q2",
+        concept: "diversification",
         question: "Which portfolio is the MOST diversified?",
         options: [
           "Hundreds of stocks and bonds across industries",
@@ -237,6 +255,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-3-q3",
+        concept: "diversification",
         question: "Zoe owns five stocks, all airline companies. Why is she NOT well diversified?",
         options: [
           "Five is more than the legal maximum",
@@ -249,6 +268,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-3-q4",
+        concept: "diversification",
         question: "How does diversification help during a market storm?",
         options: [
           "It guarantees you will never lose money",
@@ -261,6 +281,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-3-q5",
+        concept: "diversification",
         question: "Beyond owning many stocks, what ELSE can you diversify across?",
         options: [
           "Different app icon colors and themes",
@@ -273,6 +294,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-3-q6",
+        concept: "diversification",
         question: "What's the easiest way for a beginner to instantly diversify?",
         options: [
           "Buy a broad index fund holding many companies",
@@ -285,6 +307,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-3-q7",
+        concept: "concentration risk",
         question: "In 2000, employees who held only their employer's stock lost jobs AND savings when it collapsed. What lesson is that?",
         options: [
           "Never work for a public company",
@@ -297,6 +320,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-3-q8",
+        concept: "correlation",
         question: "Why can diversification REDUCE risk without destroying returns?",
         options: [
           "Different assets don't all move together at once",
@@ -316,6 +340,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-4-q1",
+        concept: "dollar-cost averaging",
         question: "What is dollar-cost averaging (DCA)?",
         options: [
           "Buying only when prices hit record highs",
@@ -328,6 +353,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-4-q2",
+        concept: "dollar-cost averaging",
         question: "With DCA, what happens automatically when prices FALL?",
         options: [
           "Your fixed amount buys MORE shares",
@@ -340,6 +366,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-4-q3",
+        concept: "dollar-cost averaging",
         question: "Noah invests $25 from every paycheck into an index fund, whether markets are up or down. What is he practicing?",
         options: [
           "Day trading with technical chart analysis",
@@ -352,6 +379,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-4-q4",
+        concept: "dollar-cost averaging",
         question: "A fund costs $10 in January and $5 in February. You invest $100 each month. How many total shares do you own?",
         options: [
           "Twenty shares in total",
@@ -364,6 +392,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-4-q5",
+        concept: "dollar-cost averaging",
         question: "What emotional trap does DCA help investors avoid?",
         options: [
           "Trying to time the market's highs and lows",
@@ -376,6 +405,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-4-q6",
+        concept: "dollar-cost averaging",
         question: "The market drops 15% and scary headlines are everywhere. What does a DCA investor do?",
         options: [
           "Sell everything until headlines improve again",
@@ -388,6 +418,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-4-q7",
+        concept: "dollar-cost averaging",
         question: "Why does DCA fit a student earning money from a part-time job?",
         options: [
           "Students get special DCA tax exemptions",
@@ -400,6 +431,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-4-q8",
+        concept: "dollar-cost averaging",
         question: "How does DCA affect your average cost per share over time?",
         options: [
           "It guarantees the lowest possible price always",
@@ -419,6 +451,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-5-q1",
+        concept: "rebalancing",
         question: "What does 'rebalancing' a portfolio mean?",
         options: [
           "Adjusting holdings back to your target mix",
@@ -431,6 +464,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-5-q2",
+        concept: "portfolio drift",
         question: "Why do portfolios drift away from their target allocation?",
         options: [
           "Brokers secretly rearrange customer accounts overnight",
@@ -443,6 +477,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-5-q3",
+        concept: "rebalancing",
         question: "Your target is 70% stocks / 30% bonds, but a rally pushed you to 85% stocks. What does rebalancing involve?",
         options: [
           "Buying even more stocks while they're hot",
@@ -455,6 +490,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-5-q4",
+        concept: "rebalancing",
         question: "What smart discipline does rebalancing quietly enforce?",
         options: [
           "Trading daily to catch every price move",
@@ -467,6 +503,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-5-q5",
+        concept: "rebalancing triggers",
         question: "How often do experts commonly suggest checking whether to rebalance?",
         options: [
           "Every hour the market is open",
@@ -479,6 +516,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-5-q6",
+        concept: "portfolio drift",
         question: "What risk builds up if you NEVER rebalance?",
         options: [
           "Your portfolio can become riskier than you intended",
@@ -491,6 +529,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-5-q7",
+        concept: "rebalancing with new money",
         question: "Besides selling winners, how can a teen with regular deposits rebalance?",
         options: [
           "Withdraw everything and redeposit it later",
@@ -503,6 +542,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-5-q8",
+        concept: "rebalancing",
         question: "Emotionally, why is rebalancing hard for many investors?",
         options: [
           "The math requires advanced calculus skills",
@@ -522,6 +562,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-6-q1",
+        concept: "stock index",
         question: "What is a market index, like the S&P 500?",
         options: [
           "A government tax on stock trades",
@@ -534,6 +575,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-6-q2",
+        concept: "index fund",
         question: "What does an index FUND try to do?",
         options: [
           "Beat the market through expert stock picking",
@@ -546,6 +588,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-6-q3",
+        concept: "index fund cost advantage",
         question: "Why are index funds usually much cheaper than actively managed funds?",
         options: [
           "No expensive team is picking stocks",
@@ -558,6 +601,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-6-q4",
+        concept: "index investing",
         question: "Priya, 17, wants to invest but has no time to research companies. Why might index investing suit her?",
         options: [
           "Index funds require daily monitoring and trading",
@@ -570,6 +614,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-6-q5",
+        concept: "tracking error",
         question: "If the S&P 500 rises 10% this year, what should an S&P 500 index fund roughly return?",
         options: [
           "Exactly zero percent in flat markets",
@@ -582,6 +627,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-6-q6",
+        concept: "active vs passive investing",
         question: "What long-term evidence supports index investing?",
         options: [
           "Most active funds fail to beat index funds",
@@ -594,6 +640,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-6-q7",
+        concept: "market risk",
         question: "Which is a genuine limitation of index investing?",
         options: [
           "It requires picking individual winning stocks",
@@ -606,6 +653,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-6-q8",
+        concept: "index investing",
         question: "Why did Warren Buffett famously recommend index funds for most people?",
         options: [
           "He owns the largest index fund company",
@@ -625,6 +673,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-7-q1",
+        concept: "active vs passive investing",
         question: "What defines ACTIVE investing?",
         options: [
           "Exercising while you check stock prices",
@@ -637,6 +686,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-7-q2",
+        concept: "active vs passive investing",
         question: "What defines PASSIVE investing?",
         options: [
           "Trading options based on daily news",
@@ -649,6 +699,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-7-q3",
+        concept: "active vs passive investing",
         question: "Over long periods, how do MOST active funds compare to index funds?",
         options: [
           "Most active funds underperform after fees",
@@ -661,6 +712,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-7-q4",
+        concept: "fee drag",
         question: "Why do high fees hurt active funds so much over time?",
         options: [
           "Fees are only charged in losing years",
@@ -673,6 +725,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-7-q5",
+        concept: "active vs passive investing",
         question: "Diego spends hours picking stocks and lags the S&P 500 three years straight. What's the rational takeaway?",
         options: [
           "He should trade more frequently each day",
@@ -685,6 +738,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-7-q6",
+        concept: "past performance",
         question: "An active fund beat the market last year. Why is that alone weak evidence of skill?",
         options: [
           "One-year winners often just got lucky",
@@ -697,6 +751,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-7-q7",
+        concept: "active vs passive investing",
         question: "Which is a fair argument FOR active management?",
         options: [
           "Active funds never charge any fees",
@@ -709,6 +764,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-7-q8",
+        concept: "active vs passive investing",
         question: "A typical active fund charges 1.0% yearly; an index fund charges 0.05%. What must the active fund do just to TIE?",
         options: [
           "Hold more cash than the index fund",
@@ -728,6 +784,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-8-q1",
+        concept: "total return",
         question: "What is a 'return' on an investment?",
         options: [
           "Sending shares back for a refund",
@@ -740,6 +797,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-8-q2",
+        concept: "total return",
         question: "You invested $200 and it's now worth $220. What is your return?",
         options: [
           "Twenty percent total gain",
@@ -752,6 +810,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-8-q3",
+        concept: "benchmark comparison",
         question: "What is a 'benchmark' used for in performance tracking?",
         options: [
           "A standard to compare your returns against",
@@ -764,6 +823,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-8-q4",
+        concept: "benchmark comparison",
         question: "Your portfolio gained 8% while the S&P 500 gained 12%. What does this comparison tell you?",
         options: [
           "You beat the market by four percent",
@@ -776,6 +836,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-8-q5",
+        concept: "real vs nominal return",
         question: "Why should returns be judged AFTER subtracting fees and inflation?",
         options: [
           "Fees and inflation only affect bond investors",
@@ -788,6 +849,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-8-q6",
+        concept: "performance tracking",
         question: "Why is checking your portfolio every day usually counterproductive?",
         options: [
           "Daily noise triggers emotional, short-term decisions",
@@ -800,6 +862,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-8-q7",
+        concept: "performance tracking",
         question: "Kai deposited $500 during the year, and his account grew from $1,000 to $1,600. Why can't he claim a 60% return?",
         options: [
           "Returns can never exceed fifty percent",
@@ -812,6 +875,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-8-q8",
+        concept: "performance tracking",
         question: "Which time frame gives the MOST meaningful read on a long-term strategy?",
         options: [
           "The most recent trading afternoon",
@@ -831,6 +895,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-9-q1",
+        concept: "risk management",
         question: "What is the main goal of risk management in investing?",
         options: [
           "Eliminating every possible risk completely",
@@ -843,6 +908,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-9-q2",
+        concept: "emergency fund purpose",
         question: "What is an emergency fund's role in managing investment risk?",
         options: [
           "It earns higher returns than stocks",
@@ -855,6 +921,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-9-q3",
+        concept: "loss recovery math",
         question: "A drop of 50% requires what gain just to break even?",
         options: [
           "A one hundred percent gain",
@@ -867,6 +934,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-9-q4",
+        concept: "leverage",
         question: "Why is investing borrowed money (leverage) especially dangerous?",
         options: [
           "Borrowed money grows slower than saved money",
@@ -879,6 +947,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-9-q5",
+        concept: "position sizing",
         question: "Which practice directly limits how much one bad bet can hurt you?",
         options: [
           "Following stock tips from group chats",
@@ -891,6 +960,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-9-q6",
+        concept: "time horizon",
         question: "Sam invests his textbook money for next semester in volatile stocks. What risk rule is he breaking?",
         options: [
           "Never invest money you'll need soon",
@@ -903,6 +973,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-9-q7",
+        concept: "fixed income role",
         question: "How do bonds and cash function as risk management tools in a portfolio?",
         options: [
           "They grow faster than stocks in booms",
@@ -915,6 +986,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-9-q8",
+        concept: "inflation risk",
         question: "Why is 'risk of missing your goals' also a real risk, not just losing money?",
         options: [
           "Goals are legally binding financial contracts you sign",
@@ -934,6 +1006,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "portfolio-10-q1",
+        concept: "net worth",
         question: "What is 'net worth'?",
         options: [
           "The total salary you earn yearly",
@@ -946,6 +1019,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-10-q2",
+        concept: "compound interest",
         question: "What makes compound growth so powerful over decades?",
         options: [
           "Your earnings start generating their own earnings",
@@ -958,6 +1032,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-10-q3",
+        concept: "starting early",
         question: "Why does starting at 16 instead of 30 matter so enormously?",
         options: [
           "Teen accounts pay triple interest rates",
@@ -970,6 +1045,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-10-q4",
+        concept: "wealth building habits",
         question: "Which habit is the true FOUNDATION of building wealth?",
         options: [
           "Finding one hot stock early",
@@ -982,6 +1058,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-10-q5",
+        concept: "wealth building habits",
         question: "Tara, 17, can invest $100 monthly. Which plan best builds long-term wealth?",
         options: [
           "Automatic monthly buys of broad index funds",
@@ -994,6 +1071,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-10-q6",
+        concept: "compound interest on debt",
         question: "How does high-interest debt sabotage wealth building?",
         options: [
           "Debt payments improve your investment returns",
@@ -1006,6 +1084,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-10-q7",
+        concept: "overtrading",
         question: "Why do steady index investors often out-build flashy traders over 30 years?",
         options: [
           "Traders are banned after ten years",
@@ -1018,6 +1097,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "portfolio-10-q8",
+        concept: "wealth building habits",
         question: "Which statement about get-rich-quick schemes is accurate?",
         options: [
           "They reliably outperform diversified portfolios",
@@ -1036,6 +1116,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-1-q1",
+        concept: "ETF",
         question: "What is an ETF (exchange-traded fund)?",
         options: [
           "A basket of investments trading like a stock",
@@ -1048,6 +1129,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-1-q2",
+        concept: "ETF",
         question: "When can you buy or sell an ETF?",
         options: [
           "Only on the first of each month",
@@ -1060,6 +1142,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-1-q3",
+        concept: "diversification",
         question: "With $50, Jayden buys one share of a total-market ETF. What did he just get?",
         options: [
           "A tiny stake in thousands of companies",
@@ -1072,6 +1155,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-1-q4",
+        concept: "ETF vs mutual fund",
         question: "How does an ETF's trading differ from a mutual fund's?",
         options: [
           "ETFs can only be traded by professionals",
@@ -1084,6 +1168,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-1-q5",
+        concept: "ETF",
         question: "Why are ETFs popular with beginner investors?",
         options: [
           "They guarantee profits within one year",
@@ -1096,6 +1181,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-1-q6",
+        concept: "ETF",
         question: "What determines an ETF's price during the trading day?",
         options: [
           "The fund manager sets it each morning",
@@ -1108,6 +1194,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-1-q7",
+        concept: "tracking error",
         question: "An ETF tracking the S&P 500 falls 3% today. What most likely happened?",
         options: [
           "The fund manager sold everything overnight",
@@ -1120,6 +1207,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-1-q8",
+        concept: "diversification",
         question: "Why can a single ETF be safer than a single stock?",
         options: [
           "One company's collapse barely dents the basket",
@@ -1139,6 +1227,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-2-q1",
+        concept: "mutual fund",
         question: "What is a mutual fund?",
         options: [
           "A loan shared between two friends",
@@ -1151,6 +1240,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-2-q2",
+        concept: "NAV",
         question: "When you buy mutual fund shares, what price do you get?",
         options: [
           "Whatever price you bid during the day",
@@ -1163,6 +1253,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-2-q3",
+        concept: "NAV",
         question: "What does NAV (net asset value) represent?",
         options: [
           "The fund's total holdings value per share",
@@ -1175,6 +1266,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-2-q4",
+        concept: "mutual fund",
         question: "Why does pooling money give small investors an advantage?",
         options: [
           "Pooled money is exempt from taxes",
@@ -1187,6 +1279,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-2-q5",
+        concept: "NAV",
         question: "Lena places a mutual fund order at 10 AM. When does it actually execute?",
         options: [
           "Instantly at the 10 AM price",
@@ -1199,6 +1292,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-2-q6",
+        concept: "ETF vs mutual fund",
         question: "Which is a common difference between mutual funds and ETFs?",
         options: [
           "Mutual funds cannot hold any stocks",
@@ -1211,6 +1305,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-2-q7",
+        concept: "active vs passive investing",
         question: "What do actively managed mutual funds employ managers to do?",
         options: [
           "Select investments trying to beat the market",
@@ -1223,6 +1318,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-2-q8",
+        concept: "mutual fund",
         question: "Why might a mutual fund suit someone investing automatically each month?",
         options: [
           "Mutual funds never decline in value",
@@ -1242,6 +1338,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-3-q1",
+        concept: "expense ratio",
         question: "What is an expense ratio?",
         options: [
           "The government tax rate on all fund profits",
@@ -1254,6 +1351,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-3-q2",
+        concept: "expense ratio",
         question: "You hold $2,000 in a fund with a 0.25% expense ratio. What's the yearly cost?",
         options: [
           "Twenty-five dollars every year",
@@ -1266,6 +1364,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-3-q3",
+        concept: "expense ratio",
         question: "Why is the expense ratio called a 'hidden' cost?",
         options: [
           "Funds are legally allowed to conceal it",
@@ -1278,6 +1377,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-3-q4",
+        concept: "expense ratio",
         question: "Two similar index funds track the same index: one charges 0.03%, the other 0.75%. Which should you generally pick?",
         options: [
           "The 0.03% fund, keeping more returns",
@@ -1290,6 +1390,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-3-q5",
+        concept: "fee drag",
         question: "Why do small fee differences become huge over decades?",
         options: [
           "Fees are only charged after twenty years",
@@ -1302,6 +1403,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-3-q6",
+        concept: "expense ratio",
         question: "What's a typical expense ratio for a broad, low-cost index fund today?",
         options: [
           "Around five percent annually charged",
@@ -1314,6 +1416,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-3-q7",
+        concept: "fee drag",
         question: "A fund earned 8% before fees and charges a 1% expense ratio. What did investors actually receive?",
         options: [
           "Eight percent, since fees are separate",
@@ -1326,6 +1429,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-3-q8",
+        concept: "expense ratio",
         question: "Where can you find a fund's expense ratio before buying?",
         options: [
           "In the fund's prospectus or summary page",
@@ -1345,6 +1449,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-4-q1",
+        concept: "index fund",
         question: "What does an index fund invest in?",
         options: [
           "Only companies the manager personally likes",
@@ -1357,6 +1462,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-4-q2",
+        concept: "index fund cost advantage",
         question: "Why are index funds famous for LOW costs?",
         options: [
           "The stock exchange pays their expenses",
@@ -1369,6 +1475,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-4-q3",
+        concept: "index fund",
         question: "What does a 'total market' index fund aim to own?",
         options: [
           "Only the ten largest technology companies",
@@ -1381,6 +1488,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-4-q4",
+        concept: "core holding",
         question: "Marcus, 16, buys one total-market index fund and adds $40 monthly. What has he built?",
         options: [
           "A diversified, low-cost, long-term investing plan",
@@ -1393,6 +1501,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-4-q5",
+        concept: "index fund cost advantage",
         question: "How do index funds and actively managed funds compare on fees?",
         options: [
           "Active funds usually charge far less annually",
@@ -1405,6 +1514,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-4-q6",
+        concept: "market risk",
         question: "If the whole market has a terrible year, what happens to a total-market index fund?",
         options: [
           "It falls roughly along with the market",
@@ -1417,6 +1527,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-4-q7",
+        concept: "index fund cost advantage",
         question: "Why don't index funds need star managers to succeed?",
         options: [
           "Star managers legally cannot run them",
@@ -1429,6 +1540,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-4-q8",
+        concept: "tracking error",
         question: "An index fund's return lagged its index by exactly 0.05% this year. What most likely explains that gap?",
         options: [
           "The manager made a huge trading error",
@@ -1448,6 +1560,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-5-q1",
+        concept: "S&P 500",
         question: "What does the S&P 500 index track?",
         options: [
           "Five hundred large US companies' performance",
@@ -1460,6 +1573,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-5-q2",
+        concept: "market-cap weighting",
         question: "How are companies weighted inside the S&P 500?",
         options: [
           "Every company gets an equal share",
@@ -1472,6 +1586,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-5-q3",
+        concept: "historical stock returns",
         question: "What has the S&P 500's long-term average annual return been, historically?",
         options: [
           "Around thirty percent every year",
@@ -1484,6 +1599,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-5-q4",
+        concept: "core holding",
         question: "Why do so many investors use an S&P 500 fund as a core holding?",
         options: [
           "It legally cannot decline in value",
@@ -1496,6 +1612,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-5-q5",
+        concept: "S&P 500",
         question: "When you buy an S&P 500 fund, which companies do you own a slice of?",
         options: [
           "Giants like Apple, Microsoft, and Amazon",
@@ -1508,6 +1625,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-5-q6",
+        concept: "staying invested",
         question: "The S&P 500 dropped about 50% in 2008-2009. What happened to investors who kept holding?",
         options: [
           "Their shares were permanently canceled",
@@ -1520,6 +1638,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-5-q7",
+        concept: "S&P 500 coverage",
         question: "What's one real limitation of holding ONLY an S&P 500 fund?",
         options: [
           "It skips smaller US and international companies",
@@ -1532,6 +1651,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-5-q8",
+        concept: "S&P 500",
         question: "A company shrinks and no longer qualifies for the S&P 500. What happens?",
         options: [
           "The index shuts down for that year",
@@ -1551,6 +1671,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-6-q1",
+        concept: "sector ETF",
         question: "What is a sector ETF?",
         options: [
           "A fund holding every stock worldwide",
@@ -1563,6 +1684,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-6-q2",
+        concept: "sector ETF",
         question: "Which of these is an example of a market sector?",
         options: [
           "The month of December",
@@ -1575,6 +1697,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-6-q3",
+        concept: "sector ETF",
         question: "How does a sector ETF compare to a total-market ETF for risk?",
         options: [
           "The sector ETF is more concentrated and volatile",
@@ -1587,6 +1710,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-6-q4",
+        concept: "sector ETF",
         question: "Aisha believes healthcare will boom but won't pick individual drug companies. What tool fits?",
         options: [
           "A savings bond from the Treasury",
@@ -1599,6 +1723,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-6-q5",
+        concept: "sector ETF",
         question: "Oil prices collapse. Which fund most likely falls hardest?",
         options: [
           "A broad total-market index fund",
@@ -1611,6 +1736,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-6-q6",
+        concept: "core and satellite",
         question: "What role do experts usually suggest sector ETFs play in a portfolio?",
         options: [
           "A required holding in every account",
@@ -1623,6 +1749,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-6-q7",
+        concept: "sector rotation",
         question: "Why is going all-in on last year's hottest sector often a mistake?",
         options: [
           "Sector leadership rotates and hot streaks fade",
@@ -1635,6 +1762,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-6-q8",
+        concept: "sector ETF",
         question: "A tech sector ETF and one tech stock both interest Leo. What advantage does the ETF offer?",
         options: [
           "It's guaranteed to rise every quarter",
@@ -1654,6 +1782,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-7-q1",
+        concept: "bond ETF",
         question: "What does a bond ETF hold?",
         options: [
           "A basket of many different bonds",
@@ -1666,6 +1795,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-7-q2",
+        concept: "bond ETF",
         question: "How do bond ETF investors typically receive income?",
         options: [
           "A single payment when they sell",
@@ -1678,6 +1808,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-7-q3",
+        concept: "bond fund vs bond",
         question: "Why might a beginner choose a bond ETF over buying individual bonds?",
         options: [
           "Individual bonds are illegal for minors",
@@ -1690,6 +1821,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-7-q4",
+        concept: "interest rate risk",
         question: "Interest rates rise sharply. What typically happens to a bond ETF's price?",
         options: [
           "It rises along with the rates",
@@ -1702,6 +1834,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-7-q5",
+        concept: "fixed income role",
         question: "What role do bond ETFs usually play alongside stock funds?",
         options: [
           "Providing stability and income to the mix",
@@ -1714,6 +1847,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-7-q6",
+        concept: "bond ETF",
         question: "Which types of bonds can bond ETFs specialize in?",
         options: [
           "Only bonds from one small town",
@@ -1726,6 +1860,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-7-q7",
+        concept: "bond fund vs bond",
         question: "How does buying a bond ETF differ from buying a single bond and holding to maturity?",
         options: [
           "The ETF's value stays fixed until maturity",
@@ -1738,6 +1873,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-7-q8",
+        concept: "bond fund vs bond",
         question: "Tessa, 18, wants some portfolio stability but only has $60. What makes a bond ETF workable?",
         options: [
           "Bond ETFs waive fees for teenagers",
@@ -1757,6 +1893,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-8-q1",
+        concept: "target-date fund",
         question: "What is a target-date fund?",
         options: [
           "A fund that adjusts risk as a chosen year approaches",
@@ -1769,6 +1906,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-8-q2",
+        concept: "target-date fund",
         question: "The '2065' in a Target Date 2065 Fund refers to what?",
         options: [
           "The year the fund company was founded",
@@ -1781,6 +1919,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-8-q3",
+        concept: "glide path",
         question: "What is the 'glide path' of a target-date fund?",
         options: [
           "The fund's daily price chart pattern",
@@ -1793,6 +1932,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-8-q4",
+        concept: "glide path",
         question: "A 2065 fund and a 2030 fund exist today. Which holds MORE stocks right now?",
         options: [
           "The 2030 fund, being closer to today",
@@ -1805,6 +1945,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-8-q5",
+        concept: "target-date fund",
         question: "Why are target-date funds called 'set it and forget it' investing?",
         options: [
           "Rebalancing and de-risking happen automatically inside",
@@ -1817,6 +1958,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-8-q6",
+        concept: "target-date fund",
         question: "What does a target-date fund typically hold inside it?",
         options: [
           "One single carefully chosen stock",
@@ -1829,6 +1971,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-8-q7",
+        concept: "target-date fund",
         question: "Rafael, 17, opens a retirement account and wants zero maintenance for decades. What's the standard one-fund answer?",
         options: [
           "A short-term Treasury bill fund",
@@ -1841,6 +1984,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-8-q8",
+        concept: "target-date fund",
         question: "What's a fair criticism of target-date funds?",
         options: [
           "They ignore your personal risk preferences",
@@ -1860,6 +2004,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-9-q1",
+        concept: "fund comparison",
         question: "When comparing two similar funds, which factor is MOST reliably predictive?",
         options: [
           "The fund with the coolest name",
@@ -1872,6 +2017,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-9-q2",
+        concept: "past performance",
         question: "Why is 'past performance doesn't guarantee future results' a required warning?",
         options: [
           "It's an outdated rule nobody follows",
@@ -1884,6 +2030,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-9-q3",
+        concept: "fund comparison",
         question: "What does a fund's 'holdings' list tell you?",
         options: [
           "The exact investments the fund owns",
@@ -1896,6 +2043,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-9-q4",
+        concept: "tracking error",
         question: "Two funds both track the S&P 500. Fund A returned 9.95%, Fund B 9.70%. What likely explains the gap?",
         options: [
           "Fund B secretly holds different stocks",
@@ -1908,6 +2056,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-9-q5",
+        concept: "tracking error",
         question: "What is 'tracking error' for an index fund?",
         options: [
           "A typo in the fund's documents",
@@ -1920,6 +2069,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-9-q6",
+        concept: "fund comparison",
         question: "Which comparison between two funds is misleading?",
         options: [
           "Comparing their two expense ratios directly side by side",
@@ -1932,6 +2082,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-9-q7",
+        concept: "past performance",
         question: "Nina sees a fund that returned 40% last year and wants in. What should she check FIRST?",
         options: [
           "Its costs, risks, and longer-term record",
@@ -1944,6 +2095,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-9-q8",
+        concept: "fund comparison",
         question: "Why does 'benchmark-appropriate' comparison matter when judging a fund?",
         options: [
           "Benchmarks are chosen at random every single year",
@@ -1963,6 +2115,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "funds-10-q1",
+        concept: "time horizon",
         question: "For which goal are stock funds generally appropriate?",
         options: [
           "Next month's concert ticket money",
@@ -1975,6 +2128,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-10-q2",
+        concept: "time horizon",
         question: "Money needed within a year belongs where?",
         options: [
           "A savings account or similar safe place",
@@ -1987,6 +2141,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-10-q3",
+        concept: "target-date fund",
         question: "Which investor profile fits a target-date fund BEST?",
         options: [
           "A day trader seeking hourly action",
@@ -1999,6 +2154,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-10-q4",
+        concept: "fractional shares",
         question: "Omar wants broad stock exposure, trades through an app, and has only small amounts. Which vehicle fits naturally?",
         options: [
           "A hedge fund with $100,000 minimums",
@@ -2011,6 +2167,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-10-q5",
+        concept: "fixed income role",
         question: "When does adding a bond fund to a portfolio make the most sense?",
         options: [
           "When maximum volatility is the goal",
@@ -2023,6 +2180,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-10-q6",
+        concept: "mutual fund",
         question: "Priya has $75 monthly and wants automatic exact-dollar investing into one diversified holding. Which option matches?",
         options: [
           "An index mutual fund with auto-invest",
@@ -2035,6 +2193,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-10-q7",
+        concept: "when to use funds",
         question: "Why might someone choose funds over picking individual stocks entirely?",
         options: [
           "Funds legally cannot lose any money",
@@ -2047,6 +2206,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "funds-10-q8",
+        concept: "when to use funds",
         question: "What's the FIRST question to ask before choosing any fund?",
         options: [
           "What goal and timeline is this money for?",
@@ -2065,6 +2225,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-1-q1",
+        concept: "bond as loan",
         question: "What is a bond, at its core?",
         options: [
           "A share of ownership in a company",
@@ -2077,6 +2238,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-1-q2",
+        concept: "bond as loan",
         question: "What does a typical bond investor receive?",
         options: [
           "Voting rights at annual shareholder meetings",
@@ -2089,6 +2251,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-1-q3",
+        concept: "bondholder vs stockholder",
         question: "How is a bondholder different from a stockholder?",
         options: [
           "A bondholder is a lender, not an owner",
@@ -2101,6 +2264,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-1-q4",
+        concept: "bond as loan",
         question: "Your city sells bonds to build a new high school gym. What are buyers actually doing?",
         options: [
           "Donating money to the school district",
@@ -2113,6 +2277,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-1-q5",
+        concept: "bond maturity",
         question: "Jaden buys a $1,000 bond that matures in five years. What happens at maturity?",
         options: [
           "The bond converts into company stock automatically",
@@ -2125,6 +2290,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-1-q6",
+        concept: "bond as loan",
         question: "A company needs cash but doesn't want to give up ownership. What can it do?",
         options: [
           "Sell new shares of stock to investors",
@@ -2137,6 +2303,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-1-q7",
+        concept: "bondholder vs stockholder",
         question: "Why are bonds generally considered less risky than stocks?",
         options: [
           "Payments are fixed and promised by contract",
@@ -2149,6 +2316,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-1-q8",
+        concept: "bond face value",
         question: "What does a bond's 'face value' mean?",
         options: [
           "The total interest earned over its life",
@@ -2168,6 +2336,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-2-q1",
+        concept: "Treasury bond",
         question: "Why are U.S. Treasury bonds considered among the safest investments?",
         options: [
           "They're backed by the federal government",
@@ -2180,6 +2349,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-2-q2",
+        concept: "government vs corporate bond",
         question: "Compared to Treasuries, corporate bonds usually pay...",
         options: [
           "Lower interest, since companies are safer borrowers",
@@ -2192,6 +2362,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-2-q3",
+        concept: "municipal bond",
         question: "Who issues municipal bonds?",
         options: [
           "Large corporations selling new products",
@@ -2204,6 +2375,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-2-q4",
+        concept: "Treasury bond",
         question: "Grandpa Lou wants maximum safety for money he'll need in ten years. Which bond fits best?",
         options: [
           "A junk bond from a struggling startup",
@@ -2216,6 +2388,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-2-q5",
+        concept: "government vs corporate bond",
         question: "Tara accepts extra risk in exchange for more bond income. Which choice matches her goal?",
         options: [
           "Corporate bonds with higher interest payments",
@@ -2228,6 +2401,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-2-q6",
+        concept: "default risk",
         question: "What does it mean when a bond issuer 'defaults'?",
         options: [
           "It pays bondholders earlier than scheduled",
@@ -2240,6 +2414,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-2-q7",
+        concept: "bond credit spread",
         question: "A solid company's bond yields 6% while a Treasury yields 4%. What explains the gap?",
         options: [
           "Treasuries are only sold to wealthy investors",
@@ -2252,6 +2427,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-2-q8",
+        concept: "Treasury bond",
         question: "Why can the U.S. government borrow money more cheaply than most companies?",
         options: [
           "It promises to repay bonds within one week",
@@ -2271,6 +2447,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-3-q1",
+        concept: "bond coupon",
         question: "What is a bond's 'coupon'?",
         options: [
           "A discount code for buying more bonds",
@@ -2283,6 +2460,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-3-q2",
+        concept: "bond yield",
         question: "How do you calculate a bond's current yield?",
         options: [
           "Annual coupon divided by current price",
@@ -2295,6 +2473,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-3-q3",
+        concept: "total return",
         question: "In what two ways can a bond make money for an investor?",
         options: [
           "Dividends and voting rights at meetings",
@@ -2307,6 +2486,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-3-q4",
+        concept: "bond yield",
         question: "A $1,000 bond pays $50 in interest each year. What's its current yield at that price?",
         options: [
           "Fifty percent, matching the full coupon payment",
@@ -2319,6 +2499,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-3-q5",
+        concept: "bond yield",
         question: "A bond's coupon is fixed at $40 per year, and its price falls to $800. What's its current yield now?",
         options: [
           "Four percent, unchanged from before the drop",
@@ -2331,6 +2512,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-3-q6",
+        concept: "price-yield relationship",
         question: "A bond's price drops while its coupon stays fixed. What happens to its current yield?",
         options: [
           "It rises, since the income costs less",
@@ -2343,6 +2525,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-3-q7",
+        concept: "price-yield relationship",
         question: "Why do a bond's price and its yield move in opposite directions?",
         options: [
           "Bond issuers secretly adjust coupons when prices move",
@@ -2355,6 +2538,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-3-q8",
+        concept: "yield to maturity",
         question: "What does 'yield to maturity' estimate?",
         options: [
           "The bond's rating during its final year",
@@ -2374,6 +2558,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-4-q1",
+        concept: "bond ratings",
         question: "What does a bond credit rating measure?",
         options: [
           "How fast the bond's price will grow yearly",
@@ -2386,6 +2571,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-4-q2",
+        concept: "investment grade vs junk",
         question: "Where does 'investment grade' begin on the rating scale?",
         options: [
           "BBB- (or Baa3) and above",
@@ -2398,6 +2584,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-4-q3",
+        concept: "investment grade vs junk",
         question: "Bonds rated below investment grade are commonly called...",
         options: [
           "Starter bonds for newer investors",
@@ -2410,6 +2597,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-4-q4",
+        concept: "bond ratings",
         question: "Which organizations assign bond credit ratings?",
         options: [
           "The New York Stock Exchange board",
@@ -2422,6 +2610,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-4-q5",
+        concept: "bond credit spread",
         question: "Nia compares a AAA bond and a B-rated bond from different companies. What should she expect?",
         options: [
           "The AAA bond pays higher interest than the B",
@@ -2434,6 +2623,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-4-q6",
+        concept: "investment grade vs junk",
         question: "A company's rating gets cut from BBB- to BB+. What just happened?",
         options: [
           "It earned a small upgrade in quality",
@@ -2446,6 +2636,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-4-q7",
+        concept: "bond credit spread",
         question: "Why do junk bonds offer higher interest than investment-grade bonds?",
         options: [
           "Buyers demand extra pay for default risk",
@@ -2458,6 +2649,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-4-q8",
+        concept: "bond ratings",
         question: "How should a smart investor treat a AAA rating?",
         options: [
           "As a legally binding guarantee against any loss",
@@ -2477,6 +2669,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-5-q1",
+        concept: "inflation risk",
         question: "Why is inflation a problem for bond investors?",
         options: [
           "It legally forces issuers to skip coupon payments",
@@ -2489,6 +2682,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-5-q2",
+        concept: "purchasing power",
         question: "What does 'purchasing power' mean?",
         options: [
           "The number of bonds you can buy",
@@ -2501,6 +2695,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-5-q3",
+        concept: "TIPS",
         question: "Which investment is specifically designed to protect against inflation?",
         options: [
           "TIPS, whose principal adjusts with inflation",
@@ -2513,6 +2708,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-5-q4",
+        concept: "real vs nominal return",
         question: "Leo's bond yields 3% while inflation runs 5%. What's happening to his money?",
         options: [
           "He's earning a solid 8% combined real return",
@@ -2525,6 +2721,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-5-q5",
+        concept: "inflation risk",
         question: "Ava locks money into a 20-year bond paying a fixed $30 yearly. If inflation stays high, what happens?",
         options: [
           "The issuer raises her payment to match",
@@ -2537,6 +2734,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-5-q6",
+        concept: "TIPS",
         question: "Sam is worried rising prices will erode his bond income. Which move directly targets that fear?",
         options: [
           "Buying longer-term bonds with fixed coupons",
@@ -2549,6 +2747,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-5-q7",
+        concept: "real vs nominal return",
         question: "What's the difference between a nominal return and a real return?",
         options: [
           "Real returns subtract inflation; nominal ones don't",
@@ -2561,6 +2760,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-5-q8",
+        concept: "inflation risk",
         question: "Which bond suffers MOST from an unexpected jump in inflation?",
         options: [
           "A TIPS bond with inflation-adjusted principal",
@@ -2580,6 +2780,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-6-q1",
+        concept: "rates and bond prices",
         question: "When market interest rates rise, what happens to existing bond prices?",
         options: [
           "They rise right along with rates",
@@ -2592,6 +2793,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-6-q2",
+        concept: "rates and bond prices",
         question: "Why does a rate increase hurt older bonds?",
         options: [
           "New bonds make old coupons look weak",
@@ -2604,6 +2806,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-6-q3",
+        concept: "rates and bond prices",
         question: "The Fed raises rates sharply, and Kayla checks her bond fund. What has most likely happened?",
         options: [
           "Her fund's value jumped alongside rates",
@@ -2616,6 +2819,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-6-q4",
+        concept: "rates and bond prices",
         question: "Interest rates fall a year after Diego buys his bond. What happens to his bond's market value?",
         options: [
           "It falls immediately, since falling rates hurt bonds",
@@ -2628,6 +2832,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-6-q5",
+        concept: "interest rate risk",
         question: "Rates rose, but Marcus plans to hold his individual bond to maturity. What happens if the issuer stays solvent?",
         options: [
           "He still gets full face value back",
@@ -2640,6 +2845,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-6-q6",
+        concept: "rates and bond prices",
         question: "Rates jumped, and Priya must sell her bond before maturity to cover an emergency. What should she expect?",
         options: [
           "A price above what she originally paid",
@@ -2652,6 +2858,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-6-q7",
+        concept: "interest rate risk",
         question: "Which bond's price swings MORE when rates change?",
         options: [
           "A short bond maturing in six months",
@@ -2664,6 +2871,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-6-q8",
+        concept: "interest rate risk",
         question: "How is interest rate risk different from default risk?",
         options: [
           "Rate risk only affects bonds from weak companies",
@@ -2683,6 +2891,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-7-q1",
+        concept: "bond duration",
         question: "What does a bond's duration measure?",
         options: [
           "The exact years until its final coupon",
@@ -2695,6 +2904,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-7-q2",
+        concept: "bond duration",
         question: "A higher duration means a bond is...",
         options: [
           "Safer from every kind of risk",
@@ -2707,6 +2917,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-7-q3",
+        concept: "bond duration",
         question: "A bond has a duration of 5. Rates rise by 1%. Roughly how does its price react?",
         options: [
           "It falls by about 5%",
@@ -2719,6 +2930,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-7-q4",
+        concept: "bond duration",
         question: "Zoe's bond fund has a duration of 8. If rates climb 1%, what's the ballpark impact?",
         options: [
           "The fund gains about 8% in value",
@@ -2731,6 +2943,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-7-q5",
+        concept: "bond duration",
         question: "Rates seem likely to rise soon, and Eli wants his bond money to hold steadier. What's the smart tilt?",
         options: [
           "Move everything into 30-year Treasury bonds",
@@ -2743,6 +2956,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-7-q6",
+        concept: "bond duration",
         question: "Rates drop 1%, and Mia's fund has a duration of 10. What roughly happens?",
         options: [
           "Her fund falls by close to 10%",
@@ -2755,6 +2969,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-7-q7",
+        concept: "bond duration",
         question: "Which bond has the HIGHER duration?",
         options: [
           "A two-year note with big coupons",
@@ -2767,6 +2982,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-7-q8",
+        concept: "bond duration",
         question: "How does duration differ from simple maturity?",
         options: [
           "Duration also weighs when coupons arrive",
@@ -2786,6 +3002,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-8-q1",
+        concept: "bond fund vs bond",
         question: "What is a bond fund?",
         options: [
           "A pooled investment holding many bonds",
@@ -2798,6 +3015,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-8-q2",
+        concept: "bond fund vs bond",
         question: "What's a key advantage of bond funds over buying individual bonds?",
         options: [
           "Funds guarantee returns that individual bonds can't",
@@ -2810,6 +3028,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-8-q3",
+        concept: "bond fund vs bond",
         question: "How do bond fund investors typically receive income?",
         options: [
           "Through voting rewards at yearly shareholder meetings",
@@ -2822,6 +3041,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-8-q4",
+        concept: "bond fund vs bond",
         question: "Marcus has $50 to invest in bonds, but individual bonds cost about $1,000 each. What's his practical option?",
         options: [
           "Wait several years until he saves $1,000",
@@ -2834,6 +3054,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-8-q5",
+        concept: "bond fund vs bond",
         question: "How does a bond fund differ from a single bond you hold to maturity?",
         options: [
           "A fund pays no interest income at all",
@@ -2846,6 +3067,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-8-q6",
+        concept: "bond fund vs bond",
         question: "One company inside a 500-bond fund defaults. What happens to fund investors?",
         options: [
           "They feel only a tiny overall dent",
@@ -2858,6 +3080,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-8-q7",
+        concept: "expense ratio",
         question: "Why do expense ratios matter especially for bond funds?",
         options: [
           "High fees make bond funds completely tax-free investments",
@@ -2870,6 +3093,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-8-q8",
+        concept: "bond fund vs bond",
         question: "Rates rise and Dana's bond fund's value dips. What's the silver lining if she keeps investing?",
         options: [
           "The government reimburses her paper losses",
@@ -2889,6 +3113,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bonds-9-q1",
+        concept: "fixed income role",
         question: "What's the main job of bonds inside a diversified portfolio?",
         options: [
           "Delivering the portfolio's fastest possible growth",
@@ -2901,6 +3126,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-9-q2",
+        concept: "bond as loan",
         question: "Why is the bond side of investing called 'fixed income'?",
         options: [
           "Payments are set amounts on a schedule",
@@ -2913,6 +3139,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-9-q3",
+        concept: "fixed income role",
         question: "During a stock market crash, what do high-quality bonds typically do?",
         options: [
           "Fall twice as far as stocks do",
@@ -2925,6 +3152,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-9-q4",
+        concept: "fixed income role",
         question: "Compare a 90% stock portfolio to a 60/40 stock-bond mix. Which statement is accurate?",
         options: [
           "The 90% stock mix swings far less",
@@ -2937,6 +3165,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-9-q5",
+        concept: "time horizon",
         question: "Jordan will need his college fund in two years. How should his bond allocation change?",
         options: [
           "Increase it to protect the money",
@@ -2949,6 +3178,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-9-q6",
+        concept: "fixed income role",
         question: "Why might even a young, aggressive investor hold a small bond slice?",
         options: [
           "Bonds are legally required in every brokerage account",
@@ -2961,6 +3191,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-9-q7",
+        concept: "rebalancing",
         question: "Stocks crash 30%, but Riley's bonds held their value. What rebalancing move does this enable?",
         options: [
           "Selling her stocks before they fall further",
@@ -2973,6 +3204,7 @@ export const portfolioFundsBondsQuizzes: LessonQuiz[] = [
       },
       {
         id: "bonds-9-q8",
+        concept: "fixed income role",
         question: "What's the main trade-off of holding more bonds?",
         options: [
           "Higher taxes on every future paycheck",

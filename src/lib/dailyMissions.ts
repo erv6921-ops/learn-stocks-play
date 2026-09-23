@@ -46,7 +46,17 @@ export interface MissionContext {
   portfolioPnL: number // total unrealized P/L in coins
   portfolioPnLPct: number // total unrealized P/L as % of cost basis
   hasHoldings: boolean
+  /** Lessons completed EVER (not just today) - gates the day-one experience. */
+  lessonsCompletedTotal: number
+  /** Live InvestiCoin balance - decides whether a trade mission is even reachable. */
+  coinBalance: number
 }
+
+// The smallest buy the Stocks page realistically allows: one whole share of a
+// listed company (integer shares, priced in coins). A brand-new student holds
+// only the 15-coin welcome gift, so "Buy a stock" would be unreachable for them.
+// Below this balance the trade mission is swapped out for another easy one.
+export const MIN_TRADE_COINS = 50
 
 export type Difficulty = "easy" | "medium" | "hard"
 
@@ -200,17 +210,55 @@ export const MISSIONS: MissionDef[] = [
   },
 ]
 
+// Day-one mission: shown in the Easy slot until the student has finished a
+// lesson, whatever the rotation would otherwise offer. Not part of MISSIONS so
+// the regular rotation is unaffected once it no longer applies.
+export const FIRST_LESSON_MISSION: MissionDef = {
+  id: "firstLesson",
+  title: "First steps",
+  blurb: "Finish your first lesson",
+  icon: BookOpen,
+  difficulty: "easy",
+  reward: 100,
+  target: 1,
+  unit: "lesson",
+  current: (c) => Math.min(c.lessonsCompletedTotal, 1),
+}
+
+// The slice of MissionContext the picker needs. Optional so callers that only
+// want the plain rotation (tests, previews) can omit it.
+export type MissionPickContext = Pick<MissionContext, "lessonsCompletedTotal" | "coinBalance"> &
+  Partial<Pick<MissionContext, "tradesToday">>
+
 // Deterministic rotation: exactly one Easy, one Medium, and one Hard mission per
 // calendar day. Each tier advances independently by the day index, so the trio
 // cycles through every combination over time while always spanning all three
 // difficulties.
-export function getTodaysMissions(key: string = dayKey()): MissionDef[] {
+//
+// Two day-one adjustments when `ctx` is supplied:
+//  - No lesson completed yet → the Easy slot is always "Finish your first lesson".
+//  - "Buy or sell a stock" is only offered when the student can afford at least
+//    a minimum trade (or has already traded today, so a completed mission never
+//    vanishes mid-day). Otherwise the next Easy mission in rotation is used.
+export function getTodaysMissions(key: string = dayKey(), ctx?: MissionPickContext): MissionDef[] {
   const day = Math.floor(new Date(key).getTime() / 86400000)
-  const pick = (diff: Difficulty) => {
+  const pick = (diff: Difficulty, offset = 0) => {
     const pool = MISSIONS.filter((m) => m.difficulty === diff)
-    return pool[((day % pool.length) + pool.length) % pool.length]
+    return pool[(((day + offset) % pool.length) + pool.length) % pool.length]
   }
-  return [pick("easy"), pick("medium"), pick("hard")]
+  let easy = pick("easy")
+  if (ctx) {
+    if (ctx.lessonsCompletedTotal <= 0) {
+      easy = FIRST_LESSON_MISSION
+    } else if (easy.id === "trade" && ctx.coinBalance < MIN_TRADE_COINS && !(ctx.tradesToday && ctx.tradesToday > 0)) {
+      const easyPool = MISSIONS.filter((m) => m.difficulty === "easy")
+      for (let offset = 1; offset < easyPool.length; offset++) {
+        const alt = pick("easy", offset)
+        if (alt.id !== "trade") { easy = alt; break }
+      }
+    }
+  }
+  return [easy, pick("medium"), pick("hard")]
 }
 
 // ─── Persistence: today's completed set (survives reloads, resets at midnight) ─

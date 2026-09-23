@@ -8,6 +8,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-1-q1",
+        concept: "active vs passive income",
         question: "What best describes active income?",
         options: [
           "Money that grows in a bank automatically",
@@ -20,6 +21,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-1-q2",
+        concept: "active vs passive income",
         question: "Which of these is an example of passive income?",
         options: [
           "A weekly paycheck from a lifeguarding job",
@@ -32,6 +34,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-1-q3",
+        concept: "active vs passive income",
         question: "Maya earns $12 per hour tutoring and also gets about $20 a month in ad revenue from old YouTube videos. Which part is her passive income?",
         options: [
           "The YouTube ad money from old videos",
@@ -44,6 +47,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-1-q4",
+        concept: "active vs passive income",
         question: "What is the main advantage of passive income?",
         options: [
           "It is always completely free of taxes",
@@ -56,6 +60,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-1-q5",
+        concept: "active vs passive income",
         question: "Jaden wrote an e-book once and now earns royalties every month. Why is this considered passive income?",
         options: [
           "Because e-books never require any upfront effort",
@@ -68,6 +73,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-1-q6",
+        concept: "building passive income",
         question: "Why do most teens start with active income instead of passive income?",
         options: [
           "Passive income is illegal for anyone under eighteen",
@@ -80,6 +86,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-1-q7",
+        concept: "active vs passive income",
         question: "Sofia babysits on Fridays for $40 and her savings account pays about $2 in interest each month. What does the interest represent?",
         options: [
           "Passive income earned on her saved money",
@@ -92,6 +99,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-1-q8",
+        concept: "multiple income streams",
         question: "Why do financial experts suggest building both active and passive income over time?",
         options: [
           "Because banks require two income sources minimum",
@@ -111,6 +119,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-2-q1",
+        concept: "wages vs salary",
         question: "What is the main difference between wages and a salary?",
         options: [
           "Wages are always higher than any salary",
@@ -123,6 +132,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-2-q2",
+        concept: "hourly pay",
         question: "Liam earns $16 per hour and worked 20 hours this week. What is his gross pay for the week?",
         options: [
           "He earned $320 before any deductions",
@@ -135,6 +145,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-2-q3",
+        concept: "overtime pay",
         question: "Under US law, how does overtime typically work for hourly (nonexempt) workers?",
         options: [
           "Overtime pays double after twenty hours weekly",
@@ -147,6 +158,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-2-q4",
+        concept: "pay rate conversion",
         question: "Ava's job offer says $41,600 per year, paid weekly. Roughly how much is each weekly paycheck before deductions?",
         options: [
           "About $1,600 before taxes and deductions",
@@ -159,6 +171,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-2-q5",
+        concept: "wages vs salary",
         question: "What is one key advantage of earning a salary?",
         options: [
           "Predictable paychecks make budgeting much easier",
@@ -171,6 +184,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-2-q6",
+        concept: "exempt vs non-exempt",
         question: "What is a potential downside of salaried pay during very busy weeks?",
         options: [
           "Salaried pay doubles automatically during busy weeks",
@@ -183,6 +197,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-2-q7",
+        concept: "hourly pay",
         question: "Noah wants to earn more money during summer break. Why might an hourly job help him do that?",
         options: [
           "Hourly jobs never require any actual work",
@@ -195,6 +210,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-2-q8",
+        concept: "wages vs salary",
         question: "Which worker is most likely paid a salary?",
         options: [
           "A cashier paid for each hour worked",
@@ -214,6 +230,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-3-q1",
+        concept: "commission pay",
         question: "What is commission-based pay?",
         options: [
           "A fixed yearly amount paid every month",
@@ -226,6 +243,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-3-q2",
+        concept: "commission pay",
         question: "Zoe sells sneakers and earns a 10% commission. She sells $2,000 worth of shoes this week. What is her commission?",
         options: [
           "$100 in commission for the week",
@@ -238,6 +256,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-3-q3",
+        concept: "base plus commission",
         question: "What does 'base plus commission' mean?",
         options: [
           "A guaranteed wage plus extra from sales",
@@ -250,6 +269,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-3-q4",
+        concept: "commission pay",
         question: "What is the main financial risk of working purely on commission?",
         options: [
           "Employers never let commission workers take breaks",
@@ -262,6 +282,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-3-q5",
+        concept: "hourly vs commission pay",
         question: "Diego can choose $15 per hour for 20 hours a week, or 5% commission on phone sales that average $8,000 weekly. Which usually pays more in an average week?",
         options: [
           "Hourly pays more, earning $400 weekly",
@@ -274,6 +295,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-3-q6",
+        concept: "commission pay",
         question: "Why do many employers offer commission pay in sales jobs?",
         options: [
           "It motivates employees to sell more products",
@@ -286,6 +308,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-3-q7",
+        concept: "hourly vs commission pay",
         question: "Priya is a careful planner who hates income surprises. Which pay structure fits her best?",
         options: [
           "Pure commission with no base pay included",
@@ -298,6 +321,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-3-q8",
+        concept: "commission pay",
         question: "Which job is most commonly paid mainly by commission?",
         options: [
           "A school cafeteria worker serving lunches daily",
@@ -317,6 +341,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-4-q1",
+        concept: "gig economy",
         question: "What is the gig economy?",
         options: [
           "Work made of short-term flexible jobs",
@@ -329,6 +354,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-4-q2",
+        concept: "independent contractor",
         question: "How are most gig workers classified in the US?",
         options: [
           "Full-time employees with health insurance benefits",
@@ -341,6 +367,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-4-q3",
+        concept: "gig tax set-aside",
         question: "Marcus delivers food through an app on weekends. What is a key tax difference from a regular job?",
         options: [
           "He owes no taxes on app earnings",
@@ -353,6 +380,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-4-q4",
+        concept: "gig economy",
         question: "What is generally the biggest advantage of gig work?",
         options: [
           "Guaranteed steady income every single week",
@@ -365,6 +393,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-4-q5",
+        concept: "gig economy",
         question: "What is generally the biggest downside of relying on gig work?",
         options: [
           "Gig workers can never work for two apps",
@@ -377,6 +406,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-4-q6",
+        concept: "gig tax set-aside",
         question: "Lena earned $600 this month tutoring through an app. What should she do to prepare for taxes?",
         options: [
           "A portion of earnings for tax time",
@@ -389,6 +419,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-4-q7",
+        concept: "gig economy",
         question: "Which of these is an example of gig work a teen might do?",
         options: [
           "Working a salaried job at a bank",
@@ -401,6 +432,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-4-q8",
+        concept: "variable income budgeting",
         question: "Why does gig income require especially careful budgeting?",
         options: [
           "Gig platforms take ninety percent of earnings",
@@ -420,6 +452,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-5-q1",
+        concept: "gross vs net pay",
         question: "What is gross pay?",
         options: [
           "Pay after all deductions are removed",
@@ -432,6 +465,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-5-q2",
+        concept: "gross vs net pay",
         question: "What is net pay?",
         options: [
           "Your total earnings before taxes apply",
@@ -444,6 +478,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-5-q3",
+        concept: "FICA",
         question: "What does the FICA deduction on a paycheck pay for?",
         options: [
           "Taxes funding Social Security and Medicare",
@@ -456,6 +491,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-5-q4",
+        concept: "gross vs net pay",
         question: "Tyler's gross pay is $400 and $60 total is withheld for taxes and deductions. What is his net pay?",
         options: [
           "His net pay is exactly $460",
@@ -468,6 +504,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-5-q5",
+        concept: "gross vs net pay",
         question: "Keisha budgeted using her $600 gross pay, but her check was only $520. What explains the difference?",
         options: [
           "The bank charged a paycheck cashing fee",
@@ -480,6 +517,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-5-q6",
+        concept: "paycheck deductions",
         question: "Why should you build your budget around net pay instead of gross pay?",
         options: [
           "Gross pay is impossible to calculate accurately",
@@ -492,6 +530,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-5-q7",
+        concept: "FICA",
         question: "Which items are common deductions on a US paycheck?",
         options: [
           "Streaming subscriptions and monthly phone bills",
@@ -504,6 +543,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-5-q8",
+        concept: "FICA",
         question: "Roughly what share of gross wages does the employee side of FICA take?",
         options: [
           "About 7.65% of gross wages earned",
@@ -523,6 +563,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-6-q1",
+        concept: "purpose of taxes",
         question: "What is the main purpose of income taxes?",
         options: [
           "To pay bank fees for the government",
@@ -535,6 +576,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-6-q2",
+        concept: "progressive tax",
         question: "The US federal income tax is 'progressive.' What does that mean?",
         options: [
           "Higher income chunks face higher tax rates",
@@ -547,6 +589,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-6-q3",
+        concept: "W-2",
         question: "What is a W-2 form?",
         options: [
           "A form used to open bank accounts",
@@ -559,6 +602,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-6-q4",
+        concept: "tax refund",
         question: "Ana's summer job withheld federal income tax, but her total yearly income was low. What might happen when she files a tax return?",
         options: [
           "She will be fined for filing while young",
@@ -571,6 +615,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-6-q5",
+        concept: "standard deduction",
         question: "What is the federal standard deduction?",
         options: [
           "An amount subtracted from income before taxing",
@@ -583,6 +628,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-6-q6",
+        concept: "tax brackets",
         question: "Why doesn't moving into a higher tax bracket reduce your total take-home pay?",
         options: [
           "Because tax brackets only apply to businesses",
@@ -595,6 +641,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-6-q7",
+        concept: "taxable income",
         question: "Jamal earned $900 in tips working as a busser. Do those tips count for taxes?",
         options: [
           "No, tips are always tax-free gifts",
@@ -607,6 +654,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-6-q8",
+        concept: "income tax withholding",
         question: "Why do employers withhold taxes from each paycheck instead of workers paying one big yearly bill?",
         options: [
           "Employers keep the withheld money as profit",
@@ -626,6 +674,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-7-q1",
+        concept: "career ROI",
         question: "When evaluating a career path, what does ROI (return on investment) mean?",
         options: [
           "The number of raises per single year",
@@ -638,6 +687,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-7-q2",
+        concept: "training payback period",
         question: "A trade program costs $10,000 and leads to a job paying $20,000 more per year than before. Roughly how fast could the program pay for itself?",
         options: [
           "Around six months of the extra earnings",
@@ -650,6 +700,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-7-q3",
+        concept: "opportunity cost",
         question: "Besides tuition, what costs should you count when calculating the ROI of training or school?",
         options: [
           "Only the sticker price of tuition matters",
@@ -662,6 +713,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-7-q4",
+        concept: "lifetime earnings",
         question: "Why is it smarter to compare lifetime earnings between careers instead of just first-year salaries?",
         options: [
           "First salaries are always the career peak",
@@ -674,6 +726,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-7-q5",
+        concept: "career ROI",
         question: "Nina loves art but also wants strong income. What is the smartest ROI-minded move?",
         options: [
           "Ignore pay completely and just follow passion",
@@ -686,6 +739,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-7-q6",
+        concept: "opportunity cost",
         question: "What is the opportunity cost of spending four extra years in school?",
         options: [
           "The cost of a graduation party ceremony",
@@ -698,6 +752,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-7-q7",
+        concept: "career ROI",
         question: "Which combination signals a high-ROI career path?",
         options: [
           "Strong demand, solid pay, low training cost",
@@ -710,6 +765,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-7-q8",
+        concept: "paid apprenticeship",
         question: "Ethan can apprentice as an electrician, earning pay while he trains, or pay tuition for a program with weak job prospects. Which likely has better financial ROI?",
         options: [
           "The program, because all degrees guarantee wealth",
@@ -729,6 +785,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-11-q1",
+        concept: "college wage premium",
         question: "On average, how do earnings of bachelor's degree holders compare to workers with only a high school diploma?",
         options: [
           "Graduates always earn triple by age twenty-five",
@@ -741,6 +798,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-11-q2",
+        concept: "education as investment",
         question: "Why does the answer to 'is college worth it?' depend on the situation?",
         options: [
           "Because colleges randomly assign every student's major",
@@ -753,6 +811,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-11-q3",
+        concept: "education as investment",
         question: "Ali compares a $25,000-per-year private college with an $8,000-per-year in-state school for the same nursing degree. What is the financially smart consideration?",
         options: [
           "The cheaper program may offer similar returns",
@@ -765,6 +824,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-11-q4",
+        concept: "college vs trade school",
         question: "Besides a four-year degree, which paths can also build strong earning power?",
         options: [
           "Only doctoral degrees can raise your income",
@@ -777,6 +837,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-11-q5",
+        concept: "student debt burden",
         question: "Maria would need $80,000 in loans for a degree in a field paying about $35,000 a year. What is the key warning sign?",
         options: [
           "Loans are automatically forgiven in low-paying fields",
@@ -789,6 +850,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-11-q6",
+        concept: "grants vs loans",
         question: "Why do scholarships and grants improve the ROI of education?",
         options: [
           "They cut costs without adding any debt",
@@ -801,6 +863,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-11-q7",
+        concept: "education as investment",
         question: "In 'education as an investment,' what is the 'return'?",
         options: [
           "The refund colleges give for dropped classes",
@@ -813,6 +876,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-11-q8",
+        concept: "education as investment",
         question: "Devon wants to become a software developer. What is the smartest first step in choosing his path?",
         options: [
           "Choose whichever school has the coolest mascot",
@@ -832,6 +896,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-9-q1",
+        concept: "skill stacking",
         question: "What is skill stacking?",
         options: [
           "Combining several skills to boost your value",
@@ -844,6 +909,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-9-q2",
+        concept: "rare skill combination",
         question: "Why can a combination of good skills beat world-class mastery of just one skill?",
         options: [
           "Because single skills are always completely useless",
@@ -856,6 +922,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-9-q3",
+        concept: "complementary skills",
         question: "Ruby knows graphic design and is learning social media marketing. How does this stack help her earn more?",
         options: [
           "It forces her to abandon design work",
@@ -868,6 +935,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-9-q4",
+        concept: "complementary skills",
         question: "Which of these is an example of a skill stack?",
         options: [
           "Watching the same show every single night",
@@ -880,6 +948,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-9-q5",
+        concept: "complementary skills",
         question: "Carlos fixes bikes and is now learning bookkeeping. How could this combination raise his income?",
         options: [
           "He could run his own repair business",
@@ -892,6 +961,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-9-q6",
+        concept: "complementary skills",
         question: "Why does communication skill pair so well with technical skill?",
         options: [
           "Communication replaces the need for technical skill",
@@ -904,6 +974,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-9-q7",
+        concept: "skill stacking",
         question: "What is the best way for a teen to start building a skill stack?",
         options: [
           "Wait until age thirty to learn anything",
@@ -916,6 +987,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-9-q8",
+        concept: "complementary skills",
         question: "Two applicants both know video editing, but one also understands basketball deeply and edits highlight reels. Why might she win sports clients?",
         options: [
           "Because basketball knowledge replaces editing skill entirely",
@@ -935,6 +1007,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "income-10-q1",
+        concept: "revenue vs profit",
         question: "How do entrepreneurs primarily earn income?",
         options: [
           "They receive a guaranteed government wage",
@@ -947,6 +1020,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-10-q2",
+        concept: "revenue vs profit",
         question: "What is the basic formula for business profit?",
         options: [
           "Revenue minus expenses equals the profit",
@@ -959,6 +1033,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-10-q3",
+        concept: "revenue vs profit",
         question: "Amara sells bracelets for $10 each. Materials cost $4 per bracelet and she sold 30 this month. What is her profit?",
         options: [
           "She made $300 in total profit",
@@ -971,6 +1046,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-10-q4",
+        concept: "entrepreneurship income",
         question: "Why is entrepreneurship income considered risky?",
         options: [
           "Business owners must always work alone forever",
@@ -983,6 +1059,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-10-q5",
+        concept: "entrepreneurship income",
         question: "What is the main income advantage of owning a business versus working a job?",
         options: [
           "Businesses never require any weekend working hours",
@@ -995,6 +1072,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-10-q6",
+        concept: "revenue vs profit",
         question: "Jayden's lawn care side hustle brings in $500 a month, but gas and equipment cost $150. What is his monthly profit?",
         options: [
           "His monthly profit is exactly $500",
@@ -1007,6 +1085,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-10-q7",
+        concept: "start small and reinvest",
         question: "Sasha wants to start an online sticker shop with just $50 saved. What is the smartest first move?",
         options: [
           "Start small and test if customers buy",
@@ -1019,6 +1098,7 @@ export const incomeBankingCreditQuizzes: LessonQuiz[] = [
       },
       {
         id: "income-10-q8",
+        concept: "start small and reinvest",
         question: "What does it mean to 'reinvest profits' in a business?",
         options: [
           "Spending all profits on personal shopping sprees",

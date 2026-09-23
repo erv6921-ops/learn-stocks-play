@@ -7,6 +7,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "biz-1-q1",
+        concept: "revenue model",
         question: "What is a revenue model?",
         options: [
           "The way a business earns money from customers",
@@ -19,6 +20,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-1-q2",
+        concept: "subscription model",
         question: "A streaming app charges users $10 every month for access. Which revenue model is this?",
         options: [
           "An advertising model based on views",
@@ -31,6 +33,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-1-q3",
+        concept: "advertising model",
         question: "How does a free social media app usually make money?",
         options: [
           "Charging users a fee for every post they make",
@@ -43,6 +46,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-1-q4",
+        concept: "freemium model",
         question: "A game is free to download, but players can pay for extra features. What is this model called?",
         options: [
           "A wholesale model for large buyers",
@@ -55,6 +59,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-1-q5",
+        concept: "commission model",
         question: "An app connects dog walkers with pet owners and keeps 20% of each $30 booking. How much does the app earn per booking?",
         options: [
           "Ten dollars from each completed booking",
@@ -67,6 +72,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-1-q6",
+        concept: "subscription model",
         question: "Why do investors often prefer businesses with subscription revenue?",
         options: [
           "Recurring payments make future revenue more predictable",
@@ -79,6 +85,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-1-q7",
+        concept: "revenue diversification",
         question: "A bakery sells cakes in-store, teaches baking classes, and licenses its recipes to a cafe chain. Why might this be smart?",
         options: [
           "It guarantees the bakery can never lose money again",
@@ -91,6 +98,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-1-q8",
+        concept: "revenue vs profit",
         question: "A company reports $1 million in revenue but still loses money this year. How is that possible?",
         options: [
           "Revenue that high always guarantees a positive profit",
@@ -110,6 +118,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "biz-2-q1",
+        concept: "fixed vs variable costs",
         question: "What is a fixed cost?",
         options: [
           "A cost that rises with every unit sold",
@@ -122,6 +131,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-2-q2",
+        concept: "fixed vs variable costs",
         question: "Which of these is a variable cost for a smoothie stand?",
         options: [
           "The fruit and cups used for each smoothie",
@@ -134,6 +144,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-2-q3",
+        concept: "total cost",
         question: "A t-shirt business pays $500 monthly rent and $2 per shirt in materials. What is the total cost of making 100 shirts in a month?",
         options: [
           "Exactly $500 in total costs",
@@ -146,6 +157,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-2-q4",
+        concept: "fixed vs variable costs",
         question: "Which cost below is fixed for a mobile car-wash business?",
         options: [
           "Soap used on each car washed",
@@ -158,6 +170,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-2-q5",
+        concept: "spreading fixed costs",
         question: "A factory's rent is $10,000 per month. If production doubles from 1,000 to 2,000 units, what happens to the rent cost per unit?",
         options: [
           "It falls from $10 to $5 per unit",
@@ -170,6 +183,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-2-q6",
+        concept: "fixed vs variable costs",
         question: "A student runs a sticker shop. Which expense grows directly with every order shipped?",
         options: [
           "The website's flat annual hosting fee",
@@ -182,6 +196,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-2-q7",
+        concept: "fixed vs variable costs",
         question: "Why does understanding cost structure matter to a business owner?",
         options: [
           "It lets the owner skip paying certain suppliers",
@@ -194,6 +209,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-2-q8",
+        concept: "fixed cost risk",
         question: "Why is a business with very high fixed costs riskier during a sales slump?",
         options: [
           "Fixed costs automatically increase whenever sales drop",
@@ -213,6 +229,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "biz-3-q1",
+        concept: "break-even point",
         question: "What does 'break-even point' mean for a business?",
         options: [
           "The moment a business runs completely out of cash",
@@ -225,6 +242,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-3-q2",
+        concept: "break-even point",
         question: "Which formula gives the break-even point in units?",
         options: [
           "Total revenue divided by total costs overall",
@@ -237,6 +255,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-3-q3",
+        concept: "break-even point",
         question: "A candle business has $2,000 in fixed costs. Each candle sells for $10 and costs $6 to make. How many candles to break even?",
         options: [
           "It must sell 500 candles",
@@ -249,6 +268,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-3-q4",
+        concept: "break-even point",
         question: "A lemonade stand has $600 in fixed costs, sells cups for $8, and each cup costs $5 to make. What is the break-even point?",
         options: [
           "Exactly 75 cups sold",
@@ -261,6 +281,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-3-q5",
+        concept: "contribution margin",
         question: "After a business passes its break-even point, what happens with each additional unit sold?",
         options: [
           "Fixed costs start increasing with every sale",
@@ -273,6 +294,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-3-q6",
+        concept: "break-even point",
         question: "If a business raises its selling price while costs stay the same, what happens to its break-even point?",
         options: [
           "It rises because customers expect more value",
@@ -285,6 +307,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-3-q7",
+        concept: "break-even point",
         question: "Why should someone calculate break-even before launching a small business?",
         options: [
           "Because banks legally require break-even math first",
@@ -297,6 +320,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-3-q8",
+        concept: "contribution margin",
         question: "What is 'contribution margin' in break-even analysis?",
         options: [
           "Selling price minus the variable cost per unit",
@@ -316,6 +340,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "biz-4-q1",
+        concept: "profit margin",
         question: "What does 'profit margin' measure?",
         options: [
           "The total dollars a company earned this year",
@@ -328,6 +353,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-4-q2",
+        concept: "profit margin",
         question: "A shop earns $200 in revenue and has $150 in total costs. What is its profit margin?",
         options: [
           "A margin of 75 percent",
@@ -340,6 +366,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-4-q3",
+        concept: "gross margin",
         question: "A hoodie sells for $100 and costs $60 in materials and labor to produce. What is the gross margin?",
         options: [
           "A gross margin of 40 percent",
@@ -352,6 +379,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-4-q4",
+        concept: "gross vs net margin",
         question: "What is the key difference between gross margin and net margin?",
         options: [
           "Gross margin is always smaller than net margin",
@@ -364,6 +392,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-4-q5",
+        concept: "net margin",
         question: "A company has $300 million in revenue and $15 million in net income. What is its net margin?",
         options: [
           "A net margin of 20 percent",
@@ -376,6 +405,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-4-q6",
+        concept: "profit margin",
         question: "Why do investors compare margins between companies in the same industry?",
         options: [
           "Higher margins can signal efficiency or pricing power",
@@ -388,6 +418,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-4-q7",
+        concept: "margin vs volume",
         question: "A grocery chain has a 2% net margin while a software company has 30%. Why can the grocery chain still be a solid business?",
         options: [
           "Grocery stores never have to pay any rent",
@@ -400,6 +431,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-4-q8",
+        concept: "profit margin",
         question: "Which action would most directly improve a company's profit margin?",
         options: [
           "Hiring more workers at the same sales level",
@@ -419,6 +451,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "biz-5-q1",
+        concept: "bootstrapping",
         question: "What does it mean to 'bootstrap' a startup?",
         options: [
           "Funding the business with your own money and revenue",
@@ -431,6 +464,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-5-q2",
+        concept: "angel investor",
         question: "Who is an 'angel investor'?",
         options: [
           "A government official who approves new business licenses",
@@ -443,6 +477,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-5-q3",
+        concept: "venture capital",
         question: "What do venture capital firms typically receive in exchange for funding a startup?",
         options: [
           "A fixed salary paid monthly by the founders",
@@ -455,6 +490,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-5-q4",
+        concept: "valuation and dilution",
         question: "A founder owns 100% of her startup, then sells 25% to investors for funding. What does she own now?",
         options: [
           "She still owns 100% of the company",
@@ -467,6 +503,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-5-q5",
+        concept: "valuation and dilution",
         question: "An investor pays $50,000 for a 20% stake in a startup. What value does that put on the whole company?",
         options: [
           "The company is valued at $50,000",
@@ -479,6 +516,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-5-q6",
+        concept: "equity vs debt financing",
         question: "What is the key difference between funding with debt and funding with equity?",
         options: [
           "Debt gives the lender ownership of the company",
@@ -491,6 +529,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-5-q7",
+        concept: "crowdfunding",
         question: "A student raises $5,000 for a card game by pre-selling copies online to hundreds of supporters. What is this called?",
         options: [
           "Crowdfunding from many small backers",
@@ -503,6 +542,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-5-q8",
+        concept: "venture capital",
         question: "Why do venture capital firms invest in many startups knowing most will fail?",
         options: [
           "They enjoy losing money on risky experiments",
@@ -522,6 +562,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "biz-6-q1",
+        concept: "cost-plus pricing",
         question: "What is 'cost-plus' pricing?",
         options: [
           "Charging whatever the closest competitor charges customers",
@@ -534,6 +575,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-6-q2",
+        concept: "cost-plus pricing",
         question: "A bracelet costs $8 to make and the seller adds a 50% markup. What is the selling price?",
         options: [
           "A price of twelve dollars",
@@ -546,6 +588,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-6-q3",
+        concept: "price skimming",
         question: "What is 'price skimming'?",
         options: [
           "Selling products below cost to remove competitors",
@@ -558,6 +601,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-6-q4",
+        concept: "penetration pricing",
         question: "A new streaming service launches at a very low price to attract users quickly, planning to raise prices later. What is this strategy?",
         options: [
           "Price skimming aimed at wealthy early adopters",
@@ -570,6 +614,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-6-q5",
+        concept: "charm pricing",
         question: "Why do so many stores price items at $9.99 instead of $10.00?",
         options: [
           "Charm pricing - $9.99 reads as 'nine-something' and feels cheaper to shoppers",
@@ -582,6 +627,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-6-q6",
+        concept: "underpricing risk",
         question: "A student prices custom phone cases so low she barely covers materials. What is the likely long-term problem?",
         options: [
           "Customers will refuse to buy such cheap cases",
@@ -594,6 +640,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-6-q7",
+        concept: "elasticity and revenue",
         question: "A shop raises its price from $10 to $11 and its customers drop from 100 to 95 per week. What happened to weekly revenue?",
         options: [
           "It fell from $1,000 down to $950",
@@ -606,6 +653,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-6-q8",
+        concept: "pricing strategy",
         question: "Why should a business research competitor prices before setting its own?",
         options: [
           "Because copying competitors exactly is always the best strategy",
@@ -625,6 +673,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "biz-7-q1",
+        concept: "business plan",
         question: "What is a business plan?",
         options: [
           "A legal contract signed with every customer",
@@ -637,6 +686,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-7-q2",
+        concept: "executive summary",
         question: "What is the 'executive summary' in a business plan?",
         options: [
           "A list of every executive's salary and benefits",
@@ -649,6 +699,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-7-q3",
+        concept: "market research purpose",
         question: "Why does a business plan include market research?",
         options: [
           "To fill extra pages so the plan looks impressive",
@@ -661,6 +712,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-7-q4",
+        concept: "financial projections",
         question: "What do the financial projections in a business plan estimate?",
         options: [
           "Future revenue, costs, and profit over time",
@@ -673,6 +725,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-7-q5",
+        concept: "business plan",
         question: "A student asks a bank for a $3,000 loan to start a lawn-care business. Why will the bank want to see a plan?",
         options: [
           "Banks collect business plans as a legal formality only",
@@ -685,6 +738,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-7-q6",
+        concept: "target market",
         question: "What does 'target market' mean in a business plan?",
         options: [
           "Every person in the country who has money",
@@ -697,6 +751,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-7-q7",
+        concept: "financial projections",
         question: "While writing her plan, a founder discovers projected costs exceed projected revenue. What should she do?",
         options: [
           "Revise the model before spending real money",
@@ -709,6 +764,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "biz-7-q8",
+        concept: "business plan revision",
         question: "Why should a business plan be updated regularly instead of written once?",
         options: [
           "Because old plans expire legally after twelve months",
@@ -728,6 +784,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "strategy-1-q1",
+        concept: "market share",
         question: "What is market share?",
         options: [
           "The number of shares a company sells to investors",
@@ -740,6 +797,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-1-q2",
+        concept: "market share",
         question: "Total sneaker sales in a city are $200 million per year, and BrandX sells $50 million. What is BrandX's market share?",
         options: [
           "Twenty-five percent of the sneaker market",
@@ -752,6 +810,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-1-q3",
+        concept: "market share",
         question: "What is the most direct way for a company to grow its market share?",
         options: [
           "Raise executive salaries to attract better managers",
@@ -764,6 +823,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-1-q4",
+        concept: "market share vs profit",
         question: "A pizza shop cuts prices and steals customers from a rival, but its profit per pizza shrinks. What is the trade-off here?",
         options: [
           "Lower prices always increase both share and total profit",
@@ -776,6 +836,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-1-q5",
+        concept: "market share trends",
         question: "Why do investors pay attention to whether a company's market share is rising or falling?",
         options: [
           "Share trends reveal if it is beating competitors",
@@ -788,6 +849,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-1-q6",
+        concept: "market share trends",
         question: "A gaming company's sales grew 10% this year, but its market share fell. How is that possible?",
         options: [
           "Falling market share always means sales went down too",
@@ -800,6 +862,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-1-q7",
+        concept: "market share",
         question: "What does it mean to be the 'market leader' in an industry?",
         options: [
           "Being the oldest company still operating in the industry",
@@ -812,6 +875,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-1-q8",
+        concept: "monopoly",
         question: "A company controls 90% of its market. Why might that dominance create new problems?",
         options: [
           "Companies that large are required to lower their prices",
@@ -831,6 +895,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "strategy-2-q1",
+        concept: "pricing power",
         question: "What is pricing power?",
         options: [
           "The legal right to set any price the government allows",
@@ -843,6 +908,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-2-q2",
+        concept: "pricing power",
         question: "A phone maker raises its flagship price by 10%, and fans line up to buy it anyway. What does this show?",
         options: [
           "The phone maker is violating consumer protection laws",
@@ -855,6 +921,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-2-q3",
+        concept: "pricing power",
         question: "Which of these most often gives a company pricing power?",
         options: [
           "A beloved brand or product with no close substitute",
@@ -867,6 +934,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-2-q4",
+        concept: "commodity product",
         question: "A gas station raises prices 15 cents, and drivers immediately switch to the station across the street. Why did this fail?",
         options: [
           "Drivers are legally required to buy the cheapest gas",
@@ -879,6 +947,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-2-q5",
+        concept: "pricing power",
         question: "Why do investors especially value pricing power during periods of high inflation?",
         options: [
           "It lets companies pass rising costs on to customers",
@@ -891,6 +960,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-2-q6",
+        concept: "elasticity and revenue",
         question: "A streaming service raises its price from $10 to $12 and keeps 98% of its subscribers. What happens to its revenue?",
         options: [
           "Revenue falls because any cancellation destroys total revenue",
@@ -903,6 +973,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-2-q7",
+        concept: "pricing power",
         question: "Which company most likely has the strongest pricing power?",
         options: [
           "A farm selling corn identical to every neighbor's corn",
@@ -915,6 +986,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-2-q8",
+        concept: "limits of pricing power",
         question: "What is the long-term danger of a company raising prices too aggressively?",
         options: [
           "The stock exchange will delist the company's shares",
@@ -934,6 +1006,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "strategy-3-q1",
+        concept: "economies of scale",
         question: "What does 'economies of scale' mean?",
         options: [
           "Weighing products on industrial scales before shipping them",
@@ -946,6 +1019,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-3-q2",
+        concept: "spreading fixed costs",
         question: "A factory has $100,000 in fixed costs. If it makes 50,000 units this year, what is the fixed cost per unit?",
         options: [
           "Five dollars of fixed cost per unit",
@@ -958,6 +1032,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-3-q3",
+        concept: "bulk purchasing",
         question: "Which of these is a common source of economies of scale?",
         options: [
           "Paying higher prices for smaller and smaller orders",
@@ -970,6 +1045,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-3-q4",
+        concept: "bulk purchasing",
         question: "A giant retail chain pays suppliers much less per item than a small corner store pays. Why?",
         options: [
           "Its enormous order sizes give it bargaining power over suppliers",
@@ -982,6 +1058,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-3-q5",
+        concept: "economies of scale",
         question: "Why do economies of scale make it hard for new companies to enter an industry?",
         options: [
           "New companies are banned from industries with large players",
@@ -994,6 +1071,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-3-q6",
+        concept: "economies of scale",
         question: "You run a lemonade stand. Making one pitcher costs $4, but making four pitchers at once costs $10 total. What did you discover?",
         options: [
           "Larger batches lower your cost per pitcher of lemonade",
@@ -1006,6 +1084,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-3-q7",
+        concept: "diseconomies of scale",
         question: "What are 'diseconomies of scale'?",
         options: [
           "Discounts that companies give to their largest customers",
@@ -1018,6 +1097,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-3-q8",
+        concept: "economies of scale",
         question: "Why can software companies achieve especially extreme economies of scale?",
         options: [
           "Software firms never have to pay any fixed costs",
@@ -1037,6 +1117,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "strategy-4-q1",
+        concept: "network effects",
         question: "What is a network effect?",
         options: [
           "A product becomes more valuable as more people use it",
@@ -1049,6 +1130,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-4-q2",
+        concept: "network effects",
         question: "Why do most teens use the same messaging app as their friends instead of a technically better one?",
         options: [
           "Schools legally require students to use one single app",
@@ -1061,6 +1143,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-4-q3",
+        concept: "two-sided network effects",
         question: "A ride-sharing app connects drivers and riders. Why does adding more drivers help riders too?",
         options: [
           "Drivers pay riders a bonus whenever new drivers join",
@@ -1073,6 +1156,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-4-q4",
+        concept: "cold start problem",
         question: "A brand-new social app launches with amazing features but almost no users. What is its biggest challenge?",
         options: [
           "Too many users will overload its servers immediately",
@@ -1085,6 +1169,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-4-q5",
+        concept: "network effects",
         question: "Why do markets with strong network effects often end up dominated by one or two winners?",
         options: [
           "Governments assign one official winner in each market",
@@ -1097,6 +1182,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-4-q6",
+        concept: "network effects",
         question: "An online multiplayer game gains millions of new players. How can this make the game itself better?",
         options: [
           "More players automatically improves the game's graphics quality",
@@ -1109,6 +1195,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-4-q7",
+        concept: "network effects",
         question: "Why are network effects considered a powerful competitive moat?",
         options: [
           "Network effects legally prevent competitors from launching apps",
@@ -1121,6 +1208,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-4-q8",
+        concept: "two-sided network effects",
         question: "Which business benefits most from network effects?",
         options: [
           "An online marketplace connecting many buyers and sellers",
@@ -1140,6 +1228,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "strategy-5-q1",
+        concept: "brand value",
         question: "What is brand value?",
         options: [
           "The total cost of a company's logo design work",
@@ -1152,6 +1241,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-5-q2",
+        concept: "brand value",
         question: "Two hoodies are nearly identical in quality, but teens pay $40 more for the one with a famous logo. What explains this?",
         options: [
           "The brand's reputation and image justify a premium price",
@@ -1164,6 +1254,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-5-q3",
+        concept: "brand trust",
         question: "How do companies typically build a strong brand over time?",
         options: [
           "By changing their company name every few years",
@@ -1176,6 +1267,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-5-q4",
+        concept: "brand fragility",
         question: "A snack company gets caught lying about its ingredients. What is the likely effect on its brand?",
         options: [
           "The scandal will make the brand more memorable and valuable",
@@ -1188,6 +1280,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-5-q5",
+        concept: "brand value",
         question: "When one company buys another, why might it pay far more than the value of the factories and inventory?",
         options: [
           "Buyers always overpay by accident during big acquisitions",
@@ -1200,6 +1293,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-5-q6",
+        concept: "brand value",
         question: "A factory makes identical cereal for a famous brand and a generic store label. The branded box sells for $2 more. What does this show?",
         options: [
           "The branded cereal must contain much better ingredients",
@@ -1212,6 +1306,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-5-q7",
+        concept: "brand loyalty",
         question: "What is brand loyalty?",
         options: [
           "Customers repeatedly choosing the same brand over alternatives",
@@ -1224,6 +1319,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-5-q8",
+        concept: "brand loyalty",
         question: "Why can a strong brand actually lower a company's marketing costs?",
         options: [
           "Strong brands are legally exempt from paying for advertising",
@@ -1243,6 +1339,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "strategy-6-q1",
+        concept: "competitive moat",
         question: "In investing, what is an 'economic moat'?",
         options: [
           "A water feature built around corporate headquarters",
@@ -1255,6 +1352,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-6-q2",
+        concept: "patent protection",
         question: "Which of these is a classic example of an economic moat?",
         options: [
           "A trendy product design that competitors copy within months",
@@ -1267,6 +1365,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-6-q3",
+        concept: "switching costs",
         question: "A student wants to leave her phone's ecosystem, but she'd lose purchased apps, cloud photos, and group chats. What moat is this?",
         options: [
           "Switching costs that make leaving expensive and painful",
@@ -1279,6 +1378,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-6-q4",
+        concept: "sustainable competitive advantage",
         question: "A company invents a hit fidget toy, but within a year dozens of copycats sell similar toys for less. What was missing?",
         options: [
           "The company forgot to advertise its toy on television",
@@ -1291,6 +1391,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-6-q5",
+        concept: "competitive moat",
         question: "Why do long-term investors specifically look for companies with strong moats?",
         options: [
           "Moats guarantee the stock price rises every single year",
@@ -1303,6 +1404,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-6-q6",
+        concept: "patent protection",
         question: "A drug company's blockbuster medicine loses patent protection next year. What should investors expect?",
         options: [
           "Cheaper generic competitors will likely erode its sales",
@@ -1315,6 +1417,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-6-q7",
+        concept: "switching costs",
         question: "What are 'switching costs'?",
         options: [
           "Fees companies pay to relocate their factories abroad",
@@ -1327,6 +1430,7 @@ export const advancedTopicsQuizzes: LessonQuiz[] = [
       },
       {
         id: "strategy-6-q8",
+        concept: "network effects",
         question: "Which advantage is most likely to still protect a company ten years from now?",
         options: [
           "This season's popular color scheme on its products",

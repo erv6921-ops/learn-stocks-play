@@ -7,6 +7,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-1-tu1",
+        concept: "revenue vs profit",
         question: "A bakery earns $120,000 in revenue and spends $120,000 in total expenses over the year. What does its income statement show?",
         options: [
           "A profit of $120,000 for the year",
@@ -19,6 +20,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-1-tu2",
+        concept: "net income",
         question: "Net income sits at the bottom of the income statement. What is it commonly nicknamed?",
         options: [
           "The bottom line",
@@ -36,6 +38,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-2-tu1",
+        concept: "revenue vs profit",
         question: "A juice bar takes in $300,000 in revenue and spends $220,000 to operate. What is its profit?",
         options: [
           "$520,000 for the year",
@@ -48,6 +51,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-2-tu2",
+        concept: "revenue",
         question: "A store sells 500 jackets at $80 each. What does the $40,000 represent?",
         options: [
           "The store's profit after all costs",
@@ -65,6 +69,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-3-tu1",
+        concept: "COGS",
         question: "A furniture maker spends $25 on wood and $15 on assembly labor for each table sold. If it sells 400 tables, what is its COGS?",
         options: [
           "$10,000 for the run of tables",
@@ -77,6 +82,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-3-tu2",
+        concept: "COGS",
         question: "Which of these costs would count as COGS for a coffee roaster?",
         options: [
           "The billboard advertising the coffee brand",
@@ -94,6 +100,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-4-tu1",
+        concept: "gross margin",
         question: "A backpack brand earns $400,000 in revenue with $100,000 in COGS. What is its gross margin?",
         options: [
           "25%, keeping $100,000 of the revenue",
@@ -106,6 +113,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-4-tu2",
+        concept: "gross margin",
         question: "Company X has a 30% gross margin and Company Y has a 65% gross margin. What does this comparison show?",
         options: [
           "Company Y keeps more of each sales dollar",
@@ -123,6 +131,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-5-tu1",
+        concept: "operating income",
         question: "A shop has $120,000 in gross profit and $70,000 in operating expenses. What is its operating income?",
         options: [
           "$190,000 after adding the two figures",
@@ -135,6 +144,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-5-tu2",
+        concept: "operating expenses",
         question: "Which of these is an operating expense rather than COGS for a candle company?",
         options: [
           "The wax poured into each candle",
@@ -152,6 +162,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-6-tu1",
+        concept: "net income",
         question: "A company has $200,000 revenue, $80,000 COGS, $50,000 operating expenses, and $14,000 in taxes. What is its net income?",
         options: [
           "$120,000 after subtracting only COGS",
@@ -164,6 +175,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-6-tu2",
+        concept: "net income",
         question: "A company reports a positive gross profit but a negative net income. What most likely happened?",
         options: [
           "It had no sales at all during that year",
@@ -181,6 +193,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-8-tu1",
+        concept: "shareholders' equity",
         question: "A company has $700,000 in assets and $450,000 in liabilities. What is its shareholder equity?",
         options: [
           "$1,150,000 from adding the two figures",
@@ -193,6 +206,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-8-tu2",
+        concept: "assets vs liabilities",
         question: "Which of these is an asset for a bike repair shop?",
         options: [
           "The $5,000 bank loan taken for tools",
@@ -210,6 +224,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-9-tu1",
+        concept: "cash flow statement",
         question: "A company takes in $150,000 of cash and pays out $170,000 during the quarter. What is its net cash flow?",
         options: [
           "Positive $20,000 for the quarter",
@@ -222,6 +237,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-9-tu2",
+        concept: "cash flow statement sections",
         question: "A bakery buys a new delivery truck for $40,000. Which cash flow section records this purchase?",
         options: [
           "Operating activities, since the truck helps daily sales",
@@ -239,6 +255,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "fin-stmt-10-tu1",
+        concept: "free cash flow",
         question: "A company generates $250,000 in operating cash flow and spends $90,000 on capital expenditures. What is its free cash flow?",
         options: [
           "$340,000 after combining the two amounts",
@@ -251,6 +268,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "fin-stmt-10-tu2",
+        concept: "free cash flow",
         question: "A company has $40,000 in operating cash flow but spends $55,000 on new equipment. What is its free cash flow?",
         options: [
           "Positive $15,000 for the year",
@@ -268,6 +286,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "strategy-1-tu1",
+        concept: "market share",
         question: "Total headphone sales in a region are $400 million per year, and SoundCo sells $100 million. What is SoundCo's market share?",
         options: [
           "Twenty-five percent of the headphone market",
@@ -280,6 +299,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "strategy-1-tu2",
+        concept: "market share trends",
         question: "A snack brand's sales rose 8% this year, but its market share fell. How is that possible?",
         options: [
           "Falling share always means sales dropped too",
@@ -297,6 +317,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "strategy-2-tu1",
+        concept: "commodity product",
         question: "Which company most likely has the weakest pricing power?",
         options: [
           "A maker of the only patented drug for a rare illness",
@@ -309,6 +330,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "strategy-2-tu2",
+        concept: "pricing power",
         question: "A subscription app raises its price from $8 to $10 and keeps almost all of its subscribers. What does this show?",
         options: [
           "The app is breaking consumer protection laws",
@@ -326,6 +348,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "strategy-3-tu1",
+        concept: "spreading fixed costs",
         question: "A factory has $200,000 in fixed costs. If it makes 40,000 units this year, what is the fixed cost per unit?",
         options: [
           "Ten dollars of fixed cost per unit",
@@ -338,6 +361,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "strategy-3-tu2",
+        concept: "bulk purchasing",
         question: "A national coffee chain pays far less per cup for supplies than a single corner cafe. Why?",
         options: [
           "Large chains are legally entitled to supplier discounts",
@@ -355,6 +379,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "strategy-4-tu1",
+        concept: "cold start problem",
         question: "Why is it hard for a brand-new social app with no users to attract its first members?",
         options: [
           "An empty network offers little value to early joiners",
@@ -367,6 +392,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "strategy-4-tu2",
+        concept: "network effects",
         question: "Why are network effects considered a strong competitive moat?",
         options: [
           "They legally block all competitors from launching apps",
@@ -384,6 +410,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "strategy-5-tu1",
+        concept: "brand value",
         question: "Two water bottles are identical in quality, but shoppers pay $15 more for the one with a famous logo. What explains this?",
         options: [
           "The famous bottle secretly holds better water",
@@ -396,6 +423,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "strategy-5-tu2",
+        concept: "brand fragility",
         question: "A drink company is caught lying about its ingredients. What is the likely effect on its brand?",
         options: [
           "The scandal makes the brand more valuable",
@@ -413,6 +441,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
     questions: [
       {
         id: "strategy-6-tu1",
+        concept: "patent protection",
         question: "Which of these is a durable economic moat rather than a fading advantage?",
         options: [
           "A trendy product color that rivals copy in months",
@@ -425,6 +454,7 @@ export const topUp8StmtComp: { lessonId: string; questions: QuizQuestion[] }[] =
       },
       {
         id: "strategy-6-tu2",
+        concept: "switching costs",
         question: "A gamer wants to leave her console's ecosystem but would lose purchased games, saved progress, and online friends. What moat is this?",
         options: [
           "Switching costs that make leaving expensive and painful",

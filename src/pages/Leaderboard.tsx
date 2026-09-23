@@ -18,6 +18,8 @@ import {
 import { anchor } from "@/lib/tourAnchors"
 // League ladder + levels are shared with the Partners directory (see lib/leagues).
 import { LEAGUES, getLeagueIdx, getLevel } from "@/lib/leagues"
+// One rounding rule for every coin number shown here (matches the RPCs' ROUND()).
+import { formatCoins, roundCoins } from "@/lib/formatCoins"
 
 // Demo data - only shown when user explicitly toggles "Show Demo Data"
 const DEMO_NATIONAL = [
@@ -35,7 +37,39 @@ const DEMO_NATIONAL = [
 
 type Scope = "class" | "friends" | "national"
 
+// Leaderboard display names: "First L." by default, but when two people on the
+// same board would collapse to the same short name (two "Sam K."s), both get
+// their full last name so they stay tellable apart. Keyed by user id.
+export function boardDisplayNames(
+  people: { id: string; first: string | null | undefined; last: string | null | undefined }[],
+): Map<string, string> {
+  const short = (first: string, last: string) =>
+    `${first} ${last ? `${last.charAt(0)}.` : ""}`.trim() || "Student"
+  const full = (first: string, last: string) => `${first} ${last}`.trim() || "Student"
+  const clean = people.map((p) => ({ id: p.id, first: (p.first ?? "").trim(), last: (p.last ?? "").trim() }))
+  const counts = new Map<string, number>()
+  for (const p of clean) {
+    const k = short(p.first, p.last)
+    counts.set(k, (counts.get(k) ?? 0) + 1)
+  }
+  const out = new Map<string, string>()
+  for (const p of clean) {
+    const k = short(p.first, p.last)
+    out.set(p.id, (counts.get(k) ?? 0) > 1 ? full(p.first, p.last) : k)
+  }
+  return out
+}
+
+type ServerRow = { user_id: string; first_name: string | null; last_name: string | null; xp: number | string | null }
+// Everyone else's row is the RPC's own number, rounded at the boundary.
+const toRows = (rows: ServerRow[]) => {
+  const names = boardDisplayNames(rows.map((r) => ({ id: r.user_id, first: r.first_name, last: r.last_name })))
+  return rows.map((r) => ({ id: r.user_id, name: names.get(r.user_id) ?? "Student", xp: roundCoins(r.xp) }))
+}
+
 interface Entry {
+  /** User id - rows are keyed on this, never on the (collidable) name. */
+  id: string
   name: string
   score: number
   scoreLabel: string
@@ -53,7 +87,8 @@ const EARN_ACTIONS = [
 ]
 
 export default function Leaderboard() {
-  const { jeffsBalance, jeffsHistory, lessonProgress } = useApp()
+  const { user: me, jeffsBalance, jeffsHistory, lessonProgress } = useApp()
+  const myId = me?.id ?? ""
   const { netWorth: myNetWorth, portfolioValue } = useNetWorth()
   const { toast } = useToast()
   const [scope, setScope] = useState<Scope>("class")
@@ -61,11 +96,13 @@ export default function Leaderboard() {
   const [joinCode, setJoinCode] = useState("")
   const [joiningClass, setJoiningClass] = useState(false)
   const [myClasses, setMyClasses] = useState<{ id: string; name: string; joinCode: string }[]>([])
-  const [classMembers, setClassMembers] = useState<{ name: string; userId: string; xp: number }[]>([])
+  // Class + national rows come straight from the server INCLUDING our own row,
+  // so "You" is ranked by the same metric as everyone else.
+  const [classMembers, setClassMembers] = useState<{ id: string; name: string; xp: number }[]>([])
   // Accepted partners from the Partners directory - powers the Friends tab.
-  const [friendRows, setFriendRows] = useState<{ name: string; xp: number }[]>([])
+  const [friendRows, setFriendRows] = useState<{ id: string; name: string; xp: number }[]>([])
   // Every user who picked a US state - powers the National tab.
-  const [nationalRows, setNationalRows] = useState<{ name: string; xp: number }[]>([])
+  const [nationalRows, setNationalRows] = useState<{ id: string; name: string; xp: number }[]>([])
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
   // Mirror of selectedClassId read inside loadMyClasses so that callback can stay
   // stable - depending on the state directly made it re-create itself every time
@@ -82,15 +119,7 @@ export default function Leaderboard() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
     const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: classId })
-    if (lb) {
-      setClassMembers(lb
-        .filter(r => r.user_id !== user.id)
-        .map(r => ({
-          name: `${r.first_name || ''} ${(r.last_name || '').charAt(0)}.`.trim() || 'Student',
-          userId: r.user_id,
-          xp: Number(r.xp) || 0,
-        })))
-    }
+    if (lb) setClassMembers(toRows(lb as ServerRow[]))
   }, [])
 
   const loadMyClasses = useCallback(async () => {
@@ -144,29 +173,16 @@ export default function Leaderboard() {
   // InvestiCoins balance in the xp field).
   const loadFriends = useCallback(async () => {
     const { data, error } = await (supabase as any).rpc("get_partners")
-    if (!error && data) {
-      setFriendRows((data as { first_name: string | null; last_name: string | null; xp: number }[]).map(r => ({
-        name: `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim() || "Student",
-        xp: Number(r.xp) || 0,
-      })))
-    }
+    if (!error && data) setFriendRows(toRows(data as ServerRow[]))
   }, [])
 
   useEffect(() => { loadFriends() }, [loadFriends])
 
   // National tab = every user who picked a US state (their live coin balance in
-  // the xp field). Self is filtered out here; "You" is added in allEntries.
+  // the xp field). Our own row stays in - it's what ranks us.
   const loadNational = useCallback(async () => {
-    const { data: { user } } = await supabase.auth.getUser()
     const { data, error } = await (supabase as any).rpc("get_national_leaderboard")
-    if (!error && data) {
-      setNationalRows((data as { user_id: string; first_name: string | null; last_name: string | null; xp: number }[])
-        .filter(r => r.user_id !== user?.id)
-        .map(r => ({
-          name: `${r.first_name || ""} ${(r.last_name || "").charAt(0)}${r.last_name ? "." : ""}`.trim() || "Student",
-          xp: Number(r.xp) || 0,
-        })))
-    }
+    if (!error && data) setNationalRows(toRows(data as ServerRow[]))
   }, [])
 
   useEffect(() => { loadNational() }, [loadNational])
@@ -236,51 +252,48 @@ export default function Leaderboard() {
   }
 
   const allEntries = useMemo<Entry[]>(() => {
-    if (scope === "class" && classMembers.length > 0) {
-      const entries: Entry[] = [
-        ...classMembers.map(m => ({
-          name: m.name, score: m.xp, scoreLabel: "Coins", level: getLevel(m.xp), streak: 0, isMe: false,
-        })),
-        { name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true },
-      ]
-      entries.sort((a, b) => b.score - a.score)
-      return entries
+    const entry = (r: { id: string; name: string; xp: number }, isMe: boolean): Entry => ({
+      id: r.id, name: r.name, score: r.xp, scoreLabel: "Coins", level: getLevel(r.xp), streak: 0, isMe,
+    })
+    const meLocal: Entry = entry({ id: myId || "me", name: "You", xp: roundCoins(totalXp) }, true)
+    // Server-ranked boards: our row is the RPC's own row (same metric as every
+    // other row). Only if the server somehow omitted us do we fall back to the
+    // local balance.
+    const fromServer = (rows: { id: string; name: string; xp: number }[]) => {
+      const entries = rows.map((r) => entry(r, r.id === myId))
+      if (!entries.some((e) => e.isMe)) entries.push(meLocal)
+      return entries.sort((a, b) => b.score - a.score)
     }
 
+    if (scope === "class" && classMembers.some((m) => m.id !== myId)) return fromServer(classMembers)
+    if (scope === "national" && nationalRows.some((n) => n.id !== myId)) return fromServer(nationalRows)
+
+    // Friends: get_partners only returns OTHER people, so "You" is the live
+    // balance (the same ledger sum the RPC computes for them).
     if (scope === "friends" && friendRows.length > 0) {
-      const entries: Entry[] = [
-        ...friendRows.map(f => ({
-          name: f.name, score: f.xp, scoreLabel: "Coins", level: getLevel(f.xp), streak: 0, isMe: false,
-        })),
-        { name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true },
-      ]
-      entries.sort((a, b) => b.score - a.score)
-      return entries
-    }
-
-    if (scope === "national" && nationalRows.length > 0) {
-      const entries: Entry[] = [
-        ...nationalRows.map(n => ({
-          name: n.name, score: n.xp, scoreLabel: "Coins", level: getLevel(n.xp), streak: 0, isMe: false,
-        })),
-        { name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true },
-      ]
-      entries.sort((a, b) => b.score - a.score)
-      return entries
+      return [...friendRows.map((f) => entry(f, false)), meLocal].sort((a, b) => b.score - a.score)
     }
 
     if (showDemo) {
       const demoData = scope === "national" ? DEMO_NATIONAL : DEMO_NATIONAL.slice(0, 5)
       const entries: Entry[] = [
-        ...demoData.map(d => ({ name: d.name, score: d.netWorth, scoreLabel: "Coins", level: d.level, streak: d.streak, isMe: false })),
-        { name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true },
+        ...demoData.map((d, i) => ({ id: `demo-${i}`, name: d.name, score: d.netWorth, scoreLabel: "Coins", level: d.level, streak: d.streak, isMe: false })),
+        meLocal,
       ]
       entries.sort((a, b) => b.score - a.score)
       return entries
     }
 
-    return [{ name: "You", score: totalXp, scoreLabel: "Coins", level: getLevel(totalXp), streak: 0, isMe: true }]
-  }, [scope, myNetWorth, showDemo, classMembers, friendRows, nationalRows, totalXp])
+    return [meLocal]
+  }, [scope, showDemo, classMembers, friendRows, nationalRows, totalXp, myId])
+
+  // A brand-new account has exactly one ledger entry: Jeff's welcome gift. Until
+  // there's activity beyond it (a lesson, a trade, a mission) every newcomer
+  // ties, so the rank is hidden behind a "finish a lesson" nudge instead.
+  const hasRankActivity = useMemo(
+    () => lessonProgress.some((p) => p.completed) || jeffsHistory.some((h) => !h.reason.startsWith("Welcome gift")),
+    [lessonProgress, jeffsHistory],
+  )
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
   const myRank = allEntries.findIndex(e => e.isMe) + 1
@@ -433,11 +446,11 @@ export default function Leaderboard() {
               </p>
               <p className="font-display text-5xl md:text-6xl font-extrabold flex items-center gap-2 mt-1 leading-none">
                 <Coins className="w-8 h-8 md:w-9 md:h-9 text-warning" />
-                {jeffsBalance.toLocaleString()}
+                {formatCoins(jeffsBalance)}
               </p>
               <p className="text-[11px] text-primary-foreground/60 mt-2">
                 {portfolioValue > 0
-                  ? `Spendable InvestiCoins · ${Math.round(portfolioValue).toLocaleString()} more invested in stocks`
+                  ? `Spendable InvestiCoins · ${formatCoins(portfolioValue)} more invested in stocks`
                   : "Spendable InvestiCoins - this is what the leaderboard ranks on"}
               </p>
 
@@ -460,14 +473,25 @@ export default function Leaderboard() {
                 </div>
                 <p className="text-[11px] text-primary-foreground/70 mt-1.5">
                   {nextLeague
-                    ? <><span className="font-bold text-warning">{xpToNextLeague.toLocaleString()} coins</span> to reach {nextLeague.name} League</>
+                    ? <><span className="font-bold text-warning">{formatCoins(xpToNextLeague)} coins</span> to reach {nextLeague.name} League</>
                     : "You've maxed the league ladder - legendary!"}
                 </p>
               </div>
             </div>
 
             {/* Right - rank + the chase */}
-            {showLeaderboard ? (
+            {showLeaderboard && !hasRankActivity ? (
+              <div className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 p-5 text-center">
+                <BookOpen className="w-8 h-8 mx-auto text-warning mb-2" />
+                <p className="text-sm font-bold">Finish a lesson to get ranked</p>
+                <p className="text-[12px] text-primary-foreground/70 mt-1">
+                  Your rank appears once you've earned coins beyond Jeff's welcome gift.
+                </p>
+                <Link to="/lessons" className="inline-block mt-3">
+                  <Button size="sm" variant="secondary" className="gap-1.5"><BookOpen className="w-4 h-4" /> Start a lesson</Button>
+                </Link>
+              </div>
+            ) : showLeaderboard ? (
               <div className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 p-5">
                 <div className="flex items-center justify-between gap-4">
                   <div>
@@ -495,7 +519,7 @@ export default function Leaderboard() {
                       <span className="flex items-center gap-1.5 text-primary-foreground/85">
                         <Target className="w-3.5 h-3.5 text-warning" /> Catch {rivalAbove.name}
                       </span>
-                      <span className="text-warning font-extrabold">{gapToNext.toLocaleString()} {scoreLabel} to go</span>
+                      <span className="text-warning font-extrabold">{formatCoins(gapToNext)} {scoreLabel} to go</span>
                     </div>
                     <div className="h-2.5 rounded-full bg-white/15 overflow-hidden">
                       <motion.div
@@ -518,7 +542,7 @@ export default function Leaderboard() {
 
                 {myRank > 1 && (
                   <p className="text-[11px] text-primary-foreground/60 mt-3">
-                    <span className="font-bold text-primary-foreground/80">{gapToTop.toLocaleString()}</span> {scoreLabel} behind #1
+                    <span className="font-bold text-primary-foreground/80">{formatCoins(gapToTop)}</span> {scoreLabel} behind #1
                   </p>
                 )}
               </div>
@@ -717,7 +741,7 @@ export default function Leaderboard() {
                         const lift = rank === 1 ? "pt-6 pb-5 sm:pt-7" : rank === 2 ? "mt-6 pt-4 pb-4" : "mt-10 pt-4 pb-4"
                         return (
                           <motion.div
-                            key={`podium-${rank}`}
+                            key={entry.id}
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.35, delay: 0.05 * i }}
@@ -738,7 +762,7 @@ export default function Leaderboard() {
                               {entry.name}
                             </p>
                             <p className={`font-extrabold flex items-center gap-1 text-foreground mt-0.5 ${isChampion ? "text-sm sm:text-base" : "text-[11px] sm:text-sm"}`}>
-                              <Coins className="w-3.5 h-3.5 text-warning" /> {entry.score.toLocaleString()}
+                              <Coins className="w-3.5 h-3.5 text-warning" /> {formatCoins(entry.score)}
                             </p>
                             <span className="text-[10px] text-muted-foreground flex items-center gap-1 mt-0.5">
                               <Star className="w-2.5 h-2.5" /> Lv {entry.level}
@@ -765,7 +789,7 @@ export default function Leaderboard() {
                           // Stable identity per person (not position) so rows glide
                           // to their new rank via `layout` instead of remounting and
                           // re-animating from scratch when scores update live.
-                          key={entry.isMe ? "me" : entry.name}
+                          key={entry.id}
                           layout
                           initial={{ opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
@@ -806,7 +830,7 @@ export default function Leaderboard() {
                           </div>
                           <div className="relative text-right shrink-0">
                             <p className="font-bold text-sm flex items-center gap-1 justify-end">
-                              <Coins className="w-3.5 h-3.5 text-warning" /> {entry.score.toLocaleString()}
+                              <Coins className="w-3.5 h-3.5 text-warning" /> {formatCoins(entry.score)}
                             </p>
                             <p className="text-[10px] text-muted-foreground">{entry.scoreLabel}</p>
                           </div>

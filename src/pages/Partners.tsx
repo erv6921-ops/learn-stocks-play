@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { getInitials } from "@/lib/playerStats"
 import { LEAGUES, getLeagueIdx, getLevel } from "@/lib/leagues"
+import { formatCoins, roundCoins } from "@/lib/formatCoins"
 import {
   Search, UserPlus, UserCheck, UserMinus, Users, School, GraduationCap,
   LineChart, Store, Trophy, Coins, Star, TrendingUp, TrendingDown, Loader2,
@@ -117,7 +118,7 @@ function StudentCard({
           </div>
           <p className="text-xs text-muted-foreground truncate flex items-center gap-2">
             <span className="inline-flex items-center gap-1 font-semibold text-foreground/80">
-              <Coins className="w-3 h-3 text-warning" />{Math.round(s.xp).toLocaleString()} InvestiCoins
+              <Coins className="w-3 h-3 text-warning" />{formatCoins(s.xp)} InvestiCoins
             </span>
             {s.school_name && (
               <span className="inline-flex items-center gap-1"><School className="w-3 h-3" />{s.school_name}</span>
@@ -487,7 +488,7 @@ function SnapshotView({
   fallbackRow: StudentRow | null
 }) {
   const p = snap.profile!
-  const xp = Number(snap.xp ?? fallbackRow?.xp ?? 0)
+  const xp = roundCoins(snap.xp ?? fallbackRow?.xp ?? 0)
   const leagueIdx = getLeagueIdx(xp)
   const league = LEAGUES[leagueIdx]
   const level = getLevel(xp)

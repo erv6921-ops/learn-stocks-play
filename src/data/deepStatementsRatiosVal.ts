@@ -48,7 +48,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt1-mc1",
-            concept: "Income Statement",
+            concept: "revenue",
             question: "What does the 'top line' of an income statement refer to?",
             options: [
               "The final net income after taxes",
@@ -61,7 +61,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt1-mc2",
-            concept: "Income Statement",
+            concept: "revenue vs profit",
             question: "Why can a company have high revenue but still lose money?",
             options: [
               "Revenue is always paid in cash slowly",
@@ -89,7 +89,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt1-aq1",
-          concept: "Income Statement",
+          concept: "revenue vs profit",
           question: "Based on the two companies, why is revenue alone a poor way to judge them?",
           options: [
             "Revenue is often reported incorrectly on every quarterly filing",
@@ -117,7 +117,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt1-mastery1",
-            concept: "Income Statement",
+            concept: "income statement",
             question: "An income statement primarily measures performance over what?",
             options: [
               "A single day's closing cash balance in the bank",
@@ -131,7 +131,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt1-mastery2",
-            concept: "Income Statement",
+            concept: "gross profit",
             question: "What do you get when you subtract COGS from revenue?",
             options: [
               "Net income for the owners after every cost",
@@ -145,7 +145,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt1-mastery3",
-            concept: "Income Statement",
+            concept: "net income",
             question: "Which item is subtracted just before reaching net income?",
             options: [
               "Cost of goods sold way up top",
@@ -159,7 +159,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt1-mastery4",
-            concept: "Income Statement",
+            concept: "operating income",
             question: "Why do analysts like looking at operating income?",
             options: [
               "It conveniently ignores every single cost the firm has",
@@ -173,7 +173,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt1-mastery5",
-            concept: "Income Statement",
+            concept: "EPS",
             question: "Earnings per share (EPS) is calculated by…",
             options: [
               "Dividing total revenue by all total costs",
@@ -187,7 +187,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt1-mastery6",
-            concept: "Income Statement",
+            concept: "net income",
             question: "A firm has strong operating income but weak net income. The likely cause is…",
             options: [
               "It somehow sold no products at all this whole year",
@@ -248,7 +248,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt2-mc1",
-            concept: "Revenue vs Profit",
+            concept: "revenue vs profit",
             question: "A food truck takes in $1,000 and spends $850 to earn it. What is its profit?",
             options: [
               "$1,000, matching the full revenue amount",
@@ -261,7 +261,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt2-mc2",
-            concept: "Revenue vs Profit",
+            concept: "profit margin",
             question: "What does profit margin measure?",
             options: [
               "Total sales added up for the whole year",
@@ -289,7 +289,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt2-aq1",
-          concept: "Revenue vs Profit",
+          concept: "profit margin",
           question: "Why might Priya prefer AppCo despite its smaller revenue?",
           options: [
             "Bigger revenue always means bigger debt and interest",
@@ -317,7 +317,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt2-mastery1",
-            concept: "Revenue vs Profit",
+            concept: "revenue vs profit",
             question: "The core difference between revenue and profit is that profit…",
             options: [
               "Is always larger than revenue",
@@ -331,7 +331,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt2-mastery2",
-            concept: "Revenue vs Profit",
+            concept: "revenue vs profit",
             question: "A company's revenue rises 20% but its net income falls. This most likely means…",
             options: [
               "It abruptly stopped selling any products",
@@ -345,7 +345,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt2-mastery3",
-            concept: "Revenue vs Profit",
+            concept: "industry comparison",
             question: "Which business model typically has the thinnest net margins?",
             options: [
               "A luxury software company",
@@ -359,7 +359,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt2-mastery4",
-            concept: "Revenue vs Profit",
+            concept: "profit margin",
             question: "Company A has $50M revenue at a 2% margin; Company B has $20M at a 20% margin. Who earns more profit?",
             options: [
               "Company A, because revenue is larger",
@@ -373,7 +373,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt2-mastery5",
-            concept: "Revenue vs Profit",
+            concept: "revenue vs profit",
             question: "Why is profit, not revenue, the number that builds wealth for owners?",
             options: [
               "Revenue is never reported publicly on any official filing anywhere",
@@ -387,7 +387,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt2-mastery6",
-            concept: "Revenue vs Profit",
+            concept: "profit margin",
             question: "A firm keeps steady revenue while its margins expand each year. This suggests…",
             options: [
               "The business is losing customers fast",
@@ -489,7 +489,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt3-aq1",
-          concept: "COGS",
+          concept: "gross margin",
           question: "If Leo switches to the cheaper supplier, what happens to his gross margin?",
           options: [
             "It falls because costs went down",
@@ -545,7 +545,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt3-mastery3",
-            concept: "COGS",
+            concept: "gross margin",
             question: "A product sells for $50 with $20 of COGS. Its gross margin is…",
             options: [
               "20%, the cost portion",
@@ -559,7 +559,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt3-mastery4",
-            concept: "COGS",
+            concept: "industry comparison",
             question: "Why does software typically have a much higher gross margin than car making?",
             options: [
               "Software companies never pay taxes",
@@ -587,7 +587,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt3-mastery6",
-            concept: "COGS",
+            concept: "gross profit",
             question: "Cutting COGS while keeping the price the same will…",
             options: [
               "Lower gross profit per unit",
@@ -648,7 +648,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt4-mc1",
-            concept: "Gross Margin",
+            concept: "gross margin",
             question: "A product sells for $200 and costs $60 to make. What is its gross margin?",
             options: [
               "30%, the cost share",
@@ -661,7 +661,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt4-mc2",
-            concept: "Gross Margin",
+            concept: "gross margin",
             question: "Why is gross margin useful for comparing companies of different sizes?",
             options: [
               "It completely ignores the direct cost of goods",
@@ -689,7 +689,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt4-aq1",
-          concept: "Gross Margin",
+          concept: "gross margin",
           question: "Why might BrandX be better positioned than BrandY in a price war?",
           options: [
             "It has lower total revenue overall across the year",
@@ -717,7 +717,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt4-mastery1",
-            concept: "Gross Margin",
+            concept: "gross margin",
             question: "Gross margin is calculated as…",
             options: [
               "Net income divided by shares",
@@ -731,7 +731,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt4-mastery2",
-            concept: "Gross Margin",
+            concept: "gross margin",
             question: "A company's gross margin rises from 38% to 45% over two years. This suggests…",
             options: [
               "Its product is now cheaper to sell",
@@ -739,13 +739,13 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
               "Its revenue fell to zero",
               "It took on much more debt"
             ],
-            correctAnswer: 1,
+            correctAnswer: 0,
             difficulty: -1.5,
             explanation: "A rising gross margin means more of each sales dollar survives after production costs - the product got more profitable through lower costs or higher prices."
           },
           {
             id: "finstmt4-mastery3",
-            concept: "Gross Margin",
+            concept: "industry comparison",
             question: "Comparing a supermarket's gross margin to a software firm's is misleading because…",
             options: [
               "Both have identical cost structures",
@@ -759,7 +759,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt4-mastery4",
-            concept: "Gross Margin",
+            concept: "gross margin",
             question: "Which firm can better withstand a 10% price cut?",
             options: [
               "One with a thin 15% gross margin",
@@ -773,7 +773,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt4-mastery5",
-            concept: "Gross Margin",
+            concept: "gross margin",
             question: "A falling gross margin most often points to…",
             options: [
               "Rising costs or heavier discounting",
@@ -787,7 +787,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt4-mastery6",
-            concept: "Gross Margin",
+            concept: "gross margin",
             question: "Two firms have very different revenue but the same 55% gross margin. This tells you…",
             options: [
               "The larger firm must be quietly failing",
@@ -848,7 +848,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt5-mc1",
-            concept: "Operating Expenses",
+            concept: "operating expenses",
             question: "Which is an operating expense rather than COGS?",
             options: [
               "The steel used in a car",
@@ -861,7 +861,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt5-mc2",
-            concept: "Operating Expenses",
+            concept: "operating leverage",
             question: "What is operating leverage?",
             options: [
               "Borrowing extra money from a bank to buy new fixed assets",
@@ -889,7 +889,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt5-aq1",
-          concept: "Operating Expenses",
+          concept: "operating leverage",
           question: "Why did the app's operating income more than triple when revenue only doubled?",
           options: [
             "It abruptly stopped paying any income taxes",
@@ -917,7 +917,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt5-mastery1",
-            concept: "Operating Expenses",
+            concept: "operating expenses",
             question: "Operating expenses are best described as…",
             options: [
               "The direct cost of physically making the products",
@@ -931,7 +931,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt5-mastery2",
-            concept: "Operating Expenses",
+            concept: "operating income",
             question: "Subtracting operating expenses from gross profit gives you…",
             options: [
               "Net income remaining after all taxes",
@@ -945,7 +945,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt5-mastery3",
-            concept: "Operating Expenses",
+            concept: "operating leverage",
             question: "Why does operating leverage let profit grow faster than revenue?",
             options: [
               "Fixed costs stay flat as sales rise",
@@ -959,7 +959,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt5-mastery4",
-            concept: "Operating Expenses",
+            concept: "operating income",
             question: "If revenue grows 20% but operating expenses grow 35%, the operating margin will…",
             options: [
               "Expand nicely because total sales rose",
@@ -973,7 +973,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt5-mastery5",
-            concept: "Operating Expenses",
+            concept: "operating expenses",
             question: "A company boosts operating income by slashing its R&D budget. The hidden risk is…",
             options: [
               "Its income taxes will instantly double overnight",
@@ -987,7 +987,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt5-mastery6",
-            concept: "Operating Expenses",
+            concept: "operating income",
             question: "Why do analysts value operating income over net income for judging core operations?",
             options: [
               "It includes every one-time gain",
@@ -1048,7 +1048,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt6-mc1",
-            concept: "Net Income",
+            concept: "net income",
             question: "Net income is found where on the income statement?",
             options: [
               "At the very top of it, as revenue",
@@ -1061,7 +1061,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt6-mc2",
-            concept: "Net Income",
+            concept: "cash vs profit",
             question: "Why can a company show positive net income but still run short on cash?",
             options: [
               "Net income is always paid in gold",
@@ -1089,7 +1089,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt6-aq1",
-          concept: "Net Income",
+          concept: "one-time gains",
           question: "How should Nina interpret the tripling of net income?",
           options: [
             "The core operating business tripled its underlying profit",
@@ -1117,7 +1117,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt6-mastery1",
-            concept: "Net Income",
+            concept: "net income",
             question: "Net income represents…",
             options: [
               "Total sales before any costs",
@@ -1131,7 +1131,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt6-mastery2",
-            concept: "Net Income",
+            concept: "net income",
             question: "Which cost is subtracted last, just before reaching net income?",
             options: [
               "Cost of goods sold",
@@ -1145,7 +1145,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt6-mastery3",
-            concept: "Net Income",
+            concept: "net income",
             question: "A company with strong operating income posts weak net income. A likely cause is…",
             options: [
               "It had no revenue at all",
@@ -1159,7 +1159,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt6-mastery4",
-            concept: "Net Income",
+            concept: "one-time gains",
             question: "Net income jumps because the company sold a building. A careful analyst will…",
             options: [
               "Treat it as normal recurring profit",
@@ -1173,7 +1173,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt6-mastery5",
-            concept: "Net Income",
+            concept: "cash vs profit",
             question: "Why is net income not the same as the company's cash?",
             options: [
               "Cash is somehow completely illegal to report publicly",
@@ -1187,7 +1187,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt6-mastery6",
-            concept: "Net Income",
+            concept: "earnings and stock price",
             question: "When investors say a company 'beat earnings,' they usually mean its…",
             options: [
               "Revenue matched last year exactly",
@@ -1248,7 +1248,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt7-mc1",
-            concept: "Balance Sheet",
+            concept: "accounting equation",
             question: "What does the accounting equation state?",
             options: [
               "Revenue minus costs equals profit",
@@ -1261,7 +1261,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt7-mc2",
-            concept: "Balance Sheet",
+            concept: "balance sheet",
             question: "The balance sheet captures a company's finances over what span?",
             options: [
               "A full quarter of trading",
@@ -1289,7 +1289,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt7-aq1",
-          concept: "Balance Sheet",
+          concept: "working capital",
           question: "Why is Maya worried despite the startup's $200,000 in total assets?",
           options: [
             "Total assets are always overstated",
@@ -1317,7 +1317,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt7-mastery1",
-            concept: "Balance Sheet",
+            concept: "shareholders' equity",
             question: "A company has $12M in assets and $7M in liabilities. Its equity is…",
             options: [
               "$19M all added together",
@@ -1331,7 +1331,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt7-mastery2",
-            concept: "Balance Sheet",
+            concept: "working capital",
             question: "Which of these is a current asset?",
             options: [
               "A large factory building",
@@ -1345,7 +1345,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt7-mastery3",
-            concept: "Balance Sheet",
+            concept: "shareholders' equity",
             question: "What are retained earnings?",
             options: [
               "Money borrowed from a bank",
@@ -1359,7 +1359,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt7-mastery4",
-            concept: "Balance Sheet",
+            concept: "working capital",
             question: "Why compare current assets with current liabilities?",
             options: [
               "To carefully calculate the yearly corporate tax bill owed",
@@ -1373,7 +1373,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt7-mastery5",
-            concept: "Balance Sheet",
+            concept: "balance sheet",
             question: "The balance sheet differs from the income statement because it…",
             options: [
               "Shows the profit earned during each year",
@@ -1387,7 +1387,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt7-mastery6",
-            concept: "Balance Sheet",
+            concept: "accounting equation",
             question: "Everything a company owns must be funded by…",
             options: [
               "Revenue only from this year",
@@ -1448,7 +1448,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt8-mc1",
-            concept: "Assets vs Liabilities",
+            concept: "assets vs liabilities",
             question: "What is the defining feature of a liability?",
             options: [
               "It is something the firm owns",
@@ -1461,7 +1461,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt8-mc2",
-            concept: "Assets vs Liabilities",
+            concept: "liquidity",
             question: "What does 'liquidity' describe about an asset?",
             options: [
               "How large its dollar value is",
@@ -1489,7 +1489,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt8-aq1",
-          concept: "Assets vs Liabilities",
+          concept: "liquidity",
           question: "Why is Shop 1 the safer bet despite identical totals?",
           options: [
             "It simply has higher total revenue reported this year",
@@ -1517,7 +1517,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt8-mastery1",
-            concept: "Assets vs Liabilities",
+            concept: "assets vs liabilities",
             question: "Which item is an asset rather than a liability?",
             options: [
               "A bank loan due next year",
@@ -1531,7 +1531,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt8-mastery2",
-            concept: "Assets vs Liabilities",
+            concept: "shareholders' equity",
             question: "A firm owns $90,000 in assets and owes $35,000. Its equity is…",
             options: [
               "$125,000 combined",
@@ -1545,7 +1545,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt8-mastery3",
-            concept: "Assets vs Liabilities",
+            concept: "leverage",
             question: "When is taking on debt likely a healthy move?",
             options: [
               "When it merely covers past losses",
@@ -1559,7 +1559,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt8-mastery4",
-            concept: "Assets vs Liabilities",
+            concept: "liquidity",
             question: "Which asset is the most liquid?",
             options: [
               "A specialized factory machine",
@@ -1573,7 +1573,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt8-mastery5",
-            concept: "Assets vs Liabilities",
+            concept: "shareholders' equity",
             question: "Two firms have equal assets but different debt. This means…",
             options: [
               "They are two identical investments",
@@ -1587,7 +1587,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt8-mastery6",
-            concept: "Assets vs Liabilities",
+            concept: "liquidity",
             question: "A company is asset-rich but faces a cash crunch. The likely reason is…",
             options: [
               "It has no assets to speak of",
@@ -1648,7 +1648,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt9-mc1",
-            concept: "Cash Flow",
+            concept: "cash vs profit",
             question: "Why can a profitable company still run out of cash?",
             options: [
               "Reported profit is always taxed at 100 percent",
@@ -1661,7 +1661,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt9-mc2",
-            concept: "Cash Flow",
+            concept: "cash flow statement sections",
             question: "Which section shows cash from the day-to-day business?",
             options: [
               "Investing activities",
@@ -1689,7 +1689,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt9-aq1",
-          concept: "Cash Flow",
+          concept: "operating cash flow",
           question: "What does Priya's cash flow analysis reveal about the startup?",
           options: [
             "It is strongly and reliably self-sustaining today",
@@ -1717,7 +1717,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt9-mastery1",
-            concept: "Cash Flow",
+            concept: "cash vs profit",
             question: "The cash flow statement is trusted because cash is…",
             options: [
               "Always much larger than profit",
@@ -1731,7 +1731,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt9-mastery2",
-            concept: "Cash Flow",
+            concept: "cash flow statement sections",
             question: "Buying new equipment appears in which section?",
             options: [
               "Operating activities",
@@ -1745,7 +1745,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt9-mastery3",
-            concept: "Cash Flow",
+            concept: "cash flow statement sections",
             question: "Negative investing cash flow in a growing firm usually means…",
             options: [
               "It is going bankrupt fairly soon",
@@ -1759,7 +1759,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt9-mastery4",
-            concept: "Cash Flow",
+            concept: "cash flow statement sections",
             question: "Which activity is a financing cash flow?",
             options: [
               "Selling products to customers",
@@ -1773,7 +1773,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt9-mastery5",
-            concept: "Cash Flow",
+            concept: "cash flow statement",
             question: "The three cash flow sections add up to…",
             options: [
               "The company's total yearly revenue",
@@ -1787,7 +1787,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt9-mastery6",
-            concept: "Cash Flow",
+            concept: "operating cash flow",
             question: "A firm reports profits but negative operating cash flow. This suggests…",
             options: [
               "The whole business is perfectly healthy",
@@ -1848,7 +1848,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt10-mc1",
-            concept: "Free Cash Flow",
+            concept: "free cash flow",
             question: "How is free cash flow calculated?",
             options: [
               "Total revenue minus all the taxes owed",
@@ -1861,7 +1861,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt10-mc2",
-            concept: "Free Cash Flow",
+            concept: "free cash flow",
             question: "What can a company do with free cash flow?",
             options: [
               "Only pay off its yearly income taxes",
@@ -1889,7 +1889,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "finstmt10-aq1",
-          concept: "Free Cash Flow",
+          concept: "free cash flow",
           question: "Why does Leo prefer Company X despite equal profits?",
           options: [
             "It reports a much larger total revenue",
@@ -1917,7 +1917,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "finstmt10-mastery1",
-            concept: "Free Cash Flow",
+            concept: "free cash flow",
             question: "Free cash flow is best described as cash that is…",
             options: [
               "Owed entirely to the outside lenders",
@@ -1931,7 +1931,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt10-mastery2",
-            concept: "Free Cash Flow",
+            concept: "free cash flow",
             question: "What are capital expenditures?",
             options: [
               "Wages paid to employees",
@@ -1945,7 +1945,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt10-mastery3",
-            concept: "Free Cash Flow",
+            concept: "cash vs profit",
             question: "Why do analysts trust FCF more than reported earnings?",
             options: [
               "It is always a bigger number",
@@ -1959,7 +1959,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt10-mastery4",
-            concept: "Free Cash Flow",
+            concept: "DCF",
             question: "Which valuation method is built on free cash flow?",
             options: [
               "Balance sheet totaling",
@@ -1973,7 +1973,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt10-mastery5",
-            concept: "Free Cash Flow",
+            concept: "free cash flow",
             question: "A firm has $8M operating cash flow and $3M capital spending. Its FCF is…",
             options: [
               "$11M added together",
@@ -1987,7 +1987,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "finstmt10-mastery6",
-            concept: "Free Cash Flow",
+            concept: "free cash flow",
             question: "A young company shows negative free cash flow. This may be fine if…",
             options: [
               "It has stopped growing entirely now",
@@ -2048,7 +2048,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios1-mc1",
-            concept: "P/E",
+            concept: "P/E ratio",
             question: "How is the P/E ratio calculated?",
             options: [
               "Total earnings divided by the total assets",
@@ -2061,7 +2061,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios1-mc2",
-            concept: "P/E",
+            concept: "P/E ratio",
             question: "A high P/E ratio usually reflects that investors…",
             options: [
               "Expect earnings to fall soon",
@@ -2089,7 +2089,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios1-aq1",
-          concept: "P/E",
+          concept: "P/E ratio",
           question: "What must be true for GreenTech's higher P/E to be justified?",
           options: [
             "Its share price must fall soon",
@@ -2117,7 +2117,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios1-mastery1",
-            concept: "P/E",
+            concept: "P/E ratio",
             question: "A stock at $60 with EPS of $4 has a P/E of…",
             options: [
               "240 when multiplied",
@@ -2131,7 +2131,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios1-mastery2",
-            concept: "P/E",
+            concept: "P/E ratio",
             question: "Why is a raw share price alone a poor measure of value?",
             options: [
               "Stock prices are updated far too rarely",
@@ -2145,7 +2145,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios1-mastery3",
-            concept: "P/E",
+            concept: "value trap",
             question: "What is a 'value trap'?",
             options: [
               "A stock that grows too quickly",
@@ -2159,7 +2159,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios1-mastery4",
-            concept: "P/E",
+            concept: "industry comparison",
             question: "Why compare P/E within the same industry?",
             options: [
               "All industries share one P/E",
@@ -2173,7 +2173,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios1-mastery5",
-            concept: "P/E",
+            concept: "P/E ratio",
             question: "For which company does P/E break down entirely?",
             options: [
               "One with steady, reliable annual profits every year",
@@ -2187,7 +2187,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios1-mastery6",
-            concept: "P/E",
+            concept: "P/E ratio",
             question: "A P/E of 20 can be loosely read as…",
             options: [
               "A fully guaranteed 20% return every single year",
@@ -2261,7 +2261,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios2-mc2",
-            concept: "EPS",
+            concept: "share buybacks",
             question: "How can EPS rise even when total profit stays flat?",
             options: [
               "By steeply raising all its product prices",
@@ -2289,7 +2289,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios2-aq1",
-          concept: "EPS",
+          concept: "share buybacks",
           question: "What should Noah conclude about the EPS increase?",
           options: [
             "The core underlying business grew very rapidly",
@@ -2331,7 +2331,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios2-mastery2",
-            concept: "EPS",
+            concept: "earnings and stock price",
             question: "Why do analysts obsess over quarterly EPS?",
             options: [
               "It sets the company's tax rate",
@@ -2373,7 +2373,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios2-mastery5",
-            concept: "EPS",
+            concept: "P/E ratio",
             question: "Which metric directly uses EPS in its formula?",
             options: [
               "The debt-to-equity ratio",
@@ -2387,7 +2387,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios2-mastery6",
-            concept: "EPS",
+            concept: "ratio interpretation",
             question: "Why shouldn't EPS be judged completely on its own?",
             options: [
               "It is illegal to report EPS alone",
@@ -2448,7 +2448,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios3-mc1",
-            concept: "Debt-to-Equity",
+            concept: "debt-to-equity ratio",
             question: "How is the debt-to-equity ratio calculated?",
             options: [
               "Total equity divided by the total revenue",
@@ -2461,7 +2461,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios3-mc2",
-            concept: "Debt-to-Equity",
+            concept: "leverage",
             question: "Why is a high debt-to-equity ratio riskier?",
             options: [
               "It permanently removes all of the future profits earned",
@@ -2489,7 +2489,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios3-aq1",
-          concept: "Debt-to-Equity",
+          concept: "leverage",
           question: "Why does Sophia see AirNova as the riskier airline?",
           options: [
             "It carries no long-term debt whatsoever on its books",
@@ -2517,7 +2517,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios3-mastery1",
-            concept: "Debt-to-Equity",
+            concept: "debt-to-equity ratio",
             question: "A firm has $9M debt and $3M equity. Its debt-to-equity is…",
             options: [
               "12 when added",
@@ -2531,7 +2531,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios3-mastery2",
-            concept: "Debt-to-Equity",
+            concept: "leverage",
             question: "How does leverage affect shareholder returns in good times?",
             options: [
               "It always reduces returns",
@@ -2545,7 +2545,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios3-mastery3",
-            concept: "Debt-to-Equity",
+            concept: "industry comparison",
             question: "Why do utilities often carry high debt-to-equity ratios?",
             options: [
               "They earn absolutely no profit at all ever",
@@ -2559,7 +2559,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios3-mastery4",
-            concept: "Debt-to-Equity",
+            concept: "debt-to-equity ratio",
             question: "A ratio of 1.0 means that debt is…",
             options: [
               "Ten times the equity",
@@ -2573,7 +2573,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios3-mastery5",
-            concept: "Debt-to-Equity",
+            concept: "leverage",
             question: "Which combination is generally safest?",
             options: [
               "High debt paired with erratic earnings",
@@ -2587,7 +2587,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios3-mastery6",
-            concept: "Debt-to-Equity",
+            concept: "debt-to-equity ratio",
             question: "A company's debt-to-equity climbs steadily each year. This signals…",
             options: [
               "A shrinking reliance on debt",
@@ -2648,7 +2648,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios4-mc1",
-            concept: "Profit Margin",
+            concept: "profit margin",
             question: "How is profit margin calculated?",
             options: [
               "Total revenue divided by the company's total profit",
@@ -2661,7 +2661,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios4-mc2",
-            concept: "Profit Margin",
+            concept: "profit margin",
             question: "Why can a firm with huge revenue still earn little profit?",
             options: [
               "Reported revenue is never really actual money",
@@ -2689,7 +2689,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios4-aq1",
-          concept: "Profit Margin",
+          concept: "profit margin",
           question: "What does the margin comparison reveal about the two retailers?",
           options: [
             "MegaMart is clearly the more profitable one",
@@ -2717,7 +2717,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios4-mastery1",
-            concept: "Profit Margin",
+            concept: "profit margin",
             question: "A firm earns $80,000 profit on $400,000 revenue. Its margin is…",
             options: [
               "5% of revenue",
@@ -2731,7 +2731,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios4-mastery2",
-            concept: "Profit Margin",
+            concept: "net margin",
             question: "Which margin is measured after all costs, interest, and taxes?",
             options: [
               "Gross margin",
@@ -2745,7 +2745,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios4-mastery3",
-            concept: "Profit Margin",
+            concept: "industry comparison",
             question: "Why do software firms often have very high margins?",
             options: [
               "They sell at very low prices",
@@ -2759,7 +2759,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios4-mastery4",
-            concept: "Profit Margin",
+            concept: "profit margin",
             question: "A steadily expanding profit margin usually signals…",
             options: [
               "The firm is losing pricing power",
@@ -2773,7 +2773,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios4-mastery5",
-            concept: "Profit Margin",
+            concept: "industry comparison",
             question: "Why must margins be compared within the same industry?",
             options: [
               "Margins are secret across sectors",
@@ -2787,7 +2787,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios4-mastery6",
-            concept: "Profit Margin",
+            concept: "profit margin",
             question: "Revenue is soaring but the margin is collapsing. This may mean…",
             options: [
               "The rapid growth is extremely highly profitable",
@@ -2861,7 +2861,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios5-mc2",
-            concept: "ROE",
+            concept: "ROE and leverage",
             question: "Why can heavy debt inflate a company's ROE?",
             options: [
               "Borrowed debt directly adds straight to net income",
@@ -2889,7 +2889,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios5-aq1",
-          concept: "ROE",
+          concept: "ROE and leverage",
           question: "Why does Elena judge BrightCo the stronger business?",
           options: [
             "It simply reports a much higher revenue",
@@ -2959,7 +2959,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios5-mastery4",
-            concept: "ROE",
+            concept: "ROE and leverage",
             question: "Why pair ROE with the debt-to-equity ratio?",
             options: [
               "To carefully calculate the yearly corporate tax rate",
@@ -2973,7 +2973,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios5-mastery5",
-            concept: "ROE",
+            concept: "ROE and leverage",
             question: "The best businesses tend to earn high ROE while…",
             options: [
               "Borrowing extremely heavily",
@@ -2987,7 +2987,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios5-mastery6",
-            concept: "ROE",
+            concept: "ratio trends",
             question: "Why look at ROE across many years rather than one?",
             options: [
               "ROE is somehow illegal to report on a yearly basis",
@@ -3048,7 +3048,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios6-mc1",
-            concept: "Price-to-Sales",
+            concept: "price-to-sales ratio",
             question: "How is the price-to-sales ratio calculated?",
             options: [
               "Total profit divided by the total revenue",
@@ -3061,7 +3061,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios6-mc2",
-            concept: "Price-to-Sales",
+            concept: "price-to-sales ratio",
             question: "Why is P/S useful when P/E is not?",
             options: [
               "The P/S ratio completely ignores the current share price entirely",
@@ -3089,7 +3089,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios6-aq1",
-          concept: "Price-to-Sales",
+          concept: "price-to-sales ratio",
           question: "Why does Kai also examine the startup's margins?",
           options: [
             "Margins set the company's tax rate",
@@ -3117,7 +3117,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios6-mastery1",
-            concept: "Price-to-Sales",
+            concept: "price-to-sales ratio",
             question: "A firm worth $3B has $1.5B in revenue. Its P/S is…",
             options: [
               "4.5 when multiplied",
@@ -3131,7 +3131,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios6-mastery2",
-            concept: "Price-to-Sales",
+            concept: "price-to-sales ratio",
             question: "For which company is P/S most useful?",
             options: [
               "A mature, steadily and reliably profitable firm",
@@ -3145,7 +3145,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios6-mastery3",
-            concept: "Price-to-Sales",
+            concept: "price-to-sales ratio",
             question: "Why is revenue considered steadier than profit?",
             options: [
               "Total revenue is always much larger",
@@ -3159,7 +3159,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios6-mastery4",
-            concept: "Price-to-Sales",
+            concept: "price-to-sales ratio",
             question: "The biggest weakness of P/S is that it…",
             options: [
               "Requires enormous yearly reported profits",
@@ -3173,7 +3173,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios6-mastery5",
-            concept: "Price-to-Sales",
+            concept: "industry comparison",
             question: "Why compare P/S only among similar businesses?",
             options: [
               "The P/S is kept totally secret across sectors",
@@ -3187,7 +3187,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios6-mastery6",
-            concept: "Price-to-Sales",
+            concept: "price-to-sales ratio",
             question: "For a mature, steadily profitable company, investors usually prefer…",
             options: [
               "P/S over every other metric",
@@ -3248,7 +3248,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios7-mc1",
-            concept: "Valuation Multiples",
+            concept: "valuation multiples",
             question: "What is the main purpose of a valuation multiple?",
             options: [
               "To completely hide a company's true real size",
@@ -3261,7 +3261,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios7-mc2",
-            concept: "Valuation Multiples",
+            concept: "price-to-sales ratio",
             question: "Which multiple best suits an unprofitable young company?",
             options: [
               "Price-to-earnings ratio",
@@ -3289,7 +3289,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios7-aq1",
-          concept: "Valuation Multiples",
+          concept: "valuation multiples",
           question: "How should Zara treat FizzCo's below-average P/E?",
           options: [
             "As proof it's a guaranteed bargain",
@@ -3317,7 +3317,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios7-mastery1",
-            concept: "Valuation Multiples",
+            concept: "valuation multiples",
             question: "Why can't you compare companies by their absolute value?",
             options: [
               "Absolute dollar values are always kept secret",
@@ -3331,7 +3331,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios7-mastery2",
-            concept: "Valuation Multiples",
+            concept: "valuation multiples",
             question: "Which multiple is favored for valuing banks?",
             options: [
               "Price-to-earnings",
@@ -3345,7 +3345,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios7-mastery3",
-            concept: "Valuation Multiples",
+            concept: "P/E ratio",
             question: "Why does a fast-growing firm justify a higher P/E?",
             options: [
               "Fast growth firms report no earnings",
@@ -3359,7 +3359,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios7-mastery4",
-            concept: "Valuation Multiples",
+            concept: "EV/EBITDA",
             question: "Which multiple helps compare firms with different debt levels?",
             options: [
               "Price-to-earnings",
@@ -3373,7 +3373,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios7-mastery5",
-            concept: "Valuation Multiples",
+            concept: "valuation multiples",
             question: "A stock trades far below its peers' average multiple. This is…",
             options: [
               "Proof it will surely rise",
@@ -3387,7 +3387,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios7-mastery6",
-            concept: "Valuation Multiples",
+            concept: "valuation multiples",
             question: "The proper way to use a valuation multiple is to…",
             options: [
               "Treat it as the final answer",
@@ -3448,7 +3448,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios8-mc1",
-            concept: "Ratio Interpretation",
+            concept: "ratio interpretation",
             question: "Why is relying on a single ratio risky?",
             options: [
               "Financial ratios are always calculated completely wrong",
@@ -3461,7 +3461,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios8-mc2",
-            concept: "Ratio Interpretation",
+            concept: "ratio interpretation",
             question: "Which comparison gives a ratio its meaning?",
             options: [
               "Comparing it to a random number",
@@ -3489,7 +3489,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ratios8-aq1",
-          concept: "Ratio Interpretation",
+          concept: "ratio interpretation",
           question: "Why is Owen's conviction strengthened by his analysis?",
           options: [
             "He relied on the P/E ratio alone",
@@ -3517,7 +3517,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "ratios8-mastery1",
-            concept: "Ratio Interpretation",
+            concept: "ratio interpretation",
             question: "A stock has a low P/E but a debt-to-equity of 6.0. This suggests…",
             options: [
               "A completely guaranteed and totally obvious clear bargain",
@@ -3531,7 +3531,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios8-mastery2",
-            concept: "Ratio Interpretation",
+            concept: "ratio interpretation",
             question: "Which group does the debt-to-equity ratio belong to?",
             options: [
               "Valuation ratios",
@@ -3545,7 +3545,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios8-mastery3",
-            concept: "Ratio Interpretation",
+            concept: "ratio trends",
             question: "Why do trends often matter more than a single ratio?",
             options: [
               "Trends are illegal to report",
@@ -3559,7 +3559,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios8-mastery4",
-            concept: "Ratio Interpretation",
+            concept: "one-time gains",
             question: "A one-time asset sale can distort which ratios?",
             options: [
               "Only the standard debt-to-equity ratio matters",
@@ -3573,7 +3573,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios8-mastery5",
-            concept: "Ratio Interpretation",
+            concept: "ratio interpretation",
             question: "When several ratios all point the same way, an investor gains…",
             options: [
               "A reason to distrust them",
@@ -3587,7 +3587,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "ratios8-mastery6",
-            concept: "Ratio Interpretation",
+            concept: "ratio interpretation",
             question: "The best defense against a misleading ratio is to…",
             options: [
               "Simply trust the single cheapest ratio you find",
@@ -3645,7 +3645,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation1-mc1",
-            concept: "Company Value Drivers",
+            concept: "value drivers",
             question: "What is a company fundamentally worth?",
             options: [
               "The total sales it makes in a year",
@@ -3658,7 +3658,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation1-mc2",
-            concept: "Company Value Drivers",
+            concept: "cash vs profit",
             question: "Why is free cash flow trusted more than reported profit?",
             options: [
               "It is always a much larger dollar number",
@@ -3686,7 +3686,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation1-aq1",
-          concept: "Company Value Drivers",
+          concept: "value drivers",
           question: "Why does Company A deserve a much higher value than Company B?",
           options: [
             "It simply has been around a bit longer",
@@ -3714,7 +3714,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation1-mastery1",
-            concept: "Company Value Drivers",
+            concept: "value drivers",
             question: "Two companies have the same $5 million in sales. What most affects their value difference?",
             options: [
               "The particular color of their company logos",
@@ -3728,7 +3728,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation1-mastery2",
-            concept: "Company Value Drivers",
+            concept: "value drivers",
             question: "Why do investors care so much about a company's growth rate?",
             options: [
               "Faster growth is banned by market regulators",
@@ -3742,7 +3742,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation1-mastery3",
-            concept: "Company Value Drivers",
+            concept: "free cash flow",
             question: "What is 'free cash flow'?",
             options: [
               "Total sales a company makes before any costs",
@@ -3756,7 +3756,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation1-mastery4",
-            concept: "Company Value Drivers",
+            concept: "value drivers",
             question: "A company keeps 30 cents of profit from every sales dollar. This high margin usually signals…",
             options: [
               "A weak business about to fail soon",
@@ -3770,7 +3770,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation1-mastery5",
-            concept: "Company Value Drivers",
+            concept: "competitive moat",
             question: "What does a company's 'moat' do?",
             options: [
               "It forces the government to give subsidies",
@@ -3784,7 +3784,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation1-mastery6",
-            concept: "Company Value Drivers",
+            concept: "leverage",
             question: "How does heavy debt affect a company's value?",
             options: [
               "It makes the company fragile and riskier",
@@ -3842,7 +3842,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation2-mc1",
-            concept: "Growth vs Value",
+            concept: "growth vs value stocks",
             question: "What best describes growth investing?",
             options: [
               "Buying only companies that pay big dividends",
@@ -3855,7 +3855,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation2-mc2",
-            concept: "Growth vs Value",
+            concept: "margin of safety",
             question: "A 'margin of safety' means buying a stock…",
             options: [
               "At exactly the price the whole market expects",
@@ -3883,7 +3883,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation2-aq1",
-          concept: "Growth vs Value",
+          concept: "growth vs value stocks",
           question: "What is the main risk Leo faces with his high-P/E growth stock?",
           options: [
             "The company will pay far too large a dividend",
@@ -3911,7 +3911,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation2-mastery1",
-            concept: "Growth vs Value",
+            concept: "P/E ratio",
             question: "A stock has a P/E of 50. What does that most suggest?",
             options: [
               "Investors expect very little future growth",
@@ -3925,7 +3925,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation2-mastery2",
-            concept: "Growth vs Value",
+            concept: "growth vs value stocks",
             question: "Value investors are especially drawn to stocks with…",
             options: [
               "The highest prices in the market",
@@ -3939,7 +3939,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation2-mastery3",
-            concept: "Growth vs Value",
+            concept: "margin of safety",
             question: "The 'margin of safety' protects a value investor by…",
             options: [
               "Guaranteeing the stock will rise next week",
@@ -3953,7 +3953,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation2-mastery4",
-            concept: "Growth vs Value",
+            concept: "value trap",
             question: "What is a 'value trap'?",
             options: [
               "A stock that rises far too quickly to buy",
@@ -3967,7 +3967,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation2-mastery5",
-            concept: "Growth vs Value",
+            concept: "growth vs value stocks",
             question: "A key risk of growth investing is…",
             options: [
               "The stock is always far too cheap",
@@ -3981,7 +3981,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation2-mastery6",
-            concept: "Growth vs Value",
+            concept: "growth vs value stocks",
             question: "'Growth at a reasonable price' describes investors who…",
             options: [
               "Only ever buy the single cheapest stock",
@@ -4039,7 +4039,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation3-mc1",
-            concept: "Moats",
+            concept: "competitive moat",
             question: "What is a 'moat' in investing?",
             options: [
               "A tax charged on very large companies",
@@ -4052,7 +4052,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation3-mc2",
-            concept: "Moats",
+            concept: "network effects",
             question: "Which is an example of a network-effect moat?",
             options: [
               "A firm that owns a valuable, defensible patent",
@@ -4080,7 +4080,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation3-aq1",
-          concept: "Moats",
+          concept: "switching costs",
           question: "Ava's customers rarely leave because switching accounting systems is a huge hassle. This moat is best called…",
           options: [
             "A network effect between users",
@@ -4108,7 +4108,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation3-mastery1",
-            concept: "Moats",
+            concept: "competitive moat",
             question: "Why do high profits normally attract competitors?",
             options: [
               "Because national governments strictly require it by law",
@@ -4122,7 +4122,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation3-mastery2",
-            concept: "Moats",
+            concept: "economies of scale",
             question: "A giant retailer buys in such volume that no small shop can match its prices. This moat is a…",
             options: [
               "A brand-power advantage over rivals",
@@ -4136,7 +4136,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation3-mastery3",
-            concept: "Moats",
+            concept: "competitive moat",
             question: "Why do moats matter for valuation?",
             options: [
               "They directly lower a company's yearly tax bill",
@@ -4150,7 +4150,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation3-mastery4",
-            concept: "Moats",
+            concept: "competitive moat",
             question: "What destroyed the moat of a dominant camera-film maker?",
             options: [
               "A sudden new tax on all cameras",
@@ -4164,7 +4164,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation3-mastery5",
-            concept: "Moats",
+            concept: "competitive moat",
             question: "A patent that legally keeps rivals out for years is which kind of moat?",
             options: [
               "A switching-cost moat",
@@ -4178,7 +4178,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation3-mastery6",
-            concept: "Moats",
+            concept: "competitive moat",
             question: "The best moat question a long-term investor can ask is…",
             options: [
               "How cheap is the stock this very week?",
@@ -4236,7 +4236,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation4-mc1",
-            concept: "Market Expectations",
+            concept: "market expectations",
             question: "What does a stock's price mainly reflect?",
             options: [
               "Only last year's reported profits",
@@ -4249,7 +4249,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation4-mc2",
-            concept: "Market Expectations",
+            concept: "market expectations",
             question: "A company beats last year's record but its stock falls. The likeliest reason is…",
             options: [
               "It broke the law by earning money",
@@ -4277,7 +4277,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation4-aq1",
-          concept: "Market Expectations",
+          concept: "market expectations",
           question: "Why did QuietCo's stock rise despite only 4% growth?",
           options: [
             "Because that 4% growth is objectively huge",
@@ -4305,7 +4305,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation4-mastery1",
-            concept: "Market Expectations",
+            concept: "P/E ratio",
             question: "A high P/E ratio tells you the market has…",
             options: [
               "Very low hopes for future growth",
@@ -4319,7 +4319,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation4-mastery2",
-            concept: "Market Expectations",
+            concept: "market expectations",
             question: "Stocks primarily move based on…",
             options: [
               "How many shares exist in total",
@@ -4333,7 +4333,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation4-mastery3",
-            concept: "Market Expectations",
+            concept: "market expectations",
             question: "A stock 'priced for 30% growth' must roughly deliver that growth to…",
             options: [
               "Instantly double its share price",
@@ -4347,7 +4347,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation4-mastery4",
-            concept: "Market Expectations",
+            concept: "value trap",
             question: "A low-P/E stock is NOT automatically a bargain because…",
             options: [
               "Low P/E is illegal for most firms",
@@ -4361,7 +4361,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation4-mastery5",
-            concept: "Market Expectations",
+            concept: "market expectations",
             question: "Rising market optimism affects expectations by…",
             options: [
               "Lowering the bar that companies must clear",
@@ -4375,7 +4375,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation4-mastery6",
-            concept: "Market Expectations",
+            concept: "market expectations",
             question: "When a company posts good news but its stock falls, it usually means…",
             options: [
               "The company committed accounting fraud",
@@ -4433,7 +4433,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation5-mc1",
-            concept: "Simplified DCF",
+            concept: "DCF",
             question: "What does a DCF estimate a company's value from?",
             options: [
               "Its total current number of employees",
@@ -4446,7 +4446,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation5-mc2",
-            concept: "Simplified DCF",
+            concept: "time value of money",
             question: "Why do we 'discount' future cash flows?",
             options: [
               "Because future money is worth less",
@@ -4474,7 +4474,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation5-aq1",
-          concept: "Simplified DCF",
+          concept: "present value",
           question: "Using a 10% discount rate, roughly what is $100,000 arriving in one year worth to Nadia today?",
           options: [
             "About $110,000 today",
@@ -4502,7 +4502,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation5-mastery1",
-            concept: "Simplified DCF",
+            concept: "DCF",
             question: "The core idea of DCF is that a company is worth…",
             options: [
               "Its office furniture at resale value",
@@ -4516,7 +4516,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation5-mastery2",
-            concept: "Simplified DCF",
+            concept: "present value",
             question: "At a 10% discount rate, $110 expected next year is worth about…",
             options: [
               "$121 today",
@@ -4530,7 +4530,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation5-mastery3",
-            concept: "Simplified DCF",
+            concept: "terminal value",
             question: "What is a 'terminal value' in a DCF?",
             options: [
               "The company's very first year of sales",
@@ -4544,7 +4544,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation5-mastery4",
-            concept: "Simplified DCF",
+            concept: "DCF assumptions",
             question: "Why do small assumption changes matter so much in DCF?",
             options: [
               "They can swing the value",
@@ -4558,7 +4558,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation5-mastery5",
-            concept: "Simplified DCF",
+            concept: "intrinsic vs market value",
             question: "If a DCF value is far above the current stock price, the stock may be…",
             options: [
               "Clearly overpriced right now",
@@ -4572,7 +4572,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation5-mastery6",
-            concept: "Simplified DCF",
+            concept: "DCF assumptions",
             question: "The real value of doing a DCF is that it…",
             options: [
               "Guarantees a perfectly exact price",
@@ -4630,7 +4630,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation6-mc1",
-            concept: "Intrinsic vs Market",
+            concept: "intrinsic vs market value",
             question: "What is the difference between price and intrinsic value?",
             options: [
               "They are simply two names for one thing",
@@ -4643,7 +4643,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation6-mc2",
-            concept: "Intrinsic vs Market",
+            concept: "Mr Market",
             question: "In Graham's parable, 'Mr. Market' represents…",
             options: [
               "A regulator who sets fair prices",
@@ -4671,7 +4671,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation6-aq1",
-          concept: "Intrinsic vs Market",
+          concept: "intrinsic vs market value",
           question: "Given the price fell to $52 while value stayed near $80, what should Devon conclude?",
           options: [
             "The business clearly got much worse",
@@ -4699,7 +4699,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation6-mastery1",
-            concept: "Intrinsic vs Market",
+            concept: "intrinsic vs market value",
             question: "The market price of a stock is best described as…",
             options: [
               "The company's true lifetime worth",
@@ -4713,7 +4713,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation6-mastery2",
-            concept: "Intrinsic vs Market",
+            concept: "Mr Market",
             question: "A smart investor treats Mr. Market's mood swings as…",
             options: [
               "Orders that must always be obeyed",
@@ -4727,7 +4727,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation6-mastery3",
-            concept: "Intrinsic vs Market",
+            concept: "margin of safety",
             question: "Buying at $50 something you value at $80 gives you a…",
             options: [
               "Guaranteed profit with zero risk",
@@ -4741,7 +4741,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation6-mastery4",
-            concept: "Intrinsic vs Market",
+            concept: "intrinsic vs market value",
             question: "Over the long run, a stock's price tends to…",
             options: [
               "Drift away from its value forever",
@@ -4755,7 +4755,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation6-mastery5",
-            concept: "Intrinsic vs Market",
+            concept: "intrinsic vs market value",
             question: "The biggest trap when a stock's price falls is to assume…",
             options: [
               "The business automatically got worse",
@@ -4769,7 +4769,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation6-mastery6",
-            concept: "Intrinsic vs Market",
+            concept: "intrinsic vs market value",
             question: "Why do value investors often hold for years rather than days?",
             options: [
               "Because trading is banned short-term",
@@ -4827,7 +4827,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation7-mc1",
-            concept: "Long-Term Investing",
+            concept: "compound interest",
             question: "What does 'compounding' mean?",
             options: [
               "Paying extra tax on every trade",
@@ -4840,7 +4840,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation7-mc2",
-            concept: "Long-Term Investing",
+            concept: "starting early",
             question: "Why is starting to invest young so powerful?",
             options: [
               "Young people pay no taxes at all",
@@ -4868,7 +4868,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "valuation7-aq1",
-          concept: "Long-Term Investing",
+          concept: "staying invested",
           question: "Why did Sam likely end up far ahead of Priya after the crash?",
           options: [
             "He predicted the exact market bottom",
@@ -4896,7 +4896,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
         questions: [
           {
             id: "valuation7-mastery1",
-            concept: "Long-Term Investing",
+            concept: "rule of 72",
             question: "At about 10% a year, money roughly doubles every…",
             options: [
               "Six months",
@@ -4910,7 +4910,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation7-mastery2",
-            concept: "Long-Term Investing",
+            concept: "starting early",
             question: "Why does starting young usually beat investing more later?",
             options: [
               "Young investors face no market risk",
@@ -4924,7 +4924,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation7-mastery3",
-            concept: "Long-Term Investing",
+            concept: "dollar-cost averaging",
             question: "What is dollar-cost averaging?",
             options: [
               "Selling everything when prices fall",
@@ -4938,7 +4938,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation7-mastery4",
-            concept: "Long-Term Investing",
+            concept: "staying invested",
             question: "An investor who panic-sells at the bottom of a crash usually…",
             options: [
               "Beats those who stayed invested",
@@ -4952,7 +4952,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation7-mastery5",
-            concept: "Long-Term Investing",
+            concept: "fee drag",
             question: "Why does a 1% yearly fee matter so much over decades?",
             options: [
               "Fees are refunded at retirement",
@@ -4966,7 +4966,7 @@ export const deepStatementsRatiosVal: StructuredLessonContent[] = [
           },
           {
             id: "valuation7-mastery6",
-            concept: "Long-Term Investing",
+            concept: "long-term investing",
             question: "The most successful everyday investors tend to be…",
             options: [
               "Constantly trading on every headline",

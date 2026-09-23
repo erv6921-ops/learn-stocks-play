@@ -6,6 +6,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "behavior-1-tu1",
+        concept: "loss aversion",
         question: "Roughly how large does a gain need to be to emotionally offset the pain of an equal-sized loss?",
         options: [
           "About half the size of the loss",
@@ -18,6 +19,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "behavior-1-tu2",
+        concept: "disposition effect",
         question: "An investor sells her winning stocks quickly to lock in gains but clings to her losers for months. Which bias does this pattern reflect?",
         options: [
           "Loss aversion, since selling losers would make the pain feel real",
@@ -35,6 +37,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "behavior-2-tu1",
+        concept: "anchoring",
         question: "Why is the price you originally paid for a stock considered an anchor rather than useful information?",
         options: [
           "Because the market sets prices based on what past buyers paid",
@@ -47,6 +50,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "behavior-2-tu2",
+        concept: "anchoring",
         question: "A phone launches at $1,000, then a store advertises it today only for $800. Why does $800 suddenly feel like a great deal?",
         options: [
           "Because $800 phones are always high quality by law",
@@ -64,6 +68,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "behavior-3-tu1",
+        concept: "confirmation bias",
         question: "An investor already bullish on a company reads a mixed earnings report and walks away certain it was great news. What does this show?",
         options: [
           "Confirmation bias making him read ambiguous news in his favor",
@@ -76,6 +81,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "behavior-3-tu2",
+        concept: "seeking opposing views",
         question: "Which reading habit does the OPPOSITE of what confirmation bias pushes you to do?",
         options: [
           "Following only accounts that praise the stocks you own",
@@ -93,6 +99,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "behavior-4-tu1",
+        concept: "prediction journal",
         question: "Why does keeping a written journal of your predictions help fight overconfidence?",
         options: [
           "It guarantees your future predictions will be correct",
@@ -105,6 +112,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "behavior-4-tu2",
+        concept: "overtrading",
         question: "An overconfident investor is MOST likely to underperform because he tends to do what?",
         options: [
           "Hold a single index fund quietly for decades",
@@ -122,6 +130,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "behavior-5-tu1",
+        concept: "speculative bubble",
         question: "How does herd behavior help inflate a market bubble?",
         options: [
           "Waves of buyers pile in just because prices are rising, pushing them past real value",
@@ -134,6 +143,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "behavior-5-tu2",
+        concept: "herd behavior",
         question: "When you notice that everyone is rushing to buy a hot stock, what is the smartest response?",
         options: [
           "Buy immediately before the crowd drives the price even higher",
@@ -151,6 +161,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "behavior-6-tu1",
+        concept: "survivorship bias",
         question: "Why do social media feeds make investing FOMO feel worse than it should?",
         options: [
           "Platforms verify every gain screenshot before it is posted",
@@ -163,6 +174,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "behavior-6-tu2",
+        concept: "scarcity tactics",
         question: "Why are limited time only investment pitches so effective at getting people to act?",
         options: [
           "Short windows legally increase an investment's real returns",
@@ -180,6 +192,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "behavior-7-tu1",
+        concept: "automated saving",
         question: "Why does automating investments, such as monthly auto-deposits, reduce emotional trading?",
         options: [
           "It guarantees you always buy at the month's lowest price",
@@ -192,6 +205,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "behavior-7-tu2",
+        concept: "revenge trading",
         question: "A trader buys back a stock he sold at a higher price purely out of anger that it rose. What is this behavior called?",
         options: [
           "Dollar-cost averaging across two purchases",
@@ -209,6 +223,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "behavior-8-tu1",
+        concept: "awareness vs systems",
         question: "Why is simply being aware of a bias usually not enough to stop it from affecting your decisions?",
         options: [
           "Awareness makes biases grow permanently stronger over time",
@@ -221,6 +236,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "behavior-8-tu2",
+        concept: "investing rules and plans",
         question: "How does writing down a stock's buy thesis and sell criteria before buying help you later?",
         options: [
           "It lets you check whether anything fundamental actually changed during a dip",
@@ -238,6 +254,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "biz-1-tu1",
+        concept: "commission model",
         question: "A rideshare app keeps 15% of every $40 fare. How much does the app earn per ride, and what revenue model is this?",
         options: [
           "$6, a commission model on each transaction",
@@ -250,6 +267,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "biz-1-tu2",
+        concept: "revenue diversification",
         question: "A fitness studio earns money from class passes, branded merchandise, and licensing its workout program to gyms. Why is having several revenue streams smart?",
         options: [
           "It means the studio no longer needs any customers",
@@ -267,6 +285,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "biz-2-tu1",
+        concept: "total cost",
         question: "A candle maker pays $800 monthly rent and $3 in wax and wick per candle. What is the total cost of making 300 candles in a month?",
         options: [
           "Exactly $900 in total costs",
@@ -279,6 +298,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "biz-2-tu2",
+        concept: "spreading fixed costs",
         question: "A bakery's oven lease is $1,200 per month. If it bakes 2,000 loaves instead of 1,000, what happens to the lease cost per loaf?",
         options: [
           "It doubles from $1.20 to $2.40 per loaf",
@@ -296,6 +316,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "biz-3-tu1",
+        concept: "break-even point",
         question: "A soap business has $900 in fixed costs, sells each bar for $12, and each bar costs $6 to make. How many bars must it sell to break even?",
         options: [
           "It must sell 75 bars",
@@ -308,6 +329,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "biz-3-tu2",
+        concept: "break-even point",
         question: "A business lowers its selling price while its costs stay the same. What happens to its break-even point?",
         options: [
           "It rises because each sale now covers fewer costs",
@@ -325,6 +347,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "biz-4-tu1",
+        concept: "gross margin",
         question: "A backpack sells for $80 and costs $50 in materials and labor to produce. What is its gross margin?",
         options: [
           "A gross margin of 30 percent",
@@ -337,6 +360,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "biz-4-tu2",
+        concept: "gross vs net margin",
         question: "How does net margin differ from gross margin?",
         options: [
           "Net margin only counts a company's cash sales",
@@ -354,6 +378,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "biz-5-tu1",
+        concept: "valuation and dilution",
         question: "An investor pays $80,000 for a 10% stake in a startup. What value does that place on the whole company?",
         options: [
           "The company is valued at $80,000",
@@ -366,6 +391,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "biz-5-tu2",
+        concept: "equity vs debt financing",
         question: "What is the key difference between funding a business with a bank loan versus selling equity?",
         options: [
           "A loan gives the lender ownership of the company",
@@ -383,6 +409,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "biz-6-tu1",
+        concept: "cost-plus pricing",
         question: "A necklace costs $20 to make and the seller adds a 25% markup. What is the selling price?",
         options: [
           "A price of $22",
@@ -395,6 +422,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "biz-6-tu2",
+        concept: "penetration pricing",
         question: "A new food-delivery app launches at a very low price to sign up as many users as possible, planning to raise prices later. What pricing strategy is this?",
         options: [
           "Penetration pricing to win market share fast",
@@ -412,6 +440,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
     questions: [
       {
         id: "biz-7-tu1",
+        concept: "target market",
         question: "What does the target market section of a business plan define?",
         options: [
           "Every person in the country who has money to spend",
@@ -424,6 +453,7 @@ export const topUp8BehavEntre: { lessonId: string; questions: QuizQuestion[] }[]
       },
       {
         id: "biz-7-tu2",
+        concept: "business plan revision",
         question: "Why should a business plan be updated regularly rather than written once and filed away?",
         options: [
           "Because old plans expire legally after twelve months",

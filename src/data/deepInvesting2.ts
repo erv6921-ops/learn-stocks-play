@@ -47,7 +47,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund1-mc1",
-            concept: "Why Investing Beats Saving",
+            concept: "saving vs investing",
             question: "What is the main advantage of investing over saving for long-term goals?",
             options: [
               "Investments can never lose any value",
@@ -60,7 +60,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund1-mc2",
-            concept: "Why Investing Beats Saving",
+            concept: "emergency fund purpose",
             question: "Why should you still keep some money in savings instead of investing it all?",
             options: [
               "Savings accounts earn higher returns than stocks as a general rule",
@@ -88,7 +88,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund1-aq1",
-          concept: "Why Investing Beats Saving",
+          concept: "time horizon",
           question: "Why is investing the $2,500 a smart move for Jordan's eight-year car goal?",
           options: [
               "The car goal is far enough away to ride out market swings",
@@ -116,7 +116,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund1-mastery1",
-            concept: "Why Investing Beats Saving",
+            concept: "historical stock returns",
             question: "Historically, roughly what average yearly return has the broad U.S. stock market delivered over long periods?",
             options: [
               "About 0.5% a year",
@@ -130,7 +130,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund1-mastery2",
-            concept: "Why Investing Beats Saving",
+            concept: "starting early",
             question: "What is the single biggest advantage a teen investor has?",
             options: [
               "Time for money to grow",
@@ -144,7 +144,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund1-mastery3",
-            concept: "Why Investing Beats Saving",
+            concept: "inflation risk",
             question: "Why isn't keeping all your money in savings truly 'safe' for long-term goals?",
             options: [
               "Banks secretly spend your deposits",
@@ -158,7 +158,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund1-mastery4",
-            concept: "Why Investing Beats Saving",
+            concept: "fractional shares",
             question: "What lets you start investing with only a few dollars in an expensive stock?",
             options: [
               "A government teen grant",
@@ -172,7 +172,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund1-mastery5",
-            concept: "Why Investing Beats Saving",
+            concept: "investing vs gambling",
             question: "How does investing differ from gambling?",
             options: [
               "Both have odds stacked against you",
@@ -186,7 +186,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund1-mastery6",
-            concept: "Why Investing Beats Saving",
+            concept: "saving vs investing",
             question: "Which money is best suited for investing rather than savings?",
             options: [
               "Rent money due next week",
@@ -247,7 +247,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund2-mc1",
-            concept: "Compound Interest & the Rule of 72",
+            concept: "simple vs compound interest",
             question: "What makes compound interest different from simple interest?",
             options: [
               "Compound interest only pays on your original deposit",
@@ -260,7 +260,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund2-mc2",
-            concept: "Compound Interest & the Rule of 72",
+            concept: "rule of 72",
             question: "Using the Rule of 72, about how long does money take to double at 6%?",
             options: [
               "About 6 years",
@@ -288,7 +288,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund2-aq1",
-          concept: "Compound Interest & the Rule of 72",
+          concept: "compound interest",
           question: "Why does Maria's later doubling add far more dollars than her first doubling?",
           options: [
             "The fund secretly raises its rate each year",
@@ -316,7 +316,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund2-mastery1",
-            concept: "Compound Interest & the Rule of 72",
+            concept: "compound interest",
             question: "You invest $1,000 at 10% compounded yearly. How much do you have after two years?",
             options: [
               "$1,200 exactly",
@@ -330,7 +330,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund2-mastery2",
-            concept: "Compound Interest & the Rule of 72",
+            concept: "rule of 72",
             question: "Using the Rule of 72, about how long to double money at 12%?",
             options: [
               "About 12 years",
@@ -344,7 +344,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund2-mastery3",
-            concept: "Compound Interest & the Rule of 72",
+            concept: "starting early",
             question: "Why does starting to invest young matter so much for compounding?",
             options: [
               "Young people get higher rates by law",
@@ -358,7 +358,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund2-mastery4",
-            concept: "Compound Interest & the Rule of 72",
+            concept: "rule of 72",
             question: "Over 36 years, how many times does money double at 8% versus 4%?",
             options: [
               "Both double twice",
@@ -372,7 +372,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund2-mastery5",
-            concept: "Compound Interest & the Rule of 72",
+            concept: "rule of 72",
             question: "How can you use the Rule of 72 to find a needed rate?",
             options: [
               "Multiply 72 by your target dollars",
@@ -386,7 +386,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund2-mastery6",
-            concept: "Compound Interest & the Rule of 72",
+            concept: "compound interest",
             question: "What is the main cost of withdrawing invested money early?",
             options: [
               "You lose future compounding growth",
@@ -447,7 +447,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund3-mc1",
-            concept: "Stocks: Owning a Piece of a Business",
+            concept: "stock ownership",
             question: "What do you actually own when you buy a share of stock?",
             options: [
               "A loan the company must repay you",
@@ -460,7 +460,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund3-mc2",
-            concept: "Stocks: Owning a Piece of a Business",
+            concept: "dividend",
             question: "What is a dividend?",
             options: [
               "A fee you pay to own a stock",
@@ -488,7 +488,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund3-aq1",
-          concept: "Stocks: Owning a Piece of a Business",
+          concept: "emotional trading",
           question: "Why was holding through the dip the smarter choice for Leo?",
           options: [
               "Selling at $24 would have locked in a real loss",
@@ -516,7 +516,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund3-mastery1",
-            concept: "Stocks: Owning a Piece of a Business",
+            concept: "stock ownership",
             question: "A company splits into 1,000,000 shares and you own 1,000. What do you own?",
             options: [
               "A loan the firm repays you",
@@ -530,7 +530,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund3-mastery2",
-            concept: "Stocks: Owning a Piece of a Business",
+            concept: "IPO",
             question: "What is an IPO?",
             options: [
               "A tax on stock profits as a general rule",
@@ -544,7 +544,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund3-mastery3",
-            concept: "Stocks: Owning a Piece of a Business",
+            concept: "total return",
             question: "What is a capital gain?",
             options: [
               "A fee charged to own shares as a general rule",
@@ -558,7 +558,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund3-mastery4",
-            concept: "Stocks: Owning a Piece of a Business",
+            concept: "diversification",
             question: "Why is putting all your money in one stock risky?",
             options: [
               "One company can fail and wipe out that money",
@@ -572,7 +572,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund3-mastery5",
-            concept: "Stocks: Owning a Piece of a Business",
+            concept: "volatility",
             question: "What does 'volatility' describe about a stock?",
             options: [
               "Its guaranteed yearly dividend",
@@ -586,7 +586,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund3-mastery6",
-            concept: "Stocks: Owning a Piece of a Business",
+            concept: "emotional trading",
             question: "What common mistake do beginners make during a market dip?",
             options: [
               "They buy more diversified funds",
@@ -647,7 +647,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund4-mc1",
-            concept: "Bonds: Lending Your Money",
+            concept: "bond as loan",
             question: "What role do you play when you buy a bond?",
             options: [
               "You become a part-owner of the company",
@@ -660,7 +660,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund4-mc2",
-            concept: "Bonds: Lending Your Money",
+            concept: "bond coupon",
             question: "A $1,000 bond has a 5% coupon. How much interest does it pay per year?",
             options: [
               "$5 a year",
@@ -688,7 +688,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund4-aq1",
-          concept: "Bonds: Lending Your Money",
+          concept: "fixed income role",
           question: "Why did adding bonds cushion Grace's portfolio during the crash?",
           options: [
               "Bonds are guaranteed to always gain value",
@@ -716,7 +716,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund4-mastery1",
-            concept: "Bonds: Lending Your Money",
+            concept: "bond maturity",
             question: "What is the 'maturity' of a bond?",
             options: [
               "The interest rate it pays yearly as a general rule",
@@ -730,7 +730,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund4-mastery2",
-            concept: "Bonds: Lending Your Money",
+            concept: "Treasury bond",
             question: "Why are U.S. Treasury bonds considered very safe?",
             options: [
               "They pay the highest interest rates",
@@ -744,7 +744,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund4-mastery3",
-            concept: "Bonds: Lending Your Money",
+            concept: "default risk",
             question: "Why does a riskier company's bond pay a higher coupon?",
             options: [
               "To make up for the greater chance of default",
@@ -758,7 +758,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund4-mastery4",
-            concept: "Bonds: Lending Your Money",
+            concept: "interest rate risk",
             question: "What happens to your 4% bond's resale price if new bonds start paying 6%?",
             options: [
               "Its price rises above face value",
@@ -772,7 +772,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund4-mastery5",
-            concept: "Bonds: Lending Your Money",
+            concept: "fixed income role",
             question: "Why do bonds help smooth out a portfolio's ups and downs?",
             options: [
               "They rise faster than stocks always",
@@ -786,7 +786,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund4-mastery6",
-            concept: "Bonds: Lending Your Money",
+            concept: "age-based allocation",
             question: "Who typically holds a higher percentage of bonds?",
             options: [
               "A teen investing for 40 years out",
@@ -847,7 +847,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund5-mc2",
-            concept: "Mutual Funds & ETFs",
+            concept: "expense ratio",
             question: "What is an expense ratio?",
             options: [
               "A one-time fee to open an account",
@@ -875,7 +875,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund5-aq1",
-          concept: "Mutual Funds & ETFs",
+          concept: "active vs passive investing",
           question: "Which fund is likely the smarter long-term choice for Noah, and why?",
           options: [
               "Fund B, since higher fees guarantee higher returns over the long run",
@@ -903,7 +903,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund5-mastery1",
-            concept: "Mutual Funds & ETFs",
+            concept: "when to use funds",
             question: "What is the main benefit of a mutual fund or ETF for a beginner?",
             options: [
               "Guaranteed profits every year",
@@ -917,7 +917,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund5-mastery2",
-            concept: "Mutual Funds & ETFs",
+            concept: "ETF vs mutual fund",
             question: "How does an ETF differ from a mutual fund?",
             options: [
               "An ETF trades all day at live prices",
@@ -931,7 +931,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund5-mastery3",
-            concept: "Mutual Funds & ETFs",
+            concept: "index fund",
             question: "What does an S&P 500 index fund do?",
             options: [
               "Picks 5 hot stocks each week",
@@ -945,7 +945,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund5-mastery4",
-            concept: "Mutual Funds & ETFs",
+            concept: "fee drag",
             question: "Why do small fee differences matter so much over decades?",
             options: [
               "Fees are refunded after 10 years",
@@ -959,7 +959,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund5-mastery5",
-            concept: "Mutual Funds & ETFs",
+            concept: "active vs passive investing",
             question: "What does the data say about most actively managed funds?",
             options: [
               "They always beat their index",
@@ -973,7 +973,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund5-mastery6",
-            concept: "Mutual Funds & ETFs",
+            concept: "load fees",
             question: "What is a fund 'load'?",
             options: [
               "The number of stocks it holds",
@@ -1034,7 +1034,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund6-mc1",
-            concept: "Risk vs Return",
+            concept: "risk vs return",
             question: "What is the golden rule of risk and return?",
             options: [
               "Low-risk investments always earn the most",
@@ -1047,7 +1047,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund6-mc2",
-            concept: "Risk vs Return",
+            concept: "risk tolerance",
             question: "What does 'risk tolerance' mean?",
             options: [
               "The exact return a stock guarantees",
@@ -1075,7 +1075,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund6-aq1",
-          concept: "Risk vs Return",
+          concept: "time horizon",
           question: "Why should Dylan take more risk than Sofia even though they're the same age?",
           options: [
               "Dylan has a much longer time horizon to recover",
@@ -1103,7 +1103,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund6-mastery1",
-            concept: "Risk vs Return",
+            concept: "investment scam red flags",
             question: "Someone promises 'huge returns with no risk at all.' What should you conclude?",
             options: [
               "It's a rare, smart opportunity",
@@ -1117,7 +1117,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund6-mastery2",
-            concept: "Risk vs Return",
+            concept: "asset classes",
             question: "Which sits lowest on the risk-return ladder?",
             options: [
               "A single small-company stock",
@@ -1131,7 +1131,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund6-mastery3",
-            concept: "Risk vs Return",
+            concept: "inflation risk",
             question: "What is inflation risk?",
             options: [
               "The market crashing all at once",
@@ -1145,7 +1145,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund6-mastery4",
-            concept: "Risk vs Return",
+            concept: "diversification",
             question: "How does diversification manage risk?",
             options: [
               "It guarantees you never lose money",
@@ -1159,7 +1159,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund6-mastery5",
-            concept: "Risk vs Return",
+            concept: "time horizon",
             question: "Why can a teen take more investment risk than a retiree?",
             options: [
               "Teens are legally required to as a general rule",
@@ -1173,7 +1173,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund6-mastery6",
-            concept: "Risk vs Return",
+            concept: "emotional trading",
             question: "What is the biggest risk mistake beginners make?",
             options: [
               "Diversifying across too many funds as a general rule",
@@ -1234,7 +1234,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund7-mc1",
-            concept: "Diversification",
+            concept: "diversification",
             question: "What is the core idea behind diversification?",
             options: [
               "Put all your money in the single best stock",
@@ -1247,7 +1247,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund7-mc2",
-            concept: "Diversification",
+            concept: "sector concentration",
             question: "Why is owning ten different tech stocks NOT true diversification?",
             options: [
               "Tech stocks are illegal to combine",
@@ -1275,7 +1275,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund7-aq1",
-          concept: "Diversification",
+          concept: "sector concentration",
           question: "What is the best fix for Emma's diversification problem?",
           options: [
             "Buy five more tech stocks to add variety",
@@ -1303,7 +1303,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund7-mastery1",
-            concept: "Diversification",
+            concept: "diversification",
             question: "What does the 'eggs in one basket' saying teach about investing?",
             options: [
               "Always buy the cheapest stocks",
@@ -1317,7 +1317,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund7-mastery2",
-            concept: "Diversification",
+            concept: "diversification",
             question: "Why is diversification called a 'free lunch' in investing?",
             options: [
               "It removes all fees on funds as a general rule",
@@ -1331,7 +1331,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund7-mastery3",
-            concept: "Diversification",
+            concept: "sector concentration",
             question: "Which portfolio is truly diversified?",
             options: [
               "Ten social-media stocks",
@@ -1345,7 +1345,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund7-mastery4",
-            concept: "Diversification",
+            concept: "index fund",
             question: "What is the easiest way for a beginner to diversify instantly?",
             options: [
               "Buy one broad index fund or ETF",
@@ -1359,7 +1359,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund7-mastery5",
-            concept: "Diversification",
+            concept: "systematic vs unsystematic risk",
             question: "What can diversification NOT protect you from?",
             options: [
               "One company going bankrupt",
@@ -1373,7 +1373,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund7-mastery6",
-            concept: "Diversification",
+            concept: "over-diversification",
             question: "What is the downside of 'over-diversifying'?",
             options: [
               "Your money becomes fully guaranteed",
@@ -1434,7 +1434,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund8-mc1",
-            concept: "Bull vs Bear Markets",
+            concept: "bull vs bear market",
             question: "What defines a bear market?",
             options: [
               "Prices rising with high optimism",
@@ -1447,7 +1447,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund8-mc2",
-            concept: "Bull vs Bear Markets",
+            concept: "dollar-cost averaging",
             question: "What is dollar-cost averaging?",
             options: [
               "Buying only when prices hit their lowest",
@@ -1475,7 +1475,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund8-aq1",
-          concept: "Bull vs Bear Markets",
+          concept: "dollar-cost averaging",
           question: "Why is continuing to invest during the bear market smart for Marcus?",
           options: [
               "Bear markets are guaranteed to end next week",
@@ -1503,7 +1503,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund8-mastery1",
-            concept: "Bull vs Bear Markets",
+            concept: "bull vs bear market",
             question: "Which trick helps you remember bull versus bear markets?",
             options: [
               "A bull's horns thrust up; a bear's paws swipe down",
@@ -1517,7 +1517,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund8-mastery2",
-            concept: "Bull vs Bear Markets",
+            concept: "correction vs bear market",
             question: "What is a market 'correction'?",
             options: [
               "A rise of 50% or more over the long run",
@@ -1531,7 +1531,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund8-mastery3",
-            concept: "Bull vs Bear Markets",
+            concept: "market recovery",
             question: "What has historically followed every U.S. bear market?",
             options: [
               "A permanent collapse",
@@ -1545,7 +1545,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund8-mastery4",
-            concept: "Bull vs Bear Markets",
+            concept: "staying invested",
             question: "Why is panic-selling in a bear market usually a mistake?",
             options: [
               "It locks in losses and can miss the rebound",
@@ -1559,7 +1559,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund8-mastery5",
-            concept: "Bull vs Bear Markets",
+            concept: "dollar-cost averaging",
             question: "How does dollar-cost averaging help during downturns?",
             options: [
               "It stops you from investing entirely as a general rule",
@@ -1573,7 +1573,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund8-mastery6",
-            concept: "Bull vs Bear Markets",
+            concept: "dollar-cost averaging",
             question: "For a young investor still buying, why can lower prices be good news?",
             options: [
               "Stocks are cheaper, so dollars buy more",
@@ -1634,7 +1634,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund9-mc1",
-            concept: "Reading a Stock Chart",
+            concept: "stock chart reading",
             question: "What do the two axes of a stock chart represent?",
             options: [
               "Volume on both axes",
@@ -1647,7 +1647,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund9-mc2",
-            concept: "Reading a Stock Chart",
+            concept: "trading volume",
             question: "What does trading 'volume' tell you?",
             options: [
               "The company's total profit",
@@ -1675,7 +1675,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund9-aq1",
-          concept: "Reading a Stock Chart",
+          concept: "stock chart reading",
           question: "Why did zooming out change how Priya felt about the 5% drop?",
           options: [
               "Zooming out erased the loss from her account",
@@ -1703,7 +1703,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund9-mastery1",
-            concept: "Reading a Stock Chart",
+            concept: "stock chart reading",
             question: "Why should you always check the time frame on a chart?",
             options: [
               "It changes the fees you pay as a general rule",
@@ -1717,7 +1717,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund9-mastery2",
-            concept: "Reading a Stock Chart",
+            concept: "trading volume",
             question: "What does a big spike in trading volume often signal?",
             options: [
               "The stock is guaranteed to rise",
@@ -1731,7 +1731,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund9-mastery3",
-            concept: "Reading a Stock Chart",
+            concept: "stock chart reading",
             question: "What is a moving average on a chart?",
             options: [
               "A guarantee of future prices",
@@ -1745,7 +1745,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund9-mastery4",
-            concept: "Reading a Stock Chart",
+            concept: "stock chart reading",
             question: "What is 'support' on a stock chart?",
             options: [
               "A ceiling where the price stops rising over the long run",
@@ -1759,7 +1759,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund9-mastery5",
-            concept: "Reading a Stock Chart",
+            concept: "stock chart reading",
             question: "What is the honest limit of chart patterns?",
             options: [
               "They perfectly predict tomorrow's price",
@@ -1773,7 +1773,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund9-mastery6",
-            concept: "Reading a Stock Chart",
+            concept: "stock chart reading",
             question: "For a long-term investor, what matters more than chart squiggles?",
             options: [
               "The company's actual business and health",
@@ -1834,7 +1834,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund10-mc1",
-            concept: "Building Your First Portfolio",
+            concept: "asset allocation",
             question: "What is asset allocation?",
             options: [
               "Picking the single best stock to own as a general rule",
@@ -1847,7 +1847,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund10-mc2",
-            concept: "Building Your First Portfolio",
+            concept: "rebalancing",
             question: "What does rebalancing a portfolio do?",
             options: [
               "Guarantees your portfolio never loses value as a general rule",
@@ -1875,7 +1875,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invfund10-aq1",
-          concept: "Building Your First Portfolio",
+          concept: "age-based allocation",
           question: "Why does an 85% stock allocation make sense for Tyler right now?",
           options: [
               "Stocks can never lose value over decades as a general rule",
@@ -1903,7 +1903,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invfund10-mastery1",
-            concept: "Building Your First Portfolio",
+            concept: "asset allocation",
             question: "Which decision drives most of a portfolio's results?",
             options: [
               "Which single stock you pick",
@@ -1917,7 +1917,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund10-mastery2",
-            concept: "Building Your First Portfolio",
+            concept: "age-based allocation",
             question: "Why do young investors typically hold a high percentage of stocks?",
             options: [
               "Stocks are guaranteed to always rise",
@@ -1931,7 +1931,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund10-mastery3",
-            concept: "Building Your First Portfolio",
+            concept: "target-date fund",
             question: "What does a target-date fund do automatically?",
             options: [
               "Guarantees a fixed yearly return",
@@ -1945,7 +1945,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund10-mastery4",
-            concept: "Building Your First Portfolio",
+            concept: "wealth building habits",
             question: "What does 'pay yourself first' mean for investing?",
             options: [
               "Spend on wants before saving",
@@ -1959,7 +1959,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund10-mastery5",
-            concept: "Building Your First Portfolio",
+            concept: "rebalancing",
             question: "How does yearly rebalancing quietly help you?",
             options: [
               "It forces selling high and buying low",
@@ -1973,7 +1973,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invfund10-mastery6",
-            concept: "Building Your First Portfolio",
+            concept: "staying invested",
             question: "What is the hardest but wisest rule between check-ins?",
             options: [
               "React to every news headline fast",
@@ -2034,7 +2034,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest1-mc1",
-            concept: "Why Investing Matters",
+            concept: "saving vs investing",
             question: "Why is saving alone usually not enough to build real wealth?",
             options: [
               "Banks are not allowed to hold large sums over the long run",
@@ -2047,7 +2047,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest1-mc2",
-            concept: "Why Investing Matters",
+            concept: "active vs passive income",
             question: "What does 'making your money work for you' mean?",
             options: [
               "Working more hours at a second job",
@@ -2075,7 +2075,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest1-aq1",
-          concept: "Why Investing Matters",
+          concept: "saving vs investing",
           question: "Why does investing make Aisha's 25-year retirement goal realistic?",
           options: [
             "It removes the need to save any money at all",
@@ -2103,7 +2103,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest1-mastery1",
-            concept: "Why Investing Matters",
+            concept: "saving vs investing",
             question: "Why can't saving alone realistically fund a 20-30 year retirement?",
             options: [
               "Banks close accounts after retirement",
@@ -2117,7 +2117,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest1-mastery2",
-            concept: "Why Investing Matters",
+            concept: "active vs passive income",
             question: "What is financial freedom, in investing terms?",
             options: [
               "Never having to save any money",
@@ -2131,7 +2131,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest1-mastery3",
-            concept: "Why Investing Matters",
+            concept: "stock ownership",
             question: "Why does owning a diversified market slice tie you to economic growth?",
             options: [
               "You own a piece of many growing companies",
@@ -2145,7 +2145,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest1-mastery4",
-            concept: "Why Investing Matters",
+            concept: "saving vs investing",
             question: "Which is a common myth that stops people from investing?",
             options: [
               "Investing is only for the rich",
@@ -2159,7 +2159,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest1-mastery5",
-            concept: "Why Investing Matters",
+            concept: "starting early",
             question: "What is the biggest investing mistake according to the lesson?",
             options: [
               "Diversifying too broadly",
@@ -2173,7 +2173,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest1-mastery6",
-            concept: "Why Investing Matters",
+            concept: "active vs passive income",
             question: "What caps how much you can earn from a job but NOT from investing?",
             options: [
               "The number of hours you can work",
@@ -2234,7 +2234,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest2-mc1",
-            concept: "Inflation",
+            concept: "inflation",
             question: "What is inflation?",
             options: [
               "A tax the government charges on savings",
@@ -2247,7 +2247,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest2-mc2",
-            concept: "Inflation",
+            concept: "real vs nominal return",
             question: "If your savings earns 1% while inflation is 3%, what is your real return?",
             options: [
               "About +4%",
@@ -2275,7 +2275,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest2-aq1",
-          concept: "Inflation",
+          concept: "real vs nominal return",
           question: "Why is Diego's 'safe' savings actually losing value over time?",
           options: [
               "The bank secretly withdraws his money",
@@ -2303,7 +2303,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest2-mastery1",
-            concept: "Inflation",
+            concept: "inflation",
             question: "Why is inflation called an 'invisible tax'?",
             options: [
               "The IRS mails you a special inflation bill",
@@ -2317,7 +2317,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest2-mastery2",
-            concept: "Inflation",
+            concept: "CPI",
             question: "What does the CPI measure?",
             options: [
               "The stock market's daily price as a general rule",
@@ -2331,7 +2331,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest2-mastery3",
-            concept: "Inflation",
+            concept: "real vs nominal return",
             question: "What is the difference between nominal and real return?",
             options: [
               "Nominal is after tax; real is before tax",
@@ -2345,7 +2345,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest2-mastery4",
-            concept: "Inflation",
+            concept: "inflation",
             question: "Roughly what will a $100 item cost in 10 years at 3% inflation?",
             options: [
               "About $103",
@@ -2359,7 +2359,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest2-mastery5",
-            concept: "Inflation",
+            concept: "saving vs investing",
             question: "Which is the best long-term protection against inflation?",
             options: [
               "Holding all cash in a drawer",
@@ -2373,7 +2373,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest2-mastery6",
-            concept: "Inflation",
+            concept: "inflation adjustments",
             question: "How should inflation change your long-term savings goals?",
             options: [
               "Target today's prices exactly",
@@ -2434,7 +2434,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest3-mc1",
-            concept: "Simple vs Compound",
+            concept: "dividend reinvestment",
             question: "How do reinvested dividends create compounding in a portfolio?",
             options: [
               "They are paid only on your original shares forever",
@@ -2447,7 +2447,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest3-mc2",
-            concept: "Simple vs Compound",
+            concept: "compound interest on debt",
             question: "Why can compound interest work against you?",
             options: [
               "It lowers your savings rate over time",
@@ -2475,7 +2475,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest3-aq1",
-          concept: "Simple vs Compound",
+          concept: "dividend reinvestment",
           question: "Why does reinvesting dividends grow Nadia's money faster than taking the cash?",
           options: [
               "Reinvesting secretly raises the fund's dividend rate",
@@ -2503,7 +2503,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest3-mastery1",
-            concept: "Simple vs Compound",
+            concept: "dividend reinvestment",
             question: "In a portfolio, what are the two engines that make money compound?",
             options: [
               "Bank fees and account minimums",
@@ -2517,7 +2517,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest3-mastery2",
-            concept: "Simple vs Compound",
+            concept: "long-term investing",
             question: "Why does frequent trading tend to weaken an investor's compounding?",
             options: [
               "It raises the dividend rate too high",
@@ -2531,7 +2531,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest3-mastery3",
-            concept: "Simple vs Compound",
+            concept: "APY",
             question: "What does APY reflect that a plain interest rate may not?",
             options: [
               "The effect of compounding frequency",
@@ -2545,7 +2545,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest3-mastery4",
-            concept: "Simple vs Compound",
+            concept: "compound interest on debt",
             question: "Why is paying off high-interest debt like a great 'investment'?",
             options: [
               "It earns you a tax refund",
@@ -2559,7 +2559,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest3-mastery5",
-            concept: "Simple vs Compound",
+            concept: "compounding frequency",
             question: "How does more frequent compounding affect growth?",
             options: [
               "It slows growth down",
@@ -2573,7 +2573,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest3-mastery6",
-            concept: "Simple vs Compound",
+            concept: "starting early",
             question: "What is compounding's best friend?",
             options: [
               "A high starting balance",
@@ -2634,7 +2634,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest4-mc1",
-            concept: "Time Value of Money",
+            concept: "time value of money",
             question: "Why is a dollar today worth more than a dollar in the future?",
             options: [
               "Future dollars are printed in a different color",
@@ -2647,7 +2647,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest4-mc2",
-            concept: "Time Value of Money",
+            concept: "present value",
             question: "What does 'present value' describe?",
             options: [
               "What today's money will grow into later as a general rule",
@@ -2675,7 +2675,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest4-aq1",
-          concept: "Time Value of Money",
+          concept: "starting early",
           question: "How did Renata match Marcus despite investing only a third as much?",
           options: [
               "Her early dollars compounded far longer",
@@ -2703,7 +2703,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest4-mastery1",
-            concept: "Time Value of Money",
+            concept: "time value of money",
             question: "What is the time value of money?",
             options: [
               "Money loses value only when spent",
@@ -2717,7 +2717,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest4-mastery2",
-            concept: "Time Value of Money",
+            concept: "future value",
             question: "What is 'future value'?",
             options: [
               "What today's money grows into later",
@@ -2731,7 +2731,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest4-mastery3",
-            concept: "Time Value of Money",
+            concept: "starting early",
             question: "Why are your earliest invested dollars the most valuable?",
             options: [
               "They earn a special higher rate",
@@ -2745,7 +2745,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest4-mastery4",
-            concept: "Time Value of Money",
+            concept: "time value of money",
             question: "Why might a lottery winner take a lump sum over yearly payments?",
             options: [
               "Lump sums avoid all taxes as a general rule",
@@ -2759,7 +2759,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest4-mastery5",
-            concept: "Time Value of Money",
+            concept: "present value",
             question: "What does present value do to a future payment?",
             options: [
               "Discounts it to today's dollars",
@@ -2773,7 +2773,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest4-mastery6",
-            concept: "Time Value of Money",
+            concept: "starting early",
             question: "What is the hidden cost of waiting ten years to start investing?",
             options: [
               "A small one-time bank fee",
@@ -2834,7 +2834,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest5-mc1",
-            concept: "Risk vs Return",
+            concept: "total return",
             question: "What is 'total return' on an investment?",
             options: [
               "Only the dividends it pays over a year",
@@ -2847,7 +2847,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest5-mc2",
-            concept: "Risk vs Return",
+            concept: "total return",
             question: "What are the two main forms of investment return?",
             options: [
               "Fees and taxes",
@@ -2875,7 +2875,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest5-aq1",
-          concept: "Risk vs Return",
+          concept: "time horizon",
           question: "Why should Layla treat her two goals with different risk levels?",
           options: [
               "Retirement money never faces any risk",
@@ -2903,7 +2903,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest5-mastery1",
-            concept: "Risk vs Return",
+            concept: "total return",
             question: "A fund's price rises 6% and it also pays a 2% dividend. Its total return is about…",
             options: [
               "2%, counting only the dividend",
@@ -2917,7 +2917,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest5-mastery2",
-            concept: "Risk vs Return",
+            concept: "total return",
             question: "Which investment delivers its return mostly as income rather than appreciation?",
             options: [
               "A growth stock that pays no dividend",
@@ -2931,7 +2931,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest5-mastery3",
-            concept: "Risk vs Return",
+            concept: "total return",
             question: "What is capital appreciation?",
             options: [
               "Interest paid on a bond as a general rule",
@@ -2945,7 +2945,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest5-mastery4",
-            concept: "Risk vs Return",
+            concept: "volatility",
             question: "For a long-term investor, why isn't volatility the same as danger?",
             options: [
               "Volatility means an asset can't lose money over the long run",
@@ -2959,7 +2959,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest5-mastery5",
-            concept: "Risk vs Return",
+            concept: "volatility",
             question: "Why is a single stock usually more volatile than a broad fund?",
             options: [
               "Single stocks are taxed at a higher rate",
@@ -2973,7 +2973,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest5-mastery6",
-            concept: "Risk vs Return",
+            concept: "risk tolerance",
             question: "What determines how much risk is right for a specific goal?",
             options: [
               "The goal's time horizon and your steadiness",
@@ -3034,7 +3034,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest6-mc1",
-            concept: "Opportunity Cost",
+            concept: "opportunity cost",
             question: "What is opportunity cost?",
             options: [
               "The sticker price printed on an item",
@@ -3047,7 +3047,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest6-mc2",
-            concept: "Opportunity Cost",
+            concept: "opportunity cost",
             question: "What is the opportunity cost of leaving money in a 0.5% savings account?",
             options: [
               "A monthly account fee",
@@ -3075,7 +3075,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest6-aq1",
-          concept: "Opportunity Cost",
+          concept: "opportunity cost",
           question: "Using opportunity cost, what should Zoe most likely do with the $5,000?",
           options: [
               "Invest it, since 8% always beats paying debt",
@@ -3103,7 +3103,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest6-mastery1",
-            concept: "Opportunity Cost",
+            concept: "opportunity cost",
             question: "You spend $500 on a gadget. What is the opportunity cost?",
             options: [
               "Only the $500 sticker price",
@@ -3117,7 +3117,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest6-mastery2",
-            concept: "Opportunity Cost",
+            concept: "opportunity cost",
             question: "Why does even waiting a year to invest have an opportunity cost?",
             options: [
               "Banks charge a waiting fee",
@@ -3131,7 +3131,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest6-mastery3",
-            concept: "Opportunity Cost",
+            concept: "opportunity cost",
             question: "How does opportunity cost reframe a spending question?",
             options: [
               "From 'Can I afford it?' to 'Is this the best use?'",
@@ -3145,7 +3145,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest6-mastery4",
-            concept: "Opportunity Cost",
+            concept: "opportunity cost",
             question: "Why does paying off a 22% credit card often beat investing at 8%?",
             options: [
               "Debt payments earn tax refunds",
@@ -3159,7 +3159,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest6-mastery5",
-            concept: "Opportunity Cost",
+            concept: "opportunity cost",
             question: "What is the real goal of thinking in opportunity cost?",
             options: [
               "Feeling guilty about every purchase",
@@ -3173,7 +3173,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest6-mastery6",
-            concept: "Opportunity Cost",
+            concept: "opportunity cost",
             question: "Which purchase might genuinely be worth its opportunity cost?",
             options: [
               "Education that boosts your future earnings",
@@ -3234,7 +3234,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest7-mc1",
-            concept: "Diversification",
+            concept: "systematic vs unsystematic risk",
             question: "What is 'unsystematic risk'?",
             options: [
               "The risk the whole market crashes at once",
@@ -3247,7 +3247,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest7-mc2",
-            concept: "Diversification",
+            concept: "correlation",
             question: "What does 'correlation' describe between two investments?",
             options: [
               "How much tax each one owes",
@@ -3275,7 +3275,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest7-aq1",
-          concept: "Diversification",
+          concept: "diversification",
           question: "Why is Marcus's all-in-one-stock plan so risky?",
           options: [
               "Single stocks are illegal to own as a general rule",
@@ -3303,7 +3303,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest7-mastery1",
-            concept: "Diversification",
+            concept: "diversification",
             question: "Why is diversification called the 'free lunch' of investing?",
             options: [
               "It removes all fees on funds as a general rule",
@@ -3317,7 +3317,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest7-mastery2",
-            concept: "Diversification",
+            concept: "sector concentration",
             question: "Why is owning ten tech stocks NOT truly diversified?",
             options: [
               "Ten stocks is too few to count",
@@ -3331,7 +3331,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest7-mastery3",
-            concept: "Diversification",
+            concept: "correlation",
             question: "Which pair of assets typically has low correlation?",
             options: [
               "Two social-media stocks",
@@ -3345,7 +3345,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest7-mastery4",
-            concept: "Diversification",
+            concept: "index fund",
             question: "What is the easiest way to diversify instantly?",
             options: [
               "Buy one broad index fund",
@@ -3359,7 +3359,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest7-mastery5",
-            concept: "Diversification",
+            concept: "systematic vs unsystematic risk",
             question: "What can diversification NOT protect against?",
             options: [
               "One company going bankrupt",
@@ -3373,7 +3373,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest7-mastery6",
-            concept: "Diversification",
+            concept: "over-diversification",
             question: "What is a downside of over-diversifying?",
             options: [
               "Your money becomes guaranteed",
@@ -3434,7 +3434,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest8-mc1",
-            concept: "Long vs Short Term",
+            concept: "time horizon",
             question: "Where should short-term money (needed in a year) go?",
             options: [
               "An aggressive stock fund for growth as a general rule",
@@ -3447,7 +3447,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest8-mc2",
-            concept: "Long vs Short Term",
+            concept: "market timing",
             question: "What does 'time in the market beats timing the market' mean?",
             options: [
               "Trade as often as possible to win as a general rule",
@@ -3475,7 +3475,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest8-aq1",
-          concept: "Long vs Short Term",
+          concept: "time horizon",
           question: "Why should Elena keep her car money out of the stock fund?",
           options: [
               "Stock funds are illegal for young people as a general rule",
@@ -3503,7 +3503,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest8-mastery1",
-            concept: "Long vs Short Term",
+            concept: "time horizon",
             question: "What is a 'time horizon'?",
             options: [
               "The fee a fund charges yearly as a general rule",
@@ -3517,7 +3517,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest8-mastery2",
-            concept: "Long vs Short Term",
+            concept: "time horizon",
             question: "Why is a stock fund risky for money you need next year?",
             options: [
               "Stock funds charge no fees",
@@ -3531,7 +3531,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest8-mastery3",
-            concept: "Long vs Short Term",
+            concept: "inflation risk",
             question: "Why is playing it too safe risky for long-term money?",
             options: [
               "Safe accounts charge huge fees as a general rule",
@@ -3545,7 +3545,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest8-mastery4",
-            concept: "Long vs Short Term",
+            concept: "market recovery",
             question: "What happens to market swings over very long periods?",
             options: [
               "They grow more extreme each year",
@@ -3559,7 +3559,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest8-mastery5",
-            concept: "Long vs Short Term",
+            concept: "market timing",
             question: "Why is trying to time the market so dangerous?",
             options: [
               "It's illegal for individuals",
@@ -3573,7 +3573,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest8-mastery6",
-            concept: "Long vs Short Term",
+            concept: "starting early",
             question: "What is the biggest advantage a teen long-term investor has?",
             options: [
               "Access to secret stock tips as a general rule",
@@ -3634,7 +3634,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest9-mc1",
-            concept: "Accounts Overview",
+            concept: "brokerage account",
             question: "What is the main trade-off of a brokerage (taxable) account?",
             options: [
               "It has huge tax breaks but locks money away",
@@ -3647,7 +3647,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest9-mc2",
-            concept: "Accounts Overview",
+            concept: "employer 401k match",
             question: "Why should you always contribute enough to get a full 401(k) match?",
             options: [
               "The match is free money, an instant return",
@@ -3675,7 +3675,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest9-aq1",
-          concept: "Accounts Overview",
+          concept: "Roth IRA",
           question: "Why might a Roth IRA be especially smart for Jamal right now?",
           options: [
               "Roth accounts never allow any growth",
@@ -3703,7 +3703,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest9-mastery1",
-            concept: "Accounts Overview",
+            concept: "401k",
             question: "What is the difference between a 401(k) and an IRA?",
             options: [
               "A 401(k) is employer-based; an IRA you open yourself",
@@ -3717,7 +3717,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest9-mastery2",
-            concept: "Accounts Overview",
+            concept: "traditional vs Roth IRA",
             question: "How do Traditional and Roth accounts differ on taxes?",
             options: [
               "Traditional: taxed now; Roth: taxed later over the long run",
@@ -3731,7 +3731,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest9-mastery3",
-            concept: "Accounts Overview",
+            concept: "529 plan",
             question: "What is a 529 plan designed for?",
             options: [
               "Buying a house",
@@ -3745,7 +3745,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest9-mastery4",
-            concept: "Accounts Overview",
+            concept: "early withdrawal penalty",
             question: "What usually happens if you withdraw from a retirement account before about 59½?",
             options: [
               "You get a bonus",
@@ -3759,7 +3759,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest9-mastery5",
-            concept: "Accounts Overview",
+            concept: "Roth IRA",
             question: "Why is a Roth often powerful for young investors?",
             options: [
               "They pay low taxes now and grow tax-free",
@@ -3773,7 +3773,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest9-mastery6",
-            concept: "Accounts Overview",
+            concept: "employer 401k match",
             question: "What is the smartest first priority when investing for retirement?",
             options: [
               "Open five brokerage accounts",
@@ -3834,7 +3834,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest10-mc1",
-            concept: "First Portfolio",
+            concept: "first portfolio",
             question: "What is the first step in building a portfolio?",
             options: [
               "Pick the hottest stock of the week",
@@ -3847,7 +3847,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest10-mc2",
-            concept: "First Portfolio",
+            concept: "wealth building habits",
             question: "Why is automating your contributions so effective?",
             options: [
               "It guarantees you never lose money as a general rule",
@@ -3875,7 +3875,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest10-aq1",
-          concept: "First Portfolio",
+          concept: "first portfolio",
           question: "What makes Priya's simple plan likely to succeed over decades?",
           options: [
               "She checks and trades her account daily",
@@ -3903,7 +3903,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest10-mastery1",
-            concept: "First Portfolio",
+            concept: "first portfolio",
             question: "What is the biggest mistake a beginner makes with a first portfolio?",
             options: [
               "Using low-cost index funds",
@@ -3917,7 +3917,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest10-mastery2",
-            concept: "First Portfolio",
+            concept: "asset allocation",
             question: "What points you toward the right asset allocation?",
             options: [
               "Your time horizon and risk tolerance",
@@ -3931,7 +3931,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest10-mastery3",
-            concept: "First Portfolio",
+            concept: "index fund",
             question: "How can a beginner get instant diversification easily?",
             options: [
               "Buy one hot individual stock as a general rule",
@@ -3945,7 +3945,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest10-mastery4",
-            concept: "First Portfolio",
+            concept: "wealth building habits",
             question: "What does 'pay yourself first' mean for a portfolio?",
             options: [
               "Spend on wants before investing",
@@ -3959,7 +3959,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest10-mastery5",
-            concept: "First Portfolio",
+            concept: "rebalancing",
             question: "Why rebalance your portfolio about once a year?",
             options: [
               "To guarantee zero losses",
@@ -3973,7 +3973,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest10-mastery6",
-            concept: "First Portfolio",
+            concept: "staying invested",
             question: "What should you do during a scary market crash?",
             options: [
               "Sell everything immediately",
@@ -4034,7 +4034,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest11-mc1",
-            concept: "Why Markets Need Regulators: SEC & the Fed",
+            concept: "SEC role",
             question: "What is the main job of the SEC?",
             options: [
               "Setting the country's interest rates",
@@ -4047,7 +4047,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest11-mc2",
-            concept: "Why Markets Need Regulators: SEC & the Fed",
+            concept: "Federal Reserve role",
             question: "What is the Federal Reserve's main tool for managing the economy?",
             options: [
               "Setting interest rates",
@@ -4075,7 +4075,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest11-aq1",
-          concept: "Why Markets Need Regulators: SEC & the Fed",
+          concept: "market regulators",
           question: "Which regulator handles the insider-trading case, and which raises interest rates?",
           options: [
               "The Fed handles both situations",
@@ -4103,7 +4103,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest11-mastery1",
-            concept: "Why Markets Need Regulators: SEC & the Fed",
+            concept: "SEC role",
             question: "Why was the SEC created?",
             options: [
               "To print money for the government",
@@ -4117,7 +4117,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest11-mastery2",
-            concept: "Why Markets Need Regulators: SEC & the Fed",
+            concept: "insider trading",
             question: "What is insider trading?",
             options: [
               "Buying stock inside a bank branch",
@@ -4131,7 +4131,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest11-mastery3",
-            concept: "Why Markets Need Regulators: SEC & the Fed",
+            concept: "FDIC insurance",
             question: "What does the FDIC do?",
             options: [
               "Sets the stock market's prices",
@@ -4145,7 +4145,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest11-mastery4",
-            concept: "Why Markets Need Regulators: SEC & the Fed",
+            concept: "dual mandate",
             question: "What is the Federal Reserve's 'dual mandate'?",
             options: [
               "Maximum employment and stable prices",
@@ -4159,7 +4159,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest11-mastery5",
-            concept: "Why Markets Need Regulators: SEC & the Fed",
+            concept: "rates and stock prices",
             question: "What typically happens when the Fed raises interest rates?",
             options: [
               "Borrowing gets pricier and stocks often dip",
@@ -4173,7 +4173,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest11-mastery6",
-            concept: "Why Markets Need Regulators: SEC & the Fed",
+            concept: "market regulators",
             question: "Who oversees brokers and brokerage firms?",
             options: [
               "The Federal Reserve",
@@ -4234,7 +4234,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest12-mc1",
-            concept: "Retirement & Education Accounts Deep Dive",
+            concept: "401k vs 403b",
             question: "What is the difference between a 401(k) and a 403(b)?",
             options: [
               "A 401(k) is for for-profit firms; a 403(b) is for nonprofits/schools",
@@ -4247,7 +4247,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest12-mc2",
-            concept: "Retirement & Education Accounts Deep Dive",
+            concept: "529 plan",
             question: "What is a 529 plan used for?",
             options: [
               "Guaranteed monthly retirement income",
@@ -4275,7 +4275,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "invest12-aq1",
-          concept: "Retirement & Education Accounts Deep Dive",
+          concept: "529 plan",
           question: "Why is a 529 plan the best fit for the family's college savings goal?",
           options: [
               "It guarantees admission to college",
@@ -4303,7 +4303,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
         questions: [
           {
             id: "invest12-mastery1",
-            concept: "Retirement & Education Accounts Deep Dive",
+            concept: "401k vs 403b",
             question: "Who typically uses a 403(b) instead of a 401(k)?",
             options: [
               "Employees at nonprofits and public schools",
@@ -4317,7 +4317,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest12-mastery2",
-            concept: "Retirement & Education Accounts Deep Dive",
+            concept: "defined benefit pension",
             question: "How does a pension (defined-benefit plan) work?",
             options: [
               "You pick your own stocks each year",
@@ -4331,7 +4331,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest12-mastery3",
-            concept: "Retirement & Education Accounts Deep Dive",
+            concept: "Coverdell ESA",
             question: "What is the main limit of a Coverdell ESA versus a 529?",
             options: [
               "It cannot be used for education",
@@ -4345,7 +4345,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest12-mastery4",
-            concept: "Retirement & Education Accounts Deep Dive",
+            concept: "Roth IRA",
             question: "Why is a Roth account often best for a young worker?",
             options: [
               "It guarantees a fixed 10% return",
@@ -4359,7 +4359,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest12-mastery5",
-            concept: "Retirement & Education Accounts Deep Dive",
+            concept: "529 plan",
             question: "What tax advantage does a 529 plan offer?",
             options: [
               "Tax-free growth for education expenses",
@@ -4373,7 +4373,7 @@ export const deepInvesting2: StructuredLessonContent[] = [
           },
           {
             id: "invest12-mastery6",
-            concept: "Retirement & Education Accounts Deep Dive",
+            concept: "tax-advantaged accounts",
             question: "What is the key skill in using tax-advantaged accounts?",
             options: [
               "Memorizing every single rule",

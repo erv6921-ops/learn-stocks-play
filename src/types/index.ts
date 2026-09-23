@@ -186,6 +186,11 @@ export interface QuizQuestion {
   // accessors in lessonQuizzes.ts; the adaptive engine treats a missing value as
   // 0 (medium). See src/lib/adaptiveEngine.ts.
   difficulty?: number
+  // Spaced-review: this question is a callback to an EARLIER lesson, mixed into
+  // a later lesson's set. When true the UI labels it "Review from last lesson:
+  // {reviewFromTitle}" so the student knows it's a deliberate refresher.
+  isReview?: boolean
+  reviewFromTitle?: string
 }
 
 // ═══════════════════════════════════════════════

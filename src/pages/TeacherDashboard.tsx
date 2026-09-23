@@ -47,6 +47,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { ScenarioReviewTab } from "@/components/teacher/ScenarioReviewTab"
 import { CurriculumTab } from "@/components/teacher/CurriculumTab"
 import { LessonPreviewButtons } from "@/components/teacher/LessonPreviewButtons"
+import { countLessons, lessonsForTracks, enrollmentToCourseTrack } from "@/lib/lessonCount"
 import {
   ClassSettings,
   DEFAULT_CLASS_SETTINGS,
@@ -885,25 +886,29 @@ export default function TeacherDashboard() {
     return Math.round(withWork.reduce((s, x) => s + x.percent, 0) / withWork.length)
   }, [studentChartData])
 
-  // MODIFIED: Lesson-completion analytics for the Student Progress card. Counts
-  // each student's completed lessons (lesson_progress.completed === true) that
-  // fall inside the tracks currently ENABLED for this class, out of the total
-  // lessons in those tracks - so a disabled track drops out of both numbers.
-  const enabledTrackLessonIds = useMemo(() => {
-    const ids = new Set<string>()
-    TOGGLEABLE_TRACKS.forEach((t) => {
-      if (classSettings.tracksEnabled[t.key] !== false) {
-        getLessonsByTrack(t.track).forEach((l) => ids.add(l.id))
-      }
-    })
-    return ids
-  }, [classSettings])
+  // Curriculum-completion analytics (Student Progress card + "Curriculum done"
+  // pill + the Analytics donut when nothing is assigned). The class's curriculum
+  // is the program its teacher is enrolled in - a Gulliver Intro teacher's class
+  // is on the Gulliver course, everyone else on the regular one - honouring that
+  // track's on/off toggle. It is NOT the union of every enabled toggle: that
+  // inflated the total with tracks nobody in the class is taking. The total
+  // comes from the shared countLessons so it matches the student dashboard.
+  const classTrack = enrollmentToCourseTrack(appUser?.assigned_track)
+  const classTrackEnabled = useMemo(() => {
+    const toggle = TOGGLEABLE_TRACKS.find((t) => t.track === classTrack)
+    return !toggle || classSettings.tracksEnabled[toggle.key] !== false
+  }, [classSettings, classTrack])
+  const curriculumLessonIds = useMemo(
+    () => new Set(classTrackEnabled ? lessonsForTracks([classTrack]).map((l) => l.id) : []),
+    [classTrack, classTrackEnabled],
+  )
+  const curriculumTotal = classTrackEnabled ? countLessons([classTrack]) : 0
 
   const studentLessonCompletion = useMemo(() => {
-    const total = enabledTrackLessonIds.size
+    const total = curriculumTotal
     return classMembers
       .map((m) => {
-        const completed = m.completedLessonIds.filter((id) => enabledTrackLessonIds.has(id)).length
+        const completed = m.completedLessonIds.filter((id) => curriculumLessonIds.has(id)).length
         return {
           id: m.id,
           name: memberName(m),
@@ -913,7 +918,22 @@ export default function TeacherDashboard() {
         }
       })
       .sort((a, b) => b.completed - a.completed)
-  }, [classMembers, enabledTrackLessonIds])
+  }, [classMembers, curriculumLessonIds, curriculumTotal])
+
+  // Class-wide curriculum completion: every student's completed curriculum
+  // lessons out of (curriculum size × students).
+  const curriculumCompletion = useMemo(() => {
+    const done = studentLessonCompletion.reduce((s, x) => s + x.completed, 0)
+    const total = curriculumTotal * classMembers.length
+    return { done, total, remaining: Math.max(0, total - done), pct: total > 0 ? Math.round((done / total) * 100) : 0 }
+  }, [studentLessonCompletion, curriculumTotal, classMembers.length])
+
+  // What the Analytics donut shows: assigned-lesson completion when anything is
+  // assigned, otherwise whole-curriculum completion (so a class that hasn't
+  // assigned yet still sees progress instead of an empty chart).
+  const donut = classCompletion.total > 0
+    ? { ...classCompletion, caption: "assigned lessons" }
+    : { ...curriculumCompletion, caption: "curriculum lessons" }
 
   if (loading) {
     return (
@@ -935,8 +955,9 @@ export default function TeacherDashboard() {
   const classStats = selectedClass ? [
     { label: "Students", value: String(classMembers.length), icon: Users, color: C.blue },
     { label: "Assignments", value: String(assignments.length), icon: ClipboardList, color: C.purple },
-    { label: "Avg completion", value: `${avgCompletion}%`, icon: Percent, color: C.gold },
-    { label: "Class done", value: `${classCompletion.pct}%`, icon: CheckCircle2, color: C.green },
+    { label: "Assigned avg", value: `${avgCompletion}%`, icon: Percent, color: C.gold },
+    { label: "Assigned done", value: `${classCompletion.pct}%`, icon: CheckCircle2, color: C.green },
+    { label: "Curriculum done", value: `${curriculumCompletion.pct}%`, icon: BookOpen, color: C.green },
   ] : []
 
   return (
@@ -1174,7 +1195,7 @@ export default function TeacherDashboard() {
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0">
+                  <div className="grid grid-cols-2 sm:grid-cols-5 divide-x divide-y sm:divide-y-0">
                     {classStats.map((s) => (
                       <div key={s.label} className="flex items-center gap-2.5 p-4">
                         <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${s.color}1a` }}>
@@ -1477,7 +1498,7 @@ export default function TeacherDashboard() {
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
-                          {classCompletion.total === 0 ? (
+                          {donut.total === 0 ? (
                             <p className="text-sm text-muted-foreground text-center py-12">
                               Assign a lesson to start tracking completion.
                             </p>
@@ -1487,8 +1508,8 @@ export default function TeacherDashboard() {
                                 <PieChart>
                                   <Pie
                                     data={[
-                                      { name: "Completed", value: classCompletion.done },
-                                      { name: "Remaining", value: classCompletion.remaining },
+                                      { name: "Completed", value: donut.done },
+                                      { name: "Remaining", value: donut.remaining },
                                     ]}
                                     dataKey="value"
                                     innerRadius={58}
@@ -1504,8 +1525,9 @@ export default function TeacherDashboard() {
                                 </PieChart>
                               </ResponsiveContainer>
                               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                                <span className="text-3xl font-extrabold" style={{ color: C.green }}>{classCompletion.pct}%</span>
-                                <span className="text-xs text-muted-foreground">{classCompletion.done}/{classCompletion.total} done</span>
+                                <span className="text-3xl font-extrabold" style={{ color: C.green }}>{donut.pct}%</span>
+                                <span className="text-xs text-muted-foreground">{donut.done}/{donut.total} done</span>
+                                <span className="text-[10px] text-muted-foreground/70">{donut.caption}</span>
                               </div>
                             </div>
                           )}
@@ -1540,14 +1562,14 @@ export default function TeacherDashboard() {
                           <GraduationCap className="w-4 h-4 text-primary" /> Student progress
                         </CardTitle>
                         <CardDescription>
-                          Lessons each student has completed across the enabled tracks
-                          ({enabledTrackLessonIds.size} total).
+                          Lessons each student has completed in this class's curriculum
+                          ({curriculumTotal} total).
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        {enabledTrackLessonIds.size === 0 ? (
+                        {curriculumTotal === 0 ? (
                           <p className="text-sm text-muted-foreground text-center py-6">
-                            All curriculum tracks are turned off for this class. Enable a track in Settings to track progress.
+                            This class's curriculum track is turned off. Enable it in Settings to track progress.
                           </p>
                         ) : (
                           <div className="space-y-3">

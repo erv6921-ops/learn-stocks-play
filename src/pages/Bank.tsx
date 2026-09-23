@@ -30,6 +30,7 @@ import { useToast } from "@/hooks/use-toast"
 import { useApp } from "@/contexts/AppContext"
 import { useBankStore } from "@/stores/bankStore"
 import { cn } from "@/lib/utils"
+import { formatCoins, roundCoins } from "@/lib/formatCoins"
 import {
   LOAN_PRODUCTS, BOND_PRODUCTS, SAVINGS_DAILY_RATE, MAX_ACTIVE_LOANS,
   CREDIT_MIN, CREDIT_MAX, DAY_MS, daysUntil, isPast,
@@ -40,7 +41,9 @@ import {
   ReceiptText, ScrollText, Sparkles, Vault, Wallet, type LucideIcon,
 } from "lucide-react"
 
-const money = (n: number) => Math.floor(n).toLocaleString()
+// Coin display goes through the shared rule (round, like the header and the
+// leaderboard RPCs) instead of the old local floor helper.
+const money = formatCoins
 
 // Human label + color for a 300-850 credit score.
 const creditRating = (s: number): { label: string; color: string } =>
@@ -110,7 +113,7 @@ function VaultDesk() {
   }
 
   const dailyInterest = Math.floor(savings * SAVINGS_DAILY_RATE)
-  const wallet = Math.floor(jeffsBalance)
+  const wallet = roundCoins(jeffsBalance)
   const projection = [7, 30, 90].map(days => ({
     days,
     value: Math.floor(savings * Math.pow(1 + SAVINGS_DAILY_RATE, days)),
@@ -855,7 +858,7 @@ export default function Bank() {
                   <div className="hidden md:grid grid-cols-2 gap-1.5">
                     <div className="rounded-lg border border-border bg-card px-3 py-1 text-center">
                       <p className="text-[9px] uppercase font-bold tracking-wide text-muted-foreground">Wallet</p>
-                      <p className="text-sm font-extrabold tabular-nums"><AnimatedNumber value={Math.floor(jeffsBalance)} /></p>
+                      <p className="text-sm font-extrabold tabular-nums"><AnimatedNumber value={roundCoins(jeffsBalance)} /></p>
                     </div>
                     <div className="rounded-lg border border-border bg-card px-3 py-1 text-center">
                       <p className="text-[9px] uppercase font-bold tracking-wide text-muted-foreground">Vault</p>

@@ -30,6 +30,7 @@ import {
   BrainCircuit,
   FileQuestion,
   Snowflake,
+  RotateCcw,
 } from "lucide-react"
 import { toast } from "sonner"
 import { HighlightedText } from "@/lib/highlightTerms"
@@ -41,7 +42,7 @@ import CoinBurst from "@/components/gamification/CoinBurst"
 // shuffleQuestion import removed - shuffling is handled upstream in LessonDetail
 
 // Minimum seconds allowed per quiz question before it's auto-marked wrong.
-const QUESTION_TIME = 15
+const QUESTION_TIME = 20
 
 // The real per-question budget scales up with how much text there is to read
 // (~1s per 13 characters of question + all options, a comfortable teen
@@ -80,9 +81,17 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   // teacher can pin a fixed limit for their class (secondsPerQuestion), which
   // overrides the default for every question.
   const classSettings = useClassSettings()
-  const questionMs = (classSettings.secondsPerQuestion ?? questionSeconds(shuffledQ)) * 1000
+  // A teacher's fixed per-question limit still can't dip below the 20s floor -
+  // wordy first questions need the read time - so clamp any override up to it.
+  const questionMs = (classSettings.secondsPerQuestion != null
+    ? Math.max(QUESTION_TIME, classSettings.secondsPerQuestion)
+    : questionSeconds(shuffledQ)) * 1000
   const [selected, setSelected] = useState<number | null>(null)
   const [revealed, setRevealed] = useState(false)
+  // The countdown ran out with no answer. A timeout is its own feedback state:
+  // it still shows the explanation + correct answer, but reads "Time's up"
+  // rather than "Not quite right", and (unlike a wrong tap) costs no coins.
+  const [timedOut, setTimedOut] = useState(false)
   // After answering, the feedback + Continue button is appended below the
   // options; on longer questions it can land off-screen, so Continue reads as
   // missing. Scroll it into view once the answer is revealed.
@@ -119,6 +128,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     if (resolvedRef.current) return
     resolvedRef.current = true
     clearInterval(intervalRef.current)
+    setTimedOut(true)
     setRevealed(true) // reveals the correct answer highlighted, no selection
     onAnswered?.(false, questionMs)
     if (!previewMode) logActivity(user?.id, "question_answered", {
@@ -128,8 +138,9 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       durationMs: questionMs,
       meta: { timedOut: true, questionText: shuffledQ.question },
     })
-    // Timeout counts as a wrong answer at the full time budget.
-    session.registerWrong(coins, { responseMs: questionMs, questionB: shuffledQ.difficulty ?? 0, expectedMs: questionMs }) // −coins + toast
+    // Timeout counts as WRONG for accuracy/theta, but the timedOut flag tells
+    // the session to charge no coins (running out of time isn't a wrong bet).
+    session.registerWrong(coins, { responseMs: questionMs, questionB: shuffledQ.difficulty ?? 0, expectedMs: questionMs, timedOut: true })
     onIncorrect()
   }
 
@@ -142,6 +153,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     shownAtRef.current = Date.now()
     setSelected(null)
     setRevealed(false)
+    setTimedOut(false)
     setEliminated([])
     setFrozen(false)
     setRemainingMs(questionMs)
@@ -175,7 +187,9 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       durationMs: responseMs,
       meta: { questionText: shuffledQ.question },
     })
-    const answerCtx = { responseMs, questionB: shuffledQ.difficulty ?? 0, expectedMs: questionMs }
+    // timedOut:false is explicit so a wrong TAP always costs coins, even one
+    // made at the very last tick (only a real timeout waives the penalty).
+    const answerCtx = { responseMs, questionB: shuffledQ.difficulty ?? 0, expectedMs: questionMs, timedOut: false }
     if (isRight) {
       session.registerCorrect(coins, answerCtx) // +coins by speed tier + toast, feeds theta
       setBurstId(b => b + 1)
@@ -261,9 +275,15 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
         ) : previewMode ? (
           <span className="text-[10px] font-semibold text-muted-foreground whitespace-nowrap">no timer in preview</span>
         ) : (
-          <span className="text-xs font-semibold tabular-nums w-8 text-right" style={{ color: barColor }}>
+          <motion.span
+            className="text-xs font-semibold tabular-nums w-8 text-right"
+            style={{ color: barColor }}
+            // Pulse the last 5 seconds to signal the clock is nearly up.
+            animate={!revealed && remainingMs <= 5000 && remainingMs > 0 ? { scale: [1, 1.25, 1], opacity: [1, 0.6, 1] } : { scale: 1, opacity: 1 }}
+            transition={!revealed && remainingMs <= 5000 && remainingMs > 0 ? { duration: 1, repeat: Infinity, ease: "easeInOut" } : { duration: 0.2 }}
+          >
             {secsLeft}s
-          </span>
+          </motion.span>
         )}
       </div>
 
@@ -294,6 +314,15 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Spaced-review callback: a question pulled forward from an earlier
+          lesson, flagged so the student knows it's a deliberate refresher. */}
+      {shuffledQ.isReview && (
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/20 px-2.5 py-1 text-[11px] font-semibold text-primary">
+          <RotateCcw className="w-3 h-3" />
+          Review from last lesson{shuffledQ.reviewFromTitle ? `: ${shuffledQ.reviewFromTitle}` : ""}
+        </div>
+      )}
 
       {/* Question, with a checkmark badge that pops in on a correct answer. */}
       <div className="relative">
@@ -408,7 +437,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       {revealed && (
         <div className={`p-4 rounded-lg ${isCorrect ? "bg-success/10 border border-success/20" : "bg-amber-500/10 border border-amber-500/20"}`}>
           <p className={`font-medium text-sm ${isCorrect ? "text-success" : "text-amber-600"}`}>
-            {isCorrect ? "✓ Correct!" : "✗ Not quite right"}
+            {isCorrect ? "✓ Correct!" : timedOut ? "⏰ Time's up" : "✗ Not quite right"}
           </p>
           {!isCorrect && (
             <div className="mt-2 space-y-2">
@@ -637,17 +666,32 @@ export function MasteryCheckRenderer({
   const [totalAttempts, setTotalAttempts] = useState(0)
   const [finished, setFinished] = useState(false)
 
-  const required = section.requiredCorrect
+  // Standard mastery check: serve 5 questions, pass at 4 correct (an 80% bar,
+  // not the old "serve exactly requiredCorrect so the pass mark is 100%"). A
+  // lockQuestions lesson keeps its authored fixed set and pass mark. Small pools
+  // (or a lesson that authored fewer) gracefully clamp to what's available.
+  const MASTERY_SERVE = 5
+  const MASTERY_PASS = 4
+  const pool = section.questions
+  const total = previewMode
+    ? pool.length
+    : section.lockQuestions
+      ? Math.min(section.requiredCorrect, pool.length)
+      : Math.min(MASTERY_SERVE, pool.length)
+  const required = previewMode
+    ? total
+    : section.lockQuestions
+      ? section.requiredCorrect
+      : Math.min(MASTERY_PASS, total)
 
   // Adaptive question selection: instead of a fixed slice, each question is
   // drawn from the (padded) authored pool to match the student's LIVE ability
   // (theta) - a student who's crushing it gets harder questions, one who's
-  // struggling gets easier ones. We still present `total` questions and require
+  // struggling gets easier ones. We present `total` questions and require
   // `required` correct to pass. A wrong-then-retry naturally serves a different
   // (easier) set because theta has dropped. Selection excludes already-asked
-  // questions so nothing repeats within an attempt.
-  const pool = section.questions
-  const total = previewMode ? pool.length : Math.min(required, pool.length)
+  // questions - and questions served in EARLIER attempts (previouslyAsked) - so
+  // retries draw unseen questions first, randomizing among equal-fit ties.
 
   // Teacher-starred questions (pinnedQuestionIds, generated lessons only) are
   // served first, in order, so every student gets them; the adaptive draw only

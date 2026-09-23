@@ -48,7 +48,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options1-mc1",
-            concept: "Calls vs Puts",
+            concept: "call option",
             question: "What does a call option give you the right to do?",
             options: [
               "Sell shares at a fixed strike price",
@@ -61,7 +61,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options1-mc2",
-            concept: "Calls vs Puts",
+            concept: "option premium",
             question: "For an option buyer, what is the maximum possible loss?",
             options: [
               "The full value of 100 shares of stock",
@@ -89,7 +89,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options1-aq1",
-          concept: "Calls vs Puts",
+          concept: "option breakeven",
           question: "Devon buys the $50 call for a $2 premium. At expiration the stock is $53. Roughly what happened?",
           options: [
             "He lost the full $200 he paid",
@@ -117,7 +117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options1-mastery1",
-            concept: "Calls vs Puts",
+            concept: "call vs put",
             question: "Which statement best describes the difference between a call and a put?",
             options: [
               "A call bets the price rises; a put bets it falls",
@@ -131,7 +131,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options1-mastery2",
-            concept: "Calls vs Puts",
+            concept: "option contract multiplier",
             question: "A premium is quoted as $4. What does one contract actually cost?",
             options: [
               "Exactly $4 total",
@@ -145,7 +145,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options1-mastery3",
-            concept: "Calls vs Puts",
+            concept: "option buyer vs seller",
             question: "Why are beginners usually told to buy options rather than sell them?",
             options: [
               "Buyers earn guaranteed profits each and every single time",
@@ -159,7 +159,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options1-mastery4",
-            concept: "Calls vs Puts",
+            concept: "option buyer vs seller",
             question: "The person who sells (writes) an option is hoping that…",
             options: [
               "The stock moves as fast as it possibly can upward",
@@ -173,7 +173,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options1-mastery5",
-            concept: "Calls vs Puts",
+            concept: "option vs stock ownership",
             question: "How is owning an option different from owning a share of stock?",
             options: [
               "An option makes you a part-owner of the company",
@@ -187,7 +187,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options1-mastery6",
-            concept: "Calls vs Puts",
+            concept: "put option",
             question: "A trader buys a put and the stock rises sharply. What most likely happens?",
             options: [
               "The put suddenly gains a whole lot of value",
@@ -248,7 +248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options2-mc1",
-            concept: "Strike Price",
+            concept: "in the money",
             question: "A $40 call on a stock trading at $46 is described as…",
             options: [
               "Out of the money",
@@ -261,7 +261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options2-mc2",
-            concept: "Strike Price",
+            concept: "option breakeven",
             question: "You buy a $50 call for a $3 premium. What is your breakeven price?",
             options: [
               "$47 per share",
@@ -289,7 +289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options2-aq1",
-          concept: "Strike Price",
+          concept: "option breakeven",
           question: "Given Priya expects the stock to reach about $106, which strike is the smarter choice and why?",
           options: [
             "The $110 call, because it costs a bit less upfront today",
@@ -317,7 +317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options2-mastery1",
-            concept: "Strike Price",
+            concept: "strike price",
             question: "What does the strike price of an option represent?",
             options: [
               "The premium you pay to open the trade",
@@ -331,7 +331,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options2-mastery2",
-            concept: "Strike Price",
+            concept: "in the money",
             question: "A $30 put on a stock trading at $25 is…",
             options: [
               "Out of the money with no value",
@@ -345,7 +345,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options2-mastery3",
-            concept: "Strike Price",
+            concept: "intrinsic vs time value",
             question: "What is intrinsic value?",
             options: [
               "The built-in profit of exercising right now",
@@ -359,7 +359,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options2-mastery4",
-            concept: "Strike Price",
+            concept: "out of the money",
             question: "Why do far out-of-the-money options usually expire worthless?",
             options: [
               "Brokers quietly cancel most of them before expiration day",
@@ -373,7 +373,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options2-mastery5",
-            concept: "Strike Price",
+            concept: "option breakeven",
             question: "A $70 call bought for a $4 premium breaks even at what price?",
             options: [
               "$66 per share",
@@ -387,7 +387,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options2-mastery6",
-            concept: "Strike Price",
+            concept: "intrinsic vs time value",
             question: "An in-the-money call costs more than an out-of-the-money call because it…",
             options: [
               "Has a longer time until expiration",
@@ -448,7 +448,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options3-mc1",
-            concept: "Expiration",
+            concept: "time decay",
             question: "Why are options called 'wasting assets'?",
             options: [
               "Their strike price keeps falling daily",
@@ -461,7 +461,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options3-mc2",
-            concept: "Expiration",
+            concept: "time decay",
             question: "When does time decay hurt an option's value the most?",
             options: [
               "Right after the option is first purchased",
@@ -489,7 +489,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options3-aq1",
-          concept: "Expiration",
+          concept: "time decay",
           question: "Why is Marcus's call worth less than he paid even though the stock rose $1?",
           options: [
             "The contract's strike price silently increased on him overnight",
@@ -517,7 +517,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options3-mastery1",
-            concept: "Expiration",
+            concept: "intrinsic vs time value",
             question: "What is time value (extrinsic value) in an option's price?",
             options: [
               "The flat broker's fee charged for simply holding it",
@@ -531,7 +531,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options3-mastery2",
-            concept: "Expiration",
+            concept: "option expiration",
             question: "A short-dated option is cheaper than a long-dated one mainly because it…",
             options: [
               "Has less time for the stock to move",
@@ -545,7 +545,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options3-mastery3",
-            concept: "Expiration",
+            concept: "exercise and assignment",
             question: "When an option buyer exercises a call, the seller is…",
             options: [
               "Refunded the entire original premium plus interest",
@@ -559,7 +559,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options3-mastery4",
-            concept: "Expiration",
+            concept: "exercise and assignment",
             question: "Why do most traders sell an option rather than exercise it?",
             options: [
               "Exercising is strictly against the main exchange rules",
@@ -573,7 +573,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options3-mastery5",
-            concept: "Expiration",
+            concept: "time decay",
             question: "Holding a losing out-of-the-money option into its final days is risky because…",
             options: [
               "The strike price suddenly resets all the way to zero",
@@ -587,7 +587,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options3-mastery6",
-            concept: "Expiration",
+            concept: "option exit plan",
             question: "A disciplined way to handle a winning option near expiration is to…",
             options: [
               "Hold it and hope for an even bigger move",
@@ -648,7 +648,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options4-mc1",
-            concept: "Hedging",
+            concept: "protective put",
             question: "What is the main purpose of a protective put?",
             options: [
               "To earn extra monthly income from shares you own",
@@ -661,7 +661,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options4-mc2",
-            concept: "Hedging",
+            concept: "covered call",
             question: "What is the trade-off of selling a covered call?",
             options: [
               "You risk unlimited losses on the stock",
@@ -689,7 +689,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options4-aq1",
-          concept: "Hedging",
+          concept: "protective put",
           question: "Earnings disappoint and Ana's stock falls to $60. How did the $75 protective put help her?",
           options: [
             "It let her sell near $75 instead of $60",
@@ -717,7 +717,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options4-mastery1",
-            concept: "Hedging",
+            concept: "hedging",
             question: "Hedging with options is most like…",
             options: [
               "Buying a lottery ticket for fun",
@@ -731,7 +731,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options4-mastery2",
-            concept: "Hedging",
+            concept: "protective put",
             question: "You own 100 shares at $80 and buy a $75 put. If the stock falls to $60, your put lets you…",
             options: [
               "Buy 100 more shares at $60",
@@ -745,7 +745,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options4-mastery3",
-            concept: "Hedging",
+            concept: "covered call",
             question: "In a covered call, why is the call 'covered'?",
             options: [
               "Because you already own the shares",
@@ -759,7 +759,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options4-mastery4",
-            concept: "Hedging",
+            concept: "covered call",
             question: "A covered call seller's stock jumps far above the strike. What happens?",
             options: [
               "They get to keep all of the extra gains",
@@ -773,7 +773,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options4-mastery5",
-            concept: "Hedging",
+            concept: "hedging",
             question: "What is the core trade-off in every hedging strategy?",
             options: [
               "You must always end up losing money overall somehow",
@@ -787,7 +787,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options4-mastery6",
-            concept: "Hedging",
+            concept: "protective put",
             question: "If Ana's hedged stock rises after she buys a protective put, she…",
             options: [
               "Loses only the premium she paid",
@@ -848,7 +848,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options5-mc1",
-            concept: "Risk",
+            concept: "option leverage risk",
             question: "Why is buying an option considered a high-risk trade?",
             options: [
               "The full premium is refunded to you if it expires",
@@ -861,7 +861,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options5-mc2",
-            concept: "Risk",
+            concept: "naked call risk",
             question: "Which options trade carries theoretically unlimited loss?",
             options: [
               "Buying a call option",
@@ -889,7 +889,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "options5-aq1",
-          concept: "Risk",
+          concept: "position sizing",
           question: "Why is Leo's original $600 plan far riskier than his revised $30 bet?",
           options: [
             "The $600 bet has a lower strike price",
@@ -917,7 +917,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "options5-mastery1",
-            concept: "Risk",
+            concept: "option leverage risk",
             question: "What makes options riskier than simply owning a stock?",
             options: [
               "Leverage and a deadline can erase them fast",
@@ -931,7 +931,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options5-mastery2",
-            concept: "Risk",
+            concept: "time decay",
             question: "A trader buys a call and the stock barely moves until expiration. Likely result?",
             options: [
               "The call is fully refunded back to you",
@@ -945,7 +945,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options5-mastery3",
-            concept: "Risk",
+            concept: "position sizing",
             question: "A common position-sizing guideline for a speculative option is to risk…",
             options: [
               "Your entire account balance on one single trade",
@@ -959,7 +959,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options5-mastery4",
-            concept: "Risk",
+            concept: "option exit plan",
             question: "Why should you set an exit plan before entering an option trade?",
             options: [
               "Brokers require a plan by law",
@@ -973,7 +973,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options5-mastery5",
-            concept: "Risk",
+            concept: "naked call risk",
             question: "Order these from least to most dangerous for a beginner.",
             options: [
               "Naked selling, covered selling, buying",
@@ -987,7 +987,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "options5-mastery6",
-            concept: "Risk",
+            concept: "risk management",
             question: "The main lesson of options risk management is that traders should…",
             options: [
               "Predict the market to avoid all loss",
@@ -1048,7 +1048,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt1-mc1",
-            concept: "Real Estate",
+            concept: "leverage",
             question: "How does a mortgage create leverage in real estate?",
             options: [
               "It completely removes every last bit of risk from the purchase",
@@ -1061,7 +1061,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt1-mc2",
-            concept: "Real Estate",
+            concept: "liquidity risk",
             question: "What is a major drawback of real estate compared with stocks?",
             options: [
               "It can literally never rise in value at all",
@@ -1089,7 +1089,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt1-aq1",
-          concept: "Real Estate",
+          concept: "rental property costs",
           question: "Why is Maya's real profit far below the $24,000 headline rent figure?",
           options: [
             "Any rent income is completely illegal for you to keep",
@@ -1117,7 +1117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt1-mastery1",
-            concept: "Real Estate",
+            concept: "rental income",
             question: "What two ways can a rental property build wealth at once?",
             options: [
               "Dividends and stock splits",
@@ -1131,7 +1131,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt1-mastery2",
-            concept: "Real Estate",
+            concept: "leverage",
             question: "You put $60,000 down on a $300,000 home that rises 10% to $330,000. Your return on cash is…",
             options: [
               "About 10 percent",
@@ -1145,7 +1145,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt1-mastery3",
-            concept: "Real Estate",
+            concept: "leverage",
             question: "Why does leverage make real estate riskier, not just more rewarding?",
             options: [
               "It cancels the whole mortgage balance automatically",
@@ -1159,7 +1159,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt1-mastery4",
-            concept: "Real Estate",
+            concept: "rental property costs",
             question: "Roughly how much can annual maintenance cost on a property?",
             options: [
               "Nothing at all, because upkeep is always free",
@@ -1173,7 +1173,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt1-mastery5",
-            concept: "Real Estate",
+            concept: "rental property costs",
             question: "A tenant stops paying and the unit sits empty for months. What happens?",
             options: [
               "The mortgage is paused for free",
@@ -1187,7 +1187,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt1-mastery6",
-            concept: "Real Estate",
+            concept: "rental property costs",
             question: "Hiring a property manager typically costs about…",
             options: [
               "A full 50 percent of the monthly rent",
@@ -1248,7 +1248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt2-mc1",
-            concept: "REITs",
+            concept: "REIT payout rule",
             question: "What must a REIT do with most of its taxable income?",
             options: [
               "Reinvest every bit of it into brand new buildings",
@@ -1261,7 +1261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt2-mc2",
-            concept: "REITs",
+            concept: "REIT",
             question: "Compared with owning a physical rental, a REIT is…",
             options: [
               "Much harder to actually buy and then sell later",
@@ -1289,7 +1289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt2-aq1",
-          concept: "REITs",
+          concept: "REIT taxation",
           question: "Why does Sam plan to hold his REIT inside an IRA rather than a regular account?",
           options: [
             "REITs are strictly illegal to hold outside of any IRA",
@@ -1317,7 +1317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt2-mastery1",
-            concept: "REITs",
+            concept: "REIT",
             question: "What is a REIT?",
             options: [
               "A special federal tax charged on every real estate sale",
@@ -1331,7 +1331,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt2-mastery2",
-            concept: "REITs",
+            concept: "REIT payout rule",
             question: "Why are REITs known for high dividend yields?",
             options: [
               "They pay out 90%+ of income by law",
@@ -1345,7 +1345,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt2-mastery3",
-            concept: "REITs",
+            concept: "REIT types",
             question: "How does an equity REIT differ from a mortgage REIT?",
             options: [
               "Equity REITs own buildings; mortgage REITs lend",
@@ -1359,7 +1359,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt2-mastery4",
-            concept: "REITs",
+            concept: "REIT",
             question: "Why can a healthy REIT's price still drop sharply?",
             options: [
               "Its buildings suddenly physically vanish overnight",
@@ -1373,7 +1373,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt2-mastery5",
-            concept: "REITs",
+            concept: "REITs and interest rates",
             question: "What usually happens to REIT prices when interest rates rise?",
             options: [
               "They tend to fall",
@@ -1387,7 +1387,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt2-mastery6",
-            concept: "REITs",
+            concept: "REIT taxation",
             question: "Why do many investors hold REITs in tax-advantaged accounts?",
             options: [
               "REITs simply can't be held anywhere else at all",
@@ -1448,7 +1448,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt3-mc1",
-            concept: "Commodities",
+            concept: "commodities",
             question: "Where does a commodity's value primarily come from?",
             options: [
               "Its reported quarterly profits and steady dividends paid",
@@ -1461,7 +1461,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt3-mc2",
-            concept: "Commodities",
+            concept: "gold as hedge",
             question: "Why is gold often called a 'safe haven'?",
             options: [
               "It always pays out the very highest dividends",
@@ -1489,7 +1489,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt3-aq1",
-          concept: "Commodities",
+          concept: "gold as hedge",
           question: "Why does Nadia keep her gold slice small rather than making it her core holding?",
           options: [
             "Gold is illegal to own in large amounts",
@@ -1517,7 +1517,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt3-mastery1",
-            concept: "Commodities",
+            concept: "commodities",
             question: "Which of these is a commodity?",
             options: [
               "A share of a tech company",
@@ -1531,7 +1531,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt3-mastery2",
-            concept: "Commodities",
+            concept: "commodities vs stocks",
             question: "How do commodities differ fundamentally from stocks?",
             options: [
               "They steadily earn profits and pay dividends",
@@ -1545,7 +1545,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt3-mastery3",
-            concept: "Commodities",
+            concept: "commodities",
             question: "Why do investors add a small slice of commodities to a portfolio?",
             options: [
               "To diversify with different price drivers",
@@ -1559,7 +1559,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt3-mastery4",
-            concept: "Commodities",
+            concept: "commodity exposure",
             question: "How do most everyday investors get commodity exposure?",
             options: [
               "By storing barrels of oil at home",
@@ -1573,7 +1573,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt3-mastery5",
-            concept: "Commodities",
+            concept: "leverage",
             question: "Why are futures contracts especially risky for beginners?",
             options: [
               "They pay guaranteed dividends",
@@ -1587,7 +1587,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt3-mastery6",
-            concept: "Commodities",
+            concept: "commodities vs stocks",
             question: "Why are commodities a poor choice as a core, decades-long holding?",
             options: [
               "They quietly compound over time just like stocks do",
@@ -1648,7 +1648,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt4-mc1",
-            concept: "Crypto (Educational)",
+            concept: "crypto custody",
             question: "What does controlling a cryptocurrency 'private key' mean?",
             options: [
               "A bank can reset it if you forget it",
@@ -1661,7 +1661,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt4-mc2",
-            concept: "Crypto (Educational)",
+            concept: "crypto risks",
             question: "Which statement about crypto scams is accurate?",
             options: [
               "Coins you send can be reversed later by an exchange",
@@ -1689,7 +1689,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt4-aq1",
-          concept: "Crypto (Educational)",
+          concept: "crypto custody",
           question: "Marcus wants to hold his own coins safely instead of leaving them on an app. What is the key trade-off he takes on?",
           options: [
             "His coins will now start to rise much faster in value",
@@ -1717,7 +1717,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt4-mastery1",
-            concept: "Crypto (Educational)",
+            concept: "blockchain",
             question: "What best describes a blockchain?",
             options: [
               "A private bank vault owned by one single company",
@@ -1731,7 +1731,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt4-mastery2",
-            concept: "Crypto (Educational)",
+            concept: "crypto volatility",
             question: "Why should a teen treat crypto as a tiny slice of money?",
             options: [
               "Its price can swing violently and drop sharply",
@@ -1745,7 +1745,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt4-mastery3",
-            concept: "Crypto (Educational)",
+            concept: "crypto risks",
             question: "A site offers to double any Bitcoin you send it. This is…",
             options: [
               "A normal and low-risk investment that anyone can trust",
@@ -1759,7 +1759,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt4-mastery4",
-            concept: "Crypto (Educational)",
+            concept: "crypto custody",
             question: "What does 'not your keys, not your coins' warn about?",
             options: [
               "Coins left on an exchange can be lost if it fails",
@@ -1773,7 +1773,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt4-mastery5",
-            concept: "Crypto (Educational)",
+            concept: "bitcoin supply cap",
             question: "Bitcoin is designed to be scarce because…",
             options: [
               "A central bank issues more of it when prices fall",
@@ -1787,7 +1787,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt4-mastery6",
-            concept: "Crypto (Educational)",
+            concept: "crypto risks",
             question: "What is the smartest first step for a curious beginner?",
             options: [
               "Borrow money to buy as much as possible",
@@ -1848,7 +1848,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt5-mc1",
-            concept: "Private Equity",
+            concept: "private equity",
             question: "What is private equity?",
             options: [
               "Ownership in companies not traded publicly",
@@ -1861,7 +1861,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt5-mc2",
-            concept: "Private Equity",
+            concept: "liquidity risk",
             question: "Why is illiquidity a defining risk of private equity?",
             options: [
               "It guarantees that the investment will always lose money",
@@ -1889,7 +1889,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt5-aq1",
-          concept: "Private Equity",
+          concept: "leverage",
           question: "The bakery is later sold for $160 million. After repaying the $70 million debt, roughly what did the investors' $30 million become (before fees)?",
           options: [
             "It roughly stayed flat at about $30 million",
@@ -1917,7 +1917,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt5-mastery1",
-            concept: "Private Equity",
+            concept: "buyout fund",
             question: "Which best describes a buyout fund's strategy?",
             options: [
               "Trade public stocks in and out on a daily basis",
@@ -1931,7 +1931,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt5-mastery2",
-            concept: "Private Equity",
+            concept: "venture capital",
             question: "Venture capital differs from buyouts because it mainly…",
             options: [
               "Backs young startups, most of which fail",
@@ -1945,7 +1945,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt5-mastery3",
-            concept: "Private Equity",
+            concept: "leverage",
             question: "How does leverage affect a buyout?",
             options: [
               "It removes all risk from the deal",
@@ -1959,7 +1959,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt5-mastery4",
-            concept: "Private Equity",
+            concept: "private equity fees",
             question: "The '2 and 20' fee structure means roughly…",
             options: [
               "2% yearly plus 20% of the profits",
@@ -1973,7 +1973,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt5-mastery5",
-            concept: "Private Equity",
+            concept: "accredited investor",
             question: "Why has private equity mostly been closed to teens and small investors?",
             options: [
               "It is illegal for anyone under thirty",
@@ -1987,7 +1987,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt5-mastery6",
-            concept: "Private Equity",
+            concept: "private equity fees",
             question: "What is the honest takeaway about private equity returns?",
             options: [
               "It always reliably beats the broad stock market",
@@ -2048,7 +2048,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt6-mc1",
-            concept: "Liquidity Risk",
+            concept: "liquidity",
             question: "What does 'liquidity' measure?",
             options: [
               "How much an asset will actually rise in the next year",
@@ -2061,7 +2061,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt6-mc2",
-            concept: "Liquidity Risk",
+            concept: "liquidity risk",
             question: "Why is liquidity risk especially dangerous in an emergency?",
             options: [
               "Illiquid assets will always rise in value during nearly any crisis",
@@ -2089,7 +2089,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "alt6-aq1",
-          concept: "Liquidity Risk",
+          concept: "emergency fund location",
           question: "How should Theo split his $8,000 to manage liquidity risk wisely?",
           options: [
             "Put the whole entire $8,000 into the single rental share",
@@ -2117,7 +2117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "alt6-mastery1",
-            concept: "Liquidity Risk",
+            concept: "liquidity",
             question: "Which asset is the most liquid?",
             options: [
               "A rental house out in the suburbs",
@@ -2131,7 +2131,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt6-mastery2",
-            concept: "Liquidity Risk",
+            concept: "bid-ask spread",
             question: "A wide bid-ask spread usually signals that an asset is…",
             options: [
               "Highly liquid and cheap to trade",
@@ -2145,7 +2145,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt6-mastery3",
-            concept: "Liquidity Risk",
+            concept: "emergency fund location",
             question: "Why do planners insist on a liquid emergency fund?",
             options: [
               "It always reliably earns you the very highest returns",
@@ -2159,7 +2159,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt6-mastery4",
-            concept: "Liquidity Risk",
+            concept: "liquidity risk",
             question: "What can illiquidity force an investor to do in a crunch?",
             options: [
               "Sell a good investment early at a loss",
@@ -2173,7 +2173,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt6-mastery5",
-            concept: "Liquidity Risk",
+            concept: "liquidity premium",
             question: "What reward should an illiquid investment offer?",
             options: [
               "A far lower return than most liquid assets",
@@ -2187,7 +2187,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "alt6-mastery6",
-            concept: "Liquidity Risk",
+            concept: "liquidity risk",
             question: "'Rich on paper' becomes a problem when…",
             options: [
               "Your assets rise much faster than you had expected",
@@ -2248,7 +2248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan1-mc1",
-            concept: "Goal Setting",
+            concept: "SMART goals",
             question: "What turns a vague wish into a real financial goal?",
             options: [
               "Simply wanting it all very badly",
@@ -2261,7 +2261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan1-mc2",
-            concept: "Goal Setting",
+            concept: "time horizon",
             question: "Where should money for a goal you need in six months go?",
             options: [
               "A single risky and volatile stock",
@@ -2289,7 +2289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan1-aq1",
-          concept: "Goal Setting",
+          concept: "goal prioritization",
           question: "Which goal should Leah tackle first, and why?",
           options: [
             "The vacation, because it's the most fun",
@@ -2317,7 +2317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan1-mastery1",
-            concept: "Goal Setting",
+            concept: "SMART goals",
             question: "Which of these is a well-formed financial goal?",
             options: [
               "I really want to be very rich one day",
@@ -2331,7 +2331,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan1-mastery2",
-            concept: "Goal Setting",
+            concept: "SMART goals",
             question: "In SMART, what does the 'T' stand for?",
             options: [
               "Trendy",
@@ -2345,7 +2345,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan1-mastery3",
-            concept: "Goal Setting",
+            concept: "monthly savings target",
             question: "A goal needs $2,400 in 12 months. How much per month?",
             options: [
               "About $100",
@@ -2359,7 +2359,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan1-mastery4",
-            concept: "Goal Setting",
+            concept: "goal prioritization",
             question: "Why fund an emergency cushion before a fun goal?",
             options: [
               "Fun goals tend to earn much higher returns",
@@ -2373,7 +2373,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan1-mastery5",
-            concept: "Goal Setting",
+            concept: "goal prioritization",
             question: "Why pay off a 24% credit card before investing?",
             options: [
               "Credit cards always beat the broad stock market",
@@ -2387,7 +2387,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan1-mastery6",
-            concept: "Goal Setting",
+            concept: "goal setting",
             question: "How often should you review your financial goals?",
             options: [
               "Only once in your whole entire life",
@@ -2448,7 +2448,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan2-mc1",
-            concept: "Retirement Accounts",
+            concept: "employer 401k match",
             question: "What is an employer '401(k) match'?",
             options: [
               "A loan that you must repay later with interest",
@@ -2461,7 +2461,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan2-mc2",
-            concept: "Retirement Accounts",
+            concept: "traditional vs Roth IRA",
             question: "How does a Roth account treat withdrawals in retirement?",
             options: [
               "They are taxed at a very high rate",
@@ -2489,7 +2489,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan2-aq1",
-          concept: "Retirement Accounts",
+          concept: "employer 401k match",
           question: "With limited money, what should Diego do first?",
           options: [
             "Skip the 401(k) to avoid any lock-up",
@@ -2517,7 +2517,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan2-mastery1",
-            concept: "Retirement Accounts",
+            concept: "retirement accounts",
             question: "A retirement account is best described as…",
             options: [
               "A single stock you must buy",
@@ -2531,7 +2531,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan2-mastery2",
-            concept: "Retirement Accounts",
+            concept: "employer 401k match",
             question: "Why grab a full 401(k) match before anything else?",
             options: [
               "It is free money and an instant return",
@@ -2545,7 +2545,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan2-mastery3",
-            concept: "Retirement Accounts",
+            concept: "traditional vs Roth IRA",
             question: "The core difference between Traditional and Roth is…",
             options: [
               "Which investments you are allowed to buy",
@@ -2559,7 +2559,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan2-mastery4",
-            concept: "Retirement Accounts",
+            concept: "Roth IRA",
             question: "Why is a Roth often ideal for a working teen?",
             options: [
               "Teens are always taxed at the very highest rate",
@@ -2573,7 +2573,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan2-mastery5",
-            concept: "Retirement Accounts",
+            concept: "early withdrawal penalty",
             question: "What generally happens if you withdraw early, before about age 59?",
             options: [
               "You earn a bonus from the government",
@@ -2587,7 +2587,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan2-mastery6",
-            concept: "Retirement Accounts",
+            concept: "starting early",
             question: "What matters most for a beginner's retirement saving?",
             options: [
               "Carefully picking the single perfect account",
@@ -2648,7 +2648,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan3-mc1",
-            concept: "Compounding",
+            concept: "simple vs compound interest",
             question: "What makes compounding different from simple interest?",
             options: [
               "It pays the same flat amount each year",
@@ -2661,7 +2661,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan3-mc2",
-            concept: "Compounding",
+            concept: "rule of 72",
             question: "Using the Rule of 72, how long to double money at 6%?",
             options: [
               "About 6 years",
@@ -2689,7 +2689,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan3-aq1",
-          concept: "Compounding",
+          concept: "rule of 72",
           question: "Aisha invests $1,000 at 8%. Using the Rule of 72, about how much will it be in 27 years?",
           options: [
             "About $2,000",
@@ -2717,7 +2717,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan3-mastery1",
-            concept: "Compounding",
+            concept: "compound interest",
             question: "Compounding is best described as…",
             options: [
               "A flat yearly payment on your savings",
@@ -2731,7 +2731,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan3-mastery2",
-            concept: "Compounding",
+            concept: "starting early",
             question: "Why is starting young such a big advantage?",
             options: [
               "Young people get higher returns",
@@ -2745,7 +2745,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan3-mastery3",
-            concept: "Compounding",
+            concept: "rule of 72",
             question: "At 9% return, the Rule of 72 says money doubles in about…",
             options: [
               "4 years",
@@ -2759,7 +2759,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan3-mastery4",
-            concept: "Compounding",
+            concept: "fee drag",
             question: "How do high fees hurt compounding?",
             options: [
               "They boost your long-term growth",
@@ -2773,7 +2773,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan3-mastery5",
-            concept: "Compounding",
+            concept: "real vs nominal return",
             question: "Why judge gains in 'real' terms?",
             options: [
               "Inflation shrinks your buying power",
@@ -2787,7 +2787,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan3-mastery6",
-            concept: "Compounding",
+            concept: "compound interest",
             question: "Which strategy best harnesses compounding?",
             options: [
               "Wait patiently until you're much older to begin",
@@ -2848,7 +2848,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan4-mc1",
-            concept: "Inflation Adjustments",
+            concept: "purchasing power",
             question: "What does inflation do to a dollar over time?",
             options: [
               "Makes it buy more each year",
@@ -2861,7 +2861,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan4-mc2",
-            concept: "Inflation Adjustments",
+            concept: "real vs nominal return",
             question: "A savings account pays 1% while inflation is 3%. Your real return is about…",
             options: [
               "Positive 4%",
@@ -2889,7 +2889,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan4-aq1",
-          concept: "Inflation Adjustments",
+          concept: "outpacing inflation",
           question: "Given inflation, how should Omar hold most of his long-term retirement money?",
           options: [
             "As plain cash tucked under a mattress",
@@ -2917,7 +2917,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan4-mastery1",
-            concept: "Inflation Adjustments",
+            concept: "inflation",
             question: "Inflation is best defined as…",
             options: [
               "A sudden one-time drop in all stock prices",
@@ -2931,7 +2931,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan4-mastery2",
-            concept: "Inflation Adjustments",
+            concept: "purchasing power",
             question: "What happens to idle cash during inflation?",
             options: [
               "Its number and buying power both grow",
@@ -2945,7 +2945,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan4-mastery3",
-            concept: "Inflation Adjustments",
+            concept: "real vs nominal return",
             question: "How do you calculate a real return?",
             options: [
               "Nominal return plus inflation",
@@ -2959,7 +2959,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan4-mastery4",
-            concept: "Inflation Adjustments",
+            concept: "inflation adjustments",
             question: "Why can a future goal be far larger than today's number?",
             options: [
               "Because inflation raises prices over time",
@@ -2973,7 +2973,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan4-mastery5",
-            concept: "Inflation Adjustments",
+            concept: "outpacing inflation",
             question: "Which asset best helps outpace inflation long term?",
             options: [
               "Cash in a drawer",
@@ -2987,7 +2987,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan4-mastery6",
-            concept: "Inflation Adjustments",
+            concept: "inflation adjustments",
             question: "What does a 'cost-of-living adjustment' do?",
             options: [
               "Lowers your pay as prices rise",
@@ -3048,7 +3048,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan5-mc1",
-            concept: "Lifestyle Planning",
+            concept: "lifestyle planning",
             question: "What question does lifestyle planning start with?",
             options: [
               "How much money can I possibly manage to earn in total?",
@@ -3061,7 +3061,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan5-mc2",
-            concept: "Lifestyle Planning",
+            concept: "lifestyle inflation",
             question: "What is 'lifestyle inflation'?",
             options: [
               "Prices steadily rising all across the whole economy",
@@ -3089,7 +3089,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "plan5-aq1",
-          concept: "Lifestyle Planning",
+          concept: "lifestyle inflation",
           question: "What's the wisest move for Kayla after her raise?",
           options: [
             "Spend the whole entire raise on upgrades right now",
@@ -3117,7 +3117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "plan5-mastery1",
-            concept: "Lifestyle Planning",
+            concept: "lifestyle planning",
             question: "In lifestyle planning, money is best seen as…",
             options: [
               "The single ultimate goal in itself",
@@ -3131,7 +3131,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan5-mastery2",
-            concept: "Lifestyle Planning",
+            concept: "lifestyle planning",
             question: "What's the difference between wants and values?",
             options: [
               "Wants are extras; values are what you care most about",
@@ -3145,7 +3145,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan5-mastery3",
-            concept: "Lifestyle Planning",
+            concept: "lifestyle inflation",
             question: "Why is lifestyle inflation a trap?",
             options: [
               "It always lowers your yearly taxes",
@@ -3159,7 +3159,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan5-mastery4",
-            concept: "Lifestyle Planning",
+            concept: "lifestyle planning",
             question: "Why must a life plan adapt over time?",
             options: [
               "Because plans are illegal to keep",
@@ -3173,7 +3173,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan5-mastery5",
-            concept: "Lifestyle Planning",
+            concept: "savings rate",
             question: "What funds every financial goal?",
             options: [
               "The gap between income and spending",
@@ -3187,7 +3187,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "plan5-mastery6",
-            concept: "Lifestyle Planning",
+            concept: "financial independence",
             question: "Financial freedom is best described as…",
             options: [
               "Owning all of the most expensive things around",
@@ -3248,7 +3248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim1-mc1",
-            concept: "Bear Market Survival",
+            concept: "bull vs bear market",
             question: "What defines a bear market?",
             options: [
               "Any single day the whole market happens to drop at all",
@@ -3261,7 +3261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim1-mc2",
-            concept: "Bear Market Survival",
+            concept: "staying invested",
             question: "What is usually the biggest danger during a bear market?",
             options: [
               "The investor panic-selling at the bottom",
@@ -3289,7 +3289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim1-aq1",
-          concept: "Bear Market Survival",
+          concept: "staying invested",
           question: "Given his situation, what is Ravi's smartest move?",
           options: [
             "Sell everything to stop the losses",
@@ -3317,7 +3317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim1-mastery1",
-            concept: "Bear Market Survival",
+            concept: "bull vs bear market",
             question: "How often do bear markets tend to occur?",
             options: [
               "Only one single time per entire century",
@@ -3331,7 +3331,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim1-mastery2",
-            concept: "Bear Market Survival",
+            concept: "staying invested",
             question: "Why is panic-selling so harmful?",
             options: [
               "It guarantees you a much bigger yearly tax refund",
@@ -3345,7 +3345,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim1-mastery3",
-            concept: "Bear Market Survival",
+            concept: "emergency fund purpose",
             question: "What preparation keeps you from selling at the bottom?",
             options: [
               "A cash emergency fund",
@@ -3359,7 +3359,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim1-mastery4",
-            concept: "Bear Market Survival",
+            concept: "dollar-cost averaging",
             question: "How does regular buying during a crash help?",
             options: [
               "It avoids the whole market entirely for you",
@@ -3373,7 +3373,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim1-mastery5",
-            concept: "Bear Market Survival",
+            concept: "market recovery",
             question: "What did the 2020 COVID crash show?",
             options: [
               "Markets can never recover from any crashes",
@@ -3387,7 +3387,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim1-mastery6",
-            concept: "Bear Market Survival",
+            concept: "staying invested",
             question: "For a long-term investor, a bear market is essentially…",
             options: [
               "A permanent loss to fear",
@@ -3448,7 +3448,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim2-mc1",
-            concept: "Bull Run Strategy",
+            concept: "bull vs bear market",
             question: "What is a bull market?",
             options: [
               "A drop of 20% or more from a high",
@@ -3461,7 +3461,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim2-mc2",
-            concept: "Bull Run Strategy",
+            concept: "staying invested",
             question: "Why is staying fully invested powerful in a bull market?",
             options: [
               "It completely removes all of your investment risk",
@@ -3489,7 +3489,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim2-aq1",
-          concept: "Bull Run Strategy",
+          concept: "bull market discipline",
           question: "What's the disciplined move for Sofia in this bull market?",
           options: [
             "Put everything into the hot stock",
@@ -3517,7 +3517,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim2-mastery1",
-            concept: "Bull Run Strategy",
+            concept: "bull vs bear market",
             question: "Compared to bear markets, bull markets have historically been…",
             options: [
               "Much shorter and weaker",
@@ -3531,7 +3531,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim2-mastery2",
-            concept: "Bull Run Strategy",
+            concept: "staying invested",
             question: "What happens if you miss the market's ten best days over decades?",
             options: [
               "Your returns can be roughly halved",
@@ -3545,7 +3545,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim2-mastery3",
-            concept: "Bull Run Strategy",
+            concept: "overconfidence",
             question: "What emotion most threatens investors in a bull market?",
             options: [
               "Greed and overconfidence",
@@ -3559,7 +3559,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim2-mastery4",
-            concept: "Bull Run Strategy",
+            concept: "rebalancing",
             question: "Why rebalance during a bull market?",
             options: [
               "To trim oversized winners and control risk",
@@ -3573,7 +3573,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim2-mastery5",
-            concept: "Bull Run Strategy",
+            concept: "bubble warning signs",
             question: "A key warning sign of a bubble is…",
             options: [
               "Prices matching real company earnings",
@@ -3587,7 +3587,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim2-mastery6",
-            concept: "Bull Run Strategy",
+            concept: "bull market discipline",
             question: "The healthiest bull-market mindset is to…",
             options: [
               "Gamble it all on the single hottest fad",
@@ -3648,7 +3648,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim3-mc1",
-            concept: "Sector Rotation",
+            concept: "market sector",
             question: "What is a market 'sector'?",
             options: [
               "A single individual company's publicly traded common stock",
@@ -3661,7 +3661,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim3-mc2",
-            concept: "Sector Rotation",
+            concept: "business cycle sectors",
             question: "Which are considered defensive sectors?",
             options: [
               "Utilities, staples, and healthcare",
@@ -3689,7 +3689,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim3-aq1",
-          concept: "Sector Rotation",
+          concept: "business cycle sectors",
           question: "As the simulated economy slows, which shift fits sector-rotation logic?",
           options: [
             "Chase last quarter's hot energy stocks",
@@ -3717,7 +3717,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim3-mastery1",
-            concept: "Sector Rotation",
+            concept: "sector rotation",
             question: "Sector rotation is the idea that…",
             options: [
               "All of the sectors always move together",
@@ -3731,7 +3731,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim3-mastery2",
-            concept: "Sector Rotation",
+            concept: "business cycle sectors",
             question: "Cyclical sectors like autos and travel tend to…",
             options: [
               "Boom in strong economies, slump in weak ones",
@@ -3745,7 +3745,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim3-mastery3",
-            concept: "Sector Rotation",
+            concept: "business cycle sectors",
             question: "Why do defensive sectors hold up in downturns?",
             options: [
               "They sell necessities people always need",
@@ -3759,7 +3759,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim3-mastery4",
-            concept: "Sector Rotation",
+            concept: "sector rotation",
             question: "Why is timing sector rotations so hard?",
             options: [
               "Sectors never once actually change at all",
@@ -3773,7 +3773,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim3-mastery5",
-            concept: "Sector Rotation",
+            concept: "performance chasing",
             question: "Chasing last quarter's winning sector often results in…",
             options: [
               "Buying high right before it cools",
@@ -3787,7 +3787,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim3-mastery6",
-            concept: "Sector Rotation",
+            concept: "diversification",
             question: "What's the practical approach for most investors?",
             options: [
               "Jump between sectors constantly",
@@ -3848,7 +3848,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim4-mc1",
-            concept: "Crisis Response",
+            concept: "crisis response",
             question: "What makes a market crisis especially dangerous for investors?",
             options: [
               "Prices can only ever rise during one",
@@ -3861,7 +3861,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim4-mc2",
-            concept: "Crisis Response",
+            concept: "market recovery",
             question: "Why is selling into the first wave of a crisis usually a mistake?",
             options: [
               "Markets often overreact then partially bounce",
@@ -3889,7 +3889,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim4-aq1",
-          concept: "Crisis Response",
+          concept: "investing rules and plans",
           question: "Following good crisis practice, what should Elena do?",
           options: [
             "Sell off everything to match the other players",
@@ -3917,7 +3917,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim4-mastery1",
-            concept: "Crisis Response",
+            concept: "crisis response",
             question: "How does a crisis differ from a slow bear market?",
             options: [
               "It arrives suddenly and feels chaotic",
@@ -3931,7 +3931,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim4-mastery2",
-            concept: "Crisis Response",
+            concept: "crisis response",
             question: "What is the single most important crisis skill?",
             options: [
               "Reacting as fast as possible",
@@ -3945,7 +3945,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim4-mastery3",
-            concept: "Crisis Response",
+            concept: "investing rules and plans",
             question: "What tool best lets you act on logic during a crisis?",
             options: [
               "A plan written in calm times",
@@ -3959,7 +3959,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim4-mastery4",
-            concept: "Crisis Response",
+            concept: "crisis response",
             question: "Why be wary of 'crisis-proof' guaranteed investments?",
             options: [
               "They always beat the broad market every time",
@@ -3973,7 +3973,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim4-mastery5",
-            concept: "Crisis Response",
+            concept: "crisis response",
             question: "What's the difference between reacting and responding?",
             options: [
               "Reacting is emotional; responding is deliberate",
@@ -3987,7 +3987,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim4-mastery6",
-            concept: "Crisis Response",
+            concept: "market recovery",
             question: "What did the 2020 COVID crash teach about crises?",
             options: [
               "Markets can never recover from any shocks",
@@ -4048,7 +4048,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim5-mc1",
-            concept: "Retirement Simulation",
+            concept: "4% rule",
             question: "What does the '4% rule' suggest?",
             options: [
               "Save exactly 4% of all your income while you are still working",
@@ -4061,7 +4061,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim5-mc2",
-            concept: "Retirement Simulation",
+            concept: "sequence of returns risk",
             question: "What is sequence-of-returns risk?",
             options: [
               "The steady danger that your fees will keep rising each and every year",
@@ -4089,7 +4089,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim5-aq1",
-          concept: "Retirement Simulation",
+          concept: "retirement cash cushion",
           question: "When the crash hits in year two, what's Priya's best move for Joe?",
           options: [
             "Sell off all of his stocks right at the bottom",
@@ -4117,7 +4117,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim5-mastery1",
-            concept: "Retirement Simulation",
+            concept: "retirement withdrawal rate",
             question: "The 'decumulation' phase means…",
             options: [
               "Adding money to your savings",
@@ -4131,7 +4131,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim5-mastery2",
-            concept: "Retirement Simulation",
+            concept: "4% rule",
             question: "Under the 4% rule, a $400,000 nest egg supports about how much in year one?",
             options: [
               "$4,000",
@@ -4145,7 +4145,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim5-mastery3",
-            concept: "Retirement Simulation",
+            concept: "inflation adjustments",
             question: "Why must retirement withdrawals grow over time?",
             options: [
               "Because inflation raises the cost of living",
@@ -4159,7 +4159,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim5-mastery4",
-            concept: "Retirement Simulation",
+            concept: "sequence of returns risk",
             question: "Why is a crash early in retirement so damaging?",
             options: [
               "Withdrawing during it locks in losses",
@@ -4173,7 +4173,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim5-mastery5",
-            concept: "Retirement Simulation",
+            concept: "retirement cash cushion",
             question: "How does a cash cushion help retirees?",
             options: [
               "It fully guarantees that the whole market rises",
@@ -4187,7 +4187,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim5-mastery6",
-            concept: "Retirement Simulation",
+            concept: "retirement withdrawal rate",
             question: "What makes a retirement plan resilient?",
             options: [
               "Carefully picking one single perfect withdrawal number",
@@ -4248,7 +4248,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim6-mc1",
-            concept: "Balanced Portfolio Build",
+            concept: "asset allocation",
             question: "What is 'asset allocation'?",
             options: [
               "Picking out the single best stock around",
@@ -4261,7 +4261,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim6-mc2",
-            concept: "Balanced Portfolio Build",
+            concept: "age-based allocation",
             question: "Why can a young investor hold mostly stocks?",
             options: [
               "Stocks simply never fall at all when you are young",
@@ -4289,7 +4289,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sim6-aq1",
-          concept: "Balanced Portfolio Build",
+          concept: "asset allocation",
           question: "Given her long horizon, which allocation best fits Tara?",
           options: [
             "All cash to avoid any risk",
@@ -4317,7 +4317,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
         questions: [
           {
             id: "sim6-mastery1",
-            concept: "Balanced Portfolio Build",
+            concept: "asset allocation",
             question: "What drives most of a portfolio's long-term results?",
             options: [
               "Picking the single best stock",
@@ -4331,7 +4331,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim6-mastery2",
-            concept: "Balanced Portfolio Build",
+            concept: "fixed income role",
             question: "What role do bonds play in a balanced portfolio?",
             options: [
               "They are the main growth engine",
@@ -4345,7 +4345,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim6-mastery3",
-            concept: "Balanced Portfolio Build",
+            concept: "diversification",
             question: "Why is diversification called a 'free lunch'?",
             options: [
               "It cuts risk without lowering expected return",
@@ -4359,7 +4359,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim6-mastery4",
-            concept: "Balanced Portfolio Build",
+            concept: "rebalancing",
             question: "What does rebalancing do?",
             options: [
               "Returns a drifted portfolio to its target mix",
@@ -4373,7 +4373,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim6-mastery5",
-            concept: "Balanced Portfolio Build",
+            concept: "index fund",
             question: "How does a broad index fund help a beginner?",
             options: [
               "It guarantees beating the market",
@@ -4387,7 +4387,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           },
           {
             id: "sim6-mastery6",
-            concept: "Balanced Portfolio Build",
+            concept: "wealth building habits",
             question: "What matters most for building wealth over decades?",
             options: [
               "Finding one genius stock pick",

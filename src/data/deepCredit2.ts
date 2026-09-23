@@ -47,7 +47,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit1-mc1",
-            concept: "What Is Credit",
+            concept: "principal vs interest",
             question: "What does 'principal' mean in a loan?",
             options: [
 "The extra fee a lender charges you for borrowing",
@@ -60,7 +60,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit1-mc2",
-            concept: "What Is Credit",
+            concept: "revolving vs installment credit",
             question: "How does revolving credit differ from installment credit?",
             options: [
 "Revolving credit refreshes as you repay it",
@@ -88,7 +88,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit1-aq1",
-          concept: "What Is Credit",
+          concept: "total cost of borrowing",
           question: "What is the smartest reason for Marcus to add up the total cost before financing the phone?",
           options: [
 "Financing offers are always a scam he should avoid in nearly all cases",
@@ -116,7 +116,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit1-mastery1",
-            concept: "What Is Credit",
+            concept: "credit definition",
             question: "What is the basic definition of credit?",
             options: [
 "Money the government simply gives you for free",
@@ -130,7 +130,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit1-mastery2",
-            concept: "What Is Credit",
+            concept: "principal vs interest",
             question: "In a loan, what is 'interest'?",
             options: [
 "The original amount of money you borrowed according to most experts",
@@ -144,7 +144,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit1-mastery3",
-            concept: "What Is Credit",
+            concept: "revolving vs installment credit",
             question: "Which is an example of installment credit?",
             options: [
 "A credit card with a reusable revolving limit",
@@ -158,7 +158,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit1-mastery4",
-            concept: "What Is Credit",
+            concept: "building credit",
             question: "Why can having no credit history be a problem?",
             options: [
 "It automatically means that you are quite rich",
@@ -172,7 +172,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit1-mastery5",
-            concept: "What Is Credit",
+            concept: "payment history",
             question: "What is the most important habit for building good credit?",
             options: [
 "Opening as many new cards as possible fast",
@@ -186,7 +186,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit1-mastery6",
-            concept: "What Is Credit",
+            concept: "credit score benefits",
             question: "Beyond loans, where else can your credit matter?",
             options: [
 "Only when buying a house",
@@ -248,7 +248,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit2-mc1",
-            concept: "Credit Scores",
+            concept: "credit score purpose",
             question: "What does a credit score mainly predict?",
             options: [
 "How wealthy a person is when you look closely",
@@ -261,7 +261,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit2-mc2",
-            concept: "Credit Scores",
+            concept: "credit utilization",
             question: "What is credit utilization?",
             options: [
 "The number of cards you own for the typical borrower",
@@ -289,7 +289,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit2-aq1",
-          concept: "Credit Scores",
+          concept: "credit score factors",
           question: "Which change would most directly raise Tanya's credit score?",
           options: [
 "Closing her only credit card entirely in real-world practice",
@@ -317,7 +317,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit2-mastery1",
-            concept: "Credit Scores",
+            concept: "credit score range",
             question: "What is the typical range of a credit score?",
             options: [
 "0 to 100",
@@ -331,7 +331,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit2-mastery2",
-            concept: "Credit Scores",
+            concept: "payment history",
             question: "Which factor has the biggest impact on your score?",
             options: [
 "The color of your credit card",
@@ -345,7 +345,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit2-mastery3",
-            concept: "Credit Scores",
+            concept: "credit utilization",
             question: "Your card limit is $1,000 and you owe $700. What's your utilization?",
             options: [
 "7%",
@@ -359,7 +359,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit2-mastery4",
-            concept: "Credit Scores",
+            concept: "credit history length",
             question: "Why might closing your oldest credit card hurt your score?",
             options: [
 "It cancels all your other cards too",
@@ -373,7 +373,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit2-mastery5",
-            concept: "Credit Scores",
+            concept: "hard vs soft inquiry",
             question: "Does checking your own credit score hurt it?",
             options: [
 "Yes, it drops 50 points each time in the fine print",
@@ -387,7 +387,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit2-mastery6",
-            concept: "Credit Scores",
+            concept: "credit card grace period",
             question: "Does carrying a balance and paying interest help your score?",
             options: [
 "Yes, it proves you can handle debt year after year",
@@ -449,7 +449,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit3-mc1",
-            concept: "FICO",
+            concept: "payment history",
             question: "Which FICO category carries the most weight?",
             options: [
 "Credit mix",
@@ -462,7 +462,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit3-mc2",
-            concept: "FICO",
+            concept: "credit score factors",
             question: "Which of these does FICO NOT consider?",
             options: [
 "Your payment history",
@@ -490,7 +490,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit3-aq1",
-          concept: "FICO",
+          concept: "credit score factors",
           question: "Which two actions target the largest share of Devin's FICO score?",
           options: [
 "Opening new cards and closing old ones",
@@ -518,7 +518,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit3-mastery1",
-            concept: "FICO",
+            concept: "FICO score",
             question: "What is FICO?",
             options: [
 "A federal government banking agency for everyday consumers",
@@ -532,7 +532,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit3-mastery2",
-            concept: "FICO",
+            concept: "payment history",
             question: "About what percent of a FICO score is payment history?",
             options: [
 "About 10%",
@@ -546,7 +546,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit3-mastery3",
-            concept: "FICO",
+            concept: "credit score factors",
             question: "Which two categories together make up most of a FICO score?",
             options: [
 "Credit mix and new credit",
@@ -560,7 +560,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit3-mastery4",
-            concept: "FICO",
+            concept: "hard vs soft inquiry",
             question: "Why space out new credit applications?",
             options: [
 "Each one erases your old accounts when the bill arrives",
@@ -574,7 +574,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit3-mastery5",
-            concept: "FICO",
+            concept: "FICO score",
             question: "How is VantageScore related to FICO?",
             options: [
 "It is the exact same score renamed",
@@ -588,7 +588,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit3-mastery6",
-            concept: "FICO",
+            concept: "credit score factors",
             question: "Can a high earner have a worse FICO score than a low earner?",
             options: [
 "No, income directly sets the score according to most experts",
@@ -650,7 +650,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit4-mc1",
-            concept: "Credit Cards",
+            concept: "credit card grace period",
             question: "How do you avoid paying any interest on a credit card?",
             options: [
 "Pay only the minimum each month if you check carefully",
@@ -663,7 +663,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit4-mc2",
-            concept: "Credit Cards",
+            concept: "secured credit card",
             question: "What is a secured credit card?",
             options: [
 "A card that comes with no spending limit at all",
@@ -691,7 +691,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit4-aq1",
-          concept: "Credit Cards",
+          concept: "credit card grace period",
           question: "What's the smartest move for Leo this month?",
           options: [
 "Pay only the $25 minimum to keep cash",
@@ -719,7 +719,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit4-mastery1",
-            concept: "Credit Cards",
+            concept: "revolving vs installment credit",
             question: "What kind of credit is a credit card?",
             options: [
 "Installment credit with fixed payments",
@@ -733,7 +733,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit4-mastery2",
-            concept: "Credit Cards",
+            concept: "minimum payment trap",
             question: "What does paying only the minimum payment do?",
             options: [
 "Clears your balance the fastest despite the marketing",
@@ -747,7 +747,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit4-mastery3",
-            concept: "Credit Cards",
+            concept: "cash advance",
             question: "Why is a cash advance usually a bad idea?",
             options: [
 "It earns you extra rewards points",
@@ -761,7 +761,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit4-mastery4",
-            concept: "Credit Cards",
+            concept: "secured credit card",
             question: "What is one benefit of a secured credit card?",
             options: [
 "It gives you an unlimited spending limit",
@@ -775,7 +775,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit4-mastery5",
-            concept: "Credit Cards",
+            concept: "credit utilization",
             question: "Why keep your reported balance low even if you pay in full?",
             options: [
 "Because paying in full is against the rules",
@@ -789,7 +789,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit4-mastery6",
-            concept: "Credit Cards",
+            concept: "credit card grace period",
             question: "Do rewards justify carrying a balance to earn them?",
             options: [
 "Yes, rewards always beat interest year after year",
@@ -892,7 +892,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit5-aq1",
-          concept: "APR vs APY",
+          concept: "debt payoff vs saving",
           question: "Given her 21% card APR and 5% savings APY, what's Priya's smartest first move?",
           options: [
 "Keep the card balance and save the $5,000",
@@ -920,7 +920,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit5-mastery1",
-            concept: "APR vs APY",
+            concept: "APR",
             question: "What does APR measure?",
             options: [
 "The yearly return on your savings",
@@ -934,7 +934,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit5-mastery2",
-            concept: "APR vs APY",
+            concept: "APY",
             question: "What does APY measure?",
             options: [
 "The yearly cost to borrow money for the typical borrower",
@@ -962,7 +962,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit5-mastery4",
-            concept: "APR vs APY",
+            concept: "APY",
             question: "Which should you compare when shopping for a savings account?",
             options: [
 "The APR of each account",
@@ -990,7 +990,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit5-mastery6",
-            concept: "APR vs APY",
+            concept: "debt payoff vs saving",
             question: "If your card charges 20% APR and savings earn 5% APY, what's smartest?",
             options: [
 "Always save before paying any debt despite the marketing",
@@ -1052,7 +1052,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit6-mc1",
-            concept: "Compound Interest on Debt",
+            concept: "compound interest on debt",
             question: "How does compound interest behave on debt?",
             options: [
 "It quietly shrinks your outstanding balance all on its own",
@@ -1065,7 +1065,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit6-mc2",
-            concept: "Compound Interest on Debt",
+            concept: "minimum payment trap",
             question: "Why do minimum payments keep you in debt so long?",
             options: [
 "They go toward paying off the principal balance first",
@@ -1093,7 +1093,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit6-aq1",
-          concept: "Compound Interest on Debt",
+          concept: "extra principal payments",
           question: "Why does paying $250 a month instead of the $60 minimum save Andre so much?",
           options: [
 "It lowers the card's APR to zero even for careful users",
@@ -1121,7 +1121,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit6-mastery1",
-            concept: "Compound Interest on Debt",
+            concept: "compound interest on debt",
             question: "What makes compound interest dangerous on debt?",
             options: [
 "It lowers your balance each month",
@@ -1135,7 +1135,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit6-mastery2",
-            concept: "Compound Interest on Debt",
+            concept: "compound interest on debt",
             question: "How often do most credit cards compound interest?",
             options: [
 "Once a year",
@@ -1149,7 +1149,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit6-mastery3",
-            concept: "Compound Interest on Debt",
+            concept: "minimum payment trap",
             question: "Where does most of a minimum payment go?",
             options: [
 "Toward reducing the principal",
@@ -1163,7 +1163,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit6-mastery4",
-            concept: "Compound Interest on Debt",
+            concept: "extra principal payments",
             question: "What does paying extra above the minimum do?",
             options: [
 "It slowly raises your interest rate as a penalty",
@@ -1177,7 +1177,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit6-mastery5",
-            concept: "Compound Interest on Debt",
+            concept: "credit card grace period",
             question: "How do you keep card interest from compounding at all?",
             options: [
 "Pay the statement balance in full monthly",
@@ -1191,7 +1191,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit6-mastery6",
-            concept: "Compound Interest on Debt",
+            concept: "debt avalanche",
             question: "If you carry several debts, which should you attack first?",
             options: [
 "The one with the lowest balance always",
@@ -1253,7 +1253,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit7-mc1",
-            concept: "Student Loans",
+            concept: "subsidized vs unsubsidized loans",
             question: "What's the difference between subsidized and unsubsidized federal loans?",
             options: [
 "Subsidized loans are gifts that never have to be repaid at all",
@@ -1266,7 +1266,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit7-mc2",
-            concept: "Student Loans",
+            concept: "student loan grace period",
             question: "What is a grace period on a federal student loan?",
             options: [
 "A stretch of time when the loan is fully forgiven for you",
@@ -1294,7 +1294,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit7-aq1",
-          concept: "Student Loans",
+          concept: "deferment and forbearance",
           question: "If Maria loses her job and can't pay, what should she do FIRST?",
           options: [
 "Stop paying and ignore the loan servicer",
@@ -1322,7 +1322,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit7-mastery1",
-            concept: "Student Loans",
+            concept: "federal vs private loans",
             question: "Why are federal student loans usually preferred over private ones?",
             options: [
 "They are always completely free for every student",
@@ -1336,7 +1336,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit7-mastery2",
-            concept: "Student Loans",
+            concept: "subsidized vs unsubsidized loans",
             question: "On an unsubsidized loan, when does interest start accruing?",
             options: [
 "Only after you have finished and graduated",
@@ -1350,7 +1350,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit7-mastery3",
-            concept: "Student Loans",
+            concept: "student loan default",
             question: "What happens when a federal loan goes into default?",
             options: [
 "The balance is quietly and automatically forgiven",
@@ -1364,7 +1364,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit7-mastery4",
-            concept: "Student Loans",
+            concept: "income-driven repayment",
             question: "What does an income-driven repayment plan do?",
             options: [
 "Forgives the whole loan after just one year",
@@ -1378,7 +1378,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit7-mastery5",
-            concept: "Student Loans",
+            concept: "student debt burden",
             question: "What's a good rule of thumb for how much to borrow?",
             options: [
 "Borrow as much as the school will offer you",
@@ -1392,7 +1392,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit7-mastery6",
-            concept: "Student Loans",
+            concept: "deferment and forbearance",
             question: "What can deferment or forbearance do during hardship?",
             options: [
 "Permanently erase the entire loan",
@@ -1454,7 +1454,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit9-mc1",
-            concept: "Auto Loans",
+            concept: "collateral",
             question: "What is the collateral on an auto loan?",
             options: [
 "Your house when the bill arrives",
@@ -1467,7 +1467,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit9-mc2",
-            concept: "Auto Loans",
+            concept: "loan term tradeoff",
             question: "What's the downside of choosing a longer loan term?",
             options: [
 "The monthly payment goes up according to most experts",
@@ -1495,7 +1495,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit9-aq1",
-          concept: "Auto Loans",
+          concept: "loan term tradeoff",
           question: "Which move saves Kevin the most money on his car?",
           options: [
 "Take the dealer's 10% financing for convenience if you check carefully",
@@ -1523,7 +1523,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit9-mastery1",
-            concept: "Auto Loans",
+            concept: "secured vs unsecured loan",
             question: "Why do auto loans usually have lower rates than credit cards?",
             options: [
 "Because cars are cheaper than shopping over the long run",
@@ -1537,7 +1537,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit9-mastery2",
-            concept: "Auto Loans",
+            concept: "negative equity",
             question: "What does being 'upside-down' on a car loan mean?",
             options: [
 "You owe more than the car is worth",
@@ -1551,7 +1551,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit9-mastery3",
-            concept: "Auto Loans",
+            concept: "loan pre-approval",
             question: "Why get pre-approved for a car loan before visiting a dealer?",
             options: [
 "It forces the dealer to lower the price based on the numbers",
@@ -1565,7 +1565,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit9-mastery4",
-            concept: "Auto Loans",
+            concept: "loan term tradeoff",
             question: "How does a longer loan term affect total interest?",
             options: [
 "It lowers total interest paid",
@@ -1579,7 +1579,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit9-mastery5",
-            concept: "Auto Loans",
+            concept: "credit score benefits",
             question: "What mostly determines the APR you're offered on a car loan?",
             options: [
 "The color of the car",
@@ -1593,7 +1593,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit9-mastery6",
-            concept: "Auto Loans",
+            concept: "total cost of borrowing",
             question: "Why be cautious about add-ons rolled into the loan?",
             options: [
 "They are always required by law",
@@ -1655,7 +1655,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit10-mc1",
-            concept: "Snowball vs Avalanche",
+            concept: "debt avalanche",
             question: "Which debt does the avalanche method target first?",
             options: [
 "The smallest balance",
@@ -1668,7 +1668,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit10-mc2",
-            concept: "Snowball vs Avalanche",
+            concept: "debt snowball",
             question: "Why do many people prefer the snowball method?",
             options: [
 "It always costs the least interest",
@@ -1696,7 +1696,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit10-aq1",
-          concept: "Snowball vs Avalanche",
+          concept: "debt avalanche",
           question: "After the $600 card, which debt does the avalanche method target next?",
           options: [
 "The $1,500 loan at 11%",
@@ -1724,7 +1724,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit10-mastery1",
-            concept: "Snowball vs Avalanche",
+            concept: "focused debt payoff",
             question: "What do the snowball and avalanche methods have in common?",
             options: [
 "Both ignore minimum payments in the fine print",
@@ -1738,7 +1738,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit10-mastery2",
-            concept: "Snowball vs Avalanche",
+            concept: "debt avalanche",
             question: "Which method minimizes total interest paid?",
             options: [
 "The snowball method",
@@ -1752,7 +1752,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit10-mastery3",
-            concept: "Snowball vs Avalanche",
+            concept: "debt snowball",
             question: "What's the main advantage of the snowball method?",
             options: [
 "It always ends debt fastest under the current rules",
@@ -1766,7 +1766,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit10-mastery4",
-            concept: "Snowball vs Avalanche",
+            concept: "focused debt payoff",
             question: "What does 'rolling' a payment mean in these methods?",
             options: [
 "Skipping a payment now and then in nearly all cases",
@@ -1780,7 +1780,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit10-mastery5",
-            concept: "Snowball vs Avalanche",
+            concept: "focused debt payoff",
             question: "Which habit supports either payoff method?",
             options: [
 "Adding new debt as you go over the long run",
@@ -1794,7 +1794,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit10-mastery6",
-            concept: "Snowball vs Avalanche",
+            concept: "snowball vs avalanche",
             question: "How should you choose between the two methods?",
             options: [
 "Always pick avalanche no matter what for the typical borrower",
@@ -1856,7 +1856,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit11-mc1",
-            concept: "Getting Out of Debt: Counseling & Negotiation",
+            concept: "debt management plan",
             question: "What is a Debt Management Plan (DMP)?",
             options: [
 "A single loan that instantly erases all of your debt at once",
@@ -1869,7 +1869,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit11-mc2",
-            concept: "Getting Out of Debt: Counseling & Negotiation",
+            concept: "debt relief scams",
             question: "Which is a red flag of a debt-relief scam?",
             options: [
 "Reviewing your budget for free even for careful users",
@@ -1897,7 +1897,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit11-aq1",
-          concept: "Getting Out of Debt: Counseling & Negotiation",
+          concept: "credit counseling",
           question: "Why was the nonprofit counselor a better choice than the for-profit company?",
           options: [
 "The nonprofit was slower to work but far more famous year after year",
@@ -1925,7 +1925,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit11-mastery1",
-            concept: "Getting Out of Debt: Counseling & Negotiation",
+            concept: "credit counseling",
             question: "What should you do first when debt feels unmanageable?",
             options: [
 "Ignore the bills until collectors call under the current rules",
@@ -1939,7 +1939,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit11-mastery2",
-            concept: "Getting Out of Debt: Counseling & Negotiation",
+            concept: "credit counseling",
             question: "What does NFCC stand for?",
             options: [
 "National Foundation for Credit Counseling",
@@ -1953,7 +1953,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit11-mastery3",
-            concept: "Getting Out of Debt: Counseling & Negotiation",
+            concept: "debt management plan",
             question: "How do payments work under a Debt Management Plan?",
             options: [
 "You yourself stop paying creditors entirely according to most experts",
@@ -1967,7 +1967,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit11-mastery4",
-            concept: "Getting Out of Debt: Counseling & Negotiation",
+            concept: "debt relief scams",
             question: "Why is being told to 'stop paying your bills' a warning sign?",
             options: [
 "It always lowers your interest rate if you check carefully",
@@ -1981,7 +1981,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit11-mastery5",
-            concept: "Getting Out of Debt: Counseling & Negotiation",
+            concept: "debt relief scams",
             question: "How can you verify a debt-relief company is legitimate?",
             options: [
 "Trust whatever their ad promises over the long run",
@@ -1995,7 +1995,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit11-mastery6",
-            concept: "Getting Out of Debt: Counseling & Negotiation",
+            concept: "debt relief scams",
             question: "For federal student-loan help, what should you know about fees?",
             options: [
 "Government repayment tools are free",
@@ -2057,7 +2057,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit12-mc1",
-            concept: "Bankruptcy: Last Resort or Fresh Start?",
+            concept: "Chapter 7 vs 13",
             question: "What is the main difference between Chapter 7 and Chapter 13?",
             options: [
 "Chapter 7 wipes most debts; Chapter 13 is a repayment plan",
@@ -2070,7 +2070,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit12-mc2",
-            concept: "Bankruptcy: Last Resort or Fresh Start?",
+            concept: "non-dischargeable debt",
             question: "Which debt generally CANNOT be discharged in bankruptcy?",
             options: [
 "Credit card balances",
@@ -2098,7 +2098,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit12-aq1",
-          concept: "Bankruptcy: Last Resort or Fresh Start?",
+          concept: "bankruptcy",
           question: "Why might someone choose a DMP over Chapter 7 even though bankruptcy wipes debt faster?",
           options: [
 "DMPs are required by law before you can get any debt relief",
@@ -2126,7 +2126,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit12-mastery1",
-            concept: "Bankruptcy: Last Resort or Fresh Start?",
+            concept: "Chapter 7 vs 13",
             question: "Which best describes Chapter 7 bankruptcy?",
             options: [
 "A 3-5 year court repayment plan for everyday consumers",
@@ -2140,7 +2140,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit12-mastery2",
-            concept: "Bankruptcy: Last Resort or Fresh Start?",
+            concept: "bankruptcy",
             question: "How long does a Chapter 7 bankruptcy stay on your credit report?",
             options: [
 "1 year",
@@ -2154,7 +2154,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit12-mastery3",
-            concept: "Bankruptcy: Last Resort or Fresh Start?",
+            concept: "automatic stay",
             question: "What does the automatic stay do when you file?",
             options: [
 "It erases your student loans in nearly all cases",
@@ -2168,7 +2168,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit12-mastery4",
-            concept: "Bankruptcy: Last Resort or Fresh Start?",
+            concept: "bankruptcy exemptions",
             question: "What does Florida's homestead exemption do in bankruptcy?",
             options: [
 "It forces you to sell your home",
@@ -2182,7 +2182,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit12-mastery5",
-            concept: "Bankruptcy: Last Resort or Fresh Start?",
+            concept: "bankruptcy",
             question: "Which situation best fits filing for bankruptcy?",
             options: [
 "A small debt a DMP could handle if you check carefully",
@@ -2196,7 +2196,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit12-mastery6",
-            concept: "Bankruptcy: Last Resort or Fresh Start?",
+            concept: "secured credit card",
             question: "Can you rebuild credit after bankruptcy?",
             options: [
 "No, your credit is ruined forever over the long run",
@@ -2258,7 +2258,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit13-mc1",
-            concept: "Mortgages: Buying a Home",
+            concept: "PITI",
             question: "What does PITI stand for in a mortgage payment?",
             options: [
 "Payment, Interest, Time, Income",
@@ -2271,7 +2271,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit13-mc2",
-            concept: "Mortgages: Buying a Home",
+            concept: "fixed vs adjustable mortgage",
             question: "What's the main difference between a fixed-rate mortgage and an ARM?",
             options: [
 "Fixed-rate changes monthly; an ARM never changes in real-world practice",
@@ -2299,7 +2299,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit13-aq1",
-          concept: "Mortgages: Buying a Home",
+          concept: "foreclosure",
           question: "What happens if the Rodriguezes miss several mortgage payments?",
           options: [
 "Nothing, since the home is already theirs",
@@ -2327,7 +2327,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit13-mastery1",
-            concept: "Mortgages: Buying a Home",
+            concept: "PMI",
             question: "What is PMI and when do you usually need it?",
             options: [
 "A tax paid yearly on every home despite the marketing",
@@ -2341,7 +2341,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit13-mastery2",
-            concept: "Mortgages: Buying a Home",
+            concept: "loan term tradeoff",
             question: "Why does a 15-year mortgage cost far less overall than a 30-year one?",
             options: [
 "The government subsidizes shorter loans",
@@ -2355,7 +2355,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit13-mastery3",
-            concept: "Mortgages: Buying a Home",
+            concept: "loan amortization",
             question: "On a brand-new 30-year mortgage, most of your first payment goes to…",
             options: [
 "Interest, because the loan is amortized",
@@ -2369,7 +2369,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit13-mastery4",
-            concept: "Mortgages: Buying a Home",
+            concept: "loan pre-approval",
             question: "Why get pre-approved before house hunting?",
             options: [
 "It removes all your closing costs year after year",
@@ -2383,7 +2383,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit13-mastery5",
-            concept: "Mortgages: Buying a Home",
+            concept: "foreclosure",
             question: "What is the consequence of repeatedly missing mortgage payments?",
             options: [
 "Your own loan is automatically forgiven",
@@ -2397,7 +2397,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit13-mastery6",
-            concept: "Mortgages: Buying a Home",
+            concept: "total cost of ownership",
             question: "Why should you budget for more than just the PITI payment?",
             options: [
 "Homes never need any repairs in nearly all cases",
@@ -2459,7 +2459,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit14-mc1",
-            concept: "Your Rights as a Credit User",
+            concept: "Truth in Lending Act",
             question: "What does the Truth in Lending Act (TILA) require?",
             options: [
 "That lenders give everyone the same rate if you check carefully",
@@ -2472,7 +2472,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit14-mc2",
-            concept: "Your Rights as a Credit User",
+            concept: "debt collection rules",
             question: "Under the FDCPA, which action is a debt collector NOT allowed to do?",
             options: [
 "Send you a letter about a debt",
@@ -2500,7 +2500,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit14-aq1",
-          concept: "Your Rights as a Credit User",
+          concept: "consumer protection agencies",
           question: "Where can Devon file a complaint about an abusive debt collector?",
           options: [
 "The local public library for the typical borrower",
@@ -2528,7 +2528,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit14-mastery1",
-            concept: "Your Rights as a Credit User",
+            concept: "Truth in Lending Act",
             question: "What must lenders disclose under the Truth in Lending Act?",
             options: [
 "Their company's yearly profits in real-world practice",
@@ -2542,7 +2542,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit14-mastery2",
-            concept: "Your Rights as a Credit User",
+            concept: "Equal Credit Opportunity Act",
             question: "What does the Equal Credit Opportunity Act (ECOA) prohibit?",
             options: [
 "Charging any interest at all once you add it up",
@@ -2556,7 +2556,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit14-mastery3",
-            concept: "Your Rights as a Credit User",
+            concept: "debt collection rules",
             question: "Which behavior does the FDCPA prohibit for debt collectors?",
             options: [
 "Sending a written notice of a debt",
@@ -2570,7 +2570,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit14-mastery4",
-            concept: "Your Rights as a Credit User",
+            concept: "Fair Credit Billing Act",
             question: "What does the Fair Credit Billing Act (FCBA) let you do?",
             options: [
 "Cancel any loan without paying it",
@@ -2584,7 +2584,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit14-mastery5",
-            concept: "Your Rights as a Credit User",
+            concept: "consumer protection agencies",
             question: "Which agency should you contact about a predatory lender or collector?",
             options: [
 "The Department of Motor Vehicles",
@@ -2598,7 +2598,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit14-mastery6",
-            concept: "Your Rights as a Credit User",
+            concept: "predatory lending",
             question: "Which is a red flag of predatory lending?",
             options: [
 "A clearly disclosed low APR in nearly all cases",
@@ -2660,7 +2660,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit15-mc1",
-            concept: "Your Free Annual Credit Report",
+            concept: "credit report",
             question: "Where do you get your official free credit report?",
             options: [
 "Any app advertising 'free credit scores'",
@@ -2673,7 +2673,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit15-mc2",
-            concept: "Your Free Annual Credit Report",
+            concept: "credit report errors",
             question: "How long do bureaus generally have to investigate a dispute?",
             options: [
 "About 30 days",
@@ -2701,7 +2701,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit15-aq1",
-          concept: "Your Free Annual Credit Report",
+          concept: "credit report errors",
           question: "What should Carlos do about the erroneous collection account?",
           options: [
 "Ignore it and hope it disappears according to most experts",
@@ -2729,7 +2729,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit15-mastery1",
-            concept: "Your Free Annual Credit Report",
+            concept: "credit report",
             question: "What is the official source for your free credit report?",
             options: [
 "AnnualCreditReport.com",
@@ -2743,7 +2743,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit15-mastery2",
-            concept: "Your Free Annual Credit Report",
+            concept: "credit bureaus",
             question: "Who are the three major credit bureaus?",
             options: [
 "Equifax, Experian, and TransUnion",
@@ -2757,7 +2757,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit15-mastery3",
-            concept: "Your Free Annual Credit Report",
+            concept: "credit report errors",
             question: "By law, how long do bureaus generally have to investigate a dispute?",
             options: [
 "About 30 days",
@@ -2771,7 +2771,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit15-mastery4",
-            concept: "Your Free Annual Credit Report",
+            concept: "credit report errors",
             question: "Which is a common credit report error to watch for?",
             options: [
 "Your name being spelled right",
@@ -2785,7 +2785,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit15-mastery5",
-            concept: "Your Free Annual Credit Report",
+            concept: "credit freeze",
             question: "What does a credit freeze do?",
             options: [
 "It raises your credit score fast",
@@ -2799,7 +2799,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit15-mastery6",
-            concept: "Your Free Annual Credit Report",
+            concept: "hard vs soft inquiry",
             question: "Does checking your own credit report hurt your score?",
             options: [
 "Yes, it drops it every time if you check carefully",
@@ -2861,7 +2861,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit16-mc1",
-            concept: "Paying for College: FAFSA, Grants & Loans",
+            concept: "grants vs loans",
             question: "Which type of college funding should you pursue FIRST?",
             options: [
 "Private loans from a bank in real-world practice",
@@ -2874,7 +2874,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit16-mc2",
-            concept: "Paying for College: FAFSA, Grants & Loans",
+            concept: "FAFSA",
             question: "What does filing the FAFSA do?",
             options: [
 "Guarantees you a full-ride scholarship based on the numbers",
@@ -2902,7 +2902,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit16-aq1",
-          concept: "Paying for College: FAFSA, Grants & Loans",
+          concept: "subsidized vs unsubsidized loans",
           question: "Why should Priya prefer subsidized loans over unsubsidized when she can?",
           options: [
 "Subsidized loans never have to be repaid",
@@ -2930,7 +2930,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit16-mastery1",
-            concept: "Paying for College: FAFSA, Grants & Loans",
+            concept: "grants vs loans",
             question: "What is the correct order of importance for college funding?",
             options: [
 "Private loans first, then grants even for careful users",
@@ -2944,7 +2944,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit16-mastery2",
-            concept: "Paying for College: FAFSA, Grants & Loans",
+            concept: "merit scholarships",
             question: "What do Bright Futures Academic Scholars generally need?",
             options: [
 "No requirements at all for everyday consumers",
@@ -2958,7 +2958,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit16-mastery3",
-            concept: "Paying for College: FAFSA, Grants & Loans",
+            concept: "subsidized vs unsubsidized loans",
             question: "What's the difference between a subsidized and unsubsidized loan?",
             options: [
 "Subsidized: the government pays interest in school",
@@ -2972,7 +2972,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit16-mastery4",
-            concept: "Paying for College: FAFSA, Grants & Loans",
+            concept: "grants vs loans",
             question: "What's the difference between a grant and a loan?",
             options: [
 "A grant is repaid; a loan is free if you check carefully",
@@ -2986,7 +2986,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit16-mastery5",
-            concept: "Paying for College: FAFSA, Grants & Loans",
+            concept: "federal vs private loans",
             question: "Why are private loans considered a last resort?",
             options: [
 "They are always interest-free over the long run",
@@ -3000,7 +3000,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit16-mastery6",
-            concept: "Paying for College: FAFSA, Grants & Loans",
+            concept: "FAFSA",
             question: "Why file the FAFSA early?",
             options: [
 "Late filers get bonus scholarships in real-world practice",
@@ -3062,7 +3062,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit17-mc1",
-            concept: "How to Apply for a Loan",
+            concept: "debt-to-income ratio",
             question: "What is a debt-to-income (DTI) ratio?",
             options: [
 "Your own savings divided by your debt even for careful users",
@@ -3075,7 +3075,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit17-mc2",
-            concept: "How to Apply for a Loan",
+            concept: "hard vs soft inquiry",
             question: "How does a hard inquiry differ from a soft inquiry?",
             options: [
 "A hard inquiry lowers your score; a soft one does not",
@@ -3103,7 +3103,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit17-aq1",
-          concept: "How to Apply for a Loan",
+          concept: "loan term tradeoff",
           question: "Why does the 48-month loan save Jasmine about $1,800 despite higher payments?",
           options: [
 "Because shorter terms charge no interest under the current rules",
@@ -3131,7 +3131,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit17-mastery1",
-            concept: "How to Apply for a Loan",
+            concept: "loan application process",
             question: "What do lenders mainly try to figure out when you apply?",
             options: [
 "How much you like their bank",
@@ -3145,7 +3145,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit17-mastery2",
-            concept: "How to Apply for a Loan",
+            concept: "debt-to-income ratio",
             question: "What DTI do lenders generally like to see?",
             options: [
 "Under about 36%",
@@ -3159,7 +3159,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit17-mastery3",
-            concept: "How to Apply for a Loan",
+            concept: "hard vs soft inquiry",
             question: "What does a hard inquiry usually do to your score?",
             options: [
 "Raises it by about 20 points",
@@ -3173,7 +3173,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit17-mastery4",
-            concept: "How to Apply for a Loan",
+            concept: "loan application process",
             question: "Which documents does a lender typically require?",
             options: [
 "A birth certificate and diploma over the long run",
@@ -3187,7 +3187,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit17-mastery5",
-            concept: "How to Apply for a Loan",
+            concept: "prepayment penalty",
             question: "Why should you avoid a loan with a prepayment penalty?",
             options: [
 "It rewards you for paying early once you add it up",
@@ -3201,7 +3201,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit17-mastery6",
-            concept: "How to Apply for a Loan",
+            concept: "hard vs soft inquiry",
             question: "How can you rate-shop for a car loan without extra score damage?",
             options: [
 "Apply once a year for five years",
@@ -3263,7 +3263,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit18-mc1",
-            concept: "Federal vs Private Student Loans",
+            concept: "federal vs private loans",
             question: "What's a key advantage of federal student loans over private ones?",
             options: [
 "They never charge any interest in the fine print",
@@ -3276,7 +3276,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit18-mc2",
-            concept: "Federal vs Private Student Loans",
+            concept: "cosigner",
             question: "Why do private student loans usually require a co-signer?",
             options: [
 "Because federal law requires two names for everyday consumers",
@@ -3304,7 +3304,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "credit18-aq1",
-          concept: "Federal vs Private Student Loans",
+          concept: "cosigner",
           question: "Before taking the private loan, what's the most important thing for Marcus to check?",
           options: [
 "The bank's logo and website design under the current rules",
@@ -3332,7 +3332,7 @@ export const deepCredit2: StructuredLessonContent[] = [
         questions: [
           {
             id: "credit18-mastery1",
-            concept: "Federal vs Private Student Loans",
+            concept: "federal vs private loans",
             question: "Who makes federal student loans?",
             options: [
 "Private banks and credit unions",
@@ -3346,7 +3346,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit18-mastery2",
-            concept: "Federal vs Private Student Loans",
+            concept: "subsidized vs unsubsidized loans",
             question: "On a Direct Subsidized loan, who pays interest while you're in school?",
             options: [
 "You do, from day one",
@@ -3360,7 +3360,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit18-mastery3",
-            concept: "Federal vs Private Student Loans",
+            concept: "federal vs private loans",
             question: "What is a common feature of private student loans?",
             options: [
 "Guaranteed federal forgiveness according to most experts",
@@ -3374,7 +3374,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit18-mastery4",
-            concept: "Federal vs Private Student Loans",
+            concept: "federal vs private loans",
             question: "What is the smart order for using loans to pay for college?",
             options: [
 "Private first, then federal loans if you check carefully",
@@ -3388,7 +3388,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit18-mastery5",
-            concept: "Federal vs Private Student Loans",
+            concept: "cosigner",
             question: "What responsibility does a private-loan co-signer take on?",
             options: [
 "Only advising the student over the long run",
@@ -3402,7 +3402,7 @@ export const deepCredit2: StructuredLessonContent[] = [
           },
           {
             id: "credit18-mastery6",
-            concept: "Federal vs Private Student Loans",
+            concept: "non-dischargeable debt",
             question: "Why should you borrow student loans carefully?",
             options: [
 "They double automatically each year",

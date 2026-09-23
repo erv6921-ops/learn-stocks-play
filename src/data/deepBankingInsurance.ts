@@ -47,7 +47,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking1-mc1",
-            concept: "Checking vs Savings",
+            concept: "checking vs savings",
             question: "Which account is designed mainly for everyday spending?",
             options: [
               "A savings account with a high APY",
@@ -60,7 +60,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking1-mc2",
-            concept: "Checking vs Savings",
+            concept: "checking vs savings",
             question: "Why do savings accounts pay more interest than checking accounts?",
             options: [
               "They reward you for leaving money parked",
@@ -88,7 +88,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking1-aq1",
-          concept: "Checking vs Savings",
+          concept: "checking vs savings",
           question: "What is the BEST reason for Devon to move laptop money into a separate savings account?",
           options: [
             "Savings accounts never charge any fees at all",
@@ -116,7 +116,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking1-mastery1",
-            concept: "Checking vs Savings",
+            concept: "high-yield savings",
             question: "You have $3,000 you won't need for a year. Where does it earn the most?",
             options: [
               "In your everyday checking account",
@@ -130,7 +130,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking1-mastery2",
-            concept: "Checking vs Savings",
+            concept: "checking vs savings",
             question: "What is the main tradeoff of a savings account versus checking?",
             options: [
               "Higher interest but less instant spending access",
@@ -144,7 +144,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking1-mastery3",
-            concept: "Checking vs Savings",
+            concept: "monthly maintenance fee",
             question: "Your bank waives its $10 monthly fee if you set up direct deposit. Doing so saves you…",
             options: [
               "About $120 over a full year",
@@ -158,7 +158,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking1-mastery4",
-            concept: "Checking vs Savings",
+            concept: "APY",
             question: "What does APY tell you when comparing savings accounts?",
             options: [
               "How many free ATMs the bank owns",
@@ -172,7 +172,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking1-mastery5",
-            concept: "Checking vs Savings",
+            concept: "automated saving",
             question: "'Paying yourself first' means…",
             options: [
               "Spending your paycheck before bills arrive in most cases",
@@ -186,7 +186,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking1-mastery6",
-            concept: "Checking vs Savings",
+            concept: "overdraft fee",
             question: "You keep too little in checking and overspend by $20. What likely happens?",
             options: [
               "The bank ignores it with no charge over the years",
@@ -247,7 +247,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking2-mc1",
-            concept: "How Banks Make Money",
+            concept: "bank spread",
             question: "What is a bank's 'spread'?",
             options: [
               "The number of branches it operates in most cases",
@@ -260,7 +260,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking2-mc2",
-            concept: "How Banks Make Money",
+            concept: "bank fee income",
             question: "How does 'interchange' earn a bank money?",
             options: [
               "The bank charges you a fee for saving",
@@ -288,7 +288,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking2-aq1",
-          concept: "How Banks Make Money",
+          concept: "bank spread",
           question: "Given how banks profit, what is Sam's smartest response as a customer?",
           options: [
             "Never use a bank or a debit card again",
@@ -316,7 +316,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking2-mastery1",
-            concept: "How Banks Make Money",
+            concept: "bank spread",
             question: "A bank pays 0.5% on deposits and lends at 7%. Its spread is…",
             options: [
               "7.5%, adding the two rates together in most cases",
@@ -330,7 +330,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking2-mastery2",
-            concept: "How Banks Make Money",
+            concept: "fractional reserve banking",
             question: "Under fractional reserve banking, a bank…",
             options: [
               "Keeps every deposit locked in a vault",
@@ -344,7 +344,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking2-mastery3",
-            concept: "How Banks Make Money",
+            concept: "bank fee income",
             question: "Why can a bank offer 'free' checking and still profit?",
             options: [
               "The government pays banks to be free over the years",
@@ -358,7 +358,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking2-mastery4",
-            concept: "How Banks Make Money",
+            concept: "fractional reserve banking",
             question: "A 'bank run' is dangerous because…",
             options: [
               "The bank earns too much interest at once",
@@ -372,7 +372,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking2-mastery5",
-            concept: "How Banks Make Money",
+            concept: "overdraft fee",
             question: "Which fee can you almost always avoid with good habits?",
             options: [
               "Interchange charged on your card swipe",
@@ -386,7 +386,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking2-mastery6",
-            concept: "How Banks Make Money",
+            concept: "bank spread",
             question: "The best customer strategy given the bank's spread is to…",
             options: [
               "Borrow as much as possible at any rate",
@@ -447,7 +447,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking3-mc1",
-            concept: "FDIC",
+            concept: "FDIC coverage limit",
             question: "What is the standard FDIC coverage limit?",
             options: [
               "$250,000 per depositor, per insured bank, per category",
@@ -460,7 +460,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking3-mc2",
-            concept: "FDIC",
+            concept: "FDIC insured vs uninsured",
             question: "Which of these does the FDIC NOT insure?",
             options: [
               "Money in an insured savings account",
@@ -488,7 +488,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking3-aq1",
-          concept: "FDIC",
+          concept: "FDIC insured vs uninsured",
           question: "Based on FDIC rules, which statement about Aisha's money is correct?",
           options: [
             "Her crypto in the app is fully insured too",
@@ -516,7 +516,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking3-mastery1",
-            concept: "FDIC",
+            concept: "FDIC insurance",
             question: "Why was the FDIC created back in 1933?",
             options: [
               "To set the interest rates every bank must pay",
@@ -530,7 +530,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking3-mastery2",
-            concept: "FDIC",
+            concept: "FDIC coverage limit",
             question: "You have $300,000 in one single checking account at an insured bank. How much is protected?",
             options: [
               "The full $300,000, no limit applies",
@@ -544,7 +544,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking3-mastery3",
-            concept: "FDIC",
+            concept: "FDIC insured vs uninsured",
             question: "A bank sells you a mutual fund. Is it FDIC-insured?",
             options: [
               "Yes, anything bought at a bank is insured",
@@ -558,7 +558,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking3-mastery4",
-            concept: "FDIC",
+            concept: "NCUA",
             question: "Credit unions get equivalent deposit insurance from which agency?",
             options: [
               "The FDIC, the very same one",
@@ -572,7 +572,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking3-mastery5",
-            concept: "FDIC",
+            concept: "FDIC insurance",
             question: "How do you pay for FDIC coverage on your account?",
             options: [
               "A monthly premium taken from savings over the years",
@@ -586,7 +586,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking3-mastery6",
-            concept: "FDIC",
+            concept: "FDIC insured vs uninsured",
             question: "An app offers 6% on 'cash.' What should you verify first?",
             options: [
               "Whether the founders seem trustworthy online",
@@ -647,7 +647,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking4-mc1",
-            concept: "Interest",
+            concept: "compound interest",
             question: "How does a typical savings account usually pay compound interest?",
             options: [
               "It compounds once at year-end only",
@@ -660,7 +660,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking4-mc2",
-            concept: "Interest",
+            concept: "APR vs APY",
             question: "When shopping for a savings account, which number do you want highest?",
             options: [
               "The APR on the account",
@@ -688,7 +688,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking4-aq1",
-          concept: "Interest",
+          concept: "high-yield savings",
           question: "Given her possible school-trip cost, which choice fits Nina best?",
           options: [
             "Keep it at 0.5% since it feels familiar",
@@ -716,7 +716,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking4-mastery1",
-            concept: "Interest",
+            concept: "APY",
             question: "An account quoted at 5% and compounded daily earns, over a full year, about…",
             options: [
               "Less than 5% because daily is slower",
@@ -730,7 +730,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking4-mastery2",
-            concept: "Interest",
+            concept: "APY",
             question: "Why is comparing accounts by APY better than by a plain 'rate'?",
             options: [
               "APY hides the compounding to look smaller",
@@ -744,7 +744,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking4-mastery3",
-            concept: "Interest",
+            concept: "starting early",
             question: "Which factor most helps a teen's savings grow large?",
             options: [
               "A fancy debit card design",
@@ -758,7 +758,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking4-mastery4",
-            concept: "Interest",
+            concept: "APR vs APY",
             question: "APR is the number you care about most when…",
             options: [
               "Opening a high-yield savings account over the years",
@@ -772,7 +772,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking4-mastery5",
-            concept: "Interest",
+            concept: "interest rate comparison",
             question: "A big bank offers 0.4% APY and an online bank offers 4.5% APY, both insured. On $5,000 the online bank earns roughly…",
             options: [
               "$20 versus $225 - about $205 more",
@@ -786,7 +786,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking4-mastery6",
-            concept: "Interest",
+            concept: "APR vs APY",
             question: "Why can no savings APY beat carrying a high-APR credit card balance?",
             options: [
               "Savings APYs are illegal above 4%",
@@ -847,7 +847,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking5-mc1",
-            concept: "Online vs Traditional",
+            concept: "online vs traditional bank",
             question: "Why can online banks usually offer higher interest than traditional banks?",
             options: [
               "They take bigger risks with your money in most cases",
@@ -860,7 +860,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking5-mc2",
-            concept: "Online vs Traditional",
+            concept: "online vs traditional bank",
             question: "Which is a real advantage of a traditional bank?",
             options: [
               "It always pays the highest savings APY",
@@ -888,7 +888,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking5-aq1",
-          concept: "Online vs Traditional",
+          concept: "online vs traditional bank",
           question: "What setup best fits Tariq's cash tips and desire for high interest?",
           options: [
             "Keep everything at the low-rate traditional bank",
@@ -916,7 +916,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking5-mastery1",
-            concept: "Online vs Traditional",
+            concept: "online vs traditional bank",
             question: "Between an FDIC-insured online bank and traditional bank, which is safer?",
             options: [
               "The traditional bank, since it has branches",
@@ -930,7 +930,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking5-mastery2",
-            concept: "Online vs Traditional",
+            concept: "online vs traditional bank",
             question: "You handle a lot of physical cash. Which bank type fits better?",
             options: [
               "An online bank with no branches at all",
@@ -944,7 +944,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking5-mastery3",
-            concept: "Online vs Traditional",
+            concept: "ATM fees",
             question: "How do many online banks solve limited ATM access?",
             options: [
               "They ban all ATM withdrawals entirely",
@@ -958,7 +958,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking5-mastery4",
-            concept: "Online vs Traditional",
+            concept: "online vs traditional bank",
             question: "For an online bank, why does app quality matter so much?",
             options: [
               "The app is basically your only branch",
@@ -972,7 +972,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking5-mastery5",
-            concept: "Online vs Traditional",
+            concept: "online vs traditional bank",
             question: "A smart way to get the best of both bank types is to…",
             options: [
               "Stay fully loyal to one big bank forever",
@@ -986,7 +986,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking5-mastery6",
-            concept: "Online vs Traditional",
+            concept: "bank account comparison",
             question: "Besides APY, what else should you compare between banks?",
             options: [
               "Only the color of the debit card",
@@ -1047,7 +1047,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking6-mc1",
-            concept: "Direct Deposit",
+            concept: "direct deposit",
             question: "What two numbers do you give an employer to set up direct deposit?",
             options: [
               "Your PIN and your Social Security number",
@@ -1060,7 +1060,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking6-mc2",
-            concept: "Direct Deposit",
+            concept: "automated saving",
             question: "How does splitting a direct deposit help you save?",
             options: [
               "It doubles your paycheck automatically in most cases",
@@ -1088,7 +1088,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking6-aq1",
-          concept: "Direct Deposit",
+          concept: "automated saving",
           question: "Which of Grace's choices best builds a savings habit with little effort?",
           options: [
             "Cashing paper checks and saving leftovers",
@@ -1116,7 +1116,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking6-mastery1",
-            concept: "Direct Deposit",
+            concept: "direct deposit",
             question: "Direct deposit moves your pay using which system?",
             options: [
               "The stock exchange trading floor",
@@ -1130,7 +1130,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking6-mastery2",
-            concept: "Direct Deposit",
+            concept: "direct deposit",
             question: "A key money benefit of direct deposit over paper checks is…",
             options: [
               "It guarantees you a bigger paycheck",
@@ -1144,7 +1144,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking6-mastery3",
-            concept: "Direct Deposit",
+            concept: "direct deposit",
             question: "You set up direct deposit but your first pay is still a paper check. Why?",
             options: [
               "The setup usually takes a cycle or two",
@@ -1158,7 +1158,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking6-mastery4",
-            concept: "Direct Deposit",
+            concept: "phishing",
             question: "A 'job' texts asking for your bank login to set up pay. You should…",
             options: [
               "Send it quickly so pay starts on time",
@@ -1172,7 +1172,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking6-mastery5",
-            concept: "Direct Deposit",
+            concept: "overdraft fee",
             question: "Why keep a cushion in checking after automating bill-pay?",
             options: [
               "So automatic payments don't cause overdrafts",
@@ -1186,7 +1186,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking6-mastery6",
-            concept: "Direct Deposit",
+            concept: "automated saving",
             question: "Which pairs best with direct deposit for a hands-off money system?",
             options: [
               "Cashing every check at a fee-charging store",
@@ -1247,7 +1247,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking7-mc1",
-            concept: "Overdrafts",
+            concept: "overdraft fee",
             question: "What triggers an overdraft fee?",
             options: [
               "Earning too much interest on savings",
@@ -1260,7 +1260,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking7-mc2",
-            concept: "Overdrafts",
+            concept: "overdraft opt-out",
             question: "What's the free way to avoid overdraft fees on debit purchases?",
             options: [
               "Opt out so short purchases are declined",
@@ -1288,7 +1288,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking7-aq1",
-          concept: "Overdrafts",
+          concept: "overdraft opt-out",
           question: "What's Malik's best plan to prevent future overdraft fees?",
           options: [
             "Keep coverage on and hope he remembers",
@@ -1316,7 +1316,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking7-mastery1",
-            concept: "Overdrafts",
+            concept: "overdraft fee",
             question: "You have $10 and swipe for $25 with coverage on. What likely happens?",
             options: [
               "The purchase is free and rewarded over the years",
@@ -1330,7 +1330,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking7-mastery2",
-            concept: "Overdrafts",
+            concept: "overdraft fee",
             question: "Why can one low-balance afternoon cost multiple fees?",
             options: [
               "Fees stack once per calendar year",
@@ -1344,7 +1344,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking7-mastery3",
-            concept: "Overdrafts",
+            concept: "overdraft opt-out",
             question: "Opting OUT of overdraft coverage means a too-large purchase will…",
             options: [
               "Go through with a discounted fee",
@@ -1358,7 +1358,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking7-mastery4",
-            concept: "Overdrafts",
+            concept: "account monitoring",
             question: "Which habit best warns you before an overdraft?",
             options: [
               "Ignoring your balance until payday",
@@ -1372,7 +1372,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking7-mastery5",
-            concept: "Overdrafts",
+            concept: "account monitoring",
             question: "Your 'available' balance can be lower than expected because…",
             options: [
               "The bank hides money to earn interest",
@@ -1386,7 +1386,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking7-mastery6",
-            concept: "Overdrafts",
+            concept: "overdraft fee",
             question: "You got your first-ever overdraft fee. A smart first step is to…",
             options: [
               "Accept it silently and move on over the years",
@@ -1447,7 +1447,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking8-mc1",
-            concept: "Fraud & Security",
+            concept: "phishing",
             question: "Your 'bank' texts a link asking you to verify your login now. You should…",
             options: [
               "Click the link and enter your password in most cases",
@@ -1460,7 +1460,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking8-mc2",
-            concept: "Fraud & Security",
+            concept: "payment app scam",
             question: "Why do scammers prefer Zelle, wires, or gift cards?",
             options: [
               "Those transfers earn them loyalty points",
@@ -1488,7 +1488,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking8-aq1",
-          concept: "Fraud & Security",
+          concept: "phishing",
           question: "What should Zoe do when the caller asks for the code and a Zelle transfer?",
           options: [
             "Read the code but refuse the transfer in most cases",
@@ -1516,7 +1516,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking8-mastery1",
-            concept: "Fraud & Security",
+            concept: "phishing",
             question: "A caller claiming to be your bank asks you to read back a texted code. This is…",
             options: [
               "Normal bank verification you should allow over the years",
@@ -1530,7 +1530,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking8-mastery2",
-            concept: "Fraud & Security",
+            concept: "two-factor authentication",
             question: "The single best defense against a stolen password is…",
             options: [
               "Writing the password on a sticky note",
@@ -1544,7 +1544,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking8-mastery3",
-            concept: "Fraud & Security",
+            concept: "password reuse",
             question: "Why is reusing your email password on your bank risky?",
             options: [
               "It makes logins slower each time",
@@ -1558,7 +1558,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking8-mastery4",
-            concept: "Fraud & Security",
+            concept: "fraud liability",
             question: "You spot a $40 charge you didn't make. The best first step is to…",
             options: [
               "Wait a month to see if it repeats",
@@ -1572,7 +1572,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking8-mastery5",
-            concept: "Fraud & Security",
+            concept: "phishing",
             question: "Which sign most strongly suggests a message is a scam?",
             options: [
               "It uses your bank's real logo image",
@@ -1586,7 +1586,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking8-mastery6",
-            concept: "Fraud & Security",
+            concept: "public Wi-Fi risk",
             question: "Logging into your bank on open public Wi-Fi is risky because…",
             options: [
               "It uses up your monthly data plan",
@@ -1647,7 +1647,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking9-mc1",
-            concept: "IRAs, Roth IRAs & 529 Plans",
+            concept: "traditional vs Roth IRA",
             question: "What's the key difference between a traditional and a Roth IRA?",
             options: [
               "Roth is only for people over age 60",
@@ -1660,7 +1660,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking9-mc2",
-            concept: "IRAs, Roth IRAs & 529 Plans",
+            concept: "529 plan",
             question: "A 529 plan's tax-free withdrawals apply to…",
             options: [
               "Any purchase you want to make",
@@ -1688,7 +1688,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking9-aq1",
-          concept: "IRAs, Roth IRAs & 529 Plans",
+          concept: "traditional vs Roth IRA",
           question: "Which account best fits Isaiah's low tax bracket and decades-long horizon?",
           options: [
             "A regular low-interest savings account in most cases",
@@ -1716,7 +1716,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking9-mastery1",
-            concept: "IRAs, Roth IRAs & 529 Plans",
+            concept: "traditional vs Roth IRA",
             question: "Why is a Roth IRA usually best for a low-income teen?",
             options: [
               "It hands out free money each year",
@@ -1730,7 +1730,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking9-mastery2",
-            concept: "IRAs, Roth IRAs & 529 Plans",
+            concept: "IRA contribution rules",
             question: "What is required to contribute to an IRA?",
             options: [
               "A minimum age of forty years",
@@ -1744,7 +1744,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking9-mastery3",
-            concept: "IRAs, Roth IRAs & 529 Plans",
+            concept: "529 plan",
             question: "Using 529 money on a non-education expense results in…",
             options: [
               "A bonus tax refund from the state",
@@ -1758,7 +1758,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking9-mastery4",
-            concept: "IRAs, Roth IRAs & 529 Plans",
+            concept: "Roth IRA",
             question: "A special flexibility of a Roth IRA is that you can…",
             options: [
               "Withdraw all growth anytime tax-free in most cases",
@@ -1772,7 +1772,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking9-mastery5",
-            concept: "IRAs, Roth IRAs & 529 Plans",
+            concept: "529 plan",
             question: "You're saving specifically for a child's college. Which account fits best?",
             options: [
               "A traditional IRA for the tax break",
@@ -1786,7 +1786,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking9-mastery6",
-            concept: "IRAs, Roth IRAs & 529 Plans",
+            concept: "tax-advantaged accounts",
             question: "The biggest takeaway about these accounts is that…",
             options: [
               "Only wealthy adults are allowed to use them",
@@ -1847,7 +1847,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking10-mc1",
-            concept: "Your Employer's 401k & Benefits",
+            concept: "employer 401k match",
             question: "Why is capturing your full 401(k) employer match so important?",
             options: [
               "It lowers your health insurance premium in most cases",
@@ -1860,7 +1860,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking10-mc2",
-            concept: "Your Employer's 401k & Benefits",
+            concept: "vesting",
             question: "What does 'vesting' affect in a 401(k)?",
             options: [
               "When the employer's match is fully yours",
@@ -1888,7 +1888,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "banking10-aq1",
-          concept: "Your Employer's 401k & Benefits",
+          concept: "employer 401k match",
           question: "What should Renee do about her 401(k) to avoid leaving money behind?",
           options: [
             "Skip it entirely for a bigger paycheck over the years",
@@ -1916,7 +1916,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "banking10-mastery1",
-            concept: "Your Employer's 401k & Benefits",
+            concept: "employer 401k match",
             question: "Your employer matches 100% up to 5% of pay. Contributing 5% means…",
             options: [
               "You lose 5% of your paycheck for nothing",
@@ -1930,7 +1930,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking10-mastery2",
-            concept: "Your Employer's 401k & Benefits",
+            concept: "vesting",
             question: "You leave a job before you're fully vested. What happens to the match?",
             options: [
               "You keep every dollar of it anyway",
@@ -1944,7 +1944,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking10-mastery3",
-            concept: "Your Employer's 401k & Benefits",
+            concept: "employee benefits",
             question: "Why is employer health insurance usually cheaper than buying your own?",
             options: [
               "It offers worse coverage to save money over the years",
@@ -1958,7 +1958,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking10-mastery4",
-            concept: "Your Employer's 401k & Benefits",
+            concept: "employee benefits",
             question: "When comparing two job offers, you should compare…",
             options: [
               "Only the headline salary number in most cases",
@@ -1972,7 +1972,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking10-mastery5",
-            concept: "Your Employer's 401k & Benefits",
+            concept: "401k",
             question: "What can you do with a 401(k) when you change jobs?",
             options: [
               "Nothing; it's frozen forever in place in most cases",
@@ -1986,7 +1986,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "banking10-mastery6",
-            concept: "Your Employer's 401k & Benefits",
+            concept: "HSA",
             question: "A key advantage of an HSA within your benefits is that it…",
             options: [
               "Must be spent fully before year end",
@@ -2047,7 +2047,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins1-mc1",
-            concept: "What Is Insurance & Why You Need It",
+            concept: "risk pooling",
             question: "What is the core idea behind how insurance works?",
             options: [
               "One person pays for everyone else's luxuries in most cases as a rule",
@@ -2060,7 +2060,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins1-mc2",
-            concept: "What Is Insurance & Why You Need It",
+            concept: "insurance purpose",
             question: "Which risk is worth insuring?",
             options: [
               "A $30 pair of headphones",
@@ -2088,7 +2088,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins1-aq1",
-          concept: "What Is Insurance & Why You Need It",
+          concept: "insurance purpose",
           question: "Which spending choice reflects smart insurance thinking for Tessa?",
           options: [
             "Buy the earbud warranty, skip auto insurance in most cases",
@@ -2116,7 +2116,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins1-mastery1",
-            concept: "What Is Insurance & Why You Need It",
+            concept: "risk pooling",
             question: "Insurance turns a rare, ruinous event into…",
             options: [
               "A guaranteed profit for the customer",
@@ -2130,7 +2130,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins1-mastery2",
-            concept: "What Is Insurance & Why You Need It",
+            concept: "risk pooling",
             question: "Why does risk pooling work across many people?",
             options: [
               "Everyone files a claim every single year",
@@ -2144,7 +2144,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins1-mastery3",
-            concept: "What Is Insurance & Why You Need It",
+            concept: "insurance purpose",
             question: "Which is generally NOT worth insuring?",
             options: [
               "Your health against a major illness",
@@ -2158,7 +2158,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins1-mastery4",
-            concept: "What Is Insurance & Why You Need It",
+            concept: "liability coverage",
             question: "Which type of insurance is legally required to drive?",
             options: [
               "Renters insurance for your apartment",
@@ -2172,7 +2172,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins1-mastery5",
-            concept: "What Is Insurance & Why You Need It",
+            concept: "insurance purpose",
             question: "You pay premiums for years and never file a claim. This means…",
             options: [
               "You wasted all that money for nothing over the years",
@@ -2186,7 +2186,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins1-mastery6",
-            concept: "What Is Insurance & Why You Need It",
+            concept: "insurance purpose",
             question: "Going without insurance to save on premiums mainly…",
             options: [
               "Removes the underlying risk entirely in most cases",
@@ -2247,7 +2247,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins2-mc1",
-            concept: "How Insurance Works: Premiums & Payouts",
+            concept: "deductible",
             question: "What is a deductible?",
             options: [
               "The monthly fee to keep coverage active",
@@ -2260,7 +2260,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins2-mc2",
-            concept: "How Insurance Works: Premiums & Payouts",
+            concept: "premium vs deductible",
             question: "If you choose a higher deductible, your premium usually…",
             options: [
               "Goes up because coverage improves in most cases",
@@ -2288,7 +2288,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins2-aq1",
-          concept: "How Insurance Works: Premiums & Payouts",
+          concept: "premium vs deductible",
           question: "Given her emergency fund and clean record, which policy likely fits Lena best?",
           options: [
             "Option B, to avoid ever paying a deductible",
@@ -2316,7 +2316,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins2-mastery1",
-            concept: "How Insurance Works: Premiums & Payouts",
+            concept: "deductible",
             question: "You cause $3,000 of damage with a $500 deductible. Who pays what?",
             options: [
               "You pay $3,000; the insurer pays nothing",
@@ -2330,7 +2330,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins2-mastery2",
-            concept: "How Insurance Works: Premiums & Payouts",
+            concept: "copay",
             question: "What does a co-pay refer to in health insurance?",
             options: [
               "A percentage you pay after the deductible in most cases",
@@ -2344,7 +2344,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins2-mastery3",
-            concept: "How Insurance Works: Premiums & Payouts",
+            concept: "out-of-pocket maximum",
             question: "Your health plan's out-of-pocket maximum means that once you hit it…",
             options: [
               "Your premium instantly drops to zero in most cases",
@@ -2358,7 +2358,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins2-mastery4",
-            concept: "How Insurance Works: Premiums & Payouts",
+            concept: "coverage limit",
             question: "Your policy's coverage limit is $20,000 but you lose $30,000. You receive…",
             options: [
               "The full $30,000 you actually lost in most cases",
@@ -2372,7 +2372,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins2-mastery5",
-            concept: "How Insurance Works: Premiums & Payouts",
+            concept: "premium factors",
             question: "Why might you NOT file a claim for a small loss just above your deductible?",
             options: [
               "Filing is illegal for small amounts in most cases",
@@ -2386,7 +2386,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins2-mastery6",
-            concept: "How Insurance Works: Premiums & Payouts",
+            concept: "insurance policy comparison",
             question: "When comparing policies, a cheap premium can be misleading if…",
             options: [
               "The deductible and limits are unfavorable",
@@ -2447,7 +2447,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins3-mc1",
-            concept: "Auto Insurance",
+            concept: "liability coverage",
             question: "What does liability coverage pay for?",
             options: [
               "Repairs to your own car after a crash",
@@ -2460,7 +2460,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins3-mc2",
-            concept: "Auto Insurance",
+            concept: "premium factors",
             question: "Which factor most raises a young driver's premium?",
             options: [
               "Being a teen with little experience",
@@ -2488,7 +2488,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins3-aq1",
-          concept: "Auto Insurance",
+          concept: "liability coverage",
           question: "What's the smartest coverage choice for Amara beyond the bare legal minimum?",
           options: [
             "Drop collision to save on the loan",
@@ -2516,7 +2516,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins3-mastery1",
-            concept: "Auto Insurance",
+            concept: "collision vs comprehensive",
             question: "Which coverage pays to repair YOUR car after a crash you caused?",
             options: [
               "Bodily injury liability coverage",
@@ -2530,7 +2530,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins3-mastery2",
-            concept: "Auto Insurance",
+            concept: "collision vs comprehensive",
             question: "Comprehensive coverage would pay for which event?",
             options: [
               "You rear-end another car at a light",
@@ -2544,7 +2544,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins3-mastery3",
-            concept: "Auto Insurance",
+            concept: "state minimum coverage",
             question: "As a 'no-fault' state, Florida requires drivers to carry…",
             options: [
               "Only bodily injury liability coverage",
@@ -2558,7 +2558,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins3-mastery4",
-            concept: "Auto Insurance",
+            concept: "liability coverage",
             question: "Why should you buy more than Florida's minimum bodily injury coverage?",
             options: [
               "The state secretly fines minimum buyers in most cases",
@@ -2572,7 +2572,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins3-mastery5",
-            concept: "Auto Insurance",
+            concept: "premium factors",
             question: "Which action would most likely LOWER your auto premium?",
             options: [
               "Getting a speeding ticket this year",
@@ -2586,7 +2586,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins3-mastery6",
-            concept: "Auto Insurance",
+            concept: "insurance policy comparison",
             question: "When shopping for auto insurance, you should compare quotes that…",
             options: [
               "Have the lowest premium no matter what",
@@ -2647,7 +2647,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins4-mc1",
-            concept: "Renters & Homeowners Insurance",
+            concept: "renters insurance",
             question: "What does renters insurance NOT cover?",
             options: [
               "Your belongings damaged by a fire",
@@ -2660,7 +2660,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins4-mc2",
-            concept: "Renters & Homeowners Insurance",
+            concept: "replacement cost vs ACV",
             question: "Why choose 'replacement cost' over 'actual cash value'?",
             options: [
               "It pays for a new equivalent item",
@@ -2688,7 +2688,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins4-aq1",
-          concept: "Renters & Homeowners Insurance",
+          concept: "renters insurance",
           question: "What key mistake did Noah make about renters insurance?",
           options: [
             "He bought coverage he didn't actually need",
@@ -2716,7 +2716,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins4-mastery1",
-            concept: "Renters & Homeowners Insurance",
+            concept: "renters insurance",
             question: "Who insures the building your rented apartment is in?",
             options: [
               "You, through renters insurance in most cases",
@@ -2730,7 +2730,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins4-mastery2",
-            concept: "Renters & Homeowners Insurance",
+            concept: "liability coverage",
             question: "A guest slips and is injured in your apartment. Which coverage helps?",
             options: [
               "Additional living expenses coverage in most cases",
@@ -2744,7 +2744,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins4-mastery3",
-            concept: "Renters & Homeowners Insurance",
+            concept: "homeowners insurance",
             question: "Homeowners dwelling coverage should be set to…",
             options: [
               "The home's current market sale price",
@@ -2758,7 +2758,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins4-mastery4",
-            concept: "Renters & Homeowners Insurance",
+            concept: "policy exclusions",
             question: "Which is typically EXCLUDED from a standard home or renters policy?",
             options: [
               "Fire and smoke damage",
@@ -2772,7 +2772,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins4-mastery5",
-            concept: "Renters & Homeowners Insurance",
+            concept: "coverage limit",
             question: "A $5,000 diamond ring may need a 'rider' because…",
             options: [
               "Rings can never be insured normally",
@@ -2786,7 +2786,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins4-mastery6",
-            concept: "Renters & Homeowners Insurance",
+            concept: "premium factors",
             question: "Which step best lowers a homeowners premium?",
             options: [
               "Filing many small claims each year",
@@ -2847,7 +2847,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins5-mc1",
-            concept: "Health Insurance",
+            concept: "out-of-pocket maximum",
             question: "What does the out-of-pocket maximum do?",
             options: [
               "Sets your monthly premium amount in most cases",
@@ -2860,7 +2860,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins5-mc2",
-            concept: "Health Insurance",
+            concept: "health insurance network",
             question: "Why does staying 'in-network' matter?",
             options: [
               "In-network care uses lower negotiated prices",
@@ -2888,7 +2888,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins5-aq1",
-          concept: "Health Insurance",
+          concept: "high-deductible health plan",
           question: "Given her health and emergency fund, which plan likely fits Maya best?",
           options: [
             "The low-deductible, higher-premium plan in most cases",
@@ -2916,7 +2916,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins5-mastery1",
-            concept: "Health Insurance",
+            concept: "deductible",
             question: "Your plan has a $2,000 deductible. This means you…",
             options: [
               "Never pay anything for medical care",
@@ -2930,7 +2930,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins5-mastery2",
-            concept: "Health Insurance",
+            concept: "coinsurance",
             question: "Coinsurance of 20% means that after your deductible, you pay…",
             options: [
               "A flat $20 for every visit over the years",
@@ -2944,7 +2944,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins5-mastery3",
-            concept: "Health Insurance",
+            concept: "high-deductible health plan",
             question: "A high-deductible health plan is usually best for someone who is…",
             options: [
               "Chronically ill and sees many specialists",
@@ -2958,7 +2958,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins5-mastery4",
-            concept: "Health Insurance",
+            concept: "health insurance network",
             question: "Going out-of-network for a non-emergency usually means…",
             options: [
               "The care is completely free to you",
@@ -2972,7 +2972,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins5-mastery5",
-            concept: "Health Insurance",
+            concept: "Affordable Care Act",
             question: "Under the Affordable Care Act, plans must…",
             options: [
               "Charge everyone the exact same premium",
@@ -2986,7 +2986,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins5-mastery6",
-            concept: "Health Insurance",
+            concept: "health insurance sources",
             question: "A common way for a 23-year-old to get affordable coverage is to…",
             options: [
               "Wait until they turn 30 to enroll",
@@ -3047,7 +3047,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins6-mc1",
-            concept: "Life & Disability Insurance",
+            concept: "life insurance purpose",
             question: "Who most needs life insurance?",
             options: [
               "A single teen with no dependents in most cases",
@@ -3060,7 +3060,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins6-mc2",
-            concept: "Life & Disability Insurance",
+            concept: "disability insurance",
             question: "What does disability insurance protect?",
             options: [
               "Your ability to earn income",
@@ -3088,7 +3088,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins6-aq1",
-          concept: "Life & Disability Insurance",
+          concept: "term vs whole life",
           question: "What's the most cost-effective, well-rounded choice for Priya?",
           options: [
             "Buy whole life and skip disability coverage in most cases",
@@ -3116,7 +3116,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins6-mastery1",
-            concept: "Life & Disability Insurance",
+            concept: "life insurance purpose",
             question: "The main purpose of life insurance is to…",
             options: [
               "Grow your retirement savings in most cases",
@@ -3130,7 +3130,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins6-mastery2",
-            concept: "Life & Disability Insurance",
+            concept: "term vs whole life",
             question: "Why is term life usually better than whole life for most families?",
             options: [
               "It lasts your entire life no matter what",
@@ -3144,7 +3144,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins6-mastery3",
-            concept: "Life & Disability Insurance",
+            concept: "premium factors",
             question: "When is the best time to buy term life insurance?",
             options: [
               "After you retire and stop working",
@@ -3158,7 +3158,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins6-mastery4",
-            concept: "Life & Disability Insurance",
+            concept: "disability insurance",
             question: "Disability insurance typically replaces about…",
             options: [
               "100% of your salary indefinitely in most cases",
@@ -3172,7 +3172,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins6-mastery5",
-            concept: "Life & Disability Insurance",
+            concept: "disability insurance",
             question: "Why do experts say disability insurance is often overlooked but important?",
             options: [
               "Disability is impossible to ever recover from in most cases",
@@ -3186,7 +3186,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins6-mastery6",
-            concept: "Life & Disability Insurance",
+            concept: "beneficiary",
             question: "A key detail to name and keep updated on a life policy is the…",
             options: [
               "Color scheme of the policy documents",
@@ -3247,7 +3247,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins7-mc1",
-            concept: "Identity Theft: Prevention & Recovery",
+            concept: "credit freeze",
             question: "What is a free, effective way to prevent new-credit identity theft?",
             options: [
               "Sharing your SSN to verify accounts over the years",
@@ -3260,7 +3260,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins7-mc2",
-            concept: "Identity Theft: Prevention & Recovery",
+            concept: "identity theft",
             question: "Which is a warning sign of identity theft?",
             options: [
               "Your credit report shows accounts you never opened",
@@ -3288,7 +3288,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins7-aq1",
-          concept: "Identity Theft: Prevention & Recovery",
+          concept: "identity theft recovery",
           question: "What is Marcus's best first step after finding the fraudulent account?",
           options: [
             "Wait a few months to see if it disappears",
@@ -3316,7 +3316,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins7-mastery1",
-            concept: "Identity Theft: Prevention & Recovery",
+            concept: "identity theft",
             question: "Identity theft can harm you by allowing thieves to…",
             options: [
               "Raise the interest on your savings over the years",
@@ -3330,7 +3330,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins7-mastery2",
-            concept: "Identity Theft: Prevention & Recovery",
+            concept: "credit freeze",
             question: "A credit freeze mainly protects you by…",
             options: [
               "Erasing all your existing debt over the years",
@@ -3344,7 +3344,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins7-mastery3",
-            concept: "Identity Theft: Prevention & Recovery",
+            concept: "password reuse",
             question: "Which habit best reduces your risk of identity theft?",
             options: [
               "Reusing the same password on every site",
@@ -3358,7 +3358,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins7-mastery4",
-            concept: "Identity Theft: Prevention & Recovery",
+            concept: "identity theft recovery",
             question: "Which official site helps you report and recover from identity theft?",
             options: [
               "A random link texted by an unknown number",
@@ -3372,7 +3372,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins7-mastery5",
-            concept: "Identity Theft: Prevention & Recovery",
+            concept: "fraud liability",
             question: "Why does reporting identity theft quickly matter?",
             options: [
               "It doubles your bank's interest rate in most cases",
@@ -3386,7 +3386,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins7-mastery6",
-            concept: "Identity Theft: Prevention & Recovery",
+            concept: "identity theft recovery",
             question: "After discovering fraud, the correct first action is to…",
             options: [
               "Delete all your bank apps immediately in most cases",
@@ -3447,7 +3447,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins8-mc1",
-            concept: "Wills, Inheritance & Financial Planning",
+            concept: "wills",
             question: "What happens if you die without a will?",
             options: [
               "Your assets vanish and go to no one",
@@ -3460,7 +3460,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins8-mc2",
-            concept: "Wills, Inheritance & Financial Planning",
+            concept: "beneficiary",
             question: "Which document overrides your will for that account?",
             options: [
               "A beneficiary designation on a 401(k)",
@@ -3488,7 +3488,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "ins8-aq1",
-          concept: "Wills, Inheritance & Financial Planning",
+          concept: "starting early",
           question: "What gives Owen the single biggest long-term financial advantage?",
           options: [
             "Buying large life insurance right now in most cases",
@@ -3516,7 +3516,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
         questions: [
           {
             id: "ins8-mastery1",
-            concept: "Wills, Inheritance & Financial Planning",
+            concept: "wills",
             question: "Besides directing assets, a will is crucial for parents because it…",
             options: [
               "Guarantees their kids inherit millions in most cases",
@@ -3530,7 +3530,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins8-mastery2",
-            concept: "Wills, Inheritance & Financial Planning",
+            concept: "power of attorney",
             question: "A power of attorney is useful because it lets someone…",
             options: [
               "Inherit your estate before you die",
@@ -3544,7 +3544,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins8-mastery3",
-            concept: "Wills, Inheritance & Financial Planning",
+            concept: "step-up in basis",
             question: "The 'step-up in basis' on inherited assets mainly…",
             options: [
               "Increases the estate tax you owe",
@@ -3558,7 +3558,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins8-mastery4",
-            concept: "Wills, Inheritance & Financial Planning",
+            concept: "financial planning steps",
             question: "Which is the correct early order in a financial plan?",
             options: [
               "Invest first, then never save any cash",
@@ -3572,7 +3572,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins8-mastery5",
-            concept: "Wills, Inheritance & Financial Planning",
+            concept: "insurance purpose",
             question: "How does insurance fit into a long-term financial plan?",
             options: [
               "It replaces the need to save or invest",
@@ -3586,7 +3586,7 @@ export const deepBankingInsurance: StructuredLessonContent[] = [
           },
           {
             id: "ins8-mastery6",
-            concept: "Wills, Inheritance & Financial Planning",
+            concept: "starting early",
             question: "The single biggest driver of long-term wealth for a teen is…",
             options: [
               "Picking one perfect hot stock",

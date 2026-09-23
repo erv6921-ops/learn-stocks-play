@@ -7,6 +7,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-1-tu1",
+        concept: "ETF",
         question: "What does the 'exchange-traded' part of an ETF's name tell you?",
         options: [
           "It is bought and sold on an exchange like a stock",
@@ -19,6 +20,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-1-tu2",
+        concept: "diversification",
         question: "Priya wants exposure to hundreds of companies but can only afford one share. How does an ETF help?",
         options: [
           "It guarantees her a locked-in profit on that single share",
@@ -36,6 +38,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-2-tu1",
+        concept: "NAV",
         question: "How is a mutual fund's NAV per share calculated?",
         options: [
           "By the manager's gut-feel guess each morning before open",
@@ -48,6 +51,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-2-tu2",
+        concept: "active vs passive investing",
         question: "Why do many investors pay higher fees for an actively managed mutual fund?",
         options: [
           "The manager tries to pick investments that beat a benchmark",
@@ -65,6 +69,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-3-tu1",
+        concept: "expense ratio",
         question: "A fund charges a 0.50% expense ratio. What does that cost on a $1,000 balance each year?",
         options: [
           "Fifty dollars every year",
@@ -77,6 +82,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-3-tu2",
+        concept: "expense ratio",
         question: "Two funds track the same index; one charges 0.05% and one charges 0.90%. What is the reliable difference between them?",
         options: [
           "The pricier fund secretly holds safer, higher-quality stocks",
@@ -94,6 +100,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-4-tu1",
+        concept: "index fund",
         question: "What is the basic job of an index fund's strategy?",
         options: [
           "To replicate its target index by holding the same securities",
@@ -106,6 +113,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-4-tu2",
+        concept: "tracking error",
         question: "Devon expects an index fund to exactly match its index but it lagged by about 0.15%. What most likely caused that small gap?",
         options: [
           "The manager secretly bought different off-index stocks",
@@ -123,6 +131,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-5-tu1",
+        concept: "S&P 500",
         question: "Roughly how much of the total US stock market's value do the S&P 500 companies represent?",
         options: [
           "About ten percent",
@@ -135,6 +144,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-5-tu2",
+        concept: "market-cap weighting",
         question: "Because the S&P 500 is market-cap weighted, how much does a giant like Apple affect the index versus the smallest member?",
         options: [
           "Exactly the same, since every company is equal",
@@ -152,6 +162,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-6-tu1",
+        concept: "core and satellite",
         question: "In a 'core and satellite' approach, what size should a sector ETF position usually be?",
         options: [
           "A smaller satellite position around a broad core",
@@ -164,6 +175,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-6-tu2",
+        concept: "sector ETF",
         question: "A technology sector ETF holds many tech firms. How does that change company-specific risk compared with owning one tech stock?",
         options: [
           "It removes all technology industry risk entirely",
@@ -181,6 +193,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-7-tu1",
+        concept: "bond fund vs bond",
         question: "Why does a typical bond ETF never really mature the way a single bond does?",
         options: [
           "It locks its share value in place until one fixed future date",
@@ -193,6 +206,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-7-tu2",
+        concept: "Treasury bond",
         question: "Which specialized bond ETF would an investor pick for the safest, government-backed holdings?",
         options: [
           "A Treasury bond ETF",
@@ -210,6 +224,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-8-tu1",
+        concept: "glide path",
         question: "As a target-date fund's glide path progresses toward its target year, how does its mix change?",
         options: [
           "It shifts gradually from stock-heavy toward bond-heavy",
@@ -222,6 +237,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-8-tu2",
+        concept: "target-date fund",
         question: "Maya, 17, is confident she is far more risk-tolerant than average. What fair criticism of target-date funds applies to her?",
         options: [
           "The funds hold far too few underlying investments to diversify",
@@ -239,6 +255,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-9-tu1",
+        concept: "tracking error",
         question: "What does a low 'tracking error' tell you about an index fund?",
         options: [
           "The fund made a typo in its documents",
@@ -251,6 +268,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-9-tu2",
+        concept: "fund comparison",
         question: "Why is judging a small-cap fund against the S&P 500 a poor comparison?",
         options: [
           "The S&P 500 changes its membership rules every single week",
@@ -268,6 +286,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "funds-10-tu1",
+        concept: "time horizon",
         question: "Sam has money he will need in about six months for a trip. Where should it go?",
         options: [
           "An aggressive small-cap growth stock index fund",
@@ -280,6 +299,7 @@ export const topUp8Etfs: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "funds-10-tu2",
+        concept: "when to use funds",
         question: "What is the FIRST question to ask before choosing any fund?",
         options: [
           "What goal and timeline is this money for?",

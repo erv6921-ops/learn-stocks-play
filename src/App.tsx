@@ -132,6 +132,24 @@ function ActivityTracker() {
     if (!prev || prev.path !== location.pathname) lastRef.current = { path: location.pathname, t: now };
   }, [location.pathname, user, isTeacher]);
 
+  // Flush the in-progress page view when the tab is hidden or closed. Route-
+  // change flushing alone never fires for a session spent inside one lesson, so
+  // that time was invisible to teachers. The timer re-arms so a tab that comes
+  // back counts from now instead of double-counting the flushed stretch.
+  useEffect(() => {
+    if (!user || isTeacher) return;
+    const flush = () => {
+      const cur = lastRef.current;
+      if (!cur) return;
+      const now = Date.now();
+      if (now - cur.t < 1000) return;
+      logActivity(user.id, "page_view", { route: cur.path, durationMs: now - cur.t });
+      lastRef.current = { path: cur.path, t: now };
+    };
+    window.addEventListener("pagehide", flush);
+    return () => window.removeEventListener("pagehide", flush);
+  }, [user, isTeacher]);
+
   useEffect(() => {
     if (!user || isTeacher) return;
     const id = setInterval(() => {

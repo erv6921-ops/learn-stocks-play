@@ -399,9 +399,21 @@ interface JeffChatProps {
   onQuizReady: () => void
   /** Student closed the stage (progress is saved). */
   onClose: () => void
+  /**
+   * Review mode ("Reread with Jeff" from a failed mastery check): opens on the
+   * full transcript, never saves, never re-requests a turn, and the only
+   * action is "Back to the mastery check" (which calls onClose).
+   */
+  reviewMode?: boolean
+  /**
+   * Pays the in-chat quick check. `key` is stable per quick check so the
+   * lesson run can record it idempotently. Defaults to earnJeffs (the
+   * curriculum player has no run record).
+   */
+  onCoins?: (amount: number, reason: string, key: string) => void
 }
 
-export default function JeffChat({ lesson, script = [], source, mustCover, vocabulary, chatKey, onQuizReady, onClose }: JeffChatProps) {
+export default function JeffChat({ lesson, script = [], source, mustCover, vocabulary, chatKey, onQuizReady, onClose, reviewMode = false, onCoins }: JeffChatProps) {
   const storageKey = chatKey ?? lesson.id
   // Deeper, longer teaching for the Gulliver Intro academic course.
   const deep = isDeepLesson(lesson)
@@ -420,7 +432,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   const [done, setDone] = useState<boolean>(() => loadChat(storageKey)?.done ?? false)
   const [scriptIdx, setScriptIdx] = useState<number>(() => loadChat(storageKey)?.scriptIdx ?? 0)
   const [thinking, setThinking] = useState(false)
-  const [showHistory, setShowHistory] = useState(false)
+  const [showHistory, setShowHistory] = useState(reviewMode)
   const [skit, setSkit] = useState<Skit>(SKITS[0])
 
   // Interrupter ("quick check") state. `interrupter` holds the generated
@@ -430,7 +442,23 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   const { earnJeffs } = useApp()
   const [interrupter, setInterrupter] = useState<Interrupter | null>(null)
   const [interrupterLoading, setInterrupterLoading] = useState(false)
+  // Briefly shown when a quick check times out or comes back unusable, so the
+  // card doesn't silently vanish into reply pills.
+  const [quickCheckSkipped, setQuickCheckSkipped] = useState(false)
   const interruptCounterRef = useRef(0)
+  // The live jeff-chat call dropped and Jeff is teaching from the scripted notes.
+  // Shows a banner with a Retry that re-attempts the same turn.
+  const [liveDropped, setLiveDropped] = useState(false)
+  // The conversation last handed to requestReply, so Retry re-runs that turn.
+  const lastConvoRef = useRef<ChatMessage[]>([])
+  // Stable key of the quick check currently on screen (set when it fires), so
+  // its payout is recorded once in the lesson run even if this component
+  // remounts while the card is up.
+  const interrupterKeyRef = useRef("")
+  const payQuickCheck = (amount: number, reason: string) => {
+    if (onCoins) onCoins(amount, reason, interrupterKeyRef.current || `qc:${storageKey}:${messages.length}`)
+    else earnJeffs(amount, reason)
+  }
 
   // Pick a fresh skit whenever thinking starts, and rotate to a new one
   // every few seconds if the AI takes its time - keeps Jeff feeling alive.
@@ -457,9 +485,10 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   // paths that could still land on an empty option set, and it pairs with the
   // resume-recovery effect below that heals snapshots already stranded on disk.
   useEffect(() => {
+    if (reviewMode) return // read-only: never touch the saved conversation
     if (options.length === 0 && !done) return
     saveChat(storageKey, { messages, options, done, scriptIdx })
-  }, [storageKey, messages, options, done, scriptIdx])
+  }, [storageKey, messages, options, done, scriptIdx, reviewMode])
 
   // What's on stage right now.
   const current = [...messages].reverse().find(m => m.role === "assistant")?.content ?? ""
@@ -479,6 +508,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   // the student can never be stranded with nothing to tap. Shared by send()
   // and the resume-recovery effect below.
   const requestReply = async (convo: ChatMessage[]) => {
+    lastConvoRef.current = convo // remembered so the fallback banner's Retry can re-run this turn
     setThinking(true)
     const minDelay = new Promise(r => setTimeout(r, 800)) // let the think pose land
 
@@ -488,6 +518,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
         minDelay,
       ])
       setThinking(false)
+      setLiveDropped(false) // live call is back - clear any "teaching from notes" banner
       // Hard stop: if the AI ignores its message budget, force the wrap-up so no
       // lesson chat drags on forever. Deep (Gulliver) lessons get more headroom.
       const jeffCount = convo.filter(m => m.role === "assistant").length + 1
@@ -512,7 +543,13 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
           setOptions(safeOptions)
         }
       }
-    } catch {
+    } catch (err) {
+      // The live jeff-chat call dropped. Log it (with any HTTP status) and flag
+      // the banner, but KEEP teaching from the scripted notes below so the
+      // lesson never dead-ends.
+      const status = (err as { status?: number; code?: number })?.status ?? (err as { code?: number })?.code
+      console.error("[jeff-chat] live turn failed", status != null ? `status=${status}` : "(no status)", err)
+      setLiveDropped(true)
       await minDelay
       setThinking(false)
       if (scriptIdx < script.length) {
@@ -550,30 +587,56 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   // least 800ms (so it reads as intentional, not slow) and at most 3s; if
   // generation fails or times out we silently fall back to the normal reply
   // options and the lesson continues as if no interrupter fired.
+  // A quick check couldn't be produced (timed out, generator returned null, or
+  // threw). Show one honest "Skipping this one" line for a beat, THEN restore
+  // the reply pills - so the card never silently morphs into options.
+  const skipQuickCheck = (fallbackOptions: string[]) => {
+    setInterrupterLoading(false)
+    setInterrupter(null)
+    setQuickCheckSkipped(true)
+    window.setTimeout(() => {
+      setQuickCheckSkipped(false)
+      setOptions(fallbackOptions)
+    }, 1400)
+  }
+
   const fireInterrupter = async (jeffText: string, fallbackOptions: string[]) => {
+    interrupterKeyRef.current = `qc:${storageKey}:${jeffTurns + 1}`
+    setQuickCheckSkipped(false)
     setInterrupterLoading(true)
     const type = randomInterrupterType()
     const minDelay = new Promise(r => setTimeout(r, 800))
     // Generous ceiling: Supabase edge functions can cold-start slowly, so a
     // tight cap would make the very first quick-check of a session always miss.
-    const timeout = new Promise<null>(r => setTimeout(() => r(null), 8000))
+    const timeout = new Promise<null>(r => setTimeout(() => r(null), 15000))
+    // Ground the check in Jeff's last few messages and the lesson's own text,
+    // so the activity is about exactly what he just taught (the generator
+    // appends jeffText itself as the message the check must be about).
+    const recentJeffMessages = messages
+      .filter(m => m.role === "assistant" && !isSystemNote(m.content))
+      .map(m => m.content)
+      .slice(-3)
     try {
       const generated = await Promise.race([
         (async () => {
-          const [gen] = await Promise.all([generateInterrupter(lesson, jeffText, type), minDelay])
+          const [gen] = await Promise.all([
+            generateInterrupter(lesson, jeffText, type, { recentJeffMessages, source }),
+            minDelay,
+          ])
           return gen
         })(),
         timeout,
       ])
-      setInterrupterLoading(false)
+      // Null = timed out or the generator rejected an unusable result: skip
+      // visibly rather than dropping straight to reply pills.
       if (generated) {
+        setInterrupterLoading(false)
         setInterrupter(generated)
       } else {
-        setOptions(fallbackOptions)
+        skipQuickCheck(fallbackOptions)
       }
     } catch {
-      setInterrupterLoading(false)
-      setOptions(fallbackOptions)
+      skipQuickCheck(fallbackOptions)
     }
   }
 
@@ -588,6 +651,16 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
     await requestReply(nextMessages)
   }
 
+  // Fallback banner's Retry: re-attempt the live turn that dropped. Drop the
+  // scripted stand-in message we appended so a successful live reply replaces
+  // it cleanly instead of doubling the beat.
+  const retryLive = () => {
+    if (thinking) return
+    setLiveDropped(false)
+    setMessages(prev => (prev.length && prev[prev.length - 1].role === "assistant" ? prev.slice(0, -1) : prev))
+    void requestReply(lastConvoRef.current.length ? lastConvoRef.current : messages)
+  }
+
   // Resume recovery (runs once on mount): if a *previous* session left a saved
   // dead-end - a reply that was tapped but never answered (last message is the
   // student's, with no options and not done) - re-issue that turn so Jeff
@@ -595,7 +668,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   // already stranded in localStorage from before the save guard above existed.
   const recoveredRef = useRef(false)
   useEffect(() => {
-    if (recoveredRef.current) return
+    if (recoveredRef.current || reviewMode) return
     recoveredRef.current = true
     const last = messages[messages.length - 1]
     if (!done && options.length === 0 && last?.role === "user") {
@@ -620,7 +693,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
       {/* ── Top bar: lesson + progress dots + close ── */}
       <div className="relative z-10 flex items-center gap-3 px-4 py-3 shrink-0">
         <div className="flex-1 min-w-0">
-          <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-primary/70">Jeff's class</p>
+          <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-primary/70">{reviewMode ? "Rereading Jeff's class" : "Jeff's class"}</p>
           <p className="font-display font-extrabold text-foreground truncate">{lesson.title}</p>
         </div>
         <div className="flex items-center gap-1.5" aria-label="Lesson progress">
@@ -649,8 +722,8 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
             reopening the lesson later resumes Jeff's class where it left off. */}
         <button
           onClick={onClose}
-          aria-label="Exit lesson"
-          title="Exit lesson"
+          aria-label={reviewMode ? "Back to the mastery check" : "Exit lesson"}
+          title={reviewMode ? "Back to the mastery check" : "Exit lesson"}
           className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:bg-black/5 transition-colors"
         >
           <X className="w-4.5 h-4.5" />
@@ -759,7 +832,25 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
       {/* ── Bottom: choice buttons OR the quiz button ── */}
       <div className="relative z-10 shrink-0 px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white/70 backdrop-blur-md border-t border-border/60">
         <div className="max-w-3xl mx-auto">
-          {done ? (
+          {/* Live connection dropped: Jeff falls back to the scripted notes, but
+              offer a Retry to reconnect. */}
+          {liveDropped && !reviewMode && !done && (
+            <div className="mb-2 flex items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2">
+              <span className="flex-1 text-[13px] font-medium text-amber-700">Jeff's live connection dropped — teaching from notes</span>
+              <Button size="sm" variant="outline" className="h-8 shrink-0" disabled={thinking} onClick={retryLive}>
+                Retry
+              </Button>
+            </div>
+          )}
+          {reviewMode ? (
+            /* Rereading before a mastery retry: the transcript is the content;
+               the only way out is straight back to the mastery check. */
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+              <Button size="lg" onClick={onClose} className="w-full text-base font-bold press-scale h-12">
+                Back to the mastery check →
+              </Button>
+            </motion.div>
+          ) : done ? (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <Button size="lg" onClick={onQuizReady} className="w-full text-base font-bold press-scale h-12">
                 Take the Quiz →
@@ -768,12 +859,21 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
           ) : (interrupterLoading || interrupter) ? (
             /* Quick check: the reply pills go quiet and the activity card slides
                up in their place until the student taps Continue. */
-            <JeffInterrupter
-              interrupter={interrupter}
-              loading={interrupterLoading}
-              onCoins={earnJeffs}
-              onComplete={resumeAfterInterrupter}
-            />
+            <>
+              {interrupterLoading && (
+                <p className="text-center text-xs font-semibold text-muted-foreground pb-2">Loading a quick check…</p>
+              )}
+              <JeffInterrupter
+                interrupter={interrupter}
+                loading={interrupterLoading}
+                onCoins={payQuickCheck}
+                onComplete={resumeAfterInterrupter}
+              />
+            </>
+          ) : quickCheckSkipped ? (
+            /* The quick check couldn't be produced - say so briefly, then the
+               reply pills return (see skipQuickCheck). */
+            <p className="text-center text-sm text-muted-foreground py-4">Skipping this one</p>
           ) : (
             <div className="grid gap-2 min-h-[3rem]">
               {!thinking && options.map((opt, i) => (

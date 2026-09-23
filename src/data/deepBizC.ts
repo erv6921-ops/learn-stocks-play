@@ -51,7 +51,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr1-mc1",
-            concept: "Why Market Research Matters",
+            concept: "market research purpose",
             question: "What is the main purpose of market research?",
             options: [
               "To reduce risk by learning about customers and demand before spending big",
@@ -64,7 +64,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr1-mc2",
-            concept: "Why Market Research Matters",
+            concept: "market research purpose",
             question: "Why is 'you are not your customer' an important research idea?",
             options: [
               "Because founders are legally banned from buying their own products",
@@ -92,7 +92,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr1-aq1",
-          concept: "Why Market Research Matters",
+          concept: "market research purpose",
           question: "Based on his research, what is the smartest conclusion for Leo?",
           options: [
               "Sign the lease immediately since he personally loves bubble tea",
@@ -120,7 +120,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr1-mastery1",
-            concept: "Why Market Research Matters",
+            concept: "market research purpose",
             question: "A founder signs a two-year lease before checking demand. What risk does research help avoid?",
             options: [
               "Paying taxes on early profits",
@@ -134,7 +134,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr1-mastery2",
-            concept: "Why Market Research Matters",
+            concept: "market research purpose",
             question: "Which best describes what strong market research does to a vague idea?",
             options: [
               "It makes the idea sound more impressive to friends",
@@ -148,7 +148,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr1-mastery3",
-            concept: "Why Market Research Matters",
+            concept: "market research purpose",
             question: "Why should research be treated as ongoing rather than a one-time task?",
             options: [
               "Because surveys expire after exactly one year by law",
@@ -162,7 +162,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr1-mastery4",
-            concept: "Why Market Research Matters",
+            concept: "market research purpose",
             question: "How does research improve marketing spending?",
             options: [
               "It shows where your audience spends time, so ads reach them",
@@ -176,7 +176,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr1-mastery5",
-            concept: "Why Market Research Matters",
+            concept: "market research purpose",
             question: "A survey shows 70 of 100 users value delivery over variety. How should this guide the business?",
             options: [
               "Ignore it and add more product variety anyway",
@@ -190,7 +190,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr1-mastery6",
-            concept: "Why Market Research Matters",
+            concept: "market research purpose",
             question: "Which statement best captures the core value of market research?",
             options: [
               "It replaces 'I think' with 'the data shows'",
@@ -252,7 +252,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr2-mc1",
-            concept: "Primary Research Methods",
+            concept: "research method selection",
             question: "Which primary research method is best for getting countable numbers from many people quickly?",
             options: [
               "A one-on-one interview",
@@ -265,7 +265,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr2-mc2",
-            concept: "Primary Research Methods",
+            concept: "survey design",
             question: "Why is a 'leading question' a problem in a survey?",
             options: [
               "It takes too long for people to read",
@@ -293,7 +293,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr2-aq1",
-          concept: "Primary Research Methods",
+          concept: "qualitative vs quantitative research",
           question: "Why is combining a survey with interviews smarter than using either alone?",
           options: [
               "It doubles the number of friends she can include",
@@ -321,7 +321,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr2-mastery1",
-            concept: "Primary Research Methods",
+            concept: "primary research",
             question: "What defines primary research?",
             options: [
               "Data someone else already published in a report",
@@ -335,7 +335,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr2-mastery2",
-            concept: "Primary Research Methods",
+            concept: "research method selection",
             question: "A researcher wants to understand the deep emotions behind a customer complaint. Which method fits best?",
             options: [
               "A 500-person survey",
@@ -349,7 +349,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr2-mastery3",
-            concept: "Primary Research Methods",
+            concept: "focus group",
             question: "What is the main weakness of a focus group?",
             options: [
               "It can never produce any useful ideas",
@@ -363,7 +363,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr2-mastery4",
-            concept: "Primary Research Methods",
+            concept: "sample bias",
             question: "Why can surveying only five close friends ruin your results?",
             options: [
               "Friends are legally barred from surveys",
@@ -377,7 +377,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr2-mastery5",
-            concept: "Primary Research Methods",
+            concept: "observational research",
             question: "Which situation is observation best suited for?",
             options: [
               "Measuring exact national income levels",
@@ -391,7 +391,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr2-mastery6",
-            concept: "Primary Research Methods",
+            concept: "observational research",
             question: "A brand hears parents say they want 'healthy,' but kids grab the cartoon box. What does this show?",
             options: [
               "Stated preferences can differ from real behavior",
@@ -453,7 +453,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr3-mc1",
-            concept: "Secondary Research",
+            concept: "secondary research",
             question: "What best describes secondary research?",
             options: [
               "Data you collect yourself through surveys",
@@ -466,7 +466,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr3-mc2",
-            concept: "Secondary Research",
+            concept: "secondary source evaluation",
             question: "Which is a key risk of relying on secondary data?",
             options: [
               "It is always far too expensive to obtain",
@@ -494,7 +494,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr3-aq1",
-          concept: "Secondary Research",
+          concept: "primary vs secondary research",
           question: "After his secondary research, what should Devon do next?",
           options: [
               "Open immediately, since the data is fully complete",
@@ -522,7 +522,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr3-mastery1",
-            concept: "Secondary Research",
+            concept: "secondary research",
             question: "Which is an example of a secondary research source?",
             options: [
               "A survey you personally hand out today",
@@ -536,7 +536,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr3-mastery2",
-            concept: "Secondary Research",
+            concept: "primary vs secondary research",
             question: "Why should a founder usually do secondary research before primary?",
             options: [
               "Primary research is always illegal to do first",
@@ -550,7 +550,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr3-mastery3",
-            concept: "Secondary Research",
+            concept: "secondary source evaluation",
             question: "A company funded a study praising its own product. Why be cautious?",
             options: [
               "Funded studies are always accurate",
@@ -564,7 +564,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr3-mastery4",
-            concept: "Secondary Research",
+            concept: "secondary source evaluation",
             question: "Why can national average data mislead a local business?",
             options: [
               "National data is always fake",
@@ -578,7 +578,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr3-mastery5",
-            concept: "Secondary Research",
+            concept: "primary vs secondary research",
             question: "Which pairing best describes how the two research types work together?",
             options: [
               "Primary is the wide lens; secondary is the zoom",
@@ -592,7 +592,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr3-mastery6",
-            concept: "Secondary Research",
+            concept: "secondary source evaluation",
             question: "A report you find is from 2016. What is the wisest move?",
             options: [
               "Treat its numbers with caution and seek newer data",
@@ -654,7 +654,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr4-mc1",
-            concept: "Qualitative vs Quantitative",
+            concept: "qualitative vs quantitative research",
             question: "Which is an example of quantitative data?",
             options: [
               "A customer saying the app 'feels confusing'",
@@ -667,7 +667,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr4-mc2",
-            concept: "Qualitative vs Quantitative",
+            concept: "qualitative vs quantitative research",
             question: "What does qualitative research add that numbers alone cannot?",
             options: [
               "A precise percentage of all customers",
@@ -695,7 +695,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr4-aq1",
-          concept: "Qualitative vs Quantitative",
+          concept: "qualitative vs quantitative research",
           question: "How did combining both data types help Aisha most?",
           options: [
               "The numbers alone told her exactly why sales fell",
@@ -723,7 +723,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr4-mastery1",
-            concept: "Qualitative vs Quantitative",
+            concept: "qualitative vs quantitative research",
             question: "Which statement best distinguishes the two data types?",
             options: [
               "Quantitative is about words; qualitative is about numbers",
@@ -737,7 +737,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr4-mastery2",
-            concept: "Qualitative vs Quantitative",
+            concept: "qualitative vs quantitative research",
             question: "A metric shows 40% of users quit the app. What is this data missing?",
             options: [
               "The exact number of users involved",
@@ -751,7 +751,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr4-mastery3",
-            concept: "Qualitative vs Quantitative",
+            concept: "qualitative vs quantitative research",
             question: "Why explore with qualitative research before running a big survey?",
             options: [
               "Surveys are always illegal to run first",
@@ -765,7 +765,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr4-mastery4",
-            concept: "Qualitative vs Quantitative",
+            concept: "qualitative vs quantitative research",
             question: "What is the danger of trusting one dramatic customer quote too much?",
             options: [
               "Quotes are always completely useless",
@@ -779,7 +779,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr4-mastery5",
-            concept: "Qualitative vs Quantitative",
+            concept: "qualitative vs quantitative research",
             question: "A dashboard flags rising checkout abandonment. What role does qualitative follow-up play?",
             options: [
               "It replaces the dashboard numbers entirely",
@@ -793,7 +793,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr4-mastery6",
-            concept: "Qualitative vs Quantitative",
+            concept: "qualitative vs quantitative research",
             question: "Which describes the ideal relationship between the two data types?",
             options: [
               "Pick one and ignore the other completely",
@@ -855,7 +855,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr5-mc1",
-            concept: "Reading & Interpreting Data",
+            concept: "data interpretation",
             question: "What is a 'trend' in a dataset?",
             options: [
               "The single highest value recorded",
@@ -868,7 +868,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr5-mc2",
-            concept: "Reading & Interpreting Data",
+            concept: "correlation vs causation",
             question: "Why is 'correlation is not causation' an important warning?",
             options: [
               "Because charts are always wrong",
@@ -896,7 +896,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr5-aq1",
-          concept: "Reading & Interpreting Data",
+          concept: "data interpretation",
           question: "Which conclusion should Ben trust the most?",
           options: [
               "The '80% loved it' claim, since 80% is a high number",
@@ -924,7 +924,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr5-mastery1",
-            concept: "Reading & Interpreting Data",
+            concept: "data interpretation",
             question: "Which chart best shows how sales changed month by month over a year?",
             options: [
               "A pie chart",
@@ -938,7 +938,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr5-mastery2",
-            concept: "Reading & Interpreting Data",
+            concept: "data interpretation",
             question: "You usually get 50 sales a day, but one day shows 500. What should you do?",
             options: [
               "Immediately assume it is the new normal",
@@ -952,7 +952,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr5-mastery3",
-            concept: "Reading & Interpreting Data",
+            concept: "correlation vs causation",
             question: "Ice cream sales and drownings both rise in summer. What does this show?",
             options: [
               "Ice cream causes drownings",
@@ -966,7 +966,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr5-mastery4",
-            concept: "Reading & Interpreting Data",
+            concept: "sample size",
             question: "Why is '75% approval from 4 people' weak evidence?",
             options: [
               "Because 75% is a low number",
@@ -980,7 +980,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr5-mastery5",
-            concept: "Reading & Interpreting Data",
+            concept: "data interpretation",
             question: "How can a bar chart's y-axis mislead a reader?",
             options: [
               "By using too many colors",
@@ -994,7 +994,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr5-mastery6",
-            concept: "Reading & Interpreting Data",
+            concept: "sample size",
             question: "An app boasts '90% five-star reviews' from 10 users. Why be cautious?",
             options: [
               "Because 90% is a bad score",
@@ -1056,7 +1056,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr6-mc1",
-            concept: "Market Sizing - TAM, SAM, SOM",
+            concept: "TAM SAM SOM",
             question: "What does SOM (Serviceable Obtainable Market) represent?",
             options: [
               "The total demand if everyone bought from you",
@@ -1069,7 +1069,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr6-mc2",
-            concept: "Market Sizing - TAM, SAM, SOM",
+            concept: "market sizing",
             question: "What is the '1% fallacy' in market sizing?",
             options: [
               "Believing a market can shrink by 1% each year",
@@ -1097,7 +1097,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr6-aq1",
-          concept: "Market Sizing - TAM, SAM, SOM",
+          concept: "TAM SAM SOM",
           question: "Why is Nadia's SOM the most useful number for planning her first year?",
           options: [
               "Because it is the largest of the three figures",
@@ -1125,7 +1125,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr6-mastery1",
-            concept: "Market Sizing - TAM, SAM, SOM",
+            concept: "TAM SAM SOM",
             question: "Which correctly orders the three markets from largest to smallest?",
             options: [
               "SOM, SAM, TAM",
@@ -1139,7 +1139,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr6-mastery2",
-            concept: "Market Sizing - TAM, SAM, SOM",
+            concept: "TAM SAM SOM",
             question: "What does TAM tell a founder?",
             options: [
               "The exact revenue for year one",
@@ -1153,7 +1153,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr6-mastery3",
-            concept: "Market Sizing - TAM, SAM, SOM",
+            concept: "market sizing",
             question: "Why do investors trust bottom-up sizing more than top-down?",
             options: [
               "It always produces bigger numbers",
@@ -1167,7 +1167,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr6-mastery4",
-            concept: "Market Sizing - TAM, SAM, SOM",
+            concept: "market sizing",
             question: "A founder claims '1% of a $10 billion market is easy money.' What's wrong?",
             options: [
               "1% is too small to ever matter",
@@ -1181,7 +1181,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr6-mastery5",
-            concept: "Market Sizing - TAM, SAM, SOM",
+            concept: "market sizing",
             question: "A team estimates 5,000 buyers spending $80 a year, for $400,000. Which method is this?",
             options: [
               "Top-down sizing",
@@ -1195,7 +1195,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr6-mastery6",
-            concept: "Market Sizing - TAM, SAM, SOM",
+            concept: "TAM SAM SOM",
             question: "Which number should a founder budget and plan around?",
             options: [
               "TAM, the total dream market",
@@ -1257,7 +1257,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr7-mc1",
-            concept: "Case Study: Research-Driven Launch",
+            concept: "observational research",
             question: "What research method did LEGO rely on to discover how kids really play?",
             options: [
               "A quick online poll",
@@ -1270,7 +1270,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr7-mc2",
-            concept: "Case Study: Research-Driven Launch",
+            concept: "market research purpose",
             question: "What key assumption did LEGO's research overturn?",
             options: [
               "That bricks were too expensive to make",
@@ -1298,7 +1298,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "mr7-aq1",
-          concept: "Case Study: Research-Driven Launch",
+          concept: "acting on research findings",
           question: "Following the research playbook, what should Kofi do next?",
           options: [
               "Launch the game-heavy app anyway, ignoring the findings",
@@ -1326,7 +1326,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "mr7-mastery1",
-            concept: "Case Study: Research-Driven Launch",
+            concept: "observational research",
             question: "Why was observation better than a survey for LEGO's question?",
             options: [
               "Surveys are always banned for toy companies",
@@ -1340,7 +1340,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr7-mastery2",
-            concept: "Case Study: Research-Driven Launch",
+            concept: "market research purpose",
             question: "What was the first step in LEGO's research-driven turnaround?",
             options: [
               "Buying more advertising",
@@ -1354,7 +1354,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr7-mastery3",
-            concept: "Case Study: Research-Driven Launch",
+            concept: "qualitative vs quantitative research",
             question: "How did LEGO use quantitative data alongside its observations?",
             options: [
               "It ignored all sales numbers entirely",
@@ -1368,7 +1368,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr7-mastery4",
-            concept: "Case Study: Research-Driven Launch",
+            concept: "acting on research findings",
             question: "Which step in the playbook is often the hardest for founders?",
             options: [
               "Choosing a research method",
@@ -1382,7 +1382,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr7-mastery5",
-            concept: "Case Study: Research-Driven Launch",
+            concept: "market research purpose",
             question: "What broader lesson does LEGO's comeback teach?",
             options: [
               "Luck matters more than any research",
@@ -1396,7 +1396,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "mr7-mastery6",
-            concept: "Case Study: Research-Driven Launch",
+            concept: "market research purpose",
             question: "Can the LEGO playbook help a teen's small business?",
             options: [
               "No, it only works for billion-dollar firms",
@@ -1462,7 +1462,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm1-mc1",
-            concept: "Leadership vs Management",
+            concept: "leadership vs management",
             question: "Which best captures the difference between management and leadership?",
             options: [
               "Managers set the vision; leaders handle the budget",
@@ -1475,7 +1475,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm1-mc2",
-            concept: "Leadership vs Management",
+            concept: "leadership vs management",
             question: "Why is 'execution without vision' a problem?",
             options: [
               "It means work is done too slowly",
@@ -1503,7 +1503,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm1-aq1",
-          concept: "Leadership vs Management",
+          concept: "authority vs influence",
           question: "What does Tara's role best demonstrate?",
           options: [
               "That leadership requires an official title to exist",
@@ -1531,7 +1531,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm1-mastery1",
-            concept: "Leadership vs Management",
+            concept: "leadership vs management",
             question: "Which activity is a management task rather than a leadership one?",
             options: [
               "Inspiring the team with a bold vision",
@@ -1545,7 +1545,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm1-mastery2",
-            concept: "Leadership vs Management",
+            concept: "leadership vs management",
             question: "A company full of great ideas but poor at execution likely lacks what?",
             options: [
               "Strong leadership",
@@ -1559,7 +1559,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm1-mastery3",
-            concept: "Leadership vs Management",
+            concept: "leadership vs management",
             question: "When does strong leadership matter most?",
             options: [
               "Only when profits are high",
@@ -1573,7 +1573,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm1-mastery4",
-            concept: "Leadership vs Management",
+            concept: "authority vs influence",
             question: "What is the difference between authority and influence?",
             options: [
               "Authority is earned; influence comes with a title",
@@ -1587,7 +1587,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm1-mastery5",
-            concept: "Leadership vs Management",
+            concept: "leadership vs management",
             question: "What happens to a business that is all leadership and no management?",
             options: [
               "It runs with perfect efficiency",
@@ -1601,7 +1601,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm1-mastery6",
-            concept: "Leadership vs Management",
+            concept: "authority vs influence",
             question: "Why can a new employee still be a leader?",
             options: [
               "Because all new employees get authority",
@@ -1663,7 +1663,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm2-mc1",
-            concept: "Leadership Styles",
+            concept: "autocratic leadership",
             question: "Which leadership style involves the leader making decisions alone and expecting them followed?",
             options: [
               "Democratic",
@@ -1676,7 +1676,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm2-mc2",
-            concept: "Leadership Styles",
+            concept: "democratic leadership",
             question: "What is the main tradeoff of the democratic style?",
             options: [
               "It removes all buy-in from the team",
@@ -1704,7 +1704,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm2-aq1",
-          concept: "Leadership Styles",
+          concept: "situational leadership",
           question: "Why does Marcus give the new hire close guidance but the veteran full freedom?",
           options: [
               "Because new hires always perform better than veterans",
@@ -1732,7 +1732,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm2-mastery1",
-            concept: "Leadership Styles",
+            concept: "autocratic leadership",
             question: "Which style best fits a genuine crisis needing fast, clear decisions?",
             options: [
               "Laissez-faire",
@@ -1746,7 +1746,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm2-mastery2",
-            concept: "Leadership Styles",
+            concept: "laissez-faire leadership",
             question: "What does the laissez-faire style risk with an inexperienced team?",
             options: [
               "Too much micromanaging",
@@ -1760,7 +1760,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm2-mastery3",
-            concept: "Leadership Styles",
+            concept: "transformational leadership",
             question: "What defines transformational leadership?",
             options: [
               "Making every decision alone",
@@ -1774,7 +1774,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm2-mastery4",
-            concept: "Leadership Styles",
+            concept: "situational leadership",
             question: "Why should a leader adjust style per person?",
             options: [
               "Because rules should never apply to anyone",
@@ -1788,7 +1788,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm2-mastery5",
-            concept: "Leadership Styles",
+            concept: "democratic leadership",
             question: "What happens if a leader is always democratic?",
             options: [
               "Decisions crawl while awaiting consensus",
@@ -1802,7 +1802,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm2-mastery6",
-            concept: "Leadership Styles",
+            concept: "situational leadership",
             question: "What is the mark of a mature leader regarding style?",
             options: [
               "Sticking to one signature style forever",
@@ -1864,7 +1864,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm3-mc1",
-            concept: "Motivation Theories",
+            concept: "Maslow's hierarchy",
             question: "According to Maslow, which need must generally be met before higher ones can motivate?",
             options: [
               "Self-actualization",
@@ -1877,7 +1877,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm3-mc2",
-            concept: "Motivation Theories",
+            concept: "Herzberg two-factor theory",
             question: "In Herzberg's theory, what does fixing 'hygiene factors' accomplish?",
             options: [
               "It creates strong, lasting motivation",
@@ -1905,7 +1905,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm3-aq1",
-          concept: "Motivation Theories",
+          concept: "Herzberg two-factor theory",
           question: "Why does Elena focus on recognition and responsibility rather than another raise?",
           options: [
               "Because pay is already a strong long-term motivator",
@@ -1933,7 +1933,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm3-mastery1",
-            concept: "Motivation Theories",
+            concept: "Maslow's hierarchy",
             question: "What sits at the very top of Maslow's hierarchy?",
             options: [
               "Safety needs",
@@ -1947,7 +1947,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm3-mastery2",
-            concept: "Motivation Theories",
+            concept: "Maslow's hierarchy",
             question: "Why won't a lofty mission inspire an employee afraid of being fired?",
             options: [
               "Because missions never motivate anyone",
@@ -1961,7 +1961,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm3-mastery3",
-            concept: "Motivation Theories",
+            concept: "Herzberg two-factor theory",
             question: "Which is an example of a Herzberg motivator?",
             options: [
               "The company's vacation policy",
@@ -1975,7 +1975,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm3-mastery4",
-            concept: "Motivation Theories",
+            concept: "Herzberg two-factor theory",
             question: "Why does Herzberg call money mostly a 'hygiene factor'?",
             options: [
               "Because money is never important",
@@ -1989,7 +1989,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm3-mastery5",
-            concept: "Motivation Theories",
+            concept: "motivation theories",
             question: "What is the practical sequence combining both theories?",
             options: [
               "Add motivators first, ignore hygiene",
@@ -2003,7 +2003,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm3-mastery6",
-            concept: "Motivation Theories",
+            concept: "motivation theories",
             question: "What common mistake do these theories warn managers against?",
             options: [
               "Recognizing employees too often",
@@ -2065,7 +2065,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm4-mc1",
-            concept: "Organizational Structures",
+            concept: "span of control",
             question: "What does 'span of control' refer to?",
             options: [
               "The company's total yearly revenue",
@@ -2078,7 +2078,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm4-mc2",
-            concept: "Organizational Structures",
+            concept: "functional vs divisional structure",
             question: "What is a main weakness of a functional structure?",
             options: [
               "It builds no expertise at all",
@@ -2106,7 +2106,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm4-aq1",
-          concept: "Organizational Structures",
+          concept: "flat vs tall structure",
           question: "Why can't BrightBox simply stay flat as it did at 12 people?",
           options: [
               "Flat structures are illegal past 100 employees",
@@ -2134,7 +2134,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm4-mastery1",
-            concept: "Organizational Structures",
+            concept: "flat vs tall structure",
             question: "What is a key advantage of a hierarchical (tall) structure?",
             options: [
               "The fastest possible decisions",
@@ -2148,7 +2148,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm4-mastery2",
-            concept: "Organizational Structures",
+            concept: "span of control",
             question: "A wide span of control tends to create what kind of structure?",
             options: [
               "A taller hierarchy",
@@ -2162,7 +2162,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm4-mastery3",
-            concept: "Organizational Structures",
+            concept: "functional vs divisional structure",
             question: "How does a divisional structure group people?",
             options: [
               "Purely by job specialty",
@@ -2176,7 +2176,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm4-mastery4",
-            concept: "Organizational Structures",
+            concept: "functional vs divisional structure",
             question: "What is the main tradeoff of a divisional structure?",
             options: [
               "It builds no accountability",
@@ -2190,7 +2190,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm4-mastery5",
-            concept: "Organizational Structures",
+            concept: "matrix structure",
             question: "What defines a matrix structure?",
             options: [
               "Employees report to two bosses at once",
@@ -2204,7 +2204,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm4-mastery6",
-            concept: "Organizational Structures",
+            concept: "flat vs tall structure",
             question: "Why do many startups begin flat but add hierarchy as they grow?",
             options: [
               "Because flat structures are illegal for big firms",
@@ -2266,7 +2266,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm5-mc1",
-            concept: "Human Resources Basics",
+            concept: "hiring process",
             question: "What is the difference between recruitment and selection?",
             options: [
               "Recruitment attracts candidates; selection chooses the best fit",
@@ -2279,7 +2279,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm5-mc2",
-            concept: "Human Resources Basics",
+            concept: "onboarding",
             question: "Why does strong onboarding matter?",
             options: [
               "It replaces the need to ever pay employees",
@@ -2307,7 +2307,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm5-aq1",
-          concept: "Human Resources Basics",
+          concept: "onboarding",
           question: "Which change would most directly reduce Priya's early turnover?",
           options: [
               "Interview even faster to hire more people",
@@ -2335,7 +2335,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm5-mastery1",
-            concept: "Human Resources Basics",
+            concept: "hiring process",
             question: "Why should hiring balance skills with 'fit'?",
             options: [
               "Because fit is the only thing that matters",
@@ -2349,7 +2349,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm5-mastery2",
-            concept: "Human Resources Basics",
+            concept: "interview techniques",
             question: "How do structured interviews help hiring?",
             options: [
               "They let interviewers skip all preparation",
@@ -2363,7 +2363,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm5-mastery3",
-            concept: "Human Resources Basics",
+            concept: "training vs development",
             question: "What distinguishes training from development?",
             options: [
               "Training builds current skills; development prepares for future roles",
@@ -2377,7 +2377,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm5-mastery4",
-            concept: "Human Resources Basics",
+            concept: "performance review",
             question: "What makes a performance review effective?",
             options: [
               "Surprising the employee with a year of criticism",
@@ -2391,7 +2391,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm5-mastery5",
-            concept: "Human Resources Basics",
+            concept: "employee retention",
             question: "Why is retention usually cheaper than high turnover?",
             options: [
               "Because employees never need any pay",
@@ -2405,7 +2405,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm5-mastery6",
-            concept: "Human Resources Basics",
+            concept: "employee retention",
             question: "A top performer quits citing 'no room to grow.' What does this suggest?",
             options: [
               "The cause was random and unfixable",
@@ -2467,7 +2467,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm6-mc1",
-            concept: "Conflict Resolution & Communication",
+            concept: "conflict resolution",
             question: "Which conflict approach works hardest to satisfy everyone involved?",
             options: [
               "Avoiding",
@@ -2480,7 +2480,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm6-mc2",
-            concept: "Conflict Resolution & Communication",
+            concept: "communication styles",
             question: "Why are 'I' statements better than 'you' statements in conflict?",
             options: [
               "They make the other person feel blamed",
@@ -2508,7 +2508,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm6-aq1",
-          concept: "Conflict Resolution & Communication",
+          concept: "active listening",
           question: "Why does Sam start by listening rather than immediately proposing a fix?",
           options: [
               "Because listening wastes time in every conflict",
@@ -2536,7 +2536,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm6-mastery1",
-            concept: "Conflict Resolution & Communication",
+            concept: "conflict resolution",
             question: "Why is some conflict actually healthy for a team?",
             options: [
               "Because it always turns personal",
@@ -2550,7 +2550,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm6-mastery2",
-            concept: "Conflict Resolution & Communication",
+            concept: "conflict resolution",
             question: "When is 'avoiding' a reasonable way to handle conflict?",
             options: [
               "For every important disagreement",
@@ -2564,7 +2564,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm6-mastery3",
-            concept: "Conflict Resolution & Communication",
+            concept: "active listening",
             question: "What is active listening?",
             options: [
               "Waiting quietly for your turn to talk",
@@ -2578,7 +2578,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm6-mastery4",
-            concept: "Conflict Resolution & Communication",
+            concept: "conflict resolution",
             question: "What is the danger of letting an important conflict fester in silence?",
             options: [
               "It resolves itself perfectly over time",
@@ -2592,7 +2592,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm6-mastery5",
-            concept: "Conflict Resolution & Communication",
+            concept: "communication styles",
             question: "Which is an example of good, behavior-focused feedback?",
             options: [
               "'You are just a lazy person'",
@@ -2606,7 +2606,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm6-mastery6",
-            concept: "Conflict Resolution & Communication",
+            concept: "communication styles",
             question: "Why does choosing the right communication channel matter?",
             options: [
               "Because all channels are exactly equal",
@@ -2668,7 +2668,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm7-mc1",
-            concept: "Case Study: Satya Nadella at Microsoft",
+            concept: "growth mindset",
             question: "What was the core of Nadella's transformation at Microsoft?",
             options: [
               "Launching one flashy new gadget",
@@ -2681,7 +2681,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm7-mc2",
-            concept: "Case Study: Satya Nadella at Microsoft",
+            concept: "transformational leadership",
             question: "Which leadership style best describes Nadella's approach?",
             options: [
               "Purely autocratic command",
@@ -2709,7 +2709,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "lm7-aq1",
-          concept: "Case Study: Satya Nadella at Microsoft",
+          concept: "organizational culture",
           question: "Why does Rosa change the culture before launching the ambitious project?",
           options: [
               "Because culture change is legally required first",
@@ -2737,7 +2737,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "lm7-mastery1",
-            concept: "Case Study: Satya Nadella at Microsoft",
+            concept: "Nadella Microsoft turnaround",
             question: "What problem did Microsoft face when Nadella became CEO?",
             options: [
               "It had no employees left",
@@ -2751,7 +2751,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm7-mastery2",
-            concept: "Case Study: Satya Nadella at Microsoft",
+            concept: "growth mindset",
             question: "What defines a 'learn-it-all' culture?",
             options: [
               "People hoard knowledge to look smart",
@@ -2765,7 +2765,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm7-mastery3",
-            concept: "Case Study: Satya Nadella at Microsoft",
+            concept: "leading by example",
             question: "How did Nadella reinforce the culture change through his own actions?",
             options: [
               "By demanding perfection and hiding mistakes",
@@ -2779,7 +2779,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm7-mastery4",
-            concept: "Case Study: Satya Nadella at Microsoft",
+            concept: "Nadella Microsoft turnaround",
             question: "Which bold strategic move reflected the new culture?",
             options: [
               "Refusing to touch cloud computing",
@@ -2793,7 +2793,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm7-mastery5",
-            concept: "Case Study: Satya Nadella at Microsoft",
+            concept: "Nadella Microsoft turnaround",
             question: "What was the approximate result of Nadella's transformation in company value?",
             options: [
               "It fell to nearly zero",
@@ -2807,7 +2807,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "lm7-mastery6",
-            concept: "Case Study: Satya Nadella at Microsoft",
+            concept: "organizational culture",
             question: "What broad leadership lesson does Nadella's story teach?",
             options: [
               "Only new products can revive a company",
@@ -2873,7 +2873,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa1-mc1",
-            concept: "What Is Business Strategy?",
+            concept: "strategy definition",
             question: "Which statement best captures what strategy is?",
             options: [
               "Doing as many activities as possible at once",
@@ -2886,7 +2886,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa1-mc2",
-            concept: "What Is Business Strategy?",
+            concept: "sustainable competitive advantage",
             question: "What makes a competitive advantage truly valuable?",
             options: [
               "It can be copied by anyone quickly",
@@ -2914,7 +2914,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa1-aq1",
-          concept: "What Is Business Strategy?",
+          concept: "strategic trade-offs",
           question: "Why does Shop B's approach reflect better strategy than Shop A's?",
           options: [
               "Because it offers the widest possible menu",
@@ -2942,7 +2942,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa1-mastery1",
-            concept: "What Is Business Strategy?",
+            concept: "strategic trade-offs",
             question: "Why is deciding what NOT to do central to strategy?",
             options: [
               "Because doing everything makes a company strongest",
@@ -2956,7 +2956,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa1-mastery2",
-            concept: "What Is Business Strategy?",
+            concept: "strategy vs tactics",
             question: "What is the difference between strategy and tactics?",
             options: [
               "Strategy is the direction; tactics are the actions serving it",
@@ -2970,7 +2970,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa1-mastery3",
-            concept: "What Is Business Strategy?",
+            concept: "competitive moat",
             question: "Which is an example of a durable competitive 'moat'?",
             options: [
               "A one-week discount sale",
@@ -2984,7 +2984,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa1-mastery4",
-            concept: "What Is Business Strategy?",
+            concept: "strategic trade-offs",
             question: "Why does being 'premium' require a trade-off?",
             options: [
               "Because premium firms must also be the cheapest",
@@ -2998,7 +2998,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa1-mastery5",
-            concept: "What Is Business Strategy?",
+            concept: "strategy definition",
             question: "Why is being extremely busy not the same as being strategic?",
             options: [
               "Because busy companies always fail",
@@ -3012,7 +3012,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa1-mastery6",
-            concept: "What Is Business Strategy?",
+            concept: "adaptive strategy",
             question: "Why must strategy keep adapting over time?",
             options: [
               "Because advantages last forever once built",
@@ -3074,7 +3074,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa2-mc1",
-            concept: "KPIs - Measuring What Matters",
+            concept: "leading vs lagging KPI",
             question: "What is the difference between a leading and a lagging indicator?",
             options: [
               "Leading predicts future results; lagging measures past results",
@@ -3087,7 +3087,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa2-mc2",
-            concept: "KPIs - Measuring What Matters",
+            concept: "vanity metric",
             question: "What is a 'vanity metric'?",
             options: [
               "A number that guides every key decision",
@@ -3115,7 +3115,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa2-aq1",
-          concept: "KPIs - Measuring What Matters",
+          concept: "vanity metric",
           question: "Why does Dev focus on weekly active users instead of total downloads?",
           options: [
               "Because downloads are impossible to count",
@@ -3143,7 +3143,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa2-mastery1",
-            concept: "KPIs - Measuring What Matters",
+            concept: "KPI",
             question: "What does the 'key' in Key Performance Indicator emphasize?",
             options: [
               "That you should track every possible number",
@@ -3157,7 +3157,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa2-mastery2",
-            concept: "KPIs - Measuring What Matters",
+            concept: "SMART goals",
             question: "Which is a properly formed, SMART KPI?",
             options: [
               "Do better this year somehow",
@@ -3171,7 +3171,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa2-mastery3",
-            concept: "KPIs - Measuring What Matters",
+            concept: "leading vs lagging KPI",
             question: "Why track a leading indicator like weekly sales calls booked?",
             options: [
               "It measures results that already happened",
@@ -3185,7 +3185,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa2-mastery4",
-            concept: "KPIs - Measuring What Matters",
+            concept: "Goodhart's Law",
             question: "What does Goodhart's Law warn about?",
             options: [
               "That metrics should never be measured",
@@ -3199,7 +3199,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa2-mastery5",
-            concept: "KPIs - Measuring What Matters",
+            concept: "KPI",
             question: "Why shouldn't a company copy a rival's KPIs blindly?",
             options: [
               "Because copying is always illegal",
@@ -3213,7 +3213,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa2-mastery6",
-            concept: "KPIs - Measuring What Matters",
+            concept: "Goodhart's Law",
             question: "How does pairing call speed with a satisfaction score help?",
             options: [
               "It lets agents ignore customers faster",
@@ -3275,7 +3275,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa3-mc1",
-            concept: "SWOT Analysis",
+            concept: "internal vs external factors",
             question: "In SWOT, which two categories are INTERNAL to the company?",
             options: [
               "Opportunities and Threats",
@@ -3288,7 +3288,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa3-mc2",
-            concept: "SWOT Analysis",
+            concept: "opportunities vs threats",
             question: "A new competitor entering the market is an example of a…",
             options: [
               "Strength",
@@ -3316,7 +3316,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa3-aq1",
-          concept: "SWOT Analysis",
+          concept: "SWOT strategy pairing",
           question: "How should Lena turn her SWOT into a real decision?",
           options: [
               "List the four boxes and take no further action",
@@ -3344,7 +3344,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa3-mastery1",
-            concept: "SWOT Analysis",
+            concept: "internal vs external factors",
             question: "Which is the correct test for placing a factor in SWOT?",
             options: [
               "Whether it sounds positive or negative",
@@ -3358,7 +3358,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa3-mastery2",
-            concept: "SWOT Analysis",
+            concept: "strengths vs weaknesses",
             question: "A company's weak email marketing is best classified as a…",
             options: [
               "Threat",
@@ -3372,7 +3372,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa3-mastery3",
-            concept: "SWOT Analysis",
+            concept: "opportunities vs threats",
             question: "A growing market that a firm could ride is an example of a…",
             options: [
               "Weakness",
@@ -3386,7 +3386,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa3-mastery4",
-            concept: "SWOT Analysis",
+            concept: "honest SWOT entries",
             question: "Why is listing only strengths a poor SWOT?",
             options: [
               "Because strengths never matter",
@@ -3400,7 +3400,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa3-mastery5",
-            concept: "SWOT Analysis",
+            concept: "SWOT strategy pairing",
             question: "What turns a basic SWOT into useful strategy?",
             options: [
               "Making the four lists as long as possible",
@@ -3414,7 +3414,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa3-mastery6",
-            concept: "SWOT Analysis",
+            concept: "SWOT analysis",
             question: "What is a key limitation of SWOT?",
             options: [
               "It decides everything automatically",
@@ -3476,7 +3476,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa4-mc1",
-            concept: "Porter's Five Forces",
+            concept: "Porter's five forces",
             question: "What does Porter's Five Forces primarily analyze?",
             options: [
               "A single company's internal culture",
@@ -3489,7 +3489,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa4-mc2",
-            concept: "Porter's Five Forces",
+            concept: "threat of substitutes",
             question: "A video call replacing a business flight is an example of which force?",
             options: [
               "Bargaining power of suppliers",
@@ -3517,7 +3517,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa4-aq1",
-          concept: "Porter's Five Forces",
+          concept: "Porter's five forces",
           question: "What does Omar's Five Forces analysis suggest?",
           options: [
               "The industry is highly protected and easy to profit in",
@@ -3545,7 +3545,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa4-mastery1",
-            concept: "Porter's Five Forces",
+            concept: "Porter's five forces",
             question: "Why can an industry stay unprofitable despite hard-working companies?",
             options: [
               "Because the workers are always lazy",
@@ -3559,7 +3559,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa4-mastery2",
-            concept: "Porter's Five Forces",
+            concept: "threat of new entrants",
             question: "High startup costs and strong patents mainly affect which force?",
             options: [
               "Threat of new entrants",
@@ -3573,7 +3573,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa4-mastery3",
-            concept: "Porter's Five Forces",
+            concept: "buyer power",
             question: "When do buyers have strong bargaining power?",
             options: [
               "When there are millions of loyal buyers",
@@ -3587,7 +3587,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa4-mastery4",
-            concept: "Porter's Five Forces",
+            concept: "supplier power",
             question: "How can a company reduce the power of its suppliers?",
             options: [
               "By relying on a single supplier only",
@@ -3601,7 +3601,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa4-mastery5",
-            concept: "Porter's Five Forces",
+            concept: "competitive rivalry",
             question: "What does intense rivalry among competitors typically do to profits?",
             options: [
               "Raises everyone's profits together",
@@ -3615,7 +3615,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa4-mastery6",
-            concept: "Porter's Five Forces",
+            concept: "Porter's five forces",
             question: "What happened to newspapers that Five Forces helps explain?",
             options: [
               "Their favorable structure lasted forever",
@@ -3677,7 +3677,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa5-mc1",
-            concept: "Applying SWOT to a Business Opportunity",
+            concept: "go/no-go decision",
             question: "What is the purpose of a go/no-go decision in SWOT?",
             options: [
               "To list factors and stop there",
@@ -3690,7 +3690,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa5-mc2",
-            concept: "Applying SWOT to a Business Opportunity",
+            concept: "SWOT strategy pairing",
             question: "What does an SO (Strength-Opportunity) strategy do?",
             options: [
               "Uses strengths to grab an opportunity",
@@ -3718,7 +3718,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa5-aq1",
-          concept: "Applying SWOT to a Business Opportunity",
+          concept: "SWOT strategy pairing",
           question: "Which pairing gives Nina the strongest offensive strategy?",
           options: [
               "Weakness-Threat: quit because a center exists",
@@ -3746,7 +3746,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa5-mastery1",
-            concept: "Applying SWOT to a Business Opportunity",
+            concept: "go/no-go decision",
             question: "Why must factors be weighed, not just listed, in a decision-focused SWOT?",
             options: [
               "Because all factors count exactly equally",
@@ -3760,7 +3760,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa5-mastery2",
-            concept: "Applying SWOT to a Business Opportunity",
+            concept: "SWOT strategy pairing",
             question: "A WO (Weakness-Opportunity) strategy aims to…",
             options: [
               "Attack rivals head-on with pure strength",
@@ -3774,7 +3774,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa5-mastery3",
-            concept: "Applying SWOT to a Business Opportunity",
+            concept: "SWOT strategy pairing",
             question: "What is an ST (Strength-Threat) strategy?",
             options: [
               "Using a strength to defend against a threat",
@@ -3788,7 +3788,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa5-mastery4",
-            concept: "Applying SWOT to a Business Opportunity",
+            concept: "honest SWOT entries",
             question: "Why is inflating strengths and downplaying threats dangerous?",
             options: [
               "It makes the SWOT too short",
@@ -3802,7 +3802,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa5-mastery5",
-            concept: "Applying SWOT to a Business Opportunity",
+            concept: "go/no-go decision",
             question: "In the food-truck example, why was a 'conditional go' wise?",
             options: [
               "Because the idea had no strengths at all",
@@ -3816,7 +3816,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa5-mastery6",
-            concept: "Applying SWOT to a Business Opportunity",
+            concept: "SWOT strategy pairing",
             question: "What does the TOWS approach add to a basic SWOT?",
             options: [
               "It deletes the weaknesses box",
@@ -3878,7 +3878,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa6-mc1",
-            concept: "Porter's Five Forces in Practice",
+            concept: "buyer power",
             question: "In streaming, what does 'subscribe-hopping' demonstrate?",
             options: [
               "Low buyer power",
@@ -3891,7 +3891,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa6-mc2",
-            concept: "Porter's Five Forces in Practice",
+            concept: "threat of new entrants",
             question: "Why is the threat of new entrants lower for a giant fast-food chain than in streaming?",
             options: [
               "Because fast food has no competitors",
@@ -3919,7 +3919,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa6-aq1",
-          concept: "Porter's Five Forces in Practice",
+          concept: "Porter's five forces",
           question: "What is the key lesson from comparing the two industries?",
           options: [
               "The Five Forces framework only works for streaming",
@@ -3947,7 +3947,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa6-mastery1",
-            concept: "Porter's Five Forces in Practice",
+            concept: "competitive rivalry",
             question: "Why do streaming companies keep spending billions on original shows?",
             options: [
               "Because they have no competitors",
@@ -3961,7 +3961,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa6-mastery2",
-            concept: "Porter's Five Forces in Practice",
+            concept: "threat of substitutes",
             question: "Which force is illustrated by gaming and social media competing for your evening?",
             options: [
               "Threat of substitutes",
@@ -3975,7 +3975,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa6-mastery3",
-            concept: "Porter's Five Forces in Practice",
+            concept: "supplier power",
             question: "Why is supplier power low for giant fast-food chains?",
             options: [
               "They refuse to use any suppliers",
@@ -3989,7 +3989,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa6-mastery4",
-            concept: "Porter's Five Forces in Practice",
+            concept: "buyer power",
             question: "How does buyer power differ between the two industries?",
             options: [
               "It is strong in streaming and moderate in fast food",
@@ -4003,7 +4003,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa6-mastery5",
-            concept: "Porter's Five Forces in Practice",
+            concept: "threat of substitutes",
             question: "What do both industries share regarding substitutes?",
             options: [
               "Neither faces any substitutes",
@@ -4017,7 +4017,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa6-mastery6",
-            concept: "Porter's Five Forces in Practice",
+            concept: "Porter's five forces",
             question: "What broader point does comparing streaming and fast food prove?",
             options: [
               "Every industry has identical force strengths",
@@ -4079,7 +4079,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa7-mc1",
-            concept: "Using Frameworks for Real Decisions",
+            concept: "strategic frameworks",
             question: "Why combine SWOT and Porter's Five Forces?",
             options: [
               "Because one framework alone is always wrong",
@@ -4092,7 +4092,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa7-mc2",
-            concept: "Using Frameworks for Real Decisions",
+            concept: "analysis paralysis",
             question: "What is 'analysis paralysis'?",
             options: [
               "Deciding too quickly without any data",
@@ -4120,7 +4120,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa7-aq1",
-          concept: "Using Frameworks for Real Decisions",
+          concept: "strategic frameworks",
           question: "How does combining the two frameworks help Aria most?",
           options: [
               "It lets her avoid ever making a decision",
@@ -4148,7 +4148,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa7-mastery1",
-            concept: "Using Frameworks for Real Decisions",
+            concept: "strategic frameworks",
             question: "What does Five Forces reveal that SWOT often misses?",
             options: [
               "Your company's internal strengths",
@@ -4162,7 +4162,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa7-mastery2",
-            concept: "Using Frameworks for Real Decisions",
+            concept: "strategic frameworks",
             question: "What is the logical sequence for combining the frameworks?",
             options: [
               "Assess your company, then ignore the industry",
@@ -4176,7 +4176,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa7-mastery3",
-            concept: "Using Frameworks for Real Decisions",
+            concept: "strategic frameworks",
             question: "How should an industry threat from Five Forces appear in SWOT?",
             options: [
               "As a Strength to celebrate",
@@ -4190,7 +4190,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa7-mastery4",
-            concept: "Using Frameworks for Real Decisions",
+            concept: "defensible recommendation",
             question: "What signals that your strategic analysis has done its job?",
             options: [
               "You ran the most models possible",
@@ -4204,7 +4204,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa7-mastery5",
-            concept: "Using Frameworks for Real Decisions",
+            concept: "analysis paralysis",
             question: "Why must strategists commit despite incomplete information?",
             options: [
               "Because certainty is always available",
@@ -4218,7 +4218,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa7-mastery6",
-            concept: "Using Frameworks for Real Decisions",
+            concept: "adaptive strategy",
             question: "Why is strategy described as a loop rather than a one-time report?",
             options: [
               "Because reports are illegal",
@@ -4280,7 +4280,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa8-mc1",
-            concept: "Mini-Project: Your Own Strategic Analysis",
+            concept: "analysis scope",
             question: "What is the first step in running your own strategic analysis?",
             options: [
               "Writing the final recommendation immediately",
@@ -4293,7 +4293,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa8-mc2",
-            concept: "Mini-Project: Your Own Strategic Analysis",
+            concept: "go/no-go decision",
             question: "Why is a well-reasoned 'no-go' recommendation still a success?",
             options: [
               "Because it means the analysis failed",
@@ -4321,7 +4321,7 @@ export const deepBizC: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "sa8-aq1",
-          concept: "Mini-Project: Your Own Strategic Analysis",
+          concept: "defensible recommendation",
           question: "What would make Marcus's recommendation truly defensible?",
           options: [
               "Saying he simply loves sneakers a lot",
@@ -4349,7 +4349,7 @@ export const deepBizC: StructuredLessonContent[] = [
         questions: [
           {
             id: "sa8-mastery1",
-            concept: "Mini-Project: Your Own Strategic Analysis",
+            concept: "analysis scope",
             question: "Why is a sharp question better than a broad one for this analysis?",
             options: [
               "Because broad questions are illegal",
@@ -4363,7 +4363,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa8-mastery2",
-            concept: "Mini-Project: Your Own Strategic Analysis",
+            concept: "secondary research",
             question: "What role does secondary research play in the mini-project?",
             options: [
               "It tests your idea with real customers",
@@ -4377,7 +4377,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa8-mastery3",
-            concept: "Mini-Project: Your Own Strategic Analysis",
+            concept: "confirmation bias",
             question: "Why seek facts that could prove your idea wrong?",
             options: [
               "To make the analysis longer",
@@ -4391,7 +4391,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa8-mastery4",
-            concept: "Mini-Project: Your Own Strategic Analysis",
+            concept: "go/no-go decision",
             question: "What are the three possible recommendation outcomes?",
             options: [
               "Yes, maybe, or never",
@@ -4405,7 +4405,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa8-mastery5",
-            concept: "Mini-Project: Your Own Strategic Analysis",
+            concept: "defensible recommendation",
             question: "What makes a recommendation 'defensible'?",
             options: [
               "It sounds confident and excited",
@@ -4419,7 +4419,7 @@ export const deepBizC: StructuredLessonContent[] = [
           },
           {
             id: "sa8-mastery6",
-            concept: "Mini-Project: Your Own Strategic Analysis",
+            concept: "adaptive strategy",
             question: "Why should you note your key assumptions and what would change your mind?",
             options: [
               "To make the plan impossible to change",

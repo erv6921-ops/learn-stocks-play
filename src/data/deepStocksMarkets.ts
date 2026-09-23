@@ -52,7 +52,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks1-mc1",
-            concept: "What Is a Share",
+            concept: "stock ownership",
             question: "What does owning a share of stock actually give you?",
             options: [
               "A loan the company must repay you with interest",
@@ -65,7 +65,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks1-mc2",
-            concept: "What Is a Share",
+            concept: "capital gain",
             question: "Which of these is a 'capital gain'?",
             options: [
               "A quarterly cash payment drawn straight from a company's profits",
@@ -93,7 +93,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks1-aq1",
-          concept: "What Is a Share",
+          concept: "stock ownership",
           question: "Jordan's 5 shares rose from $60 to $75 each. Why did his stake gain value?",
           options: [
             "The company was legally required to raise the price",
@@ -121,7 +121,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks1-mastery1",
-            concept: "What Is a Share",
+            concept: "stock ownership",
             question: "A company divides itself into 2,000,000 shares and you buy 200. About what fraction do you own?",
             options: [
               "One two-hundredth of the company",
@@ -135,7 +135,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks1-mastery2",
-            concept: "What Is a Share",
+            concept: "saving vs investing",
             question: "How is buying a share different from putting money in a savings account?",
             options: [
               "A share is insured, so you can never lose money",
@@ -149,7 +149,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks1-mastery3",
-            concept: "What Is a Share",
+            concept: "shareholder rights",
             question: "Which right do shareholders commonly have?",
             options: [
               "Free products from the company forever",
@@ -163,7 +163,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks1-mastery4",
-            concept: "What Is a Share",
+            concept: "capital gain",
             question: "You buy a share for $45 and sell it later for $70. The $25 you made is called a…",
             options: [
               "Dividend paid out from profits",
@@ -177,7 +177,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks1-mastery5",
-            concept: "What Is a Share",
+            concept: "time horizon",
             question: "Why are investors usually told not to invest money they'll need next month?",
             options: [
               "Stocks are strictly illegal to sell within 30 days",
@@ -191,7 +191,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks1-mastery6",
-            concept: "What Is a Share",
+            concept: "historical stock returns",
             question: "Roughly how has the overall U.S. stock market performed per year over many decades?",
             options: [
               "It has lost about 5% every year on average",
@@ -253,7 +253,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks2-mc1",
-            concept: "Public vs Private",
+            concept: "public vs private company",
             question: "What mainly separates a public company from a private one?",
             options: [
               "Public companies are always larger in total size",
@@ -266,7 +266,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks2-mc2",
-            concept: "Public vs Private",
+            concept: "liquidity",
             question: "Why are public company shares considered 'liquid'?",
             options: [
               "They can be bought and sold quickly at a known price",
@@ -294,7 +294,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks2-aq1",
-          concept: "Public vs Private",
+          concept: "public vs private company",
           question: "Why can Priya invest in the sportswear company but not easily in the private gym?",
           options: [
             "The gym is not profitable enough to sell shares",
@@ -322,7 +322,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks2-mastery1",
-            concept: "Public vs Private",
+            concept: "public vs private company",
             question: "You want to buy shares of a company using a normal brokerage app. The company must be…",
             options: [
               "Private and owned by its founders",
@@ -336,7 +336,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks2-mastery2",
-            concept: "Public vs Private",
+            concept: "IPO",
             question: "What is an IPO?",
             options: [
               "A special tax public companies pay each quarter",
@@ -350,7 +350,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks2-mastery3",
-            concept: "Public vs Private",
+            concept: "public company disclosure",
             question: "Why is transparency a key advantage of public companies for investors?",
             options: [
               "They must publish detailed financial reports",
@@ -364,7 +364,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks2-mastery4",
-            concept: "Public vs Private",
+            concept: "public vs private company",
             question: "Why might a strong company choose to stay private?",
             options: [
               "It is legally forbidden from selling shares",
@@ -378,7 +378,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks2-mastery5",
-            concept: "Public vs Private",
+            concept: "liquidity",
             question: "Which best describes why private shares are 'illiquid'?",
             options: [
               "They lose value the moment you buy them",
@@ -392,7 +392,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks2-mastery6",
-            concept: "Public vs Private",
+            concept: "public vs private company",
             question: "A downside public companies face that private ones avoid is…",
             options: [
               "They can never hire new employees again",
@@ -454,7 +454,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks3-mc1",
-            concept: "IPOs",
+            concept: "IPO",
             question: "What is the main reason a company holds an IPO?",
             options: [
               "To avoid ever paying any taxes again",
@@ -467,7 +467,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks3-mc2",
-            concept: "IPOs",
+            concept: "IPO",
             question: "Who helps set the IPO price and find buyers?",
             options: [
               "Government tax collectors and auditors",
@@ -495,7 +495,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks3-aq1",
-          concept: "IPOs",
+          concept: "IPO risk",
           question: "Why is buying a hyped IPO on its first day especially risky for Marcus?",
           options: [
             "IPO shares can legally never be resold later",
@@ -523,7 +523,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks3-mastery1",
-            concept: "IPOs",
+            concept: "IPO",
             question: "Before its IPO, who owns a company?",
             options: [
               "Millions of everyday public investors",
@@ -537,7 +537,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks3-mastery2",
-            concept: "IPOs",
+            concept: "market cap",
             question: "A company valued at $3 billion plans to sell 150 million shares. Roughly what price does that suggest?",
             options: [
               "About $2 per share",
@@ -551,7 +551,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks3-mastery3",
-            concept: "IPOs",
+            concept: "IPO risk",
             question: "Why does the IPO price tend to favor the company, not the buyer?",
             options: [
               "Buyers secretly choose the whole price themselves",
@@ -565,7 +565,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks3-mastery4",
-            concept: "IPOs",
+            concept: "IPO risk",
             question: "What makes a brand-new public company hard to evaluate?",
             options: [
               "It has almost no public track record yet",
@@ -579,7 +579,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks3-mastery5",
-            concept: "IPOs",
+            concept: "IPO risk",
             question: "Why do many experienced investors wait after an IPO before buying?",
             options: [
               "The law bans buying for the first year",
@@ -593,7 +593,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks3-mastery6",
-            concept: "IPOs",
+            concept: "public company disclosure",
             question: "After an IPO, what new obligation does the company take on?",
             options: [
               "It must publish regular financial reports",
@@ -655,7 +655,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks4-mc1",
-            concept: "Market Cap",
+            concept: "market cap",
             question: "How do you calculate a company's market cap?",
             options: [
               "Add up all its yearly profits over time",
@@ -668,7 +668,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks4-mc2",
-            concept: "Market Cap",
+            concept: "market cap",
             question: "A $400 stock with 1 million shares versus a $20 stock with 900 million shares. Which company is bigger?",
             options: [
               "The $400 stock, because its per-share price is higher",
@@ -696,7 +696,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks4-aq1",
-          concept: "Market Cap",
+          concept: "market cap",
           question: "Nia assumed the $250 stock was bigger. Why was she wrong?",
           options: [
             "Higher-priced stocks are always far riskier to actually own",
@@ -724,7 +724,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks4-mastery1",
-            concept: "Market Cap",
+            concept: "market cap",
             question: "A company has 20 million shares trading at $25 each. What is its market cap?",
             options: [
               "$25 million total",
@@ -738,7 +738,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks4-mastery2",
-            concept: "Market Cap",
+            concept: "market cap",
             question: "Why can't you judge a company's size by its share price alone?",
             options: [
               "Prices are fake and set by the government",
@@ -752,7 +752,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks4-mastery3",
-            concept: "Market Cap",
+            concept: "market cap tiers",
             question: "Which describes a typical large-cap company?",
             options: [
               "A tiny new startup worth well under $50 million total",
@@ -766,7 +766,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks4-mastery4",
-            concept: "Market Cap",
+            concept: "market cap tiers",
             question: "Why do small-cap stocks tend to be riskier than large-cap stocks?",
             options: [
               "They are less tested and swing more sharply",
@@ -780,7 +780,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks4-mastery5",
-            concept: "Market Cap",
+            concept: "market cap",
             question: "When news lists the 'biggest companies in the world,' it ranks them by…",
             options: [
               "Their single share price",
@@ -794,7 +794,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks4-mastery6",
-            concept: "Market Cap",
+            concept: "market cap",
             question: "Market cap measures the value of a company's stock but leaves out…",
             options: [
               "The company's debt",
@@ -856,7 +856,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks5-mc1",
-            concept: "Dividends",
+            concept: "dividend",
             question: "What is a dividend?",
             options: [
               "A loan shareholders must repay the company",
@@ -869,7 +869,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks5-mc2",
-            concept: "Dividends",
+            concept: "dividend yield",
             question: "How is dividend yield calculated?",
             options: [
               "Share price divided by yearly dividend",
@@ -897,7 +897,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks5-aq1",
-          concept: "Dividends",
+          concept: "dividend reinvestment",
           question: "If Sofia reinvests Stock A's dividends for decades, what's the main benefit?",
           options: [
             "The dividend becomes legally guaranteed forever",
@@ -925,7 +925,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks5-mastery1",
-            concept: "Dividends",
+            concept: "dividend",
             question: "You own 300 shares paying a $0.40 quarterly dividend. How much do you collect per year?",
             options: [
               "$120 per year",
@@ -939,7 +939,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks5-mastery2",
-            concept: "Dividends",
+            concept: "dividend policy",
             question: "Why do many fast-growing tech companies pay no dividend?",
             options: [
               "They are legally banned from paying one",
@@ -953,7 +953,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks5-mastery3",
-            concept: "Dividends",
+            concept: "dividend yield",
             question: "A stock trades at $80 and pays $4 a year. What is its dividend yield?",
             options: [
               "About 2%",
@@ -967,7 +967,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks5-mastery4",
-            concept: "Dividends",
+            concept: "dividend yield trap",
             question: "Why can an unusually high dividend yield be a warning sign?",
             options: [
               "High dividend yields are always completely illegal",
@@ -981,7 +981,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks5-mastery5",
-            concept: "Dividends",
+            concept: "dividend reinvestment",
             question: "What does a DRIP do?",
             options: [
               "Charges a fee each time you sell a share",
@@ -995,7 +995,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks5-mastery6",
-            concept: "Dividends",
+            concept: "dividend",
             question: "One psychological benefit of dividends in a flat market is that they…",
             options: [
               "Force the share price to quickly rise again",
@@ -1057,7 +1057,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks6-mc1",
-            concept: "Why Prices Move",
+            concept: "market expectations",
             question: "What does a stock's price mainly reflect?",
             options: [
               "The exact cash sitting in the company's bank",
@@ -1070,7 +1070,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks6-mc2",
-            concept: "Why Prices Move",
+            concept: "earnings and stock price",
             question: "A company reports record profits but its stock drops. Why is this possible?",
             options: [
               "Profits legally must lower the share price",
@@ -1098,7 +1098,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks6-aq1",
-          concept: "Why Prices Move",
+          concept: "rates and stock prices",
           question: "Why did Dev's stock fall on the day the Fed raised rates?",
           options: [
             "His own company had quietly reported truly terrible earnings",
@@ -1126,7 +1126,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks6-mastery1",
-            concept: "Why Prices Move",
+            concept: "share supply and demand",
             question: "Who actually sets a stock's price at any moment?",
             options: [
               "The company's own single chief executive officer",
@@ -1140,7 +1140,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks6-mastery2",
-            concept: "Why Prices Move",
+            concept: "market expectations",
             question: "A stock jumps the day a new product is announced, before any sales. Why?",
             options: [
               "Sales revenue is added instantly on announcement",
@@ -1154,7 +1154,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks6-mastery3",
-            concept: "Why Prices Move",
+            concept: "earnings and stock price",
             question: "The phrase 'beat or miss' refers to comparing a company's results to…",
             options: [
               "Its results from exactly ten years earlier",
@@ -1168,7 +1168,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks6-mastery4",
-            concept: "Why Prices Move",
+            concept: "company-specific vs macro news",
             question: "Why might nearly every stock fall on the same day?",
             options: [
               "Each single company failed on the very same day",
@@ -1182,7 +1182,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks6-mastery5",
-            concept: "Why Prices Move",
+            concept: "sentiment vs fundamentals",
             question: "In the short term, what often makes stock prices swing unpredictably?",
             options: [
               "Fear, greed, rumors, and market mood",
@@ -1196,7 +1196,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks6-mastery6",
-            concept: "Why Prices Move",
+            concept: "sentiment vs fundamentals",
             question: "The 'weighing machine' idea says that over the long run, prices track…",
             options: [
               "A company's actual profits and growth",
@@ -1258,7 +1258,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks7-mc1",
-            concept: "Supply & Demand",
+            concept: "share supply and demand",
             question: "What happens when far more people want to buy a stock than sell it?",
             options: [
               "The price falls to attract more sellers",
@@ -1271,7 +1271,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks7-mc2",
-            concept: "Supply & Demand",
+            concept: "bid-ask spread",
             question: "What is the 'spread'?",
             options: [
               "The special tax charged on each single stock trade",
@@ -1299,7 +1299,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks7-aq1",
-          concept: "Supply & Demand",
+          concept: "share supply and demand",
           question: "Why did the small company's price spike more than the giant's?",
           options: [
             "Small companies always earn far more money overall",
@@ -1327,7 +1327,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks7-mastery1",
-            concept: "Supply & Demand",
+            concept: "share supply and demand",
             question: "A trade happens only when…",
             options: [
               "The federal government first approves the whole sale",
@@ -1341,7 +1341,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks7-mastery2",
-            concept: "Supply & Demand",
+            concept: "bid-ask spread",
             question: "What is the 'bid' in a stock quote?",
             options: [
               "The highest price a buyer will pay",
@@ -1355,7 +1355,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks7-mastery3",
-            concept: "Supply & Demand",
+            concept: "share supply and demand",
             question: "When a company issues many new shares, what usually happens to the price?",
             options: [
               "It tends to fall as supply increases",
@@ -1369,7 +1369,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks7-mastery4",
-            concept: "Supply & Demand",
+            concept: "share supply and demand",
             question: "How does a share buyback tend to affect the price?",
             options: [
               "It shrinks supply and can lift the price",
@@ -1383,7 +1383,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks7-mastery5",
-            concept: "Supply & Demand",
+            concept: "share supply and demand",
             question: "Why can a small company's stock swing wildly on modest buying?",
             options: [
               "Small firms are required to be volatile",
@@ -1397,7 +1397,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks7-mastery6",
-            concept: "Supply & Demand",
+            concept: "FOMO",
             question: "Which force can flood a stock with buyers and detach its price from real value?",
             options: [
               "A strictly required official government price schedule",
@@ -1459,7 +1459,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks8-mc1",
-            concept: "Order Types",
+            concept: "market order",
             question: "What does a market order guarantee?",
             options: [
               "The exact price you saw on screen",
@@ -1472,7 +1472,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks8-mc2",
-            concept: "Order Types",
+            concept: "limit order",
             question: "What does a limit buy order do?",
             options: [
               "Buys instantly no matter the current listed price",
@@ -1500,7 +1500,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks8-aq1",
-          concept: "Order Types",
+          concept: "limit order",
           question: "Why did Amara use a limit order instead of a market order for the jumpy stock?",
           options: [
             "Limit orders always fill faster than market orders",
@@ -1528,7 +1528,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks8-mastery1",
-            concept: "Order Types",
+            concept: "market order",
             question: "The main trade-off of a market order is that it guarantees…",
             options: [
               "Price but not that it will execute",
@@ -1542,7 +1542,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks8-mastery2",
-            concept: "Order Types",
+            concept: "limit order",
             question: "You set a limit buy at $30 but the stock never drops below $32. What happens?",
             options: [
               "It fills anyway at the $32 price",
@@ -1556,7 +1556,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks8-mastery3",
-            concept: "Order Types",
+            concept: "stop-loss order",
             question: "What does a stop-loss order do?",
             options: [
               "Buys even more shares whenever the price rises",
@@ -1570,7 +1570,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks8-mastery4",
-            concept: "Order Types",
+            concept: "stop-loss order",
             question: "Why might a stop-loss sell far below your trigger price?",
             options: [
               "The broker quietly adds on a hidden extra surcharge",
@@ -1584,7 +1584,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks8-mastery5",
-            concept: "Order Types",
+            concept: "order duration",
             question: "A 'good-till-canceled' order differs from a 'day' order because it…",
             options: [
               "Fills instantly regardless of the current listed market price",
@@ -1598,7 +1598,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks8-mastery6",
-            concept: "Order Types",
+            concept: "market order",
             question: "When is a plain market order most reasonable to use?",
             options: [
               "On a tiny, thinly-traded, jumpy stock",
@@ -1660,7 +1660,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks9-mc1",
-            concept: "Volatility",
+            concept: "volatility",
             question: "What does volatility measure?",
             options: [
               "Only how far down a stock has fallen",
@@ -1673,7 +1673,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks9-mc2",
-            concept: "Volatility",
+            concept: "volatility",
             question: "Which type of company tends to be MOST volatile?",
             options: [
               "A large, established utility company",
@@ -1701,7 +1701,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks9-aq1",
-          concept: "Volatility",
+          concept: "staying invested",
           question: "Given his 15-year goal, what's the best reason for Ravi NOT to panic-sell?",
           options: [
             "The whole market legally must fully recover within a month",
@@ -1729,7 +1729,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks9-mastery1",
-            concept: "Volatility",
+            concept: "volatility",
             question: "Is a volatile stock the same as a stock that is falling?",
             options: [
               "Yes, being volatile always means going straight down",
@@ -1743,7 +1743,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks9-mastery2",
-            concept: "Volatility",
+            concept: "VIX",
             question: "The VIX index is nicknamed the market's…",
             options: [
               "Growth engine",
@@ -1757,7 +1757,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks9-mastery3",
-            concept: "Volatility",
+            concept: "diversification",
             question: "Why does owning a broad fund of hundreds of stocks reduce volatility?",
             options: [
               "The fund is insured against any loss",
@@ -1771,7 +1771,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks9-mastery4",
-            concept: "Volatility",
+            concept: "dollar-cost averaging",
             question: "How does dollar-cost averaging use volatility to your advantage?",
             options: [
               "It stops all prices from ever once falling again",
@@ -1785,7 +1785,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks9-mastery5",
-            concept: "Volatility",
+            concept: "staying invested",
             question: "What is the biggest mistake volatility tends to cause?",
             options: [
               "Buying too many different index funds",
@@ -1799,7 +1799,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks9-mastery6",
-            concept: "Volatility",
+            concept: "time horizon",
             question: "Why does a long time horizon make volatility less concerning?",
             options: [
               "Long-term investors never see any drops",
@@ -1861,7 +1861,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks10-mc1",
-            concept: "Reading a Stock Page",
+            concept: "trading volume",
             question: "What does the 'volume' on a stock page tell you?",
             options: [
               "The company's total yearly profit",
@@ -1874,7 +1874,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks10-mc2",
-            concept: "Reading a Stock Page",
+            concept: "P/E ratio",
             question: "What does a P/E ratio compare?",
             options: [
               "Price to the company's yearly earnings per share",
@@ -1902,7 +1902,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "stocks10-aq1",
-          concept: "Reading a Stock Page",
+          concept: "trading volume",
           question: "Why is the unusually high volume on Tara's stock page significant?",
           options: [
             "High trading volume always guarantees the price will rise",
@@ -1930,7 +1930,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "stocks10-mastery1",
-            concept: "Reading a Stock Page",
+            concept: "52-week range",
             question: "The '52-week range' on a stock page shows…",
             options: [
               "The company's total net profit over the past 52 weeks",
@@ -1944,7 +1944,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks10-mastery2",
-            concept: "Reading a Stock Page",
+            concept: "P/E ratio",
             question: "A stock's P/E ratio is 25. What does that roughly mean?",
             options: [
               "The stock currently pays out a full 25% dividend yield",
@@ -1958,7 +1958,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks10-mastery3",
-            concept: "Reading a Stock Page",
+            concept: "trading volume",
             question: "Why is a price jump on very high volume a stronger signal than one on light volume?",
             options: [
               "High volume always means the stock is cheap",
@@ -1972,7 +1972,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks10-mastery4",
-            concept: "Reading a Stock Page",
+            concept: "beta",
             question: "What does 'beta' measure on a stock page?",
             options: [
               "The cash dividend paid each quarter",
@@ -1986,7 +1986,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks10-mastery5",
-            concept: "Reading a Stock Page",
+            concept: "stock quote page",
             question: "Why shouldn't you judge a stock by its share price alone?",
             options: [
               "Price is always fake and unreliable",
@@ -2000,7 +2000,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "stocks10-mastery6",
-            concept: "Reading a Stock Page",
+            concept: "EPS",
             question: "EPS (earnings per share) tells you…",
             options: [
               "How much profit each share earns",
@@ -2066,7 +2066,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market1-mc1",
-            concept: "NYSE vs NASDAQ",
+            concept: "stock exchange",
             question: "What is a stock exchange?",
             options: [
               "A big bank that only lends money to companies",
@@ -2205,7 +2205,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market1-mastery6",
-            concept: "NYSE vs NASDAQ",
+            concept: "value drivers",
             question: "What should matter most when deciding whether to buy a stock?",
             options: [
               "The company's earnings, growth, and risks",
@@ -2267,7 +2267,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market2-mc1",
-            concept: "Market Makers",
+            concept: "market maker",
             question: "How does a market maker mainly earn money?",
             options: [
               "By charging a yearly fee to every investor",
@@ -2280,7 +2280,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market2-mc2",
-            concept: "Market Makers",
+            concept: "market maker",
             question: "What does a market maker provide to the market?",
             options: [
               "Guaranteed profits for every investor",
@@ -2308,7 +2308,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market2-aq1",
-          concept: "Market Makers",
+          concept: "market maker",
           question: "Why did Marco's sell order fill instantly even with no regular buyer waiting?",
           options: [
             "The app invented a fake buyer to help him",
@@ -2336,7 +2336,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market2-mastery1",
-            concept: "Market Makers",
+            concept: "bid-ask spread",
             question: "What are the two prices a market maker quotes at once?",
             options: [
               "The daily open price and the final close price",
@@ -2350,7 +2350,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market2-mastery2",
-            concept: "Market Makers",
+            concept: "bid-ask spread",
             question: "A market maker buys at $12.00 and sells at $12.06. What is its spread?",
             options: [
               "About 6 cents per share",
@@ -2364,7 +2364,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market2-mastery3",
-            concept: "Market Makers",
+            concept: "liquidity",
             question: "What does 'liquidity' mean for a stock?",
             options: [
               "How easily it converts to cash without moving price",
@@ -2378,7 +2378,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market2-mastery4",
-            concept: "Market Makers",
+            concept: "bid-ask spread",
             question: "Why do thinly traded stocks usually have wider spreads?",
             options: [
               "The government forces wider spreads on them",
@@ -2392,7 +2392,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market2-mastery5",
-            concept: "Market Makers",
+            concept: "market maker",
             question: "What risk does a market maker take on?",
             options: [
               "Prices can drop before it resells its shares",
@@ -2406,7 +2406,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market2-mastery6",
-            concept: "Market Makers",
+            concept: "bid-ask spread",
             question: "For a long-term investor, why is a narrow spread good?",
             options: [
               "It fully guarantees the stock will rise soon",
@@ -2468,7 +2468,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market3-mc1",
-            concept: "Trading Hours",
+            concept: "trading hours",
             question: "What are the regular U.S. stock market hours?",
             options: [
               "A full 24 hours a day, every single day",
@@ -2481,7 +2481,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market3-mc2",
-            concept: "Trading Hours",
+            concept: "trading hours",
             question: "Which part of the day is usually the most volatile?",
             options: [
               "The quiet slow middle around lunchtime",
@@ -2509,7 +2509,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market3-aq1",
-          concept: "Trading Hours",
+          concept: "price gap",
           question: "Why might Aisha's Wednesday fill price differ from Tuesday's closing price?",
           options: [
             "Brokers randomly change all their prices every single night",
@@ -2537,7 +2537,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market3-mastery1",
-            concept: "Trading Hours",
+            concept: "trading hours",
             question: "At what Eastern time does regular U.S. trading begin?",
             options: [
               "At 6:00 a.m. exactly sharp",
@@ -2551,7 +2551,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market3-mastery2",
-            concept: "Trading Hours",
+            concept: "trading hours",
             question: "Why do set trading hours help create fair prices?",
             options: [
               "They gather the most buyers and sellers together",
@@ -2565,7 +2565,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market3-mastery3",
-            concept: "Trading Hours",
+            concept: "price gap",
             question: "A stock closes at $30, then opens the next day at $33 after good news. This jump is called a…",
             options: [
               "A cash dividend paid overnight",
@@ -2579,7 +2579,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market3-mastery4",
-            concept: "Trading Hours",
+            concept: "trading hours",
             question: "If you place an order at 10 p.m., when does it usually execute?",
             options: [
               "Instantly, at the current midnight price",
@@ -2593,7 +2593,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market3-mastery5",
-            concept: "Trading Hours",
+            concept: "closing price",
             question: "Why is the 4:00 p.m. closing price important?",
             options: [
               "It becomes the stock's official daily price",
@@ -2607,7 +2607,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market3-mastery6",
-            concept: "Trading Hours",
+            concept: "trading hours",
             question: "For a student in California, when is the 9:30 a.m. Eastern open?",
             options: [
               "At 6:30 a.m. Pacific time",
@@ -2669,7 +2669,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market4-mc1",
-            concept: "Bull vs Bear",
+            concept: "bull vs bear market",
             question: "What is a bear market?",
             options: [
               "A single stock that pays big dividends",
@@ -2682,7 +2682,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market4-mc2",
-            concept: "Bull vs Bear",
+            concept: "emotional trading",
             question: "Why is emotion dangerous for investors during these cycles?",
             options: [
               "It always makes online brokers charge much higher fees",
@@ -2710,7 +2710,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market4-aq1",
-          concept: "Bull vs Bear",
+          concept: "bear market strategy",
           question: "Why does Tomas's separate cash cushion help him during the bear market?",
           options: [
             "It fully guarantees that the whole market rebounds next week",
@@ -2738,7 +2738,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market4-mastery1",
-            concept: "Bull vs Bear",
+            concept: "bull vs bear market",
             question: "A bull market describes what kind of trend?",
             options: [
               "A sustained stretch of rising prices",
@@ -2752,7 +2752,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market4-mastery2",
-            concept: "Bull vs Bear",
+            concept: "bull vs bear market",
             question: "Roughly how far must prices fall to be called a bear market?",
             options: [
               "About 2% down from a recent high",
@@ -2766,7 +2766,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market4-mastery3",
-            concept: "Bull vs Bear",
+            concept: "bear market strategy",
             question: "What best protects you from being forced to sell in a bear market?",
             options: [
               "Timing the market's exact top and bottom perfectly",
@@ -2780,7 +2780,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market4-mastery4",
-            concept: "Bull vs Bear",
+            concept: "market timing",
             question: "Can experts reliably predict when a bear market will start?",
             options: [
               "Yes, they always somehow know the exact top",
@@ -2794,7 +2794,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market4-mastery5",
-            concept: "Bull vs Bear",
+            concept: "bear market strategy",
             question: "How can a bear market actually help a long-term investor?",
             options: [
               "It lets them buy quality companies at lower prices",
@@ -2808,7 +2808,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market4-mastery6",
-            concept: "Bull vs Bear",
+            concept: "market recovery",
             question: "What does history show about past bear markets?",
             options: [
               "They lasted forever with no recovery",
@@ -2870,7 +2870,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market5-mc1",
-            concept: "Liquidity",
+            concept: "liquidity",
             question: "What does liquidity measure?",
             options: [
               "How much a whole company earns each year",
@@ -2883,7 +2883,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market5-mc2",
-            concept: "Liquidity",
+            concept: "liquidity",
             question: "Which signals that a stock is highly liquid?",
             options: [
               "Very low volume and a wide spread",
@@ -2911,7 +2911,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market5-aq1",
-          concept: "Liquidity",
+          concept: "liquidity",
           question: "Why could Nina struggle to sell her illiquid stock later at $8?",
           options: [
             "The exchange strictly bans anyone at all from selling small companies",
@@ -2939,7 +2939,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market5-mastery1",
-            concept: "Liquidity",
+            concept: "liquidity",
             question: "Which asset is the most liquid?",
             options: [
               "A house you own outright",
@@ -2953,7 +2953,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market5-mastery2",
-            concept: "Liquidity",
+            concept: "liquidity",
             question: "A stock trades 20 million shares daily with a 1-cent spread. It is…",
             options: [
               "Highly liquid and easy to trade",
@@ -2967,7 +2967,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market5-mastery3",
-            concept: "Liquidity",
+            concept: "emergency fund location",
             question: "Where should your emergency fund be kept?",
             options: [
               "In a thinly traded penny stock",
@@ -2981,7 +2981,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market5-mastery4",
-            concept: "Liquidity",
+            concept: "liquidity",
             question: "What can happen if you place a big sell order in an illiquid stock?",
             options: [
               "Your order pushes the price down",
@@ -2995,7 +2995,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market5-mastery5",
-            concept: "Liquidity",
+            concept: "liquidity",
             question: "Why is a high 'last price' not enough to trust?",
             options: [
               "The last posted prices are always fake numbers",
@@ -3009,7 +3009,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market5-mastery6",
-            concept: "Liquidity",
+            concept: "liquidity",
             question: "Why do beginners favor liquid index funds and large stocks?",
             options: [
               "They can be bought and sold quickly and cheaply",
@@ -3071,7 +3071,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market6-mc1",
-            concept: "After-Hours",
+            concept: "after-hours trading",
             question: "What are 'extended hours'?",
             options: [
               "Weekend-only trading at the exchange floor",
@@ -3084,7 +3084,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market6-mc2",
-            concept: "After-Hours",
+            concept: "after-hours trading",
             question: "Why are after-hours prices often jumpy?",
             options: [
               "The exchange resets all prices every single hour",
@@ -3112,7 +3112,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market6-aq1",
-          concept: "After-Hours",
+          concept: "after-hours trading",
           question: "Why should Diego be cautious about the 9% after-hours jump?",
           options: [
             "All after-hours trading gains are always taxed at a full 100%",
@@ -3140,7 +3140,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market6-mastery1",
-            concept: "After-Hours",
+            concept: "after-hours trading",
             question: "When does the after-hours session roughly run?",
             options: [
               "From 4:00 a.m. to 9:30 a.m. Eastern",
@@ -3154,7 +3154,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market6-mastery2",
-            concept: "After-Hours",
+            concept: "earnings release timing",
             question: "Why do companies often report earnings after 4:00 p.m.?",
             options: [
               "The regular market is closed, avoiding mid-day shocks",
@@ -3168,7 +3168,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market6-mastery3",
-            concept: "After-Hours",
+            concept: "after-hours trading",
             question: "What makes after-hours trading riskier than regular hours?",
             options: [
               "Thin liquidity and wide spreads",
@@ -3182,7 +3182,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market6-mastery4",
-            concept: "After-Hours",
+            concept: "after-hours trading",
             question: "A stock jumps 8% after-hours on light volume. What is a wise view?",
             options: [
               "The move is final and can never reverse",
@@ -3196,7 +3196,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market6-mastery5",
-            concept: "After-Hours",
+            concept: "closing price",
             question: "Which price is considered a stock's 'official' daily price?",
             options: [
               "The single highest after-hours tick",
@@ -3210,7 +3210,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market6-mastery6",
-            concept: "After-Hours",
+            concept: "after-hours trading",
             question: "What is the smartest approach to after-hours moves for a beginner?",
             options: [
               "Treat them as early info, not a final verdict",
@@ -3272,7 +3272,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market7-mc1",
-            concept: "Circuit Breakers",
+            concept: "circuit breaker",
             question: "What is the main purpose of a circuit breaker?",
             options: [
               "To fully guarantee stocks always rise in value",
@@ -3285,7 +3285,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market7-mc2",
-            concept: "Circuit Breakers",
+            concept: "circuit breaker",
             question: "What does a market-wide Level 3 (20%) drop cause?",
             options: [
               "A brief 15-minute pause, and then normal trading fully resumes",
@@ -3313,7 +3313,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market7-aq1",
-          concept: "Circuit Breakers",
+          concept: "circuit breaker",
           question: "What does the 15-minute halt after a 7% drop actually mean for Hana?",
           options: [
             "Her invested money has been permanently erased",
@@ -3341,7 +3341,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market7-mastery1",
-            concept: "Circuit Breakers",
+            concept: "circuit breaker",
             question: "What problem are circuit breakers designed to stop?",
             options: [
               "Panic selling that feeds on itself",
@@ -3355,7 +3355,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market7-mastery2",
-            concept: "Circuit Breakers",
+            concept: "circuit breaker",
             question: "How long does a Level 1 (7%) halt last if triggered early enough?",
             options: [
               "About 15 minutes",
@@ -3369,7 +3369,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market7-mastery3",
-            concept: "Circuit Breakers",
+            concept: "circuit breaker",
             question: "What triggers a market-wide Level 3 halt for the whole day?",
             options: [
               "A small 2% dip from yesterday",
@@ -3383,7 +3383,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market7-mastery4",
-            concept: "Circuit Breakers",
+            concept: "limit up-limit down",
             question: "What is a 'limit up-limit down' halt?",
             options: [
               "A pause when one stock swings too fast",
@@ -3397,7 +3397,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market7-mastery5",
-            concept: "Circuit Breakers",
+            concept: "circuit breaker",
             question: "If you see 'trading was halted,' what does it usually mean?",
             options: [
               "Your money has now permanently completely disappeared",
@@ -3411,7 +3411,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market7-mastery6",
-            concept: "Circuit Breakers",
+            concept: "staying invested",
             question: "What is the smartest investor response during a circuit-breaker halt?",
             options: [
               "Immediately panic-sell absolutely everything you own right now",
@@ -3473,7 +3473,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market8-mc1",
-            concept: "Insider Trading",
+            concept: "insider trading",
             question: "What is illegal insider trading?",
             options: [
               "Buying any stock while you work at a company",
@@ -3486,7 +3486,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market8-mc2",
-            concept: "Insider Trading",
+            concept: "insider trading",
             question: "Is passing a secret tip to a friend who then trades illegal?",
             options: [
               "No, only the original insider can be charged",
@@ -3514,7 +3514,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market8-aq1",
-          concept: "Insider Trading",
+          concept: "insider trading",
           question: "Why would selling on his uncle's tip be illegal for Cole?",
           options: [
             "Teens are banned from ever selling any stock",
@@ -3542,7 +3542,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market8-mastery1",
-            concept: "Insider Trading",
+            concept: "insider trading",
             question: "What kind of information makes trading illegal?",
             options: [
               "Material, nonpublic secret information",
@@ -3556,7 +3556,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market8-mastery2",
-            concept: "Insider Trading",
+            concept: "insider trading",
             question: "Why do insider trading laws exist?",
             options: [
               "To keep markets fair and trustworthy for all",
@@ -3570,7 +3570,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market8-mastery3",
-            concept: "Insider Trading",
+            concept: "insider trading",
             question: "Can a company executive ever legally trade her own stock?",
             options: [
               "No, executives may never trade at all",
@@ -3584,7 +3584,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market8-mastery4",
-            concept: "Insider Trading",
+            concept: "insider trading",
             question: "How does the SEC often catch illegal insider trading?",
             options: [
               "By flagging suspicious timing and tracing records",
@@ -3598,7 +3598,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market8-mastery5",
-            concept: "Insider Trading",
+            concept: "insider trading",
             question: "What can happen to someone convicted of insider trading?",
             options: [
               "Nothing more than a polite warning",
@@ -3612,7 +3612,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market8-mastery6",
-            concept: "Insider Trading",
+            concept: "insider trading",
             question: "If a friend gives you a secret tip, what's the safe choice?",
             options: [
               "Trade very fast before anyone else notices",
@@ -3674,7 +3674,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market9-mc1",
-            concept: "SEC Basics",
+            concept: "SEC role",
             question: "What is the SEC's main role?",
             options: [
               "To guarantee every investor earns a profit",
@@ -3687,7 +3687,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market9-mc2",
-            concept: "SEC Basics",
+            concept: "public company disclosure",
             question: "What does 'disclosure' require public companies to do?",
             options: [
               "Give free shares to every citizen",
@@ -3715,7 +3715,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market9-aq1",
-          concept: "SEC Basics",
+          concept: "guaranteed return red flag",
           question: "Why is the adviser's 'guaranteed 40% return' a warning sign?",
           options: [
             "The SEC caps all returns at exactly 10%",
@@ -3743,7 +3743,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market9-mastery1",
-            concept: "SEC Basics",
+            concept: "SEC role",
             question: "The SEC is best described as the market's…",
             options: [
               "Referee enforcing fair rules",
@@ -3757,7 +3757,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market9-mastery2",
-            concept: "SEC Basics",
+            concept: "public company disclosure",
             question: "Why must public companies file disclosures?",
             options: [
               "So investors can make informed decisions",
@@ -3771,7 +3771,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market9-mastery3",
-            concept: "SEC Basics",
+            concept: "SEC role",
             question: "Which of these does the SEC investigate and punish?",
             options: [
               "Fraud and insider trading",
@@ -3785,7 +3785,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market9-mastery4",
-            concept: "SEC Basics",
+            concept: "EDGAR database",
             question: "How can the SEC's databases help you personally?",
             options: [
               "They fully guarantee your investments will grow",
@@ -3799,7 +3799,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market9-mastery5",
-            concept: "SEC Basics",
+            concept: "guaranteed return red flag",
             question: "Can a financial firm legally promise you 'guaranteed 50% returns'?",
             options: [
               "Yes, if the firm is very large",
@@ -3813,7 +3813,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market9-mastery6",
-            concept: "SEC Basics",
+            concept: "SEC role",
             question: "What is a key limit of the SEC's protection?",
             options: [
               "It cannot guarantee any investment makes money",
@@ -3875,7 +3875,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market10-mc1",
-            concept: "Market Indexes",
+            concept: "stock index",
             question: "What is a market index?",
             options: [
               "A single company's own daily share price",
@@ -3888,7 +3888,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market10-mc2",
-            concept: "Market Indexes",
+            concept: "S&P 500",
             question: "Which index tracks 500 of the largest U.S. companies?",
             options: [
               "The Dow Jones Industrial Average",
@@ -3916,7 +3916,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "market10-aq1",
-          concept: "Market Indexes",
+          concept: "price-weighted vs cap-weighted index",
           question: "How could the S&P 500 rise while most of its companies fell?",
           options: [
             "The index secretly ignores any company that drops",
@@ -3944,7 +3944,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
         questions: [
           {
             id: "market10-mastery1",
-            concept: "Market Indexes",
+            concept: "stock index",
             question: "What does a market index do?",
             options: [
               "Tracks a group of stocks with one number",
@@ -3958,7 +3958,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market10-mastery2",
-            concept: "Market Indexes",
+            concept: "Dow Jones",
             question: "How many companies does the Dow track?",
             options: [
               "About 30 large companies",
@@ -3972,7 +3972,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market10-mastery3",
-            concept: "Market Indexes",
+            concept: "stock index",
             question: "Why might the Nasdaq rise while the Dow falls on the same day?",
             options: [
               "They track different sets of companies",
@@ -3986,7 +3986,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market10-mastery4",
-            concept: "Market Indexes",
+            concept: "price-weighted vs cap-weighted index",
             question: "What does 'market-cap weighted' mean for an index?",
             options: [
               "Every company counts exactly equally in it",
@@ -4000,7 +4000,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market10-mastery5",
-            concept: "Market Indexes",
+            concept: "price-weighted vs cap-weighted index",
             question: "Which index is unusual for being 'price weighted'?",
             options: [
               "The S&P 500, the pros' benchmark",
@@ -4014,7 +4014,7 @@ export const deepStocksMarkets: StructuredLessonContent[] = [
           },
           {
             id: "market10-mastery6",
-            concept: "Market Indexes",
+            concept: "total return",
             question: "A 'total return' version of an index differs from the headline number by including…",
             options: [
               "The dividends the companies paid out",

@@ -13,6 +13,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bh1",
+        concept: "50/30/20 rule",
         question: "Zoe takes home $2,000 per month and follows the 50/30/20 rule (50% needs, 30% wants, 20% savings). So far this month she's spent $150 on rent and $250 on groceries, both of which are needs. How much of her needs allocation does she still have left to spend?",
         options: [
           "$600: the remaining needs allocation after subtracting what's spent",
@@ -25,6 +26,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "bh2",
+        concept: "zero-based budgeting",
         question: "Priya uses zero-based budgeting on $2,000 of take-home pay, meaning every dollar gets assigned a job, with nothing left unassigned. She assigns $800 rent, $400 groceries and utilities, $300 transportation, and $200 debt payment. She then splits whatever remains evenly between savings and fun money. How much goes to each of those last two categories?",
         options: [
           "$150 to each: half of the $300 left after the other categories",
@@ -37,6 +39,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "bh3",
+        concept: "budget adjustment",
         question: "Deon budgets $2,400/month: $1,000 rent, $500 savings, $900 for everything else. His car needs a $600 repair this month that he didn't plan for, and he decides to cover it without touching rent or savings. How much does he need to cut from 'everything else' to cover the repair?",
         options: [
           "$600: the full repair cost, since rent and savings stay untouched",
@@ -49,6 +52,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "bh4",
+        concept: "irregular income budgeting",
         question: "Aaliyah is a freelance photographer whose income varies: $1,200 one month, $2,400 the next. Which budgeting approach makes the MOST sense for her irregular income?",
         options: [
           "Build the budget around her lowest expected month, saving extra during higher-earning months",
@@ -61,6 +65,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "bh5",
+        concept: "goal budgeting",
         question: "Nate takes home $1,600/month. Fixed needs take $900, leaving $700. He wants to build a $1,200 emergency fund in 6 months AND pay down a credit card as fast as possible without missing that deadline. Hitting the emergency fund goal requires $200/month. What's the MOST he can put toward the credit card each month while still hitting the deadline?",
         options: [
           "$500: the leftover $700 minus the $200/month needed for the emergency fund",
@@ -73,6 +78,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "bh6",
+        concept: "goal budgeting",
         question: "Bianca has $150 of fun money budgeted this month. She's deciding between a $150 concert ticket or saving that $150 toward a $600 laptop, which currently has $300 saved. If she skips the concert and saves $150/month toward the laptop instead, how many months of saving (INCLUDING this month's contribution) will it take to reach $600?",
         options: [
           "2 months, including this month's $150 contribution",
@@ -85,6 +91,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "bh7",
+        concept: "lifestyle inflation",
         question: "Six months into following a budget, Julian gets a $300/month raise, bringing his take-home pay to $2,100. Before the raise, he was saving $150/month. He decides to put half of his raise toward savings and half toward wants. What is his new monthly savings amount?",
         options: [
           "$300: his original $150 savings plus half of the $300 raise",
@@ -105,6 +112,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "br1",
+        concept: "budget surplus vs deficit",
         question: "A budget surplus means you spent LESS than you earned. If you earn $300 in a month and spend $250, is that a surplus or a deficit?",
         options: [
           "Surplus: you spent $50 less than you earned",
@@ -117,6 +125,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "br2",
+        concept: "fixed vs variable expenses",
         question: "A fixed expense stays the same amount every month (like rent). A variable expense changes from month to month (like your grocery bill). Which of these is a variable expense?",
         options: [
           "Your grocery bill, which changes depending on what you buy each week",
@@ -129,6 +138,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "br3",
+        concept: "spending tracking",
         question: "A budget PLANS how you'll spend money before you spend it. A spending tracker RECORDS what you already spent. If you write down every purchase after you make it, which one are you doing?",
         options: [
           "Using a spending tracker, since you're recording money already spent",
@@ -141,6 +151,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "br4",
+        concept: "pay yourself first",
         question: "'Paying yourself first' means putting money into savings as soon as you get paid, before spending on anything else. Which person is paying themselves first?",
         options: [
           "Maria, who moves $50 into savings the moment her paycheck arrives",
@@ -153,6 +164,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "br5",
+        concept: "budget purpose",
         question: "A budget helps you decide, in advance, how you'll use your money. If you make $400 this month and plan out $200 for necessities, $100 for savings, and $100 for fun BEFORE you spend anything, what are you doing?",
         options: [
           "Creating a budget, because you're planning your spending ahead of time",
@@ -165,6 +177,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "br6",
+        concept: "budget purpose",
         question: "Without a budget, it's easy to lose track of how much you've spent. If Ethan doesn't plan his spending and buys things impulsively all month, what is he MOST at risk of?",
         options: [
           "Running out of money before his next paycheck arrives",
@@ -177,6 +190,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "br7",
+        concept: "budget purpose",
         question: "A common myth is that a budget means you can never spend money on fun things. In reality, a good budget:",
         options: [
           "Includes planned room for fun spending, alongside needs and savings",
@@ -197,6 +211,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "ih1",
+        concept: "active vs passive income",
         question: "Tyler manages an Airbnb rental he owns. He personally cleans it between every guest, replies to messages throughout the day, and handles every repair himself. Is Tyler's rental income active or passive?",
         options: [
           "Active: he's still trading his own time and effort for the income",
@@ -209,6 +224,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ih2",
+        concept: "active vs passive income",
         question: "Camila works 15 hours a week at $14/hour and also earns $3/week in interest from her savings account. Over a 4-week month, how much of her total income comes from PASSIVE sources?",
         options: [
           "$12: just the interest earned over the 4 weeks ($3 × 4)",
@@ -221,6 +237,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ih3",
+        concept: "multiple income streams",
         question: "Diego earns $400/month from a full-time job and $100/month from dividends on stock he owns. His job unexpectedly cuts his hours in half next month, while his dividend income stays the same. What percentage of his USUAL total monthly income can he still count on next month?",
         options: [
           "60%: because his dividend income keeps flowing even though his job income dropped",
@@ -233,6 +250,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ih4",
+        concept: "active vs passive income",
         question: "Tax and financial terminology sometimes groups income as 'earned' (from working: wages, tips, salaries) vs. 'unearned' (interest, dividends, rental income, gifts). Which of these is the clearest example of UNEARNED income?",
         options: [
           "Dividend payments deposited automatically from stock you own",
@@ -245,6 +263,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ih5",
+        concept: "active vs passive income",
         question: "Amara wants to save $450 over 3 months. Her online shop earns her $30/month in hands-off passive income, and she plans to save an EQUAL amount from her part-time job each of the 3 months to make up the rest. How much does she need to save from her job each month?",
         options: [
           "$120 per month: after subtracting 3 months of $30 passive income from the goal",
@@ -257,6 +276,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ih6",
+        concept: "multiple income streams",
         question: "Right after graduating, Priya has only one income source: her full-time job. Her coworker Elena has that same job PLUS a small side income from an online store she rarely has to manage. If both lose their full-time jobs on the same day, what's the most accurate comparison of their financial positions?",
         options: [
           "Elena is somewhat better off, since her passive income continues even though her job income stopped",
@@ -269,6 +289,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ih7",
+        concept: "building passive income",
         question: "Jorge is choosing between two summer plans: (1) work 10 extra hours a week at $15/hour all summer, or (2) spend the first two weeks setting up an online store that, once running, earns about $40/week with almost no ongoing effort. Which statement most accurately compares these two options?",
         options: [
           "Option 1 pays more right away, but option 2 keeps paying with little ongoing effort",
@@ -289,6 +310,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "ir1",
+        concept: "active vs passive income",
         question: "Active income means you have to keep working to keep earning it. Which of these is active income?",
         options: [
           "Wages paid for working a shift at a grocery store",
@@ -301,6 +323,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ir2",
+        concept: "active vs passive income",
         question: "Passive income keeps coming in even when you're not actively working. Which of these is passive income?",
         options: [
           "Rent collected from an apartment you rarely need to manage",
@@ -313,6 +336,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ir3",
+        concept: "active vs passive income",
         question: "Jake earns $10/hour walking dogs on weekends. He also has $15 sitting in a savings account that earns him $1 a year in interest, with no effort on his part. Which of Jake's income sources is passive?",
         options: [
           "The $1 in interest, since it comes in without him doing any work",
@@ -325,6 +349,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ir4",
+        concept: "active vs passive income",
         question: "One advantage of passive income is that it can keep paying you even while you sleep or take a day off. Why is that considered valuable?",
         options: [
           "It provides income that doesn't stop when you personally stop working",
@@ -337,6 +362,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ir5",
+        concept: "building passive income",
         question: "Passive income sources (like owning rental property or stocks) usually require money saved up first before they can start paying you. Why do most teens start out earning active income instead?",
         options: [
           "They typically don't have the upfront savings needed to buy income-producing assets yet",
@@ -349,6 +375,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ir6",
+        concept: "active vs passive income",
         question: "Sofia babysits for $10/hour and also keeps $200 in a savings account that pays her interest automatically. The interest she earns from that account is an example of:",
         options: [
           "Passive income, since it comes in without any ongoing work from her",
@@ -361,6 +388,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ir7",
+        concept: "multiple income streams",
         question: "Having more than one source of income (for example, both a job AND a passive income stream) is valuable mainly because:",
         options: [
           "If one income source stops, another one still brings in money",
@@ -381,6 +409,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "ch1",
+        concept: "credit definition",
         question: "When Malik uses a credit card to buy a $40 pair of shoes, which of the following best describes what's actually happening financially at the moment of that purchase?",
         options: [
           "The credit card company is lending Malik $40 to pay back later",
@@ -393,6 +422,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ch2",
+        concept: "revolving vs installment credit",
         question: "Elena has a credit card with a $2,000 limit that she can borrow against repeatedly as she pays it down, and a car loan for a fixed $15,000 that's paid off in set monthly payments until it reaches zero and closes. Which statement correctly labels these two types of credit?",
         options: [
           "The credit card is revolving credit; the car loan is installment credit",
@@ -405,6 +435,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ch3",
+        concept: "credit utilization",
         question: "Devon has two credit cards: one with a $500 limit and a $250 balance, and another with a $1,500 limit and a $150 balance. What is Devon's OVERALL credit utilization rate across both cards combined?",
         options: [
           "20%: total balances ($400) divided by total limits ($2,000)",
@@ -417,6 +448,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ch4",
+        concept: "APR",
         question: "A store credit card advertises a 24% 'interest rate,' but Priya notices her monthly statement also includes an annual fee and a separate late-payment fee. Which term best captures the TOTAL yearly cost of borrowing, including fees like these, not just the interest rate alone?",
         options: [
           "APR: the rate that includes fees and interest",
@@ -429,6 +461,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ch5",
+        concept: "secured vs unsecured loan",
         question: "A car loan is backed by the car itself, so if payments stop, the lender can repossess the car. A typical credit card isn't backed by any specific item. What are these two categories of credit called?",
         options: [
           "The car loan is secured credit; the credit card is unsecured credit",
@@ -441,6 +474,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ch6",
+        concept: "minimum payment trap",
         question: "Kayla has a $1,000 credit card balance at a high interest rate. If she only ever makes the minimum payment each month, and that minimum payment is less than the interest charged that month, what happens to her balance over time?",
         options: [
           "Her balance grows larger each month, even though she keeps making payments",
@@ -453,6 +487,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "ch7",
+        concept: "good vs bad debt",
         question: "Jamal borrows $3,000 to get a certification that typically increases pay by $2/hour, and separately borrows $3,000 for a vacation. Both loans have the same 10% interest rate. Which statement most accurately compares these two debts?",
         options: [
           "The certification loan is more likely 'good debt,' since it raises future earning power",
@@ -473,6 +508,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "cr1",
+        concept: "credit definition",
         question: "Credit means borrowing money now with a promise to pay it back later, often with interest added. Which of these is an example of USING credit?",
         options: [
           "Buying a $30 shirt with a credit card, paid off next month",
@@ -485,6 +521,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "cr2",
+        concept: "principal vs interest",
         question: "Interest is the extra amount you pay for the privilege of borrowing money instead of paying right away. If you borrow $100 and end up paying back $110 total, how much interest did you pay?",
         options: [
           "$10: the extra amount above the original $100 borrowed",
@@ -497,6 +534,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "cr3",
+        concept: "payment history",
         question: "A credit score is a number that tells lenders how reliably you've paid back money in the past. Which behavior would most likely HELP build a strong credit score over time?",
         options: [
           "Consistently paying at least the minimum amount on time, every month",
@@ -509,6 +547,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "cr4",
+        concept: "good vs bad debt",
         question: "Good debt is borrowing for something likely to grow in value or increase your future income, like a student loan. Bad debt is borrowing for things that lose value quickly or charge very high interest, like some payday loans. Which of these is an example of good debt?",
         options: [
           "A loan for job training that's expected to raise your future income",
@@ -521,6 +560,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "cr5",
+        concept: "minimum payment trap",
         question: "The minimum payment is the smallest amount you're allowed to pay on a credit card bill without being considered late. Why is paying ONLY the minimum payment every month usually a bad idea?",
         options: [
           "Interest keeps building on the leftover balance, so the debt shrinks very slowly",
@@ -533,6 +573,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "cr6",
+        concept: "credit limit",
         question: "A credit limit is the maximum amount a lender allows you to borrow on a credit card at one time. If your credit limit is $1,000 and your current balance is $600, how much more could you charge before reaching your limit?",
         options: [
           "$400: the difference between the $1,000 limit and the $600 already owed",
@@ -545,6 +586,7 @@ export const difficultyQuizzes: LessonQuiz[] = [
       },
       {
         id: "cr7",
+        concept: "credit definition",
         question: "Why should you generally use credit carefully, even though it can be a helpful financial tool?",
         options: [
           "Borrowed money still has to be paid back, usually with added interest",

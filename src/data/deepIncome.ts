@@ -47,7 +47,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income1-mc1",
-            concept: "Active vs Passive Income",
+            concept: "active vs passive income",
             question: "What is the defining feature of active income?",
             options: [
               "It keeps paying after you stop working",
@@ -60,7 +60,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income1-mc2",
-            concept: "Active vs Passive Income",
+            concept: "active vs passive income",
             question: "Which of these is an example of passive income?",
             options: [
               "Getting paid $50 for a babysitting shift",
@@ -88,7 +88,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income1-aq1",
-          concept: "Active vs Passive Income",
+          concept: "building passive income",
           question: "Why does Devon keep the pet-store job while building the savings account?",
           options: [
               "Passive income is always larger than active as a general rule",
@@ -116,7 +116,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income1-mastery1",
-            concept: "Active vs Passive Income",
+            concept: "active vs passive income",
             question: "A teen earns $60 mowing lawns on Saturday. What type of income is this?",
             options: [
               "Passive, since it came from outdoors under normal conditions",
@@ -130,7 +130,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income1-mastery2",
-            concept: "Active vs Passive Income",
+            concept: "active vs passive income",
             question: "What is the main limitation of relying only on active income?",
             options: [
               "It is illegal for anyone under 18 in real practice",
@@ -144,7 +144,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income1-mastery3",
-            concept: "Active vs Passive Income",
+            concept: "building passive income",
             question: "Which best describes how most passive income begins?",
             options: [
               "It appears instantly with zero effort",
@@ -158,7 +158,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income1-mastery4",
-            concept: "Active vs Passive Income",
+            concept: "starting early",
             question: "Why is starting passive income young especially powerful?",
             options: [
               "Young people pay no taxes at all",
@@ -172,7 +172,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income1-mastery5",
-            concept: "Active vs Passive Income",
+            concept: "active vs passive income",
             question: "Which pairing correctly matches income to type?",
             options: [
               "Hourly cashier pay is passive income",
@@ -186,7 +186,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income1-mastery6",
-            concept: "Active vs Passive Income",
+            concept: "building passive income",
             question: "A smart way to use active income is to…",
             options: [
               "Spend every dollar the day you earn it",
@@ -247,7 +247,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income2-mc1",
-            concept: "Wages vs Salary",
+            concept: "wages vs salary",
             question: "What is the key difference between a wage and a salary?",
             options: [
               "Wages are illegal for teens to earn under normal conditions",
@@ -260,7 +260,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income2-mc2",
-            concept: "Wages vs Salary",
+            concept: "overtime pay",
             question: "An hourly worker works 46 hours in a week. How are the extra 6 hours usually paid?",
             options: [
               "At half the normal hourly wage",
@@ -288,7 +288,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income2-aq1",
-          concept: "Wages vs Salary",
+          concept: "employee benefits",
           question: "Beyond the base pay, why might Sam value the salaried offer more?",
           options: [
               "Salaries can never be reduced by law",
@@ -316,7 +316,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income2-mastery1",
-            concept: "Wages vs Salary",
+            concept: "overtime pay",
             question: "A $15/hour worker puts in 44 hours one week. What is that week's gross pay?",
             options: [
               "$660, because all hours pay the same by that logic",
@@ -330,7 +330,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income2-mastery2",
-            concept: "Wages vs Salary",
+            concept: "wages vs salary",
             question: "Why is budgeting often easier on a salary than on wages?",
             options: [
               "Salaries are always far larger amounts for most workers today",
@@ -344,7 +344,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income2-mastery3",
-            concept: "Wages vs Salary",
+            concept: "wages vs salary",
             question: "A person on a $50,000 salary works 55-hour weeks. What happens to their real hourly rate?",
             options: [
               "It rises because they work more hours",
@@ -358,7 +358,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income2-mastery4",
-            concept: "Wages vs Salary",
+            concept: "employee benefits",
             question: "Which is typically an advantage of a salaried job over an hourly one?",
             options: [
               "Guaranteed overtime pay every week",
@@ -372,7 +372,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income2-mastery5",
-            concept: "Wages vs Salary",
+            concept: "wages vs salary",
             question: "What is the main risk of an hourly wage job?",
             options: [
               "You can never earn any overtime pay",
@@ -386,7 +386,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income2-mastery6",
-            concept: "Wages vs Salary",
+            concept: "employee benefits",
             question: "Two jobs both pay $45,000. Why might one still be 'worth' more?",
             options: [
               "Higher numbers always mean more money across the board",
@@ -447,7 +447,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income3-mc1",
-            concept: "Hourly vs Commission",
+            concept: "commission pay",
             question: "What is commission pay based on?",
             options: [
               "The number of hours you clock in",
@@ -460,7 +460,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income3-mc2",
-            concept: "Hourly vs Commission",
+            concept: "base plus commission",
             question: "What does a 'base plus commission' structure add?",
             options: [
               "A cap that limits how much you earn",
@@ -488,7 +488,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income3-aq1",
-          concept: "Hourly vs Commission",
+          concept: "hourly vs commission pay",
           question: "Which factor should weigh MOST in Nina's choice between the two roles?",
           options: [
               "Commission jobs are always higher paying",
@@ -516,7 +516,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income3-mastery1",
-            concept: "Hourly vs Commission",
+            concept: "commission pay",
             question: "A worker earns 5% commission and sells $8,000 in a week. What is the commission?",
             options: [
               "$800, since commission doubles sales by that logic",
@@ -530,7 +530,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income3-mastery2",
-            concept: "Hourly vs Commission",
+            concept: "hourly vs commission pay",
             question: "Why might a driven, confident seller prefer commission over hourly?",
             options: [
               "Commission guarantees the same check weekly in real practice",
@@ -544,7 +544,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income3-mastery3",
-            concept: "Hourly vs Commission",
+            concept: "commission pay",
             question: "What is the biggest downside of pure commission with no base?",
             options: [
               "You are forced to work over 60 hours",
@@ -558,7 +558,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income3-mastery4",
-            concept: "Hourly vs Commission",
+            concept: "hourly vs commission pay",
             question: "Two workers earn $14/hour. One sells twice as much as the other. Their pay is…",
             options: [
               "Different, since selling more pays more in nearly every case",
@@ -572,7 +572,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income3-mastery5",
-            concept: "Hourly vs Commission",
+            concept: "hourly vs commission pay",
             question: "Which person is the best fit for hourly pay?",
             options: [
               "Someone who wants steady, predictable income",
@@ -586,7 +586,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income3-mastery6",
-            concept: "Hourly vs Commission",
+            concept: "base plus commission",
             question: "A '$10 base plus 4% commission' job means the worker…",
             options: [
               "Earns only 4% of sales, with no base",
@@ -647,7 +647,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income4-mc1",
-            concept: "Gig Economy",
+            concept: "gig economy",
             question: "What is the biggest appeal of gig economy work?",
             options: [
               "Guaranteed health insurance and benefits under normal conditions",
@@ -660,7 +660,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income4-mc2",
-            concept: "Gig Economy",
+            concept: "gig tax set-aside",
             question: "Because gig platforms usually don't withhold taxes, smart workers should…",
             options: [
               "Assume they will owe nothing at all",
@@ -688,7 +688,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income4-aq1",
-          concept: "Gig Economy",
+          concept: "gig expenses",
           question: "Why is Marcus's real hourly pay lower than the app's $20 figure?",
           options: [
               "The app secretly steals part of his pay",
@@ -716,7 +716,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income4-mastery1",
-            concept: "Gig Economy",
+            concept: "independent contractor",
             question: "Most gig workers are classified as…",
             options: [
               "Full employees with paid vacation",
@@ -730,7 +730,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income4-mastery2",
-            concept: "Gig Economy",
+            concept: "self-employment tax",
             question: "What is self-employment tax, roughly 15.3%, for?",
             options: [
               "A fine charged only to gig workers",
@@ -744,7 +744,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income4-mastery3",
-            concept: "Gig Economy",
+            concept: "gig expenses",
             question: "An app shows $24/hour, but you spend on gas and repairs. Your real rate is…",
             options: [
               "Higher, because tips add extra money",
@@ -758,7 +758,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income4-mastery4",
-            concept: "Gig Economy",
+            concept: "gig tax set-aside",
             question: "Why should a gig worker save 25-30% of earnings?",
             options: [
               "The app requires that exact deposit",
@@ -772,7 +772,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income4-mastery5",
-            concept: "Gig Economy",
+            concept: "gig economy",
             question: "Which is a smart, strategic use of gig work?",
             options: [
               "Ignoring costs and never tracking expenses across the board",
@@ -786,7 +786,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income4-mastery6",
-            concept: "Gig Economy",
+            concept: "gig expenses",
             question: "What makes many gig expenses valuable at tax time?",
             options: [
               "They are refunded fully by the platform",
@@ -847,7 +847,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income5-mc1",
-            concept: "Gross vs Net Pay",
+            concept: "gross vs net pay",
             question: "What is net pay?",
             options: [
               "Your earnings before any deductions",
@@ -860,7 +860,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income5-mc2",
-            concept: "Gross vs Net Pay",
+            concept: "FICA",
             question: "FICA taxes of 7.65% of gross pay fund which programs?",
             options: [
               "State roads and public schools",
@@ -888,7 +888,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income5-aq1",
-          concept: "Gross vs Net Pay",
+          concept: "gross vs net pay",
           question: "What is Ava's core mistake in this scenario?",
           options: [
               "She worked too many hours that week",
@@ -916,7 +916,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income5-mastery1",
-            concept: "Gross vs Net Pay",
+            concept: "gross vs net pay",
             question: "A worker earns $20/hour for 30 hours. What is their gross pay?",
             options: [
               "$600, the rate times the hours worked",
@@ -930,7 +930,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income5-mastery2",
-            concept: "Gross vs Net Pay",
+            concept: "gross vs net pay",
             question: "Which number should you use to plan your monthly budget?",
             options: [
               "Gross pay, the largest listed amount in real practice",
@@ -944,7 +944,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income5-mastery3",
-            concept: "Gross vs Net Pay",
+            concept: "FICA",
             question: "FICA takes 7.65% of a $1,000 gross check. How much is that?",
             options: [
               "$16.50, only the Medicare portion by that logic",
@@ -958,7 +958,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income5-mastery4",
-            concept: "Gross vs Net Pay",
+            concept: "paycheck deductions",
             question: "Which deduction is essentially your own money being saved?",
             options: [
               "Federal income tax withholding",
@@ -972,7 +972,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income5-mastery5",
-            concept: "Gross vs Net Pay",
+            concept: "gross vs net pay",
             question: "Why do landlords often look at gross income, not net?",
             options: [
               "Net pay is a secret they can't see",
@@ -986,7 +986,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income5-mastery6",
-            concept: "Gross vs Net Pay",
+            concept: "gross vs net pay",
             question: "A job is posted as '$700 a week.' Why will your deposit be smaller?",
             options: [
               "The employer always keeps a $50 fee",
@@ -1047,7 +1047,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income6-mc1",
-            concept: "Taxes",
+            concept: "tax brackets",
             question: "In a progressive tax system, moving into a higher bracket means…",
             options: [
               "All of your income is taxed at the higher rate",
@@ -1060,7 +1060,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income6-mc2",
-            concept: "Taxes",
+            concept: "tax credit vs deduction",
             question: "How does a tax credit differ from a tax deduction?",
             options: [
               "A credit lowers only your gross pay",
@@ -1088,7 +1088,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income6-aq1",
-          concept: "Taxes",
+          concept: "standard deduction",
           question: "Why does Renata owe some income tax when a small part-time earner owes none?",
           options: [
               "Older workers always pay a special extra tax",
@@ -1116,7 +1116,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income6-mastery1",
-            concept: "Taxes",
+            concept: "tax refund",
             question: "Why does a tax refund not really count as 'free money'?",
             options: [
               "It is taxed again the following year",
@@ -1130,7 +1130,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income6-mastery2",
-            concept: "Taxes",
+            concept: "standard deduction",
             question: "The standard deduction does what to your income before tax?",
             options: [
               "Adds a bonus to your total earnings",
@@ -1144,7 +1144,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income6-mastery3",
-            concept: "Taxes",
+            concept: "tax credit vs deduction",
             question: "A $1,000 tax credit for someone in the 12% bracket saves them…",
             options: [
               "$120, since credits work like deductions",
@@ -1158,7 +1158,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income6-mastery4",
-            concept: "Taxes",
+            concept: "income tax withholding",
             question: "What form do you use each year to compare taxes owed with taxes withheld?",
             options: [
               "A tax return, filed by the deadline",
@@ -1172,7 +1172,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income6-mastery5",
-            concept: "Taxes",
+            concept: "FICA",
             question: "How are FICA payroll taxes different from federal income tax?",
             options: [
               "FICA is optional and income tax is required",
@@ -1186,7 +1186,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income6-mastery6",
-            concept: "Taxes",
+            concept: "tax refund",
             question: "Getting a very large refund every year usually means you…",
             options: [
               "Earned extra money the government owes",
@@ -1247,7 +1247,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income7-mc1",
-            concept: "Career ROI",
+            concept: "career ROI",
             question: "What does career ROI compare?",
             options: [
               "Only the salary of your very first job",
@@ -1260,7 +1260,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income7-mc2",
-            concept: "Career ROI",
+            concept: "student debt burden",
             question: "A common rule to protect your career ROI is to keep student debt…",
             options: [
               "Above your expected lifetime earnings",
@@ -1288,7 +1288,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income7-aq1",
-          concept: "Career ROI",
+          concept: "career ROI",
           question: "What is the smartest way for Owen to compare the two paths?",
           options: [
               "Pick whichever has the higher first salary",
@@ -1316,7 +1316,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income7-mastery1",
-            concept: "Career ROI",
+            concept: "opportunity cost",
             question: "Besides tuition, what hidden cost does a long degree carry?",
             options: [
               "Free money paid to every student",
@@ -1330,7 +1330,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income7-mastery2",
-            concept: "Career ROI",
+            concept: "lifetime earnings",
             question: "Why can a lower-starting career sometimes beat a higher-starting one?",
             options: [
               "Lower pay is always taxed less overall",
@@ -1344,7 +1344,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income7-mastery3",
-            concept: "Career ROI",
+            concept: "student debt burden",
             question: "Borrowing $120,000 for a degree leading to a $38,000 job is an example of…",
             options: [
               "A guaranteed high return on investment",
@@ -1358,7 +1358,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income7-mastery4",
-            concept: "Career ROI",
+            concept: "paid apprenticeship",
             question: "Which option can improve career ROI by cutting costs?",
             options: [
               "Borrowing the maximum available loans",
@@ -1372,7 +1372,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income7-mastery5",
-            concept: "Career ROI",
+            concept: "career ROI",
             question: "What data should you use to judge a career's likely return?",
             options: [
               "Guesses based on a single TV show",
@@ -1386,7 +1386,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income7-mastery6",
-            concept: "Career ROI",
+            concept: "career ROI",
             question: "The full 'return' of a career includes more than salary, such as…",
             options: [
               "The color of the company logo",
@@ -1447,7 +1447,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income9-mc1",
-            concept: "Skill Stacking",
+            concept: "skill stacking",
             question: "What is the core idea of skill stacking?",
             options: [
               "Becoming the world's best at one thing",
@@ -1460,7 +1460,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income9-mc2",
-            concept: "Skill Stacking",
+            concept: "rare skill combination",
             question: "Why does a rare skill combination command higher pay?",
             options: [
               "Rarity multiplies, so few people have it",
@@ -1488,7 +1488,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income9-aq1",
-          concept: "Skill Stacking",
+          concept: "rare skill combination",
           question: "Why is Layla's approach smarter than becoming the single best photographer?",
           options: [
               "Being the best is easy for most people",
@@ -1516,7 +1516,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income9-mastery1",
-            concept: "Skill Stacking",
+            concept: "rare skill combination",
             question: "Three skills, each held by 1 in 10 people, combined make you roughly…",
             options: [
               "3 in 10, by adding the odds together",
@@ -1530,7 +1530,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income9-mastery2",
-            concept: "Skill Stacking",
+            concept: "complementary skills",
             question: "Which pairing tends to be especially valuable in a skill stack?",
             options: [
               "Two nearly identical technical skills in real practice",
@@ -1544,7 +1544,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income9-mastery3",
-            concept: "Skill Stacking",
+            concept: "skill stacking",
             question: "How does skill stacking protect your career?",
             options: [
               "It guarantees you can never be fired across the board",
@@ -1558,7 +1558,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income9-mastery4",
-            concept: "Skill Stacking",
+            concept: "skill stacking",
             question: "What is the right skill level to aim for in each stacked skill?",
             options: [
               "Perfect, world-class mastery in each",
@@ -1572,7 +1572,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income9-mastery5",
-            concept: "Skill Stacking",
+            concept: "skill stacking",
             question: "How should you build a skill stack over time?",
             options: [
               "Master every skill at once instantly",
@@ -1586,7 +1586,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income9-mastery6",
-            concept: "Skill Stacking",
+            concept: "skill stacking",
             question: "Which stack is likely to stay valuable over many years?",
             options: [
               "One narrow, trendy skill that may fade",
@@ -1647,7 +1647,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income10-mc1",
-            concept: "Entrepreneurship Income",
+            concept: "revenue vs profit",
             question: "An entrepreneur's actual income is best described as…",
             options: [
               "All the revenue customers pay them",
@@ -1660,7 +1660,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income10-mc2",
-            concept: "Entrepreneurship Income",
+            concept: "start small and reinvest",
             question: "What is a smart, low-risk way for a young entrepreneur to grow?",
             options: [
               "Borrow as much money as possible upfront",
@@ -1688,7 +1688,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income10-aq1",
-          concept: "Entrepreneurship Income",
+          concept: "revenue vs profit",
           question: "What key lesson should Noah take from his first month?",
           options: [
               "Revenue and income are the same thing",
@@ -1716,7 +1716,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income10-mastery1",
-            concept: "Entrepreneurship Income",
+            concept: "revenue vs profit",
             question: "A business earns $3,000 revenue with $1,800 in expenses. The owner's income is…",
             options: [
               "$3,000, the full amount of revenue",
@@ -1730,7 +1730,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income10-mastery2",
-            concept: "Entrepreneurship Income",
+            concept: "entrepreneurship income",
             question: "How does an entrepreneur's income differ from an hourly wage?",
             options: [
               "It is guaranteed to be higher each week",
@@ -1744,7 +1744,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income10-mastery3",
-            concept: "Entrepreneurship Income",
+            concept: "cost-plus pricing",
             question: "Why must an entrepreneur know both fixed and variable costs?",
             options: [
               "To avoid ever making any profit as a general rule",
@@ -1758,7 +1758,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income10-mastery4",
-            concept: "Entrepreneurship Income",
+            concept: "self-employment tax",
             question: "What extra tax do self-employed entrepreneurs typically owe?",
             options: [
               "A luxury tax on all their sales",
@@ -1772,7 +1772,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income10-mastery5",
-            concept: "Entrepreneurship Income",
+            concept: "start small and reinvest",
             question: "Reinvesting early profits into a business mainly helps by…",
             options: [
               "Guaranteeing the business can never fail in real practice",
@@ -1786,7 +1786,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income10-mastery6",
-            concept: "Entrepreneurship Income",
+            concept: "entrepreneurship income",
             question: "How can entrepreneurship income become partly passive over time?",
             options: [
               "By working more hours every single day in nearly every case",
@@ -1864,7 +1864,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income11-mc1",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "college vs trade school",
             question: "Why do trades often have a head start on ROI over four-year college?",
             options: [
               "Trades always pay more than any degree",
@@ -1877,7 +1877,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mc2",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "college vs trade school",
             question: "What makes many skilled trades relatively secure jobs?",
             options: [
               "They can be done fully by robots now",
@@ -1890,7 +1890,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mc3",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "college wage premium",
             question: "What does the 'college wage premium' refer to?",
             options: [
               "A fee colleges charge wealthy students",
@@ -1903,7 +1903,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mc4",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "grants vs loans",
             question: "Which should you always pursue before taking out student loans?",
             options: [
               "The most expensive private school available",
@@ -1931,7 +1931,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income11-aq1",
-          concept: "College vs Trade School: What's the ROI?",
+          concept: "college vs trade school",
           question: "What is the best way for Aisha to compare her two options?",
           options: [
               "Pick whichever sounds more prestigious as a general rule",
@@ -1959,7 +1959,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income11-mastery1",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "paid apprenticeship",
             question: "A paid apprenticeship affects the cost of entering a trade by…",
             options: [
               "Doubling the total cost of training under normal conditions",
@@ -1973,7 +1973,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mastery2",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "lifetime earnings",
             question: "Why can a college field still beat a trade over a full career?",
             options: [
               "College is free while trades cost money",
@@ -1987,7 +1987,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mastery3",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "opportunity cost",
             question: "The 'lost earning years' cost of college refers to…",
             options: [
               "Money the school pays you to attend",
@@ -2001,7 +2001,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mastery4",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "college vs trade school",
             question: "When comparing paths, you should check demand for…",
             options: [
               "The type of credential in general",
@@ -2015,7 +2015,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mastery5",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "college vs trade school",
             question: "Why does 'fit and follow-through' matter in this choice?",
             options: [
               "The best path is worthless if you quit it",
@@ -2029,7 +2029,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income11-mastery6",
-            concept: "College vs Trade School: What's the ROI?",
+            concept: "education as investment",
             question: "Which statement reflects the mature view of this choice?",
             options: [
               "College is always worth it as a general rule",
@@ -2090,7 +2090,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income12-mc1",
-            concept: "How Labor Markets Set Your Pay",
+            concept: "labor supply and demand",
             question: "When a skill is in high demand but few workers have it, wages tend to…",
             options: [
               "Fall toward minimum wage quickly under normal conditions",
@@ -2103,7 +2103,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income12-mc2",
-            concept: "How Labor Markets Set Your Pay",
+            concept: "labor supply and demand",
             question: "What is the most reliable way to raise your earning power?",
             options: [
               "Simply working more hours each day",
@@ -2131,7 +2131,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income12-aq1",
-          concept: "How Labor Markets Set Your Pay",
+          concept: "labor supply and demand",
           question: "Why does Ravi's friend earn more despite similar effort?",
           options: [
               "His friend is simply luckier than Ravi",
@@ -2159,7 +2159,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income12-mastery1",
-            concept: "How Labor Markets Set Your Pay",
+            concept: "labor supply and demand",
             question: "Why does a surgeon typically earn more than a cashier?",
             options: [
               "Surgeons simply work harder every day in nearly every case",
@@ -2173,7 +2173,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income12-mastery2",
-            concept: "How Labor Markets Set Your Pay",
+            concept: "labor supply and demand",
             question: "If many people learn a once-scarce skill, its wages tend to…",
             options: [
               "Rise even higher for most workers today",
@@ -2187,7 +2187,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income12-mastery3",
-            concept: "How Labor Markets Set Your Pay",
+            concept: "labor supply and demand",
             question: "How does earning a rare certification affect your earning power?",
             options: [
               "It floods the market with more workers as a general rule",
@@ -2201,7 +2201,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income12-mastery4",
-            concept: "How Labor Markets Set Your Pay",
+            concept: "wage negotiation",
             question: "Why is knowing typical salaries for your role useful?",
             options: [
               "It lets employers pay you far less",
@@ -2215,7 +2215,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income12-mastery5",
-            concept: "How Labor Markets Set Your Pay",
+            concept: "wage negotiation",
             question: "What often gives a worker the strongest leverage for higher pay?",
             options: [
               "Threatening to work fewer hours in real practice",
@@ -2229,7 +2229,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income12-mastery6",
-            concept: "How Labor Markets Set Your Pay",
+            concept: "labor supply and demand",
             question: "The same skill can pay differently depending on…",
             options: [
               "The worker's favorite color",
@@ -2290,7 +2290,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income13-mc1",
-            concept: "Recessions, Unemployment & Your Money",
+            concept: "recession impact on jobs",
             question: "What generally happens to unemployment during a recession?",
             options: [
               "It falls as companies hire more workers for most workers today",
@@ -2303,7 +2303,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income13-mc2",
-            concept: "Recessions, Unemployment & Your Money",
+            concept: "emergency fund purpose",
             question: "What is the single most important protection against losing income?",
             options: [
               "A brand-new car bought on credit as a general rule",
@@ -2331,7 +2331,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income13-aq1",
-          concept: "Recessions, Unemployment & Your Money",
+          concept: "emergency fund purpose",
           question: "Why is Elena's emergency fund her most powerful protection?",
           options: [
               "It guarantees she can never be laid off",
@@ -2359,7 +2359,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income13-mastery1",
-            concept: "Recessions, Unemployment & Your Money",
+            concept: "recession impact on jobs",
             question: "Which type of job tends to be hit first in a recession?",
             options: [
               "Grocery stores selling everyday food",
@@ -2373,7 +2373,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income13-mastery2",
-            concept: "Recessions, Unemployment & Your Money",
+            concept: "emergency fund purpose",
             question: "Why should you build an emergency fund during good times?",
             options: [
               "Because savings are illegal in a recession",
@@ -2387,7 +2387,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income13-mastery3",
-            concept: "Recessions, Unemployment & Your Money",
+            concept: "recession preparation",
             question: "How does keeping debt low help during a downturn?",
             options: [
               "It raises your salary automatically across the board",
@@ -2401,7 +2401,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income13-mastery4",
-            concept: "Recessions, Unemployment & Your Money",
+            concept: "recession impact on jobs",
             question: "Why are newer workers often laid off first in a recession?",
             options: [
               "They always cost the company the most",
@@ -2415,7 +2415,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income13-mastery5",
-            concept: "Recessions, Unemployment & Your Money",
+            concept: "bear market strategy",
             question: "How can a recession be an opportunity for a long-term investor?",
             options: [
               "Stocks are banned from ever recovering as a general rule",
@@ -2429,7 +2429,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income13-mastery6",
-            concept: "Recessions, Unemployment & Your Money",
+            concept: "recession preparation",
             question: "What is the healthiest mindset about recessions?",
             options: [
               "They never happen to prepared people as a general rule",
@@ -2490,7 +2490,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income14-mc1",
-            concept: "Social Security: The Basics",
+            concept: "Social Security funding",
             question: "How is Social Security funded?",
             options: [
               "By voluntary donations from retirees under normal conditions",
@@ -2503,7 +2503,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income14-mc2",
-            concept: "Social Security: The Basics",
+            concept: "Social Security income replacement",
             question: "Why is Social Security not meant to be your whole retirement plan?",
             options: [
               "It only pays people who never worked",
@@ -2531,7 +2531,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income14-aq1",
-          concept: "Social Security: The Basics",
+          concept: "Social Security income replacement",
           question: "What is the best conclusion for Tariq about Social Security?",
           options: [
               "It will fully fund his entire retirement",
@@ -2559,7 +2559,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income14-mastery1",
-            concept: "Social Security: The Basics",
+            concept: "Social Security funding",
             question: "On a paycheck, the money funding Social Security appears as…",
             options: [
               "A voluntary tip line you can skip",
@@ -2573,7 +2573,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income14-mastery2",
-            concept: "Social Security: The Basics",
+            concept: "Social Security funding",
             question: "What does 'pay-as-you-go' mean for Social Security?",
             options: [
               "Your taxes sit in a personal account",
@@ -2587,7 +2587,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income14-mastery3",
-            concept: "Social Security: The Basics",
+            concept: "Social Security benefits",
             question: "Roughly how much work is needed to qualify for retirement benefits?",
             options: [
               "About 40 credits, near ten years of work",
@@ -2601,7 +2601,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income14-mastery4",
-            concept: "Social Security: The Basics",
+            concept: "Social Security benefits",
             question: "What happens if you claim Social Security at 62 instead of 67?",
             options: [
               "You get a permanently smaller monthly check",
@@ -2615,7 +2615,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income14-mastery5",
-            concept: "Social Security: The Basics",
+            concept: "Social Security benefits",
             question: "Besides retirement, Social Security also provides…",
             options: [
               "Free college tuition for all workers",
@@ -2629,7 +2629,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income14-mastery6",
-            concept: "Social Security: The Basics",
+            concept: "Social Security income replacement",
             question: "Because Social Security replaces only part of income, teens should…",
             options: [
               "Rely on it as their entire retirement plan",
@@ -2690,7 +2690,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income15-mc1",
-            concept: "Local Taxes: Property, Sales & Municipal",
+            concept: "property tax",
             question: "Property tax is charged based on what?",
             options: [
               "The number of people in a household",
@@ -2703,7 +2703,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income15-mc2",
-            concept: "Local Taxes: Property, Sales & Municipal",
+            concept: "local taxes and services",
             question: "Why do local tax rates differ from one town to the next?",
             options: [
               "The federal government randomly assigns them for most workers today",
@@ -2731,7 +2731,7 @@ export const deepIncome: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "income15-aq1",
-          concept: "Local Taxes: Property, Sales & Municipal",
+          concept: "property tax",
           question: "What key insight should Sofia take from comparing the two towns?",
           options: [
               "Sticker price alone shows the true cost",
@@ -2759,7 +2759,7 @@ export const deepIncome: StructuredLessonContent[] = [
         questions: [
           {
             id: "income15-mastery1",
-            concept: "Local Taxes: Property, Sales & Municipal",
+            concept: "sales tax",
             question: "A $50 item in a city with 8% sales tax costs how much at checkout?",
             options: [
               "$54, adding 8% to the price",
@@ -2773,7 +2773,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income15-mastery2",
-            concept: "Local Taxes: Property, Sales & Municipal",
+            concept: "property tax",
             question: "A home assessed at $300,000 with a 1.5% property tax owes how much yearly?",
             options: [
               "$450, a tenth of the true amount",
@@ -2787,7 +2787,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income15-mastery3",
-            concept: "Local Taxes: Property, Sales & Municipal",
+            concept: "property tax",
             question: "Property taxes are especially important because they heavily fund…",
             options: [
               "The national military budget",
@@ -2801,7 +2801,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income15-mastery4",
-            concept: "Local Taxes: Property, Sales & Municipal",
+            concept: "local taxes and services",
             question: "Why might a state with no income tax still collect plenty of revenue?",
             options: [
               "It secretly prints extra money each year",
@@ -2815,7 +2815,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income15-mastery5",
-            concept: "Local Taxes: Property, Sales & Municipal",
+            concept: "property tax",
             question: "When budgeting to buy a home, property taxes should be treated as…",
             options: [
               "A one-time fee paid only at purchase",
@@ -2829,7 +2829,7 @@ export const deepIncome: StructuredLessonContent[] = [
           },
           {
             id: "income15-mastery6",
-            concept: "Local Taxes: Property, Sales & Municipal",
+            concept: "local taxes and services",
             question: "What is the main trade-off of choosing a town with lower local taxes?",
             options: [
               "It always has the very best services",

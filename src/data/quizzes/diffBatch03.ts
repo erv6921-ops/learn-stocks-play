@@ -8,6 +8,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-2-h1",
+        concept: "budget surplus vs deficit",
         question: "Maya earns $1,800/month and lists needs of $1,100, wants of $500, and savings of $300. Is her budget balanced, and by how much?",
         options: [
           "Yes, balanced with $100 unassigned left over",
@@ -20,6 +21,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-h2",
+        concept: "zero-based budgeting",
         question: "Leo uses zero-based budgeting on $2,000 income. He assigns $900 rent, $350 food, $250 transport, and $200 fun. How much must savings be to reach zero?",
         options: [
           "$200 so every dollar is assigned",
@@ -32,6 +34,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-h3",
+        concept: "fixed vs variable expenses",
         question: "One month Priya spends $80 on groceries and the next $140, while her rent stays $600 both months. Which statement is correct?",
         options: [
           "Both groceries and rent are variable expenses",
@@ -44,6 +47,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-h4",
+        concept: "budget surplus vs deficit",
         question: "Sam's income is $1,500 and planned expenses are $1,650. He also forgot a $50 subscription. What is the smartest first move?",
         options: [
           "Borrow $200 now and repay it whenever he can",
@@ -56,6 +60,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-h5",
+        concept: "zero-based budgeting",
         question: "After paying all $850 of expenses on $1,000 income, Ana wants every extra dollar working. Which allocation best follows sound budgeting?",
         options: [
           "Leave the $150 unassigned in checking for now",
@@ -68,6 +73,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-h6",
+        concept: "budget adjustment",
         question: "Which change most justifies revising a working monthly budget mid-year?",
         options: [
           "A friend switched to a different budgeting app",
@@ -80,6 +86,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-h7",
+        concept: "budget categories",
         question: "A beginner tries to track 40 tiny categories and quits after a week. What is the better fix that keeps the three-category logic?",
         options: [
           "Drop budgeting since detailed tracking clearly failed",
@@ -97,6 +104,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-2-r1",
+        concept: "budget categories",
         question: "What is the first step in making a budget?",
         options: [
           "Find out how much money you earn",
@@ -109,6 +117,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-r2",
+        concept: "budget categories",
         question: "A simple budget usually has which three main groups?",
         options: [
           "Cars, phones, and shoes",
@@ -121,6 +130,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-r3",
+        concept: "budget surplus vs deficit",
         question: "You earn $500 and plan to spend $450. Is your budget balanced?",
         options: [
           "No, you are short by $50",
@@ -133,6 +143,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-r4",
+        concept: "fixed vs variable expenses",
         question: "Which of these is a fixed expense that stays the same each month?",
         options: [
           "Groceries you buy each week",
@@ -145,6 +156,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-r5",
+        concept: "zero-based budgeting",
         question: "What should you do with money left over after paying all your bills?",
         options: [
           "Give it a job like saving it",
@@ -157,6 +169,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-r6",
+        concept: "budget adjustment",
         question: "How often should you check your budget?",
         options: [
           "Only once every ten years",
@@ -169,6 +182,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-2-r7",
+        concept: "budget surplus vs deficit",
         question: "What should you do if you spend more than you earn?",
         options: [
           "Ignore it and hope it fixes itself",
@@ -188,6 +202,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-3-h1",
+        concept: "spending leakage",
         question: "Devon buys a $4 coffee every workday, 5 days a week, 4 weeks a month. He guessed he spends about $50/month. How far off is he?",
         options: [
           "He is right, it is close to $50",
@@ -200,6 +215,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-h2",
+        concept: "lifestyle inflation",
         question: "After a $6,000 raise, Rosa upgrades her car ($200/mo), apartment ($150/mo), and phone ($50/mo). What is this pattern called and its yearly cost?",
         options: [
           "Lifestyle creep costing about $4,800 a year",
@@ -212,6 +228,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-h3",
+        concept: "budget review",
         question: "Kim reviews spending monthly and blows her fun budget in week one. Why might weekly reviews have helped more?",
         options: [
           "Weekly reviews raise her credit score faster",
@@ -224,6 +241,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-h4",
+        concept: "emotional spending",
         question: "Every time Jordan feels stressed after work he orders $25 takeout, about 8 times a month. Identifying this is an example of spotting a what?",
         options: [
           "A bank fraud alert on his account",
@@ -236,6 +254,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-h5",
+        concept: "spending tracking",
         question: "Ben pays for lunch in cash and his coffee by card. At month end he can only account for the coffee. Why?",
         options: [
           "Cash purchases are not recorded automatically anywhere",
@@ -248,6 +267,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-h6",
+        concept: "budget review",
         question: "Tara's app shows Dining Out at $420 this month, far above her $200 limit. What is the most useful next step?",
         options: [
           "Delete the app so the number disappears",
@@ -260,6 +280,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-h7",
+        concept: "spending patterns",
         question: "Why does grouping 30 separate restaurant charges into one Dining Out category help more than a long list?",
         options: [
           "The IRS demands categories for personal spending",
@@ -277,6 +298,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-3-r1",
+        concept: "spending tracking",
         question: "Why is tracking your spending helpful?",
         options: [
           "It shows where your money really goes",
@@ -289,6 +311,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-r2",
+        concept: "spending leakage",
         question: "A $4 coffee every day may seem small. Why does it matter?",
         options: [
           "Coffee makes your budget illegal",
@@ -301,6 +324,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-r3",
+        concept: "budgeting tools",
         question: "Which tool tracks your spending in real time the best?",
         options: [
           "Your memory from last week",
@@ -313,6 +337,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-r4",
+        concept: "budget review",
         question: "How often should you look at your spending?",
         options: [
           "Only once every five years",
@@ -325,6 +350,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-r5",
+        concept: "emotional spending",
         question: "What is a spending trigger?",
         options: [
           "A cue like stress that makes you spend",
@@ -337,6 +363,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-r6",
+        concept: "spending tracking",
         question: "Why is cash harder to track than a card?",
         options: [
           "Cash is only for big purchases",
@@ -349,6 +376,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-3-r7",
+        concept: "spending patterns",
         question: "What is a good reason to sort spending into categories?",
         options: [
           "The IRS requires it for everyone",
@@ -368,6 +396,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-4-h1",
+        concept: "50/30/20 rule",
         question: "Noah earns $2,400/month and follows 50/30/20. After needs, he spends $400 of his wants budget on a trip. How much wants money is left?",
         options: [
           "$320 remaining for the month",
@@ -380,6 +409,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-h2",
+        concept: "50/30/20 rule",
         question: "Elena makes $3,000/month. Her needs cost $1,700. By how much do her needs exceed the 50/30/20 target, and what should she consider first?",
         options: [
           "Over by $200, so first reduce needs or earn more",
@@ -392,6 +422,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-h3",
+        concept: "50/30/20 rule",
         question: "On a $2,000 income using 50/30/20, Raj puts the full 20% toward an emergency fund plus a $150 extra credit card payment fits where?",
         options: [
           "The extra payment belongs in the 30% wants",
@@ -404,6 +435,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-h4",
+        concept: "needs vs wants",
         question: "Which item is correctly sorted under the 50/30/20 rule?",
         options: [
           "A premium streaming plan counts as a need",
@@ -416,6 +448,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-h5",
+        concept: "50/30/20 flexibility",
         question: "In an expensive city, Lily's rent alone is 55% of her income. What does this reveal about the 50/30/20 rule?",
         options: [
           "The rule is a guideline that may need adjusting to reality",
@@ -428,6 +461,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-h6",
+        concept: "50/30/20 flexibility",
         question: "Marco has a 22% interest credit card. How should he tweak 50/30/20 to attack it?",
         options: [
           "Keep 50/30/20 exactly and ignore the debt",
@@ -440,6 +474,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-h7",
+        concept: "50/30/20 rule",
         question: "Why is 50/30/20 called a balanced approach for someone earning $2,500/month?",
         options: [
           "Because $2,500 divides evenly by the numbers",
@@ -457,6 +492,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-4-r1",
+        concept: "50/30/20 rule",
         question: "In the 50/30/20 rule, what does the 50% cover?",
         options: [
           "Fun things like movies",
@@ -469,6 +505,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-r2",
+        concept: "50/30/20 rule",
         question: "What does the 30% in the 50/30/20 rule cover?",
         options: [
           "Wants like entertainment",
@@ -481,6 +518,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-r3",
+        concept: "50/30/20 rule",
         question: "The 20% in the 50/30/20 rule is used for what?",
         options: [
           "Rent and food",
@@ -493,6 +531,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-r4",
+        concept: "50/30/20 rule",
         question: "You earn $1,000 a month. Using the rule, how much goes to needs?",
         options: [
           "$300",
@@ -505,6 +544,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-r5",
+        concept: "needs vs wants",
         question: "Which of these is a want, not a need?",
         options: [
           "A streaming service subscription",
@@ -517,6 +557,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-r6",
+        concept: "50/30/20 rule",
         question: "If you earn $2,000, how much should go to wants (30%)?",
         options: [
           "$1,000",
@@ -529,6 +570,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-4-r7",
+        concept: "50/30/20 flexibility",
         question: "What is one limit of the 50/30/20 rule?",
         options: [
           "It needs very hard math",
@@ -548,6 +590,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-5-h1",
+        concept: "SMART goals",
         question: "Which goal is fully SMART?",
         options: [
           "I will save $600 for a laptop by saving $50 a month for 12 months",
@@ -560,6 +603,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-h2",
+        concept: "goal budgeting",
         question: "Grace wants $900 for a trip in 6 months. She currently saves $100/month. What must change for the goal to be realistic?",
         options: [
           "Nothing, $100 a month already reaches $900",
@@ -572,6 +616,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-h3",
+        concept: "goal prioritization",
         question: "Omar has $100/month for goals but wants an emergency fund, a car, and a vacation at once. What does prioritizing let him do?",
         options: [
           "Fund all three fully at the same time",
@@ -584,6 +629,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-h4",
+        concept: "goal budgeting",
         question: "Tomas planned to save $200/month but can only manage $100. What is the best response that keeps the goal alive?",
         options: [
           "Give up and pick a much easier goal",
@@ -596,6 +642,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-h5",
+        concept: "SMART goals",
         question: "Which of these is NOT a valid financial goal because it lacks specifics and a timeline?",
         options: [
           "Save $2,000 for an emergency fund by June",
@@ -608,6 +655,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-h6",
+        concept: "goal prioritization",
         question: "Priya splits $200/month across goals, weighting by priority. Which allocation best reflects prioritizing an emergency fund first?",
         options: [
           "$100 emergency fund, $50 vacation, $50 laptop",
@@ -620,6 +668,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-h7",
+        concept: "goal motivation",
         question: "Why does linking a savings goal to a personal value like family make it easier to stick with?",
         options: [
           "Banks require a values note for savings accounts",
@@ -637,6 +686,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "budget-5-r1",
+        concept: "SMART goals",
         question: "What does the S in a SMART goal stand for?",
         options: [
           "Specific",
@@ -649,6 +699,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-r2",
+        concept: "time horizon",
         question: "Which is a short-term goal?",
         options: [
           "Retiring at age 65",
@@ -661,6 +712,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-r3",
+        concept: "goal motivation",
         question: "Why is writing down your goals helpful?",
         options: [
           "Banks give better interest for it",
@@ -673,6 +725,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-r4",
+        concept: "goal prioritization",
         question: "You have only a little money for goals. What does prioritizing help you do?",
         options: [
           "Choose which goal to focus on first",
@@ -685,6 +738,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-r5",
+        concept: "goal motivation",
         question: "What should you do after you reach a financial goal?",
         options: [
           "Stop budgeting forever",
@@ -697,6 +751,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-r6",
+        concept: "time horizon",
         question: "About how long is a long-term goal?",
         options: [
           "A few days",
@@ -709,6 +764,7 @@ export const diffBatch03: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "budget-5-r7",
+        concept: "goal motivation",
         question: "Why connect a goal to something you care about?",
         options: [
           "It makes the goal more motivating",

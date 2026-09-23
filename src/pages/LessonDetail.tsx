@@ -2,13 +2,14 @@ import React, { useState, useMemo, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useApp } from "@/contexts/AppContext"
 import { getLessonById } from "@/data/lessons"
+import { getNextLessonId } from "@/lib/lessonNavigation"
 import { getStructuredContent } from "@/data/lessonContent"
 import { generateStructuredContent, tierDifficulty } from "@/lib/contentGenerator"
-import { LessonSection, StructuredLessonContent, QuizQuestion, MasteryTier } from "@/types"
+import { Lesson, LessonSection, StructuredLessonContent, QuizQuestion, MasteryTier, UserProfile, LessonProgress } from "@/types"
 import { shuffleQuestionSet, normalizeOptionLengths, questionPassesQualityChecks } from "@/lib/mcqEngine"
 import { getQuizForLesson, getQuizForLessonByTier } from "@/data/lessonQuizzes"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { JeffMascot } from "@/components/JeffMascot"
@@ -23,7 +24,7 @@ import {
 import { ActivityCheckRenderer } from "@/components/lesson/ActivityCheckRenderer"
 import { DiagramRenderer } from "@/components/lesson/DiagramRenderer"
 import { HintProvider } from "@/components/lesson/HintContext"
-import { QuizSessionProvider } from "@/components/lesson/QuizSessionContext"
+import { QuizSessionProvider, type AnswerContext, type QuizRunBridge } from "@/components/lesson/QuizSessionContext"
 import { LessonCompletionScreen } from "@/components/lesson/LessonCompletionScreen"
 import { DefinitionPracticeCard } from "@/components/lesson/DefinitionPracticeCard"
 import { getDefinitionPractice } from "@/data/definitionPractice"
@@ -31,20 +32,28 @@ import { ScenarioResponse } from "@/components/lesson/ScenarioResponse"
 import { getScenarioSet } from "@/content/gullerIntro/scenarios"
 import JeffChat from "@/components/lessons/JeffChat"
 import { logEvent } from "@/lib/analyticsEvents"
-import { buildScript, isDeepLesson, clearChat } from "@/lib/jeffChatLesson"
+import { buildScript, isDeepLesson, clearChat, loadChat } from "@/lib/jeffChatLesson"
 import { Textarea } from "@/components/ui/textarea"
 import { supabase } from "@/integrations/supabase/client"
 import { getReflectionPrompt, MIN_REFLECTION_WORDS, REFLECTION_BONUS } from "@/lib/reflectionPrompts"
 import { toast } from "sonner"
-import { looksLowEffort, LOW_EFFORT_MESSAGE } from "@/lib/answerQuality"
+import { looksLowEffort } from "@/lib/answerQuality"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { TeacherPreviewBanner, PreviewSectionNav, PreviewCompleteCard } from "@/components/teacher/TeacherPreviewChrome"
+import {
+  useLessonRun,
+  masteryKeyPrefix,
+  wholeLessonAccuracyOf,
+  masteryAccuracyOf,
+  type LessonRun,
+  type LessonRunHandle,
+} from "@/lib/lessonRun"
 import {
   ArrowLeft,
   ArrowRight,
   Clock,
   Coins,
-  Target,
+  RotateCcw,
   X,
 } from "lucide-react"
 
@@ -64,13 +73,70 @@ export interface LessonDetailProps {
   onExit?: () => void
 }
 
+// ─── Shared header ───
+
+function LessonHeader({
+  lesson,
+  previewMode,
+  onPreviewExit,
+  showBack,
+  showExit,
+  onLeave,
+  step,
+}: {
+  lesson: Lesson
+  previewMode: boolean
+  onPreviewExit?: () => void
+  showBack: boolean
+  showExit: boolean
+  onLeave: () => void
+  /** Walk progress to show under the title, or null. */
+  step: { current: number; total: number } | null
+}) {
+  const pct = step && step.total > 0 ? (step.current / step.total) * 100 : 0
+  return (
+    <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+      {previewMode && <TeacherPreviewBanner onExit={onPreviewExit} />}
+      <div className="container mx-auto px-4">
+        <div className="flex items-center h-14 gap-4">
+          {showBack && !previewMode && (
+            <Button variant="ghost" size="icon" onClick={onLeave} aria-label="Back to missions">
+              <ArrowLeft className="w-4 h-4" />
+            </Button>
+          )}
+          <div className="flex-1 min-w-0">
+            <h1 className="font-semibold text-sm truncate">{lesson.title}</h1>
+            {step && (
+              <div className="flex items-center gap-2 mt-0.5">
+                <Progress value={pct} className="h-1 flex-1 max-w-[120px]" />
+                <span className="text-[10px] text-muted-foreground">{step.current}/{step.total}</span>
+              </div>
+            )}
+          </div>
+          <Badge variant="outline" className="text-xs">{lesson.lessonNumber}</Badge>
+          {/* Exit: always available so a student can leave a lesson mid-way and
+              come back later. The run record resumes exactly where they were. */}
+          {showExit && (
+            <Button variant="ghost" size="icon" aria-label="Exit lesson" title="Exit lesson" onClick={onLeave}>
+              <X className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── Route component: owns the run record and the pre-run screens ───
+
 export default function LessonDetail({ previewMode = false, lessonId: lessonIdProp, onExit }: LessonDetailProps = {}) {
   const { id: routeId } = useParams<{ id: string }>()
   const id = lessonIdProp ?? routeId
   const navigate = useNavigate()
-  const { user, lessonProgress, updateLessonProgress, earnJeffs } = useApp()
+  const { user, lessonProgress } = useApp()
 
   // Leaving the lesson: the modal preview closes itself; the route navigates.
+  // Back from a lesson always goes to the lessons list, never the dashboard.
   const exit = (to: string) => {
     if (previewMode && onExit) onExit()
     else navigate(to)
@@ -85,9 +151,9 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
       navigate(`/lessons/${lesson.id}`, { replace: true })
     }
   }, [lessonIdProp, lesson, id, navigate])
-  const progress = lessonProgress.find(p => p.lessonId === id)
+  const progress = lessonProgress.find(p => p.lessonId === lesson?.id) ?? lessonProgress.find(p => p.lessonId === id)
   // Preview always behaves like a fresh, never-completed attempt.
-  const isCompleted = !previewMode && progress?.completed
+  const isCompleted = !previewMode && !!progress?.completed
 
   // Analytics: log when a lesson is opened, and how long it was open at
   // completion. Fires once per lesson id; the ref seeds the elapsed timer.
@@ -99,15 +165,30 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lesson?.id])
 
-  // Track regeneration attempts for mastery check failures
-  const [regenerationCount, setRegenerationCount] = useState(0)
+  // The ONE record of this attempt (src/lib/lessonRun.ts). Preview keeps it in
+  // memory only; students' runs persist so a reload resumes the same run.
+  const rh = useLessonRun(lesson?.id, { persist: !previewMode })
+  const run = rh.run
+
+  // Which lesson the student has actively entered this visit. A saved run is
+  // NOT auto-entered: the overview offers "Continue where you left off" first.
+  const [enteredFor, setEnteredFor] = useState<string | null>(previewMode ? (lesson?.id ?? null) : null)
+  const entered = !!lesson && enteredFor === lesson.id
+
+  // Preview skips the overview + Jeff chat: start a run immediately.
+  useEffect(() => {
+    if (previewMode && lesson && !run) {
+      rh.startNewRun({ completedAtStart: false, chatDone: true })
+      setEnteredFor(lesson.id)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewMode, lesson?.id, run])
 
   // Content pacing (Hook B): the student's most recent confidence tier for
-  // THIS topic, fetched once per lesson visit - not on every regeneration,
-  // since it reflects standing coming INTO this lesson, not anything that
-  // happens during it. Cold start (no row yet, or the fetch hasn't resolved)
-  // leaves this null, which is exactly today's unmodified content - never a
-  // special case that blocks or delays rendering the lesson.
+  // THIS topic, fetched once per lesson visit - it reflects standing coming
+  // INTO this lesson, not anything that happens during it. Cold start (no row
+  // yet, or the fetch hasn't resolved) leaves this null, which is exactly
+  // today's unmodified content - never a special case that blocks rendering.
   const [contentConfidenceTier, setContentConfidenceTier] = useState<string | null>(null)
   // fragile_confidence's "different set than what they just saw" needs to
   // know what that set actually was - the question ids from this lesson's
@@ -115,8 +196,7 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   const [recentQuestionIds, setRecentQuestionIds] = useState<string[]>([])
   // Standing adaptive ability (theta) for THIS topic, coming into the lesson.
   // Picks the initial pool difficulty (remedial/base/hard) for a fresh lesson,
-  // superseding the coarse literacyLevel. Null = no estimate yet (cold start),
-  // which falls back to literacyLevel - exactly today's behavior.
+  // superseding the coarse literacyLevel. Null = no estimate yet (cold start).
   const [abilityTheta, setAbilityTheta] = useState<number | null>(null)
 
   useEffect(() => {
@@ -163,20 +243,219 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     return () => { cancelled = true }
   }, [lesson, user?.id, isCompleted, previewMode])
 
+  // How many interactive steps the walk has (for "step N of M" on the
+  // overview). The section count doesn't change with regeneration.
+  const walkCount = useMemo(() => {
+    if (!lesson) return 0
+    const base = getStructuredContent(lesson.id, 0, null, [], null)
+    return base ? base.sections.filter(s => s.type !== "concept").length : 0
+  }, [lesson])
+
+  // The next lesson to send the student to from the completion screen: the next
+  // in this unit, else the first of the next unit, gated by the same unlock
+  // rules the mission map uses. Recomputes when progress changes (so it appears
+  // once THIS lesson is marked complete) and is null when there's no unlocked
+  // next - in which case the completion screen hides the "Next" button.
+  const nextLesson = useMemo(() => {
+    const nextId = getNextLessonId(lesson?.id, lessonProgress, user)
+    return nextId ? getLessonById(nextId) : null
+  }, [lesson?.id, lessonProgress, user])
+
+  if (!lesson) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-2">Lesson not found</h2>
+          <Button onClick={() => exit("/lessons")}>Back to Missions</Button>
+        </div>
+      </div>
+    )
+  }
+
+  // ─── In a run: the player owns everything, keyed on the run id so a
+  //     retake / restart remounts every piece of lesson state fresh. ───
+  if (run && entered) {
+    return (
+      <LessonRunPlayer
+        key={run.runId}
+        lesson={lesson}
+        run={run}
+        rh={rh}
+        previewMode={previewMode}
+        onPreviewExit={onExit}
+        exit={exit}
+        user={user}
+        progress={progress}
+        openedAt={lessonOpenedAtRef.current}
+        contentConfidenceTier={contentConfidenceTier}
+        recentQuestionIds={recentQuestionIds}
+        abilityTheta={abilityTheta}
+        nextLesson={nextLesson}
+      />
+    )
+  }
+
+  if (previewMode) return null // the effect above starts the preview run
+
+  // ─── Pre-run screens ───
+  // A saved chat alone (no run record) only means "resume" for a lesson that
+  // isn't complete yet: completed lessons may carry a leftover chat from before
+  // runs existed, and those must show the honest replay screen, not "Continue".
+  const savedChat = !isCompleted && loadChat(lesson.id)
+  const resumable = !!run || !!savedChat
+  const totalSteps = walkCount + 1 // Jeff's chat is step 1
+  const currentStep = run ? (run.chatDone ? Math.min(run.sectionIndex + 2, totalSteps) : 1) : 1
+
+  const startFresh = () => {
+    clearChat(lesson.id)
+    rh.startNewRun({ completedAtStart: isCompleted })
+    setEnteredFor(lesson.id)
+    window.scrollTo({ top: 0 })
+  }
+  const continueRun = () => {
+    if (!run) rh.startNewRun({ completedAtStart: isCompleted }) // saved chat only: the chat resumes inside
+    setEnteredFor(lesson.id)
+    window.scrollTo({ top: 0 })
+  }
+
+  return (
+    <div className="min-h-screen bg-background pb-24 md:pb-8">
+      <LessonHeader
+        lesson={lesson}
+        previewMode={false}
+        showBack
+        showExit={false}
+        onLeave={() => exit("/lessons")}
+        step={null}
+      />
+      <main className="container mx-auto px-4 py-8 max-w-3xl">
+        {isCompleted && !resumable ? (
+          /* ─── Replay of a completed lesson: the honest stored score ─── */
+          <>
+            <LessonCompletionScreen
+              correct={0}
+              attempts={0}
+              storedQuizScore={progress?.quizScore}
+              reflectionDone={false}
+              reflectionBonus={REFLECTION_BONUS}
+              onContinue={() => exit("/lessons?category=" + lesson.category)}
+              onRetake={startFresh}
+              nextTitle={nextLesson?.title}
+              onNext={nextLesson ? () => exit("/lessons/" + nextLesson.id) : undefined}
+            />
+            {getScenarioSet(lesson.id) && <ScenarioResponse lessonId={lesson.id} />}
+          </>
+        ) : (
+          /* ─── Pre-lesson overview ─── */
+          <div className="space-y-6">
+            <Card variant="elevated">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <JeffMascot size="sm" />
+                  <div>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2">
+                      <Clock className="w-4 h-4" /> {lesson.duration} min lesson
+                    </p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
+                      <Coins className="w-4 h-4 text-gold" /> Right answers earn coins, wrong ones cost some.
+                    </p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">{lesson.description}</p>
+
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {["📖 Learn", "🧪 Apply", "✅ Master"].map((label, i) => (
+                    <div key={i} className="text-center p-2 rounded-lg bg-muted/50 border border-border">
+                      <span className="text-xs text-muted-foreground">{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {resumable ? (
+              <div className="text-center space-y-3">
+                <Button
+                  size="lg"
+                  variant="hero"
+                  onClick={continueRun}
+                  className="w-full h-16 text-lg font-bold rounded-2xl shadow-lg shadow-primary/30"
+                >
+                  Continue where you left off (step {currentStep} of {totalSteps}) <ArrowRight className="ml-2 w-6 h-6" />
+                </Button>
+                <Button variant="ghost" size="lg" className="w-full text-muted-foreground" onClick={startFresh}>
+                  <RotateCcw className="mr-2 w-4 h-4" /> Start over
+                </Button>
+              </div>
+            ) : (
+              <div className="text-center">
+                <Button
+                  size="lg"
+                  variant="hero"
+                  onClick={startFresh}
+                  className="w-full h-16 text-xl font-bold rounded-2xl shadow-lg shadow-primary/30"
+                >
+                  Start Mission <ArrowRight className="ml-2 w-6 h-6" />
+                </Button>
+                <p className="text-sm text-muted-foreground mt-3">👆 Tap here to begin — 💬 Jeff will teach you this one in chat</p>
+              </div>
+            )}
+          </div>
+        )}
+      </main>
+    </div>
+  )
+}
+
+// ─── The player: one mounted instance per run ───
+
+interface LessonRunPlayerProps {
+  lesson: Lesson
+  run: LessonRun
+  rh: LessonRunHandle
+  previewMode: boolean
+  onPreviewExit?: () => void
+  exit: (to: string) => void
+  user: UserProfile | null
+  progress: LessonProgress | undefined
+  openedAt: number
+  contentConfidenceTier: string | null
+  recentQuestionIds: string[]
+  abilityTheta: number | null
+  nextLesson: Lesson | null
+}
+
+function LessonRunPlayer({
+  lesson,
+  run,
+  rh,
+  previewMode,
+  onPreviewExit,
+  exit,
+  user,
+  progress,
+  openedAt,
+  contentConfidenceTier,
+  recentQuestionIds,
+  abilityTheta,
+  nextLesson,
+}: LessonRunPlayerProps) {
+  const { updateLessonProgress, earnJeffs, awardJeffs } = useApp()
+
+  // Reshuffles the GENERATED question selection on a genuine mastery retry
+  // (fail → recap → retry) and the reinforcement round. Rereading with Jeff
+  // deliberately does NOT bump it: nothing remounts, nothing regenerates.
+  const [regenerationCount, setRegenerationCount] = useState(0)
+
   // Always use structured content - hand-written or generated.
   // On mastery-check retries (regenerationCount > 0), getStructuredContent
   // keeps hand-written sections and the AP quiz overlay intact and only
   // varies GENERATED question selection; the shuffle below re-randomizes
-  // option order for everyone because this memo re-runs. (Previously a
-  // retry regenerated everything, so authored lessons retried against
-  // off-topic generic template questions.)
+  // option order for everyone because this memo re-runs.
   const structuredContent: StructuredLessonContent | null = useMemo(() => {
-    if (!lesson) return null
     // Prefer the live per-topic ability (theta) over the coarse account-wide
     // literacyLevel: a theta above/below a neutral band pulls the hard/remedial
-    // pool. Cold start (no theta yet) falls back to literacyLevel - today's
-    // behavior. Mapped onto MasteryTier so it reuses tierDifficulty's existing
-    // beginner/intermediate/advanced pool routing.
+    // pool. Cold start (no theta yet) falls back to literacyLevel.
     const effectiveTier: MasteryTier | null =
       abilityTheta == null ? (user?.literacyLevel ?? null)
       : abilityTheta > 0.5 ? "investor"
@@ -210,13 +489,10 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     }
 
     // Retry variety: a mastery-check pool no larger than requiredCorrect means
-    // a student who fails re-sees the EXACT same questions (SectionRenderer
-    // rotates a per-attempt slice, but only if the pool is bigger than the
-    // slice). Build a supplemental bank from this lesson's OWN already-authored
-    // questions - the micro-check + applied questions, then any unused quiz-pool
-    // questions - so every mastery-check has room to rotate to fresh questions
-    // on a retry. Attempt 1 still shows only the authored mastery questions
-    // (they stay first), so nothing a student just saw is repeated immediately.
+    // a student who fails re-sees the EXACT same questions. Build a supplemental
+    // bank from this lesson's OWN already-authored questions - the micro-check
+    // + applied questions, then any unused quiz-pool questions - so every
+    // mastery-check has room to rotate to fresh questions on a retry.
     const masteryIds = new Set<string>()
     raw.sections.forEach(s => { if (s.type === "mastery-check") s.questions.forEach(q => masteryIds.add(q.id)) })
     const supplemental: QuizQuestion[] = []
@@ -249,10 +525,9 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
         if (section.lockQuestions) {
           return { ...section, questions: shuffleQuestionSet(base) }
         }
-        // Give the retry rotation headroom: enough distinct questions for a
-        // couple of fresh attempts beyond the first. Extras are drawn from the
-        // supplemental bank and de-duped against the authored mastery questions.
-        const target = section.requiredCorrect + 3
+        // Enough questions to SERVE 5 per attempt (the mastery renderer's serve
+        // count) plus headroom so retries can rotate to unseen questions.
+        const target = Math.max(section.requiredCorrect, 5) + 3
         const baseIds = new Set(base.map(q => q.id))
         const extras = supplemental.filter(q => !baseIds.has(q.id)).slice(0, Math.max(0, target - base.length))
         return { ...section, questions: shuffleQuestionSet([...base, ...extras]) }
@@ -262,23 +537,16 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     return { ...raw, sections: processedSections }
   }, [lesson, regenerationCount, contentConfidenceTier, recentQuestionIds, user?.literacyLevel, abilityTheta])
 
-  // ─── Lesson state ───
-  const [currentSectionIdx, setCurrentSectionIdx] = useState(0)
-  // Preview skips the overview + Jeff chat and lands straight on section 1.
-  const [lessonStarted, setLessonStarted] = useState(previewMode)
-  const [lessonFinished, setLessonFinished] = useState(false)
-  const [totalAttempts, setTotalAttempts] = useState(0)
-  const [totalCorrect, setTotalCorrect] = useState(0)
-  // "Chat with Jeff" replaces the paragraph reading for uncompleted lessons.
-  const [chatOpen, setChatOpen] = useState(false)
-  // Retake: the student finished this lesson but chose to run the WHOLE thing
-  // again (Jeff's teaching + every question). While true, an already-completed
-  // lesson is treated like a fresh attempt so the overview/chat/walk all show.
-  const [retaking, setRetaking] = useState(false)
-  // Bumped on each retake to remount the QuizSessionProvider, so the completion
-  // screen's coin/accuracy tallies reflect only the current run, not a sum of
-  // the original attempt and the retake.
-  const [retakeCount, setRetakeCount] = useState(0)
+  // ─── Per-run UI state (everything durable lives in `run`) ───
+  // "Chat with Jeff" replaces the paragraph reading. Opens straight away for a
+  // run whose chat isn't done yet (a resumed chat picks up where it left off).
+  const [chatOpen, setChatOpen] = useState(!run.chatDone && !previewMode)
+  // Reread with Jeff from a failed mastery check: a review overlay over the
+  // SAME run. While it is open the mastery walk is unmounted (no timer runs);
+  // closing it lands straight back on the mastery check.
+  const [rereading, setRereading] = useState(false)
+  // Another tab finished this lesson while this run was in progress.
+  const [finishedElsewhere, setFinishedElsewhere] = useState(false)
   // "Make It Stick" reflection - after mastery, before the completion screen.
   const [pendingMastery, setPendingMastery] = useState<{ correct: number; attempts: number; attemptSessionId: string; tier: string | null } | null>(null)
   const [reflectionText, setReflectionText] = useState("")
@@ -290,24 +558,94 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   const [checkingMastery, setCheckingMastery] = useState(false)
   const [pendingReinforcement, setPendingReinforcement] = useState<{ correct: number; attempts: number } | null>(null)
   const [confidenceRoundUsed, setConfidenceRoundUsed] = useState(false)
-  // Owned here, not inside MasteryCheckRenderer: a genuine fail routes
-  // through the recap section, which unmounts/remounts that component, so
-  // a restart counter kept there would reset to 1 on every real retry -
-  // silently zeroing out retry_factor. LessonDetail stays mounted for the
-  // whole lesson, so this is what actually survives that remount.
-  // attemptNumber only increments on a genuine fail-and-retry (handleMasteryFail);
-  // the capped confidence-tier reinforcement round (handleReinforcementContinue)
-  // is a deliberately fresh, separate attempt chain, not a "restart."
-  const [masteryAttempt, setMasteryAttempt] = useState(() => ({ sessionId: crypto.randomUUID(), attemptNumber: 1 }))
-  const reflectionPrompt = lesson ? getReflectionPrompt(lesson.id, lesson.category) : ""
-  const reflectionWords = reflectionText.trim().split(/\s+/).filter(Boolean).length
-  // Lessons with a definition-practice override replace the post-mastery
-  // reflection with a mandatory "Define These Key Terms" card (same gate: the
-  // student can't reach the finish screen until it's done). Practice only —
-  // no mastery/theta impact, no DB write of the answers.
-  const definitionPractice = lesson ? getDefinitionPractice(lesson.id) : null
+  const finishingRef = useRef(false)
 
-  if (!lesson || !structuredContent) {
+  const lessonFinished = !!run.finishedAt
+  const reflectionPrompt = getReflectionPrompt(lesson.id, lesson.category)
+  const reflectionWords = reflectionText.trim().split(/\s+/).filter(Boolean).length
+  // Repetitive / mashed-letter filler: block submit and show an inline nudge
+  // (instead of the old self-dismissing toast that a student could miss).
+  const reflectionLowEffort = looksLowEffort(reflectionText)
+  // Lessons with a definition-practice override replace the post-mastery
+  // reflection with a mandatory "Define These Key Terms" card (same gate).
+  const definitionPractice = getDefinitionPractice(lesson.id)
+
+  const sections = structuredContent?.sections ?? []
+
+  // Concept sections are TEACHING material, delivered by Jeff in the chat - the
+  // interactive walk is everything except concept sections. Teacher preview
+  // walks EVERY section, concept (teaching) sections included.
+  const walkSections = previewMode ? sections : sections.filter(s => s.type !== "concept")
+  const currentSectionIdx = Math.max(0, Math.min(run.sectionIndex, Math.max(0, walkSections.length - 1)))
+
+  // DEV-ONLY shortcut: /lessons/<id>?dev=mastery drops you straight onto the
+  // mastery-check quiz, skipping Jeff's chat and the practice walk.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return
+    const jump = new URLSearchParams(window.location.search).get("dev")
+    if (jump !== "mastery") return
+    const masteryIdx = walkSections.findIndex(s => s.type === "mastery-check")
+    if (masteryIdx === -1) return
+    setChatOpen(false)
+    rh.markChatDone()
+    rh.advanceSection(masteryIdx)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lesson.id])
+
+  // ─── Answer keys for the run record ───
+  // The quiz components don't know about the run; the provider asks us which
+  // run key an answer belongs to. Sections answer their questions in order
+  // from a fresh mount, so "the n-th answer since this section mounted" maps
+  // to a question id exactly; mastery uses the last question it served us.
+  const sectionAnswerCountRef = useRef(0)
+  const lastMasteryAskedRef = useRef<string | null>(null)
+  useEffect(() => {
+    sectionAnswerCountRef.current = 0
+  }, [currentSectionIdx, regenerationCount, run.masteryAttempt.sessionId])
+
+  const resolveAnswer = (ctx: AnswerContext | undefined): { key: string; source: "walk" | "mastery" } => {
+    const live = rh.getRun() ?? run
+    const idx = Math.max(0, Math.min(live.sectionIndex, Math.max(0, walkSections.length - 1)))
+    const section = walkSections[idx]
+    const n = sectionAnswerCountRef.current++
+    if (section?.type === "mastery-check") {
+      const qid = ctx?.questionId ?? lastMasteryAskedRef.current ?? `#${n}`
+      return { key: `${masteryKeyPrefix(live.masteryAttempt.sessionId)}${qid}`, source: "mastery" }
+    }
+    if (ctx?.questionId) return { key: `s${idx}:${ctx.questionId}`, source: "walk" }
+    switch (section?.type) {
+      case "micro-check": {
+        const q = section.questions[Math.min(n, section.questions.length - 1)]
+        return { key: `s${idx}:${q?.id ?? `#${n}`}`, source: "walk" }
+      }
+      case "applied-question":
+        return { key: `s${idx}:${section.question.id}`, source: "walk" }
+      case "activity-check":
+        return { key: `s${idx}:activity`, source: "walk" }
+      default:
+        return { key: `s${idx}:#${n}`, source: "walk" }
+    }
+  }
+
+  const runBridge: QuizRunBridge = {
+    resolveAnswer,
+    recordAnswer: rh.recordAnswer,
+    coinsGained: rh.coinsGained,
+    coinsLost: rh.coinsLost,
+    answeredTotal: rh.answeredTotal,
+    answeredCorrect: rh.answeredCorrect,
+  }
+
+  // In-chat quick checks pay through the run record too, so a remount can't
+  // pay twice and the completion receipt equals the record. Paid at face value
+  // (awardJeffs) so the receipt matches the balance change exactly.
+  const payQuickCheck = (amount: number, reason: string, key: string) => {
+    if (previewMode) return
+    const fresh = rh.recordAnswer(key, { correct: true, coins: amount, timedOut: false, source: "quickcheck" })
+    if (fresh) awardJeffs(amount, reason)
+  }
+
+  if (!structuredContent) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -317,34 +655,6 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
       </div>
     )
   }
-
-  const sections = structuredContent.sections
-
-  // Concept sections are TEACHING material, delivered by Jeff in the chat - they
-  // are never shown as standalone "reading" steps, so the student never hits a
-  // wall of vocab paragraphs in the middle of a lesson. The interactive walk is
-  // everything except concept sections (checks, scenario, applied, recap,
-  // mastery); Jeff still teaches from the full concept text via `conceptSource`
-  // / `buildScript` below.
-  // Teacher preview walks EVERY section, concept (teaching) sections included,
-  // so the teacher can read the material Jeff teaches from without the chat.
-  const walkSections = previewMode ? sections : sections.filter(s => s.type !== "concept")
-
-  // DEV-ONLY shortcut: /lessons/<id>?dev=mastery drops you straight onto the
-  // mastery-check quiz, skipping Jeff's chat and the practice walk. Gated on
-  // import.meta.env.DEV so it can never fire in a production build. Handy for
-  // eyeballing authored quiz questions without playing the whole lesson.
-  useEffect(() => {
-    if (!import.meta.env.DEV) return
-    const jump = new URLSearchParams(window.location.search).get("dev")
-    if (jump !== "mastery") return
-    const masteryIdx = walkSections.findIndex(s => s.type === "mastery-check")
-    if (masteryIdx === -1) return
-    setChatOpen(false)
-    setLessonStarted(true)
-    setCurrentSectionIdx(masteryIdx)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lesson?.id])
 
   // Deep (academic-course) lessons ground the live Jeff chat in the authored
   // curriculum so it teaches the real material in depth instead of improvising
@@ -356,8 +666,6 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     .join("\n\n")
 
   // Every topic the student will be quizzed on, from the question concept tags.
-  // Jeff must teach each one, so no question is ever asked about something the
-  // lesson didn't cover. Slugs are humanized ("risk-and-reward" -> "risk and reward").
   const mustCoverTopics = Array.from(new Set(
     sections.flatMap(s => {
       if (s.type === "micro-check" || s.type === "mastery-check") return s.questions.map(q => q.concept)
@@ -366,18 +674,21 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     }).filter((c): c is string => !!c)
   )).map(c => c.replace(/-/g, " "))
 
+  // Mid-run progress writes (percent only). Never on a retake of a completed
+  // lesson (updateLessonProgress is monotonic anyway) and never in preview.
+  const writePercent = (percent: number) => {
+    if (run.completedAtStart || previewMode) return
+    updateLessonProgress(lesson.id, false, undefined, percent)
+  }
+
   // The Jeff chat teaches all the concept material - after it, students go
   // straight into the interactive walk (which contains no concept sections).
   const handleChatQuizReady = () => {
     setChatOpen(false)
-    // Record "content viewed" on the existing lesson_progress row (not completed
-    // yet), seeding the section-0 percentage so the teacher sees them as started.
-    if (!isCompleted && !previewMode) {
-      const startPercent = walkSections.length > 0 ? Math.round((1 / walkSections.length) * 100) : 0
-      updateLessonProgress(lesson.id, false, undefined, startPercent)
-    }
-    setLessonStarted(true)
-    setCurrentSectionIdx(0)
+    rh.markChatDone()
+    // Record "content viewed" (not completed yet), seeding the section-0
+    // percentage so the teacher sees them as started.
+    if (walkSections.length > 0) writePercent(Math.round((1 / walkSections.length) * 100))
     window.scrollTo({ top: 0 })
   }
 
@@ -385,40 +696,50 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   const handleSectionContinue = () => {
     if (currentSectionIdx < walkSections.length - 1) {
       const nextIdx = currentSectionIdx + 1
-      setCurrentSectionIdx(nextIdx)
+      rh.advanceSection(nextIdx)
       // Persist how far the student has gotten so the teacher dashboard can show
-      // a live progress bar. Don't touch a lesson that's already completed.
-      // Preview: no lesson_progress write.
-      if (!isCompleted && !previewMode && walkSections.length > 0) {
-        const percent = Math.round(((nextIdx + 1) / walkSections.length) * 100)
-        updateLessonProgress(lesson.id, false, undefined, percent)
-      }
+      // a live progress bar.
+      if (walkSections.length > 0) writePercent(Math.round(((nextIdx + 1) / walkSections.length) * 100))
       window.scrollTo({ top: 0, behavior: "smooth" })
     }
   }
 
-  const finishLesson = (correct: number, attempts: number) => {
-    setTotalAttempts(attempts)
-    setTotalCorrect(correct)
-    setLessonFinished(true)
-    if (previewMode) return // preview: no lesson_progress completion, no analytics
-    const quizScore = attempts > 0 ? Math.round((correct / attempts) * 100) : 100
-    updateLessonProgress(lesson.id, true, quizScore)
-    logEvent("lesson_completed", { lessonId: lesson.id, completedPercent: 100, timeSpent_ms: Date.now() - lessonOpenedAtRef.current })
-    // No flat completion reward - coins are earned per question (right answers
-    // gain coins, wrong ones lose them). The only completion-time bonus is the
-    // optional reflection journal, awarded separately when it's submitted.
-  }
-
   // Mastery confidence pacing is read-only advice on top of the pass/fail
-  // gate above it - a cold start, timeout, or function error just means no
-  // tier came back, and every branch below falls through to today's plain
-  // pass behavior. Never let this call block or break lesson completion.
+  // gate - a cold start, timeout, or function error just means no tier came
+  // back. Never let this call block or break lesson completion.
   const withTimeout = <T,>(p: PromiseLike<T>, ms = 4000): Promise<T | null> =>
     new Promise((resolve) => {
       const timer = setTimeout(() => resolve(null), ms)
       Promise.resolve(p).then((v) => { clearTimeout(timer); resolve(v) }, () => { clearTimeout(timer); resolve(null) })
     })
+
+  // THE finish write. One call, carrying the whole-lesson accuracy from the
+  // run record (every walk + mastery answer, failed attempts included) and the
+  // mastery-check accuracy. If another tab completed this lesson since the run
+  // began, nothing is written and the student is told instead.
+  const finishLesson = async () => {
+    if (finishingRef.current) return
+    finishingRef.current = true
+    const snapshot = rh.getRun() ?? run
+    rh.finish()
+    if (previewMode) return // preview: no lesson_progress completion, no analytics
+    clearChat(lesson.id) // the conversation belonged to this run; a later visit is a replay or a fresh retake
+    logEvent("lesson_completed", { lessonId: lesson.id, completedPercent: 100, timeSpent_ms: Date.now() - openedAt })
+    const whole = wholeLessonAccuracyOf(snapshot) ?? 100
+    const mastery = masteryAccuracyOf(snapshot) ?? undefined
+    if (!snapshot.completedAtStart && user?.id && !DEV_LOCAL_BYPASS) {
+      const res = await withTimeout(
+        supabase.from("lesson_progress").select("completed").eq("user_id", user.id).eq("lesson_id", lesson.id).maybeSingle()
+      )
+      if (res && !res.error && res.data?.completed) {
+        setFinishedElsewhere(true)
+        return
+      }
+    }
+    updateLessonProgress(lesson.id, true, whole, undefined, mastery)
+    // No flat completion reward - coins are earned per question. The only
+    // completion-time bonus is the optional reflection, awarded on submit.
+  }
 
   const evaluateMastery = async (correct: number, attempts: number, attemptSessionId: string) => {
     setCheckingMastery(true)
@@ -446,32 +767,33 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   }
 
   const handleMasteryComplete = (correct: number, attempts: number, attemptSessionId: string) => {
+    // Close the passing attempt in the run record (mastery accuracy) and open
+    // a fresh chain in case a reinforcement round follows.
+    rh.endMasteryAttempt({ passed: true, restart: false })
     // First-time completions write a "Make It Stick" reflection before the
-    // rewards screen; replays skip straight to the finish. Preview skips the
-    // mastery-score edge function (it writes mastery_scores server-side) and
-    // the reflection/definition gate too.
-    if (isCompleted || previewMode) { finishLesson(correct, attempts); return }
+    // rewards screen; retakes skip straight to the finish. Preview skips the
+    // mastery-score edge function and the reflection/definition gate too.
+    if (run.completedAtStart || previewMode) { void finishLesson(); return }
     window.scrollTo({ top: 0, behavior: "smooth" })
     evaluateMastery(correct, attempts, attemptSessionId)
   }
 
   const handleReinforcementContinue = () => {
-    // Same regenerate-and-jump machinery as a real fail, but straight back
-    // into the mastery check - the student already passed, so there's no
-    // reason to re-walk the recap first. A fresh, separate attempt chain
-    // (sessionAttemptNumber back to 1) - this isn't a "restart," it's a
-    // deliberate extra round on top of a pass.
+    // Straight back into the mastery check - the student already passed, so
+    // there's no reason to re-walk the recap first. The fresh attempt chain
+    // (attempt 1, new session id) was opened by handleMasteryComplete.
     setPendingReinforcement(null)
-    setMasteryAttempt({ sessionId: crypto.randomUUID(), attemptNumber: 1 })
     setRegenerationCount(prev => prev + 1)
     const masteryIdx = walkSections.findIndex(s => s.type === "mastery-check")
-    if (masteryIdx !== -1) setCurrentSectionIdx(masteryIdx)
+    if (masteryIdx !== -1) rh.advanceSection(masteryIdx)
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   const handleReflectionSubmit = async () => {
     if (!pendingMastery || reflectionWords < MIN_REFLECTION_WORDS || savingReflection) return
-    if (looksLowEffort(reflectionText)) { toast.error(LOW_EFFORT_MESSAGE); return }
+    // The button is disabled while the text looks low-effort; this is a silent
+    // safety net (no toast) so a stray submit can't slip a junk reflection past.
+    if (looksLowEffort(reflectionText)) return
     setSavingReflection(true)
     try {
       if (user?.id && !DEV_LOCAL_BYPASS && !previewMode) {
@@ -490,61 +812,47 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     setSavingReflection(false)
     if (!previewMode) earnJeffs(REFLECTION_BONUS, `Reflection journal: ${lesson.title}`)
     setReflectionDone(true)
-    finishLesson(pendingMastery.correct, pendingMastery.attempts)
+    void finishLesson()
   }
 
   // Definition-practice equivalent of handleReflectionSubmit: it gates the same
   // pendingMastery → finish transition. Purely practice, so it never touches the
-  // mastery score; it awards the same completion bonus as a reflection and marks
-  // reflectionDone so the finish screen credits it consistently.
+  // mastery score; it awards the same completion bonus as a reflection.
   const handleDefinitionComplete = () => {
     if (!pendingMastery) return
     if (!previewMode) earnJeffs(REFLECTION_BONUS, `Definition practice: ${lesson.title}`)
     setReflectionDone(true)
-    finishLesson(pendingMastery.correct, pendingMastery.attempts)
+    void finishLesson()
   }
 
   const handleMasteryFail = () => {
-    // A genuine restart of the same failed attempt chain - bump the count
-    // retry_factor reads, on a fresh session id. Regenerate questions too.
-    setMasteryAttempt(prev => ({ sessionId: crypto.randomUUID(), attemptNumber: prev.attemptNumber + 1 }))
+    // A genuine restart of the same failed attempt chain - the attempt number
+    // retry_factor reads goes up, on a fresh session id. Regenerate questions.
+    rh.endMasteryAttempt({ passed: false, restart: true })
     setRegenerationCount(prev => prev + 1)
     const recapIdx = walkSections.findIndex(s => s.type === "recap")
-    if (recapIdx !== -1) setCurrentSectionIdx(recapIdx)
+    if (recapIdx !== -1) rh.advanceSection(recapIdx)
   }
 
-  // Same genuine-retry bookkeeping as a fail, but instead of jumping to the
-  // recap it reopens the Jeff chat so the student rereads the whole
-  // conversational lesson before their fresh mastery attempt.
+  // Same attempt bookkeeping as a fail, but instead of the recap the student
+  // rereads Jeff's whole conversation in a review overlay, then comes straight
+  // back to the mastery check (same run, same section - never section 0).
   const handleMasteryReread = () => {
-    setMasteryAttempt(prev => ({ sessionId: crypto.randomUUID(), attemptNumber: prev.attemptNumber + 1 }))
-    setRegenerationCount(prev => prev + 1)
-    setChatOpen(true)
+    rh.endMasteryAttempt({ passed: false, restart: true })
+    setRereading(true)
+    window.scrollTo({ top: 0 })
+  }
+  const backToMastery = () => {
+    setRereading(false)
     window.scrollTo({ top: 0 })
   }
 
-  // Retake the entire lesson from the top: reset every bit of session state,
-  // wipe the saved Jeff conversation so his class starts fresh, and reshuffle
-  // the question selection for variety. `retaking` then routes the render back
-  // through the pre-lesson overview even though the lesson is already completed.
+  // Retake the entire lesson from the top: wipe the saved Jeff conversation and
+  // start a new run. The player is keyed on the run id, so React remounts
+  // every piece of lesson state fresh - nothing to reset by hand.
   const handleRetake = () => {
-    if (!previewMode) clearChat(lesson.id) // preview never touched the saved chat
-    setRetaking(true)
-    setLessonStarted(false)
-    setLessonFinished(false)
-    setChatOpen(false)
-    setCurrentSectionIdx(0)
-    setTotalAttempts(0)
-    setTotalCorrect(0)
-    setPendingMastery(null)
-    setPendingReinforcement(null)
-    setCheckingMastery(false)
-    setConfidenceRoundUsed(false)
-    setReflectionText("")
-    setReflectionDone(false)
-    setRegenerationCount(prev => prev + 1)
-    setRetakeCount(prev => prev + 1)
-    setMasteryAttempt({ sessionId: crypto.randomUUID(), attemptNumber: 1 })
+    if (!previewMode) clearChat(lesson.id)
+    rh.startNewRun({ completedAtStart: true, chatDone: previewMode })
     window.scrollTo({ top: 0 })
   }
 
@@ -553,7 +861,6 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   // the student is in the reflection/finish phase, show the bar as complete.
   const inFinalPhase = lessonFinished || reflectionDone || !!pendingMastery || checkingMastery
   const displayStep = inFinalPhase ? walkSections.length : currentSectionIdx + 1
-  const sectionProgress = walkSections.length > 0 ? (displayStep / walkSections.length) * 100 : 0
 
   const renderSection = (section: LessonSection, idx: number) => {
     switch (section.type) {
@@ -574,22 +881,20 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
       case "mastery-check":
         return (
           <MasteryCheckRenderer
-            // Keyed on regenerationCount too, not just idx: the reinforcement
-            // round (handleReinforcementContinue) jumps straight back to this
-            // same section index without detouring through recap, so idx
-            // alone wouldn't change and React would reuse the old, already
-            // "finished" component instance instead of mounting a fresh one.
-            key={`mastery-${idx}-${regenerationCount}`}
+            // Keyed on the attempt session id: every new attempt (retry,
+            // reread, reinforcement round) mounts a fresh instance even when
+            // the section index doesn't change.
+            key={`mastery-${idx}-${run.masteryAttempt.sessionId}`}
             section={section}
             topicId={lesson.category}
             lessonId={lesson.id}
-            attemptSessionId={masteryAttempt.sessionId}
-            sessionAttemptNumber={masteryAttempt.attemptNumber}
+            attemptSessionId={run.masteryAttempt.sessionId}
+            sessionAttemptNumber={run.masteryAttempt.attemptNumber}
+            previouslyAsked={run.askedQuestionIds}
+            onAsked={(qid) => { lastMasteryAskedRef.current = qid; rh.noteAsked(qid) }}
             onComplete={handleMasteryComplete}
             onFail={handleMasteryFail}
-            // Rereading opens the Jeff chat, which exists for not-yet-completed
-            // lessons and during a retake; omit it on plain completed replays.
-            onReread={(!previewMode && (!isCompleted || retaking)) ? handleMasteryReread : undefined}
+            onReread={!previewMode ? handleMasteryReread : undefined}
           />
         )
       default:
@@ -598,46 +903,18 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   }
 
   return (
-    <HintProvider key={lesson.id} total={2}>
-    <QuizSessionProvider key={`quiz-${lesson.id}-${retakeCount}`} lessonId={lesson.id} concept={lesson.category} previewMode={previewMode}>
+    <HintProvider key={run.runId} total={2}>
+    <QuizSessionProvider lessonId={lesson.id} concept={lesson.category} previewMode={previewMode} run={runBridge}>
     <div className="min-h-screen bg-background pb-24 md:pb-8">
-      {/* Header */}
-      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        {previewMode && <TeacherPreviewBanner onExit={onExit} />}
-        <div className="container mx-auto px-4">
-          <div className="flex items-center h-14 gap-4">
-            {/* Back arrow on the pre-start overview and after completion. */}
-            {(!lessonStarted || lessonFinished || isCompleted) && !previewMode && (
-              <Button variant="ghost" size="icon" onClick={() => exit("/lessons")}>
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-            )}
-            <div className="flex-1 min-w-0">
-              <h1 className="font-semibold text-sm truncate">{lesson.title}</h1>
-              {lessonStarted && !lessonFinished && (
-                <div className="flex items-center gap-2 mt-0.5">
-                  <Progress value={sectionProgress} className="h-1 flex-1 max-w-[120px]" />
-                  <span className="text-[10px] text-muted-foreground">{displayStep}/{walkSections.length}</span>
-                </div>
-              )}
-            </div>
-            <Badge variant="outline" className="text-xs">{lesson.lessonNumber}</Badge>
-            {/* Exit: always available so a student can leave a lesson mid-way and
-                come back later. Progress on completed sections is already saved. */}
-            {lessonStarted && !lessonFinished && (!isCompleted || retaking) && (
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="Exit lesson"
-                title="Exit lesson"
-                onClick={() => exit("/lessons")}
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
+      <LessonHeader
+        lesson={lesson}
+        previewMode={previewMode}
+        onPreviewExit={onPreviewExit}
+        showBack={lessonFinished}
+        showExit={!lessonFinished && !previewMode}
+        onLeave={() => exit("/lessons")}
+        step={!lessonFinished ? { current: displayStep, total: walkSections.length } : null}
+      />
 
       <main className="container mx-auto px-4 py-8 max-w-3xl">
         {/* Teacher preview: jump anywhere in the lesson without playing through. */}
@@ -647,8 +924,10 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
               sections={walkSections}
               currentIdx={lessonFinished ? walkSections.length : currentSectionIdx}
               onJump={(i) => {
-                setLessonFinished(false)
-                setCurrentSectionIdx(i)
+                // A finished preview run can't be un-finished: start a fresh one
+                // and land on the chosen section.
+                if (lessonFinished) rh.startNewRun({ completedAtStart: false, chatDone: true })
+                rh.advanceSection(i)
                 window.scrollTo({ top: 0 })
               }}
             />
@@ -657,60 +936,26 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
         {previewMode && lessonFinished ? (
           /* ─── Preview finish: no completion screen (it awards + persists) ─── */
           <PreviewCompleteCard
-            correct={totalCorrect}
-            total={totalAttempts}
-            onRestart={() => {
-              setLessonFinished(false)
-              setCurrentSectionIdx(0)
-              setTotalAttempts(0)
-              setTotalCorrect(0)
-              setRegenerationCount(prev => prev + 1)
-              setRetakeCount(prev => prev + 1)
-              setMasteryAttempt({ sessionId: crypto.randomUUID(), attemptNumber: 1 })
-              window.scrollTo({ top: 0 })
-            }}
-            onExit={onExit}
+            correct={rh.answeredCorrect}
+            total={rh.answeredTotal}
+            onRestart={handleRetake}
+            onExit={onPreviewExit}
           />
-        ) : !lessonStarted && (!isCompleted || retaking) ? (
-          /* ─── Pre-lesson overview ─── */
-          <div className="space-y-6">
-            <Card variant="elevated">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <JeffMascot size="sm" />
-                  <div>
-                    <p className="text-sm text-muted-foreground flex items-center gap-2">
-                      <Clock className="w-4 h-4" /> {lesson.duration} min lesson
-                    </p>
-                    <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
-                      <Coins className="w-4 h-4 text-gold" /> Earn InvestiCoins for every question you get right
-                    </p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground">{lesson.description}</p>
-
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {["📖 Learn", "🧪 Apply", "✅ Master"].map((label, i) => (
-                    <div key={i} className="text-center p-2 rounded-lg bg-muted/50 border border-border">
-                      <span className="text-xs text-muted-foreground">{label}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="text-center">
-              <Button
-                size="lg"
-                variant="hero"
-                onClick={() => setChatOpen(true)}
-                className="w-full h-16 text-xl font-bold rounded-2xl shadow-lg shadow-primary/30"
-              >
-                Start Mission <ArrowRight className="ml-2 w-6 h-6" />
+        ) : finishedElsewhere ? (
+          /* ─── Another tab completed this lesson first ─── */
+          <Card variant="elevated">
+            <CardContent className="p-8 text-center space-y-4">
+              <JeffMascot size="sm" />
+              <h2 className="text-xl font-bold">Finished in another tab</h2>
+              <p className="text-muted-foreground">
+                This lesson was already completed in another tab, so this run's score wasn't written over it.
+                The coins you earned here are already in your balance.
+              </p>
+              <Button size="lg" className="font-bold" onClick={() => exit("/lessons?category=" + lesson.category)}>
+                Back to missions <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-              <p className="text-sm text-muted-foreground mt-3">👆 Tap here to begin — 💬 Jeff will teach you this one in chat</p>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         ) : checkingMastery ? (
           /* ─── Brief check-in while mastery-score scores the attempt ─── */
           <Card variant="elevated">
@@ -781,12 +1026,17 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
                     <Coins className="w-3.5 h-3.5" /> +{REFLECTION_BONUS} bonus
                   </span>
                 </div>
+                {reflectionText.trim() && reflectionLowEffort && (
+                  <p className="text-xs font-semibold text-destructive mt-1.5">
+                    Looks repetitive — write it in your own words.
+                  </p>
+                )}
               </div>
 
               <Button
                 size="lg"
                 className="w-full font-bold"
-                disabled={reflectionWords < MIN_REFLECTION_WORDS || savingReflection}
+                disabled={reflectionWords < MIN_REFLECTION_WORDS || reflectionLowEffort || savingReflection}
                 onClick={handleReflectionSubmit}
               >
                 {savingReflection ? "Saving…" :
@@ -797,55 +1047,68 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
               </Button>
             </CardContent>
           </Card>
-        ) : (lessonFinished || isCompleted) && !(retaking && !lessonFinished) ? (
-          /* ─── Completion screen: satisfying, numbers roll up, Jeff above ─── */
+        ) : lessonFinished ? (
+          /* ─── Completion screen: whole-lesson accuracy + the run's coin receipt ─── */
           <>
             <LessonCompletionScreen
-              correct={totalCorrect}
-              attempts={totalAttempts}
+              correct={rh.answeredCorrect}
+              attempts={rh.answeredTotal}
               storedQuizScore={progress?.quizScore}
               reflectionDone={reflectionDone}
               reflectionBonus={REFLECTION_BONUS}
               onContinue={() => exit("/lessons?category=" + lesson.category)}
               onRetake={handleRetake}
-              // Store the true whole-lesson accuracy so a later replay shows the
-              // real score, not the mastery-only ~100%. (finishLesson marks the
-              // lesson complete; this refines the persisted score to the honest one.)
-              onScore={(pct) => updateLessonProgress(lesson.id, true, pct)}
+              nextTitle={nextLesson?.title}
+              onNext={nextLesson ? () => exit("/lessons/" + nextLesson.id) : undefined}
             />
-            {/* Optional, ungraded scenario writing (teacher-review only). Renders
-                only for lessons that have a scenario set; never gates completion
-                and never touches mastery/theta. */}
+            {/* Optional, ungraded scenario writing (teacher-review only). */}
             {getScenarioSet(lesson.id) && <ScenarioResponse lessonId={lesson.id} />}
           </>
+        ) : rereading || chatOpen ? (
+          /* The interactive walk is unmounted whenever a full-screen Jeff
+             overlay is up - the teaching chat (chatOpen) or the reread review
+             (rereading) - so no question's countdown timer runs behind it and
+             auto-fails a micro-check the student hasn't even seen yet. */
+          null
         ) : (
           /* ─── Active section rendering (interactive walk, no concept steps) ─── */
           <div className="space-y-6">
-            {renderSection(walkSections[currentSectionIdx], currentSectionIdx)}
+            {walkSections[currentSectionIdx] && renderSection(walkSections[currentSectionIdx], currentSectionIdx)}
           </div>
         )}
       </main>
 
       {/* ─── Chat with Jeff: the conversational lesson (replaces reading) ─── */}
-      {chatOpen && (!isCompleted || retaking) && (
+      {chatOpen && !previewMode && (
         <JeffChat
           lesson={lesson}
           // Offline/no-credits fallback: Jeff teaches the lesson's own
-          // concept content as a scripted chat instead of erroring. Deep
-          // lessons walk the full curriculum rather than a 7-beat summary.
+          // concept content as a scripted chat instead of erroring.
           script={buildScript(sections, deepLesson)}
-          // Grounds the live AI in the lesson's authored concept content for
-          // EVERY track, so Jeff teaches the same material the quiz is written
-          // from - fixing questions that tested things the chat never covered.
+          // Grounds the live AI in the lesson's authored concept content so
+          // Jeff teaches the same material the quiz is written from.
           source={conceptSource || undefined}
-          // Forces Jeff to teach every topic the quiz will test, when the
-          // questions carry concept tags (Gulliver Intro today; harmless empty
-          // elsewhere until more lessons are tagged).
+          // Forces Jeff to teach every topic the quiz will test.
           mustCover={mustCoverTopics.length ? mustCoverTopics : undefined}
           onQuizReady={handleChatQuizReady}
+          onCoins={payQuickCheck}
           // Exit leaves the lesson entirely. JeffChat persists the conversation
-          // per-lesson, so returning to this lesson resumes Jeff's class.
+          // per-lesson and the run persists its step, so returning resumes.
           onClose={() => exit("/lessons")}
+        />
+      )}
+
+      {/* ─── Reread with Jeff: the full transcript, then back to the mastery check ─── */}
+      {rereading && !previewMode && (
+        <JeffChat
+          lesson={lesson}
+          script={buildScript(sections, deepLesson)}
+          source={conceptSource || undefined}
+          mustCover={mustCoverTopics.length ? mustCoverTopics : undefined}
+          reviewMode
+          onCoins={payQuickCheck}
+          onQuizReady={backToMastery}
+          onClose={backToMastery}
         />
       )}
     </div>

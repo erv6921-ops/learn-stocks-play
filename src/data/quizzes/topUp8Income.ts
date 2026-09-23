@@ -5,6 +5,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-1-tu1",
+        concept: "active vs passive income",
         question: "Which everyday example best fits the definition of active income?",
         options: [
           "Dividends landing in an account automatically each quarter",
@@ -17,6 +18,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-1-tu2",
+        concept: "active vs passive income",
         question: "A creator spends a weekend making an online course that then sells on its own for years. Why is this passive income?",
         options: [
           "Because upfront work keeps earning without new effort",
@@ -34,6 +36,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-2-tu1",
+        concept: "pay rate conversion",
         question: "A salaried worker earns $52,000 per year paid weekly. About how much is each weekly paycheck before deductions?",
         options: [
           "About $2,000 before taxes and deductions",
@@ -46,6 +49,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-2-tu2",
+        concept: "overtime pay",
         question: "A nonexempt hourly worker earning $18 an hour puts in 44 hours in one week. How is the pay figured under federal law?",
         options: [
           "All 44 hours are paid at the same $18 rate",
@@ -63,6 +67,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-3-tu1",
+        concept: "base plus commission",
         question: "A worker earns a $300 base wage plus 8% commission and sells $2,500 in merchandise this week. What is the total pay?",
         options: [
           "$300 for the week",
@@ -75,6 +80,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-3-tu2",
+        concept: "hourly vs commission pay",
         question: "Why might an ambitious seller who is confident about hitting big numbers prefer pure commission over an hourly wage?",
         options: [
           "Commission always guarantees the exact same steady pay every single week",
@@ -92,6 +98,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-4-tu1",
+        concept: "independent contractor",
         question: "A rideshare driver is treated as an independent contractor. What does that mean for employer benefits?",
         options: [
           "The platform provides full health insurance and a pension",
@@ -104,6 +111,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-4-tu2",
+        concept: "variable income budgeting",
         question: "One month a delivery app earns a worker $900 and the next month only $300. What does this show about gig work?",
         options: [
           "Gig income is steady and easy to predict",
@@ -121,6 +129,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-5-tu1",
+        concept: "gross vs net pay",
         question: "A pay stub lists $500 at the top and $415 as the amount deposited. Which figure is the net pay?",
         options: [
           "$415, the take-home amount after deductions",
@@ -133,6 +142,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-5-tu2",
+        concept: "FICA",
         question: "A worker earns $800 in gross pay. Using the standard employee FICA rate, about how much goes to FICA?",
         options: [
           "About $200 for FICA",
@@ -150,6 +160,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-6-tu1",
+        concept: "tax brackets",
         question: "A student gets a raise that pushes part of her income into the next tax bracket. What happens to that new, higher rate?",
         options: [
           "It applies to every dollar she has ever earned",
@@ -162,6 +173,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-6-tu2",
+        concept: "W-2",
         question: "In January a worker needs the form showing last year's wages and tax withheld so she can file her return. Which form is it?",
         options: [
           "A standard deduction rebate voucher form",
@@ -179,6 +191,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-7-tu1",
+        concept: "training payback period",
         question: "A certificate program costs $6,000 and leads to a job paying $12,000 more per year. Roughly how long until it pays for itself?",
         options: [
           "About two years of the extra earnings",
@@ -191,6 +204,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-7-tu2",
+        concept: "lifetime earnings",
         question: "Two graduates compare offers. One starts at $45,000 with fast raises, the other at $50,000 that plateaus. Why look beyond year one?",
         options: [
           "First-year pay is always the absolute peak of any career",
@@ -211,6 +225,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-9-tu1",
+        concept: "complementary skills",
         question: "A photographer also learns website building. Why does adding this second skill raise earning power?",
         options: [
           "It makes her existing photography skill completely worthless overnight",
@@ -223,6 +238,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-9-tu2",
+        concept: "complementary skills",
         question: "Two engineers have equal technical ability, but one can also explain projects clearly to clients and bosses. Why does that one often advance further?",
         options: [
           "Clear communication fully replaces the need for any technical skill",
@@ -240,6 +256,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
     questions: [
       {
         id: "income-10-tu1",
+        concept: "revenue vs profit",
         question: "A candle maker sells candles for $15 each, spends $6 in materials per candle, and sells 40 in a month. What is the profit?",
         options: [
           "$600 in profit",
@@ -252,6 +269,7 @@ export const topUp8Income: { lessonId: string; questions: QuizQuestion[] }[] = [
       },
       {
         id: "income-10-tu2",
+        concept: "start small and reinvest",
         question: "A young owner uses her first profits to buy a better printer and more supplies instead of spending them. What is she doing?",
         options: [
           "Reinvesting profits to help the business grow",

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useApp } from "@/contexts/AppContext";
 import { supabase } from "@/integrations/supabase/client";
 import { lessons, unitInfo, getUnitRewardTotal, getLessonsByUnit } from "@/data/lessons";
+import { countLessons } from "@/lib/lessonCount";
+import { roundCoins } from "@/lib/formatCoins";
 import { getUnitTestByCategory } from "@/data/unitTestQuestions";
 import { AP_UNIT_CHALLENGES } from "@/data/apMicro";
 import { getAdaptiveCurriculum, AdaptiveLessonInfo } from "@/lib/curriculumEngine";
@@ -325,7 +327,8 @@ export default function Lessons() {
     () => trackUnits.flatMap(u => getLessonsByUnit(u.id).map(l => l.id)),
     [trackUnits]
   );
-  const trackTotalLessons = trackLessonIds.length;
+  // Shared counter so this total matches the Dashboard and the teacher view.
+  const trackTotalLessons = countLessons([activeTrack]);
   const trackDoneLessons = useMemo(
     () => trackLessonIds.filter(id => lessonProgress.some(p => p.lessonId === id && p.completed)).length,
     [trackLessonIds, lessonProgress]
@@ -527,7 +530,7 @@ export default function Lessons() {
         unitReward={Math.round(unitTotalPts * multiplier)}
         stations={coasterStations}
         currentIdx={currentLessonIdx}
-        stats={{ streak, points: jeffsBalance, level }}
+        stats={{ streak, points: roundCoins(jeffsBalance), level }}
         onSelectStation={(s) => navigate(`/lessons/${s.id}`)}
       />
       {/* Exit-fullscreen button, top-left */}
@@ -560,7 +563,7 @@ export default function Lessons() {
             unitReward={Math.round(unitTotalPts * multiplier)}
             stations={coasterStations}
             currentIdx={currentLessonIdx}
-            stats={{ streak, points: jeffsBalance, level }}
+            stats={{ streak, points: roundCoins(jeffsBalance), level }}
             onSelectStation={(s) => navigate(`/lessons/${s.id}`)}
           />
           {/* Minimize: drop from the fullscreen coaster to the normal Missions view. */}
@@ -595,7 +598,7 @@ export default function Lessons() {
                 unlocked: isLessonUnlocked(activeUnitId, al.lesson.id),
               }))}
               currentIdx={currentLessonIdx}
-              stats={{ streak, points: jeffsBalance, level }}
+              stats={{ streak, points: roundCoins(jeffsBalance), level }}
               onSelectStation={(s) => navigate(`/lessons/${s.id}`)}
             />
           ) : (
@@ -763,6 +766,10 @@ export default function Lessons() {
                 />
                 {/* Overall track progress (replaces the old pie) */}
                 <div className="mt-2 flex items-center justify-center gap-2 flex-wrap text-center">
+                  <span className="text-sm font-bold text-foreground">
+                    {trackDoneLessons} of {trackTotalLessons} done
+                  </span>
+                  <span className="text-muted-foreground text-xs">·</span>
                   <span className="text-sm font-extrabold" style={{ color: "var(--brand)" }}>{trackPct}% of all units complete</span>
                   <span className="text-muted-foreground text-xs">·</span>
                   <span className="text-sm font-bold text-foreground">

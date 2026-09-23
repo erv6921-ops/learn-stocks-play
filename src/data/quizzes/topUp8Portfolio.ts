@@ -7,6 +7,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-1-tu1",
+        concept: "asset classes",
         question: "Which asset class is generally considered the SAFEST but grows the slowest?",
         options: [
           "Stocks",
@@ -19,6 +20,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-1-tu2",
+        concept: "asset allocation",
         question: "Two teens both invest for retirement decades away, but one panics in downturns. How might their allocations reasonably differ?",
         options: [
           "The calmer teen can hold a larger stock portion",
@@ -36,6 +38,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-2-tu1",
+        concept: "risk tolerance vs capacity",
         question: "A well-paid saver with no debt and a big emergency fund insists on holding only cash. What is likely LIMITING them?",
         options: [
           "Their risk capacity is too low to invest",
@@ -48,6 +51,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-2-tu2",
+        concept: "time horizon",
         question: "Why can a longer time horizon RAISE the amount of risk an investor can reasonably take?",
         options: [
           "Longer time horizons make sudden market crashes completely impossible",
@@ -65,6 +69,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-3-tu1",
+        concept: "diversification",
         question: "Adding international stocks to an all-US portfolio is an example of diversifying across what?",
         options: [
           "Different geographies or world regions",
@@ -77,6 +82,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-3-tu2",
+        concept: "diversification",
         question: "Why does buying one broad index fund count as instant diversification?",
         options: [
           "The fund is fully insured by the government against every loss",
@@ -94,6 +100,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-4-tu1",
+        concept: "dollar-cost averaging",
         question: "With dollar-cost averaging, what happens automatically when prices RISE?",
         options: [
           "Your fixed amount buys fewer shares",
@@ -106,6 +113,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-4-tu2",
+        concept: "dollar-cost averaging",
         question: "A fund costs $20 in March and $10 in April. Investing $100 each month, how many total shares do you own?",
         options: [
           "Ten shares in total",
@@ -123,6 +131,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-5-tu1",
+        concept: "rebalancing",
         question: "A weak bond year leaves your 60% stock / 40% bond target sitting at 70% stocks. What does rebalancing involve?",
         options: [
           "Buying more stocks while they lead",
@@ -135,6 +144,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-5-tu2",
+        concept: "rebalancing with new money",
         question: "Beyond selling winners, how can a teen with steady monthly deposits rebalance without triggering trades?",
         options: [
           "Withdraw all the money and redeposit it",
@@ -152,6 +162,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-6-tu1",
+        concept: "tracking error",
         question: "The S&P 500 drops 8% this year. What should an S&P 500 index fund roughly do?",
         options: [
           "Fall about 8%, minus a tiny fee effect",
@@ -164,6 +175,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-6-tu2",
+        concept: "index fund cost advantage",
         question: "Why can an index fund charge fees near zero?",
         options: [
           "The federal government directly subsidizes all their costs",
@@ -181,6 +193,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-7-tu1",
+        concept: "active vs passive investing",
         question: "An index fund charges 0.10% and a competing active fund charges 1.10%. By how much must the active fund outperform just to TIE?",
         options: [
           "About 0.10% per year",
@@ -193,6 +206,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-7-tu2",
+        concept: "active vs passive investing",
         question: "Which statement best describes passive investing?",
         options: [
           "Trading options based on daily headlines",
@@ -210,6 +224,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-8-tu1",
+        concept: "total return",
         question: "You invested $400 and it is now worth $500. What is your return?",
         options: [
           "Twenty percent gain",
@@ -222,6 +237,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-8-tu2",
+        concept: "benchmark comparison",
         question: "Your portfolio gained 14% while its benchmark gained 10%. What does the comparison show?",
         options: [
           "You underperformed the market this period",
@@ -239,6 +255,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-9-tu1",
+        concept: "loss recovery math",
         question: "A holding falls 50% and then rises 50% from that low. Where does it end up versus the start?",
         options: [
           "Right back where it started",
@@ -251,6 +268,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-9-tu2",
+        concept: "position sizing",
         question: "How does keeping any single holding to a small share of your portfolio help manage risk?",
         options: [
           "It guarantees that holding will rise",
@@ -268,6 +286,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
     questions: [
       {
         id: "portfolio-10-tu1",
+        concept: "net worth",
         question: "You own $8,000 in assets and owe $3,000 on debts. What is your net worth?",
         options: [
           "$11,000",
@@ -280,6 +299,7 @@ export const topUp8Portfolio: { lessonId: string; questions: QuizQuestion[] }[] 
       },
       {
         id: "portfolio-10-tu2",
+        concept: "compound interest on debt",
         question: "A card charges 22% interest while markets typically return far less. What does this tell you about high-interest debt?",
         options: [
           "Paying it off often beats investing",

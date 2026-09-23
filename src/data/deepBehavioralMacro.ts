@@ -52,7 +52,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior1-mc1",
-            concept: "Loss Aversion",
+            concept: "loss aversion",
             question: "According to research, how do losses feel compared to equivalent gains?",
             options: [
               "About half as intense as gains for most people",
@@ -65,7 +65,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior1-mc2",
-            concept: "Loss Aversion",
+            concept: "disposition effect",
             question: "What is the 'disposition effect'?",
             options: [
               "Selling winners too early and holding losers too long",
@@ -93,7 +93,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "behavior1-aq1",
-          concept: "Loss Aversion",
+          concept: "sunk cost fallacy",
           question: "What is the BEST way for Jordan to make this decision rationally?",
           options: [
             "Wait for the stock to climb back to the $100 purchase price he paid",
@@ -121,7 +121,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior1-mastery1",
-            concept: "Loss Aversion",
+            concept: "loss aversion",
             question: "Which pair of psychologists first measured loss aversion?",
             options: [
               "Warren Buffett and Charlie Munger",
@@ -135,7 +135,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior1-mastery2",
-            concept: "Loss Aversion",
+            concept: "loss aversion",
             question: "Why did loss aversion likely evolve in humans?",
             options: [
               "Because losing resources once threatened survival more than gains helped",
@@ -149,7 +149,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior1-mastery3",
-            concept: "Loss Aversion",
+            concept: "endowment effect",
             question: "A 'free trial' that starts charging you exploits which bias?",
             options: [
               "Confirmation bias about the product's true underlying quality",
@@ -163,7 +163,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior1-mastery4",
-            concept: "Loss Aversion",
+            concept: "chasing losses",
             question: "'Chasing losses' means…",
             options: [
               "Tracking your losses carefully in a spreadsheet you update every single night",
@@ -177,7 +177,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior1-mastery5",
-            concept: "Loss Aversion",
+            concept: "loss aversion",
             question: "Which question best strips loss aversion out of a selling decision?",
             options: [
               "How much did I originally pay for this stock?",
@@ -191,7 +191,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior1-mastery6",
-            concept: "Loss Aversion",
+            concept: "investing rules and plans",
             question: "A written plan made before buying a stock mainly helps by…",
             options: [
               "Guaranteeing the stock will rise steadily in value over time",
@@ -253,7 +253,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior2-mc1",
-            concept: "Anchoring",
+            concept: "anchoring",
             question: "What is anchoring?",
             options: [
               "Refusing to ever change any of your investments once you have first picked them all",
@@ -266,7 +266,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior2-mc2",
-            concept: "Anchoring",
+            concept: "anchoring",
             question: "Why does a jacket marked 'was $200, now $80' feel like a great deal?",
             options: [
               "Because $80 is always objectively cheap for any winter jacket",
@@ -294,7 +294,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "behavior2-aq1",
-          concept: "Anchoring",
+          concept: "anchoring",
           question: "What is the smartest way for Priya to decide?",
           options: [
             "Buy them right away because a full 40% off a popular sneaker rarely ever comes around",
@@ -322,7 +322,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior2-mastery1",
-            concept: "Anchoring",
+            concept: "anchoring",
             question: "In the classic experiment, what caused people's UN-percentage guesses to differ?",
             options: [
               "Their detailed knowledge of world geography and maps",
@@ -336,7 +336,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior2-mastery2",
-            concept: "Anchoring",
+            concept: "anchoring",
             question: "A car dealer opens with a high $30,000 sticker price mainly to…",
             options: [
               "Cover the true cost of building and shipping the car to the lot",
@@ -350,7 +350,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior2-mastery3",
-            concept: "Anchoring",
+            concept: "anchoring",
             question: "Which is a common anchor in stock investing?",
             options: [
               "The main color used in the company's logo",
@@ -364,7 +364,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior2-mastery4",
-            concept: "Anchoring",
+            concept: "anchoring",
             question: "What is the best defense against anchoring when shopping?",
             options: [
               "Always trust the seller's own suggested price",
@@ -378,7 +378,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior2-mastery5",
-            concept: "Anchoring",
+            concept: "anchoring",
             question: "A menu lists one $80 steak among $25-$35 dishes. The pricey steak likely exists to…",
             options: [
               "Cover the restaurant's monthly rent all by itself",
@@ -392,7 +392,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior2-mastery6",
-            concept: "Anchoring",
+            concept: "anchoring",
             question: "Which question best tests whether an anchor is fooling you?",
             options: [
               "How big is the discount taken from the original listed sticker price?",
@@ -454,7 +454,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior3-mc1",
-            concept: "Confirmation Bias",
+            concept: "confirmation bias",
             question: "What is confirmation bias?",
             options: [
               "Confirming your trades with a broker before buying",
@@ -467,7 +467,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior3-mc2",
-            concept: "Confirmation Bias",
+            concept: "echo chamber",
             question: "How do social media algorithms worsen confirmation bias?",
             options: [
               "They carefully show fully balanced arguments from both sides of every single debate",
@@ -495,7 +495,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "behavior3-aq1",
-          concept: "Confirmation Bias",
+          concept: "seeking opposing views",
           question: "What should Marcus do to think more clearly about this stock?",
           options: [
             "Follow even more online accounts that already love the stock",
@@ -523,7 +523,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior3-mastery1",
-            concept: "Confirmation Bias",
+            concept: "confirmation bias",
             question: "Confirmation bias makes your brain act more like a…",
             options: [
               "Scientist calmly testing a new hypothesis",
@@ -537,7 +537,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior3-mastery2",
-            concept: "Confirmation Bias",
+            concept: "echo chamber",
             question: "What is an 'echo chamber' in this context?",
             options: [
               "A quiet room with unusually good acoustics for making phone calls",
@@ -551,7 +551,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior3-mastery3",
-            concept: "Confirmation Bias",
+            concept: "investing rules and plans",
             question: "Writing 'kill criteria' before an investment means…",
             options: [
               "Deciding exactly when to delete your trading app",
@@ -565,7 +565,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior3-mastery4",
-            concept: "Confirmation Bias",
+            concept: "confirmation bias",
             question: "Why does owning a stock intensify confirmation bias?",
             options: [
               "Owners always get far more accurate company data than any other people do out there",
@@ -579,7 +579,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior3-mastery5",
-            concept: "Confirmation Bias",
+            concept: "seeking opposing views",
             question: "Charlie Munger's rule was that he wouldn't hold an opinion unless he could…",
             options: [
               "Find ten other people who already agreed with him",
@@ -593,7 +593,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior3-mastery6",
-            concept: "Confirmation Bias",
+            concept: "prediction journal",
             question: "How does a prediction journal fight confirmation bias?",
             options: [
               "It guarantees that every single one of your future predictions turns out correct",
@@ -655,7 +655,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior4-mc1",
-            concept: "Overconfidence",
+            concept: "overtrading",
             question: "What did Barber and Odean's research find about active traders?",
             options: [
               "The most active traders earned the highest returns",
@@ -668,7 +668,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior4-mc2",
-            concept: "Overconfidence",
+            concept: "hindsight bias",
             question: "What is hindsight bias?",
             options: [
               "Refusing to ever look back at your own past performance",
@@ -696,7 +696,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "behavior4-aq1",
-          concept: "Overconfidence",
+          concept: "overtrading",
           question: "What is the biggest risk in Ava's plan?",
           options: [
             "She might well miss out on even bigger gains by holding back right now",
@@ -724,7 +724,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior4-mastery1",
-            concept: "Overconfidence",
+            concept: "overconfidence",
             question: "Why is it impossible that 90% of drivers are 'above average'?",
             options: [
               "Because driving skill can't be measured accurately at all",
@@ -738,7 +738,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior4-mastery2",
-            concept: "Overconfidence",
+            concept: "overtrading",
             question: "Overconfidence most directly causes which two investing behaviors?",
             options: [
               "Saving far too much and spending too little",
@@ -752,7 +752,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior4-mastery3",
-            concept: "Overconfidence",
+            concept: "overconfidence",
             question: "The Dunning-Kruger effect describes how…",
             options: [
               "Experts nearly always badly underestimate their own true skill level",
@@ -766,7 +766,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior4-mastery4",
-            concept: "Overconfidence",
+            concept: "luck vs skill",
             question: "Why can a winning streak in a rising market be misleading?",
             options: [
               "Rising markets never actually happen at all in the real world",
@@ -780,7 +780,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior4-mastery5",
-            concept: "Overconfidence",
+            concept: "hindsight bias",
             question: "After the 2008 crash, many said they 'knew it all along.' This illustrates…",
             options: [
               "Simple loss aversion alone",
@@ -794,7 +794,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior4-mastery6",
-            concept: "Overconfidence",
+            concept: "diversification",
             question: "Which approach best guards against overconfidence?",
             options: [
               "Concentrate all of your savings in your single best idea",
@@ -856,7 +856,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior5-mc1",
-            concept: "Herd Behavior",
+            concept: "herd behavior",
             question: "What is herd behavior in investing?",
             options: [
               "Investing only in the large farming and agriculture companies each year",
@@ -869,7 +869,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior5-mc2",
-            concept: "Herd Behavior",
+            concept: "herd behavior",
             question: "What did Solomon Asch's line experiment reveal?",
             options: [
               "People always trust their own two eyes above everyone else",
@@ -897,7 +897,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "behavior5-aq1",
-          concept: "Herd Behavior",
+          concept: "herd behavior",
           question: "What is the wisest response for Kayla?",
           options: [
             "Buy immediately, right now, before the price climbs even any higher still",
@@ -925,7 +925,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior5-mastery1",
-            concept: "Herd Behavior",
+            concept: "herd behavior",
             question: "Why did herd behavior likely evolve in humans?",
             options: [
               "Because early humans deeply loved the stock market",
@@ -939,7 +939,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior5-mastery2",
-            concept: "Herd Behavior",
+            concept: "speculative bubble",
             question: "How does herding create market 'momentum'?",
             options: [
               "Falling prices somehow scare everyone into buying more",
@@ -953,7 +953,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior5-mastery3",
-            concept: "Herd Behavior",
+            concept: "herd behavior",
             question: "The 2021 GameStop surge is an example of herding because…",
             options: [
               "The company's quarterly profits suddenly tripled overnight without any warning at all",
@@ -967,7 +967,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior5-mastery4",
-            concept: "Herd Behavior",
+            concept: "herd behavior",
             question: "Why do pure herd-followers often lose money?",
             options: [
               "They buy low and sell high very consistently every time",
@@ -981,7 +981,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior5-mastery5",
-            concept: "Herd Behavior",
+            concept: "herd behavior",
             question: "Warren Buffett's contrarian advice is to be…",
             options: [
               "Greedy exactly when all of the other investors are greedy too",
@@ -995,7 +995,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior5-mastery6",
-            concept: "Herd Behavior",
+            concept: "herd behavior",
             question: "Which question best exposes herd behavior in a rising stock?",
             options: [
               "How many of my close friends have already bought it?",
@@ -1070,7 +1070,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior6-mc2",
-            concept: "FOMO",
+            concept: "survivorship bias",
             question: "Why are viral 'I made 300%!' posts misleading?",
             options: [
               "They are always completely fake and digitally edited by online scammers",
@@ -1098,7 +1098,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "behavior6-aq1",
-          concept: "FOMO",
+          concept: "investing rules and plans",
           question: "What is the best move for Diego?",
           options: [
             "Dump all his savings into the coin to catch up with everyone",
@@ -1154,7 +1154,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior6-mastery3",
-            concept: "FOMO",
+            concept: "survivorship bias",
             question: "What is survivorship bias in the context of viral trading posts?",
             options: [
               "Only the very oldest investors manage to survive downturns",
@@ -1168,7 +1168,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior6-mastery4",
-            concept: "FOMO",
+            concept: "dollar-cost averaging",
             question: "Dollar-cost averaging means…",
             options: [
               "Buying only when a stock is sitting at its very lowest",
@@ -1196,7 +1196,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior6-mastery6",
-            concept: "FOMO",
+            concept: "staying invested",
             question: "Why is patience considered an investor's greatest edge against FOMO?",
             options: [
               "Because slow, steady investing somehow guarantees instant overnight riches",
@@ -1258,7 +1258,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior7-mc1",
-            concept: "Emotional Trading",
+            concept: "emotional trading",
             question: "Which two emotions most dominate emotional trading?",
             options: [
               "Boredom and curiosity",
@@ -1271,7 +1271,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior7-mc2",
-            concept: "Emotional Trading",
+            concept: "emotional trading",
             question: "What does the 'behavior gap' describe?",
             options: [
               "The simple gap between two different stock prices at the very same exact moment",
@@ -1299,7 +1299,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "behavior7-aq1",
-          concept: "Emotional Trading",
+          concept: "staying invested",
           question: "What is the most disciplined response for Sofia?",
           options: [
             "Sell off absolutely everything immediately today to stop all the losses",
@@ -1327,7 +1327,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior7-mastery1",
-            concept: "Emotional Trading",
+            concept: "emotional trading",
             question: "Why does the emotional brain make a poor stock trader?",
             options: [
               "It's just far too slow to ever make any real decisions",
@@ -1341,7 +1341,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior7-mastery2",
-            concept: "Emotional Trading",
+            concept: "emotional trading",
             question: "The classic emotional-trading mistake is to…",
             options: [
               "Buy low and then calmly sell high every single time",
@@ -1355,7 +1355,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior7-mastery3",
-            concept: "Emotional Trading",
+            concept: "automated saving",
             question: "Why is automating monthly contributions so effective against emotion?",
             options: [
               "It fully guarantees the whole market will always rise every year",
@@ -1369,7 +1369,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior7-mastery4",
-            concept: "Emotional Trading",
+            concept: "24-hour rule",
             question: "How does a 24-hour waiting rule help?",
             options: [
               "It fully guarantees you a much better price the very next day",
@@ -1383,7 +1383,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior7-mastery5",
-            concept: "Emotional Trading",
+            concept: "emotional trading",
             question: "Why do many long-term investors check their portfolios rarely?",
             options: [
               "Because constantly checking prices is strictly against the rules",
@@ -1397,7 +1397,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior7-mastery6",
-            concept: "Emotional Trading",
+            concept: "investing rules and plans",
             question: "What does 'discipline beats brilliance' mean for investors?",
             options: [
               "You must truly be a rare genius to invest well",
@@ -1459,7 +1459,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior8-mc1",
-            concept: "Avoiding Traps",
+            concept: "awareness vs systems",
             question: "Does knowing about a bias make you immune to it?",
             options: [
               "Yes, simply being aware of it completely removes the bias for good",
@@ -1472,7 +1472,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior8-mc2",
-            concept: "Avoiding Traps",
+            concept: "investing rules and plans",
             question: "What is an Investment Policy Statement?",
             options: [
               "An official government form you are required to sign before buying any stocks",
@@ -1500,7 +1500,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "behavior8-aq1",
-          concept: "Avoiding Traps",
+          concept: "awareness vs systems",
           question: "Which setup best protects Noah from his own biases?",
           options: [
             "Relying on sheer raw willpower alone to try to stay perfectly calm during every single swing",
@@ -1528,7 +1528,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "behavior8-mastery1",
-            concept: "Avoiding Traps",
+            concept: "awareness vs systems",
             question: "Why isn't awareness of biases enough to protect you?",
             options: [
               "Because these mental biases only ever affect other, less careful people",
@@ -1542,7 +1542,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior8-mastery2",
-            concept: "Avoiding Traps",
+            concept: "investing rules and plans",
             question: "What is the main purpose of a written Investment Policy Statement?",
             options: [
               "To reliably predict well in advance exactly which stocks will rise next",
@@ -1556,7 +1556,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior8-mastery3",
-            concept: "Avoiding Traps",
+            concept: "automated saving",
             question: "Automating your investing helps defeat which problems at once?",
             options: [
               "Only rising inflation and the yearly taxes you owe on gains",
@@ -1570,7 +1570,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior8-mastery4",
-            concept: "Avoiding Traps",
+            concept: "diversification",
             question: "Why does diversification protect against your biases?",
             options: [
               "It fully guarantees you much higher investment returns every single year",
@@ -1584,7 +1584,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior8-mastery5",
-            concept: "Avoiding Traps",
+            concept: "seeking opposing views",
             question: "Deliberately seeking the strongest argument against a purchase counters which biases?",
             options: [
               "Inflation and interest-rate risk",
@@ -1598,7 +1598,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "behavior8-mastery6",
-            concept: "Avoiding Traps",
+            concept: "emotional trading",
             question: "In disciplined investing, feeling excited about a trade is usually…",
             options: [
               "A reliable, trustworthy signal that you should buy even more",
@@ -1677,7 +1677,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble1-mc2",
-            concept: "Tulip Mania",
+            concept: "greater fool theory",
             question: "The 'greater fool' theory describes buying an asset because…",
             options: [
               "It pays a large, reliable cash dividend to you each year",
@@ -1705,7 +1705,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bubble1-aq1",
-          concept: "Tulip Mania",
+          concept: "greater fool theory",
           question: "What is the clearest warning sign that Pieter is caught in a bubble?",
           options: [
             "He carefully researched the rare flower's exact soil type and growing conditions first",
@@ -1775,7 +1775,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble1-mastery4",
-            concept: "Tulip Mania",
+            concept: "valuation disconnect",
             question: "The difference between price and value means that…",
             options: [
               "Price and value are always exactly identical amounts for each and every asset",
@@ -1789,7 +1789,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble1-mastery5",
-            concept: "Tulip Mania",
+            concept: "speculative bubble",
             question: "Why do bubbles need a persuasive story?",
             options: [
               "Stories make outrageous prices feel reasonable to buyers",
@@ -1803,7 +1803,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble1-mastery6",
-            concept: "Tulip Mania",
+            concept: "speculative bubble",
             question: "Why do bubble crashes happen so suddenly?",
             options: [
               "Governments always deliberately cause every single one of these bubbles on purpose",
@@ -1865,7 +1865,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble2-mc1",
-            concept: "Dot-Com",
+            concept: "dot-com bubble",
             question: "What did dot-com investors value more than profits?",
             options: [
               "Dividend payments and cash reserves",
@@ -1878,7 +1878,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble2-mc2",
-            concept: "Dot-Com",
+            concept: "dot-com bubble",
             question: "Roughly how far did the Nasdaq fall from its 2000 peak?",
             options: [
               "About 20%",
@@ -1906,7 +1906,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bubble2-aq1",
-          concept: "Dot-Com",
+          concept: "herd behavior",
           question: "What lesson does the manager's experience best illustrate?",
           options: [
             "Always match whatever specific stocks happen to be most popular right now",
@@ -1934,7 +1934,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble2-mastery1",
-            concept: "Dot-Com",
+            concept: "dot-com bubble",
             question: "Which index best tracks the dot-com bubble's rise and fall?",
             options: [
               "The bond yield curve",
@@ -1948,7 +1948,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble2-mastery2",
-            concept: "Dot-Com",
+            concept: "hype vs fundamentals",
             question: "Pets.com is remembered mainly as an example of…",
             options: [
               "A firm with heavy hype but no path to profit",
@@ -1962,7 +1962,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble2-mastery3",
-            concept: "Dot-Com",
+            concept: "dot-com bubble",
             question: "What made the dot-com story so persuasive?",
             options: [
               "It was completely and utterly false from the very start",
@@ -1976,7 +1976,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble2-mastery4",
-            concept: "Dot-Com",
+            concept: "herd behavior",
             question: "Why did even professional investors join the bubble?",
             options: [
               "They were legally forced to buy tech stocks",
@@ -1990,7 +1990,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble2-mastery5",
-            concept: "Dot-Com",
+            concept: "valuation disconnect",
             question: "What does the phrase 'this time is different' usually signal?",
             options: [
               "A perfectly safe, well-priced, low-risk investment opportunity",
@@ -2004,7 +2004,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble2-mastery6",
-            concept: "Dot-Com",
+            concept: "hype vs fundamentals",
             question: "What is the key lesson from Amazon surviving the crash?",
             options: [
               "All tech stocks always eventually recover fully in time",
@@ -2066,7 +2066,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble3-mc1",
-            concept: "2008 Crisis",
+            concept: "subprime mortgage",
             question: "What belief allowed risky subprime lending to spread?",
             options: [
               "That house prices could only keep rising",
@@ -2079,7 +2079,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble3-mc2",
-            concept: "2008 Crisis",
+            concept: "leverage",
             question: "What does 'leverage' mean in finance?",
             options: [
               "Saving money in a bank account",
@@ -2107,7 +2107,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bubble3-aq1",
-          concept: "2008 Crisis",
+          concept: "subprime mortgage",
           question: "What was the core flaw in the Nguyens' mortgage plan?",
           options: [
             "They chose a home in entirely the wrong neighborhood",
@@ -2135,7 +2135,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble3-mastery1",
-            concept: "2008 Crisis",
+            concept: "subprime mortgage",
             question: "What were subprime mortgages?",
             options: [
               "Loans given to borrowers with weak credit",
@@ -2149,7 +2149,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble3-mastery2",
-            concept: "2008 Crisis",
+            concept: "mortgage-backed securities",
             question: "How did the risk from bad mortgages spread worldwide?",
             options: [
               "Banks bundled them into securities sold across the globe",
@@ -2163,7 +2163,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble3-mastery3",
-            concept: "2008 Crisis",
+            concept: "2008 financial crisis",
             question: "Which 2008 event froze global credit markets?",
             options: [
               "A new tax law on homeowners",
@@ -2177,7 +2177,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble3-mastery4",
-            concept: "2008 Crisis",
+            concept: "leverage",
             question: "Why did heavy leverage make the crisis so severe?",
             options: [
               "It made all the big banks completely and totally risk-free",
@@ -2191,7 +2191,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble3-mastery5",
-            concept: "2008 Crisis",
+            concept: "systemic risk",
             question: "What is 'systemic risk'?",
             options: [
               "The risk of a single stock falling",
@@ -2205,7 +2205,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble3-mastery6",
-            concept: "2008 Crisis",
+            concept: "2008 financial crisis",
             question: "Roughly how far did the S&P 500 fall during the crisis?",
             options: [
               "About 10% from peak to trough",
@@ -2267,7 +2267,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble4-mc1",
-            concept: "COVID Crash",
+            concept: "COVID crash",
             question: "What was unusual about the COVID crash of early 2020?",
             options: [
               "It was by far the slowest crash in all market history",
@@ -2280,7 +2280,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble4-mc2",
-            concept: "COVID Crash",
+            concept: "forward-looking markets",
             question: "What does 'the stock market is not the economy' mean here?",
             options: [
               "Stocks and the whole economy always move together",
@@ -2308,7 +2308,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bubble4-aq1",
-          concept: "COVID Crash",
+          concept: "staying invested",
           question: "What would have served Sam better during the crash?",
           options: [
             "Selling off everything at once to avoid further losses",
@@ -2336,7 +2336,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble4-mastery1",
-            concept: "COVID Crash",
+            concept: "COVID crash",
             question: "Roughly how much and how fast did the S&P 500 fall in the COVID crash?",
             options: [
               "About 34% in around 33 days",
@@ -2350,7 +2350,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble4-mastery2",
-            concept: "COVID Crash",
+            concept: "economic stimulus",
             question: "What drove the unusually fast 2020 recovery?",
             options: [
               "The whole pandemic suddenly ending within weeks",
@@ -2364,7 +2364,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble4-mastery3",
-            concept: "COVID Crash",
+            concept: "market recovery",
             question: "What is a 'K-shaped' recovery?",
             options: [
               "Every sector recovering at the same speed",
@@ -2378,7 +2378,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble4-mastery4",
-            concept: "COVID Crash",
+            concept: "staying invested",
             question: "Why is panic-selling near a bottom so costly?",
             options: [
               "It always triggers extra capital-gains taxes and broker fees",
@@ -2392,7 +2392,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble4-mastery5",
-            concept: "COVID Crash",
+            concept: "economic stimulus",
             question: "What long-term effect did the 2020 stimulus help cause?",
             options: [
               "Long decades of steadily falling prices everywhere",
@@ -2406,7 +2406,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble4-mastery6",
-            concept: "COVID Crash",
+            concept: "staying invested",
             question: "Missing just the market's 10 best days over decades can…",
             options: [
               "Slightly raise your total long-run return over time",
@@ -2468,7 +2468,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble5-mc1",
-            concept: "Speculation Cycles",
+            concept: "speculation cycle",
             question: "In Minsky's model, what is 'displacement'?",
             options: [
               "The exact moment when prices finally crash hard",
@@ -2481,7 +2481,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble5-mc2",
-            concept: "Speculation Cycles",
+            concept: "bubble warning signs",
             question: "Why is a crowd of total newcomers a bubble warning sign?",
             options: [
               "Newcomers always somehow pick the very best stocks around each time",
@@ -2509,7 +2509,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bubble5-aq1",
-          concept: "Speculation Cycles",
+          concept: "bubble warning signs",
           question: "Which combination of signs best warns Dev he may be near a bubble top?",
           options: [
             "Steady growth backed by real rising company profits",
@@ -2537,7 +2537,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble5-mastery1",
-            concept: "Speculation Cycles",
+            concept: "speculation cycle",
             question: "Which economist described the classic bubble stages?",
             options: [
               "Adam Smith",
@@ -2551,7 +2551,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble5-mastery2",
-            concept: "Speculation Cycles",
+            concept: "speculation cycle",
             question: "What two emotions mainly drive the bubble cycle?",
             options: [
               "Boredom and curiosity",
@@ -2565,7 +2565,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble5-mastery3",
-            concept: "Speculation Cycles",
+            concept: "speculation cycle",
             question: "The 1840s Railway Mania is an example of…",
             options: [
               "A calm market with no speculation at all",
@@ -2579,7 +2579,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble5-mastery4",
-            concept: "Speculation Cycles",
+            concept: "bull market discipline",
             question: "Why can't you reliably profit by simply betting against a bubble?",
             options: [
               "Bubbles are strictly illegal to ever bet against",
@@ -2593,7 +2593,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble5-mastery5",
-            concept: "Speculation Cycles",
+            concept: "rebalancing",
             question: "How does regular rebalancing enforce discipline?",
             options: [
               "It completely removes every last bit of risk from investing",
@@ -2607,7 +2607,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble5-mastery6",
-            concept: "Speculation Cycles",
+            concept: "bubble warning signs",
             question: "The 2021 GameStop frenzy showed the bubble pattern because…",
             options: [
               "Prices rose on hype and newcomers, not real sales",
@@ -2669,7 +2669,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble6-mc1",
-            concept: "Corrections",
+            concept: "market correction",
             question: "A market decline of 10% or more from a recent high is called a…",
             options: [
               "Pullback",
@@ -2682,7 +2682,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble6-mc2",
-            concept: "Corrections",
+            concept: "dollar-cost averaging",
             question: "How does dollar-cost averaging help during a correction?",
             options: [
               "It stops all stock prices from ever falling",
@@ -2710,7 +2710,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bubble6-aq1",
-          concept: "Corrections",
+          concept: "staying invested",
           question: "What is the wisest move for Priya during this correction?",
           options: [
             "Sell her fund to prevent any further losses",
@@ -2738,7 +2738,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble6-mastery1",
-            concept: "Corrections",
+            concept: "market correction",
             question: "How large is a market 'correction'?",
             options: [
               "A drop of 10% or more from a recent high",
@@ -2752,7 +2752,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble6-mastery2",
-            concept: "Corrections",
+            concept: "market correction",
             question: "About how often do corrections occur on average?",
             options: [
               "Roughly once a year",
@@ -2766,7 +2766,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble6-mastery3",
-            concept: "Corrections",
+            concept: "bubble warning signs",
             question: "Why is a market that only ever rises actually concerning?",
             options: [
               "It clearly means the whole economy has fully stopped growing",
@@ -2780,7 +2780,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble6-mastery4",
-            concept: "Corrections",
+            concept: "market correction",
             question: "What best distinguishes a normal correction from a bubble crash?",
             options: [
               "Corrections only happen on weekends",
@@ -2794,7 +2794,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble6-mastery5",
-            concept: "Corrections",
+            concept: "emergency fund purpose",
             question: "Why can keeping an emergency fund help during a correction?",
             options: [
               "It somehow makes all of your own stock prices rise much faster",
@@ -2808,7 +2808,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble6-mastery6",
-            concept: "Corrections",
+            concept: "bear market strategy",
             question: "What mindset shift helps disciplined investors during dips?",
             options: [
               "Seeing falling prices as stocks being on sale",
@@ -2870,7 +2870,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble7-mc1",
-            concept: "Unsustainable Growth",
+            concept: "unsustainable growth",
             question: "Why can't 50% yearly growth continue indefinitely?",
             options: [
               "Governments always step in to ban any fast growth",
@@ -2883,7 +2883,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble7-mc2",
-            concept: "Unsustainable Growth",
+            concept: "Ponzi scheme",
             question: "What made Madoff's reported returns a warning sign?",
             options: [
               "They were unusually low every single year",
@@ -2911,7 +2911,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "bubble7-aq1",
-          concept: "Unsustainable Growth",
+          concept: "Ponzi scheme",
           question: "Which feature should most alarm Leo about this offer?",
           options: [
             "It involves calmly investing your money over time",
@@ -2939,7 +2939,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "bubble7-mastery1",
-            concept: "Unsustainable Growth",
+            concept: "unsustainable growth",
             question: "Roughly how often does 50% annual growth double an asset?",
             options: [
               "Every 18 months or so",
@@ -2953,7 +2953,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble7-mastery2",
-            concept: "Unsustainable Growth",
+            concept: "Ponzi scheme",
             question: "What is the signature of a Ponzi scheme?",
             options: [
               "Volatile up-and-down returns that sometimes lose real money",
@@ -2967,7 +2967,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble7-mastery3",
-            concept: "Unsustainable Growth",
+            concept: "greater fool theory",
             question: "Which test best reveals unsustainable, bubble-style growth?",
             options: [
               "Whether the price chart happens to look pretty",
@@ -2981,7 +2981,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble7-mastery4",
-            concept: "Unsustainable Growth",
+            concept: "risk vs return",
             question: "Why is 'guaranteed high returns with no risk' a red flag?",
             options: [
               "Higher returns almost always require higher risk",
@@ -2995,7 +2995,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble7-mastery5",
-            concept: "Unsustainable Growth",
+            concept: "unsustainable growth",
             question: "Why do growth rates naturally slow as a company gets bigger?",
             options: [
               "Big established companies are legally forced by law to shrink",
@@ -3009,7 +3009,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "bubble7-mastery6",
-            concept: "Unsustainable Growth",
+            concept: "unsustainable growth",
             question: "What single question best deflates most bubbles?",
             options: [
               "How fast exactly has this one asset grown just recently?",
@@ -3075,7 +3075,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro1-mc1",
-            concept: "Inflation",
+            concept: "inflation",
             question: "What does 3% annual inflation mean for a dollar's buying power?",
             options: [
               "The very same dollar now buys about 3% more than a year ago",
@@ -3088,7 +3088,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro1-mc2",
-            concept: "Inflation",
+            concept: "demand-pull vs cost-push inflation",
             question: "Which best describes cost-push inflation?",
             options: [
               "Prices rise because production costs climb",
@@ -3116,7 +3116,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "macro1-aq1",
-          concept: "Inflation",
+          concept: "purchasing power",
           question: "What is the key lesson from Maria's experience?",
           options: [
             "Cash always keeps its full value and buying power over many years",
@@ -3144,7 +3144,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro1-mastery1",
-            concept: "Inflation",
+            concept: "inflation target",
             question: "What inflation rate does the U.S. Federal Reserve aim for?",
             options: [
               "About 2% per year",
@@ -3158,7 +3158,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro1-mastery2",
-            concept: "Inflation",
+            concept: "inflation target",
             question: "Why can deflation (falling prices) be dangerous?",
             options: [
               "It forces the central bank to print new money almost instantly",
@@ -3172,7 +3172,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro1-mastery3",
-            concept: "Inflation",
+            concept: "inflation expectations",
             question: "A wage-price loop describes how…",
             options: [
               "Governments set legal price limits on goods",
@@ -3186,7 +3186,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro1-mastery4",
-            concept: "Inflation",
+            concept: "inflation",
             question: "Roughly how much U.S. inflation occurred in 2022?",
             options: [
               "About 1%",
@@ -3200,7 +3200,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro1-mastery5",
-            concept: "Inflation",
+            concept: "hyperinflation",
             question: "What ultimately drives long-run inflation the most?",
             options: [
               "The particular color and design of a nation's paper currency",
@@ -3214,7 +3214,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro1-mastery6",
-            concept: "Inflation",
+            concept: "purchasing power",
             question: "If you hold $1,000 cash for a decade at 3% inflation, it will…",
             options: [
               "Buy roughly the same amount of goods as it does today",
@@ -3289,7 +3289,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro2-mc2",
-            concept: "CPI",
+            concept: "core CPI",
             question: "Why do economists watch 'core CPI'?",
             options: [
               "It includes only expensive luxury goods and designer services",
@@ -3317,7 +3317,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "macro2-aq1",
-          concept: "CPI",
+          concept: "cost-of-living adjustment",
           question: "Why did Grandpa's Social Security check rise 8.7% that year?",
           options: [
             "Congress passed a special one-time bonus payment for all retirees",
@@ -3401,7 +3401,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro2-mastery5",
-            concept: "CPI",
+            concept: "cost-of-living adjustment",
             question: "What does it mean that Social Security is 'indexed' to CPI?",
             options: [
               "Retirees must file the CPI each year themselves",
@@ -3415,7 +3415,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro2-mastery6",
-            concept: "CPI",
+            concept: "personal vs headline inflation",
             question: "Why might your personal inflation differ from headline CPI?",
             options: [
               "CPI is a national average, not you",
@@ -3477,7 +3477,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro3-mc1",
-            concept: "Federal Reserve",
+            concept: "dual mandate",
             question: "What are the two goals of the Fed's 'dual mandate'?",
             options: [
               "Stable prices and maximum employment",
@@ -3490,7 +3490,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro3-mc2",
-            concept: "Federal Reserve",
+            concept: "federal funds rate",
             question: "What does lowering the federal funds rate tend to do?",
             options: [
               "Make borrowing cheaper and speed growth",
@@ -3518,7 +3518,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "macro3-aq1",
-          concept: "Federal Reserve",
+          concept: "interest rate changes",
           question: "How did a Fed decision reach Aisha's family car payment?",
           options: [
             "The Fed directly sets the interest rate on every single car loan",
@@ -3546,7 +3546,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro3-mastery1",
-            concept: "Federal Reserve",
+            concept: "Federal Reserve role",
             question: "When was the Federal Reserve created?",
             options: [
               "In 1913, after banking panics",
@@ -3560,7 +3560,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro3-mastery2",
-            concept: "Federal Reserve",
+            concept: "Fed independence",
             question: "Why are Fed governors given long 14-year terms?",
             options: [
               "To reward them with high pay",
@@ -3574,7 +3574,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro3-mastery3",
-            concept: "Federal Reserve",
+            concept: "federal funds rate",
             question: "Which committee sets the Fed's interest-rate policy?",
             options: [
               "The Supreme Court",
@@ -3588,7 +3588,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro3-mastery4",
-            concept: "Federal Reserve",
+            concept: "lender of last resort",
             question: "What does 'lender of last resort' mean?",
             options: [
               "The Fed simply refuses to lend anything during crises",
@@ -3602,7 +3602,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro3-mastery5",
-            concept: "Federal Reserve",
+            concept: "quantitative easing",
             question: "What is quantitative easing?",
             options: [
               "Creating money to buy bonds",
@@ -3616,7 +3616,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro3-mastery6",
-            concept: "Federal Reserve",
+            concept: "soft landing",
             question: "What is a 'soft landing'?",
             options: [
               "Cooling inflation without a recession",
@@ -3678,7 +3678,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro4-mc1",
-            concept: "Monetary Policy",
+            concept: "expansionary policy",
             question: "What is 'expansionary' monetary policy?",
             options: [
               "Making money cheaper to speed growth",
@@ -3691,7 +3691,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro4-mc2",
-            concept: "Monetary Policy",
+            concept: "monetary vs fiscal policy",
             question: "How does monetary policy differ from fiscal policy?",
             options: [
               "Monetary is the Fed's rates; fiscal is Congress's taxes",
@@ -3719,7 +3719,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "macro4-aq1",
-          concept: "Monetary Policy",
+          concept: "contractionary policy",
           question: "What monetary policy fits this overheating, high-inflation economy?",
           options: [
             "Cut interest rates further to boost consumer spending even more",
@@ -3747,7 +3747,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro4-mastery1",
-            concept: "Monetary Policy",
+            concept: "contractionary policy",
             question: "Which situation calls for contractionary monetary policy?",
             options: [
               "High inflation in an overheating economy",
@@ -3761,7 +3761,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro4-mastery2",
-            concept: "Monetary Policy",
+            concept: "monetary vs fiscal policy",
             question: "Who runs fiscal policy?",
             options: [
               "The independent Federal Reserve, acting entirely alone",
@@ -3775,7 +3775,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro4-mastery3",
-            concept: "Monetary Policy",
+            concept: "monetary policy lag",
             question: "Why must the Fed act on forecasts, not just current data?",
             options: [
               "Because policy takes many months to work",
@@ -3789,7 +3789,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro4-mastery4",
-            concept: "Monetary Policy",
+            concept: "soft landing",
             question: "What did Paul Volcker's high rates achieve in the early 1980s?",
             options: [
               "They crushed inflation but caused a recession",
@@ -3803,7 +3803,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro4-mastery5",
-            concept: "Monetary Policy",
+            concept: "quantitative easing",
             question: "What is the 'zero lower bound'?",
             options: [
               "The point where the Fed can barely cut",
@@ -3817,7 +3817,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro4-mastery6",
-            concept: "Monetary Policy",
+            concept: "monetary vs fiscal policy",
             question: "What is a key limit of monetary policy?",
             options: [
               "It can directly set the nation's income tax rates",
@@ -3879,7 +3879,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro5-mc1",
-            concept: "Rate Changes",
+            concept: "interest rate changes",
             question: "What usually happens to mortgage rates when the Fed raises its rate?",
             options: [
               "They rise, making home loans pricier",
@@ -3892,7 +3892,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro5-mc2",
-            concept: "Rate Changes",
+            concept: "interest rate changes",
             question: "Who tends to benefit when interest rates rise?",
             options: [
               "Savers earning more on cash",
@@ -3920,7 +3920,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "macro5-aq1",
-          concept: "Rate Changes",
+          concept: "interest rate changes",
           question: "During the rate-hiking cycle, what should Priya prioritize?",
           options: [
             "Ignoring the balance, since interest rates supposedly never change it",
@@ -3948,7 +3948,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro5-mastery1",
-            concept: "Rate Changes",
+            concept: "interest rate changes",
             question: "Roughly what happened to 30-year mortgage rates in 2022?",
             options: [
               "They fell all the way down to near zero",
@@ -3962,7 +3962,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro5-mastery2",
-            concept: "Rate Changes",
+            concept: "contractionary policy",
             question: "How do higher rates cool inflation?",
             options: [
               "By making it illegal to save money",
@@ -3976,7 +3976,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro5-mastery3",
-            concept: "Rate Changes",
+            concept: "rates and stock prices",
             question: "Why do growth stocks often fall hardest when rates rise?",
             options: [
               "Their profits lie far in the future",
@@ -3990,7 +3990,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro5-mastery4",
-            concept: "Rate Changes",
+            concept: "interest rate changes",
             question: "In a rising-rate era, which move is usually smart?",
             options: [
               "Pile on new variable-rate debt",
@@ -4004,7 +4004,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro5-mastery5",
-            concept: "Rate Changes",
+            concept: "interest rate changes",
             question: "How do rate changes tend to move in time?",
             options: [
               "In multi-year cycles of cutting and hiking",
@@ -4018,7 +4018,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro5-mastery6",
-            concept: "Rate Changes",
+            concept: "rates and stock prices",
             question: "Why do markets react sharply to Fed announcements?",
             options: [
               "Rates influence nearly every asset price",
@@ -4080,7 +4080,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro6-mc1",
-            concept: "Stock Impact",
+            concept: "earnings and stock price",
             question: "Why does economic growth tend to lift stock prices broadly?",
             options: [
               "Growth raises profits and expected earnings",
@@ -4093,7 +4093,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro6-mc2",
-            concept: "Stock Impact",
+            concept: "business cycle sectors",
             question: "How do 'defensive' stocks behave in a recession?",
             options: [
               "They tend to hold up better than others",
@@ -4121,7 +4121,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "macro6-aq1",
-          concept: "Stock Impact",
+          concept: "rates and stock prices",
           question: "Why did the rate news push tech down but the bank up?",
           options: [
             "Banks are simply always safer than any tech companies",
@@ -4149,7 +4149,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro6-mastery1",
-            concept: "Stock Impact",
+            concept: "earnings and stock price",
             question: "What do stock prices mainly reflect?",
             options: [
               "Expected future company earnings",
@@ -4163,7 +4163,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro6-mastery2",
-            concept: "Stock Impact",
+            concept: "business cycle sectors",
             question: "Which is an example of a cyclical stock?",
             options: [
               "A maker of basic grocery staples and food",
@@ -4177,7 +4177,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro6-mastery3",
-            concept: "Stock Impact",
+            concept: "market expectations",
             question: "Why can stocks fall before the economy visibly weakens?",
             options: [
               "Prices reflect expectations of the future",
@@ -4191,7 +4191,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro6-mastery4",
-            concept: "Stock Impact",
+            concept: "rates and stock prices",
             question: "Why might a bank stock rise when rates increase?",
             options: [
               "Banks earn more interest on their loans",
@@ -4205,7 +4205,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro6-mastery5",
-            concept: "Stock Impact",
+            concept: "market risk",
             question: "What is 'systematic' risk?",
             options: [
               "Market-wide risk that resists diversification",
@@ -4219,7 +4219,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro6-mastery6",
-            concept: "Stock Impact",
+            concept: "staying invested",
             question: "What usually beats trying to time macro turns?",
             options: [
               "Selling absolutely everything just before each Fed meeting",
@@ -4281,7 +4281,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro7-mc1",
-            concept: "Bond Impact",
+            concept: "rates and bond prices",
             question: "What happens to existing bond prices when interest rates rise?",
             options: [
               "They fall, since older bonds pay less",
@@ -4294,7 +4294,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro7-mc2",
-            concept: "Bond Impact",
+            concept: "interest rate risk",
             question: "Which bond is most sensitive to interest-rate changes?",
             options: [
               "A long-term 30-year bond",
@@ -4322,7 +4322,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "macro7-aq1",
-          concept: "Bond Impact",
+          concept: "rates and bond prices",
           question: "Why did Grandma's long-term bond fund lose value in 2022?",
           options: [
             "The bonds in the fund stopped paying any interest at all",
@@ -4350,7 +4350,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "macro7-mastery1",
-            concept: "Bond Impact",
+            concept: "rates and bond prices",
             question: "A bond paying $30 a year is worth less if new bonds pay what?",
             options: [
               "A higher yield like 5%",
@@ -4364,7 +4364,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro7-mastery2",
-            concept: "Bond Impact",
+            concept: "bond duration",
             question: "What is a bond's 'duration' roughly about?",
             options: [
               "How long until you are repaid",
@@ -4378,7 +4378,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro7-mastery3",
-            concept: "Bond Impact",
+            concept: "default risk",
             question: "What is 'credit risk' in bonds?",
             options: [
               "The chance the borrower fails to repay",
@@ -4392,7 +4392,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro7-mastery4",
-            concept: "Bond Impact",
+            concept: "price-yield relationship",
             question: "How does a bond's yield relate to its price?",
             options: [
               "Yield moves opposite to price",
@@ -4406,7 +4406,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro7-mastery5",
-            concept: "Bond Impact",
+            concept: "yield curve",
             question: "What does an inverted yield curve often signal?",
             options: [
               "A coming recession",
@@ -4420,7 +4420,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "macro7-mastery6",
-            concept: "Bond Impact",
+            concept: "inflation risk",
             question: "What is 'inflation risk' for a bondholder?",
             options: [
               "Rising prices erode fixed payments",
@@ -4499,7 +4499,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators1-mc2",
-            concept: "GDP",
+            concept: "real vs nominal GDP",
             question: "Why do economists focus on 'real' GDP?",
             options: [
               "It strips inflation to show real output",
@@ -4527,7 +4527,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "indicators1-aq1",
-          concept: "GDP",
+          concept: "GDP per capita",
           question: "Which measure best compares how well-off typical citizens are?",
           options: [
             "Total GDP of each country",
@@ -4583,7 +4583,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators1-mastery3",
-            concept: "GDP",
+            concept: "recession definition",
             question: "What is a common rough signal of a recession?",
             options: [
               "Two straight quarters of falling GDP",
@@ -4597,7 +4597,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators1-mastery4",
-            concept: "GDP",
+            concept: "consumer spending",
             question: "What is the largest component of U.S. GDP by spending?",
             options: [
               "Consumer spending",
@@ -4611,7 +4611,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators1-mastery5",
-            concept: "GDP",
+            concept: "GDP limitations",
             question: "What does GDP fail to capture?",
             options: [
               "Unpaid work, inequality, and environmental harm",
@@ -4625,7 +4625,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators1-mastery6",
-            concept: "GDP",
+            concept: "GDP per capita",
             question: "Why can total GDP mislead when comparing living standards?",
             options: [
               "A big population can inflate total GDP",
@@ -4687,7 +4687,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators2-mc1",
-            concept: "Unemployment",
+            concept: "unemployment rate",
             question: "Who counts as 'unemployed' in the official rate?",
             options: [
               "Jobless people who are actively looking for work",
@@ -4700,7 +4700,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators2-mc2",
-            concept: "Unemployment",
+            concept: "leading vs lagging indicators",
             question: "Why is unemployment called a 'lagging' indicator?",
             options: [
               "It tends to change after the economy turns",
@@ -4728,7 +4728,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "indicators2-aq1",
-          concept: "Unemployment",
+          concept: "labor force",
           question: "How can the unemployment rate fall while fewer people work?",
           options: [
             "The economy suddenly created a great many new jobs",
@@ -4756,7 +4756,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators2-mastery1",
-            concept: "Unemployment",
+            concept: "labor force",
             question: "What is the 'labor force'?",
             options: [
               "Everyone working or seeking work",
@@ -4770,7 +4770,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators2-mastery2",
-            concept: "Unemployment",
+            concept: "frictional unemployment",
             question: "What is 'frictional' unemployment?",
             options: [
               "People briefly between jobs",
@@ -4784,7 +4784,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators2-mastery3",
-            concept: "Unemployment",
+            concept: "frictional unemployment",
             question: "Why is 'full employment' set near 4%, not 0%?",
             options: [
               "Some frictional unemployment always exists",
@@ -4798,7 +4798,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators2-mastery4",
-            concept: "Unemployment",
+            concept: "unemployment rate",
             question: "How high did U.S. unemployment spike in April 2020?",
             options: [
               "About 14.7%",
@@ -4812,7 +4812,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators2-mastery5",
-            concept: "Unemployment",
+            concept: "dual mandate",
             question: "How does very low unemployment influence the Fed?",
             options: [
               "It can raise inflation fears, prompting hikes",
@@ -4826,7 +4826,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators2-mastery6",
-            concept: "Unemployment",
+            concept: "Okun's law",
             question: "What does Okun's law describe?",
             options: [
               "Faster GDP growth tends to lower unemployment",
@@ -4888,7 +4888,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators3-mc1",
-            concept: "Consumer Confidence",
+            concept: "consumer confidence",
             question: "Why does consumer confidence matter to the economy?",
             options: [
               "Feelings drive spending, powering the economy",
@@ -4901,7 +4901,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators3-mc2",
-            concept: "Consumer Confidence",
+            concept: "leading vs lagging indicators",
             question: "Consumer confidence is generally considered which type of indicator?",
             options: [
               "A leading indicator that shifts early",
@@ -4929,7 +4929,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "indicators3-aq1",
-          concept: "Consumer Confidence",
+          concept: "consumer confidence",
           question: "What does a steady three-month drop in confidence most likely signal?",
           options: [
             "Spending and growth may soon weaken",
@@ -4957,7 +4957,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators3-mastery1",
-            concept: "Consumer Confidence",
+            concept: "consumer confidence",
             question: "Which two surveys are the most watched U.S. confidence gauges?",
             options: [
               "The Conference Board and University of Michigan",
@@ -4971,7 +4971,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators3-mastery2",
-            concept: "Consumer Confidence",
+            concept: "self-fulfilling expectations",
             question: "How is consumer confidence 'self-fulfilling'?",
             options: [
               "Optimism boosts spending while fear cuts it",
@@ -4985,7 +4985,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators3-mastery3",
-            concept: "Consumer Confidence",
+            concept: "consumer confidence",
             question: "The confidence index is set against what base value?",
             options: [
               "100",
@@ -4999,7 +4999,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators3-mastery4",
-            concept: "Consumer Confidence",
+            concept: "consumer confidence",
             question: "Why can a single month's confidence reading mislead?",
             options: [
               "Headlines and gas prices add noise",
@@ -5013,7 +5013,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators3-mastery5",
-            concept: "Consumer Confidence",
+            concept: "consumer confidence",
             question: "What two components do confidence surveys often split into?",
             options: [
               "Present situation and future expectations",
@@ -5027,7 +5027,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators3-mastery6",
-            concept: "Consumer Confidence",
+            concept: "sentiment vs hard data",
             question: "What did 2022 show about mood versus behavior?",
             options: [
               "Confidence sagged, yet spending held up",
@@ -5089,7 +5089,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators4-mc1",
-            concept: "Retail Sales",
+            concept: "retail sales",
             question: "What do retail sales measure?",
             options: [
               "The dollar value of goods sold to shoppers",
@@ -5102,7 +5102,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators4-mc2",
-            concept: "Retail Sales",
+            concept: "core retail sales",
             question: "Why do analysts watch 'core' retail sales?",
             options: [
               "They strip out volatile autos and gas",
@@ -5130,7 +5130,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "indicators4-aq1",
-          concept: "Retail Sales",
+          concept: "inflation-adjusted retail sales",
           question: "If sales rose 4% while inflation was also 4%, what happened to real spending?",
           options: [
             "It surged well above its normal level for the year",
@@ -5158,7 +5158,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators4-mastery1",
-            concept: "Retail Sales",
+            concept: "retail sales",
             question: "Who publishes the U.S. retail sales report?",
             options: [
               "The Census Bureau",
@@ -5172,7 +5172,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators4-mastery2",
-            concept: "Retail Sales",
+            concept: "inflation-adjusted retail sales",
             question: "Why must retail sales be read against inflation?",
             options: [
               "Rising prices can make sales look strong",
@@ -5186,7 +5186,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators4-mastery3",
-            concept: "Retail Sales",
+            concept: "leading vs lagging indicators",
             question: "Retail sales are best described as which kind of indicator?",
             options: [
               "Coincident to slightly leading",
@@ -5200,7 +5200,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators4-mastery4",
-            concept: "Retail Sales",
+            concept: "monetary policy",
             question: "How does the Fed use retail sales data?",
             options: [
               "To judge growth and set rates",
@@ -5214,7 +5214,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators4-mastery5",
-            concept: "Retail Sales",
+            concept: "retail sales",
             question: "What trend shows up clearly in the retail sales breakdown?",
             options: [
               "The rising share of e-commerce",
@@ -5228,7 +5228,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators4-mastery6",
-            concept: "Retail Sales",
+            concept: "retail sales",
             question: "Why can retail-goods sales soften while the economy stays strong?",
             options: [
               "Spending can shift toward services",
@@ -5290,7 +5290,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators5-mc1",
-            concept: "Housing",
+            concept: "housing ripple effect",
             question: "Why is housing such a powerful economic indicator?",
             options: [
               "Building and buying homes ripples widely",
@@ -5303,7 +5303,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators5-mc2",
-            concept: "Housing",
+            concept: "mortgage rates and housing",
             question: "Why does housing tend to lead the economy?",
             options: [
               "It is highly sensitive to rate changes",
@@ -5331,7 +5331,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "indicators5-aq1",
-          concept: "Housing",
+          concept: "mortgage rates and housing",
           question: "What does the cooling housing market most likely suggest?",
           options: [
             "The broader economy may be slowing",
@@ -5359,7 +5359,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators5-mastery1",
-            concept: "Housing",
+            concept: "housing starts",
             question: "What are 'housing starts'?",
             options: [
               "New homes builders begin building",
@@ -5373,7 +5373,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators5-mastery2",
-            concept: "Housing",
+            concept: "wealth effect",
             question: "What is the 'wealth effect' in housing?",
             options: [
               "Rising home values make owners spend more",
@@ -5387,7 +5387,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators5-mastery3",
-            concept: "Housing",
+            concept: "2008 financial crisis",
             question: "Roughly how far did U.S. home prices fall in the 2008 crisis?",
             options: [
               "About 27% from peak to trough",
@@ -5401,7 +5401,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators5-mastery4",
-            concept: "Housing",
+            concept: "building permits",
             question: "Why are building permits a leading indicator?",
             options: [
               "They reveal builders' bets on future building",
@@ -5415,7 +5415,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators5-mastery5",
-            concept: "Housing",
+            concept: "housing affordability",
             question: "How do economists judge housing affordability?",
             options: [
               "By comparing home prices to incomes",
@@ -5429,7 +5429,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators5-mastery6",
-            concept: "Housing",
+            concept: "housing inventory",
             question: "What does rising home inventory with slowing sales often signal?",
             options: [
               "Prices may soften as demand cools",
@@ -5491,7 +5491,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators6-mc1",
-            concept: "Recessions",
+            concept: "recession definition",
             question: "What is the common rule-of-thumb definition of a recession?",
             options: [
               "Two straight quarters of falling GDP",
@@ -5504,7 +5504,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators6-mc2",
-            concept: "Recessions",
+            concept: "recession frequency and duration",
             question: "How often have U.S. recessions occurred since World War II?",
             options: [
               "Roughly once every six years",
@@ -5532,7 +5532,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "indicators6-aq1",
-          concept: "Recessions",
+          concept: "staying invested",
           question: "What is the wisest move for Sam during the crash?",
           options: [
             "Sell absolutely everything immediately to stop the losses",
@@ -5560,7 +5560,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators6-mastery1",
-            concept: "Recessions",
+            concept: "recession definition",
             question: "Which body officially dates U.S. recessions?",
             options: [
               "The NBER",
@@ -5574,7 +5574,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators6-mastery2",
-            concept: "Recessions",
+            concept: "recession frequency and duration",
             question: "How long did the Great Recession of 2007-2009 last?",
             options: [
               "About 18 months",
@@ -5588,7 +5588,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators6-mastery3",
-            concept: "Recessions",
+            concept: "recession causes",
             question: "Which is a common trigger of recessions?",
             options: [
               "A bursting asset price bubble",
@@ -5602,7 +5602,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators6-mastery4",
-            concept: "Recessions",
+            concept: "economic stimulus",
             question: "Why was the 2020 recession so short?",
             options: [
               "Massive stimulus and near-zero rates arrived fast",
@@ -5616,7 +5616,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators6-mastery5",
-            concept: "Recessions",
+            concept: "staying invested",
             question: "Why is panic-selling in a crash usually a mistake?",
             options: [
               "Markets have historically recovered fully",
@@ -5630,7 +5630,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators6-mastery6",
-            concept: "Recessions",
+            concept: "emergency fund purpose",
             question: "Why is an emergency fund valuable in a recession?",
             options: [
               "Job losses cluster in downturns, so cushions help",
@@ -5692,7 +5692,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators7-mc1",
-            concept: "Leading vs Lagging",
+            concept: "leading vs lagging indicators",
             question: "What is a 'leading' economic indicator?",
             options: [
               "One that changes before the economy does",
@@ -5705,7 +5705,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators7-mc2",
-            concept: "Leading vs Lagging",
+            concept: "leading vs lagging indicators",
             question: "Which is a classic 'lagging' indicator?",
             options: [
               "The unemployment rate",
@@ -5733,7 +5733,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "indicators7-aq1",
-          concept: "Leading vs Lagging",
+          concept: "leading vs lagging indicators",
           question: "How should Rosa interpret weak leading indicators but low unemployment?",
           options: [
             "Unemployment alone proves no recession is even possible",
@@ -5761,7 +5761,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
         questions: [
           {
             id: "indicators7-mastery1",
-            concept: "Leading vs Lagging",
+            concept: "leading vs lagging indicators",
             question: "What do 'coincident' indicators do?",
             options: [
               "Move roughly in step with the economy",
@@ -5775,7 +5775,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators7-mastery2",
-            concept: "Leading vs Lagging",
+            concept: "leading vs lagging indicators",
             question: "What does the Conference Board's LEI combine?",
             options: [
               "Ten forward-looking leading measures",
@@ -5789,7 +5789,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators7-mastery3",
-            concept: "Leading vs Lagging",
+            concept: "combining indicators",
             question: "What does 'nine of the last five recessions' illustrate?",
             options: [
               "Leading indicators produce false alarms",
@@ -5803,7 +5803,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators7-mastery4",
-            concept: "Leading vs Lagging",
+            concept: "leading vs lagging indicators",
             question: "Why is unemployment a lagging indicator?",
             options: [
               "Firms are slow to fire and hire",
@@ -5817,7 +5817,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators7-mastery5",
-            concept: "Leading vs Lagging",
+            concept: "combining indicators",
             question: "What makes a recession signal trustworthy?",
             options: [
               "Confirmation across multiple indicators",
@@ -5831,7 +5831,7 @@ export const deepBehavioralMacro: StructuredLessonContent[] = [
           },
           {
             id: "indicators7-mastery6",
-            concept: "Leading vs Lagging",
+            concept: "forward-looking markets",
             question: "Why is waiting for lagging indicators risky for investors?",
             options: [
               "Markets may have already fallen, then recovered",

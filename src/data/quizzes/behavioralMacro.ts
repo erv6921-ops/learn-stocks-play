@@ -8,6 +8,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "behavior-1-q1",
+        concept: "loss aversion",
         question: "According to loss aversion research, how do losses compare to gains emotionally?",
         options: [
           "Losses hurt about twice as much as equal gains",
@@ -20,6 +21,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-1-q2",
+        concept: "disposition effect",
         question: "Which behavior is a classic sign of loss aversion in investors?",
         options: [
           "Buying even more shares every time a stock price rises",
@@ -32,6 +34,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-1-q3",
+        concept: "disposition effect",
         question: "Maya's stock dropped from $50 to $40. She refuses to sell because selling would 'make the loss real.' What bias is this?",
         options: [
           "Confirmation bias about her original stock research",
@@ -44,6 +47,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-1-q4",
+        concept: "loss aversion",
         question: "Jaden feels devastated after losing $20 on one stock but only mildly happy after winning $20 on another. Why?",
         options: [
           "His winning trade was actually much smaller in dollars",
@@ -56,6 +60,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-1-q5",
+        concept: "loss aversion",
         question: "How can loss aversion hurt a long-term investor during a market dip?",
         options: [
           "It makes them buy too many risky stocks quickly",
@@ -68,6 +73,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-1-q6",
+        concept: "loss aversion",
         question: "Why did loss aversion likely help our ancestors survive?",
         options: [
           "Avoiding deadly threats mattered more than finding extra rewards",
@@ -80,6 +86,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-1-q7",
+        concept: "investing rules and plans",
         question: "Which strategy best counters loss aversion when investing?",
         options: [
           "Checking your portfolio balance many times every single day",
@@ -92,6 +99,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-1-q8",
+        concept: "chasing losses",
         question: "Why can loss aversion cause investors to take MORE risk after losing money?",
         options: [
           "Losses make investors permanently more cautious about every trade",
@@ -111,6 +119,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "behavior-2-q1",
+        concept: "anchoring",
         question: "What is anchoring bias?",
         options: [
           "Refusing to sell any stock during market downturns",
@@ -123,6 +132,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-2-q2",
+        concept: "anchoring",
         question: "Which of these is a common anchor in investing?",
         options: [
           "The dividend amount a company pays its newest shareholders",
@@ -135,6 +145,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-2-q3",
+        concept: "anchoring",
         question: "A hoodie is 'marked down' from $120 to $60. Why does it suddenly feel like a bargain?",
         options: [
           "The $120 anchor makes $60 seem cheap",
@@ -147,6 +158,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-2-q4",
+        concept: "anchoring",
         question: "Liam bought a stock at $80; it now trades at $45. He insists it's still 'worth $80.' What's happening?",
         options: [
           "He has insider knowledge about the company's true value",
@@ -159,6 +171,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-2-q5",
+        concept: "anchoring",
         question: "How might anchoring affect someone who reads an analyst's $200 price target?",
         options: [
           "They will ignore the target and study fundamentals instead",
@@ -171,6 +184,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-2-q6",
+        concept: "anchoring",
         question: "What's the best defense against anchoring when valuing a stock?",
         options: [
           "Always trusting the first price target you ever read",
@@ -183,6 +197,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-2-q7",
+        concept: "anchoring",
         question: "Why is a stock's 52-week high a dangerous anchor?",
         options: [
           "Exchanges delete stocks that fall below yearly highs",
@@ -195,6 +210,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-2-q8",
+        concept: "anchoring",
         question: "Why do negotiators often try to name the first number in a deal?",
         options: [
           "The first number anchors the whole negotiation range",
@@ -214,6 +230,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "behavior-3-q1",
+        concept: "confirmation bias",
         question: "What is confirmation bias?",
         options: [
           "Waiting for official confirmations before placing any stock trade",
@@ -226,6 +243,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-3-q2",
+        concept: "confirmation bias",
         question: "Which action shows confirmation bias?",
         options: [
           "Only reading articles that praise a stock you own",
@@ -238,6 +256,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-3-q3",
+        concept: "echo chamber",
         question: "Zoe loves a sneaker brand's stock. She follows five superfans of the brand and blocks all critics. What's the risk?",
         options: [
           "She will pay higher taxes on her gains",
@@ -250,6 +269,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-3-q4",
+        concept: "seeking opposing views",
         question: "Before buying a stock, Dev googles 'why StockX will soar.' What should he search instead?",
         options: [
           "Only the company's own press releases and paid ads",
@@ -262,6 +282,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-3-q5",
+        concept: "confirmation bias",
         question: "How does confirmation bias affect how investors interpret mixed news?",
         options: [
           "They spin ambiguous news to fit their existing view",
@@ -274,6 +295,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-3-q6",
+        concept: "seeking opposing views",
         question: "Which habit best fights confirmation bias?",
         options: [
           "Joining fan communities for every stock you own",
@@ -286,6 +308,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-3-q7",
+        concept: "echo chamber",
         question: "Why do social media feeds make confirmation bias worse?",
         options: [
           "Social platforms charge extra money to display any opposing viewpoints",
@@ -298,6 +321,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-3-q8",
+        concept: "confirmation bias",
         question: "Why is confirmation bias especially dangerous AFTER you buy a stock?",
         options: [
           "Brokerage apps deliberately hide negative news from their current shareholders",
@@ -317,6 +341,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "behavior-4-q1",
+        concept: "overconfidence",
         question: "What is overconfidence bias in investing?",
         options: [
           "Overestimating your own knowledge and prediction ability",
@@ -329,6 +354,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-4-q2",
+        concept: "overtrading",
         question: "Which trading behavior is most linked to overconfidence?",
         options: [
           "Holding one diversified index fund quietly for many decades",
@@ -341,6 +367,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-4-q3",
+        concept: "luck vs skill",
         question: "After three winning trades, Ty doubles his position sizes because he 'has a gift.' What's the danger?",
         options: [
           "Winning streaks legally require investors to reduce positions",
@@ -353,6 +380,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-4-q4",
+        concept: "overconfidence",
         question: "Ana skips researching a stock because she 'always picks winners.' Which bias is at work?",
         options: [
           "Loss aversion making her afraid of missing gains",
@@ -365,6 +393,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-4-q5",
+        concept: "overtrading",
         question: "How does overconfidence typically hurt investment returns?",
         options: [
           "It causes nervous investors to hold too much cash",
@@ -377,6 +406,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-4-q6",
+        concept: "prediction journal",
         question: "Which practice best keeps overconfidence in check?",
         options: [
           "Keeping a journal of predictions and actual results",
@@ -389,6 +419,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-4-q7",
+        concept: "overconfidence",
         question: "Why do most people rate themselves 'above average' at driving and investing?",
         options: [
           "Most people genuinely are above the true average",
@@ -401,6 +432,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-4-q8",
+        concept: "luck vs skill",
         question: "Why can a long bull market fuel overconfidence?",
         options: [
           "Bull markets only reward investors with real skill",
@@ -420,6 +452,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "behavior-5-q1",
+        concept: "herd behavior",
         question: "What is herd behavior in markets?",
         options: [
           "Spreading money across many different animal agriculture stocks",
@@ -432,6 +465,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-5-q2",
+        concept: "herd behavior",
         question: "Which situation shows herd behavior?",
         options: [
           "Buying an index fund after reading its prospectus",
@@ -444,6 +478,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-5-q3",
+        concept: "herd behavior",
         question: "A meme stock is trending and Kai's whole group chat is buying. Kai buys too, without any research. What drove his decision?",
         options: [
           "Herd behavior and social pressure from his peers",
@@ -456,6 +491,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-5-q4",
+        concept: "herd behavior",
         question: "During a sell-off, Nina dumps her index fund purely because 'everyone is selling.' What's the likely outcome?",
         options: [
           "She perfectly avoids further losses and buys back much cheaper",
@@ -468,6 +504,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-5-q5",
+        concept: "speculative bubble",
         question: "How does herd behavior relate to market bubbles?",
         options: [
           "Bubbles form only when investors ignore each other",
@@ -480,6 +517,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-5-q6",
+        concept: "herd behavior",
         question: "What's a smart response when 'everyone' is buying a hot stock?",
         options: [
           "Buy immediately before the crowd pushes prices higher",
@@ -492,6 +530,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-5-q7",
+        concept: "herd behavior",
         question: "Why did following the herd help our ancestors but hurt investors today?",
         options: [
           "Ancient herds moved very slowly while modern markets never change",
@@ -504,6 +543,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-5-q8",
+        concept: "herd behavior",
         question: "Why is herd behavior strongest during market extremes?",
         options: [
           "Fear and euphoria make people crave group validation",
@@ -523,6 +563,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "behavior-6-q1",
+        concept: "FOMO",
         question: "What does FOMO stand for in investing?",
         options: [
           "Fear of major market outages",
@@ -535,6 +576,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-6-q2",
+        concept: "FOMO",
         question: "How does FOMO typically influence buying decisions?",
         options: [
           "It pushes people to buy quickly without research",
@@ -547,6 +589,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-6-q3",
+        concept: "FOMO",
         question: "A crypto coin jumped 300% this week. Leo feels sick watching friends profit and wants in NOW. What should he recognize?",
         options: [
           "The coin will certainly keep rising for months",
@@ -559,6 +602,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-6-q4",
+        concept: "FOMO",
         question: "Priya buys at a stock's all-time high because 'it keeps going up.' It then drops 40%. What made her vulnerable?",
         options: [
           "Diversifying her money across too many different types of investments",
@@ -571,6 +615,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-6-q5",
+        concept: "investing rules and plans",
         question: "Which tactic best defuses FOMO?",
         options: [
           "Sticking to a written plan with clear criteria",
@@ -583,6 +628,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-6-q6",
+        concept: "scarcity tactics",
         question: "Why do 'limited time' investment pitches work so well?",
         options: [
           "Short windows legally increase an investment's actual returns",
@@ -595,6 +641,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-6-q7",
+        concept: "survivorship bias",
         question: "Why does social media amplify investing FOMO?",
         options: [
           "Posting losses is banned on most social media platforms",
@@ -607,6 +654,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-6-q8",
+        concept: "FOMO",
         question: "What usually happens to investors who consistently buy into hype at peaks?",
         options: [
           "They reliably earn the market average over long periods",
@@ -626,6 +674,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "behavior-7-q1",
+        concept: "emotional trading",
         question: "What is emotional trading?",
         options: [
           "Making trades based on feelings instead of analysis",
@@ -638,6 +687,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-7-q2",
+        concept: "emotional trading",
         question: "Which two emotions most often drive bad trades?",
         options: [
           "Boredom and mild curiosity about new market sectors",
@@ -650,6 +700,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-7-q3",
+        concept: "emotional trading",
         question: "Marcus checks his portfolio 30 times a day and trades whenever he feels anxious. What's the likely result?",
         options: [
           "Superior returns from staying constantly informed and instantly reactive",
@@ -662,6 +713,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-7-q4",
+        concept: "revenge trading",
         question: "After a stock she sold rises 20%, Jade angrily buys it back at the higher price. What is this?",
         options: [
           "A disciplined re-entry strategy based on updated fundamentals",
@@ -674,6 +726,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-7-q5",
+        concept: "investing rules and plans",
         question: "How does having a written investment plan reduce emotional trading?",
         options: [
           "It legally prevents you from ever selling during crashes",
@@ -686,6 +739,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-7-q6",
+        concept: "24-hour rule",
         question: "Which habit helps separate emotions from investing decisions?",
         options: [
           "Waiting 24 hours before acting on any impulse",
@@ -698,6 +752,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-7-q7",
+        concept: "emotional trading",
         question: "Why do fear and greed cause investors to buy high and sell low?",
         options: [
           "Fear peaks at market tops and greed at bottoms",
@@ -710,6 +765,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-7-q8",
+        concept: "automated saving",
         question: "Why is automating investments, like monthly auto-deposits, emotionally powerful?",
         options: [
           "Automation always buys at the lowest price each month",
@@ -729,6 +785,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "behavior-8-q1",
+        concept: "awareness vs systems",
         question: "What is the first step to overcoming a behavioral bias?",
         options: [
           "Eliminating all human emotions permanently from your daily life",
@@ -741,6 +798,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-8-q2",
+        concept: "investing rules and plans",
         question: "What is a written investment plan or 'policy statement' for?",
         options: [
           "Registering your personal investment strategy with federal securities regulators",
@@ -753,6 +811,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-8-q3",
+        concept: "automated saving",
         question: "Sam sets an automatic monthly $50 investment into an index fund. Which bias does this best neutralize?",
         options: [
           "Emotional timing decisions driven by fear and greed",
@@ -765,6 +824,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-8-q4",
+        concept: "investing rules and plans",
         question: "Before buying, Ava writes down exactly why she's buying and what would make her sell. When the stock later dips, she rereads it. What trap is she avoiding?",
         options: [
           "Paying extra commissions on trades she never intended",
@@ -777,6 +837,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-8-q5",
+        concept: "diversification",
         question: "How does diversification protect against behavioral mistakes?",
         options: [
           "It guarantees positive returns in every market year",
@@ -789,6 +850,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-8-q6",
+        concept: "24-hour rule",
         question: "A 'cooling-off rule' before placing trades helps because...",
         options: [
           "brokerages reward their patient investors with lower margin rates",
@@ -801,6 +863,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-8-q7",
+        concept: "awareness vs systems",
         question: "Why is simply knowing about biases not enough to beat them?",
         options: [
           "Biases only affect people who never studied them",
@@ -813,6 +876,7 @@ export const behavioralMacroQuizzes: LessonQuiz[] = [
       },
       {
         id: "behavior-8-q8",
+        concept: "investing rules and plans",
         question: "Why do checklists help investors the way they help pilots?",
         options: [
           "They force consistent steps even under stress",

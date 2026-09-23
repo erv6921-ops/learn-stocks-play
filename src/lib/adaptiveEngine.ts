@@ -128,7 +128,10 @@ export function updateTheta(prev: Ability, obs: Observation): Ability {
  * difficulty is closest to the student's current ability. For a 1PL item,
  * Fisher information p*(1-p) is maximized when b == theta, so the best next
  * question is the one that most challenges the student without overwhelming
- * them. Ties break toward the earlier question in the pool (stable).
+ * them. Uses each question's stamped `difficulty` (b); a missing value is
+ * treated as B_BASE (medium). Among equally-close questions (a tie on distance,
+ * common when a whole pool shares one difficulty) it picks at RANDOM, so retries
+ * don't deterministically re-serve the same question first.
  *
  * Returns null when the pool is empty or everything has already been asked.
  */
@@ -138,16 +141,20 @@ export function selectNextQuestion(
   alreadyAsked: string[] = []
 ): QuizQuestion | null {
   const asked = new Set(alreadyAsked)
-  let best: QuizQuestion | null = null
   let bestDist = Infinity
+  const ties: QuizQuestion[] = []
   for (const q of pool) {
     if (asked.has(q.id)) continue
     const b = q.difficulty ?? B_BASE
     const dist = Math.abs(b - theta)
-    if (dist < bestDist) {
-      best = q
+    if (dist < bestDist - 1e-9) {
       bestDist = dist
+      ties.length = 0
+      ties.push(q)
+    } else if (dist <= bestDist + 1e-9) {
+      ties.push(q)
     }
   }
-  return best
+  if (ties.length === 0) return null
+  return ties[Math.floor(Math.random() * ties.length)]
 }

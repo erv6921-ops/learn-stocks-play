@@ -8,6 +8,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
     questions: [
       {
         id: "mkt1-q6",
+        concept: "marketing definition",
         question: "According to the lesson, in what order do the pieces of marketing happen?",
         options: [
           "Promote first, then design the product, then figure out who needs it",
@@ -20,6 +21,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt1-q7",
+        concept: "marketing definition",
         question: "The lesson uses Apple as an example. What does it say about Apple's marketing?",
         options: [
           "Apple relies almost entirely on television commercials to sell its products",
@@ -32,6 +34,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt1-q8",
+        concept: "brand identity",
         question: "In the lemonade scenario, what did Mia's banner say that Jake's sign did not?",
         options: [
           "Just the price of the lemonade written by hand",
@@ -44,6 +47,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt1-q9",
+        concept: "word of mouth",
         question: "The lesson says a business grows organically when marketing is done well. What drives that organic growth?",
         options: [
           "Buying more advertising space across additional channels",
@@ -56,6 +60,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt1-q10",
+        concept: "marketing vs advertising",
         question: "Based on the lesson, which statement about advertising is TRUE?",
         options: [
           "Advertising and marketing mean exactly the same thing",
@@ -73,6 +78,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
     questions: [
       {
         id: "mkt2-q6",
+        concept: "segmentation bases",
         question: "The lesson lists bases for segmentation. Which of these is one of them?",
         options: [
           "The color of the product packaging",
@@ -85,6 +91,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt2-q7",
+        concept: "target market",
         question: "In the lesson, what does it say the term target market means?",
         options: [
           "Everyone who could theoretically afford the product",
@@ -97,6 +104,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt2-q8",
+        concept: "market segmentation",
         question: "The lesson's Nike example shows segmentation in action. What does Nike do?",
         options: [
           "It markets a single message to everyone who wears shoes",
@@ -109,6 +117,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt2-q9",
+        concept: "primary research",
         question: "In the phone case scenario, how did Zara research her target customer before designing?",
         options: [
           "She copied the best-selling designs from a competitor",
@@ -121,6 +130,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt2-q10",
+        concept: "segmentation bases",
         question: "The lesson says a 16-year-old athlete and a 16-year-old artist might share demographics. What differs between them?",
         options: [
           "Their age and their location in the country",
@@ -138,6 +148,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
     questions: [
       {
         id: "mkt3-q6",
+        concept: "market research purpose",
         question: "The lesson defines market research. What does it say research is the difference between?",
         options: [
           "Making a profit and losing money",
@@ -150,6 +161,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt3-q7",
+        concept: "secondary research",
         question: "According to the lesson, what does secondary research give a business?",
         options: [
           "Specific insights about your exact customers only",
@@ -162,6 +174,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt3-q8",
+        concept: "observational research",
         question: "The lesson's Apple example describes what kind of research before the iPhone?",
         options: [
           "Large-scale surveys asking customers what phone they wanted",
@@ -174,6 +187,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt3-q9",
+        concept: "market research purpose",
         question: "In the food truck scenario, what price range did Diana's research show people were willing to pay?",
         options: [
           "The $5-7 range",
@@ -186,6 +200,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt3-q10",
+        concept: "primary research",
         question: "The lesson lists examples of primary research methods. Which is one of them?",
         options: [
           "Reading published industry reports",
@@ -203,6 +218,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
     questions: [
       {
         id: "mkt4-q6",
+        concept: "product decisions",
         question: "The lesson says Product is more than the physical item. Which of these does it say Product includes?",
         options: [
           "The advertising budget and media schedule",
@@ -215,6 +231,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt4-q7",
+        concept: "4 Ps",
         question: "According to the lesson, what are the 4 Ps of marketing?",
         options: [
           "Product, Price, Place, and Promotion",
@@ -227,6 +244,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt4-q8",
+        concept: "pricing strategy",
         question: "The lesson's Starbucks example contrasts two pricing strategies. What does it say the gas station uses?",
         options: [
           "Value-based pricing at $5-7 per cup",
@@ -239,6 +257,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt4-q9",
+        concept: "brand value",
         question: "In the bracelet scenario, what did Marcus add that Ella did not, allowing him to charge more?",
         options: [
           "More expensive raw materials for each bracelet",
@@ -251,6 +270,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt4-q10",
+        concept: "cost-plus pricing",
         question: "How does the lesson describe cost-plus pricing?",
         options: [
           "Charging what customers believe the product is worth",
@@ -268,6 +288,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
     questions: [
       {
         id: "mkt5-q6",
+        concept: "distribution channels",
         question: "How does the lesson define distribution channels?",
         options: [
           "The paths a product takes from creator to customer",
@@ -280,6 +301,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt5-q7",
+        concept: "promotion mix",
         question: "The lesson lists methods of Promotion. Which of these is included?",
         options: [
           "Detailed product differentiation and market positioning",
@@ -292,6 +314,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt5-q8",
+        concept: "omnichannel",
         question: "According to the lesson, what does the term omnichannel mean?",
         options: [
           "Selling only through a single online store",
@@ -304,6 +327,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt5-q9",
+        concept: "distribution channels",
         question: "In the candle scenario, what happened to Kai's revenue when the farmers market closed for winter?",
         options: [
           "It stayed roughly the same because of loyal customers",
@@ -316,6 +340,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt5-q10",
+        concept: "organic vs paid marketing",
         question: "The lesson describes the biggest shift in modern marketing. What is it?",
         options: [
           "The rise of expensive television advertising",
@@ -333,6 +358,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
     questions: [
       {
         id: "mkt6-q6",
+        concept: "branding",
         question: "According to the lesson, what is a logo in relation to a brand?",
         options: [
           "The single most important part of a brand",
@@ -345,6 +371,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt6-q7",
+        concept: "brand identity",
         question: "How does the lesson define brand voice?",
         options: [
           "The volume of advertising a company runs each month",
@@ -357,6 +384,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt6-q8",
+        concept: "brand positioning",
         question: "The lesson's Patagonia example says their brand is really about what?",
         options: [
           "Making the highest-quality jackets on the market",
@@ -369,6 +397,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt6-q9",
+        concept: "brand identity",
         question: "In the tutoring scenario, what specific brand elements did Sarah create for Apex Tutoring?",
         options: [
           "A celebrity endorsement and a paid ad campaign",
@@ -381,6 +410,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt6-q10",
+        concept: "brand value",
         question: "The lesson says customers buy from brands they recognize and trust even when what exists?",
         options: [
           "Cheaper alternatives exist",
@@ -398,6 +428,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
     questions: [
       {
         id: "mkt7-q6",
+        concept: "consumer decision process",
         question: "According to the lesson, what does the Awareness stage involve?",
         options: [
           "Choosing a product and making the purchase",
@@ -410,6 +441,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt7-q7",
+        concept: "consumer decision process",
         question: "The lesson says different tactics work at different stages. What does the Decision stage require?",
         options: [
           "Visibility, so customers can simply be seen",
@@ -422,6 +454,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt7-q8",
+        concept: "consumer decision process",
         question: "In the shoe example, what does the lesson say happens at the Loyalty stage?",
         options: [
           "You notice your old shoes are worn out",
@@ -434,6 +467,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt7-q9",
+        concept: "consumer decision process",
         question: "In Maya's laptop journey, what tipped her over the edge at the Decision stage in the Apple Store?",
         options: [
           "An article ranking the top 10 laptops",
@@ -446,6 +480,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt7-q10",
+        concept: "consumer decision process",
         question: "The lesson says the Consideration stage requires what?",
         options: [
           "Information - reviews, comparisons, demos",
@@ -463,6 +498,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
     questions: [
       {
         id: "mkt8-q6",
+        concept: "testable hypothesis",
         question: "According to the lesson, why is every business idea called a hypothesis?",
         options: [
           "Because it is a proven fact that always works",
@@ -475,6 +511,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt8-q7",
+        concept: "minimum viable product",
         question: "The lesson describes the goal of an MVP approach. What is it?",
         options: [
           "To build the most complete product possible before launch",
@@ -487,6 +524,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt8-q8",
+        concept: "minimum viable product",
         question: "The lesson's Dropbox example describes their MVP. What was it?",
         options: [
           "A fully coded early version of the software",
@@ -499,6 +537,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt8-q9",
+        concept: "minimum viable product",
         question: "In the study guide scenario, what did Riley's quick test reveal that changed her approach?",
         options: [
           "Students wanted printed guides covering every subject",
@@ -511,6 +550,7 @@ export const topUpMarketingQuizzes: { lessonId: string; questions: QuizQuestion[
       },
       {
         id: "mkt8-q10",
+        concept: "A/B testing",
         question: "How does the lesson describe A/B testing?",
         options: [
           "Building the full product and hoping customers buy it",

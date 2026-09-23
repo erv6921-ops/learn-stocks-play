@@ -49,7 +49,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz1-mc1",
-            concept: "Revenue Models",
+            concept: "subscription model",
             question: "What is the main advantage of a recurring-revenue (subscription) model?",
             options: [
               "It removes all costs from the business",
@@ -62,7 +62,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz1-mc2",
-            concept: "Revenue Models",
+            concept: "freemium model",
             question: "For a freemium app, which metric matters most?",
             options: [
               "The conversion rate from free to paid",
@@ -90,7 +90,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz1-aq1",
-          concept: "Revenue Models",
+          concept: "subscription model",
           question: "Devon wants income he can forecast month to month. Which model best fits that goal?",
           options: [
             "A one-time $5 purchase per user",
@@ -118,7 +118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz1-mastery1",
-            concept: "Revenue Models",
+            concept: "revenue model",
             question: "A business collects money once when a customer buys and owns the product outright. This is a…",
             options: [
               "Recurring subscription model",
@@ -132,7 +132,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz1-mastery2",
-            concept: "Revenue Models",
+            concept: "subscription model",
             question: "Why do investors often favor subscription businesses?",
             options: [
               "They never have any operating costs to worry about",
@@ -146,7 +146,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz1-mastery3",
-            concept: "Revenue Models",
+            concept: "commission model",
             question: "In a marketplace model, how does the business typically earn?",
             options: [
               "By making the products it sells itself",
@@ -160,7 +160,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz1-mastery4",
-            concept: "Revenue Models",
+            concept: "churn rate",
             question: "A subscription app loses 5% of customers every month. This metric is called…",
             options: [
               "Its churn rate",
@@ -174,7 +174,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz1-mastery5",
-            concept: "Revenue Models",
+            concept: "revenue",
             question: "If price is $12 and 400 units sell, total revenue is…",
             options: [
               "$412 collected total",
@@ -188,7 +188,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz1-mastery6",
-            concept: "Revenue Models",
+            concept: "advertising model",
             question: "A free game earns by charging companies to show ads to its players. This is a…",
             options: [
               "Freemium upgrade model",
@@ -249,7 +249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz2-mc1",
-            concept: "Cost Structure",
+            concept: "fixed vs variable costs",
             question: "Which of these is a fixed cost for a food-truck business?",
             options: [
               "The monthly truck lease payment",
@@ -262,7 +262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz2-mc2",
-            concept: "Cost Structure",
+            concept: "contribution margin",
             question: "A product sells for $9 with a $4 variable cost. Its contribution margin per unit is…",
             options: [
               "$13 per unit sold",
@@ -290,7 +290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz2-aq1",
-          concept: "Cost Structure",
+          concept: "total cost",
           question: "If Priya sells 60 candles in a month, what is her profit?",
           options: [
             "$720 in profit that month",
@@ -318,7 +318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz2-mastery1",
-            concept: "Cost Structure",
+            concept: "fixed vs variable costs",
             question: "Which statement about fixed costs is true?",
             options: [
               "They rise up directly with each single unit sold",
@@ -332,7 +332,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz2-mastery2",
-            concept: "Cost Structure",
+            concept: "total cost",
             question: "A bakery pays $2 in ingredients per loaf and $1,000 monthly rent. Selling 800 loaves, total cost is…",
             options: [
               "$1,600 that month",
@@ -346,7 +346,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz2-mastery3",
-            concept: "Cost Structure",
+            concept: "contribution margin",
             question: "What does a high contribution margin per unit let a business do faster?",
             options: [
               "Avoid paying any fixed costs at all",
@@ -360,7 +360,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz2-mastery4",
-            concept: "Cost Structure",
+            concept: "fixed cost risk",
             question: "Why is a business with very high fixed costs riskier in a downturn?",
             options: [
               "All of its variable costs also completely vanish instantly",
@@ -374,7 +374,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz2-mastery5",
-            concept: "Cost Structure",
+            concept: "operating leverage",
             question: "'Operating leverage' means that after break-even…",
             options: [
               "Each extra sale is mostly profit",
@@ -388,7 +388,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz2-mastery6",
-            concept: "Cost Structure",
+            concept: "fixed cost risk",
             question: "Why might a new founder rent equipment instead of buying it?",
             options: [
               "Renting is always cheaper long-term",
@@ -449,7 +449,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz3-mc1",
-            concept: "Break-Even",
+            concept: "break-even point",
             question: "At the break-even point, a business is…",
             options: [
               "Earning the single maximum possible profit it ever could",
@@ -462,7 +462,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz3-mc2",
-            concept: "Break-Even",
+            concept: "break-even point",
             question: "Fixed costs are $900 and contribution margin is $9 per unit. Break-even is…",
             options: [
               "100 units sold",
@@ -490,7 +490,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz3-aq1",
-          concept: "Break-Even",
+          concept: "break-even point",
           question: "Given his numbers, what is Marcus's smartest move?",
           options: [
             "Just rent the expensive stall anyway and simply hope for some good luck",
@@ -518,7 +518,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz3-mastery1",
-            concept: "Break-Even",
+            concept: "contribution margin",
             question: "Selling one unit past break-even means the business now earns…",
             options: [
               "Its full selling price as profit",
@@ -532,7 +532,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz3-mastery2",
-            concept: "Break-Even",
+            concept: "break-even point",
             question: "Fixed costs $1,200; price $30; variable cost $18. Break-even in units is…",
             options: [
               "40 units",
@@ -546,7 +546,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz3-mastery3",
-            concept: "Break-Even",
+            concept: "break-even point",
             question: "Cutting your price without cutting costs will…",
             options: [
               "Lower the break-even point",
@@ -560,7 +560,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz3-mastery4",
-            concept: "Break-Even",
+            concept: "break-even point",
             question: "Break-even in revenue dollars for 50 units priced at $20 each is…",
             options: [
               "$70 in revenue",
@@ -574,7 +574,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz3-mastery5",
-            concept: "Break-Even",
+            concept: "break-even point",
             question: "Why run break-even before renting an expensive booth?",
             options: [
               "To learn how many sales the cost demands",
@@ -588,7 +588,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz3-mastery6",
-            concept: "Break-Even",
+            concept: "break-even point",
             question: "If break-even needs 5,000 sales but your whole market is 800 people, the idea…",
             options: [
               "Fits perfectly well into its chosen target market",
@@ -649,7 +649,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz4-mc1",
-            concept: "Margins",
+            concept: "gross margin",
             question: "A product sells for $50 and costs $20 to make. Its gross margin is…",
             options: [
               "60% of revenue",
@@ -662,7 +662,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz4-mc2",
-            concept: "Margins",
+            concept: "gross vs net margin",
             question: "What does net margin measure that gross margin does not?",
             options: [
               "Profit after all costs, including overhead and taxes",
@@ -690,7 +690,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz4-aq1",
-          concept: "Margins",
+          concept: "net margin",
           question: "If Ava wants to raise her net margin, which move most directly helps?",
           options: [
             "Increasing her total revenue while overhead grows just as quickly alongside",
@@ -718,7 +718,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz4-mastery1",
-            concept: "Margins",
+            concept: "profit margin",
             question: "Why express profit as a margin rather than just a dollar amount?",
             options: [
               "It completely hides how much the business truly earns",
@@ -732,7 +732,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz4-mastery2",
-            concept: "Margins",
+            concept: "gross margin",
             question: "Revenue $200; cost of goods $50. The gross margin is…",
             options: [
               "25% of revenue",
@@ -746,7 +746,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz4-mastery3",
-            concept: "Margins",
+            concept: "gross vs net margin",
             question: "A business has a 55% gross margin but only a 3% net margin. This suggests…",
             options: [
               "Its raw materials are becoming extremely expensive to buy lately",
@@ -760,7 +760,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz4-mastery4",
-            concept: "Margins",
+            concept: "gross margin",
             question: "How can a business raise gross margin without changing its price?",
             options: [
               "By finding a cheaper supplier for materials",
@@ -774,7 +774,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz4-mastery5",
-            concept: "Margins",
+            concept: "margin vs volume",
             question: "Why do discount stores survive on very low net margins?",
             options: [
               "They sell enormous volume to make up for it",
@@ -788,7 +788,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz4-mastery6",
-            concept: "Margins",
+            concept: "net margin",
             question: "Revenue is rising but net margin fell from 18% to 10%. The best response is…",
             options: [
               "Just ignore it entirely because overall sales are up",
@@ -849,7 +849,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz5-mc1",
-            concept: "Funding",
+            concept: "equity vs debt financing",
             question: "What is the key difference between debt and equity funding?",
             options: [
               "Debt is repaid with interest; equity trades ownership for cash",
@@ -862,7 +862,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz5-mc2",
-            concept: "Funding",
+            concept: "valuation and dilution",
             question: "A startup is valued at $100,000 and an investor puts in $25,000. They receive…",
             options: [
               "50% of the company",
@@ -890,7 +890,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz5-aq1",
-          concept: "Funding",
+          concept: "equity vs debt financing",
           question: "Given Leo has no revenue yet, which funding choice fits best and why?",
           options: [
             "The loan, because paying interest is always far cheaper than giving up equity",
@@ -918,7 +918,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz5-mastery1",
-            concept: "Funding",
+            concept: "bootstrapping",
             question: "A founder who funds growth only from savings and early sales is…",
             options: [
               "Taking on venture capital",
@@ -932,7 +932,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz5-mastery2",
-            concept: "Funding",
+            concept: "equity vs debt financing",
             question: "The main hidden cost of raising equity is that you…",
             options: [
               "Must fully repay all of it monthly with interest",
@@ -946,7 +946,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz5-mastery3",
-            concept: "Funding",
+            concept: "valuation and dilution",
             question: "Why do founders work to show traction before raising money?",
             options: [
               "It lets them completely avoid ever paying any taxes",
@@ -960,7 +960,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz5-mastery4",
-            concept: "Funding",
+            concept: "equity vs debt financing",
             question: "Which type of business is generally best suited to a bank loan?",
             options: [
               "An unproven app with no revenue yet",
@@ -974,7 +974,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz5-mastery5",
-            concept: "Funding",
+            concept: "angel investor",
             question: "An angel investor is best described as…",
             options: [
               "A large bank that only ever offers business loans",
@@ -988,7 +988,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz5-mastery6",
-            concept: "Funding",
+            concept: "valuation and dilution",
             question: "At a $500,000 valuation, how much ownership does a $50,000 investment buy?",
             options: [
               "25% of the company",
@@ -1049,7 +1049,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz6-mc1",
-            concept: "Pricing",
+            concept: "value-based pricing",
             question: "Setting price based on how much the product is worth to the customer is called…",
             options: [
               "Cost-plus pricing",
@@ -1062,7 +1062,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz6-mc2",
-            concept: "Pricing",
+            concept: "price elasticity of demand",
             question: "A product is 'inelastic' when…",
             options: [
               "Demand barely changes as its price rises",
@@ -1090,7 +1090,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz6-aq1",
-          concept: "Pricing",
+          concept: "value-based pricing",
           question: "What is Sofia's smartest pricing approach here?",
           options: [
             "Charge just $8 an hour so she can fill up every single slot instantly",
@@ -1118,7 +1118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz6-mastery1",
-            concept: "Pricing",
+            concept: "cost-plus pricing",
             question: "A maker adds a 40% markup to her $10 cost, selling at $14. This is…",
             options: [
               "Value-based pricing",
@@ -1132,7 +1132,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz6-mastery2",
-            concept: "Pricing",
+            concept: "value-based pricing",
             question: "Why can value-based pricing earn more than cost-plus?",
             options: [
               "It always just sets the single lowest possible price",
@@ -1146,7 +1146,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz6-mastery3",
-            concept: "Pricing",
+            concept: "price elasticity of demand",
             question: "Raising the price of a highly elastic product will most likely…",
             options: [
               "Cause a large drop in units sold",
@@ -1160,7 +1160,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz6-mastery4",
-            concept: "Pricing",
+            concept: "anchoring",
             question: "Placing a $120 plan next to a $60 plan to make the $60 look reasonable uses…",
             options: [
               "Anchoring",
@@ -1174,7 +1174,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz6-mastery5",
-            concept: "Pricing",
+            concept: "underpricing risk",
             question: "A hidden danger of pricing a quality product too low is that it…",
             options: [
               "Always reliably maximizes the total long-term profit earned",
@@ -1188,7 +1188,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz6-mastery6",
-            concept: "Pricing",
+            concept: "pricing strategy",
             question: "The main risk of constantly running discounts is that it…",
             options: [
               "Trains customers to wait and never pay full price",
@@ -1249,7 +1249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz7-mc1",
-            concept: "Business Planning",
+            concept: "business plan",
             question: "What is the main real value of writing a business plan?",
             options: [
               "It fully guarantees the whole business will succeed",
@@ -1262,7 +1262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz7-mc2",
-            concept: "Business Planning",
+            concept: "minimum viable product",
             question: "A 'minimum viable product' (MVP) is…",
             options: [
               "The simplest version customers can actually try",
@@ -1290,7 +1290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "biz7-aq1",
-          concept: "Business Planning",
+          concept: "minimum viable product",
           question: "Why is Jordan testing with a small MVP before buying lots of supplies smart planning?",
           options: [
             "It fully guarantees that he will get 100 paying customers almost immediately",
@@ -1318,7 +1318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "biz7-mastery1",
-            concept: "Business Planning",
+            concept: "target market",
             question: "A strong business plan defines its customer as…",
             options: [
               "As incredibly broad and as vague as it can possibly be",
@@ -1332,7 +1332,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz7-mastery2",
-            concept: "Business Planning",
+            concept: "SMART goals",
             question: "Which is a well-formed, measurable business goal?",
             options: [
               "Somehow become really quite successful at some point someday",
@@ -1346,7 +1346,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz7-mastery3",
-            concept: "Business Planning",
+            concept: "financial projections",
             question: "Why include financial projections in a plan even though they will be imperfect?",
             options: [
               "They legally must always be exactly perfectly correct",
@@ -1360,7 +1360,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz7-mastery4",
-            concept: "Business Planning",
+            concept: "minimum viable product",
             question: "Launching an MVP before a full build mainly helps a founder…",
             options: [
               "Completely avoid ever writing any plan",
@@ -1374,7 +1374,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz7-mastery5",
-            concept: "Business Planning",
+            concept: "business plan",
             question: "Thinking through risks and competitors in a plan is valuable because it…",
             options: [
               "Completely prevents any single problem from ever happening again",
@@ -1388,7 +1388,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "biz7-mastery6",
-            concept: "Business Planning",
+            concept: "business plan revision",
             question: "Treating a business plan as a 'living document' means you…",
             options: [
               "Write it once and never look again",
@@ -1449,7 +1449,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych1-deepmc1",
-            concept: "Why People Mismanage Money",
+            concept: "present bias",
             question: "What does present bias make people do?",
             options: [
               "Value a smaller reward now over a bigger one later",
@@ -1462,7 +1462,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych1-deepmc2",
-            concept: "Why People Mismanage Money",
+            concept: "sunk cost fallacy",
             question: "You paid $15 for a game you no longer enjoy but keep buying upgrades so it is not wasted. This is…",
             options: [
               "A smart way to budget for entertainment",
@@ -1490,7 +1490,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych1-deepaq1",
-          concept: "Why People Mismanage Money",
+          concept: "pay yourself first",
           question: "Which single change would most directly fix Devon's disappearing paychecks?",
           options: [
             "Wait until he earns more before saving for the typical teenager",
@@ -1518,7 +1518,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych1-deepmastery1",
-            concept: "Why People Mismanage Money",
+            concept: "emotional spending",
             question: "Why are money decisions harder to control than people expect?",
             options: [
               "They require advanced college-level math in the majority of cases",
@@ -1532,7 +1532,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych1-deepmastery2",
-            concept: "Why People Mismanage Money",
+            concept: "present bias",
             question: "A friend offers $20 now or $30 in a month, and you grab the $20. Which bias is this?",
             options: [
               "Sunk-cost trap",
@@ -1546,7 +1546,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych1-deepmastery3",
-            concept: "Why People Mismanage Money",
+            concept: "mental accounting",
             question: "You guard your paycheck but blow gift money freely. What is happening?",
             options: [
               "Mental accounting labels the piles differently",
@@ -1560,7 +1560,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych1-deepmastery4",
-            concept: "Why People Mismanage Money",
+            concept: "lifestyle inflation",
             question: "Your babysitting income rises but your savings do not grow at all. The likely cause is…",
             options: [
               "The sunk-cost trap draining the raise",
@@ -1574,7 +1574,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych1-deepmastery5",
-            concept: "Why People Mismanage Money",
+            concept: "sunk cost fallacy",
             question: "What is the best question to escape a sunk-cost decision?",
             options: [
               "How much have I already spent on this?",
@@ -1588,7 +1588,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych1-deepmastery6",
-            concept: "Why People Mismanage Money",
+            concept: "spending tracking",
             question: "Why is avoiding your bank statements a costly habit?",
             options: [
               "It automatically raises your interest rate whenever money feels tight",
@@ -1649,7 +1649,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych2-deepmc1",
-            concept: "Delayed Gratification",
+            concept: "starting early",
             question: "Why do early savers often end up with more money than later ones?",
             options: [
               "Banks pay teens a higher interest rate",
@@ -1662,7 +1662,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych2-deepmc2",
-            concept: "Delayed Gratification",
+            concept: "24-hour rule",
             question: "How does a 24-hour cooling-off rule help you save?",
             options: [
               "It raises the price so you buy less",
@@ -1690,7 +1690,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych2-deepaq1",
-          concept: "Delayed Gratification",
+          concept: "24-hour rule",
           question: "What is Sofia's smartest move when the flash sale appears?",
           options: [
             "Buy now before the timer runs out in the majority of cases",
@@ -1718,7 +1718,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych2-deepmastery1",
-            concept: "Delayed Gratification",
+            concept: "delayed gratification",
             question: "What does delayed gratification actually mean?",
             options: [
               "Never spending money on anything fun more often than not",
@@ -1732,7 +1732,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych2-deepmastery2",
-            concept: "Delayed Gratification",
+            concept: "opportunity cost",
             question: "Why is a $200 impulse buy really more than a $200 choice?",
             options: [
               "Stores always add hidden $200 fees in a downturn",
@@ -1746,7 +1746,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych2-deepmastery3",
-            concept: "Delayed Gratification",
+            concept: "goal setting",
             question: "Why does naming a specific goal with a deadline help you wait?",
             options: [
               "It legally locks the money away",
@@ -1760,7 +1760,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych2-deepmastery4",
-            concept: "Delayed Gratification",
+            concept: "goal setting",
             question: "Why does keeping a named goal, like a 'Concert Fund' jar, visible help you wait?",
             options: [
               "Seeing it turns each day of not spending into visible progress",
@@ -1774,7 +1774,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych2-deepmastery5",
-            concept: "Delayed Gratification",
+            concept: "delayed gratification",
             question: "How do milestone celebrations support delayed gratification?",
             options: [
               "They cancel the original savings goal",
@@ -1788,7 +1788,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych2-deepmastery6",
-            concept: "Delayed Gratification",
+            concept: "present bias",
             question: "What is the real reason instant rewards beat future ones in your mind?",
             options: [
               "Future rewards are usually smaller during tough times",
@@ -1849,7 +1849,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych4-deepmc1",
-            concept: "Scarcity vs Abundance Mindset",
+            concept: "scarcity vs abundance mindset",
             question: "What is a scarcity mindset?",
             options: [
               "Having a low bank balance right now in almost every situation",
@@ -1862,7 +1862,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych4-deepmc2",
-            concept: "Scarcity vs Abundance Mindset",
+            concept: "scarcity vs abundance mindset",
             question: "How is an abundance mindset best described?",
             options: [
               "Pretending money is truly unlimited for the typical teenager",
@@ -1890,7 +1890,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych4-deepaq1",
-          concept: "Scarcity vs Abundance Mindset",
+          concept: "scarcity vs abundance mindset",
           question: "What makes Mateo's approach an abundance mindset rather than wishful thinking?",
           options: [
             "He assumes money is unlimited for the average shopper",
@@ -1918,7 +1918,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych4-deepmastery1",
-            concept: "Scarcity vs Abundance Mindset",
+            concept: "scarcity vs abundance mindset",
             question: "Why can a scarcity mindset hit someone who is not actually poor?",
             options: [
               "Because it is a thought pattern, not a balance",
@@ -1932,7 +1932,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych4-deepmastery2",
-            concept: "Scarcity vs Abundance Mindset",
+            concept: "scarcity vs abundance mindset",
             question: "What does scarcity thinking do to your focus?",
             options: [
               "Broadens it toward long-term plans for the average shopper",
@@ -1946,7 +1946,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych4-deepmastery3",
-            concept: "Scarcity vs Abundance Mindset",
+            concept: "scarcity vs abundance mindset",
             question: "How does scarcity differ from simply being broke?",
             options: [
               "Being broke is permanent; scarcity is temporary at least at first",
@@ -1960,7 +1960,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych4-deepmastery4",
-            concept: "Scarcity vs Abundance Mindset",
+            concept: "scarcity vs abundance mindset",
             question: "Which is an example of scarcity-driven behavior?",
             options: [
               "Negotiating a low pay offer upward",
@@ -1974,7 +1974,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych4-deepmastery5",
-            concept: "Scarcity vs Abundance Mindset",
+            concept: "scarcity vs abundance mindset",
             question: "Why does abundance mindset reduce keeping-up spending?",
             options: [
               "It makes purchases legally cheaper more often than not",
@@ -1988,7 +1988,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych4-deepmastery6",
-            concept: "Scarcity vs Abundance Mindset",
+            concept: "scarcity vs abundance mindset",
             question: "What must accompany an abundance belief for it to work?",
             options: [
               "Disciplined, concrete action",
@@ -2049,7 +2049,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych5-deepmc1",
-            concept: "Money & Emotions",
+            concept: "emotional spending",
             question: "What is retail therapy?",
             options: [
               "A store's official return policy under most conditions",
@@ -2062,7 +2062,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych5-deepmc2",
-            concept: "Money & Emotions",
+            concept: "naming emotions",
             question: "Why does naming your emotion before buying help?",
             options: [
               "It lowers the item's price as the years pass",
@@ -2090,7 +2090,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych5-deepaq1",
-          concept: "Money & Emotions",
+          concept: "naming emotions",
           question: "What is Andre's healthiest response to the urge?",
           options: [
             "Buy now while it will cheer him up",
@@ -2118,7 +2118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych5-deepmastery1",
-            concept: "Money & Emotions",
+            concept: "emotional spending",
             question: "Why does retail therapy fail to solve the real problem?",
             options: [
               "The items are always defective right in the moment",
@@ -2132,7 +2132,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych5-deepmastery2",
-            concept: "Money & Emotions",
+            concept: "emotional spending",
             question: "How does excitement typically affect spending?",
             options: [
               "It makes you overpay in the heat of the moment",
@@ -2146,7 +2146,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych5-deepmastery3",
-            concept: "Money & Emotions",
+            concept: "24-hour rule",
             question: "Why avoid big money decisions within 24 hours of a strong emotion?",
             options: [
               "Prices are always higher on those days",
@@ -2160,7 +2160,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych5-deepmastery4",
-            concept: "Money & Emotions",
+            concept: "emotional spending",
             question: "How can anxiety affect saving, not just spending?",
             options: [
               "It always leads to smart investing almost every time",
@@ -2174,7 +2174,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych5-deepmastery5",
-            concept: "Money & Emotions",
+            concept: "fun fund",
             question: "What is the point of a guilt-free fun fund?",
             options: [
               "To eliminate all treats from your life for regular customers",
@@ -2188,7 +2188,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych5-deepmastery6",
-            concept: "Money & Emotions",
+            concept: "naming emotions",
             question: "What is the real goal of emotional money management?",
             options: [
               "To become completely emotionless about money for the typical teenager",
@@ -2249,7 +2249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych6-deepmc1",
-            concept: "Social Influence & Spending",
+            concept: "social influence on spending",
             question: "What is social proof in spending?",
             options: [
               "A receipt proving you bought something as a general rule",
@@ -2262,7 +2262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych6-deepmc2",
-            concept: "Social Influence & Spending",
+            concept: "keeping up with peers",
             question: "Why does social media comparison fuel overspending?",
             options: [
               "It shows curated highlights, hiding the real cost",
@@ -2290,7 +2290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych6-deepaq1",
-          concept: "Social Influence & Spending",
+          concept: "social influence on spending",
           question: "What is Jae's strongest move here?",
           options: [
             "Go into debt to join the trip at least at first",
@@ -2318,7 +2318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych6-deepmastery1",
-            concept: "Social Influence & Spending",
+            concept: "keeping up with peers",
             question: "What is the real driver behind matching friends' purchases?",
             options: [
               "The product's superior quality in everyday life",
@@ -2332,7 +2332,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych6-deepmastery2",
-            concept: "Social Influence & Spending",
+            concept: "keeping up with peers",
             question: "Why is money peer pressure so powerful among teens?",
             options: [
               "Teens have the most money to spend",
@@ -2346,7 +2346,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych6-deepmastery3",
-            concept: "Social Influence & Spending",
+            concept: "keeping up with peers",
             question: "What is missing from the highlight reels you see online?",
             options: [
               "The debt and struggle behind the photos",
@@ -2360,7 +2360,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych6-deepmastery4",
-            concept: "Social Influence & Spending",
+            concept: "social influence on spending",
             question: "What most blunts group pressure in the moment?",
             options: [
               "Knowing your values and budget in advance",
@@ -2374,7 +2374,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych6-deepmastery5",
-            concept: "Social Influence & Spending",
+            concept: "social influence on spending",
             question: "Why is suggesting a cheaper alternative often effective?",
             options: [
               "It forces friends to pay for you in a downturn",
@@ -2388,7 +2388,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych6-deepmastery6",
-            concept: "Social Influence & Spending",
+            concept: "social influence on spending",
             question: "How can you turn social influence to your advantage?",
             options: [
               "Ignore everyone and spend alone under most conditions",
@@ -2449,7 +2449,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych7-deepmc1",
-            concept: "Advertising & Consumer Behavior",
+            concept: "advertising tactics",
             question: "What do most ads primarily sell?",
             options: [
               "Detailed factual product specs as the years pass",
@@ -2462,7 +2462,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych7-deepmc2",
-            concept: "Advertising & Consumer Behavior",
+            concept: "consumer manipulation",
             question: "Why does 'free shipping on orders over $50' often make you spend more?",
             options: [
               "It removes the sales tax from your whole order",
@@ -2490,7 +2490,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych7-deepaq1",
-          concept: "Advertising & Consumer Behavior",
+          concept: "scarcity tactics",
           question: "What is the smartest way for Zoe to respond?",
           options: [
             "Buy immediately before the timer ends in the short term",
@@ -2518,7 +2518,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych7-deepmastery1",
-            concept: "Advertising & Consumer Behavior",
+            concept: "advertising tactics",
             question: "Why do emotional ads work so well?",
             options: [
               "Feelings drive buying more than facts do",
@@ -2532,7 +2532,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych7-deepmastery2",
-            concept: "Advertising & Consumer Behavior",
+            concept: "scarcity tactics",
             question: "The message only 3 left, ends tonight is which tactic?",
             options: [
               "Anchoring",
@@ -2546,7 +2546,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych7-deepmastery3",
-            concept: "Advertising & Consumer Behavior",
+            concept: "consumer manipulation",
             question: "Why is one-tap checkout designed the way it is?",
             options: [
               "To give you time to reconsider under real pressure",
@@ -2560,7 +2560,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych7-deepmastery4",
-            concept: "Advertising & Consumer Behavior",
+            concept: "advertising tactics",
             question: "What does using a celebrity to sell a product rely on?",
             options: [
               "Anchoring",
@@ -2574,7 +2574,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych7-deepmastery5",
-            concept: "Advertising & Consumer Behavior",
+            concept: "advertising tactics",
             question: "Which question best pulls a purchase back to your real needs?",
             options: [
               "How many are left in stock? in a typical week",
@@ -2588,7 +2588,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych7-deepmastery6",
-            concept: "Advertising & Consumer Behavior",
+            concept: "24-hour rule",
             question: "Why does a 24-hour wait defeat many marketing tactics?",
             options: [
               "Stores lower prices after a day",
@@ -2649,7 +2649,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych8-deepmc1",
-            concept: "Behavioral Traps",
+            concept: "loss aversion",
             question: "What does loss aversion cause people to do?",
             options: [
               "Treat losses and gains equally as a general rule",
@@ -2662,7 +2662,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych8-deepmc2",
-            concept: "Behavioral Traps",
+            concept: "consumer manipulation",
             question: "Why is a subscription framed as just $1 a day persuasive?",
             options: [
               "It is actually cheaper than $365 a year in everyday life",
@@ -2690,7 +2690,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych8-deepaq1",
-          concept: "Behavioral Traps",
+          concept: "gambler's fallacy",
           question: "What should Dev recognize before spending another $40?",
           options: [
             "A win is now guaranteed to come more often than not",
@@ -2718,7 +2718,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych8-deepmastery1",
-            concept: "Behavioral Traps",
+            concept: "disposition effect",
             question: "Why do people hold a failing investment too long?",
             options: [
               "Confirmation bias makes them research more",
@@ -2732,7 +2732,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych8-deepmastery2",
-            concept: "Behavioral Traps",
+            concept: "seeking opposing views",
             question: "How do you counter confirmation bias before a big buy?",
             options: [
               "Read only the most positive reviews without much thought",
@@ -2746,7 +2746,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych8-deepmastery3",
-            concept: "Behavioral Traps",
+            concept: "anchoring",
             question: "A store shows $200 crossed out to $120. Which bias does this exploit?",
             options: [
               "Anchoring",
@@ -2760,7 +2760,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych8-deepmastery4",
-            concept: "Behavioral Traps",
+            concept: "endowment effect",
             question: "Why are free trials so effective at keeping you paying?",
             options: [
               "They are always genuinely free forever under most conditions",
@@ -2774,7 +2774,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych8-deepmastery5",
-            concept: "Behavioral Traps",
+            concept: "gambler's fallacy",
             question: "What error is the gambler's fallacy?",
             options: [
               "Believing past events change independent odds",
@@ -2788,7 +2788,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych8-deepmastery6",
-            concept: "Behavioral Traps",
+            concept: "cognitive bias",
             question: "What is the shared antidote to most behavioral traps?",
             options: [
               "Act on the very first impulse",
@@ -2849,7 +2849,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych9-deepmc1",
-            concept: "Identity & Money Habits",
+            concept: "money scripts",
             question: "What are money scripts?",
             options: [
               "Written budgets you follow monthly for brand-new buyers",
@@ -2862,7 +2862,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych9-deepmc2",
-            concept: "Identity & Money Habits",
+            concept: "identity and habits",
             question: "Why does changing identity change habits so effectively?",
             options: [
               "It forces the bank to save for you",
@@ -2890,7 +2890,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych9-deepaq1",
-          concept: "Identity & Money Habits",
+          concept: "growth mindset",
           question: "What is the most powerful first change for Theo?",
           options: [
             "Earn more before doing anything else under most conditions",
@@ -2918,7 +2918,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych9-deepmastery1",
-            concept: "Identity & Money Habits",
+            concept: "identity and habits",
             question: "Why are identity-based money habits so durable?",
             options: [
               "They are enforced by the bank sooner or later",
@@ -2932,7 +2932,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych9-deepmastery2",
-            concept: "Identity & Money Habits",
+            concept: "money scripts",
             question: "How does a hidden money script cause trouble?",
             options: [
               "It silently steers choices you think are your own",
@@ -2946,7 +2946,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych9-deepmastery3",
-            concept: "Identity & Money Habits",
+            concept: "healthy money beliefs",
             question: "Why is tying self-worth to spending risky?",
             options: [
               "It makes you save far too much most of the time",
@@ -2960,7 +2960,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych9-deepmastery4",
-            concept: "Identity & Money Habits",
+            concept: "identity and habits",
             question: "What does it mean that every action is a vote?",
             options: [
               "Each choice is evidence for a version of yourself",
@@ -2974,7 +2974,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych9-deepmastery5",
-            concept: "Identity & Money Habits",
+            concept: "identity and habits",
             question: "Why does starting with tiny amounts work?",
             options: [
               "The dollar amount is what matters most early",
@@ -2988,7 +2988,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych9-deepmastery6",
-            concept: "Identity & Money Habits",
+            concept: "growth mindset",
             question: "Why replace the label I am bad with money?",
             options: [
               "It is a prediction disguised as a fixed fact",
@@ -3049,7 +3049,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych10-deepmc1",
-            concept: "Healthy Financial Beliefs",
+            concept: "healthy money beliefs",
             question: "A healthy money mindset sits between which two extremes?",
             options: [
               "Earning and spending on a day-to-day basis",
@@ -3062,7 +3062,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych10-deepmc2",
-            concept: "Healthy Financial Beliefs",
+            concept: "growth mindset",
             question: "Why is I can learn to manage money a healthier belief than I am hopeless?",
             options: [
               "It guarantees you will get rich at least at first",
@@ -3090,7 +3090,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "psych10-deepaq1",
-          concept: "Healthy Financial Beliefs",
+          concept: "growth mindset",
           question: "What is the healthiest way for Ivan to handle this setback?",
           options: [
             "Accept that he is bad with money for brand-new buyers",
@@ -3118,7 +3118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "psych10-deepmastery1",
-            concept: "Healthy Financial Beliefs",
+            concept: "healthy money beliefs",
             question: "Which statement best captures a healthy money mindset?",
             options: [
               "Money is the true measure of my value under most conditions",
@@ -3132,7 +3132,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych10-deepmastery2",
-            concept: "Healthy Financial Beliefs",
+            concept: "healthy money beliefs",
             question: "What makes a belief like small amounts matter healthy?",
             options: [
               "It promises instant wealth across most markets",
@@ -3146,7 +3146,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych10-deepmastery3",
-            concept: "Healthy Financial Beliefs",
+            concept: "healthy money beliefs",
             question: "Beyond covering real needs, what does research say about more money?",
             options: [
               "It always doubles your happiness during tough times",
@@ -3160,7 +3160,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych10-deepmastery4",
-            concept: "Healthy Financial Beliefs",
+            concept: "healthy money beliefs",
             question: "How do small actions build healthy beliefs?",
             options: [
               "They provide proof that rewires the old belief",
@@ -3174,7 +3174,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych10-deepmastery5",
-            concept: "Healthy Financial Beliefs",
+            concept: "healthy money beliefs",
             question: "Why does learning how money works support healthy beliefs?",
             options: [
               "It replaces fear with competence",
@@ -3188,7 +3188,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "psych10-deepmastery6",
-            concept: "Healthy Financial Beliefs",
+            concept: "healthy money beliefs",
             question: "Why is a healthy money mindset called an ongoing practice?",
             options: [
               "It is reached once and never changes in plain terms",
@@ -3249,7 +3249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy1-deepmc1",
-            concept: "Market Share",
+            concept: "market share",
             question: "What does market share measure?",
             options: [
               "A company's total profit for the year",
@@ -3262,7 +3262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy1-deepmc2",
-            concept: "Market Share",
+            concept: "market share vs profit",
             question: "Why can winning share by cutting prices be risky?",
             options: [
               "It always improves the product for people in general",
@@ -3290,7 +3290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy1-deepaq1",
-          concept: "Market Share",
+          concept: "market share vs profit",
           question: "Which plan most likely builds durable, profitable share?",
           options: [
             "The 20% price cut for fast growth",
@@ -3318,7 +3318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy1-deepmastery1",
-            concept: "Market Share",
+            concept: "market share trends",
             question: "A brand's share rises while a rival's falls. What does this suggest?",
             options: [
               "The market has stopped growing in a typical week",
@@ -3332,7 +3332,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy1-deepmastery2",
-            concept: "Market Share",
+            concept: "market share",
             question: "How can a luxury brand have small unit share but large revenue share?",
             options: [
               "It sells few items but each is pricey",
@@ -3346,7 +3346,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy1-deepmastery3",
-            concept: "Market Share",
+            concept: "market sizing",
             question: "Why is a 10% share of a huge growing market often better than 50% of a tiny one?",
             options: [
               "Small markets always pay more most of the time",
@@ -3360,7 +3360,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy1-deepmastery4",
-            concept: "Market Share",
+            concept: "market share vs profit",
             question: "Why is profitable share more valuable than raw share?",
             options: [
               "Raw share is always fake whenever money feels tight",
@@ -3374,7 +3374,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy1-deepmastery5",
-            concept: "Market Share",
+            concept: "switching costs",
             question: "How do companies defend the market share they have won?",
             options: [
               "By ignoring competitors entirely in everyday life",
@@ -3388,7 +3388,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy1-deepmastery6",
-            concept: "Market Share",
+            concept: "economies of scale",
             question: "What advantage can high market share create?",
             options: [
               "Lower costs from producing in bulk",
@@ -3449,7 +3449,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy2-deepmc1",
-            concept: "Pricing Power",
+            concept: "pricing power",
             question: "What is pricing power?",
             options: [
               "Always charging the lowest price",
@@ -3462,7 +3462,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy2-deepmc2",
-            concept: "Pricing Power",
+            concept: "price elasticity of demand",
             question: "Inelastic demand means that when price rises, sales…",
             options: [
               "Drop sharply right away",
@@ -3490,7 +3490,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy2-deepaq1",
-          concept: "Pricing Power",
+          concept: "pricing power",
           question: "Which drink can most safely raise its price 10%?",
           options: [
             "The generic store-brand drink",
@@ -3518,7 +3518,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy2-deepmastery1",
-            concept: "Pricing Power",
+            concept: "pricing power",
             question: "Why do investors prize pricing power so highly?",
             options: [
               "It forces competitors to close down",
@@ -3532,7 +3532,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy2-deepmastery2",
-            concept: "Pricing Power",
+            concept: "pricing power",
             question: "Which financial clue best signals pricing power?",
             options: [
               "High, steady profit margins over time",
@@ -3546,7 +3546,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy2-deepmastery3",
-            concept: "Pricing Power",
+            concept: "switching costs",
             question: "How do switching costs create pricing power?",
             options: [
               "They make leaving a hassle, so buyers tolerate hikes",
@@ -3560,7 +3560,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy2-deepmastery4",
-            concept: "Pricing Power",
+            concept: "pricing power",
             question: "Why do necessary products keep pricing power in a downturn?",
             options: [
               "People cut luxuries first but keep buying needs",
@@ -3574,7 +3574,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy2-deepmastery5",
-            concept: "Pricing Power",
+            concept: "pricing power",
             question: "What most erodes a company's pricing power?",
             options: [
               "A trusted, well-known brand",
@@ -3588,7 +3588,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy2-deepmastery6",
-            concept: "Pricing Power",
+            concept: "limits of pricing power",
             question: "What is the danger of overusing pricing power?",
             options: [
               "It permanently locks in every customer under most conditions",
@@ -3649,7 +3649,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy3-deepmc1",
-            concept: "Economies of Scale",
+            concept: "economies of scale",
             question: "What does economies of scale mean?",
             options: [
               "Total costs fall as a company shrinks",
@@ -3662,7 +3662,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy3-deepmc2",
-            concept: "Economies of Scale",
+            concept: "diseconomies of scale",
             question: "What are diseconomies of scale?",
             options: [
               "Costs per unit rising when a firm grows too large",
@@ -3690,7 +3690,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy3-deepaq1",
-          concept: "Economies of Scale",
+          concept: "niche strategy",
           question: "How should the small cafe best compete against the chain?",
           options: [
             "Match the chain's low prices directly",
@@ -3718,7 +3718,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy3-deepmastery1",
-            concept: "Economies of Scale",
+            concept: "spreading fixed costs",
             question: "Why does spreading fixed costs over more units lower per-unit cost?",
             options: [
               "The fixed cost itself shrinks in plain terms",
@@ -3732,7 +3732,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy3-deepmastery2",
-            concept: "Economies of Scale",
+            concept: "bulk purchasing",
             question: "How does bulk buying create economies of scale?",
             options: [
               "Suppliers discount large orders",
@@ -3746,7 +3746,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy3-deepmastery3",
-            concept: "Economies of Scale",
+            concept: "economies of scale",
             question: "How can a firm with lower per-unit costs use that advantage?",
             options: [
               "It must always raise its prices almost every time",
@@ -3760,7 +3760,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy3-deepmastery4",
-            concept: "Economies of Scale",
+            concept: "diseconomies of scale",
             question: "What causes diseconomies of scale?",
             options: [
               "Buying materials in bulk under real pressure",
@@ -3774,7 +3774,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy3-deepmastery5",
-            concept: "Economies of Scale",
+            concept: "niche strategy",
             question: "In which business does scale matter least?",
             options: [
               "A huge semiconductor factory for regular customers",
@@ -3788,7 +3788,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy3-deepmastery6",
-            concept: "Economies of Scale",
+            concept: "economies of scale",
             question: "Why do some industries consolidate into a few giants?",
             options: [
               "Scale advantages there are decisive",
@@ -3849,7 +3849,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy4-deepmc1",
-            concept: "Network Effects",
+            concept: "network effects",
             question: "What is a network effect?",
             options: [
               "A product that gets cheaper to make at scale",
@@ -3862,7 +3862,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy4-deepmc2",
-            concept: "Network Effects",
+            concept: "cold start problem",
             question: "What is the chicken-and-egg problem for networks?",
             options: [
               "Costs rise faster than sales grow as a general rule",
@@ -3890,7 +3890,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy4-deepaq1",
-          concept: "Network Effects",
+          concept: "cold start problem",
           question: "Why is the better app still struggling to win users?",
           options: [
             "Its features are actually worse for people in general",
@@ -3918,7 +3918,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy4-deepmastery1",
-            concept: "Network Effects",
+            concept: "network effects",
             question: "What makes a phone more valuable as more people own one?",
             options: [
               "It gets cheaper to manufacture in everyday life",
@@ -3932,7 +3932,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy4-deepmastery2",
-            concept: "Network Effects",
+            concept: "two-sided network effects",
             question: "A game console attracting more players and more game makers shows…",
             options: [
               "Economies of scale",
@@ -3946,7 +3946,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy4-deepmastery3",
-            concept: "Network Effects",
+            concept: "cold start problem",
             question: "Why can a superior new product still fail against a big network?",
             options: [
               "Better products are always too expensive at least at first",
@@ -3960,7 +3960,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy4-deepmastery4",
-            concept: "Network Effects",
+            concept: "critical mass",
             question: "What is critical mass in a network?",
             options: [
               "The point where growth becomes self-sustaining",
@@ -3974,7 +3974,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy4-deepmastery5",
-            concept: "Network Effects",
+            concept: "cold start problem",
             question: "How do companies overcome the chicken-and-egg problem?",
             options: [
               "By raising prices on early users",
@@ -3988,7 +3988,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy4-deepmastery6",
-            concept: "Network Effects",
+            concept: "critical mass",
             question: "How can a strong network moat collapse?",
             options: [
               "By adding too many new features",
@@ -4049,7 +4049,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy5-deepmc1",
-            concept: "Brand Value",
+            concept: "brand value",
             question: "What is brand value?",
             options: [
               "The cost of the materials in a product in a downturn",
@@ -4062,7 +4062,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy5-deepmc2",
-            concept: "Brand Value",
+            concept: "brand trust",
             question: "Why is a strong brand a hard-to-copy moat?",
             options: [
               "Rivals cannot legally sell any products across most markets",
@@ -4090,7 +4090,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy5-deepaq1",
-          concept: "Brand Value",
+          concept: "brand fragility",
           question: "What best explains why the scare hurt the brand so quickly?",
           options: [
             "Brand value lives in perception and is fragile",
@@ -4118,7 +4118,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy5-deepmastery1",
-            concept: "Brand Value",
+            concept: "brand value",
             question: "Why can two nearly identical shirts sell at very different prices?",
             options: [
               "One uses secret illegal materials for brand-new buyers",
@@ -4132,7 +4132,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy5-deepmastery2",
-            concept: "Brand Value",
+            concept: "brand trust",
             question: "How does a brand reduce a customer's risk?",
             options: [
               "It guarantees the lowest price after enough time",
@@ -4146,7 +4146,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy5-deepmastery3",
-            concept: "Brand Value",
+            concept: "brand trust",
             question: "Why does a trusted brand make launching new products easier?",
             options: [
               "New products require no testing in plain terms",
@@ -4160,7 +4160,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy5-deepmastery4",
-            concept: "Brand Value",
+            concept: "brand fragility",
             question: "Why is brand value considered fragile?",
             options: [
               "It lives in perception and can erode fast",
@@ -4174,7 +4174,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy5-deepmastery5",
-            concept: "Brand Value",
+            concept: "brand dilution",
             question: "How can overextending a brand hurt its value?",
             options: [
               "It always increases the premium price sooner or later",
@@ -4188,7 +4188,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy5-deepmastery6",
-            concept: "Brand Value",
+            concept: "brand trust",
             question: "How do the strongest brands stay valuable over time?",
             options: [
               "They never change anything at all in almost every situation",
@@ -4249,7 +4249,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy6-deepmc1",
-            concept: "Sustainable Advantage",
+            concept: "competitive moat",
             question: "What is an economic moat?",
             options: [
               "A short-term boost in a company's sales",
@@ -4262,7 +4262,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy6-deepmc2",
-            concept: "Sustainable Advantage",
+            concept: "sustainable competitive advantage",
             question: "Why is a copyable new feature not a real moat?",
             options: [
               "Features are always low quality most of the time",
@@ -4290,7 +4290,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "strategy6-deepaq1",
-          concept: "Sustainable Advantage",
+          concept: "sustainable competitive advantage",
           question: "Which company has the more sustainable competitive advantage?",
           options: [
             "GadgetCo, because of its clever feature for regular customers",
@@ -4318,7 +4318,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
         questions: [
           {
             id: "strategy6-deepmastery1",
-            concept: "Sustainable Advantage",
+            concept: "sustainable competitive advantage",
             question: "Why do high profits normally attract competitors?",
             options: [
               "Rivals rush in to copy and grab a share",
@@ -4332,7 +4332,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy6-deepmastery2",
-            concept: "Sustainable Advantage",
+            concept: "network effects",
             question: "Which is a genuine source of a durable moat?",
             options: [
               "A temporary sale price on a day-to-day basis",
@@ -4346,7 +4346,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy6-deepmastery3",
-            concept: "Sustainable Advantage",
+            concept: "sustainable competitive advantage",
             question: "How do you test whether an advantage is truly sustainable?",
             options: [
               "Check if it looks impressive today especially early on",
@@ -4360,7 +4360,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy6-deepmastery4",
-            concept: "Sustainable Advantage",
+            concept: "sustainable competitive advantage",
             question: "What financial pattern best signals a real moat?",
             options: [
               "Shrinking margins with constant price cuts",
@@ -4374,7 +4374,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy6-deepmastery5",
-            concept: "Sustainable Advantage",
+            concept: "sustainable competitive advantage",
             question: "Why do strong companies keep reinvesting in their moat?",
             options: [
               "Regulators require yearly reinvestment with very little effort",
@@ -4388,7 +4388,7 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
           },
           {
             id: "strategy6-deepmastery6",
-            concept: "Sustainable Advantage",
+            concept: "competitive moat",
             question: "Why do long-term investors hunt for durable moats?",
             options: [
               "Moats guarantee a stock never falls without much thought",

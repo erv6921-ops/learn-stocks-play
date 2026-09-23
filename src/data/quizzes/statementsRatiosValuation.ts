@@ -8,6 +8,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-1-q1",
+        concept: "income statement",
         question: "What does an income statement primarily show?",
         options: [
           "A complete list of every asset the company owns",
@@ -20,6 +21,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-1-q2",
+        concept: "revenue",
         question: "Which item appears at the very top of an income statement?",
         options: [
           "Net income earned after paying all taxes",
@@ -32,6 +34,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-1-q3",
+        concept: "revenue vs profit",
         question: "A sneaker company earns $200,000 in revenue and has $150,000 in total expenses. What does its income statement show?",
         options: [
           "A profit of $50,000 for the period",
@@ -44,6 +47,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-1-q4",
+        concept: "income statement",
         question: "What time frame does an income statement usually cover?",
         options: [
           "A single moment, like one specific day",
@@ -56,6 +60,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-1-q5",
+        concept: "revenue vs profit",
         question: "Your lemonade stand sells $500 of lemonade over the summer and spends $300 on supplies. What would its income statement report?",
         options: [
           "Revenue of $300 and profit of $500",
@@ -68,6 +73,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-1-q6",
+        concept: "income statement",
         question: "In what order do items flow down an income statement?",
         options: [
           "Revenue first, then expenses, then net income",
@@ -80,6 +86,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-1-q7",
+        concept: "income statement",
         question: "Why do investors study a company's income statement?",
         options: [
           "To find out the names of individual employees",
@@ -92,6 +99,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-1-q8",
+        concept: "revenue vs profit",
         question: "A company's revenue grows 5% each year while its expenses grow 15% each year. What will likely happen to profit?",
         options: [
           "Profit will grow faster than revenue does",
@@ -110,6 +118,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-2-q1",
+        concept: "revenue",
         question: "What is revenue?",
         options: [
           "The money left over after paying every expense",
@@ -122,6 +131,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-2-q2",
+        concept: "revenue vs profit",
         question: "What is profit?",
         options: [
           "What remains after subtracting all expenses from revenue",
@@ -134,6 +144,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-2-q3",
+        concept: "revenue vs profit",
         question: "A company brings in $1,000,000 in revenue but spends $1,100,000 to operate. What is the result?",
         options: [
           "A profit of $100,000 for the year",
@@ -146,6 +157,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-2-q4",
+        concept: "revenue vs profit",
         question: "Why doesn't revenue alone tell you if a company is doing well?",
         options: [
           "Revenue only counts cash sales, never credit card sales",
@@ -158,6 +170,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-2-q5",
+        concept: "profit margin",
         question: "Company A has $500,000 revenue and $50,000 profit. Company B has $200,000 revenue and $80,000 profit. Which statement is true?",
         options: [
           "Company B earns more actual profit dollars",
@@ -170,6 +183,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-2-q6",
+        concept: "income statement",
         question: "In finance slang, what do 'top line' and 'bottom line' refer to?",
         options: [
           "Stock price high and stock price low",
@@ -182,6 +196,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-2-q7",
+        concept: "revenue",
         question: "A sneaker shop sells 1,000 pairs at $100 each. What does the $100,000 represent?",
         options: [
           "The shop's profit after covering all costs",
@@ -194,6 +209,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-2-q8",
+        concept: "revenue vs profit",
         question: "A company's revenue rises every year, but its profit keeps falling. What is the most likely explanation?",
         options: [
           "The company is secretly hiding extra profit somewhere",
@@ -212,6 +228,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-3-q1",
+        concept: "COGS",
         question: "What does COGS (cost of goods sold) measure?",
         options: [
           "The direct costs of making the products sold",
@@ -224,6 +241,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-3-q2",
+        concept: "COGS",
         question: "Which expense counts as COGS for a sneaker company?",
         options: [
           "The billboard advertising campaign downtown this summer",
@@ -236,6 +254,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-3-q3",
+        concept: "COGS",
         question: "Your lemonade stand spends $0.40 on lemons, sugar, and cups for each cup sold. If you sell 200 cups, what is your COGS?",
         options: [
           "$40 for the whole season of sales",
@@ -248,6 +267,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-3-q4",
+        concept: "gross profit",
         question: "What do you get when you subtract COGS from revenue?",
         options: [
           "Net income, the company's final bottom line",
@@ -260,6 +280,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-3-q5",
+        concept: "gross profit",
         question: "A company has $50,000 in revenue and $30,000 in COGS. What is its gross profit?",
         options: [
           "$80,000 after adding both numbers together",
@@ -272,6 +293,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-3-q6",
+        concept: "gross profit",
         question: "Why does lowering COGS help a company, if prices stay the same?",
         options: [
           "It automatically raises the stock price every single quarter",
@@ -284,6 +306,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-3-q7",
+        concept: "COGS",
         question: "Which of these costs is NOT part of COGS?",
         options: [
           "Fabric used to sew each t-shirt sold",
@@ -296,6 +319,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-3-q8",
+        concept: "gross profit",
         question: "A sneaker sells for $100. Its COGS rises from $60 to $70 per pair. What happens to gross profit per pair?",
         options: [
           "It falls from $40 down to $30",
@@ -314,6 +338,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-4-q1",
+        concept: "gross margin",
         question: "How is gross margin calculated?",
         options: [
           "Total revenue divided by cost of goods sold",
@@ -326,6 +351,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-4-q2",
+        concept: "gross margin",
         question: "A company has $100 in revenue and $60 in COGS. What is its gross margin?",
         options: [
           "60% of the company's total revenue",
@@ -338,6 +364,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-4-q3",
+        concept: "gross margin",
         question: "A sneaker brand earns $500,000 in revenue with $200,000 in COGS. What is its gross margin?",
         options: [
           "40%, keeping $200,000 of the revenue",
@@ -350,6 +377,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-4-q4",
+        concept: "gross margin",
         question: "What does a higher gross margin tell you about a company?",
         options: [
           "It keeps more of each sales dollar",
@@ -362,6 +390,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-4-q5",
+        concept: "gross margin",
         question: "Gross margin is usually expressed as what?",
         options: [
           "A dollar amount listed on the balance sheet",
@@ -374,6 +403,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-4-q6",
+        concept: "gross margin",
         question: "Company A has a 20% gross margin and Company B has a 50% gross margin. What does this comparison show?",
         options: [
           "Company A produces its goods far more cheaply",
@@ -386,6 +416,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-4-q7",
+        concept: "industry comparison",
         question: "Why do software companies often have higher gross margins than grocery stores?",
         options: [
           "Copies of software cost almost nothing to produce",
@@ -398,6 +429,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-4-q8",
+        concept: "gross margin",
         question: "Your lemonade sells for $2.00 per cup, and ingredients cost $0.50 per cup. What is your gross margin?",
         options: [
           "25%, keeping fifty cents per cup",
@@ -416,6 +448,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-5-q1",
+        concept: "operating expenses",
         question: "What are operating expenses?",
         options: [
           "The raw materials used in every product sold",
@@ -428,6 +461,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-5-q2",
+        concept: "operating expenses",
         question: "Which of these is an operating expense for a sneaker company?",
         options: [
           "Leather purchased to build each pair",
@@ -440,6 +474,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-5-q3",
+        concept: "operating income",
         question: "A company has $80,000 in gross profit and $50,000 in operating expenses. What is its operating income?",
         options: [
           "$30,000 left after covering operating costs",
@@ -452,6 +487,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-5-q4",
+        concept: "operating expenses",
         question: "Which group of costs would all count as operating expenses?",
         options: [
           "Factory materials, production labor, and shipping supplies",
@@ -464,6 +500,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-5-q5",
+        concept: "fixed vs variable costs",
         question: "Sales at a bakery suddenly drop by half for a month. What typically happens to its operating expenses?",
         options: [
           "They drop by exactly half along with sales",
@@ -476,6 +513,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-5-q6",
+        concept: "operating expenses",
         question: "A sneaker startup pays $2,000 rent, $6,000 in salaries, and $2,000 for ads each month. What are its monthly operating expenses?",
         options: [
           "$10,000 in total operating costs",
@@ -488,6 +526,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-5-q7",
+        concept: "operating expenses",
         question: "A company slashes its marketing budget to boost this quarter's profit. What is the possible downside?",
         options: [
           "Profit will automatically fall this same quarter",
@@ -500,6 +539,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-5-q8",
+        concept: "operating expenses",
         question: "On income statements, what does the common label 'SG&A' stand for?",
         options: [
           "Sales growth and annual assets combined",
@@ -518,6 +558,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-6-q1",
+        concept: "net income",
         question: "What is net income?",
         options: [
           "Total revenue before subtracting any business costs",
@@ -530,6 +571,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-6-q2",
+        concept: "net income",
         question: "Why is net income nicknamed 'the bottom line'?",
         options: [
           "It sits on the last line of the income statement",
@@ -542,6 +584,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-6-q3",
+        concept: "net income",
         question: "A company has $100,000 revenue, $40,000 COGS, $30,000 operating expenses, and $6,000 in taxes. What is its net income?",
         options: [
           "$30,000 after skipping the tax bill",
@@ -554,6 +597,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-6-q4",
+        concept: "net income",
         question: "What does it mean when a company's net income is negative?",
         options: [
           "The company forgot to report its revenue",
@@ -566,6 +610,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-6-q5",
+        concept: "net income",
         question: "How does net income differ from gross profit?",
         options: [
           "Net income also subtracts operating costs and taxes",
@@ -578,6 +623,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-6-q6",
+        concept: "net income",
         question: "Your lemonade stand makes $400 in sales, spends $250 on all costs, and pays $30 in taxes. What is your net income?",
         options: [
           "$150 because taxes don't count here",
@@ -590,6 +636,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-6-q7",
+        concept: "net income",
         question: "What can a company do with its net income?",
         options: [
           "Only donate it to charity by law",
@@ -602,6 +649,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-6-q8",
+        concept: "one-time gains",
         question: "A company sells an old warehouse and reports a huge one-time jump in net income. How should an investor read this?",
         options: [
           "The company's products suddenly became far more popular",
@@ -620,6 +668,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-8-q1",
+        concept: "assets vs liabilities",
         question: "What is an asset?",
         options: [
           "Something valuable the company owns or controls",
@@ -632,6 +681,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-8-q2",
+        concept: "assets vs liabilities",
         question: "What is a liability?",
         options: [
           "Any equipment the company uses to make products",
@@ -644,6 +694,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-8-q3",
+        concept: "shareholders' equity",
         question: "A company has $500,000 in assets and $300,000 in liabilities. What is its shareholder equity?",
         options: [
           "$800,000 from adding the two figures together",
@@ -656,6 +707,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-8-q4",
+        concept: "assets vs liabilities",
         question: "Which of these is a liability for a skateboard shop?",
         options: [
           "The display cases holding boards in the store",
@@ -668,6 +720,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-8-q5",
+        concept: "assets vs liabilities",
         question: "You buy a $800 delivery bike for your snack business using a $600 loan and $200 of savings. Which statement is accurate?",
         options: [
           "The loan is an asset and the bike a liability",
@@ -680,6 +733,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-8-q6",
+        concept: "balance sheet",
         question: "The balance sheet, which lists assets and liabilities, shows information for what time frame?",
         options: [
           "The company's activity across a full year",
@@ -692,6 +746,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-8-q7",
+        concept: "shareholders' equity",
         question: "A company's liabilities grow larger than its total assets. Why is this a warning sign?",
         options: [
           "It means revenue must have doubled too quickly",
@@ -704,6 +759,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-8-q8",
+        concept: "accounting equation",
         question: "A company borrows $10,000 and uses it to buy $10,000 of equipment. What happens to its equity?",
         options: [
           "Equity stays the same as assets and liabilities both rise",
@@ -722,6 +778,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-9-q1",
+        concept: "cash flow statement",
         question: "What does the cash flow statement track?",
         options: [
           "The company's stock price movement each day",
@@ -734,6 +791,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-9-q2",
+        concept: "cash flow statement sections",
         question: "What are the three sections of a cash flow statement?",
         options: [
           "Revenue, expenses, and net income sections",
@@ -746,6 +804,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-9-q3",
+        concept: "cash vs profit",
         question: "A design studio reports a $20,000 profit, but clients haven't paid their invoices yet. What is the studio's situation?",
         options: [
           "It has plenty of cash but zero profit",
@@ -758,6 +817,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-9-q4",
+        concept: "cash flow statement",
         question: "A company takes in $80,000 of cash and pays out $60,000 during the quarter. What is its net cash flow?",
         options: [
           "Positive $20,000 for the quarter overall",
@@ -770,6 +830,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-9-q5",
+        concept: "cash vs profit",
         question: "Why do investors care about cash flow, not just profit?",
         options: [
           "Cash flow always equals profit in the end",
@@ -782,6 +843,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-9-q6",
+        concept: "cash flow statement sections",
         question: "A pizza chain spends $50,000 on new ovens. Which cash flow section records this purchase?",
         options: [
           "Operating activities, since ovens cook the pizzas",
@@ -794,6 +856,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-9-q7",
+        concept: "cash flow statement sections",
         question: "A company borrows $1 million from a bank. Where does this cash appear?",
         options: [
           "In financing activities, as cash flowing in",
@@ -806,6 +869,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-9-q8",
+        concept: "operating cash flow",
         question: "A company's operating cash flow has been negative for three straight years. What does this suggest?",
         options: [
           "The company is simply saving its cash carefully",
@@ -824,6 +888,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "fin-stmt-10-q1",
+        concept: "free cash flow",
         question: "How is free cash flow (FCF) calculated?",
         options: [
           "Total revenue minus the cost of goods sold",
@@ -836,6 +901,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-10-q2",
+        concept: "free cash flow",
         question: "A company generates $100,000 in operating cash flow and spends $30,000 on new equipment. What is its free cash flow?",
         options: [
           "$130,000 after combining the two amounts",
@@ -848,6 +914,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-10-q3",
+        concept: "free cash flow",
         question: "What can a company do with its free cash flow?",
         options: [
           "Pay dividends, buy back shares, or expand",
@@ -860,6 +927,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-10-q4",
+        concept: "cash vs profit",
         question: "Why do many investors trust free cash flow more than net income?",
         options: [
           "FCF is always a much bigger number",
@@ -872,6 +940,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-10-q5",
+        concept: "free cash flow",
         question: "A company has $50,000 in operating cash flow but spends $60,000 on new machinery. What is its free cash flow?",
         options: [
           "Positive $10,000 for the year overall",
@@ -884,6 +953,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-10-q6",
+        concept: "free cash flow",
         question: "What does 'capex' (capital expenditure) mean?",
         options: [
           "Spending on long-term assets like buildings and machines",
@@ -896,6 +966,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-10-q7",
+        concept: "free cash flow",
         question: "A fast-growing delivery startup has negative free cash flow because it keeps buying vans and warehouses. How should investors view this?",
         options: [
           "The startup is definitely about to go bankrupt",
@@ -908,6 +979,7 @@ export const statementsRatiosValuationQuizzes: LessonQuiz[] = [
       },
       {
         id: "fin-stmt-10-q8",
+        concept: "free cash flow",
         question: "A sneaker maker produces $200,000 of operating cash flow and spends $80,000 on new stitching machines. What is its free cash flow?",
         options: [
           "$280,000 after adding both cash amounts",

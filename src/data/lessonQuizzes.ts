@@ -54,6 +54,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b1-q1",
+        concept: "budget purpose",
         question: "What is the PRIMARY purpose of creating a budget?",
         options: [
           "To plan how you'll use your money before you spend it",
@@ -66,6 +67,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q2",
+        concept: "budget surplus vs deficit",
         question: "If you earn $500 per month and spend $550, what does this indicate?",
         options: [
           "Your budget is balanced and working correctly",
@@ -78,6 +80,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q3",
+        concept: "fixed vs variable expenses",
         question: "Which of these is an example of a 'fixed expense'?",
         options: [
           "Restaurant meals that vary from week to week",
@@ -90,6 +93,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q4",
+        concept: "budget purpose",
         question: "Why is budgeting considered a 'foundational' money skill?",
         options: [
           "It helps you understand and control where your money goes",
@@ -102,6 +106,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q5",
+        concept: "budget purpose",
         question: "What typically happens when someone doesn't budget their money?",
         options: [
           "Their credit score automatically goes up over time",
@@ -114,6 +119,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q6",
+        concept: "spending tracking",
         question: "What is the difference between a budget and a spending tracker?",
         options: [
           "Only banks and financial institutions use spending trackers",
@@ -126,6 +132,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q7",
+        concept: "pay yourself first",
         question: "Which person is most likely to reach their savings goal?",
         options: [
           "Someone who saves 'whatever is left' at the end of each month",
@@ -138,6 +145,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q8",
+        concept: "budget purpose",
         question: "A student earns $200/month from a part-time job. What should they do FIRST?",
         options: [
           "Create a simple plan for how to use it each month",
@@ -150,6 +158,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q9",
+        concept: "wealth building habits",
         question: "Why do financial experts recommend budgeting even for wealthy people?",
         options: [
           "Because the government requires it for high earners",
@@ -162,6 +171,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b1-q10",
+        concept: "budget purpose",
         question: "What's the biggest myth about budgeting?",
         options: [
           "That it requires basic math skills to create one",
@@ -181,6 +191,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b2-q1",
+        concept: "budget purpose",
         question: "What is the FIRST step in creating a budget?",
         options: [
           "List all your monthly expenses in categories",
@@ -193,6 +204,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q2",
+        concept: "zero-based budgeting",
         question: "If your income is $1,000 and your expenses total $900, what should you do with the remaining $100?",
         options: [
           "Allocate it to specific savings or financial goals",
@@ -205,6 +217,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q3",
+        concept: "fixed vs variable expenses",
         question: "Which of these would be classified as 'variable expenses'?",
         options: [
           "Monthly subscription services with set prices",
@@ -217,6 +230,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q4",
+        concept: "budget surplus vs deficit",
         question: "What does it mean to 'balance' your budget?",
         options: [
           "Keeping equal amounts in checking and savings accounts",
@@ -229,6 +243,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q5",
+        concept: "zero-based budgeting",
         question: "Which budgeting approach assigns every dollar a specific purpose?",
         options: [
           "The automatic percentage method for beginners",
@@ -241,6 +256,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q6",
+        concept: "budget review",
         question: "Why is it important to review your budget monthly?",
         options: [
           "Life changes frequently and your budget should adapt",
@@ -253,6 +269,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q7",
+        concept: "budget adjustment",
         question: "What's the best way to handle an expense you forgot to budget for?",
         options: [
           "Borrow money from family or friends to cover it",
@@ -265,6 +282,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q8",
+        concept: "budget categories",
         question: "A simple budget should include which THREE main categories?",
         options: [
           "Income, government taxes, and remaining spending",
@@ -277,6 +295,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q9",
+        concept: "budget categories",
         question: "How detailed should a beginner's budget be?",
         options: [
           "Extremely detailed with at least 50 separate categories",
@@ -289,6 +308,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b2-q10",
+        concept: "budget adjustment",
         question: "What should you do if your expenses exceed your income?",
         options: [
           "Give up on budgeting since it isn't solving the problem",
@@ -308,6 +328,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b3-q1",
+        concept: "spending tracking",
         question: "Why is tracking your daily spending important?",
         options: [
           "It increases your credit score with every entry logged",
@@ -320,6 +341,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q2",
+        concept: "lifestyle inflation",
         question: "What is 'lifestyle creep'?",
         options: [
           "When your expenses increase as your income increases",
@@ -332,6 +354,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q3",
+        concept: "spending leakage",
         question: "Which spending category often 'leaks' money without people noticing?",
         options: [
           "Annual insurance premiums billed once per year",
@@ -344,6 +367,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q4",
+        concept: "spending tracking",
         question: "How often should you ideally review your spending?",
         options: [
           "Once a year during tax season is sufficient",
@@ -356,6 +380,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q5",
+        concept: "spending patterns",
         question: "What is a 'spending trigger'?",
         options: [
           "A credit card security feature that blocks fraud",
@@ -368,6 +393,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q6",
+        concept: "budgeting tools",
         question: "Which tool is BEST for tracking spending in real-time?",
         options: [
           "A calendar from last year with notes written on it",
@@ -380,6 +406,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q7",
+        concept: "budget adjustment",
         question: "What should you do when you notice overspending in one category?",
         options: [
           "Analyze why it happened and adjust your budget or behavior",
@@ -392,6 +419,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q8",
+        concept: "spending tracking",
         question: "Why might cash spending be harder to track than card spending?",
         options: [
           "Cash is worth less than card payments in most stores",
@@ -404,6 +432,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q9",
+        concept: "budget categories",
         question: "What's the benefit of categorizing your expenses?",
         options: [
           "It shows patterns and helps you know where to cut back",
@@ -416,6 +445,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b3-q10",
+        concept: "spending tracking",
         question: "How can tracking spending improve your relationship with money?",
         options: [
           "It makes you want to spend more money on new things",
@@ -435,6 +465,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b4-q1",
+        concept: "50/30/20 rule",
         question: "In the 50/30/20 rule, what does the 50% represent?",
         options: [
           "Savings and long-term investments for retirement",
@@ -447,6 +478,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q2",
+        concept: "50/30/20 rule",
         question: "According to the 50/30/20 rule, if you earn $2,000/month, how much should go to 'wants'?",
         options: [
           "$600 for entertainment and non-essential spending",
@@ -459,6 +491,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q3",
+        concept: "needs vs wants",
         question: "Which expense would be classified as a 'want' rather than a 'need'?",
         options: [
           "Basic groceries for the week ahead",
@@ -471,6 +504,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q4",
+        concept: "50/30/20 flexibility",
         question: "What is the main limitation of the 50/30/20 rule?",
         options: [
           "It requires too much advanced math to calculate properly",
@@ -483,6 +517,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q5",
+        concept: "50/30/20 rule",
         question: "The 20% in the 50/30/20 rule should be used for:",
         options: [
           "Savings, debt repayment beyond minimums, and investing",
@@ -495,6 +530,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q6",
+        concept: "50/30/20 rule",
         question: "If someone earns $3,000/month, what's the MAXIMUM they should spend on needs according to this rule?",
         options: [
           "$900 covering only the absolute bare essentials",
@@ -507,6 +543,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q7",
+        concept: "50/30/20 rule",
         question: "Why is the 50/30/20 rule considered a 'balanced' approach?",
         options: [
           "Because the numbers are simple and easy to remember",
@@ -519,6 +556,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q8",
+        concept: "needs vs wants",
         question: "Where does a gym membership fit in the 50/30/20 rule?",
         options: [
           "Needs (50%) - because physical health is essential for everyone",
@@ -531,6 +569,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q9",
+        concept: "50/30/20 flexibility",
         question: "How should you adjust the 50/30/20 rule if you have high-interest debt?",
         options: [
           "Keep the exact same percentages regardless of debt",
@@ -543,6 +582,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b4-q10",
+        concept: "50/30/20 flexibility",
         question: "What's the FIRST thing to do if your needs exceed 50% of income?",
         options: [
           "Stop using the 50/30/20 rule entirely and try something else",
@@ -562,6 +602,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b5-q1",
+        concept: "SMART goals",
         question: "What makes a financial goal 'SMART'?",
         options: [
           "It requires approval from a licensed financial advisor",
@@ -574,6 +615,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q2",
+        concept: "goal setting",
         question: "Which is an example of a short-term financial goal?",
         options: [
           "Retiring comfortably at age 65 with full benefits",
@@ -586,6 +628,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q3",
+        concept: "goal prioritization",
         question: "Why is it important to prioritize financial goals?",
         options: [
           "Limited resources mean you may need to focus on some goals first",
@@ -598,6 +641,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q4",
+        concept: "budget adjustment",
         question: "What should you do if you're not making progress toward a goal?",
         options: [
           "Give up entirely and choose a much easier goal instead",
@@ -610,6 +654,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q5",
+        concept: "goal motivation",
         question: "How does writing down your financial goals help?",
         options: [
           "Banks give you better interest rates for documented goals",
@@ -622,6 +667,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q6",
+        concept: "goal setting",
         question: "What's the difference between a short-term and long-term goal?",
         options: [
           "Short-term goals always cost less than $100 total",
@@ -634,6 +680,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q7",
+        concept: "goal motivation",
         question: "Why should you connect financial goals to personal values?",
         options: [
           "Values don't actually matter for achieving financial goals",
@@ -646,6 +693,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q8",
+        concept: "goal motivation",
         question: "What happens when you achieve a financial goal?",
         options: [
           "Stop budgeting because you've proven you're done",
@@ -658,6 +706,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q9",
+        concept: "SMART goals",
         question: "Which is NOT a valid financial goal?",
         options: [
           "Save $2,000 for an emergency fund by June",
@@ -670,6 +719,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b5-q10",
+        concept: "goal prioritization",
         question: "How should you handle competing financial goals?",
         options: [
           "Balance contributions based on priority and urgency",
@@ -689,6 +739,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b6-q1",
+        concept: "emergency fund size",
         question: "How much should you ideally save in an emergency fund?",
         options: [
           "Exactly $1,000 regardless of your monthly expenses",
@@ -701,6 +752,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q2",
+        concept: "emergency fund purpose",
         question: "Which situation would be appropriate to use emergency funds?",
         options: [
           "An unexpected car repair needed to get to work",
@@ -713,6 +765,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q3",
+        concept: "emergency fund location",
         question: "Where is the BEST place to keep your emergency fund?",
         options: [
           "In individual stocks for maximum growth potential",
@@ -725,6 +778,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q4",
+        concept: "emergency fund purpose",
         question: "What is the main purpose of an emergency fund?",
         options: [
           "To pay your regular monthly bills and expenses",
@@ -737,6 +791,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q5",
+        concept: "emergency fund location",
         question: "Why should emergency funds be easily accessible?",
         options: [
           "So you can spend them on fun impulse purchases",
@@ -749,6 +804,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q6",
+        concept: "emergency fund size",
         question: "What's a good first milestone for an emergency fund?",
         options: [
           "$1,000 or one month of basic expenses",
@@ -761,6 +817,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q7",
+        concept: "emergency fund rebuilding",
         question: "What should you do AFTER using your emergency fund?",
         options: [
           "Consider it gone and don't worry about replacing it",
@@ -773,6 +830,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q8",
+        concept: "emergency fund location",
         question: "Why shouldn't you invest your emergency fund in stocks?",
         options: [
           "The market could be down exactly when you need the money",
@@ -785,6 +843,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q9",
+        concept: "emergency fund size",
         question: "If your monthly expenses are $2,500, how much is a 3-month emergency fund?",
         options: [
           "$2,500 covering just one month of expenses",
@@ -797,6 +856,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b6-q10",
+        concept: "emergency fund purpose",
         question: "Which is NOT considered a true emergency?",
         options: [
           "Unexpected job loss without any warning",
@@ -816,6 +876,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b7-q1",
+        concept: "spending leakage",
         question: "What is a 'budget buster'?",
         options: [
           "A type of high-yield savings account for emergencies",
@@ -828,6 +889,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q2",
+        concept: "waiting rule",
         question: "Which strategy helps avoid impulse purchases?",
         options: [
           "Always shop when you're hungry for the best deals",
@@ -840,6 +902,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q3",
+        concept: "zombie subscription",
         question: "Why are subscription services often budget busters?",
         options: [
           "Small recurring charges add up and are easy to forget about",
@@ -852,6 +915,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q4",
+        concept: "FOMO",
         question: "What is 'FOMO spending'?",
         options: [
           "A type of investment strategy used by professional traders",
@@ -864,6 +928,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q5",
+        concept: "sinking fund",
         question: "How can you protect your budget from seasonal expenses?",
         options: [
           "Use credit cards for all seasonal and holiday expenses",
@@ -876,6 +941,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q6",
+        concept: "zombie subscription",
         question: "Which of these is a common 'invisible' budget buster?",
         options: [
           "Your monthly rent payment due on the first",
@@ -888,6 +954,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q7",
+        concept: "discount evaluation",
         question: "What's the best defense against 'sale' budget busters?",
         options: [
           "Buy everything on sale to maximize your total savings",
@@ -900,6 +967,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q8",
+        concept: "lifestyle inflation",
         question: "How does 'lifestyle inflation' bust budgets?",
         options: [
           "Your spending increases to match any income increases",
@@ -912,6 +980,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q9",
+        concept: "spending patterns",
         question: "What's a 'spending trigger' you should be aware of?",
         options: [
           "A sale sign displayed in a store window or online",
@@ -924,6 +993,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b7-q10",
+        concept: "budget buffer",
         question: "Why should you include a 'miscellaneous' category in your budget?",
         options: [
           "To hide spending from yourself and reduce guilt",
@@ -943,6 +1013,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b8-q1",
+        concept: "budgeting tools",
         question: "What is the main advantage of using a budgeting app?",
         options: [
           "They guarantee you'll save a specific amount each month",
@@ -955,6 +1026,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q2",
+        concept: "budgeting tools",
         question: "What should you consider when choosing a budgeting tool?",
         options: [
           "Whether it syncs with your bank accounts and fits your needs",
@@ -967,6 +1039,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q3",
+        concept: "envelope method",
         question: "What is the 'envelope method' of budgeting?",
         options: [
           "Saving all your receipts in envelopes for tax season",
@@ -979,6 +1052,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q4",
+        concept: "spreadsheet budgeting",
         question: "Why might someone prefer a spreadsheet over a budgeting app?",
         options: [
           "Spreadsheets are always more accurate than any app",
@@ -991,6 +1065,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q5",
+        concept: "budgeting tools",
         question: "What feature should you look for in a budgeting tool for security?",
         options: [
           "Colorful charts, graphs, and attractive visual reports",
@@ -1003,6 +1078,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q6",
+        concept: "spending tracking",
         question: "What's a disadvantage of manual expense tracking?",
         options: [
           "It requires discipline and time to record every purchase",
@@ -1015,6 +1091,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q7",
+        concept: "budgeting tools",
         question: "Which budgeting method is best for visual learners?",
         options: [
           "Mental math done entirely in your head each day",
@@ -1027,6 +1104,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q8",
+        concept: "budgeting tools",
         question: "What's the benefit of budgeting apps that sync with your bank?",
         options: [
           "The bank pays you a bonus for using approved apps",
@@ -1039,6 +1117,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q9",
+        concept: "budgeting tools",
         question: "Why might you use multiple budgeting tools?",
         options: [
           "It's more expensive, which means your budget works better",
@@ -1051,6 +1130,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b8-q10",
+        concept: "budgeting tools",
         question: "What's the most important factor in choosing a budgeting method?",
         options: [
           "What's most popular among financial influencers online",
@@ -1070,6 +1150,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b9-q1",
+        concept: "irregular income budgeting",
         question: "What is 'variable income'?",
         options: [
           "Income that changes based on your current mood",
@@ -1082,6 +1163,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q2",
+        concept: "irregular income budgeting",
         question: "Which budgeting strategy works best for variable income?",
         options: [
           "Budgeting based on your lowest expected income month",
@@ -1094,6 +1176,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q3",
+        concept: "irregular income budgeting",
         question: "What is an 'income buffer' or 'income smoothing account'?",
         options: [
           "A government assistance program for low-income workers",
@@ -1106,6 +1189,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q4",
+        concept: "irregular income budgeting",
         question: "Why is prioritizing expenses more important with variable income?",
         options: [
           "It impresses your employer and leads to bigger bonuses",
@@ -1118,6 +1202,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q5",
+        concept: "irregular income budgeting",
         question: "How should you handle 'windfall' months with higher-than-expected income?",
         options: [
           "Spend it all as a reward for your hard work this month",
@@ -1130,6 +1215,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q6",
+        concept: "irregular income budgeting",
         question: "What percentage of income should variable earners try to save from high months?",
         options: [
           "0% - spend it while you have it before it's gone",
@@ -1142,6 +1228,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q7",
+        concept: "emergency fund purpose",
         question: "Why is an emergency fund EXTRA important for variable income earners?",
         options: [
           "Low-income periods can feel like emergencies even when expected",
@@ -1154,6 +1241,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q8",
+        concept: "irregular income budgeting",
         question: "How should variable income earners handle monthly bills?",
         options: [
           "Put all bills on credit cards and pay them off later",
@@ -1166,6 +1254,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q9",
+        concept: "irregular income budgeting",
         question: "What's a 'baseline budget' for variable income?",
         options: [
           "The maximum amount you can spend in any given month",
@@ -1178,6 +1267,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b9-q10",
+        concept: "50/30/20 flexibility",
         question: "How does the 50/30/20 rule change for variable income?",
         options: [
           "It works exactly the same as for fixed-income earners",
@@ -1197,6 +1287,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "b10-q1",
+        concept: "wealth building habits",
         question: "How does consistent budgeting lead to wealth building?",
         options: [
           "It doesn't - only direct investing builds any real wealth",
@@ -1209,6 +1300,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q2",
+        concept: "pay yourself first",
         question: "What is 'paying yourself first'?",
         options: [
           "Taking cash out of the register before paying any bills",
@@ -1221,6 +1313,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q3",
+        concept: "compound interest",
         question: "Why is compound interest called 'the eighth wonder of the world'?",
         options: [
           "Because your earnings generate their own earnings over time",
@@ -1233,6 +1326,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q4",
+        concept: "savings rate",
         question: "What is a 'savings rate' and why does it matter?",
         options: [
           "The interest rate your bank pays on savings deposits",
@@ -1245,6 +1339,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q5",
+        concept: "wealth building habits",
         question: "What is the relationship between budgeting and investing?",
         options: [
           "They are completely unrelated financial skills",
@@ -1257,6 +1352,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q6",
+        concept: "compound interest",
         question: "How much can small budget improvements compound over time?",
         options: [
           "Saving $50/month invested over 30 years can exceed $100,000",
@@ -1269,6 +1365,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q7",
+        concept: "wealth building habits",
         question: "What's the 'millionaire next door' concept?",
         options: [
           "Millionaires all live in expensive luxury neighborhoods",
@@ -1281,6 +1378,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q8",
+        concept: "savings rate",
         question: "Why is 'savings rate' more important than income for building wealth?",
         options: [
           "It's not - income is everything when it comes to wealth",
@@ -1293,6 +1391,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q9",
+        concept: "savings rate",
         question: "What happens when you increase your savings rate by just 1%?",
         options: [
           "Nothing noticeable happens from such a small change",
@@ -1305,6 +1404,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "b10-q10",
+        concept: "wealth building habits",
         question: "How does budgeting connect to your 'future self'?",
         options: [
           "Every dollar saved today is a gift to your future self",
@@ -1324,6 +1424,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "e1-q1",
+        concept: "demand shifters",
         question: "When demand for a product increases but supply stays the same, what typically happens to the price?",
         options: [
           "The price stays exactly the same as before",
@@ -1336,6 +1437,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q2",
+        concept: "market equilibrium",
         question: "What is 'equilibrium price'?",
         options: [
           "The price where quantity supplied equals quantity demanded",
@@ -1348,6 +1450,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q3",
+        concept: "shortage vs surplus",
         question: "Why do concert tickets for popular artists often sell at high prices?",
         options: [
           "Concert venues are extremely expensive to rent for events",
@@ -1360,6 +1463,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q4",
+        concept: "supply shifters",
         question: "What happens to supply when production costs increase?",
         options: [
           "Supply stays the same regardless of production costs",
@@ -1372,6 +1476,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q5",
+        concept: "shortage vs surplus",
         question: "What creates a 'shortage' in a market?",
         options: [
           "When supply exceeds demand at the current market price",
@@ -1384,6 +1489,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q6",
+        concept: "shortage vs surplus",
         question: "What creates a 'surplus' in a market?",
         options: [
           "When supply exceeds demand at the current market price",
@@ -1396,6 +1502,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q7",
+        concept: "substitutes vs complements",
         question: "How do 'substitute goods' affect demand?",
         options: [
           "Substitutes always have exactly the same market price",
@@ -1408,6 +1515,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q8",
+        concept: "price elasticity of demand",
         question: "What is 'price elasticity'?",
         options: [
           "The highest price a product can reach before sales stop",
@@ -1420,6 +1528,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q9",
+        concept: "perfect competition",
         question: "Why does increased competition typically lower prices?",
         options: [
           "More sellers compete for buyers, forcing prices down",
@@ -1432,6 +1541,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e1-q10",
+        concept: "supply shifters",
         question: "How does technology typically affect supply?",
         options: [
           "Technology decreases supply by making production complex",
@@ -1451,6 +1561,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "e2-q1",
+        concept: "opportunity cost",
         question: "What is 'opportunity cost'?",
         options: [
           "The price tag of an opportunity when it first appears",
@@ -1463,6 +1574,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q2",
+        concept: "opportunity cost",
         question: "If you spend $20 on a movie ticket instead of saving it, what is the opportunity cost?",
         options: [
           "Exactly $20 and nothing more than that",
@@ -1475,6 +1587,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q3",
+        concept: "needs vs wants",
         question: "Which of these is a 'need' rather than a 'want'?",
         options: [
           "Basic nutritious food for daily survival",
@@ -1487,6 +1600,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q4",
+        concept: "opportunity cost",
         question: "Why is understanding opportunity cost important for financial decisions?",
         options: [
           "Banks require you to calculate it for all transactions",
@@ -1499,6 +1613,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q5",
+        concept: "opportunity cost",
         question: "A student can either work 10 hours ($150) or study. If they study, what is the opportunity cost?",
         options: [
           "Nothing, since studying is completely free of any cost",
@@ -1511,6 +1626,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q6",
+        concept: "needs vs wants",
         question: "Can something be both a need AND a want?",
         options: [
           "No, needs and wants are completely separate categories",
@@ -1523,6 +1639,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q7",
+        concept: "opportunity cost",
         question: "What's the opportunity cost of keeping $10,000 in a 0% checking account?",
         options: [
           "The interest or returns it could earn elsewhere",
@@ -1535,6 +1652,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q8",
+        concept: "needs vs wants",
         question: "Why can 'needs' vary from person to person?",
         options: [
           "Needs are exactly the same for every person everywhere",
@@ -1547,6 +1665,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q9",
+        concept: "opportunity cost",
         question: "How does opportunity cost apply to time, not just money?",
         options: [
           "Time doesn't have any opportunity cost whatsoever",
@@ -1559,6 +1678,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "e2-q10",
+        concept: "opportunity cost",
         question: "What's the opportunity cost of NOT going to college?",
         options: [
           "Nothing - college is expensive and has no guaranteed payoff",
@@ -1578,6 +1698,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "bal1-q1",
+        concept: "balance sheet",
         question: "What does a balance sheet show?",
         options: [
           "Your monthly income and expenses in detail",
@@ -1590,6 +1711,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q2",
+        concept: "net worth",
         question: "If your assets total $10,000 and your liabilities are $3,000, what is your net worth?",
         options: [
           "$13,000, combining both your assets and liabilities together",
@@ -1602,6 +1724,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q3",
+        concept: "assets vs liabilities",
         question: "Which of these is considered a 'liability'?",
         options: [
           "Your personal savings account with cash deposits",
@@ -1614,6 +1737,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q4",
+        concept: "assets vs liabilities",
         question: "What counts as an 'asset' on a personal balance sheet?",
         options: [
           "Anything of value you own: cash, investments, property, valuables",
@@ -1626,6 +1750,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q5",
+        concept: "net worth",
         question: "Can your net worth be negative?",
         options: [
           "No, net worth is always a positive number",
@@ -1638,6 +1763,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q6",
+        concept: "net worth",
         question: "Why should you review your balance sheet regularly?",
         options: [
           "Banks require monthly reviews for account security compliance",
@@ -1650,6 +1776,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q7",
+        concept: "balance sheet",
         question: "What's the difference between a balance sheet and a budget?",
         options: [
           "They're the same thing with different names",
@@ -1662,6 +1789,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q8",
+        concept: "assets vs liabilities",
         question: "How does paying off debt affect your balance sheet?",
         options: [
           "It decreases your total assets only without changing liabilities",
@@ -1674,6 +1802,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q9",
+        concept: "assets vs liabilities",
         question: "What type of asset typically appreciates (increases in value) over time?",
         options: [
           "A brand new car driven off the dealer lot",
@@ -1686,6 +1815,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "bal1-q10",
+        concept: "net worth",
         question: "Why is 'equity' important in understanding your balance sheet?",
         options: [
           "Equity is the portion of an asset you actually own after subtracting debt",
@@ -1705,6 +1835,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "s1-q1",
+        concept: "stock ownership",
         question: "When you buy a stock, you are buying:",
         options: [
           "A loan to the company that earns you interest",
@@ -1717,6 +1848,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q2",
+        concept: "stock ownership",
         question: "What is a 'shareholder'?",
         options: [
           "Someone who owns stock in a particular company",
@@ -1729,6 +1861,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q3",
+        concept: "stock exchange",
         question: "Where are most stocks bought and sold?",
         options: [
           "At the company's headquarters by appointment only",
@@ -1741,6 +1874,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q4",
+        concept: "market cap",
         question: "What does 'market capitalization' (market cap) tell you?",
         options: [
           "How old the company is since its founding date",
@@ -1753,6 +1887,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q5",
+        concept: "stock quote page",
         question: "What is a 'stock ticker symbol'?",
         options: [
           "The company's registered phone number for investors",
@@ -1765,6 +1900,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q6",
+        concept: "stock ownership",
         question: "Who can buy stocks?",
         options: [
           "Anyone with a brokerage account, even with small amounts",
@@ -1777,6 +1913,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q7",
+        concept: "bondholder vs stockholder",
         question: "What's the difference between stocks and bonds?",
         options: [
           "They're the same thing with different names",
@@ -1789,6 +1926,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q8",
+        concept: "share supply and demand",
         question: "Why do stock prices change?",
         options: [
           "The company CEO sets the price each trading day",
@@ -1801,6 +1939,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q9",
+        concept: "IPO",
         question: "What is an 'IPO'?",
         options: [
           "Initial Public Offering - a company's first stock sale",
@@ -1813,6 +1952,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s1-q10",
+        concept: "shareholder rights",
         question: "What rights do common shareholders typically have?",
         options: [
           "No rights at all beyond holding the stock certificate",
@@ -1832,6 +1972,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "s2-q1",
+        concept: "capital gain",
         question: "What are the two main ways stocks can make money for investors?",
         options: [
           "Interest payments and annual bank fees",
@@ -1844,6 +1985,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q2",
+        concept: "IPO",
         question: "Why would a private company decide to 'go public' with an IPO?",
         options: [
           "To raise large amounts of money by selling shares to the public",
@@ -1856,6 +1998,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q3",
+        concept: "capital gain",
         question: "If you buy a stock at $50 and sell it at $75, your capital gain is:",
         options: [
           "$75 representing the full sale price received",
@@ -1868,6 +2011,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q4",
+        concept: "dividend yield",
         question: "What is 'dividend yield'?",
         options: [
           "The total dividend amount paid in a single quarter",
@@ -1880,6 +2024,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q5",
+        concept: "dividend policy",
         question: "Not all stocks pay dividends. Why might a company skip dividends?",
         options: [
           "It's illegal for certain types of companies to pay dividends",
@@ -1892,6 +2037,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q6",
+        concept: "total return",
         question: "What is 'total return'?",
         options: [
           "Only the price appreciation of a stock over time",
@@ -1904,6 +2050,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q7",
+        concept: "growth vs value stocks",
         question: "What is a 'growth stock'?",
         options: [
           "A company expected to grow faster than average, often reinvesting rather than paying dividends",
@@ -1916,6 +2063,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q8",
+        concept: "growth vs value stocks",
         question: "What is a 'value stock'?",
         options: [
           "Any stock worth less than $10 per share in the market",
@@ -1928,6 +2076,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q9",
+        concept: "dividend reinvestment",
         question: "Why is 'compound growth' powerful for stock investors?",
         options: [
           "It only works with bonds and fixed-income investments",
@@ -1940,6 +2089,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s2-q10",
+        concept: "volatility",
         question: "Can you lose money in stocks?",
         options: [
           "No, stocks are guaranteed to make money for all investors",
@@ -1959,6 +2109,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "s3-q1",
+        concept: "staying invested",
         question: "Why is 'time in the market' generally better than 'timing the market'?",
         options: [
           "Because stock prices always go up without exception",
@@ -1971,6 +2122,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q2",
+        concept: "diversification",
         question: "What is 'diversification' in investing?",
         options: [
           "Buying only one stock you truly believe in strongly",
@@ -1983,6 +2135,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q3",
+        concept: "historical stock returns",
         question: "Historically, what happens to stock market returns over long periods (20+ years)?",
         options: [
           "They always lose money for investors who hold that long",
@@ -1995,6 +2148,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q4",
+        concept: "volatility",
         question: "What is 'volatility' in stock markets?",
         options: [
           "The degree of variation in stock prices over a given time period",
@@ -2007,6 +2161,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q5",
+        concept: "risk tolerance",
         question: "Why do young investors typically have higher 'risk tolerance'?",
         options: [
           "Young people are more reckless with their money overall",
@@ -2019,6 +2174,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q6",
+        concept: "index fund",
         question: "What is an 'index fund'?",
         options: [
           "A fund that picks only the best-performing stocks each year",
@@ -2031,6 +2187,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q7",
+        concept: "staying invested",
         question: "What should you do when the stock market drops significantly?",
         options: [
           "Sell everything immediately to prevent further losses",
@@ -2043,6 +2200,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q8",
+        concept: "dollar-cost averaging",
         question: "What is 'dollar-cost averaging'?",
         options: [
           "Only buying stocks when prices are at their lowest point",
@@ -2055,6 +2213,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q9",
+        concept: "historical stock returns",
         question: "What's the average annual return of the US stock market historically?",
         options: [
           "About 2-3% annually before adjusting for inflation",
@@ -2067,6 +2226,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "s3-q10",
+        concept: "staying invested",
         question: "Why should you avoid checking your portfolio daily during retirement investing?",
         options: [
           "Short-term noise can trigger emotional decisions that hurt long-term results",
@@ -2086,6 +2246,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "d1-q1",
+        concept: "interest definition",
         question: "What is 'interest' on a loan?",
         options: [
           "A refund from the bank for being a loyal customer",
@@ -2098,6 +2259,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q2",
+        concept: "APR",
         question: "What does 'APR' stand for?",
         options: [
           "Annual Payment Return showing yearly earnings",
@@ -2110,6 +2272,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q3",
+        concept: "simple interest",
         question: "If you borrow $1,000 at 10% annual interest, how much interest do you owe after one year?",
         options: [
           "$100 calculated as 10% of the principal amount",
@@ -2122,6 +2285,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q4",
+        concept: "principal vs interest",
         question: "What is 'principal' in a loan?",
         options: [
           "The total interest you owe on your loan balance",
@@ -2134,6 +2298,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q5",
+        concept: "collateral",
         question: "What is 'collateral' in a secured loan?",
         options: [
           "Extra interest payments made above the minimum due",
@@ -2146,6 +2311,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q6",
+        concept: "secured vs unsecured loan",
         question: "Why do secured loans typically have lower interest rates than unsecured loans?",
         options: [
           "The government subsidizes all secured loan interest rates",
@@ -2158,6 +2324,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q7",
+        concept: "minimum payment trap",
         question: "What is a 'minimum payment' on a credit card?",
         options: [
           "The full balance due on your credit card statement",
@@ -2170,6 +2337,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q8",
+        concept: "compound interest on debt",
         question: "What is 'compound interest' on debt?",
         options: [
           "Interest charged on both principal AND accumulated interest",
@@ -2182,6 +2350,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q9",
+        concept: "interest rate comparison",
         question: "What's the difference between a fixed and variable interest rate?",
         options: [
           "Variable rates are always higher than fixed rates",
@@ -2194,6 +2363,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d1-q10",
+        concept: "interest rate comparison",
         question: "Why is understanding debt terms important before borrowing?",
         options: [
           "Lenders require you to pass a written test first",
@@ -2213,6 +2383,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "d2-q1",
+        concept: "good vs bad debt",
         question: "Which is typically considered 'good debt'?",
         options: [
           "Credit card debt for luxury items and designer brands",
@@ -2225,6 +2396,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q2",
+        concept: "good vs bad debt",
         question: "What makes debt 'bad'?",
         options: [
           "When it's used for depreciating assets or carries high interest rates",
@@ -2237,6 +2409,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q3",
+        concept: "good vs bad debt",
         question: "Why might a mortgage be considered 'good debt'?",
         options: [
           "Because mortgages are always cheap with low interest rates",
@@ -2249,6 +2422,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q4",
+        concept: "good vs bad debt",
         question: "What's the key question to ask before taking on debt?",
         options: [
           "Can I afford the absolute minimum monthly payment only?",
@@ -2261,6 +2435,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q5",
+        concept: "good vs bad debt",
         question: "Why are payday loans almost always 'bad debt'?",
         options: [
           "They charge extremely high APRs (often 400%+) for small amounts",
@@ -2273,6 +2448,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q6",
+        concept: "good vs bad debt",
         question: "Can 'good debt' become 'bad debt'?",
         options: [
           "No, good debt stays good forever once categorized",
@@ -2285,6 +2461,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q7",
+        concept: "debt avalanche",
         question: "What type of debt should you typically pay off first?",
         options: [
           "The largest balance regardless of the interest rate",
@@ -2297,6 +2474,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q8",
+        concept: "good vs bad debt",
         question: "Is borrowing to start a business 'good debt'?",
         options: [
           "Always yes - business loans are inherently good debt",
@@ -2309,6 +2487,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q9",
+        concept: "good vs bad debt",
         question: "What makes a car loan potentially 'bad debt'?",
         options: [
           "All car loans are automatically classified as bad debt",
@@ -2321,6 +2500,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "d2-q10",
+        concept: "net worth",
         question: "What's the relationship between debt and net worth?",
         options: [
           "Debt doesn't affect net worth in any way",
@@ -2343,6 +2523,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mgmt1-q1",
+        concept: "management functions",
         question: "Which management function involves monitoring performance and making corrections?",
         options: [
           "Planning - setting objectives and creating roadmaps",
@@ -2355,6 +2536,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt1-q2",
+        concept: "management functions",
         question: "A manager creates a weekly schedule assigning tasks to each team member. Which function is this?",
         options: [
           "Planning - deciding what goals to pursue this quarter",
@@ -2367,6 +2549,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt1-q3",
+        concept: "management functions",
         question: "Why are the four management functions described as a cycle rather than a checklist?",
         options: [
           "Because managers should only perform one function per quarter",
@@ -2379,6 +2562,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt1-q4",
+        concept: "management functions",
         question: "A team leader gives a motivational speech before a product launch. Which function is she performing?",
         options: [
           "Planning - she's setting goals for the product launch",
@@ -2391,6 +2575,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt1-q5",
+        concept: "management functions",
         question: "What happens when a manager skips the planning function entirely?",
         options: [
           "The team becomes more creative because they have total freedom",
@@ -2408,6 +2593,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mgmt2-q1",
+        concept: "autocratic leadership",
         question: "Which leadership style involves the leader making all decisions without team input?",
         options: [
           "Democratic - decisions are made through team voting",
@@ -2420,6 +2606,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt2-q2",
+        concept: "laissez-faire leadership",
         question: "A research lab director lets her PhD scientists choose their own projects. Which style is this?",
         options: [
           "Autocratic - the director is controlling through indirect means",
@@ -2432,6 +2619,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt2-q3",
+        concept: "democratic leadership",
         question: "What is the PRIMARY disadvantage of democratic leadership?",
         options: [
           "Team members feel excluded from the decision-making process",
@@ -2444,6 +2632,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt2-q4",
+        concept: "autocratic leadership",
         question: "A fire chief directs rescue operations with clear, immediate commands. Why is this leadership style appropriate?",
         options: [
           "Fire chiefs are required by law to use autocratic leadership",
@@ -2456,6 +2645,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt2-q5",
+        concept: "situational leadership",
         question: "A leader uses different styles depending on the situation. What is this approach called?",
         options: [
           "Inconsistent leadership - changing approaches confuses teams",
@@ -2473,6 +2663,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mgmt3-q1",
+        concept: "flat vs tall structure",
         question: "What is the main advantage of a flat organizational structure?",
         options: [
           "Clear promotion paths and well-defined career ladders for all employees",
@@ -2485,6 +2676,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt3-q2",
+        concept: "span of control",
         question: "A manager oversees 25 direct reports. This describes a _______ span of control.",
         options: [
           "Narrow - because most managers have fewer direct reports",
@@ -2497,6 +2689,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt3-q3",
+        concept: "flat vs tall structure",
         question: "Why do large restaurant chains typically use hierarchical structures?",
         options: [
           "Hierarchy is legally required for companies with more than 100 employees",
@@ -2509,6 +2702,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt3-q4",
+        concept: "flat vs tall structure",
         question: "What problem arises when a growing company maintains a flat structure too long?",
         options: [
           "Employee salaries automatically increase as the company grows larger",
@@ -2521,6 +2715,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt3-q5",
+        concept: "flat vs tall structure",
         question: "What is an org chart primarily used to show?",
         options: [
           "How much each employee earns compared to their department peers",
@@ -2538,6 +2733,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mgmt4-q1",
+        concept: "SWOT analysis",
         question: "Which SWOT category would 'a trending social media platform your business can leverage' fall into?",
         options: [
           "Strength - it's something your business already possesses internally",
@@ -2550,6 +2746,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt4-q2",
+        concept: "SWOT analysis",
         question: "A business has strong brand loyalty but outdated technology. How should these be classified in SWOT?",
         options: [
           "Both are strengths because the company is established and operational",
@@ -2562,6 +2759,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt4-q3",
+        concept: "SWOT analysis",
         question: "What makes SWOT analysis more useful than simply listing pros and cons?",
         options: [
           "SWOT uses four categories instead of two, which is always more thorough",
@@ -2574,6 +2772,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt4-q4",
+        concept: "SWOT analysis",
         question: "A small bakery's only supplier of organic flour raises prices by 30%. In the bakery's SWOT, this is:",
         options: [
           "A weakness - the bakery should have negotiated a better contract earlier",
@@ -2586,6 +2785,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt4-q5",
+        concept: "SWOT strategy pairing",
         question: "How should a business respond to a SWOT analysis that reveals many threats and few strengths?",
         options: [
           "Ignore the analysis because SWOT is only useful for successful companies",
@@ -2603,6 +2803,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mgmt5-q1",
+        concept: "buyer power",
         question: "In Porter's Five Forces, what does 'buyer power' refer to?",
         options: [
           "The ability of a company to buy competitors and expand market share",
@@ -2615,6 +2816,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt5-q2",
+        concept: "threat of new entrants",
         question: "Why is the threat of new entrants important to consider for existing businesses?",
         options: [
           "New entrants always have better products than established companies",
@@ -2627,6 +2829,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt5-q3",
+        concept: "competitive rivalry",
         question: "Which industry likely has the WEAKEST competitive rivalry?",
         options: [
           "Fast food - hundreds of chains compete for the same customers daily",
@@ -2639,6 +2842,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt5-q4",
+        concept: "supplier power",
         question: "How do strong supplier relationships affect a company's competitive position?",
         options: [
           "Strong supplier relationships have no impact on competitive advantage",
@@ -2651,6 +2855,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt5-q5",
+        concept: "Porter's five forces",
         question: "What happens in an industry where ALL five forces are strong?",
         options: [
           "Companies earn exceptionally high profits due to competitive pressure",
@@ -2668,6 +2873,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mgmt6-q1",
+        concept: "KPI",
         question: "What makes a metric qualify as a Key Performance Indicator rather than just a regular metric?",
         options: [
           "It must be reported to government regulatory agencies quarterly",
@@ -2680,6 +2886,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt6-q2",
+        concept: "leading vs lagging indicators",
         question: "Which of the following is a leading indicator for a SaaS company?",
         options: [
           "Last quarter's total revenue from subscription payments received",
@@ -2692,6 +2899,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt6-q3",
+        concept: "KPI",
         question: "A company tracks 47 different KPIs. What is the likely problem?",
         options: [
           "They need to add at least 20 more KPIs for comprehensive tracking",
@@ -2704,6 +2912,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt6-q4",
+        concept: "churn rate",
         question: "Why should a subscription business track churn rate as a KPI alongside revenue?",
         options: [
           "Churn rate is required by accounting standards for subscription companies",
@@ -2716,6 +2925,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt6-q5",
+        concept: "leading vs lagging indicators",
         question: "Net Promoter Score (NPS) measures how likely customers are to recommend a product. Is this a leading or lagging indicator?",
         options: [
           "Lagging - it only measures past customer satisfaction and experiences",
@@ -2733,6 +2943,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mgmt7-q1",
+        concept: "hiring process",
         question: "According to the U.S. Department of Labor, a bad hire costs approximately what percentage of the position's first-year salary?",
         options: [
           "About 5% - roughly the cost of posting the original job listing",
@@ -2745,6 +2956,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt7-q2",
+        concept: "onboarding",
         question: "Which phase of hiring is MOST responsible for preventing early turnover in the first 90 days?",
         options: [
           "Recruitment - finding candidates through job boards and referrals",
@@ -2757,6 +2969,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt7-q3",
+        concept: "employee retention",
         question: "A company offers competitive salaries but has 50% annual turnover. What should they investigate?",
         options: [
           "Whether salaries are high enough compared to industry competitors",
@@ -2769,6 +2982,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt7-q4",
+        concept: "interview techniques",
         question: "What is the main benefit of structured interviews over unstructured conversations?",
         options: [
           "Structured interviews take less time to conduct than casual conversations",
@@ -2781,6 +2995,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt7-q5",
+        concept: "employee retention",
         question: "Why is employee retention generally more cost-effective than constant hiring?",
         options: [
           "Retained employees accept lower salaries over time automatically",
@@ -2798,6 +3013,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mgmt8-q1",
+        concept: "stakeholder theory",
         question: "What does stakeholder theory argue about business decision-making?",
         options: [
           "Only shareholders' financial interests should guide business decisions",
@@ -2810,6 +3026,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt8-q2",
+        concept: "business ethics",
         question: "A company discovers a minor safety defect in their product. Which response represents long-term ethical thinking?",
         options: [
           "Ignore it since no injuries have been reported and a recall is expensive",
@@ -2822,6 +3039,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt8-q3",
+        concept: "reputational risk",
         question: "Why is reputational risk often MORE costly than the original unethical decision?",
         options: [
           "Reputation damage is always temporary and easily repaired with advertising",
@@ -2834,6 +3052,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt8-q4",
+        concept: "cost of unethical behavior",
         question: "A CEO says 'Ethics are a luxury we can't afford right now.' What does this perspective overlook?",
         options: [
           "That ethics are only relevant for non-profit organizations and charities",
@@ -2846,6 +3065,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mgmt8-q5",
+        concept: "ethical culture",
         question: "How does building an ethical culture give a company a competitive advantage?",
         options: [
           "Ethical companies receive special government contracts and tax exemptions",
@@ -2869,6 +3089,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mkt1-q1",
+        concept: "marketing definition",
         question: "What is the BEST definition of marketing?",
         options: [
           "The full process of creating, communicating, and delivering value to customers",
@@ -2881,6 +3102,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt1-q2",
+        concept: "marketing definition",
         question: "In the lemonade stand scenario, what was the PRIMARY reason Mia outsold Jake?",
         options: [
           "Mia used a better lemonade recipe with premium ingredients that tasted superior",
@@ -2893,6 +3115,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt1-q3",
+        concept: "marketing vs advertising",
         question: "Why does marketing begin BEFORE any advertisement is created?",
         options: [
           "Because advertisements are the last step in a required regulatory approval process",
@@ -2905,6 +3128,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt1-q4",
+        concept: "marketing definition",
         question: "What does it mean when 'the best marketing doesn't feel like marketing'?",
         options: [
           "That companies should hide their marketing efforts so customers never suspect promotion",
@@ -2917,6 +3141,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt1-q5",
+        concept: "market research purpose",
         question: "A student opens an Etsy shop selling handmade cards but gets zero sales. What should they do FIRST?",
         options: [
           "Spend money on Instagram and Facebook ads to drive more traffic to the shop",
@@ -2936,6 +3161,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mkt2-q1",
+        concept: "market segmentation",
         question: "What is customer segmentation and why is it important?",
         options: [
           "Dividing a broad market into specific groups so you can serve each one more effectively",
@@ -2948,6 +3174,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt2-q2",
+        concept: "segmentation bases",
         question: "Two students share the same age, grade, and neighborhood. How could psychographics reveal they need DIFFERENT marketing?",
         options: [
           "Psychographics cannot distinguish between people with similar demographics in any situation",
@@ -2960,6 +3187,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt2-q3",
+        concept: "target market",
         question: "In the phone case scenario, why did Zara outsell Aiden by nearly 30x?",
         options: [
           "Zara used higher quality materials that justified a premium price point for her cases",
@@ -2972,6 +3200,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt2-q4",
+        concept: "segmentation bases",
         question: "A clothing brand discovers their demographic data shows customers aged 18-24. What additional information would psychographics provide?",
         options: [
           "The exact number of customers in this age range who live in each geographic region",
@@ -2984,6 +3213,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt2-q5",
+        concept: "target market",
         question: "Why does trying to appeal to 'everyone' typically result in appealing to no one?",
         options: [
           "Because marketing budgets are never large enough to reach every single potential customer",
@@ -3003,6 +3233,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mkt3-q1",
+        concept: "primary vs secondary research",
         question: "What is the key difference between primary and secondary research?",
         options: [
           "Primary research collects original data directly from your market; secondary research uses existing published data",
@@ -3015,6 +3246,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt3-q2",
+        concept: "market research purpose",
         question: "In the food truck scenario, what specific insight did Diana's research reveal that Carlos missed?",
         options: [
           "That food trucks were illegal in the neighborhood and required special operating permits",
@@ -3027,6 +3259,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt3-q3",
+        concept: "primary research",
         question: "A student wants to launch a tutoring app. Which is an example of PRIMARY research?",
         options: [
           "Reading an article about the growing online tutoring industry published by a business magazine",
@@ -3039,6 +3272,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt3-q4",
+        concept: "market research purpose",
         question: "Why is skipping market research considered the most expensive mistake a business can make?",
         options: [
           "Because competitors will outperform you if they have more research data in their files",
@@ -3051,6 +3285,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt3-q5",
+        concept: "focus group",
         question: "What type of research would BEST reveal WHY customers choose one coffee shop over another?",
         options: [
           "A published industry report on national coffee consumption trends and average spending",
@@ -3070,6 +3305,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mkt4-q1",
+        concept: "product differentiation",
         question: "What does 'product differentiation' mean in marketing?",
         options: [
           "What makes your product unique and worth choosing over competitors' alternatives",
@@ -3082,6 +3318,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt4-q2",
+        concept: "value-based pricing",
         question: "In the bracelet scenario, why did Marcus earn nearly 3x Ella's profit with fewer sales?",
         options: [
           "Marcus used significantly more expensive materials that justified his higher selling price",
@@ -3094,6 +3331,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt4-q3",
+        concept: "value-based pricing",
         question: "A coffee shop charges $5 for a latte that costs $0.60 to make. Which pricing strategy is this?",
         options: [
           "Cost-plus pricing, because the shop added a standard markup above production cost",
@@ -3106,6 +3344,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt4-q4",
+        concept: "cost-plus pricing",
         question: "When would cost-plus pricing be the MOST appropriate strategy for a business?",
         options: [
           "When the product is a luxury item with strong brand recognition and emotional appeal",
@@ -3118,6 +3357,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt4-q5",
+        concept: "value-based pricing",
         question: "A student sells digital art prints online. Why might 'free' be the WORST price even though production cost is nearly zero?",
         options: [
           "Because free products violate online marketplace terms of service and licensing agreements",
@@ -3137,6 +3377,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mkt5-q1",
+        concept: "distribution channels",
         question: "Why is 'Place' considered as important as the product itself?",
         options: [
           "Because even excellent products fail when customers cannot find or access them easily",
@@ -3149,6 +3390,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt5-q2",
+        concept: "omnichannel",
         question: "In the candle scenario, what was the MOST significant advantage of Nadia's multi-channel approach?",
         options: [
           "Nadia's candles were higher quality because she invested in better wax and fragrances",
@@ -3161,6 +3403,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt5-q3",
+        concept: "organic vs paid marketing",
         question: "What is 'organic marketing' and why is it important for small businesses?",
         options: [
           "Marketing exclusively through farmers markets and organic food channels to health-conscious customers",
@@ -3173,6 +3416,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt5-q4",
+        concept: "distribution channels",
         question: "A student sells artwork only at monthly school events. What single change would most increase sales?",
         options: [
           "Raise prices at school events to signal premium quality to buyers walking by the booth",
@@ -3185,6 +3429,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt5-q5",
+        concept: "organic vs paid marketing",
         question: "How did Glossier build a successful beauty brand without traditional TV advertising?",
         options: [
           "They offered the lowest prices in the beauty industry to attract price-sensitive customers",
@@ -3204,6 +3449,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mkt6-q1",
+        concept: "branding",
         question: "What is a brand, according to marketing professionals?",
         options: [
           "The total perception customers have about a business - the feeling, trust, and story they associate with it",
@@ -3216,6 +3462,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt6-q2",
+        concept: "brand value",
         question: "In the tutoring scenario, why could Sarah charge $10 more per hour than Jamal?",
         options: [
           "Sarah had verified teaching credentials and a higher GPA that justified premium pricing",
@@ -3228,6 +3475,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt6-q3",
+        concept: "brand value",
         question: "What is brand equity and why does it matter for pricing?",
         options: [
           "The financial investment a company makes in creating logos and visual design materials",
@@ -3240,6 +3488,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt6-q4",
+        concept: "brand identity",
         question: "Why is brand CONSISTENCY more important than brand creativity?",
         options: [
           "Because creative branding is always more expensive than using the same designs repeatedly",
@@ -3252,6 +3501,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt6-q5",
+        concept: "brand trust",
         question: "How did Patagonia's 'Don't Buy This Jacket' campaign strengthen their brand?",
         options: [
           "It confused competitors who could not figure out the strategy behind discouraging purchases",
@@ -3271,6 +3521,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mkt7-q1",
+        concept: "consumer decision process",
         question: "What are the four stages of the buyer journey in order?",
         options: [
           "Awareness, Consideration, Decision, Loyalty - from first recognizing a need to becoming a repeat customer",
@@ -3283,6 +3534,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt7-q2",
+        concept: "consumer decision process",
         question: "In Maya's laptop purchase, which stage did the classmate's recommendation primarily influence?",
         options: [
           "Awareness - Maya didn't know laptops existed until her friend mentioned one specific model",
@@ -3295,6 +3547,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt7-q3",
+        concept: "customer retention",
         question: "Why is the loyalty stage often the most PROFITABLE stage for businesses?",
         options: [
           "Because loyal customers accept automatic price increases without comparing competitor prices",
@@ -3307,6 +3560,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt7-q4",
+        concept: "purchase friction",
         question: "A baking business has many Instagram followers but few orders. Which buyer journey stage is the likely bottleneck?",
         options: [
           "Awareness - people do not know the business exists or what products are available",
@@ -3319,6 +3573,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt7-q5",
+        concept: "consumer decision process",
         question: "Which marketing tactic is MOST effective during the Awareness stage of the buyer journey?",
         options: [
           "Offering a thirty-day money-back guarantee to reduce the perceived risk of purchasing",
@@ -3338,6 +3593,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
     questions: [
       {
         id: "mkt8-q1",
+        concept: "minimum viable product",
         question: "What is a Minimum Viable Product (MVP)?",
         options: [
           "The simplest version of your product that lets you test real customer demand before investing heavily",
@@ -3350,6 +3606,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt8-q2",
+        concept: "minimum viable product",
         question: "In the study guide scenario, what was Riley's key advantage over Jordan?",
         options: [
           "Riley had more academic knowledge and could write better study guides than Jordan could",
@@ -3362,6 +3619,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt8-q3",
+        concept: "A/B testing",
         question: "How does A/B testing improve business decisions compared to relying on intuition?",
         options: [
           "A/B testing is cheaper than any other form of market research including surveys and interviews",
@@ -3374,6 +3632,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt8-q4",
+        concept: "minimum viable product",
         question: "Why did Dropbox create a video instead of building their full product first?",
         options: [
           "Because video production was cheaper than software development at the time they launched",
@@ -3386,6 +3645,7 @@ const baseLessonQuizzes: LessonQuiz[] = [
       },
       {
         id: "mkt8-q5",
+        concept: "minimum viable product",
         question: "What is the biggest risk of skipping the testing phase and launching a full product immediately?",
         options: [
           "That competitors will copy your idea before you can establish market dominance and brand loyalty",

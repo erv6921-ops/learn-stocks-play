@@ -50,7 +50,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-1-mc1",
-            concept: "The Law of Demand and the Demand Curve",
+            concept: "curve shift vs movement",
             question: "The price of a good rises while nothing else changes. What happens on its demand curve?",
             options: [
               "The whole curve shifts to the left",
@@ -63,7 +63,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-1-mc2",
-            concept: "The Law of Demand and the Demand Curve",
+            concept: "normal vs inferior good",
             question: "Incomes rise, and buyers purchase LESS cup ramen at every price. Cup ramen is best described as…",
             options: [
               "A direct complement to a buyer's income",
@@ -91,7 +91,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-1-aq1",
-          concept: "The Law of Demand and the Demand Curve",
+          concept: "demand shifters",
           question: "Both the tastes change and the tea price rise hit Jordan's coffee at once. What is the BEST prediction for his coffee demand curve?",
           options: [
             "It stays fixed but he moves down along it",
@@ -119,7 +119,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-1-mastery1",
-            concept: "The Law of Demand and the Demand Curve",
+            concept: "curve shift vs movement",
             question: "Which change causes a movement ALONG a demand curve rather than a shift?",
             options: [
               "A rise in buyers' average income",
@@ -133,7 +133,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-1-mastery2",
-            concept: "The Law of Demand and the Demand Curve",
+            concept: "substitutes vs complements",
             question: "Coke and Pepsi are substitutes. If Pepsi's price rises sharply, demand for Coke will…",
             options: [
               "Shift left as buyers avoid both drinks",
@@ -147,7 +147,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-1-mastery3",
-            concept: "The Law of Demand and the Demand Curve",
+            concept: "substitutes vs complements",
             question: "Which pair of goods are complements?",
             options: [
               "Tacos and burritos for a hungry buyer",
@@ -161,7 +161,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-1-mastery4",
-            concept: "The Law of Demand and the Demand Curve",
+            concept: "law of demand",
             question: "The substitution effect helps explain the downward slope of demand because…",
             options: [
               "Firms will always immediately cut their output when their costs rise",
@@ -175,7 +175,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-1-mastery5",
-            concept: "The Law of Demand and the Demand Curve",
+            concept: "demand shifters",
             question: "Shoppers expect laptop prices to jump next month. What happens to CURRENT laptop demand?",
             options: [
               "It shifts to the left as many buyers simply wait it out",
@@ -189,7 +189,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-1-mastery6",
-            concept: "The Law of Demand and the Demand Curve",
+            concept: "normal vs inferior good",
             question: "A good is 'inferior' when…",
             options: [
               "It is poorly made and breaks quickly",
@@ -247,7 +247,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-2-mc1",
-            concept: "The Law of Supply and the Supply Curve",
+            concept: "curve shift vs movement",
             question: "A bakery's own selling price rises and it produces more loaves. This is…",
             options: [
               "A rightward shift of the supply curve",
@@ -260,7 +260,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-2-mc2",
-            concept: "The Law of Supply and the Supply Curve",
+            concept: "supply shifters",
             question: "The government gives corn farmers a per-bushel subsidy. What happens to corn supply?",
             options: [
               "It shifts left as costs effectively rise",
@@ -288,7 +288,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-2-aq1",
-          concept: "The Law of Supply and the Supply Curve",
+          concept: "supply shifters",
           question: "Which of Priya's changes shifts her SUPPLY curve to the right?",
           options: [
             "The rise in her selling price from $12 to $18",
@@ -316,7 +316,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-2-mastery1",
-            concept: "The Law of Supply and the Supply Curve",
+            concept: "supply shifters",
             question: "Which event shifts a supply curve to the LEFT?",
             options: [
               "A drop in the price of key raw materials",
@@ -330,7 +330,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-2-mastery2",
-            concept: "The Law of Supply and the Supply Curve",
+            concept: "law of supply",
             question: "The supply curve slopes upward mainly because…",
             options: [
               "Buyers always demand much more when the prices rise",
@@ -344,7 +344,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-2-mastery3",
-            concept: "The Law of Supply and the Supply Curve",
+            concept: "supply shifters",
             question: "New firms enter a growing sneaker market. Market supply will…",
             options: [
               "Shift left as competition thins out",
@@ -358,7 +358,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-2-mastery4",
-            concept: "The Law of Supply and the Supply Curve",
+            concept: "curve shift vs movement",
             question: "A change in 'quantity supplied' (a movement along the curve) is triggered by…",
             options: [
               "A change in the good's own price",
@@ -372,7 +372,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-2-mastery5",
-            concept: "The Law of Supply and the Supply Curve",
+            concept: "supply shifters",
             question: "A faster, cheaper 3D printer lets a firm make more toys at the same cost. Supply…",
             options: [
               "Shifts to the left because the total output is capped",
@@ -386,7 +386,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-2-mastery6",
-            concept: "The Law of Supply and the Supply Curve",
+            concept: "supply shifters",
             question: "Which of these is a SUPPLY shifter rather than a demand shifter?",
             options: [
               "A sudden rise in the buyers' average yearly incomes",
@@ -444,7 +444,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-3-mc1",
-            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+            concept: "price elasticity of demand",
             question: "A 10% price increase causes quantity demanded to fall 4%. Demand is…",
             options: [
               "Elastic, since buyers react strongly",
@@ -457,7 +457,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-3-mc2",
-            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+            concept: "elasticity and revenue",
             question: "For an INELASTIC good, raising the price will usually…",
             options: [
               "Lower total revenue sharply",
@@ -485,7 +485,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-3-aq1",
-          concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+          concept: "elasticity and revenue",
           question: "To boost total revenue, what should the vendor do based on elasticity?",
           options: [
             "Raise both prices since higher prices always earn more",
@@ -513,7 +513,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-3-mastery1",
-            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+            concept: "elasticity determinants",
             question: "Which good most likely has the MOST inelastic demand?",
             options: [
               "One brand of soda among many rivals",
@@ -527,7 +527,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-3-mastery2",
-            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+            concept: "price elasticity of demand",
             question: "A 20% price cut raises quantity demanded 50%. This demand is…",
             options: [
               "Inelastic, value below one",
@@ -541,7 +541,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-3-mastery3",
-            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+            concept: "elasticity and revenue",
             question: "Why do governments often tax cigarettes to raise revenue?",
             options: [
               "Cigarette demand is fairly elastic, so total revenue soars",
@@ -555,7 +555,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-3-mastery4",
-            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+            concept: "elasticity determinants",
             question: "Which factor makes a good's demand MORE elastic?",
             options: [
               "Having many close substitutes available",
@@ -569,7 +569,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-3-mastery5",
-            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+            concept: "elasticity and revenue",
             question: "A seller of an ELASTIC good wants more total revenue. It should…",
             options: [
               "Raise the price to earn more per unit",
@@ -583,7 +583,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-3-mastery6",
-            concept: "Price Elasticity of Demand: How Sensitive Are Buyers?",
+            concept: "price elasticity of supply",
             question: "Supply tends to be MORE elastic when…",
             options: [
               "Firms have plenty of time to expand output",
@@ -641,7 +641,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-4-mc1",
-            concept: "Equilibrium, Surpluses, and Shortages",
+            concept: "shortage vs surplus",
             question: "At the current price, quantity demanded is 400 and quantity supplied is 250. This market has a…",
             options: [
               "Surplus, so price will fall",
@@ -654,7 +654,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-4-mc2",
-            concept: "Equilibrium, Surpluses, and Shortages",
+            concept: "market equilibrium",
             question: "Demand for umbrellas shifts right during a rainy month. Equilibrium price and quantity will…",
             options: [
               "Both fall as sellers panic",
@@ -682,7 +682,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-4-aq1",
-          concept: "Equilibrium, Surpluses, and Shortages",
+          concept: "simultaneous shifts",
           question: "With demand AND supply both shifting right, what can you predict for certain about tomatoes?",
           options: [
             "Both price and quantity definitely rise",
@@ -710,7 +710,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-4-mastery1",
-            concept: "Equilibrium, Surpluses, and Shortages",
+            concept: "shortage vs surplus",
             question: "A price set ABOVE equilibrium produces a…",
             options: [
               "Shortage that pushes price up",
@@ -724,7 +724,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-4-mastery2",
-            concept: "Equilibrium, Surpluses, and Shortages",
+            concept: "market equilibrium",
             question: "A frost destroys much of the coffee crop. Coffee's equilibrium price and quantity will…",
             options: [
               "Both rise as demand explodes",
@@ -738,7 +738,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-4-mastery3",
-            concept: "Equilibrium, Surpluses, and Shortages",
+            concept: "market equilibrium",
             question: "New technology lets a chip maker produce far more chips cheaply. Equilibrium will show…",
             options: [
               "Higher price and lower quantity",
@@ -752,7 +752,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-4-mastery4",
-            concept: "Equilibrium, Surpluses, and Shortages",
+            concept: "market equilibrium",
             question: "Which statement about single-curve shifts is correct?",
             options: [
               "Demand shifts move price and quantity oppositely",
@@ -766,7 +766,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-4-mastery5",
-            concept: "Equilibrium, Surpluses, and Shortages",
+            concept: "simultaneous shifts",
             question: "Demand shifts right while supply shifts left at the same time. What is certain?",
             options: [
               "Quantity definitely rises",
@@ -780,7 +780,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-4-mastery6",
-            concept: "Equilibrium, Surpluses, and Shortages",
+            concept: "market equilibrium",
             question: "Why does a free market tend to return to equilibrium on its own?",
             options: [
               "The federal government simply resets all prices each day",
@@ -841,7 +841,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-1-mc1",
-            concept: "Scarcity: The Root of Every Economic Choice",
+            concept: "positive vs normative statements",
             question: "Which statement is normative rather than positive?",
             options: [
               "Higher gas taxes clearly reduced the total miles driven last year",
@@ -854,7 +854,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-1-mc2",
-            concept: "Scarcity: The Root of Every Economic Choice",
+            concept: "marginal analysis",
             question: "You keep studying only while the next hour's benefit beats its cost. This is…",
             options: [
               "A normative value judgment",
@@ -882,7 +882,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-1-aq1",
-          concept: "Scarcity: The Root of Every Economic Choice",
+          concept: "diminishing marginal utility",
           question: "Each extra SAT study hour helps Priya less than the one before. This pattern is called…",
           options: [
             "Increasing opportunity cost of money",
@@ -910,7 +910,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-1-mastery1",
-            concept: "Scarcity: The Root of Every Economic Choice",
+            concept: "scarcity",
             question: "Scarcity exists because…",
             options: [
               "Governments print too little money",
@@ -924,7 +924,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-1-mastery2",
-            concept: "Scarcity: The Root of Every Economic Choice",
+            concept: "opportunity cost",
             question: "The opportunity cost of attending a free concert instead of a paid $50 shift is best described as…",
             options: [
               "Exactly zero dollars, since the whole concert is free",
@@ -938,7 +938,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-1-mastery3",
-            concept: "Scarcity: The Root of Every Economic Choice",
+            concept: "scarcity",
             question: "Which is the best example of a free good?",
             options: [
               "A bottle of spring water",
@@ -952,7 +952,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-1-mastery4",
-            concept: "Scarcity: The Root of Every Economic Choice",
+            concept: "marginal analysis",
             question: "A rational person keeps doing an activity until…",
             options: [
               "The total benefit reaches zero",
@@ -966,7 +966,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-1-mastery5",
-            concept: "Scarcity: The Root of Every Economic Choice",
+            concept: "positive vs normative statements",
             question: "'The minimum wage should be raised to help workers' is…",
             options: [
               "A positive, testable claim",
@@ -980,7 +980,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-1-mastery6",
-            concept: "Scarcity: The Root of Every Economic Choice",
+            concept: "diminishing marginal utility",
             question: "Diminishing marginal utility means that…",
             options: [
               "Market prices always fall steadily over time",
@@ -1038,7 +1038,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-2-mc1",
-            concept: "The Factors of Production and Opportunity Cost",
+            concept: "factors of production",
             question: "In economics, 'capital' as a factor of production refers to…",
             options: [
               "Physical money simply kept in a bank account",
@@ -1051,7 +1051,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-2-mc2",
-            concept: "The Factors of Production and Opportunity Cost",
+            concept: "economic systems",
             question: "Which feature most defines a market economy?",
             options: [
               "Planners set output targets by decree",
@@ -1079,7 +1079,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-2-aq1",
-          concept: "The Factors of Production and Opportunity Cost",
+          concept: "property rights",
           question: "Why do secure property rights encourage the Marketville teen to build the skateboard company?",
           options: [
             "They completely guarantee that the whole business can simply never fail",
@@ -1107,7 +1107,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-2-mastery1",
-            concept: "The Factors of Production and Opportunity Cost",
+            concept: "factors of production",
             question: "Which list correctly names the four factors of production?",
             options: [
               "Money, labor, land, and taxes",
@@ -1121,7 +1121,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-2-mastery2",
-            concept: "The Factors of Production and Opportunity Cost",
+            concept: "economic systems",
             question: "A pure command economy is one in which…",
             options: [
               "Prices alone guide private firms",
@@ -1135,7 +1135,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-2-mastery3",
-            concept: "The Factors of Production and Opportunity Cost",
+            concept: "microeconomics vs macroeconomics",
             question: "The study of a single firm's pricing decision belongs to…",
             options: [
               "Macroeconomics, not micro",
@@ -1149,7 +1149,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-2-mastery4",
-            concept: "The Factors of Production and Opportunity Cost",
+            concept: "factors of production",
             question: "Which income is paid to the factor 'labor'?",
             options: [
               "Rent for using the resource",
@@ -1163,7 +1163,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-2-mastery5",
-            concept: "The Factors of Production and Opportunity Cost",
+            concept: "property rights",
             question: "Strong property rights promote prosperity mainly because they…",
             options: [
               "Completely remove every last bit of scarcity from an economy",
@@ -1177,7 +1177,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-2-mastery6",
-            concept: "The Factors of Production and Opportunity Cost",
+            concept: "economic systems",
             question: "Most real-world economies today are best classified as…",
             options: [
               "Pure market economies",
@@ -1235,7 +1235,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-3-mc1",
-            concept: "Reading the Production Possibilities Curve",
+            concept: "production possibilities curve",
             question: "An economy operating at a point INSIDE its PPC is…",
             options: [
               "Producing an unattainable combination",
@@ -1248,7 +1248,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-3-mc2",
-            concept: "Reading the Production Possibilities Curve",
+            concept: "increasing opportunity cost",
             question: "The PPC bows outward primarily because…",
             options: [
               "Money slowly loses its value over time",
@@ -1276,7 +1276,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-3-aq1",
-          concept: "Reading the Production Possibilities Curve",
+          concept: "PPC shifts",
           question: "The robotics breakthrough lets Zaraland make more robots at every bread level. On its PPC this appears as…",
           options: [
             "A move to a point inside the curve",
@@ -1304,7 +1304,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-3-mastery1",
-            concept: "Reading the Production Possibilities Curve",
+            concept: "production possibilities curve",
             question: "A point located OUTSIDE the current PPC represents a combination that is…",
             options: [
               "Efficient and fully attainable",
@@ -1318,7 +1318,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-3-mastery2",
-            concept: "Reading the Production Possibilities Curve",
+            concept: "production possibilities curve",
             question: "The downward slope of the PPC illustrates…",
             options: [
               "The gains from printing money",
@@ -1332,7 +1332,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-3-mastery3",
-            concept: "Reading the Production Possibilities Curve",
+            concept: "opportunity cost",
             question: "Moving from 90 pizzas/10 robots to 70 pizzas/15 robots, the opportunity cost of one robot is…",
             options: [
               "5 pizzas per robot",
@@ -1346,7 +1346,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-3-mastery4",
-            concept: "Reading the Production Possibilities Curve",
+            concept: "increasing opportunity cost",
             question: "A straight-line (not bowed) PPC implies that…",
             options: [
               "Opportunity cost is constant",
@@ -1360,7 +1360,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-3-mastery5",
-            concept: "Reading the Production Possibilities Curve",
+            concept: "PPC shifts",
             question: "Which change would shift a nation's entire PPC outward?",
             options: [
               "A rise in unemployment",
@@ -1374,7 +1374,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-3-mastery6",
-            concept: "Reading the Production Possibilities Curve",
+            concept: "allocative vs productive efficiency",
             question: "Allocative efficiency differs from productive efficiency because it requires…",
             options: [
               "Producing at the lowest possible cost",
@@ -1432,7 +1432,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-4-mc1",
-            concept: "Absolute vs. Comparative Advantage",
+            concept: "opportunity cost",
             question: "In one hour Ana makes 6 bracelets or 12 posters. Her opportunity cost of one bracelet is…",
             options: [
               "6 posters",
@@ -1445,7 +1445,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-4-mc2",
-            concept: "Absolute vs. Comparative Advantage",
+            concept: "comparative advantage",
             question: "Gains from trade between two countries depend on…",
             options: [
               "Which country has more workers",
@@ -1473,7 +1473,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-4-aq1",
-          concept: "Absolute vs. Comparative Advantage",
+          concept: "comparative advantage",
           question: "Given the opportunity costs above, how should Maya and Leo specialize?",
           options: [
             "Maya makes both goods since she is faster",
@@ -1501,7 +1501,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-4-mastery1",
-            concept: "Absolute vs. Comparative Advantage",
+            concept: "comparative advantage",
             question: "A country has a comparative advantage in a good when it…",
             options: [
               "Produces more of it than any rival",
@@ -1515,7 +1515,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-4-mastery2",
-            concept: "Absolute vs. Comparative Advantage",
+            concept: "terms of trade",
             question: "If a shirt costs Country A 3 hats and Country B 5 hats, which trade price benefits both?",
             options: [
               "1 hat per shirt",
@@ -1529,7 +1529,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-4-mastery3",
-            concept: "Absolute vs. Comparative Advantage",
+            concept: "absolute advantage",
             question: "Even if one nation is better at producing everything, trade can still benefit both because…",
             options: [
               "Absolute advantage guarantees gains",
@@ -1543,7 +1543,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-4-mastery4",
-            concept: "Absolute vs. Comparative Advantage",
+            concept: "opportunity cost",
             question: "Leo makes 4 smoothies or 12 sandwiches per hour. His opportunity cost of one sandwich is…",
             options: [
               "A full 3 smoothies given up per sandwich",
@@ -1557,7 +1557,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-4-mastery5",
-            concept: "Absolute vs. Comparative Advantage",
+            concept: "gains from trade",
             question: "Specialization and trade allow a country to…",
             options: [
               "Eliminate all scarcity entirely and forever",
@@ -1571,7 +1571,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-4-mastery6",
-            concept: "Absolute vs. Comparative Advantage",
+            concept: "terms of trade",
             question: "The 'terms of trade' refers to…",
             options: [
               "The total number of workers that each country has",
@@ -1629,7 +1629,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-5-mc1",
-            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+            concept: "economic vs accounting profit",
             question: "Economic profit differs from accounting profit because it also subtracts…",
             options: [
               "All the firm's explicit costs",
@@ -1642,7 +1642,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-5-mc2",
-            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+            concept: "sunk cost fallacy",
             question: "You paid $30 for a concert ticket you now cannot resell. In deciding whether to attend, that $30 is…",
             options: [
               "An implicit cost to weigh",
@@ -1670,7 +1670,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-5-aq1",
-          concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+          concept: "economic vs accounting profit",
           question: "Based on the numbers, what should Devon conclude about continuing the business?",
           options: [
             "Stop, since his accounting profit is negative",
@@ -1698,7 +1698,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-5-mastery1",
-            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+            concept: "explicit vs implicit costs",
             question: "Which is an example of an implicit cost for a business owner?",
             options: [
               "The monthly rent paid out on the physical storefront",
@@ -1712,7 +1712,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-5-mastery2",
-            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+            concept: "normal profit",
             question: "A firm earns zero economic profit. This means it is earning…",
             options: [
               "Less than its next-best option",
@@ -1726,7 +1726,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-5-mastery3",
-            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+            concept: "sunk cost fallacy",
             question: "The sunk-cost fallacy occurs when a person…",
             options: [
               "Weighs only future costs and benefits",
@@ -1740,7 +1740,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-5-mastery4",
-            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+            concept: "economic vs accounting profit",
             question: "Revenue is $10,000; explicit costs are $4,000 and implicit costs are $3,000. Economic profit is…",
             options: [
               "$6,000",
@@ -1754,7 +1754,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-5-mastery5",
-            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+            concept: "capital vs consumer goods",
             question: "Which of the following is a capital good rather than a consumer good?",
             options: [
               "A slice of pizza eaten for lunch",
@@ -1768,7 +1768,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-5-mastery6",
-            concept: "Explicit vs. Implicit Costs and Two Kinds of Profit",
+            concept: "capital vs consumer goods",
             question: "Choosing to produce more capital goods today generally…",
             options: [
               "Steadily shrinks the whole economy's future output over time",
@@ -1826,7 +1826,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-6-mc1",
-            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+            concept: "diminishing marginal utility",
             question: "As you eat more slices of pizza, the fourth adds less satisfaction than the third. This illustrates…",
             options: [
               "Rising total utility only",
@@ -1839,7 +1839,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-6-mc2",
-            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+            concept: "utility maximization",
             question: "A consumer maximizes utility when the marginal utility per dollar is…",
             options: [
               "Highest for the priciest good",
@@ -1867,7 +1867,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-1-6-aq1",
-          concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+          concept: "utility maximization",
           question: "With the pretzel at 6 utils per dollar and the lemonade at 5, what is Rosa's next best move?",
           options: [
             "Simply spend every single dollar he has on lemonade first",
@@ -1895,7 +1895,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-1-6-mastery1",
-            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+            concept: "diminishing marginal utility",
             question: "Marginal utility is best defined as…",
             options: [
               "The full total satisfaction gained from all of the units",
@@ -1909,7 +1909,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-6-mastery2",
-            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+            concept: "utility maximization",
             question: "A good costs $5 and gives 20 utils; another costs $2 and gives 10 utils. Which offers more utility per dollar?",
             options: [
               "The $5 good, at 4 per dollar",
@@ -1923,7 +1923,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-6-mastery3",
-            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+            concept: "marginal analysis",
             question: "For a single activity, the optimal amount to consume is where…",
             options: [
               "Total utility first turns positive",
@@ -1937,7 +1937,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-6-mastery4",
-            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+            concept: "diminishing marginal utility",
             question: "The law of diminishing marginal utility helps explain why…",
             options: [
               "Supply curves slope upward",
@@ -1951,7 +1951,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-6-mastery5",
-            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+            concept: "utility maximization",
             question: "At the utility-maximizing point, spending one more dollar on any good would…",
             options: [
               "Always raise total utility further",
@@ -1965,7 +1965,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-1-6-mastery6",
-            concept: "Marginal Benefit, Marginal Cost, and Diminishing Utility",
+            concept: "utility maximization",
             question: "If the price of a good a consumer buys falls, the utility-maximizing rule predicts they will…",
             options: [
               "Buy less of that good",
@@ -2023,7 +2023,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-5-mc1",
-            concept: "Price Ceilings and Price Floors",
+            concept: "price ceiling",
             question: "A binding price ceiling on rent is set below the equilibrium price. The predictable result is…",
             options: [
               "A surplus of empty apartments",
@@ -2036,7 +2036,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-5-mc2",
-            concept: "Price Ceilings and Price Floors",
+            concept: "tax incidence",
             question: "An excise tax is placed on a good with very inelastic demand. Most of the tax burden falls on…",
             options: [
               "Buyers, who cannot easily cut back",
@@ -2064,7 +2064,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-5-aq1",
-          concept: "Price Ceilings and Price Floors",
+          concept: "price ceiling",
           question: "Given the $80 resale cap on tickets that would clear at $200, what should the city expect?",
           options: [
             "A surplus of unsold tickets at $80",
@@ -2092,7 +2092,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-5-mastery1",
-            concept: "Price Ceilings and Price Floors",
+            concept: "price floor",
             question: "For a price floor to have any effect on the market, it must be set…",
             options: [
               "Below the equilibrium price",
@@ -2106,7 +2106,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-5-mastery2",
-            concept: "Price Ceilings and Price Floors",
+            concept: "price floor",
             question: "A minimum wage set above the equilibrium wage will most likely cause…",
             options: [
               "A shortage of available workers for this good",
@@ -2120,7 +2120,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-5-mastery3",
-            concept: "Price Ceilings and Price Floors",
+            concept: "tax incidence",
             question: "An excise tax on a good drives a wedge that makes the price buyers pay…",
             options: [
               "Equal to the seller's price",
@@ -2134,7 +2134,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-5-mastery4",
-            concept: "Price Ceilings and Price Floors",
+            concept: "deadweight loss",
             question: "Deadweight loss from a tax represents…",
             options: [
               "Revenue collected by the government in that market",
@@ -2148,7 +2148,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-5-mastery5",
-            concept: "Price Ceilings and Price Floors",
+            concept: "tax incidence",
             question: "Supply is far more inelastic than demand in a market that gets a new excise tax. The burden falls mainly on…",
             options: [
               "Buyers, who can shop elsewhere",
@@ -2162,7 +2162,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-5-mastery6",
-            concept: "Price Ceilings and Price Floors",
+            concept: "per-unit subsidy",
             question: "Compared with a tax, a per-unit subsidy on a good will…",
             options: [
               "Reduce the quantity traded",
@@ -2220,7 +2220,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-6-mc1",
-            concept: "Comparative Advantage as the Basis for Trade",
+            concept: "comparative advantage",
             question: "The US gives up 2 shirts per phone while Vietnam gives up 5 shirts per phone. Comparative advantage in phones belongs to…",
             options: [
               "Vietnam, with the higher cost in that market",
@@ -2233,7 +2233,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-6-mc2",
-            concept: "Comparative Advantage as the Basis for Trade",
+            concept: "tariff",
             question: "A tariff on imported shoes will most directly…",
             options: [
               "Raise consumer surplus for buyers in that market",
@@ -2261,7 +2261,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-2-6-aq1",
-          concept: "Comparative Advantage as the Basis for Trade",
+          concept: "tariff vs quota",
           question: "Comparing the $20 tariff with an equivalent quota on sneakers, a key difference is that…",
           options: [
             "Only the quota raises the price",
@@ -2289,7 +2289,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-2-6-mastery1",
-            concept: "Comparative Advantage as the Basis for Trade",
+            concept: "comparative advantage",
             question: "A country has a comparative advantage in a good when it has the…",
             options: [
               "Highest total output of it",
@@ -2303,7 +2303,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-6-mastery2",
-            concept: "Comparative Advantage as the Basis for Trade",
+            concept: "absolute advantage",
             question: "One country can produce more of every good than another. Trade can still benefit both because…",
             options: [
               "Absolute advantage settles all trade",
@@ -2317,7 +2317,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-6-mastery3",
-            concept: "Comparative Advantage as the Basis for Trade",
+            concept: "terms of trade",
             question: "Trade between two nations is mutually beneficial when the terms of trade…",
             options: [
               "Equal one country's cost exactly",
@@ -2331,7 +2331,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-6-mastery4",
-            concept: "Comparative Advantage as the Basis for Trade",
+            concept: "tariff",
             question: "A tariff on imports reduces total surplus because it…",
             options: [
               "Transfers surplus to producers",
@@ -2345,7 +2345,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-6-mastery5",
-            concept: "Comparative Advantage as the Basis for Trade",
+            concept: "tariff",
             question: "Under a tariff, the loss in consumer surplus is split among all of these EXCEPT…",
             options: [
               "Government tariff revenue",
@@ -2359,7 +2359,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-2-6-mastery6",
-            concept: "Comparative Advantage as the Basis for Trade",
+            concept: "tariff vs quota",
             question: "A quota differs from a tariff mainly in that a quota…",
             options: [
               "Lowers the domestic price for this good",
@@ -2417,7 +2417,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-1-mc1",
-            concept: "Inputs, Outputs, and the Production Function",
+            concept: "diminishing marginal returns",
             question: "The law of diminishing marginal returns says that adding more of a variable input to a fixed input eventually causes…",
             options: [
               "Marginal product to keep rising",
@@ -2430,7 +2430,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-1-mc2",
-            concept: "Inputs, Outputs, and the Production Function",
+            concept: "short vs long run",
             question: "The short run in production is defined as a period in which…",
             options: [
               "Every input can be varied for this good",
@@ -2458,7 +2458,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-1-aq1",
-          concept: "Inputs, Outputs, and the Production Function",
+          concept: "diminishing marginal returns",
           question: "At the smoothie stand, why does marginal product fall starting with the third worker?",
           options: [
             "The workers become lazier over time",
@@ -2486,7 +2486,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-1-mastery1",
-            concept: "Inputs, Outputs, and the Production Function",
+            concept: "production function",
             question: "Marginal product is best defined as…",
             options: [
               "Total output divided by workers for this good",
@@ -2500,7 +2500,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-1-mastery2",
-            concept: "Inputs, Outputs, and the Production Function",
+            concept: "diminishing marginal returns",
             question: "Diminishing marginal returns occur because…",
             options: [
               "Workers get paid more each hour",
@@ -2514,7 +2514,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-1-mastery3",
-            concept: "Inputs, Outputs, and the Production Function",
+            concept: "production function",
             question: "When marginal product is greater than average product, average product is…",
             options: [
               "Falling toward zero for this good",
@@ -2528,7 +2528,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-1-mastery4",
-            concept: "Inputs, Outputs, and the Production Function",
+            concept: "diminishing marginal returns",
             question: "In the long run, the law of diminishing marginal returns…",
             options: [
               "Always applies more strongly for this good",
@@ -2542,7 +2542,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-1-mastery5",
-            concept: "Inputs, Outputs, and the Production Function",
+            concept: "marginal cost",
             question: "As marginal product declines while output keeps rising, marginal cost will…",
             options: [
               "Fall toward zero quickly in that market",
@@ -2556,7 +2556,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-1-mastery6",
-            concept: "Inputs, Outputs, and the Production Function",
+            concept: "production function",
             question: "If a fifth worker's marginal product is positive but smaller than the fourth's, then total product is…",
             options: [
               "Falling with the fifth worker",
@@ -2614,7 +2614,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-2-mc1",
-            concept: "Fixed, Variable, and Total Cost",
+            concept: "average fixed cost",
             question: "As a firm produces more output, average fixed cost will…",
             options: [
               "Rise steadily with output for this good",
@@ -2627,7 +2627,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-2-mc2",
-            concept: "Fixed, Variable, and Total Cost",
+            concept: "average total cost",
             question: "The marginal cost curve intersects the average total cost curve at…",
             options: [
               "The highest point of ATC",
@@ -2655,7 +2655,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-2-aq1",
-          concept: "Fixed, Variable, and Total Cost",
+          concept: "average fixed cost",
           question: "If Maria doubles output to 400 candles and variable costs rise proportionally, what happens to her average fixed cost?",
           options: [
             "It rises to $4 per candle",
@@ -2683,7 +2683,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-2-mastery1",
-            concept: "Fixed, Variable, and Total Cost",
+            concept: "fixed vs variable costs",
             question: "Which cost does NOT change as output rises in the short run?",
             options: [
               "Total variable cost",
@@ -2697,7 +2697,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-2-mastery2",
-            concept: "Fixed, Variable, and Total Cost",
+            concept: "average total cost",
             question: "Average total cost can be found by…",
             options: [
               "Subtracting AVC from AFC for this good",
@@ -2711,7 +2711,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-2-mastery3",
-            concept: "Fixed, Variable, and Total Cost",
+            concept: "marginal cost",
             question: "Marginal cost eventually rises because of…",
             options: [
               "Falling average fixed cost",
@@ -2725,7 +2725,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-2-mastery4",
-            concept: "Fixed, Variable, and Total Cost",
+            concept: "average fixed cost",
             question: "The vertical distance between the ATC and AVC curves at any output equals…",
             options: [
               "Marginal cost there for this good",
@@ -2739,7 +2739,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-2-mastery5",
-            concept: "Fixed, Variable, and Total Cost",
+            concept: "average total cost",
             question: "When marginal cost is below average total cost, average total cost is…",
             options: [
               "Rising with each unit",
@@ -2753,7 +2753,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-2-mastery6",
-            concept: "Fixed, Variable, and Total Cost",
+            concept: "fixed vs variable costs",
             question: "A firm makes 100 units for a total cost of $800 with $300 in fixed cost. Its average variable cost is…",
             options: [
               "$8.00 per unit made",
@@ -2811,7 +2811,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-3-mc1",
-            concept: "The Long Run and the LRATC Curve",
+            concept: "short vs long run",
             question: "In the long run, a firm's fixed costs are…",
             options: [
               "Larger than in the short run",
@@ -2824,7 +2824,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-3-mc2",
-            concept: "The Long Run and the LRATC Curve",
+            concept: "economies of scale",
             question: "The downward-sloping part of the LRATC curve reflects…",
             options: [
               "Diseconomies of scale",
@@ -2852,7 +2852,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-3-aq1",
-          concept: "The Long Run and the LRATC Curve",
+          concept: "economies of scale",
           question: "The granola company's cost per bag rises from $3 to $3.50 as it grows into a sprawling multi-site operation. This best illustrates…",
           options: [
             "Economies of scale kicking in",
@@ -2880,7 +2880,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-3-mastery1",
-            concept: "The Long Run and the LRATC Curve",
+            concept: "LRATC curve",
             question: "The long-run average total cost curve is best described as…",
             options: [
               "A single short-run cost curve",
@@ -2894,7 +2894,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-3-mastery2",
-            concept: "The Long Run and the LRATC Curve",
+            concept: "economies of scale",
             question: "Economies of scale can come from all of these EXCEPT…",
             options: [
               "Bulk discounts on inputs",
@@ -2908,7 +2908,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-3-mastery3",
-            concept: "The Long Run and the LRATC Curve",
+            concept: "minimum efficient scale",
             question: "Minimum efficient scale is the…",
             options: [
               "Largest output a firm can make",
@@ -2922,7 +2922,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-3-mastery4",
-            concept: "The Long Run and the LRATC Curve",
+            concept: "minimum efficient scale",
             question: "An industry where minimum efficient scale is huge relative to market demand tends to have…",
             options: [
               "Very many small competitors",
@@ -2936,7 +2936,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-3-mastery5",
-            concept: "The Long Run and the LRATC Curve",
+            concept: "LRATC curve",
             question: "The long-run U shape of LRATC differs from the short-run U shape because it comes from…",
             options: [
               "Diminishing marginal returns for this good",
@@ -2950,7 +2950,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-3-mastery6",
-            concept: "The Long Run and the LRATC Curve",
+            concept: "economies of scale",
             question: "Over the flat portion of an LRATC curve, a firm experiences…",
             options: [
               "Sharp economies of scale",
@@ -3008,7 +3008,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-4-mc1",
-            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+            concept: "explicit vs implicit costs",
             question: "Which cost is an implicit cost for a business owner?",
             options: [
               "Wages paid to employees for this good",
@@ -3021,7 +3021,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-4-mc2",
-            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+            concept: "normal profit",
             question: "A firm earning zero economic profit is…",
             options: [
               "Losing money and about to close",
@@ -3049,7 +3049,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-4-aq1",
-          concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+          concept: "economic vs accounting profit",
           question: "Given Leo's $70,000 accounting profit and $64,000 in implicit costs, his economic profit is…",
           options: [
             "$70,000, the same as accounting",
@@ -3077,7 +3077,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-4-mastery1",
-            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+            concept: "economic vs accounting profit",
             question: "Economic profit differs from accounting profit because it also subtracts…",
             options: [
               "Explicit wage payments",
@@ -3091,7 +3091,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-4-mastery2",
-            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+            concept: "economic vs accounting profit",
             question: "Because economic profit subtracts more costs, it is always…",
             options: [
               "Larger than accounting profit",
@@ -3105,7 +3105,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-4-mastery3",
-            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+            concept: "normal profit",
             question: "Normal profit is best described as the profit that…",
             options: [
               "Exceeds all rivals in the market",
@@ -3119,7 +3119,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-4-mastery4",
-            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+            concept: "long-run entry and exit",
             question: "Positive economic profit in an industry tends to cause…",
             options: [
               "Existing firms to exit fast in that market",
@@ -3133,7 +3133,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-4-mastery5",
-            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+            concept: "economic vs accounting profit",
             question: "A shop reports $90,000 in accounting profit, but the owner gave up a $95,000 salary elsewhere. The shop's economic profit is…",
             options: [
               "Positive, about $5,000",
@@ -3147,7 +3147,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-4-mastery6",
-            concept: "Explicit Costs, Implicit Costs, and Two Kinds of Profit",
+            concept: "normal profit",
             question: "A firm earning zero economic profit will, in the long run, most likely…",
             options: [
               "Shut down immediately",
@@ -3205,7 +3205,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-5-mc1",
-            concept: "The MR = MC Profit-Maximizing Rule",
+            concept: "profit maximization",
             question: "A firm should keep expanding output as long as…",
             options: [
               "Marginal cost exceeds marginal revenue",
@@ -3218,7 +3218,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-5-mc2",
-            concept: "The MR = MC Profit-Maximizing Rule",
+            concept: "total economic profit",
             question: "At its profit-maximizing quantity a firm charges $12 with an ATC of $9. Its per-unit profit is…",
             options: [
               "$21 per unit made",
@@ -3246,7 +3246,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-5-aq1",
-          concept: "The MR = MC Profit-Maximizing Rule",
+          concept: "total economic profit",
           question: "At 600 shirts Devon charges $15 with an ATC of $11. What is his total economic profit?",
           options: [
             "$9,000 in total profit",
@@ -3274,7 +3274,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-5-mastery1",
-            concept: "The MR = MC Profit-Maximizing Rule",
+            concept: "profit maximization",
             question: "The universal profit-maximizing rule for any firm is to produce where…",
             options: [
               "Price is at its highest",
@@ -3288,7 +3288,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-5-mastery2",
-            concept: "The MR = MC Profit-Maximizing Rule",
+            concept: "price taker",
             question: "For a perfectly competitive firm, marginal revenue equals…",
             options: [
               "Average total cost",
@@ -3302,7 +3302,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-5-mastery3",
-            concept: "The MR = MC Profit-Maximizing Rule",
+            concept: "normal profit",
             question: "If at the MR = MC quantity price equals average total cost, the firm earns…",
             options: [
               "A large economic profit",
@@ -3316,7 +3316,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-5-mastery4",
-            concept: "The MR = MC Profit-Maximizing Rule",
+            concept: "total economic profit",
             question: "Total economic profit is calculated as…",
             options: [
               "Price times quantity sold for this good",
@@ -3330,7 +3330,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-5-mastery5",
-            concept: "The MR = MC Profit-Maximizing Rule",
+            concept: "profit maximization",
             question: "When price lies below ATC at the MR = MC quantity, producing there…",
             options: [
               "Guarantees positive profit for this good",
@@ -3344,7 +3344,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-5-mastery6",
-            concept: "The MR = MC Profit-Maximizing Rule",
+            concept: "total economic profit",
             question: "A firm makes 400 units where MR = MC, charges $20, and has ATC of $16. Its total economic profit is…",
             options: [
               "$8,000 in profit",
@@ -3402,7 +3402,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-6-mc1",
-            concept: "Price Takers and the Perfectly Competitive Firm",
+            concept: "price taker",
             question: "The demand curve facing a single perfectly competitive firm is…",
             options: [
               "Steeply downward sloping for this good",
@@ -3415,7 +3415,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-6-mc2",
-            concept: "Price Takers and the Perfectly Competitive Firm",
+            concept: "shutdown rule",
             question: "A competitive firm should shut down in the short run when price falls below…",
             options: [
               "Average total cost",
@@ -3443,7 +3443,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-3-6-aq1",
-          concept: "Price Takers and the Perfectly Competitive Firm",
+          concept: "shutdown rule",
           question: "With price $2, AVC $1.60, and ATC $2.30, what should the Ruiz farm do in the short run?",
           options: [
             "Shut down to avoid the loss",
@@ -3471,7 +3471,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-3-6-mastery1",
-            concept: "Price Takers and the Perfectly Competitive Firm",
+            concept: "perfect competition",
             question: "Which is NOT a feature of perfect competition?",
             options: [
               "Many small firms and buyers in that market",
@@ -3485,7 +3485,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-6-mastery2",
-            concept: "Price Takers and the Perfectly Competitive Firm",
+            concept: "price taker",
             question: "For a perfectly competitive firm, price equals all of the following EXCEPT…",
             options: [
               "Marginal revenue",
@@ -3499,7 +3499,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-6-mastery3",
-            concept: "Price Takers and the Perfectly Competitive Firm",
+            concept: "shutdown rule",
             question: "A competitive firm keeps operating at a loss in the short run when price is…",
             options: [
               "Below average variable cost",
@@ -3513,7 +3513,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-6-mastery4",
-            concept: "Price Takers and the Perfectly Competitive Firm",
+            concept: "long-run entry and exit",
             question: "In long-run competitive equilibrium, each firm earns…",
             options: [
               "Large positive economic profit",
@@ -3527,7 +3527,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-6-mastery5",
-            concept: "Price Takers and the Perfectly Competitive Firm",
+            concept: "shutdown rule",
             question: "The firm's short-run supply curve is the portion of its marginal cost curve that lies…",
             options: [
               "Below average variable cost",
@@ -3541,7 +3541,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-3-6-mastery6",
-            concept: "Price Takers and the Perfectly Competitive Firm",
+            concept: "allocative vs productive efficiency",
             question: "Long-run competitive equilibrium achieves allocative efficiency because…",
             options: [
               "Total revenue is maximized",
@@ -3599,7 +3599,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-1-mc1",
-            concept: "Monopoly, Market Power, and Why MR Is Below Price",
+            concept: "monopoly",
             question: "For a monopolist, marginal revenue is…",
             options: [
               "Equal to the price charged",
@@ -3612,7 +3612,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-1-mc2",
-            concept: "Monopoly, Market Power, and Why MR Is Below Price",
+            concept: "natural monopoly",
             question: "A natural monopoly arises when…",
             options: [
               "The government bans all rivals in that market",
@@ -3640,7 +3640,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-4-1-aq1",
-          concept: "Monopoly, Market Power, and Why MR Is Below Price",
+          concept: "natural monopoly",
           question: "Why does a single bridge into town qualify as a natural monopoly?",
           options: [
             "The government outlawed competitors for this good",
@@ -3668,7 +3668,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-1-mastery1",
-            concept: "Monopoly, Market Power, and Why MR Is Below Price",
+            concept: "monopoly",
             question: "Compared with a competitive market, a monopoly tends to produce…",
             options: [
               "More output at a lower price",
@@ -3682,7 +3682,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-1-mastery2",
-            concept: "Monopoly, Market Power, and Why MR Is Below Price",
+            concept: "monopoly",
             question: "The deadweight loss of monopoly arises because…",
             options: [
               "Price is set below marginal cost",
@@ -3696,7 +3696,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-1-mastery3",
-            concept: "Monopoly, Market Power, and Why MR Is Below Price",
+            concept: "monopoly",
             question: "A monopolist chooses its quantity where…",
             options: [
               "Price equals marginal cost for this good",
@@ -3710,7 +3710,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-1-mastery4",
-            concept: "Monopoly, Market Power, and Why MR Is Below Price",
+            concept: "barriers to entry",
             question: "Which is a barrier to entry that can create a monopoly?",
             options: [
               "Many identical competitors for this good",
@@ -3724,7 +3724,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-1-mastery5",
-            concept: "Monopoly, Market Power, and Why MR Is Below Price",
+            concept: "natural monopoly regulation",
             question: "A regulator setting a natural monopoly's price equal to average total cost aims to…",
             options: [
               "Maximize the firm's profit for this good",
@@ -3738,7 +3738,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-1-mastery6",
-            concept: "Monopoly, Market Power, and Why MR Is Below Price",
+            concept: "barriers to entry",
             question: "Monopoly profit can persist in the long run mainly because…",
             options: [
               "Products are all identical",
@@ -3796,7 +3796,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-2-mc1",
-            concept: "What Price Discrimination Is and Its Three Degrees",
+            concept: "degrees of price discrimination",
             question: "Third-degree price discrimination charges a higher price to the group with…",
             options: [
               "More elastic demand",
@@ -3809,7 +3809,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-2-mc2",
-            concept: "What Price Discrimination Is and Its Three Degrees",
+            concept: "price discrimination conditions",
             question: "Which condition is required for price discrimination to work?",
             options: [
               "The firm must be a price taker",
@@ -3837,7 +3837,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-4-2-aq1",
-          concept: "What Price Discrimination Is and Its Three Degrees",
+          concept: "price discrimination conditions",
           question: "Why does the amusement park stamp hands to prevent ticket sharing?",
           options: [
             "To make the tickets identical for this good",
@@ -3865,7 +3865,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-2-mastery1",
-            concept: "What Price Discrimination Is and Its Three Degrees",
+            concept: "price discrimination",
             question: "Price discrimination is defined as charging different prices that are not based on differences in…",
             options: [
               "The seller's costs",
@@ -3879,7 +3879,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-2-mastery2",
-            concept: "What Price Discrimination Is and Its Three Degrees",
+            concept: "degrees of price discrimination",
             question: "First-degree (perfect) price discrimination charges each buyer…",
             options: [
               "One single uniform price for this good",
@@ -3893,7 +3893,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-2-mastery3",
-            concept: "What Price Discrimination Is and Its Three Degrees",
+            concept: "price discrimination conditions",
             question: "A firm cannot price discriminate unless it has…",
             options: [
               "Perfectly elastic demand for this good",
@@ -3907,7 +3907,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-2-mastery4",
-            concept: "What Price Discrimination Is and Its Three Degrees",
+            concept: "price discrimination",
             question: "Perfect price discrimination affects efficiency by…",
             options: [
               "Increasing deadweight loss sharply",
@@ -3921,7 +3921,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-2-mastery5",
-            concept: "What Price Discrimination Is and Its Three Degrees",
+            concept: "degrees of price discrimination",
             question: "Bulk discounts and 'good-better-best' product tiers are examples of…",
             options: [
               "First-degree discrimination",
@@ -3935,7 +3935,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-2-mastery6",
-            concept: "What Price Discrimination Is and Its Three Degrees",
+            concept: "price discrimination",
             question: "Relative to a single-price monopoly, price discrimination generally shifts surplus toward…",
             options: [
               "Consumers for this good",
@@ -3993,7 +3993,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-3-mc1",
-            concept: "Monopolistic Competition and Product Differentiation",
+            concept: "monopolistic competition",
             question: "A monopolistically competitive firm faces a demand curve that is…",
             options: [
               "Perfectly horizontal for this good",
@@ -4006,7 +4006,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-3-mc2",
-            concept: "Monopolistic Competition and Product Differentiation",
+            concept: "monopolistic competition",
             question: "In long-run equilibrium a monopolistically competitive firm earns…",
             options: [
               "Large economic profit",
@@ -4034,7 +4034,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-4-3-aq1",
-          concept: "Monopolistic Competition and Product Differentiation",
+          concept: "excess capacity",
           question: "The smoothie shops' persistent empty seats best illustrate which feature of monopolistic competition?",
           options: [
             "Perfectly elastic demand for this good",
@@ -4062,7 +4062,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-3-mastery1",
-            concept: "Monopolistic Competition and Product Differentiation",
+            concept: "product differentiation",
             question: "Monopolistic competition differs from perfect competition mainly because its firms…",
             options: [
               "Sell an identical product",
@@ -4076,7 +4076,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-3-mastery2",
-            concept: "Monopolistic Competition and Product Differentiation",
+            concept: "monopolistic competition",
             question: "In long-run equilibrium, a monopolistically competitive firm's demand curve is…",
             options: [
               "Below its ATC everywhere for this good",
@@ -4090,7 +4090,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-3-mastery3",
-            concept: "Monopolistic Competition and Product Differentiation",
+            concept: "monopolistic competition",
             question: "Monopolistic competition is allocatively inefficient because in long-run equilibrium…",
             options: [
               "Price equals marginal cost",
@@ -4104,7 +4104,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-3-mastery4",
-            concept: "Monopolistic Competition and Product Differentiation",
+            concept: "excess capacity",
             question: "Excess capacity means the firm produces at an output where ATC is…",
             options: [
               "At its minimum point",
@@ -4118,7 +4118,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-3-mastery5",
-            concept: "Monopolistic Competition and Product Differentiation",
+            concept: "product differentiation",
             question: "A key form of competition among monopolistic competitors is…",
             options: [
               "Colluding to fix output",
@@ -4132,7 +4132,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-3-mastery6",
-            concept: "Monopolistic Competition and Product Differentiation",
+            concept: "product differentiation",
             question: "Compared with perfect competition, monopolistic competition offers consumers…",
             options: [
               "Lower prices and less variety in that market",
@@ -4190,7 +4190,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-4-mc1",
-            concept: "Oligopoly, Interdependence, and Collusion",
+            concept: "oligopoly",
             question: "The defining feature of an oligopoly is that firms are…",
             options: [
               "Perfectly competitive price takers",
@@ -4203,7 +4203,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-4-mc2",
-            concept: "Oligopoly, Interdependence, and Collusion",
+            concept: "Nash equilibrium",
             question: "A Nash equilibrium is an outcome in which…",
             options: [
               "Every firm earns maximum profit for this good",
@@ -4231,7 +4231,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-4-4-aq1",
-          concept: "Oligopoly, Interdependence, and Collusion",
+          concept: "Nash equilibrium",
           question: "Given the payoffs, what is the likely Nash equilibrium for the two gas stations?",
           options: [
             "Both keep prices high at $4,000",
@@ -4259,7 +4259,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-4-4-mastery1",
-            concept: "Oligopoly, Interdependence, and Collusion",
+            concept: "collusion",
             question: "A formal agreement among firms to coordinate prices and output is called a…",
             options: [
               "Perfect market",
@@ -4273,7 +4273,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-4-mastery2",
-            concept: "Oligopoly, Interdependence, and Collusion",
+            concept: "game theory",
             question: "A dominant strategy is one that…",
             options: [
               "Depends on the rival's choice",
@@ -4287,7 +4287,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-4-mastery3",
-            concept: "Oligopoly, Interdependence, and Collusion",
+            concept: "game theory",
             question: "In a Prisoner's Dilemma between two firms, the equilibrium outcome is usually…",
             options: [
               "Better than cooperating",
@@ -4301,7 +4301,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-4-mastery4",
-            concept: "Oligopoly, Interdependence, and Collusion",
+            concept: "collusion",
             question: "Collusion among oligopolists tends to break down because each firm has an incentive to…",
             options: [
               "Raise its price further",
@@ -4315,7 +4315,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-4-mastery5",
-            concept: "Oligopoly, Interdependence, and Collusion",
+            concept: "oligopoly",
             question: "A high four-firm concentration ratio in an industry indicates…",
             options: [
               "Perfect competition",
@@ -4329,7 +4329,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-4-4-mastery6",
-            concept: "Oligopoly, Interdependence, and Collusion",
+            concept: "collusion",
             question: "Cooperation among oligopolists is easier to sustain when firms…",
             options: [
               "Interact only one single time",
@@ -4387,7 +4387,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-1-mc1",
-            concept: "Factor Markets and Derived Demand",
+            concept: "derived demand",
             question: "Demand for labor is called a derived demand because it comes from…",
             options: [
               "The wage workers are paid for this good",
@@ -4400,7 +4400,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-1-mc2",
-            concept: "Factor Markets and Derived Demand",
+            concept: "MRP-MRC hiring rule",
             question: "A firm maximizes profit in the labor market by hiring until…",
             options: [
               "Marginal product is highest for this good",
@@ -4428,7 +4428,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-5-1-aq1",
-          concept: "Factor Markets and Derived Demand",
+          concept: "MRP-MRC hiring rule",
           question: "With a $200 daily wage and worker MRPs of $300, $250, $200, and $150, how many workers should the sign shop hire?",
           options: [
             "Two workers",
@@ -4456,7 +4456,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-1-mastery1",
-            concept: "Factor Markets and Derived Demand",
+            concept: "factor markets",
             question: "In factor markets, the roles are reversed so that…",
             options: [
               "Firms supply and households demand",
@@ -4470,7 +4470,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-1-mastery2",
-            concept: "Factor Markets and Derived Demand",
+            concept: "marginal revenue product",
             question: "Marginal revenue product equals marginal product times…",
             options: [
               "Average fixed cost",
@@ -4484,7 +4484,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-1-mastery3",
-            concept: "Factor Markets and Derived Demand",
+            concept: "marginal revenue product",
             question: "The MRP curve slopes downward mainly because of…",
             options: [
               "Rising fixed costs",
@@ -4498,7 +4498,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-1-mastery4",
-            concept: "Factor Markets and Derived Demand",
+            concept: "marginal resource cost",
             question: "In a competitive labor market, marginal resource cost equals…",
             options: [
               "The marginal product",
@@ -4512,7 +4512,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-1-mastery5",
-            concept: "Factor Markets and Derived Demand",
+            concept: "marginal revenue product",
             question: "The MRP curve for a factor also serves as the firm's…",
             options: [
               "Supply curve for output",
@@ -4526,7 +4526,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-1-mastery6",
-            concept: "Factor Markets and Derived Demand",
+            concept: "derived demand",
             question: "If demand for a product rises, the demand for the labor that makes it will…",
             options: [
               "Fall as costs increase",
@@ -4584,7 +4584,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-2-mc1",
-            concept: "What Shifts Labor Demand and Labor Supply",
+            concept: "labor demand shifters",
             question: "An increase in the demand for a product will, in its labor market, shift labor demand…",
             options: [
               "Left, lowering wages",
@@ -4597,7 +4597,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-2-mc2",
-            concept: "What Shifts Labor Demand and Labor Supply",
+            concept: "labor supply shifters",
             question: "If labor supply rises while labor demand is unchanged, the equilibrium wage will…",
             options: [
               "Rise as more work",
@@ -4625,7 +4625,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-5-2-aq1",
-          concept: "What Shifts Labor Demand and Labor Supply",
+          concept: "compensating differential",
           question: "Why do overnight nursing shifts pay more than daytime shifts with the same skills?",
           options: [
             "Overnight nurses have higher MRP",
@@ -4653,7 +4653,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-2-mastery1",
-            concept: "What Shifts Labor Demand and Labor Supply",
+            concept: "labor demand shifters",
             question: "Which change would shift the labor demand curve to the right?",
             options: [
               "A fall in the product's price",
@@ -4667,7 +4667,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-2-mastery2",
-            concept: "What Shifts Labor Demand and Labor Supply",
+            concept: "labor supply shifters",
             question: "A surge of immigration into a labor market shifts labor…",
             options: [
               "Demand to the right",
@@ -4681,7 +4681,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-2-mastery3",
-            concept: "What Shifts Labor Demand and Labor Supply",
+            concept: "wage determination",
             question: "Surgeons earn high wages largely because they have…",
             options: [
               "Low MRP and large supply",
@@ -4695,7 +4695,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-2-mastery4",
-            concept: "What Shifts Labor Demand and Labor Supply",
+            concept: "wage determination",
             question: "If labor demand and labor supply both increase, the equilibrium…",
             options: [
               "Wage definitely falls for this good",
@@ -4709,7 +4709,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-2-mastery5",
-            concept: "What Shifts Labor Demand and Labor Supply",
+            concept: "compensating differential",
             question: "A compensating differential is a wage premium paid for a job that is…",
             options: [
               "Especially safe and pleasant",
@@ -4723,7 +4723,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-2-mastery6",
-            concept: "What Shifts Labor Demand and Labor Supply",
+            concept: "labor demand shifters",
             question: "Cheaper automation that replaces workers would shift labor demand…",
             options: [
               "Right, raising wages",
@@ -4781,7 +4781,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-3-mc1",
-            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+            concept: "marginal resource cost",
             question: "For a firm in a competitive labor market, marginal resource cost equals…",
             options: [
               "The worker's marginal product",
@@ -4794,7 +4794,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-3-mc2",
-            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+            concept: "least-cost input rule",
             question: "The least-cost combination of inputs requires that the marginal product per dollar be…",
             options: [
               "Highest for capital only",
@@ -4822,7 +4822,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-5-3-aq1",
-          concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+          concept: "least-cost input rule",
           question: "Packers give 2 boxes per dollar and machines give 3 boxes per dollar. To lower costs, the factory should…",
           options: [
             "Hire more packers, fewer machines",
@@ -4850,7 +4850,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-3-mastery1",
-            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+            concept: "marginal resource cost",
             question: "A firm in a perfectly competitive labor market faces a labor supply curve that is…",
             options: [
               "Downward sloping for this good",
@@ -4864,7 +4864,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-3-mastery2",
-            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+            concept: "MRP-MRC hiring rule",
             question: "In a competitive labor market, workers are paid a wage equal to their…",
             options: [
               "Average product",
@@ -4878,7 +4878,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-3-mastery3",
-            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+            concept: "least-cost input rule",
             question: "The least-cost rule is satisfied when, for every input, the ratio of marginal product to price is…",
             options: [
               "As high as possible",
@@ -4892,7 +4892,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-3-mastery4",
-            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+            concept: "least-cost input rule",
             question: "If labor gives 4 units per dollar and capital gives 6 units per dollar, the firm should use…",
             options: [
               "More labor and less capital",
@@ -4906,7 +4906,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-3-mastery5",
-            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+            concept: "least-cost input rule",
             question: "A rise in the wage relative to machine rents will lead a firm to…",
             options: [
               "Hire more workers",
@@ -4920,7 +4920,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-3-mastery6",
-            concept: "Hiring Where MRP Equals MRC in Competitive Markets",
+            concept: "MRP-MRC hiring rule",
             question: "The profit-maximizing input rule is to hire each input until its MRP equals its…",
             options: [
               "Marginal product",
@@ -4978,7 +4978,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-4-mc1",
-            concept: "Monopsony: A Single Buyer of Labor",
+            concept: "monopsony",
             question: "For a monopsonist, marginal resource cost is…",
             options: [
               "Equal to the wage paid",
@@ -4991,7 +4991,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-4-mc2",
-            concept: "Monopsony: A Single Buyer of Labor",
+            concept: "monopsony",
             question: "Compared with a competitive labor market, a monopsony results in…",
             options: [
               "More workers at a higher wage",
@@ -5019,7 +5019,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-5-4-aq1",
-          concept: "Monopsony: A Single Buyer of Labor",
+          concept: "monopsony wage floor",
           question: "How could a union most likely affect wages and employment at the monopsony cannery?",
           options: [
             "Lower both wages and jobs",
@@ -5047,7 +5047,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-5-4-mastery1",
-            concept: "Monopsony: A Single Buyer of Labor",
+            concept: "monopsony",
             question: "A monopsony is a market characterized by…",
             options: [
               "A single seller of a good",
@@ -5061,7 +5061,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-4-mastery2",
-            concept: "Monopsony: A Single Buyer of Labor",
+            concept: "monopsony",
             question: "A monopsonist's marginal resource cost curve lies above the labor supply curve because…",
             options: [
               "Workers have all the power for this good",
@@ -5075,7 +5075,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-4-mastery3",
-            concept: "Monopsony: A Single Buyer of Labor",
+            concept: "monopsony",
             question: "Under monopsony, the wage paid is…",
             options: [
               "Above the worker's MRP",
@@ -5089,7 +5089,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-4-mastery4",
-            concept: "Monopsony: A Single Buyer of Labor",
+            concept: "monopsony",
             question: "Relative to a competitive market, monopsony causes deadweight loss because it…",
             options: [
               "Hires too many workers",
@@ -5103,7 +5103,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-4-mastery5",
-            concept: "Monopsony: A Single Buyer of Labor",
+            concept: "monopsony wage floor",
             question: "A well-set minimum wage in a monopsonized labor market can…",
             options: [
               "Reduce both wages and jobs",
@@ -5117,7 +5117,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-5-4-mastery6",
-            concept: "Monopsony: A Single Buyer of Labor",
+            concept: "MRP-MRC hiring rule",
             question: "The monopsony hiring rule is to employ workers up to where…",
             options: [
               "The wage equals MRP",
@@ -5175,7 +5175,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-1-mc1",
-            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+            concept: "consumer surplus",
             question: "Consumer surplus is the difference between…",
             options: [
               "Price and the seller's cost for this good",
@@ -5188,7 +5188,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-1-mc2",
-            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+            concept: "allocative vs productive efficiency",
             question: "Allocative efficiency in a market is achieved at the quantity where…",
             options: [
               "Price equals average cost",
@@ -5216,7 +5216,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-1-aq1",
-          concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+          concept: "total surplus",
           question: "In the freely clearing $60 ticket market, why is total surplus maximized?",
           options: [
             "Sellers capture all the gains",
@@ -5244,7 +5244,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-1-mastery1",
-            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+            concept: "producer surplus",
             question: "Producer surplus is measured as the area…",
             options: [
               "Below demand, above price",
@@ -5258,7 +5258,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-1-mastery2",
-            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+            concept: "total surplus",
             question: "Total surplus in a market equals…",
             options: [
               "Consumer surplus minus producer surplus",
@@ -5272,7 +5272,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-1-mastery3",
-            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+            concept: "allocative vs productive efficiency",
             question: "Productive efficiency is achieved when a good is produced at…",
             options: [
               "The highest possible price for this good",
@@ -5286,7 +5286,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-1-mastery4",
-            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+            concept: "deadweight loss",
             question: "Deadweight loss occurs when a market produces…",
             options: [
               "Exactly the efficient quantity for this good",
@@ -5300,7 +5300,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-1-mastery5",
-            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+            concept: "allocative vs productive efficiency",
             question: "Perfect competition in long-run equilibrium achieves…",
             options: [
               "Only productive efficiency for this good",
@@ -5314,7 +5314,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-1-mastery6",
-            concept: "Consumer Surplus, Producer Surplus, and Total Surplus",
+            concept: "per-unit subsidy",
             question: "A per-unit subsidy that pushes output above the efficient level will…",
             options: [
               "Eliminate deadweight loss for this good",
@@ -5372,7 +5372,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-2-mc1",
-            concept: "Negative Externalities and Overproduction",
+            concept: "negative externality",
             question: "With a negative externality like pollution, the market tends to…",
             options: [
               "Underproduce the good",
@@ -5385,7 +5385,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-2-mc2",
-            concept: "Negative Externalities and Overproduction",
+            concept: "positive externality",
             question: "To correct a positive externality, a government would most likely use a…",
             options: [
               "Tax equal to the external cost",
@@ -5413,7 +5413,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-2-aq1",
-          concept: "Negative Externalities and Overproduction",
+          concept: "Pigouvian tax",
           question: "What policy would move the polluting paper mill toward the socially efficient output?",
           options: [
             "A subsidy per unit of paper",
@@ -5441,7 +5441,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-2-mastery1",
-            concept: "Negative Externalities and Overproduction",
+            concept: "externalities",
             question: "An externality is best defined as a cost or benefit that falls on…",
             options: [
               "The buyer in the transaction in that market",
@@ -5455,7 +5455,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-2-mastery2",
-            concept: "Negative Externalities and Overproduction",
+            concept: "negative externality",
             question: "With a negative externality, marginal social cost is…",
             options: [
               "Below marginal private cost",
@@ -5469,7 +5469,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-2-mastery3",
-            concept: "Negative Externalities and Overproduction",
+            concept: "positive externality",
             question: "A good with a positive externality is produced in a quantity that is…",
             options: [
               "Above the efficient level",
@@ -5483,7 +5483,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-2-mastery4",
-            concept: "Negative Externalities and Overproduction",
+            concept: "Pigouvian tax",
             question: "A Pigouvian tax is designed to…",
             options: [
               "Increase a good's output",
@@ -5497,7 +5497,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-2-mastery5",
-            concept: "Negative Externalities and Overproduction",
+            concept: "Coase theorem",
             question: "The Coase theorem states that externalities can be resolved privately when…",
             options: [
               "The national government directly sets the market price",
@@ -5511,7 +5511,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-2-mastery6",
-            concept: "Negative Externalities and Overproduction",
+            concept: "negative externality",
             question: "The deadweight loss from a negative externality comes from units whose…",
             options: [
               "Benefit exceeds their private cost",
@@ -5569,7 +5569,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-3-mc1",
-            concept: "Classifying Goods by Excludability and Rivalry",
+            concept: "public goods",
             question: "A public good is defined as one that is…",
             options: [
               "Excludable and rival",
@@ -5582,7 +5582,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-3-mc2",
-            concept: "Classifying Goods by Excludability and Rivalry",
+            concept: "tragedy of the commons",
             question: "The tragedy of the commons occurs with resources that are…",
             options: [
               "Excludable and non-rival",
@@ -5610,7 +5610,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-3-aq1",
-          concept: "Classifying Goods by Excludability and Rivalry",
+          concept: "free rider problem",
           question: "Why will the flood levee likely be underprovided if left to voluntary payments?",
           options: [
             "It is rival and gets used up",
@@ -5638,7 +5638,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-3-mastery1",
-            concept: "Classifying Goods by Excludability and Rivalry",
+            concept: "excludability and rivalry",
             question: "A private good is one that is…",
             options: [
               "Non-excludable and non-rival",
@@ -5652,7 +5652,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-3-mastery2",
-            concept: "Classifying Goods by Excludability and Rivalry",
+            concept: "free rider problem",
             question: "The free-rider problem explains why markets tend to…",
             options: [
               "Overprovide public goods",
@@ -5666,7 +5666,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-3-mastery3",
-            concept: "Classifying Goods by Excludability and Rivalry",
+            concept: "excludability and rivalry",
             question: "A streaming service that charges subscribers but is not used up by extra viewers is a…",
             options: [
               "Pure public good",
@@ -5680,7 +5680,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-3-mastery4",
-            concept: "Classifying Goods by Excludability and Rivalry",
+            concept: "tragedy of the commons",
             question: "A common way to solve the tragedy of the commons is to…",
             options: [
               "Remove all usage limits",
@@ -5694,7 +5694,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-3-mastery5",
-            concept: "Classifying Goods by Excludability and Rivalry",
+            concept: "public goods",
             question: "National defense is typically funded by government because it is…",
             options: [
               "A rival private good",
@@ -5708,7 +5708,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-3-mastery6",
-            concept: "Classifying Goods by Excludability and Rivalry",
+            concept: "excludability and rivalry",
             question: "Rivalry in consumption means that…",
             options: [
               "Non-payers can be excluded for this good",
@@ -5766,7 +5766,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-4-mc1",
-            concept: "Antitrust Law and Regulating Natural Monopolies",
+            concept: "natural monopoly regulation",
             question: "Regulating a natural monopoly with average-cost (fair-return) pricing sets price equal to…",
             options: [
               "Marginal cost for this good",
@@ -5779,7 +5779,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-4-mc2",
-            concept: "Antitrust Law and Regulating Natural Monopolies",
+            concept: "rent-seeking",
             question: "Rent-seeking refers to spending resources to…",
             options: [
               "Lower a firm's production costs",
@@ -5807,7 +5807,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-4-aq1",
-          concept: "Antitrust Law and Regulating Natural Monopolies",
+          concept: "natural monopoly regulation",
           question: "Why might regulators choose average-cost pricing over marginal-cost pricing for the water company?",
           options: [
             "It fully eliminates deadweight loss for this good",
@@ -5835,7 +5835,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-4-mastery1",
-            concept: "Antitrust Law and Regulating Natural Monopolies",
+            concept: "antitrust law",
             question: "Antitrust laws are primarily intended to…",
             options: [
               "Guarantee firms high profits",
@@ -5849,7 +5849,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-4-mastery2",
-            concept: "Antitrust Law and Regulating Natural Monopolies",
+            concept: "natural monopoly regulation",
             question: "Setting a natural monopoly's price at marginal cost is socially optimal but…",
             options: [
               "Yields huge monopoly profit for this good",
@@ -5863,7 +5863,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-4-mastery3",
-            concept: "Antitrust Law and Regulating Natural Monopolies",
+            concept: "natural monopoly regulation",
             question: "Under fair-return (average-cost) pricing, a regulated natural monopoly earns…",
             options: [
               "Large economic profit",
@@ -5877,7 +5877,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-4-mastery4",
-            concept: "Antitrust Law and Regulating Natural Monopolies",
+            concept: "government failure",
             question: "Regulatory capture is a form of government failure in which…",
             options: [
               "Regulators serve the public well for the seller",
@@ -5891,7 +5891,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-4-mastery5",
-            concept: "Antitrust Law and Regulating Natural Monopolies",
+            concept: "rent-seeking",
             question: "The main social cost of rent-seeking is that it…",
             options: [
               "Increases total output for this good",
@@ -5905,7 +5905,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-4-mastery6",
-            concept: "Antitrust Law and Regulating Natural Monopolies",
+            concept: "government failure",
             question: "The idea of government failure reminds economists to compare a market failure with…",
             options: [
               "A perfectly efficient ideal",
@@ -5963,7 +5963,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-5-mc1",
-            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+            concept: "Lorenz curve",
             question: "A Lorenz curve that bows farther away from the 45-degree line indicates…",
             options: [
               "Less income inequality",
@@ -5976,7 +5976,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-5-mc2",
-            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+            concept: "Gini coefficient",
             question: "A Gini coefficient of 0 represents…",
             options: [
               "Perfect income inequality",
@@ -6004,7 +6004,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "apm-6-5-aq1",
-          concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+          concept: "Gini coefficient",
           question: "How would a progressive tax funding transfers most likely affect Southland's Gini coefficient?",
           options: [
             "Raise it toward 1",
@@ -6032,7 +6032,7 @@ export const deepApMicro: StructuredLessonContent[] = [
         questions: [
           {
             id: "apm-6-5-mastery1",
-            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+            concept: "Gini coefficient",
             question: "The Gini coefficient measures…",
             options: [
               "A country's inflation rate",
@@ -6046,7 +6046,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-5-mastery2",
-            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+            concept: "Lorenz curve",
             question: "On a Lorenz curve, the 45-degree line of equality means that…",
             options: [
               "One household holds all income for this good",
@@ -6060,7 +6060,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-5-mastery3",
-            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+            concept: "income inequality",
             question: "Which is a common source of income inequality?",
             options: [
               "Identical wages for all jobs",
@@ -6074,7 +6074,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-5-mastery4",
-            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+            concept: "progressive tax",
             question: "A progressive tax system is one in which…",
             options: [
               "Everyone pays the same rate for this good",
@@ -6088,7 +6088,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-5-mastery5",
-            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+            concept: "equity vs efficiency",
             question: "The equity-efficiency trade-off suggests that reducing inequality may…",
             options: [
               "Always raise total output",
@@ -6102,7 +6102,7 @@ export const deepApMicro: StructuredLessonContent[] = [
           },
           {
             id: "apm-6-5-mastery6",
-            concept: "Measuring Inequality: The Lorenz Curve and Gini Coefficient",
+            concept: "Gini coefficient",
             question: "If a country's Gini coefficient falls over time, its income distribution has become…",
             options: [
               "More unequal",

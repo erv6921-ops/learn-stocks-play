@@ -47,7 +47,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget1-mc1",
-            concept: "What is a Budget & Why It Matters",
+            concept: "budget purpose",
             question: "What is the core purpose of a budget?",
             options: [
               "To ban all spending on things that are fun",
@@ -60,7 +60,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget1-mc2",
-            concept: "What is a Budget & Why It Matters",
+            concept: "spending leakage",
             question: "What does 'leakage' mean in budgeting?",
             options: [
               "Small forgotten purchases that quietly drain your money",
@@ -88,7 +88,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget1-aq1",
-          concept: "What is a Budget & Why It Matters",
+          concept: "budget purpose",
           question: "Sam ends every month near $0 despite earning $300. What is the BEST first step a budget gives him?",
           options: [
             "Deciding where each dollar goes before spending it",
@@ -116,7 +116,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget1-mastery1",
-            concept: "What is a Budget & Why It Matters",
+            concept: "opportunity cost",
             question: "Why is every spending choice in a budget considered a 'trade-off'?",
             options: [
               "Because prices always climb faster than what you earn",
@@ -130,7 +130,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget1-mastery2",
-            concept: "What is a Budget & Why It Matters",
+            concept: "budget purpose",
             question: "Which statement about budgets and fun is TRUE?",
             options: [
               "A good budget plans for fun on purpose",
@@ -144,7 +144,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget1-mastery3",
-            concept: "What is a Budget & Why It Matters",
+            concept: "goal budgeting",
             question: "How does a budget help you reach a big goal like a $600 laptop?",
             options: [
               "By breaking it into small monthly amounts to save",
@@ -158,7 +158,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget1-mastery4",
-            concept: "What is a Budget & Why It Matters",
+            concept: "budget purpose",
             question: "How does budgeting help you avoid debt?",
             options: [
               "By raising your credit limit automatically",
@@ -172,7 +172,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget1-mastery5",
-            concept: "What is a Budget & Why It Matters",
+            concept: "budget purpose",
             question: "Research shows people who budget usually report…",
             options: [
               "Much less stress about their money",
@@ -186,7 +186,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget1-mastery6",
-            concept: "What is a Budget & Why It Matters",
+            concept: "budget purpose",
             question: "Jordan earns $250 but always ends at $0. What most likely fixes this?",
             options: [
               "Waiting for prices in stores to fall",
@@ -247,7 +247,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget2-mc1",
-            concept: "How to Make a Simple Budget",
+            concept: "pay yourself first",
             question: "What does 'pay yourself first' mean?",
             options: [
               "Spend on wants before paying any bills",
@@ -260,7 +260,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget2-mc2",
-            concept: "How to Make a Simple Budget",
+            concept: "budget surplus vs deficit",
             question: "When is a budget considered 'balanced'?",
             options: [
               "When spending is larger than your income",
@@ -288,7 +288,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget2-aq1",
-          concept: "How to Make a Simple Budget",
+          concept: "pay yourself first",
           question: "Lena wants to be sure she saves $60 monthly for her bike. What should she do FIRST each month?",
           options: [
             "Set aside the $60 before planning any spending",
@@ -316,7 +316,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget2-mastery1",
-            concept: "How to Make a Simple Budget",
+            concept: "budget categories",
             question: "What are the three basic pieces of a simple budget?",
             options: [
               "Taxes, tips, and interest owed",
@@ -330,7 +330,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget2-mastery2",
-            concept: "How to Make a Simple Budget",
+            concept: "budget surplus vs deficit",
             question: "What is the golden rule of a simple budget?",
             options: [
               "Spending plus saving must not exceed income",
@@ -344,7 +344,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget2-mastery3",
-            concept: "How to Make a Simple Budget",
+            concept: "pay yourself first",
             question: "Why is 'pay yourself first' better than saving whatever's left?",
             options: [
               "Because leftovers are usually zero after spending",
@@ -358,7 +358,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget2-mastery4",
-            concept: "How to Make a Simple Budget",
+            concept: "budget adjustment",
             question: "Marcus budgets $15 for snacks but really spends $40. What's the fix?",
             options: [
               "Quit budgeting entirely since plans simply never work",
@@ -372,7 +372,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget2-mastery5",
-            concept: "How to Make a Simple Budget",
+            concept: "zero-based budgeting",
             question: "Your budget has $20 unassigned after listing everything. What should you do?",
             options: [
               "Leave it floating with no job at all",
@@ -386,7 +386,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget2-mastery6",
-            concept: "How to Make a Simple Budget",
+            concept: "budget adjustment",
             question: "Why is a budget called a 'living document'?",
             options: [
               "It has to be printed on special legal paper",
@@ -447,7 +447,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget3-mc1",
-            concept: "Tracking Your Spending",
+            concept: "spending tracking",
             question: "Why can't you rely on memory to know your spending?",
             options: [
               "Memory adds fake purchases you never made",
@@ -460,7 +460,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget3-mc2",
-            concept: "Tracking Your Spending",
+            concept: "budgeting tools",
             question: "What matters most when choosing a tracking method?",
             options: [
               "That it's the most expensive app available",
@@ -488,7 +488,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget3-aq1",
-          concept: "Tracking Your Spending",
+          concept: "spending leakage",
           question: "Owen discovers $110 a month in delivery orders he never noticed. Why did tracking reveal this when memory didn't?",
           options: [
             "Delivery apps must be secretly overcharging every single user",
@@ -516,7 +516,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget3-mastery1",
-            concept: "Tracking Your Spending",
+            concept: "spending leakage",
             question: "What is the '$5 problem' in spending?",
             options: [
               "A rule that all items must cost $5",
@@ -530,7 +530,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget3-mastery2",
-            concept: "Tracking Your Spending",
+            concept: "spending tracking",
             question: "Why should you record a purchase within minutes of making it?",
             options: [
               "Because the price changes if you wait",
@@ -544,7 +544,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget3-mastery3",
-            concept: "Tracking Your Spending",
+            concept: "budget review",
             question: "What should you do during a weekly tracking review?",
             options: [
               "Delete the data so it doesn't clutter your phone",
@@ -558,7 +558,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget3-mastery4",
-            concept: "Tracking Your Spending",
+            concept: "budgeting tools",
             question: "Theo abandons a fancy spreadsheet but sticks with a notes app. What's the lesson?",
             options: [
               "Only detailed spreadsheets can ever track spending correctly",
@@ -572,7 +572,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget3-mastery5",
-            concept: "Tracking Your Spending",
+            concept: "spending tracking",
             question: "Devi guessed $25 a month on coffee but tracked $88. What did tracking give her?",
             options: [
               "Proof that coffee is bad for her health",
@@ -586,7 +586,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget3-mastery6",
-            concept: "Tracking Your Spending",
+            concept: "spending patterns",
             question: "Besides totals, what valuable thing does tracking reveal?",
             options: [
               "Patterns and triggers behind your spending",
@@ -647,7 +647,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget4-mc1",
-            concept: "The 50/30/20 Rule",
+            concept: "50/30/20 rule",
             question: "In the 50/30/20 rule, what does the 20% bucket cover?",
             options: [
               "Only fun spending like games and eating out",
@@ -660,7 +660,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget4-mc2",
-            concept: "The 50/30/20 Rule",
+            concept: "needs vs wants",
             question: "What's a good test for whether something is a want, not a need?",
             options: [
               "Whether the item costs less than twenty dollars",
@@ -688,7 +688,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget4-aq1",
-          concept: "The 50/30/20 Rule",
+          concept: "50/30/20 flexibility",
           question: "Kayla's real needs are only $60 of her $400 income. What's the smartest way to use 50/30/20?",
           options: [
             "Force exactly $200 into needs to obey the rule",
@@ -716,7 +716,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget4-mastery1",
-            concept: "The 50/30/20 Rule",
+            concept: "50/30/20 rule",
             question: "On $300 of take-home pay, how much does 50/30/20 assign to wants?",
             options: [
               "$150 for the wants bucket",
@@ -730,7 +730,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget4-mastery2",
-            concept: "The 50/30/20 Rule",
+            concept: "50/30/20 rule",
             question: "Why does the rule bake saving into a fixed 20%?",
             options: [
               "So saving happens by default, not by willpower",
@@ -744,7 +744,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget4-mastery3",
-            concept: "The 50/30/20 Rule",
+            concept: "needs vs wants",
             question: "What is the most common mistake people make with 50/30/20?",
             options: [
               "Saving far too much of their income",
@@ -758,7 +758,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget4-mastery4",
-            concept: "The 50/30/20 Rule",
+            concept: "50/30/20 flexibility",
             question: "Why can Leo, who lives at home, save more than a strict 20%?",
             options: [
               "Because his needs are very low, freeing income",
@@ -772,7 +772,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget4-mastery5",
-            concept: "The 50/30/20 Rule",
+            concept: "50/30/20 rule",
             question: "Why does paying off debt count in the 20% bucket?",
             options: [
               "Because paying off debt is technically a type of want",
@@ -786,7 +786,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget4-mastery6",
-            concept: "The 50/30/20 Rule",
+            concept: "needs vs wants",
             question: "A teen calls a brand-new phone model a 'need.' What's the honest label?",
             options: [
               "A need, since every phone is always essential",
@@ -847,7 +847,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget5-mc1",
-            concept: "Monthly Budget",
+            concept: "fixed vs variable expenses",
             question: "Which of these is a FIXED expense?",
             options: [
               "A $45 monthly phone plan",
@@ -860,7 +860,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget5-mc2",
-            concept: "Monthly Budget",
+            concept: "bill timing",
             question: "Why does bill timing matter in a monthly budget?",
             options: [
               "Bills cost more if paid late in the month",
@@ -888,7 +888,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget5-aq1",
-          concept: "Monthly Budget",
+          concept: "bill timing",
           question: "Malik's $60 bill is due on the 5th, but his pay arrives on the 20th. What's the best fix?",
           options: [
             "Simply skip the bill until his next paycheck arrives",
@@ -916,7 +916,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget5-mastery1",
-            concept: "Monthly Budget",
+            concept: "fixed vs variable expenses",
             question: "What's the difference between fixed and variable expenses?",
             options: [
               "Fixed are wants; variable are always needs",
@@ -930,7 +930,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget5-mastery2",
-            concept: "Monthly Budget",
+            concept: "fixed vs variable expenses",
             question: "Why is cutting a fixed cost so valuable?",
             options: [
               "It frees that amount every month going forward",
@@ -944,7 +944,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget5-mastery3",
-            concept: "Monthly Budget",
+            concept: "zero-based budgeting",
             question: "In the running-total method, what does reaching exactly zero mean?",
             options: [
               "You have spent every single dollar on wants",
@@ -958,7 +958,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget5-mastery4",
-            concept: "Monthly Budget",
+            concept: "bill timing",
             question: "Sofia's budget balanced but she still overdrafted. Why?",
             options: [
               "Her total monthly spending secretly doubled overnight",
@@ -972,7 +972,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget5-mastery5",
-            concept: "Monthly Budget",
+            concept: "budget review",
             question: "What is the 'reconcile' step at month's end?",
             options: [
               "Deleting all of last month's entire budget completely",
@@ -986,7 +986,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget5-mastery6",
-            concept: "Monthly Budget",
+            concept: "fixed vs variable expenses",
             question: "Why subtract fixed costs first when building the budget?",
             options: [
               "Because fixed costs are the only expenses that matter",
@@ -1047,7 +1047,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget6-mc1",
-            concept: "Emergency Funds",
+            concept: "emergency fund purpose",
             question: "What is an emergency fund for?",
             options: [
               "Saving up for a planned vacation",
@@ -1060,7 +1060,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget6-mc2",
-            concept: "Emergency Funds",
+            concept: "emergency fund size",
             question: "What's a realistic starter emergency fund goal for a teen?",
             options: [
               "Six months of an adult's full expenses",
@@ -1088,7 +1088,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget6-aq1",
-          concept: "Emergency Funds",
+          concept: "automated saving",
           question: "Ella wants her emergency fund to actually get built. What habit makes that most likely?",
           options: [
             "Saving whatever happens to be left over",
@@ -1116,7 +1116,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget6-mastery1",
-            concept: "Emergency Funds",
+            concept: "emergency fund purpose",
             question: "How does an emergency fund prevent a debt spiral?",
             options: [
               "It pays surprises in cash, not on credit",
@@ -1130,7 +1130,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget6-mastery2",
-            concept: "Emergency Funds",
+            concept: "sinking fund",
             question: "How is an emergency fund different from a sinking fund?",
             options: [
               "A sinking fund is really only for rich millionaires",
@@ -1144,7 +1144,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget6-mastery3",
-            concept: "Emergency Funds",
+            concept: "automated saving",
             question: "Why is 'automatic' the key word when building the fund?",
             options: [
               "It moves money before you can spend it",
@@ -1158,7 +1158,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget6-mastery4",
-            concept: "Emergency Funds",
+            concept: "emergency fund location",
             question: "Where should you keep an emergency fund?",
             options: [
               "In a risky stock for maximum growth",
@@ -1172,7 +1172,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget6-mastery5",
-            concept: "Emergency Funds",
+            concept: "emergency fund size",
             question: "Why is a $300 fund you build better than a $3,000 goal you never start?",
             options: [
               "Because bigger goals earn no interest at all",
@@ -1186,7 +1186,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget6-mastery6",
-            concept: "Emergency Funds",
+            concept: "emergency fund purpose",
             question: "Ravi pays a $180 repair from his fund; his friend charges it to a card. What's the difference?",
             options: [
               "Ravi pays $180; his friend pays more with interest",
@@ -1247,7 +1247,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget7-mc1",
-            concept: "Lifestyle Inflation",
+            concept: "lifestyle inflation",
             question: "What is lifestyle inflation?",
             options: [
               "General prices rising across the whole entire economy",
@@ -1260,7 +1260,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget7-mc2",
-            concept: "Lifestyle Inflation",
+            concept: "lifestyle inflation",
             question: "What does the 'save the raise' rule tell you to do?",
             options: [
               "Spend the entire raise on brand-new upgrades right away",
@@ -1288,7 +1288,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget7-aq1",
-          concept: "Lifestyle Inflation",
+          concept: "lifestyle inflation",
           question: "Noah wants his $120 raise to build his future, not disappear. What's the smartest move?",
           options: [
             "Automate most of the raise into savings",
@@ -1316,7 +1316,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget7-mastery1",
-            concept: "Lifestyle Inflation",
+            concept: "lifestyle inflation",
             question: "Why do some high earners still live paycheck to paycheck?",
             options: [
               "Their lifestyle inflated right along with their pay",
@@ -1330,7 +1330,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget7-mastery2",
-            concept: "Lifestyle Inflation",
+            concept: "savings rate",
             question: "You earn $200 and save $40. Income rises to $300 but you still save $40. What happened?",
             options: [
               "Your overall saving rate suddenly rose very sharply",
@@ -1344,7 +1344,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget7-mastery3",
-            concept: "Lifestyle Inflation",
+            concept: "lifestyle inflation",
             question: "What is the 'hedonic treadmill'?",
             options: [
               "A special machine that automatically tracks your spending",
@@ -1358,7 +1358,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget7-mastery4",
-            concept: "Lifestyle Inflation",
+            concept: "lifestyle inflation",
             question: "Why is keeping fixed costs lean as income grows a 'superpower'?",
             options: [
               "It somehow magically increases the size of your paycheck",
@@ -1372,7 +1372,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget7-mastery5",
-            concept: "Lifestyle Inflation",
+            concept: "lifestyle inflation",
             question: "What question helps you separate a good upgrade from pure inflation?",
             options: [
               "Is this really the single most expensive option available?",
@@ -1386,7 +1386,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget7-mastery6",
-            concept: "Lifestyle Inflation",
+            concept: "automated saving",
             question: "Marco saved $80 of his $120 raise automatically. Why did it feel painless?",
             options: [
               "Because the bank paid him a bonus for it",
@@ -1447,7 +1447,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget8-mc1",
-            concept: "Goal Budgeting",
+            concept: "SMART goals",
             question: "What makes a goal 'SMART'?",
             options: [
               "It's expensive, trendy, and impressive",
@@ -1460,7 +1460,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget8-mc2",
-            concept: "Goal Budgeting",
+            concept: "time horizon",
             question: "Where should you keep money for a short-term goal?",
             options: [
               "In risky stocks for maximum growth",
@@ -1488,7 +1488,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget8-aq1",
-          concept: "Goal Budgeting",
+          concept: "time horizon",
           question: "Where should Amara keep her long-term college savings, versus her short-term headphone money?",
           options: [
             "Both belong in the exact same risky account",
@@ -1516,7 +1516,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget8-mastery1",
-            concept: "Goal Budgeting",
+            concept: "goal budgeting",
             question: "How do you turn a $600 laptop goal into a monthly budget number?",
             options: [
               "Divide the cost by your chosen deadline",
@@ -1530,7 +1530,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget8-mastery2",
-            concept: "Goal Budgeting",
+            concept: "SMART goals",
             question: "Why is 'save more' a weak goal?",
             options: [
               "It's too specific and detailed to follow",
@@ -1544,7 +1544,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget8-mastery3",
-            concept: "Goal Budgeting",
+            concept: "time horizon",
             question: "Why should long-term goal money be treated differently from short-term?",
             options: [
               "Long-term money can pursue growth over time",
@@ -1558,7 +1558,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget8-mastery4",
-            concept: "Goal Budgeting",
+            concept: "goal prioritization",
             question: "You have several goals but can't fully fund all of them. What should you do?",
             options: [
               "Fund only whichever want feels loudest today",
@@ -1572,7 +1572,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget8-mastery5",
-            concept: "Goal Budgeting",
+            concept: "time horizon",
             question: "Why include a mix of short, medium, and long-term goals?",
             options: [
               "So that the budget takes much longer to write",
@@ -1586,7 +1586,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget8-mastery6",
-            concept: "Goal Budgeting",
+            concept: "goal motivation",
             question: "What helps you stay motivated on a slow, long-term goal?",
             options: [
               "Ignoring your progress until the very end",
@@ -1647,7 +1647,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget9-mc1",
-            concept: "Zero-Based Budgeting",
+            concept: "zero-based budgeting",
             question: "In zero-based budgeting, what does 'zero left' mean?",
             options: [
               "You have spent all of your money on wants",
@@ -1660,7 +1660,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget9-mc2",
-            concept: "Zero-Based Budgeting",
+            concept: "irregular income budgeting",
             question: "How should you handle irregular (varying) income in zero-based budgeting?",
             options: [
               "Assume your best month every time",
@@ -1688,7 +1688,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget9-aq1",
-          concept: "Zero-Based Budgeting",
+          concept: "zero-based budgeting",
           question: "Diego has assigned all $300 but wants $25 more for a game. What must he do?",
           options: [
             "Pull the $25 from another assigned category",
@@ -1716,7 +1716,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget9-mastery1",
-            concept: "Zero-Based Budgeting",
+            concept: "zero-based budgeting",
             question: "How is zero-based budgeting different from casual budgeting?",
             options: [
               "It ignores your needs and funds only your wants",
@@ -1730,7 +1730,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget9-mastery2",
-            concept: "Zero-Based Budgeting",
+            concept: "zero-based budgeting",
             question: "You finish assigning categories and have $23 left. What does zero-based budgeting say to do?",
             options: [
               "Leave it floating for spontaneous buys",
@@ -1744,7 +1744,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget9-mastery3",
-            concept: "Zero-Based Budgeting",
+            concept: "zero-based budgeting",
             question: "Why does zero-based budgeting build discipline so effectively?",
             options: [
               "It hides all trade-offs from your view",
@@ -1758,7 +1758,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget9-mastery4",
-            concept: "Zero-Based Budgeting",
+            concept: "zero-based budgeting",
             question: "Why rebuild a zero-based budget each period instead of copying last month?",
             options: [
               "Because the numbers are illegal to reuse",
@@ -1772,7 +1772,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget9-mastery5",
-            concept: "Zero-Based Budgeting",
+            concept: "zero-based budgeting",
             question: "What is the main downside of zero-based budgeting?",
             options: [
               "It takes more effort than simpler methods",
@@ -1786,7 +1786,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget9-mastery6",
-            concept: "Zero-Based Budgeting",
+            concept: "irregular income budgeting",
             question: "Lucia's income varies. How does she apply zero-based budgeting?",
             options: [
               "She budgets her highest-ever month each time",
@@ -1847,7 +1847,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget10-mc1",
-            concept: "Digital Budget Tools",
+            concept: "budgeting tools",
             question: "What is the biggest mistake people make with budgeting apps?",
             options: [
               "Thinking the app will budget for them",
@@ -1860,7 +1860,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget10-mc2",
-            concept: "Digital Budget Tools",
+            concept: "two-factor authentication",
             question: "How should you protect an app that links to your bank?",
             options: [
               "Share your password with close friends",
@@ -1888,7 +1888,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget10-aq1",
-          concept: "Digital Budget Tools",
+          concept: "budgeting tools",
           question: "Priya wants a tool she'll stick with and can afford. What's the smartest starting choice?",
           options: [
             "The priciest app with the most features",
@@ -1916,7 +1916,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget10-mastery1",
-            concept: "Digital Budget Tools",
+            concept: "budgeting tools",
             question: "What is the core value of a digital budgeting tool?",
             options: [
               "It removes friction so you keep tracking",
@@ -1930,7 +1930,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget10-mastery2",
-            concept: "Digital Budget Tools",
+            concept: "budgeting tools",
             question: "Why can't an app truly 'budget for you'?",
             options: [
               "Because apps can't do any math at all",
@@ -1944,7 +1944,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget10-mastery3",
-            concept: "Digital Budget Tools",
+            concept: "spreadsheet budgeting",
             question: "Why might a simple spreadsheet be better than a fancy app for some people?",
             options: [
               "It teaches you more by handling every number",
@@ -1958,7 +1958,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget10-mastery4",
-            concept: "Digital Budget Tools",
+            concept: "budgeting tools",
             question: "If a budgeting tool is free, what should you understand?",
             options: [
               "That it must be broken or fake",
@@ -1972,7 +1972,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget10-mastery5",
-            concept: "Digital Budget Tools",
+            concept: "budget review",
             question: "What habit makes a budgeting tool actually work?",
             options: [
               "Installing it and never opening it again",
@@ -1986,7 +1986,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget10-mastery6",
-            concept: "Digital Budget Tools",
+            concept: "budgeting tools",
             question: "Ben uses one free app well; his friend bought three apps but never opens them. What's the lesson?",
             options: [
               "Paying more for apps always improves your budget",
@@ -2047,7 +2047,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget11-mc1",
-            concept: "Smart Buying: Evaluating Big Purchases",
+            concept: "total cost of ownership",
             question: "What does 'total cost of ownership' include?",
             options: [
               "Just the plain sticker price you pay upfront",
@@ -2060,7 +2060,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget11-mc2",
-            concept: "Smart Buying: Evaluating Big Purchases",
+            concept: "waiting rule",
             question: "What is the 'waiting rule' for big purchases?",
             options: [
               "Buy instantly before the deal expires",
@@ -2088,7 +2088,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget11-aq1",
-          concept: "Smart Buying: Evaluating Big Purchases",
+          concept: "matching features to needs",
           question: "Marcus only needs a laptop for browsing and essays. What's the smartest choice?",
           options: [
             "Go grab the $1,100 model before the deal ends",
@@ -2116,7 +2116,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget11-mastery1",
-            concept: "Smart Buying: Evaluating Big Purchases",
+            concept: "total cost of ownership",
             question: "Why can a $200 printer end up costing more than a $350 one?",
             options: [
               "Its ink and refills cost far more over time",
@@ -2130,7 +2130,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget11-mastery2",
-            concept: "Smart Buying: Evaluating Big Purchases",
+            concept: "total cost of ownership",
             question: "What is the 'buy it once' idea about durability?",
             options: [
               "Always simply choose the single cheapest option that is available",
@@ -2144,7 +2144,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget11-mastery3",
-            concept: "Smart Buying: Evaluating Big Purchases",
+            concept: "matching features to needs",
             question: "Why should you match features to your real needs?",
             options: [
               "Because all the extra features are always free",
@@ -2158,7 +2158,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget11-mastery4",
-            concept: "Smart Buying: Evaluating Big Purchases",
+            concept: "product research",
             question: "What's the best way to research a big purchase?",
             options: [
               "Trust a single glowing review completely",
@@ -2172,7 +2172,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget11-mastery5",
-            concept: "Smart Buying: Evaluating Big Purchases",
+            concept: "scarcity tactics",
             question: "Why do stores use 'only two left' and 'today only' messages?",
             options: [
               "To rush you past careful thinking",
@@ -2186,7 +2186,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget11-mastery6",
-            concept: "Smart Buying: Evaluating Big Purchases",
+            concept: "waiting rule",
             question: "Leah waited 48 hours and bought a $550 laptop instead of a $1,200 one. What did the wait do?",
             options: [
               "It somehow forced her to go buy the pricier model",
@@ -2247,7 +2247,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget12-mc1",
-            concept: "The Psychology of Pricing",
+            concept: "charm pricing",
             question: "Why does '$9.99' make you more likely to buy than '$10'?",
             options: [
               "It is actually a legally required lower price",
@@ -2260,7 +2260,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget12-mc2",
-            concept: "The Psychology of Pricing",
+            concept: "decoy pricing",
             question: "What is the 'decoy effect'?",
             options: [
               "A middle option that steers you toward pricier picks",
@@ -2288,7 +2288,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget12-aq1",
-          concept: "The Psychology of Pricing",
+          concept: "free shipping threshold",
           question: "Jordan wants the $44 hoodie but is tempted to add items for free shipping. What's the smart move?",
           options: [
             "Add a $10 item to save the $6 shipping",
@@ -2316,7 +2316,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget12-mastery1",
-            concept: "The Psychology of Pricing",
+            concept: "anchoring",
             question: "How does 'anchoring' with a crossed-out price work?",
             options: [
               "The high number makes the sale price feel amazing",
@@ -2330,7 +2330,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget12-mastery2",
-            concept: "The Psychology of Pricing",
+            concept: "pain of paying",
             question: "Why do people tend to spend more with cards than with cash?",
             options: [
               "Paying with cards charges a lower total price",
@@ -2344,7 +2344,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget12-mastery3",
-            concept: "The Psychology of Pricing",
+            concept: "pain of paying",
             question: "What's the risk of 'buy now, pay later' services?",
             options: [
               "They always refund your entire purchase",
@@ -2358,7 +2358,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget12-mastery4",
-            concept: "The Psychology of Pricing",
+            concept: "free shipping threshold",
             question: "A free-shipping threshold makes Sara add a $12 item to save $6 shipping. What happened?",
             options: [
               "She saved money overall by hitting the threshold",
@@ -2372,7 +2372,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget12-mastery5",
-            concept: "The Psychology of Pricing",
+            concept: "discount evaluation",
             question: "Which question best defends against pricing tricks?",
             options: [
               "Exactly how many are left in stock right now?",
@@ -2386,7 +2386,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget12-mastery6",
-            concept: "The Psychology of Pricing",
+            concept: "charm pricing",
             question: "You see an item priced at $19.95. What's the smart mental move?",
             options: [
               "Treat it as roughly $20, not $19",
@@ -2447,7 +2447,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget13-mc1",
-            concept: "Giving Back: Charitable Donations & Nonprofits",
+            concept: "nonprofit evaluation",
             question: "What makes an organization a nonprofit?",
             options: [
               "It never handles or spends any money",
@@ -2460,7 +2460,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget13-mc2",
-            concept: "Giving Back: Charitable Donations & Nonprofits",
+            concept: "charity scam red flags",
             question: "Which is a red flag for a charity scam?",
             options: [
               "A willingness to patiently answer all your questions",
@@ -2488,7 +2488,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget13-aq1",
-          concept: "Giving Back: Charitable Donations & Nonprofits",
+          concept: "charitable giving",
           question: "Nia wants to give generously but sustainably. What's the best approach?",
           options: [
             "Give large impulsive amounts to whoever happens to ask",
@@ -2516,7 +2516,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget13-mastery1",
-            concept: "Giving Back: Charitable Donations & Nonprofits",
+            concept: "charitable giving",
             question: "Besides money, what can you donate to a cause?",
             options: [
               "Only cash counts as a real donation",
@@ -2530,7 +2530,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget13-mastery2",
-            concept: "Giving Back: Charitable Donations & Nonprofits",
+            concept: "nonprofit evaluation",
             question: "Why check a charity's watchdog rating before donating a lot?",
             options: [
               "To see how much reaches the actual cause",
@@ -2544,7 +2544,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget13-mastery3",
-            concept: "Giving Back: Charitable Donations & Nonprofits",
+            concept: "charitable giving",
             question: "Why is a planned 'giving line' in your budget helpful?",
             options: [
               "It forces you to give away your income",
@@ -2558,7 +2558,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget13-mastery4",
-            concept: "Giving Back: Charitable Donations & Nonprofits",
+            concept: "charitable tax deduction",
             question: "How can charitable giving affect some adults' taxes in the US?",
             options: [
               "It doubles the taxes they owe that year",
@@ -2572,7 +2572,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget13-mastery5",
-            concept: "Giving Back: Charitable Donations & Nonprofits",
+            concept: "charity scam red flags",
             question: "Someone demands you donate immediately by wire transfer. What should you do?",
             options: [
               "Pay very fast before the special offer disappears",
@@ -2586,7 +2586,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget13-mastery6",
-            concept: "Giving Back: Charitable Donations & Nonprofits",
+            concept: "charitable giving",
             question: "Why is 'you can't pour from an empty cup' relevant to giving?",
             options: [
               "Giving that wrecks your finances helps no one",
@@ -2647,7 +2647,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget14-mc1",
-            concept: "Consumer Protection: Your Rights & Agencies",
+            concept: "consumer rights",
             question: "Which is a basic consumer right?",
             options: [
               "Protection against false advertising",
@@ -2660,7 +2660,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget14-mc2",
-            concept: "Consumer Protection: Your Rights & Agencies",
+            concept: "billing dispute process",
             question: "What should you do FIRST when a company overcharges you?",
             options: [
               "Immediately go sue the company in federal court",
@@ -2688,7 +2688,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget14-aq1",
-          concept: "Consumer Protection: Your Rights & Agencies",
+          concept: "consumer protection agencies",
           question: "The company refused to remove Ethan's undisclosed fee on a financial service. Where should he escalate?",
           options: [
             "Nowhere; he must simply pay the fee",
@@ -2716,7 +2716,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget14-mastery1",
-            concept: "Consumer Protection: Your Rights & Agencies",
+            concept: "warranty",
             question: "What does a product warranty promise?",
             options: [
               "A surprise cash bonus for buying the product",
@@ -2730,7 +2730,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget14-mastery2",
-            concept: "Consumer Protection: Your Rights & Agencies",
+            concept: "consumer protection agencies",
             question: "What does the FTC mainly do?",
             options: [
               "It sets the price of every single product sold",
@@ -2744,7 +2744,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget14-mastery3",
-            concept: "Consumer Protection: Your Rights & Agencies",
+            concept: "consumer protection agencies",
             question: "Which agency handles complaints about banks, loans, and credit cards?",
             options: [
               "The CFPB",
@@ -2758,7 +2758,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget14-mastery4",
-            concept: "Consumer Protection: Your Rights & Agencies",
+            concept: "billing dispute process",
             question: "Why is keeping records important in a consumer dispute?",
             options: [
               "Detailed records are required to buy almost anything",
@@ -2772,7 +2772,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget14-mastery5",
-            concept: "Consumer Protection: Your Rights & Agencies",
+            concept: "consumer rights",
             question: "Kai's 'waterproof' speaker dies in the rain. Why does he have grounds to complain?",
             options: [
               "Because products must work as described",
@@ -2786,7 +2786,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget14-mastery6",
-            concept: "Consumer Protection: Your Rights & Agencies",
+            concept: "consumer rights",
             question: "Besides your money, what else do consumer protections cover?",
             options: [
               "Your personal and financial data",
@@ -2847,7 +2847,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget15-mc1",
-            concept: "Reading & Evaluating Contracts",
+            concept: "binding contract",
             question: "What makes a contract different from a casual promise?",
             options: [
               "It is legally binding and enforceable in court",
@@ -2860,7 +2860,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget15-mc2",
-            concept: "Reading & Evaluating Contracts",
+            concept: "contract red flags",
             question: "A salesperson says 'don't worry about that clause.' What's true?",
             options: [
               "Verbal promises override the written contract",
@@ -2888,7 +2888,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget15-aq1",
-          concept: "Reading & Evaluating Contracts",
+          concept: "contract red flags",
           question: "Sofia is rushed to sign and told not to worry about cancellation. What's the smart move?",
           options: [
             "Sign now to grab the deal before it ends",
@@ -2916,7 +2916,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget15-mastery1",
-            concept: "Reading & Evaluating Contracts",
+            concept: "binding contract",
             question: "Why do companies write contracts carefully?",
             options: [
               "Mainly to make the document look impressive",
@@ -2930,7 +2930,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget15-mastery2",
-            concept: "Reading & Evaluating Contracts",
+            concept: "contract terms",
             question: "Where does the real cost and risk of a contract usually hide?",
             options: [
               "In the big friendly headline number",
@@ -2944,7 +2944,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget15-mastery3",
-            concept: "Reading & Evaluating Contracts",
+            concept: "contract terms",
             question: "What does an auto-renewal clause do?",
             options: [
               "Politely cancels the whole contract on your behalf automatically",
@@ -2958,7 +2958,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget15-mastery4",
-            concept: "Reading & Evaluating Contracts",
+            concept: "contract red flags",
             question: "Which is a red flag when someone asks you to sign a contract?",
             options: [
               "They give you time to read it fully",
@@ -2972,7 +2972,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget15-mastery5",
-            concept: "Reading & Evaluating Contracts",
+            concept: "contract terms",
             question: "When is your leverage highest with a contract?",
             options: [
               "The moment before you sign it",
@@ -2986,7 +2986,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget15-mastery6",
-            concept: "Reading & Evaluating Contracts",
+            concept: "contract terms",
             question: "Liam signs a '$15 a month' gym deal and gets stuck with a $120 fee. What went wrong?",
             options: [
               "The gym broke the law by charging him",
@@ -3047,7 +3047,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget16-mc1",
-            concept: "Disputing Billing Errors",
+            concept: "statement review",
             question: "Why should you review every line of a statement, not just the total?",
             options: [
               "Small unfamiliar charges can signal fraud",
@@ -3060,7 +3060,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget16-mc2",
-            concept: "Disputing Billing Errors",
+            concept: "billing dispute process",
             question: "Why is acting quickly important when disputing a charge?",
             options: [
               "That disputed charge grows larger with every passing day",
@@ -3088,7 +3088,7 @@ export const deepBudget: StructuredLessonContent[] = [
         type: "applied-question",
         question: {
           id: "budget16-aq1",
-          concept: "Disputing Billing Errors",
+          concept: "billing dispute process",
           question: "Maya wants to fix the $35 double charge on her card. What's the best first step?",
           options: [
             "Pay it twice and hope for a refund later",
@@ -3116,7 +3116,7 @@ export const deepBudget: StructuredLessonContent[] = [
         questions: [
           {
             id: "budget16-mastery1",
-            concept: "Disputing Billing Errors",
+            concept: "zombie subscription",
             question: "What is a 'zombie subscription'?",
             options: [
               "A service you canceled that keeps billing you",
@@ -3130,7 +3130,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget16-mastery2",
-            concept: "Disputing Billing Errors",
+            concept: "billing dispute process",
             question: "What's the right first step once you spot a billing error?",
             options: [
               "Just post about the whole thing on social media",
@@ -3144,7 +3144,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget16-mastery3",
-            concept: "Disputing Billing Errors",
+            concept: "chargeback",
             question: "For a disputed credit card charge, what protection do you generally have?",
             options: [
               "You must pay double until it's resolved",
@@ -3158,7 +3158,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget16-mastery4",
-            concept: "Disputing Billing Errors",
+            concept: "billing dispute process",
             question: "Why does persistence matter in a dispute?",
             options: [
               "Most companies charge less to more persistent people",
@@ -3172,7 +3172,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget16-mastery5",
-            concept: "Disputing Billing Errors",
+            concept: "billing error vs fraud",
             question: "How does a billing error differ from unauthorized fraud?",
             options: [
               "They are honestly the very same exact situation",
@@ -3186,7 +3186,7 @@ export const deepBudget: StructuredLessonContent[] = [
           },
           {
             id: "budget16-mastery6",
-            concept: "Disputing Billing Errors",
+            concept: "zombie subscription",
             question: "How can you make sure a canceled subscription truly stops charging you?",
             options: [
               "Assume it stopped and never check again",

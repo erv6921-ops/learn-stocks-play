@@ -26,7 +26,7 @@ interface AppContextType {
   authReady: boolean
   setUser: (user: UserProfile | null) => void
   lessonProgress: LessonProgress[]
-  updateLessonProgress: (lessonId: string, completed: boolean, quizScore?: number, progressPercent?: number) => void
+  updateLessonProgress: (lessonId: string, completed: boolean, quizScore?: number, progressPercent?: number, masteryScore?: number) => void
   tokens: Token[]
   addToken: (token: Omit<Token, "id" | "createdAt" | "priceSimulation" | "marketCap">) => void
   watchlist: string[]
@@ -516,18 +516,44 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const persistUid = (): string | null =>
     DEV_LOCAL_BYPASS ? null : userIdRef.current
 
-  const updateLessonProgress = (lessonId: string, completed: boolean, quizScore?: number, progressPercent?: number) => {
-    const now = completed ? new Date() : undefined
+  // Monotonic: a lesson that is completed stays completed, its quiz_score never
+  // drops or goes null, and its bar stays at 100. Mid-walk progress writes
+  // (completed=false, percent only) from a retake or a second tab therefore
+  // can't undo a finish. `masteryScore` is the mastery-check accuracy, stored
+  // in lesson_progress.mastery_score (added in
+  // supabase/manual/2026-09-21_lesson_progress_monotonic.sql, which also
+  // installs a DB trigger enforcing the same rules as a backstop).
+  const updateLessonProgress = (lessonId: string, completed: boolean, quizScore?: number, progressPercent?: number, masteryScore?: number) => {
+    // Resolve the row we will persist from the current local state so the
+    // DB payload and local state agree (the local list is the latest read of
+    // the DB row; the trigger covers what this tab can't see).
+    type ProgressRow = LessonProgress & { masteryScore?: number }
+    const existing = (lessonProgress as ProgressRow[]).find(p => p.lessonId === lessonId)
+    const keepCompleted = !!existing?.completed
+    const resolvedCompleted = completed || keepCompleted
+    const higherOrEqual = (next: number | undefined, prev: number | undefined) =>
+      next !== undefined && (prev === undefined || next >= prev)
+    const resolvedQuiz: number | undefined = keepCompleted
+      ? (higherOrEqual(quizScore, existing?.quizScore) ? quizScore : existing?.quizScore)
+      : quizScore
+    const resolvedMastery: number | undefined = keepCompleted
+      ? (higherOrEqual(masteryScore, existing?.masteryScore) ? masteryScore : existing?.masteryScore)
+      : masteryScore
+    // Keep the original completion time on a retake. The local copy may have
+    // come back from localStorage as a string, so normalise through Date.
+    const priorCompletedAt = keepCompleted && existing?.completedAt ? new Date(existing.completedAt) : null
+    const now = resolvedCompleted
+      ? (priorCompletedAt && !Number.isNaN(priorCompletedAt.getTime()) ? priorCompletedAt : new Date())
+      : undefined
     // Completing a lesson is 100% by definition. Otherwise use the caller's
     // section percentage; if none is given (e.g. a legacy "content viewed"
     // call), keep whatever we already have so we never move the bar backwards.
-    let persistedPercent: number | undefined
+    const persistedPercent: number | undefined = resolvedCompleted ? 100 : (progressPercent ?? existing?.progressPercent)
     setLessonProgress(prev => {
-      const existing = prev.find(p => p.lessonId === lessonId)
-      persistedPercent = completed ? 100 : (progressPercent ?? existing?.progressPercent)
-      const updated = existing
-        ? prev.map(p => p.lessonId === lessonId ? { ...p, completed, quizScore, completedAt: now, progressPercent: persistedPercent } : p)
-        : [...prev, { lessonId, completed, quizScore, completedAt: now, progressPercent: persistedPercent }]
+      const row: ProgressRow = { lessonId, completed: resolvedCompleted, quizScore: resolvedQuiz, masteryScore: resolvedMastery, completedAt: now, progressPercent: persistedPercent }
+      const updated: LessonProgress[] = prev.some(p => p.lessonId === lessonId)
+        ? prev.map(p => p.lessonId === lessonId ? { ...p, ...row } : p)
+        : [...prev, row]
       ls.set("investiplay_progress", updated)
       return updated
     })
@@ -536,14 +562,29 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const payload: Record<string, unknown> = {
         user_id: uid,
         lesson_id: lessonId,
-        completed,
-        quiz_score: quizScore ?? null,
+        completed: resolvedCompleted,
+        quiz_score: resolvedQuiz ?? null,
         completed_at: now?.toISOString() ?? null,
       }
       // Only write the percent when we have one, so partial updates don't
       // overwrite the stored value with null on the conflicting row.
       if (persistedPercent !== undefined) payload.progress_percent = persistedPercent
-      supabase.from("lesson_progress").upsert(payload, { onConflict: "user_id,lesson_id" }).then(({ error }) => {
+      if (resolvedMastery !== undefined) payload.mastery_score = resolvedMastery
+      // Loosely typed: mastery_score is not in the generated types yet.
+      const write = (body: Record<string, unknown>): Promise<{ error: { code?: string; message?: string } | null }> =>
+        (supabase as any).from("lesson_progress").upsert(body, { onConflict: "user_id,lesson_id" })
+      write(payload).then(({ error }) => {
+        // mastery_score is a new column: until the manual SQL is applied,
+        // PostgREST rejects it (PGRST204). Never lose the completion over
+        // that - retry the same single write without the column.
+        if (error && "mastery_score" in payload && (error.code === "PGRST204" || /mastery_score/.test(error.message ?? ""))) {
+          const { mastery_score: _dropped, ...rest } = payload
+          void _dropped
+          write(rest).then(({ error: retryError }) => {
+            if (retryError) console.error("[lesson_progress upsert]", retryError)
+          })
+          return
+        }
         if (error) console.error("[lesson_progress upsert]", error)
       })
     }

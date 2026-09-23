@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client"
 import { lessons } from "@/data/lessons"
 import { getStreak } from "@/lib/playerStats"
 import { logEvent } from "@/lib/analyticsEvents"
+import { formatCoins } from "@/lib/formatCoins"
 import {
   computeMyScore, isExpired, type ChallengeMetric, type ClassChallenge,
   type ChallengeEntry, type RankedEntry,
@@ -381,7 +382,7 @@ export default function Challenges() {
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <span className="inline-flex items-center gap-1.5 bg-gold/10 text-gold px-3 py-1.5 rounded-xl text-sm font-bold border border-gold/15">
-              <Coins className="w-4 h-4" /> {Math.floor(jeffsBalance).toLocaleString()}
+              <Coins className="w-4 h-4" /> {formatCoins(jeffsBalance)}
             </span>
             <Button variant="secondary" className="press-scale" onClick={() => setDuelOpen(true)}>
               <Swords className="w-4 h-4 mr-1" /> Challenge a partner

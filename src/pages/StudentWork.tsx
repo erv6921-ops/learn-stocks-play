@@ -161,6 +161,9 @@ export default function StudentWork() {
   const [bizSections, setBizSections] = useState<WorkSection[]>([])
   const [submissions, setSubmissions] = useState<Submission[]>([])
   const [events, setEvents] = useState<ActivityEvent[]>([])
+  // Timestamps of the mastery engine's question_attempts - a second, independent
+  // record of "the student was answering questions at this moment".
+  const [attemptTimes, setAttemptTimes] = useState<string[]>([])
   const [progress, setProgress] = useState<ProgressRow[]>([])
   const [grades, setGrades] = useState<Map<string, LessonGrade>>(new Map())
   // Per-topic adaptive ability (theta) - highest first.
@@ -178,7 +181,7 @@ export default function StudentWork() {
       if (!userId) return
       setLoading(true)
       try {
-        const [refRes, gsRes, subRes, lgRes, profRes, actRes, lpRes, saRes] = await Promise.all([
+        const [refRes, gsRes, subRes, lgRes, profRes, actRes, lpRes, saRes, qaRes] = await Promise.all([
           (supabase as any).from("lesson_reflections").select("lesson_id, prompt, response, updated_at").eq("user_id", userId),
           (supabase as any).from("business_game_state").select("activities").eq("user_id", userId).maybeSingle(),
           (supabase as any).from("entrepreneurship_submissions").select("submission_type, content, link, updated_at").eq("user_id", userId),
@@ -192,6 +195,12 @@ export default function StudentWork() {
             .limit(4000),
           (supabase as any).from("lesson_progress").select("lesson_id, completed, completed_at, quiz_score").eq("user_id", userId),
           (supabase as any).from("student_ability").select("concept, theta, attempts").eq("user_id", userId),
+          (supabase as any)
+            .from("question_attempts")
+            .select("created_at")
+            .eq("user_id", userId)
+            .order("created_at", { ascending: false })
+            .limit(4000),
         ])
         if (cancelled) return
 
@@ -205,6 +214,7 @@ export default function StudentWork() {
 
         // Activity telemetry (fails soft if the table isn't migrated yet).
         setEvents((actRes?.data ?? []) as ActivityEvent[])
+        setAttemptTimes(((qaRes?.data ?? []) as { created_at: string }[]).map((r) => r.created_at))
         setProgress((lpRes?.data ?? []) as ProgressRow[])
 
         // Per-lesson grades → map keyed by lesson id.
@@ -335,10 +345,26 @@ export default function StudentWork() {
     const accuracy = answered ? Math.round((correct / answered) * 100) : 0
     const avgMs = answered ? Math.round(questions.reduce((s, q) => s + (q.duration_ms || 0), 0) / answered) : 0
 
-    // Active time = summed page dwell, each view capped at 5 min so an idle open
-    // tab can't inflate it.
+    // Active time = distinct minutes with ANY evidence of activity: a page-view
+    // dwell window (each view capped at 5 min so an idle open tab can't inflate
+    // it), a 60-second "still here" ping, or an answered question - from the
+    // activity log or the mastery engine's question_attempts. Summing page-view
+    // dwell alone missed whole sessions spent inside a single lesson, because
+    // page views are only written on route change (and now on pagehide).
     const CAP = 5 * 60 * 1000
-    const activeMs = pageViews.reduce((s, e) => s + Math.min(e.duration_ms || 0, CAP), 0)
+    const MIN = 60 * 1000
+    const minutes = new Set<number>()
+    const mark = (ms: number) => { if (Number.isFinite(ms)) minutes.add(Math.floor(ms / MIN)) }
+    for (const e of pageViews) {
+      // created_at is written at the END of the dwell, so the window is [end - dur, end].
+      const end = new Date(e.created_at).getTime()
+      const dur = Math.min(e.duration_ms || 0, CAP)
+      for (let t = end - dur; t < end; t += MIN) mark(t)
+      mark(end)
+    }
+    for (const e of events) if (e.kind === "session_ping" || e.kind === "question_answered") mark(new Date(e.created_at).getTime())
+    for (const t of attemptTimes) mark(new Date(t).getTime())
+    const activeMs = minutes.size * MIN
 
     const lastActive = events[0]?.created_at
     const days = new Set(events.map((e) => new Date(e.created_at).toDateString())).size
@@ -367,8 +393,8 @@ export default function StudentWork() {
         at: q.created_at,
       }))
 
-    return { hasData: events.length > 0, answered, correct, accuracy, avgMs, activeMs, lastActive, days, pages, missed }
-  }, [events])
+    return { hasData: events.length > 0 || attemptTimes.length > 0, answered, correct, accuracy, avgMs, activeMs, lastActive, days, pages, missed }
+  }, [events, attemptTimes])
 
   // Build the analytics/reflection/grade block for ANY lesson id - whether or
   // not the student has touched it - so the search can surface catalog lessons
