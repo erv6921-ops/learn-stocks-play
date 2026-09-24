@@ -198,7 +198,10 @@ export default function TeacherDashboard() {
     db
       .from("lessons")
       .select("id, name, teacher_approved_at, version:content->>version, objectives:content->jeffContext->learningObjectives")
-      .eq("teacher_id", appUser.id)
+      // No teacher_id filter: RLS returns this teacher's own lessons plus the
+      // ones shared with their email (lesson_shares) or already assigned to
+      // their classes, so shared lessons resolve by name and can be assigned
+      // from the finder like any other approved lesson.
       .then(({ data }: { data: GeneratedLessonRow[] | null }) => setGenLessons(data ?? []))
   }, [appUser?.id])
   const genLessonNames = useMemo(() => new Map(genLessons.map((r) => [r.id, r.name])), [genLessons])

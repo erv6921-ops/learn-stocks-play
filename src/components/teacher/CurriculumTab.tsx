@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { LessonPreviewButtons } from "@/components/teacher/LessonPreviewButtons";
+import { ShareLessonDialog } from "@/components/teacher/ShareLessonDialog";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -32,6 +33,7 @@ import {
   BookOpen,
   Send,
   CheckCircle2,
+  Share2,
 } from "lucide-react";
 
 // ---------------------------------------------------------------------------
@@ -73,6 +75,18 @@ interface BuiltLesson {
   sectionsCount: number;
   masteryCount: number;
   assignedClasses: number;
+}
+
+/** A lesson another teacher shared with this teacher's email (lesson_shares). */
+interface SharedLesson {
+  id: string;
+  name: string;
+  upload_id: string | null;
+  teacher_approved_at: string | null;
+  sectionsCount: number;
+  masteryCount: number;
+  ownerEmail: string;
+  sharedAt: string;
 }
 
 interface RawLesson {
@@ -228,6 +242,10 @@ export const CurriculumTab: React.FC = () => {
   const [query, setQuery] = useState("");
   /** Upload whose details popup is open. */
   const [detailId, setDetailId] = useState<string | null>(null);
+  /** Lesson whose Share popup is open (owner side). */
+  const [shareFor, setShareFor] = useState<{ id: string; name: string } | null>(null);
+  /** Lessons other teachers shared with this teacher (recipient side). */
+  const [sharedLessons, setSharedLessons] = useState<SharedLesson[]>([]);
 
   const fetchUploads = useCallback(async () => {
     setLoading(true);
@@ -320,6 +338,53 @@ export const CurriculumTab: React.FC = () => {
         .order("created_at", { ascending: false });
       if (cErr) console.error("Failed to load classes for Feed to Jeff:", cErr.message);
       setClasses(((classRows as TeacherClass[] | null) ?? []).filter((c) => c.id && c.name));
+
+      // Lessons shared with this teacher's email by other teachers. RLS on
+      // lesson_shares also returns the shares this teacher OWNS, so filter to
+      // the recipient side by email. A failure here only hides the section.
+      try {
+        const myEmail = (userData.user.email ?? "").toLowerCase();
+        const { data: shareRows, error: sErr } = myEmail
+          ? await db
+              .from("lesson_shares")
+              .select("lesson_id, owner_email, created_at")
+              .eq("shared_with_email", myEmail)
+              .neq("owner_id", userData.user.id)
+              .order("created_at", { ascending: false })
+          : { data: [], error: null };
+        if (sErr) throw new Error(sErr.message);
+        const shares = (shareRows as { lesson_id: string; owner_email: string | null; created_at: string }[] | null) ?? [];
+        if (shares.length === 0) {
+          setSharedLessons([]);
+        } else {
+          const { data: sharedRows, error: lErr } = await db
+            .from("lessons")
+            .select("id, name, upload_id, teacher_approved_at, content")
+            .in("id", shares.map((s) => s.lesson_id));
+          if (lErr) throw new Error(lErr.message);
+          const byId = new Map(((sharedRows as RawLesson[] | null) ?? []).map((l) => [l.id, l]));
+          setSharedLessons(
+            shares.flatMap((s) => {
+              const l = byId.get(s.lesson_id);
+              if (!l) return [];
+              const mastery = l.content?.sections?.find((x) => x.type === "mastery-check");
+              return [{
+                id: l.id,
+                name: l.name,
+                upload_id: l.upload_id,
+                teacher_approved_at: l.teacher_approved_at ?? null,
+                sectionsCount: l.content?.sections?.length ?? 0,
+                masteryCount: mastery?.questions?.length ?? 0,
+                ownerEmail: s.owner_email ?? "another teacher",
+                sharedAt: s.created_at,
+              }];
+            }),
+          );
+        }
+      } catch (shareErr) {
+        console.error("Failed to load shared lessons:", shareErr);
+        setSharedLessons([]);
+      }
     } catch (err) {
       console.error("Failed to load curriculum uploads:", err);
       setError(
@@ -598,6 +663,55 @@ export const CurriculumTab: React.FC = () => {
         })()}
       </section>
 
+      {/* Shared with me: lessons other teachers shared to this teacher's email.
+          Read + assign only: no edit, delete or share controls here. */}
+      {sharedLessons.length > 0 && (
+        <section>
+          <div className="mb-3">
+            <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-100">
+              <Share2 className="h-4 w-4 text-emerald-600" /> Shared with me
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Lessons other teachers shared with you. Preview them and assign them to your classes; only the owner can change them.
+            </p>
+          </div>
+          <ul className="grid grid-cols-1 gap-2 xl:grid-cols-2">
+            {sharedLessons.map((l) => {
+              const ok = !!l.teacher_approved_at;
+              return (
+                <li key={l.id} className="flex min-w-0 flex-col gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900">
+                  <div className="min-w-0">
+                    <div className="flex min-w-0 flex-wrap items-center gap-2">
+                      <p className="min-w-0 break-words text-sm font-medium text-slate-900 dark:text-slate-100">{l.name}</p>
+                      {ok ? (
+                        <Badge variant="success" className="gap-1 text-[10px]"><CheckCircle2 className="h-3 w-3" /> Reviewed</Badge>
+                      ) : (
+                        <Badge variant="warning" className="text-[10px]">Not reviewed by owner</Badge>
+                      )}
+                    </div>
+                    <p className="break-words text-xs text-slate-500">
+                      Shared by {l.ownerEmail} on {fmtDay(l.sharedAt)} · {l.sectionsCount} sections · {l.masteryCount} mastery questions
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <LessonPreviewButtons lessonId={l.id} source="generated" lessonName={l.name} />
+                    <Button
+                      size="sm"
+                      onClick={() => navigate(`/teacher/assign-lesson?uploadId=${encodeURIComponent(l.upload_id ?? "")}&lessonId=${encodeURIComponent(l.id)}&lessonName=${encodeURIComponent(l.name)}`)}
+                      disabled={!ok || !l.upload_id}
+                      title={ok ? "Assign to one of your classes" : "The owner hasn't approved this lesson yet"}
+                      className="bg-emerald-600 text-white hover:bg-emerald-700"
+                    >
+                      <Send className="mr-1 h-3.5 w-3.5" /> Assign
+                    </Button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       {/* Upload details popup: its lessons (preview / assign) and every action, all visible at once. */}
       <Dialog open={detailId !== null} onOpenChange={(o) => { if (!o) setDetailId(null); }}>
         <DialogContent className="block h-[94vh] max-h-[94vh] w-[96vw] max-w-[96vw] overflow-y-auto overflow-x-hidden p-4 sm:max-w-[96vw] sm:p-6 lg:w-[92vw] lg:max-w-[92vw]">
@@ -671,6 +785,15 @@ export const CurriculumTab: React.FC = () => {
                                   className="bg-emerald-600 text-white hover:bg-emerald-700"
                                 >
                                   <Send className="mr-1 h-3.5 w-3.5" /> Assign
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => setShareFor({ id: l.id, name: l.name })}
+                                  title="Share this lesson with another teacher by email"
+                                  className="border-emerald-200 text-emerald-700 hover:bg-emerald-50 dark:border-emerald-800 dark:text-emerald-300 dark:hover:bg-emerald-950/50"
+                                >
+                                  <Share2 className="mr-1 h-3.5 w-3.5" /> Share
                                 </Button>
                               </div>
                             </li>
@@ -761,6 +884,16 @@ export const CurriculumTab: React.FC = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Share a lesson you own with other teachers by email. */}
+      {shareFor && (
+        <ShareLessonDialog
+          lessonId={shareFor.id}
+          lessonName={shareFor.name}
+          open
+          onClose={() => setShareFor(null)}
+        />
+      )}
     </div>
   );
 };
