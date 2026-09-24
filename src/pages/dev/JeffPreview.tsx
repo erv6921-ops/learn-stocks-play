@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { JeffCharacter, type JeffMood } from "@/components/jeff/JeffCharacter"
+import { JeffCharacter, type JeffMood } from "@/components/Jeff/JeffCharacter"
 
 /**
  * DEV-ONLY preview for the rebuilt Jeff mascot (see App.tsx — only registered
