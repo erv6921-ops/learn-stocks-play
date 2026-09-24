@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Trans, useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/integrations/supabase/client"
 import { JeffMascot } from "@/components/JeffMascot"
@@ -19,6 +20,7 @@ type UserRole = "student" | "teacher" | null
 export default function Auth() {
   const navigate = useNavigate()
   const { toast } = useToast()
+  const { t } = useTranslation()
   
   const [mode, setMode] = useState<AuthMode>("login")
   const [role, setRole] = useState<UserRole>(null)
@@ -41,7 +43,7 @@ export default function Auth() {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
-      if (!data.user) throw new Error("No user returned")
+      if (!data.user) throw new Error(t("auth.noUserReturned"))
 
       // Route from here rather than waiting on the AppContext auth listener:
       // that listener awaits a profile query which can hang, and on the dev
@@ -73,14 +75,14 @@ export default function Auth() {
         const { error: resendError } = await supabase.auth.resend({ type: "signup", email })
         toast(
           resendError
-            ? { title: "Couldn't send a new code", description: resendError.message, variant: "destructive" }
-            : { title: "Confirm your email", description: "We sent a fresh 6-digit code to finish setting up your account." }
+            ? { title: t("auth.couldntSendNewCode"), description: resendError.message, variant: "destructive" }
+            : { title: t("auth.confirmYourEmail"), description: t("auth.confirmYourEmailDesc") }
         )
         setLoading(false)
         return
       }
       toast({
-        title: "Login failed",
+        title: t("auth.loginFailed"),
         description: error.message,
         variant: "destructive",
       })
@@ -103,12 +105,12 @@ export default function Auth() {
 
       setResetStep("otp")
       toast({
-        title: "Code sent!",
-        description: "Check your email for a 6-digit verification code.",
+        title: t("auth.codeSent"),
+        description: t("auth.codeSentDesc"),
       })
     } catch (error: any) {
       toast({
-        title: "Failed to send code",
+        title: t("auth.failedToSendCode"),
         description: error.message,
         variant: "destructive",
       })
@@ -134,12 +136,12 @@ export default function Auth() {
 
       setResetStep("password")
       toast({
-        title: "Code verified!",
-        description: "Now choose a new password.",
+        title: t("auth.codeVerified"),
+        description: t("auth.codeVerifiedDesc"),
       })
     } catch (error: any) {
       toast({
-        title: "Invalid or expired code",
+        title: t("auth.invalidCode"),
         description: error.message,
         variant: "destructive",
       })
@@ -155,8 +157,8 @@ export default function Auth() {
 
     if (password !== confirmPassword) {
       toast({
-        title: "Passwords don't match",
-        description: "Please make sure both passwords are the same.",
+        title: t("auth.passwordsMismatch"),
+        description: t("auth.passwordsMismatchDesc"),
         variant: "destructive",
       })
       return
@@ -164,8 +166,8 @@ export default function Auth() {
 
     if (password.length < 6) {
       toast({
-        title: "Password too short",
-        description: "Password must be at least 6 characters.",
+        title: t("auth.passwordTooShort"),
+        description: t("auth.passwordTooShortDesc"),
         variant: "destructive",
       })
       return
@@ -180,7 +182,7 @@ export default function Auth() {
       navigate("/auth")
 
       toast({
-        title: "Password updated! Please log in with your new password.",
+        title: t("auth.passwordUpdated"),
       })
 
       setMode("login")
@@ -190,7 +192,7 @@ export default function Auth() {
       setConfirmPassword("")
     } catch (error: any) {
       toast({
-        title: "Failed to reset password",
+        title: t("auth.failedToResetPassword"),
         description: error.message,
         variant: "destructive",
       })
@@ -205,8 +207,8 @@ export default function Auth() {
 
     if (password !== confirmPassword) {
       toast({
-        title: "Passwords don't match",
-        description: "Please make sure both passwords are the same.",
+        title: t("auth.passwordsMismatch"),
+        description: t("auth.passwordsMismatchDesc"),
         variant: "destructive",
       })
       return
@@ -214,8 +216,8 @@ export default function Auth() {
 
     if (!role) {
       toast({
-        title: "Please select a role",
-        description: "Choose whether you're a student or teacher.",
+        title: t("auth.selectRole"),
+        description: t("auth.selectRoleDesc"),
         variant: "destructive",
       })
       return
@@ -249,22 +251,22 @@ export default function Auth() {
       // confirm-signup email delivers a {{ .Token }} code, not a link.
       if (data.session) {
         toast({
-          title: "Account created!",
-          description: "You're signed in.",
+          title: t("auth.accountCreated"),
+          description: t("auth.accountCreatedDesc"),
         })
         navigate(role === "teacher" ? "/teacher-dashboard" : "/onboarding")
       } else {
         setSignupCode("")
         setSignupPhase("code")
         toast({
-          title: "Check your email",
-          description: "We sent a 6-digit code to confirm your address.",
+          title: t("auth.checkYourEmail"),
+          description: t("auth.checkYourEmailDesc"),
         })
       }
 
     } catch (error: any) {
       toast({
-        title: "Signup failed",
+        title: t("auth.signupFailed"),
         description: error.message,
         variant: "destructive",
       })
@@ -292,7 +294,7 @@ export default function Auth() {
       setSignupPhase("done")
     } catch (error: any) {
       toast({
-        title: "Invalid or expired code",
+        title: t("auth.invalidCode"),
         description: error.message,
         variant: "destructive",
       })
@@ -306,9 +308,9 @@ export default function Auth() {
     const { error } = await supabase.auth.resend({ type: "signup", email })
     setLoading(false)
     if (error) {
-      toast({ title: "Couldn't resend", description: error.message, variant: "destructive" })
+      toast({ title: t("auth.couldntResend"), description: error.message, variant: "destructive" })
     } else {
-      toast({ title: "New code sent", description: "Check your inbox (and spam folder)." })
+      toast({ title: t("auth.newCodeSent"), description: t("auth.newCodeSentDesc") })
     }
   }
 
@@ -322,15 +324,14 @@ export default function Auth() {
         <Wordmark className="text-3xl md:text-5xl" />
         <Card variant="elevated" className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Dev bypass on — login disabled</CardTitle>
+            <CardTitle>{t("auth.devBypassTitle")}</CardTitle>
             <CardDescription>
-              This dev server auto-signs-in a throwaway local user, so there's no
-              login here. For real accounts, run <code className="font-mono">npm run dev:qa</code> (port 8084).
+              <Trans i18nKey="auth.devBypassBody" components={{ code: <code className="font-mono" /> }} />
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button className="w-full" size="lg" onClick={() => navigate("/dashboard")}>
-              Go to the app <ArrowRight className="ml-2" />
+              {t("auth.goToApp")} <ArrowRight className="ml-2" />
             </Button>
           </CardContent>
         </Card>
@@ -367,9 +368,9 @@ export default function Auth() {
               >
                 <PartyPopper className="h-12 w-12 text-white" />
               </motion.div>
-              <h1 className="font-display text-3xl md:text-4xl font-extrabold mb-2">Email confirmed! 🎉</h1>
+              <h1 className="font-display text-3xl md:text-4xl font-extrabold mb-2">{t("auth.emailConfirmed")}</h1>
               <p className="text-muted-foreground mb-8">
-                <span className="font-medium text-foreground">{email}</span> is verified. You're all set - log in to jump into InvestiPlay.
+                <Trans i18nKey="auth.emailVerified" values={{ email }} components={{ email: <span className="font-medium text-foreground" /> }} />
               </p>
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -388,7 +389,7 @@ export default function Auth() {
                     setRole(null)
                   }}
                 >
-                  Log in <ArrowRight className="ml-1.5 h-4 w-4" />
+                  {t("auth.logIn")} <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
               </motion.div>
             </motion.div>
@@ -404,22 +405,22 @@ export default function Auth() {
             <div className="text-center mb-6">
               <JeffMascot
                 size="sm"
-                message="I just emailed you a 6-digit code - pop it in here to confirm your email!"
+                message={t("auth.jeffCodeMessage")}
               />
             </div>
             <Card variant="elevated">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2"><MailCheck className="h-5 w-5 text-primary" /> Enter your code</CardTitle>
+                <CardTitle className="flex items-center gap-2"><MailCheck className="h-5 w-5 text-primary" /> {t("auth.enterYourCode")}</CardTitle>
                 <CardDescription>
-                  We sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>. It expires in 1 hour.
+                  <Trans i18nKey="auth.weSentCode" values={{ email }} components={{ email: <span className="font-medium text-foreground" /> }} />
                   <br />
-                  <span className="font-semibold text-foreground">Don't see it?</span> Check your spam or junk folder.
+                  <span className="font-semibold text-foreground">{t("auth.dontSeeIt")}</span> {t("auth.checkSpam")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleVerifySignup} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="signupCode">Verification Code</Label>
+                    <Label htmlFor="signupCode">{t("auth.verificationCode")}</Label>
                     <Input
                       id="signupCode"
                       inputMode="numeric"
@@ -433,7 +434,7 @@ export default function Auth() {
                     />
                   </div>
                   <Button type="submit" className="w-full" disabled={loading || signupCode.length !== 6}>
-                    {loading ? <Loader2 className="mr-2 animate-spin" /> : "Confirm email"}
+                    {loading ? <Loader2 className="mr-2 animate-spin" /> : t("auth.confirmEmail")}
                   </Button>
                 </form>
                 <div className="mt-4 flex items-center justify-between text-sm">
@@ -443,7 +444,7 @@ export default function Auth() {
                     disabled={loading}
                     className="text-primary hover:underline disabled:opacity-50"
                   >
-                    Resend code
+                    {t("auth.resendCode")}
                   </button>
                   <button
                     type="button"
@@ -457,7 +458,7 @@ export default function Auth() {
                     }}
                     className="text-muted-foreground hover:underline"
                   >
-                    Back to log in
+                    {t("auth.backToLogIn")}
                   </button>
                 </div>
               </CardContent>
@@ -477,41 +478,41 @@ export default function Auth() {
                 size="sm"
                 message={
                   resetStep === "otp"
-                    ? "Check your email for the 6-digit code!"
+                    ? t("auth.jeffResetOtp")
                     : resetStep === "password"
-                    ? "Almost done! Pick a new password."
-                    : "No worries! Let's reset your password."
+                    ? t("auth.jeffResetPassword")
+                    : t("auth.jeffResetEmail")
                 }
               />
             </div>
 
             <Card variant="elevated">
               <CardHeader>
-                <CardTitle>Reset Password</CardTitle>
+                <CardTitle>{t("auth.resetPassword")}</CardTitle>
                 <CardDescription>
                   {resetStep === "otp"
-                    ? `Enter the 6-digit code we sent to ${email}`
+                    ? t("auth.resetDescOtp", { email })
                     : resetStep === "password"
-                    ? "Choose a new password for your account"
-                    : "Enter your email to receive a verification code"}
+                    ? t("auth.resetDescPassword")
+                    : t("auth.resetDescEmail")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {resetStep === "email" && (
                   <form onSubmit={handleSendResetCode} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="resetEmail">Email</Label>
+                      <Label htmlFor="resetEmail">{t("auth.email")}</Label>
                       <Input
                         id="resetEmail"
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder={t("auth.emailPlaceholder")}
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                         required
                       />
                     </div>
                     <Button type="submit" className="w-full" size="lg" disabled={loading}>
-                      {loading ? <Loader2 className="mr-2 animate-spin" /> : "Send Code"}
+                      {loading ? <Loader2 className="mr-2 animate-spin" /> : t("auth.sendCode")}
                     </Button>
                   </form>
                 )}
@@ -519,7 +520,7 @@ export default function Auth() {
                 {resetStep === "otp" && (
                   <form onSubmit={handleVerifyCode} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="otpCode">Verification Code</Label>
+                      <Label htmlFor="otpCode">{t("auth.verificationCode")}</Label>
                       <Input
                         id="otpCode"
                         type="text"
@@ -539,16 +540,16 @@ export default function Auth() {
                       size="lg"
                       disabled={loading || otpCode.length !== 6}
                     >
-                      {loading ? <Loader2 className="mr-2 animate-spin" /> : "Verify Code"}
+                      {loading ? <Loader2 className="mr-2 animate-spin" /> : t("auth.verifyCode")}
                     </Button>
                     <p className="text-center text-sm text-muted-foreground">
-                      Didn't get it?{" "}
+                      {t("auth.didntGetIt")}{" "}
                       <button
                         type="button"
                         onClick={() => { setResetStep("email"); setOtpCode("") }}
                         className="text-primary hover:underline"
                       >
-                        Resend code
+                        {t("auth.resendCode")}
                       </button>
                     </p>
                   </form>
@@ -557,11 +558,11 @@ export default function Auth() {
                 {resetStep === "password" && (
                   <form onSubmit={handleSetNewPassword} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="newPassword">New Password</Label>
+                      <Label htmlFor="newPassword">{t("auth.newPassword")}</Label>
                       <Input
                         id="newPassword"
                         type="password"
-                        placeholder="Enter new password"
+                        placeholder={t("auth.newPasswordPlaceholder")}
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         required
@@ -569,11 +570,11 @@ export default function Auth() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="confirmNewPassword">Confirm New Password</Label>
+                      <Label htmlFor="confirmNewPassword">{t("auth.confirmNewPassword")}</Label>
                       <Input
                         id="confirmNewPassword"
                         type="password"
-                        placeholder="Confirm new password"
+                        placeholder={t("auth.confirmNewPasswordPlaceholder")}
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
                         required
@@ -581,13 +582,13 @@ export default function Auth() {
                       />
                     </div>
                     <Button type="submit" className="w-full" size="lg" disabled={loading}>
-                      {loading ? <Loader2 className="mr-2 animate-spin" /> : "Update Password"}
+                      {loading ? <Loader2 className="mr-2 animate-spin" /> : t("auth.updatePassword")}
                     </Button>
                   </form>
                 )}
 
                 <p className="text-center mt-4 text-sm text-muted-foreground">
-                  Remember your password?{" "}
+                  {t("auth.rememberPassword")}{" "}
                   <button
                     onClick={() => {
                       setMode("login")
@@ -596,7 +597,7 @@ export default function Auth() {
                     }}
                     className="text-primary hover:underline"
                   >
-                    Back to login
+                    {t("auth.backToLogin")}
                   </button>
                 </p>
               </CardContent>
@@ -613,7 +614,7 @@ export default function Auth() {
             <div className="text-center mb-6">
               <JeffMascot 
                 size="sm" 
-                message="Are you joining as a student or a teacher?"
+                message={t("auth.jeffRoleQuestion")}
               />
             </div>
             
@@ -625,9 +626,9 @@ export default function Auth() {
               >
                 <CardContent className="p-6 text-center">
                   <GraduationCap className="w-12 h-12 mx-auto mb-4 text-primary" />
-                  <h3 className="font-display text-xl font-bold mb-2">Student</h3>
+                  <h3 className="font-display text-xl font-bold mb-2">{t("auth.student")}</h3>
                   <p className="text-sm text-muted-foreground">
-                    Learn financial literacy through interactive lessons
+                    {t("auth.studentDesc")}
                   </p>
                 </CardContent>
               </Card>
@@ -639,21 +640,21 @@ export default function Auth() {
               >
                 <CardContent className="p-6 text-center">
                   <Users className="w-12 h-12 mx-auto mb-4 text-primary" />
-                  <h3 className="font-display text-xl font-bold mb-2">Teacher</h3>
+                  <h3 className="font-display text-xl font-bold mb-2">{t("auth.teacher")}</h3>
                   <p className="text-sm text-muted-foreground">
-                    Create classes and monitor student progress
+                    {t("auth.teacherDesc")}
                   </p>
                 </CardContent>
               </Card>
             </div>
             
             <p className="text-center mt-6 text-muted-foreground">
-              Already have an account?{" "}
+              {t("auth.alreadyHaveAccount")}{" "}
               <button 
                 onClick={() => setMode("login")} 
                 className="text-primary hover:underline"
               >
-                Log in
+                {t("auth.logIn")}
               </button>
             </p>
           </motion.div>
@@ -677,28 +678,28 @@ export default function Auth() {
                 size="xl"
                 mood={mode === "login" ? "happy" : "excited"}
                 message={mode === "login"
-                  ? "Happy to see you back! 👋"
-                  : `Great choice! Let's set up your ${role} account.`}
+                  ? t("auth.jeffWelcomeBack")
+                  : t("auth.jeffSetup", { context: role ?? undefined })}
               />
             </motion.div>
 
             <Card variant="elevated">
               <CardHeader>
-                <CardTitle>{mode === "login" ? "Log In" : "Sign Up"}</CardTitle>
+                <CardTitle>{mode === "login" ? t("auth.logInTitle") : t("auth.signUpTitle")}</CardTitle>
                 <CardDescription>
-                  {mode === "login" 
-                    ? "Enter your credentials to continue" 
-                    : `Create your ${role} account`}
+                  {mode === "login"
+                    ? t("auth.enterCredentials")
+                    : t("auth.createAccountDesc", { context: role ?? undefined })}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={mode === "login" ? handleLogin : handleSignup} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t("auth.email")}</Label>
                     <Input
                       id="email"
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder={t("auth.emailPlaceholder")}
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       required
@@ -707,21 +708,21 @@ export default function Auth() {
                   
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="password">Password</Label>
+                      <Label htmlFor="password">{t("auth.password")}</Label>
                       {mode === "login" && (
                         <button
                           type="button"
                           onClick={() => { setMode("forgot"); setResetStep("email"); setOtpCode("") }}
                           className="text-xs text-primary hover:underline"
                         >
-                          Forgot password?
+                          {t("auth.forgotPassword")}
                         </button>
                       )}
                     </div>
                     <Input
                       id="password"
                       type="password"
-                      placeholder="Enter your password"
+                      placeholder={t("auth.passwordPlaceholder")}
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                       required
@@ -731,11 +732,11 @@ export default function Auth() {
                   
                   {mode === "signup" && (
                     <div className="space-y-2">
-                      <Label htmlFor="confirmPassword">Confirm Password</Label>
+                      <Label htmlFor="confirmPassword">{t("auth.confirmPassword")}</Label>
                       <Input
                         id="confirmPassword"
                         type="password"
-                        placeholder="Confirm your password"
+                        placeholder={t("auth.confirmPasswordPlaceholder")}
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
                         required
@@ -749,7 +750,7 @@ export default function Auth() {
                       <Loader2 className="mr-2 animate-spin" />
                     ) : (
                       <>
-                        {mode === "login" ? "Log in" : "Create Account"}
+                        {mode === "login" ? t("auth.logIn") : t("auth.createAccount")}
                         <ArrowRight className="ml-2" />
                       </>
                     )}
@@ -759,22 +760,22 @@ export default function Auth() {
                 <div className="mt-4 text-center text-sm text-muted-foreground">
                   {mode === "login" ? (
                     <p>
-                      Don't have an account?{" "}
+                      {t("auth.noAccount")}{" "}
                       <button
                         onClick={() => navigate("/onboarding")}
                         className="text-primary hover:underline"
                       >
-                        Sign up
+                        {t("auth.signUp")}
                       </button>
                     </p>
                   ) : (
                     <p>
-                      Already have an account?{" "}
+                      {t("auth.alreadyHaveAccount")}{" "}
                       <button 
                         onClick={() => setMode("login")} 
                         className="text-primary hover:underline"
                       >
-                        Log in
+                        {t("auth.logIn")}
                       </button>
                     </p>
                   )}
@@ -788,7 +789,7 @@ export default function Auth() {
                   onClick={() => setRole(null)} 
                   className="text-primary hover:underline"
                 >
-                  ← Choose a different role
+                  {t("auth.chooseDifferentRole")}
                 </button>
               </p>
             )}

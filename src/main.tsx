@@ -1,6 +1,8 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+// i18n must initialise before any component calls t(); see src/i18n/index.ts.
+import "./i18n";
 import { initAccent } from "@/lib/accentTheme";
 
 // Apply the saved accent theme before first paint.

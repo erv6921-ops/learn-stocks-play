@@ -7,6 +7,7 @@
 
 import React from "react"
 import { Link } from "react-router-dom"
+import { Trans, useTranslation } from "react-i18next"
 import { Construction, Lock, Coins, ArrowRight, type LucideIcon } from "lucide-react"
 import GameNav from "@/components/GameNav"
 import { useApp } from "@/contexts/AppContext"
@@ -37,21 +38,22 @@ function GateCard({ icon: Icon, heading, sub }: { icon: typeof Lock; heading: st
 // The frosted "coming soon" glass card. `icon` defaults to the construction
 // icon but callers pass the feature's own nav icon (Store / Landmark).
 function ComingSoonCard({ title, icon: Icon = Construction }: { title: string; icon?: LucideIcon }) {
+  const { t } = useTranslation()
   return (
     <div className="text-center flex flex-col items-center gap-4 rounded-[28px] border border-black/10 dark:border-white/10 bg-card/70 backdrop-blur-2xl p-8 shadow-[0_24px_70px_-24px_rgba(0,0,0,0.5)] max-w-sm">
       <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
         <Icon className="h-8 w-8 text-primary" />
       </div>
       <div className="space-y-1.5">
-        <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-primary">In development</span>
+        <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-primary">{t("lock.inDevelopment")}</span>
         <h1 className="font-display text-2xl font-extrabold tracking-tight">{title}</h1>
-        <p className="text-sm text-muted-foreground leading-relaxed">Coming soon. We're putting the finishing touches on this. Check back shortly!</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">{t("lock.comingSoon")}</p>
       </div>
       <Link
         to="/lessons"
         className="inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-[0_6px_20px_-6px_hsl(var(--primary))] hover:opacity-90 active:scale-[0.98] transition"
       >
-        Go to Missions <ArrowRight className="h-4 w-4" />
+        {t("lock.goToMissions")} <ArrowRight className="h-4 w-4" />
       </Link>
     </div>
   )
@@ -77,21 +79,28 @@ export function ComingSoon({ title, bare = false, icon }: { title: string; bare?
 /** Gate a page behind a coin threshold; renders children once the balance clears it. */
 export function CoinsGate({ required, title, children }: { required: number; title: string; children: React.ReactNode }) {
   const { jeffsBalance } = useApp()
+  const { t } = useTranslation()
   const coins = Math.floor(jeffsBalance)
   if (coins >= required) return <>{children}</>
   return (
     <Frame>
       <GateCard
         icon={Lock}
-        heading={`${title} is locked`}
+        heading={t("lock.isLocked", { title })}
         sub={
-          <>
-            Reach <b className="text-foreground">{required.toLocaleString()} coins</b> to unlock this. You're at{" "}
-            <span className="inline-flex items-center gap-0.5 font-bold text-foreground">
-              <Coins className="h-3.5 w-3.5" />
-              {coins.toLocaleString()}
-            </span>. Keep learning to get there!
-          </>
+          <Trans
+            i18nKey="lock.reachCoins"
+            values={{ required: required.toLocaleString() }}
+            components={{
+              b: <b className="text-foreground" />,
+              chip: (
+                <span className="inline-flex items-center gap-0.5 font-bold text-foreground">
+                  <Coins className="h-3.5 w-3.5" />
+                  {coins.toLocaleString()}
+                </span>
+              ),
+            }}
+          />
         }
       />
     </Frame>

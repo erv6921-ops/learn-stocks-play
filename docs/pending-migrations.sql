@@ -80,3 +80,17 @@ CREATE POLICY "teachers review their students scenario responses"
         AND c.teacher_id = auth.uid()
     )
   );
+
+
+-- ─────────────────────────────────────────────────────────────
+-- I18N phase 1 (2026-09-23): UI language preference
+-- Written by the English / Español selector on the Settings page
+-- (src/pages/Profile.tsx, gated by VITE_ENABLE_I18N). Only UI chrome is
+-- translated; curriculum content is untouched. Existing rows stay 'en'.
+-- ─────────────────────────────────────────────────────────────
+ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS language TEXT NOT NULL DEFAULT 'en';
+
+-- Optional guard so only shipped languages are stored (extend when adding one).
+ALTER TABLE public.profiles
+  ADD CONSTRAINT profiles_language_check CHECK (language IN ('en', 'es'));

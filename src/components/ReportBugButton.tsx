@@ -6,6 +6,7 @@
 
 import { useState } from "react"
 import { useLocation } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { Bug, Loader2, Send } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { getRecentErrors } from "@/lib/errorLog"
@@ -21,6 +22,7 @@ import {
 export default function ReportBugButton() {
   const location = useLocation()
   const { toast } = useToast()
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -30,7 +32,7 @@ export default function ReportBugButton() {
 
   const submit = async () => {
     if (!title.trim()) {
-      toast({ title: "Add a short title", description: "Tell us what went wrong in a few words.", variant: "destructive" })
+      toast({ title: t("bugReport.toastAddTitle"), description: t("bugReport.toastAddTitleDesc"), variant: "destructive" })
       return
     }
     setSubmitting(true)
@@ -45,20 +47,20 @@ export default function ReportBugButton() {
         },
       })
       if (error || (data as { error?: string })?.error) {
-        throw new Error(error?.message || (data as { error?: string })?.error || "Something went wrong")
+        throw new Error(error?.message || (data as { error?: string })?.error || t("common.somethingWentWrong"))
       }
       toast({
-        title: "Bug reported - thank you! 🐛",
+        title: t("bugReport.toastReported"),
         description: (data as { number?: number })?.number
-          ? `Logged as issue #${(data as { number: number }).number}. We'll take a look!`
-          : "We got it and we'll take a look!",
+          ? t("bugReport.toastLoggedAs", { number: (data as { number: number }).number })
+          : t("bugReport.toastGotIt"),
       })
       reset()
       setOpen(false)
     } catch (err) {
       toast({
-        title: "Couldn't send the report",
-        description: err instanceof Error ? err.message : "Please try again in a moment.",
+        title: t("bugReport.toastFailed"),
+        description: err instanceof Error ? err.message : t("bugReport.toastTryAgain"),
         variant: "destructive",
       })
     } finally {
@@ -74,31 +76,31 @@ export default function ReportBugButton() {
           iOS Safari's bottom toolbar/home indicator. */}
       <button
         type="button"
-        aria-label="Report a bug"
+        aria-label={t("bugReport.button")}
         onClick={() => setOpen(true)}
         className="fixed left-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-6 z-40 flex items-center gap-1.5 rounded-full border border-border bg-card/95 px-3 py-2 text-xs font-semibold text-muted-foreground shadow-card backdrop-blur transition-colors hover:text-foreground hover:border-primary/40"
       >
         <Bug className="h-4 w-4" />
-        <span className="hidden sm:inline">Report a bug</span>
+        <span className="hidden sm:inline">{t("bugReport.button")}</span>
       </button>
 
       <Dialog open={open} onOpenChange={(o) => { setOpen(o); if (!o) reset() }}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Bug className="h-5 w-5 text-primary" /> Report a bug
+              <Bug className="h-5 w-5 text-primary" /> {t("bugReport.title")}
             </DialogTitle>
             <DialogDescription>
-              Found something broken? Tell us what happened and we'll fix it.
+              {t("bugReport.description")}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-1">
             <div className="space-y-1.5">
-              <Label htmlFor="bug-title">What went wrong?</Label>
+              <Label htmlFor="bug-title">{t("bugReport.whatWentWrong")}</Label>
               <Input
                 id="bug-title"
-                placeholder="e.g. Lesson quiz won't submit"
+                placeholder={t("bugReport.titlePlaceholder")}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 maxLength={120}
@@ -106,10 +108,10 @@ export default function ReportBugButton() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="bug-desc">Details <span className="text-muted-foreground font-normal">(optional)</span></Label>
+              <Label htmlFor="bug-desc">{t("bugReport.details")} <span className="text-muted-foreground font-normal">{t("bugReport.optional")}</span></Label>
               <Textarea
                 id="bug-desc"
-                placeholder="What were you doing when it happened? What did you expect?"
+                placeholder={t("bugReport.detailsPlaceholder")}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={4}
@@ -117,15 +119,15 @@ export default function ReportBugButton() {
               />
             </div>
             <p className="text-[11px] text-muted-foreground">
-              We'll automatically include the page you're on so we can reproduce it.
+              {t("bugReport.autoInclude")}
             </p>
           </div>
 
           <DialogFooter>
-            <Button variant="ghost" onClick={() => setOpen(false)} disabled={submitting}>Cancel</Button>
+            <Button variant="ghost" onClick={() => setOpen(false)} disabled={submitting}>{t("common.cancel")}</Button>
             <Button onClick={submit} disabled={submitting || !title.trim()} className="gap-1.5">
               {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-              {submitting ? "Sending…" : "Send report"}
+              {submitting ? t("bugReport.sending") : t("bugReport.send")}
             </Button>
           </DialogFooter>
         </DialogContent>

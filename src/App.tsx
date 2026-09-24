@@ -15,6 +15,7 @@ import { AppProvider, useApp } from "@/contexts/AppContext";
 import { ClassSettingsProvider, useClassSettings } from "@/contexts/ClassSettingsContext";
 import { isPageLocked } from "@/lib/classSettings";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import { logActivity } from "@/lib/analytics";
 import { logEvent } from "@/lib/analyticsEvents";
 import Auth from "./pages/Auth";
@@ -166,6 +167,7 @@ function ActivityTracker() {
 function AppRoutes() {
   const { user, authReady } = useApp();
   const location = useLocation();
+  const { t } = useTranslation();
   // Home ("/") routing. Teachers must land on their dashboard, not the student
   // one - otherwise a page refresh or typing the base URL (no fresh SIGNED_IN
   // event to trigger AppContext's role routing) drops them on /dashboard.
@@ -178,7 +180,7 @@ function AppRoutes() {
   // routes to preview the locked teaser without a production build.
   const mbLocked = !import.meta.env.DEV || new URLSearchParams(location.search).has("locked");
   const microBusinessEl = mbLocked
-    ? <ComingSoon title="Micro Business" icon={Store} />
+    ? <ComingSoon title={t("app.microBusiness")} icon={Store} />
     : <MicroBusiness />;
 
   if (!authReady && !user) return null;
@@ -224,13 +226,13 @@ function AppRoutes() {
       <Route path="/progress" element={<ProgressPage />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/daily" element={<Daily />} />
-      <Route path="/lab" element={<CoinsGate required={600} title="Lab"><AppliedFinanceLab /></CoinsGate>} />
-      <Route path="/lab/:docId" element={<CoinsGate required={600} title="Lab"><LabDocument /></CoinsGate>} />
+      <Route path="/lab" element={<CoinsGate required={600} title={t("app.lab")}><AppliedFinanceLab /></CoinsGate>} />
+      <Route path="/lab/:docId" element={<CoinsGate required={600} title={t("app.lab")}><LabDocument /></CoinsGate>} />
       <Route path="/business-canvas" element={<BusinessCanvas />} />
       <Route path="/financial-advisor" element={<FinancialAdvisor />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/homework" element={<Homework />} />
-      <Route path="/challenges" element={<CoinsGate required={1000} title="Challenges"><Challenges /></CoinsGate>} />
+      <Route path="/challenges" element={<CoinsGate required={1000} title={t("app.challenges")}><Challenges /></CoinsGate>} />
       <Route path="/partners" element={<Partners />} />
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />

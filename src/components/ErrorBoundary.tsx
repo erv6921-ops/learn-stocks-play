@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
+import { Translation } from "react-i18next";
 
 interface Props {
   children: React.ReactNode;
@@ -38,24 +39,27 @@ export default class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.error) {
       if (this.props.fallback !== undefined) return this.props.fallback;
+      // Render-prop form of useTranslation: hooks can't run in a class component.
       return (
+        <Translation>{(t) => (
         <div className="min-h-screen bg-background flex items-center justify-center p-6">
           <div className="max-w-md w-full rounded-2xl border border-border bg-card p-6 text-center">
             <AlertTriangle className="w-10 h-10 mx-auto mb-3 text-destructive" />
-            <h1 className="font-display text-xl font-extrabold mb-1">Something went wrong</h1>
+            <h1 className="font-display text-xl font-extrabold mb-1">{t("errors.boundary.title")}</h1>
             <p className="text-sm text-muted-foreground mb-4">
-              This page hit an unexpected error. You can try again or head back to your dashboard.
+              {t("errors.boundary.body")}
             </p>
             <div className="flex gap-2 justify-center">
               <Button variant="outline" onClick={() => this.setState({ error: null })}>
-                Try again
+                {t("errors.boundary.tryAgain")}
               </Button>
               <Button onClick={() => { window.location.href = "/dashboard"; }}>
-                Go to dashboard
+                {t("errors.boundary.goToDashboard")}
               </Button>
             </div>
           </div>
         </div>
+        )}</Translation>
       );
     }
     return this.props.children;

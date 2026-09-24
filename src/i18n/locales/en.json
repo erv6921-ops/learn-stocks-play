@@ -1,0 +1,597 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "close": "Close",
+    "you": "You",
+    "student": "Student",
+    "player": "Player",
+    "business": "Business",
+    "somethingWentWrong": "Something went wrong",
+    "notAuthenticated": "Not authenticated"
+  },
+  "ui": {
+    "breadcrumb": "breadcrumb",
+    "more": "More",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "pagination": "pagination",
+    "goToPreviousPage": "Go to previous page",
+    "previous": "Previous",
+    "goToNextPage": "Go to next page",
+    "next": "Next",
+    "morePages": "More pages",
+    "toggleSidebar": "Toggle Sidebar"
+  },
+  "app": {
+    "microBusiness": "Micro Business",
+    "lab": "Lab",
+    "challenges": "Challenges"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "missions": "Missions",
+    "lab": "Lab",
+    "stocks": "Stocks",
+    "business": "Business",
+    "bank": "Bank",
+    "progress": "Progress",
+    "leaderboard": "Leaderboard",
+    "homework": "Homework",
+    "findPartners": "Find Partners",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "yourProfile": "Your profile",
+    "streak_one": "{{count}} day streak",
+    "streak_other": "{{count}} day streak",
+    "readyToPlay": "Ready to play",
+    "logOut": "Log out"
+  },
+  "lock": {
+    "inDevelopment": "In development",
+    "comingSoon": "Coming soon. We're putting the finishing touches on this. Check back shortly!",
+    "goToMissions": "Go to Missions",
+    "isLocked": "{{title}} is locked",
+    "reachCoins": "Reach <b>{{required}} coins</b> to unlock this. You're at <chip/>. Keep learning to get there!"
+  },
+  "errors": {
+    "notFound": {
+      "title": "Oops! Page not found",
+      "returnHome": "Return to Home"
+    },
+    "boundary": {
+      "title": "Something went wrong",
+      "body": "This page hit an unexpected error. You can try again or head back to your dashboard.",
+      "tryAgain": "Try again",
+      "goToDashboard": "Go to dashboard"
+    }
+  },
+  "notifications": {
+    "label": "Notifications",
+    "labelUnread": "Notifications, {{count}} unread",
+    "title": "InvestiCoin Activity",
+    "clearAll": "Clear all",
+    "empty": "No coin activity yet!"
+  },
+  "bugReport": {
+    "button": "Report a bug",
+    "title": "Report a bug",
+    "description": "Found something broken? Tell us what happened and we'll fix it.",
+    "whatWentWrong": "What went wrong?",
+    "titlePlaceholder": "e.g. Lesson quiz won't submit",
+    "details": "Details",
+    "optional": "(optional)",
+    "detailsPlaceholder": "What were you doing when it happened? What did you expect?",
+    "autoInclude": "We'll automatically include the page you're on so we can reproduce it.",
+    "sending": "Sending…",
+    "send": "Send report",
+    "toastAddTitle": "Add a short title",
+    "toastAddTitleDesc": "Tell us what went wrong in a few words.",
+    "toastReported": "Bug reported - thank you! 🐛",
+    "toastLoggedAs": "Logged as issue #{{number}}. We'll take a look!",
+    "toastGotIt": "We got it and we'll take a look!",
+    "toastFailed": "Couldn't send the report",
+    "toastTryAgain": "Please try again in a moment."
+  },
+  "auth": {
+    "noUserReturned": "No user returned",
+    "couldntSendNewCode": "Couldn't send a new code",
+    "confirmYourEmail": "Confirm your email",
+    "confirmYourEmailDesc": "We sent a fresh 6-digit code to finish setting up your account.",
+    "loginFailed": "Login failed",
+    "codeSent": "Code sent!",
+    "codeSentDesc": "Check your email for a 6-digit verification code.",
+    "failedToSendCode": "Failed to send code",
+    "codeVerified": "Code verified!",
+    "codeVerifiedDesc": "Now choose a new password.",
+    "invalidCode": "Invalid or expired code",
+    "passwordsMismatch": "Passwords don't match",
+    "passwordsMismatchDesc": "Please make sure both passwords are the same.",
+    "passwordTooShort": "Password too short",
+    "passwordTooShortDesc": "Password must be at least 6 characters.",
+    "passwordUpdated": "Password updated! Please log in with your new password.",
+    "failedToResetPassword": "Failed to reset password",
+    "selectRole": "Please select a role",
+    "selectRoleDesc": "Choose whether you're a student or teacher.",
+    "accountCreated": "Account created!",
+    "accountCreatedDesc": "You're signed in.",
+    "checkYourEmail": "Check your email",
+    "checkYourEmailDesc": "We sent a 6-digit code to confirm your address.",
+    "signupFailed": "Signup failed",
+    "couldntResend": "Couldn't resend",
+    "newCodeSent": "New code sent",
+    "newCodeSentDesc": "Check your inbox (and spam folder).",
+    "devBypassTitle": "Dev bypass on — login disabled",
+    "devBypassBody": "This dev server auto-signs-in a throwaway local user, so there's no login here. For real accounts, run <code>npm run dev:qa</code> (port 8084).",
+    "goToApp": "Go to the app",
+    "emailConfirmed": "Email confirmed! 🎉",
+    "emailVerified": "<email>{{email}}</email> is verified. You're all set - log in to jump into InvestiPlay.",
+    "logIn": "Log in",
+    "jeffCodeMessage": "I just emailed you a 6-digit code - pop it in here to confirm your email!",
+    "enterYourCode": "Enter your code",
+    "weSentCode": "We sent a 6-digit code to <email>{{email}}</email>. It expires in 1 hour.",
+    "dontSeeIt": "Don't see it?",
+    "checkSpam": "Check your spam or junk folder.",
+    "verificationCode": "Verification Code",
+    "confirmEmail": "Confirm email",
+    "resendCode": "Resend code",
+    "backToLogIn": "Back to log in",
+    "jeffResetOtp": "Check your email for the 6-digit code!",
+    "jeffResetPassword": "Almost done! Pick a new password.",
+    "jeffResetEmail": "No worries! Let's reset your password.",
+    "resetPassword": "Reset Password",
+    "resetDescOtp": "Enter the 6-digit code we sent to {{email}}",
+    "resetDescPassword": "Choose a new password for your account",
+    "resetDescEmail": "Enter your email to receive a verification code",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "sendCode": "Send Code",
+    "verifyCode": "Verify Code",
+    "didntGetIt": "Didn't get it?",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Enter new password",
+    "confirmNewPassword": "Confirm New Password",
+    "confirmNewPasswordPlaceholder": "Confirm new password",
+    "updatePassword": "Update Password",
+    "rememberPassword": "Remember your password?",
+    "backToLogin": "Back to login",
+    "jeffRoleQuestion": "Are you joining as a student or a teacher?",
+    "student": "Student",
+    "studentDesc": "Learn financial literacy through interactive lessons",
+    "teacher": "Teacher",
+    "teacherDesc": "Create classes and monitor student progress",
+    "alreadyHaveAccount": "Already have an account?",
+    "jeffWelcomeBack": "Happy to see you back! 👋",
+    "jeffSetup_student": "Great choice! Let's set up your student account.",
+    "jeffSetup_teacher": "Great choice! Let's set up your teacher account.",
+    "logInTitle": "Log In",
+    "signUpTitle": "Sign Up",
+    "enterCredentials": "Enter your credentials to continue",
+    "createAccountDesc_student": "Create your student account",
+    "createAccountDesc_teacher": "Create your teacher account",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "createAccount": "Create Account",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "chooseDifferentRole": "← Choose a different role"
+  },
+  "dashboard": {
+    "invalidCode": "Invalid code",
+    "invalidCodeDesc": "No class found with this join code.",
+    "alreadyJoined": "Already joined",
+    "joined": "Joined!",
+    "youreIn": "You're in {{name}}.",
+    "couldntJoinClass": "Couldn't join class",
+    "greetingLines": {
+      "1": "Ready to build some wealth today?",
+      "2": "Your portfolio's waiting - let's make it grow.",
+      "3": "Every lesson is money in the bank.",
+      "4": "Small steps today, big returns tomorrow.",
+      "5": "Let's turn knowledge into net worth.",
+      "6": "The market never sleeps - neither does your streak.",
+      "7": "One more lesson closer to the finish line.",
+      "8": "Compound your streak, compound your coins.",
+      "9": "Time to put your money mindset to work.",
+      "10": "Let's chase that next milestone. 🚀"
+    },
+    "levelNames": {
+      "1": "Beginner Learner",
+      "2": "Investor in Training",
+      "3": "Market Observer",
+      "4": "Portfolio Strategist",
+      "5": "Wealth Builder",
+      "6": "Capital Manager",
+      "7": "Market Analyst",
+      "8": "Capital Architect",
+      "9": "Financial Engineer",
+      "10": "Master Economist"
+    },
+    "needCoinsToRestore": "You need {{cost}} coins to restore your streak.",
+    "streakRestored": "🔥 Streak restored! You're back to {{count}} days.",
+    "couldntRestoreStreak": "Couldn't restore your streak. Try again.",
+    "board": {
+      "nationalLabel": "National rank",
+      "nationalShort": "National",
+      "nationalNoun": "nationwide",
+      "nationalEmpty": "Pick your state in your profile to join the national board.",
+      "partnersLabel": "Partners rank",
+      "partnersShort": "Partners",
+      "partnersNoun": "partners",
+      "partnersEmpty": "Add partners to compare your coins with friends.",
+      "classLabel": "Class rank",
+      "classShort": "Class",
+      "classNoun": "students",
+      "classEmpty": "Join a class to see where you stand against your classmates.",
+      "finishLessonToRank": "Finish a lesson to get ranked.",
+      "ofTotal": "of {{total}} {{noun}}",
+      "coins": "🪙 {{coins}} coins",
+      "gapToRank": "{{gap}} to #{{rank}}"
+    },
+    "ticker": {
+      "coins": "Coins",
+      "streak": "Streak",
+      "days_one": "{{count}} day",
+      "days_other": "{{count}} days",
+      "friends": "Friends",
+      "rankOf": "#{{rank}} of {{total}}",
+      "class": "Class",
+      "national": "National",
+      "portfolio": "Portfolio"
+    },
+    "goodMorning": "Good morning{{suffix}}",
+    "goodAfternoon": "Good afternoon{{suffix}}",
+    "goodEvening": "Good evening{{suffix}}",
+    "joinClass": "Join a class",
+    "joinClassDesc": "Got a class code from your teacher? Enter it to join.",
+    "joinCodePlaceholder": "e.g. ABC123",
+    "joining": "Joining…",
+    "join": "Join",
+    "rankInClass": "#{{rank}} in class",
+    "daily": "Daily",
+    "lessons": "Lessons",
+    "allDone": "All done! 🎉",
+    "dailyMissions": "Daily Missions",
+    "missionsDone": " · {{done}}/{{total}} done",
+    "level": "Level {{level}}",
+    "lessonsCount": "{{done}}/{{total}} lessons",
+    "reviewLessons": "Review lessons",
+    "startLearning": "Start learning",
+    "continueLearning": "Continue learning",
+    "stats": {
+      "dayStreak": "Day streak",
+      "coins": "Coins",
+      "level": "Level",
+      "lvShort": "Lv {{level}}",
+      "bestStreak": "Best streak",
+      "bestStreakValue": "{{count}}d",
+      "lessons": "Lessons"
+    },
+    "unitYourRide": "Unit {{unit}} · Your ride",
+    "fullscreen": "Fullscreen",
+    "streakBroken": "Streak broken",
+    "missedDay": "You missed a day - restore your {{count}}-day streak",
+    "bridgesYesterday": "Bridges yesterday so your streak keeps going.",
+    "restoreCost": "Restore · {{cost}} coins",
+    "today": "Today",
+    "dailyChallenge": "Daily challenge",
+    "plus75Coins": "+75 coins",
+    "completed": "Completed ✓",
+    "play": "Play →",
+    "yourWorld": "Your world",
+    "business": {
+      "myBusiness": "My business",
+      "revenuePerMonth": "Revenue / mo",
+      "rep": "Rep",
+      "customers": "Customers ·",
+      "brandStrength": "Brand strength",
+      "products": "Products ·",
+      "situationWaiting": "Situation waiting",
+      "tapToReact": "Tap to react →",
+      "recentActivity": "Recent activity",
+      "monthShort": "M{{month}}",
+      "month": "Month",
+      "cash": "cash",
+      "startYours": "Start yours",
+      "startYoursDesc": "Design a product, win customers, and run the books - your own company from scratch."
+    },
+    "exitFullscreen": "Exit fullscreen",
+    "portfolio": {
+      "title": "Portfolio",
+      "live": "LIVE",
+      "expand": "Expand",
+      "perShare": "{{shares}} sh · per share",
+      "totalPl": "Total P/L",
+      "range1w": "1W",
+      "range1m": "1M",
+      "range6m": "6M",
+      "range1y": "1Y",
+      "sharesShort": "{{shares}}sh",
+      "moreHoldings": "+{{count}} more · view full portfolio →",
+      "firstTrade": "First trade",
+      "firstTradeDesc": "Buy real companies with your InvestiCoins and watch your chart grow right here.",
+      "exploreStocks": "Explore stocks"
+    }
+  },
+  "settings": {
+    "businessTypes": {
+      "food": "Food & Beverage",
+      "tech": "Technology",
+      "retail": "Retail",
+      "creative": "Creative"
+    },
+    "businessPhases": {
+      "1": "Idea",
+      "2": "Startup",
+      "3": "Growing",
+      "4": "Established",
+      "5": "Scaling",
+      "6": "Empire"
+    },
+    "businessNameFallback": "{{label}} Business",
+    "timeAgo": {
+      "justNow": "just now",
+      "minutes": "{{count}}m ago",
+      "hours": "{{count}}h ago",
+      "days": "{{count}}d ago"
+    },
+    "accountDeleted": "Your account has been deleted.",
+    "couldntDeleteAccount": "Couldn't delete your account. Please try again.",
+    "firstNameEmpty": "First name can't be empty",
+    "couldntSaveName": "Couldn't save your name. Please try again.",
+    "profileUpdated": "Profile updated",
+    "couldntLeaveClass": "Couldn't leave the class. Please try again.",
+    "leftClass": "You've left {{name}}.",
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "badges": {
+      "first-steps": {
+        "name": "First Steps",
+        "desc": "Complete your first lesson",
+        "need": "Complete 1 lesson"
+      },
+      "bookworm": {
+        "name": "Bookworm",
+        "desc": "Complete 10 lessons",
+        "need": "Complete 10 lessons ({{count}}/10)"
+      },
+      "scholar": {
+        "name": "Scholar",
+        "desc": "Complete 25 lessons",
+        "need": "Complete 25 lessons ({{count}}/25)"
+      },
+      "dedicated": {
+        "name": "Dedicated",
+        "desc": "Complete 50 lessons",
+        "need": "Complete 50 lessons ({{count}}/50)"
+      },
+      "centurion": {
+        "name": "Centurion",
+        "desc": "Complete 100 lessons",
+        "need": "Complete 100 lessons ({{count}}/100)"
+      },
+      "completionist": {
+        "name": "Completionist",
+        "desc": "Complete every lesson",
+        "need": "Complete all lessons ({{count}}/{{total}})"
+      },
+      "unit-master": {
+        "name": "Unit Master",
+        "desc": "Finish a full unit",
+        "need": "Finish every lesson in a unit"
+      },
+      "trailblazer": {
+        "name": "Trailblazer",
+        "desc": "Finish 3 units",
+        "need": "Finish 3 units ({{count}}/3)"
+      },
+      "unit-champion": {
+        "name": "Unit Champion",
+        "desc": "Finish 5 units",
+        "need": "Finish 5 units ({{count}}/5)"
+      },
+      "graduate": {
+        "name": "Graduate",
+        "desc": "Finish every unit",
+        "need": "Finish all units ({{count}}/{{total}})"
+      },
+      "rising-star": {
+        "name": "Rising Star",
+        "desc": "Reach Level 3",
+        "need": "Reach Level 3 (Lv {{level}})"
+      },
+      "halfway": {
+        "name": "Halfway Hero",
+        "desc": "Reach Level 5",
+        "need": "Reach Level 5 (Lv {{level}})"
+      },
+      "expert": {
+        "name": "Expert",
+        "desc": "Reach Level 8",
+        "need": "Reach Level 8 (Lv {{level}})"
+      },
+      "maxed": {
+        "name": "Maxed Out",
+        "desc": "Reach Level 10",
+        "need": "Reach Level 10 (Lv {{level}})"
+      },
+      "streak-3": {
+        "name": "Streak Starter",
+        "desc": "Hit a 3-day streak",
+        "need": "Reach a 3-day streak (best {{best}})"
+      },
+      "streak-7": {
+        "name": "On Fire",
+        "desc": "Hit a 7-day streak",
+        "need": "Reach a 7-day streak (best {{best}})"
+      },
+      "streak-14": {
+        "name": "Fortnight Focus",
+        "desc": "Hit a 14-day streak",
+        "need": "Reach a 14-day streak (best {{best}})"
+      },
+      "streak-30": {
+        "name": "Unstoppable",
+        "desc": "Hit a 30-day streak",
+        "need": "Reach a 30-day streak (best {{best}})"
+      },
+      "coin-500": {
+        "name": "Pocket Change",
+        "desc": "Earn 500 coins",
+        "need": "Earn 500 coins ({{count}}/500)"
+      },
+      "coin-1k": {
+        "name": "Coin Collector",
+        "desc": "Earn 1,000 coins",
+        "need": "Earn 1,000 coins ({{count}}/1,000)"
+      },
+      "coin-5k": {
+        "name": "Money Maker",
+        "desc": "Earn 5,000 coins",
+        "need": "Earn 5,000 coins ({{count}}/5,000)"
+      },
+      "coin-10k": {
+        "name": "Big Earner",
+        "desc": "Earn 10,000 coins",
+        "need": "Earn 10,000 coins ({{count}}/10,000)"
+      },
+      "coin-50k": {
+        "name": "Wealthy",
+        "desc": "Earn 50,000 coins",
+        "need": "Earn 50,000 coins ({{count}}/50,000)"
+      },
+      "coin-100k": {
+        "name": "Tycoon",
+        "desc": "Earn 100,000 coins",
+        "need": "Earn 100,000 coins ({{count}}/100,000)"
+      },
+      "networth-5k": {
+        "name": "Saver",
+        "desc": "Reach 5,000 net worth",
+        "need": "Reach 5,000 net worth ({{count}}/5,000)"
+      },
+      "networth-25k": {
+        "name": "High Roller",
+        "desc": "Reach 25,000 net worth",
+        "need": "Reach 25,000 net worth ({{count}}/25,000)"
+      },
+      "investor": {
+        "name": "Market Player",
+        "desc": "Buy your first stock",
+        "need": "Buy a stock in the market"
+      },
+      "diversified": {
+        "name": "Diversified",
+        "desc": "Hold 3 different stocks",
+        "need": "Hold 3 stocks ({{count}}/3)"
+      },
+      "portfolio-pro": {
+        "name": "Portfolio Pro",
+        "desc": "Hold 5 different stocks",
+        "need": "Hold 5 stocks ({{count}}/5)"
+      },
+      "entrepreneur": {
+        "name": "Entrepreneur",
+        "desc": "Start a business",
+        "need": "Launch a micro-business"
+      },
+      "profitable": {
+        "name": "In the Black",
+        "desc": "Run a profitable business",
+        "need": "Reach positive business profit"
+      },
+      "business-boss": {
+        "name": "Business Boss",
+        "desc": "Grow your business to level 3",
+        "need": "Reach business level 3"
+      },
+      "gamer": {
+        "name": "Game On",
+        "desc": "Play a daily game",
+        "need": "Play a daily game"
+      },
+      "game-regular": {
+        "name": "Regular Player",
+        "desc": "Play 10 daily games",
+        "need": "Play 10 games ({{count}}/10)"
+      },
+      "game-master": {
+        "name": "Game Master",
+        "desc": "Play 25 daily games",
+        "need": "Play 25 games ({{count}}/25)"
+      }
+    },
+    "playedGame": "Played {{game}}",
+    "stats": {
+      "coinsEarned": "Coins Earned",
+      "netWorth": "Net Worth",
+      "currentStreak": "Current Streak",
+      "streakValue": "{{count}}d",
+      "lessonsDone": "Lessons Done",
+      "unitsDone": "Units Done",
+      "badges": "Badges"
+    },
+    "grade": "Grade {{grade}}",
+    "classCode": "Class {{code}}",
+    "memberSince": "Member since {{date}}",
+    "edit": "Edit",
+    "level": "Level {{level}}",
+    "maxLevel": "Max level reached 🎉",
+    "pctToNextLevel": "{{pct}}% to Level {{next}}",
+    "appearance": "Appearance",
+    "appearanceDesc": "Choose how InvestiPlay looks",
+    "accentColor": "Accent color",
+    "accentColorDesc": "Recolors the app to your favorite",
+    "soundEffects": "Sound effects",
+    "soundEffectsDesc": "Answer chimes and taps",
+    "unmuteSound": "Unmute sound effects",
+    "muteSound": "Mute sound effects",
+    "muted": "Muted",
+    "on": "On",
+    "soundVolume": "Sound effects volume",
+    "language": "Language",
+    "languageDesc": "Menus, buttons and messages",
+    "languageEnglish": "English",
+    "languageSpanish": "Español",
+    "couldntSaveLanguage": "Couldn't save your language. Please try again.",
+    "myClasses_one": "My Class",
+    "myClasses_other": "My Classes",
+    "leave": "Leave",
+    "leaveClassTitle": "Leave this class?",
+    "leaveClassDesc": "You'll be removed from <b>{{name}}</b> and its leaderboard. Your progress and coins stay with your account. You can rejoin later with the class code.",
+    "leaving": "Leaving…",
+    "leaveClass": "Leave class",
+    "deleteAccount": "Delete account",
+    "deleteAccountDesc": "Permanently remove your account and all your data",
+    "deleteAccountTitle": "Delete your account?",
+    "deleteAccountWarning": "This permanently deletes your account, progress, coins, and portfolio. This can't be undone.",
+    "typeToConfirm": "Type <b>DELETE</b> to confirm",
+    "deleting": "Deleting…",
+    "completedLessons": "Completed Lessons",
+    "noLessonsYet": "No lessons completed yet",
+    "noLessonsYetDesc": "Your finished lessons will show up here.",
+    "startLearning": "Start Learning",
+    "unitHeading": "Unit {{unit}} · {{title}}",
+    "badgesTitle": "Badges",
+    "noBadgesYet": "No badges yet - complete lessons, build streaks, and explore to start earning them! 🌟",
+    "recentActivity": "Recent Activity",
+    "noActivityYet": "No activity yet. Start a lesson to get going!",
+    "microBusiness": "Micro-Business",
+    "businessPhase": "{{type}} · {{phase}} phase",
+    "profitLoss": "Profit / Loss",
+    "noBusinessYet": "No business yet",
+    "noBusinessYetDesc": "Launch your own micro-business and watch it grow.",
+    "startBusiness": "Start a Business",
+    "editProfile": "Edit profile",
+    "editProfileDesc": "Update the name shown across InvestiPlay.",
+    "firstName": "First name",
+    "lastName": "Last name"
+  }
+}

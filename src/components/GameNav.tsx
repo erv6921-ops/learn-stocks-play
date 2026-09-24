@@ -12,6 +12,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useApp } from "@/contexts/AppContext";
 import { useClassSettings } from "@/contexts/ClassSettingsContext";
 import { isPageLocked } from "@/lib/classSettings";
@@ -39,23 +40,24 @@ const compactBalance = (n: number) =>
     : n.toLocaleString();
 
 // Every page shares the app's themed accent tint, so the whole menu stays
-// cohesive with the chosen color.
+// cohesive with the chosen color. `label` is an i18n key (see src/i18n).
 const NAV_ITEMS = [
-{ to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", tour: "nav-dashboard", tint: "var(--brand)" },
-{ to: "/lessons", icon: BookOpen, label: "Missions", tour: "nav-lessons", tint: "var(--brand)" },
-{ to: "/lab", icon: FlaskConical, label: "Lab", tour: "nav-lab", tint: "var(--brand)" },
-{ to: "/stocks", icon: LineChart, label: "Stocks", tour: "nav-stocks", tint: "var(--brand)" },
-{ to: "/micro-business", icon: Store, label: "Business", tour: "nav-business", tint: "var(--brand)" },
-{ to: "/bank", icon: Landmark, label: "Bank", tour: "nav-bank", tint: "var(--brand)" },
-{ to: "/progress", icon: BarChart3, label: "Progress", tour: "nav-progress", tint: "var(--brand)" },
-{ to: "/leaderboard", icon: Trophy, label: "Leaderboard", tour: "nav-leaderboard", tint: "var(--brand)" },
-{ to: "/homework", icon: NotebookPen, label: "Homework", tour: "nav-homework", tint: "var(--brand)" },
-{ to: "/partners", icon: Users, label: "Find Partners", tour: "nav-partners", tint: "var(--brand)" }];
+{ to: "/dashboard", icon: LayoutDashboard, label: "nav.dashboard", tour: "nav-dashboard", tint: "var(--brand)" },
+{ to: "/lessons", icon: BookOpen, label: "nav.missions", tour: "nav-lessons", tint: "var(--brand)" },
+{ to: "/lab", icon: FlaskConical, label: "nav.lab", tour: "nav-lab", tint: "var(--brand)" },
+{ to: "/stocks", icon: LineChart, label: "nav.stocks", tour: "nav-stocks", tint: "var(--brand)" },
+{ to: "/micro-business", icon: Store, label: "nav.business", tour: "nav-business", tint: "var(--brand)" },
+{ to: "/bank", icon: Landmark, label: "nav.bank", tour: "nav-bank", tint: "var(--brand)" },
+{ to: "/progress", icon: BarChart3, label: "nav.progress", tour: "nav-progress", tint: "var(--brand)" },
+{ to: "/leaderboard", icon: Trophy, label: "nav.leaderboard", tour: "nav-leaderboard", tint: "var(--brand)" },
+{ to: "/homework", icon: NotebookPen, label: "nav.homework", tour: "nav-homework", tint: "var(--brand)" },
+{ to: "/partners", icon: Users, label: "nav.findPartners", tour: "nav-partners", tint: "var(--brand)" }];
 
 
 export default function GameNav() {
   const { jeffsHistory, logout, user, jeffsBalance } = useApp();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = async () => {
@@ -104,7 +106,7 @@ export default function GameNav() {
             <Button
               variant="ghost"
               size="icon"
-              aria-label="Open menu"
+              aria-label={t("nav.openMenu")}
               onClick={() => setMenuOpen(o => !o)}
               className="nav-bounce"
             >
@@ -128,7 +130,7 @@ export default function GameNav() {
                 <span className="hidden sm:inline tabular-nums"><AnimatedNumber value={roundCoins(jeffsBalance)} /></span>
               </div>
               <NotificationBell />
-              <Link to="/profile" aria-label="Your profile" title="Your profile" ref={anchor("hud-profile")}>
+              <Link to="/profile" aria-label={t("nav.yourProfile")} title={t("nav.yourProfile")} ref={anchor("hud-profile")}>
                 <Avatar className="w-8 h-8 border border-border nav-bounce cursor-pointer ring-offset-background hover:ring-2 hover:ring-primary/40 transition-shadow">
                   <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
                     {getInitials(user?.firstName, user?.lastName)}
@@ -173,7 +175,7 @@ export default function GameNav() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label="Close menu"
+                    aria-label={t("nav.closeMenu")}
                     onClick={() => setMenuOpen(false)}
                     className="nav-bounce text-white/80 hover:text-white hover:bg-white/10"
                   >
@@ -188,15 +190,15 @@ export default function GameNav() {
                   </Avatar>
                   <div className="min-w-0">
                     <p className="text-sm font-extrabold text-white truncate">
-                      {[user?.firstName, user?.lastName].filter(Boolean).join(" ") || "Player"}
+                      {[user?.firstName, user?.lastName].filter(Boolean).join(" ") || t("common.player")}
                     </p>
                     {streak > 0 ? (
                       <p ref={anchor("hud-streak")} className="text-xs font-bold text-orange-300 flex items-center gap-1">
                         <Flame className="w-3.5 h-3.5" style={{ animation: 'streak-pulse 2s ease-in-out infinite' }} />
-                        {streak} day streak
+                        {t("nav.streak", { count: streak })}
                       </p>
                     ) : (
-                      <p className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.78)" }}>Ready to play</p>
+                      <p className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.78)" }}>{t("nav.readyToPlay")}</p>
                     )}
                   </div>
                 </div>
@@ -238,7 +240,7 @@ export default function GameNav() {
                           >
                             <AnimIcon className="w-[18px] h-[18px]" />
                           </span>
-                          {item.label}
+                          {t(item.label)}
                           {active && (
                             <motion.span
                               layoutId="nav-active-dot"
@@ -261,7 +263,7 @@ export default function GameNav() {
                   <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-muted/60">
                     <LogOut className="w-[18px] h-[18px]" />
                   </span>
-                  Log out
+                  {t("nav.logOut")}
                 </button>
               </div>
             </motion.aside>

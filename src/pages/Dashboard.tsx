@@ -7,6 +7,8 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 import { motion } from "framer-motion";
 import AnimatedNumber from "@/components/AnimatedNumber";
 import PortfolioExpanded from "@/components/PortfolioExpanded";
@@ -40,17 +42,8 @@ import {
   Target, Eye, ArrowRight, RotateCcw, Check } from
 "lucide-react";
 
-const LEVEL_NAMES = [
-"Beginner Learner",
-"Investor in Training",
-"Market Observer",
-"Portfolio Strategist",
-"Wealth Builder",
-"Capital Manager",
-"Market Analyst",
-"Capital Architect",
-"Financial Engineer",
-"Master Economist"];
+// i18n keys, index = level - 1.
+const LEVEL_NAMES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => `dashboard.levelNames.${n}`);
 
 // Curriculum-based level: driven by % of units completed + mastery
 function getCurriculumLevel(completedLessons: number, totalLessons: number, unitScores: { done: number; total: number }[]) {
@@ -114,7 +107,7 @@ function toBoardEntries(rows: ServerRow[], meId: string) {
   const names = boardDisplayNames(rows.map((r) => ({ id: r.user_id, first: r.first_name, last: r.last_name })));
   return rows.map((r) => ({
     id: r.user_id,
-    name: r.user_id === meId ? "You" : names.get(r.user_id) ?? "Student",
+    name: r.user_id === meId ? i18n.t("common.you") : names.get(r.user_id) ?? i18n.t("common.student"),
     xp: roundCoins(r.xp),
     isMe: r.user_id === meId,
   }));
@@ -124,6 +117,7 @@ export default function Dashboard() {
   const { user, authReady, lessonProgress, watchlist, jeffsBalance, portfolio, jeffsHistory, earnJeffs, spendJeffs, getRewardMultiplier } = useApp();
   const { netWorth, portfolioValue, holdings, livePrices } = useNetWorth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // The dashboard reflects the student's enrolled curriculum. Gulliver Intro
   // students see their six-block course; everyone else sees the regular
@@ -219,14 +213,14 @@ export default function Dashboard() {
     setJoining(true);
     try {
       const { data: { user: authUser } } = await supabase.auth.getUser();
-      if (!authUser) throw new Error("Not authenticated");
+      if (!authUser) throw new Error(t("common.notAuthenticated"));
 
       const { data: classData, error: classError } = await supabase.
       rpc("lookup_class_by_join_code", { _code: code }).
       single();
 
       if (classError || !classData) {
-        toast.error("Invalid code", { description: "No class found with this join code." });
+        toast.error(t("dashboard.invalidCode"), { description: t("dashboard.invalidCodeDesc") });
         return;
       }
 
@@ -237,15 +231,15 @@ export default function Dashboard() {
       // 23505 = already a member; treat as success.
       if (joinError && joinError.code !== "23505") throw joinError;
 
-      toast.success(joinError?.code === "23505" ? "Already joined" : "Joined!", {
-        description: `You're in ${(classData as {name: string;}).name}.`
+      toast.success(joinError?.code === "23505" ? t("dashboard.alreadyJoined") : t("dashboard.joined"), {
+        description: t("dashboard.youreIn", { name: (classData as {name: string;}).name })
       });
       setJoinCode("");
       setInClass(true);
       // The class board was loaded before the join, so refetch it now.
       loadClassBoard();
     } catch (error: any) {
-      toast.error("Couldn't join class", { description: error.message });
+      toast.error(t("dashboard.couldntJoinClass"), { description: error.message });
     } finally {
       setJoining(false);
     }
@@ -276,27 +270,17 @@ export default function Dashboard() {
 
   // Dynamic formatted date
   const formattedDate = useMemo(() => {
-    return new Date().toLocaleDateString(undefined, {
+    return new Date().toLocaleDateString(i18n.language, {
       weekday: "long",
       month: "long",
       day: "numeric",
     });
-  }, []);
+  }, [t]); // re-format when the UI language changes
 
-  // A fresh motivational line each time the dashboard mounts.
+  // A fresh motivational line each time the dashboard mounts (an i18n key;
+  // translated at render so a language switch doesn't re-roll it).
   const greetingSub = useMemo(() => {
-    const lines = [
-      "Ready to build some wealth today?",
-      "Your portfolio's waiting - let's make it grow.",
-      "Every lesson is money in the bank.",
-      "Small steps today, big returns tomorrow.",
-      "Let's turn knowledge into net worth.",
-      "The market never sleeps - neither does your streak.",
-      "One more lesson closer to the finish line.",
-      "Compound your streak, compound your coins.",
-      "Time to put your money mindset to work.",
-      "Let's chase that next milestone. 🚀",
-    ];
+    const lines = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => `dashboard.greetingLines.${n}`);
     return lines[Math.floor(Math.random() * lines.length)];
   }, []);
 
@@ -365,15 +349,15 @@ export default function Dashboard() {
   const handleRestoreStreak = () => {
     if (!streakRestore || restoring) return;
     if (jeffsBalance < streakRestore.cost) {
-      toast.error(`You need ${streakRestore.cost.toLocaleString()} coins to restore your streak.`);
+      toast.error(t("dashboard.needCoinsToRestore", { cost: streakRestore.cost.toLocaleString() }));
       return;
     }
     setRestoring(true);
     // The reason string doubles as the repair record: it's a spend (the cost)
     // AND declares which day is bridged, so getStreak picks it up on recompute.
     const ok = spendJeffs(streakRestore.cost, streakRepairReason(streakRestore.repairDate));
-    if (ok) toast.success(`🔥 Streak restored! You're back to ${streakRestore.lostStreak + 1} days.`);
-    else toast.error("Couldn't restore your streak. Try again.");
+    if (ok) toast.success(t("dashboard.streakRestored", { count: streakRestore.lostStreak + 1 }));
+    else toast.error(t("dashboard.couldntRestoreStreak"));
     setRestoring(false);
   };
 
@@ -393,7 +377,7 @@ export default function Dashboard() {
       setFriendsInfo({
         count: rows.length,
         rows: rows
-          .map((r) => ({ id: r.user_id, name: names.get(r.user_id) ?? "Student", coins: roundCoins(r.xp) }))
+          .map((r) => ({ id: r.user_id, name: names.get(r.user_id) ?? t("common.student"), coins: roundCoins(r.xp) }))
           .sort((a, b) => b.coins - a.coins),
         invites: ((requests ?? []) as unknown[]).length,
       });
@@ -479,22 +463,22 @@ export default function Dashboard() {
   const partnersBoard = useMemo(
     () => buildBoard([
       ...(friendsInfo?.rows ?? []).map((r) => ({ id: r.id, name: r.name, xp: r.coins, isMe: false })),
-      { id: user?.id ?? "me", name: "You", xp: roundCoins(jeffsBalance), isMe: true },
+      { id: user?.id ?? "me", name: t("common.you"), xp: roundCoins(jeffsBalance), isMe: true },
     ]),
-    [friendsInfo, jeffsBalance, user?.id],
+    [friendsInfo, jeffsBalance, user?.id, t],
   );
 
   // The board currently shown in the snapshot, chosen by the dropdown.
   const activeBoard = useMemo(() => {
     const base = lbScope === "national"
-      ? { label: "National rank", short: "National", noun: "nationwide", info: nationalBoard.info, rows: nationalBoard.rows, empty: !nationalBoard.info, emptyText: "Pick your state in your profile to join the national board." }
+      ? { label: t("dashboard.board.nationalLabel"), short: t("dashboard.board.nationalShort"), noun: t("dashboard.board.nationalNoun"), info: nationalBoard.info, rows: nationalBoard.rows, empty: !nationalBoard.info, emptyText: t("dashboard.board.nationalEmpty") }
       : lbScope === "partners"
-        ? { label: "Partners rank", short: "Partners", noun: "partners", info: partnersBoard.info, rows: partnersBoard.rows, empty: (partnersBoard.info?.total ?? 0) <= 1, emptyText: "Add partners to compare your coins with friends." }
-        : { label: "Class rank", short: "Class", noun: "students", info: classBoard?.info ?? null, rows: lbRows, empty: !classBoard?.info, emptyText: "Join a class to see where you stand against your classmates." };
+        ? { label: t("dashboard.board.partnersLabel"), short: t("dashboard.board.partnersShort"), noun: t("dashboard.board.partnersNoun"), info: partnersBoard.info, rows: partnersBoard.rows, empty: (partnersBoard.info?.total ?? 0) <= 1, emptyText: t("dashboard.board.partnersEmpty") }
+        : { label: t("dashboard.board.classLabel"), short: t("dashboard.board.classShort"), noun: t("dashboard.board.classNoun"), info: classBoard?.info ?? null, rows: lbRows, empty: !classBoard?.info, emptyText: t("dashboard.board.classEmpty") };
     if (!hasRankActivity && !base.empty)
-      return { ...base, info: null, empty: true, emptyText: "Finish a lesson to get ranked." };
+      return { ...base, info: null, empty: true, emptyText: t("dashboard.board.finishLessonToRank") };
     return base;
-  }, [lbScope, classBoard, lbRows, nationalBoard, partnersBoard, hasRankActivity]);
+  }, [lbScope, classBoard, lbRows, nationalBoard, partnersBoard, hasRankActivity, t]);
 
   // Board switcher pill (Class / National / Partners). The wrapper stops the
   // click from reaching the card's Link to /leaderboard.
@@ -507,9 +491,9 @@ export default function Dashboard() {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="min-w-[8.5rem]">
-          {([["class", "Class"], ["national", "National"], ["partners", "Partners"]] as const).map(([s, label]) => (
+          {([["class", "dashboard.board.classShort"], ["national", "dashboard.board.nationalShort"], ["partners", "dashboard.board.partnersShort"]] as const).map(([s, label]) => (
             <DropdownMenuItem key={s} onSelect={() => setLbScope(s)} className="text-xs font-semibold gap-2">
-              {label}
+              {t(label)}
               {lbScope === s && <span className="ml-auto text-primary">✓</span>}
             </DropdownMenuItem>
           ))}
@@ -571,25 +555,25 @@ export default function Dashboard() {
       value: string;
       tone: "gold" | "flame" | "up" | "down" | "rank";
     }[] = [
-      { key: "coins", Icon: Coins, label: "Coins", value: formatCoins(jeffsBalance), tone: "gold" },
-      { key: "streak", Icon: Flame, label: "Streak", value: `${streak} ${streak === 1 ? "day" : "days"}`, tone: "flame" },
+      { key: "coins", Icon: Coins, label: t("dashboard.ticker.coins"), value: formatCoins(jeffsBalance), tone: "gold" },
+      { key: "streak", Icon: Flame, label: t("dashboard.ticker.streak"), value: t("dashboard.ticker.days", { count: streak }), tone: "flame" },
     ];
     // Ranks only once the student has done something beyond the welcome gift.
     if (hasRankActivity && partnersBoard.info && (partnersBoard.info.total ?? 0) > 1)
-      items.push({ key: "friends", Icon: Users, label: "Friends", value: `#${partnersBoard.info.rank} of ${partnersBoard.info.total}`, tone: "rank" });
+      items.push({ key: "friends", Icon: Users, label: t("dashboard.ticker.friends"), value: t("dashboard.ticker.rankOf", { rank: partnersBoard.info.rank, total: partnersBoard.info.total }), tone: "rank" });
     if (rankInfo)
-      items.push({ key: "class", Icon: Trophy, label: "Class", value: `#${rankInfo.rank} of ${rankInfo.total}`, tone: "rank" });
+      items.push({ key: "class", Icon: Trophy, label: t("dashboard.ticker.class"), value: t("dashboard.ticker.rankOf", { rank: rankInfo.rank, total: rankInfo.total }), tone: "rank" });
     if (hasRankActivity && nationalBoard.info)
-      items.push({ key: "national", Icon: Trophy, label: "National", value: `#${nationalBoard.info.rank} of ${nationalBoard.info.total}`, tone: "rank" });
+      items.push({ key: "national", Icon: Trophy, label: t("dashboard.ticker.national"), value: t("dashboard.ticker.rankOf", { rank: nationalBoard.info.rank, total: nationalBoard.info.total }), tone: "rank" });
     items.push({
       key: "portfolio",
       Icon: plPct >= 0 ? TrendingUp : TrendingDown,
-      label: "Portfolio",
+      label: t("dashboard.ticker.portfolio"),
       value: `${plPct >= 0 ? "+" : ""}${plPct.toFixed(2)}%`,
       tone: plPct >= 0 ? "up" : "down",
     });
     return items;
-  }, [jeffsBalance, streak, partnersBoard, rankInfo, nationalBoard, plPct, hasRankActivity]);
+  }, [jeffsBalance, streak, partnersBoard, rankInfo, nationalBoard, plPct, hasRankActivity, t]);
   const tickerToneColor: Record<string, string> = {
     gold: "#F5C26B", flame: "#fb923c", up: "#34d399", down: "#f87171", rank: "#e2e8f0",
   };
@@ -628,9 +612,9 @@ export default function Dashboard() {
     const hour = new Date().getHours();
     const name = user?.firstName || "";
     const suffix = name ? `, ${name}` : "";
-    if (hour < 12) return `Good morning${suffix}`;
-    if (hour < 18) return `Good afternoon${suffix}`;
-    return `Good evening${suffix}`;
+    if (hour < 12) return t("dashboard.goodMorning", { suffix });
+    if (hour < 18) return t("dashboard.goodAfternoon", { suffix });
+    return t("dashboard.goodEvening", { suffix });
   };
 
   return (
@@ -674,14 +658,14 @@ export default function Dashboard() {
                   <GraduationCap className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-bold">Join a class</p>
-                  <p className="text-sm text-muted-foreground">Got a class code from your teacher? Enter it to join.</p>
+                  <p className="font-bold">{t("dashboard.joinClass")}</p>
+                  <p className="text-sm text-muted-foreground">{t("dashboard.joinClassDesc")}</p>
                 </div>
               </div>
               <form className="flex gap-2 w-full sm:w-auto" onSubmit={(e) => {e.preventDefault();handleJoinClass();}}>
                 <Input value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
-                  placeholder="e.g. ABC123" maxLength={6} className="uppercase font-mono w-full sm:w-36" />
-                <Button type="submit" disabled={!joinCode.trim() || joining}>{joining ? "Joining…" : "Join"}</Button>
+                  placeholder={t("dashboard.joinCodePlaceholder")} maxLength={6} className="uppercase font-mono w-full sm:w-36" />
+                <Button type="submit" disabled={!joinCode.trim() || joining}>{joining ? t("dashboard.joining") : t("dashboard.join")}</Button>
               </form>
             </CardContent>
           </Card>
@@ -709,7 +693,7 @@ export default function Dashboard() {
                   <h1 className="font-display text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.05] mt-1.5 break-words">
                     {getGreeting()}
                   </h1>
-                  <p className="text-sm md:text-[15px] text-white/60 mt-2">{greetingSub}</p>
+                  <p className="text-sm md:text-[15px] text-white/60 mt-2">{t(greetingSub)}</p>
                 </div>
                 {/* League badge + class rank */}
                 <div className="flex flex-col items-end gap-2 shrink-0">
@@ -720,7 +704,7 @@ export default function Dashboard() {
                   {rankInfo != null && (
                     <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold"
                       style={{ background: "rgba(239,159,39,0.18)", color: "#F5C26B" }}>
-                      <Trophy className="w-3.5 h-3.5" /> #{rankInfo.rank} in class
+                      <Trophy className="w-3.5 h-3.5" /> {t("dashboard.rankInClass", { rank: rankInfo.rank })}
                     </div>
                   )}
                   {/* Daily / Lessons view switcher */}
@@ -738,7 +722,7 @@ export default function Dashboard() {
                             background: active ? "#ffffff" : "transparent",
                             color: active ? "#12281f" : "rgba(255,255,255,0.55)",
                           }}>
-                          {v === "daily" ? "Daily" : "Lessons"}
+                          {v === "daily" ? t("dashboard.daily") : t("dashboard.lessons")}
                         </button>
                       );
                     })}
@@ -752,22 +736,22 @@ export default function Dashboard() {
                   {heroView === "daily" ? (
                     <p className="text-[13px] font-bold">
                       {allMissionsDone ? (
-                        <span style={{ color: "#f59e0b" }}>All done! 🎉</span>
+                        <span style={{ color: "#f59e0b" }}>{t("dashboard.allDone")}</span>
                       ) : (
                         <>
-                          <span style={{ color: "#f59e0b" }}>Daily Missions</span>
-                          <span className="text-white/45 font-semibold"> · {missionsCompleted}/{missionsTotal} done</span>
+                          <span style={{ color: "#f59e0b" }}>{t("dashboard.dailyMissions")}</span>
+                          <span className="text-white/45 font-semibold">{t("dashboard.missionsDone", { done: missionsCompleted, total: missionsTotal })}</span>
                         </>
                       )}
                     </p>
                   ) : (
                     <>
                       <p className="text-[13px] font-bold">
-                        <span style={{ color: "var(--brand-bright)" }}>Level {currLevel}</span>
-                        <span className="text-white/45 font-semibold"> · {LEVEL_NAMES[currLevel - 1]}</span>
+                        <span style={{ color: "var(--brand-bright)" }}>{t("dashboard.level", { level: currLevel })}</span>
+                        <span className="text-white/45 font-semibold"> · {t(LEVEL_NAMES[currLevel - 1])}</span>
                       </p>
                       <p className="text-[11px] font-semibold text-white/45 tabular-nums">
-                        {completedLessons}/{totalLessons} lessons
+                        {t("dashboard.lessonsCount", { done: completedLessons, total: totalLessons })}
                       </p>
                     </>
                   )}
@@ -801,10 +785,10 @@ export default function Dashboard() {
                 }}>
                 <BookOpen className="w-5 h-5 md:w-6 md:h-6" />
                 {!nextLesson
-                  ? "Review lessons"
+                  ? t("dashboard.reviewLessons")
                   : completedLessons === 0
-                    ? "Start learning"
-                    : "Continue learning"}
+                    ? t("dashboard.startLearning")
+                    : t("dashboard.continueLearning")}
                 <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
               </button>
 
@@ -871,21 +855,24 @@ export default function Dashboard() {
                   className="mt-6 rounded-2xl grid grid-cols-2 sm:grid-cols-5 overflow-hidden"
                   style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
                   {[
-                    { Icon: Flame, tint: "#fb923c", value: String(streak), label: "Day streak" },
-                    { Icon: Coins, tint: "#F5C26B", value: formatCoins(jeffsBalance), label: "Coins" },
-                    { Icon: Star, tint: "#fde047", value: `Lv ${currLevel}`, label: "Level" },
-                    { Icon: Flame, tint: "#fdba74", value: `${bestStreak}d`, label: "Best streak" },
-                    { Icon: BookOpen, tint: "#6ee7b7", value: `${completedLessons}/${totalLessons}`, label: "Lessons" },
+                    { Icon: Flame, tint: "#fb923c", value: String(streak), label: t("dashboard.stats.dayStreak") },
+                    { Icon: Coins, tint: "#F5C26B", value: formatCoins(jeffsBalance), label: t("dashboard.stats.coins") },
+                    { Icon: Star, tint: "#fde047", value: t("dashboard.stats.lvShort", { level: currLevel }), label: t("dashboard.stats.level") },
+                    { Icon: Flame, tint: "#fdba74", value: t("dashboard.stats.bestStreakValue", { count: bestStreak }), label: t("dashboard.stats.bestStreak") },
+                    { Icon: BookOpen, tint: "#6ee7b7", value: `${completedLessons}/${totalLessons}`, label: t("dashboard.stats.lessons") },
                   ].map(({ Icon, tint, value, label }, idx) => (
                     <div key={label}
-                      className={`flex items-center gap-3 px-4 py-3.5 min-w-0 border-white/10 ${idx > 0 ? "sm:border-l" : ""} ${idx >= 2 ? "border-t sm:border-t-0" : ""} ${idx % 2 === 1 ? "border-l sm:border-l" : ""}`}>
+                      // Room for translated labels (e.g. "MEJOR RACHA") in the 5-up row:
+                      // icon stacks above the text on sm, gutters stay tight until lg,
+                      // and the label wraps instead of truncating.
+                      className={`flex items-center gap-2 px-3 py-3.5 sm:flex-col sm:items-start sm:gap-1.5 md:flex-row md:items-center lg:gap-3 lg:px-4 min-w-0 border-white/10 ${idx > 0 ? "sm:border-l" : ""} ${idx >= 2 ? "border-t sm:border-t-0" : ""} ${idx % 2 === 1 ? "border-l sm:border-l" : ""}`}>
                       <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                         style={{ background: `${tint}1f`, border: `1px solid ${tint}33` }}>
                         <Icon className="w-4 h-4" style={{ color: tint }} />
                       </span>
                       <div className="min-w-0">
                         <p className="text-xl md:text-2xl font-extrabold leading-none tabular-nums">{value}</p>
-                        <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 truncate">{label}</p>
+                        <p className="text-[10px] font-semibold uppercase tracking-wider text-white/45 mt-1 leading-tight">{label}</p>
                       </div>
                     </div>
                   ))}
@@ -905,7 +892,7 @@ export default function Dashboard() {
               <div className="min-w-0">
                 <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
                   <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--brand)" }} />
-                  Unit {currentUnit.unitNumber} · Your ride
+                  {t("dashboard.unitYourRide", { unit: currentUnit.unitNumber })}
                 </p>
                 <p className="font-display font-extrabold text-xl tracking-tight truncate mt-0.5">{currentUnit.title}</p>
               </div>
@@ -919,7 +906,7 @@ export default function Dashboard() {
                   className="nav-bounce inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md"
                   style={{ background: "linear-gradient(135deg,var(--brand-bright),var(--brand-strong))", boxShadow: "0 6px 16px rgba(var(--brand-rgb),0.35)" }}
                 >
-                  <Maximize2 className="w-4 h-4" /> Fullscreen
+                  <Maximize2 className="w-4 h-4" /> {t("dashboard.fullscreen")}
                 </button>
               </div>
             </div>
@@ -949,11 +936,11 @@ export default function Dashboard() {
                     <Flame className="w-5 h-5 text-white" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">Streak broken</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">{t("dashboard.streakBroken")}</p>
                     <p className="font-display font-extrabold text-lg mt-0.5">
-                      You missed a day - restore your {streakRestore.lostStreak}-day streak
+                      {t("dashboard.missedDay", { count: streakRestore.lostStreak })}
                     </p>
-                    <p className="text-sm text-white/80 mt-0.5">Bridges yesterday so your streak keeps going.</p>
+                    <p className="text-sm text-white/80 mt-0.5">{t("dashboard.bridgesYesterday")}</p>
                   </div>
                 </div>
                 <button
@@ -962,7 +949,7 @@ export default function Dashboard() {
                   className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 disabled:opacity-50 disabled:hover:bg-white/15 text-white text-sm font-bold transition-colors press-scale border border-white/20"
                 >
                   <RotateCcw className="w-4 h-4" />
-                  Restore · {streakRestore.cost.toLocaleString()} coins
+                  {t("dashboard.restoreCost", { cost: streakRestore.cost.toLocaleString() })}
                 </button>
               </div>
             </div>
@@ -980,7 +967,7 @@ export default function Dashboard() {
           <div className="bg-card rounded-3xl p-5 relative overflow-hidden" style={{ border: "1px solid hsl(var(--border))", boxShadow: "0 1px 2px rgba(16,40,34,0.03), 0 14px 30px -16px rgba(16,40,34,0.13)" }}>
             <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-3xl pointer-events-none"
               style={{ background: "rgba(var(--brand-rgb),0.06)" }} />
-            <p className="relative text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Today</p>
+            <p className="relative text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{t("dashboard.today")}</p>
 
             {/* Daily challenge - contained highlight row */}
             <div className={`relative mt-3 rounded-2xl p-4 text-white overflow-hidden ${dailyDone ? "opacity-80" : ""}`}
@@ -993,17 +980,17 @@ export default function Dashboard() {
                     <Flame className="w-5 h-5 text-success" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Daily challenge</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">{t("dashboard.dailyChallenge")}</p>
                     <p className="font-display font-extrabold text-lg truncate mt-0.5">{dailyGameName}</p>
-                    <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>+75 coins</p>
+                    <p className="text-sm font-bold mt-0.5" style={{ color: "#4ade80" }}>{t("dashboard.plus75Coins")}</p>
                   </div>
                 </div>
                 {dailyDone ? (
-                  <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-xl bg-white/5" style={{ color: "#4ade80" }}>Completed ✓</span>
+                  <span className="shrink-0 text-sm font-bold px-4 py-2 rounded-xl bg-white/5" style={{ color: "#4ade80" }}>{t("dashboard.completed")}</span>
                 ) : (
                   <Link to="/daily" className="shrink-0">
                     <button className="px-6 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors press-scale border border-white/10">
-                      Play →
+                      {t("dashboard.play")}
                     </button>
                   </Link>
                 )}
@@ -1017,7 +1004,7 @@ export default function Dashboard() {
         <MCard i={7} className="mt-6 mb-2.5 px-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--brand)" }} />
-            Your world
+            {t("dashboard.yourWorld")}
           </p>
         </MCard>
         <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-3 items-stretch">
@@ -1039,7 +1026,7 @@ export default function Dashboard() {
                         style={{ background: "linear-gradient(135deg, #0F766E26, #0F766E0a)", color: "#0F766E", borderColor: "#0F766E26" }}>
                         <Store className="w-4 h-4" />
                       </motion.span>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">My business</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{t("dashboard.business.myBusiness")}</p>
                     </div>
                     {hasBusiness && bizSim && (
                       <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full"
@@ -1054,18 +1041,18 @@ export default function Dashboard() {
                       {/* Revenue hero + reputation arc side by side */}
                       <div className="flex items-end justify-between mt-3">
                         <div>
-                          <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-0.5">Revenue / mo</p>
+                          <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-0.5">{t("dashboard.business.revenuePerMonth")}</p>
                           <p className="font-display text-[26px] font-extrabold tracking-tight leading-none">
                             🪙 <AnimatedNumber value={monthlyRevenue(bizSim)} countUp />
                           </p>
                         </div>
-                        <RadialGauge value={bizSim.reputation} color="#0F766E" label="Rep" />
+                        <RadialGauge value={bizSim.reputation} color="#0F766E" label={t("dashboard.business.rep")} />
                       </div>
 
                       {/* Animated customer dots */}
                       <div className="mt-3">
                         <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
-                          Customers · <span className="font-extrabold" style={{ color: "#0F766E" }}>{bizSim.customers}</span>
+                          {t("dashboard.business.customers")} <span className="font-extrabold" style={{ color: "#0F766E" }}>{bizSim.customers}</span>
                         </p>
                         <div className="flex gap-1 flex-wrap">
                           {Array.from({ length: Math.min(bizSim.customers, 12) }).map((_, k) => (
@@ -1091,7 +1078,7 @@ export default function Dashboard() {
                       {/* Brand gradient bar */}
                       <div className="mt-3">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Brand strength</span>
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">{t("dashboard.business.brandStrength")}</span>
                           <span className="text-[11px] font-extrabold tabular-nums" style={{ color: "#3BA7C4" }}>
                             <AnimatedNumber value={Math.round(bizSim.brand)} countUp />
                           </span>
@@ -1107,7 +1094,7 @@ export default function Dashboard() {
                       {bizSim.products.length > 0 && (
                         <div className="mt-3">
                           <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
-                            Products · <span className="font-extrabold" style={{ color: "#8B5CF6" }}>{bizSim.products.length}</span>
+                            {t("dashboard.business.products")} <span className="font-extrabold" style={{ color: "#8B5CF6" }}>{bizSim.products.length}</span>
                           </p>
                           <div className="flex gap-1.5 flex-wrap">
                             {bizSim.products.slice(0, 4).map((p, k) => (
@@ -1145,9 +1132,9 @@ export default function Dashboard() {
                           <div className="relative flex items-start gap-2.5">
                             <span className="text-xl shrink-0 mt-0.5">{bizSim.pending.emoji}</span>
                             <div className="min-w-0">
-                              <p className="text-[9px] font-bold uppercase tracking-wider text-white/60">Situation waiting</p>
+                              <p className="text-[9px] font-bold uppercase tracking-wider text-white/60">{t("dashboard.business.situationWaiting")}</p>
                               <p className="text-[12px] font-extrabold text-white leading-tight mt-0.5 truncate">{bizSim.pending.title}</p>
-                              <p className="text-[10px] text-white/70 mt-0.5">Tap to react →</p>
+                              <p className="text-[10px] text-white/70 mt-0.5">{t("dashboard.business.tapToReact")}</p>
                             </div>
                           </div>
                         </motion.div>
@@ -1155,7 +1142,7 @@ export default function Dashboard() {
                         /* Recent activity log - last 2 entries */
                         bizSim.log.length > 0 && (
                           <div className="mt-3">
-                            <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Recent activity</p>
+                            <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">{t("dashboard.business.recentActivity")}</p>
                             <div className="space-y-1.5">
                               {bizSim.log.slice(-2).reverse().map((entry, k) => (
                                 <motion.div key={k}
@@ -1163,7 +1150,7 @@ export default function Dashboard() {
                                   transition={{ delay: 0.85 + k * 0.1, duration: 0.25 }}
                                   className="flex items-start gap-2">
                                   <span className="text-[10px] font-bold shrink-0 mt-0.5 px-1.5 py-0.5 rounded"
-                                    style={{ background: "#0F766E15", color: "#0F766E" }}>M{entry.month}</span>
+                                    style={{ background: "#0F766E15", color: "#0F766E" }}>{t("dashboard.business.monthShort", { month: entry.month })}</span>
                                   <p className="text-[10px] text-muted-foreground leading-tight line-clamp-2">{entry.text}</p>
                                 </motion.div>
                               ))}
@@ -1173,15 +1160,15 @@ export default function Dashboard() {
                       )}
 
                       <p className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1.5">
-                        <span>Month <AnimatedNumber value={bizSim.month} countUp /></span>
+                        <span>{t("dashboard.business.month")} <AnimatedNumber value={bizSim.month} countUp /></span>
                         <span className="opacity-40">·</span>
-                        <span>🪙 <AnimatedNumber value={Math.round(bizSim.cash)} countUp /> cash</span>
+                        <span>🪙 <AnimatedNumber value={Math.round(bizSim.cash)} countUp /> {t("dashboard.business.cash")}</span>
                       </p>
                     </>
                   ) : (
                     <div className="mt-3">
-                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">Start yours</p>
-                      <p className="text-xs text-muted-foreground mt-1">Design a product, win customers, and run the books - your own company from scratch.</p>
+                      <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">{t("dashboard.business.startYours")}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{t("dashboard.business.startYoursDesc")}</p>
                     </div>
                   )}
                 </div>
@@ -1230,7 +1217,7 @@ export default function Dashboard() {
                             </p>
                           </motion.div>
                           <p className="text-sm font-bold mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
-                            of {activeBoard.info!.total} {activeBoard.noun}
+                            {t("dashboard.board.ofTotal", { total: activeBoard.info!.total, noun: activeBoard.noun })}
                           </p>
                         </div>
 
@@ -1254,11 +1241,11 @@ export default function Dashboard() {
                           <div className="mt-3 relative">
                             <div className="flex items-center justify-between mb-1.5">
                               <span className="text-[11px] font-extrabold tabular-nums" style={{ color: "#E3A008" }}>
-                                🪙 {formatCoins(info.pts)} coins
+                                {t("dashboard.board.coins", { coins: formatCoins(info.pts) })}
                               </span>
                               {gap != null && (
                                 <span className="text-[10px] font-bold" style={{ color: "rgba(255,255,255,0.45)" }}>
-                                  {formatCoins(gap)} to #{info.rank - 1}
+                                  {t("dashboard.board.gapToRank", { gap: formatCoins(gap), rank: info.rank - 1 })}
                                 </span>
                               )}
                             </div>
@@ -1364,7 +1351,7 @@ export default function Dashboard() {
             className="absolute top-4 left-4 z-[61] inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-[#0d3524] shadow-lg transition-transform active:scale-95"
             style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.9)" }}
           >
-            <Minimize2 className="w-4 h-4" /> Exit fullscreen
+            <Minimize2 className="w-4 h-4" /> {t("dashboard.exitFullscreen")}
           </button>
         </div>
       )}
@@ -1375,11 +1362,12 @@ export default function Dashboard() {
 /* ──── Sub-components ──── */
 
 // ─── Interactive portfolio snapshot ───────────────────────────────────────────
+// `label` is an i18n key.
 const CHART_RANGES = [
-  { label: "1W", value: "5d" },
-  { label: "1M", value: "1m" },
-  { label: "6M", value: "6m" },
-  { label: "1Y", value: "1y" },
+  { label: "dashboard.portfolio.range1w", value: "5d" },
+  { label: "dashboard.portfolio.range1m", value: "1m" },
+  { label: "dashboard.portfolio.range6m", value: "6m" },
+  { label: "dashboard.portfolio.range1y", value: "1y" },
 ] as const;
 type ChartRangeVal = typeof CHART_RANGES[number]["value"];
 
@@ -1397,6 +1385,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
   const [hoverDate, setHoverDate] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [expandSymbol, setExpandSymbol] = useState<string | undefined>(undefined);
+  const { t } = useTranslation();
 
   const openExpanded = (sym?: string) => {
     setExpandSymbol(sym ?? symbol);
@@ -1453,11 +1442,11 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
                 <LineChart className="w-4 h-4" />
               </motion.span>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Portfolio</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{t("dashboard.portfolio.title")}</p>
                 <div className="flex items-center gap-1 mt-0.5">
                   <motion.span animate={{ opacity: [1, 0.2, 1] }} transition={{ repeat: Infinity, duration: 1.8 }}
                     className="w-1.5 h-1.5 rounded-full bg-success inline-block" />
-                  <span className="text-[9px] font-bold text-success">LIVE</span>
+                  <span className="text-[9px] font-bold text-success">{t("dashboard.portfolio.live")}</span>
                 </div>
               </div>
             </div>
@@ -1465,7 +1454,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
               <button onClick={() => openExpanded()}
                 className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full transition-colors press-scale"
                 style={{ background: "#3BA7C414", color: "#3BA7C4" }}>
-                Expand <Maximize2 className="w-3 h-3" />
+                {t("dashboard.portfolio.expand")} <Maximize2 className="w-3 h-3" />
               </button>
             )}
           </div>
@@ -1487,11 +1476,11 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
                     🪙 {Math.floor(displayPrice).toLocaleString()}
                   </p>
                   <p className="text-[10px] text-muted-foreground h-4">
-                    {hoverDate ?? `${activeHolding.shares} sh · per share`}
+                    {hoverDate ?? t("dashboard.portfolio.perShare", { shares: activeHolding.shares })}
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Total P/L</p>
+                  <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">{t("dashboard.portfolio.totalPl")}</p>
                   <p className={`text-sm font-extrabold ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
                     {plPct >= 0 ? "▲ +" : "▼ "}{plPct.toFixed(1)}%
                   </p>
@@ -1506,7 +1495,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
                     style={chartRange === r.value
                       ? { background: "#3BA7C4", color: "white" }
                       : { background: "rgba(0,0,0,0.05)", color: "#94a3b8" }}>
-                    {r.label}
+                    {t(r.label)}
                   </button>
                 ))}
               </div>
@@ -1563,7 +1552,7 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
                         style={isActive ? { color: "#3BA7C4" } : {}}>
                         {h.symbol}
                       </span>
-                      <span className="text-xs text-muted-foreground w-10 shrink-0">{h.shares}sh</span>
+                      <span className="text-xs text-muted-foreground w-10 shrink-0">{t("dashboard.portfolio.sharesShort", { shares: h.shares })}</span>
                       <span className="text-sm font-bold tabular-nums flex-1 text-right">
                         🪙{Math.floor(h.shares * price).toLocaleString()}
                       </span>
@@ -1576,20 +1565,20 @@ function PortfolioSnapshot({ portfolio, watchlist, livePrices, plPct, portfolioV
                 {portfolio.length > 4 && (
                   <button onClick={() => openExpanded()}
                     className="w-full text-center py-2 border-t border-border/40 text-[11px] font-bold text-muted-foreground hover:text-foreground transition-colors press-scale">
-                    +{portfolio.length - 4} more · view full portfolio →
+                    {t("dashboard.portfolio.moreHoldings", { count: portfolio.length - 4 })}
                   </button>
                 )}
               </div>
             </>
           ) : (
             <Link to="/stocks" className="block mt-3 group/first">
-              <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">First trade</p>
+              <p className="font-display text-[22px] font-extrabold tracking-tight leading-tight">{t("dashboard.portfolio.firstTrade")}</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Buy real companies with your InvestiCoins and watch your chart grow right here.
+                {t("dashboard.portfolio.firstTradeDesc")}
               </p>
               <span className="inline-flex items-center gap-1 mt-3 text-xs font-bold px-3 py-1.5 rounded-full press-scale"
                 style={{ background: "#3BA7C4", color: "white" }}>
-                Explore stocks <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/first:translate-x-0.5" />
+                {t("dashboard.portfolio.exploreStocks")} <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/first:translate-x-0.5" />
               </span>
             </Link>
           )}

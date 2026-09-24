@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { formatDistanceToNow } from "date-fns";
+import { useTranslation } from "react-i18next";
 import { Bell, CheckCheck, TrendingUp, TrendingDown, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -14,6 +15,7 @@ import {
 export default function NotificationBell() {
   const notifications = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
   const unread = notifications.filter((n) => !n.read).length;
+  const { t } = useTranslation();
 
   return (
     <Popover onOpenChange={(open) => { if (open) markAllRead(); }}>
@@ -22,7 +24,7 @@ export default function NotificationBell() {
           variant="ghost"
           size="icon"
           className="relative text-muted-foreground w-8 h-8"
-          aria-label={unread > 0 ? `Notifications, ${unread} unread` : "Notifications"}
+          aria-label={unread > 0 ? t("notifications.labelUnread", { count: unread }) : t("notifications.label")}
         >
           <Bell className="w-4 h-4" />
           {unread > 0 && (
@@ -34,13 +36,13 @@ export default function NotificationBell() {
       </PopoverTrigger>
       <PopoverContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-          <h3 className="text-sm font-bold">InvestiCoin Activity</h3>
+          <h3 className="text-sm font-bold">{t("notifications.title")}</h3>
           {notifications.length > 0 && (
             <button
               onClick={clearNotifications}
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
-              Clear all
+              {t("notifications.clearAll")}
             </button>
           )}
         </div>
@@ -48,7 +50,7 @@ export default function NotificationBell() {
         {notifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-2 py-10 text-muted-foreground">
             <CheckCheck className="w-6 h-6" />
-            <p className="text-xs">No coin activity yet!</p>
+            <p className="text-xs">{t("notifications.empty")}</p>
           </div>
         ) : (
           <ScrollArea className="h-80">
