@@ -188,7 +188,7 @@ export default function Profile() {
     { value: "system", label: t("settings.theme.system"), icon: Monitor },
   ] as const
 
-  // ── UI language (phase 1: chrome only; hidden unless VITE_ENABLE_I18N=true) ──
+  // ── UI language (phase 1: chrome only; hidden only if VITE_ENABLE_I18N=false) ──
   const LANGUAGE_OPTIONS = [
     { value: "en", label: "settings.languageEnglish" },
     { value: "es", label: "settings.languageSpanish" },

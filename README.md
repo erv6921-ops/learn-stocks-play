@@ -57,7 +57,7 @@ Copy any of these into `.env.local` (gitignored) to change local behaviour.
 | Variable | Default | Effect |
 |---|---|---|
 | `VITE_REAL_AUTH` | unset | `npm run dev:qa` sets it to `1` so the port-8084 server uses real Supabase auth instead of the fake local user. |
-| `VITE_ENABLE_I18N` | unset (off) | `true` turns on the UI language layer: the app follows the saved choice in `localStorage` (`investiplay_lang`), then the browser language, and the Settings page shows an English / Español selector. Any other value pins the UI to English and hides the selector, so the Spanish strings can ship dark. Only UI chrome is translated (`src/i18n/locales/*.json`); curriculum content, lessons and generated questions stay as stored in Supabase. Finance terms follow `src/i18n/GLOSSARY.md`. |
+| `VITE_ENABLE_I18N` | unset (on) | The UI language layer is on by default: the app follows the saved choice in `localStorage` (`investiplay_lang`), then the browser language, and the Settings page shows an English / Español selector. Set it to `false` to pin the UI to English and hide the selector. Only UI chrome is translated (`src/i18n/locales/*.json`); curriculum content, lessons and generated questions stay as stored in Supabase. Finance terms follow `src/i18n/GLOSSARY.md`. |
 
 ## What technologies are used for this project?
 

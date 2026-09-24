@@ -1,8 +1,8 @@
 // i18n bootstrap (phase 1: UI chrome only). Imported once from main.tsx.
 //
-// Feature flag: VITE_ENABLE_I18N. When it is anything other than "true" the app
-// is pinned to English, the browser/localStorage detector is skipped and the
-// language selector on the Settings page is hidden - so this can ship dark.
+// Kill switch: VITE_ENABLE_I18N. The language layer is ON by default (the
+// English / Español selector shows on the Settings page everywhere). Set the
+// variable to "false" to pin the app to English and hide the selector.
 //
 // Curriculum content, lesson text and generated questions stored in Supabase
 // are NOT translated here; that is a separate phase.
@@ -13,7 +13,7 @@ import LanguageDetector from "i18next-browser-languagedetector"
 import en from "./locales/en.json"
 import es from "./locales/es.json"
 
-export const I18N_ENABLED = import.meta.env.VITE_ENABLE_I18N === "true"
+export const I18N_ENABLED = import.meta.env.VITE_ENABLE_I18N !== "false"
 export const LANGUAGE_STORAGE_KEY = "investiplay_lang"
 export const SUPPORTED_LANGUAGES = ["en", "es"] as const
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]
