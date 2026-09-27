@@ -27,6 +27,7 @@ import APModeToggle from "@/components/APModeToggle";
 import APModeSections from "@/components/APModeSections";
 import GulliverBizLab from "@/components/bizlab/GulliverBizLab";
 import { JeffChatAvatar } from "@/components/lessons/JeffChat";
+import SendToFriendButton from "@/components/friends/SendToFriendButton";
 import VocabGlossary from "@/components/lessons/VocabGlossary";
 import { JeffMascot } from "@/components/Jeff/JeffMascot";
 import { anchor } from "@/lib/tourAnchors";
@@ -981,6 +982,13 @@ export default function Lessons() {
                           <span title="Chat with Jeff" className="shrink-0 inline-flex"><JeffChatAvatar size={16} /></span>
                         )}
                         {isValidated && <span className="text-[9px] font-bold" style={{ color: "var(--brand)" }}>Validated</span>}
+                        {!locked && (
+                          <SendToFriendButton
+                            variant="icon"
+                            className="h-7 w-7"
+                            share={{ type: "lesson", referenceId: lesson.id, referenceLabel: lesson.title }}
+                          />
+                        )}
                       </div>
                     </div>
                   );

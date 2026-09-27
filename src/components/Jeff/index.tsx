@@ -9,6 +9,7 @@ import { useJeffSolo } from "@/stores/jeffSoloStore"
 import { JeffMascot } from "./JeffMascot"
 import { SpeechBubble } from "./SpeechBubble"
 import { JeffTutorPanel } from "./JeffTutorPanel"
+import { OPEN_JEFF_EVENT } from "@/lib/friends"
 
 const HIDDEN_ROUTES = ["/auth", "/login", "/signup", "/onboarding", "/reset-password", "/forgot-password"]
 
@@ -114,13 +115,26 @@ export function JeffWidget() {
   // away for good the first time the chat is opened (or when dismissed).
   const [showCostNote, setShowCostNote] = useState(() => !costNoteSeen())
   const dismissCostNote = () => { setShowCostNote(false); markCostNoteSeen() }
-  const openChat = () => { setChatOpen(true); if (showCostNote) dismissCostNote() }
+  // A shared "Jeff prompt" (tapped in the Friends inbox) opens the tutor prefilled.
+  const [seedPrompt, setSeedPrompt] = useState<string | undefined>()
+  const openChat = () => { setSeedPrompt(undefined); setChatOpen(true); if (showCostNote) dismissCostNote() }
   const [dims, setDims] = useState({ w: typeof window !== "undefined" ? window.innerWidth : 1200, h: typeof window !== "undefined" ? window.innerHeight : 800 })
 
   useEffect(() => {
     const on = () => setDims({ w: window.innerWidth, h: window.innerHeight })
     window.addEventListener("resize", on)
     return () => window.removeEventListener("resize", on)
+  }, [])
+
+  // Open the tutor with a prompt when a friend's shared Jeff-prompt card is tapped.
+  useEffect(() => {
+    const onAsk = (e: Event) => {
+      const prompt = (e as CustomEvent).detail?.prompt
+      setSeedPrompt(typeof prompt === "string" ? prompt : undefined)
+      setChatOpen(true)
+    }
+    window.addEventListener(OPEN_JEFF_EVENT, onAsk)
+    return () => window.removeEventListener(OPEN_JEFF_EVENT, onAsk)
   }, [])
 
   if (!user) return null
@@ -196,7 +210,7 @@ export function JeffWidget() {
       <MessageCircle className="w-4 h-4" />
       Ask Jeff
     </motion.button>
-    <JeffTutorPanel open={chatOpen} onOpenChange={setChatOpen} />
+    <JeffTutorPanel open={chatOpen} onOpenChange={(o) => { setChatOpen(o); if (!o) setSeedPrompt(undefined) }} initialPrompt={seedPrompt} />
     </>
     )}
 

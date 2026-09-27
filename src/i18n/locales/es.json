@@ -40,6 +40,7 @@
     "leaderboard": "Tabla de posiciones",
     "homework": "Tareas",
     "findPartners": "Buscar compañeros",
+    "friends": "Amigos",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "yourProfile": "Tu perfil",
@@ -47,6 +48,97 @@
     "streak_other": "Racha de {{count}} días",
     "readyToPlay": "Todo listo para jugar",
     "logOut": "Cerrar sesión"
+  },
+  "friends": {
+    "title": "Amigos",
+    "subtitle": "Agrega compañeros de clase y envíales lecciones, preguntas para Jeff y acciones.",
+    "loading": "Cargando…",
+    "requests": "Solicitudes ({{count}})",
+    "myFriends": "Mis amigos ({{count}})",
+    "addFromClass": "Agregar desde mi clase",
+    "noClassmates": "No hay más compañeros para agregar por ahora.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "add": "Agregar",
+    "invited": "Invitado",
+    "grade": "Grado {{grade}}",
+    "more": "Más",
+    "back": "Atrás",
+    "report": "Reportar",
+    "block": "Bloquear",
+    "unfriend": "Eliminar amigo",
+    "notePlaceholder": "Escribe un mensaje…",
+    "empty": {
+      "title": "Aún no tienes amigos",
+      "body": "Agrega a un compañero abajo para empezar a compartir."
+    },
+    "pickFriend": {
+      "title": "Elige un amigo",
+      "body": "Elige un amigo para ver las lecciones, preguntas y acciones que compartiste."
+    },
+    "convoEmpty": {
+      "title": "Aún no has compartido nada",
+      "body": "Envía una lección, una pregunta para Jeff, una acción o solo una nota."
+    },
+    "cardType": {
+      "lesson": "Lección",
+      "jeff_prompt": "Pregunta para Jeff",
+      "stock": "Acción",
+      "note": "Nota"
+    },
+    "open": {
+      "lesson": "Abrir lección",
+      "jeff_prompt": "Pregúntale esto a Jeff",
+      "stock": "Ver acción"
+    },
+    "send": {
+      "action": "Enviar a un amigo",
+      "title": "Enviar a un amigo",
+      "friend": "tu amigo",
+      "sent": "Enviado a {{name}}",
+      "failed": "No se pudo enviar",
+      "profanity": "Por favor, mantén tu nota amigable.",
+      "notePlaceholder": "Agrega una nota (opcional)…",
+      "noteLabel": "Nota opcional",
+      "noFriendsTitle": "Aún no tienes amigos",
+      "noFriendsBody": "Primero agrega a un compañero en la página de Amigos."
+    },
+    "blockDialog": {
+      "title": "¿Bloquear a {{name}}?",
+      "body": "No podrá enviarte mensajes y se quitará de tus amigos. Puedes desbloquearlo más tarde."
+    },
+    "reportDialog": {
+      "title": "Reportar a {{name}}",
+      "body": "Tu profesor podrá ver este reporte.",
+      "notePlaceholder": "Agrega detalles (opcional)…",
+      "submit": "Enviar reporte"
+    },
+    "reportReason": {
+      "harassment": "Acoso",
+      "spam": "Spam",
+      "inappropriate": "Inapropiado",
+      "other": "Otro"
+    },
+    "toast": {
+      "nowFriends": "¡Ya eres amigo de {{name}}! 🎉",
+      "requestSent": "Solicitud enviada a {{name}}",
+      "blocked": "Bloqueaste a {{name}}",
+      "reported": "Reporte enviado. Gracias por avisarnos."
+    },
+    "errors": {
+      "loadRoster": "No se pudieron cargar tus amigos.",
+      "loadConversation": "No se pudo cargar esta conversación.",
+      "loadFriends": "No se pudieron cargar tus amigos.",
+      "action": "Algo salió mal."
+    }
+  },
+  "teacherReports": {
+    "tab": "Reportes",
+    "intro": "Reportes que tus estudiantes hicieron entre sí en la función de Amigos.",
+    "emptyTitle": "Sin reportes",
+    "emptyBody": "Cuando un estudiante reporta a otro, aparece aquí.",
+    "reportedBy": "Reportado por {{name}}",
+    "messageContext": "Sobre una tarjeta de {{type}} compartida"
   },
   "lock": {
     "inDevelopment": "En desarrollo",
@@ -593,5 +685,315 @@
     "editProfileDesc": "Actualiza el nombre que se muestra en todo InvestiPlay.",
     "firstName": "Nombre",
     "lastName": "Apellido"
+  },
+  "onboarding": {
+    "welcomeTitle": "Bienvenido a InvestiPlay",
+    "roleSubtitle": "Primero, cuéntanos quién eres.",
+    "jeffRole": "¡Hola! Soy Jeff. ¿Eres estudiante o docente?",
+    "imStudent": "Soy estudiante",
+    "studentDesc": "Aprende a manejar tu dinero con lecciones y simulaciones interactivas",
+    "imTeacher": "Soy docente",
+    "teacherDesc": "Administra clases, asigna lecciones y sigue el progreso de tus estudiantes",
+    "nameTitle": "¿Cómo te llamas?",
+    "nameSubtitleStudent": "Lo usaremos para personalizar tu experiencia.",
+    "nameSubtitleTeacher": "Lo usaremos en tu panel de docente.",
+    "jeffName": "¿Cómo te digo?",
+    "jeffNiceToMeet": "¡Mucho gusto, {{name}}!",
+    "firstNamePlaceholder": "Nombre",
+    "lastNamePlaceholder": "Apellido",
+    "gradeQuestion": "¿En qué grado estás?",
+    "gradeSubtitle": "Esto nos ayuda a ajustar el ritmo.",
+    "jeffGradeName": "¡Genial, {{name}}! ¿En qué grado estás?",
+    "grade": "Grado",
+    "selectGrade": "Selecciona tu grado",
+    "grades": {
+      "6": "6.º grado",
+      "7": "7.º grado",
+      "8": "8.º grado",
+      "9": "9.º grado",
+      "10": "10.º grado",
+      "11": "11.º grado",
+      "12": "12.º grado",
+      "freshman": "Primer año (universidad)",
+      "sophomore": "Segundo año (universidad)",
+      "junior": "Tercer año (universidad)",
+      "senior": "Cuarto año (universidad)",
+      "adult": "Estudiante adulto"
+    },
+    "programTitle": "Elige tu programa",
+    "programSubtitle": "¿Qué curso usa tu clase?",
+    "jeffProgram": "¡Elige tu aventura! Puedes explorar toda la app de cualquier forma.",
+    "regularCourse": "Curso regular",
+    "regularCourseDesc": "El plan completo de finanzas: lecciones, acciones y niveles AP",
+    "ibEconomics": "Economía IB",
+    "ibEconomicsDesc": "El curso de Economía IB. Las finanzas personales quedan en una pestaña lateral.",
+    "gulliverBizLab": "Gulliver Biz Lab",
+    "bizLabDesc": "Crea una startup y preséntala, estilo Shark Tank.",
+    "gulliverIntro": "Gulliver Intro a Negocios",
+    "gulliverIntroDesc": "El curso de introducción a los negocios.",
+    "gulliverPickNext": "Elige tu programa en el siguiente paso.",
+    "gulliverPickBelow": "Elige tu programa abajo.",
+    "orTypeSchool": "O escribe tu escuela",
+    "schoolPlaceholder": "Nombre de tu escuela",
+    "sharkTank": "Shark Tank",
+    "haveClassCode": "¿Tienes un código de clase? Ingrésalo",
+    "classCode": "Código de clase",
+    "classCodeSubtitle": "Opcional. Puedes agregarlo más tarde desde la Tabla de posiciones.",
+    "invalidClassCode": "Código de clase no válido",
+    "invalidClassCodeDesc": "No encontramos una clase para el código {{code}}.",
+    "createLoginTitle": "Crea tu acceso",
+    "createLoginSubtitle": "Lo usarás para iniciar sesión y guardar tu progreso.",
+    "jeffLogin": "Último paso: ¡configuremos tu acceso!",
+    "createTeacherAccount": "Crear cuenta de docente",
+    "studentEmailPlaceholder": "tu@ejemplo.com",
+    "teacherEmailPlaceholder": "tu@escuela.edu",
+    "passwordPlaceholder": "Contraseña",
+    "confirmPasswordPlaceholder": "Confirma la contraseña",
+    "passwordHint": "Al menos 6 caracteres.",
+    "passwordsMismatch": "Las contraseñas no coinciden.",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "schoolTitle": "¿Dónde enseñas?",
+    "schoolSubtitle": "Elige tu escuela o escríbela.",
+    "jeffSchool": "¿En qué escuela estás?",
+    "teacherInfo": "Tu información de docente",
+    "teacherSubtitle": "Solo unos detalles para terminar.",
+    "teacherSubtitleSchool": "Solo unos detalles para {{school}}.",
+    "jeffTeacherLast": "¡Casi listo, solo tus datos de acceso!",
+    "accountExists": "La cuenta ya existe",
+    "accountExistsStudentDesc": "Ese correo ya está registrado. Intenta iniciar sesión.",
+    "accountExistsTeacherDesc": "Ese correo ya está registrado. Intenta iniciar sesión.",
+    "couldntCreateAccount": "No se pudo crear la cuenta",
+    "accountCreatedDesc": "Tu cuenta está lista. ¡Vamos!",
+    "couldntSaveProgress": "No se pudo guardar tu progreso",
+    "logInToSave": "Inicia sesión para guardar",
+    "logInToSaveDesc": "Inicia sesión para guardar tu progreso.",
+    "welcomeAboard": "¡Bienvenido a bordo!",
+    "teacherReady": "Tu panel de docente está listo.",
+    "teacherReadyDev": "Tu panel de docente está listo (dev).",
+    "goToMyDashboard": "Ir a mi panel",
+    "emailVerifiedLoggedIn": "Has iniciado sesión como <email>{{email}}</email>.",
+    "tagline": "Aprende finanzas. Juega al mercado. Sube de nivel.",
+    "benchmarkIntro": "Haz una evaluación rápida para personalizar tu experiencia. Puedes omitirla y empezar de inmediato.",
+    "jeffWelcome": "¡Todo listo! ¿Empezamos por encontrar tu punto de partida?",
+    "takeBenchmark": "Hacer la evaluación",
+    "skipToStart": "Omitir y empezar a aprender",
+    "skipTitle": "¿Omitir la evaluación?",
+    "skipDesc": "Empezarás desde el principio. Puedes hacer la evaluación más tarde desde tu página de progreso.",
+    "goBack": "Volver",
+    "skipAnyway": "Omitir de todas formas",
+    "skipSureTitle": "¿Omitir la evaluación?",
+    "skipSureDesc": "Tus resultados nos ayudan a personalizar las lecciones. Puedes repetirla cuando quieras.",
+    "skip": "Omitir",
+    "benchmarkTitle": "Evaluación diagnóstica",
+    "benchmarkMeta": "{{count}} preguntas adaptativas · unos 10 minutos",
+    "questionOf": "Pregunta {{current}} de {{total}}",
+    "difficulty": {
+      "strategic": "Estratégico",
+      "applied": "Aplicado",
+      "foundational": "Fundamentos",
+      "advanced": "Avanzado"
+    },
+    "explanation": "Explicación:",
+    "nextQuestion": "Siguiente pregunta",
+    "seeResults": "Ver resultados",
+    "resumingBenchmark": "Retomando tu evaluación",
+    "resumingBenchmarkDesc": "Continuando en la pregunta {{current}} de {{total}}.",
+    "jeffComplete": "¡Obtuviste {{score}} de {{total}}! Armemos tu plan.",
+    "resultsTitle": "Tus resultados",
+    "resultsDesc": "Aquí está tu punto de partida.",
+    "depth": "Nivel {{tier}}",
+    "tiers": {
+      "explorer": "Explorador",
+      "builder": "Constructor",
+      "strategist": "Estratega",
+      "investor": "Inversionista",
+      "capital-architect": "Arquitecto de capital"
+    },
+    "categoryBreakdown": "Desglose por categoría",
+    "categories": {
+      "moneyFoundations": "Fundamentos del dinero",
+      "bankingCredit": "Banca y crédito",
+      "investingCore": "Inversión básica",
+      "portfolioStrategy": "Estrategia de portafolio",
+      "companyAnalysis": "Análisis de empresas",
+      "behavioralFinance": "Finanzas conductuales",
+      "macroEconomics": "Macroeconomía",
+      "entrepreneurship": "Emprendimiento",
+      "advancedInvesting": "Inversión avanzada",
+      "realWorld": "Mundo real"
+    },
+    "startingPoint": "Tu punto de partida",
+    "startingPointDesc": "Ya vas adelantado en <strong>{{ahead}}</strong> de {{total}} áreas.",
+    "reviewFlag": "Repasaremos <strong>{{topics}}</strong>{{more}} al principio.",
+    "andMore": " y más",
+    "whatHappensNow": "Qué sigue ahora",
+    "strongAreas": "Avanzaremos más rápido en tus áreas fuertes.",
+    "growingAreas": "Reforzaremos las áreas en las que sigues creciendo.",
+    "developmentAreas": "Dedicaremos más tiempo donde más lo necesitas.",
+    "rewardMultiplier": "Bono de monedas: <strong>{{multiplier}}x</strong> en todo lo que ganes.",
+    "startPersonalized": "Comenzar mi experiencia personalizada",
+    "seedFailed": "No se pudo guardar tu punto de partida",
+    "seedFailedDesc": "Aún puedes empezar a aprender; ajustaremos sobre la marcha.",
+    "continue": "Continuar",
+    "back": "Volver"
+  },
+  "lessons": {
+    "yourRide": "Tu recorrido",
+    "allAboard": "¡Todos a bordo!",
+    "inThisTrack": "{{count}} en esta ruta",
+    "unitLabel": "Unidad {{unit}}",
+    "units": "Unidades",
+    "unitLessons": "Lecciones de la Unidad {{unit}}",
+    "lessonN": "Lección {{n}}",
+    "lessonsCount": "{{count}} lecciones",
+    "doneOf": "{{done}} de {{total}}",
+    "toFinish": "{{count}} por terminar",
+    "allUnitsComplete": "Todas las unidades completas · {{pct}}%",
+    "completeUnitFirst": "Completa la Unidad {{unit}} primero",
+    "unitComplete": "¡Unidad completa! +{{pts}} pts",
+    "unitCompleteCheer": "¡Bien hecho, unidad completa!",
+    "allAboardCheer": "¡Todos a bordo, a rodar!",
+    "nextLesson": "Siguiente: {{lesson}}",
+    "nextUnit": "Siguiente unidad",
+    "upNext": "A continuación",
+    "start": "Empezar",
+    "retake": "Repetir",
+    "passed": "Aprobada",
+    "locked": "Bloqueada",
+    "validated": "Validada",
+    "validatedCount": "{{count}} validadas",
+    "vocab": "Vocabulario",
+    "pts": "{{pts}} pts",
+    "noLessonsYet": "Aún no hay lecciones.",
+    "finishToUnlock": "Termina esto para desbloquear lo siguiente.",
+    "minimize": "Minimizar",
+    "introToBusiness": "Introducción a los negocios",
+    "chatWithJeff": "Chatear con Jeff",
+    "applyChallenge": "Reto de aplicación",
+    "takeTest": "Hacer la prueba",
+    "unitTest": "Prueba de unidad",
+    "testMeta": "{{questions}} preguntas · {{pass}}% para aprobar · {{coins}} monedas",
+    "earnedCount": "{{count}} obtenidas",
+    "yourBadges": "Tus insignias",
+    "ariaContinueLesson": "Continuar lección",
+    "ariaUnitComplete": "Unidad completa",
+    "apMode": "Modo AP",
+    "apModeTitle": "Modo Microeconomía AP",
+    "apBanner": "Microeconomía AP",
+    "apBannerDesc": "Microeconomía de nivel universitario, alineada al examen.",
+    "unitSummaries": {
+      "fallback": "Sigue avanzando para dominar esta unidad."
+    },
+    "badges": {
+      "trailblazer": "Pionero",
+      "scholar": "Erudito",
+      "graduate": "Graduado",
+      "centurion": "Centurión",
+      "unstoppable": "Imparable"
+    },
+    "tabs": {
+      "course": "Curso",
+      "personalFinance": "Finanzas personales",
+      "ibEcon": "Economía IB",
+      "intro": "Intro",
+      "bizLab": "Biz Lab",
+      "gulliverBizLab": "Gulliver Biz Lab",
+      "apMicro": "Micro AP",
+      "apMicroeconomics": "Microeconomía AP"
+    },
+    "detail": {
+      "notFound": "Lección no encontrada.",
+      "backToMissions": "Volver a Misiones",
+      "exitLesson": "Salir de la lección",
+      "stepOf": "Paso {{current}} de {{total}}",
+      "minLesson": "Lección de {{count}} min",
+      "phaseLearn": "Aprende",
+      "phaseApply": "Aplica",
+      "phaseMaster": "Domina",
+      "startMission": "Comenzar misión",
+      "startOver": "Empezar de nuevo",
+      "tapToBegin": "Toca para comenzar",
+      "letsGo": "Vamos",
+      "oneQuickRound": "Una ronda rápida",
+      "makeItStick": "Que se te grabe",
+      "learningSticks": "Así es como se afianza el aprendizaje.",
+      "looksRepetitive": "¿Parece repetitivo? Así se afianza.",
+      "checkingIn": "Solo revisando",
+      "crushingIt": "¡Lo estás logrando!",
+      "continueWhere": "Continuar: {{label}}",
+      "yourScore": "Tu puntaje",
+      "completedScore": "Completada · {{score}} pts ({{pct}}%)",
+      "passedTitle": "¡Aprobaste!",
+      "passedMakeYours": "¡Aprobaste! Ahora hazla tuya.",
+      "lockItIn": "Confírmalo",
+      "lockAndFinish": "Confírmalo y termina",
+      "finishedElsewhere": "Terminada en otro lugar",
+      "finishedElsewhereDesc": "Ya completaste esta lección en otro dispositivo.",
+      "jeffsChat": "Chat de Jeff",
+      "reflectionPlaceholder": "Escribe tu reflexión aquí...",
+      "wordsCount": "{{count}}/{{min}} palabras",
+      "writeMore": "Escribe {{count}} palabras más",
+      "bonus": "+{{count}} monedas de bono",
+      "coinsHint": "Gana monedas por respuestas reflexivas."
+    }
+  },
+  "missions": {
+    "earned": "Obtenida",
+    "difficulty": {
+      "easy": "Fácil",
+      "medium": "Media",
+      "hard": "Difícil"
+    },
+    "catalog": {
+      "firstLesson": {
+        "title": "Primeros pasos",
+        "blurb": "Termina tu primera lección."
+      },
+      "lesson1": {
+        "title": "En marcha",
+        "blurb": "Completa 1 lección."
+      },
+      "lesson2": {
+        "title": "En racha",
+        "blurb": "Completa 2 lecciones."
+      },
+      "lesson3": {
+        "title": "Triple logro",
+        "blurb": "Completa 3 lecciones."
+      },
+      "quizAce": {
+        "title": "As del quiz",
+        "blurb": "Obtén 80% o más en un quiz."
+      },
+      "quizPerfect": {
+        "title": "Puntaje perfecto",
+        "blurb": "Logra un quiz perfecto."
+      },
+      "coins": {
+        "title": "Coleccionista",
+        "blurb": "Gana tus primeras monedas."
+      },
+      "coinsBig": {
+        "title": "Gran ahorrador",
+        "blurb": "Acumula un montón de monedas."
+      },
+      "green": {
+        "title": "En verde",
+        "blurb": "Cierra una operación con ganancia."
+      },
+      "highRoller": {
+        "title": "Gran apostador",
+        "blurb": "Haz una inversión grande."
+      },
+      "stocks3": {
+        "title": "Diversificado",
+        "blurb": "Ten 3 acciones distintas."
+      },
+      "trade": {
+        "title": "Primera operación",
+        "blurb": "Haz tu primera operación."
+      }
+    }
   }
 }

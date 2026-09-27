@@ -38,8 +38,11 @@ import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { useHints } from "@/components/lesson/HintContext"
 import { useQuizSession } from "@/components/lesson/QuizSessionContext"
 import { selectNextQuestion } from "@/lib/adaptiveEngine"
+import { shuffleQuestion } from "@/lib/mcqEngine"
 import CoinBurst from "@/components/gamification/CoinBurst"
-// shuffleQuestion import removed - shuffling is handled upstream in LessonDetail
+// Questions are shuffled once upstream in LessonDetail. The mastery check ALSO
+// re-shuffles option order per attempt (shuffleOptions), so a retry never shows
+// choices in a memorized position; see QuizAnswer below.
 
 // Minimum seconds allowed per quiz question before it's auto-marked wrong.
 const QUESTION_TIME = 20
@@ -72,11 +75,22 @@ interface QuizAnswerProps {
   // wires this. Micro-check and applied-question are formative practice,
   // not the assessment of mastery, so they never log to question_attempts.
   onAnswered?: (isCorrect: boolean, responseTimeMs: number) => void
+  // Mastery check only: re-shuffle this question's option order on every mount
+  // (i.e. every attempt) so a retry can't be passed by memorizing answer
+  // positions. Formative micro-check / applied questions leave it off and keep
+  // the single upstream shuffle.
+  shuffleOptions?: boolean
 }
 
-function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 20, onAnswered }: QuizAnswerProps) {
-  // Questions are already shuffled & validated by the MCQ engine in LessonDetail - use as-is
-  const shuffledQ = question
+function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 20, onAnswered, shuffleOptions = false }: QuizAnswerProps) {
+  // Questions are already shuffled & validated by the MCQ engine in LessonDetail.
+  // When shuffleOptions is set (mastery check), we shuffle the option order once
+  // more per mount so each attempt presents the choices in a fresh position -
+  // shuffleQuestion remaps correctAnswer, so all downstream logic stays correct.
+  // useMemo keyed on the question id means a fresh instance (new question, or a
+  // remount on a new attempt) reshuffles, while a re-render does not.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const shuffledQ = useMemo(() => (shuffleOptions ? shuffleQuestion(question) : question), [question.id, shuffleOptions])
   // Per-question countdown budget. Defaults to a reading-length scale, but a
   // teacher can pin a fixed limit for their class (secondsPerQuestion), which
   // overrides the default for every question.
@@ -628,6 +642,7 @@ export function MasteryCheckRenderer({
   onReread,
   previouslyAsked,
   onAsked,
+  seenHistory,
 }: {
   section: MasteryCheckSection
   // Mastery Engine identifiers - the LessonCategory and lesson id this
@@ -654,6 +669,14 @@ export function MasteryCheckRenderer({
   previouslyAsked?: string[]
   /** Called each time a question is served, so the parent can remember it across attempts. */
   onAsked?: (questionId: string) => void
+  /**
+   * The student's PERSISTED history on this lesson, read from question_attempts:
+   * which question ids they have previously missed vs. answered correctly. Used
+   * to prefer unseen questions on a retake, then previously MISSED ones, then
+   * previously CORRECT ones - so a retry across sessions doesn't just re-serve
+   * questions they've already answered. Selection only; scoring is untouched.
+   */
+  seenHistory?: { missedIds: string[]; correctIds: string[] }
 }) {
   const { react } = useJeff()
   const { user } = useApp()
@@ -700,17 +723,31 @@ export function MasteryCheckRenderer({
     const ids = section.pinnedQuestionIds ?? []
     return ids.map(id => pool.find(q => q.id === id)).filter((q): q is QuizQuestion => !!q)
   }, [section.pinnedQuestionIds, pool])
+  // Tiered draw so a retake prefers questions the student hasn't answered
+  // before. From their persisted question_attempts history (seenHistory) and
+  // this run's already-served ids (previouslyAsked), each pool question falls
+  // into a tier: 0 = unseen, 1 = previously MISSED, 2 = previously CORRECT (or
+  // seen this run with unknown outcome). We draw from the lowest non-empty tier,
+  // and WITHIN that tier the adaptive engine still picks the best-fit difficulty
+  // and randomizes ties. Only when every tier is exhausted does the pool rotate.
+  const missedIds = useMemo(() => new Set(seenHistory?.missedIds ?? []), [seenHistory])
+  const correctIds = useMemo(() => new Set(seenHistory?.correctIds ?? []), [seenHistory])
+  const seenThisRun = useMemo(() => new Set(previouslyAsked ?? []), [previouslyAsked])
+  const tierOf = (q: QuizQuestion): number =>
+    missedIds.has(q.id) ? 1 : (correctIds.has(q.id) || seenThisRun.has(q.id)) ? 2 : 0
   const pickNext = (theta: number, askedSoFar: QuizQuestion[]): QuizQuestion | null => {
-    const askedIds = askedSoFar.map(q => q.id)
-    // Exclude questions served in earlier attempts too, unless that would
-    // leave nothing to draw from (the whole pool has been used): then only
-    // this attempt's questions are excluded and the pool rotates again.
-    const earlier = new Set(previouslyAsked ?? [])
-    const exclude = pool.some(q => !askedIds.includes(q.id) && !earlier.has(q.id))
-      ? [...askedIds, ...earlier]
-      : askedIds
-    const nextPinned = pinned.find(q => !exclude.includes(q.id))
-    return nextPinned ?? selectNextQuestion(pool, theta, exclude)
+    const askedIds = new Set(askedSoFar.map(q => q.id))
+    // Pinned (teacher-starred) questions always come first, in order.
+    const nextPinned = pinned.find(q => !askedIds.has(q.id))
+    if (nextPinned) return nextPinned
+    // Draw from the highest-priority tier that still has an unasked question.
+    for (const tier of [0, 1, 2]) {
+      const candidates = pool.filter(q => !askedIds.has(q.id) && tierOf(q) === tier)
+      if (candidates.length) return selectNextQuestion(candidates, theta, [])
+    }
+    // Whole pool has been served this attempt - rotate, excluding only what's
+    // been asked so far this attempt.
+    return selectNextQuestion(pool, theta, [...askedIds])
   }
 
   // Questions asked so far this attempt, chosen adaptively. The first is picked
@@ -863,6 +900,7 @@ export function MasteryCheckRenderer({
             onContinue={handleNext}
             onAnswered={(isCorrect, ms) => logAttempt(currentQuestion, isCorrect, ms)}
             showContinue={true}
+            shuffleOptions={!previewMode}
           />
         )}
       </CardContent>

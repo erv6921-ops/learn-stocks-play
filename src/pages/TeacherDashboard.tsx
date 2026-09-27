@@ -46,6 +46,7 @@ import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { ScenarioReviewTab } from "@/components/teacher/ScenarioReviewTab"
 import { CurriculumTab } from "@/components/teacher/CurriculumTab"
+import { FriendReports } from "@/components/teacher/FriendReports"
 import { LessonPreviewButtons } from "@/components/teacher/LessonPreviewButtons"
 import { countLessons, lessonsForTracks, enrollmentToCourseTrack } from "@/lib/lessonCount"
 import {
@@ -1232,7 +1233,7 @@ export default function TeacherDashboard() {
                 </Card>
 
                 <Tabs defaultValue={initialTab} className="w-full">
-                  <TabsList className="grid w-full grid-cols-7">
+                  <TabsList className="grid w-full grid-cols-8">
                     <TabsTrigger value="students">Students</TabsTrigger>
                     <TabsTrigger value="assign">Assign</TabsTrigger>
                     <TabsTrigger value="analytics">Analytics</TabsTrigger>
@@ -1240,11 +1241,17 @@ export default function TeacherDashboard() {
                     <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
                     <TabsTrigger value="settings">Settings</TabsTrigger>
                     <TabsTrigger value="draft">Stock Draft</TabsTrigger>
+                    <TabsTrigger value="reports">Reports</TabsTrigger>
                   </TabsList>
 
                   {/* ── Curriculum: upload PDFs + extraction history ── */}
                   <TabsContent value="curriculum" className="mt-4">
                     <CurriculumTab />
+                  </TabsContent>
+
+                  {/* ── Reports: student-filed Friends abuse reports ── */}
+                  <TabsContent value="reports" className="mt-4">
+                    <FriendReports />
                   </TabsContent>
 
                   {/* ── Assign a lesson to the whole class ── */}

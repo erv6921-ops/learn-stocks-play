@@ -1599,6 +1599,156 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
             correctAnswer: 1,
             difficulty: 1.5,
             explanation: "Avoidance feels safe but lets tiny charges, like a $9.99 subscription, run all year. Looking early keeps a small leak from becoming a big loss."
+          },
+          {
+            id: "psych1-bankv1-01",
+            concept: "emotional spending",
+            question: "Maya walks past a store window, sees a $60 hoodie on a bright SALE sign, and suddenly feels a jolt of excitement even though she already owns three hoodies. What best explains that jolt?",
+            options: [
+              "The hoodie is objectively a smart financial investment",
+              "Her brain released dopamine, so the purchase feels rewarding, not purely logical",
+              "She is using mental accounting to label the hoodie as earned money",
+              "She is falling into the sunk-cost trap on clothing"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "Spending triggers dopamine, the same reward chemical as winning a game, so a sale feels exciting even when you do not need the item. That is why money choices feel emotional rather than like math.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-02",
+            concept: "present bias",
+            question: "Leo's boss offers him $50 in cash today or $75 deposited in one month. Leo grabs the $50 today. Which bias is driving his choice?",
+            options: [
+              "Present bias",
+              "Lifestyle inflation",
+              "Mental accounting",
+              "The sunk-cost trap"
+            ],
+            correctAnswer: 0,
+            difficulty: -1.5,
+            explanation: "Present bias makes a reward now feel bigger than a larger reward later, so Leo gives up an easy $25. It is the same wiring that makes saving for the future feel hard.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-03",
+            concept: "spending tracking",
+            question: "Sam refuses to open his banking app because he is afraid of what he will see. Meanwhile a $9.99 game-pass he forgot about keeps charging every month. Why is his avoidance costly?",
+            options: [
+              "Ignoring the app lowers the interest his savings earn",
+              "It lets a small forgotten charge quietly grow into about $120 over a year",
+              "Banks charge a penalty when you do not log in often enough",
+              "Avoiding the app doubles the price of the subscription"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "Avoidance feels safer than facing bad news, but a $9.99 charge left unchecked runs to roughly $120 a year. Looking early keeps a tiny leak from sinking the boat.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-04",
+            concept: "mental accounting",
+            question: "Nia gets $80 in birthday cash and $80 from her weekend shift. She spends the birthday money on snacks in two days but carefully saves the paycheck because it feels 'earned.' What is she doing?",
+            options: [
+              "Correctly recognizing that gift money is worth less than earned money",
+              "Practicing present bias by saving for later",
+              "Mental accounting, treating identical dollars differently by their label",
+              "Escaping a sunk cost on the birthday cash"
+            ],
+            correctAnswer: 2,
+            difficulty: 0,
+            explanation: "Mental accounting treats identical dollars differently based on where they came from, so the gift feels disposable. A dollar buys the same things and grows the same way no matter its source.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-05",
+            concept: "lifestyle inflation",
+            question: "Ava's babysitting income jumps from $150 to $250 a month, but a few months later her savings have not grown at all because eating out went from occasional to almost daily. What happened, and what fixes it?",
+            options: [
+              "Sunk-cost thinking drained the raise; she should keep the old habit going",
+              "Lifestyle inflation absorbed the raise; she should decide in advance to save a set share first",
+              "Mental accounting hid the raise; she should relabel the money as fun money",
+              "Present bias doubled her income; she should spend even faster"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Lifestyle inflation quietly raises spending to match new income, so the raise vanishes into habits. Deciding where new money goes before it arrives protects the savings.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-06",
+            concept: "sunk cost fallacy",
+            question: "Diego spent $40 on skins for a mobile game he no longer enjoys, but keeps buying $5 upgrades so the $40 is 'not wasted.' Which question would best help him stop?",
+            options: [
+              "How much have I already put into this game?",
+              "Would I start buying into this game today from scratch?",
+              "Are my friends still spending on this game?",
+              "Can I earn the $40 back somehow inside the game?"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "The $40 is gone no matter what, so asking whether you would begin today ignores past spending and focuses on the choice ahead. More spending only adds to the loss.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-07",
+            concept: "present bias",
+            question: "Tariq's plan is to save toward a $500 laptop, but every payday he tells himself, 'I'll start saving next month once things settle down,' and spends it all. Which bias best explains this repeating pattern?",
+            options: [
+              "Mental accounting, because he labels the paycheck as fun money",
+              "Lifestyle inflation, because his income keeps rising",
+              "Present bias, because enjoying money now keeps beating saving for later",
+              "The sunk-cost trap, because he already spent last month's pay"
+            ],
+            correctAnswer: 2,
+            difficulty: 0,
+            explanation: "Present bias overvalues a reward now, so 'save later' keeps losing to 'spend today.' Naming it lets him plan around it, like saving the moment he is paid.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-08",
+            concept: "mental accounting",
+            question: "Kayla gets a surprise $200 refund from an overpaid phone plan and immediately treats it as 'free money' to blow on concert tickets, while she would never touch her $200 job savings. What is the core mistake in her thinking?",
+            options: [
+              "The refund really is worth less than earned savings, so she is correct",
+              "She is treating the refund as not really counting when a dollar is a dollar either way",
+              "She is showing present bias by planning for a future concert",
+              "She is stuck in a sunk cost from her old phone plan"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "A windfall that feels 'free' is still ordinary money that could fund a goal or emergency stash. Labeling it as not counting is mental accounting steering her toward a choice she would reject if she saw the full picture.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-09",
+            concept: "bias comparison",
+            question: "Jordan keeps renewing a $12.99 fitness app because he 'already paid for six months,' AND he never opens his statements to notice the charge. Which two biases are combining here?",
+            options: [
+              "Present bias and lifestyle inflation",
+              "Mental accounting and dopamine spending",
+              "Sunk-cost thinking plus avoidance of tracking his balances",
+              "Lifestyle inflation plus present bias"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "Renewing because of the money already spent is the sunk-cost trap, and never checking statements is avoidance. Together they let a useless $12.99 charge keep draining him unnoticed.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych1-bankv1-10",
+            concept: "behavioral fix",
+            question: "Priya earns $200 a month and wants to actually build her $500 emergency fund this time. Which plan works with her psychology instead of against it?",
+            options: [
+              "Wait until she earns more per month, then start saving whatever is left over",
+              "Move $50 to savings automatically the moment each paycheck lands, before spending",
+              "Relabel her paycheck as 'fun money' so saving feels less painful",
+              "Only check her balance after big purchases so she stays motivated"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "Saving a fixed share the instant she is paid beats present bias and lifestyle inflation by protecting money before habits absorb it. Waiting for 'leftovers' or a bigger paycheck just repeats the cycle.",
+            source: "bank_expansion_v1"
           }
         ]
       }
@@ -1799,6 +1949,156 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
             correctAnswer: 1,
             difficulty: 1.5,
             explanation: "Your brain automatically shrinks the value of vague, distant rewards. Making the future concrete counteracts this so waiting becomes far easier."
+          },
+          {
+            id: "psych2-bankv1-01",
+            concept: "delayed gratification",
+            question: "Maya's manager offers her $20 in cash today or $35 if she waits until her next paycheck in a month. Which choice reflects delayed gratification?",
+            options: [
+              "Taking the $20 today so she has cash right away",
+              "Splitting the difference and asking for $27 now",
+              "Waiting a month for the $35",
+              "Turning down both because waiting is not worth it"
+            ],
+            correctAnswer: 2,
+            difficulty: -1.5,
+            explanation: "Delayed gratification means choosing the bigger later reward over the smaller instant one. Waiting a month turns $20 into $35, a 75% gain for one month of patience.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-02",
+            concept: "opportunity cost",
+            question: "Dev spends $6 every school day on bubble tea. Over a roughly 20-day school month, what is the real cost of that habit?",
+            options: [
+              "Just $6, since each drink is cheap",
+              "About $120 a month that could have gone toward a goal",
+              "Nothing, because he earns the money himself",
+              "Only the tax added to each drink"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "Small daily buys add up: $6 times 20 days is about $120 a month. The true cost is what that $120 could have become if saved instead.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-03",
+            concept: "24-hour rule",
+            question: "Priya sets a rule that any want over $40 has to wait a full day before she buys it. What is this rule called and why does it work?",
+            options: [
+              "A cooling-off rule; the impulse urge usually fades before she decides",
+              "A budgeting cap; it makes items cost less over time",
+              "An interest rule; the store pays her to wait",
+              "A refund rule; she can always return the item later"
+            ],
+            correctAnswer: 0,
+            difficulty: -1.5,
+            explanation: "A 24-hour cooling-off rule separates the emotional spike from the decision. Most impulse cravings fade within a day, so she keeps only purchases she still wants.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-04",
+            concept: "automation",
+            question: "Liam gets paid every two weeks and keeps overspending before he can save. His friend suggests automatically moving $25 to savings the moment his paycheck lands. Why does this beat relying on willpower?",
+            options: [
+              "Automated savings earn a higher interest rate than manual ones",
+              "Banks legally block him from touching automated savings",
+              "It forces stores to raise prices so he buys less",
+              "He never feels the money as given up, so there is no craving to resist"
+            ],
+            correctAnswer: 3,
+            difficulty: 0,
+            explanation: "Automating savings spends willpower once, when he sets the rule, instead of every payday. Money he never sees in checking feels like nothing given up.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-05",
+            concept: "starting early",
+            question: "Amara starts saving $40 a month at age 15; her cousin Theo waits until 25 to start saving the same $40 a month. Both invest at about 7% a year. By 65, who likely has more and why?",
+            options: [
+              "Amara, because her early dollars had ten extra years to compound",
+              "Theo, because he is older and earns more when he starts",
+              "They tie, since they save the identical amount each month",
+              "Theo, because starting later means less time for fees to add up"
+            ],
+            correctAnswer: 0,
+            difficulty: 0,
+            explanation: "Compound growth rewards time in the market. Amara's ten-year head start lets her early dollars grow the longest, often beating a later start even at the same rate.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-06",
+            concept: "goal setting",
+            question: "Rosa wants to 'save more money someday.' Her coach tells her to change it to 'save $300 for a phone by June.' Why is the second version more likely to help her wait?",
+            options: [
+              "Naming a deadline legally locks the money in her account",
+              "Specific goals force the phone's price to drop",
+              "A dated dollar goal makes the future reward feel concrete instead of fuzzy",
+              "It removes the need to track her spending at all"
+            ],
+            correctAnswer: 2,
+            difficulty: 0,
+            explanation: "The brain discounts vague future rewards. A specific amount and deadline feel real, so her brain starts protecting the goal from small splurges.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-07",
+            concept: "environment design",
+            question: "Noah keeps impulse-buying from a store app that is one tap away on his phone. Which change best redesigns his environment so saving is the easy default?",
+            options: [
+              "Promising himself he will simply try harder each night",
+              "Deleting the shopping app so buying takes real effort",
+              "Checking the app more often so he knows the prices",
+              "Waiting until he feels a strong urge before deciding"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "The fast brain reacts to whatever is easiest to reach. Making impulse buys harder, like deleting the app, means willpower is not needed every day.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-08",
+            concept: "milestones",
+            question: "Jordan is saving $600 for a used keyboard and marks every $150 saved with a small celebration. How does this support his patience?",
+            options: [
+              "It cancels the original goal once he hits the first mark",
+              "It raises the interest rate on his savings account",
+              "It forces him to spend the savings at each milestone",
+              "It gives waiting its own reward feeling, like a purchase would"
+            ],
+            correctAnswer: 3,
+            difficulty: 1.5,
+            explanation: "Celebrating each $150 milestone releases the same reward feeling a purchase gives. That keeps patience from feeling empty during the long wait.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-09",
+            concept: "present bias",
+            question: "A one-hour countdown timer on a $90 hoodie makes Ava feel she must buy it now, even though she is saving for concert tickets. Why does that fake urgency work on her brain?",
+            options: [
+              "The hoodie is genuinely a better deal than the concert",
+              "Her fast, emotional system craves the vivid reward in front of it now",
+              "Timers legally guarantee the lowest possible price",
+              "Her slow planning system prefers snap decisions"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "The store engineers urgency to trigger the fast reward system, which craves whatever is vivid and immediate. The concert reward feels fuzzy and far by comparison.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych2-bankv1-10",
+            concept: "bundling",
+            question: "Kai finds logging his weekly spending boring, so he only does it while watching his favorite show. What technique is he using and why does it help him stick with the habit?",
+            options: [
+              "Temptation bundling; pairing a dull task with a treat makes his fast brain cooperate",
+              "Opportunity cost; it shows what the show is worth",
+              "The cooling-off rule; it delays the task by a day",
+              "Compound growth; the habit grows on its own over time"
+            ],
+            correctAnswer: 0,
+            difficulty: 1.5,
+            explanation: "Bundling a dull saving habit with a small treat gets the fast, reward-seeking brain to cooperate instead of resist, making the habit easier to keep.",
+            source: "bank_expansion_v1"
           }
         ]
       }
@@ -1999,6 +2299,156 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
             correctAnswer: 0,
             difficulty: 1.5,
             explanation: "Abundance without action is wishful thinking. Believing growth is possible only pays off when you build skills, negotiate, and save consistently."
+          },
+          {
+            id: "psych4-bankv1-01",
+            concept: "scarcity mindset independent of wealth",
+            question: "Jordan just got a $600 birthday deposit and still has $900 saved, yet he keeps skipping a $12 club fee because he feels like he 'never has enough.' What does this show?",
+            options: [
+              "A scarcity mindset can persist even when the actual numbers are fine",
+              "Jordan is genuinely broke and cannot afford the fee",
+              "The $12 fee is objectively a bad financial decision",
+              "Abundance thinking always requires spending on clubs"
+            ],
+            correctAnswer: 0,
+            difficulty: -1.5,
+            explanation: "Scarcity is a thought pattern, not a bank balance. Jordan has plenty but still feels lack, which is the mindset driving him, not the math.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-02",
+            concept: "scarcity narrows focus to the urgent",
+            question: "With $30 left before payday, Priya spends an hour hunting for the cheapest energy drink and forgets to send in a scholarship form due that night. What is this an example of?",
+            options: [
+              "Smart budgeting that maximizes every dollar",
+              "Scarcity tunneling her focus onto the urgent while she loses the important",
+              "An abundance mindset focused on long-term growth",
+              "Proof that scholarships are not worth applying for"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "Scarcity narrows attention onto the immediate shortage, so Priya missed a far more valuable long-term opportunity. That tunnel vision often makes things worse.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-03",
+            concept: "abundance mindset definition",
+            question: "Which teen is showing an abundance mindset grounded in reality?",
+            options: [
+              "Sam maxes out a credit card on sneakers, sure more money will just appear",
+              "Dev keeps his $400 in cash and refuses to ever learn about investing",
+              "Maya treats her $9/hr offer as a starting point and signs up for a free coding class",
+              "Leo buys lottery tickets weekly hoping for a big break"
+            ],
+            correctAnswer: 2,
+            difficulty: -1.5,
+            explanation: "Abundance pairs the belief that skills and income can grow with concrete action, like negotiating and building a skill. It is not reckless spending or magical thinking.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-04",
+            concept: "scarcity vs being broke",
+            question: "Aisha finally lands a $15/hr job and clears $1,200 in savings, but she still feels panicked and won't spend $25 on a study guide she needs. What best explains this?",
+            options: [
+              "She is still broke, so the fear is just accurate math",
+              "Her scarcity mindset outlasted the shortage, since it is a thought pattern, not a balance",
+              "The study guide is a waste no matter what her finances are",
+              "Earning more always removes money anxiety immediately"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Being broke is a math problem fixed by income; scarcity is a mindset that can keep sabotaging you even after the numbers improve.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-05",
+            concept: "scarcity-driven undervaluing yourself",
+            question: "Tariq is asked to design a logo. He could reasonably charge $80, but he blurts out $20 because he's sure the client will walk away otherwise. Which money trap is this?",
+            options: [
+              "Fear-hoarding cash instead of spending",
+              "Undervaluing yourself, a scarcity habit of taking the first low number out of fear",
+              "An abundance mindset that invests in relationships",
+              "A disciplined savings plan"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Accepting or naming a lowball figure because you fear nothing better will come is scarcity undervaluing your own work, keeping you earning less than you could.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-06",
+            concept: "scarcity avoiding growth",
+            question: "Nina has $500 saved toward a laptop. A free after-school workshop teaches basic index-fund investing, but she skips it, thinking 'investing is only for rich people.' What is she doing?",
+            options: [
+              "Making the safest possible choice with her money",
+              "Letting a scarcity mindset close the door on growth she could actually access",
+              "Correctly protecting her $500 from any risk",
+              "Practicing abundance by keeping her savings intact"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Believing investing is 'only for rich people' is a scarcity trap that avoids learning about growth. The workshop was free and open to her.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-07",
+            concept: "abundance requires action not just attitude",
+            question: "Marco repeats 'money will flow to me' every morning but never applies for jobs, saves, or learns a skill. Why isn't this an abundance mindset?",
+            options: [
+              "Because abundance requires a large bank balance first",
+              "Because positive attitude without concrete action is just wishful thinking",
+              "Because he should be more cautious and hoard instead",
+              "Because abundance means never thinking about money at all"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Abundance only works when belief is grounded in disciplined action like saving, negotiating, and building skills. Belief alone is wishful thinking.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-08",
+            concept: "abundance reduces keeping-up spending",
+            question: "Kayla sees a classmate post about a $200 pair of shoes and feels an urge to buy her own pair she can't afford. Which abundance-based thought would best defuse the keeping-up spending?",
+            options: [
+              "'If she can afford it, I've clearly failed and need to catch up now'",
+              "'Her win doesn't cap mine; opportunities aren't a fixed pie, so I can build my own growth'",
+              "'I should buy two pairs to prove I'm doing better than her'",
+              "'I'll never earn enough, so I might as well spend what I have'"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "Abundance sees others' success as non-threatening because opportunity isn't a single fixed pie. That removes the envy that fuels keeping-up spending.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-09",
+            concept: "planning past immediate lack",
+            question: "Two teens each have $40 until Friday's paycheck. Which choice reflects planning past the immediate lack rather than scarcity tunnel vision?",
+            options: [
+              "Taking a $50 payday-style advance with a $10 fee to feel 'safe' now",
+              "Spending the $40 fast so it 'can't be taken' and worrying later",
+              "Budgeting the $40 across the week and setting aside $10 toward a $500 savings goal",
+              "Refusing to touch the $40 while borrowing $20 from a friend at interest"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "Planning the money across the week and still moving toward a goal keeps sight of the important, unlike scarcity choices that fixate on the urgent and add costly fees.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych4-bankv1-10",
+            concept: "diagnosing mindset separate from balance",
+            question: "A financial coach says the healthiest money mindset combines two things. For a teen with a $9/hr job saving toward $500, which pair is it?",
+            options: [
+              "Believing money is unlimited plus spending freely",
+              "Constant anxiety plus refusing any risk to protect the pile",
+              "An abundance belief that growth is possible plus disciplined habits that make it real",
+              "A large balance plus ignoring all budgeting rules"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "The healthiest stance blends an abundance belief that growth is possible with the steady, disciplined action, like saving toward the $500, that turns belief into results.",
+            source: "bank_expansion_v1"
           }
         ]
       }
@@ -2199,6 +2649,156 @@ export const deepEntreStrategyPsych: StructuredLessonContent[] = [
             correctAnswer: 1,
             difficulty: 1.5,
             explanation: "You cannot switch feelings off, and you should not try. The goal is to feel the emotion, name it, pause, and then decide deliberately."
+          },
+          {
+            id: "psych5-bankv1-01",
+            concept: "retail therapy",
+            question: "Maya has a terrible day at her first job and, on the bus home, buys a $45 pair of sneakers she does not need. She feels great for an hour, then the sadness returns. What best explains what happened?",
+            options: [
+              "The sneakers were poorly made, so the good feeling wore off",
+              "The purchase treated her mood, not a real need, so the low feeling came back while the $45 charge stayed",
+              "She would have felt fine if she had spent even more",
+              "Buying things always fixes a bad mood permanently"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "Retail therapy distracts from a feeling for a short time but does not fix it, so the mood returns while the charge remains.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-02",
+            concept: "naming emotions",
+            question: "Devon feels a strong urge to spend $60 online right after a fight with a friend. What is the FIRST thing the lesson says he should do?",
+            options: [
+              "Ask himself what he is feeling right now and name the emotion",
+              "Buy it quickly before he changes his mind",
+              "Delete the shopping app forever",
+              "Ask his parents to hide his debit card"
+            ],
+            correctAnswer: 0,
+            difficulty: -1.5,
+            explanation: "Naming the feeling, like angry or hurt, shifts the brain from reacting to reflecting, which weakens the urge's grip.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-03",
+            concept: "free mood-lifters",
+            question: "After a stressful exam, Priya wants to spend $25 to feel better. Which option is a free mood-lifter the lesson recommends instead?",
+            options: [
+              "Buying a slightly cheaper $15 item instead",
+              "Opening a store credit card for the reward points",
+              "Taking a ten-minute walk or messaging a friend",
+              "Waiting until the item goes on sale next week"
+            ],
+            correctAnswer: 2,
+            difficulty: -1.5,
+            explanation: "A list of free mood-lifters like a walk, music, or a friend meets the real emotional need at no cost, so spending is not the only outlet.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-04",
+            concept: "24-hour rule",
+            question: "Jordan gets his first $320 paycheck and, feeling thrilled, is about to blow $200 of it on a limited-drop hype jacket that goes on sale in one hour. Applying the lesson's cooling rule, what should he do?",
+            options: [
+              "Buy it now, because a limited drop is a real deadline he cannot ignore",
+              "Spend the entire $320 since it is his own money",
+              "Borrow more so he does not miss the drop",
+              "Recognize the excitement, skip the hyped drop, and let the strong feeling pass before deciding on a big purchase"
+            ],
+            correctAnswer: 3,
+            difficulty: 0,
+            explanation: "Excitement pushes people to overpay, and flash drops profit from that heat. Avoiding a big money move within 24 hours of a strong emotion lets his calmer brain decide.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-05",
+            concept: "emotional spending",
+            question: "Sam is bored on a Sunday afternoon and finds himself adding $38 of random items to a cart. According to the lesson, what emotion is most likely driving this, and what does it signal?",
+            options: [
+              "Fear, signaling he should stockpile more just in case",
+              "Boredom, a mood-driven trigger that signals he should pause rather than buy",
+              "Excitement, signaling this is a smart, planned purchase",
+              "Guilt, signaling he should avoid checking his account"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Boredom, like sadness and stress, commonly triggers mood-boosting spending. Noticing the feeling is the signal to wait, not to buy.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-06",
+            concept: "overconfidence",
+            question: "Leo wins $50 in a fantasy-sports pool and immediately feels unbeatable, so he wants to risk all $50 plus $40 more on a bigger bet. How does the lesson describe this pattern?",
+            options: [
+              "A lucky streak that proves he has a real edge",
+              "Smart reinvesting that anxious savers should copy",
+              "An emotional high that can be just as costly as an emotional low, often giving the winnings right back",
+              "A guilt response that makes him avoid his money"
+            ],
+            correctAnswer: 2,
+            difficulty: 0,
+            explanation: "Overconfidence after a lucky win makes people risk money recklessly. The lesson notes the winner who feels unbeatable often gives it all back on a bigger, dumber wager.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-07",
+            concept: "embarrassment spending",
+            question: "Aisha's friends all have a $120 brand of headphones, and she feels embarrassed using her old $25 pair. She is tempted to buy the pricey ones she cannot really afford. What is the emotion driving this, per the lesson?",
+            options: [
+              "Embarrassment, a social emotion that pushes spending to fit in",
+              "Anxiety, which makes her hoard cash instead",
+              "Boredom, which makes her browse for fun",
+              "Overconfidence, which makes her take a big risk"
+            ],
+            correctAnswer: 0,
+            difficulty: 0,
+            explanation: "Social emotions like embarrassment push people to spend to fit in, buying a brand they cannot afford so they are not judged.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-08",
+            concept: "fun fund",
+            question: "Tariq is saving toward a $500 goal but keeps derailing it with emotional splurges. He sets aside a small $20 monthly guilt-free fun fund. Why does this actually protect his $500 goal?",
+            options: [
+              "It earns more interest than his savings account each month",
+              "It removes every treat from his life, killing the urge",
+              "It hides his real spending from his parents",
+              "It gives feelings a planned, limited outlet so emotional urges do not ambush the whole budget"
+            ],
+            correctAnswer: 3,
+            difficulty: 1.5,
+            explanation: "A small planned fun fund designs a response to emotions in advance, so urges have a capped outlet instead of blowing up the savings goal.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-09",
+            concept: "guilt avoidance",
+            question: "Nina overspent last month and now feels so guilty she has stopped opening her banking app entirely. According to the lesson, why is this response risky?",
+            options: [
+              "Guilt always leads to smarter budgeting later",
+              "Avoiding money out of guilt lets problems grow unseen instead of being addressed",
+              "Ignoring the account automatically lowers the balance owed",
+              "Guilt is not a real money emotion, so it does not matter"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "The lesson warns that people who feel guilty about money sometimes avoid looking at it, which lets problems grow. Emotions shape money handling, not just purchases.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "psych5-bankv1-10",
+            concept: "separating feelings from decisions",
+            question: "Which statement best captures the lesson's overall goal for managing money and emotions?",
+            options: [
+              "Train yourself to feel nothing when money is involved",
+              "Only spend money on days when you feel happy and calm",
+              "Feel the emotion, name it, pause, and then choose on purpose rather than letting the feeling decide automatically",
+              "Never make any money decision without asking a friend first"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "You cannot and should not switch feelings off. The goal is to notice and name the emotion, give yourself a beat, and then decide deliberately.",
+            source: "bank_expansion_v1"
           }
         ]
       }

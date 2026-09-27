@@ -26,9 +26,10 @@ import AnimatedNumber from "@/components/AnimatedNumber";
 import {
   LayoutDashboard, BookOpen, LineChart, Coins, LogOut,
   Flame, Store, BarChart3, Trophy, FlaskConical, Landmark,
-  Users, Swords, NotebookPen, Menu, X } from
+  Users, Swords, NotebookPen, Menu, X, MessageSquare } from
 "lucide-react";
 import { NAV_ICON_COMPONENTS } from "@/components/nav/AnimatedNavIcons";
+import { useFriendsUnread } from "@/hooks/useFriendsUnread";
 import { getStreak } from "@/lib/playerStats";
 import { roundCoins } from "@/lib/formatCoins";
 
@@ -51,7 +52,8 @@ const NAV_ITEMS = [
 { to: "/progress", icon: BarChart3, label: "nav.progress", tour: "nav-progress", tint: "var(--brand)" },
 { to: "/leaderboard", icon: Trophy, label: "nav.leaderboard", tour: "nav-leaderboard", tint: "var(--brand)" },
 { to: "/homework", icon: NotebookPen, label: "nav.homework", tour: "nav-homework", tint: "var(--brand)" },
-{ to: "/partners", icon: Users, label: "nav.findPartners", tour: "nav-partners", tint: "var(--brand)" }];
+{ to: "/partners", icon: Users, label: "nav.findPartners", tour: "nav-partners", tint: "var(--brand)" },
+{ to: "/friends", icon: MessageSquare, label: "nav.friends", tour: "nav-friends", tint: "var(--brand)" }];
 
 
 export default function GameNav() {
@@ -74,6 +76,7 @@ export default function GameNav() {
   );
 
   const streak = useMemo(() => getStreak(jeffsHistory), [jeffsHistory]);
+  const friendsUnread = useFriendsUnread();
 
   const isActive = (to: string) =>
   to === "/dashboard" ? location.pathname === "/dashboard" : location.pathname.startsWith(to);
@@ -241,7 +244,12 @@ export default function GameNav() {
                             <AnimIcon className="w-[18px] h-[18px]" />
                           </span>
                           {t(item.label)}
-                          {active && (
+                          {item.to === "/friends" && friendsUnread > 0 && (
+                            <span className="ml-auto flex h-5 min-w-[20px] items-center justify-center rounded-full bg-destructive px-1.5 text-[11px] font-bold leading-none text-destructive-foreground">
+                              {friendsUnread > 9 ? "9+" : friendsUnread}
+                            </span>
+                          )}
+                          {active && !(item.to === "/friends" && friendsUnread > 0) && (
                             <motion.span
                               layoutId="nav-active-dot"
                               className="ml-auto w-1.5 h-1.5 rounded-full bg-primary-foreground"

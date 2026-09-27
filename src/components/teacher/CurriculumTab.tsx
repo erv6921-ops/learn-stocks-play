@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { LessonPreviewButtons } from "@/components/teacher/LessonPreviewButtons";
 import { ShareLessonDialog } from "@/components/teacher/ShareLessonDialog";
+import { SplitLessonDialog } from "@/components/teacher/SplitLessonDialog";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -34,6 +35,7 @@ import {
   Send,
   CheckCircle2,
   Share2,
+  Scissors,
 } from "lucide-react";
 
 // ---------------------------------------------------------------------------
@@ -244,6 +246,7 @@ export const CurriculumTab: React.FC = () => {
   const [detailId, setDetailId] = useState<string | null>(null);
   /** Lesson whose Share popup is open (owner side). */
   const [shareFor, setShareFor] = useState<{ id: string; name: string } | null>(null);
+  const [splitFor, setSplitFor] = useState<{ id: string; name: string } | null>(null);
   /** Lessons other teachers shared with this teacher (recipient side). */
   const [sharedLessons, setSharedLessons] = useState<SharedLesson[]>([]);
 
@@ -795,6 +798,14 @@ export const CurriculumTab: React.FC = () => {
                                 >
                                   <Share2 className="mr-1 h-3.5 w-3.5" /> Share
                                 </Button>
+                                <Button
+                                  size="sm"
+                                  variant="secondary"
+                                  onClick={() => setSplitFor({ id: l.id, name: l.name })}
+                                  title="Split this lesson into two parts"
+                                >
+                                  <Scissors className="mr-1 h-3.5 w-3.5" /> Split into 2
+                                </Button>
                               </div>
                             </li>
                           );
@@ -892,6 +903,17 @@ export const CurriculumTab: React.FC = () => {
           lessonName={shareFor.name}
           open
           onClose={() => setShareFor(null)}
+        />
+      )}
+
+      {/* Split a lesson you own into two parts. */}
+      {splitFor && (
+        <SplitLessonDialog
+          lessonId={splitFor.id}
+          lessonName={splitFor.name}
+          open
+          onClose={() => setSplitFor(null)}
+          onSplit={() => void fetchUploads()}
         />
       )}
     </div>

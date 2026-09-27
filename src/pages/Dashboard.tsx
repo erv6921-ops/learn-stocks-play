@@ -1,6 +1,8 @@
 import React, { useMemo, useState, useEffect, useCallback, useRef } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
+import { applyClassTrack } from "@/lib/classTrack";
+import type { EnrollmentTrack } from "@/types";
 import { useNetWorth } from "@/hooks/useNetWorth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -114,7 +116,7 @@ function toBoardEntries(rows: ServerRow[], meId: string) {
 }
 
 export default function Dashboard() {
-  const { user, authReady, lessonProgress, watchlist, jeffsBalance, portfolio, jeffsHistory, earnJeffs, spendJeffs, getRewardMultiplier } = useApp();
+  const { user, setUser, authReady, lessonProgress, watchlist, jeffsBalance, portfolio, jeffsHistory, earnJeffs, spendJeffs, getRewardMultiplier } = useApp();
   const { netWorth, portfolioValue, holdings, livePrices } = useNetWorth();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -224,15 +226,24 @@ export default function Dashboard() {
         return;
       }
 
+      const klass = classData as { id: string; name: string; track?: EnrollmentTrack | null };
       const { error: joinError } = await supabase.
       from("class_members").
-      insert({ class_id: (classData as {id: string;name: string;}).id, user_id: authUser.id });
+      insert({ class_id: klass.id, user_id: authUser.id });
 
       // 23505 = already a member; treat as success.
       if (joinError && joinError.code !== "23505") throw joinError;
 
+      // Joining a class is the only way onto a locked track: copy the class's
+      // track onto the student's profile (the membership row above lets the
+      // server-side lock trigger allow it). Reflect it locally right away.
+      const joinedTrack = await applyClassTrack(authUser.id, klass.track ?? "regular");
+      if (user && joinedTrack !== user.track) {
+        setUser({ ...user, track: joinedTrack, bizLabEnrolled: joinedTrack === "biz_lab" });
+      }
+
       toast.success(joinError?.code === "23505" ? t("dashboard.alreadyJoined") : t("dashboard.joined"), {
-        description: t("dashboard.youreIn", { name: (classData as {name: string;}).name })
+        description: t("dashboard.youreIn", { name: klass.name })
       });
       setJoinCode("");
       setInClass(true);

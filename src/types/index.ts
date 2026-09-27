@@ -191,6 +191,10 @@ export interface QuizQuestion {
   // {reviewFromTitle}" so the student knows it's a deliberate refresher.
   isReview?: boolean
   reviewFromTitle?: string
+  // Provenance tag for authored/expanded questions (e.g. "bank_expansion_v1"),
+  // so a batch of added questions can be reviewed or filtered later. Optional;
+  // hand-written lesson content omits it. Selection and scoring ignore this.
+  source?: string
 }
 
 // ═══════════════════════════════════════════════
